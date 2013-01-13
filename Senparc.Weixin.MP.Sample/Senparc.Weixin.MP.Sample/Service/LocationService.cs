@@ -27,7 +27,7 @@ namespace Senparc.Weixin.MP.Sample.Service
                 Size = MarkerSize.Default,
             });
             var mapSize = "480x600";
-            var mapUrl = GoogleMapHelper.GetGoogleStaticMap(19, markersList, size: mapSize);
+            var mapUrl = GoogleMapHelper.GetGoogleStaticMap(requestMessage.Scale, markersList, size: mapSize);
             responseMessage.Articles.Add(new Article()
                                              {
                                                  Description = requestMessage.Label,

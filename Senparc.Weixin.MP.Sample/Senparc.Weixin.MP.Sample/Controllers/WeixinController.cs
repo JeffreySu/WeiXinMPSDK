@@ -6,17 +6,25 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
-using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
+    using Senparc.Weixin.MP.Entities;
+    using Senparc.Weixin.MP.Sample.Service;
+    
     public class WeixinController : Controller
     {
-        //
-        // GET: /Weixin/
+        private LocationService locationService;
+        public WeixinController()
+        {
+            locationService=new LocationService();
+        }
 
         public readonly string Token = "weixin";
 
+        /// <summary>
+        /// 微信后台验证地址（使用Get），微信后台的“接口配置信息”的Url填写如：http://weixin.senparc.com/weixin
+        /// </summary>
         [HttpGet]
         [ActionName("Index")]
         public ActionResult Get(string signature, string timestamp, string nonce, string echostr)
@@ -31,6 +39,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
         }
 
+        /// <summary>
+        /// 用户发送消息后，微信平台自动Post一个请求到这里，并等待响应XML
+        /// </summary>
         [HttpPost]
         [ActionName("Index")]
         public ActionResult Post(string signature, string timestamp, string nonce, string echostr)
@@ -65,15 +76,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         }
                     case RequestMsgType.Location:
                         {
-                            var strongRequestMessage = requestMessage as RequestMessageLocation;
-                            var strongresponseMessage =
-                                ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Text) as
-                                ResponseMessageText;
-                            strongresponseMessage.Content =
-                                string.Format("您刚才发送了地理位置信息。Location_X：{0}，Location_Y：{1}，Scale：{2}，标签：{3}",
-                                              strongRequestMessage.Location_X, strongRequestMessage.Location_Y,
-                                              strongRequestMessage.Scale,strongRequestMessage.Label);
-                            responseMessage = strongresponseMessage;
+                            //var strongRequestMessage = requestMessage as RequestMessageLocation;
+                            //var strongresponseMessage =
+                            //    ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Text) as
+                            //    ResponseMessageText;
+                            //strongresponseMessage.Content =
+                            //    string.Format("您刚才发送了地理位置信息。Location_X：{0}，Location_Y：{1}，Scale：{2}，标签：{3}",
+                            //                  strongRequestMessage.Location_X, strongRequestMessage.Location_Y,
+                            //                  strongRequestMessage.Scale,strongRequestMessage.Label);
+                            responseMessage =
+                                locationService.GetResponseMessage(requestMessage as RequestMessageLocation);
                             break;
                         }
                     case RequestMsgType.Image:

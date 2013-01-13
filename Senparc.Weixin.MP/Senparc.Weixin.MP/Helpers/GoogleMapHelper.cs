@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.MP.Entities.GoogleMap;
 
 namespace Senparc.Weixin.MP.Helpers
 {
@@ -11,9 +12,30 @@ namespace Senparc.Weixin.MP.Helpers
         /// 获取谷歌今天静态地图Url。API介绍：https://developers.google.com/maps/documentation/staticmaps/?hl=zh-CN
         /// </summary>
         /// <returns></returns>
-        public static string GetGoogleStaticMap(double x, double y, int scale, string label, string size = "640x640", string color = "red")
+        public static string GetGoogleStaticMap(int scale,  List<Markers> markersList, string size = "640x640")
         {
-            string parameters = string.Format("center=&zoom=&size={0}&maptype=roadmap&format=jpg&sensor=false", size);
+            markersList = markersList ?? new List<Markers>();
+            StringBuilder markersStr = new StringBuilder();
+            foreach (var markers in markersList)
+            {
+                markersStr.Append("&markers=");
+                if (markers.Size != MarkerSize.mid)
+                {
+                    markersStr.AppendFormat("size={0}%7C", markers.Size);
+                }
+                if (!string.IsNullOrEmpty(markers.Color))
+                {
+                    markersStr.AppendFormat("color={0}%7C", markers.Color);
+                }
+                markersStr.Append("label=");
+                if (!string.IsNullOrEmpty(markers.Label))
+                {
+                    markersStr.AppendFormat("{0}%7C", markers.Label);
+                }
+                markersStr.AppendFormat("{0},{1}", markers.X, markers.Y);
+            }
+            string parameters = string.Format("center=&zoom=&size={0}&maptype=roadmap&format=jpg&sensor=false&{1}", 
+                                             size,markersStr.ToString());
             string url = "https://maps.googleapis.com/maps/api/staticmap?" + parameters;
             return url;
         }

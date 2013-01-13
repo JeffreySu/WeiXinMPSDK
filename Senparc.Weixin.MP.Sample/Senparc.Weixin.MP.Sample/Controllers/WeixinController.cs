@@ -54,9 +54,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 var doc = XDocument.Load(Request.InputStream);
                 var requestMessage = RequestMessageFactory.GetRequestEntity(doc);
-                doc.Save(
-                    Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Request_" + requestMessage.FromUserName +
-                                   ".txt"));
+                doc.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Request_" + requestMessage.FromUserName +".txt"));//测试时可开启，帮助跟踪数据
                 ResponseMessageBase responseMessage = null;
                 switch (requestMessage.MsgType)
                 {
@@ -116,9 +114,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         throw new ArgumentOutOfRangeException();
                 }
                 var responseDoc = MP.Helpers.EntityHelper.ConvertEntityToXml(responseMessage);
-                responseDoc.Save(
-                    Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Response_" + responseMessage.ToUserName +
-                                   ".txt"));
+                responseDoc.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Response_" + responseMessage.ToUserName + ".txt"));//测试时可开启，帮助跟踪数据
 
                 return Content(responseDoc.ToString());
             }

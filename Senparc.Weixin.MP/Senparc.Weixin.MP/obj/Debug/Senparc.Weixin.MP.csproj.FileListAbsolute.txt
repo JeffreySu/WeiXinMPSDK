@@ -1,0 +1,7 @@
+E:\Senparc项目\WeiXinMPSDK\Senparc.Weixin.MP\Senparc.Weixin.MP\bin\Debug\Senparc.Weixin.MP.dll
+E:\Senparc项目\WeiXinMPSDK\Senparc.Weixin.MP\Senparc.Weixin.MP\bin\Debug\Senparc.Weixin.MP.pdb
+E:\Senparc项目\WeiXinMPSDK\Senparc.Weixin.MP\Senparc.Weixin.MP\obj\Debug\Senparc.Weixin.MP.csprojResolveAssemblyReference.cache
+E:\Senparc项目\WeiXinMPSDK\Senparc.Weixin.MP\Senparc.Weixin.MP\obj\Debug\Senparc.Weixin.MP.dll
+E:\Senparc项目\WeiXinMPSDK\Senparc.Weixin.MP\Senparc.Weixin.MP\obj\Debug\Senparc.Weixin.MP.pdb
+E:\Senparc项目\WeiXinMPSDK\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.MP.dll
+E:\Senparc项目\WeiXinMPSDK\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.MP.pdb

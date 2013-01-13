@@ -1,0 +1,4 @@
+<Modules>
+  <Module PersistentId="1D815FBF-451C-4E23-939C-CB80172F445C" ModuleId="Senparc.Weixin.MP" />
+  <Module PersistentId="6313DC35-40AB-4B24-81BB-2F742E2E915E" ModuleId="Senparc.Weixin.MP.Test" />
+</Modules>

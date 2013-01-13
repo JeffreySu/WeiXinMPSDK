@@ -1,0 +1,39 @@
+﻿<RecentFiles>
+  <RecentFiles>
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Entities/f:RequestMessageLocation.cs" caret="400" fromTop="12" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Entities/f:RequestMessageText.cs" caret="271" fromTop="11" />
+    <File id="6313DC35-40AB-4B24-81BB-2F742E2E915E/f:MsgTypeHelperTest.cs" caret="973" fromTop="18" />
+    <File id="6313DC35-40AB-4B24-81BB-2F742E2E915E/f:CheckSignatureTest.cs" caret="0" fromTop="0" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Entities/f:RequestMessageBase.cs" caret="393" fromTop="14" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Entities/f:RequestMessageImage.cs" caret="248" fromTop="9" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Entities/f:ResponseMessageText.cs" caret="227" fromTop="9" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Entities/f:Article.cs" caret="348" fromTop="13" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Entities/f:ResponseMessageNews.cs" caret="186" fromTop="7" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Entities/f:ResponseMessageBase.cs" caret="760" fromTop="23" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/f:Enums.cs" caret="226" fromTop="12" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Helpers/f:MsgTypeHelper.cs" caret="0" fromTop="0" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/f:CheckSignature.cs" caret="381" fromTop="11" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/f:RequestMessageFactory.cs" caret="1513" fromTop="22" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Helpers/f:EntityHelper.cs" caret="263" fromTop="0" />
+    <File id="6313DC35-40AB-4B24-81BB-2F742E2E915E/f:RequestMessageFactoryTest.cs" caret="1096" fromTop="22" />
+    <File id="6313DC35-40AB-4B24-81BB-2F742E2E915E/f:EntityHelperTest.cs" caret="1898" fromTop="12" />
+  </RecentFiles>
+  <RecentEdits>
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Entities/f:RequestMessageText.cs" caret="247" fromTop="9" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Entities/f:RequestMessageLocation.cs" caret="386" fromTop="12" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Entities/f:RequestMessageImage.cs" caret="169" fromTop="7" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Entities/f:Article.cs" caret="348" fromTop="13" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/f:CheckSignature.cs" caret="276" fromTop="10" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Helpers/f:MsgTypeHelper.cs" caret="312" fromTop="13" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/f:Enums.cs" caret="307" fromTop="17" />
+    <File id="6313DC35-40AB-4B24-81BB-2F742E2E915E/f:MsgTypeHelperTest.cs" caret="973" fromTop="18" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Entities/f:RequestMessageBase.cs" caret="393" fromTop="14" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Entities/f:ResponseMessageText.cs" caret="227" fromTop="9" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Entities/f:ResponseMessageBase.cs" caret="1501" fromTop="17" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Entities/f:ResponseMessageNews.cs" caret="385" fromTop="14" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/f:RequestMessageFactory.cs" caret="631" fromTop="10" />
+    <File id="1D815FBF-451C-4E23-939C-CB80172F445C/d:Helpers/f:EntityHelper.cs" caret="1549" fromTop="21" />
+    <File id="6313DC35-40AB-4B24-81BB-2F742E2E915E/f:RequestMessageFactoryTest.cs" caret="2903" fromTop="17" />
+    <File id="6313DC35-40AB-4B24-81BB-2F742E2E915E/f:EntityHelperTest.cs" caret="1898" fromTop="21" />
+  </RecentEdits>
+</RecentFiles>

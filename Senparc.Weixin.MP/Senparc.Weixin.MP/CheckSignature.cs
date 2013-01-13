@@ -9,11 +9,27 @@ namespace Senparc.Weixin.MP
     public class CheckSignature
     {
         public static readonly string Token = "weixin";//必须和公众平台的token设置一致，或在方法中指定
+
+        /// <summary>
+        /// 检查签名是否正确
+        /// </summary>
+        /// <param name="signature"></param>
+        /// <param name="timestamp"></param>
+        /// <param name="nonce"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public static bool Check(string signature, string timestamp, string nonce, string token = null)
         {
             return signature == GetSignature(timestamp, nonce, token);
         }
 
+        /// <summary>
+        /// 返回正确的签名
+        /// </summary>
+        /// <param name="timestamp"></param>
+        /// <param name="nonce"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
         public static string GetSignature(string timestamp, string nonce, string token = null)
         {
             token = token ?? Token;

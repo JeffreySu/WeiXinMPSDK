@@ -1,0 +1,3 @@
+# git ignore file
+*.[user]
+*.[suo]

@@ -23,7 +23,7 @@ namespace Senparc.Weixin.MP.Test
                                     Size= MarkerSize.Default,
                                 });
 
-            var url = GoogleMapHelper.GetGoogleStaticMap(19, markersList, size: "480X600");
+            var url = GoogleMapHelper.GetGoogleStaticMap(19, markersList, size: "640x640");
             Console.WriteLine(url);
             Assert.IsNotNull(url);
         }

@@ -25,18 +25,18 @@ namespace Senparc.Weixin.MP.Helpers
                 }
                 if (!string.IsNullOrEmpty(markers.Color))
                 {
-                    markersStr.AppendFormat("color={0}%7C", markers.Color);
+                    markersStr.AppendFormat("color:{0}%7C", markers.Color);
                 }
-                markersStr.Append("label=");
+                markersStr.Append("label:");
                 if (!string.IsNullOrEmpty(markers.Label))
                 {
                     markersStr.AppendFormat("{0}%7C", markers.Label);
                 }
                 markersStr.AppendFormat("{0},{1}", markers.X, markers.Y);
             }
-            string parameters = string.Format("center=&zoom=&size={0}&maptype=roadmap&format=jpg&sensor=false&{1}", 
+            string parameters = string.Format("center=&zoom=&size={0}&maptype=roadmap&format=jpg&sensor=false&language=zh&{1}", 
                                              size,markersStr.ToString());
-            string url = "https://maps.googleapis.com/maps/api/staticmap?" + parameters;
+            string url = "http://maps.googleapis.com/maps/api/staticmap?" + parameters;
             return url;
         }
     }

@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="CheckSignature.cs" />
     <Compile Include="Entities\Article.cs" />
+    <Compile Include="Entities\GoogleMap\Markers.cs" />
     <Compile Include="Entities\RequestMessageBase.cs" />
     <Compile Include="Entities\RequestMessageText.cs" />
     <Compile Include="Entities\RequestMessageLocation.cs" />

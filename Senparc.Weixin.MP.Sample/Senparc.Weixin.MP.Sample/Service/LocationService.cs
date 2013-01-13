@@ -42,7 +42,6 @@ namespace Senparc.Weixin.MP.Sample.Service
                 PicUrl = "http://weixin.senparc.com/images/logo.jpg",
                 Url = "http://weixin.senparc.com"
             });
-
             responseMessage.Content =
                 string.Format("您刚才发送了地理位置信息。Location_X：{0}，Location_Y：{1}，Scale：{2}，标签：{3}",
                               requestMessage.Location_X, requestMessage.Location_Y,

@@ -1,1 +1,3 @@
 # git ignore file
+bin/
+obj/

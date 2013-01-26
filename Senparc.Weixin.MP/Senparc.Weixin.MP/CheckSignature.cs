@@ -33,7 +33,7 @@ namespace Senparc.Weixin.MP
         public static string GetSignature(string timestamp, string nonce, string token = null)
         {
             token = token ?? Token;
-            var arr = new[] { CheckSignature.Token, timestamp, nonce }.OrderBy(z => z).ToArray();
+            var arr = new[] { token, timestamp, nonce }.OrderBy(z => z).ToArray();
             var arrString = string.Join("", arr);
             //var enText = FormsAuthentication.HashPasswordForStoringInConfigFile(arrString, "SHA1");//使用System.Web.Security程序集
             var sha1 = System.Security.Cryptography.SHA1.Create();

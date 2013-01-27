@@ -11,6 +11,7 @@ namespace Senparc.Weixin.MP.Entities
         string FromUserName { get; set; }
         DateTime CreateTime { get; set; }
         ResponseMsgType MsgType { get; set; }
+        string Content { get; set; }
         bool FuncFlag { get; set; }
     }
 

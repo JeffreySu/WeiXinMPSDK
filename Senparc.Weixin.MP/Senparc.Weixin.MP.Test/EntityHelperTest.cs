@@ -21,6 +21,17 @@ namespace Senparc.Weixin.MP.Test
     <MsgId>5832509444155992350</MsgId>
 </xml>
 ";
+        /// <summary>
+        /// 测试Unix时间
+        /// </summary>
+        [TestMethod]
+        public void UnixTimeTest()
+        {
+            long timeStamp = 1358061152;
+            var result = EntityHelper.BaseTime.AddTicks((timeStamp + 8 * 60 * 60) * 10000000);
+            var expect = new DateTime(2013, 1, 13, 15, 12, 32);
+            Assert.AreEqual(expect, result);
+        }
 
         [TestMethod]
         public void FillEntityWithXmlTest()

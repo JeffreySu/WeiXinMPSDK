@@ -9,6 +9,8 @@ namespace Senparc.Weixin.MP.Helpers
 {
     public static class EntityHelper
     {
+        public static DateTime BaseTime = new DateTime(1970, 1, 1);//Unix起始时间
+
         public static void FillEntityWithXml<T>(T entity, XDocument doc) where T : RequestMessageBase, new()
         {
             entity = entity ?? new T();
@@ -25,7 +27,7 @@ namespace Senparc.Weixin.MP.Helpers
                         //case "String":
                         //    goto default;
                         case "DateTime":
-                            prop.SetValue(entity, new DateTime(long.Parse(root.Element(propName).Value)), null);
+                            prop.SetValue(entity, EntityHelper.BaseTime.AddTicks(long.Parse(root.Element(propName).Value + 8 * 60 * 60) * 10000000), null);
                             break;
                         case "Boolean":
                             if (propName == "FuncFlag")
@@ -79,7 +81,7 @@ namespace Senparc.Weixin.MP.Helpers
                     foreach (var articale in articales)
                     {
                         var subNodes = ConvertEntityToXml(articale).Root.Elements();
-                        atriclesElement.Add(new XElement("item",subNodes));
+                        atriclesElement.Add(new XElement("item", subNodes));
                     }
                     root.Add(atriclesElement);
                 }
@@ -92,12 +94,12 @@ namespace Senparc.Weixin.MP.Helpers
                                                   new XCData(prop.GetValue(entity, null) as string ?? "")));
                             break;
                         case "DateTime":
-                            root.Add(new XElement(propName, ((DateTime) prop.GetValue(entity, null)).Ticks));
+                            root.Add(new XElement(propName, ((DateTime)prop.GetValue(entity, null)).Ticks / 10000000 - 8 * 60 * 60));
                             break;
                         case "Boolean":
                             if (propName == "FuncFlag")
                             {
-                                root.Add(new XElement(propName, (bool) prop.GetValue(entity, null) ? "1" : "0"));
+                                root.Add(new XElement(propName, (bool)prop.GetValue(entity, null) ? "1" : "0"));
                             }
                             else
                             {

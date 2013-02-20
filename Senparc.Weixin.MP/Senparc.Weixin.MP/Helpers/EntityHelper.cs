@@ -92,6 +92,7 @@ namespace Senparc.Weixin.MP.Helpers
                 var propName = prop.Name;
                 if (propName == "Articles")
                 {
+                    //文章列表
                     var atriclesElement = new XElement("Articles");
                     var articales = prop.GetValue(entity, null) as List<Article>;
                     foreach (var articale in articales)
@@ -101,8 +102,9 @@ namespace Senparc.Weixin.MP.Helpers
                     }
                     root.Add(atriclesElement);
                 }
-                else if(propName=="Music")
+                else if (propName == "Music")
                 {
+                    //音乐格式
                     var musicElement = new XElement("Music");
                     var music = prop.GetValue(entity, null) as Music;
                     var subNodes = ConvertEntityToXml(music).Root.Elements();

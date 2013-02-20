@@ -35,6 +35,9 @@ namespace Senparc.Weixin.MP
                 case RequestMsgType.Image:
                     requestMessage = new RequestMessageImage();
                     break;
+                case RequestMsgType.Voice:
+                    requestMessage = new RequestMessageVoice();
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

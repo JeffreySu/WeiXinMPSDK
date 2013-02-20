@@ -111,6 +111,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                             responseMessage = strongresponseMessage;
                             break;
                         }
+                        case RequestMsgType.Voice:
+                        {
+                            var strongRequestMessage = requestMessage as RequestMessageVoice;
+                            var strongresponseMessage =
+                               ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Music) as
+                               ResponseMessageMusic;
+                            strongresponseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music.mp3";
+                            responseMessage = strongresponseMessage;
+                            break;
+                        }
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

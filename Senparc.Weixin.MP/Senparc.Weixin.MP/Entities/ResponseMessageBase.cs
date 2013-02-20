@@ -50,6 +50,15 @@ namespace Senparc.Weixin.MP.Entities
                                                MsgType = msgType
                                            };
                     break; break;
+                    case ResponseMsgType.Music:
+                    responseMessage = new ResponseMessageMusic()
+                                          {
+                                              ToUserName = requestMessage.FromUserName,
+                                              FromUserName = requestMessage.ToUserName,
+                                              CreateTime = DateTime.Now,//使用当前最新事件
+                                              MsgType = msgType
+                                          };
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException("msgType");
             }

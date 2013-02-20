@@ -7,5 +7,7 @@ namespace Senparc.Weixin.MP.Entities
 {
     public class RequestMessageVoice : RequestMessageBase,IRequestMessageBase
     {
+        public string MediaId { get; set; }
+        public string Format { get; set; }
     }
 }

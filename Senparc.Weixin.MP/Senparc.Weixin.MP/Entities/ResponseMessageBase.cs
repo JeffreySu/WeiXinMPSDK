@@ -11,7 +11,7 @@ namespace Senparc.Weixin.MP.Entities
         string FromUserName { get; set; }
         DateTime CreateTime { get; set; }
         ResponseMsgType MsgType { get; set; }
-        string Content { get; set; }
+        //string Content { get; set; }
         bool FuncFlag { get; set; }
     }
 
@@ -24,7 +24,7 @@ namespace Senparc.Weixin.MP.Entities
         public string FromUserName { get; set; }
         public DateTime CreateTime { get; set; }
         public ResponseMsgType MsgType { get; set; }
-        public string Content { get; set; }
+        //public string Content { get; set; }
         public bool FuncFlag { get; set; }
 
         public static ResponseMessageBase CreateFromRequestMessage(IRequestMessageBase requestMessage, ResponseMsgType msgType)

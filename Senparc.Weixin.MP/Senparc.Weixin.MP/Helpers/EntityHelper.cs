@@ -79,6 +79,10 @@ namespace Senparc.Weixin.MP.Helpers
             {
                 propNameOrder.AddRange(new[] { "ToUserName", "FromUserName", "CreateTime", "MsgType", "Music", "FuncFlag",/*以下是Music属性*/ "Title ", "Description ", "MusicUrl", "HQMusicUrl" });
             }
+            else
+            {
+                propNameOrder.AddRange(new[] { "ToUserName", "FromUserName", "CreateTime", "MsgType" });
+            }
 
             Func<string, int> orderByPropName = propNameOrder.IndexOf;
 
@@ -96,6 +100,14 @@ namespace Senparc.Weixin.MP.Helpers
                         atriclesElement.Add(new XElement("item", subNodes));
                     }
                     root.Add(atriclesElement);
+                }
+                else if(propName=="Music")
+                {
+                    var musicElement = new XElement("Music");
+                    var music = prop.GetValue(entity, null) as Music;
+                    var subNodes = ConvertEntityToXml(music).Root.Elements();
+                    musicElement.Add(subNodes);
+                    root.Add(musicElement);
                 }
                 else
                 {

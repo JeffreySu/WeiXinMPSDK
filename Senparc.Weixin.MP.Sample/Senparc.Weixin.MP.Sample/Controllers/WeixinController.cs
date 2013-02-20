@@ -117,7 +117,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                             var strongresponseMessage =
                                ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Music) as
                                ResponseMessageMusic;
-                            strongresponseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music.mp3";
+                            strongresponseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
                             responseMessage = strongresponseMessage;
                             break;
                         }

@@ -51,6 +51,7 @@
     <Compile Include="CheckSignature.cs" />
     <Compile Include="Entities\Article.cs" />
     <Compile Include="Entities\GoogleMap\Markers.cs" />
+    <Compile Include="Entities\Music.cs" />
     <Compile Include="Entities\RequestMessageBase.cs" />
     <Compile Include="Entities\RequestMessageText.cs" />
     <Compile Include="Entities\RequestMessageLocation.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Entities\ResponseMessageBase.cs" />
     <Compile Include="Entities\ResponseMessageText.cs" />
     <Compile Include="Entities\ResponseMessageNews.cs" />
+    <Compile Include="Entities\ResponseMessageMusic.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\GoogleMapHelper.cs" />

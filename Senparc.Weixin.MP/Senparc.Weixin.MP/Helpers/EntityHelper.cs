@@ -66,8 +66,20 @@ namespace Senparc.Weixin.MP.Helpers
             doc.Add(new XElement("xml"));
             var root = doc.Root;
 
-            //经过测试，微信对字段排序有严格要求，这里对排序进行强制约束
-            var propNameOrder = new[] { "ToUserName", "FromUserName", "CreateTime", "MsgType", "Content", "ArticleCount", "Articles", "FuncFlag",/*以下是Atricle属性*/"Title ", "Description ", "PicUrl", "Url" }.ToList();
+            /* 注意！
+             * 经过测试，微信对字段排序有严格要求，这里对排序进行强制约束
+            */
+            var propNameOrder = new List<string>();
+            //不同返回类型需要对应不同特殊格式的排序
+            if (typeof(T) == typeof(ResponseMessageNews))
+            {
+                propNameOrder.AddRange(new[] { "ToUserName", "FromUserName", "CreateTime", "MsgType", "Content", "ArticleCount", "Articles", "FuncFlag",/*以下是Atricle属性*/ "Title ", "Description ", "PicUrl", "Url" });
+            }
+            else if (typeof(T) == typeof(ResponseMessageMusic))
+            {
+                propNameOrder.AddRange(new[] { "ToUserName", "FromUserName", "CreateTime", "MsgType", "Music", "FuncFlag",/*以下是Music属性*/ "Title ", "Description ", "MusicUrl", "HQMusicUrl" });
+            }
+
             Func<string, int> orderByPropName = propNameOrder.IndexOf;
 
             var props = entity.GetType().GetProperties().OrderBy(p => orderByPropName(p.Name)).ToList();

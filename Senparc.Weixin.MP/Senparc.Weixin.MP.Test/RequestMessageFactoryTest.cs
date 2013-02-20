@@ -2,6 +2,7 @@
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.Test
 {
@@ -45,6 +46,8 @@ namespace Senparc.Weixin.MP.Test
         [TestMethod]
         public void GetRequestEntityTest()
         {
+            var dt = EntityHelper.BaseTime.AddTicks(((long) 1358061152 + 8*60*60)*10000000);
+
             {
                 //Text
                 var doc = XDocument.Parse(xmlText);

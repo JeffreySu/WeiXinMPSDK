@@ -27,7 +27,7 @@ namespace Senparc.Weixin.MP.Helpers
                         //case "String":
                         //    goto default;
                         case "DateTime":
-                            prop.SetValue(entity, EntityHelper.BaseTime.AddTicks(long.Parse(root.Element(propName).Value + 8 * 60 * 60) * 10000000), null);
+                            prop.SetValue(entity, EntityHelper.BaseTime.AddTicks((long.Parse(root.Element(propName).Value) + 8 * 60 * 60) * 10000000), null);
                             break;
                         case "Boolean":
                             if (propName == "FuncFlag")

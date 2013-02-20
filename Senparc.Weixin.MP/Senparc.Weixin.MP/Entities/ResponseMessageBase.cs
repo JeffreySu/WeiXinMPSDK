@@ -37,7 +37,7 @@ namespace Senparc.Weixin.MP.Entities
                                          {
                                              ToUserName = requestMessage.FromUserName,
                                              FromUserName = requestMessage.ToUserName,
-                                             CreateTime = requestMessage.CreateTime,//这个时间不是Ticks，用DateTime.Now会出错
+                                             CreateTime = DateTime.Now,//使用当前最新事件
                                              MsgType = msgType
                                          };
                     break;
@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.Entities
                                            {
                                                ToUserName = requestMessage.FromUserName,
                                                FromUserName = requestMessage.ToUserName,
-                                               CreateTime = requestMessage.CreateTime,
+                                               CreateTime = DateTime.Now,//使用当前最新事件
                                                MsgType = msgType
                                            };
                     break; break;

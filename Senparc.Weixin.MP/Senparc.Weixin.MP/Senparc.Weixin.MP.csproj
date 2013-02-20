@@ -60,6 +60,7 @@
     <Compile Include="Entities\ResponseMessageText.cs" />
     <Compile Include="Entities\ResponseMessageNews.cs" />
     <Compile Include="Entities\ResponseMessageMusic.cs" />
+    <Compile Include="Entities\RequestMessageVoice.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\GoogleMapHelper.cs" />

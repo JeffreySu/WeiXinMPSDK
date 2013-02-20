@@ -12,7 +12,8 @@ namespace Senparc.Weixin.MP
     {
         Text,
         Location,
-        Image
+        Image,
+        Voice
     }
     /// <summary>
     /// 发送消息类型
@@ -20,6 +21,7 @@ namespace Senparc.Weixin.MP
     public enum ResponseMsgType
     {
         Text,
-        News
+        News,
+        Music
     }
 }

@@ -11,13 +11,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 {
     using Senparc.Weixin.MP.Entities;
     using Senparc.Weixin.MP.Sample.Service;
-    
+
     public class WeixinController : Controller
     {
         private LocationService locationService;
         public WeixinController()
         {
-            locationService=new LocationService();
+            locationService = new LocationService();
         }
 
         public readonly string Token = "weixin";
@@ -50,11 +50,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 return Content("参数错误！");
             }
+            XDocument doc = null;
             try
             {
-                var doc = XDocument.Load(Request.InputStream);
+                doc = XDocument.Load(Request.InputStream);
                 var requestMessage = RequestMessageFactory.GetRequestEntity(doc);
-                doc.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Request_" + requestMessage.FromUserName +".txt"));//测试时可开启，帮助跟踪数据
+                doc.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Request_" + requestMessage.FromUserName + ".txt"));//测试时可开启，帮助跟踪数据
                 ResponseMessageBase responseMessage = null;
                 switch (requestMessage.MsgType)
                 {
@@ -120,11 +121,18 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             catch (Exception ex)
             {
-                TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_" + DateTime.Now.Ticks + ".txt"));
-                tw.WriteLine(ex.Message);
-                tw.WriteLine(ex.InnerException.Message);
-                tw.Flush();
-                tw.Close();
+                using (
+                    TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_" + DateTime.Now.Ticks + ".txt")))
+                {
+                    tw.WriteLine(ex.Message);
+                    tw.WriteLine(ex.InnerException.Message);
+                    if (doc != null)
+                    {
+                        tw.WriteLine(doc.ToString());
+                    }
+                    tw.Flush();
+                    tw.Close();
+                }
                 return Content("");
             }
         }

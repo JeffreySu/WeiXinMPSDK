@@ -1,3 +1,7 @@
+正在整合微信4.5测试版API，近日即将发布。
+
+==========================================
+
 微信公众平台SDK：Senparc.Weixin.MP beta
 
 官网地址：http://weixin.senparc.com/

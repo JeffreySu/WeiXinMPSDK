@@ -1,7 +1,0 @@
-E:\Senparc项目\WeiXinMPSDK\Senparc.Weixin.MP\Senparc.Weixin.MP.Test\bin\Debug\Senparc.Weixin.MP.Test.dll
-E:\Senparc项目\WeiXinMPSDK\Senparc.Weixin.MP\Senparc.Weixin.MP.Test\bin\Debug\Senparc.Weixin.MP.Test.pdb
-E:\Senparc项目\WeiXinMPSDK\Senparc.Weixin.MP\Senparc.Weixin.MP.Test\bin\Debug\Senparc.Weixin.MP.dll
-E:\Senparc项目\WeiXinMPSDK\Senparc.Weixin.MP\Senparc.Weixin.MP.Test\bin\Debug\Senparc.Weixin.MP.pdb
-E:\Senparc项目\WeiXinMPSDK\Senparc.Weixin.MP\Senparc.Weixin.MP.Test\obj\Debug\Senparc.Weixin.MP.Test.csprojResolveAssemblyReference.cache
-E:\Senparc项目\WeiXinMPSDK\Senparc.Weixin.MP\Senparc.Weixin.MP.Test\obj\Debug\Senparc.Weixin.MP.Test.dll
-E:\Senparc项目\WeiXinMPSDK\Senparc.Weixin.MP\Senparc.Weixin.MP.Test\obj\Debug\Senparc.Weixin.MP.Test.pdb

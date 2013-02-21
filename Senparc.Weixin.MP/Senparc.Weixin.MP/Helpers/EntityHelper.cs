@@ -53,7 +53,7 @@ namespace Senparc.Weixin.MP.Helpers
                             prop.SetValue(entity, MsgTypeHelper.GetMsgType(root.Element(propName).Value), null);
                             break;
                         case "Event":
-                            prop.SetValue(entity, EventHelper.GetMsgType(root.Element(propName).Value), null);
+                            prop.SetValue(entity, EventHelper.GetEventType(root.Element(propName).Value), null);
                             break;
                         default:
                             prop.SetValue(entity, root.Element(propName).Value, null);

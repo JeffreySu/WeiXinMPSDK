@@ -43,16 +43,36 @@ namespace Senparc.Weixin.MP.Test
   <MsgId>5832830407062023950</MsgId>
 </xml>";
 
+        private string xmlVoice = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+  <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+  <CreateTime>1361430302</CreateTime>
+  <MsgType><![CDATA[voice]]></MsgType>
+  <MediaId><![CDATA[X1yfgB2XI-faU6R2jmKz0X1JZmPCxIvM-9ktt4K92BB9577SCi41S-qMl60q5DJo]]></MediaId>
+  <Format><![CDATA[amr]]></Format>
+  <MsgId>5847298622973403529</MsgId>
+</xml>";
+
+        private string xmlEvent_Enter = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+    <ToUserName><![CDATA[toUser]]></ToUserName>
+    <FromUserName><![CDATA[fromUser]]></FromUserName>
+    <CreateTime>123456789</CreateTime>
+    <MsgType><![CDATA[event]]></MsgType>
+    <Event><![CDATA[ENTRY]]></Event>
+</xml>";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
-            var dt = EntityHelper.BaseTime.AddTicks(((long) 1358061152 + 8*60*60)*10000000);
+            var dt = EntityHelper.BaseTime.AddTicks(((long)1358061152 + 8 * 60 * 60) * 10000000);
 
             {
                 //Text
                 var doc = XDocument.Parse(xmlText);
                 var result = RequestMessageFactory.GetRequestEntity(doc);
-                Assert.IsInstanceOfType(result, typeof (RequestMessageText));
+                Assert.IsInstanceOfType(result, typeof(RequestMessageText));
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual("TNT2", (result as RequestMessageText).Content);
             }
@@ -73,6 +93,24 @@ namespace Senparc.Weixin.MP.Test
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual("http://mmsns.qpic.cn/mmsns/ZxBXNzgHyUqazGkXUvujSPxexzynJAicf440qkyLibBd1OEO4saJiavLQ/0", result.PicUrl);
+            }
+
+            {
+                //Voice
+                var doc = XDocument.Parse(xmlVoice);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageVoice;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual("X1yfgB2XI-faU6R2jmKz0X1JZmPCxIvM-9ktt4K92BB9577SCi41S-qMl60q5DJo", result.MediaId);
+            }
+
+            {
+                //Event-ENTRY
+                var doc = XDocument.Parse(xmlEvent_Enter);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Enter;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual(Event.ENTER, result.Event);
             }
         }
     }

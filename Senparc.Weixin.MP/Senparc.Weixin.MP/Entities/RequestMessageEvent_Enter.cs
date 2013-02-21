@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public class RequestMessageEvent_Entry : RequestMessageEventBase, IRequestMessageEventBase
+    public class RequestMessageEvent_Enter : RequestMessageEventBase, IRequestMessageEventBase
     {
     }
 }

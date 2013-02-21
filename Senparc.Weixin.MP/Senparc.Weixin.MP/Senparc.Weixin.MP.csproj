@@ -62,7 +62,7 @@
     <Compile Include="Entities\ResponseMessageMusic.cs" />
     <Compile Include="Entities\RequestMessageVoice.cs" />
     <Compile Include="Entities\RequestMessageEventBase.cs" />
-    <Compile Include="Entities\RequestMessageEvent_Entry.cs" />
+    <Compile Include="Entities\RequestMessageEvent_Enter.cs" />
     <Compile Include="Entities\RequestMessageEvent_Location.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />

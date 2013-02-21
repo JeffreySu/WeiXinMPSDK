@@ -44,7 +44,7 @@ namespace Senparc.Weixin.MP
                     switch (doc.Root.Element("Event").Value.ToUpper())
                     {
                         case "ENTER"://进入会话
-                            requestMessage = new RequestMessageEvent_Entry();
+                            requestMessage = new RequestMessageEvent_Enter();
                             break;
                         case "LOCATION"://地理位置
                             requestMessage = new RequestMessageEvent_Location();

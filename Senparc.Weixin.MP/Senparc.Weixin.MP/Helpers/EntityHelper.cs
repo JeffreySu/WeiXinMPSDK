@@ -48,7 +48,11 @@ namespace Senparc.Weixin.MP.Helpers
                         case "Double":
                             prop.SetValue(entity, double.Parse(root.Element(propName).Value), null);
                             break;
+                        //以下为枚举类型
                         case "RequestMsgType":
+                            prop.SetValue(entity, MsgTypeHelper.GetMsgType(root.Element(propName).Value), null);
+                            break;
+                        case "Event":
                             prop.SetValue(entity, MsgTypeHelper.GetMsgType(root.Element(propName).Value), null);
                             break;
                         default:

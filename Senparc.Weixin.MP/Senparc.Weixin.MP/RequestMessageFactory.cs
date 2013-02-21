@@ -38,6 +38,22 @@ namespace Senparc.Weixin.MP
                 case RequestMsgType.Voice:
                     requestMessage = new RequestMessageVoice();
                     break;
+                case RequestMsgType.Event:
+
+                    //判断类型
+                    switch (doc.Root.Element("Event").Value.ToUpper())
+                    {
+                        case "ENTER"://进入会话
+                            requestMessage = new RequestMessageEvent_Entry();
+                            break;
+                        case "LOCATION"://地理位置
+                            requestMessage = new RequestMessageEvent_Location();
+                            break;
+                        default://其他意外类型（也可以选择抛出异常）
+                            requestMessage = new RequestMessageEventBase();
+                            break;
+                    }
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

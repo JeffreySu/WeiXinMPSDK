@@ -61,6 +61,9 @@
     <Compile Include="Entities\ResponseMessageNews.cs" />
     <Compile Include="Entities\ResponseMessageMusic.cs" />
     <Compile Include="Entities\RequestMessageVoice.cs" />
+    <Compile Include="Entities\RequestMessageEventBase.cs" />
+    <Compile Include="Entities\RequestMessageEvent_Entry.cs" />
+    <Compile Include="Entities\RequestMessageEvent_Location.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\GoogleMapHelper.cs" />

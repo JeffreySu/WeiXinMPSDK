@@ -56,11 +56,23 @@ namespace Senparc.Weixin.MP.Test
 
         private string xmlEvent_Enter = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
-    <ToUserName><![CDATA[toUser]]></ToUserName>
-    <FromUserName><![CDATA[fromUser]]></FromUserName>
+    <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+    <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
     <CreateTime>123456789</CreateTime>
     <MsgType><![CDATA[event]]></MsgType>
     <Event><![CDATA[ENTER]]></Event>
+</xml>";
+
+        private string xmlEvent_Location = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+    <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+    <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+    <CreateTime>123456789</CreateTime>
+    <MsgType><![CDATA[event]]></MsgType>
+    <Event><![CDATA[LOCATION]]></Event>
+    <Latitude>23.137466</Latitude>
+    <Longitude>113.352425</Longitude>
+    <Precision>119.385040</Precision>
 </xml>";
 
         [TestMethod]
@@ -111,6 +123,18 @@ namespace Senparc.Weixin.MP.Test
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.ENTER, result.Event);
+            }
+
+            {
+                //Event-Location
+                var doc = XDocument.Parse(xmlEvent_Location);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Location;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual(Event.LOCATION, result.Event);
+                Assert.AreEqual(23.137466, result.Latitude);
+                Assert.AreEqual(113.352425, result.Longitude);
+                Assert.AreEqual(119.385040, result.Precision);
             }
         }
     }

@@ -115,5 +115,40 @@ namespace Senparc.Weixin.MP.Test
             Console.WriteLine(responseDoc.ToString());
             Assert.AreEqual(requestEntity.PicUrl, responseDoc.Root.Element("Articles").Elements("item").First().Element("PicUrl").Value);
         }
+
+        [TestMethod]
+        public void ConvertEntityToXml_MusicTest()
+        {
+            var voiceTest = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+  <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+  <CreateTime>1361430302</CreateTime>
+  <MsgType><![CDATA[voice]]></MsgType>
+  <MediaId><![CDATA[X1yfgB2XI-faU6R2jmKz0X1JZmPCxIvM-9ktt4K92BB9577SCi41S-qMl60q5DJo]]></MediaId>
+  <Format><![CDATA[amr]]></Format>
+  <MsgId>5847298622973403529</MsgId>
+</xml>";
+            var doc = XDocument.Parse(voiceTest);
+            var requestEntity = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageVoice;
+            Assert.IsNotNull(requestEntity);
+
+            var responseMusic =
+                    ResponseMessageBase.CreateFromRequestMessage(requestEntity, ResponseMsgType.Music) as
+                    ResponseMessageMusic;
+            Assert.IsNotNull(responseMusic);
+
+            responseMusic.Music.Title = "测试Music";
+            responseMusic.Music.Description = "测试Music的说明";
+            responseMusic.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
+            responseMusic.Music.HQMusicUrl = "http://weixin.senparc.com/Content/music2.mp3";
+
+            var responseDoc = EntityHelper.ConvertEntityToXml(responseMusic);
+            Console.WriteLine(responseDoc.ToString());
+            Assert.AreEqual(responseMusic.Music.Title, responseDoc.Root.Element("Music").Element("Title").Value);
+            Assert.AreEqual(responseMusic.Music.Description, responseDoc.Root.Element("Music").Element("Description").Value);
+            Assert.AreEqual(responseMusic.Music.MusicUrl, responseDoc.Root.Element("Music").Element("MusicUrl").Value);
+            Assert.AreEqual(responseMusic.Music.HQMusicUrl, responseDoc.Root.Element("Music").Element("HQMusicUrl").Value);
+        }
     }
 }

@@ -60,7 +60,7 @@ namespace Senparc.Weixin.MP.Test
     <FromUserName><![CDATA[fromUser]]></FromUserName>
     <CreateTime>123456789</CreateTime>
     <MsgType><![CDATA[event]]></MsgType>
-    <Event><![CDATA[ENTRY]]></Event>
+    <Event><![CDATA[ENTER]]></Event>
 </xml>";
 
         [TestMethod]

@@ -66,6 +66,7 @@
     <Compile Include="Entities\RequestMessageEvent_Location.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
+    <Compile Include="Helpers\EventHelper.cs" />
     <Compile Include="Helpers\GoogleMapHelper.cs" />
     <Compile Include="Helpers\MsgTypeHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -58,8 +58,10 @@ namespace Senparc.Weixin.MP.Test
                 Assert.IsNotNull(responseText);
                 responseText.Content = "新内容";
                 var responseDoc = EntityHelper.ConvertEntityToXml(responseText);
-                Assert.AreEqual("新内容", responseDoc.Root.Element("Content").Value);
+
                 Console.WriteLine(responseDoc.ToString());
+
+                Assert.AreEqual("新内容", responseDoc.Root.Element("Content").Value);
             }
             {
                 //News

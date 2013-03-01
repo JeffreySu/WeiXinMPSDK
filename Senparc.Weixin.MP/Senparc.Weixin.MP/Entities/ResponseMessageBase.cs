@@ -30,37 +30,44 @@ namespace Senparc.Weixin.MP.Entities
         public static ResponseMessageBase CreateFromRequestMessage(IRequestMessageBase requestMessage, ResponseMsgType msgType)
         {
             ResponseMessageBase responseMessage = null;
-            switch (msgType)
+            try
             {
-                case ResponseMsgType.Text:
-                    responseMessage = new ResponseMessageText()
-                                         {
-                                             ToUserName = requestMessage.FromUserName,
-                                             FromUserName = requestMessage.ToUserName,
-                                             CreateTime = DateTime.Now,//使用当前最新事件
-                                             MsgType = msgType
-                                         };
-                    break;
-                case ResponseMsgType.News:
-                    responseMessage = new ResponseMessageNews()
-                                           {
-                                               ToUserName = requestMessage.FromUserName,
-                                               FromUserName = requestMessage.ToUserName,
-                                               CreateTime = DateTime.Now,//使用当前最新事件
-                                               MsgType = msgType
-                                           };
-                    break; break;
+                switch (msgType)
+                {
+                    case ResponseMsgType.Text:
+                        responseMessage = new ResponseMessageText()
+                                             {
+                                                 ToUserName = requestMessage.FromUserName,
+                                                 FromUserName = requestMessage.ToUserName,
+                                                 CreateTime = DateTime.Now,//使用当前最新事件
+                                                 MsgType = msgType
+                                             };
+                        break;
+                    case ResponseMsgType.News:
+                        responseMessage = new ResponseMessageNews()
+                                               {
+                                                   ToUserName = requestMessage.FromUserName,
+                                                   FromUserName = requestMessage.ToUserName,
+                                                   CreateTime = DateTime.Now,//使用当前最新事件
+                                                   MsgType = msgType
+                                               };
+                        break; break;
                     case ResponseMsgType.Music:
-                    responseMessage = new ResponseMessageMusic()
-                                          {
-                                              ToUserName = requestMessage.FromUserName,
-                                              FromUserName = requestMessage.ToUserName,
-                                              CreateTime = DateTime.Now,//使用当前最新事件
-                                              MsgType = msgType
-                                          };
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("msgType");
+                        responseMessage = new ResponseMessageMusic()
+                                              {
+                                                  ToUserName = requestMessage.FromUserName,
+                                                  FromUserName = requestMessage.ToUserName,
+                                                  CreateTime = DateTime.Now,//使用当前最新事件
+                                                  MsgType = msgType
+                                              };
+                        break;
+                    default:
+                        throw new UnknownRequestMsgTypeException(string.Format("ResponseMsgType没有为 {0} 提供对应处理程序。", msgType), new ArgumentOutOfRangeException());
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new WeixinException("CreateFromRequestMessage过程发生异常", ex);
             }
 
             return responseMessage;

@@ -85,7 +85,8 @@ namespace Senparc.Weixin.MP.Helpers
             }
             else
             {
-                propNameOrder.AddRange(new[] { "ToUserName", "FromUserName", "CreateTime", "MsgType" });
+                //如Text类型
+                propNameOrder.AddRange(new[] { "ToUserName", "FromUserName", "CreateTime", "MsgType", "Content", "FuncFlag" });
             }
 
             Func<string, int> orderByPropName = propNameOrder.IndexOf;

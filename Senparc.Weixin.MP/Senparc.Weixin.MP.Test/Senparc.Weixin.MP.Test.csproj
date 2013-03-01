@@ -71,7 +71,7 @@
     <Compile Include="RequestMessageFactoryTest.cs" />
     <Compile Include="EntityHelperTest.cs" />
     <Compile Include="GoogleMapHelperTest.cs" />
-    <Compile Include="UnkonwnRequestMsgTypeExceptionTest.cs" />
+    <Compile Include="WeixinExceptionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">

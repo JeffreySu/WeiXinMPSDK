@@ -20,45 +20,70 @@ namespace Senparc.Weixin.MP
         //  <Content><![CDATA[中文]]></Content>
         //  <MsgId>5832509444155992350</MsgId>
         //</xml>
+
+        /// <summary>
+        /// 获取XDocument转换后的IRequestMessageBase实例。
+        /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+        /// </summary>
+        /// <returns></returns>
         public static IRequestMessageBase GetRequestEntity(XDocument doc)
         {
-            var msgType = MsgTypeHelper.GetMsgType(doc);
             RequestMessageBase requestMessage = null;
-            switch (msgType)
+            RequestMsgType msgType;
+            try
             {
-                case RequestMsgType.Text:
-                    requestMessage = new RequestMessageText();
-                    break;
-                case RequestMsgType.Location:
-                    requestMessage = new RequestMessageLocation();
-                    break;
-                case RequestMsgType.Image:
-                    requestMessage = new RequestMessageImage();
-                    break;
-                case RequestMsgType.Voice:
-                    requestMessage = new RequestMessageVoice();
-                    break;
-                case RequestMsgType.Event:
+                msgType = MsgTypeHelper.GetMsgType(doc);
+                switch (msgType)
+                {
+                    case RequestMsgType.Text:
+                        requestMessage = new RequestMessageText();
+                        break;
+                    case RequestMsgType.Location:
+                        requestMessage = new RequestMessageLocation();
+                        break;
+                    case RequestMsgType.Image:
+                        requestMessage = new RequestMessageImage();
+                        break;
+                    case RequestMsgType.Voice:
+                        requestMessage = new RequestMessageVoice();
+                        break;
+                    case RequestMsgType.Event:
 
-                    //判断类型
-                    switch (doc.Root.Element("Event").Value.ToUpper())
-                    {
-                        case "ENTER"://进入会话
-                            requestMessage = new RequestMessageEvent_Enter();
-                            break;
-                        case "LOCATION"://地理位置
-                            requestMessage = new RequestMessageEvent_Location();
-                            break;
-                        default://其他意外类型（也可以选择抛出异常）
-                            requestMessage = new RequestMessageEventBase();
-                            break;
-                    }
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                        //判断类型
+                        switch (doc.Root.Element("Event").Value.ToUpper())
+                        {
+                            case "ENTER"://进入会话
+                                requestMessage = new RequestMessageEvent_Enter();
+                                break;
+                            case "LOCATION"://地理位置
+                                requestMessage = new RequestMessageEvent_Location();
+                                break;
+                            default://其他意外类型（也可以选择抛出异常）
+                                requestMessage = new RequestMessageEventBase();
+                                break;
+                        }
+                        break;
+                    default:
+                        throw new UnknownRequestMsgTypeException(string.Format("MsgType：{0} 在RequestMessageFactory中没有对应的处理程序！", msgType), new ArgumentOutOfRangeException());//为了能够对类型变动最大程度容错（如微信目前还可以对公众账号suscribe等未知类型，但API没有开放），建议在使用的时候catch这个异常
+                }
+                EntityHelper.FillEntityWithXml(requestMessage, doc);
             }
-            EntityHelper.FillEntityWithXml(requestMessage, doc);
+            catch (ArgumentException ex)
+            {
+                throw new WeixinException(string.Format("RequestMessage转换出错！可能是MsgType不存在！，XML：{0}", doc.ToString()), ex);
+            }
             return requestMessage;
+        }
+
+
+        /// <summary>
+        /// 获取XDocument转换后的IRequestMessageBase实例。
+        /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+        /// </summary>
+        /// <returns></returns>
+        public static IRequestMessageBase GetRequestEntity(string xml)
+        {
+            return GetRequestEntity(XDocument.Parse(xml));
         }
     }
 }

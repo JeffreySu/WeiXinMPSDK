@@ -22,10 +22,10 @@ namespace Senparc.Weixin.MP.Test
         public void GetMsgTypeTest()
         {
             var doc = XDocument.Parse(xml);
-            var result = MsgTypeHelper.GetMsgType(doc);
+            var result = MsgTypeHelper.GetRequestMsgType(doc);
             Assert.AreEqual(RequestMsgType.Text, result);
 
-            var result2 = MsgTypeHelper.GetMsgType("image");
+            var result2 = MsgTypeHelper.GetRequestMsgType("image");
             Assert.AreEqual(RequestMsgType.Image, result2);
         }
     }

@@ -32,7 +32,7 @@ namespace Senparc.Weixin.MP
             RequestMsgType msgType;
             try
             {
-                msgType = MsgTypeHelper.GetMsgType(doc);
+                msgType = MsgTypeHelper.GetRequestMsgType(doc);
                 switch (msgType)
                 {
                     case RequestMsgType.Text:

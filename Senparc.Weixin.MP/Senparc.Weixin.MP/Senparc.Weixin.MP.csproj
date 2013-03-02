@@ -74,6 +74,7 @@
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="Exceptions\UnknownRequestMsgTypeException.cs" />
     <Compile Include="Exceptions\WeixinException.cs" />
+    <Compile Include="ResponseMessageFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

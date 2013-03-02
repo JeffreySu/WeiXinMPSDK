@@ -78,7 +78,7 @@ namespace Senparc.Weixin.MP.Test
         [TestMethod]
         public void GetRequestEntityTest()
         {
-            var dt = EntityHelper.BaseTime.AddTicks(((long)1358061152 + 8 * 60 * 60) * 10000000);
+            var dt = DateTimeHelper.BaseTime.AddTicks(((long)1358061152 + 8 * 60 * 60) * 10000000);
 
             {
                 //Text

@@ -9,9 +9,13 @@ namespace Senparc.Weixin.MP.Helpers
 {
     public static class EntityHelper
     {
-        public static DateTime BaseTime = new DateTime(1970, 1, 1);//Unix起始时间
-
-        public static void FillEntityWithXml<T>(T entity, XDocument doc) where T : MessageBase, new()
+        /// <summary>
+        /// 根据XML信息填充实实体
+        /// </summary>
+        /// <typeparam name="T">MessageBase为基类的类型，Response和Request都可以</typeparam>
+        /// <param name="entity">实体</param>
+        /// <param name="doc">XML</param>
+        public static void FillEntityWithXml<T>(T entity, XDocument doc) where T : /*MessageBase*/ class, new()
         {
             entity = entity ?? new T();
             var root = doc.Root;
@@ -27,7 +31,7 @@ namespace Senparc.Weixin.MP.Helpers
                         //case "String":
                         //    goto default;
                         case "DateTime":
-                            prop.SetValue(entity, EntityHelper.BaseTime.AddTicks((long.Parse(root.Element(propName).Value) + 8 * 60 * 60) * 10000000), null);
+                            prop.SetValue(entity, DateTimeHelper.GetDateTimeFromXml(root.Element(propName).Value), null);
                             break;
                         case "Boolean":
                             if (propName == "FuncFlag")
@@ -52,8 +56,32 @@ namespace Senparc.Weixin.MP.Helpers
                         case "RequestMsgType":
                             prop.SetValue(entity, MsgTypeHelper.GetRequestMsgType(root.Element(propName).Value), null);
                             break;
+                        case "ResponseMsgType"://Response适用
+                            prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
+                            break;
                         case "Event":
                             prop.SetValue(entity, EventHelper.GetEventType(root.Element(propName).Value), null);
+                            break;
+                        //以下为实体类型
+                        case "List`1"://List<T>类型，ResponseMessageNews适用
+                            var genericArguments = prop.PropertyType.GetGenericArguments();
+                            if (genericArguments[0].Name == "Article")//Response适用
+                            {
+                                //文章下属节点item
+                                List<Article> articles=new List<Article>();
+                                foreach (var item in root.Element(propName).Elements("item"))
+                                {
+                                    var article = new Article();
+                                    FillEntityWithXml(article,new XDocument(item));
+                                    articles.Add(article);
+                                }
+                                prop.SetValue(entity, articles,null);
+                            }
+                            break;
+                        case "Music"://ResponseMessageMusic适用
+                            Music music=new Music();
+                            FillEntityWithXml(music, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, music, null);
                             break;
                         default:
                             prop.SetValue(entity, root.Element(propName).Value, null);
@@ -63,6 +91,12 @@ namespace Senparc.Weixin.MP.Helpers
             }
         }
 
+        /// <summary>
+        /// 将实体转为XML
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public static XDocument ConvertEntityToXml<T>(T entity) where T : class , new()
         {
             entity = entity ?? new T();
@@ -125,7 +159,7 @@ namespace Senparc.Weixin.MP.Helpers
                                                   new XCData(prop.GetValue(entity, null) as string ?? "")));
                             break;
                         case "DateTime":
-                            root.Add(new XElement(propName, ((DateTime)prop.GetValue(entity, null)).Ticks / 10000000 - 8 * 60 * 60));
+                            root.Add(new XElement(propName, DateTimeHelper.GetWeixinDateTime((DateTime)prop.GetValue(entity, null))));
                             break;
                         case "Boolean":
                             if (propName == "FuncFlag")

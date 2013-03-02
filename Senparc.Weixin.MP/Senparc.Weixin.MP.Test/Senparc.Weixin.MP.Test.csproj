@@ -72,6 +72,7 @@
     <Compile Include="EntityHelperTest.cs" />
     <Compile Include="GoogleMapHelperTest.cs" />
     <Compile Include="WeixinExceptionTest.cs" />
+    <Compile Include="ResponseMessageFactoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">

@@ -13,16 +13,18 @@ namespace Senparc.Weixin.MP
     {
         //<?xml version="1.0" encoding="utf-8"?>
         //<xml>
-        //  <FuncFlag>0</FuncFlag>
         //  <ToUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></ToUserName>
         //  <FromUserName><![CDATA[gh_a96a4a619366]]></FromUserName>
-        //  <CreateTime>63497751173</CreateTime>
-        //  <Content><![CDATA[文字信息]]></Content>
+        //  <CreateTime>63497820384</CreateTime>
         //  <MsgType>text</MsgType>
+        //  <Content><![CDATA[您刚才发送了文字信息：中文
+        //您还可以发送【位置】【图片】【语音】信息，查看不同格式的回复。
+        //SDK官方地址：http://weixin.senparc.com]]></Content>
+        //  <FuncFlag>0</FuncFlag>
         //</xml>
 
         /// <summary>
-        /// 获取XDocument转换后的IResponseMessageBase实例。
+        /// 获取XDocument转换后的IResponseMessageBase实例（通常在反向读取日志的时候用到）。
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>

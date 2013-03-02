@@ -11,7 +11,7 @@ namespace Senparc.Weixin.MP.Helpers
     {
         public static DateTime BaseTime = new DateTime(1970, 1, 1);//Unix起始时间
 
-        public static void FillEntityWithXml<T>(T entity, XDocument doc) where T : RequestMessageBase, new()
+        public static void FillEntityWithXml<T>(T entity, XDocument doc) where T : MessageBase, new()
         {
             entity = entity ?? new T();
             var root = doc.Root;

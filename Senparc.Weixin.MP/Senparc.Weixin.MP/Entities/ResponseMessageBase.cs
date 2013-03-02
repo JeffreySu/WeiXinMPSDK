@@ -5,11 +5,8 @@ using System.Text;
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public interface IResponseMessageBase
+    public interface IResponseMessageBase : IMessageBase
     {
-        string ToUserName { get; set; }
-        string FromUserName { get; set; }
-        DateTime CreateTime { get; set; }
         ResponseMsgType MsgType { get; set; }
         //string Content { get; set; }
         bool FuncFlag { get; set; }
@@ -18,11 +15,8 @@ namespace Senparc.Weixin.MP.Entities
     /// <summary>
     /// 响应回复消息
     /// </summary>
-    public class ResponseMessageBase : IResponseMessageBase
+    public class ResponseMessageBase : MessageBase, IResponseMessageBase
     {
-        public string ToUserName { get; set; }
-        public string FromUserName { get; set; }
-        public DateTime CreateTime { get; set; }
         public ResponseMsgType MsgType { get; set; }
         //public string Content { get; set; }
         public bool FuncFlag { get; set; }

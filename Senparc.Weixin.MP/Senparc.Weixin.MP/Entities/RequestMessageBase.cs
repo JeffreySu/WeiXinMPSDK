@@ -5,11 +5,8 @@ using System.Text;
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public interface IRequestMessageBase
+    public interface IRequestMessageBase : IMessageBase
     {
-        string ToUserName { get; set; }
-        string FromUserName { get; set; }
-        DateTime CreateTime { get; set; }
         RequestMsgType MsgType { get; set; }
         long MsgId { get; set; }
     }
@@ -17,11 +14,8 @@ namespace Senparc.Weixin.MP.Entities
     /// <summary>
     /// 接收到请求的消息
     /// </summary>
-    public class RequestMessageBase : IRequestMessageBase
+    public class RequestMessageBase : MessageBase, IRequestMessageBase
     {
-        public string ToUserName { get; set; }
-        public string FromUserName { get; set; }
-        public DateTime CreateTime { get; set; }
         public RequestMsgType MsgType { get; set; }
         public long MsgId { get; set; }
     }

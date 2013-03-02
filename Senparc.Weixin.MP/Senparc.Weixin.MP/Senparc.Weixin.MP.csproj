@@ -51,6 +51,7 @@
     <Compile Include="CheckSignature.cs" />
     <Compile Include="Entities\Article.cs" />
     <Compile Include="Entities\GoogleMap\Markers.cs" />
+    <Compile Include="Entities\MessageBase.cs" />
     <Compile Include="Entities\Music.cs" />
     <Compile Include="Entities\RequestMessageBase.cs" />
     <Compile Include="Entities\RequestMessageText.cs" />

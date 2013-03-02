@@ -71,6 +71,7 @@
     <Compile Include="RequestMessageFactoryTest.cs" />
     <Compile Include="EntityHelperTest.cs" />
     <Compile Include="GoogleMapHelperTest.cs" />
+    <Compile Include="DateTimeHelperTest.cs" />
     <Compile Include="WeixinExceptionTest.cs" />
     <Compile Include="ResponseMessageFactoryTest.cs" />
   </ItemGroup>

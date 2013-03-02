@@ -35,7 +35,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <returns></returns>
         public static long GetWeixinDateTime(DateTime dateTime)
         {
-            return (dateTime.Ticks / 10000000 - 8 * 60 * 60);
+            return (dateTime.Ticks - BaseTime.Ticks) / 10000000 - 8 * 60 * 60;
         }
     }
 }

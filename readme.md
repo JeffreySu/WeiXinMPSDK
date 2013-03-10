@@ -10,4 +10,6 @@
 
 详细说明：http://www.cnblogs.com/szw/archive/2013/01/13/senparc-weixin-mp-sdk.html
 
+源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
+
 新浪微博：@苏震巍

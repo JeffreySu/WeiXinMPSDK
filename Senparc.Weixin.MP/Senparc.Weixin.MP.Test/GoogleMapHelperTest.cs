@@ -19,8 +19,16 @@ namespace Senparc.Weixin.MP.Test
                                     X = 31.285774,
                                     Y = 120.597610,
                                     Color="red",
-                                    Label="S",
+                                    Label="O",
                                     Size= MarkerSize.Default,
+                                });
+            markersList.Add(new Markers()
+                                {
+                                    X = 31.289774,
+                                    Y = 120.597910,
+                                    Color = "blue",
+                                    Label = "T",
+                                    Size = MarkerSize.Default,
                                 });
 
             var url = GoogleMapHelper.GetGoogleStaticMap(19, markersList, size: "640x640");

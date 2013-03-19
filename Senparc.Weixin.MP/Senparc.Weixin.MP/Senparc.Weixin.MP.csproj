@@ -52,6 +52,7 @@
     <Compile Include="Entities\GoogleMap\Markers.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Entities\JsonResult\AccessTokenResult.cs" />
     <Compile Include="Entities\JsonResult\WxJsonResult.cs" />
     <Compile Include="Entities\Menu\BaseButton.cs" />
     <Compile Include="Entities\Menu\Button.cs" />
@@ -113,6 +114,9 @@
     <Compile Include="Exceptions\UnknownRequestMsgTypeException.cs" />
     <Compile Include="Exceptions\WeixinException.cs" />
     <Compile Include="ResponseMessageFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="HttpUtility\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

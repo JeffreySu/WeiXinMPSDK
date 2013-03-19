@@ -49,22 +49,59 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckSignature.cs" />
-    <Compile Include="Entities\Article.cs" />
-    <Compile Include="Entities\GoogleMap\Markers.cs" />
-    <Compile Include="Entities\MessageBase.cs" />
-    <Compile Include="Entities\Music.cs" />
-    <Compile Include="Entities\RequestMessageBase.cs" />
-    <Compile Include="Entities\RequestMessageText.cs" />
-    <Compile Include="Entities\RequestMessageLocation.cs" />
-    <Compile Include="Entities\RequestMessageImage.cs" />
-    <Compile Include="Entities\ResponseMessageBase.cs" />
-    <Compile Include="Entities\ResponseMessageText.cs" />
-    <Compile Include="Entities\ResponseMessageNews.cs" />
-    <Compile Include="Entities\ResponseMessageMusic.cs" />
-    <Compile Include="Entities\RequestMessageVoice.cs" />
-    <Compile Include="Entities\RequestMessageEventBase.cs" />
-    <Compile Include="Entities\RequestMessageEvent_Enter.cs" />
-    <Compile Include="Entities\RequestMessageEvent_Location.cs" />
+    <Compile Include="Entities\GoogleMap\Markers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\JsonResult\WxJsonResult.cs" />
+    <Compile Include="Entities\Menu\BaseButton.cs" />
+    <Compile Include="Entities\Menu\Button.cs" />
+    <Compile Include="Entities\Menu\ButtonGroup.cs" />
+    <Compile Include="Entities\Menu\SubButton.cs" />
+    <Compile Include="Entities\MessageBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Request\RequestMessageBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Request\RequestMessageEventBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Request\RequestMessageEvent_Enter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Request\RequestMessageEvent_Location.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Request\RequestMessageImage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Request\RequestMessageLocation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Request\RequestMessageText.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Request\RequestMessageVoice.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Response\Article.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Response\Music.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Response\ResponseMessageBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Response\ResponseMessageMusic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Response\ResponseMessageNews.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Response\ResponseMessageText.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />

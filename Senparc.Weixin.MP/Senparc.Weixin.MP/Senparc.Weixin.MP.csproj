@@ -106,6 +106,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Enums.cs" />
+    <Compile Include="Exceptions\ErrorJsonResultException.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\EventHelper.cs" />

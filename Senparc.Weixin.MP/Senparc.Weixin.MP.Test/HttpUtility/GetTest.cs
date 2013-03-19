@@ -16,15 +16,12 @@ namespace Senparc.Weixin.MP.Test.HttpUtility
             {
                 //这里因为参数错误，系统会返回错误信息
                 AccessTokenResult resultFail = Get.GetJson<AccessTokenResult>(url);
-                Assert.IsNull(resultFail);
-
-                //期望的信息（错误信息）
-                WxJsonResult resultSuuces = Get.GetJson<WxJsonResult>(url);
-                Assert.AreEqual(resultSuuces.errorcode, ReturnCode.不合法的APPID);
+                Assert.Fail();//上一步就应该已经抛出异常
             }
-            catch (Exception)
+            catch (ErrorJsonResultException ex)
             {
-               
+                //实际返回的信息（错误信息）
+                Assert.AreEqual(ex.JsonResult.errcode, ReturnCode.不合法的APPID);
             }
         }
     }

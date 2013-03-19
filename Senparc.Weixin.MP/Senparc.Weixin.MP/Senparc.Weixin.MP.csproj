@@ -111,6 +111,7 @@
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\EventHelper.cs" />
     <Compile Include="Helpers\GoogleMapHelper.cs" />
+    <Compile Include="Helpers\GpsHelper.cs" />
     <Compile Include="Helpers\MsgTypeHelper.cs" />
     <Compile Include="HttpUtility\Get.cs" />
     <Compile Include="HttpUtility\RequestUtility.cs" />

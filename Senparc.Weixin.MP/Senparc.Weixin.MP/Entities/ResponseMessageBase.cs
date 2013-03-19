@@ -33,7 +33,7 @@ namespace Senparc.Weixin.MP.Entities
                                              {
                                                  ToUserName = requestMessage.FromUserName,
                                                  FromUserName = requestMessage.ToUserName,
-                                                 CreateTime = DateTime.Now,//使用当前最新事件
+                                                 CreateTime = DateTime.Now,//使用当前最新时间
                                                  MsgType = msgType
                                              };
                         break;
@@ -42,7 +42,7 @@ namespace Senparc.Weixin.MP.Entities
                                                {
                                                    ToUserName = requestMessage.FromUserName,
                                                    FromUserName = requestMessage.ToUserName,
-                                                   CreateTime = DateTime.Now,//使用当前最新事件
+                                                   CreateTime = DateTime.Now,//使用当前最新时间
                                                    MsgType = msgType
                                                };
                         break; break;
@@ -51,7 +51,7 @@ namespace Senparc.Weixin.MP.Entities
                                               {
                                                   ToUserName = requestMessage.FromUserName,
                                                   FromUserName = requestMessage.ToUserName,
-                                                  CreateTime = DateTime.Now,//使用当前最新事件
+                                                  CreateTime = DateTime.Now,//使用当前最新时间
                                                   MsgType = msgType
                                               };
                         break;

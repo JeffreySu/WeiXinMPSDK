@@ -52,12 +52,17 @@ namespace Senparc.Weixin.MP
                         //判断类型
                         switch (doc.Root.Element("Event").Value.ToUpper())
                         {
-                            case "ENTER"://进入会话
-                                requestMessage = new RequestMessageEvent_Enter();
+                                //Modify By MagicHu @2013-3-23 Start 
+                            case "SUBSCRIBE"://订阅
+                                requestMessage = new RequestMessageEvent_Subscribe() { Event = Event.subscribe };
                                 break;
-                            case "LOCATION"://地理位置
-                                requestMessage = new RequestMessageEvent_Location();
+                            case "UNSUBSCRIBE"://取消订阅
+                                requestMessage = new RequestMessageEvent_UnSubscribe() { Event = Event.unsubscribe };
                                 break;
+                            case "CLICK"://自定义菜单点击事件
+                                requestMessage = new RequestMessageEvent_Click() { Event = Event.CLICK };
+                                break;
+                            //Modify By MagicHu @2013-3-23 End 
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

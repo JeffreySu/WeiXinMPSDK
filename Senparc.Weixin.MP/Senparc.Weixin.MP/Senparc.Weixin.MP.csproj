@@ -63,18 +63,15 @@
     <Compile Include="Entities\MessageBase.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Entities\Request\RequestMessageEvent_Click.cs" />
+    <Compile Include="Entities\Request\RequestMessageEvent_Subscribe.cs" />
     <Compile Include="Entities\Request\RequestMessageBase.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Entities\Request\RequestMessageEventBase.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Entities\Request\RequestMessageEvent_Enter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Entities\Request\RequestMessageEvent_Location.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Entities\Request\RequestMessageEvent_UnSubscribe.cs" />
     <Compile Include="Entities\Request\RequestMessageImage.cs">
       <SubType>Code</SubType>
     </Compile>

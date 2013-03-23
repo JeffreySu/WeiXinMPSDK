@@ -23,16 +23,6 @@ namespace Senparc.Weixin.MP
     public enum Event
     {
         /// <summary>
-        /// 进入会话（似乎已从官方API中移除）
-        /// </summary>
-        ENTER,
-
-        /// <summary>
-        /// 地理位置（似乎已从官方API中移除）
-        /// </summary>
-        LOCATION,
-
-        /// <summary>
         /// 订阅
         /// </summary>
         subscribe,

@@ -13,4 +13,6 @@
 
 源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
 
+SDK技术交流QQ群：300313885
+
 新浪微博：@苏震巍

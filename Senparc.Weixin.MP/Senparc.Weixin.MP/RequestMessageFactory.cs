@@ -58,6 +58,12 @@ namespace Senparc.Weixin.MP
                             case "LOCATION"://地理位置
                                 requestMessage = new RequestMessageEvent_Location();
                                 break;
+                            case "SUBSCRIBE"://订阅（关注）
+                                requestMessage = new RequestMessageEvent_Subscribe();
+                                break;
+                            case "UNSUBSCRIBE"://取消订阅（关注）
+                                requestMessage = new RequestMessageEvent_Unsubscribe();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

@@ -75,6 +75,27 @@ namespace Senparc.Weixin.MP.Test
     <Precision>119.385040</Precision>
 </xml>";
 
+        private string xmlEvent_Subscribe = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+  <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+  <CreateTime>1364447046</CreateTime>
+  <MsgType><![CDATA[event]]></MsgType>
+  <Event><![CDATA[subscribe]]></Event>
+  <EventKey><![CDATA[]]></EventKey>
+</xml>";
+
+        private string xmlEvent_Unsubscribe = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+  <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+  <CreateTime>1364447020</CreateTime>
+  <MsgType><![CDATA[event]]></MsgType>
+  <Event><![CDATA[unsubscribe]]></Event>
+  <EventKey><![CDATA[]]></EventKey>
+</xml>
+";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -135,6 +156,25 @@ namespace Senparc.Weixin.MP.Test
                 Assert.AreEqual(23.137466, result.Latitude);
                 Assert.AreEqual(113.352425, result.Longitude);
                 Assert.AreEqual(119.385040, result.Precision);
+            }
+
+            {
+                //Event-Subscribe
+                var doc = XDocument.Parse(xmlEvent_Subscribe);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Subscribe;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual(Event.subscribe, result.Event);
+            }
+
+            {
+                //Event-Unsubscribe
+                var doc = XDocument.Parse(xmlEvent_Unsubscribe);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Unsubscribe;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual(Event.unsubscribe, result.Event);
+                Assert.AreEqual(new DateTime(2013, 3, 28), result.CreateTime.Date);
             }
         }
     }

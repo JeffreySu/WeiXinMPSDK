@@ -14,8 +14,8 @@ namespace Senparc.Weixin.MP.Sample.Service
         public ResponseMessageNews GetResponseMessage(RequestMessageLocation requestMessage)
         {
             var responseMessage =
-                                ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.News) as
-                                ResponseMessageNews;
+                                 ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.News) as
+                                 ResponseMessageNews;
 
             var markersList = new List<Markers>();
             markersList.Add(new Markers()
@@ -27,15 +27,15 @@ namespace Senparc.Weixin.MP.Sample.Service
                 Size = MarkerSize.Default,
             });
             var mapSize = "480x600";
-            var mapUrl = GoogleMapHelper.GetGoogleStaticMap(19 /*requestMessage.Scale*//*微信和GoogleMap的Scale不一致，这里建议使用固定值*/, 
+            var mapUrl = GoogleMapHelper.GetGoogleStaticMap(19 /*requestMessage.Scale*//*微信和GoogleMap的Scale不一致，这里建议使用固定值*/,
                                                             markersList, size: mapSize);
             responseMessage.Articles.Add(new Article()
-                                             {
-                                                 Description = requestMessage.Label,
-                                                 PicUrl = mapUrl,
-                                                 Title = "定位地点周边地图",
-                                                 Url = mapUrl
-                                             });
+            {
+                Description = requestMessage.Label,
+                PicUrl = mapUrl,
+                Title = "定位地点周边地图",
+                Url = mapUrl
+            });
             responseMessage.Articles.Add(new Article()
             {
                 Title = "微信公众平台SDK 官网链接",

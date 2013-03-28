@@ -14,10 +14,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
     public class WeixinController : Controller
     {
-        private LocationService locationService;
+        private LocationService _locationService;
+        private EventService _eventService;
         public WeixinController()
         {
-            locationService = new LocationService();
+            _locationService = new LocationService();
+            _eventService = new EventService();
         }
 
         public readonly string Token = "weixin";
@@ -61,7 +63,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 {
                     case RequestMsgType.Text:
                         {
-                            //TODO:交给Service处理具体信息
+                            //TODO:交给Service处理具体信息，参考/Service/EventSercice.cs 及 /Service/LocationSercice.cs
                             var strongRequestMessage = requestMessage as RequestMessageText;
                             var strongresponseMessage =
                                 ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Text) as
@@ -84,11 +86,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                             //                  strongRequestMessage.Location_X, strongRequestMessage.Location_Y,
                             //                  strongRequestMessage.Scale,strongRequestMessage.Label);
                             responseMessage =
-                                locationService.GetResponseMessage(requestMessage as RequestMessageLocation);
+                                _locationService.GetResponseMessage(requestMessage as RequestMessageLocation);
                             break;
                         }
                     case RequestMsgType.Image:
                         {
+                            //TODO:交给Service处理具体信息
                             var strongRequestMessage = requestMessage as RequestMessageImage;
                             var strongresponseMessage =
                                 ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.News) as
@@ -113,12 +116,18 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         }
                         case RequestMsgType.Voice:
                         {
+                            //TODO:交给Service处理具体信息
                             var strongRequestMessage = requestMessage as RequestMessageVoice;
                             var strongresponseMessage =
                                ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Music) as
                                ResponseMessageMusic;
                             strongresponseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
                             responseMessage = strongresponseMessage;
+                            break;
+                        }
+                        case RequestMsgType.Event:
+                        {
+                            responseMessage =_eventService.GetResponseMessage(requestMessage as RequestMessageEventBase);
                             break;
                         }
                     default:

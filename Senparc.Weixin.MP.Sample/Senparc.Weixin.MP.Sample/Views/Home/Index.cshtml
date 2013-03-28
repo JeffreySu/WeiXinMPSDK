@@ -1,4 +1,7 @@
-﻿<header>
+﻿@{
+    ViewBag.Title = "Senparc.Weixin.MP - 微信公众平台SDK";
+}
+<header>
     <div class="content-wrapper">
         <div class="float-left">
             <p class="site-title">
@@ -19,6 +22,9 @@
             <p>
                 更多使用说明见：<a href="http://www.cnblogs.com/szw/archive/2013/01/13/senparc-weixin-mp-sdk.html" target="_blank">Senparc.Weixin.MP-微信公众平台SDK（C#）</a><br />
                 源代码及示例下载：<a href="https://github.com/JeffreySu/WeiXinMPSDK" target="_blank">https://github.com/JeffreySu/WeiXinMPSDK</a><br />
+            </p>
+            <p>
+                当前Demo运行的Senparc.Weixin.MP.dll版本：<a href="https://github.com/JeffreySu/WeiXinMPSDK" target="_blank">v@(TempData["Version"])</a>。
             </p>
         </div>
     </section>
@@ -47,6 +53,10 @@
             <li class="four">
                 <h5>语音测试</h5>
                 发送一条语音信息，系统将自动回复一条音乐格式信息。
+            </li>
+            <li class="five">
+                <h5>订阅测试</h5>
+                订阅（关注）账号，系统将发送一条欢迎信息（等同于之前的Hello2BizUser）。
             </li>
         </ol>
     </section>

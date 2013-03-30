@@ -78,6 +78,7 @@ Senparc.Weixin.MP.Sample中的关键代码说明
 ###如何处理微信POST请求？
 ###
 只需要在Action中使用RequestMessageFactory.GetRequestEntity(doc)，就能得到微信发来的所有请求：
+###
     XDocument doc = XDocument.Load(Request.InputStream);
     var requestMessage = RequestMessageFactory.GetRequestEntity(doc);
 

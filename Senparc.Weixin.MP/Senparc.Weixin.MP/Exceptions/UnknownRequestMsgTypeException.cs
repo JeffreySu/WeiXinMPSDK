@@ -2,20 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP
 {
     /// <summary>
     /// 未知请求类型。
     /// </summary>
-    public class ErrorJsonResultException : WeixinException
+    public class UnknownRequestMsgTypeException : WeixinException //ArgumentOutOfRangeException
     {
-        public WxJsonResult JsonResult { get; set; }
-        public ErrorJsonResultException(string message, Exception inner, WxJsonResult jsonResult)
+        public UnknownRequestMsgTypeException(string message, Exception inner)
             : base(message, inner)
-        {
-            JsonResult = jsonResult;
-        }
+        { }
     }
 }

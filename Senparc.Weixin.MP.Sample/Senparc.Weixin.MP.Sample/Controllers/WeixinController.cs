@@ -10,6 +10,7 @@ using System.Xml.Linq;
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
     using Senparc.Weixin.MP.Entities;
+    using Senparc.Weixin.MP.Helpers;
     using Senparc.Weixin.MP.Sample.Service;
 
     public class WeixinController : Controller
@@ -52,12 +53,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 return Content("参数错误！");
             }
-            XDocument doc = null;
+            XDocument requestDoc = null;
             try
             {
-                doc = XDocument.Load(Request.InputStream);
-                var requestMessage = RequestMessageFactory.GetRequestEntity(doc);
-                doc.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Request_" + requestMessage.FromUserName + ".txt"));//测试时可开启，帮助跟踪数据
+                requestDoc = XDocument.Load(Request.InputStream);
+
+                var requestMessage = RequestMessageFactory.GetRequestEntity(requestDoc);
+                //如果不需要记录requestDoc，只需要：
+                //var requestMessage = RequestMessageFactory.GetRequestEntity(Request.InputStream);
+
+                requestDoc.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Request_" + requestMessage.FromUserName + ".txt"));//测试时可开启，帮助跟踪数据
                 ResponseMessageBase responseMessage = null;
                 switch (requestMessage.MsgType)
                 {
@@ -77,14 +82,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         }
                     case RequestMsgType.Location://位置
                         {
-                            //var strongRequestMessage = requestMessage as RequestMessageLocation;
-                            //var strongresponseMessage =
-                            //    ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Text) as
-                            //    ResponseMessageText;
-                            //strongresponseMessage.Content =
-                            //    string.Format("您刚才发送了地理位置信息。Location_X：{0}，Location_Y：{1}，Scale：{2}，标签：{3}",
-                            //                  strongRequestMessage.Location_X, strongRequestMessage.Location_Y,
-                            //                  strongRequestMessage.Scale,strongRequestMessage.Label);
                             responseMessage = _locationService.GetResponseMessage(requestMessage as RequestMessageLocation);
                             break;
                         }
@@ -136,6 +133,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 responseDoc.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Response_" + responseMessage.ToUserName + ".txt"));//测试时可开启，帮助跟踪数据
 
                 return Content(responseDoc.ToString());
+                //如果不需要记录responseDoc，只需要：
+                //return Content(responseMessage.ConvertEntityToXmlString());
             }
             catch (Exception ex)
             {
@@ -144,9 +143,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 {
                     tw.WriteLine(ex.Message);
                     tw.WriteLine(ex.InnerException.Message);
-                    if (doc != null)
+                    if (requestDoc != null)
                     {
-                        tw.WriteLine(doc.ToString());
+                        tw.WriteLine(requestDoc.ToString());
                     }
                     tw.Flush();
                     tw.Close();

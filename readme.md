@@ -26,12 +26,11 @@ SDK技术交流QQ群：300313885
 
 项目文件夹说明
 --------------
-### 
-    Senparc.Weixin.MP.BuildOutPut：Senparc.Weixin.MP.dll发布文件夹
+> Senparc.Weixin.MP.BuildOutPut：Senparc.Weixin.MP.dll发布文件夹
 
-    Senparc.Weixin.MP.Sample：可以直接发布使用的Demo（ASP.NET MVC4.0）
+> Senparc.Weixin.MP.Sample：可以直接发布使用的Demo（ASP.NET MVC4.0）
 
-    Senparc.Weixin.MP：Senparc.Weixin.MP.dll源代码
+> Senparc.Weixin.MP：Senparc.Weixin.MP.dll源代码
 
 Senparc.Weixin.MP.Sample中的关键代码说明
 --------------

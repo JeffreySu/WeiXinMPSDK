@@ -28,7 +28,7 @@ SDK技术交流QQ群：300313885
 --------------
 > Senparc.Weixin.MP.BuildOutPut：Senparc.Weixin.MP.dll发布文件夹
 
-> Senparc.Weixin.MP.Sample：可以直接发布使用的Demo（ASP.NET MVC4.0）
+> Senparc.Weixin.MP.Sample：可以直接发布使用的Demo（ASP.NET MVC 4.0）
 
 > Senparc.Weixin.MP：Senparc.Weixin.MP.dll源代码
 
@@ -72,3 +72,62 @@ Senparc.Weixin.MP.Sample中的关键代码说明
             ...
         }
 这个Action用于接收来自微信服务器的Post请求（通常由用户发起），这里的if必不可少，之前的Get只提供微信后台保存Url时的验证，每次Post必须重新验证，否则很容易伪造请求。
+
+###如何处理微信POST请求？
+###
+        XDocument doc = XDocument.Load(Request.InputStream);
+        var requestMessage = RequestMessageFactory.GetRequestEntity(doc);
+只需要在Action中使用RequestMessageFactory.GetRequestEntity(doc)，就能得到微信发来的所有请求。
+
+###如何响应不同类型的请求？
+通过requestMessage.MsgType分析请求的类型，并作出不同回应，如：
+###
+    switch (requestMessage.MsgType)
+    {
+        case RequestMsgType.Text://文字类型
+            {
+                //TODO:交给Service处理具体信息，参考/Service/EventSercice.cs 及 /Service/LocationSercice.cs
+                var strongRequestMessage = requestMessage as RequestMessageText;
+                var strongresponseMessage =
+                         ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Text) as
+                         ResponseMessageText;
+                strongresponseMessage.Content =
+                    string.Format(
+                        "您刚才发送了文字信息：{0}\r\n您还可以发送【位置】【图片】【语音】信息，查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com",
+                        strongRequestMessage.Content);
+                responseMessage = strongresponseMessage;
+                break;
+            }
+        case RequestMsgType.Location://地理位置
+            ...
+            break;
+        case RequestMsgType.Image://图片
+            ...
+            break;
+            case RequestMsgType.Voice://语音
+            ...
+            break;
+        default:
+            throw new ArgumentOutOfRangeException();
+    }
+上述代码中，当确定requestMessage.MsgType为RequestMsgType.Text时，可以大胆使用转换（由RequestMessageFactory负责自动完成）：
+###
+    var strongRequestMessage = requestMessage as RequestMessageText;
+其他类型以此类推。
+###如何生成要返回的数据？
+当需要返回数据时，只需要这样做：
+###
+    var strongresponseMessage = ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Text) as ResponseMessageText;
+
+其中ResponseMsgType.Text是返回数据类型，可以是文字、新闻（图片）、语音、音乐等。
+ResponseMessageText类型和ResponseMsgType.Text对应，其他类型以此类推（由ResponseMessageFactory负责自动完成）。
+
+###如何把结果返回给服务器？
+第一步：把ResponseMessage生成XML（由于微信的个别特殊机制，不能简单序列化）：
+###
+    var responseDoc = MP.Helpers.EntityHelper.ConvertEntityToXml(responseMessage);
+第二步：在Action中直接返回responseDoc（XDocument类型）的XML字符串。
+###
+    return Content(responseDoc.ToString());
+    
+至此整个响应过程结束。

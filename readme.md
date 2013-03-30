@@ -118,9 +118,11 @@ Senparc.Weixin.MP.Sample中的关键代码说明
 当需要返回数据时，只需要这样做：
 ###
     var strongresponseMessage = ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Text) as ResponseMessageText;
+ResponseMessageBase.CreateFromRequestMessage()方法负责生成对应ResponseMsgType类型的响应类型实例，其中经过了对换收/发方地址（OpenID）、定义创建时间等一系列自动操作。
 
-其中ResponseMsgType.Text是返回数据类型，可以是文字、新闻（图片）、语音、音乐等。
+其中，requestMessage是上一步中获取到的微信服务器请求数据，ResponseMsgType.Text是返回数据类型，可以是文字、新闻（图片）、语音、音乐等。
 ResponseMessageText类型和ResponseMsgType.Text对应，其他类型以此类推（由ResponseMessageFactory负责自动完成）。
+
 
 ###如何把结果返回给服务器？
 第一步：把ResponseMessage生成XML（由于微信的个别特殊机制，不能简单序列化）：

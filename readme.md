@@ -124,7 +124,7 @@ ResponseMessageBase.CreateFromRequestMessage()方法负责生成对应ResponseMs
 ResponseMessageText类型和ResponseMsgType.Text对应，其他类型以此类推（由ResponseMessageFactory负责自动完成）。
 
 
-###如何把结果返回给服务器？
+###如何把结果返回给微信服务器？
 第一步：把ResponseMessage生成XML（由于微信的个别特殊机制，不能简单序列化）：
 ###
     var responseDoc = MP.Helpers.EntityHelper.ConvertEntityToXml(responseMessage);

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 
 namespace Senparc.Weixin.MP
 {
@@ -90,6 +92,22 @@ namespace Senparc.Weixin.MP
         public static IRequestMessageBase GetRequestEntity(string xml)
         {
             return GetRequestEntity(XDocument.Parse(xml));
+        }
+
+
+        /// <summary>
+        /// 获取XDocument转换后的IRequestMessageBase实例。
+        /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+        /// </summary>
+        /// <param name="stream">如Request.InputStream</param>
+        /// <returns></returns>
+        public static IRequestMessageBase GetRequestEntity(Stream stream)
+        {
+            using (XmlReader xr = XmlReader.Create(stream))
+            {
+                var doc = XDocument.Load(xr);
+                return GetRequestEntity(doc);
+            }
         }
     }
 }

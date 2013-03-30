@@ -135,7 +135,7 @@ ResponseMessageText类型和ResponseMsgType.Text对应，其他类型以此类�
 第二步：在Action中直接返回responseDoc（XDocument类型）的XML字符串。
 ###
     return Content(responseDoc.ToString());
-如果你不需要responseDoc这个XML“中间数据”，那么也只需要一行（加上using Senparc.Weixin.MP.Helpers）：
+如果你不需要responseDoc这个XML“中间数据”，那么以上两步只需要换做一行（加上using Senparc.Weixin.MP.Helpers）：
 ###
     return Content(responseMessage.ConvertEntityToXmlString());
     

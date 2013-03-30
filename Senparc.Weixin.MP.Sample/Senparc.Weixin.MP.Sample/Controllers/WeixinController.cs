@@ -61,7 +61,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 ResponseMessageBase responseMessage = null;
                 switch (requestMessage.MsgType)
                 {
-                    case RequestMsgType.Text:
+                    case RequestMsgType.Text://文字
                         {
                             //TODO:交给Service处理具体信息，参考/Service/EventSercice.cs 及 /Service/LocationSercice.cs
                             var strongRequestMessage = requestMessage as RequestMessageText;
@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                             responseMessage = strongresponseMessage;
                             break;
                         }
-                    case RequestMsgType.Location:
+                    case RequestMsgType.Location://位置
                         {
                             //var strongRequestMessage = requestMessage as RequestMessageLocation;
                             //var strongresponseMessage =
@@ -85,11 +85,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                             //    string.Format("您刚才发送了地理位置信息。Location_X：{0}，Location_Y：{1}，Scale：{2}，标签：{3}",
                             //                  strongRequestMessage.Location_X, strongRequestMessage.Location_Y,
                             //                  strongRequestMessage.Scale,strongRequestMessage.Label);
-                            responseMessage =
-                                _locationService.GetResponseMessage(requestMessage as RequestMessageLocation);
+                            responseMessage = _locationService.GetResponseMessage(requestMessage as RequestMessageLocation);
                             break;
                         }
-                    case RequestMsgType.Image:
+                    case RequestMsgType.Image://图片
                         {
                             //TODO:交给Service处理具体信息
                             var strongRequestMessage = requestMessage as RequestMessageImage;
@@ -114,7 +113,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                             responseMessage = strongresponseMessage;
                             break;
                         }
-                        case RequestMsgType.Voice:
+                    case RequestMsgType.Voice://语音
                         {
                             //TODO:交给Service处理具体信息
                             var strongRequestMessage = requestMessage as RequestMessageVoice;
@@ -125,9 +124,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                             responseMessage = strongresponseMessage;
                             break;
                         }
-                        case RequestMsgType.Event:
+                    case RequestMsgType.Event://事件
                         {
-                            responseMessage =_eventService.GetResponseMessage(requestMessage as RequestMessageEventBase);
+                            responseMessage = _eventService.GetResponseMessage(requestMessage as RequestMessageEventBase);
                             break;
                         }
                     default:

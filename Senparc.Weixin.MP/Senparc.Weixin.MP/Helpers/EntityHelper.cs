@@ -15,7 +15,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <typeparam name="T">MessageBase为基类的类型，Response和Request都可以</typeparam>
         /// <param name="entity">实体</param>
         /// <param name="doc">XML</param>
-        public static void FillEntityWithXml<T>(T entity, XDocument doc) where T : /*MessageBase*/ class, new()
+        public static void FillEntityWithXml<T>(this T entity, XDocument doc) where T : /*MessageBase*/ class, new()
         {
             entity = entity ?? new T();
             var root = doc.Root;
@@ -97,7 +97,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <typeparam name="T"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public static XDocument ConvertEntityToXml<T>(T entity) where T : class , new()
+        public static XDocument ConvertEntityToXml<T>(this T entity) where T : class , new()
         {
             entity = entity ?? new T();
             var doc = new XDocument();
@@ -184,6 +184,17 @@ namespace Senparc.Weixin.MP.Helpers
                 }
             }
             return doc;
+        }
+
+        /// <summary>
+        /// 将实体转为XML字符串
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public static string ConvertEntityToXmlString<T>(this T entity)where T : class , new()
+        {
+            return entity.ConvertEntityToXml().ToString();
         }
     }
 }

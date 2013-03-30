@@ -35,9 +35,11 @@ SDK技术交流QQ群：300313885
 Senparc.Weixin.MP.Sample中的关键代码说明
 --------------
 ###/Controllers/WeixinController.cs
+下面的Token需要和微信公众平台后台设置的Token同步，如果经常更换建议写入Web.config等配置文件：
+###
     public readonly string Token = "weixin";
-这里的Token需要和微信公众平台后台设置的Token同步，如果经常更换建议写入Web.config等配置文件。
 
+下面这个Action（Get）用于接收并返回微信后台Url的验证结果，无需改动。地址如：http://domain/Weixin或http://domain/Weixin/Index
 ###
     /// <summary>
     /// 微信后台验证地址（使用Get），微信后台的“接口配置信息”的Url填写如：http://weixin.senparc.com/weixin
@@ -55,8 +57,8 @@ Senparc.Weixin.MP.Sample中的关键代码说明
             return Content("failed:" + signature + "," + MP.CheckSignature.GetSignature(timestamp, nonce, Token));
         }
     }
-这个Action用于接收并返回微信后台Url的验证结果，无需改动。地址如：http://domain/Weixin或http://domain/Weixin/Index
 
+下面这个Action（Post）用于接收来自微信服务器的Post请求（通常由用户发起），这里的if必不可少，之前的Get只提供微信后台保存Url时的验证，每次Post必须重新验证，否则很容易伪造请求。
 ###
     /// <summary>
     /// 用户发送消息后，微信平台自动Post一个请求到这里，并等待响应XML
@@ -71,13 +73,13 @@ Senparc.Weixin.MP.Sample中的关键代码说明
         }
         ...
     }
-这个Action用于接收来自微信服务器的Post请求（通常由用户发起），这里的if必不可少，之前的Get只提供微信后台保存Url时的验证，每次Post必须重新验证，否则很容易伪造请求。
+
 
 ###如何处理微信POST请求？
 ###
+只需要在Action中使用RequestMessageFactory.GetRequestEntity(doc)，就能得到微信发来的所有请求：
     XDocument doc = XDocument.Load(Request.InputStream);
     var requestMessage = RequestMessageFactory.GetRequestEntity(doc);
-只需要在Action中使用RequestMessageFactory.GetRequestEntity(doc)，就能得到微信发来的所有请求。
 
 如果你不需要得到XML这个“原始数据”，那么只需一行：
 ###

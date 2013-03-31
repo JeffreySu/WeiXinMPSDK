@@ -8,7 +8,10 @@ namespace Senparc.Weixin.MP
 {
     public class CheckSignature
     {
-        public static readonly string Token = "weixin";//必须和公众平台的token设置一致，或在方法中指定
+        /// <summary>
+        /// 在网站没有提供Token（或传入为null）的情况下的默认Token，建议在网站中进行配置。
+        /// </summary>
+        public const string Token = "weixin";
 
         /// <summary>
         /// 检查签名是否正确

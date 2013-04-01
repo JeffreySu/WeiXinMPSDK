@@ -23,6 +23,7 @@ SDK技术交流QQ群：300313885
 ###关注测试账号：
 [![image]](http://weixin.senparc.com/)  
 [image]: http://weixin.senparc.com/Images/qrcode.jpg
+PS：请大家努力关注！达不到一定关注人数无法申请开通自定义菜单的内侧功能。
 
 项目文件夹说明
 --------------

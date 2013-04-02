@@ -45,8 +45,10 @@ namespace Senparc.Weixin.MP.Sample.Service
                         responseMessage = strongResponseMessage;
                         break;
                     }
-                case Event.unsubscribe://退订，实际上用户无法收到非订阅账号的消息，所以这里可以随便写
+                case Event.unsubscribe://退订
                     {
+                        //实际上用户无法收到非订阅账号的消息，所以这里可以随便写。
+                        //unsubscribe事件的意义在于及时删除网站应用中已经记录的OpenID绑定，消除冗余数据。
                         var strongResponseMessage = ResponseMessageBase.CreateFromRequestMessage(requestMessage,
                                                                                        ResponseMsgType.Text) as ResponseMessageText;
                         strongResponseMessage.Content = "有空再来";

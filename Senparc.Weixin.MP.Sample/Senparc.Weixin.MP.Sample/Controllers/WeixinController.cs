@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                 ResponseMessageText;
                             strongresponseMessage.Content =
                                 string.Format(
-                                    "您刚才发送了文字信息：{0}\r\n您还可以发送【位置】【图片】【语音】信息，查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com",
+                                    "您刚才发送了文字信息：{0}\r\n您还可以发送【位置】【图片】【语音】等类型的信息，查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com",
                                     strongRequestMessage.Content);
                             responseMessage = strongresponseMessage;
                             break;

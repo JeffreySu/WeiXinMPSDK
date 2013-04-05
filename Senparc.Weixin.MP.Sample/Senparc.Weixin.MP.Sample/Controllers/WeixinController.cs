@@ -6,17 +6,20 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
+using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
     using Senparc.Weixin.MP.Entities;
     using Senparc.Weixin.MP.Helpers;
     using Senparc.Weixin.MP.Sample.Service;
+    using Senparc.Weixin.MP.Sample.CustomerMessageHandler;
 
     public class WeixinController : Controller
     {
         private LocationService _locationService;
         private EventService _eventService;
+
         public WeixinController()
         {
             _locationService = new LocationService();
@@ -34,7 +37,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             if (CheckSignature.Check(signature, timestamp, nonce, Token))
             {
-                return Content(echostr);//返回随机字符串则表示验证通过
+                return Content(echostr); //返回随机字符串则表示验证通过
             }
             else
             {
@@ -44,10 +47,29 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         /// <summary>
         /// 用户发送消息后，微信平台自动Post一个请求到这里，并等待响应XML
+        /// PS：此方法为简化方法，效果与OldPost一致
         /// </summary>
         [HttpPost]
         [ActionName("Index")]
         public ActionResult Post(string signature, string timestamp, string nonce, string echostr)
+        {
+            if (!CheckSignature.Check(signature, timestamp, nonce, Token))
+            {
+                return Content("参数错误！");
+            }
+
+            var messageHandler = new CustomerMessageHandler(Request.InputStream);
+            messageHandler.Execute();//执行微信处理过程
+            return Content(messageHandler.ResponseDocument.ToString());
+        }
+
+        /// <summary>
+        /// 用户发送消息后，微信平台自动Post一个请求到这里，并等待响应XML
+        /// PS：此方法为常规switch判断方法，从v0.3.3版本起，此Demo不再更新
+        /// </summary>
+        [HttpPost]
+        [ActionName("OldIndex")]
+        public ActionResult OldPost(string signature, string timestamp, string nonce, string echostr)
         {
             if (!CheckSignature.Check(signature, timestamp, nonce, Token))
             {

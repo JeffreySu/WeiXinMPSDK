@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="Entities\Request\RequestMessageEvent_Subscribe.cs" />
     <Compile Include="Entities\Request\RequestMessageEvent_Unsubscribe.cs" />
+    <Compile Include="Entities\Request\RequestMessageEvent_Click.cs" />
     <Compile Include="Entities\Response\Article.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -117,6 +118,7 @@
     <Compile Include="Helpers\MsgTypeHelper.cs" />
     <Compile Include="HttpUtility\Get.cs" />
     <Compile Include="HttpUtility\RequestUtility.cs" />
+    <Compile Include="MessageHandlers\MessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="Exceptions\UnknownRequestMsgTypeException.cs" />

@@ -12,6 +12,10 @@ namespace Senparc.Weixin.MP.Sample.Service
     using Senparc.Weixin.MP.Entities.GoogleMap;
     using Senparc.Weixin.MP.Helpers;
 
+    /// <summary>
+    /// 事件处理程序，此代码的简化MessageHandler方法已由/CustomerMessageHandler/CustomerMessageHandler_Event.cs完成，
+    /// 此文件不再更新。
+    /// </summary>
     public class EventService
     {
         public ResponseMessageBase GetResponseMessage(RequestMessageEventBase requestMessage)

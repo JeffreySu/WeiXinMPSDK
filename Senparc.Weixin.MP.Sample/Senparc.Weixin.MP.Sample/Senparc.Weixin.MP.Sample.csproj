@@ -133,6 +133,8 @@
     <Compile Include="Controllers\API\ValuesController.cs" />
     <Compile Include="Controllers\API\WeixinServiceController.cs" />
     <Compile Include="Controllers\WeixinController.cs" />
+    <Compile Include="CustomerMessageHandler\CustomerMessageHandler.cs" />
+    <Compile Include="CustomerMessageHandler\CustomerMessageHandler_Events.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

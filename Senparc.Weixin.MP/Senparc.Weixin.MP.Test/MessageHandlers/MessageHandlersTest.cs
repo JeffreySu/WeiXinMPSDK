@@ -46,6 +46,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             messageHandlers.Execute();
             Assert.IsNotNull(messageHandlers.ResponseMessage);
             Assert.IsNotNull(messageHandlers.ResponseDocument);
+            Console.Write(messageHandlers.ResponseDocument.ToString());
+
             Assert.AreEqual("gh_a96a4a619366", messageHandlers.ResponseMessage.FromUserName);
 
             var responseMessage = messageHandlers.ResponseMessage as ResponseMessageText;

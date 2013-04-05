@@ -69,6 +69,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 messageHandler.Execute();
                 //测试时可开启，帮助跟踪数据
                 messageHandler.ResponseDocument.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                return Content(messageHandler.ResponseDocument.ToString());
             }
             catch (Exception ex)
             {
@@ -85,8 +86,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 }
                 return Content("");
             }
-
-            return Content(messageHandler.ResponseDocument.ToString());
         }
 
         /// <summary>

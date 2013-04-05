@@ -30,7 +30,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 {
                     return null;
                 }
-                return EntityHelper.ConvertEntityToXml(ResponseMessage as RequestMessageBase);
+                return EntityHelper.ConvertEntityToXml(ResponseMessage as ResponseMessageBase);
             }
         }
 

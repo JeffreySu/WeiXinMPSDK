@@ -68,6 +68,7 @@
     <Compile Include="CheckSignatureTest.cs" />
     <Compile Include="HttpUtility\RequestUtilityTest.cs" />
     <Compile Include="HttpUtility\GetTest.cs" />
+    <Compile Include="MessageHandlers\MessageHandlersTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\MsgTypeHelperTest.cs" />
     <Compile Include="RequestMessageFactoryTest.cs" />

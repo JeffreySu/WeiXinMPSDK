@@ -16,6 +16,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
     /// </summary>
     public class MessageHandler
     {
+       /// <summary>
+       /// 在构造函数中转换得到原始XML数据
+       /// </summary>
         public XDocument RequestDocument { get; set; }
 
         /// <summary>

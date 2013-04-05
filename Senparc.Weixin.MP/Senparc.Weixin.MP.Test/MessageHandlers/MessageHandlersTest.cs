@@ -21,6 +21,46 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             responseMessage.Content = "文字信息";
             return responseMessage;
         }
+
+        public override IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IResponseMessageBase OnEvent_UnsubscribeRequest(RequestMessageEvent_Unsubscribe requestMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [TestClass]

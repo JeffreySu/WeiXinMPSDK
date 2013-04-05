@@ -14,7 +14,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
     /// </summary>
-    public class MessageHandler
+    public abstract class MessageHandler
     {
        /// <summary>
        /// 在构造函数中转换得到原始XML数据
@@ -104,32 +104,24 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 文字类型请求
         /// </summary>
-        public virtual IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
-        {
-            return null;
-        }
+        public abstract IResponseMessageBase OnTextRequest(RequestMessageText requestMessage);
+
         /// <summary>
         /// 位置类型请求
         /// </summary>
-        public virtual IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)
-        {
-            return null;
-        }
+        public abstract IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage);
+
         /// <summary>
         /// 图片类型请求
         /// </summary>
 
-        public virtual IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
-        {
-            return null;
-        }
+        public abstract IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage);
+
         /// <summary>
         /// 语音类型请求
         /// </summary>
-        public virtual IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
-        {
-            return null;
-        }
+        public abstract IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage);
+
         /// <summary>
         /// Event事件类型请求
         /// </summary>
@@ -165,38 +157,27 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// Event事件类型请求之ENTER
         /// </summary>
-        public virtual IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage)
-        {
-            return null;
-        }
+        public abstract IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage);
+
         /// <summary>
         /// Event事件类型请求之LOCATION
         /// </summary>
-        public virtual IResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage)
-        {
-            return null;
-        }
+        public abstract IResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage);
+
         /// <summary>
         /// Event事件类型请求之subscribe
         /// </summary>
-        public virtual IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
-        {
-            return null;
-        }
+        public abstract IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage);
+
         /// <summary>
         /// Event事件类型请求之unsubscribe
         /// </summary>
-        public virtual IResponseMessageBase OnEvent_UnsubscribeRequest(RequestMessageEvent_Unsubscribe requestMessage)
-        {
-            return null;
-        }
+        public abstract IResponseMessageBase OnEvent_UnsubscribeRequest(RequestMessageEvent_Unsubscribe requestMessage);
+
         /// <summary>
         /// Event事件类型请求之CLICK
         /// </summary>
-        public virtual IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
-        {
-            return null;
-        }
+        public abstract IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage);
 
         #endregion
     }

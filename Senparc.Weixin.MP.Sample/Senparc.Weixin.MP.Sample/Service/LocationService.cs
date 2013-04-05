@@ -13,9 +13,7 @@ namespace Senparc.Weixin.MP.Sample.Service
     {
         public ResponseMessageNews GetResponseMessage(RequestMessageLocation requestMessage)
         {
-            var responseMessage =
-                                 ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.News) as
-                                 ResponseMessageNews;
+            var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageNews>(requestMessage);
 
             var markersList = new List<Markers>();
             markersList.Add(new Markers()

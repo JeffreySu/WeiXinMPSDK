@@ -17,7 +17,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
     {
         public override IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage)
         {
-            var responseMessage = ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Text) as ResponseMessageText;
+            var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
             responseMessage.Content = "您刚才发送了ENTER事件请求。";
             return responseMessage;
         }

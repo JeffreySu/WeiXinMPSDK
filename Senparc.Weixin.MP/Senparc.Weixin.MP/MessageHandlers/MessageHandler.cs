@@ -50,8 +50,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             using (XmlReader xr = XmlReader.Create(inputStream))
             {
-                var requestDocument = XDocument.Load(xr);
-                Init(requestDocument);
+                RequestDocument = XDocument.Load(xr);
+                Init(RequestDocument);
             }
         }
 
@@ -63,7 +63,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         private void Init(XDocument requestDocument)
         {
             RequestDocument = requestDocument;
-            RequestMessage = RequestMessageFactory.GetRequestEntity(requestDocument);
+            RequestMessage = RequestMessageFactory.GetRequestEntity(RequestDocument);
         }
 
         /// <summary>

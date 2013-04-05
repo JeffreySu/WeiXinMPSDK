@@ -59,7 +59,32 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             var messageHandler = new CustomerMessageHandler(Request.InputStream);
-            messageHandler.Execute();//执行微信处理过程
+
+            try
+            {
+                //测试时可开启此记录，帮助跟踪数据
+                messageHandler.RequestDocument.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Request_" + messageHandler.RequestMessage.FromUserName + ".txt"));
+                //执行微信处理过程
+                messageHandler.Execute();
+                //测试时可开启，帮助跟踪数据
+                messageHandler.ResponseDocument.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+            }
+            catch (Exception ex)
+            {
+                using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_" + DateTime.Now.Ticks + ".txt")))
+                {
+                    tw.WriteLine(ex.Message);
+                    tw.WriteLine(ex.InnerException.Message);
+                    if (messageHandler.ResponseDocument != null)
+                    {
+                        tw.WriteLine(messageHandler.ResponseDocument.ToString());
+                    }
+                    tw.Flush();
+                    tw.Close();
+                }
+                return Content("");
+            }
+
             return Content(messageHandler.ResponseDocument.ToString());
         }
 

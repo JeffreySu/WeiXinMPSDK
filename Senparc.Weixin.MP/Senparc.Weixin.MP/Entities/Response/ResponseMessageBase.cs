@@ -79,12 +79,19 @@ namespace Senparc.Weixin.MP.Entities
         /// <typeparam name="T">需要返回的类型</typeparam>
         /// <param name="requestMessage">请求数据</param>
         /// <returns></returns>
-        public static ResponseMessageBase CreateFromRequestMessage<T>(IRequestMessageBase requestMessage) where T:IRequestMessageBase
+        public static ResponseMessageBase CreateFromRequestMessage<T>(IRequestMessageBase requestMessage) where T : IRequestMessageBase
         {
-            var tType = typeof (T);
-            var responseName = tType.Name.Replace("ResponseMessage", "");//请求名称
-            ResponseMsgType msgType = (ResponseMsgType)Enum.Parse(typeof(ResponseMsgType), responseName);
-            return CreateFromRequestMessage(requestMessage, msgType);
+            try
+            {
+                var tType = typeof(T);
+                var responseName = tType.Name.Replace("ResponseMessage", ""); //请求名称
+                ResponseMsgType msgType = (ResponseMsgType)Enum.Parse(typeof(ResponseMsgType), responseName);
+                return CreateFromRequestMessage(requestMessage, msgType);
+            }
+            catch (Exception ex)
+            {
+                throw new WeixinException("ResponseMessageBase.CreateFromRequestMessage<T>过程发生异常！", ex);
+            }
         }
     }
 }

@@ -58,6 +58,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("参数错误！");
             }
 
+            //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
             var messageHandler = new CustomerMessageHandler(Request.InputStream);
 
             try

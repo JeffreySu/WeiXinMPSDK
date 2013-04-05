@@ -21,6 +21,12 @@ namespace Senparc.Weixin.MP.Entities
         //public string Content { get; set; }
         public bool FuncFlag { get; set; }
 
+        /// <summary>
+        /// 获取响应类型实例，并初始化
+        /// </summary>
+        /// <param name="requestMessage">请求</param>
+        /// <param name="msgType">响应类型</param>
+        /// <returns></returns>
         public static ResponseMessageBase CreateFromRequestMessage(IRequestMessageBase requestMessage, ResponseMsgType msgType)
         {
             ResponseMessageBase responseMessage = null;
@@ -65,6 +71,20 @@ namespace Senparc.Weixin.MP.Entities
             }
 
             return responseMessage;
+        }
+
+        /// <summary>
+        /// 获取响应类型实例，并初始化
+        /// </summary>
+        /// <typeparam name="T">需要返回的类型</typeparam>
+        /// <param name="requestMessage">请求数据</param>
+        /// <returns></returns>
+        public static ResponseMessageBase CreateFromRequestMessage<T>(IRequestMessageBase requestMessage) where T:IRequestMessageBase
+        {
+            var tType = typeof (T);
+            var responseName = tType.Name.Replace("ResponseMessage", "");//请求名称
+            ResponseMsgType msgType = (ResponseMsgType)Enum.Parse(typeof(ResponseMsgType), responseName);
+            return CreateFromRequestMessage(requestMessage, msgType);
         }
     }
 }

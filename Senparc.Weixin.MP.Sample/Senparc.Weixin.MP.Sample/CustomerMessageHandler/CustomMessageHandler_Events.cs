@@ -33,8 +33,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
         /// <returns></returns>
         public override IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
         {
-            var responseMessage = ResponseMessageBase.CreateFromRequestMessage(requestMessage,
-                                                                                         ResponseMsgType.Text) as ResponseMessageText;
+            var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
 
             //获取Senparc.Weixin.MP.dll版本信息
             var fileVersionInfo = FileVersionInfo.GetVersionInfo(HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll"));

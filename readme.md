@@ -124,6 +124,9 @@ switch (requestMessage.MsgType)
 var strongRequestMessage = requestMessage as RequestMessageText;
 ```
 其他类型以此类推。
+
+除了上述繁琐而且丑陋的switch判断方法外，Senparc.Weixin.MP提供了更加简便、干净的消息处理方法用于完全取代这里的switch和if（当然在此之前最好能对上面的代码原理有所了解），MessageHandler，详细介绍请看：[如何使用MessageHandler简化消息处理流程](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)
+
 ###如何生成要返回的数据？
 当需要返回数据时，只需要这样做：
 ```C#

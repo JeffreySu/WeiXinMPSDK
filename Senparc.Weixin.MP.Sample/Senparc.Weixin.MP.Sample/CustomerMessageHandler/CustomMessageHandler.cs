@@ -13,9 +13,9 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
     /// 自定义MessageHandler
     /// 把MessageHandler作为基类，重写对应请求的处理方法
     /// </summary>
-    public partial class CustomerMessageHandler : MessageHandler
+    public partial class CustomMessageHandler : MessageHandler
     {
-        public CustomerMessageHandler(Stream inputStream)
+        public CustomMessageHandler(Stream inputStream)
             : base(inputStream)
         {
 

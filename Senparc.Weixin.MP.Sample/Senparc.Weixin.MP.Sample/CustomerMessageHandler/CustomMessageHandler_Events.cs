@@ -13,7 +13,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
     /// <summary>
     /// 自定义MessageHandler
     /// </summary>
-    public partial class CustomerMessageHandler : MessageHandler
+    public partial class CustomMessageHandler : MessageHandler
     {
         public override IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage)
         {

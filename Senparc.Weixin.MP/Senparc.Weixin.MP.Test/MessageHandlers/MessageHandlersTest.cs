@@ -13,7 +13,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
         }
 
-        public override Entities.IResponseMessageBase OnTextRequest(Entities.RequestMessageText requestMessage)
+        public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
             var responseMessage =
                ResponseMessageBase.CreateFromRequestMessage(RequestMessage, ResponseMsgType.Text) as

@@ -59,7 +59,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-            var messageHandler = new CustomerMessageHandler(Request.InputStream);
+            var messageHandler = new CustomMessageHandler(Request.InputStream);
 
             try
             {
@@ -100,7 +100,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("参数错误！");
             }
 
-            var messageHandler = new CustomerMessageHandler(Request.InputStream);
+            var messageHandler = new CustomMessageHandler(Request.InputStream);
 
             messageHandler.Execute();//执行微信处理过程
 

@@ -143,3 +143,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
       }
 ```
 这样CustomerMessageHandler在执行messageHandler.Execute()的时候，如果发现请求信息的类型是文本，会自动调用以上代码，并返回代码中的responseMessage作为返回信息。responseMessage可以是IResponseMessageBase接口下的任何类型（包括文字、新闻、多媒体等格式）。
+
+开原协议
+--------------
+MIT

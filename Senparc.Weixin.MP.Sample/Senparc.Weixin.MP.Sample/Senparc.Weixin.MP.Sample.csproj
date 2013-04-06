@@ -134,8 +134,8 @@
     <Compile Include="Controllers\API\WeixinServiceController.cs" />
     <Compile Include="Controllers\WeixinController.cs" />
     <Compile Include="Controllers\WeixinController_OldPost.cs" />
-    <Compile Include="CustomerMessageHandler\CustomMessageHandler.cs" />
-    <Compile Include="CustomerMessageHandler\CustomMessageHandler_Events.cs" />
+    <Compile Include="CustomMessageHandler\CustomMessageHandler.cs" />
+    <Compile Include="CustomMessageHandler\CustomMessageHandler_Events.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -75,88 +75,71 @@ public ActionResult Post(string signature, string timestamp, string nonce, strin
     ...
 }
 ```
+###如何处理微信请求？
+Senparc.Weixin.MP提供了2中处理请求的方式，[传统方法](https://github.com/JeffreySu/WeiXinMPSDK/wiki/处理微信信息的常规方法)及使用[MessageHandler](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)处理方法（推荐）。上面两个方法在wiki中已经有比较详细的说明，这里简单举例MessageHandler的处理方法。
 
-###如何处理微信POST请求？
-###
-只需要在Action中使用RequestMessageFactory.GetRequestEntity(doc)，就能得到微信发来的所有请求：
-```C#
-XDocument doc = XDocument.Load(Request.InputStream);
-var requestMessage = RequestMessageFactory.GetRequestEntity(doc);
-```
-如果你不需要得到XML这个“原始数据”，那么只需一行：
-```C#
-var requestMessage = RequestMessageFactory.GetRequestEntity(Request.InputStream);
-```
-###如何响应不同类型的请求？
-通过requestMessage.MsgType分析请求的类型，并作出不同回应，如：
-```C#
-switch (requestMessage.MsgType)
-{
-    case RequestMsgType.Text://文字类型
+MessageHandler的处理流程非常简单：
+``` C#
+        [HttpPost]
+        [ActionName("Post")]
+        public ActionResult Post(string signature, string timestamp, string nonce, string echostr)
         {
-            //TODO:交给Service处理具体信息，参考/Service/EventSercice.cs 及 /Service/LocationSercice.cs
-            var strongRequestMessage = requestMessage as RequestMessageText;
-            var strongresponseMessage =
-                     ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Text) as
-                     ResponseMessageText;
-            strongresponseMessage.Content =
-                string.Format(
-                    "您刚才发送了文字信息：{0}\r\n您还可以发送【位置】【图片】【语音】信息，查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com",
-                    strongRequestMessage.Content);
-            responseMessage = strongresponseMessage;
-            break;
+            if (!CheckSignature.Check(signature, timestamp, nonce, Token))
+            {
+                return Content("参数错误！");
+            }
+
+            var messageHandler = new CustomerMessageHandler(Request.InputStream);//接收消息
+            messageHandler.Execute();//执行微信处理过程
+            return Content(messageHandler.ResponseDocument.ToString());//返回数据
         }
-    case RequestMsgType.Location://地理位置
-        ...
-        break;
-    case RequestMsgType.Image://图片
-        ...
-        break;
-        case RequestMsgType.Voice://语音
-        ...
-        break;
-    default:
-        throw new ArgumentOutOfRangeException();
+```
+整个消息的接收、处理、返回分别只需要一行代码。
+
+上述代码中的CustomerMessageHandler是一个自定义的类，继承自Senparc.Weixin.MP.MessageHandler.cs。MessageHandler是一个抽象类，包含了执行各个请求的抽象方法，我们只需要在自己创建的CustomerMessageHandler中逐个实现这些方法就可以了。刚建好的CustomerMessageHandler.cs如下：
+```C#
+using System;
+using System.IO;
+using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.Weixin.MP.Entities;
+
+namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
+{
+    public class MyMessageHandler:MessageHandler
+    {
+        public MyMessageHandler(Stream inputStream)
+            : base(inputStream)
+        {
+
+        }
+
+        public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
+        {
+            throw new NotImplementedException();
+        }
+
+        ....
+    }
 }
 ```
-上述代码中，当确定requestMessage.MsgType为RequestMsgType.Text时，可以大胆使用转换（由RequestMessageFactory负责自动完成）：
+其中OnTextRequest、OnVoiceRequest等分别对应了接收文字、语音等不同的请求类型。
+
+比如我们需要对文字类型请求做出回应，只需要完善OnTextRequest方法：
 ```C#
-var strongRequestMessage = requestMessage as RequestMessageText;
+      public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+      {
+          //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
+          var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(RequestMessage);//v0.3版本之前的非泛型方法仍然有效
+          responseMessage.Content =
+              string.Format(
+                  "您刚才发送了文字信息：{0}",
+                  requestMessage.Content);
+          return responseMessage;
+      }
 ```
-其他类型以此类推。
-
-对于v0.3之后的版本，我们对ResponseMessageBase.CreateFromRequestMessage也有了更加漂亮的替代写法（原方法仍然是基础，可用）：
-```C#
-var strongRequestMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(RequestMessage);
-```
-其中ResponseMessageText就是期望返回的消息类型。
-
-除了上述繁琐而且丑陋的switch判断方法外，Senparc.Weixin.MP提供了更加简便、干净的消息处理方法用于完全取代这里的switch和if（当然在此之前最好能对上面的代码原理有所了解），MessageHandler，详细介绍请看：[如何使用MessageHandler简化消息处理流程](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)
-
-
-###如何生成要返回的数据？
-当需要返回数据时，只需要这样做：
-```C#
-var strongresponseMessage = ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Text) as ResponseMessageText;
-```
-ResponseMessageBase.CreateFromRequestMessage()方法负责生成对应ResponseMsgType类型的响应类型实例，其中经过了对换收/发方地址（OpenID）、定义创建时间等一系列自动操作。
-
-其中，requestMessage是上一步中获取到的微信服务器请求数据，ResponseMsgType.Text是返回数据类型，可以是文字、新闻（图片）、语音、音乐等。
-ResponseMessageText类型和ResponseMsgType.Text对应，其他类型以此类推（由ResponseMessageFactory负责自动完成）。
-
-
-###如何把结果返回给微信服务器？
-第一步：把ResponseMessage生成XML（由于微信的个别特殊机制，不能简单序列化）：
-```C#
-var responseDoc = MP.Helpers.EntityHelper.ConvertEntityToXml(responseMessage);
-```
-第二步：在Action中直接返回responseDoc（XDocument类型）的XML字符串。
-```C#
-return Content(responseDoc.ToString());
-```
-如果你不需要responseDoc这个XML“中间数据”，那么以上两步只需要换做一行（加上using Senparc.Weixin.MP.Helpers）：
-```C#
-return Content(responseMessage.ConvertEntityToXmlString());
-```
-    
-至此整个响应过程结束。
+这样CustomerMessageHandler在执行messageHandler.Execute()的时候，如果发现请求信息的类型是文本，会自动调用以上代码，并返回代码中的responseMessage作为返回信息。responseMessage可以是IResponseMessageBase接口下的任何类型（包括文字、新闻、多媒体等格式）。

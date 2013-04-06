@@ -80,19 +80,19 @@ Senparc.Weixin.MP提供了2中处理请求的方式，[传统方法](https://git
 
 MessageHandler的处理流程非常简单：
 ``` C#
-        [HttpPost]
-        [ActionName("Post")]
-        public ActionResult Post(string signature, string timestamp, string nonce, string echostr)
-        {
-            if (!CheckSignature.Check(signature, timestamp, nonce, Token))
-            {
-                return Content("参数错误！");
-            }
+[HttpPost]
+[ActionName("Post")]
+public ActionResult Post(string signature, string timestamp, string nonce, string echostr)
+{
+    if (!CheckSignature.Check(signature, timestamp, nonce, Token))
+    {
+        return Content("参数错误！");
+    }
 
-            var messageHandler = new CustomerMessageHandler(Request.InputStream);//接收消息
-            messageHandler.Execute();//执行微信处理过程
-            return Content(messageHandler.ResponseDocument.ToString());//返回数据
-        }
+    var messageHandler = new CustomerMessageHandler(Request.InputStream);//接收消息
+    messageHandler.Execute();//执行微信处理过程
+    return Content(messageHandler.ResponseDocument.ToString());//返回数据
+}
 ```
 整个消息的接收、处理、返回分别只需要一行代码。
 

@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.Sample.WebForms", "Senparc.Weixin.MP.Sample.WebForms\Senparc.Weixin.MP.Sample.WebForms.csproj", "{F4913863-687B-44EF-B1A4-655C49A5BCB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.Sample.CommonService", "..\Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.Sample.CommonService.csproj", "{CCD291E9-16FA-4B53-B032-EBD3F659567B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4913863-687B-44EF-B1A4-655C49A5BCB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4913863-687B-44EF-B1A4-655C49A5BCB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4913863-687B-44EF-B1A4-655C49A5BCB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4913863-687B-44EF-B1A4-655C49A5BCB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCD291E9-16FA-4B53-B032-EBD3F659567B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCD291E9-16FA-4B53-B032-EBD3F659567B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCD291E9-16FA-4B53-B032-EBD3F659567B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCD291E9-16FA-4B53-B032-EBD3F659567B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

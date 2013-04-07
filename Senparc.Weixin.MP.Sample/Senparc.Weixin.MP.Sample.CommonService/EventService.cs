@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Web;
+using Senparc.Weixin.MP.Entities;
 
-namespace Senparc.Weixin.MP.Sample.Service
+namespace Senparc.Weixin.MP.Sample.CommonService
 {
-    using Senparc.Weixin.MP.Entities;
-    using Senparc.Weixin.MP.Entities.GoogleMap;
-    using Senparc.Weixin.MP.Helpers;
-
     /// <summary>
     /// 事件处理程序，此代码的简化MessageHandler方法已由/CustomerMessageHandler/CustomerMessageHandler_Event.cs完成，
     /// 此文件不再更新。

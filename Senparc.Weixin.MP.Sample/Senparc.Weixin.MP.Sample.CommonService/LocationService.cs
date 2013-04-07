@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Entities.GoogleMap;
+using Senparc.Weixin.MP.Helpers;
 
-namespace Senparc.Weixin.MP.Sample.Service
+namespace Senparc.Weixin.MP.Sample.CommonService
 {
-    using Senparc.Weixin.MP.Entities;
-    using Senparc.Weixin.MP.Entities.GoogleMap;
-    using Senparc.Weixin.MP.Helpers;
-
     public class LocationService
     {
         public ResponseMessageNews GetResponseMessage(RequestMessageLocation requestMessage)

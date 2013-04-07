@@ -12,8 +12,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 {
     using Senparc.Weixin.MP.Entities;
     using Senparc.Weixin.MP.Helpers;
-    using Senparc.Weixin.MP.Sample.Service;
-    using Senparc.Weixin.MP.Sample.CustomerMessageHandler;
+    //using Senparc.Weixin.MP.Sample.Service;
+    //using Senparc.Weixin.MP.Sample.CustomerMessageHandler;
 
     public partial class WeixinController : Controller
     {

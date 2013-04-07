@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.Weixin.MP.Sample.CommonService;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -25,6 +26,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         [ActionName("OldIndex")]
         public ActionResult OldPost(string signature, string timestamp, string nonce, string echostr)
         {
+            LocationService locationService=new LocationService();
+            EventService eventService= new EventService();
+
             if (!CheckSignature.Check(signature, timestamp, nonce, Token))
             {
                 return Content("参数错误！");
@@ -58,7 +62,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         }
                     case RequestMsgType.Location://位置
                         {
-                            responseMessage = _locationService.GetResponseMessage(requestMessage as RequestMessageLocation);
+                            responseMessage = locationService.GetResponseMessage(requestMessage as RequestMessageLocation);
                             break;
                         }
                     case RequestMsgType.Image://图片
@@ -99,7 +103,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         }
                     case RequestMsgType.Event://事件
                         {
-                            responseMessage = _eventService.GetResponseMessage(requestMessage as RequestMessageEventBase);
+                            responseMessage = eventService.GetResponseMessage(requestMessage as RequestMessageEventBase);
                             break;
                         }
                     default:

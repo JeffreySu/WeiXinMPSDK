@@ -19,16 +19,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
     public partial class WeixinController : Controller
     {
-        private LocationService _locationService;
-        private EventService _eventService;
+        public readonly string Token = "weixin";//与微信公众账号后台的Token设置保持一致，区分大小写。
 
         public WeixinController()
         {
-            _locationService = new LocationService();
-            _eventService = new EventService();
+           
         }
-
-        public readonly string Token = "weixin";
 
         /// <summary>
         /// 微信后台验证地址（使用Get），微信后台的“接口配置信息”的Url填写如：http://weixin.senparc.com/weixin

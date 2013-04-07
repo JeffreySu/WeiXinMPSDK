@@ -33,7 +33,7 @@ PS：请大家努力关注！达不到一定关注人数无法申请开通自定
 
 > Senparc.Weixin.MP：Senparc.Weixin.MP.dll源代码
 
-Senparc.Weixin.MP.Sample中的关键代码说明
+Senparc.Weixin.MP.Sample中的关键代码说明（这是MVC项目，WebForms项目见Weixin.aspx）
 --------------
 ###/Controllers/WeixinController.cs
 下面的Token需要和微信公众平台后台设置的Token同步，如果经常更换建议写入Web.config等配置文件：

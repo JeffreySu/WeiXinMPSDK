@@ -27,7 +27,9 @@ PS：请大家努力关注！达不到一定关注人数无法申请开通自定
 --------------
 > Senparc.Weixin.MP.BuildOutPut：Senparc.Weixin.MP.dll发布文件夹
 
-> Senparc.Weixin.MP.Sample：可以直接发布使用的Demo（ASP.NET MVC 4.0）
+> Senparc.Weixin.MP.Sample：可以直接发布使用的Demo（ASP.NET MVC 4.0，需要.NET 4.0）
+
+> Senparc.Weixin.MP.Sample.WebForms：可以直接发布使用的Demo（ASP.NET WebForms，需要.NET 3.5）
 
 > Senparc.Weixin.MP：Senparc.Weixin.MP.dll源代码
 

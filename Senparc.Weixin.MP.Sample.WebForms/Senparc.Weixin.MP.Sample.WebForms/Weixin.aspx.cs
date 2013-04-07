@@ -23,7 +23,7 @@ namespace Senparc.Weixin.MP.Sample.WebForms
 
             if (Request.HttpMethod == "GET")
             {
-                //get method
+                //get method - 仅在微信后台填写URL验证时触发
                 if (CheckSignature.Check(signature, timestamp, nonce, Token))
                 {
                     WriteContent(echostr); //返回随机字符串则表示验证通过
@@ -36,7 +36,7 @@ namespace Senparc.Weixin.MP.Sample.WebForms
             }
             else
             {
-                //post method
+                //post method - 当有用户想公众账号发送消息时触发
                 if (!CheckSignature.Check(signature, timestamp, nonce, Token))
                 {
                     WriteContent("参数错误！");

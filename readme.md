@@ -18,7 +18,7 @@ SDK技术交流QQ群：300313885
 
 新浪微博：[@苏震巍](http://weibo.com/jeffreysu1984)
 
-###关注测试账号：
+###关注测试账号（SenparcRobot）：
 [![image]](http://weixin.senparc.com/)  
 [image]: http://weixin.senparc.com/Images/qrcode.jpg
 

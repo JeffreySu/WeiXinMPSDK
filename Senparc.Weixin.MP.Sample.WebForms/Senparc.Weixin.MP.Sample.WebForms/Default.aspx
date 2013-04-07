@@ -5,10 +5,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Senparc.Weixin.MP - 微信公众平台SDK</title>
-    <link href="/Content/site.css" rel="stylesheet"/>
-
-    <script src="/Scripts/modernizr-2.5.3.js"></script>
-
 </head>
 <body>
     

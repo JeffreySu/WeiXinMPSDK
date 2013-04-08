@@ -7,6 +7,11 @@ namespace Senparc.Weixin.MP.Entities
 {
     public class ResponseMessageNews : ResponseMessageBase, IResponseMessageBase
     {
+        public virtual ResponseMsgType MsgType
+        {
+            get { return ResponseMsgType.News; }
+        }
+
         public string Content { get; set; }
 
         public int ArticleCount

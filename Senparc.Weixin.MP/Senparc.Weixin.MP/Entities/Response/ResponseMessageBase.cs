@@ -7,7 +7,7 @@ namespace Senparc.Weixin.MP.Entities
 {
     public interface IResponseMessageBase : IMessageBase
     {
-        ResponseMsgType MsgType { get; set; }
+        ResponseMsgType MsgType { get; }
         //string Content { get; set; }
         bool FuncFlag { get; set; }
     }
@@ -17,7 +17,10 @@ namespace Senparc.Weixin.MP.Entities
     /// </summary>
     public class ResponseMessageBase : MessageBase, IResponseMessageBase
     {
-        public ResponseMsgType MsgType { get; set; }
+        public virtual ResponseMsgType MsgType
+        {
+            get { return ResponseMsgType.Text; }
+        }
         //public string Content { get; set; }
         public bool FuncFlag { get; set; }
 
@@ -40,7 +43,7 @@ namespace Senparc.Weixin.MP.Entities
                                                  ToUserName = requestMessage.FromUserName,
                                                  FromUserName = requestMessage.ToUserName,
                                                  CreateTime = DateTime.Now,//使用当前最新时间
-                                                 MsgType = msgType
+                                                 //MsgType = msgType
                                              };
                         break;
                     case ResponseMsgType.News:
@@ -49,7 +52,7 @@ namespace Senparc.Weixin.MP.Entities
                                                    ToUserName = requestMessage.FromUserName,
                                                    FromUserName = requestMessage.ToUserName,
                                                    CreateTime = DateTime.Now,//使用当前最新时间
-                                                   MsgType = msgType
+                                                   //MsgType = msgType
                                                };
                         break; break;
                     case ResponseMsgType.Music:
@@ -58,7 +61,7 @@ namespace Senparc.Weixin.MP.Entities
                                                   ToUserName = requestMessage.FromUserName,
                                                   FromUserName = requestMessage.ToUserName,
                                                   CreateTime = DateTime.Now,//使用当前最新事件
-                                                  MsgType = msgType
+                                                  //MsgType = msgType
                                               };
                         break;
                     default:

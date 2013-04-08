@@ -70,7 +70,7 @@ namespace Senparc.Weixin.MP.Test
                                                   ToUserName = "olPjZjsXuQPJoV0HlruZkNzKc91E",
                                                   FromUserName = "gh_a96a4a619366",
                                                   CreateTime = DateTimeHelper.GetDateTimeFromXml(63497820384),
-                                                  MsgType = ResponseMsgType.Text,
+                                                  //MsgType = ResponseMsgType.Text,
                                                   Content = "文字信息",
                                                   FuncFlag = false
                                               };
@@ -90,7 +90,7 @@ namespace Senparc.Weixin.MP.Test
                                                          FromUserName = "gh_a96a4a619366",
                                                          ToUserName = "olPjZjsXuQPJoV0HlruZkNzKc91E",
                                                          FuncFlag = false,
-                                                         MsgType = ResponseMsgType.News
+                                                         //MsgType = ResponseMsgType.News
                                                      };
                 var result = ResponseMessageFactory.GetResponseEntity(xmlNews) as ResponseMessageNews;
                 Assert.AreEqual(exceptResult.ToUserName, result.ToUserName);
@@ -115,7 +115,7 @@ namespace Senparc.Weixin.MP.Test
                                                             FromUserName = "gh_a96a4a619366",
                                                             ToUserName = "olPjZjsXuQPJoV0HlruZkNzKc91E",
                                                             FuncFlag = false,
-                                                            MsgType = ResponseMsgType.Music
+                                                            //MsgType = ResponseMsgType.Music
                                                         };
                 var result = ResponseMessageFactory.GetResponseEntity(xmlMusic) as ResponseMessageMusic;
                 Assert.AreEqual(exceptResult.ToUserName, result.ToUserName);

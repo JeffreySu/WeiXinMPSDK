@@ -55,10 +55,12 @@ namespace Senparc.Weixin.MP.Helpers
                             break;
                         //以下为枚举类型
                         case "RequestMsgType":
+                            //已设为只读
                             //prop.SetValue(entity, MsgTypeHelper.GetRequestMsgType(root.Element(propName).Value), null);
                             break;
                         case "ResponseMsgType"://Response适用
-                            prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
+                            //已设为只读
+                            //prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
                             break;
                         case "Event":
                             prop.SetValue(entity, EventHelper.GetEventType(root.Element(propName).Value), null);

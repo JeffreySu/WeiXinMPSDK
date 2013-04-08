@@ -13,7 +13,7 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
                                                 CreateTime = DateTime.Now,
                                                 FromUserName = "TNT2",
                                                 ToUserName = "Senparc",
-                                                MsgType = RequestMsgType.Text,
+                                                //MsgType = RequestMsgType.Text,
                                                 Content = "This is a text message."
                                             };
 

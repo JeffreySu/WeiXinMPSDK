@@ -19,6 +19,11 @@ namespace Senparc.Weixin.MP.Entities
 
     public class RequestMessageEventBase : RequestMessageBase, IRequestMessageBase
     {
+        public override RequestMsgType MsgType
+        {
+            get { return RequestMsgType.Event; }
+        }
+
         /// <summary>
         /// 事件类型
         /// </summary>

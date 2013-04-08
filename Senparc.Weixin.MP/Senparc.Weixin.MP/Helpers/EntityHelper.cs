@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.Entities;
@@ -54,7 +55,7 @@ namespace Senparc.Weixin.MP.Helpers
                             break;
                         //以下为枚举类型
                         case "RequestMsgType":
-                            prop.SetValue(entity, MsgTypeHelper.GetRequestMsgType(root.Element(propName).Value), null);
+                            //prop.SetValue(entity, MsgTypeHelper.GetRequestMsgType(root.Element(propName).Value), null);
                             break;
                         case "ResponseMsgType"://Response适用
                             prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);

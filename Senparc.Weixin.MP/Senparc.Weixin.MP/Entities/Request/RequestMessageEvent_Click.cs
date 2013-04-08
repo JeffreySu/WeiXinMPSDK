@@ -10,5 +10,6 @@ namespace Senparc.Weixin.MP.Entities
     /// </summary>
     public class RequestMessageEvent_Click : RequestMessageEventBase, IRequestMessageEventBase
     {
+
     }
 }

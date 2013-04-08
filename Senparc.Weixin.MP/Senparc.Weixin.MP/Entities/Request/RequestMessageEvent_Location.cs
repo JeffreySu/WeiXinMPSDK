@@ -8,6 +8,14 @@ namespace Senparc.Weixin.MP.Entities
     public class RequestMessageEvent_Location : RequestMessageEventBase, IRequestMessageEventBase
     {
         /// <summary>
+        /// 事件类型
+        /// </summary>
+        public override Event Event
+        {
+            get { return Event.LOCATION; }
+        }
+
+        /// <summary>
         /// 地理位置维度，事件类型为LOCATION的时存在
         /// </summary>
         public double Latitude { get; set; }

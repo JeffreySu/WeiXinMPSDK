@@ -50,8 +50,7 @@ namespace Senparc.Weixin.MP
                         requestMessage = new RequestMessageVoice();
                         break;
                     case RequestMsgType.Event:
-
-                        //判断类型
+                        //判断Event类型
                         switch (doc.Root.Element("Event").Value.ToUpper())
                         {
                             case "ENTER"://进入会话

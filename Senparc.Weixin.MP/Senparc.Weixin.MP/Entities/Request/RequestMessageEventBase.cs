@@ -10,7 +10,7 @@ namespace Senparc.Weixin.MP.Entities
         /// <summary>
         /// 事件类型
         /// </summary>
-        Event Event { get; set; }
+        Event Event { get; }
         /// <summary>
         /// 事件KEY值，与自定义菜单接口中KEY值对应
         /// </summary>
@@ -27,7 +27,11 @@ namespace Senparc.Weixin.MP.Entities
         /// <summary>
         /// 事件类型
         /// </summary>
-        public Event Event { get; set; }
+        public virtual Event Event
+        {
+            get { return Event.ENTER; }
+        }
+
         /// <summary>
         /// 事件KEY值，与自定义菜单接口中KEY值对应
         /// </summary>

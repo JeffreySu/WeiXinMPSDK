@@ -63,7 +63,8 @@ namespace Senparc.Weixin.MP.Helpers
                             //prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
                             break;
                         case "Event":
-                            prop.SetValue(entity, EventHelper.GetEventType(root.Element(propName).Value), null);
+                            //已设为只读
+                            //prop.SetValue(entity, EventHelper.GetEventType(root.Element(propName).Value), null);
                             break;
                         //以下为实体类型
                         case "List`1"://List<T>类型，ResponseMessageNews适用
@@ -71,18 +72,18 @@ namespace Senparc.Weixin.MP.Helpers
                             if (genericArguments[0].Name == "Article")//Response适用
                             {
                                 //文章下属节点item
-                                List<Article> articles=new List<Article>();
+                                List<Article> articles = new List<Article>();
                                 foreach (var item in root.Element(propName).Elements("item"))
                                 {
                                     var article = new Article();
-                                    FillEntityWithXml(article,new XDocument(item));
+                                    FillEntityWithXml(article, new XDocument(item));
                                     articles.Add(article);
                                 }
-                                prop.SetValue(entity, articles,null);
+                                prop.SetValue(entity, articles, null);
                             }
                             break;
                         case "Music"://ResponseMessageMusic适用
-                            Music music=new Music();
+                            Music music = new Music();
                             FillEntityWithXml(music, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, music, null);
                             break;
@@ -195,7 +196,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <typeparam name="T"></typeparam>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public static string ConvertEntityToXmlString<T>(this T entity)where T : class , new()
+        public static string ConvertEntityToXmlString<T>(this T entity) where T : class , new()
         {
             return entity.ConvertEntityToXml().ToString();
         }

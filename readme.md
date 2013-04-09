@@ -147,10 +147,6 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 License
 --------------
 FreeBSD License
-
-License
---------------
-FreeBSD License
 ```
 Copyright (c) 2013, Jeffrey Su  www.jeffreysu.gmail.com
 All rights reserved.

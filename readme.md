@@ -148,7 +148,7 @@ License
 --------------
 FreeBSD License
 ```
-Copyright (c) 2013, Jeffrey Su  www.jeffreysu.gmail.com
+Copyright (c) 2013, Jeffrey Su <www.jeffreysu.gmail.com>
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

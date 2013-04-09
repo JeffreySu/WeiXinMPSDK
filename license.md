@@ -1,6 +1,6 @@
 FreeBSD License
 ```
-Copyright (c) 2013, Jeffrey Su  www.jeffrey.su@gmail.com
+Copyright (c) 2013, Jeffrey Su <www.jeffrey.su@gmail.com>
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

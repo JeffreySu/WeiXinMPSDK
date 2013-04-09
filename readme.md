@@ -24,7 +24,7 @@ SDK技术交流QQ群：300313885
 
 项目文件夹说明
 --------------
-> Senparc.Weixin.MP.BuildOutPut：Senparc.Weixin.MP.dll发布文件夹
+> Senparc.Weixin.MP.BuildOutPut：最新版本Senparc.Weixin.MP.dll发布文件夹
 
 > Senparc.Weixin.MP.Sample：可以直接发布使用的Demo（ASP.NET MVC 4.0，需要.NET 4.0）
 

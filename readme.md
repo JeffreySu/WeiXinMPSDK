@@ -133,7 +133,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
       public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
       {
           //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
-          var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(RequestMessage);//v0.3版本之前的非泛型方法仍然有效
+          var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);//v0.3版本之前的非泛型方法仍然有效
           responseMessage.Content =
               string.Format(
                   "您刚才发送了文字信息：{0}",

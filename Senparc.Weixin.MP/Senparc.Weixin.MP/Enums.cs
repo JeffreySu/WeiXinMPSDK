@@ -14,7 +14,8 @@ namespace Senparc.Weixin.MP
         Location, //地理位置
         Image, //图片
         Voice, //语音
-        Event //事件推送
+        Link, //连接信息
+        Event, //事件推送
     }
 
     /// <summary>

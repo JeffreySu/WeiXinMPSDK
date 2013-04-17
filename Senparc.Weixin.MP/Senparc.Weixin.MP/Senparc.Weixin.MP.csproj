@@ -90,6 +90,7 @@
     <Compile Include="Entities\Request\RequestMessageEvent_Subscribe.cs" />
     <Compile Include="Entities\Request\RequestMessageEvent_Unsubscribe.cs" />
     <Compile Include="Entities\Request\RequestMessageEvent_Click.cs" />
+    <Compile Include="Entities\Request\RequestMessageLink.cs" />
     <Compile Include="Entities\Response\Article.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -54,6 +54,18 @@ namespace Senparc.Weixin.MP.Test
   <MsgId>5847298622973403529</MsgId>
 </xml>";
 
+        private string xmlLink = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+<ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+<FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+<CreateTime>1351776360</CreateTime>
+<MsgType><![CDATA[link]]></MsgType>
+<Title><![CDATA[公众平台官网链接]]></Title>
+<Description><![CDATA[Senparc.Weixin.MP SDK公众平台官网链接]]></Description>
+<Url><![CDATA[http://weixin.senparc.com]]></Url>
+<MsgId>1234567890123456</MsgId>
+</xml>";
+
         private string xmlEvent_Enter = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
@@ -135,6 +147,17 @@ namespace Senparc.Weixin.MP.Test
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual("X1yfgB2XI-faU6R2jmKz0X1JZmPCxIvM-9ktt4K92BB9577SCi41S-qMl60q5DJo", result.MediaId);
+            }
+
+            {
+                //Link
+                var doc = XDocument.Parse(xmlLink);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageLink;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual("公众平台官网链接", result.Title);
+                Assert.AreEqual("Senparc.Weixin.MP SDK公众平台官网链接", result.Description);
+                Assert.AreEqual("http://weixin.senparc.com", result.Url);
             }
 
             {

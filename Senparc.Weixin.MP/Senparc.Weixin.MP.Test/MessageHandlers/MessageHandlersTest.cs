@@ -61,6 +61,11 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
             throw new NotImplementedException();
         }
+
+        public override IResponseMessageBase OnLinkRequest(RequestMessageLink requestMessage)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     [TestClass]

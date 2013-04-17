@@ -114,13 +114,18 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 图片类型请求
         /// </summary>
-
         public abstract IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage);
 
         /// <summary>
         /// 语音类型请求
         /// </summary>
         public abstract IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage);
+
+        /// <summary>
+        /// 链接消息类型请求
+        /// </summary>
+        public abstract IResponseMessageBase OnLinkRequest(RequestMessageLink requestMessage);
+
 
         /// <summary>
         /// Event事件类型请求

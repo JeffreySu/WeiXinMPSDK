@@ -12,7 +12,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// 获取谷歌今天静态地图Url。API介绍：https://developers.google.com/maps/documentation/staticmaps/?hl=zh-CN
         /// </summary>
         /// <returns></returns>
-        public static string GetGoogleStaticMap(int scale,  List<Markers> markersList, string size = "640x640")
+        public static string GetGoogleStaticMap(int scale,  IList<Markers> markersList, string size = "640x640")
         {
             markersList = markersList ?? new List<Markers>();
             StringBuilder markersStr = new StringBuilder();

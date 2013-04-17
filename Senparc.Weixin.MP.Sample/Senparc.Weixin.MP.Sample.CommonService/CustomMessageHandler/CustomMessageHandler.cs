@@ -84,10 +84,23 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         /// <returns></returns>
         public override IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
         {
-            var responseMessage =
-               ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Music) as
-               ResponseMessageMusic;
+            var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageMusic>(requestMessage);
             responseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
+            return responseMessage;
+        }
+
+        /// <summary>
+        /// 处理链接消息请求
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public override IResponseMessageBase OnLinkRequest(RequestMessageLink requestMessage)
+        {
+            var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
+            responseMessage.Content = string.Format(@"您发送了一条连接信息：
+Title：{0}
+Description:{1}
+Url:{2}", requestMessage.Title, requestMessage.Description, requestMessage.Url);
             return responseMessage;
         }
 
@@ -102,5 +115,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //TODO: 对Event信息进行统一操作
             return eventResponseMessage;
         }
+
     }
 }

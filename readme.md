@@ -80,7 +80,7 @@ Senparc.Weixin.MP提供了2中处理请求的方式，[传统方法](https://git
 MessageHandler的处理流程非常简单：
 ``` C#
 [HttpPost]
-[ActionName("Post")]
+[ActionName("Index")]
 public ActionResult Post(string signature, string timestamp, string nonce, string echostr)
 {
     if (!CheckSignature.Check(signature, timestamp, nonce, Token))

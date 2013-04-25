@@ -105,7 +105,7 @@ Url:{2}", requestMessage.Title, requestMessage.Description, requestMessage.Url);
         }
 
         /// <summary>
-        /// 处理时间请求（这个方法一般不用重写，这里仅作为示例出现。除非需要在判断具体Event类型以外对Event信息进行统一操作
+        /// 处理事件请求（这个方法一般不用重写，这里仅作为示例出现。除非需要在判断具体Event类型以外对Event信息进行统一操作
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>

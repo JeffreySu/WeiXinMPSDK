@@ -127,7 +127,6 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             messageHandlers.Execute();
             messageContext = messageHandlers.WeixinContext.GetMessageContext(messageHandlers.RequestMessage);
             Assert.AreEqual(0, messageContext.RequestMessages.Count);
-
         }
 
         private class TestContext

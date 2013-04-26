@@ -19,6 +19,22 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             WeixinContext.ExpireMinutes = 3;//用于测试
         }
 
+        public override void OnExecuting()
+        {
+            //测试MessageContext.StorageData
+            if (CurrentMessageContext.StorageData == null)
+            {
+                CurrentMessageContext.StorageData = 0;
+            }
+            base.OnExecuting();
+        }
+
+        public override void OnExecuted()
+        {
+            base.OnExecuted();
+            CurrentMessageContext.StorageData = ((int)CurrentMessageContext.StorageData) + 1;
+        }
+
         /// <summary>
         /// 处理文字请求
         /// </summary>
@@ -40,16 +56,16 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
             if (CurrentMessageContext.RequestMessages.Count > 1)
             {
-                result.AppendLine("您刚才还发送了如下消息：");
+                result.AppendFormat("您刚才还发送了如下消息（{0}）：\r\n", CurrentMessageContext.StorageData);
                 for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
                 {
                     var historyMessage = CurrentMessageContext.RequestMessages[i];
-                    result.AppendFormat("【{0}】{1}\r\n - {2}\r\n",
+                    result.AppendFormat("{0} 【{1}】{2}\r\n",
+                                        historyMessage.CreateTime.ToShortTimeString(),
                                         historyMessage.MsgType.ToString(),
                                         (historyMessage is RequestMessageText)
                                             ? (historyMessage as RequestMessageText).Content
-                                            : "",
-                                        historyMessage.CreateTime.ToShortTimeString()
+                                            : "[非文字类型]"
                         );
                 }
                 result.AppendLine("\r\n");

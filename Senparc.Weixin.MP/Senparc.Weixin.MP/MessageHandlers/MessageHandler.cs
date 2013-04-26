@@ -38,6 +38,20 @@ namespace Senparc.Weixin.MP.MessageHandlers
             get { return WeixinContext.GetMessageContext(RequestMessage); }
         }
 
+        /// <summary>
+        /// 发送者用户名（OpenId）
+        /// </summary>
+        public string UserName
+        {
+            get
+            {
+                if (RequestMessage != null)
+                {
+                    return RequestMessage.FromUserName;
+                }
+                return null;
+            }
+        }
 
         /// <summary>
         /// 在构造函数中转换得到原始XML数据

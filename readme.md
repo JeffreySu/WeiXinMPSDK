@@ -2,9 +2,13 @@
 =================
 
 
-已经支持所有微信4.5 API，支持语音接收及返回音乐格式。 已经支持关注（订阅）事件推送，尚未发布的消息推送功能可以通过项目中的单元测试进行开发。
+已经支持所有微信4.5 API，支持语音接收及返回音乐格式。
 
-目前官方的API都已完美集成，更多方便开发的扩展功能还在陆续添加中。除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的[Senparc.Weixin.MP.dll](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut)。
+已经支持关注（订阅）事件推送（尚未发布的消息推送功能可以通过项目中的单元测试进行开发）。
+
+已经支持用户会话上下文（解决服务器无法使用Session处理用户信息的问题）。
+
+目前官方的API都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的[Senparc.Weixin.MP.dll](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut)。
 
 微信公众平台SDK：Senparc.Weixin.MP beta
 
@@ -104,7 +108,7 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 {
-    public class MyMessageHandler:MessageHandler
+    public class MyMessageHandler : MessageHandler<MessageContext>
     {
         public MyMessageHandler(Stream inputStream)
             : base(inputStream)
@@ -142,6 +146,8 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
       }
 ```
 这样CustomerMessageHandler在执行messageHandler.Execute()的时候，如果发现请求信息的类型是文本，会自动调用以上代码，并返回代码中的responseMessage作为返回信息。responseMessage可以是IResponseMessageBase接口下的任何类型（包括文字、新闻、多媒体等格式）。
+
+从v0.4.0开始，MessageHandler增加了对用户会话上下文的支持，用于解决服务器上无法使用Session管理用户会话的缺陷。详见：[用户上下文WeixinContext和MessageContext](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E7%94%A8%E6%88%B7%E4%B8%8A%E4%B8%8B%E6%96%87WeixinContext%E5%92%8CMessageContext)
 
 捐助
 --------------

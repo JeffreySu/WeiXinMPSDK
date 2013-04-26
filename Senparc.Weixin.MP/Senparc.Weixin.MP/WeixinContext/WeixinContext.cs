@@ -8,11 +8,14 @@ namespace Senparc.Weixin.MP.WeixinContext
     /// <summary>
     /// 微信消息上下文（全局）
     /// </summary>
-    public class WeixinContext
+    public class WeixinContext<TM>
     {
-        public static object WeixinContextLock = new object();
-        public static Dictionary<string, MessageContext> MessageCollection = new Dictionary<string, MessageContext>(StringComparer.OrdinalIgnoreCase);
-
+        public object WeixinContextLock = new object();
+        public Dictionary<string, MessageContext<TM>> MessageCollection = new Dictionary<string, MessageContext<TM>>(StringComparer.OrdinalIgnoreCase);
+        /// <summary>
+        /// 每一个MessageContext过期时间
+        /// </summary>
+        public int ExpireMinutes = 90;
         public WeixinContext()
         {
         }

@@ -121,7 +121,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             var messageContext = messageHandlers.WeixinContext.GetMessageContext(messageHandlers.RequestMessage);
             Assert.IsTrue(messageContext.RequestMessages.Count > 0);
             Assert.IsNotNull(messageHandlers.CurrentMessageContext);
-            Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E",messageHandlers.CurrentMessageContext.UserName);
+            Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", messageHandlers.CurrentMessageContext.UserName);
 
             messageHandlers.WeixinContext.ExpireMinutes = 0;//马上过期
             messageHandlers.Execute();
@@ -163,8 +163,19 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         }
 
         [TestMethod]
+        public void RestoreTest()
+        {
+            var messageHandlers = new CustomerMessageHandlers(XDocument.Parse(xmlText));
+            messageHandlers.Execute();
+            Assert.IsTrue(messageHandlers.WeixinContext.MessageCollection.Count > 0);
+            messageHandlers.WeixinContext.Restore();
+            Assert.AreEqual(0, messageHandlers.WeixinContext.MessageCollection.Count);
+        }
+
+        [TestMethod]
         public void MutipleThreadsTest()
         {
+            //
             var weixinContext = MessageHandler<MessageContext>.GlobalWeixinContext;//全局共享的WeixinContext上下文对象
             weixinContext.Restore();
 

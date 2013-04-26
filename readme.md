@@ -104,7 +104,7 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 {
-    public class MyMessageHandler:MessageHandler
+    public class MyMessageHandler : MessageHandler<MessageContext>
     {
         public MyMessageHandler(Stream inputStream)
             : base(inputStream)

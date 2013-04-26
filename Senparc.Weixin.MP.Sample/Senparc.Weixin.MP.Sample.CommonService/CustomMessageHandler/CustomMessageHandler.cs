@@ -71,8 +71,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 result.AppendLine("\r\n");
             }
 
-            var expireLastTime = CurrentMessageContext.LastActiveTime.AddMinutes(WeixinContext.ExpireMinutes) - DateTime.Now;
-            result.AppendFormat("如果您在{0}分钟内连续发送消息，记录将被自动保留。过期后记录将会自动清除。\r\n", (int)expireLastTime.TotalMinutes);
+            result.AppendFormat("如果您在{0}分钟内连续发送消息，记录将被自动保留。过期后记录将会自动清除。\r\n", WeixinContext.ExpireMinutes);
             result.AppendLine("\r\n");
             result.AppendLine("您还可以发送【位置】【图片】【语音】等类型的信息，查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com");
 

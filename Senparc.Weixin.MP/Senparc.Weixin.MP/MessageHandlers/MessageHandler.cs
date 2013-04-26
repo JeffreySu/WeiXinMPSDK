@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 
@@ -14,11 +15,29 @@ namespace Senparc.Weixin.MP.MessageHandlers
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
     /// </summary>
-    public abstract class MessageHandler
+    public abstract class MessageHandler<TC> where TC : IMessageContext, new()
     {
-       /// <summary>
-       /// 在构造函数中转换得到原始XML数据
-       /// </summary>
+        /// <summary>
+        /// 上下文
+        /// </summary>
+        public static WeixinContext<TC> WeixinContextStatic = new WeixinContext<TC>();
+
+        /// <summary>
+        /// 上下文
+        /// </summary>
+        public WeixinContext<TC> WeixinContext
+        {
+            get { return WeixinContextStatic; }
+        }
+
+        /// <summary>
+        /// 是否开启上下文记录
+        /// </summary>
+        public static bool UseWeixinContext = true;
+
+        /// <summary>
+        /// 在构造函数中转换得到原始XML数据
+        /// </summary>
         public XDocument RequestDocument { get; set; }
 
         /// <summary>
@@ -48,7 +67,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public IResponseMessageBase ResponseMessage { get; set; }
 
-
         public MessageHandler(Stream inputStream)
         {
             using (XmlReader xr = XmlReader.Create(inputStream))
@@ -67,6 +85,12 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             RequestDocument = requestDocument;
             RequestMessage = RequestMessageFactory.GetRequestEntity(RequestDocument);
+
+            //记录上下文
+            if (UseWeixinContext)
+            {
+                WeixinContext.InsertMessage(RequestMessage);
+            }
         }
 
         /// <summary>
@@ -98,6 +122,12 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
+            }
+
+            //记录上下文
+            if (UseWeixinContext)
+            {
+                WeixinContext.InsertMessage(ResponseMessage);
             }
         }
 

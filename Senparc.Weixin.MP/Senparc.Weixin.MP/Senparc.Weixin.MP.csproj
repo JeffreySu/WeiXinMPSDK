@@ -120,14 +120,13 @@
     <Compile Include="HttpUtility\Get.cs" />
     <Compile Include="HttpUtility\RequestUtility.cs" />
     <Compile Include="MessageHandlers\MessageHandler.cs" />
-    <Compile Include="MessageHandlers\MessageHandlerWithContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="Exceptions\UnknownRequestMsgTypeException.cs" />
     <Compile Include="Exceptions\WeixinException.cs" />
     <Compile Include="ResponseMessageFactory.cs" />
-    <Compile Include="WeixinContext\MessageContext.cs" />
-    <Compile Include="WeixinContext\WeixinContext.cs" />
+    <Compile Include="Context\MessageContext.cs" />
+    <Compile Include="Context\WeixinContext.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

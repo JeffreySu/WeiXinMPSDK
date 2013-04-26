@@ -13,7 +13,7 @@ namespace Senparc.Weixin.MP.Context
         /// </summary>
         string UserName { get; set; }
         /// <summary>
-        /// 最后一次活动时间
+        /// 最后一次活动时间（用户主动发送Resquest请求的时间）
         /// </summary>
         DateTime LastActiveTime { get; set; }
         /// <summary>
@@ -44,6 +44,11 @@ namespace Senparc.Weixin.MP.Context
 
         public MessageContext()
         {
+            /*
+             * 注意：即使使用其他类实现IMessageContext，
+             * 也务必在这里进行下面的初始化，尤其是设置当前时间，
+             * 这个时间关系到及时从缓存中移除过期的消息，节约内存使用
+             */
             RequestMessages = new List<IRequestMessageBase>();
             ResponseMessages = new List<IResponseMessageBase>();
             LastActiveTime = DateTime.Now;

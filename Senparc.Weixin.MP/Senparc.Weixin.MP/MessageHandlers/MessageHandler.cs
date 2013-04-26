@@ -15,7 +15,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
     /// </summary>
-    public abstract class MessageHandler<TC> where TC : IMessageContext, new()
+    public abstract class MessageHandler<TC> where TC :class, IMessageContext, new()
     {
         /// <summary>
         /// 上下文

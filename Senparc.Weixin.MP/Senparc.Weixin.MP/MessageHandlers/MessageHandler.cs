@@ -102,38 +102,59 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public void Execute()
         {
-            if (RequestMessage == null)
+            OnExecuting();
+            try
             {
-                return;
-            }
+                if (RequestMessage == null)
+                {
+                    return;
+                }
 
-            switch (RequestMessage.MsgType)
-            {
-                case RequestMsgType.Text:
-                    ResponseMessage = OnTextRequest(RequestMessage as RequestMessageText);
-                    break;
-                case RequestMsgType.Location:
-                    ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
-                    break;
-                case RequestMsgType.Image:
-                    ResponseMessage = OnImageRequest(RequestMessage as RequestMessageImage);
-                    break;
-                case RequestMsgType.Voice:
-                    ResponseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
-                    break;
-                case RequestMsgType.Event:
-                    ResponseMessage = OnEventRequest(RequestMessage as RequestMessageEventBase);
-                    break;
-                default:
-                    throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
-            }
+                switch (RequestMessage.MsgType)
+                {
+                    case RequestMsgType.Text:
+                        ResponseMessage = OnTextRequest(RequestMessage as RequestMessageText);
+                        break;
+                    case RequestMsgType.Location:
+                        ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
+                        break;
+                    case RequestMsgType.Image:
+                        ResponseMessage = OnImageRequest(RequestMessage as RequestMessageImage);
+                        break;
+                    case RequestMsgType.Voice:
+                        ResponseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
+                        break;
+                    case RequestMsgType.Event:
+                        ResponseMessage = OnEventRequest(RequestMessage as RequestMessageEventBase);
+                        break;
+                    default:
+                        throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
+                }
 
-            //记录上下文
-            if (WeixinContextGlobal.UseWeixinContext && ResponseMessage != null)
+                //记录上下文
+                if (WeixinContextGlobal.UseWeixinContext && ResponseMessage != null)
+                {
+                    WeixinContext.InsertMessage(ResponseMessage);
+                }
+            }
+            catch (Exception ex)
             {
-                WeixinContext.InsertMessage(ResponseMessage);
+                throw ex;
+            }
+            finally
+            {
+                OnExecuted();
             }
         }
+
+        public virtual void OnExecuting()
+        {
+        }
+
+        public virtual void OnExecuted()
+        {
+        }
+
 
         /// <summary>
         /// 文字类型请求

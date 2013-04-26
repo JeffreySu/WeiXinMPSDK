@@ -79,7 +79,8 @@ namespace Senparc.Weixin.MP.Context
         /// 获取MessageContext
         /// </summary>
         /// <param name="userName">用户名（OpenId）</param>
-        /// <param name="createIfNotExists">True：如果用户不存在，则创建一个实例</param>
+        /// <param name="createIfNotExists">True：如果用户不存在，则创建一个实例，并返回这个最新的实例
+        /// False：用户储存在，则返回null</param>
         /// <returns></returns>
         private TM GetMessageContext(string userName, bool createIfNotExists)
         {

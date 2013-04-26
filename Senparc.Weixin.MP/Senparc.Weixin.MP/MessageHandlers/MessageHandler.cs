@@ -15,7 +15,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
     /// </summary>
-    public abstract class MessageHandler<TC> where TC :class, IMessageContext, new()
+    public abstract class MessageHandler<TC> where TC : class, IMessageContext, new()
     {
         /// <summary>
         /// 上下文
@@ -35,7 +35,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public TC CurrentMessageContext
         {
-            get { return WeixinContext.GetMessageContext(ResponseMessage); }
+            get { return WeixinContext.GetMessageContext(RequestMessage); }
         }
 
 
@@ -129,7 +129,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
 
             //记录上下文
-            if (WeixinContextGlobal.UseWeixinContext)
+            if (WeixinContextGlobal.UseWeixinContext && ResponseMessage != null)
             {
                 WeixinContext.InsertMessage(ResponseMessage);
             }

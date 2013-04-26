@@ -120,11 +120,14 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             messageHandlers.Execute();
             var messageContext = messageHandlers.WeixinContext.GetMessageContext(messageHandlers.RequestMessage);
             Assert.IsTrue(messageContext.RequestMessages.Count > 0);
+            Assert.IsNotNull(messageHandlers.CurrentMessageContext);
+            Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E",messageHandlers.CurrentMessageContext.UserName);
 
             messageHandlers.WeixinContext.ExpireMinutes = 0;//马上过期
             messageHandlers.Execute();
             messageContext = messageHandlers.WeixinContext.GetMessageContext(messageHandlers.RequestMessage);
             Assert.AreEqual(0, messageContext.RequestMessages.Count);
+
         }
 
         private class TestContext

@@ -16,7 +16,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         public CustomMessageHandler(Stream inputStream)
             : base(inputStream)
         {
-
+            WeixinContext.ExpireMinutes = 3;//用于测试
         }
 
         /// <summary>
@@ -35,10 +35,10 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //方法二
             var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(RequestMessage);
 
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
             result.AppendFormat("您刚才发送了文字信息：{0}\r\n", requestMessage.Content);
 
-            if (base.CurrentMessageContext.RequestMessages.Count > 1)
+            if (CurrentMessageContext.RequestMessages.Count > 1)
             {
                 result.AppendLine("您刚才还发送了如下消息：");
                 for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)

@@ -23,7 +23,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         public WeixinController()
         {
-           
+
         }
 
         /// <summary>
@@ -73,8 +73,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_" + DateTime.Now.Ticks + ".txt")))
                 {
-                    tw.WriteLine(ex.Message);
-                    tw.WriteLine(ex.InnerException.Message);
+                    tw.WriteLine("ExecptionMessage:" + ex.Message);
+                    tw.WriteLine(ex.Source);
+                    tw.WriteLine(ex.StackTrace); 
+                    //tw.WriteLine("InnerExecptionMessage:" + ex.InnerException.Message);
+
                     if (messageHandler.ResponseDocument != null)
                     {
                         tw.WriteLine(messageHandler.ResponseDocument.ToString());

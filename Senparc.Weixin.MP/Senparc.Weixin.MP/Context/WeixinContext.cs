@@ -13,6 +13,7 @@ namespace Senparc.Weixin.MP.Context
 
     /// <summary>
     /// 微信消息上下文（全局）
+    /// 默认过期时间：90分钟
     /// </summary>
     public class WeixinContext<TM> where TM : class, IMessageContext, new()
     {
@@ -28,12 +29,13 @@ namespace Senparc.Weixin.MP.Context
         /// <summary>
         /// 每一个MessageContext过期时间
         /// </summary>
-        public long ExpireMinutes = 90;
+        public long ExpireMinutes { get; set; }
 
         public WeixinContext()
         {
             MessageCollection = new Dictionary<string, TM>(StringComparer.OrdinalIgnoreCase);
             MessageQueue = new List<TM>();
+            ExpireMinutes = 90;
         }
 
         /// <summary>
@@ -52,6 +54,10 @@ namespace Senparc.Weixin.MP.Context
                 {
                     MessageQueue.RemoveAt(0);//从队列中移除过期对象
                     MessageCollection.Remove(firstMessageContext.UserName);//从集合中删除过期对象
+                }
+                else
+                {
+                    break;
                 }
             }
 

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
-    public class CustomerMessageHandlers : MessageHandler
+    public class CustomerMessageHandlers : MessageHandler<MessageContext>
     {
         public CustomerMessageHandlers(XDocument requestDoc)
             : base(requestDoc)

@@ -100,5 +100,15 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsNotNull(responseMessage);
             Assert.AreEqual("文字信息", responseMessage.Content);
         }
+
+        [TestMethod]
+        public void SyncTest()
+        {
+            //测试缓存同步
+            var messageHandlers1 = new CustomerMessageHandlers(XDocument.Parse(xmlText));
+            var messageHandlers2 = new CustomerMessageHandlers(XDocument.Parse(xmlText));
+            messageHandlers1.Execute();
+            Assert.AreEqual(1, messageHandlers2.WeixinContext.GetMessageContext(messageHandlers2.RequestMessage).RequestMessages.Count);
+        }
     }
 }

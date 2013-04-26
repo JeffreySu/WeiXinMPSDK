@@ -134,15 +134,19 @@ namespace Senparc.Weixin.MP.Context
         {
             lock (WeixinContextLock.Lock)
             {
-                var messageContext = GetMessageContext(requestMessage.FromUserName, true);
+                var userName = requestMessage.FromUserName;
+                var messageContext = GetMessageContext(userName, true);
                 if (messageContext.RequestMessages.Count > 0)
                 {
                     //如果不是新建的对象，把当前对象移到队列尾部（新对象已经在底部）
                     var messageContextInQueue =
-                        MessageQueue.FindIndex(z => z.UserName == requestMessage.FromUserName);
+                        MessageQueue.FindIndex(z => z.UserName == userName);
 
-                    MessageQueue.RemoveAt(messageContextInQueue);//移除当前对象
-                    MessageQueue.Add(messageContext);//插入到末尾
+                    if (messageContextInQueue >= 0)
+                    {
+                        MessageQueue.RemoveAt(messageContextInQueue); //移除当前对象
+                        MessageQueue.Add(messageContext); //插入到末尾
+                    }
                 }
 
                 messageContext.LastActiveTime = DateTime.Now;//记录请求时间

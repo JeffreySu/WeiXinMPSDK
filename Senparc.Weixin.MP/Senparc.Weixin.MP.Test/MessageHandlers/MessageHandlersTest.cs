@@ -108,6 +108,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             var messageHandlers1 = new CustomerMessageHandlers(XDocument.Parse(xmlText));
             var messageHandlers2 = new CustomerMessageHandlers(XDocument.Parse(xmlText));
             messageHandlers1.Execute();
+            Assert.AreEqual(messageHandlers1.WeixinContext.GetHashCode(), messageHandlers2.WeixinContext.GetHashCode());
             Assert.AreEqual(1, messageHandlers2.WeixinContext.GetMessageContext(messageHandlers2.RequestMessage).RequestMessages.Count);
         }
     }

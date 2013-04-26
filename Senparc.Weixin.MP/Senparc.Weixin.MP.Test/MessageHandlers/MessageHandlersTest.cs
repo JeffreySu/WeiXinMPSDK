@@ -165,7 +165,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         [TestMethod]
         public void MutipleThreadsTest()
         {
-            var weixinContext = MessageHandler<MessageContext>.WeixinContextStatic;//全局共享的WeixinContext上下文对象
+            var weixinContext = MessageHandler<MessageContext>.GlobalWeixinContext;//全局共享的WeixinContext上下文对象
             weixinContext.Restore();
 
             //多线程并发写入测试

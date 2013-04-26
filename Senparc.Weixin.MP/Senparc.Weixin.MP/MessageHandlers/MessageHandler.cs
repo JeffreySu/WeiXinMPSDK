@@ -20,14 +20,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 上下文
         /// </summary>
-        public static WeixinContext<TC> WeixinContextStatic = new WeixinContext<TC>();
+        public static WeixinContext<TC> GlobalWeixinContext = new WeixinContext<TC>();
 
         /// <summary>
         /// 全局消息上下文
         /// </summary>
         public WeixinContext<TC> WeixinContext
         {
-            get { return WeixinContextStatic; }
+            get { return GlobalWeixinContext; }
         }
 
         /// <summary>

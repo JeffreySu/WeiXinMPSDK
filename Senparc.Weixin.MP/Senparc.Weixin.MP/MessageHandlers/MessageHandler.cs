@@ -23,7 +23,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public static WeixinContext<TC> WeixinContextStatic = new WeixinContext<TC>();
 
         /// <summary>
-        /// 上下文
+        /// 全局消息上下文
         /// </summary>
         public WeixinContext<TC> WeixinContext
         {
@@ -31,9 +31,13 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 是否开启上下文记录
+        /// 当前用户消息上下文
         /// </summary>
-        public static bool UseWeixinContext = true;
+        public TC CurrentMessageContext
+        {
+            get { return WeixinContext.GetMessageContext(ResponseMessage); }
+        }
+
 
         /// <summary>
         /// 在构造函数中转换得到原始XML数据
@@ -87,7 +91,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             RequestMessage = RequestMessageFactory.GetRequestEntity(RequestDocument);
 
             //记录上下文
-            if (UseWeixinContext)
+            if (WeixinContextGlobal.UseWeixinContext)
             {
                 WeixinContext.InsertMessage(RequestMessage);
             }
@@ -125,7 +129,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
 
             //记录上下文
-            if (UseWeixinContext)
+            if (WeixinContextGlobal.UseWeixinContext)
             {
                 WeixinContext.InsertMessage(ResponseMessage);
             }

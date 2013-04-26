@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Web;
+using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.MessageHandlers;
 
@@ -9,7 +10,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
     /// <summary>
     /// 自定义MessageHandler
     /// </summary>
-    public partial class CustomMessageHandler : MessageHandler
+    public partial class CustomMessageHandler : MessageHandler<MessageContext>
     {
         public override IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage)
         {

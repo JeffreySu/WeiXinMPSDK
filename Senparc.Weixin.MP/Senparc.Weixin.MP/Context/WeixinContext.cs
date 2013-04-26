@@ -6,9 +6,14 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.Context
 {
-    public static class WeixinContextLock
+    public static class WeixinContextGlobal
     {
         public static object Lock = new object();
+
+        /// <summary>
+        /// 是否开启上下文记录
+        /// </summary>
+        public static bool UseWeixinContext = true;
     }
 
     /// <summary>
@@ -18,13 +23,13 @@ namespace Senparc.Weixin.MP.Context
     public class WeixinContext<TM> where TM : class, IMessageContext, new()
     {
         /// <summary>
-        /// 所有MessageContext集合
+        /// 所有MessageContext集合，不要直接操作此对象
         /// </summary>
-        protected Dictionary<string, TM> MessageCollection { get; set; }
+        public Dictionary<string, TM> MessageCollection { get; set; }
         /// <summary>
-        /// MessageContext列队（LastActiveTime升序排列）
+        /// MessageContext列队（LastActiveTime升序排列）,不要直接操作此对象
         /// </summary>
-        protected List<TM> MessageQueue { get; set; }
+        public List<TM> MessageQueue { get; set; }
 
         /// <summary>
         /// 每一个MessageContext过期时间
@@ -32,6 +37,14 @@ namespace Senparc.Weixin.MP.Context
         public Double ExpireMinutes { get; set; }
 
         public WeixinContext()
+        {
+            Restore();
+        }
+
+        /// <summary>
+        /// 重置所有上下文参数，所有记录将被清空
+        /// </summary>
+        public void Restore()
         {
             MessageCollection = new Dictionary<string, TM>(StringComparer.OrdinalIgnoreCase);
             MessageQueue = new List<TM>();
@@ -110,7 +123,7 @@ namespace Senparc.Weixin.MP.Context
         /// <returns></returns>
         public TM GetMessageContext(IRequestMessageBase requestMessage)
         {
-            lock (WeixinContextLock.Lock)
+            lock (WeixinContextGlobal.Lock)
             {
                 return GetMessageContext(requestMessage.FromUserName, true);
             }
@@ -122,7 +135,7 @@ namespace Senparc.Weixin.MP.Context
         /// <returns></returns>
         public TM GetMessageContext(IResponseMessageBase responseMessage)
         {
-            lock (WeixinContextLock.Lock)
+            lock (WeixinContextGlobal.Lock)
             {
                 return GetMessageContext(responseMessage.ToUserName, true);
             }
@@ -134,7 +147,7 @@ namespace Senparc.Weixin.MP.Context
         /// <param name="requestMessage">请求信息</param>
         public void InsertMessage(IRequestMessageBase requestMessage)
         {
-            lock (WeixinContextLock.Lock)
+            lock (WeixinContextGlobal.Lock)
             {
                 var userName = requestMessage.FromUserName;
                 var messageContext = GetMessageContext(userName, true);
@@ -162,7 +175,7 @@ namespace Senparc.Weixin.MP.Context
         /// <param name="responseMessage">响应信息</param>
         public void InsertMessage(IResponseMessageBase responseMessage)
         {
-            lock (WeixinContextLock.Lock)
+            lock (WeixinContextGlobal.Lock)
             {
                 var messageContext = GetMessageContext(responseMessage.ToUserName, true);
                 messageContext.ResponseMessages.Add(responseMessage);
@@ -176,7 +189,7 @@ namespace Senparc.Weixin.MP.Context
         /// <returns></returns>
         public IRequestMessageBase GetLastRequestMessage(string userName)
         {
-            lock (WeixinContextLock.Lock)
+            lock (WeixinContextGlobal.Lock)
             {
                 var messageContext = GetMessageContext(userName, true);
                 return messageContext.RequestMessages.LastOrDefault();
@@ -190,7 +203,7 @@ namespace Senparc.Weixin.MP.Context
         /// <returns></returns>
         public IResponseMessageBase GetLastResponseMessage(string userName)
         {
-            lock (WeixinContextLock.Lock)
+            lock (WeixinContextGlobal.Lock)
             {
                 var messageContext = GetMessageContext(userName, true);
                 return messageContext.ResponseMessages.LastOrDefault();

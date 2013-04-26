@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Text;
+using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.MessageHandlers;
 
@@ -8,7 +11,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
     /// 自定义MessageHandler
     /// 把MessageHandler作为基类，重写对应请求的处理方法
     /// </summary>
-    public partial class CustomMessageHandler : MessageHandler
+    public partial class CustomMessageHandler : MessageHandler<MessageContext>
     {
         public CustomMessageHandler(Stream inputStream)
             : base(inputStream)
@@ -32,10 +35,31 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //方法二
             var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(RequestMessage);
 
-            responseMessage.Content =
-                string.Format(
-                    "您刚才发送了文字信息：{0}\r\n您还可以发送【位置】【图片】【语音】等类型的信息，查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com",
-                    requestMessage.Content);
+            StringBuilder result = new StringBuilder();
+            result.AppendFormat("您刚才发送了文字信息：{0}\r\n", requestMessage.Content);
+
+            if (base.CurrentMessageContext.RequestMessages.Count > 1)
+            {
+                result.AppendLine("您刚才还发送了如下消息：");
+                for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
+                {
+                    var historyMessage = CurrentMessageContext.RequestMessages[i];
+                    result.AppendFormat("【{0}】{1}\r\n - {2}\r\n",
+                                        historyMessage.MsgType.ToString(),
+                                        (historyMessage is RequestMessageText)
+                                            ? (historyMessage as RequestMessageText).Content
+                                            : "",
+                                        historyMessage.CreateTime.ToShortTimeString()
+                        );
+                }
+            }
+
+            var expireLastTime = CurrentMessageContext.LastActiveTime.AddMinutes(WeixinContext.ExpireMinutes) - DateTime.Now;
+            result.AppendFormat("如果您在{0}分钟内连续发送消息，记录将被自动保留。过期后记录将会自动清除。\r\n", (int)expireLastTime.TotalMinutes);
+
+            result.AppendLine("您还可以发送【位置】【图片】【语音】等类型的信息，查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com");
+
+            responseMessage.Content = result.ToString();
             return responseMessage;
         }
 

@@ -29,7 +29,7 @@ namespace Senparc.Weixin.MP.Context
         /// <summary>
         /// 每一个MessageContext过期时间
         /// </summary>
-        public long ExpireMinutes { get; set; }
+        public Double ExpireMinutes { get; set; }
 
         public WeixinContext()
         {
@@ -50,7 +50,8 @@ namespace Senparc.Weixin.MP.Context
             while (MessageQueue.Count > 0)
             {
                 var firstMessageContext = MessageQueue[0];
-                if ((DateTime.Now - firstMessageContext.LastActiveTime).TotalMinutes > ExpireMinutes)
+                var timeSpan = DateTime.Now - firstMessageContext.LastActiveTime;
+                if (timeSpan.TotalMinutes >= ExpireMinutes)
                 {
                     MessageQueue.RemoveAt(0);//从队列中移除过期对象
                     MessageCollection.Remove(firstMessageContext.UserName);//从集合中删除过期对象
@@ -89,7 +90,7 @@ namespace Senparc.Weixin.MP.Context
                 if (createIfNotExists)
                 {
                     //全局只在这一个地方使用MessageCollection.Add
-                    MessageCollection[userName] = new TM();
+                    MessageCollection[userName] = new TM() { UserName = userName };
                     weixinContext = GetMessageContext(userName);
                     //插入列队
                     MessageQueue.Add(weixinContext); //最新的排到末尾

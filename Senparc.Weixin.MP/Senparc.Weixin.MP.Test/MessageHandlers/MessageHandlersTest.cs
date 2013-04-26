@@ -92,7 +92,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             messageHandlers.Execute();
             Assert.IsNotNull(messageHandlers.ResponseMessage);
             Assert.IsNotNull(messageHandlers.ResponseDocument);
-            Console.Write(messageHandlers.ResponseDocument.ToString());
+            //Console.Write(messageHandlers.ResponseDocument.ToString());
 
             Assert.AreEqual("gh_a96a4a619366", messageHandlers.ResponseMessage.FromUserName);
 
@@ -109,7 +109,20 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             var messageHandlers2 = new CustomerMessageHandlers(XDocument.Parse(xmlText));
             messageHandlers1.Execute();
             Assert.AreEqual(messageHandlers1.WeixinContext.GetHashCode(), messageHandlers2.WeixinContext.GetHashCode());
-            Assert.AreEqual(1, messageHandlers2.WeixinContext.GetMessageContext(messageHandlers2.RequestMessage).RequestMessages.Count);
+        }
+
+        [TestMethod]
+        public void ContextTest()
+        {
+            var messageHandlers = new CustomerMessageHandlers(XDocument.Parse(xmlText));
+            messageHandlers.Execute();
+            var messageContext = messageHandlers.WeixinContext.GetMessageContext(messageHandlers.RequestMessage);
+            Assert.IsTrue(messageContext.RequestMessages.Count > 0);
+
+            messageHandlers.WeixinContext.ExpireMinutes = 0;//马上过期
+            messageHandlers.Execute();
+            messageContext = messageHandlers.WeixinContext.GetMessageContext(messageHandlers.RequestMessage);
+            Assert.AreEqual(0, messageContext.RequestMessages.Count);
         }
     }
 }

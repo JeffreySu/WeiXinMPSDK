@@ -92,14 +92,14 @@ public ActionResult Post(string signature, string timestamp, string nonce, strin
         return Content("参数错误！");
     }
 
-    var messageHandler = new CustomerMessageHandler(Request.InputStream);//接收消息
+    var messageHandler = new CustomMessageHandler(Request.InputStream);//接收消息
     messageHandler.Execute();//执行微信处理过程
     return Content(messageHandler.ResponseDocument.ToString());//返回数据
 }
 ```
 整个消息的接收、处理、返回分别只需要一行代码。
 
-上述代码中的CustomerMessageHandler是一个自定义的类，继承自Senparc.Weixin.MP.MessageHandler.cs。MessageHandler是一个抽象类，包含了执行各个请求的抽象方法，我们只需要在自己创建的CustomerMessageHandler中逐个实现这些方法就可以了。刚建好的CustomerMessageHandler.cs如下：
+上述代码中的CustomMessageHandler是一个自定义的类，继承自Senparc.Weixin.MP.MessageHandler.cs。MessageHandler是一个抽象类，包含了执行各个请求的抽象方法，我们只需要在自己创建的CustomerMessageHandler中逐个实现这些方法就可以了。刚建好的CustomerMessageHandler.cs如下：
 ```C#
 using System;
 using System.IO;
@@ -108,9 +108,9 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 {
-    public class MyMessageHandler : MessageHandler<MessageContext>
+    public class CustomMessageHandler : MessageHandler<MessageContext>
     {
-        public MyMessageHandler(Stream inputStream)
+        public CustomMessageHandler(Stream inputStream)
             : base(inputStream)
         {
 
@@ -145,7 +145,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
           return responseMessage;
       }
 ```
-这样MyMessageHandler在执行messageHandler.Execute()的时候，如果发现请求信息的类型是文本，会自动调用以上代码，并返回代码中的responseMessage作为返回信息。responseMessage可以是IResponseMessageBase接口下的任何类型（包括文字、新闻、多媒体等格式）。
+这样CustomMessageHandler在执行messageHandler.Execute()的时候，如果发现请求信息的类型是文本，会自动调用以上代码，并返回代码中的responseMessage作为返回信息。responseMessage可以是IResponseMessageBase接口下的任何类型（包括文字、新闻、多媒体等格式）。
 
 从v0.4.0开始，MessageHandler增加了对用户会话上下文的支持，用于解决服务器上无法使用Session管理用户会话的缺陷。详见：[用户上下文WeixinContext和MessageContext](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E7%94%A8%E6%88%B7%E4%B8%8A%E4%B8%8B%E6%96%87WeixinContext%E5%92%8CMessageContext)
 

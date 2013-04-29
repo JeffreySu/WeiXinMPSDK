@@ -58,7 +58,7 @@ public ActionResult Get(string signature, string timestamp, string nonce, string
     }
     else
     {
-        return Content("failed:" + signature + "," + MP.CheckSignature.GetSignature(timestamp, nonce, Token));
+        return Content("failed:" + signature + "," + CheckSignature.GetSignature(timestamp, nonce, Token));
     }
 }
 ```

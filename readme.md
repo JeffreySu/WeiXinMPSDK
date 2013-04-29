@@ -151,7 +151,9 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 
 捐助
 --------------
-https://me.alipay.com/jeffreysu
+如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。
+
+资金捐助：https://me.alipay.com/jeffreysu
 
 
 License

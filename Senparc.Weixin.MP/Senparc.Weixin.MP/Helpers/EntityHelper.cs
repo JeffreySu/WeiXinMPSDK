@@ -98,8 +98,8 @@ namespace Senparc.Weixin.MP.Helpers
         /// <summary>
         /// 将实体转为XML
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="entity"></param>
+        /// <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
+        /// <param name="entity">实体</param>
         /// <returns></returns>
         public static XDocument ConvertEntityToXml<T>(this T entity) where T : class , new()
         {
@@ -193,8 +193,8 @@ namespace Senparc.Weixin.MP.Helpers
         /// <summary>
         /// 将实体转为XML字符串
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="entity"></param>
+        /// <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
+        /// <param name="entity">实体</param>
         /// <returns></returns>
         public static string ConvertEntityToXmlString<T>(this T entity) where T : class , new()
         {

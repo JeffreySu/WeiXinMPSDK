@@ -97,24 +97,24 @@ namespace Senparc.Weixin.MP.Context
         /// <returns></returns>
         private TM GetMessageContext(string userName, bool createIfNotExists)
         {
-            var weixinContext = GetMessageContext(userName);
+            var messageContext = GetMessageContext(userName);
 
-            if (weixinContext == null)
+            if (messageContext == null)
             {
                 if (createIfNotExists)
                 {
                     //全局只在这一个地方使用MessageCollection.Add
                     MessageCollection[userName] = new TM() { UserName = userName };
-                    weixinContext = GetMessageContext(userName);
+                    messageContext = GetMessageContext(userName);
                     //插入列队
-                    MessageQueue.Add(weixinContext); //最新的排到末尾
+                    MessageQueue.Add(messageContext); //最新的排到末尾
                 }
                 else
                 {
                     return null;
                 }
             }
-            return weixinContext;
+            return messageContext;
         }
 
         /// <summary>

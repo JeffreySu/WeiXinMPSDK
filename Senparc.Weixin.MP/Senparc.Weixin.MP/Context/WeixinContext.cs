@@ -103,7 +103,7 @@ namespace Senparc.Weixin.MP.Context
             {
                 if (createIfNotExists)
                 {
-                    //全局只在这一个地方使用MessageCollection.Add
+                    //全局只在这一个地方使用MessageCollection[Key]写入
                     MessageCollection[userName] = new TM() { UserName = userName };
                     messageContext = GetMessageContext(userName);
                     //插入列队

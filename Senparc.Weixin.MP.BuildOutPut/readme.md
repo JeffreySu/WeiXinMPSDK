@@ -10,6 +10,18 @@ v0.4.0 /2013-4-26
 
 添加用户信息上下文，WeixinContext，可以很方便地跟踪某个用户的会话，并可以临时储存信息。
 
+原先实现MessageHandler的类，如：
+
+```C#
+    public class MyMessageHandler : MessageHandler
+```
+
+现在需要在MessageHandler后加上“微信上下文”的泛型，如：
+```C#
+    public class MyMessageHandler : MessageHandler<MessageContext>
+```
+其中MessageContext可以是继承IMessageContext的任何子类，这里的MessageContext是SDK中的一个默认的简单实现。
+
 v0.3.5 /2013-4-17
 
 添加RequestMessageLink用于接收处理link类型的信息。同时MessageHandler也增加了对应的OnLinkRequest处理方法。

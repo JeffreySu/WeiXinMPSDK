@@ -4,7 +4,7 @@
 
 已经支持所有微信4.5 API，支持语音接收及返回音乐格式。
 
-已经支持关注（订阅）事件推送（尚未发布的消息推送功能可以通过项目中的单元测试进行开发）。
+已经支持关注（订阅）事件推送（尚未发布的消息推送功能可以通过项目中的单元测试进行开发，如自定义菜单）。
 
 已经支持用户会话上下文（解决服务器无法使用Session处理用户信息的问题）。
 
@@ -58,7 +58,7 @@ public ActionResult Get(string signature, string timestamp, string nonce, string
     }
     else
     {
-        return Content("failed:" + signature + "," + MP.CheckSignature.GetSignature(timestamp, nonce, Token));
+        return Content("failed:" + signature + "," + CheckSignature.GetSignature(timestamp, nonce, Token));
     }
 }
 ```
@@ -92,14 +92,14 @@ public ActionResult Post(string signature, string timestamp, string nonce, strin
         return Content("参数错误！");
     }
 
-    var messageHandler = new CustomerMessageHandler(Request.InputStream);//接收消息
+    var messageHandler = new CustomMessageHandler(Request.InputStream);//接收消息
     messageHandler.Execute();//执行微信处理过程
     return Content(messageHandler.ResponseDocument.ToString());//返回数据
 }
 ```
 整个消息的接收、处理、返回分别只需要一行代码。
 
-上述代码中的CustomerMessageHandler是一个自定义的类，继承自Senparc.Weixin.MP.MessageHandler.cs。MessageHandler是一个抽象类，包含了执行各个请求的抽象方法，我们只需要在自己创建的CustomerMessageHandler中逐个实现这些方法就可以了。刚建好的CustomerMessageHandler.cs如下：
+上述代码中的CustomMessageHandler是一个自定义的类，继承自Senparc.Weixin.MP.MessageHandler.cs。MessageHandler是一个抽象类，包含了执行各种不同请求类型的抽象方法（如文字，语音，位置、图片等等），我们只需要在自己创建的CustomMessageHandler中逐个实现这些方法就可以了。刚建好的CustomMessageHandler.cs如下：
 ```C#
 using System;
 using System.IO;
@@ -108,9 +108,9 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 {
-    public class MyMessageHandler : MessageHandler<MessageContext>
+    public class CustomMessageHandler : MessageHandler<MessageContext>
     {
-        public MyMessageHandler(Stream inputStream)
+        public CustomMessageHandler(Stream inputStream)
             : base(inputStream)
         {
 
@@ -145,13 +145,15 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
           return responseMessage;
       }
 ```
-这样CustomerMessageHandler在执行messageHandler.Execute()的时候，如果发现请求信息的类型是文本，会自动调用以上代码，并返回代码中的responseMessage作为返回信息。responseMessage可以是IResponseMessageBase接口下的任何类型（包括文字、新闻、多媒体等格式）。
+这样CustomMessageHandler在执行messageHandler.Execute()的时候，如果发现请求信息的类型是文本，会自动调用以上代码，并返回代码中的responseMessage作为返回信息。responseMessage可以是IResponseMessageBase接口下的任何类型（包括文字、新闻、多媒体等格式）。
 
 从v0.4.0开始，MessageHandler增加了对用户会话上下文的支持，用于解决服务器上无法使用Session管理用户会话的缺陷。详见：[用户上下文WeixinContext和MessageContext](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E7%94%A8%E6%88%B7%E4%B8%8A%E4%B8%8B%E6%96%87WeixinContext%E5%92%8CMessageContext)
 
 捐助
 --------------
-https://me.alipay.com/jeffreysu
+如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！
+
+资金捐助：https://me.alipay.com/jeffreysu
 
 
 License

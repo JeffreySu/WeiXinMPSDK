@@ -200,5 +200,16 @@ namespace Senparc.Weixin.MP.Helpers
         {
             return entity.ConvertEntityToXml().ToString();
         }
+
+        /// <summary>
+        /// ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage)的扩展方法
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public static T CreateResponseMessage<T>(this IRequestMessageBase requestMessage) where T : ResponseMessageBase
+        {
+            return ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage);
+        }
     }
 }

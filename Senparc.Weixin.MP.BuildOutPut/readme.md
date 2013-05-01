@@ -1,8 +1,11 @@
 升级记录
 ----------
+
 v0.4 /2013-5-1
 
-EntityHelper中添加CreateResponseMessage<T>静态方法
+EntityHelper中添加CreateResponseMessage<T>静态方法。
+
+添加Senparc.Weixin.MP.HttpUtility.RequestUtility.IsWeixinClientRequest()方法，用于判断请求是否发起自微信客户端的浏览器。
 
 v0.4.* /2013-5-1
 

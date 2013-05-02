@@ -39,7 +39,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// </summary>
         /// <param name="km">千米</param>
         /// <returns></returns>
-        public static double GetLongitude(double km)
+        public static double GetLongitudeDifference(double km)
         {
             return 1/110;
         }

@@ -33,7 +33,7 @@
                 源代码及示例下载：<a href="https://github.com/JeffreySu/WeiXinMPSDK" target="_blank">https://github.com/JeffreySu/WeiXinMPSDK</a><br />
             </p>
             <p>
-                当前Demo运行的Senparc.Weixin.MP.dll版本：<a href="https://github.com/JeffreySu/WeiXinMPSDK" target="_blank">v0.3.3.4</a>。
+                当前Demo运行的Senparc.Weixin.MP.dll版本：<a href="https://github.com/JeffreySu/WeiXinMPSDK" target="_blank">v<%= DllVersion %></a>。
             </p>
             <p>
                 技术交流QQ群：300313885

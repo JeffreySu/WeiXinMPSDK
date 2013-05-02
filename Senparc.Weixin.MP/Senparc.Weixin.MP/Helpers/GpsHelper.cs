@@ -23,5 +23,25 @@ namespace Senparc.Weixin.MP.Helpers
             double a = Math.Abs((n1 - n2) * jl_wd);
             return Math.Sqrt((a * a + b * b));
         }
+
+        /// <summary>
+        /// 获取维度差
+        /// </summary>
+        /// <param name="km">千米</param>
+        /// <returns></returns>
+        public static double GetLatitudeDifference(double km)
+        {
+            return 1/111;
+        }
+
+        /// <summary>
+        /// 获取精度差
+        /// </summary>
+        /// <param name="km">千米</param>
+        /// <returns></returns>
+        public static double GetLongitude(double km)
+        {
+            return 1/110;
+        }
     }
 }

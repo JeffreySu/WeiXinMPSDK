@@ -39,7 +39,7 @@ SDK技术交流QQ群：300313885
 Senparc.Weixin.MP.Sample中的关键代码说明（这是MVC项目，WebForms项目见Weixin.aspx）
 --------------
 ###/Controllers/WeixinController.cs
-下面的Token需要和微信公众平台后台设置的Token同步，如果经常更换建议写入Web.config等配置文件：
+下面的Token需要和微信公众平台后台设置的Token同步，如果经常更换建议写入Web.config等配置文件（实际使用过程中两列建议使用数字+英文大小写改写Token，Token一旦被破解，微信请求将很容易被伪造！）：
 ```C#
 public readonly string Token = "weixin";
 ```

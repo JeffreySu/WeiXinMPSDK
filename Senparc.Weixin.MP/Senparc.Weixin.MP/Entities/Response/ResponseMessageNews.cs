@@ -7,7 +7,7 @@ namespace Senparc.Weixin.MP.Entities
 {
     public class ResponseMessageNews : ResponseMessageBase, IResponseMessageBase
     {
-        public virtual ResponseMsgType MsgType
+        new public virtual ResponseMsgType MsgType
         {
             get { return ResponseMsgType.News; }
         }
@@ -19,7 +19,7 @@ namespace Senparc.Weixin.MP.Entities
             get { return (Articles ?? new List<Article>()).Count; }
             set
             {
-                value = value;//这里开放set只为了逆向从Response的Xml转成实体的操作一致性，没有实际意义。
+                //这里开放set只为了逆向从Response的Xml转成实体的操作一致性，没有实际意义。
             }
         }
 

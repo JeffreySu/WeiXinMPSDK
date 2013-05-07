@@ -4,6 +4,7 @@ using System.Text;
 using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
@@ -45,13 +46,19 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
 
-            //方法一
+            //方法一（v0.1），此方法调用太过繁琐，已过时（但仍是所有方法的核心基础），建议使用方法二到四
             //var responseMessage =
             //    ResponseMessageBase.CreateFromRequestMessage(RequestMessage, ResponseMsgType.Text) as
             //    ResponseMessageText;
 
-            //方法二
-            var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(RequestMessage);
+            //方法二（v0.4）
+            //var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(RequestMessage);
+
+            //方法三（v0.4），扩展方法，需要using Senparc.Weixin.MP.Helpers;
+            //var responseMessage = RequestMessage.CreateResponseMessage<ResponseMessageText>();
+
+            //方法四（v0.5），仅适合在HandlerMessage内部使用，本质上是对方法三的封装
+            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
 
             var result = new StringBuilder();
             result.AppendFormat("您刚才发送了文字信息：{0}\r\n\r\n", requestMessage.Content);

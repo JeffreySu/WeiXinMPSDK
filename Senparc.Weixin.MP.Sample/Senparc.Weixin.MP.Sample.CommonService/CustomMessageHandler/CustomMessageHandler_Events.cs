@@ -49,8 +49,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         /// <returns></returns>
         public override IResponseMessageBase OnEvent_UnsubscribeRequest(RequestMessageEvent_Unsubscribe requestMessage)
         {
-            var responseMessage = ResponseMessageBase.CreateFromRequestMessage(requestMessage,
-                                                                                         ResponseMsgType.Text) as ResponseMessageText;
+            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "有空再来";
             return responseMessage;
         }

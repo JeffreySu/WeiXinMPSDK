@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 发送者用户名（OpenId）
         /// </summary>
-        public string UserName
+        public string WeixinOpenId
         {
             get
             {
@@ -52,6 +52,26 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 return null;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [Obsolete("UserName属性从v0.6起已过期，建议使用WeixinOpenId")]
+        public string UserName
+        {
+            get
+            {
+                return WeixinOpenId;
+            }
+        }
+
+        /// <summary>
+        /// 取消执行Execute()方法。一般在OnExecuting()中用于临时阻止执行Execute()。
+        /// 默认为False。
+        /// 如果在执行OnExecuting()执行前设为True，则所有OnExecuting()、Execute()、OnExecuted()代码都不会被执行。
+        /// 如果在执行OnExecuting()执行过程中设为True，则后续Execute()及OnExecuted()代码不会被执行。
+        /// </summary>
+        public bool CancelExcute { get; set; }
 
         /// <summary>
         /// 在构造函数中转换得到原始XML数据
@@ -112,11 +132,37 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
+        /// 根据当前的RequestMessage创建指定类型的ResponseMessage
+        /// </summary>
+        /// <typeparam name="TR">基于ResponseMessageBase的响应消息类型</typeparam>
+        /// <returns></returns>
+        public TR CreateResponseMessage<TR>() where TR : ResponseMessageBase
+        {
+            if (RequestMessage == null)
+            {
+                return null;
+            }
+
+            return RequestMessage.CreateResponseMessage<TR>();
+        }
+
+        /// <summary>
         /// 执行微信请求
         /// </summary>
         public void Execute()
         {
+            if (CancelExcute)
+            {
+                return;
+            }
+
             OnExecuting();
+            
+            if (CancelExcute)
+            {
+                return;
+            }
+
             try
             {
                 if (RequestMessage == null)
@@ -194,7 +240,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 链接消息类型请求
         /// </summary>
         public abstract IResponseMessageBase OnLinkRequest(RequestMessageLink requestMessage);
-
 
         /// <summary>
         /// Event事件类型请求

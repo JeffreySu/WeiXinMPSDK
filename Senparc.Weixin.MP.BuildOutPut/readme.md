@@ -8,7 +8,7 @@ v0.6 /2013-5-7
 
 添加CancelExcute属性，以便在执行过程中及时中断处理程序；
 
-添加CreateResponseMessage<TR>()方法，用于快捷生成以当前RequestMessage为基础的ResponseMessage。
+添加`CreateResponseMessage<TR>()`方法，用于快捷生成以当前RequestMessage为基础的ResponseMessage。
 
 v0.5 /2013-5-2
 

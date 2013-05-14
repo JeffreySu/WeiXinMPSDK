@@ -70,6 +70,29 @@ namespace Senparc.Weixin.MP
     }
 
     /// <summary>
+    /// 上传媒体文件类型
+    /// </summary>
+    public enum UploadMediaFileType
+    {
+        /// <summary>
+        /// 图片
+        /// </summary>
+        image, 
+        /// <summary>
+        /// 语音
+        /// </summary>
+        voice,
+        /// <summary>
+        /// 视频
+        /// </summary>
+        video,
+        /// <summary>
+        /// thumb
+        /// </summary>
+        thumb
+    }
+
+    /// <summary>
     /// 返回码（JSON）
     /// </summary>
     public enum ReturnCode

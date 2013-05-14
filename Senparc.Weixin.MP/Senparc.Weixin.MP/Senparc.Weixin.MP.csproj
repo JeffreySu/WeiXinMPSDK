@@ -56,6 +56,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Entities\JsonResult\AccessTokenResult.cs" />
+    <Compile Include="Entities\JsonResult\UploadMediaFileResult.cs" />
     <Compile Include="Entities\JsonResult\WeixinUserInfoResult.cs" />
     <Compile Include="Entities\JsonResult\WxJsonResult.cs" />
     <Compile Include="Entities\Menu\BaseButton.cs" />

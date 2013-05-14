@@ -41,9 +41,11 @@ namespace Senparc.Weixin.MP.HttpUtility
             if (postStream != null)
             {
                 Stream requestStream = request.GetRequestStream();
-                StreamWriter myStreamWriter = new StreamWriter(requestStream, Encoding.GetEncoding("gb2312"));
-                myStreamWriter.Write(postStream);
-                myStreamWriter.Close();
+                using (StreamWriter myStreamWriter = new StreamWriter(requestStream, Encoding.GetEncoding("gb2312")))
+                {
+                    myStreamWriter.Write(postStream);
+                    myStreamWriter.Close();
+                }
             }
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -53,13 +55,14 @@ namespace Senparc.Weixin.MP.HttpUtility
                 response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
             }
 
-            Stream responseStream = response.GetResponseStream();
-            StreamReader myStreamReader = new StreamReader(responseStream, Encoding.GetEncoding("utf-8"));
-            string retString = myStreamReader.ReadToEnd();
-            myStreamReader.Close();
-            responseStream.Close();
-
-            return retString;
+            using (Stream responseStream = response.GetResponseStream())
+            {
+                using (StreamReader myStreamReader = new StreamReader(responseStream, Encoding.GetEncoding("utf-8")))
+                {
+                    string retString = myStreamReader.ReadToEnd();
+                    return retString;
+                }
+            }
         }
 
         /// <summary>

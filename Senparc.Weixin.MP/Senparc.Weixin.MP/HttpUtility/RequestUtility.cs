@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.HttpUtility
 {
@@ -29,14 +30,11 @@ namespace Senparc.Weixin.MP.HttpUtility
         public static string HttpPost(string url, CookieContainer cookieContainer = null, string fileName = null)
         {
             //读取文件
-            FileStream fileStream = null;
-            if (!string.IsNullOrEmpty(fileName) && File.Exists(fileName))
-            {
-                fileStream = new FileStream(fileName, FileMode.Open);
-            }
+            var fileStream = FileHelper.GetFileStream(fileName);
             return HttpPost(url, cookieContainer, fileStream);
         }
 
+      
         /// <summary>
         /// 使用Post方法获取字符串结果
         /// </summary>

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.HttpUtility;
 
 namespace Senparc.Weixin.MP.CommonAPIs
@@ -53,9 +56,12 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static UploadMediaFileResult UploadMediaFile(string accessToken, UploadMediaFileType type, string fileName)
         {
+            var cookieContainer = new CookieContainer();
+            var fileStream = FileHelper.GetFileStream(fileName);
+
             var url = string.Format("http://api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}&filename={2}&filelength={3}",
-                                    accessToken, type.ToString());
-            UploadMediaFileResult result = Post.PostGetJson<UploadMediaFileResult>(url);
+                accessToken, type.ToString(), Path.GetFileName(fileName), fileStream != null ? fileStream.Length : 0);
+            UploadMediaFileResult result = Post.PostGetJson<UploadMediaFileResult>(url, cookieContainer, fileStream);
             return result;
         }
     }

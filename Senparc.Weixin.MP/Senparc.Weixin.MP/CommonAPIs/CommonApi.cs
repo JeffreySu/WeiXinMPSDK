@@ -30,9 +30,12 @@ namespace Senparc.Weixin.MP.CommonAPIs
             return result;
         }
 
-        public static object GetUserInfo(string accessToken,string openId)
+        public static WeixinUserInfoResult GetUserInfo(string accessToken, string openId)
         {
-
+            var url = string.Format("http://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}",
+                                    accessToken, openId);
+            WeixinUserInfoResult result = Get.GetJson<WeixinUserInfoResult>(url);
+            return result;
         }
     }
 }

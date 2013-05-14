@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Senparc.Weixin.MP.Entities.JsonResult
+namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
     /// 用户信息
     /// </summary>
-    public class UserInfoResult
+    public class WeixinUserInfoResult
     {
         /// <summary>
         /// 用户是否订阅该公众号标识，值为0时，拉取不到其余信息

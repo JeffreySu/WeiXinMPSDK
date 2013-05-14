@@ -7,6 +7,9 @@ using System.Web.Mvc;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
+    /// <summary>
+    /// 这个Controller专为Senparc.Weixin.MP.Test/HttpUtility/RequestUtilityTest.cs/HttpPostTest 提供上传测试目标
+    /// </summary>
     public class TestUploadMediaFileController : Controller
     {
         [HttpPost]

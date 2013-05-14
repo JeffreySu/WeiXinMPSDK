@@ -26,26 +26,38 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, string fileName = null)
         {
+            //读取文件
+            FileStream fileStream = null;
+            if (!string.IsNullOrEmpty(fileName) && File.Exists(fileName))
+            {
+                fileStream = new FileStream(fileName, FileMode.Open);
+            }
+
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = postStream.Length;
+            request.ContentLength = fileStream != null ? fileStream.Length : 0;
 
             if (cookieContainer != null)
             {
                 request.CookieContainer = cookieContainer;
             }
 
-            if (postStream != null)
+            if (fileStream != null)
             {
                 Stream requestStream = request.GetRequestStream();
-                using (StreamWriter myStreamWriter = new StreamWriter(requestStream, Encoding.GetEncoding("gb2312")))
+                byte[] buffer = new byte[1024];
+                int bytesRead = 0;
+                while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
                 {
-                    myStreamWriter.Write(postStream);
-                    myStreamWriter.Close();
+                    requestStream.Write(buffer, 0, bytesRead);
                 }
+
+                //StreamWriter streamWriter = new StreamWriter(requestStream);
+                //streamWriter.Write(fileStream);
+                //streamWriter.Close();
             }
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();

@@ -70,6 +70,7 @@
     <Compile Include="Entities\Response\ResponseMessageBaseTest.cs" />
     <Compile Include="HttpUtility\RequestUtilityTest.cs" />
     <Compile Include="HttpUtility\GetTest.cs" />
+    <Compile Include="HttpUtility\PostTest.cs" />
     <Compile Include="MessageHandlers\MessageHandlersTest.cs" />
     <Compile Include="MessageHandlers\MessageHandlers_CancelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

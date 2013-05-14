@@ -34,7 +34,7 @@ namespace Senparc.Weixin.MP.HttpUtility
             return HttpPost(url, cookieContainer, fileStream);
         }
 
-      
+
         /// <summary>
         /// 使用Post方法获取字符串结果
         /// </summary>
@@ -62,9 +62,7 @@ namespace Senparc.Weixin.MP.HttpUtility
                     requestStream.Write(buffer, 0, bytesRead);
                 }
 
-                //StreamWriter streamWriter = new StreamWriter(requestStream);
-                //streamWriter.Write(fileStream);
-                //streamWriter.Close();
+                fileStream.Close();//关闭文件访问
             }
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();

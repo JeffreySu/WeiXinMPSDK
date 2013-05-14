@@ -17,7 +17,7 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// <typeparam name="T"></typeparam>
         /// <param name="returnText"></param>
         /// <returns></returns>
-        private static T GetResult<T>(string returnText)
+        public static T GetResult<T>(string returnText)
         {
             JavaScriptSerializer js = new JavaScriptSerializer();
 

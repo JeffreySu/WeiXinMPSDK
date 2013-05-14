@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.HttpUtility;
 
 namespace Senparc.Weixin.MP.Test.HttpUtility
@@ -22,7 +23,7 @@ namespace Senparc.Weixin.MP.Test.HttpUtility
         [TestMethod]
         public void HttpPostTest()
         {
-            return;//已经通过，但需要连接远程测试，太耗时，常规测试时暂时忽略。
+            //return;//已经通过，但需要连接远程测试，太耗时，常规测试时暂时忽略。
 
             /*
              * 说明：在测试之前请确保url可用
@@ -39,8 +40,17 @@ namespace Senparc.Weixin.MP.Test.HttpUtility
                 url = string.Format(url, "TOKEN", UploadMediaFileType.image.ToString(), fs.Length);
             }
 
+            //获取字符串结果
             var actualResult = RequestUtility.HttpPost(url, new CookieContainer(), file);
-            Assert.AreEqual("OK", actualResult);
+            Assert.IsNotNull(actualResult);
+            Console.WriteLine(actualResult);
+
+            //比较强类型示例的结果
+            UploadMediaFileResult resultEntity = Post.GetResult<UploadMediaFileResult>(actualResult);
+            Assert.IsNotNull(resultEntity);
+            Assert.AreEqual(UploadMediaFileType.image, resultEntity.type);
+            Assert.AreEqual("MEDIA_ID", resultEntity.media_id);
+            Assert.AreEqual(123456789, resultEntity.created_at);
         }
     }
 }

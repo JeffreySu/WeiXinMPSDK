@@ -49,6 +49,13 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
         /// <summary>
         /// 媒体文件上传接口
+        ///注意事项
+        ///1.上传的媒体文件限制：
+        ///图片（image) : 1MB，支持JPG格式
+        ///语音（voice）：1MB，播放长度不超过60s，支持MP4格式
+        ///视频（video）：10MB，支持MP4格式
+        ///缩略图（thumb)：64KB，支持JPG格式
+        ///2.媒体文件在后台保存时间为3天，即3天后media_id失效
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="type">上传文件类型</param>
@@ -56,6 +63,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static UploadMediaFileResult UploadMediaFile(string accessToken, UploadMediaFileType type, string fileName)
         {
+
             var cookieContainer = new CookieContainer();
             var fileStream = FileHelper.GetFileStream(fileName);
 

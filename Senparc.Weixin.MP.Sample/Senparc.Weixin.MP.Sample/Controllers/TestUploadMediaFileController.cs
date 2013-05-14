@@ -37,7 +37,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 inputStream.CopyTo(ms,256);
             }
 
-            return Content("OK");
+            return Content("{\"type\":\"image\",\"media_id\":\"MEDIA_ID\",\"created_at\":123456789}");
         }
     }
 }

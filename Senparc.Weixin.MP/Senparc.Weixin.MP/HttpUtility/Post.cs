@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -21,7 +22,14 @@ namespace Senparc.Weixin.MP.HttpUtility
         public static T GetJson<T>(string url, CookieContainer cookieContainer = null, string fileName = null)
         {
             JavaScriptSerializer js = new JavaScriptSerializer();
-            string returnText = HttpUtility.RequestUtility.HttpPost(url);
+
+            FileStream fileStream = null;
+            if (!string.IsNullOrEmpty(fileName) || File.Exists(fileName))
+            {
+                fileStream = new FileStream(fileName, FileMode.Open);
+            }
+
+            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileStream);
 
             if (returnText.Contains("errcode"))
             {
@@ -31,7 +39,7 @@ namespace Senparc.Weixin.MP.HttpUtility
                 {
                     //发生错误
                     throw new ErrorJsonResultException(
-                        string.Format("微信请求发生错误！错误代码：{0}，说明：{1}",
+                        string.Format("微信Post请求发生错误！错误代码：{0}，说明：{1}",
                                         (int)errorResult.errcode,
                                         errorResult.errmsg),
                                       null, errorResult);

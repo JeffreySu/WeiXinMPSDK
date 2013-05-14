@@ -1,19 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.HttpUtility
 {
-    public static class Get
+    public static class Post
     {
-        public static T GetJson<T>(string url)
+        /// <summary>
+        /// 发起Post请求
+        /// </summary>
+        /// <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
+        /// <param name="url">请求Url</param>
+        /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
+        /// <param name="fileName">要发送的文件名，如果不需要上传则设为null</param>
+        /// <returns></returns>
+        public static T GetJson<T>(string url, CookieContainer cookieContainer = null, string fileName = null)
         {
             JavaScriptSerializer js = new JavaScriptSerializer();
-            string returnText = HttpUtility.RequestUtility.HttpGet(url);
+            string returnText = HttpUtility.RequestUtility.HttpPost(url);
 
             if (returnText.Contains("errcode"))
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -9,10 +10,56 @@ namespace Senparc.Weixin.MP.HttpUtility
 {
     public static class RequestUtility
     {
-        public static string DownloadString(string url)
+        /// <summary>
+        /// 使用Get方法获取字符串结果（暂时没有加入Cookie）
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string HttpGet(string url)
         {
             WebClient wc = new WebClient();
             return wc.DownloadString(url);
+        }
+
+        /// <summary>
+        /// 使用Post方法获取字符串结果
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = postStream.Length;
+
+            if (cookieContainer != null)
+            {
+                request.CookieContainer = cookieContainer;
+            }
+
+            if (postStream != null)
+            {
+                Stream myRequestStream = request.GetRequestStream();
+                StreamWriter myStreamWriter = new StreamWriter(myRequestStream, Encoding.GetEncoding("gb2312"));
+                myStreamWriter.Write(postStream);
+                myStreamWriter.Close();
+            }
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            if (cookieContainer != null)
+            {
+                response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
+            }
+
+            Stream myResponseStream = response.GetResponseStream();
+            StreamReader myStreamReader = new StreamReader(myResponseStream, Encoding.GetEncoding("utf-8"));
+            string retString = myStreamReader.ReadToEnd();
+            myStreamReader.Close();
+            myResponseStream.Close();
+
+            return retString;
         }
 
         /// <summary>

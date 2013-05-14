@@ -120,6 +120,7 @@
     <Compile Include="Helpers\GpsHelper.cs" />
     <Compile Include="Helpers\MsgTypeHelper.cs" />
     <Compile Include="HttpUtility\Get.cs" />
+    <Compile Include="HttpUtility\Post.cs" />
     <Compile Include="HttpUtility\RequestUtility.cs" />
     <Compile Include="MessageHandlers\MessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -12,8 +12,9 @@ namespace Senparc.Weixin.MP.HttpUtility
     {
         public static T GetJson<T>(string url)
         {
-            JavaScriptSerializer js = new JavaScriptSerializer();
             string returnText = HttpUtility.RequestUtility.HttpGet(url);
+
+            JavaScriptSerializer js = new JavaScriptSerializer();
 
             if (returnText.Contains("errcode"))
             {

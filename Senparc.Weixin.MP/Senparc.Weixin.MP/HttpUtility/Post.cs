@@ -21,15 +21,16 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// <returns></returns>
         public static T GetJson<T>(string url, CookieContainer cookieContainer = null, string fileName = null)
         {
-            JavaScriptSerializer js = new JavaScriptSerializer();
-
+            //读取文件
             FileStream fileStream = null;
-            if (!string.IsNullOrEmpty(fileName) || File.Exists(fileName))
+            if (!string.IsNullOrEmpty(fileName) && File.Exists(fileName))
             {
                 fileStream = new FileStream(fileName, FileMode.Open);
             }
 
             string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileStream);
+
+            JavaScriptSerializer js = new JavaScriptSerializer();
 
             if (returnText.Contains("errcode"))
             {

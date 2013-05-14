@@ -1,5 +1,11 @@
 升级记录
 ----------
+
+v0.7 /2013-5-14
+
+完善通用接口（http://mp.weixin.qq.com/wiki/index.php?title=通用接口文档），增加内置模拟Post及文件上传功能。
+
+
 v0.6 /2013-5-7
 
 优化MessageHandler：

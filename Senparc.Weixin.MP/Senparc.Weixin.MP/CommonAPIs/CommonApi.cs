@@ -53,9 +53,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static UploadMediaFileResult UploadMediaFile(string accessToken, UploadMediaFileType type, string fileName)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}",
+            var url = string.Format("http://api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}&filename={2}&filelength={3}",
                                     accessToken, type.ToString());
-            UploadMediaFileResult result = Post.GetJson<UploadMediaFileResult>(url);
+            UploadMediaFileResult result = Post.PostGetJson<UploadMediaFileResult>(url);
             return result;
         }
     }

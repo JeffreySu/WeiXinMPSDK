@@ -34,7 +34,16 @@ namespace Senparc.Weixin.MP.HttpUtility
             {
                 fileStream = new FileStream(fileName, FileMode.Open);
             }
+            return HttpPost(url, cookieContainer, fileStream);
+        }
 
+        /// <summary>
+        /// 使用Post方法获取字符串结果
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream fileStream = null)
+        {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
@@ -76,6 +85,7 @@ namespace Senparc.Weixin.MP.HttpUtility
                 }
             }
         }
+
 
         /// <summary>
         /// 请求是否发起自微信客户端的浏览器

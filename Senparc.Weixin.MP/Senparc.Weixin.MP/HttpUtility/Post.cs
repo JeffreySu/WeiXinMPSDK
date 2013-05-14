@@ -12,17 +12,13 @@ namespace Senparc.Weixin.MP.HttpUtility
     public static class Post
     {
         /// <summary>
-        /// 发起Post请求
+        /// 获取Post结果
         /// </summary>
-        /// <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
-        /// <param name="url">请求Url</param>
-        /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
-        /// <param name="fileName">要发送的文件名，如果不需要上传则设为null</param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="returnText"></param>
         /// <returns></returns>
-        public static T GetJson<T>(string url, CookieContainer cookieContainer = null, string fileName = null)
+        private static T GetResult<T>(string returnText)
         {
-            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileName);
-
             JavaScriptSerializer js = new JavaScriptSerializer();
 
             if (returnText.Contains("errcode"))
@@ -34,14 +30,43 @@ namespace Senparc.Weixin.MP.HttpUtility
                     //发生错误
                     throw new ErrorJsonResultException(
                         string.Format("微信Post请求发生错误！错误代码：{0}，说明：{1}",
-                                        (int)errorResult.errcode,
-                                        errorResult.errmsg),
-                                      null, errorResult);
+                                      (int)errorResult.errcode,
+                                      errorResult.errmsg),
+                        null, errorResult);
                 }
             }
 
             T result = js.Deserialize<T>(returnText);
+            return result;
+        }
 
+        /// <summary>
+        /// 发起Post请求
+        /// </summary>
+        /// <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
+        /// <param name="url">请求Url</param>
+        /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
+        /// <param name="fileName">要发送的文件名，如果不需要上传则设为null</param>
+        /// <returns></returns>
+        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, string fileName = null)
+        {
+            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileName);
+            var result = GetResult<T>(returnText);
+            return result;
+        }
+
+        /// <summary>
+        /// 发起Post请求
+        /// </summary>
+        /// <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
+        /// <param name="url">请求Url</param>
+        /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
+        /// <param name="fileStream">文件流</param>
+        /// <returns></returns>
+        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null)
+        {
+            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileStream);
+            var result = GetResult<T>(returnText);
             return result;
         }
     }

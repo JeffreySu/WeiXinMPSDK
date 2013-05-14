@@ -11,7 +11,7 @@ namespace Senparc.Weixin.MP.Test.HttpUtility
         [TestMethod]
         public void GetJsonTest()
         {
-            return;//已经通过，但需要连接远程测试，太耗时，常规测试时暂时忽略。
+            //return;//已经通过，但需要连接远程测试，太耗时，常规测试时暂时忽略。
             var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
             try
             {

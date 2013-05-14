@@ -29,5 +29,10 @@ namespace Senparc.Weixin.MP.CommonAPIs
             AccessTokenResult result = Get.GetJson<AccessTokenResult>(url);
             return result;
         }
+
+        public static object GetUserInfo(string accessToken,string openId)
+        {
+
+        }
     }
 }

@@ -36,7 +36,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             var fileVersionInfo = FileVersionInfo.GetVersionInfo(HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll"));
             var version = string.Format("{0}.{1}", fileVersionInfo.FileMajorPart, fileVersionInfo.FileMinorPart);
             responseMessage.Content = string.Format(
-                "欢迎关注【Senparc.Weixin.MP 微信公众平台SDK】，当前运行版本：v{0}。\r\n您还可以发送【位置】【图片】【语音】信息，查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com",
+@"欢迎关注【Senparc.Weixin.MP 微信公众平台SDK】，当前运行版本：v{0}。
+您可以发送【文字】【位置】【图片】【语音】等不同类型的信息，查看不同格式的回复。
+
+SDK官方地址：http://weixin.senparc.com
+源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK",
                 version);
             return responseMessage;
         }

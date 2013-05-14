@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckSignature.cs" />
+    <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="Entities\GoogleMap\Markers.cs">
       <SubType>Code</SubType>
     </Compile>

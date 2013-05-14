@@ -66,6 +66,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CheckSignatureTest.cs" />
+    <Compile Include="CommonAPIs\CommonApiTest.cs" />
     <Compile Include="Entities\Response\ResponseMessageBaseTest.cs" />
     <Compile Include="HttpUtility\RequestUtilityTest.cs" />
     <Compile Include="HttpUtility\GetTest.cs" />

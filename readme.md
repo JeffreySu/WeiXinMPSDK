@@ -159,6 +159,8 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 
 [alphawu](https://github.com/alphawu) 吴鹏
 
+樊伟华
+
 
 License
 --------------

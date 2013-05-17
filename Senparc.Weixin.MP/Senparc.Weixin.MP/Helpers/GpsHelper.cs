@@ -31,7 +31,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <returns></returns>
         public static double GetLatitudeDifference(double km)
         {
-            return 1/111;
+            return km * 1 / 111;
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <returns></returns>
         public static double GetLongitudeDifference(double km)
         {
-            return 1/110;
+            return km * 1 / 110;
         }
     }
 }

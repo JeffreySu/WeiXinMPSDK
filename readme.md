@@ -26,6 +26,10 @@ SDK技术交流QQ群：300313885
 [![image]](http://weixin.senparc.com/)  
 [image]: http://weixin.senparc.com/Images/qrcode.jpg
 
+
+微信公众平台开发系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
+
+
 项目文件夹说明
 --------------
 > Senparc.Weixin.MP.BuildOutPut：最新版本Senparc.Weixin.MP.dll发布文件夹

@@ -3,7 +3,7 @@
  目前提供的功能有：
  
  
- >WeixinInternalRequest：强制过滤非来自微信客户端的网页请求（无法在外部浏览器中打开使用此属性的Action）。
+ >WeixinInternalRequest：强制过滤来自非微信客户端的网页请求（无法在外部浏览器中打开使用此属性的Action）。
  
  
  >WeixinResult：封装后的微信数据返回类型（配合MessageHandler使用）。

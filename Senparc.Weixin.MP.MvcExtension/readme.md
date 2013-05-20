@@ -10,3 +10,9 @@
  
  
  此项需要Senparc.Weixin.MP.dll支持。
+
+
+更新日志：
+
+v1.0 /2013-5-21
+完成WeixinInternalRequest及WeixinResult。

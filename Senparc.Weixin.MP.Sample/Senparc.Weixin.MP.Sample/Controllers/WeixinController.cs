@@ -12,6 +12,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 {
     using Senparc.Weixin.MP.Entities;
     using Senparc.Weixin.MP.Helpers;
+    using Senparc.Weixin.MP.MvcExtension;
     //using Senparc.Weixin.MP.Sample.Service;
     //using Senparc.Weixin.MP.Sample.CustomerMessageHandler;
     using Senparc.Weixin.MP.Sample.CommonService;
@@ -44,8 +45,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         /// <summary>
-        /// 用户发送消息后，微信平台自动Post一个请求到这里，并等待响应XML
-        /// PS：此方法为简化方法，效果与OldPost一致
+        /// 用户发送消息后，微信平台自动Post一个请求到这里，并等待响应XML。
+        /// PS：此方法为简化方法，效果与OldPost一致。
+        /// v0.8之后的版本可以结合Senparc.Weixin.MP.MvcExtension扩展包，使用WeixinResult，见MiniPost方法。
         /// </summary>
         [HttpPost]
         [ActionName("Index")]
@@ -94,18 +96,22 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// </summary>
         [HttpPost]
         [ActionName("MiniPost")]
-        public ActionResult MiniPost(string signature, string timestamp, string nonce, string echostr)
+        public WeixinResult MiniPost(string signature, string timestamp, string nonce, string echostr)
         {
+            //v0.8之后的版本可以结合Senparc.Weixin.MP.MvcExtension，使用WeixinResult返回类型
+
             if (!CheckSignature.Check(signature, timestamp, nonce, Token))
             {
-                return Content("参数错误！");
+                //return Content("参数错误！");//v0.7-
+                return new WeixinResult("参数错误！");//v0.8+
             }
 
             var messageHandler = new CustomMessageHandler(Request.InputStream);
 
             messageHandler.Execute();//执行微信处理过程
 
-            return Content(messageHandler.ResponseDocument.ToString());
+            //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
+            return new WeixinResult(messageHandler);//v0.8+
         }
 
         /*

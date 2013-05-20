@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.MvcExtension", "Senparc.Weixin.MP.MvcExtension.csproj", "{6FFE5A84-D28F-4534-B8E3-4CAB6CBCB3E2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6FFE5A84-D28F-4534-B8E3-4CAB6CBCB3E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FFE5A84-D28F-4534-B8E3-4CAB6CBCB3E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FFE5A84-D28F-4534-B8E3-4CAB6CBCB3E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FFE5A84-D28F-4534-B8E3-4CAB6CBCB3E2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

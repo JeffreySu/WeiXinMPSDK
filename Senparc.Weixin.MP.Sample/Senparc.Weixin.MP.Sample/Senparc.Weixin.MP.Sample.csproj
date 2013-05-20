@@ -43,6 +43,9 @@
     <Reference Include="Senparc.Weixin.MP">
       <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.MP.dll</HintPath>
     </Reference>
+    <Reference Include="Senparc.Weixin.MP.MvcExtension">
+      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.MP.MvcExtension.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -129,6 +132,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\API\ValuesController.cs" />
     <Compile Include="Controllers\API\WeixinServiceController.cs" />

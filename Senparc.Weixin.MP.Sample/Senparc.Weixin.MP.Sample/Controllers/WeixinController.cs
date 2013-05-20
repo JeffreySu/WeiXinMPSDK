@@ -69,7 +69,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 messageHandler.Execute();
                 //测试时可开启，帮助跟踪数据
                 messageHandler.ResponseDocument.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
-                return Content(messageHandler.ResponseDocument.ToString());
+                
+                //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
+                return new WeixinResult(messageHandler);//v0.8+
             }
             catch (Exception ex)
             {
@@ -92,30 +94,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
 
-
-        /// <summary>
-        /// 最简化的处理流程
-        /// </summary>
-        [HttpPost]
-        [ActionName("WeixinResultMiniPost")]
-        public WeixinResult WeixinResultMiniPost(string signature, string timestamp, string nonce, string echostr)
-        {
-            //v0.8之后的版本可以结合Senparc.Weixin.MP.MvcExtension，使用WeixinResult返回类型
-
-            if (!CheckSignature.Check(signature, timestamp, nonce, Token))
-            {
-                //return Content("参数错误！");//v0.7-
-                return new WeixinResult("参数错误！");//v0.8+
-            }
-
-            var messageHandler = new CustomMessageHandler(Request.InputStream);
-
-            messageHandler.Execute();//执行微信处理过程
-
-            //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
-            return new WeixinResult(messageHandler);//v0.8+
-        }
-
         /// <summary>
         /// 最简化的处理流程
         /// </summary>
@@ -132,7 +110,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             messageHandler.Execute();//执行微信处理过程
 
-            return Content(messageHandler.ResponseDocument.ToString());//v0.7-
+            //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
+            return new WeixinResult(messageHandler);//v0.8+
         }
 
         /*

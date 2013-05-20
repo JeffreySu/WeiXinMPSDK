@@ -1,5 +1,11 @@
 升级记录
 ----------
+Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/WeiXinMPSDK/blob/master/Senparc.Weixin.MP.MvcExtension/readme.md
+
+v0.8 /2013-5-21
+
+添加IMessageHandler接口。
+
 
 v0.7 /2013-5-14
 

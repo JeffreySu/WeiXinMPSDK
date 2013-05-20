@@ -1,6 +1,8 @@
-升级记录
-----------
 Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/WeiXinMPSDK/blob/master/Senparc.Weixin.MP.MvcExtension/readme.md
+
+
+Senparc.Weixin.MP升级记录
+----------
 
 v0.8 /2013-5-21
 

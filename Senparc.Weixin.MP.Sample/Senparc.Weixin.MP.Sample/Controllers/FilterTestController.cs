@@ -9,7 +9,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     using Senparc.Weixin.MP.MvcExtension;
 
     /// <summary>
-    /// 测试Senparc.Weixin.MP.MvcExtension.WeixinInternalRequestAttribute
+    /// 演示Senparc.Weixin.MP.MvcExtension.WeixinInternalRequestAttribute
     /// </summary>
     public class FilterTestController : Controller
     {

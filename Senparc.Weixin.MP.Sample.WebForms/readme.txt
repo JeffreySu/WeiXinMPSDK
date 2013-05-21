@@ -1,4 +1,4 @@
-为了统一MessageHandler方法的调用并得以重用，此WebForms项目引用了 Senparc.Weixin.MP.Sample.CommonService 项目（包含在MVC项目目录中，见https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.CommonService），因此打开此项目时请保持上级文件夹目录完整性。
+为了统一MessageHandler方法的调用并得以重用，此WebForms项目引用了 Senparc.Weixin.MP.Sample.CommonService 项目（包含在MVC项目目录中，见 https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.CommonService ），因此打开此项目时请保持上级文件夹目录完整性。
 
 如果部署时出现web.config节点重复的错误，只需要依次删除提示的节点即可（一般是服务器.net版本高于3.5所致）。
 

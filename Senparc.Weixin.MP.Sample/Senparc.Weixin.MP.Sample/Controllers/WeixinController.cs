@@ -69,7 +69,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 messageHandler.Execute();
                 //测试时可开启，帮助跟踪数据
                 messageHandler.ResponseDocument.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
-                
+
                 //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
                 return new WeixinResult(messageHandler);//v0.8+
             }
@@ -79,7 +79,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);
-                    tw.WriteLine(ex.StackTrace); 
+                    tw.WriteLine(ex.StackTrace);
                     //tw.WriteLine("InnerExecptionMessage:" + ex.InnerException.Message);
 
                     if (messageHandler.ResponseDocument != null)
@@ -103,7 +103,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             if (!CheckSignature.Check(signature, timestamp, nonce, Token))
             {
-                return Content("参数错误！");//v0.7-
+                //return Content("参数错误！");//v0.7-
+                return new WeixinResult("参数错误！");//v0.8+
             }
 
             var messageHandler = new CustomMessageHandler(Request.InputStream);

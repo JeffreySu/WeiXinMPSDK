@@ -1,15 +1,9 @@
  Senparc.Weixin.MP.MvcExtension 是针对MVC（4.0）项目的扩展包，可以简化部分MVC中的操作。
  
- 目前提供的功能有：
+ 说明见：[Senparc.Weixin.MP.MvcExtension.dll使用说明](https://github.com/JeffreySu/WeiXinMPSDK/wiki/Senparc.Weixin.MP.MvcExtension.dll%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E)
  
- 
- >WeixinInternalRequest：强制过滤来自非微信客户端的网页请求（无法在外部浏览器中打开使用此属性的Action）。
- 
- 
- >WeixinResult：封装后的微信数据返回类型（配合MessageHandler使用）。
- 
- 
- 此项需要Senparc.Weixin.MP.dll支持。
+
+ 此项基于Senparc.Weixin.MP.dll的支持。
 
 
 更新日志：

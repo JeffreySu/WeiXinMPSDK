@@ -1,7 +1,13 @@
+DLL说明
+----------
+Senparc.Weixin.MP.dll：Senparc.Weixin.MP 微信SDK核心库
+
+Senparc.Weixin.MP.MvcExtension.dll：在Senparc.Weixin.MP.dll基础上，为MVC4.0项目提供的扩展库，简化判断和输出。如果使用Webforms或Wcf等方式与维新服务器通讯，可以忽略这个dll。
+
 Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/WeiXinMPSDK/blob/master/Senparc.Weixin.MP.MvcExtension/readme.md
 
 
-Senparc.Weixin.MP升级记录
+Senparc.Weixin.MP.dll升级记录
 ----------
 
 v0.8 /2013-5-21

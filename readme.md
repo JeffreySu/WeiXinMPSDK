@@ -34,7 +34,7 @@ SDK技术交流QQ群：300313885
 --------------
 > Senparc.Weixin.MP.BuildOutPut：最新版本Senparc.Weixin.MP.dll及Senparc.Weixin.MP.MvcExtension.dll发布文件夹
 
-> Senparc.Weixin.MP.MvcExtension：为MVC4.0项目提供的扩展包，简化判断和输出。
+> Senparc.Weixin.MP.MvcExtension：Senparc.Weixin.MP.MvcExtension.dll源码，为MVC4.0项目提供的扩展包。
 
 > Senparc.Weixin.MP.Sample：可以直接发布使用的Demo（ASP.NET MVC 4.0，需要.NET 4.0）
 

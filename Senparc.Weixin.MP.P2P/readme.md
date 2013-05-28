@@ -23,16 +23,18 @@
 
 登陆超时后自动重新登陆 OK
 
+建立P2PManager，快速注册到程序进程 OK
+
+建立P2PThread，P2P专有线程 OK
+
 
 获取用户图片
-
-建立P2PManager，快速注册到程序进程
-
-建立P2PThread，P2P专有线程
 
 建立用于P2PThread的异步侦探OpenId和Fakeid映射关系的方法
 
 自动侦探OpenId和Fakeid映射关系，并允许添加事件，让用户处理侦探之后的结果（如录入自己的数据库）
+
+获取音频、视频等媒体文件
 
 
 你还能想到什么？

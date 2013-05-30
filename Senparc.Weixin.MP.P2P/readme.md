@@ -5,7 +5,7 @@
 
 完成进度：75%
 
-关注微信公众账号（Souidea是一个全面测试Senparc.Weixin.MP和Senparc.Weixin.MP.P2P的机器人）：
+关注P2P测试微信公众账号（Souidea是一个全面测试Senparc.Weixin.MP和Senparc.Weixin.MP.P2P的机器人）：
 [![image]](http://weixin.senparc.com/)  
 [image]: http://weixin.senparc.com/Images/qrcode_for_souidea.jpg
 

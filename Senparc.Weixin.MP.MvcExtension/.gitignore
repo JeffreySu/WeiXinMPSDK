@@ -1,0 +1,7 @@
+# git ignore file
+bin/
+obj/
+*.[pdb]
+*.[suo]
+Senparc.Weixin.MP.MvcExtension.v11.suo
+_ReSharper.Senparc.Weixin.MP.MvcExtension/

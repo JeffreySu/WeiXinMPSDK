@@ -109,6 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
+    <Compile Include="Controllers\FilterTestControllerTest.cs" />
     <Compile Include="Controllers\WeixinControllerTest.cs" />
     <Compile Include="Mock\MvcMockHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

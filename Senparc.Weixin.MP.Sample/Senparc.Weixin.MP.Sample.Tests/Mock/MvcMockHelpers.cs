@@ -14,7 +14,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Mock
 {
     public static class MvcMockHelpers
     {
-        public static HttpContextBase FakeHttpContext(Stream inputStream = null)
+        public static HttpContextBase FakeHttpContext(Stream inputStream = null,string userAgent=null)
         {
             var context = new Mock<HttpContextBase>();
             var request = new Mock<HttpRequestBase>();
@@ -22,7 +22,6 @@ namespace Senparc.Weixin.MP.Sample.Tests.Mock
             var session = new Mock<HttpSessionStateBase>();
             var server = new Mock<HttpServerUtilityBase>();
             // var requestInputStream = new Mock<Stream>();
-
 
             //* 如果出现错误：System.ArgumentException: Unable to obtain public key for StrongNameKeyPair
             //* 是因为无法对MachineKeys目录进行写和删除操作，
@@ -35,20 +34,22 @@ namespace Senparc.Weixin.MP.Sample.Tests.Mock
             context.Setup(ctx => ctx.Server).Returns(server.Object);
 
             request.Setup(r => r.InputStream).Returns(inputStream);
+            request.Setup(r => r.UserAgent).Returns(userAgent);
+            request.Setup(r => r.Url).Returns(new Uri("http://weixin.senparc.com"));
 
             return context.Object;
         }
 
-        public static HttpContextBase FakeHttpContext(string url, Stream inputStream = null)
+        public static HttpContextBase FakeHttpContext(string url, Stream inputStream = null, string userAgent = null)
         {
-            HttpContextBase context = FakeHttpContext( inputStream);
+            HttpContextBase context = FakeHttpContext(inputStream,userAgent);
             context.Request.SetupRequestUrl(url);
             return context;
         }
 
-        public static void SetFakeControllerContext(this Controller controller, Stream inputStream = null)
+        public static void SetFakeControllerContext(this Controller controller, Stream inputStream = null, string userAgent = null)
         {
-            var httpContext = FakeHttpContext(inputStream: inputStream);
+            var httpContext = FakeHttpContext(inputStream,userAgent);
             ControllerContext context = new ControllerContext(new RequestContext(httpContext, new RouteData()), controller);
             controller.ControllerContext = context;
         }

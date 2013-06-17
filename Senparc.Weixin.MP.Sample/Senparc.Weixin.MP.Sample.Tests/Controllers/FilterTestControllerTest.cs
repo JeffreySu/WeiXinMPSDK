@@ -34,8 +34,8 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                 //模拟微信内置浏览器打开
                 Init(weixinUserAgent);//初始化
 
-                ActionDescriptor ad = new ReflectedActionDescriptor(target.GetType().GetMethod("Index"), "Index", 
-                                                                        new ReflectedAsyncControllerDescriptor(target.GetType()));
+                ActionDescriptor ad = new ReflectedActionDescriptor(target.GetType().GetMethod("Index"), "Index",
+                                                        new ReflectedAsyncControllerDescriptor(target.GetType()));
                 ActionExecutingContext aec = new ActionExecutingContext(target.ControllerContext, ad,
                                                                         new Dictionary<string, object>());
                 filter.OnActionExecuting(aec);

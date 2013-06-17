@@ -22,6 +22,13 @@ SDK技术交流QQ群：300313885
 
 新浪微博：[@苏震巍](http://weibo.com/jeffreysu1984)
 
+如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！
+
+
+资金捐助：https://me.alipay.com/jeffreysu
+
+
+
 ###关注测试账号（SenparcRobot）：
 [![image]](http://weixin.senparc.com/)  
 [image]: http://weixin.senparc.com/Images/qrcode.jpg

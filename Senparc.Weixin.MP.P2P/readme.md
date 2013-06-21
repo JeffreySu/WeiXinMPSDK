@@ -49,3 +49,7 @@
 
 
 你还能想到什么？
+
+
+#P2P项目动态
+Senparc.Weixin.MP.P2P API将于近期开放，C#版本的SDK也将迅速跟进。

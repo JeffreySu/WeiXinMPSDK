@@ -12,8 +12,6 @@ namespace Senparc.Weixin.MP.Entities
             get { return ResponseMsgType.News; }
         }
 
-        public string Content { get; set; }
-
         public int ArticleCount
         {
             get { return (Articles ?? new List<Article>()).Count; }

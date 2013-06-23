@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                 filter.OnActionExecuting(aec);
 
                 Assert.IsNull(aec.Result);
-
+                
                 //下面的测试和UserAgent无关，只要Index可以被调用，都会有同样的结果
                 ContentResult actual = target.Index();
                 Assert.IsTrue(actual.Content.Contains("访问正常"));

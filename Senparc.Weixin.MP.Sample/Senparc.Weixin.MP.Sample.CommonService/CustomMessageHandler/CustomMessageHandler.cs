@@ -58,6 +58,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //var responseMessage = RequestMessage.CreateResponseMessage<ResponseMessageText>();
 
             //方法四（v0.6），仅适合在HandlerMessage内部使用，本质上是对方法三的封装
+            //注意：下面泛型ResponseMessageText即返回给客户端的类型，可以根据自己的需要填写ResponseMessageNews等不同类型。
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
 
             if (requestMessage.Content == "约束")
@@ -115,7 +116,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
         {
             var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageNews>(RequestMessage);
-            responseMessage.Content = "这里是正文内容，一共将发2条Article。";
             responseMessage.Articles.Add(new Article()
             {
                 Title = "您刚才发送了图片信息",

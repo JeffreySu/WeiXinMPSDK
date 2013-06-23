@@ -57,7 +57,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //方法三（v0.4），扩展方法，需要using Senparc.Weixin.MP.Helpers;
             //var responseMessage = RequestMessage.CreateResponseMessage<ResponseMessageText>();
 
-            //方法四（v0.6），仅适合在HandlerMessage内部使用，本质上是对方法三的封装
+            //方法四（v0.6+），仅适合在HandlerMessage内部使用，本质上是对方法三的封装
             //注意：下面泛型ResponseMessageText即返回给客户端的类型，可以根据自己的需要填写ResponseMessageNews等不同类型。
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
 

@@ -9,6 +9,11 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 
 Senparc.Weixin.MP.dll升级记录
 ----------
+v0.9 /2013-6-23
+开始添加自定义菜单操作；
+
+去掉ResponseMessageNews中的Content属性。
+
 
 v0.8 /2013-5-21
 

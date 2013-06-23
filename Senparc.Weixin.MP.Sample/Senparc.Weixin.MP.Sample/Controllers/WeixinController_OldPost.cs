@@ -72,7 +72,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                             var strongresponseMessage =
                                 ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.News) as
                                 ResponseMessageNews;
-                            strongresponseMessage.Content = "这里是正文内容，一共将发2条Article。";
                             strongresponseMessage.Articles.Add(new Article()
                                                                    {
                                                                        Title = "您刚才发送了图片信息",

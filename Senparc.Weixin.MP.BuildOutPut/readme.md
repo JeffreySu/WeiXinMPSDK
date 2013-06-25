@@ -9,6 +9,10 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 
 Senparc.Weixin.MP.dll升级记录
 ----------
+v1.0 /2013-6-25
+
+微信4.5 API正式稳定版。修复ResponseMessage生成的XML节点顺序问题。
+
 v0.9 /2013-6-23
 
 开始添加自定义菜单操作；

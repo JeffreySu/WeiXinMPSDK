@@ -113,11 +113,11 @@ namespace Senparc.Weixin.MP.Helpers
             */
             var propNameOrder = new List<string>();
             //不同返回类型需要对应不同特殊格式的排序
-            if (typeof(T) == typeof(ResponseMessageNews))
+            if (entity is ResponseMessageNews)
             {
                 propNameOrder.AddRange(new[] { "ToUserName", "FromUserName", "CreateTime", "MsgType", "Content", "ArticleCount", "Articles", "FuncFlag",/*以下是Atricle属性*/ "Title ", "Description ", "PicUrl", "Url" });
             }
-            else if (typeof(T) == typeof(ResponseMessageMusic))
+            else if (entity is ResponseMessageMusic)
             {
                 propNameOrder.AddRange(new[] { "ToUserName", "FromUserName", "CreateTime", "MsgType", "Music", "FuncFlag",/*以下是Music属性*/ "Title ", "Description ", "MusicUrl", "HQMusicUrl" });
             }

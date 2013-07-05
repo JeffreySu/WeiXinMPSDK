@@ -18,6 +18,8 @@
 
 源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
 
+Q&A：https://github.com/JeffreySu/WeiXinMPSDK/wiki/QA
+
 SDK技术交流QQ群：300313885
 
 新浪微博：[@苏震巍](http://weibo.com/jeffreysu1984)

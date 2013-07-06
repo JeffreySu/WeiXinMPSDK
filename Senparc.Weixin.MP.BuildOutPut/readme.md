@@ -9,6 +9,11 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 
 Senparc.Weixin.MP.dll升级记录
 ----------
+v1.1 /2013-7-6
+
+添加HttpPost提交方法，支持更多数据提交格式，为实现P2P更多扩展做准备。
+
+
 v1.0 /2013-6-25
 
 微信4.5 API正式稳定版。修复ResponseMessage生成的XML节点顺序问题。

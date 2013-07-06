@@ -25,13 +25,41 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// <summary>
         /// 使用Post方法获取字符串结果
         /// </summary>
+        /// <returns></returns>
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (formData != null)
+            {
+                var i = 0;
+                foreach (var kv in formData)
+                {
+                    i++;
+                    sb.AppendFormat("{0}={1}", kv.Key, kv.Value);
+                    if (i < formData.Count)
+                    {
+                        sb.Append("&");
+                    }
+                }
+            }
+
+            string dataString = sb.ToString();
+            List<byte> formDataBytes = formData == null ? new List<byte>() : Encoding.UTF8.GetBytes(dataString).ToList();
+            MemoryStream ms=new MemoryStream();
+            ms.Write(formDataBytes.ToArray(), 0, formDataBytes.Count);
+            return HttpPost(url, cookieContainer, ms);
+        }
+
+        /// <summary>
+        /// 使用Post方法获取字符串结果
+        /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
         public static string HttpPost(string url, CookieContainer cookieContainer = null, string fileName = null)
         {
             //读取文件
             var fileStream = FileHelper.GetFileStream(fileName);
-            return HttpPost(url, cookieContainer, fileStream);
+            return HttpPost(url, cookieContainer, fileStream,true);
         }
 
 
@@ -39,30 +67,34 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// 使用Post方法获取字符串结果
         /// </summary>
         /// <param name="url"></param>
+        /// <param name="cookieContainer"></param>
+        /// <param name="postStream"></param>
+        /// <param name="isFile">postStreams是否是文件流</param>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream fileStream = null)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, bool isFile=false)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = fileStream != null ? fileStream.Length : 0;
+            request.ContentLength = postStream != null? postStream.Length: 0;
 
             if (cookieContainer != null)
             {
                 request.CookieContainer = cookieContainer;
             }
 
-            if (fileStream != null)
+            if (postStream != null)
             {
+                //上传文件流
                 Stream requestStream = request.GetRequestStream();
                 byte[] buffer = new byte[1024];
                 int bytesRead = 0;
-                while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
+                while ((bytesRead = postStream.Read(buffer, 0, buffer.Length)) != 0)
                 {
                     requestStream.Write(buffer, 0, bytesRead);
                 }
 
-                fileStream.Close();//关闭文件访问
+                postStream.Close();//关闭文件访问
             }
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();

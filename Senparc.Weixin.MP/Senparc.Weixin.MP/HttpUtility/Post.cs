@@ -69,5 +69,12 @@ namespace Senparc.Weixin.MP.HttpUtility
             var result = GetResult<T>(returnText);
             return result;
         }
+
+        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string,string> formData=null)
+        {
+            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, formData);
+            var result = GetResult<T>(returnText);
+            return result;
+        }
     }
 }

@@ -44,9 +44,10 @@ namespace Senparc.Weixin.MP.HttpUtility
             }
 
             string dataString = sb.ToString();
-            List<byte> formDataBytes = formData == null ? new List<byte>() : Encoding.UTF8.GetBytes(dataString).ToList();
-            MemoryStream ms=new MemoryStream();
-            ms.Write(formDataBytes.ToArray(), 0, formDataBytes.Count);
+            var formDataBytes = formData == null ? new byte[0] : Encoding.UTF8.GetBytes(dataString);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return HttpPost(url, cookieContainer, ms);
         }
 
@@ -59,7 +60,7 @@ namespace Senparc.Weixin.MP.HttpUtility
         {
             //读取文件
             var fileStream = FileHelper.GetFileStream(fileName);
-            return HttpPost(url, cookieContainer, fileStream,true);
+            return HttpPost(url, cookieContainer, fileStream, true);
         }
 
 
@@ -71,12 +72,12 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// <param name="postStream"></param>
         /// <param name="isFile">postStreams是否是文件流</param>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, bool isFile=false)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, bool isFile = false)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = postStream != null? postStream.Length: 0;
+            request.ContentLength = postStream != null ? postStream.Length : 0;
 
             if (cookieContainer != null)
             {
@@ -87,6 +88,7 @@ namespace Senparc.Weixin.MP.HttpUtility
             {
                 //上传文件流
                 Stream requestStream = request.GetRequestStream();
+
                 byte[] buffer = new byte[1024];
                 int bytesRead = 0;
                 while ((bytesRead = postStream.Read(buffer, 0, buffer.Length)) != 0)

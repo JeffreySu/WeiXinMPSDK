@@ -9,6 +9,10 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 
 Senparc.Weixin.MP.dll升级记录
 ----------
+v1.2 /2013-7-8
+
+独立封装RequestUtility.GetQueryString方法，将Dictionary<string,string>类型数据转为QueryString格式。
+
 v1.1 /2013-7-6
 
 添加HttpPost提交方法，支持更多数据提交格式，为实现P2P更多扩展做准备。

@@ -22,6 +22,8 @@ Q&A：https://github.com/JeffreySu/WeiXinMPSDK/wiki/QA
 
 SDK技术交流QQ群：300313885
 
+业务联系QQ：498977166
+
 新浪微博：[@苏震巍](http://weibo.com/jeffreysu1984)
 
 如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！

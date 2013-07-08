@@ -107,7 +107,7 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
-        public static bool IsWeixinClientRequest(HttpContext httpContext)
+        public static bool IsWeixinClientRequest(this HttpContext httpContext)
         {
             return !string.IsNullOrEmpty(httpContext.Request.UserAgent) &&
                    httpContext.Request.UserAgent.Contains("MicroMessenger");
@@ -119,7 +119,7 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// </summary>
         /// <param name="formData"></param>
         /// <returns></returns>
-        public static string GetQueryString(Dictionary<string, string> formData)
+        public static string GetQueryString(this Dictionary<string, string> formData)
         {
             if (formData == null || formData.Count == 0)
             {

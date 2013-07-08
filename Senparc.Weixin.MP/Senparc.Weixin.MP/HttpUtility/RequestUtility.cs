@@ -28,22 +28,7 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// <returns></returns>
         public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null)
         {
-            StringBuilder sb = new StringBuilder();
-            if (formData != null)
-            {
-                var i = 0;
-                foreach (var kv in formData)
-                {
-                    i++;
-                    sb.AppendFormat("{0}={1}", kv.Key, kv.Value);
-                    if (i < formData.Count)
-                    {
-                        sb.Append("&");
-                    }
-                }
-            }
-
-            string dataString = sb.ToString();
+            string dataString = GetQueryString(formData);
             var formDataBytes = formData == null ? new byte[0] : Encoding.UTF8.GetBytes(dataString);
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
@@ -126,6 +111,35 @@ namespace Senparc.Weixin.MP.HttpUtility
         {
             return !string.IsNullOrEmpty(httpContext.Request.UserAgent) &&
                    httpContext.Request.UserAgent.Contains("MicroMessenger");
+        }
+
+        /// <summary>
+        /// 组装QueryString的方法
+        /// 参数之间用&连接，首位没有符号，如：a=1&b=2&c=3
+        /// </summary>
+        /// <param name="formData"></param>
+        /// <returns></returns>
+        public static string GetQueryString(Dictionary<string, string> formData)
+        {
+            if (formData == null || formData.Count == 0)
+            {
+                return "";
+            }
+
+            StringBuilder sb = new StringBuilder();
+
+            var i = 0;
+            foreach (var kv in formData)
+            {
+                i++;
+                sb.AppendFormat("{0}={1}", kv.Key, kv.Value);
+                if (i < formData.Count)
+                {
+                    sb.Append("&");
+                }
+            }
+
+            return sb.ToString();
         }
     }
 }

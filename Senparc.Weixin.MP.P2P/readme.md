@@ -3,7 +3,7 @@
 
 用于微信公众账号自动群发及点到点发送信息。
 
-完成进度：85%
+完成进度：90%
 
 关注P2P测试微信公众账号（Souidea是一个全面测试Senparc.Weixin.MP和Senparc.Weixin.MP.P2P的机器人）：
 [![image]](http://weixin.senparc.com/)  
@@ -44,7 +44,7 @@
 
 下载语音文件 OK
 
-获取用户图片
+获取用户图片 OK
 
 
 获取视频等更多媒体文件

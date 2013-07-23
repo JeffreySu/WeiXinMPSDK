@@ -9,6 +9,14 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 
 Senparc.Weixin.MP.dll升级记录
 ----------
+v1.4 /2013-7-23
+
+为HttpUtility下方法提供Encoding选项。
+
+v1.3 /2013-7-9
+
+封装System.Web.HttpUtility下HTML及Url的Encode及Decode方法
+
 v1.2 /2013-7-8
 
 独立封装RequestUtility.GetQueryString方法，将Dictionary<string,string>类型数据转为QueryString格式。

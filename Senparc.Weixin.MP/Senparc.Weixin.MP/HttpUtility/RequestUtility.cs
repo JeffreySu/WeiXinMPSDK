@@ -16,9 +16,13 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static string HttpGet(string url)
+        public static string HttpGet(string url, Encoding encoding = null)
         {
             WebClient wc = new WebClient();
+            if (encoding != null)
+            {
+                wc.Encoding = encoding;
+            }
             return wc.DownloadString(url);
         }
 
@@ -26,14 +30,14 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// 使用Post方法获取字符串结果
         /// </summary>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null)
         {
             string dataString = GetQueryString(formData);
             var formDataBytes = formData == null ? new byte[0] : Encoding.UTF8.GetBytes(dataString);
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return HttpPost(url, cookieContainer, ms);
+            return HttpPost(url, cookieContainer, ms, false, encoding);
         }
 
         /// <summary>
@@ -41,11 +45,11 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, string fileName = null)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, string fileName = null, Encoding encoding = null)
         {
             //读取文件
             var fileStream = FileHelper.GetFileStream(fileName);
-            return HttpPost(url, cookieContainer, fileStream, true);
+            return HttpPost(url, cookieContainer, fileStream, true, encoding);
         }
 
 
@@ -57,7 +61,7 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// <param name="postStream"></param>
         /// <param name="isFile">postStreams是否是文件流</param>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, bool isFile = false)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, bool isFile = false, Encoding encoding = null)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
@@ -93,7 +97,7 @@ namespace Senparc.Weixin.MP.HttpUtility
 
             using (Stream responseStream = response.GetResponseStream())
             {
-                using (StreamReader myStreamReader = new StreamReader(responseStream, Encoding.GetEncoding("utf-8")))
+                using (StreamReader myStreamReader = new StreamReader(responseStream, encoding ?? Encoding.GetEncoding("utf-8")))
                 {
                     string retString = myStreamReader.ReadToEnd();
                     return retString;

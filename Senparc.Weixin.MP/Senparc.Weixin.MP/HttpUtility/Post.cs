@@ -48,9 +48,9 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
         /// <param name="fileName">要发送的文件名，如果不需要上传则设为null</param>
         /// <returns></returns>
-        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, string fileName = null)
+        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, string fileName = null, Encoding encoding = null)
         {
-            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileName);
+            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileName, encoding);
             var result = GetResult<T>(returnText);
             return result;
         }
@@ -63,16 +63,16 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
         /// <param name="fileStream">文件流</param>
         /// <returns></returns>
-        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null)
+        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null)
         {
-            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileStream);
+            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileStream, false, encoding);
             var result = GetResult<T>(returnText);
             return result;
         }
 
-        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string,string> formData=null)
+        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null)
         {
-            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, formData);
+            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, formData, encoding);
             var result = GetResult<T>(returnText);
             return result;
         }

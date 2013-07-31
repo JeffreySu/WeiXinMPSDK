@@ -66,10 +66,14 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CheckSignatureTest.cs" />
+    <Compile Include="CommonAPIs\CommonApiTest.cs" />
     <Compile Include="Entities\Response\ResponseMessageBaseTest.cs" />
+    <Compile Include="Helpers\GpsHelperTest.cs" />
     <Compile Include="HttpUtility\RequestUtilityTest.cs" />
     <Compile Include="HttpUtility\GetTest.cs" />
+    <Compile Include="HttpUtility\PostTest.cs" />
     <Compile Include="MessageHandlers\MessageHandlersTest.cs" />
+    <Compile Include="MessageHandlers\MessageHandlers_CancelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\MsgTypeHelperTest.cs" />
     <Compile Include="RequestMessageFactoryTest.cs" />
@@ -85,7 +89,9 @@
       <Name>Senparc.Weixin.MP</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Context\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

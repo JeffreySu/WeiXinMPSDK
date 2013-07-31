@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Web;
+using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.MessageHandlers;
 
@@ -9,7 +10,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
     /// <summary>
     /// 自定义MessageHandler
     /// </summary>
-    public partial class CustomMessageHandler : MessageHandler
+    public partial class CustomMessageHandler : MessageHandler<MessageContext>
     {
         public override IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage)
         {
@@ -33,9 +34,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
             //获取Senparc.Weixin.MP.dll版本信息
             var fileVersionInfo = FileVersionInfo.GetVersionInfo(HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll"));
-            var version = fileVersionInfo.FileVersion;
+            var version = string.Format("{0}.{1}", fileVersionInfo.FileMajorPart, fileVersionInfo.FileMinorPart);
             responseMessage.Content = string.Format(
-                "欢迎关注【Senparc.Weixin.MP 微信公众平台SDK】，当前运行版本：v{0}。\r\n您还可以发送【位置】【图片】【语音】信息，查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com",
+@"欢迎关注【Senparc.Weixin.MP 微信公众平台SDK】，当前运行版本：v{0}。
+您可以发送【文字】【位置】【图片】【语音】等不同类型的信息，查看不同格式的回复。
+
+SDK官方地址：http://weixin.senparc.com
+源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK",
                 version);
             return responseMessage;
         }
@@ -48,8 +53,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         /// <returns></returns>
         public override IResponseMessageBase OnEvent_UnsubscribeRequest(RequestMessageEvent_Unsubscribe requestMessage)
         {
-            var responseMessage = ResponseMessageBase.CreateFromRequestMessage(requestMessage,
-                                                                                         ResponseMsgType.Text) as ResponseMessageText;
+            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "有空再来";
             return responseMessage;
         }

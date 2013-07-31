@@ -30,6 +30,7 @@ namespace Senparc.Weixin.MP.Entities
         /// <param name="requestMessage">请求</param>
         /// <param name="msgType">响应类型</param>
         /// <returns></returns>
+        [Obsolete("建议使用CreateFromRequestMessage<T>(IRequestMessageBase requestMessage)取代此方法")]
         public static ResponseMessageBase CreateFromRequestMessage(IRequestMessageBase requestMessage, ResponseMsgType msgType)
         {
             ResponseMessageBase responseMessage = null;
@@ -54,7 +55,7 @@ namespace Senparc.Weixin.MP.Entities
                                                    CreateTime = DateTime.Now,//使用当前最新时间
                                                    //MsgType = msgType
                                                };
-                        break; break;
+                        break;
                     case ResponseMsgType.Music:
                         responseMessage = new ResponseMessageMusic()
                                               {

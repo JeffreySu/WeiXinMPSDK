@@ -1,6 +1,7 @@
 # git ignore file
 bin/
 obj/
+*.[pdb]
 Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.csproj.user
 Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.v11.suo
 Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.csproj.user
@@ -48,3 +49,4 @@ Senparc.Weixin.MP/Senparc.Weixin.MP.Test/obj/Debug/Senparc.Weixin.MP.Test.dll
 Senparc.Weixin.MP/Senparc.Weixin.MP.Test/obj/Debug/Senparc.Weixin.MP.Test.pdb
 Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc.Weixin.MP.csproj.user
 Senparc.Weixin.MP.Sample.WebForms/Senparc.Weixin.MP.Sample.WebForms.v11.suo
+Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.MP.pdb

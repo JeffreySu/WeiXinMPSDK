@@ -7,7 +7,7 @@ namespace Senparc.Weixin.MP.Entities
 {
     public class ResponseMessageText : ResponseMessageBase, IResponseMessageBase
     {
-        public virtual ResponseMsgType MsgType
+        new public virtual ResponseMsgType MsgType
         {
             get { return ResponseMsgType.Text; }
         }

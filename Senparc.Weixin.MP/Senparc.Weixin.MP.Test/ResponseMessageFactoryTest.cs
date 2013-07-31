@@ -85,7 +85,6 @@ namespace Senparc.Weixin.MP.Test
                 ResponseMessageNews exceptResult = new ResponseMessageNews()
                                                      {
                                                          //Articles = new List<Article>(),
-                                                         Content = "这里是正文内容，一共将发2条Article。",
                                                          CreateTime = DateTimeHelper.GetDateTimeFromXml(63497821905),
                                                          FromUserName = "gh_a96a4a619366",
                                                          ToUserName = "olPjZjsXuQPJoV0HlruZkNzKc91E",
@@ -95,7 +94,6 @@ namespace Senparc.Weixin.MP.Test
                 var result = ResponseMessageFactory.GetResponseEntity(xmlNews) as ResponseMessageNews;
                 Assert.AreEqual(exceptResult.ToUserName, result.ToUserName);
                 Assert.AreEqual(exceptResult.CreateTime, result.CreateTime);
-                Assert.AreEqual(exceptResult.Content, result.Content);
                 Assert.AreEqual(2, result.ArticleCount);
                 Assert.AreEqual(result.Articles.Count, result.ArticleCount);
             }

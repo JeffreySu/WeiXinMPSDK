@@ -98,8 +98,8 @@ namespace Senparc.Weixin.MP.Helpers
         /// <summary>
         /// 将实体转为XML
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="entity"></param>
+        /// <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
+        /// <param name="entity">实体</param>
         /// <returns></returns>
         public static XDocument ConvertEntityToXml<T>(this T entity) where T : class , new()
         {
@@ -113,11 +113,11 @@ namespace Senparc.Weixin.MP.Helpers
             */
             var propNameOrder = new List<string>();
             //不同返回类型需要对应不同特殊格式的排序
-            if (typeof(T) == typeof(ResponseMessageNews))
+            if (entity is ResponseMessageNews)
             {
                 propNameOrder.AddRange(new[] { "ToUserName", "FromUserName", "CreateTime", "MsgType", "Content", "ArticleCount", "Articles", "FuncFlag",/*以下是Atricle属性*/ "Title ", "Description ", "PicUrl", "Url" });
             }
-            else if (typeof(T) == typeof(ResponseMessageMusic))
+            else if (entity is ResponseMessageMusic)
             {
                 propNameOrder.AddRange(new[] { "ToUserName", "FromUserName", "CreateTime", "MsgType", "Music", "FuncFlag",/*以下是Music属性*/ "Title ", "Description ", "MusicUrl", "HQMusicUrl" });
             }
@@ -193,12 +193,23 @@ namespace Senparc.Weixin.MP.Helpers
         /// <summary>
         /// 将实体转为XML字符串
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="entity"></param>
+        /// <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
+        /// <param name="entity">实体</param>
         /// <returns></returns>
         public static string ConvertEntityToXmlString<T>(this T entity) where T : class , new()
         {
             return entity.ConvertEntityToXml().ToString();
+        }
+
+        /// <summary>
+        /// ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage)的扩展方法
+        /// </summary>
+        /// <typeparam name="T">需要生成的ResponseMessage类型</typeparam>
+        /// <param name="requestMessage">IRequestMessageBase接口下的接收信息类型</param>
+        /// <returns></returns>
+        public static T CreateResponseMessage<T>(this IRequestMessageBase requestMessage) where T : ResponseMessageBase
+        {
+            return ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage);
         }
     }
 }

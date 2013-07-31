@@ -10,10 +10,11 @@ namespace Senparc.Weixin.MP.HttpUtility
 {
     public static class Get
     {
-        public static T GetJson<T>(string url)
+        public static T GetJson<T>(string url, Encoding encoding = null)
         {
+            string returnText = HttpUtility.RequestUtility.HttpGet(url, encoding);
+
             JavaScriptSerializer js = new JavaScriptSerializer();
-            string returnText = HttpUtility.RequestUtility.DownloadString(url);
 
             if (returnText.Contains("errcode"))
             {

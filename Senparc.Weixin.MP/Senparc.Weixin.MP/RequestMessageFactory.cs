@@ -49,6 +49,9 @@ namespace Senparc.Weixin.MP
                     case RequestMsgType.Voice:
                         requestMessage = new RequestMessageVoice();
                         break;
+                    case RequestMsgType.Link:
+                        requestMessage = new RequestMessageLink();
+                        break;
                     case RequestMsgType.Event:
                         //判断Event类型
                         switch (doc.Root.Element("Event").Value.ToUpper())

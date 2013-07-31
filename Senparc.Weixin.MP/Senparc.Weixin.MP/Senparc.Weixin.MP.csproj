@@ -51,10 +51,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CheckSignature.cs" />
+    <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="Entities\GoogleMap\Markers.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Entities\JsonResult\AccessTokenResult.cs" />
+    <Compile Include="Entities\JsonResult\UploadMediaFileResult.cs" />
+    <Compile Include="Entities\JsonResult\WeixinUserInfoResult.cs" />
     <Compile Include="Entities\JsonResult\WxJsonResult.cs" />
     <Compile Include="Entities\Menu\BaseButton.cs" />
     <Compile Include="Entities\Menu\Button.cs" />
@@ -90,6 +93,7 @@
     <Compile Include="Entities\Request\RequestMessageEvent_Subscribe.cs" />
     <Compile Include="Entities\Request\RequestMessageEvent_Unsubscribe.cs" />
     <Compile Include="Entities\Request\RequestMessageEvent_Click.cs" />
+    <Compile Include="Entities\Request\RequestMessageLink.cs" />
     <Compile Include="Entities\Response\Article.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -113,10 +117,12 @@
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\EventHelper.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\GoogleMapHelper.cs" />
     <Compile Include="Helpers\GpsHelper.cs" />
     <Compile Include="Helpers\MsgTypeHelper.cs" />
     <Compile Include="HttpUtility\Get.cs" />
+    <Compile Include="HttpUtility\Post.cs" />
     <Compile Include="HttpUtility\RequestUtility.cs" />
     <Compile Include="MessageHandlers\MessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -124,6 +130,8 @@
     <Compile Include="Exceptions\UnknownRequestMsgTypeException.cs" />
     <Compile Include="Exceptions\WeixinException.cs" />
     <Compile Include="ResponseMessageFactory.cs" />
+    <Compile Include="Context\MessageContext.cs" />
+    <Compile Include="Context\WeixinContext.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

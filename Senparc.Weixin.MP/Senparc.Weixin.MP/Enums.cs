@@ -14,7 +14,8 @@ namespace Senparc.Weixin.MP
         Location, //地理位置
         Image, //图片
         Voice, //语音
-        Event //事件推送
+        Link, //连接信息
+        Event, //事件推送
     }
 
     /// <summary>
@@ -66,6 +67,29 @@ namespace Senparc.Weixin.MP
     {
         click,
         view
+    }
+
+    /// <summary>
+    /// 上传媒体文件类型
+    /// </summary>
+    public enum UploadMediaFileType
+    {
+        /// <summary>
+        /// 图片
+        /// </summary>
+        image, 
+        /// <summary>
+        /// 语音
+        /// </summary>
+        voice,
+        /// <summary>
+        /// 视频
+        /// </summary>
+        video,
+        /// <summary>
+        /// thumb
+        /// </summary>
+        thumb
     }
 
     /// <summary>

@@ -13,7 +13,7 @@ namespace Senparc.Weixin.MP.MvcExtension
     //{
     //    public WeixinResult WeixinResult()
     //    { 
-        
+
     //    }
     //}
 
@@ -22,12 +22,12 @@ namespace Senparc.Weixin.MP.MvcExtension
     /// </summary>
     public class WeixinResult : ContentResult
     {
-        private string _content;
+        //private string _content;
         private IMessageHandler _messageHandler;
 
         public WeixinResult(string content)
         {
-            _content = content;
+            //_content = content;
             base.Content = content;
         }
 
@@ -36,9 +36,33 @@ namespace Senparc.Weixin.MP.MvcExtension
             _messageHandler = messageHandler;
         }
 
-         public override void ExecuteResult(ControllerContext context)
+        /// <summary>
+        /// 获取ContentResult中的Content或IMessageHandler中的ResponseDocument文本结果。
+        /// 一般在测试的时候使用。
+        /// </summary>
+        new public string Content
         {
-            if (_content == null)
+            get
+            {
+                if (base.Content != null)
+                {
+                    return base.Content;
+                }
+                else if (_messageHandler != null)
+                {
+                    return _messageHandler.ResponseDocument.ToString();
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set { base.Content = value; }
+        }
+
+        public override void ExecuteResult(ControllerContext context)
+        {
+            if (base.Content == null)
             {
                 //使用IMessageHandler输出
                 if (_messageHandler == null)

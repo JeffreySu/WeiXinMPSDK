@@ -69,11 +69,11 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 
             DateTime st = DateTime.Now;
             //这里使用MiniPost，绕过日志记录
-            ContentResult actual = target.MiniPost(signature, timestamp, nonce, "echostr") as ContentResult;
+            var actual = target.MiniPost(signature, timestamp, nonce, "echostr") as WeixinResult;
             DateTime et = DateTime.Now;
 
             Assert.IsNotNull(actual);
-            Assert.AreEqual(typeof(WeixinResult), actual.GetType());
+            Assert.IsNotNull(actual.Content);
 
             Console.WriteLine(actual.Content);
             Console.WriteLine("页面用时（ms）：" + (et - st).TotalMilliseconds);

@@ -40,14 +40,14 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         /// <summary>
         /// 初始化控制器及相关请求参数
         /// </summary>
-        /// <param name="xml"></param>
-        private void Init(string xml)
+        /// <param name="xmlFormat"></param>
+        private void Init(string xmlFormat)
         {
             //target = StructureMap.ObjectFactory.GetInstance<WeixinController>();//使用IoC的在这里必须注入，不要直接实例化
             target = new WeixinController();
 
             inputStream = new MemoryStream();
-            xml = string.Format(xmlLocationFormat, DateTimeHelper.GetWeixinDateTime(DateTime.Now));
+            var xml = string.Format(xmlFormat, DateTimeHelper.GetWeixinDateTime(DateTime.Now));
             var bytes = System.Text.Encoding.UTF8.GetBytes(xml);
             inputStream.Write(bytes, 0, bytes.Length);
             inputStream.Flush();

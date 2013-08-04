@@ -15,7 +15,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
     public partial class CustomMessageHandler : MessageHandler<MessageContext>
     {
         /*
-         * 重要提示：自v1.5起，MessageHandler提供了一个DefaultResponseMessage的抽象方法，
+         * 重要提示：v1.5起，MessageHandler提供了一个DefaultResponseMessage的抽象方法，
          * DefaultResponseMessage必须在子类中重写，用于返回没有处理过的消息类型（也可以用于默认消息，如帮助信息等）；
          * 其中所有原OnXX的抽象方法已经都改为虚方法，可以不必每个都重写。若不重写，默认返回DefaultResponseMessage方法中的结果。
          */

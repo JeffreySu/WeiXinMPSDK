@@ -254,29 +254,56 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
 
         /// <summary>
+        /// 默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
+        /// </summary>
+        public abstract IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage);
+        //{
+        //    例如可以这样实现：
+        //    var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+        //    responseMessage.Content = "您发送的消息类型暂未被识别。";
+        //    return responseMessage;
+        //}
+
+        /// <summary>
         /// 文字类型请求
         /// </summary>
-        public abstract IResponseMessageBase OnTextRequest(RequestMessageText requestMessage);
+        public virtual IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         /// <summary>
         /// 位置类型请求
         /// </summary>
-        public abstract IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage);
+        public virtual IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         /// <summary>
         /// 图片类型请求
         /// </summary>
-        public abstract IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage);
+        public virtual IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         /// <summary>
         /// 语音类型请求
         /// </summary>
-        public abstract IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage);
+        public virtual IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
 
         /// <summary>
         /// 链接消息类型请求
         /// </summary>
-        public abstract IResponseMessageBase OnLinkRequest(RequestMessageLink requestMessage);
+        public virtual IResponseMessageBase OnLinkRequest(RequestMessageLink requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         /// <summary>
         /// Event事件类型请求
@@ -313,27 +340,42 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// Event事件类型请求之ENTER
         /// </summary>
-        public abstract IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage);
+        public virtual IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         /// <summary>
         /// Event事件类型请求之LOCATION
         /// </summary>
-        public abstract IResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage);
+        public virtual IResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         /// <summary>
         /// Event事件类型请求之subscribe
         /// </summary>
-        public abstract IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage);
+        public virtual IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         /// <summary>
         /// Event事件类型请求之unsubscribe
         /// </summary>
-        public abstract IResponseMessageBase OnEvent_UnsubscribeRequest(RequestMessageEvent_Unsubscribe requestMessage);
+        public virtual IResponseMessageBase OnEvent_UnsubscribeRequest(RequestMessageEvent_Unsubscribe requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         /// <summary>
         /// Event事件类型请求之CLICK
         /// </summary>
-        public abstract IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage);
+        public virtual IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
 
         #endregion
     }

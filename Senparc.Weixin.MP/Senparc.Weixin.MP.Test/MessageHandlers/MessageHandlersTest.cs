@@ -26,49 +26,65 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             return responseMessage;
         }
 
-        public override IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)
-        {
-            throw new NotImplementedException();
-        }
+        #region v1.5之后，所有的OnXX方法均从抽象方法变为虚方法，并都有默认返回消息操作，不需要处理的消息类型无需重写。
 
-        public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
-        {
-            throw new NotImplementedException();
-        }
+        //public override IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
-        {
-            throw new NotImplementedException();
-        }
+        //public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage)
-        {
-            throw new NotImplementedException();
-        }
+        //public override IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override IResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage)
-        {
-            throw new NotImplementedException();
-        }
+        //public override IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
-        {
-            throw new NotImplementedException();
-        }
+        //public override IResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override IResponseMessageBase OnEvent_UnsubscribeRequest(RequestMessageEvent_Unsubscribe requestMessage)
-        {
-            throw new NotImplementedException();
-        }
+        //public override IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
-        {
-            throw new NotImplementedException();
-        }
+        //public override IResponseMessageBase OnEvent_UnsubscribeRequest(RequestMessageEvent_Unsubscribe requestMessage)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public override IResponseMessageBase OnLinkRequest(RequestMessageLink requestMessage)
+        //public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public override IResponseMessageBase OnLinkRequest(RequestMessageLink requestMessage)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        #endregion
+
+        /// <summary>
+        /// 默认消息
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
-            throw new NotImplementedException();
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "您发送的消息类型暂未被识别。";
+            return responseMessage;
         }
     }
 
@@ -85,6 +101,19 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     <MsgId>5832509444155992350</MsgId>
 </xml>
 ";
+
+        string xmlLocation = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+  <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+  <CreateTime>1358061152</CreateTime>
+  <MsgType><![CDATA[location]]></MsgType>
+  <Location_X>31.285774</Location_X>
+  <Location_Y>120.597610</Location_Y>
+  <Scale>19</Scale>
+  <Label><![CDATA[中国江苏省苏州市沧浪区桐泾南路251号-309号]]></Label>
+  <MsgId>5832828233808572154</MsgId>
+</xml>";
 
         [TestMethod]
         public void TextMessageRequestTest()
@@ -215,6 +244,20 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
                 weixinContext.GetLastRequestMessage("new"); //触发过期判断
                 Assert.AreEqual(1, weixinContext.MessageCollection.Count); //只删除剩下当前这一个
             }
+        }
+
+
+        [TestMethod]
+        public void DefaultResponseMessageTest()
+        {
+            var messageHandler = new CustomerMessageHandlers(XDocument.Parse(xmlLocation));
+            messageHandler.Execute();
+
+            //TestMessageHandlers中没有处理坐标信息的重写方法，将返回默认消息
+
+
+            Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
+            Assert.AreEqual("您发送的消息类型暂未被识别。", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
         }
     }
 }

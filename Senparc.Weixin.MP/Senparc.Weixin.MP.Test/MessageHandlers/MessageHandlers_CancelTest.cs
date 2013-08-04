@@ -37,54 +37,17 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             return responseMessage;
         }
 
-        #region 不用于测试，省略
-
-        public override IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)
+        /// <summary>
+        /// 默认消息
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
-            throw new NotImplementedException();
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "您发送的消息类型暂未被识别。";
+            return responseMessage;
         }
-
-        public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IResponseMessageBase OnEvent_UnsubscribeRequest(RequestMessageEvent_Unsubscribe requestMessage)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override IResponseMessageBase OnLinkRequest(RequestMessageLink requestMessage)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
     }
 
     [TestClass]

@@ -9,6 +9,14 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 
 Senparc.Weixin.MP.dll升级记录
 ----------
+v1.5 /2013-8-4
+
+这是一个重要更新。
+
+为MessageHandler提供了一个DefaultResponseMessage的抽象方法，
+DefaultResponseMessage必须在子类中重写，用于返回没有处理过的消息类型（也可以用于默认消息，如帮助信息等）；
+其中所有原OnXX的抽象方法已经都改为虚方法，可以不必每个都重写。若不重写，默认返回DefaultResponseMessage方法中的结果。
+
 v1.4 /2013-7-23
 
 为HttpUtility下方法提供Encoding选项。

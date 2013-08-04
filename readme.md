@@ -2,7 +2,7 @@
 =================
 
 
-已经支持所有微信4.5 API，支持语音接收及返回音乐格式。
+已经支持所有微信4.5 API，支持语音接收及返回音乐格式。5.0的更新我会持续关注。
 
 已经支持关注（订阅）事件推送（尚未发布的消息推送功能可以通过项目中的单元测试进行开发，如自定义菜单）。
 
@@ -140,7 +140,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
         
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
-            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();//ResponseMessageText也可以是News等其他类型
             responseMessage.Content = "这条消息来自DefaultResponseMessage。";
             return responseMessage;
         }

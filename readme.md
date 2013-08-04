@@ -137,17 +137,25 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
         {
 
         }
+        
+        public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "这条消息来自DefaultResponseMessage。";
+            return responseMessage;
+        }
 
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
-            throw new NotImplementedException();
+            //...
         }
 
         public override IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
         {
-            throw new NotImplementedException();
+            //...
         }
-
+        
+        //更多没有重写的OnXX方法，将默认返回DefaultResponseMessage中的结果。
         ....
     }
 }

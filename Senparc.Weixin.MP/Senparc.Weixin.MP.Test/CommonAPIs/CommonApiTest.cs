@@ -1,14 +1,25 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.Test.CommonAPIs
 {
     [TestClass]
     public class CommonApiTest
     {
+        private AccessTokenResult tokenResult = null;
         [TestMethod]
         public void GetTokenTest()
+        {
+            //正确数据，请填写微信公众账号后台的AppId及AppSecret
+            tokenResult = CommonApi.GetToken("wx669ef95216eef885", "0a9f8daa099d06d488ff900eb0cf0f43");
+            Assert.IsNotNull(tokenResult);
+            Assert.IsTrue(tokenResult.access_token.Length > 0);
+            Assert.IsTrue(tokenResult.expires_in > 0);
+        }
+
+        public void GetTokenFailTest()
         {
             return;//已经通过，但需要连接远程测试，太耗时，常规测试时暂时忽略。
             try
@@ -26,16 +37,17 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         [TestMethod]
         public void GetUserInfoTest()
         {
-            return;//已经通过，但需要连接远程测试，太耗时，常规测试时暂时忽略。
+            //return;//已经通过，但需要连接远程测试，太耗时，常规测试时暂时忽略。
+
             try
             {
-                var result = CommonApi.GetUserInfo("token", "olPjZjsXuQPJoV0HlruZkNzKc91E");
-                Assert.Fail();//上一步就应该已经抛出异常
+                GetTokenTest();
+                var result = CommonApi.GetUserInfo(tokenResult.access_token, "olPjZjsXuQPJoV0HlruZkNzKc91E");
+                Assert.IsNotNull(result);
             }
-            catch (ErrorJsonResultException ex)
+            catch (Exception ex)
             {
-                //实际返回的信息（错误信息）
-                Assert.AreEqual(ex.JsonResult.errcode, ReturnCode.验证失败);
+                //如果不参加内测，只是“服务号”，这类接口仍然不能使用，会抛出异常：错误代码：45009：api freq out of limit
             }
         }
 

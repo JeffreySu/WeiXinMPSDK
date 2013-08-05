@@ -8,14 +8,18 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
     [TestClass]
     public partial class CommonApiTest
     {
+        private string AppId = "AppId";
+        private string AppSecret = "AppSecret";
         protected AccessTokenResult tokenResult = null;
+
+
 
         protected AccessTokenResult LoadToken()
         {
-            if (tokenResult==null)
+            if (tokenResult == null)
             {
                 //正确数据，请填写微信公众账号后台的AppId及AppSecret
-                tokenResult = CommonApi.GetToken("wx669ef95216eef885", "0a9f8daa099d06d488ff900eb0cf0f43");
+                tokenResult = CommonApi.GetToken(AppId, AppSecret);
             }
             return tokenResult;
         }

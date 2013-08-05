@@ -11,6 +11,6 @@ namespace Senparc.Weixin.MP.Entities
     /// </summary>
    public class GetMenuResult
     {
-        public ButtonGroup button { get; set; }
+        public ButtonGroup menu { get; set; }
     }
 }

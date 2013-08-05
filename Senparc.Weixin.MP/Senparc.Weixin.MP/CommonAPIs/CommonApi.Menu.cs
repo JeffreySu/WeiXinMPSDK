@@ -40,10 +40,36 @@ namespace Senparc.Weixin.MP.CommonAPIs
             }
         }
 
+        /// <summary>
+        /// 获取当前菜单
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
         public static GetMenuResult GetMenu(string accessToken)
         {
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken);
-            var result = Get.GetJson<GetMenuResult>(url);
+
+            GetMenuResult result = null;
+            try
+            {
+                result = Get.GetJson<GetMenuResult>(url);
+            }
+            catch (ErrorJsonResultException ex)
+            {
+                //如果没有惨淡会返回错误代码：46003：menu no exist
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 删除菜单
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public static WxJsonResult DeleteMenu(string accessToken)
+        {
+            var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/delete?access_token={0}", accessToken);
+            var result = Get.GetJson<WxJsonResult>(url);
             return result;
         }
     }

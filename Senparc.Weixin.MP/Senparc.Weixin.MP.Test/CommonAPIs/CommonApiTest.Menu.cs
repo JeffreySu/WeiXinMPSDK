@@ -24,15 +24,22 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             //单击
             bg.button.Add(new Button()
                               {
-                                  key = "OneClick",
+                                  key = "OneClick_A",
                                   name = "单击测试",
                                   type = ButtonType.click.ToString(),//默认已经设为此类型，这里只作为演示
                               });
+
+            bg.button.Add(new Button()
+                              {
+                                  key = "OneClick_B",
+                                  name = "P2P测试",
+                              });
+
             //二级菜单
             var subButton = new Button()
                                 {
                                     key = "SubClickRoot",
-                                    name = "二级菜单测试"
+                                    name = "二级菜单"
                                 };
             subButton.sub_button.Add(new SubButton()
                                         {
@@ -61,7 +68,25 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         [TestMethod]
         public void GetMenuTest()
         {
+            LoadToken();
 
+            var result = CommonApi.GetMenu(tokenResult.access_token);
+
+            //Assert.IsNull(result);//如果菜单不存在返回Null
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.menu.button.Count > 0);
+        }
+
+        [TestMethod]
+        public void DeleteMenuTest()
+        {
+            return;//删除之后，GetMenu将返回null
+
+            LoadToken();
+
+            var result = CommonApi.DeleteMenu(tokenResult.access_token);
+            Assert.IsNotNull(result);
+            Assert.AreEqual("ok", result.errmsg);
         }
     }
 }

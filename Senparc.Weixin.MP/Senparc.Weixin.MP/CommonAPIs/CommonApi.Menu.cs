@@ -23,17 +23,28 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             JavaScriptSerializer js = new JavaScriptSerializer();
             var jsonString = js.Serialize(buttonData);
-            var cookieContainer = new CookieContainer();
+            CookieContainer cookieContainer = null;// new CookieContainer();
+
             using (MemoryStream ms = new MemoryStream())
             {
-                using (var sr = new StreamWriter(ms))
-                {
-                    sr.Write(jsonString);
-                }
+                byte[] buffer = new byte[1024];
+                int bytesRead = 0;
+
+                var bytes = Encoding.Default.GetBytes(jsonString);
+                ms.Write(bytes, 0, bytes.Length);
+                ms.Seek(0, SeekOrigin.Begin);
+
                 var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}", accessToken);
                 var result = Post.PostGetJson<WxJsonResult>(url, cookieContainer, ms);
                 return result;
             }
+        }
+
+        public static GetMenuResult GetMenu(string accessToken)
+        {
+            var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken);
+            var result = Get.GetJson<GetMenuResult>(url);
+            return result;
         }
     }
 }

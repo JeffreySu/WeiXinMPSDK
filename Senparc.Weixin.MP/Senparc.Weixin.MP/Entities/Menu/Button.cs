@@ -14,5 +14,10 @@ namespace Senparc.Weixin.MP.Entities
         /// 子菜单，1-3个
         /// </summary>
         public List<SubButton> sub_button { get; set; }
+
+        public Button()
+        {
+            sub_button=new List<SubButton>();
+        }
     }
 }

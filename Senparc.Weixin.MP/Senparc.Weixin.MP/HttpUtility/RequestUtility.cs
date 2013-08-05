@@ -75,6 +75,8 @@ namespace Senparc.Weixin.MP.HttpUtility
 
             if (postStream != null)
             {
+                //postStream.Position = 0;
+
                 //上传文件流
                 Stream requestStream = request.GetRequestStream();
 

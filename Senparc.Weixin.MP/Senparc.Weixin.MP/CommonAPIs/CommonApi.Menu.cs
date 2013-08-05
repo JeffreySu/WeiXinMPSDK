@@ -27,9 +27,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
             using (MemoryStream ms = new MemoryStream())
             {
-                byte[] buffer = new byte[1024];
-                int bytesRead = 0;
-
                 var bytes = Encoding.Default.GetBytes(jsonString);
                 ms.Write(bytes, 0, bytes.Length);
                 ms.Seek(0, SeekOrigin.Begin);

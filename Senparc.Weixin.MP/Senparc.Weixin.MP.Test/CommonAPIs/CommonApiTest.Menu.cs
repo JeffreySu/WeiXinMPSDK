@@ -18,42 +18,32 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
             LoadToken();
 
-            ButtonGroup bg = new ButtonGroup()
-                                 {
-                                     button = new List<Button>()
-                                 };
+            ButtonGroup bg = new ButtonGroup();
 
             //单击
-            bg.button.Add(new Button()
+            bg.button.Add(new SingleButton()
                               {
-                                  key = "OneClick_A",
                                   name = "单击测试",
+                                  key = "OneClick",
                                   type = ButtonType.click.ToString(),//默认已经设为此类型，这里只作为演示
                               });
 
-            bg.button.Add(new Button()
-                              {
-                                  key = "OneClick_B",
-                                  name = "P2P测试",
-                              });
-
             //二级菜单
-            var subButton = new Button()
+            var subButton = new SubButton()
                                 {
-                                    key = "SubClickRoot",
                                     name = "二级菜单"
                                 };
-            subButton.sub_button.Add(new SubButton()
+            subButton.sub_button.Add(new SingleButton()
                                         {
-                                            key = "SubClickRoot_Test",
+                                            key = "SubClickRoot_Text",
                                             name = "返回文本"
                                         });
-            subButton.sub_button.Add(new SubButton()
+            subButton.sub_button.Add(new SingleButton()
                                         {
                                             key = "SubClickRoot_News",
                                             name = "返回图文"
                                         });
-            subButton.sub_button.Add(new SubButton()
+            subButton.sub_button.Add(new SingleButton()
                                         {
                                             key = "SubClickRoot_Music",
                                             name = "返回音乐"

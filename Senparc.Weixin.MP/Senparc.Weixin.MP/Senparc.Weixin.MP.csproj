@@ -61,8 +61,8 @@
     <Compile Include="Entities\JsonResult\WeixinUserInfoResult.cs" />
     <Compile Include="Entities\JsonResult\WxJsonResult.cs" />
     <Compile Include="Entities\Menu\BaseButton.cs" />
-    <Compile Include="Entities\Menu\Button.cs" />
     <Compile Include="Entities\Menu\ButtonGroup.cs" />
+    <Compile Include="Entities\Menu\SingleButton.cs" />
     <Compile Include="Entities\Menu\SubButton.cs" />
     <Compile Include="Entities\MessageBase.cs">
       <SubType>Code</SubType>

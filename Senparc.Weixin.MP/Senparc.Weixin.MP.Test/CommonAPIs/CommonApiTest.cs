@@ -8,8 +8,8 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
     [TestClass]
     public partial class CommonApiTest
     {
-        private string AppId = "AppId";
-        private string AppSecret = "AppSecret";
+        private string AppId = "wx669ef95216eef885";
+        private string AppSecret = "0a9f8daa099d06d488ff900eb0cf0f43";
         protected AccessTokenResult tokenResult = null;
 
 
@@ -27,6 +27,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         [TestMethod]
         public void GetTokenTest()
         {
+            return;//已通过测试
             LoadToken();
             Assert.IsNotNull(tokenResult);
             Assert.IsTrue(tokenResult.access_token.Length > 0);

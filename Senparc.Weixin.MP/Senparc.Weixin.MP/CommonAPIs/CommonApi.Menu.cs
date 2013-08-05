@@ -38,7 +38,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         }
 
         /// <summary>
-        /// 获取当前菜单
+        /// 获取当前菜单，暂时只返回基类信息
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>

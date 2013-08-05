@@ -11,8 +11,13 @@ namespace Senparc.Weixin.MP.Entities.Menu
     public class ButtonGroup
     {
         /// <summary>
-        /// 按钮对象，1-3个
+        /// 按钮数组，按钮个数应为2~3个
         /// </summary>
-        public List<Button> button { get; set; }
+        public List<BaseButton> button { get; set; }
+
+        public ButtonGroup()
+        {
+            button = new List<BaseButton>();
+        }
     }
 }

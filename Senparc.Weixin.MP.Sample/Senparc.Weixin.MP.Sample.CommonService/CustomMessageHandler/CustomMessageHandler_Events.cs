@@ -12,6 +12,51 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
     /// </summary>
     public partial class CustomMessageHandler : MessageHandler<MessageContext>
     {
+        public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
+        {
+            IResponseMessageBase reponseMessage = null;
+            //菜单点击，需要跟创建菜单时的Key匹配
+            switch (requestMessage.EventKey)
+            {
+                case "OneClick":
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
+                        reponseMessage = strongResponseMessage;
+                        strongResponseMessage.Content = "您点击了底部按钮。";
+                    }
+                    break;
+                case "SubClickRoot_Text":
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
+                        reponseMessage = strongResponseMessage;
+                        strongResponseMessage.Content = "您点击了子菜单按钮。";
+                    }
+                    break;
+                case "SubClickRoot_News":
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageNews>();
+                        reponseMessage = strongResponseMessage;
+                        strongResponseMessage.Articles.Add(new Article()
+                        {
+                            Title = "您点击了子菜单图文按钮",
+                            Description = "您点击了子菜单图文按钮，这是一条图文信息。",
+                            PicUrl = "http://weixin.senparc.com/Images/qrcode.jpg",
+                            Url = "http://weixin.senparc.com"
+                        });
+                    }
+                    break;
+                case "SubClickRoot_Music":
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageMusic>();
+                        reponseMessage = strongResponseMessage;
+                        strongResponseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
+                    }
+                    break;
+            }
+
+            return reponseMessage;
+        }
+
         public override IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage)
         {
             var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
@@ -56,11 +101,6 @@ SDK官方地址：http://weixin.senparc.com
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "有空再来";
             return responseMessage;
-        }
-
-        public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
-        {
-            throw new Exception("Demo中还没有加入CLICK的测试！");
         }
     }
 }

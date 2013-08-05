@@ -6,14 +6,24 @@ using Senparc.Weixin.MP.Entities;
 namespace Senparc.Weixin.MP.Test.CommonAPIs
 {
     [TestClass]
-    public class CommonApiTest
+    public partial class CommonApiTest
     {
-        private AccessTokenResult tokenResult = null;
+        protected AccessTokenResult tokenResult = null;
+
+        protected AccessTokenResult LoadToken()
+        {
+            if (tokenResult==null)
+            {
+                //正确数据，请填写微信公众账号后台的AppId及AppSecret
+                tokenResult = CommonApi.GetToken("wx669ef95216eef885", "0a9f8daa099d06d488ff900eb0cf0f43");
+            }
+            return tokenResult;
+        }
+
         [TestMethod]
         public void GetTokenTest()
         {
-            //正确数据，请填写微信公众账号后台的AppId及AppSecret
-            tokenResult = CommonApi.GetToken("wx669ef95216eef885", "0a9f8daa099d06d488ff900eb0cf0f43");
+            LoadToken();
             Assert.IsNotNull(tokenResult);
             Assert.IsTrue(tokenResult.access_token.Length > 0);
             Assert.IsTrue(tokenResult.expires_in > 0);
@@ -37,7 +47,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         [TestMethod]
         public void GetUserInfoTest()
         {
-            //return;//已经通过，但需要连接远程测试，太耗时，常规测试时暂时忽略。
+            return;//已经通过，但需要连接远程测试，太耗时，常规测试时暂时忽略。
 
             try
             {

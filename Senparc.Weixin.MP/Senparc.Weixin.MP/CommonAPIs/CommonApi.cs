@@ -17,7 +17,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// 通用接口用于和微信服务器通讯，一般不涉及自有网站服务器的通讯
     /// 见 http://mp.weixin.qq.com/wiki/index.php?title=%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3&oldid=103
     /// </summary>
-    public class CommonApi
+    public partial class CommonApi
     {
         /// <summary>
         /// 获取凭证接口
@@ -74,27 +74,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
             return result;
         }
 
-        /// <summary>
-        /// 创建菜单
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="buttonData">菜单内容</param>
-        /// <returns></returns>
-        public static WxJsonResult CreateMenu(string accessToken, ButtonGroup buttonData)
-        {
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            var jsonString = js.Serialize(buttonData);
-            var cookieContainer = new CookieContainer();
-            using (MemoryStream ms = new MemoryStream())
-            {
-                using (var sr = new StreamWriter(ms))
-                {
-                    sr.Write(jsonString);
-                }
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}", accessToken);
-                var result = Post.PostGetJson<WxJsonResult>(url, cookieContainer, ms);
-                return result;
-            }
-        }
+        
     }
 }

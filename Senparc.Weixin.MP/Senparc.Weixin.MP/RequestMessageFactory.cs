@@ -68,6 +68,9 @@ namespace Senparc.Weixin.MP
                             case "UNSUBSCRIBE"://取消订阅（关注）
                                 requestMessage = new RequestMessageEvent_Unsubscribe();
                                 break;
+                            case "CLICK"://菜单点击
+                                requestMessage = new RequestMessageEvent_Click();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

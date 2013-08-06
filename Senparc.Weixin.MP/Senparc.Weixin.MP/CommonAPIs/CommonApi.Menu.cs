@@ -27,7 +27,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
             using (MemoryStream ms = new MemoryStream())
             {
-                var bytes = Encoding.Default.GetBytes(jsonString);
+                var bytes = Encoding.UTF8.GetBytes(jsonString);
                 ms.Write(bytes, 0, bytes.Length);
                 ms.Seek(0, SeekOrigin.Begin);
 
@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             GetMenuResult result = null;
             try
             {
-                result = Get.GetJson<GetMenuResult>(url);
+                result = Get.GetJson<GetMenuResult>(url,Encoding.UTF8);
             }
             catch (ErrorJsonResultException ex)
             {

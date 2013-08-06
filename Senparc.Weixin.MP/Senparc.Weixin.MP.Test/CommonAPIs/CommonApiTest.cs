@@ -8,8 +8,8 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
     [TestClass]
     public partial class CommonApiTest
     {
-        private string AppId = "AppId";//换成你的信息
-        private string AppSecret = "AppSecret";//换成你的信息
+        private string AppId = "";//换成你的信息
+        private string AppSecret = "";//换成你的信息
         protected AccessTokenResult tokenResult = null;
 
 

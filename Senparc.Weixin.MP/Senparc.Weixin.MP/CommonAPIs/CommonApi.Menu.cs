@@ -49,12 +49,26 @@ namespace Senparc.Weixin.MP.CommonAPIs
             GetMenuResult result = null;
             try
             {
-                result = Get.GetJson<GetMenuResult>(url,Encoding.UTF8);
+                var jsonString = GetMenuJson(accessToken);
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                result =  js.Deserialize<GetMenuResult>(jsonString);
             }
             catch (ErrorJsonResultException ex)
             {
                 //如果没有惨淡会返回错误代码：46003：menu no exist
             }
+            return result;
+        }
+
+        /// <summary>
+        /// 获取当前菜单的原始Json结果
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public static string GetMenuJson(string accessToken)
+        {
+            var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken);
+            string result = HttpUtility.RequestUtility.HttpGet(url, Encoding.UTF8);
             return result;
         }
 

@@ -19,5 +19,10 @@ namespace Senparc.Weixin.MP.Entities.Menu
         {
             sub_button=new List<SingleButton>();
         }
+
+        public SubButton(string name):this()
+        {
+            base.name = name;
+        }
     }
 }

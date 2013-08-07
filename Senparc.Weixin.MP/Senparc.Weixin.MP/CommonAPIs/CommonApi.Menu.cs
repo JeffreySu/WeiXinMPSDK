@@ -38,6 +38,23 @@ namespace Senparc.Weixin.MP.CommonAPIs
             }
         }
 
+        #region GetMenu
+        /// <summary>
+        /// 获取单击按钮
+        /// </summary>
+        /// <param name="objs"></param>
+        /// <returns></returns>
+        private static SingleButton GetSingleButtonFromJsonObject(Dictionary<string, object> objs)
+        {
+            var sb = new SingleButton()
+            {
+                key = objs["key"] as string,
+                name = objs["name"] as string,
+                type = objs["type"] as string
+            };
+            return sb;
+        }
+
         /// <summary>
         /// 获取当前菜单，暂时只返回基类信息
         /// </summary>
@@ -52,7 +69,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             try
             {
                 //@"{""menu"":{""button"":[{""type"":""click"",""name"":""单击测试"",""key"":""OneClick"",""sub_button"":[]},{""name"":""二级菜单"",""sub_button"":[{""type"":""click"",""name"":""返回文本"",""key"":""SubClickRoot_Text"",""sub_button"":[]},{""type"":""click"",""name"":""返回图文"",""key"":""SubClickRoot_News"",""sub_button"":[]},{""type"":""click"",""name"":""返回音乐"",""key"":""SubClickRoot_Music"",""sub_button"":[]}]}]}}"
-                var jsonString = GetMenuJson(accessToken);
+                var jsonString = HttpUtility.RequestUtility.HttpGet(url, Encoding.UTF8);
 
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 jsonResult = js.Deserialize<object>(jsonString);
@@ -64,9 +81,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     var menu = fullResult["menu"];
                     var buttons = (menu as Dictionary<string, object>)["button"] as object[];
 
-                    foreach (var button in buttons)
+                    foreach (var rootButton in buttons)
                     {
-                        var fullButton = button as Dictionary<string, object>;
+                        var fullButton = rootButton as Dictionary<string, object>;
                         if (fullButton.ContainsKey("key"))
                         {
                             //按钮，无下级菜单
@@ -75,21 +92,18 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         else
                         {
                             //二级菜单
-                            var subButton = new SubButton()
-                                                {
-                                                    name = fullButton["name"] as string,
-                                                };
+                            var subButton = new SubButton(fullButton["name"] as string);
                             finalResult.menu.button.Add(subButton);
-                            var subButtons = fullButton["sub_button"] as object[];
-                            foreach (var o in subButtons)
+                            foreach (var sb in fullButton["sub_button"] as object[])
                             {
-                                subButton.sub_button.Add(GetSingleButtonFromJsonObject(o as Dictionary<string, object>));
+                                subButton.sub_button.Add(GetSingleButtonFromJsonObject(sb as Dictionary<string, object>));
                             }
                         }
                     }
                 }
                 else if (fullResult != null && fullResult.ContainsKey("errmsg"))
                 {
+                    //菜单不存在
                     throw new ErrorJsonResultException(fullResult["errmsg"] as string, null, null);
                 }
             }
@@ -106,29 +120,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
             }
             return finalResult;
         }
+        #endregion
 
-        private static SingleButton GetSingleButtonFromJsonObject(Dictionary<string, object> objs)
-        {
-            var sb = new SingleButton()
-                         {
-                             key = objs["key"] as string,
-                             name = objs["name"] as string,
-                             type = objs["type"] as string
-                         };
-            return sb;
-        }
-
-        /// <summary>
-        /// 获取当前菜单的原始Json结果
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <returns></returns>
-        private static string GetMenuJson(string accessToken)
-        {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken);
-            string result = HttpUtility.RequestUtility.HttpGet(url, Encoding.UTF8);
-            return result;
-        }
 
         /// <summary>
         /// 删除菜单

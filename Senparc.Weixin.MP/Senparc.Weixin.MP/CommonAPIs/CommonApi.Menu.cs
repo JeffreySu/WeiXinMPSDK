@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -46,18 +47,75 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken);
 
-            GetMenuResult result = null;
+            var finalResult = new GetMenuResult();
+            object jsonResult = null;
             try
             {
+                //@"{""menu"":{""button"":[{""type"":""click"",""name"":""单击测试"",""key"":""OneClick"",""sub_button"":[]},{""name"":""二级菜单"",""sub_button"":[{""type"":""click"",""name"":""返回文本"",""key"":""SubClickRoot_Text"",""sub_button"":[]},{""type"":""click"",""name"":""返回图文"",""key"":""SubClickRoot_News"",""sub_button"":[]},{""type"":""click"",""name"":""返回音乐"",""key"":""SubClickRoot_Music"",""sub_button"":[]}]}]}}"
                 var jsonString = GetMenuJson(accessToken);
+
                 JavaScriptSerializer js = new JavaScriptSerializer();
-                result =  js.Deserialize<GetMenuResult>(jsonString);
+                jsonResult = js.Deserialize<object>(jsonString);
+
+                var fullResult = jsonResult as Dictionary<string, object>;
+                if (fullResult != null && fullResult.ContainsKey("menu"))
+                {
+                    //得到菜单
+                    var menu = fullResult["menu"];
+                    var buttons = (menu as Dictionary<string, object>)["button"] as object[];
+
+                    foreach (var button in buttons)
+                    {
+                        var fullButton = button as Dictionary<string, object>;
+                        if (fullButton.ContainsKey("key"))
+                        {
+                            //按钮，无下级菜单
+                            finalResult.menu.button.Add(GetSingleButtonFromJsonObject(fullButton));
+                        }
+                        else
+                        {
+                            //二级菜单
+                            var subButton = new SubButton()
+                                                {
+                                                    name = fullButton["name"] as string,
+                                                };
+                            finalResult.menu.button.Add(subButton);
+                            var subButtons = fullButton["sub_button"] as object[];
+                            foreach (var o in subButtons)
+                            {
+                                subButton.sub_button.Add(GetSingleButtonFromJsonObject(o as Dictionary<string, object>));
+                            }
+                        }
+                    }
+                }
+                else if (fullResult != null && fullResult.ContainsKey("errmsg"))
+                {
+                    throw new ErrorJsonResultException(fullResult["errmsg"] as string, null, null);
+                }
             }
             catch (ErrorJsonResultException ex)
             {
+                finalResult = null;
+
                 //如果没有惨淡会返回错误代码：46003：menu no exist
             }
-            return result;
+            catch (Exception ex)
+            {
+                //其他异常
+                finalResult = null;
+            }
+            return finalResult;
+        }
+
+        private static SingleButton GetSingleButtonFromJsonObject(Dictionary<string, object> objs)
+        {
+            var sb = new SingleButton()
+                         {
+                             key = objs["key"] as string,
+                             name = objs["name"] as string,
+                             type = objs["type"] as string
+                         };
+            return sb;
         }
 
         /// <summary>
@@ -65,7 +123,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        public static string GetMenuJson(string accessToken)
+        private static string GetMenuJson(string accessToken)
         {
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken);
             string result = HttpUtility.RequestUtility.HttpGet(url, Encoding.UTF8);

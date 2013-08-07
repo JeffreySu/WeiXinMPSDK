@@ -14,41 +14,82 @@
 }
 <section class="content-wrapper main-content clear-fix">
     <h1>自定义菜单工具</h1>
-    <table>
-        <thead>
-            <tr>
-                <th></th>
-                <th>第一列</th>
-                <th>第二列</th>
-                <th>第三列</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < 7; i++)
-            {
+    <h3>使用说明及规则</h3>
+    <ul>
+        <li>官方要求：一级菜单按钮个数为2-3个</li>
+        <li>官方要求：如果设置了二级菜单按钮个数为2-5个</li>
+        <li>如果name不填，此按钮将被忽略</li>
+        <li>如果一级菜单为空，该列所有设置的二级菜单都会被忽略</li>
+        <il>key仅为SingleButton（单击按钮，无下级菜单）设置，如果此按钮有下级菜单，key将被忽略</il>
+        <li>所有二级菜单都为SingleButton</li>
+        <li>如果要快速看到微信上的菜单最新状态，需要重新关注，否则需要静静等待N小时</li>
+    </ul>
+    <p></p>
+    <h3>编辑工具</h3>
+    <div id="menuLogin">
+        <p>AppId：<input id="menuLogin_AppId" type="text" /></p>
+        <p>AppSecret：<input id="menuLogin_AppSecret" type="text" /></p>
+        <p>
+            <input id="menuLogin_Submit" type="button" value="获取AccessToken" />
+        </p>
+        <p>注：获得公众账号AppId，需要成为“服务号”</p>
+        <p>
+            我有当前可用Token：<input id="menuLogin_OldToken" type="text" />
+            <input id="menuLogin_SubmitOldToken" type="button" value="直接使用" />请确保此Token可用，否则接下去可能出错
+        </p>
+    </div>
+    <div id="menuEditor" class="float-left">
+        <p>
+            当前Token:<span id="tokenStr"></span>
+        </p>
+        <table>
+            <thead>
                 <tr>
-                    <td>
-                        @(i == 6 ? "一级菜单按钮" : ("二级菜单No." + (i + 1)))
-                    </td>
-                    @for (int j = 0; j < 3; j++)
-                    {
-                        var namePrefix = string.Format("menu.button[{0}].sub_button[{1}]", j, i);
-                        var idPrefix = string.Format("menu_button[{0}]_sub_button[{1}]", j, i);
-                        <td>
-                            <input type="hidden" name="@(namePrefix).key" id="@(idPrefix).key"/>
-                            <input type="hidden" name="@(namePrefix).type" id="@(idPrefix).type" value="click"/>
-                            <input type="text" name="@(namePrefix).name" id="button_@(i)_@(j)" class="txtButton"/>
-                        </td>
-                    }
+                    <th></th>
+                    <th>第一列</th>
+                    <th>第二列</th>
+                    <th>第三列</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < 6; i++)
+                {
+                    <tr>
+                        <td>
+                            @(i == 5 ? "一级菜单按钮" : ("二级菜单No." + (i + 1)))
+                        </td>
+                        @for (int j = 0; j < 3; j++)
+                        {
+                            var namePrefix = string.Format("menu.button[{0}].sub_button[{1}]", j, i);
+                            var idPrefix = string.Format("menu_button{0}_sub_button{1}", j, i);
+                            <td>
+                                <input type="hidden" name="@(namePrefix).key" id="@(idPrefix)_key"/>
+                                <input type="hidden" name="@(namePrefix).type" id="@(idPrefix)_type" value="click"/>
+                                <input type="text" name="@(namePrefix).name" id="button_@(i)_@(j)" class="txtButton" data-i="@i" data-j="@j" />
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="float-left" id="buttonDetails">
+            <h3>按钮其他参数</h3>
+            <p>
+                Key：<input id="buttonDetails_key" type="text" class="txtButton" />
+            </p>
+            <p>
+                注：如果还有下级菜单请忽略Key
+            </p>
+        </div>
+        <p></p>
+
+    </div>
+
 </section>
 
 <script src="@Url.Content("~/Scripts/senparc.menu.js")"></script>
 <script>
-    $(function() {
+    $(function () {
         senparc.menu.init();
     });
 </script>

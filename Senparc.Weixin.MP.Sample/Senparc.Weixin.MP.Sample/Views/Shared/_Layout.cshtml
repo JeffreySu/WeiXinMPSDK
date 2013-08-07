@@ -6,6 +6,8 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+
     @RenderSection("HeaderContent",false)
 </head>
 <body>
@@ -70,7 +72,6 @@
         <p>新浪微博：<a href="http://weibo.com/jeffreysu1984" target="_blank">@@苏震巍</a> QQ：498977166</p>
         <p>&copy;2013 Senparc</p>
     </footer>
-    @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 </body>
 </html>

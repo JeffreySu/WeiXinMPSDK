@@ -8,7 +8,7 @@ using Senparc.Weixin.MP.Entities.Menu;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
-    public class MenuController : Controller
+    public class MenuController : BaseController
     {
         //
         // GET: /Menu/

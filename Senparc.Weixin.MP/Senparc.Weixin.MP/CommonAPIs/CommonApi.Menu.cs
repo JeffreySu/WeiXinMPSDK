@@ -64,12 +64,24 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken);
 
+            var jsonString = HttpUtility.RequestUtility.HttpGet(url, Encoding.UTF8);
+            var finalResult = GetMenuFromJson(jsonString);
+            return finalResult;
+        }
+
+        /// <summary>
+        /// 从JSON字符串获取菜单对象
+        /// </summary>
+        /// <param name="jsonString"></param>
+        /// <returns></returns>
+        public static GetMenuResult GetMenuFromJson(string jsonString)
+        {
             var finalResult = new GetMenuResult();
-            object jsonResult = null;
+
             try
             {
                 //@"{""menu"":{""button"":[{""type"":""click"",""name"":""单击测试"",""key"":""OneClick"",""sub_button"":[]},{""name"":""二级菜单"",""sub_button"":[{""type"":""click"",""name"":""返回文本"",""key"":""SubClickRoot_Text"",""sub_button"":[]},{""type"":""click"",""name"":""返回图文"",""key"":""SubClickRoot_News"",""sub_button"":[]},{""type"":""click"",""name"":""返回音乐"",""key"":""SubClickRoot_Music"",""sub_button"":[]}]}]}}"
-                var jsonString = HttpUtility.RequestUtility.HttpGet(url, Encoding.UTF8);
+                object jsonResult = null;
 
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 jsonResult = js.Deserialize<object>(jsonString);
@@ -120,6 +132,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             }
             return finalResult;
         }
+
         #endregion
 
 

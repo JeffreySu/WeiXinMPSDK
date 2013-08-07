@@ -96,7 +96,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     foreach (var rootButton in buttons)
                     {
                         var fullButton = rootButton as Dictionary<string, object>;
-                        if (fullButton.ContainsKey("key"))
+                        if (fullButton.ContainsKey("key") && !string.IsNullOrEmpty(fullButton["key"] as string))
                         {
                             //按钮，无下级菜单
                             finalResult.menu.button.Add(GetSingleButtonFromJsonObject(fullButton));

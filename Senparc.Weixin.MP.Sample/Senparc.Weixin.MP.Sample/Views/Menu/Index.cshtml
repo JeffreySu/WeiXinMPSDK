@@ -3,8 +3,52 @@
     ViewBag.Title = "自定义菜单工具";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@section HeaderContent
+{
+    <style>
+        .txtButton
+        {
+            width: 100px;
+        }
+    </style>
+}
 <section class="content-wrapper main-content clear-fix">
     <h1>自定义菜单工具</h1>
-
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>第一列</th>
+                <th>第二列</th>
+                <th>第三列</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < 7; i++)
+            {
+                <tr>
+                    <td>
+                        @(i == 6 ? "一级菜单按钮" : ("二级菜单No." + (i + 1)))
+                    </td>
+                    @for (int j = 0; j < 3; j++)
+                    {
+                        var namePrefix = string.Format("menu.button[{0}].sub_button[{1}]", j, i);
+                        var idPrefix = string.Format("menu_button[{0}]_sub_button[{1}]", j, i);
+                        <td>
+                            <input type="hidden" name="@(namePrefix).key" id="@(idPrefix).key"/>
+                            <input type="hidden" name="@(namePrefix).type" id="@(idPrefix).type" value="click"/>
+                            <input type="text" name="@(namePrefix).name" id="button_@(i)_@(j)" class="txtButton"/>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
 </section>
+
+<script src="@Url.Content("~/Scripts/senparc.menu.js")"></script>
+<script>
+    $(function() {
+        senparc.menu.init();
+    });
+</script>

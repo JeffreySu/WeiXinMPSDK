@@ -68,10 +68,29 @@ senparc.menu = {
                 }
             });
         });
+
+        $('#submitMenu').click(function() {
+            if(!confirm('确定要提交吗？此操作无法撤销！')) {
+                return;
+            }
+
+            menuState.html('上传中...');
+
+            $('#form_Menu').ajaxSubmit({
+                dataType:'json',
+                success:function (json) {
+                    if (json.Successed) {
+                        menuState.html('上传成功');
+                    } else {
+                        menuState.html(json.Message);
+                    }
+                }
+            });
+        });
     },
     setToken: function (token) {
         senparc.menu.token = token;
-        $('#tokenStr').html(token);
+        $('#tokenStr').val(token);
         $('#menuEditor').show();
         $('#menuLogin').hide();
     }

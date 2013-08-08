@@ -15,6 +15,11 @@
         {
             width: 200px;
         }
+
+        .txtToken
+        {
+            width: 80%;
+        }
     </style>
 }
 <section class="content-wrapper main-content clear-fix">
@@ -45,61 +50,67 @@
         </p>
     </div>
     <div id="menuEditor">
-        <p>
-            当前Token: <span id="tokenStr"></span>
-        </p>
-        <p>
-            <input id="btnGetMenu" type="button" value="获取当前菜单" />
-        </p>
-        <p>
-            操作状态：<strong id="menuState">-</strong>
-        </p>
-        <div class="float-left">
+        @using (Html.BeginForm("CreateMenu", "Menu", FormMethod.Post, new { id = "form_Menu" }))
+        {
 
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>第一列</th>
-                        <th>第二列</th>
-                        <th>第三列</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (int i = 0; i < 6; i++)
-                    {
-                        var isRootMenu = i == 5;
-                        <tr id="@(isRootMenu ? "subMenuRow_" + i : "rootMenuRow")">
-                            <td>
-                                @(isRootMenu ? "一级菜单按钮" : ("二级菜单No." + (i + 1)))
-                            </td>
-                            @for (int j = 0; j < 3; j++)
-                            {
-                                var namePrefix = isRootMenu ? string.Format("menu.button[{0}]", j) : string.Format("menu.button[{0}].sub_button[{1}]", j, i);
-                                var idPrefix = isRootMenu ? string.Format("menu_button{0}", j) : string.Format("menu_button{0}_sub_button{1}", j, i);
-                                <td>
-                                    <input type="hidden" name="@(namePrefix).key" id="@(idPrefix)_key"/>
-                                    <input type="hidden" name="@(namePrefix).type" id="@(idPrefix)_type" value="click"/>
-                                    <input type="text" name="@(namePrefix).name" id="@(idPrefix)_name" class="txtButton" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
-                                </td>
-                            }
+            <p>
+                当前Token:
+            <input id="tokenStr" name="token" type="text" class="txtToken" />
+            </p>
+            <p>
+                <input id="btnGetMenu" type="button" value="获取当前菜单" />
+            </p>
+            <p>
+                操作状态：<strong id="menuState">-</strong>
+            </p>
+            <div class="float-left">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>第一列</th>
+                            <th>第二列</th>
+                            <th>第三列</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
-
-            <p></p>
-
-        </div>
-        <div class="float-left" id="buttonDetails">
-            <h3>按钮其他参数</h3>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < 6; i++)
+                        {
+                            var isRootMenu = i == 5;
+                            <tr id="@(isRootMenu ? "subMenuRow_" + i : "rootMenuRow")">
+                                <td>
+                                    @(isRootMenu ? "一级菜单按钮" : ("二级菜单No." + (i + 1)))
+                                </td>
+                                @for (int j = 0; j < 3; j++)
+                                {
+                                    var namePrefix = isRootMenu ? string.Format("menu.button[{0}]", j) : string.Format("menu.button[{0}].sub_button[{1}]", j, i);
+                                    var idPrefix = isRootMenu ? string.Format("menu_button{0}", j) : string.Format("menu_button{0}_sub_button{1}", j, i);
+                                    <td>
+                                        <input type="hidden" name="@(namePrefix).key" id="@(idPrefix)_key"/>
+                                        <input type="hidden" name="@(namePrefix).type" id="@(idPrefix)_type" value="click"/>
+                                        <input type="text" name="@(namePrefix).name" id="@(idPrefix)_name" class="txtButton" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <p></p>
+            </div>
+            <div class="float-left" id="buttonDetails">
+                <h3>按钮其他参数</h3>
+                <p>
+                    Key：<input id="buttonDetails_key" type="text" class="txtButtonDetails" />
+                </p>
+                <p>
+                    注：如果还有下级菜单请忽略Key
+                </p>
+            </div>
             <p>
-                Key：<input id="buttonDetails_key" type="text" class="txtButtonDetails" />
+                <input type="button" value="更新到服务器" id="submitMenu" />
             </p>
-            <p>
-                注：如果还有下级菜单请忽略Key
-            </p>
-        </div>
+        }
     </div>
 </section>
 

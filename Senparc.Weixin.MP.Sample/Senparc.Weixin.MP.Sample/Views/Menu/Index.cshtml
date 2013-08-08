@@ -20,6 +20,11 @@
         {
             width: 80%;
         }
+
+        .submitArea
+        {
+            clear: both;
+        }
     </style>
 }
 <section class="content-wrapper main-content clear-fix">
@@ -31,7 +36,7 @@
         <li>官方要求：按钮描述，既按钮名字，不超过16个字节，子菜单不超过40个字节</li>
         <li>如果name不填，此按钮将被忽略</li>
         <li>如果一级菜单为空，该列所有设置的二级菜单都会被忽略</li>
-        <il>key仅为SingleButton（单击按钮，无下级菜单）设置，如果此按钮有下级菜单，key将被忽略</il>
+        <li>key仅在SingleButton（单击按钮，无下级菜单）的状态下设置，如果此按钮有下级菜单，key将被忽略</li>
         <li>所有二级菜单都为SingleButton</li>
         <li>如果要快速看到微信上的菜单最新状态，需要重新关注，否则需要静静等待N小时</li>
     </ul>
@@ -59,6 +64,7 @@
             </p>
             <p>
                 <input id="btnGetMenu" type="button" value="获取当前菜单" />
+                <input id="btnDeleteMenu" type="button" value="删除菜单" />
             </p>
             <p>
                 操作状态：<strong id="menuState">-</strong>
@@ -88,7 +94,7 @@
                                     var idPrefix = isRootMenu ? string.Format("menu_button{0}", j) : string.Format("menu_button{0}_sub_button{1}", j, i);
                                     <td>
                                         <input type="hidden" name="@(namePrefix).key" id="@(idPrefix)_key"/>
-                                        <input type="hidden" name="@(namePrefix).type" id="@(idPrefix)_type" value="click"/>
+                                        <input type="hidden" name="@(namePrefix).type" id="@(idPrefix)_type" value="click" />
                                         <input type="text" name="@(namePrefix).name" id="@(idPrefix)_name" class="txtButton" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
                                     </td>
                                 }
@@ -100,6 +106,7 @@
             </div>
             <div class="float-left" id="buttonDetails">
                 <h3>按钮其他参数</h3>
+                <p>Name：<input type="text" id="buttonDetails_name" class="txtButton" disabled="disabled" /></p>
                 <p>
                     Key：<input id="buttonDetails_key" type="text" class="txtButtonDetails" />
                 </p>
@@ -107,9 +114,10 @@
                     注：如果还有下级菜单请忽略Key
                 </p>
             </div>
-            <p>
+            <div class="clear-fix"></div>
+            <div id="submitArea">
                 <input type="button" value="更新到服务器" id="submitMenu" />
-            </p>
+            </div>
         }
     </div>
 </section>

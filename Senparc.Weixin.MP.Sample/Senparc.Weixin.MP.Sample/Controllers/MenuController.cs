@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateMenu(string token, MenuPost menuPost)
+        public ActionResult CreateMenu(string token, MenuPost menuPost,FormCollection fc)
         {
             try
             {
@@ -58,8 +58,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     {
                         continue;//没有设置一级菜单
                     }
-
-                    if (rootButton.sub_button.Count==0)
+                    var availableSubButton = rootButton.sub_button.Count(z => !string.IsNullOrEmpty(z.name));//可用二级菜单按钮数量
+                    if (availableSubButton == 0)
                     {
                         //底部单击按钮
                         if (string.IsNullOrEmpty(rootButton.key))
@@ -74,7 +74,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                               type = rootButton.type//目前只有click
                                           });
                     }
-                    else if(rootButton.sub_button.Count<2)
+                    else if (availableSubButton < 2)
                     {
                         throw new Exception("子菜单至少需要填写2个！");
                     }
@@ -130,6 +130,17 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Json(new { error = "菜单不存在或验证失败！" }, JsonRequestBehavior.AllowGet);
             }
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DeleteMenu(string token)
+        {
+            var result = CommonAPIs.CommonApi.DeleteMenu(token);
+            var json = new
+            {
+                Success = result.errmsg == "ok",
+                Message = result.errmsg
+            };
+            return Json(json,JsonRequestBehavior.AllowGet);
         }
     }
 }

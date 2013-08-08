@@ -11,12 +11,21 @@ senparc.menu = {
 
         $(':input[id^=menu_button]').click(function () {
             $('#buttonDetails').show();
-            var keyId = $(this).attr('data-root')
-                            ? ('menu_button' + $(this).attr('data-root') + '_key')
-                            : ('menu_button' + $(this).attr('data-j') + '_sub_button' + $(this).attr('data-i') + '_key');
+            var idPrefix = $(this).attr('data-root')
+                            ? ('menu_button' + $(this).attr('data-root'))
+                            : ('menu_button' + $(this).attr('data-j') + '_sub_button' + $(this).attr('data-i'));
+
+            var keyId = idPrefix + "_key";
+            var nameId = idPrefix + "_name";
+
             var txtDetailsKey = $('#buttonDetails_key');
+            var txtDetailsName = $('#buttonDetails_name');
+
             var txtButtonKey = $('#' + keyId);
+
             txtDetailsKey.val(txtButtonKey.val());
+            txtDetailsName.val($('#' + nameId).val());
+
             txtDetailsKey.unbind('blur').blur(function () {
                 txtButtonKey.val($(this).val());
             });
@@ -38,9 +47,12 @@ senparc.menu = {
         });
 
         $('#btnGetMenu').click(function () {
-            menuState.html('获取菜单中');
+            menuState.html('获取菜单中...');
             $.getJSON('/Menu/GetMenu?t=' + Math.random(), { token: senparc.menu.token }, function (json) {
                 if (json.menu) {
+                    $(':input[id^=menu_button]:not([id$=_type])').val('');
+                    $('#buttonDetails:input').val('');
+
                     var buttons = json.menu.button;
                     //此处i与j和页面中反转
                     for (var i = 0; i < buttons.length; i++) {
@@ -69,16 +81,31 @@ senparc.menu = {
             });
         });
 
-        $('#submitMenu').click(function() {
-            if(!confirm('确定要提交吗？此操作无法撤销！')) {
+        $('#btnDeleteMenu').click(function () {
+            if (!confirm('确定要删除菜单吗？此操作无法撤销！')) {
+                return;
+            }
+
+            menuState.html('删除菜单中...');
+            $.getJSON('/Menu/DeleteMenu?t=' + Math.random(), { token: senparc.menu.token }, function (json) {
+                if (json.Success) {
+                    menuState.html('删除成功，如果是误删，并且界面上有最新的菜单状态，可以立即点击【更新到服务器】按钮。');
+                } else {
+                    menuState.html(json.Message);
+                }
+            });
+        });
+
+        $('#submitMenu').click(function () {
+            if (!confirm('确定要提交吗？此操作无法撤销！')) {
                 return;
             }
 
             menuState.html('上传中...');
 
             $('#form_Menu').ajaxSubmit({
-                dataType:'json',
-                success:function (json) {
+                dataType: 'json',
+                success: function (json) {
                     if (json.Successed) {
                         menuState.html('上传成功');
                     } else {

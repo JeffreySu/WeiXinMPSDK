@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateMenu(string token, MenuPost menuPost,FormCollection fc)
+        public ActionResult CreateMenu(string token, MenuPost menuPost, FormCollection fc)
         {
             try
             {
@@ -134,13 +134,21 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         public ActionResult DeleteMenu(string token)
         {
-            var result = CommonAPIs.CommonApi.DeleteMenu(token);
-            var json = new
+            try
             {
-                Success = result.errmsg == "ok",
-                Message = result.errmsg
-            };
-            return Json(json,JsonRequestBehavior.AllowGet);
+                var result = CommonAPIs.CommonApi.DeleteMenu(token);
+                var json = new
+                               {
+                                   Success = result.errmsg == "ok",
+                                   Message = result.errmsg
+                               };
+                return Json(json, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                var json = new { Success = false, Message = ex.Message };
+                return Json(json, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

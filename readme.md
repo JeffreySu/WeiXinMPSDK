@@ -20,6 +20,8 @@
 
 Q&A：https://github.com/JeffreySu/WeiXinMPSDK/wiki/QA
 
+自定义菜单在线编辑工具：http://weixin.senparc.com/Menu
+
 SDK技术交流QQ群：300313885
 
 业务联系QQ：498977166

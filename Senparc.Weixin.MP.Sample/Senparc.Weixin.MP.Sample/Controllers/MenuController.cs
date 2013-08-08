@@ -107,6 +107,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     }
                 }
 
+                if (bg.button.Count <2)
+                {
+                    throw new Exception("一级菜单按钮至少为2个！");
+                }
+
                 var result = CommonAPIs.CommonApi.CreateMenu(token, bg);
                 var json = new
                 {

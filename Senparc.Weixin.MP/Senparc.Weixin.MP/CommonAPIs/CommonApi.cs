@@ -73,7 +73,5 @@ namespace Senparc.Weixin.MP.CommonAPIs
             UploadMediaFileResult result = Post.PostGetJson<UploadMediaFileResult>(url, cookieContainer, fileStream);
             return result;
         }
-
-        
     }
 }

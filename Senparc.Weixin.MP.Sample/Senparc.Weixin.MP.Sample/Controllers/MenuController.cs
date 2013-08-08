@@ -50,7 +50,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var result = CommonAPIs.CommonApi.GetMenu(token);
             if (result == null)
             {
-                return Json(new { error = "没有菜单信息！" }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "菜单不存在或验证失败！" }, JsonRequestBehavior.AllowGet);
             }
             return Json(result, JsonRequestBehavior.AllowGet);
         }

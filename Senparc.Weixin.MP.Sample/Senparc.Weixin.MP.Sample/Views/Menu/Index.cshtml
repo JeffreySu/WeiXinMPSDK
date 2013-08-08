@@ -10,14 +10,20 @@
         {
             width: 100px;
         }
+
+        .txtButtonDetails
+        {
+            width: 200px;
+        }
     </style>
 }
 <section class="content-wrapper main-content clear-fix">
     <h1>自定义菜单工具</h1>
-    <h3>使用说明及规则</h3>
+    <h3>使用说明及规则，请仔细阅读</h3>
     <ul>
         <li>官方要求：一级菜单按钮个数为2-3个</li>
         <li>官方要求：如果设置了二级菜单按钮个数为2-5个</li>
+        <li>官方要求：按钮描述，既按钮名字，不超过16个字节，子菜单不超过40个字节</li>
         <li>如果name不填，此按钮将被忽略</li>
         <li>如果一级菜单为空，该列所有设置的二级菜单都会被忽略</li>
         <il>key仅为SingleButton（单击按钮，无下级菜单）设置，如果此按钮有下级菜单，key将被忽略</il>
@@ -45,6 +51,9 @@
         <p>
             <input id="btnGetMenu" type="button" value="获取当前菜单" />
         </p>
+        <p>
+            操作状态：<strong id="menuState">-</strong>
+        </p>
         <div class="float-left">
 
             <table>
@@ -71,7 +80,7 @@
                                 <td>
                                     <input type="hidden" name="@(namePrefix).key" id="@(idPrefix)_key"/>
                                     <input type="hidden" name="@(namePrefix).type" id="@(idPrefix)_type" value="click"/>
-                                    <input type="text" name="@(namePrefix).name" id="@(idPrefix)_name" class="txtButton" data-i="@i" data-j="@j" @Html.Raw(isRootMenu?string.Format(@"data-root=""{0}""",j):"") />
+                                    <input type="text" name="@(namePrefix).name" id="@(idPrefix)_name" class="txtButton" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
                                 </td>
                             }
                         </tr>
@@ -85,7 +94,7 @@
         <div class="float-left" id="buttonDetails">
             <h3>按钮其他参数</h3>
             <p>
-                Key：<input id="buttonDetails_key" type="text" class="txtButton" />
+                Key：<input id="buttonDetails_key" type="text" class="txtButtonDetails" />
             </p>
             <p>
                 注：如果还有下级菜单请忽略Key

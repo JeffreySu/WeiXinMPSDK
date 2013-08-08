@@ -12,8 +12,6 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         private string AppSecret = "";//换成你的信息
         protected AccessTokenResult tokenResult = null;
 
-
-
         protected AccessTokenResult LoadToken()
         {
             if (tokenResult == null)

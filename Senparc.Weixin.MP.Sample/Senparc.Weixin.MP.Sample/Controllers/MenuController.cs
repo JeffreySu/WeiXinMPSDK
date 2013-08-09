@@ -46,72 +46,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateMenu(string token, MenuPost menuPost, FormCollection fc)
+        public ActionResult CreateMenu(string token, GetMenuResultFull resultFull)
         {
             try
             {
                 //重新整理按钮信息
-                ButtonGroup bg = new ButtonGroup();
-                foreach (var rootButton in menuPost.menu.button)
-                {
-                    if (rootButton.name == null)
-                    {
-                        continue;//没有设置一级菜单
-                    }
-                    var availableSubButton = rootButton.sub_button.Count(z => !string.IsNullOrEmpty(z.name));//可用二级菜单按钮数量
-                    if (availableSubButton == 0)
-                    {
-                        //底部单击按钮
-                        if (string.IsNullOrEmpty(rootButton.key))
-                        {
-                            throw new Exception("单击按钮的key不能为空！");
-                        }
-
-                        bg.button.Add(new SingleButton()
-                                          {
-                                              name = rootButton.name,
-                                              key = rootButton.key,
-                                              type = rootButton.type//目前只有click
-                                          });
-                    }
-                    else if (availableSubButton < 2)
-                    {
-                        throw new Exception("子菜单至少需要填写2个！");
-                    }
-                    else
-                    {
-                        //底部二级菜单
-                        var subButton = new SubButton(rootButton.name);
-                        bg.button.Add(subButton);
-
-                        foreach (var subSubButton in rootButton.sub_button)
-                        {
-                            if (subSubButton.name == null)
-                            {
-                                continue; //没有设置菜单
-                            }
-
-                            if (string.IsNullOrEmpty(subSubButton.key))
-                            {
-                                throw new Exception("单击按钮的key不能为空！");
-                            }
-
-                            subButton.sub_button.Add(new SingleButton()
-                                                         {
-                                                             name = subSubButton.name,
-                                                             key = subSubButton.key,
-                                                             type = subSubButton.type
-                                                             //目前只有click                                                       });
-                                                         });
-                        }
-                    }
-                }
-
-                if (bg.button.Count <2)
-                {
-                    throw new Exception("一级菜单按钮至少为2个！");
-                }
-
+                var bg = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull).menu;
                 var result = CommonAPIs.CommonApi.CreateMenu(token, bg);
                 var json = new
                 {

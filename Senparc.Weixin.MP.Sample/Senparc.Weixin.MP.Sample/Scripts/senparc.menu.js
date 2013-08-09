@@ -60,7 +60,7 @@ senparc.menu = {
                         $('#menu_button' + i + '_name').val(button.name);
                         $('#menu_button' + i + '_key').val(button.key);
 
-                        if (button.sub_button.length > 0) {
+                        if (button.sub_button && button.sub_button.length > 0) {
                             //二级菜单
                             for (var j = 0; j < button.sub_button.length; j++) {
                                 var subButton = button.sub_button[j];

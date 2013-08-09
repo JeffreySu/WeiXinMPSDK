@@ -10,11 +10,18 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
     {
         private string AppId = "";//换成你的信息
         private string AppSecret = "";//换成你的信息
-        protected AccessTokenResult tokenResult = null;
+        protected AccessTokenResult tokenResult = new AccessTokenResult()
+                                                      {
+                                                          /* 由于获取accessToken有次数限制，为了节约请求，
+                                                           * 可以到 http://weixin.senparc.com/Menu 获取Token之后填入下方，
+                                                           * 使用当前可用Token直接进行测试。
+                                                           */
+                                                          access_token = "xJ3Hoahhe8AkAWMn8W_c7KKB_hNsL3yR2kDVYf51wwfq_LHfzEgsa8p_Gt-7q8ZupLFSyakSUfYCFyHvURhffM1KDkMve03ykZ03z30QygyPX_DE5qAW7cNSCfvHryK0_-ssinh4cQAZKyZ7pCPl9g"
+                                                      };
 
         protected AccessTokenResult LoadToken()
         {
-            if (tokenResult == null)
+            if (tokenResult == null || string.IsNullOrEmpty(tokenResult.access_token))
             {
                 //正确数据，请填写微信公众账号后台的AppId及AppSecret
                 tokenResult = CommonApi.GetToken(AppId, AppSecret);

@@ -8,6 +8,7 @@ using System.Text;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
+using Senparc.Weixin.MP.Exceptions;
 using Senparc.Weixin.MP.HttpUtility;
 
 namespace Senparc.Weixin.MP.CommonAPIs
@@ -44,6 +45,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="objs"></param>
         /// <returns></returns>
+        [Obsolete("配合GetMenuFromJson方法使用")]
         private static SingleButton GetSingleButtonFromJsonObject(Dictionary<string, object> objs)
         {
             var sb = new SingleButton()
@@ -55,25 +57,13 @@ namespace Senparc.Weixin.MP.CommonAPIs
             return sb;
         }
 
-        /// <summary>
-        /// 获取当前菜单，暂时只返回基类信息
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <returns></returns>
-        public static GetMenuResult GetMenu(string accessToken)
-        {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken);
-
-            var jsonString = HttpUtility.RequestUtility.HttpGet(url, Encoding.UTF8);
-            var finalResult = GetMenuFromJson(jsonString);
-            return finalResult;
-        }
 
         /// <summary>
         /// 从JSON字符串获取菜单对象
         /// </summary>
         /// <param name="jsonString"></param>
         /// <returns></returns>
+        [Obsolete("此方法通过判断GetMenuResult并结合object类型转换得到结果。结果准确。但更推荐使用GetMenuFromJsonResult方法。")]
         public static GetMenuResult GetMenuFromJson(string jsonString)
         {
             var finalResult = new GetMenuResult();
@@ -131,6 +121,123 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 finalResult = null;
             }
             return finalResult;
+        }
+
+
+        /// <summary>
+        /// 获取当前菜单，如果菜单不存在，将返回null
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public static GetMenuResult GetMenu(string accessToken)
+        {
+            var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken);
+
+            var jsonString = HttpUtility.RequestUtility.HttpGet(url, Encoding.UTF8);
+            //var finalResult = GetMenuFromJson(jsonString);
+
+            GetMenuResult finalResult;
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            try
+            {
+                var jsonResult = js.Deserialize<GetMenuResultFull>(jsonString);
+                if (jsonResult.menu == null || jsonResult.menu.button.Count == 0)
+                {
+                    throw new WeixinException(jsonResult.errmsg);
+                }
+
+                finalResult = GetMenuFromJsonResult(jsonResult);
+            }
+            catch (WeixinException ex)
+            {
+                finalResult = null;
+            }
+
+            return finalResult;
+        }
+
+        /// <summary>
+        /// 根据微信返回的Json数据得到可用的GetMenuResult结果
+        /// </summary>
+        /// <param name="resultFull"></param>
+        /// <returns></returns>
+        public static GetMenuResult GetMenuFromJsonResult(GetMenuResultFull resultFull)
+        {
+            GetMenuResult result = null;
+            try
+            {
+                //重新整理按钮信息
+                ButtonGroup bg = new ButtonGroup();
+                foreach (var rootButton in resultFull.menu.button)
+                {
+                    if (rootButton.name == null)
+                    {
+                        continue;//没有设置一级菜单
+                    }
+                    var availableSubButton = rootButton.sub_button.Count(z => !string.IsNullOrEmpty(z.name));//可用二级菜单按钮数量
+                    if (availableSubButton == 0)
+                    {
+                        //底部单击按钮
+                        if (string.IsNullOrEmpty(rootButton.key))
+                        {
+                            throw new WeixinMenuException("单击按钮的key不能为空！");
+                        }
+
+                        bg.button.Add(new SingleButton()
+                        {
+                            name = rootButton.name,
+                            key = rootButton.key,
+                            type = rootButton.type//目前只有click
+                        });
+                    }
+                    else if (availableSubButton < 2)
+                    {
+                        throw new WeixinMenuException("子菜单至少需要填写2个！");
+                    }
+                    else
+                    {
+                        //底部二级菜单
+                        var subButton = new SubButton(rootButton.name);
+                        bg.button.Add(subButton);
+
+                        foreach (var subSubButton in rootButton.sub_button)
+                        {
+                            if (subSubButton.name == null)
+                            {
+                                continue; //没有设置菜单
+                            }
+
+                            if (string.IsNullOrEmpty(subSubButton.key))
+                            {
+                                throw new WeixinMenuException("单击按钮的key不能为空！");
+                            }
+
+                            subButton.sub_button.Add(new SingleButton()
+                            {
+                                name = subSubButton.name,
+                                key = subSubButton.key,
+                                type = subSubButton.type
+                                //目前只有click
+                            });
+                        }
+                    }
+                }
+
+                if (bg.button.Count < 2)
+                {
+                    throw new WeixinMenuException("一级菜单按钮至少为2个！");
+                }
+
+                result = new GetMenuResult()
+                             {
+                                 menu = bg
+                             };
+            }
+            catch (Exception ex)
+            {
+                throw new WeixinMenuException(ex.Message, ex);
+            }
+            return result;
         }
 
         #endregion

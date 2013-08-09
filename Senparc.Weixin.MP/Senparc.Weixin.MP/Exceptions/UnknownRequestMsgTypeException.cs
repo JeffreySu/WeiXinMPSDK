@@ -10,6 +10,11 @@ namespace Senparc.Weixin.MP
     /// </summary>
     public class UnknownRequestMsgTypeException : WeixinException //ArgumentOutOfRangeException
     {
+        public UnknownRequestMsgTypeException(string message)
+            : base(message, null)
+        {
+        }
+
         public UnknownRequestMsgTypeException(string message, Exception inner)
             : base(message, inner)
         { }

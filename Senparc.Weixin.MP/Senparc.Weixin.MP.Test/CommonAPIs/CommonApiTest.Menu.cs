@@ -14,7 +14,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         [TestMethod]
         public void CreateMenuTest()
         {
-            return;//已经通过测试
+            //return;//已经通过测试
 
             LoadToken();
 
@@ -60,15 +60,8 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         [TestMethod]
         public void GetMenuTest()
         {
-            return;//已经通过测试
+            //return;//已经通过测试
             LoadToken();
-
-            //绕过LoadToken()，减少请求次数
-            //this.tokenResult = new AccessTokenResult()
-            //{
-            //    //根据获得的实际有效的Token进行填写
-            //    access_token = "T1vpXEjgjhESumTE4tilUdszVSWj0ZP7AsrLPJi99cTVGLMI07Rsrc3pl8tum7rJzNdrysA4-DpCGUYKrPnsuKVNVFtejU7ahKCEtZ0HtgRhVSkZ1LLflIglIWvzg0Lt8TW1FLEaepRpmACkmm6YJw"
-            //};
 
             var result = CommonApi.GetMenu(tokenResult.access_token);
 
@@ -80,7 +73,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         [TestMethod]
         public void DeleteMenuTest()
         {
-            return;//删除之后，GetMenu将返回null
+            //return;//已经通过测试，删除之后，GetMenu将返回null
 
             LoadToken();
 

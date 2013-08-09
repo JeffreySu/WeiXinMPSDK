@@ -16,7 +16,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                                                            * 可以到 http://weixin.senparc.com/Menu 获取Token之后填入下方，
                                                            * 使用当前可用Token直接进行测试。
                                                            */
-                                                          access_token = "xJ3Hoahhe8AkAWMn8W_c7KKB_hNsL3yR2kDVYf51wwfq_LHfzEgsa8p_Gt-7q8ZupLFSyakSUfYCFyHvURhffM1KDkMve03ykZ03z30QygyPX_DE5qAW7cNSCfvHryK0_-ssinh4cQAZKyZ7pCPl9g"
+                                                          access_token = ""
                                                       };
 
         protected AccessTokenResult LoadToken()

@@ -9,7 +9,11 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 
 Senparc.Weixin.MP.dll升级记录
 ----------
-v2.3 /2013-8-5
+v2.4 /2013-8-9
+
+优化菜单操作的逻辑代码，添加WeixinMenuException异常类型
+
+v2.3 /2013-8-7
 
 完善菜单类型，添加在线菜单编辑器
 

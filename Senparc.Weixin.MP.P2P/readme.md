@@ -3,7 +3,7 @@
 
 用于微信公众账号自动群发及点到点发送信息。
 
-完成进度：90%
+完成进度：95%
 
 关注P2P测试微信公众账号（Souidea是一个全面测试Senparc.Weixin.MP和Senparc.Weixin.MP.P2P的机器人）：
 [![image]](http://weixin.senparc.com/)  
@@ -56,4 +56,7 @@
 
 
 #P2P项目动态
-Senparc.Weixin.MP.P2P API将于近期开放，C#版本的SDK也将迅速跟进。
+Senparc.Weixin.MP.P2P API将于近期开放公测，C#版本的SDK也将迅速跟进。
+
+
+P2P开放平台（代号：Souidea）地址：http://www.souidea.com

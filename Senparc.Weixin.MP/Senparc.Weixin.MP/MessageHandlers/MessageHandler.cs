@@ -107,6 +107,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 默认为False。
         /// 如果在执行OnExecuting()执行前设为True，则所有OnExecuting()、Execute()、OnExecuted()代码都不会被执行。
         /// 如果在执行OnExecuting()执行过程中设为True，则后续Execute()及OnExecuted()代码不会被执行。
+        /// 建议在设为True的时候，给ResponseMessage赋值，以返回友好信息。
         /// </summary>
         public bool CancelExcute { get; set; }
 
@@ -138,7 +139,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public IRequestMessageBase RequestMessage { get; set; }
         /// <summary>
         /// 响应实体
-        /// 只有当执行Execute()方法后才可能有值
+        /// 正常情况下只有当执行Execute()方法后才可能有值。
+        /// 也可以结合Cancel，提前给ResponseMessage赋值。
         /// </summary>
         public IResponseMessageBase ResponseMessage { get; set; }
 

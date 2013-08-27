@@ -46,9 +46,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="objs"></param>
         /// <returns></returns>
         [Obsolete("配合GetMenuFromJson方法使用")]
-        private static SingleButton GetSingleButtonFromJsonObject(Dictionary<string, object> objs)
+        private static SingleClickButton GetSingleButtonFromJsonObject(Dictionary<string, object> objs)
         {
-            var sb = new SingleButton()
+            var sb = new SingleClickButton()
             {
                 key = objs["key"] as string,
                 name = objs["name"] as string,
@@ -178,17 +178,33 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     if (availableSubButton == 0)
                     {
                         //底部单击按钮
-                        if (string.IsNullOrEmpty(rootButton.key))
+                        if (rootButton.type.Equals("CLICK", StringComparison.OrdinalIgnoreCase)
+                            && string.IsNullOrEmpty(rootButton.key))
                         {
                             throw new WeixinMenuException("单击按钮的key不能为空！");
                         }
 
-                        bg.button.Add(new SingleButton()
+                        if (rootButton.type.Equals("CLICK", StringComparison.OrdinalIgnoreCase))
                         {
-                            name = rootButton.name,
-                            key = rootButton.key,
-                            type = rootButton.type//目前只有click
-                        });
+                            //点击
+                            bg.button.Add(new SingleClickButton()
+                                              {
+                                                  name = rootButton.name,
+                                                  key = rootButton.key,
+                                                  type = rootButton.type
+                                              });
+                        }
+                        else
+                        {
+                            //URL
+                            bg.button.Add(new SingleViewButton()
+                            {
+                                name = rootButton.name,
+                                url = rootButton.url,
+                                type = rootButton.type
+                            });
+                        }
+
                     }
                     else if (availableSubButton < 2)
                     {
@@ -207,18 +223,33 @@ namespace Senparc.Weixin.MP.CommonAPIs
                                 continue; //没有设置菜单
                             }
 
-                            if (string.IsNullOrEmpty(subSubButton.key))
+                            if (subSubButton.type.Equals("CLICK", StringComparison.OrdinalIgnoreCase)
+                                && string.IsNullOrEmpty(subSubButton.key))
                             {
                                 throw new WeixinMenuException("单击按钮的key不能为空！");
                             }
 
-                            subButton.sub_button.Add(new SingleButton()
+
+                            if (subSubButton.type.Equals("CLICK", StringComparison.OrdinalIgnoreCase))
                             {
-                                name = subSubButton.name,
-                                key = subSubButton.key,
-                                type = subSubButton.type
-                                //目前只有click
-                            });
+                                //点击
+                                subButton.sub_button.Add(new SingleClickButton()
+                                {
+                                    name = subSubButton.name,
+                                    key = subSubButton.key,
+                                    type = subSubButton.type
+                                });
+                            }
+                            else
+                            {
+                                //URL
+                                subButton.sub_button.Add(new SingleViewButton()
+                                {
+                                    name = subSubButton.name,
+                                    url = subSubButton.url,
+                                    type = subSubButton.type
+                                });
+                            }
                         }
                     }
                 }

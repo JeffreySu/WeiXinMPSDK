@@ -64,7 +64,9 @@
     <Compile Include="Entities\Menu\BaseButton.cs" />
     <Compile Include="Entities\Menu\ButtonGroup.cs" />
     <Compile Include="Entities\Menu\SingleButton.cs" />
+    <Compile Include="Entities\Menu\SingleClickButton.cs" />
     <Compile Include="Entities\Menu\SubButton.cs" />
+    <Compile Include="Entities\Menu\SingleViewButton.cs" />
     <Compile Include="Entities\MessageBase.cs">
       <SubType>Code</SubType>
     </Compile>

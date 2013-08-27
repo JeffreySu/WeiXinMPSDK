@@ -65,11 +65,14 @@ namespace Senparc.Weixin.MP
     /// </summary>
     public enum ButtonType
     {
+        /// <summary>
+        /// 点击
+        /// </summary>
         click,
         /// <summary>
-        /// 暂时已被禁用
+        /// Url
         /// </summary>
-        //view
+        view
     }
 
     /// <summary>

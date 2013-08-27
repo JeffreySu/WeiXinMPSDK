@@ -25,6 +25,7 @@ namespace Senparc.Weixin.MP
         public string type { get; set; }
         public string key { get; set; }
         public string name { get; set; }
-        public List<SingleButton> sub_button { get; set; }
+        public string url { get; set; }
+        public List<MenuFull_RootButton> sub_button { get; set; }
     }
 }

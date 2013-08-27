@@ -9,6 +9,8 @@ senparc.menu = {
         $('#buttonDetails').hide();
         $('#menuEditor').hide();
 
+        $("#buttonDetails_type").change(senparc.menu.typeChanged);
+
         $(':input[id^=menu_button]').click(function () {
             $('#buttonDetails').show();
             var idPrefix = $(this).attr('data-root')
@@ -17,17 +19,33 @@ senparc.menu = {
 
             var keyId = idPrefix + "_key";
             var nameId = idPrefix + "_name";
+            var typeId = idPrefix + "_type";
+            var urlId = idPrefix + "_url";
 
             var txtDetailsKey = $('#buttonDetails_key');
             var txtDetailsName = $('#buttonDetails_name');
+            var ddlDetailsType = $('#buttonDetails_type');
+            var txtDetailsUrl = $('#buttonDetails_url');
 
-            var txtButtonKey = $('#' + keyId);
+            var hiddenButtonKey = $('#' + keyId);
+            var hiddenButtonType = $('#' + typeId);
+            var hiddenButtonUrl = $('#' + urlId);
 
-            txtDetailsKey.val(txtButtonKey.val());
+            txtDetailsKey.val(hiddenButtonKey.val());
             txtDetailsName.val($('#' + nameId).val());
+            ddlDetailsType.val(hiddenButtonType.val());
+            txtDetailsUrl.val(hiddenButtonUrl.val());
+
+            senparc.menu.typeChanged();
 
             txtDetailsKey.unbind('blur').blur(function () {
-                txtButtonKey.val($(this).val());
+                hiddenButtonKey.val($(this).val());
+            });
+            ddlDetailsType.unbind('blur').blur(function () {
+                hiddenButtonType.val($(this).val());
+            });
+            txtDetailsUrl.unbind('blur').blur(function () {
+                hiddenButtonUrl.val($(this).val());
             });
         });
 
@@ -59,6 +77,8 @@ senparc.menu = {
                         var button = buttons[i];
                         $('#menu_button' + i + '_name').val(button.name);
                         $('#menu_button' + i + '_key').val(button.key);
+                        $('#menu_button' + i + '_type').val(button.type);
+                        $('#menu_button' + i + '_url').val(button.url);
 
                         if (button.sub_button && button.sub_button.length > 0) {
                             //二级菜单
@@ -68,6 +88,7 @@ senparc.menu = {
                                 $(idPrefix + "_name").val(subButton.name);
                                 $(idPrefix + "_type").val(subButton.type);
                                 $(idPrefix + "_key").val(subButton.key);
+                                $(idPrefix + "_url").val(subButton.url);
                             }
                         } else {
                             //底部菜单
@@ -114,6 +135,16 @@ senparc.menu = {
                 }
             });
         });
+    },
+    typeChanged:function () {
+        var val = $('#buttonDetails_type').val();
+        if (val.toUpperCase() == 'CLICK') {
+            $('#buttonDetails_key_area').slideDown(100);
+            $('#buttonDetails_url_area').slideUp(100);
+        } else {
+            $('#buttonDetails_key_area').slideUp(100);
+            $('#buttonDetails_url_area').slideDown(100);
+        }
     },
     setToken: function (token) {
         senparc.menu.token = token;

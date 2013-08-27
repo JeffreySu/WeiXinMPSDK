@@ -23,7 +23,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var subButton = new SubButton();
                 for (int j = 0; j < 5; j++)
                 {
-                    var singleButton = new SingleButton();
+                    var singleButton = new SingleClickButton();
                     subButton.sub_button.Add(singleButton);
                 }
             }

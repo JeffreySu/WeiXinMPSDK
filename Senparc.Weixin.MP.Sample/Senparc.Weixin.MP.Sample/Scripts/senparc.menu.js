@@ -136,7 +136,7 @@ senparc.menu = {
             });
         });
     },
-    typeChanged:function () {
+    typeChanged: function () {
         var val = $('#buttonDetails_type').val();
         if (val.toUpperCase() == 'CLICK') {
             $('#buttonDetails_key_area').slideDown(100);

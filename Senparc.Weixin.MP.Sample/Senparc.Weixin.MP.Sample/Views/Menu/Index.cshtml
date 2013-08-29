@@ -113,7 +113,7 @@
                                     var idPrefix = isRootMenu ? string.Format("menu_button{0}", j) : string.Format("menu_button{0}_sub_button{1}", j, i);
                                     <td>
                                         <input type="hidden" name="@(namePrefix).key" id="@(idPrefix)_key"/>
-                                        <input type="hidden" name="@(namePrefix).type" id="@(idPrefix)_type"/>
+                                        <input type="hidden" name="@(namePrefix).type" id="@(idPrefix)_type" value="click"/>
                                         <input type="hidden" name="@(namePrefix).url" id="@(idPrefix)_url" />
                                         <input type="text" name="@(namePrefix).name" id="@(idPrefix)_name" class="txtButton" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
                                     </td>

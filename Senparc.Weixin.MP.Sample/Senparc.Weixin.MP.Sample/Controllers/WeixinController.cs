@@ -40,7 +40,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             else
             {
-                return Content("failed:" + signature + "," + MP.CheckSignature.GetSignature(timestamp, nonce, Token)+"。如果您在浏览器中看到这条信息，表明此Url可以填入微信后台。");
+                return Content("failed:" + signature + "," + MP.CheckSignature.GetSignature(timestamp, nonce, Token) + "。"+
+                    "如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
             }
         }
 

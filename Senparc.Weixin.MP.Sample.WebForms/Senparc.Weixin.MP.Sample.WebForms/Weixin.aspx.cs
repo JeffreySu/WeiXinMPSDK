@@ -30,7 +30,8 @@ namespace Senparc.Weixin.MP.Sample.WebForms
                 }
                 else
                 {
-                    WriteContent("failed:" + signature + "," + CheckSignature.GetSignature(timestamp, nonce, Token));
+                    WriteContent("failed:" + signature + "," + CheckSignature.GetSignature(timestamp, nonce, Token)+"。"+
+                                "如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
                 }
                 Response.End();
             }

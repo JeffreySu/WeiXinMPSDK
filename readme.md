@@ -22,7 +22,7 @@ Q&A：https://github.com/JeffreySu/WeiXinMPSDK/wiki/QA
 
 自定义菜单在线编辑工具：http://weixin.senparc.com/Menu
 
-SDK技术交流QQ群：1群：300313885（已满） 2群：293958349
+SDK技术交流QQ群：1群：300313885（已升级到1000人群，暂时可以继续加）  2群：293958349
 
 业务联系QQ：498977166
 

@@ -25,7 +25,7 @@ namespace Senparc.Weixin.MP.MvcExtension
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var userAgent = filterContext.HttpContext.Request.UserAgent;
-            if (string.IsNullOrEmpty(userAgent) || !userAgent.Contains("MicroMessenger"))
+            if (string.IsNullOrEmpty(userAgent) || (!userAgent.Contains("MicroMessenger") && !userAgent.Contains("Windows Phone")))
             {
                 //TODO:判断网页版登陆状态
                 filterContext.Result = new ContentResult()

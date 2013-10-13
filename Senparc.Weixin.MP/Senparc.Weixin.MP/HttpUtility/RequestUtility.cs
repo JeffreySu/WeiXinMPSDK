@@ -52,7 +52,6 @@ namespace Senparc.Weixin.MP.HttpUtility
             return HttpPost(url, cookieContainer, fileStream, true, encoding);
         }
 
-
         /// <summary>
         /// 使用Post方法获取字符串结果
         /// </summary>
@@ -106,7 +105,6 @@ namespace Senparc.Weixin.MP.HttpUtility
                 }
             }
         }
-
 
         /// <summary>
         /// 请求是否发起自微信客户端的浏览器

@@ -35,7 +35,7 @@ namespace Senparc.Weixin.MP.Helpers
         }
 
         /// <summary>
-        /// 获取精度差
+        /// 获取经度差
         /// </summary>
         /// <param name="km">千米</param>
         /// <returns></returns>

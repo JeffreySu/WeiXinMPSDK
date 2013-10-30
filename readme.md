@@ -182,6 +182,14 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 
 从v0.4.0开始，MessageHandler增加了对用户会话上下文的支持，用于解决服务器上无法使用Session管理用户会话的缺陷。详见：[用户上下文WeixinContext和MessageContext](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E7%94%A8%E6%88%B7%E4%B8%8A%E4%B8%8B%E6%96%87WeixinContext%E5%92%8CMessageContext)
 
+使用Nuget安装到项目中
+--------------
+地址：https://www.nuget.org/packages/Senparc.Weixin.MP
+命令：
+```
+PM> Install-Package Senparc.Weixin.MP
+```
+
 捐助
 --------------
 如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！

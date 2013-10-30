@@ -63,4 +63,4 @@ P2P开放平台（代号：Souidea）地址：http://www.souidea.com
 P2P SDK开源项目：https://github.com/JeffreySu/WeixinMPSDK.P2PSDK
 
 ------------------
-（此页面自2013年10月30日起不再更新，更多详情请见：https://github.com/JeffreySu/WeixinMPSDK.P2PSDK）
+（此页面自2013年10月30日起不再更新，更多详情请见：https://github.com/JeffreySu/WeixinMPSDK.P2PSDK ）

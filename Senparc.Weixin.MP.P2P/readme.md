@@ -5,7 +5,6 @@
 
 P2P严正声明：我们致力于提供更加优秀的用户实时互动体验，反对使用P2P进行群发骚扰用户。
 
-完成进度：95%
 
 关注P2P测试微信公众账号（Souidea是一个全面测试Senparc.Weixin.MP和Senparc.Weixin.MP.P2P的机器人）：
 [![image]](http://weixin.senparc.com/)  
@@ -51,10 +50,8 @@ P2P严正声明：我们致力于提供更加优秀的用户实时互动体验�
 返回消息发送时的验证码图片 OK
 
 
-获取视频等更多媒体文件
+……
 
-
-你还能想到什么？
 
 
 #P2P项目动态
@@ -64,3 +61,5 @@ Senparc.Weixin.MP.P2P API已经开放公测，C#版本的SDK和测试工具也�
 P2P开放平台（代号：Souidea）地址：http://www.souidea.com
 
 P2P SDK开源项目：https://github.com/JeffreySu/WeixinMPSDK.P2PSDK
+
+（此页面自2013年10月30日起不再更新）

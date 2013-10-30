@@ -185,6 +185,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 使用Nuget安装到项目中
 --------------
 地址：https://www.nuget.org/packages/Senparc.Weixin.MP
+
 命令：
 ```
 PM> Install-Package Senparc.Weixin.MP

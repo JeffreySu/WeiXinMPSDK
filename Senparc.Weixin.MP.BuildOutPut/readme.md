@@ -9,21 +9,21 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 
 Senparc.Weixin.MP.dll升级记录
 ----------
-v3.0 /2013-10-31
+v3.x /2013-10-31
 
 根据官方2013年10月29日更新，对SDK做相应升级。
 
 相关功能的更新下面（OK结尾的表示已完成）：
 
-语音识别 OK
+语音识别            - v3.0 OK
 
-客服接口 OK
+客服接口            - v3.0 OK
 
 OAuth2.0网页授权
 
 生成带参数二维码
 
-获取用户地理位置
+获取用户地理位置    - v3.1 OK
 
 获取用户基本信息
 

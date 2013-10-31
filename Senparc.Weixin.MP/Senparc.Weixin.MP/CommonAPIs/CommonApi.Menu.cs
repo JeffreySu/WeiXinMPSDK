@@ -23,20 +23,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static WxJsonResult CreateMenu(string accessToken, ButtonGroup buttonData)
         {
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            var jsonString = js.Serialize(buttonData);
-            CookieContainer cookieContainer = null;// new CookieContainer();
-
-            using (MemoryStream ms = new MemoryStream())
-            {
-                var bytes = Encoding.UTF8.GetBytes(jsonString);
-                ms.Write(bytes, 0, bytes.Length);
-                ms.Seek(0, SeekOrigin.Begin);
-
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}", accessToken);
-                var result = Post.PostGetJson<WxJsonResult>(url, cookieContainer, ms);
-                return result;
-            }
+            var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
+            return CommonJsonSend.Send(accessToken, urlFormat, buttonData);
         }
 
         #region GetMenu
@@ -272,7 +260,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
         }
 
         #endregion
-
 
         /// <summary>
         /// 删除菜单

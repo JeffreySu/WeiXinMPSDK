@@ -83,7 +83,7 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 图片
         /// </summary>
-        image, 
+        image,
         /// <summary>
         /// 语音
         /// </summary>
@@ -163,6 +163,8 @@ namespace Senparc.Weixin.MP
         不存在媒体数据 = 46001,
         不存在的菜单版本 = 46002,
         不存在的菜单数据 = 46003,
-        解析JSON_XML内容错误 = 47001
+        解析JSON_XML内容错误 = 47001,
+        api功能未授权 = 48001,
+        用户未授权该api = 50001
     }
 }

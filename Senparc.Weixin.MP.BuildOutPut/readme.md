@@ -9,6 +9,31 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 
 Senparc.Weixin.MP.dll升级记录
 ----------
+v3.0 /2013-10-31
+
+根据官方2013年10月29日更新，对SDK做响应升级。
+
+相关功能的更新下面：
+
+语音识别 OK
+
+客服接口 OK
+
+OAuth2.0网页授权
+
+生成带参数二维码
+
+获取用户地理位置
+
+获取用户基本信息
+
+获取关注者列表
+
+用户分组接口
+
+上传下载多媒体文件	
+
+
 v2.4 /2013-8-9
 
 优化菜单操作的逻辑代码，添加WeixinMenuException异常类型

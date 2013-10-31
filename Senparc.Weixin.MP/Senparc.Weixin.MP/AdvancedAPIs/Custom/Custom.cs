@@ -10,9 +10,9 @@ using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.HttpUtility;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
-    public static class Send
+    public static class Custom
     {
         private const string URL_FORMAT = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={0}";
 

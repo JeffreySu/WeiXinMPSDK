@@ -65,7 +65,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AdvancedAPIs\Custom\SendTest.cs" />
+    <Compile Include="AdvancedAPIs\Custom\CustomTest.cs" />
+    <Compile Include="AdvancedAPIs\User\CustomTest.cs" />
     <Compile Include="CheckSignatureTest.cs" />
     <Compile Include="CommonAPIs\CommonApiTest.cs" />
     <Compile Include="Entities\Response\ResponseMessageBaseTest.cs" />

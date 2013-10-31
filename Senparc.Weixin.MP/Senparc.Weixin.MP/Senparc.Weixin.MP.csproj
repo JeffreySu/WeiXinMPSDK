@@ -50,7 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdvancedAPIs\Custom\Send.cs" />
+    <Compile Include="AdvancedAPIs\Custom\Custom.cs" />
+    <Compile Include="AdvancedAPIs\User\User.cs" />
+    <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
     <Compile Include="CheckSignature.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
@@ -143,6 +145,7 @@
   <ItemGroup>
     <Compile Include="CommonAPIs\CommonApi.Menu.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

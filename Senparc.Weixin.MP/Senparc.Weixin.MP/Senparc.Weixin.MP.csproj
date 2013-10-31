@@ -51,6 +51,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvancedAPIs\Custom\Custom.cs" />
+    <Compile Include="AdvancedAPIs\Groups\CreateGroupResult.cs" />
+    <Compile Include="AdvancedAPIs\Groups\Groups.cs" />
+    <Compile Include="AdvancedAPIs\Groups\GroupsJson.cs" />
     <Compile Include="AdvancedAPIs\User\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\User.cs" />
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />

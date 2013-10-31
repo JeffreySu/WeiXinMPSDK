@@ -34,7 +34,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     content = content
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, accessToken);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     media_id = mediaId
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, accessToken);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     media_id = mediaId
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, accessToken);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     thumb_media_id = thumbMediaId
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, accessToken);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     thumb_media_id = thumbMediaId
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, accessToken);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     picurl = z.PicUrl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
                 }).ToList()
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, accessToken);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
         }
     }
 }

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
-    public class GroupsJson
+    public class GroupsJson : WxJsonResult
     {
         public List<GroupsJson_Group> groups { get; set; }
     }

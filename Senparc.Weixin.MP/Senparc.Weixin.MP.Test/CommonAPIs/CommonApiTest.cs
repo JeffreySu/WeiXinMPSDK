@@ -9,7 +9,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
     public partial class CommonApiTest
     {
         private string AppId = "wx62e17c828a6743e6";//换成你的信息
-        private string AppSecret = "fda8953362513665e1471fe11553021b";//换成你的信息
+        private string AppSecret = "";//换成你的信息
         protected AccessTokenResult tokenResult = new AccessTokenResult()
                                                       {
                                                           /* 由于获取accessToken有次数限制，为了节约请求，

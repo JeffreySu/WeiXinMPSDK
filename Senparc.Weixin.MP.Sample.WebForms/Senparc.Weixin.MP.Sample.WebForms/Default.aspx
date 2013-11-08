@@ -40,6 +40,9 @@
                 <p>
                     更多使用说明见：<a href="http://www.cnblogs.com/szw/archive/2013/01/13/senparc-weixin-mp-sdk.html" target="_blank">Senparc.Weixin.MP-微信公众平台SDK（C#）</a><br />
                     源代码及示例下载：<a href="https://github.com/JeffreySu/WeiXinMPSDK" target="_blank">https://github.com/JeffreySu/WeiXinMPSDK</a><br />
+                    Nuget项目：<a href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">https://www.nuget.org/packages/Senparc.Weixin.MP</a>
+                    及 <a href="https://www.nuget.org/packages/Senparc.Weixin.MP.MVC" target="_blank">https://www.nuget.org/packages/Senparc.Weixin.MP.MVC</a><br />
+                    系列教程：<a href="http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html" target="_blank">打开</a><br />
                 </p>
                 <p>
                     当前Demo运行的Senparc.Weixin.MP.dll版本：<a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut" target="_blank">v<%= DllVersion %></a><br />

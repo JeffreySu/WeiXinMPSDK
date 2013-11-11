@@ -77,7 +77,7 @@ senparc.menu = {
                         var button = buttons[i];
                         $('#menu_button' + i + '_name').val(button.name);
                         $('#menu_button' + i + '_key').val(button.key);
-                        $('#menu_button' + i + '_type').val(button.type);
+                        $('#menu_button' + i + '_type').val(button.type || 'click');
                         $('#menu_button' + i + '_url').val(button.url);
 
                         if (button.sub_button && button.sub_button.length > 0) {
@@ -86,7 +86,7 @@ senparc.menu = {
                                 var subButton = button.sub_button[j];
                                 var idPrefix = '#menu_button' + i + '_sub_button' + j;
                                 $(idPrefix + "_name").val(subButton.name);
-                                $(idPrefix + "_type").val(subButton.type);
+                                $(idPrefix + "_type").val(subButton.type || 'click');
                                 $(idPrefix + "_key").val(subButton.key);
                                 $(idPrefix + "_url").val(subButton.url);
                             }

@@ -76,7 +76,6 @@
         <h3>编辑工具</h3>
         @using (Html.BeginForm("CreateMenu", "Menu", FormMethod.Post, new { id = "form_Menu" }))
         {
-
             <p>
                 当前Token:
                 <input id="tokenStr" name="token" type="text" class="txtToken" readonly="readonly" />
@@ -129,7 +128,7 @@
                 <p>
                     Type：
                     <select id="buttonDetails_type" class="dllButtonDetails">
-                        <option value="click">点击事件（传回服务器）</option>
+                        <option value="click" selected="selected">点击事件（传回服务器）</option>
                         <option value="view">访问网页（直接跳转）</option>
                     </select>
                 </p>

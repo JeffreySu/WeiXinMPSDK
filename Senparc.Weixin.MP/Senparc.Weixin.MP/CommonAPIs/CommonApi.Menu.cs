@@ -166,8 +166,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     if (availableSubButton == 0)
                     {
                         //底部单击按钮
-                        if (rootButton.type.Equals("CLICK", StringComparison.OrdinalIgnoreCase)
-                            && string.IsNullOrEmpty(rootButton.key))
+                        if (rootButton.type == null ||
+                            (rootButton.type.Equals("CLICK", StringComparison.OrdinalIgnoreCase)
+                            && string.IsNullOrEmpty(rootButton.key)))
                         {
                             throw new WeixinMenuException("单击按钮的key不能为空！");
                         }
@@ -192,7 +193,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
                                 type = rootButton.type
                             });
                         }
-
                     }
                     else if (availableSubButton < 2)
                     {

@@ -35,7 +35,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/get?access_token={0}",
                 accessToken);
-            if (string.IsNullOrEmpty(nextOpenId))
+            if (!string.IsNullOrEmpty(nextOpenId))
             {
                 url += "&next_openid=" + nextOpenId;
             }

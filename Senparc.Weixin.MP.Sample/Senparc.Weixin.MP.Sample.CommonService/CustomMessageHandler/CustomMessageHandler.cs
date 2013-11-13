@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 var responseXml = MessageAgent.RequestXml(url, token, RequestDocument.ToString());
                 DateTime dt2 = DateTime.Now;
                 responseMessage = EntityHelper.CreateResponseMessage(responseXml) as ResponseMessageText;
-                requestMessage.Content += string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
+                responseMessage.Content += string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
             }
             else
             {

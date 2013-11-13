@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.MessageHandlers;
@@ -70,6 +71,23 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             if (requestMessage.Content == "约束")
             {
                 responseMessage.Content = "<a href=\"http://weixin.senparc.com/FilterTest/\">点击这里</a>进行客户端约束测试（地址：http://weixin.senparc.com/FilterTest/）。";
+            }
+            if (requestMessage.Content == "托管" || requestMessage.Content == "代理")
+            {
+                //开始用代理托管，把请求转到其他服务器上去，然后拿回结果
+                //甚至也可以将所有请求在DefaultResponseMessage()中托管到外部。
+#if DEBUG
+                var url = "http://localhost:12222/Yx/Weixin/1";
+                var token = "42C0C2279865495C";
+#else
+                var url = "http://www.souidea.com/Yx/Weixin/13";//这里使用了www.souidea.com微信自动托管平台
+                var token = "8BDB884E60374B46";//Token
+#endif
+                DateTime dt1 = DateTime.Now;
+                var responseXml = MessageAgent.RequestXml(url, token, RequestDocument.ToString());
+                DateTime dt2 = DateTime.Now;
+                responseMessage = EntityHelper.CreateResponseMessage(responseXml) as ResponseMessageText;
+                requestMessage.Content += string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
             }
             else
             {

@@ -59,9 +59,91 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
                 }
                 catch (WeixinException ex)
                 {
-                    
+
                 }
             }
+        }
+
+        [TestMethod]
+        public void CreateFromResponseXml()
+        {
+            #region Text
+            {
+                var responseMessageText = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <ToUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></ToUserName>
+  <FromUserName><![CDATA[gh_a96a4a619366]]></FromUserName>
+  <CreateTime>1384322280</CreateTime>
+  <MsgType>text</MsgType>
+  <Content><![CDATA[您点击了底部按钮。]]></Content>
+  <FuncFlag>0</FuncFlag>
+</xml>";
+                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageText);
+                Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageText));
+                var strongResponseMessage = responseMessage as ResponseMessageText;
+                Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", strongResponseMessage.ToUserName);
+                Assert.AreEqual("gh_a96a4a619366", strongResponseMessage.FromUserName);
+                Assert.AreEqual("您点击了底部按钮。", strongResponseMessage.Content);
+                Assert.AreEqual(false, strongResponseMessage.FuncFlag);
+            }
+            #endregion
+
+            #region News
+            {
+                var responseMessageNews = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <ToUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></ToUserName>
+  <FromUserName><![CDATA[gh_a96a4a619366]]></FromUserName>
+  <CreateTime>1384322646</CreateTime>
+  <MsgType>news</MsgType>
+  <ArticleCount>1</ArticleCount>
+  <Articles>
+    <item>
+      <Title><![CDATA[您点击了子菜单图文按钮]]></Title>
+      <Description><![CDATA[您点击了子菜单图文按钮，这是一条图文信息。]]></Description>
+      <PicUrl><![CDATA[http://weixin.senparc.com/Images/qrcode.jpg]]></PicUrl>
+      <Url><![CDATA[http://weixin.senparc.com]]></Url>
+    </item>
+  </Articles>
+  <FuncFlag>0</FuncFlag>
+</xml>";
+                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageNews);
+                Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageNews));
+                var strongResponseMessage = responseMessage as ResponseMessageNews;
+                Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", strongResponseMessage.ToUserName);
+                Assert.AreEqual("gh_a96a4a619366", strongResponseMessage.FromUserName);
+                Assert.AreEqual(1, strongResponseMessage.ArticleCount);
+                Assert.AreEqual("您点击了子菜单图文按钮", strongResponseMessage.Articles[0].Title);
+            }
+            #endregion
+
+            #region Music
+            {
+                var responseMessageMusic = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <ToUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></ToUserName>
+  <FromUserName><![CDATA[gh_a96a4a619366]]></FromUserName>
+  <CreateTime>1384322770</CreateTime>
+  <MsgType>music</MsgType>
+  <Music>
+    <Title><![CDATA[标题]]></Title>
+    <Description><![CDATA[描述]]></Description>
+    <MusicUrl><![CDATA[http://weixin.senparc.com/Content/music1.mp3]]></MusicUrl>
+    <HQMusicUrl><![CDATA[]]></HQMusicUrl>
+  </Music>
+  <FuncFlag>0</FuncFlag>
+</xml>";
+                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageMusic);
+                Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageMusic));
+                var strongResponseMessage = responseMessage as ResponseMessageMusic;
+                Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", strongResponseMessage.ToUserName);
+                Assert.AreEqual("gh_a96a4a619366", strongResponseMessage.FromUserName);
+                Assert.AreEqual("标题", strongResponseMessage.Music.Title);
+                Assert.AreEqual("描述", strongResponseMessage.Music.Description);
+                Assert.AreEqual("http://weixin.senparc.com/Content/music1.mp3", strongResponseMessage.Music.MusicUrl);
+                Assert.AreEqual("", strongResponseMessage.Music.HQMusicUrl);
+            }
+            #endregion
         }
     }
 }

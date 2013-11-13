@@ -68,6 +68,7 @@
     <Compile Include="AdvancedAPIs\Custom\CustomTest.cs" />
     <Compile Include="AdvancedAPIs\Groups\CustomTest.cs" />
     <Compile Include="AdvancedAPIs\User\CustomTest.cs" />
+    <Compile Include="Agents\MessageAgentTest.cs" />
     <Compile Include="CheckSignatureTest.cs" />
     <Compile Include="CommonAPIs\CommonApiTest.cs" />
     <Compile Include="Entities\Response\ResponseMessageBaseTest.cs" />

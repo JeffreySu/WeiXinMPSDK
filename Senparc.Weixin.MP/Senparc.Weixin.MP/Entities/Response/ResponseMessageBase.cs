@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.Entities
 {
@@ -95,6 +97,40 @@ namespace Senparc.Weixin.MP.Entities
             catch (Exception ex)
             {
                 throw new WeixinException("ResponseMessageBase.CreateFromRequestMessage<T>过程发生异常！", ex);
+            }
+        }
+
+        /// <summary>
+        /// 从返回结果XML转换成IResponseMessageBase实体类
+        /// </summary>
+        /// <param name="xml">返回给服务器的Response Xml</param>
+        /// <returns></returns>
+        public static IResponseMessageBase CreateFromResponseXml(string xml)
+        {
+            try
+            {
+                var doc = XDocument.Parse(xml);
+                ResponseMessageBase responseMessage = null;
+                var msgType = (ResponseMsgType)Enum.Parse(typeof(ResponseMsgType), doc.Root.Element("MsgType").Value,true);
+                switch (msgType)
+                {
+                    case ResponseMsgType.Text:
+                        responseMessage = new ResponseMessageText();
+                        break;
+                    case ResponseMsgType.News:
+                        responseMessage = new ResponseMessageNews();
+                        break;
+                    case ResponseMsgType.Music:
+                        responseMessage = new ResponseMessageMusic();
+                        break;
+                }
+
+                responseMessage.FillEntityWithXml(doc);
+                return responseMessage;
+            }
+            catch (Exception ex)
+            {
+                throw new WeixinException("ResponseMessageBase.CreateFromResponseXml<T>过程发生异常！", ex);
             }
         }
     }

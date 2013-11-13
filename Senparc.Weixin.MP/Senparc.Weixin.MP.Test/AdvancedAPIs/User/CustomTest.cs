@@ -9,7 +9,8 @@ using Senparc.Weixin.MP.Test.CommonAPIs;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
-    [TestClass]
+    //已经通过测试
+    //[TestClass]
     public class UserTest : CommonApiTest
     {
         private string openId = "oLYnUjvFb6IDiZmZF6aXoxtAWly8";

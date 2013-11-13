@@ -211,5 +211,15 @@ namespace Senparc.Weixin.MP.Helpers
         {
             return ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage);
         }
+
+        /// <summary>
+        /// ResponseMessageBase.CreateFromResponseXml(xml)的扩展方法
+        /// </summary>
+        /// <param name="xml">返回给服务器的Response Xml</param>
+        /// <returns></returns>
+        public static IResponseMessageBase CreateResponseMessage(this string xml)
+        {
+            return ResponseMessageBase.CreateFromResponseXml(xml);
+        }
     }
 }

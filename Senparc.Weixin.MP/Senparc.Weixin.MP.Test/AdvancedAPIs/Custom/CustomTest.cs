@@ -9,7 +9,8 @@ using Senparc.Weixin.MP.Test.CommonAPIs;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
-    [TestClass]
+    //已经通过测试
+    //[TestClass]
     public class CustomTest : CommonApiTest
     {
         private string openId = "oLYnUjvFb6IDiZmZF6aXoxtAWly8";
@@ -53,7 +54,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             try
             {
-                var result = Custom.SendVoice(base.tokenResult.access_token,openId,"1000018");
+                var result = Custom.SendVoice(base.tokenResult.access_token, openId, "1000018");
                 Assert.Fail();//因为这里写测试代码的时候，微信账号还没有权限，所以会抛出异常（故意的），如果是已经开通的应该是“请求成功”
             }
             catch (ErrorJsonResultException ex)
@@ -69,7 +70,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             try
             {
-                var result = Custom.SendVideo(base.tokenResult.access_token, openId, "1000018","1000012");
+                var result = Custom.SendVideo(base.tokenResult.access_token, openId, "1000018", "1000012");
                 Assert.Fail();//因为这里写测试代码的时候，微信账号还没有权限，所以会抛出异常（故意的），如果是已经开通的应该是“请求成功”
             }
             catch (ErrorJsonResultException ex)
@@ -88,7 +89,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 var articles = new List<Article>();
                 articles.Add(new Article()
                 {
-                    Title="测试标题",
+                    Title = "测试标题",
                     Description = "测试描述",
                     Url = "http://weixin.senparc.com",
                     PicUrl = "http://weixin.senparc.com/Images/qrcode.jpg"

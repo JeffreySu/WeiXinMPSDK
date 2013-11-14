@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Web;
+using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
@@ -50,6 +52,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageMusic>();
                         reponseMessage = strongResponseMessage;
                         strongResponseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
+                    }
+                    break;
+                case "SubClickRoot_Agent"://代理消息
+                    {
+                        //获取返回的XML
+                         reponseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
                     }
                     break;
             }

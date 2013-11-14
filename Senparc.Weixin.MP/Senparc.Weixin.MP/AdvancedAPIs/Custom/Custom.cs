@@ -149,13 +149,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 touser = openId,
                 msgtype = "news",
-                news = articles.Select(z => new
+                news = new
                 {
-                    title = z.Title,
-                    description = z.Description,
-                    url = z.Url,
-                    picurl = z.PicUrl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
-                }).ToList()
+                    articles = articles.Select(z => new
+                                {
+                                    title = z.Title,
+                                    description = z.Description,
+                                    url = z.Url,
+                                    picurl = z.PicUrl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
+                                }).ToList()
+                }
             };
             return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
         }

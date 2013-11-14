@@ -9,7 +9,7 @@ namespace Senparc.Weixin.MP.MvcExtension
     /// <summary>
     /// 过滤来自非微信客户端浏览器的请求
     /// </summary>
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
     public class WeixinInternalRequestAttribute : ActionFilterAttribute
     {
         private string _message;

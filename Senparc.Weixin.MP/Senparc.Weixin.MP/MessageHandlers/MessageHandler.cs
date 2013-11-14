@@ -329,8 +329,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.unsubscribe://退订
                     responseMessage = OnEvent_UnsubscribeRequest(RequestMessage as RequestMessageEvent_Unsubscribe);
                     break;
-                case Event.CLICK:
+                case Event.CLICK://菜单点击
                     responseMessage = OnEvent_ClickRequest(RequestMessage as RequestMessageEvent_Click);
+                    break;
+                case Event.scan://二维码
+                    ResponseMessage = OnEvent_ScanRequest(RequestMessage as RequestMessageEvent_Scan);
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -376,6 +379,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// Event事件类型请求之CLICK
         /// </summary>
         public virtual IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// Event事件类型请求之scan
+        /// </summary>
+        public virtual IResponseMessageBase OnEvent_ScanRequest(RequestMessageEvent_Scan requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

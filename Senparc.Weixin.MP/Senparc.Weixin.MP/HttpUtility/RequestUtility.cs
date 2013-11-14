@@ -19,10 +19,11 @@ namespace Senparc.Weixin.MP.HttpUtility
         public static string HttpGet(string url, Encoding encoding = null)
         {
             WebClient wc = new WebClient();
-            if (encoding != null)
-            {
-                wc.Encoding = encoding;
-            }
+            wc.Encoding = encoding ?? Encoding.UTF8;
+            //if (encoding != null)
+            //{
+            //    wc.Encoding = encoding;
+            //}
             return wc.DownloadString(url);
         }
 

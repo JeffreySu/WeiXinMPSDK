@@ -21,6 +21,15 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
          * 其中所有原OnXX的抽象方法已经都改为虚方法，可以不必每个都重写。若不重写，默认返回DefaultResponseMessage方法中的结果。
          */
 
+
+#if DEBUG
+        string agentUrl = "http://localhost:12222/Yx/Weixin/1";
+        string agentToken = "42C0C2279865495C";
+#else
+       private string agentUrl = "http://www.souidea.com/Yx/Weixin/13";//这里使用了www.souidea.com微信自动托管平台
+       private string agentToken = "8BDB884E60374B46";//Token
+#endif
+
         public CustomMessageHandler(Stream inputStream)
             : base(inputStream)
         {
@@ -76,17 +85,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             {
                 //开始用代理托管，把请求转到其他服务器上去，然后拿回结果
                 //甚至也可以将所有请求在DefaultResponseMessage()中托管到外部。
-#if DEBUG
-                var url = "http://localhost:12222/Yx/Weixin/1";
-                var token = "42C0C2279865495C";
-#else
-                var url = "http://www.souidea.com/Yx/Weixin/13";//这里使用了www.souidea.com微信自动托管平台
-                var token = "8BDB884E60374B46";//Token
-#endif
+
                 DateTime dt1 = DateTime.Now;
-                var responseXml = MessageAgent.RequestXml(url, token, RequestDocument.ToString());
+                var responseXml = MessageAgent.RequestXml(agentUrl, agentToken, RequestDocument.ToString());//获取返回的XML
                 DateTime dt2 = DateTime.Now;
-                responseMessage = EntityHelper.CreateResponseMessage(responseXml) as ResponseMessageText;
+
+                //转成实体。
+                //如果要写成一行，可以直接用：responseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
+                responseMessage = responseXml.CreateResponseMessage() as ResponseMessageText;
                 responseMessage.Content += string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
             }
             else
@@ -199,6 +205,13 @@ Url:{2}", requestMessage.Title, requestMessage.Description, requestMessage.Url);
 
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
+            /* 所有没有被处理的消息会默认返回这里的结果，
+             * 因此，如果想把整个微信请求委托出去（例如需要使用分布式或从其他服务器获取请求），
+             * 只需要在这里统一发出委托请求，如：
+             * var responseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
+             * return responseMessage;
+             */
+
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "这条消息来自DefaultResponseMessage。";
             return responseMessage;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -59,6 +60,30 @@ namespace Senparc.Weixin.MP.Agent
                     return RequestXml(url, token, sw.BaseStream);
                 }
             }
+        }
+
+        /// <summary>
+        /// 获取Xml结果
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="token"></param>
+        /// <param name="xml"></param>
+        /// <returns></returns>
+        public static IResponseMessageBase RequestResponseMessage(string url, string token, Stream stream)
+        {
+            return RequestXml(url, token, stream).CreateResponseMessage();
+        }
+
+        /// <summary>
+        /// 获取Xml结果
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="token"></param>
+        /// <param name="xml"></param>
+        /// <returns></returns>
+        public static IResponseMessageBase RequestResponseMessage(string url, string token, string xml)
+        {
+            return RequestXml(url, token, xml).CreateResponseMessage();
         }
     }
 }

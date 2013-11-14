@@ -71,6 +71,9 @@ namespace Senparc.Weixin.MP
                             case "CLICK"://菜单点击
                                 requestMessage = new RequestMessageEvent_Click();
                                 break;
+                            case "SCAN"://二维码扫描
+                                requestMessage = new RequestMessageEvent_Scan();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

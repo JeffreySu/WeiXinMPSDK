@@ -108,6 +108,18 @@ namespace Senparc.Weixin.MP.Test
 </xml>
 ";
 
+        private string xmlEvent_Scan = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+  <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+  <CreateTime>1364447020</CreateTime>
+  <MsgType><![CDATA[event]]></MsgType>
+  <Event><![CDATA[scan]]></Event>
+  <EventKey><![CDATA[SCENE_VALUE]]></EventKey>
+  <Ticket><![CDATA[TICKET]]></Ticket>
+</xml>
+";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -198,6 +210,19 @@ namespace Senparc.Weixin.MP.Test
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.unsubscribe, result.Event);
                 Assert.AreEqual(new DateTime(2013, 3, 28), result.CreateTime.Date);
+            }
+
+            {
+                //Event-scan
+                var doc = XDocument.Parse(xmlEvent_Scan);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Scan;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual(Event.scan, result.Event);
+                Assert.AreEqual(new DateTime(2013, 3, 28), result.CreateTime.Date);
+
+                Assert.AreEqual("SCENE_VALUE", result.EventKey);
+                Assert.AreEqual("TICKET", result.Ticket);
             }
         }
     }

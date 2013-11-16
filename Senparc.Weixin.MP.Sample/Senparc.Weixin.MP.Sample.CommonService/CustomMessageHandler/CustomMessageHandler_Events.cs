@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Web;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.MP.Context;
@@ -57,7 +58,16 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 case "SubClickRoot_Agent"://代理消息
                     {
                         //获取返回的XML
-                         reponseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
+                        DateTime dt1 = DateTime.Now;
+                        reponseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
+                        DateTime dt2 = DateTime.Now;
+
+                        if (reponseMessage is ResponseMessageNews)
+                        {
+                            (reponseMessage as ResponseMessageNews)
+                                .Articles[0]
+                                .Description += string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
+                        }
                     }
                     break;
             }

@@ -108,6 +108,17 @@ namespace Senparc.Weixin.MP.Test
 </xml>
 ";
 
+        private string xmlEvent_Click = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+  <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+  <CreateTime>1364447020</CreateTime>
+  <MsgType><![CDATA[event]]></MsgType>
+  <Event><![CDATA[CLICK]]></Event>
+  <EventKey><![CDATA[SubClickRoot_Agent]]></EventKey>
+</xml>
+";
+
         private string xmlEvent_Scan = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
   <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
@@ -210,6 +221,18 @@ namespace Senparc.Weixin.MP.Test
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.unsubscribe, result.Event);
                 Assert.AreEqual(new DateTime(2013, 3, 28), result.CreateTime.Date);
+            }
+
+            {
+                //Event-CLICK
+                var doc = XDocument.Parse(xmlEvent_Click);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Click;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual(Event.CLICK, result.Event);
+                Assert.AreEqual(new DateTime(2013, 3, 28), result.CreateTime.Date);
+
+                Assert.AreEqual("SubClickRoot_Agent", result.EventKey);
             }
 
             {

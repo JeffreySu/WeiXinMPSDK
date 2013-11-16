@@ -37,6 +37,18 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
   <MsgId>5832828233808572154</MsgId>
 </xml>";
 
+
+        private string xmlEvent_ClickFormat = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+  <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+  <CreateTime>{{0}}</CreateTime>
+  <MsgType><![CDATA[event]]></MsgType>
+  <Event><![CDATA[CLICK]]></Event>
+  <EventKey><![CDATA[{0}]]></EventKey>
+</xml>
+";
+
         /// <summary>
         /// 初始化控制器及相关请求参数
         /// </summary>
@@ -94,15 +106,31 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         [TestMethod]
         public void MessageAgentTest()
         {
-            var xml = string.Format(string.Format(xmlTextFormat, "托管"), DateTimeHelper.GetWeixinDateTime(DateTime.Now));
-            Init(xml);//初始化
-            
-            var timestamp = "itsafaketimestamp";
-            var nonce = "whateveryouwant";
-            var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, target.Token);
-            var actual = target.MiniPost(signature, timestamp, nonce, "echostr") as WeixinResult;
-            Assert.IsNotNull(actual);
-            Console.WriteLine(actual.Content);
+            //文字测试
+            {
+                var xml = string.Format(string.Format(xmlTextFormat, "托管"), DateTimeHelper.GetWeixinDateTime(DateTime.Now));
+                Init(xml);//初始化
+
+                var timestamp = "itsafaketimestamp";
+                var nonce = "whateveryouwant";
+                var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, target.Token);
+                var actual = target.MiniPost(signature, timestamp, nonce, "echostr") as WeixinResult;
+                Assert.IsNotNull(actual);
+                Console.WriteLine(actual.Content);
+            }
+           
+            //按钮测试
+            {
+                var xml = string.Format(string.Format(xmlEvent_ClickFormat, "SubClickRoot_Agent"), DateTimeHelper.GetWeixinDateTime(DateTime.Now));
+                Init(xml);//初始化
+
+                var timestamp = "itsafaketimestamp";
+                var nonce = "whateveryouwant";
+                var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, target.Token);
+                var actual = target.MiniPost(signature, timestamp, nonce, "echostr") as WeixinResult;
+                Assert.IsNotNull(actual);
+                Console.WriteLine(actual.Content);
+            }
         }
     }
 }

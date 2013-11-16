@@ -23,10 +23,10 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
 
 #if DEBUG
-        string agentUrl = "http://localhost:12222/Yx/Weixin/1";
+        string agentUrl = "http://localhost:12222/App/Weixin/1";
         string agentToken = "42C0C2279865495C";
 #else
-       private string agentUrl = "http://www.souidea.com/Yx/Weixin/13";//这里使用了www.souidea.com微信自动托管平台
+       private string agentUrl = "http://www.souidea.com/App/Weixin/13";//这里使用了www.souidea.com微信自动托管平台
        private string agentToken = "8BDB884E60374B46";//Token
 #endif
 

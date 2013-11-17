@@ -70,6 +70,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                         }
                     }
                     break;
+                case "Member"://托管代理会员信息
+                    {
+                        reponseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
+                    }
+                    break;
             }
 
             return reponseMessage;

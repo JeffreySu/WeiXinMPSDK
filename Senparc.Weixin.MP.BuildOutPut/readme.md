@@ -9,6 +9,15 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 
 Senparc.Weixin.MP.dll升级记录
 ----------
+
+v4.2.2 /2013-11-18
+
+优化升级MessageContext和WeixinContext
+
+将最大记录数量设置添加到MessageHandler构造函数中
+
+添加VS2010的解决方案文件
+
 v4.2.0 /2013-11-18
 
 优化新接口

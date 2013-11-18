@@ -22,7 +22,7 @@ namespace Senparc.Weixin.MP.MvcExtension
         public WeixinInternalRequestAttribute(string message,string ignoreParameter=null)
         {
             _message = message;
-            _ignoreParameter = _ignoreParameter;
+            _ignoreParameter = ignoreParameter;
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)

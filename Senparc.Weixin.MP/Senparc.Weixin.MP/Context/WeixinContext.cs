@@ -43,23 +43,7 @@ namespace Senparc.Weixin.MP.Context
         /// <summary>
         /// 最大储存上下文数量（分别针对请求和响应信息）
         /// </summary>
-        public int MaxRecordCount {
-            get
-            {
-                return _maxRecordCount;
-            }
-            set
-            {
-                if (_maxRecordCount!=value)
-                {
-                    _maxRecordCount = value;
-                    foreach (var m in MessageQueue)
-                    {
-                        m.MaxRecordCount = value;//改变所有列表项目设置
-                    }
-                }
-            }
-        }
+        public int MaxRecordCount { get; set; }
 
         public WeixinContext()
         {

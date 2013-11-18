@@ -11,7 +11,8 @@ using Senparc.Weixin.MP.Sample.Tests.Mock;
 
 namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 {
-    [TestClass]
+    //已通过测试
+    //[TestClass]
     public class WeixinControllerTest : BaseTest
     {
         WeixinController target;

@@ -34,13 +34,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         private string agentToken = "";//Token
 #endif
 
-        public CustomMessageHandler(Stream inputStream)
-            : base(inputStream)
+        public CustomMessageHandler(Stream inputStream, int maxRecordCount = 0)
+            : base(inputStream, maxRecordCount)
         {
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
             //比如MessageHandler<MessageContext>.GlobalWeixinContext.ExpireMinutes = 3。
             WeixinContext.ExpireMinutes = 3;
-            WeixinContext.MaxRecordCount = 10;//同时应用于接收和响应的信息
         }
 
         public override void OnExecuting()

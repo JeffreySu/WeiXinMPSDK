@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Text;
+using System.Web.Configuration;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Entities;
@@ -30,8 +32,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         string agentToken = "214B82B12F744D6E";
 #else
         //下面的Url和Token可以用其他平台的消息，或者到www.souidea.com注册微信用用，并申请“微信营销工具”得到
-        private string agentUrl = "http://www.souidea.com/App/Weixin/13";//这里使用了www.souidea.com微信自动托管平台
-        private string agentToken = "";//Token
+        private string agentUrl = WebConfigurationManager.AppSettings["WeixinAgentUrl"];//这里使用了www.souidea.com微信自动托管平台
+        private string agentToken = WebConfigurationManager.AppSettings["WeixinAgentToken"];//Token
 #endif
 
         public CustomMessageHandler(Stream inputStream, int maxRecordCount = 0)

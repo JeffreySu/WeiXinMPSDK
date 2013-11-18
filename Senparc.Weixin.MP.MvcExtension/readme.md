@@ -8,5 +8,10 @@
 
 更新日志：
 
+v1.4 /2013-11-18
+
+微信内置浏览器判断（WeixinInternalRequestAttribute），添加了一个ignoreParameter参数，用于测试的时候忽略判断。
+
 v1.0 /2013-5-21
+
 完成WeixinInternalRequest及WeixinResult。

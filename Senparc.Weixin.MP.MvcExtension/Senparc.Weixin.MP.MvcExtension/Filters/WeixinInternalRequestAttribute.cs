@@ -27,19 +27,17 @@ namespace Senparc.Weixin.MP.MvcExtension
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (!string.IsNullOrEmpty(_ignoreParameter) && !string.IsNullOrEmpty(filterContext.RequestContext.HttpContext.Request.QueryString[_ignoreParameter]))
+            if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.RequestContext.HttpContext.Request.QueryString[_ignoreParameter]))
             {
-                return;//有忽略参数，不做判断
-            }
-
-            var userAgent = filterContext.HttpContext.Request.UserAgent;
-            if (string.IsNullOrEmpty(userAgent) || (!userAgent.Contains("MicroMessenger") && !userAgent.Contains("Windows Phone")))
-            {
-                //TODO:判断网页版登陆状态
-                filterContext.Result = new ContentResult()
+                var userAgent = filterContext.HttpContext.Request.UserAgent;
+                if (string.IsNullOrEmpty(userAgent) || (!userAgent.Contains("MicroMessenger") && !userAgent.Contains("Windows Phone")))
                 {
-                    Content = _message
-                };
+                    //TODO:判断网页版登陆状态
+                    filterContext.Result = new ContentResult()
+                    {
+                        Content = _message
+                    };
+                }
             }
 
             base.OnActionExecuting(filterContext);

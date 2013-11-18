@@ -73,6 +73,7 @@
     <Compile Include="CheckSignatureTest.cs" />
     <Compile Include="CommonAPIs\CommonApiTest.cs" />
     <Compile Include="Context\MessageContainerTest.cs" />
+    <Compile Include="Context\WeixinContextTest.cs" />
     <Compile Include="Entities\Response\ResponseMessageBaseTest.cs" />
     <Compile Include="Helpers\GpsHelperTest.cs" />
     <Compile Include="HttpUtility\RequestUtilityTest.cs" />

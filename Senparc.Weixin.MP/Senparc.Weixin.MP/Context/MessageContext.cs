@@ -39,13 +39,32 @@ namespace Senparc.Weixin.MP.Context
     /// </summary>
     public class MessageContext : IMessageContext
     {
+        private int _maxRecordCount;
+
         public string UserName { get; set; }
         public DateTime LastActiveTime { get; set; }
         public MessageContainer<IRequestMessageBase> RequestMessages { get; set; }
         public MessageContainer<IResponseMessageBase> ResponseMessages { get; set; }
-        public int MaxRecordCount { get; set; }
+        public int MaxRecordCount
+        {
+            get
+            {
+                return _maxRecordCount;
+            }
+            set
+            {
+                RequestMessages.MaxRecordCount = value;
+                ResponseMessages.MaxRecordCount = value;
+
+                _maxRecordCount = value;
+            }
+        }
         public object StorageData { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="maxRecordCount">maxRecordCount如果小于等于0，则不限制</param>
         public MessageContext()
         {
             /*
@@ -53,8 +72,9 @@ namespace Senparc.Weixin.MP.Context
              * 也务必在这里进行下面的初始化，尤其是设置当前时间，
              * 这个时间关系到及时从缓存中移除过期的消息，节约内存使用
              */
-            RequestMessages = new MessageContainer<IRequestMessageBase>();
-            ResponseMessages = new MessageContainer<IResponseMessageBase>();
+
+            RequestMessages = new MessageContainer<IRequestMessageBase>(MaxRecordCount);
+            ResponseMessages = new MessageContainer<IResponseMessageBase>(MaxRecordCount);
             LastActiveTime = DateTime.Now;
         }
     }

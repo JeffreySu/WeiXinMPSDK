@@ -12,8 +12,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
     public class CustomerMessageHandlers : MessageHandler<MessageContext>
     {
-        public CustomerMessageHandlers(XDocument requestDoc)
-            : base(requestDoc)
+        public CustomerMessageHandlers(XDocument requestDoc,int maxRecordCount=0)
+            : base(requestDoc,maxRecordCount)
         {
         }
 

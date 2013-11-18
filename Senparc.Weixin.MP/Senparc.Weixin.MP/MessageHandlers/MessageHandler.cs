@@ -145,8 +145,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public IResponseMessageBase ResponseMessage { get; set; }
 
-        public MessageHandler(Stream inputStream)
+        public MessageHandler(Stream inputStream,int maxRecordCount=0)
         {
+            WeixinContext.MaxRecordCount = maxRecordCount;
             using (XmlReader xr = XmlReader.Create(inputStream))
             {
                 RequestDocument = XDocument.Load(xr);
@@ -154,8 +155,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
-        public MessageHandler(XDocument requestDocument)
+        public MessageHandler(XDocument requestDocument, int maxRecordCount = 0)
         {
+            WeixinContext.MaxRecordCount = maxRecordCount;
             Init(requestDocument);
         }
 

@@ -29,8 +29,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         string agentUrl = "http://localhost:12222/App/Weixin/4";
         string agentToken = "214B82B12F744D6E";
 #else
-       private string agentUrl = "http://www.souidea.com/App/Weixin/13";//这里使用了www.souidea.com微信自动托管平台
-       private string agentToken = "8BDB884E60374B46";//Token
+        //下面的Url和Token可以用其他平台的消息，或者到www.souidea.com注册微信用用，并申请“微信营销工具”得到
+        private string agentUrl = "http://www.souidea.com/App/Weixin/13";//这里使用了www.souidea.com微信自动托管平台
+        private string agentToken = "";//Token
 #endif
 
         public CustomMessageHandler(Stream inputStream)
@@ -39,6 +40,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
             //比如MessageHandler<MessageContext>.GlobalWeixinContext.ExpireMinutes = 3。
             WeixinContext.ExpireMinutes = 3;
+            WeixinContext.MaxRecordCount = 10;//同时应用于接收和响应的信息
         }
 
         public override void OnExecuting()
@@ -120,7 +122,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     result.AppendLine("\r\n");
                 }
 
-                result.AppendFormat("如果您在{0}分钟内连续发送消息，记录将被自动保留。过期后记录将会自动清除。\r\n", WeixinContext.ExpireMinutes);
+                result.AppendFormat("如果您在{0}分钟内连续发送消息，记录将被自动保留（当前设置：最多记录{1}条）。过期后记录将会自动清除。\r\n", WeixinContext.ExpireMinutes, WeixinContext.MaxRecordCount);
                 result.AppendLine("\r\n");
                 result.AppendLine("您还可以发送【位置】【图片】【语音】等类型的信息，查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com");
 

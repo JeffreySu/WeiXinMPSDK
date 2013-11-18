@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Senparc.Weixin.MP.Context
@@ -12,9 +13,8 @@ namespace Senparc.Weixin.MP.Context
         /// </summary>
         public int MaxRecordCount { get; set; }
 
-        public MessageContainer()
+        private MessageContainer()
         {
-
         }
 
         public MessageContainer(int maxRecordCount)

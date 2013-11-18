@@ -2,7 +2,9 @@
 using System.IO;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.Controllers;
 using Senparc.Weixin.MP.Sample.Tests.Mock;
@@ -146,6 +148,29 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             var actual = target.MiniPost(signature, timestamp, nonce, "echostr") as WeixinResult;
             Assert.IsNotNull(actual);
             Console.WriteLine(actual.Content);
+        }
+
+        [TestMethod]
+        public void MessageContextRecordLimtTest()
+        {
+            //测试MessageContext的数量限制
+            var xml = string.Format(string.Format(xmlTextFormat, "测试限制"), DateTimeHelper.GetWeixinDateTime(DateTime.Now));
+            for (int i = 0; i < 100; i++)
+            {
+                Init(xml);//初始化
+
+                var timestamp = "itsafaketimestamp";
+                var nonce = "whateveryouwant";
+                var signature = CheckSignature.GetSignature(timestamp, nonce, target.Token);
+                var actual = target.MiniPost(signature, timestamp, nonce, "echostr") as WeixinResult;
+                Assert.IsNotNull(actual);
+            }
+            Assert.AreEqual(1, MessageHandler<MessageContext>.GlobalWeixinContext.MessageQueue.Count);
+
+            var weixinContext = MessageHandler<MessageContext>.GlobalWeixinContext.MessageQueue[0];
+            var recordCount = MessageHandler<MessageContext>.GlobalWeixinContext.MaxRecordCount;
+            Assert.AreEqual(recordCount, weixinContext.RequestMessages.Count);
+            Assert.AreEqual(recordCount, weixinContext.ResponseMessages.Count);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Senparc.Weixin.MP.Test.Context
         [TestMethod]
         public void AddTest()
         {
-            var list = new MessageContainer<int>();
+            var list = new MessageContainer<int>(-1);
 
             //测试不限量添加
             for (int i = 0; i < 1000; i++)

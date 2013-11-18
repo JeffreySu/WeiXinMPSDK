@@ -16,7 +16,7 @@ namespace Senparc.Weixin.MP.Test.Agents
         public void RequestXmlTest()
         {
             var url = "http://weixin.senparc.com/weixin";//可以换成你自己的地址
-            var token = "weixin";
+            var token = "weixin";//替换成自己的Token
 
             var requestXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>

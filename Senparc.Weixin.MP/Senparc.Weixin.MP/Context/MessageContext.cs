@@ -19,11 +19,15 @@ namespace Senparc.Weixin.MP.Context
         /// <summary>
         /// 接收消息记录
         /// </summary>
-        List<IRequestMessageBase> RequestMessages { get; set; }
+        MessageContainer<IRequestMessageBase> RequestMessages { get; set; }
         /// <summary>
         /// 响应消息记录
         /// </summary>
-        List<IResponseMessageBase> ResponseMessages { get; set; }
+        MessageContainer<IResponseMessageBase> ResponseMessages { get; set; }
+        /// <summary>
+        /// 最大储存容量（分别针对RequestMessages和ResponseMessages）
+        /// </summary>
+        int MaxRecordCount { get; set; }
         /// <summary>
         /// 临时储存数据，如用户状态等，出于保持.net 3.5版本，这里暂不使用dynamic
         /// </summary>
@@ -37,9 +41,9 @@ namespace Senparc.Weixin.MP.Context
     {
         public string UserName { get; set; }
         public DateTime LastActiveTime { get; set; }
-        public List<IRequestMessageBase> RequestMessages { get; set; }
-        public List<IResponseMessageBase> ResponseMessages { get; set; }
-
+        public MessageContainer<IRequestMessageBase> RequestMessages { get; set; }
+        public MessageContainer<IResponseMessageBase> ResponseMessages { get; set; }
+        public int MaxRecordCount { get; set; }
         public object StorageData { get; set; }
 
         public MessageContext()
@@ -49,8 +53,8 @@ namespace Senparc.Weixin.MP.Context
              * 也务必在这里进行下面的初始化，尤其是设置当前时间，
              * 这个时间关系到及时从缓存中移除过期的消息，节约内存使用
              */
-            RequestMessages = new List<IRequestMessageBase>();
-            ResponseMessages = new List<IResponseMessageBase>();
+            RequestMessages = new MessageContainer<IRequestMessageBase>();
+            ResponseMessages = new MessageContainer<IResponseMessageBase>();
             LastActiveTime = DateTime.Now;
         }
     }

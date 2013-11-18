@@ -72,6 +72,7 @@
     <Compile Include="Agents\MessageAgentTest.cs" />
     <Compile Include="CheckSignatureTest.cs" />
     <Compile Include="CommonAPIs\CommonApiTest.cs" />
+    <Compile Include="Context\MessageContainerTest.cs" />
     <Compile Include="Entities\Response\ResponseMessageBaseTest.cs" />
     <Compile Include="Helpers\GpsHelperTest.cs" />
     <Compile Include="HttpUtility\RequestUtilityTest.cs" />
@@ -94,9 +95,7 @@
       <Name>Senparc.Weixin.MP</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Context\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="CommonAPIs\CommonApiTest.Menu.cs" />
   </ItemGroup>

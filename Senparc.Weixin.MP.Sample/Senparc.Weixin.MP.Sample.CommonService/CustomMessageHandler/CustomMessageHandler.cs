@@ -106,7 +106,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                 if (CurrentMessageContext.RequestMessages.Count > 1)
                 {
-                    result.AppendFormat("您刚才还发送了如下消息（{0}）：\r\n", CurrentMessageContext.StorageData);
+                    result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count,  CurrentMessageContext.StorageData);
                     for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
                     {
                         var historyMessage = CurrentMessageContext.RequestMessages[i];

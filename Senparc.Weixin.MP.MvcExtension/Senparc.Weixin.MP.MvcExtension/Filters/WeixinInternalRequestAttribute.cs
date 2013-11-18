@@ -13,17 +13,25 @@ namespace Senparc.Weixin.MP.MvcExtension
     public class WeixinInternalRequestAttribute : ActionFilterAttribute
     {
         private string _message;
+        private string _ignoreParameter;
         /// <summary>
         /// 
         /// </summary>
         /// <param name="message">错误提示信息</param>
-        public WeixinInternalRequestAttribute(string message)
+        /// <param name="ignoreParameter">如果地址栏中提供改参数，则忽略浏览器判断，建议设置得复杂一些。如?abc=[任意字符]</param>
+        public WeixinInternalRequestAttribute(string message,string ignoreParameter=null)
         {
             _message = message;
+            _ignoreParameter = _ignoreParameter;
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            if (!string.IsNullOrEmpty(_ignoreParameter) && !string.IsNullOrEmpty(filterContext.RequestContext.HttpContext.Request.QueryString[_ignoreParameter]))
+            {
+                return;//有忽略参数，不做判断
+            }
+
             var userAgent = filterContext.HttpContext.Request.UserAgent;
             if (string.IsNullOrEmpty(userAgent) || (!userAgent.Contains("MicroMessenger") && !userAgent.Contains("Windows Phone")))
             {

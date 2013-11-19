@@ -107,6 +107,15 @@
                     <h5>自定义菜单测试</h5>
                     点击自定菜单进行测试。
                 </li>
+                <li class="eight">
+                    <h5>代理+托管测试</h5>
+                    <ol>
+                        <li>发送文字信息【代理】或【托管】，或点击菜单【代理消息】&gt;【返回图文】，服务器将从其他微信平台获取“代理”或“托管”文字请求的结果。
+                        </li>
+                        <li>点击菜单【代理消息】&gt;【会员信息】，查看自己的会员信息（来自另外一台Souidea服务器的微信会员系统）
+                        </li>
+                    </ol>
+                </li>
             </ol>
         </section>
         <section class="content-wrapper clear-fix" id="souidea">

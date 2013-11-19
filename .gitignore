@@ -3,6 +3,8 @@ Nuget/
 bin/
 obj/
 *.[pdb]
+*.suo
+*.user
 Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.csproj.user
 Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.v11.suo
 Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.csproj.user

@@ -25,15 +25,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
 
 #if DEBUG
-        //string agentUrl = "http://localhost:12222/App/Weixin/1";
-        //string agentToken = "42C0C2279865495C";
-
         string agentUrl = "http://localhost:12222/App/Weixin/4";
-        string agentToken = "214B82B12F744D6E";
+        string agentToken = "27C455F496044A87";
+        string souideaKey = "CNadjJuWzyX5bz5Gn+/XoyqiqMa5DjXQ";
 #else
         //下面的Url和Token可以用其他平台的消息，或者到www.souidea.com注册微信用用，并申请“微信营销工具”得到
         private string agentUrl = WebConfigurationManager.AppSettings["WeixinAgentUrl"];//这里使用了www.souidea.com微信自动托管平台
         private string agentToken = WebConfigurationManager.AppSettings["WeixinAgentToken"];//Token
+        private string souideaKey = WebConfigurationManager.AppSettings["WeixinAgentSouideaKey"];//SouideaKey专门用于对接www.souidea.com平台，获取方式见：http://www.souidea.com/ApiDocuments/Item/25#51
 #endif
 
         public CustomMessageHandler(Stream inputStream, int maxRecordCount = 0)
@@ -92,13 +91,22 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 //开始用代理托管，把请求转到其他服务器上去，然后拿回结果
                 //甚至也可以将所有请求在DefaultResponseMessage()中托管到外部。
 
-                DateTime dt1 = DateTime.Now;
+                DateTime dt1 = DateTime.Now;//计时开始
+
                 var responseXml = MessageAgent.RequestXml(agentUrl, agentToken, RequestDocument.ToString());//获取返回的XML
-                DateTime dt2 = DateTime.Now;
+                
+                /* 如果有SouideaKey，可以直接使用下面的这个MessageAgent.RequestSouideaXml()方法。
+                 * SouideaKey专门用于对接www.souidea.com平台，获取方式见：http://www.souidea.com/ApiDocuments/Item/25#51
+                //var responseXml = MessageAgent.RequestSouideaXml(souideaKey, RequestDocument.ToString());//获取Souidea返回的XML
+                
+                DateTime dt2 = DateTime.Now;//计时结束
 
                 //转成实体。
                 //如果要写成一行，可以直接用：responseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
                 responseMessage = responseXml.CreateResponseMessage() as ResponseMessageText;
+
+
+
                 responseMessage.Content += string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
             }
             else
@@ -108,7 +116,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                 if (CurrentMessageContext.RequestMessages.Count > 1)
                 {
-                    result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count,  CurrentMessageContext.StorageData);
+                    result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count, CurrentMessageContext.StorageData);
                     for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
                     {
                         var historyMessage = CurrentMessageContext.RequestMessages[i];

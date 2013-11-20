@@ -27,15 +27,16 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="url"></param>
         /// <param name="token"></param>
         /// <param name="stream"></param>
+        /// <param name="useSouideaKey">是否使用SouideaKey，如果使用，则token为SouideaKey</param>
         /// <returns></returns>
-        public static string RequestXml(string url, string token, Stream stream)
+        public static string RequestXml(string url, string token, Stream stream, bool useSouideaKey = false)
         {
             string timestamp = DateTime.Now.Ticks.ToString();
             string nonce = "GodBlessYou";
             string echostr = Guid.NewGuid().ToString("n");
             string signature = CheckSignature.GetSignature(timestamp, nonce, token);
             url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}&echostr={4}",
-                    url.Contains("?") ? null : "?", signature, timestamp, nonce, echostr);
+                    url.Contains("?") ? "&" : "?", signature, timestamp, nonce, echostr);
             var responseXml = HttpUtility.RequestUtility.HttpPost(url, null, stream);
             return responseXml;
         }
@@ -58,6 +59,29 @@ namespace Senparc.Weixin.MP.Agent
                     sw.Flush();
                     sw.BaseStream.Position = 0;
                     return RequestXml(url, token, sw.BaseStream);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 对接Souidea（P2P）平台，获取Xml结果，使用SouideaKey对接
+        /// SouideaKey的获取方式请看：
+        /// </summary>
+        /// <param name="souideKey"></param>
+        /// <param name="xml"></param>
+        /// <returns></returns>
+        public static string RequestSouideaXml(string souideKey, string xml, string souideaDomainName = "www.souidea.com")
+        {
+            var url = "http://" + souideaDomainName + "/App/Weixin?souideaKey=" + souideKey;//官方地址
+            using (MemoryStream ms = new MemoryStream())
+            {
+                //这里用ms模拟Request.InputStream
+                using (StreamWriter sw = new StreamWriter(ms))
+                {
+                    sw.Write(xml);
+                    sw.Flush();
+                    sw.BaseStream.Position = 0;
+                    return RequestXml(url, souideKey, sw.BaseStream);
                 }
             }
         }

@@ -9,6 +9,9 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 
 Senparc.Weixin.MP.dll升级记录
 ----------
+v4.3.0 /2013-11-20
+
+为MessageAgent添加了使用SouideaKey的方法：MessageAgent.RequestSouideaXml()。用于更加方便和安全地对接www.souidea.com平台的微信营销工具。有关SouideaKey的说明请见：http://www.souidea.com/ApiDocuments/Item/25#51
 
 v4.2.2 /2013-11-18
 

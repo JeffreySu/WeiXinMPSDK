@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomMessageHandler\CustomMessageContext.cs" />
     <Compile Include="CustomMessageHandler\CustomMessageHandler.cs" />
     <Compile Include="CustomMessageHandler\CustomMessageHandler_Events.cs" />
     <Compile Include="EventService.cs" />

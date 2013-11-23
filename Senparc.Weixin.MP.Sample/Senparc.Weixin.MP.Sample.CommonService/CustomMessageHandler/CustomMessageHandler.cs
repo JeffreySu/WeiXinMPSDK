@@ -15,7 +15,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
     /// 自定义MessageHandler
     /// 把MessageHandler作为基类，重写对应请求的处理方法
     /// </summary>
-    public partial class CustomMessageHandler : MessageHandler<MessageContext>
+    public partial class CustomMessageHandler : MessageHandler<CustomMessageContext>
     {
         /*
          * 重要提示：v1.5起，MessageHandler提供了一个DefaultResponseMessage的抽象方法，

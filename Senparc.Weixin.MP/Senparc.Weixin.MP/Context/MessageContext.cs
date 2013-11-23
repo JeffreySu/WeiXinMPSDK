@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using Senparc.Weixin.MP.Entities;
 
@@ -32,6 +33,10 @@ namespace Senparc.Weixin.MP.Context
         /// 临时储存数据，如用户状态等，出于保持.net 3.5版本，这里暂不使用dynamic
         /// </summary>
         object StorageData { get; set; }
+
+        event EventHandler<WeixinContextRemovedEventArgs> MessageContextRemoved;
+
+        void OnRemoved();
     }
 
     /// <summary>
@@ -61,6 +66,23 @@ namespace Senparc.Weixin.MP.Context
         }
         public object StorageData { get; set; }
 
+        public event EventHandler<WeixinContextRemovedEventArgs> MessageContextRemoved = null;
+
+        /// <summary>
+        /// 执行上下文被移除的事件
+        /// 注意：此事件不是实时触发的，而是等过期后任意一个人发过来的下一条消息执行之前触发。
+        /// </summary>
+        /// <param name="e"></param>
+        private void OnMessageContextRemoved(WeixinContextRemovedEventArgs e)
+        {
+            EventHandler<WeixinContextRemovedEventArgs> temp = MessageContextRemoved;
+
+            if (temp != null)
+            {
+                temp(this, e);
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -76,6 +98,12 @@ namespace Senparc.Weixin.MP.Context
             RequestMessages = new MessageContainer<IRequestMessageBase>(MaxRecordCount);
             ResponseMessages = new MessageContainer<IResponseMessageBase>(MaxRecordCount);
             LastActiveTime = DateTime.Now;
+        }
+
+        public virtual void OnRemoved()
+        {
+            var onRemovedArg = new WeixinContextRemovedEventArgs(this);
+            OnMessageContextRemoved(onRemovedArg);
         }
     }
 }

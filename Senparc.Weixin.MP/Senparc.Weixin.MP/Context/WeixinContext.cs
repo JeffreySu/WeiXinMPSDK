@@ -45,7 +45,6 @@ namespace Senparc.Weixin.MP.Context
         /// </summary>
         public int MaxRecordCount { get; set; }
 
-        public event EventHandler<WeixinContextRemovedEventArgs<TM>> MessageContextRemoved = null;
 
         public WeixinContext()
         {
@@ -62,20 +61,7 @@ namespace Senparc.Weixin.MP.Context
             ExpireMinutes = 90;
         }
 
-        /// <summary>
-        /// 执行上下文被移除的事件
-        /// 注意：此事件不是实时触发的，而是等过期后任意一个人发过来的下一条消息执行之前触发。
-        /// </summary>
-        /// <param name="e"></param>
-        private void OnMessageContextRemoved(WeixinContextRemovedEventArgs<TM> e)
-        {
-            EventHandler<WeixinContextRemovedEventArgs<TM>> temp = MessageContextRemoved;
-
-            if (temp != null)
-            {
-                temp(this, e);
-            }
-        }
+     
 
         /// <summary>
         /// 获取MessageContext，如果不存在，返回null
@@ -96,8 +82,7 @@ namespace Senparc.Weixin.MP.Context
                     MessageCollection.Remove(firstMessageContext.UserName);//从集合中删除过期对象
 
                     //添加事件回调
-                    var onRemovedArg = new WeixinContextRemovedEventArgs<TM>(firstMessageContext);
-                    OnMessageContextRemoved(onRemovedArg);
+                    firstMessageContext.OnRemoved();//TODO:此处异步处理，或用户在自己操作的时候异步处理需要耗费时间比较长的操作。
                 }
                 else
                 {

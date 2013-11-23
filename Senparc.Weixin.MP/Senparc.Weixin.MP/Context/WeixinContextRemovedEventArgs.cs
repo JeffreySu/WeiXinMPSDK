@@ -8,8 +8,7 @@ namespace Senparc.Weixin.MP.Context
     /// <summary>
     /// 对话上下文被删除时触发事件的事件数据
     /// </summary>
-    public class WeixinContextRemovedEventArgs<TM> : EventArgs
-        where TM : class, IMessageContext, new()
+    public class WeixinContextRemovedEventArgs: EventArgs
     {
         /// <summary>
         /// 该用户的OpenId
@@ -34,9 +33,9 @@ namespace Senparc.Weixin.MP.Context
         /// <summary>
         /// 上下文对象
         /// </summary>
-        public TM MessageContext { get; set; }
+        public IMessageContext MessageContext { get; set; }
 
-        public WeixinContextRemovedEventArgs(TM messageContext)
+        public WeixinContextRemovedEventArgs(IMessageContext messageContext)
         {
             MessageContext = messageContext;
         }

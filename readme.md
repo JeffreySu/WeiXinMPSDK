@@ -197,26 +197,6 @@ PM> Install-Package Senparc.Weixin.MP
 
 资金捐助：https://me.alipay.com/jeffreysu
 
-感谢捐赠者：
-
-[alphawu](https://github.com/alphawu) 吴鹏
-
-樊伟华
-
-caozhanqiang
-
-uniclo
-
-李上表
-
-何世亮
-
-YGF
-
-陈明
-
-吴昌克
-
 
 License
 --------------

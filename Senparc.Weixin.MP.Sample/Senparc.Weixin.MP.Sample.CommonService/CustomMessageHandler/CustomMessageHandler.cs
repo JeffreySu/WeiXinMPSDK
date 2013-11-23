@@ -103,10 +103,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 DateTime dt2 = DateTime.Now;//计时结束
 
                 //转成实体。
-                //如果要写成一行，可以直接用：responseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
+                /* 如果要写成一行，可以直接用：
+                 * responseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
+                 * 或
+                 * 
+                 */
                 responseMessage = responseXml.CreateResponseMessage() as ResponseMessageText;
-
-
 
                 responseMessage.Content += string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
             }

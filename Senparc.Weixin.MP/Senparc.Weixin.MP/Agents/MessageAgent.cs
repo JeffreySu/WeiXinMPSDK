@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.Agent
         }
 
         /// <summary>
-        /// 获取Xml结果
+        /// 获取ResponseMessge结果
         /// </summary>
         /// <param name="url"></param>
         /// <param name="token"></param>
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.MP.Agent
         }
 
         /// <summary>
-        /// 获取Xml结果
+        /// 获取ResponseMessge结果
         /// </summary>
         /// <param name="url"></param>
         /// <param name="token"></param>
@@ -108,6 +108,18 @@ namespace Senparc.Weixin.MP.Agent
         public static IResponseMessageBase RequestResponseMessage(string url, string token, string xml)
         {
             return RequestXml(url, token, xml).CreateResponseMessage();
+        }
+
+        /// <summary>
+        /// 获取Souidea开放平台的ResponseMessge结果
+        /// </summary>
+        /// <param name="souideaKey"></param>
+        /// <param name="xml"></param>
+        /// <param name="souideaDomainName"></param>
+        /// <returns></returns>
+        public static IResponseMessageBase RequestSouideaResponseMessage(string souideaKey, string xml,string souideaDomainName="www.souidea.com")
+        {
+            return RequestSouideaXml(souideaKey, xml, souideaDomainName).CreateResponseMessage();
         }
     }
 }

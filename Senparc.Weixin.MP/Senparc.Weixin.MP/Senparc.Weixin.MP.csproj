@@ -64,6 +64,7 @@
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Context\MessageContainer.cs" />
+    <Compile Include="Context\WeixinContextRemovedEventArgs.cs" />
     <Compile Include="Entities\GoogleMap\Markers.cs">
       <SubType>Code</SubType>
     </Compile>

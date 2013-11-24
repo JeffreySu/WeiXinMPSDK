@@ -1,7 +1,6 @@
 Senparc.Weixin.MP.P2PSDK
 ================
 
-#P2P项目动态
 Senparc.Weixin.MP.P2P API已经开放公测，C#版本的SDK和测试工具也已全部开源。
 
 

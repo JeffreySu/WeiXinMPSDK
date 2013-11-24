@@ -9,6 +9,9 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 
 Senparc.Weixin.MP.dll升级记录
 ----------
+v4.4.6 /2013-11-24
+
+完善HttpUitlity中Get和Post的方法。
 
 v4.4.2 /2013-11-23
 

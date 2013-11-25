@@ -49,6 +49,9 @@ namespace Senparc.Weixin.MP
                     case RequestMsgType.Voice:
                         requestMessage = new RequestMessageVoice();
                         break;
+                    case RequestMsgType.Video:
+                        requestMessage = new RequestMessageVideo();
+                        break;
                     case RequestMsgType.Link:
                         requestMessage = new RequestMessageLink();
                         break;

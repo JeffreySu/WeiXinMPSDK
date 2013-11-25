@@ -1,10 +1,12 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Entities.Request;
 
 namespace Senparc.Weixin.MP.Helpers
 {
@@ -86,6 +88,11 @@ namespace Senparc.Weixin.MP.Helpers
                             Music music = new Music();
                             FillEntityWithXml(music, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, music, null);
+                            break;
+                        case "Video"://RequestMessageVideo适用
+                            Video video=new Video();
+                            FillEntityWithXml(video, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, video, null);
                             break;
                         default:
                             prop.SetValue(entity, root.Element(propName).Value, null);

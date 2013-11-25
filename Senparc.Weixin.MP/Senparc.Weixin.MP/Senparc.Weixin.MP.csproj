@@ -112,6 +112,8 @@
     <Compile Include="Entities\Request\RequestMessageEvent_Click.cs" />
     <Compile Include="Entities\Request\RequestMessageLink.cs" />
     <Compile Include="Entities\Request\RequestMessageEvent_Scan.cs" />
+    <Compile Include="Entities\Request\RequestMessageVideo.cs" />
+    <Compile Include="Entities\Request\Video.cs" />
     <Compile Include="Entities\Response\Article.cs">
       <SubType>Code</SubType>
     </Compile>

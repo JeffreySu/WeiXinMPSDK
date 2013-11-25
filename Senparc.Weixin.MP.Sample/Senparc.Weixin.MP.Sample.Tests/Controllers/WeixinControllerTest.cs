@@ -52,6 +52,19 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 </xml>
 ";
 
+        private string xmlVideoFormat = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+  <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+  <CreateTime>{0}</CreateTime>
+  <MsgType><![CDATA[video]]></MsgType>
+  <Video>
+    <MediaId><![CDATA[mediaId]]></MediaId>
+    <ThumbMediaId><![CDATA[thumbMediaId]]></ThumbMediaId>
+  </Video> 
+</xml>";
+
+
         /// <summary>
         /// 初始化控制器及相关请求参数
         /// </summary>
@@ -105,6 +118,14 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         {
             PostTest(xmlLocationFormat);
         }
+
+
+        [TestMethod]
+        public void VideoPostTest()
+        {
+            PostTest(xmlVideoFormat);
+        }
+
 
         [TestMethod]
         public void MessageAgent_TextTest()

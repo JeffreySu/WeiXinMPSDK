@@ -94,12 +94,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 DateTime dt1 = DateTime.Now;//计时开始
 
                 var responseXml = MessageAgent.RequestXml(agentUrl, agentToken, RequestDocument.ToString());//获取返回的XML
-                
+
                 /* 如果有SouideaKey，可以直接使用下面的这个MessageAgent.RequestSouideaXml()方法。
                  * SouideaKey专门用于对接www.souidea.com平台，获取方式见：http://www.souidea.com/ApiDocuments/Item/25#51
                  */
                 //var responseXml = MessageAgent.RequestSouideaXml(souideaKey, RequestDocument.ToString());//获取Souidea返回的XML
-                
+
                 DateTime dt2 = DateTime.Now;//计时结束
 
                 //转成实体。
@@ -136,7 +136,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                 result.AppendFormat("如果您在{0}分钟内连续发送消息，记录将被自动保留（当前设置：最多记录{1}条）。过期后记录将会自动清除。\r\n", WeixinContext.ExpireMinutes, WeixinContext.MaxRecordCount);
                 result.AppendLine("\r\n");
-                result.AppendLine("您还可以发送【位置】【图片】【语音】等类型的信息，查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com");
+                result.AppendLine("您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com");
 
                 responseMessage.Content = result.ToString();
             }
@@ -189,6 +189,29 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             var responseMessage = CreateResponseMessage<ResponseMessageMusic>();
             responseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
+            responseMessage.Music.Title = "这里是一条音乐消息";
+            responseMessage.Music.Description = "来自Jeffrey Su的美妙歌声~~";
+            return responseMessage;
+        }
+
+        /// <summary>
+        /// 处理视频请求
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public override IResponseMessageBase OnVideoRequest(RequestMessageVideo requestMessage)
+        {
+            /* 
+             * 官方文档和实际发送的不一致，
+             * 实际发送没有RequestMessageVideo.Video这个对象，直接是MediaId和ThumbMediaId，
+             * 但是文档中这两项是包含在Video节点下面的，
+             * 这里为了防止官方调整，专门添加了Video这个对象，以防不测。
+             * 
+             * RequestMessageVideo中已经做了访问器映射，
+             * 实际使用的时候可以忽略RequestMessageVideo.Video.MediaId，直接访问requestMessage.MediaId。
+             */
+            var responseMessage = CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "您发送了一条视频信息，ID：" + requestMessage.MediaId;
             return responseMessage;
         }
 

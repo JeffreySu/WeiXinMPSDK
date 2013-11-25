@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.MessageHandlers
@@ -145,7 +146,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public IResponseMessageBase ResponseMessage { get; set; }
 
-        public MessageHandler(Stream inputStream,int maxRecordCount=0)
+        public MessageHandler(Stream inputStream, int maxRecordCount = 0)
         {
             WeixinContext.MaxRecordCount = maxRecordCount;
             using (XmlReader xr = XmlReader.Create(inputStream))
@@ -226,6 +227,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.Voice:
                         ResponseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
                         break;
+                    case RequestMsgType.Video:
+                        ResponseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
+                        break;
                     case RequestMsgType.Event:
                         ResponseMessage = OnEventRequest(RequestMessage as RequestMessageEventBase);
                         break;
@@ -256,7 +260,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public virtual void OnExecuted()
         {
         }
-
 
         /// <summary>
         /// 默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
@@ -297,6 +300,15 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 语音类型请求
         /// </summary>
         public virtual IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+
+        /// <summary>
+        /// 视频类型请求
+        /// </summary>
+        public virtual IResponseMessageBase OnVideoRequest(RequestMessageVideo requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

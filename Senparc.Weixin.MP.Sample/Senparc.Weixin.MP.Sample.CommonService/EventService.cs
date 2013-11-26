@@ -50,8 +50,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                         break;
                     }
                 case Event.CLICK://菜单点击事件，根据自己需要修改
-                    throw new Exception("Demo中还没有加入CLICK的测试！");
-                    //break;
+                    //这里的CLICK在此DEMO中不会被执行到，因为已经重写了OnEvent_ClickRequest
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

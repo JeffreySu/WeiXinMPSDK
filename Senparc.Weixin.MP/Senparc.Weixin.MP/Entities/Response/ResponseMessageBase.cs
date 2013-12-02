@@ -41,35 +41,31 @@ namespace Senparc.Weixin.MP.Entities
                 switch (msgType)
                 {
                     case ResponseMsgType.Text:
-                        responseMessage = new ResponseMessageText()
-                                             {
-                                                 ToUserName = requestMessage.FromUserName,
-                                                 FromUserName = requestMessage.ToUserName,
-                                                 CreateTime = DateTime.Now,//使用当前最新时间
-                                                 //MsgType = msgType
-                                             };
+                        responseMessage = new ResponseMessageText();
                         break;
                     case ResponseMsgType.News:
-                        responseMessage = new ResponseMessageNews()
-                                               {
-                                                   ToUserName = requestMessage.FromUserName,
-                                                   FromUserName = requestMessage.ToUserName,
-                                                   CreateTime = DateTime.Now,//使用当前最新时间
-                                                   //MsgType = msgType
-                                               };
+                        responseMessage = new ResponseMessageNews();
                         break;
                     case ResponseMsgType.Music:
-                        responseMessage = new ResponseMessageMusic()
-                                              {
-                                                  ToUserName = requestMessage.FromUserName,
-                                                  FromUserName = requestMessage.ToUserName,
-                                                  CreateTime = DateTime.Now,//使用当前最新事件
-                                                  //MsgType = msgType
-                                              };
+                        responseMessage = new ResponseMessageMusic();
+                        break;
+                    case ResponseMsgType.Image:
+                        responseMessage = new ResponseMessageImage();
+                        break;
+                    case ResponseMsgType.Voice:
+                        responseMessage = new ResponseMessageVoice();
+                        break;
+                    case ResponseMsgType.Video:
+                        responseMessage = new ResponseMessageVideo();
                         break;
                     default:
                         throw new UnknownRequestMsgTypeException(string.Format("ResponseMsgType没有为 {0} 提供对应处理程序。", msgType), new ArgumentOutOfRangeException());
                 }
+
+                responseMessage.ToUserName = requestMessage.FromUserName;
+                responseMessage.FromUserName = requestMessage.ToUserName;
+                responseMessage.CreateTime = DateTime.Now; //使用当前最新时间
+
             }
             catch (Exception ex)
             {
@@ -111,7 +107,7 @@ namespace Senparc.Weixin.MP.Entities
             {
                 var doc = XDocument.Parse(xml);
                 ResponseMessageBase responseMessage = null;
-                var msgType = (ResponseMsgType)Enum.Parse(typeof(ResponseMsgType), doc.Root.Element("MsgType").Value,true);
+                var msgType = (ResponseMsgType)Enum.Parse(typeof(ResponseMsgType), doc.Root.Element("MsgType").Value, true);
                 switch (msgType)
                 {
                     case ResponseMsgType.Text:

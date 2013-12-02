@@ -91,7 +91,7 @@ namespace Senparc.Weixin.MP.Agent
         /// </summary>
         /// <param name="url"></param>
         /// <param name="token"></param>
-        /// <param name="xml"></param>
+        /// <param name="stream"></param>
         /// <returns></returns>
         public static IResponseMessageBase RequestResponseMessage(string url, string token, Stream stream)
         {
@@ -117,9 +117,33 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="xml"></param>
         /// <param name="souideaDomainName"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestSouideaResponseMessage(string souideaKey, string xml,string souideaDomainName="www.souidea.com")
+        public static IResponseMessageBase RequestSouideaResponseMessage(string souideaKey, string xml, string souideaDomainName = "www.souidea.com")
         {
             return RequestSouideaXml(souideaKey, xml, souideaDomainName).CreateResponseMessage();
+        }
+
+        /// <summary>
+        /// 获取Souidea开放平台的ResponseMessge结果
+        /// </summary>
+        /// <param name="souideaKey"></param>
+        /// <param name="souideaDomainName"></param>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        public static IResponseMessageBase RequestSouideaResponseMessage(string souideaKey, XDocument document, string souideaDomainName = "www.souidea.com")
+        {
+            return RequestSouideaXml(souideaKey, document.ToString(), souideaDomainName).CreateResponseMessage();
+        }
+
+        /// <summary>
+        /// 获取Souidea开放平台的ResponseMessge结果
+        /// </summary>
+        /// <param name="souideaKey"></param>
+        /// <param name="requestMessage"></param>
+        /// <param name="souideaDomainName"></param>
+        /// <returns></returns>
+        public static IResponseMessageBase RequestSouideaResponseMessage(string souideaKey, RequestMessageBase requestMessage, string souideaDomainName = "www.souidea.com")
+        {
+            return RequestSouideaXml(souideaKey, requestMessage.ConvertEntityToXmlString(), souideaDomainName).CreateResponseMessage();
         }
     }
 }

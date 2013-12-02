@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Entities.Request;
 
 namespace Senparc.Weixin.MP.Helpers
 {
@@ -71,7 +70,7 @@ namespace Senparc.Weixin.MP.Helpers
                         //以下为实体类型
                         case "List`1"://List<T>类型，ResponseMessageNews适用
                             var genericArguments = prop.PropertyType.GetGenericArguments();
-                            if (genericArguments[0].Name == "Article")//Response适用
+                            if (genericArguments[0].Name == "Article")//ResponseMessageNews适用
                             {
                                 //文章下属节点item
                                 List<Article> articles = new List<Article>();
@@ -89,8 +88,18 @@ namespace Senparc.Weixin.MP.Helpers
                             FillEntityWithXml(music, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, music, null);
                             break;
-                        case "Video"://RequestMessageVideo适用
-                            Video video=new Video();
+                        case "Image"://ResponseMessageImage适用
+                            Image image = new Image();
+                            FillEntityWithXml(image, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, image, null);
+                            break;
+                        case "Voice"://ResponseMessageVoice适用
+                            Voice voice = new Voice();
+                            FillEntityWithXml(voice, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, voice, null);
+                            break;
+                        case "Video"://ResponseMessageVideo适用
+                            Video video = new Video();
                             FillEntityWithXml(video, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, video, null);
                             break;

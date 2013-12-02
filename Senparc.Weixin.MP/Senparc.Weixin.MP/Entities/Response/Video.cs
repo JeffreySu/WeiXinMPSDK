@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Senparc.Weixin.MP.Entities.Request
+namespace Senparc.Weixin.MP.Entities
 {
-    /// <summary>
-    /// 视频类型
-    /// </summary>
     public class Video
     {
         public string MediaId { get; set; }
-        public string ThumbMediaId { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
     }
 }

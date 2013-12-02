@@ -114,10 +114,10 @@
     <Compile Include="Entities\Request\RequestMessageLink.cs" />
     <Compile Include="Entities\Request\RequestMessageEvent_Scan.cs" />
     <Compile Include="Entities\Request\RequestMessageVideo.cs" />
-    <Compile Include="Entities\Request\Video.cs" />
     <Compile Include="Entities\Response\Article.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Entities\Response\Image.cs" />
     <Compile Include="Entities\Response\Music.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -133,6 +133,11 @@
     <Compile Include="Entities\Response\ResponseMessageText.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Entities\Response\ResponseMessageImage.cs" />
+    <Compile Include="Entities\Response\ResponseMessageVoice.cs" />
+    <Compile Include="Entities\Response\Video.cs" />
+    <Compile Include="Entities\Response\Voice.cs" />
+    <Compile Include="Entities\Response\ResponseMessageVideo.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\ErrorJsonResultException.cs" />
     <Compile Include="Exceptions\WeixinMenuException.cs" />

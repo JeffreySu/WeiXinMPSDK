@@ -63,7 +63,10 @@ namespace Senparc.Weixin.MP
     {
         Text,
         News,
-        Music
+        Music,
+        Image,
+        Voice,
+        Video
     }
 
     /// <summary>

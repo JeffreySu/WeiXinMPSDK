@@ -207,7 +207,7 @@
             </summary>
             <param name="url"></param>
             <param name="token"></param>
-            <param name="xml"></param>
+            <param name="stream"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestResponseMessage(System.String,System.String,System.String)">
@@ -225,6 +225,24 @@
             </summary>
             <param name="souideaKey"></param>
             <param name="xml"></param>
+            <param name="souideaDomainName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestSouideaResponseMessage(System.String,System.Xml.Linq.XDocument,System.String)">
+            <summary>
+            获取Souidea开放平台的ResponseMessge结果
+            </summary>
+            <param name="souideaKey"></param>
+            <param name="souideaDomainName"></param>
+            <param name="document"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestSouideaResponseMessage(System.String,Senparc.Weixin.MP.Entities.RequestMessageBase,System.String)">
+            <summary>
+            获取Souidea开放平台的ResponseMessge结果
+            </summary>
+            <param name="souideaKey"></param>
+            <param name="requestMessage"></param>
             <param name="souideaDomainName"></param>
             <returns></returns>
         </member>
@@ -639,9 +657,9 @@
             事件类型
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.Entities.Request.Video">
+        <member name="P:Senparc.Weixin.MP.Entities.Music.ThumbMediaId">
             <summary>
-            视频类型
+            缩略图的媒体id，通过上传多媒体文件，得到的id
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageBase">
@@ -675,6 +693,21 @@
         <member name="P:Senparc.Weixin.MP.Entities.ResponseMessageNews.Articles">
             <summary>
             文章列表，微信客户端只能输出前10条（可能未来数字会有变化，出于视觉效果考虑，建议控制在8条以内）
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageImage">
+            <summary>
+            需要预先上传多媒体文件到微信服务器，只支持认证服务号。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageVoice">
+            <summary>
+            需要预先上传多媒体文件到微信服务器，只支持认证服务号。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageVideo">
+            <summary>
+            需要预先上传多媒体文件到微信服务器，只支持认证服务号。
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.RequestMsgType">

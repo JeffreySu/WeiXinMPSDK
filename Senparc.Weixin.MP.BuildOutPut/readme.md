@@ -9,6 +9,10 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 
 Senparc.Weixin.MP.dll升级记录
 ----------
+v4.6.0 /2013-12-2
+
+跟据官方2012.12.2更新添加新的接口
+
 v4.5.0 /2013-11-25
 
 升级到v4.5.0 补充之前遗漏的视屏类型消息。

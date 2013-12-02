@@ -201,15 +201,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         /// <returns></returns>
         public override IResponseMessageBase OnVideoRequest(RequestMessageVideo requestMessage)
         {
-            /* 
-             * 官方文档和实际发送的不一致，
-             * 实际发送没有RequestMessageVideo.Video这个对象，直接是MediaId和ThumbMediaId，
-             * 但是文档中这两项是包含在Video节点下面的，
-             * 这里为了防止官方调整，专门添加了Video这个对象，以防不测。
-             * 
-             * RequestMessageVideo中已经做了访问器映射，
-             * 实际使用的时候可以忽略RequestMessageVideo.Video.MediaId，直接访问requestMessage.MediaId。
-             */
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您发送了一条视频信息，ID：" + requestMessage.MediaId;
             return responseMessage;

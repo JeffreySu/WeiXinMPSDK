@@ -48,7 +48,7 @@ namespace Senparc.Weixin.MP.MvcExtension
                 {
                     return base.Content;
                 }
-                else if (_messageHandler != null)
+                else if (_messageHandler != null && _messageHandler.ResponseDocument != null)
                 {
                     return _messageHandler.ResponseDocument.ToString();
                 }
@@ -72,12 +72,14 @@ namespace Senparc.Weixin.MP.MvcExtension
 
                 if (_messageHandler.ResponseMessage == null)
                 {
-                    throw new Senparc.Weixin.MP.WeixinException("ResponseMessage不能为Null！", null);
+                    //throw new Senparc.Weixin.MP.WeixinException("ResponseMessage不能为Null！", null);
                 }
-
-                context.HttpContext.Response.ClearContent();
-                context.HttpContext.Response.ContentType = "text/xml";
-                _messageHandler.ResponseDocument.Save(context.HttpContext.Response.OutputStream);
+                else
+                {
+                    context.HttpContext.Response.ClearContent();
+                    context.HttpContext.Response.ContentType = "text/xml";
+                    _messageHandler.ResponseDocument.Save(context.HttpContext.Response.OutputStream);
+                }
             }
 
             base.ExecuteResult(context);

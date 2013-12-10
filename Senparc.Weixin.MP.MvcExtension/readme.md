@@ -8,6 +8,10 @@
 
 更新日志：
 
+v1.4.16 /2013-12-10
+
+为了处理IOS微信软件下的换行bug，暂时添加了一个FixWeixinBugWeixinResult的返回类型暂时替代原来的WeixinResult。微信官方修复bug后此方法将删除。
+
 v1.4 /2013-11-18
 
 微信内置浏览器判断（WeixinInternalRequestAttribute），添加了一个ignoreParameter参数，用于测试的时候忽略判断。

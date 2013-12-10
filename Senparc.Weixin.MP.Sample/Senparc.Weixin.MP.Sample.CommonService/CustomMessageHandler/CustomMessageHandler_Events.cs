@@ -25,7 +25,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     {
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
                         reponseMessage = strongResponseMessage;
-                        strongResponseMessage.Content = "您点击了底部按钮。";
+                        strongResponseMessage.Content = "您点击了底部按钮。\r\n为了测试微信软件换行bug的应对措施，这里做了一个——\r\n换行";
                     }
                     break;
                 case "SubClickRoot_Text":

@@ -8,8 +8,11 @@ using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.MvcExtension
 {
-    public class FixWeixinBugWeixinResult : WeixinResult
+    public class FixWeixinBugWeixinResult : ContentResult
     {
+        //private string _content;
+        protected IMessageHandler _messageHandler;
+
         /// <summary>
         /// 这个类型只用于特殊阶段：目前IOS版本微信有换行的bug，\r\n会识别为2行
         /// 
@@ -27,8 +30,37 @@ namespace Senparc.Weixin.MP.MvcExtension
         /// 
         /// </summary>
         public FixWeixinBugWeixinResult(IMessageHandler messageHandler)
-            : base(messageHandler)
         {
+            _messageHandler = messageHandler;
+        }
+
+
+
+        public FixWeixinBugWeixinResult(string content)
+        {
+            //_content = content;
+            base.Content = content;
+        }
+
+
+        new public string Content
+        {
+            get
+            {
+                if (base.Content != null)
+                {
+                    return base.Content;
+                }
+                else if (_messageHandler != null && _messageHandler.ResponseDocument != null)
+                {
+                    return _messageHandler.ResponseDocument.ToString().Replace("\r\n", "\n");
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set { base.Content = value; }
         }
 
         public override void ExecuteResult(ControllerContext context)
@@ -50,16 +82,15 @@ namespace Senparc.Weixin.MP.MvcExtension
                     context.HttpContext.Response.ClearContent();
                     context.HttpContext.Response.ContentType = "text/xml";
 
-                    var xml = _messageHandler.ResponseDocument.ToString().Replace("\r\n", "\n");//腾
+                    var xml = _messageHandler.ResponseDocument.ToString().Replace("\r\n", "\n"); //腾
                     using (MemoryStream ms = new MemoryStream())//迅
                     {//真
                         var bytes = Encoding.UTF8.GetBytes(xml);//的
+
                         context.HttpContext.Response.OutputStream.Write(bytes, 0, bytes.Length);//很
                     }//疼
                 }
             }
-
-            base.ExecuteResult(context);
         }
     }
 }

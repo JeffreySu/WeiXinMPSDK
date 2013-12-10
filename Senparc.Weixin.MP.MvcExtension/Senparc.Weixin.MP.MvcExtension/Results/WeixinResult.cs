@@ -23,7 +23,7 @@ namespace Senparc.Weixin.MP.MvcExtension
     public class WeixinResult : ContentResult
     {
         //private string _content;
-        private IMessageHandler _messageHandler;
+        protected IMessageHandler _messageHandler;
 
         public WeixinResult(string content)
         {

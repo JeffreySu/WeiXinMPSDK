@@ -51,6 +51,7 @@
     <Compile Include="Filters\WeixinInternalRequestAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\WeixinResult.cs" />
+    <Compile Include="Results\FixWeixinBugWeixinResult.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -61,8 +61,6 @@ namespace Senparc.Weixin.MP.Context
             ExpireMinutes = 90;
         }
 
-     
-
         /// <summary>
         /// 获取MessageContext，如果不存在，返回null
         /// 这个方法的更重要意义在于操作TM队列，及时移除过期信息，并将最新活动的对象移到尾部

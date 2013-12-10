@@ -233,7 +233,6 @@ Url:{2}", requestMessage.Title, requestMessage.Description, requestMessage.Url);
             return eventResponseMessage;
         }
 
-
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
             /* 所有没有被处理的消息会默认返回这里的结果，

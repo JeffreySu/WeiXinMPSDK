@@ -47,6 +47,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 只有当执行Execute()方法后才可能有值
         /// </summary>
         IResponseMessageBase ResponseMessage { get; set; }
+
+        /// <summary>
+        /// 是否使用了MessageAgent代理
+        /// </summary>
+        bool UsedMessageAgent { get; set; }
     }
 
     /// <summary>
@@ -144,6 +149,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 也可以结合Cancel，提前给ResponseMessage赋值。
         /// </summary>
         public IResponseMessageBase ResponseMessage { get; set; }
+
+        /// <summary>
+        /// 是否使用了MessageAgent代理
+        /// </summary>
+        public bool UsedMessageAgent { get; set; }
 
         public MessageHandler(Stream inputStream, int maxRecordCount = 0)
         {

@@ -55,6 +55,9 @@
     <Compile Include="AdvancedAPIs\Groups\CreateGroupResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\Groups.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson.cs" />
+    <Compile Include="AdvancedAPIs\OAuth\OAuthAccessTokenResult.cs" />
+    <Compile Include="AdvancedAPIs\OAuth\OAuth.cs" />
+    <Compile Include="AdvancedAPIs\OAuth\OAuthUserInfo.cs" />
     <Compile Include="AdvancedAPIs\QrCode\CreateQrCodeResult.cs" />
     <Compile Include="AdvancedAPIs\QrCode\QrCode.cs" />
     <Compile Include="AdvancedAPIs\User\OpenIdResultJson.cs" />

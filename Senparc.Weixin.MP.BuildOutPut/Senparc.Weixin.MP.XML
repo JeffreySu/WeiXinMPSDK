@@ -120,6 +120,78 @@
             此属性在CreateGroupResult的Json数据中，创建结果中始终为0
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OAuthAccessTokenResult">
+            <summary>
+            获取OAuth AccessToken的结果
+            如果错误，返回结果{"errcode":40029,"errmsg":"invalid code"}
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OAuthScope">
+            <summary>
+            应用授权作用域
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.AdvancedAPIs.OAuthScope.snsapi_base">
+            <summary>
+            不弹出授权页面，直接跳转，只能获取用户openid
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.AdvancedAPIs.OAuthScope.snsapi_userinfo">
+            <summary>
+            弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.GetAuthorizeUrl(System.String,System.String,System.String,Senparc.Weixin.MP.AdvancedAPIs.OAuthScope,System.String)">
+            <summary>
+            获取验证地址
+            </summary>
+            <param name="appId"></param>
+            <param name="redirectUrl"></param>
+            <param name="state"></param>
+            <param name="scope"></param>
+            <param name="responseType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.GetAccessToken(System.String,System.String,System.String,System.String)">
+            <summary>
+            获取AccessToken
+            </summary>
+            <param name="appId"></param>
+            <param name="secret"></param>
+            <param name="code">code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。</param>
+            <param name="grantType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.RefreshToken(System.String,System.String,System.String)">
+            <summary>
+            刷新access_token（如果需要）
+            </summary>
+            <param name="appId"></param>
+            <param name="refreshToken">填写通过access_token获取到的refresh_token参数</param>
+            <param name="grantType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OAuthUserInfo">
+            <summary>
+            通过OAuth的获取到的用户信息（snsapi_userinfo=scope）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthUserInfo.sex">
+            <summary>
+            用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthUserInfo.headimgurl">
+            <summary>
+            用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthUserInfo.privilege">
+            <summary>
+            用户特权信息，json 数组，如微信沃卡用户为（chinaunicom）
+            作者注：其实这个格式称不上JSON，只是个单纯数组。
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CreateQrCodeResult">
             <summary>
             二维码创建返回结果
@@ -173,7 +245,7 @@
             此外这个类中的方法也可以用于模拟服务器发送消息到自己的服务器进行测试。
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestXml(System.String,System.String,System.IO.Stream,System.Boolean)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestXml(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.IO.Stream,System.Boolean)">
             <summary>
             获取Xml结果。
             </summary>
@@ -183,7 +255,7 @@
             <param name="useSouideaKey">是否使用SouideaKey，如果使用，则token为SouideaKey</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestXml(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestXml(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
             <summary>
             获取Xml结果
             </summary>
@@ -192,7 +264,7 @@
             <param name="xml"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestSouideaXml(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestSouideaXml(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
             <summary>
             对接Souidea（P2P）平台，获取Xml结果，使用SouideaKey对接
             SouideaKey的获取方式请看：
@@ -201,7 +273,7 @@
             <param name="xml"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestResponseMessage(System.String,System.String,System.IO.Stream)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.IO.Stream)">
             <summary>
             获取ResponseMessge结果
             </summary>
@@ -210,7 +282,7 @@
             <param name="stream"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestResponseMessage(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
             <summary>
             获取ResponseMessge结果
             </summary>
@@ -219,7 +291,7 @@
             <param name="xml"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestSouideaResponseMessage(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestSouideaResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
             <summary>
             获取Souidea开放平台的ResponseMessge结果
             </summary>
@@ -228,7 +300,7 @@
             <param name="souideaDomainName"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestSouideaResponseMessage(System.String,System.Xml.Linq.XDocument,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestSouideaResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.Xml.Linq.XDocument,System.String)">
             <summary>
             获取Souidea开放平台的ResponseMessge结果
             </summary>
@@ -237,7 +309,7 @@
             <param name="document"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestSouideaResponseMessage(System.String,Senparc.Weixin.MP.Entities.RequestMessageBase,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestSouideaResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,Senparc.Weixin.MP.Entities.RequestMessageBase,System.String)">
             <summary>
             获取Souidea开放平台的ResponseMessge结果
             </summary>
@@ -347,13 +419,22 @@
             <param name="accessToken"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.Send(System.String,System.String,System.Object)">
+        <member name="M:CommonJsonSend.Send(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType)">
             <summary>
             向需要AccessToken的API发送消息的公共方法
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
             <param name="urlFormat"></param>
-            <param name="data"></param>
+            <param name="data">如果是Get方式，可以为null</param>
+            <returns></returns>
+        </member>
+        <member name="M:CommonJsonSend.Send``1(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType)">
+            <summary>
+            向需要AccessToken的API发送消息的公共方法
+            </summary>
+            <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
+            <param name="urlFormat"></param>
+            <param name="data">如果是Get方式，可以为null</param>
             <returns></returns>
         </member>
         <member name="P:Senparc.Weixin.MP.Context.MessageContainer`1.MaxRecordCount">
@@ -1058,6 +1139,11 @@
             只有当执行Execute()方法后才可能有值
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.UsedMessageAgent">
+            <summary>
+            是否使用了MessageAgent代理
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1">
             <summary>
             微信请求的集中处理方法
@@ -1201,6 +1287,11 @@
             响应实体
             正常情况下只有当执行Execute()方法后才可能有值。
             也可以结合Cancel，提前给ResponseMessage赋值。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.UsedMessageAgent">
+            <summary>
+            是否使用了MessageAgent代理
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.RequestMessageFactory.GetRequestEntity(System.Xml.Linq.XDocument)">

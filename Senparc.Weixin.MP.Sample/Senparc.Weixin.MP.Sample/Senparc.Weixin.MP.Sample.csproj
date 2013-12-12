@@ -133,6 +133,7 @@
     <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\OAuth2Controller.cs" />
     <Compile Include="Controllers\TestUploadMediaFileController.cs" />
     <Compile Include="Controllers\WeixinController.cs" />
     <Compile Include="Controllers\WeixinController_OldPost.cs" />
@@ -249,6 +250,8 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\OAuth2\Index.cshtml" />
+    <Content Include="Views\Callback.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

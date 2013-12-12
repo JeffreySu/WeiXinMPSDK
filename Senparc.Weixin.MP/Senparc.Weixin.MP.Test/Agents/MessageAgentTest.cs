@@ -28,7 +28,7 @@ namespace Senparc.Weixin.MP.Test.Agents
 <EventKey><![CDATA[OneClick]]></EventKey>
 </xml>";
 
-            var xml = MessageAgent.RequestXml(url, token, requestXml);
+            var xml = MessageAgent.RequestXml(null,url, token, requestXml);
             var responseMessage = ResponseMessageBase.CreateFromResponseXml(xml);
             Assert.IsNotNull(responseMessage);
             Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageText));

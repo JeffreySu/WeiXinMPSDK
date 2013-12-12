@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.HttpUtility;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -39,7 +40,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var url =
                 string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type={2}&scope={3}&state={4}#wechat_redirect",
-                                appId, redirectUrl, responseType, scope, state);
+                                appId, redirectUrl.UrlEncode(), responseType, scope, state);
 
             /* 这一步发送之后，客户会得到授权页面，无论同意或拒绝，都会返回redirectUrl页面。
              * 如果用户同意授权，页面将跳转至 redirect_uri/?code=CODE&state=STATE。这里的code用于换取access_token（和通用接口的access_token不通用）
@@ -81,10 +82,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return CommonJsonSend.Send<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
         }
 
-        public static void GetUserInfo(string accessToken,string openId)
+        public static OAuthUserInfo GetUserInfo(string accessToken,string openId)
         {
             var url = string.Format("https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}",accessToken,openId);
-
+            return CommonJsonSend.Send<OAuthUserInfo>(null, url, null, CommonJsonSendType.GET);
         }
     }
 }

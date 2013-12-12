@@ -1,0 +1,25 @@
+﻿@model Senparc.Weixin.MP.AdvancedAPIs.OAuthUserInfo
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OAuth2.0授权测试授权成功</title>
+</head>
+<body>
+    <h2>OAuth2.0授权测试授权成功！</h2>
+    <p>下面是通过授权得到的您的部分个人信息：</p>
+    <p>nickname:@Model.nickname</p>
+    <p>country:@Model.country</p>
+    <p>province:@Model.province</p>
+    <p>city:@Model.city</p>
+    <p>sex:@Model.sex</p>
+    <p>
+        头像：<br />
+        <img src="@Model.headimgurl"/>
+    </p>
+</body>
+</html>

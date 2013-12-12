@@ -93,7 +93,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                 DateTime dt1 = DateTime.Now;//计时开始
 
-                var responseXml = MessageAgent.RequestXml(agentUrl, agentToken, RequestDocument.ToString());//获取返回的XML
+                var responseXml = MessageAgent.RequestXml(this,agentUrl, agentToken, RequestDocument.ToString());//获取返回的XML
+                //上面的方法也可以使用扩展方法：this.RequestResponseMessage(this,agentUrl, agentToken, RequestDocument.ToString());
 
                 /* 如果有SouideaKey，可以直接使用下面的这个MessageAgent.RequestSouideaXml()方法。
                  * SouideaKey专门用于对接www.souidea.com平台，获取方式见：http://www.souidea.com/ApiDocuments/Item/25#51

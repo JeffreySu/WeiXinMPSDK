@@ -22,7 +22,7 @@ public static class CommonJsonSend
     /// <summary>
     /// 向需要AccessToken的API发送消息的公共方法
     /// </summary>
-    /// <param name="accessToken">如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
+    /// <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
     /// <param name="urlFormat"></param>
     /// <param name="data">如果是Get方式，可以为null</param>
     /// <returns></returns>
@@ -31,6 +31,13 @@ public static class CommonJsonSend
         return Send<WxJsonResult>(accessToken, urlFormat, data, sendType);
     }
 
+    /// <summary>
+    /// 向需要AccessToken的API发送消息的公共方法
+    /// </summary>
+    /// <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
+    /// <param name="urlFormat"></param>
+    /// <param name="data">如果是Get方式，可以为null</param>
+    /// <returns></returns>
     public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST)
     {
         var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken);

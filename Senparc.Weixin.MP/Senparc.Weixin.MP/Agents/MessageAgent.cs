@@ -7,6 +7,7 @@ using System.Text;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.Agent
 {
@@ -29,8 +30,12 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="stream"></param>
         /// <param name="useSouideaKey">是否使用SouideaKey，如果使用，则token为SouideaKey</param>
         /// <returns></returns>
-        public static string RequestXml(string url, string token, Stream stream, bool useSouideaKey = false)
+        public static string RequestXml(this IMessageHandler messageHandler, string url, string token, Stream stream, bool useSouideaKey = false)
         {
+            if (messageHandler==null)
+            {
+                messageHandler.UsedMessageAgent = true;
+            }
             string timestamp = DateTime.Now.Ticks.ToString();
             string nonce = "GodBlessYou";
             string echostr = Guid.NewGuid().ToString("n");
@@ -48,8 +53,12 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="token"></param>
         /// <param name="xml"></param>
         /// <returns></returns>
-        public static string RequestXml(string url, string token, string xml)
+        public static string RequestXml(this IMessageHandler messageHandler, string url, string token, string xml)
         {
+            if (messageHandler == null)
+            {
+                messageHandler.UsedMessageAgent = true;
+            } 
             using (MemoryStream ms = new MemoryStream())
             {
                 //这里用ms模拟Request.InputStream
@@ -58,7 +67,7 @@ namespace Senparc.Weixin.MP.Agent
                     sw.Write(xml);
                     sw.Flush();
                     sw.BaseStream.Position = 0;
-                    return RequestXml(url, token, sw.BaseStream);
+                    return messageHandler.RequestXml(url, token, sw.BaseStream);
                 }
             }
         }
@@ -70,8 +79,12 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="souideKey"></param>
         /// <param name="xml"></param>
         /// <returns></returns>
-        public static string RequestSouideaXml(string souideKey, string xml, string souideaDomainName = "www.souidea.com")
+        public static string RequestSouideaXml(this IMessageHandler messageHandler, string souideKey, string xml, string souideaDomainName = "www.souidea.com")
         {
+            if (messageHandler == null)
+            {
+                messageHandler.UsedMessageAgent = true;
+            } 
             var url = "http://" + souideaDomainName + "/App/Weixin?souideaKey=" + souideKey;//官方地址
             using (MemoryStream ms = new MemoryStream())
             {
@@ -81,7 +94,7 @@ namespace Senparc.Weixin.MP.Agent
                     sw.Write(xml);
                     sw.Flush();
                     sw.BaseStream.Position = 0;
-                    return RequestXml(url, souideKey, sw.BaseStream);
+                    return messageHandler.RequestXml(url, souideKey, sw.BaseStream);
                 }
             }
         }
@@ -93,9 +106,9 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="token"></param>
         /// <param name="stream"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestResponseMessage(string url, string token, Stream stream)
+        public static IResponseMessageBase RequestResponseMessage(this IMessageHandler messageHandler, string url, string token, Stream stream)
         {
-            return RequestXml(url, token, stream).CreateResponseMessage();
+            return messageHandler.RequestXml(url, token, stream).CreateResponseMessage();
         }
 
         /// <summary>
@@ -105,9 +118,9 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="token"></param>
         /// <param name="xml"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestResponseMessage(string url, string token, string xml)
+        public static IResponseMessageBase RequestResponseMessage(this IMessageHandler messageHandler, string url, string token, string xml)
         {
-            return RequestXml(url, token, xml).CreateResponseMessage();
+            return messageHandler.RequestXml(url, token, xml).CreateResponseMessage();
         }
 
         /// <summary>
@@ -117,9 +130,9 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="xml"></param>
         /// <param name="souideaDomainName"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestSouideaResponseMessage(string souideaKey, string xml, string souideaDomainName = "www.souidea.com")
+        public static IResponseMessageBase RequestSouideaResponseMessage(this IMessageHandler messageHandler,string souideaKey, string xml, string souideaDomainName = "www.souidea.com")
         {
-            return RequestSouideaXml(souideaKey, xml, souideaDomainName).CreateResponseMessage();
+            return messageHandler.RequestSouideaXml(souideaKey, xml, souideaDomainName).CreateResponseMessage();
         }
 
         /// <summary>
@@ -129,9 +142,9 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="souideaDomainName"></param>
         /// <param name="document"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestSouideaResponseMessage(string souideaKey, XDocument document, string souideaDomainName = "www.souidea.com")
+        public static IResponseMessageBase RequestSouideaResponseMessage(this IMessageHandler messageHandler, string souideaKey, XDocument document, string souideaDomainName = "www.souidea.com")
         {
-            return RequestSouideaXml(souideaKey, document.ToString(), souideaDomainName).CreateResponseMessage();
+            return messageHandler.RequestSouideaXml(souideaKey, document.ToString(), souideaDomainName).CreateResponseMessage();
         }
 
         /// <summary>
@@ -141,9 +154,9 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="requestMessage"></param>
         /// <param name="souideaDomainName"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestSouideaResponseMessage(string souideaKey, RequestMessageBase requestMessage, string souideaDomainName = "www.souidea.com")
+        public static IResponseMessageBase RequestSouideaResponseMessage(this IMessageHandler messageHandler, string souideaKey, RequestMessageBase requestMessage, string souideaDomainName = "www.souidea.com")
         {
-            return RequestSouideaXml(souideaKey, requestMessage.ConvertEntityToXmlString(), souideaDomainName).CreateResponseMessage();
+            return messageHandler.RequestSouideaXml(souideaKey, requestMessage.ConvertEntityToXmlString(), souideaDomainName).CreateResponseMessage();
         }
     }
 }

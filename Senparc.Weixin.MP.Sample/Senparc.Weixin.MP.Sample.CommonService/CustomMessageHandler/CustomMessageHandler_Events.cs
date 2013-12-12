@@ -13,7 +13,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
     /// <summary>
     /// 自定义MessageHandler
     /// </summary>
-    public partial class CustomMessageHandler 
+    public partial class CustomMessageHandler
     {
         public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
         {
@@ -59,7 +59,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     {
                         //获取返回的XML
                         DateTime dt1 = DateTime.Now;
-                        reponseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
+                        reponseMessage = MessageAgent.RequestResponseMessage(this, agentUrl, agentToken, RequestDocument.ToString());
+                        //上面的方法也可以使用扩展方法：this.RequestResponseMessage(this,agentUrl, agentToken, RequestDocument.ToString());
+
                         DateTime dt2 = DateTime.Now;
 
                         if (reponseMessage is ResponseMessageNews)
@@ -72,7 +74,20 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     break;
                 case "Member"://托管代理会员信息
                     {
-                        reponseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
+                        //原始方法为：MessageAgent.RequestXml(this,agentUrl, agentToken, RequestDocument.ToString());//获取返回的XML
+                        reponseMessage = this.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
+                    }
+                    break;
+                case "OAuth"://OAuth授权测试
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageNews>();
+                        strongResponseMessage.Articles.Add(new Article()
+                        {
+                            Title = "OAuth2.0测试",
+                            Description = "点击【查看全文】进入授权页面。\r\n注意：此页面仅供测试，测试号随时可能过期。请将此DEMO部署到您自己的服务器上，并使用自己的appid和secret。",
+                            Url = "http://weixin.senparc.com/oauth2",
+                        });
+                        reponseMessage = strongResponseMessage;
                     }
                     break;
             }

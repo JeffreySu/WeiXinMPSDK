@@ -15,6 +15,17 @@ namespace Senparc.Weixin.MP.CommonAPIs
 {
     public partial class CommonApi
     {
+        ///// <summary>
+        ///// 特殊符号转义
+        ///// </summary>
+        ///// <param name="name"></param>
+        ///// <returns></returns>
+        //private static string ButtonNameEncode(string name)
+        //{
+        //    //直接用UrlEncode不行，显示内容超长
+        //    return name.Replace("&", "%26");
+        //}
+
         /// <summary>
         /// 创建菜单
         /// </summary>
@@ -24,6 +35,19 @@ namespace Senparc.Weixin.MP.CommonAPIs
         public static WxJsonResult CreateMenu(string accessToken, ButtonGroup buttonData)
         {
             var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
+            ////对特殊符号进行URL转义
+            //foreach (var button in buttonData.button)
+            //{
+            //    button.name = ButtonNameEncode(button.name);//button.name.UrlEncode();
+            //    if (button is SubButton)
+            //    {
+            //        var subButtonList = button as SubButton;
+            //        foreach (var subButton in subButtonList.sub_button)
+            //        {
+            //            subButton.name = ButtonNameEncode(button.name);//button.name.UrlEncode();
+            //        }
+            //    }
+            //}
             return CommonJsonSend.Send(accessToken, urlFormat, buttonData);
         }
 

@@ -657,11 +657,6 @@
             事件类型
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Entities.Music.ThumbMediaId">
-            <summary>
-            缩略图的媒体id，通过上传多媒体文件，得到的id
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageBase">
             <summary>
             响应回复消息

@@ -21,7 +21,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var urlFormat = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
             object data = null;
-            if (expireSeconds <= 0)
+            if (expireSeconds > 0)
             {
                 data = new
                 {

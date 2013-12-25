@@ -9,7 +9,7 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 
 Senparc.Weixin.MP.dll升级记录
 ----------
-v5.0.0 /2013-12-12
+v4.7.3 /2013-12-12
 
 开通OAuth2.0接口，并优化部分代码。
 

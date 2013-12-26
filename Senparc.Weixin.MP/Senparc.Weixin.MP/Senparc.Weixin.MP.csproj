@@ -151,6 +151,7 @@
     <Compile Include="Helpers\GoogleMapHelper.cs" />
     <Compile Include="Helpers\GpsHelper.cs" />
     <Compile Include="Helpers\MsgTypeHelper.cs" />
+    <Compile Include="Helpers\SerializerHelper.cs" />
     <Compile Include="HttpUtility\Get.cs" />
     <Compile Include="HttpUtility\Post.cs" />
     <Compile Include="HttpUtility\RequestUtility.cs" />

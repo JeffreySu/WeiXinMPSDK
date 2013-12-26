@@ -1000,6 +1000,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.SerializerHelper.DecodeUnicode(System.Text.RegularExpressions.Match)">
+            <summary>
+            unicode解码
+            </summary>
+            <param name="match"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.MP.HttpUtility.Post.GetResult``1(System.String)">
             <summary>
             获取Post结果

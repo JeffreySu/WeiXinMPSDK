@@ -6,6 +6,7 @@ using System.Text;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.HttpUtility;
 
 namespace Senparc.Weixin.MP.CommonAPIs
@@ -46,8 +47,8 @@ public static class CommonJsonSend
             case CommonJsonSendType.GET:
                 return Get.GetJson<T>(url);
             case CommonJsonSendType.POST:
-                JavaScriptSerializer js = new JavaScriptSerializer();
-                var jsonString = js.Serialize(data);
+                SerializerHelper serializerHelper=new SerializerHelper();
+                var jsonString = serializerHelper.GetJsonString(data);
                 using (MemoryStream ms = new MemoryStream())
                 {
                     var bytes = Encoding.UTF8.GetBytes(jsonString);

@@ -97,7 +97,11 @@
       <Name>Senparc.Weixin.MP</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Component</SubType>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonAPIs\CommonApiTest.Menu.cs" />
   </ItemGroup>

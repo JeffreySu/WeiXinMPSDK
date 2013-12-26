@@ -20,7 +20,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             LoadToken();
 
-            var result = Custom.SendText(base.tokenResult.access_token, openId, "来自平台的回复");
+            var result = Custom.SendText(base.tokenResult.access_token, openId, "来自平台的回复<>&");
             Assert.IsNotNull(result);
             Assert.AreEqual("ok", result.errmsg);
         }

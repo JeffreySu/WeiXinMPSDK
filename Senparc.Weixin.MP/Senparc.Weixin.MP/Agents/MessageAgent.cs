@@ -32,7 +32,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <returns></returns>
         public static string RequestXml(this IMessageHandler messageHandler, string url, string token, Stream stream, bool useSouideaKey = false)
         {
-            if (messageHandler==null)
+            if (messageHandler!=null)
             {
                 messageHandler.UsedMessageAgent = true;
             }
@@ -55,7 +55,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <returns></returns>
         public static string RequestXml(this IMessageHandler messageHandler, string url, string token, string xml)
         {
-            if (messageHandler == null)
+            if (messageHandler != null)
             {
                 messageHandler.UsedMessageAgent = true;
             } 
@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <returns></returns>
         public static string RequestSouideaXml(this IMessageHandler messageHandler, string souideKey, string xml, string souideaDomainName = "www.souidea.com")
         {
-            if (messageHandler == null)
+            if (messageHandler != null)
             {
                 messageHandler.UsedMessageAgent = true;
             } 

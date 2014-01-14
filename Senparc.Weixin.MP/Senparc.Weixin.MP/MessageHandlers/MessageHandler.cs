@@ -356,7 +356,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = OnEvent_ClickRequest(RequestMessage as RequestMessageEvent_Click);
                     break;
                 case Event.scan://二维码
-                    ResponseMessage = OnEvent_ScanRequest(RequestMessage as RequestMessageEvent_Scan);
+                    responseMessage = OnEvent_ScanRequest(RequestMessage as RequestMessageEvent_Scan);
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);

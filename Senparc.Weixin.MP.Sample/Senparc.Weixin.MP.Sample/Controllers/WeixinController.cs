@@ -67,7 +67,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             try
             {
-                //测试时可开启此记录，帮助跟踪数据
+                //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
                 messageHandler.RequestDocument.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Request_" + messageHandler.RequestMessage.FromUserName + ".txt"));
                 //执行微信处理过程
                 messageHandler.Execute();

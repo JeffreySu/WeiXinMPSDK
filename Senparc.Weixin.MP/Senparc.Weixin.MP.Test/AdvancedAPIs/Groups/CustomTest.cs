@@ -22,5 +22,15 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Assert.IsNotNull(result);
             Assert.IsTrue(result.groups.Count >= 3);
         }
+
+        [TestMethod]
+        public void GetIdTest()
+        {
+            LoadToken();
+
+            var result = Groups.GetId(base.tokenResult.access_token, _testOpenId);
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.groupid >= 0);
+        }
     }
 }

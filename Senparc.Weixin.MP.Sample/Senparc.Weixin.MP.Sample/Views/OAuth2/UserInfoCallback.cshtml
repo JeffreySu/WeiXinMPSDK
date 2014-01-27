@@ -11,7 +11,7 @@
 </head>
 <body>
     <h2>OAuth2.0授权测试授权成功！</h2>
-    @if (ViewData["ByBase"] != null)
+    @if (ViewData.ContainsKey("ByBase"))
     {
         <p><strong>您看到的这个页面来自于snsapi_base授权，因为您已关注本微信，所以才能查询到详细用户信息，否则只能进行常规的授权。</strong></p>
     }

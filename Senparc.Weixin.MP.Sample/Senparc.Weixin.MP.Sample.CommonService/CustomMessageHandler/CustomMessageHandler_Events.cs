@@ -84,7 +84,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                         strongResponseMessage.Articles.Add(new Article()
                         {
                             Title = "OAuth2.0测试",
-                            Description = "点击【查看全文】进入授权页面。\r\n注意：此页面仅供测试，测试号随时可能过期。请将此DEMO部署到您自己的服务器上，并使用自己的appid和secret。",
+                            Description = "点击【查看全文】进入授权页面。\r\n注意：此页面仅供测试（是专门的一个临时测试账号的授权，并非Senparc.Weixin.MP SDK官方账号，所以如果授权后出现错误页面数正常情况），测试号随时可能过期。请将此DEMO部署到您自己的服务器上，并使用自己的appid和secret。",
                             Url = "http://weixin.senparc.com/oauth2",
                             PicUrl = "http://weixin.senparc.com/Images/qrcode.jpg"
                         });

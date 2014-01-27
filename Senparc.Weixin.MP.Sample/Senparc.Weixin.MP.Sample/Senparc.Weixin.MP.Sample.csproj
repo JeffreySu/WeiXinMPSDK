@@ -251,7 +251,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\OAuth2\Index.cshtml" />
-    <Content Include="Views\Callback.cshtml" />
+    <Content Include="Views\OAuth2\UserInfoCallback.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

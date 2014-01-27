@@ -86,6 +86,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                             Title = "OAuth2.0测试",
                             Description = "点击【查看全文】进入授权页面。\r\n注意：此页面仅供测试，测试号随时可能过期。请将此DEMO部署到您自己的服务器上，并使用自己的appid和secret。",
                             Url = "http://weixin.senparc.com/oauth2",
+                            PicUrl = "http://weixin.senparc.com/Images/qrcode.jpg"
                         });
                         reponseMessage = strongResponseMessage;
                     }
@@ -104,7 +105,10 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
         public override IResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage)
         {
-            throw new Exception("暂不可用");
+            //这里是微信客户端（通过微信服务器）自动发送过来的位置信息
+            var responseMessage = CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "这里写什么都无所谓，比如：上帝爱你！";
+            return responseMessage;//这里也可以返回null（需要注意写日志时候null的问题）
         }
 
         /// <summary>

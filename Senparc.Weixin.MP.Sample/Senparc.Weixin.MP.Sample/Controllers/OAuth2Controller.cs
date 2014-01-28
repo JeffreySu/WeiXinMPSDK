@@ -48,8 +48,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             Session["OAuthAccessToken"] = result;
 
             //因为第一步选择的是OAuthScope.snsapi_userinfo，这里可以进一步获取用户详细信息
-            var userInfo = OAuth.GetUserInfo(result.access_token, result.openid);
-            return View(userInfo);
+            try
+            {
+                var userInfo = OAuth.GetUserInfo(result.access_token, result.openid);
+                return View(userInfo);
+            }
+            catch (ErrorJsonResultException ex)
+            {
+                return Content(ex.Message);
+            }
+
         }
 
         public ActionResult BaseCallback(string code, string state)

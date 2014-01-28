@@ -61,7 +61,7 @@ namespace Senparc.Weixin.MP.HttpUtility
         }
 
         /// <summary>
-        /// 使用Post方法获取字符串结果
+        /// 使用Post方法获取字符串结果，常规提交
         /// </summary>
         /// <returns></returns>
         public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null)
@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.HttpUtility
         }
 
         /// <summary>
-        /// 使用Post方法获取字符串结果
+        /// 使用Post方法获取字符串结果，上传文件
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
@@ -83,7 +83,7 @@ namespace Senparc.Weixin.MP.HttpUtility
         {
             //读取文件
             var fileStream = FileHelper.GetFileStream(fileName);
-            return HttpPost(url, cookieContainer, fileStream, true, null, encoding);
+            return HttpPost(url, cookieContainer, fileStream, fileName, null, encoding);
         }
 
         /// <summary>
@@ -92,9 +92,9 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// <param name="url"></param>
         /// <param name="cookieContainer"></param>
         /// <param name="postStream"></param>
-        /// <param name="isFile">postStreams是否是文件流</param>
+        /// <param name="fileName">文件名（如果需要上传文件）</param>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, bool isFile = false, string refererUrl = null, Encoding encoding = null)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, string fileName=null, string refererUrl = null, Encoding encoding = null)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
@@ -116,19 +116,45 @@ namespace Senparc.Weixin.MP.HttpUtility
 
             if (postStream != null)
             {
-                //postStream.Position = 0;
-
                 //上传文件流
                 Stream requestStream = request.GetRequestStream();
 
-                byte[] buffer = new byte[1024];
-                int bytesRead = 0;
-                while ((bytesRead = postStream.Read(buffer, 0, buffer.Length)) != 0)
+                if (isFile)
                 {
-                    requestStream.Write(buffer, 0, bytesRead);
+                    //postStream.Position = 0;
+                    //long length = 0;
+                    string boundary = "------------------" + DateTime.Now.Ticks.ToString("x");
+                    byte[] boundarybytes = System.Text.Encoding.ASCII.GetBytes("\r\n–" + boundary + "\r\n");
+
+                    string formdataTemplate = "\r\n–" + boundary + "\r\nContent-Disposition: form-data;  name=\"{0}\"; filename=\"{1}\"\r\n Content-Type: application/octet-stream\r\n\r\n";
+                    var formdata = Encoding.ASCII.GetBytes(string.Format(formdataTemplate, "media", fileName));
+                    requestStream.Write(formdata, 0, formdata.Length);
+
+                    //写入文件
+                    byte[] buffer = new byte[1024];
+                    int bytesRead = 0;
+                    while ((bytesRead = postStream.Read(buffer, 0, buffer.Length)) != 0)
+                    {
+                        requestStream.Write(buffer, 0, bytesRead);
+                    }
+
+                    //结尾
+                    requestStream.Write(boundarybytes, 0, boundarybytes.Length);
+                }
+                else
+                {
+                    //写入文件
+                    byte[] buffer = new byte[1024];
+                    int bytesRead = 0;
+                    while ((bytesRead = postStream.Read(buffer, 0, buffer.Length)) != 0)
+                    {
+                        requestStream.Write(buffer, 0, bytesRead);
+                    }
                 }
 
                 postStream.Close();//关闭文件访问
+
+
             }
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();

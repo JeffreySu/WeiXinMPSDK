@@ -34,6 +34,8 @@ namespace Senparc.Weixin.MP.Test.Agents
             Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageText));
             var strongResponseMessage = responseMessage as ResponseMessageText;
             Assert.IsTrue(strongResponseMessage.Content.Contains("您点击了底部按钮。"));
+
+            Console.Write(strongResponseMessage.Content);
         }
     }
 }

@@ -391,6 +391,13 @@
             <param name="getNewToken">是否强制重新获取新的Token</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.CheckRegistered(System.String)">
+            <summary>
+            检查是否已经注册
+            </summary>
+            <param name="appId"></param>
+            <returns></returns>
+        </member>
         <!-- 对于成员“T:Senparc.Weixin.MP.CommonAPIs.CommonApi”忽略有格式错误的 XML 注释 -->
         <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetToken(System.String,System.String,System.String)">
             <summary>

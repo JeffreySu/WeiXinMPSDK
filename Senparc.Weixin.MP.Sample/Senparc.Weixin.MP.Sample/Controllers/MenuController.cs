@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
 
@@ -35,7 +36,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             try
             {
-                var result = CommonAPIs.CommonApi.GetToken(appId, appSecret);
+                if (!AccessTokenContainer.CheckRegistered(appId))
+                {
+                    AccessTokenContainer.Register(appId, appSecret);
+                }
+                var result = AccessTokenContainer.GetTokenResult(appId); //CommonAPIs.CommonApi.GetToken(appId, appSecret);
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)

@@ -6,34 +6,32 @@
 @section HeaderContent
 {
     <style>
-        .txtButton
-        {
+        .txtButton {
             width: 150px;
         }
 
-        select.dllButtonDetails
-        {
+        select.dllButtonDetails {
             padding: 5px;
         }
 
-            select.dllButtonDetails option
-            {
+            select.dllButtonDetails option {
                 padding: 5px;
             }
 
-        .txtButtonDetails
-        {
+        .txtButtonDetails {
             width: 200px;
         }
 
-        .txtToken
-        {
+        .txtToken {
             width: 80%;
         }
 
-        .submitArea
-        {
+        .submitArea {
             clear: both;
+        }
+
+        .leftArea {
+            width: 450px;
         }
     </style>
 }
@@ -42,20 +40,24 @@
     <h3 class="float-right">已全面支持二级菜单、点击事件和<em>访问网页</em>。</h3>
     <div class="clear-fix"></div>
     <div id="menuLogin">
-        <div class="float-left">
+        <div class="leftArea float-left">
             <h3>获取AccessToken</h3>
             <p>AppId：<input id="menuLogin_AppId" type="text" /></p>
             <p>AppSecret：<input id="menuLogin_AppSecret" type="text" /></p>
             <p>
                 <input id="menuLogin_Submit" type="button" value="获取AccessToken" />
             </p>
-            <p>注：需要成为“服务号”，到微信后台【高级功能 > 开发模式】下获取信息。</p>
+            <p>
+                注：<br />
+                1、使用菜单需要成为“服务号”，或通过认证的“订阅好”。到微信后台【高级功能 > 开发模式】下获取信息。<br />
+                2、这里的Token已经使用AccessTokenContainer管理起来，有效期内不会重复获取，过了有效期自动获取。也就是说如果已经在本网页上获取一次，接下去只需要提供AppId即可（直到服务器重启或列队过长被清理）。
+            </p>
         </div>
         <div class="float-right">
             <h3>或：</h3>
             <p>
                 我有当前可用Token：<input id="menuLogin_OldToken" type="text" /><br />
-                <input id="menuLogin_SubmitOldToken" type="button" value="直接使用" />请确保此Token可用，否则接下去可能出错<br/>
+                <input id="menuLogin_SubmitOldToken" type="button" value="直接使用" />请确保此Token可用，否则接下去可能出错<br />
                 注：这个Token是通过AppId和AppSecret得到的自动生成的Token。
             </p>
         </div>
@@ -78,7 +80,7 @@
         {
             <p>
                 当前Token:
-                <input id="tokenStr" name="token" type="text" class="txtToken" readonly="readonly" />
+                <input id="tokenStr" name="token" type="text" class="txtToken" readonly="readonly" /><br />
             </p>
             <p>
                 <input id="btnGetMenu" type="button" value="获取当前菜单" />

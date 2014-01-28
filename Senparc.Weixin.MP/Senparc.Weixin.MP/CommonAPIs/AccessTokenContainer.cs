@@ -66,5 +66,15 @@ namespace Senparc.Weixin.MP.CommonAPIs
             }
             return accessTokenBag.AccessTokenResult;
         }
+
+        /// <summary>
+        /// 检查是否已经注册
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <returns></returns>
+        public static bool CheckRegistered(string appId)
+        {
+            return AccessTokenCollection.ContainsKey(appId);
+        }
     }
 }

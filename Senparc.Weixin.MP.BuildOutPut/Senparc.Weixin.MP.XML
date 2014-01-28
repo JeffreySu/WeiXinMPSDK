@@ -131,6 +131,23 @@
             此属性在CreateGroupResult的Json数据中，创建结果中始终为0
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.Upload(System.String,Senparc.Weixin.MP.UploadMediaFileType,System.String)">
+            <summary>
+            上传媒体文件
+            </summary>
+            <param name="accessToken"></param>
+            <param name="type"></param>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.Get(System.String,System.String,System.IO.Stream)">
+            <summary>
+            下载媒体文件
+            </summary>
+            <param name="accessToken"></param>
+            <param name="mediaId"></param>
+            <param name="stream"></param>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OAuthAccessTokenResult">
             <summary>
             获取OAuth AccessToken的结果
@@ -351,6 +368,27 @@
             <param name="timestamp"></param>
             <param name="nonce"></param>
             <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer">
+            <summary>
+            通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetToken(System.String,System.Boolean)">
+            <summary>
+            获取可用Token
+            </summary>
+            <param name="appId"></param>
+            <param name="getNewToken">是否强制重新获取新的Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetTokenResult(System.String,System.Boolean)">
+            <summary>
+            获取可用Token
+            </summary>
+            <param name="appId"></param>
+            <param name="getNewToken">是否强制重新获取新的Token</param>
             <returns></returns>
         </member>
         <!-- 对于成员“T:Senparc.Weixin.MP.CommonAPIs.CommonApi”忽略有格式错误的 XML 注释 -->
@@ -864,22 +902,22 @@
         </member>
         <member name="F:Senparc.Weixin.MP.UploadMediaFileType.image">
             <summary>
-            图片
+            图片: 128K，支持JPG格式
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.UploadMediaFileType.voice">
             <summary>
-            语音
+            语音：256K，播放长度不超过60s，支持AMR\MP3格式
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.UploadMediaFileType.video">
             <summary>
-            视频
+            视频：1MB，支持MP4格式
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.UploadMediaFileType.thumb">
             <summary>
-            thumb
+            thumb：64KB，支持JPG格式
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.ReturnCode">
@@ -1026,14 +1064,13 @@
             <param name="returnText"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.HttpUtility.Post.PostGetJson``1(System.String,System.Net.CookieContainer,System.String,System.Text.Encoding)">
+        <member name="M:Senparc.Weixin.MP.HttpUtility.Post.PostFileGetJson``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding)">
             <summary>
             发起Post请求
             </summary>
             <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
             <param name="url">请求Url</param>
             <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
-            <param name="fileName">要发送的文件名，如果不需要上传则设为null</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.HttpUtility.Post.PostGetJson``1(System.String,System.Net.CookieContainer,System.IO.Stream,System.Text.Encoding)">
@@ -1064,25 +1101,18 @@
         </member>
         <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding)">
             <summary>
-            使用Post方法获取字符串结果
+            使用Post方法获取字符串结果，常规提交
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.String,System.Text.Encoding)">
-            <summary>
-            使用Post方法获取字符串结果
-            </summary>
-            <param name="url"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.IO.Stream,System.Boolean,System.String,System.Text.Encoding)">
+        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.IO.Stream,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Text.Encoding)">
             <summary>
             使用Post方法获取字符串结果
             </summary>
             <param name="url"></param>
             <param name="cookieContainer"></param>
             <param name="postStream"></param>
-            <param name="isFile">postStreams是否是文件流</param>
+            <param name="fileDictionary">需要上传的文件，Key：对应要上传的Name，Value：本地文件名</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.IsWeixinClientRequest(System.Web.HttpContext)">

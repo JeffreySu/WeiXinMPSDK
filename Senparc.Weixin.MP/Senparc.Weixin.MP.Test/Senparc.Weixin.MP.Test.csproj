@@ -73,6 +73,7 @@
     <Compile Include="AdvancedAPIs\User\CustomTest.cs" />
     <Compile Include="Agents\MessageAgentTest.cs" />
     <Compile Include="CheckSignatureTest.cs" />
+    <Compile Include="CommonAPIs\AccessTokenContainerTest.cs" />
     <Compile Include="CommonAPIs\CommonApiTest.cs" />
     <Compile Include="Context\MessageContainerTest.cs" />
     <Compile Include="Context\WeixinContextTest.cs" />

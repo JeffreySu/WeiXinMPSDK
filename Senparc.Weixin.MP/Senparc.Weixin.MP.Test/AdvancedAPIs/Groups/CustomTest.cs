@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 
@@ -16,9 +17,9 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void CreateTest()
         {
-            LoadToken();
+            var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = Groups.Create(base.tokenResult.access_token, "测试组");
+            var result = Groups.Create(accessToken, "测试组");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.group.id >= 100);
         }
@@ -26,9 +27,9 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetTest()
         {
-            LoadToken();
+            var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = Groups.Get(base.tokenResult.access_token);
+            var result = Groups.Get(accessToken);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.groups.Count >= 3);
         }
@@ -36,9 +37,9 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetIdTest()
         {
-            LoadToken();
+            var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = Groups.GetId(base.tokenResult.access_token, _testOpenId);
+            var result = Groups.GetId(accessToken, _testOpenId);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.groupid >= 0);
         }
@@ -46,9 +47,9 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void UpdateTest()
         {
-            LoadToken();
+            var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = Groups.Update(base.tokenResult.access_token, 100, "测试组更新");
+            var result = Groups.Update(accessToken, 100, "测试组更新");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }
@@ -56,15 +57,15 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void MemberUpdateTest()
         {
-            LoadToken();
+            var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var idArr = new[] { 0, 1, 2, 100,0 };
+            var idArr = new[] { 0, 1, 2, 100, 0 };
             foreach (var id in idArr)
             {
-                var result = Groups.MemberUpdate(base.tokenResult.access_token, _testOpenId, id);
+                var result = Groups.MemberUpdate(accessToken, _testOpenId, id);
                 Assert.IsNotNull(result);
                 Assert.IsTrue(result.errcode == ReturnCode.请求成功);
-                var newGroupIdResult = Groups.GetId(base.tokenResult.access_token, _testOpenId);
+                var newGroupIdResult = Groups.GetId(accessToken, _testOpenId);
                 Assert.AreEqual(id, newGroupIdResult.groupid);
             }
         }

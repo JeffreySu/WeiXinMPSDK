@@ -68,6 +68,7 @@
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
     <Compile Include="Agents\MessageAgent.cs" />
     <Compile Include="CheckSignature.cs" />
+    <Compile Include="CommonAPIs\AccessTokenContainer.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Context\MessageContainer.cs" />

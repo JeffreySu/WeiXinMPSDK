@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 
@@ -18,9 +19,9 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void SendTextTest()
         {
-            LoadToken();
+            var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = Custom.SendText(base.tokenResult.access_token, openId, "来自平台的回复<>&");
+            var result = Custom.SendText(accessToken, openId, "来自平台的回复<>&");
             Assert.IsNotNull(result);
             Assert.AreEqual("ok", result.errmsg);
         }
@@ -28,9 +29,9 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void SendImageTest()
         {
-            LoadToken();
+            var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = Custom.SendImage(base.tokenResult.access_token, openId, "10001037");
+            var result = Custom.SendImage(accessToken, openId, "10001037");
             Assert.IsNotNull(result);
             Assert.AreEqual("ok", result.errmsg);
         }
@@ -38,11 +39,11 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void SendVoiceTest()
         {
-            LoadToken();
+            var accessToken = AccessTokenContainer.GetToken(_appId);
 
             try
             {
-                var result = Custom.SendVoice(base.tokenResult.access_token, openId, "1000018");
+                var result = Custom.SendVoice(accessToken, openId, "1000018");
                 Assert.Fail();//因为这里写测试代码的时候，微信账号还没有权限，所以会抛出异常（故意的），如果是已经开通的应该是“请求成功”
             }
             catch (ErrorJsonResultException ex)
@@ -54,11 +55,11 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void SendVideoTest()
         {
-            LoadToken();
+            var accessToken = AccessTokenContainer.GetToken(_appId);
 
             try
             {
-                var result = Custom.SendVideo(base.tokenResult.access_token, openId, "1000018", "1000012");
+                var result = Custom.SendVideo(accessToken, openId, "1000018", "1000012");
                 Assert.Fail();//因为这里写测试代码的时候，微信账号还没有权限，所以会抛出异常（故意的），如果是已经开通的应该是“请求成功”
             }
             catch (ErrorJsonResultException ex)
@@ -70,7 +71,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void SendNewsTest()
         {
-            LoadToken();
+            var accessToken = AccessTokenContainer.GetToken(_appId);
 
             var articles = new List<Article>();
             articles.Add(new Article()
@@ -88,7 +89,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 PicUrl = "http://weixin.senparc.com/Images/qrcode.jpg"
             });
 
-            var result = Custom.SendNews(base.tokenResult.access_token, openId, articles);
+            var result = Custom.SendNews(accessToken, openId, articles);
             Assert.IsNotNull(result);
             Assert.AreEqual("ok", result.errmsg);
         }

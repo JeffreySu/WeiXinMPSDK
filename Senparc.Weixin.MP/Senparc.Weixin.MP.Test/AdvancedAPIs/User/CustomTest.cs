@@ -5,6 +5,7 @@ using System.Text;
 using System.Web.Script.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 
@@ -18,18 +19,18 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void InfoTest()
         {
-            LoadToken();
+            var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = User.Info(base.tokenResult.access_token, _testOpenId);
+            var result = User.Info(accessToken, _testOpenId);
             Assert.IsNotNull(result);
         }
 
         [TestMethod]
         public void GetTest()
         {
-            LoadToken();
+            var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = User.Get(base.tokenResult.access_token, _testOpenId);
+            var result = User.Get(accessToken, _testOpenId);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.total > 0);
             Assert.IsTrue(result.data == null || result.data.openid.Count > 0);

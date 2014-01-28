@@ -87,7 +87,6 @@ namespace Senparc.Weixin.MP.HttpUtility
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
 
-
             #region 处理Form表单文件上传
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
@@ -152,7 +151,7 @@ namespace Senparc.Weixin.MP.HttpUtility
                 request.CookieContainer = cookieContainer;
             }
 
-            //输入二进制流
+            #region 输入二进制流
             if (postStream != null)
             {
                 postStream.Position = 0;
@@ -169,6 +168,7 @@ namespace Senparc.Weixin.MP.HttpUtility
 
                 postStream.Close();//关闭文件访问
             }
+            #endregion
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 

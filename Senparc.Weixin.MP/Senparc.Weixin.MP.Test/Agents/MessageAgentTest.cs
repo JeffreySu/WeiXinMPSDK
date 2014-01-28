@@ -33,7 +33,7 @@ namespace Senparc.Weixin.MP.Test.Agents
             Assert.IsNotNull(responseMessage);
             Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageText));
             var strongResponseMessage = responseMessage as ResponseMessageText;
-            Assert.AreEqual("您点击了底部按钮。", strongResponseMessage.Content);
+            Assert.IsTrue(strongResponseMessage.Content.Contains("您点击了底部按钮。"));
         }
     }
 }

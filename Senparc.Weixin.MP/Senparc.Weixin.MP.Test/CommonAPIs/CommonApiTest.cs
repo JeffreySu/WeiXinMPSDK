@@ -10,15 +10,17 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
     //[TestClass]
     public partial class CommonApiTest
     {
-        private string _appId = "wxaa572be2f86423fc"; //换成你的信息
-        private string _appSecret = "21a4cdca12444e5c79e4445cb184b38c"; //换成你的信息
+        //private string _appId = "wxaa572be2f86423fc"; //换成你的信息
+        //private string _appSecret = "21a4cdca12444e5c79e4445cb184b38c"; //换成你的信息
+        private string _appId = "wxb65d5174ba1f015b"; //换成你的信息
+        private string _appSecret = "b6762beadec15ef9353d592c2bdf8e2f"; //换成你的信息
 
 
         /* 由于获取accessToken有次数限制，为了节约请求，
         * 可以到 http://weixin.senparc.com/Menu 获取Token之后填入下方，
         * 使用当前可用Token直接进行测试。
         */
-        private string _access_token = null;
+        private string _access_token = null;//"N-OhtYeDfZ8D5AZxFzpqu01-5FLja0VEFf2Ki-U9xWQphEZM9IIhv6NkbqHvLWQ2AZdz1dyqMLAyplomKE2rL_A9NdEJ-L69RyKprLrYyORf-g8EvsLNRnH3wJRpSz5ionCO5s0YLR-l5FeUMZqK4g";
 
         protected string _testOpenId = "oIb08txj1En8hGXzHRvAjf-3X9Oc";
 

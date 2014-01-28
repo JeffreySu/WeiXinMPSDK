@@ -46,11 +46,10 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
         /// <param name="url">请求Url</param>
         /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
-        /// <param name="fileName">要发送的文件名，如果不需要上传则设为null</param>
         /// <returns></returns>
-        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, string fileName = null, Encoding encoding = null)
+        public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Encoding encoding = null)
         {
-            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileName, encoding);
+            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, null, fileDictionary, null, encoding);
             var result = GetResult<T>(returnText);
             return result;
         }
@@ -65,7 +64,7 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// <returns></returns>
         public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null)
         {
-            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileStream, false,null, encoding);
+            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileStream, null, null, encoding);
             var result = GetResult<T>(returnText);
             return result;
         }

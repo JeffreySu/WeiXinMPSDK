@@ -11,7 +11,7 @@ using Senparc.Weixin.MP.Test.CommonAPIs;
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
     //已经通过测试
-    [TestClass]
+    //[TestClass]
     public class UserTest : CommonApiTest
     {
 
@@ -20,7 +20,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             LoadToken();
 
-            var result = User.Info(base.tokenResult.access_token, _testOpenId+"x");
+            var result = User.Info(base.tokenResult.access_token, _testOpenId);
             Assert.IsNotNull(result);
         }
 

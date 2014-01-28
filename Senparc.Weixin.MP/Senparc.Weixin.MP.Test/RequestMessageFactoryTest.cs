@@ -60,11 +60,21 @@ namespace Senparc.Weixin.MP.Test
   <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
   <CreateTime>1361430302</CreateTime>
   <MsgType><![CDATA[video]]></MsgType>
-  <Video>
-    <MediaId><![CDATA[mediaId]]></MediaId>
-    <ThumbMediaId><![CDATA[thumbMediaId]]></ThumbMediaId>
-  </Video> 
+  <MediaId><![CDATA[mediaId]]></MediaId>
+  <ThumbMediaId><![CDATA[thumbMediaId]]></ThumbMediaId>
 </xml>";
+
+//        @"<?xml version=""1.0"" encoding=""utf-8""?>
+//<xml>
+//  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+//  <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+//  <CreateTime>1361430302</CreateTime>
+//  <MsgType><![CDATA[video]]></MsgType>
+//  <Video>
+//    <MediaId><![CDATA[mediaId]]></MediaId>
+//    <ThumbMediaId><![CDATA[thumbMediaId]]></ThumbMediaId>
+//  </Video> 
+//</xml>";
 
         private string xmlLink = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>

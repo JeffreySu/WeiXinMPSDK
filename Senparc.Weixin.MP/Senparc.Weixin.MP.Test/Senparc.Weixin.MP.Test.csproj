@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="AdvancedAPIs\Custom\CustomTest.cs" />
     <Compile Include="AdvancedAPIs\Groups\CustomTest.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaTest.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthTest.cs" />
     <Compile Include="AdvancedAPIs\User\CustomTest.cs" />
     <Compile Include="Agents\MessageAgentTest.cs" />

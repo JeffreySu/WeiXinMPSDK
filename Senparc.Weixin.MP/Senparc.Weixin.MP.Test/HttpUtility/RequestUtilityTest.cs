@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.Test.HttpUtility
             }
 
             //获取字符串结果
-            var actualResult = RequestUtility.HttpPost(url, new CookieContainer(), file);
+            var actualResult = RequestUtility.HttpPost(url, new CookieContainer(), formData: null, encoding: null);
             Assert.IsNotNull(actualResult);
             Console.WriteLine(actualResult);
 

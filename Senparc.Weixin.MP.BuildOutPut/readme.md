@@ -9,6 +9,16 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 
 Senparc.Weixin.MP.dll升级记录
 ----------
+v4.11.0 /2014-01-28
+
+添加媒体文件上传、下载高级接口
+
+添加AccessTokenContainer管理器
+
+v4.9.0 /2013-01-27
+
+添加获取用户分组ID的高级接口
+
 v4.8.0 /2013-12-25
 
 丰富了JSON通讯的消息返回类型

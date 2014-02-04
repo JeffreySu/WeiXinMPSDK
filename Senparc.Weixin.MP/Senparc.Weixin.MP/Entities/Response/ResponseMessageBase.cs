@@ -105,6 +105,11 @@ namespace Senparc.Weixin.MP.Entities
         {
             try
             {
+                if (string.IsNullOrEmpty(xml))
+                {
+                    return null;
+                }
+
                 var doc = XDocument.Parse(xml);
                 ResponseMessageBase responseMessage = null;
                 var msgType = (ResponseMsgType)Enum.Parse(typeof(ResponseMsgType), doc.Root.Element("MsgType").Value, true);
@@ -126,7 +131,7 @@ namespace Senparc.Weixin.MP.Entities
             }
             catch (Exception ex)
             {
-                throw new WeixinException("ResponseMessageBase.CreateFromResponseXml<T>过程发生异常！", ex);
+                throw new WeixinException("ResponseMessageBase.CreateFromResponseXml<T>过程发生异常！" + ex.Message, ex);
             }
         }
     }

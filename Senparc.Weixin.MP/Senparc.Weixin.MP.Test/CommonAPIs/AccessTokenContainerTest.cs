@@ -24,6 +24,16 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             //只获取Token字符串
             var token = AccessTokenContainer.GetToken(base._appId);
             Assert.AreEqual(tokenResult.access_token, token);
+
+            //getNewToken
+            {
+                token = AccessTokenContainer.TryGetToken(base._appId, base._appSecret, false);
+                Assert.AreEqual(tokenResult.access_token, token);
+
+                token = AccessTokenContainer.TryGetToken(base._appId, base._appSecret, true);
+                Assert.AreNotEqual(tokenResult.access_token, token);
+            }
+
         }
     }
 }

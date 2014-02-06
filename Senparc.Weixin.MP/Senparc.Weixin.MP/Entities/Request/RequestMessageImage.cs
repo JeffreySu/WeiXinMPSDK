@@ -11,6 +11,8 @@ namespace Senparc.Weixin.MP.Entities
         {
             get { return RequestMsgType.Image; }
         }
+
+        public string MediaId { get; set; }
         public string PicUrl { get; set; }
     }
 }

@@ -71,7 +71,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 touser = openId,
                 msgtype = "voice",
-                image = new
+                voice = new
                 {
                     media_id = mediaId
                 }
@@ -93,7 +93,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 touser = openId,
                 msgtype = "video",
-                image = new
+                video = new
                 {
                     media_id = mediaId,
                     thumb_media_id = thumbMediaId

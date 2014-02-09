@@ -161,7 +161,7 @@
 
     <footer>
         <p>新浪微博：<a href="http://weibo.com/jeffreysu1984" target="_blank">@苏震巍</a> QQ：498977166</p>
-        <p>&copy;2013 Senparc</p>
+        <p>&copy;2006-2014 Senparc</p>
     </footer>
 </body>
 </html>

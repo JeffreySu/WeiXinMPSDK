@@ -182,4 +182,23 @@ namespace Senparc.Weixin.MP
         发送消息失败_对方关闭了接收消息 = 10703,
         对方不是粉丝 = 10700
     }
+
+    /// <summary>
+    /// 语言
+    /// </summary>
+    public enum Language
+    {
+        /// <summary>
+        /// 中文简体
+        /// </summary>
+        zh_CN,
+        /// <summary>
+        /// 中文繁体
+        /// </summary>
+        zh_TW,
+        /// <summary>
+        /// 英文
+        /// </summary>
+        en
+    }
 }

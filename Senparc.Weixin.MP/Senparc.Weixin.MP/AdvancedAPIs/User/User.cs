@@ -12,13 +12,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取用户信息
         /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="openId"></param>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="openId">普通用户的标识，对当前公众号唯一</param>
+        /// <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
         /// <returns></returns>
-        public static UserInfoJson Info(string accessToken, string openId)
+        public static UserInfoJson Info(string accessToken, string openId, Language lang = Language.zh_CN)
         {
-            string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}",
-                accessToken, openId);
+            string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}&lang={2}",
+                accessToken, openId, lang.ToString());
             return HttpUtility.Get.GetJson<UserInfoJson>(url);
 
             //错误时微信会返回错误码等信息，JSON数据包示例如下（该示例为AppID无效错误）:

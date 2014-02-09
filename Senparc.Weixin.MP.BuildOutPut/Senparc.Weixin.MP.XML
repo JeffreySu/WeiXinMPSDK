@@ -241,12 +241,13 @@
             <param name="ticket"></param>
             <param name="stream"></param>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.User.Info(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.User.Info(System.String,System.String,Senparc.Weixin.MP.Language)">
             <summary>
             获取用户信息
             </summary>
-            <param name="accessToken"></param>
-            <param name="openId"></param>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="openId">普通用户的标识，对当前公众号唯一</param>
+            <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.User.Get(System.String,System.String)">
@@ -946,6 +947,26 @@
         <member name="T:Senparc.Weixin.MP.ReturnCode">
             <summary>
             返回码（JSON）
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Language">
+            <summary>
+            语言
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Language.zh_CN">
+            <summary>
+            中文简体
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Language.zh_TW">
+            <summary>
+            中文繁体
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Language.en">
+            <summary>
+            英文
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.ErrorJsonResultException">

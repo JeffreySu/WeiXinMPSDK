@@ -10,6 +10,10 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 Senparc.Weixin.MP.dll升级记录
 ----------
 
+v5.0.0 /2014-02-13
+
+添加图片、语音、视频返回类型
+
 v4.13.0 /2014-02-09
 
 添加高级接口中的语种选择

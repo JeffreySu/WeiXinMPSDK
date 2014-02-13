@@ -88,32 +88,70 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
             }
             #endregion
 
-            #region News
+            #region Image
             {
-                var responseMessageNews = @"<?xml version=""1.0"" encoding=""utf-8""?>
+                var responseMessageImage = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
   <ToUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></ToUserName>
   <FromUserName><![CDATA[gh_a96a4a619366]]></FromUserName>
-  <CreateTime>1384322646</CreateTime>
-  <MsgType>news</MsgType>
-  <ArticleCount>1</ArticleCount>
-  <Articles>
-    <item>
-      <Title><![CDATA[您点击了子菜单图文按钮]]></Title>
-      <Description><![CDATA[您点击了子菜单图文按钮，这是一条图文信息。]]></Description>
-      <PicUrl><![CDATA[http://weixin.senparc.com/Images/qrcode.jpg]]></PicUrl>
-      <Url><![CDATA[http://weixin.senparc.com]]></Url>
-    </item>
-  </Articles>
-  <FuncFlag>0</FuncFlag>
+  <CreateTime>1384322770</CreateTime>
+  <MsgType><![CDATA[image]]></MsgType>
+  <Image>
+    <MediaId><![CDATA[media_id]]></MediaId>
+  </Image>
 </xml>";
-                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageNews);
-                Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageNews));
-                var strongResponseMessage = responseMessage as ResponseMessageNews;
+                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageImage);
+                Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageImage));
+                var strongResponseMessage = responseMessage as ResponseMessageImage;
                 Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", strongResponseMessage.ToUserName);
                 Assert.AreEqual("gh_a96a4a619366", strongResponseMessage.FromUserName);
-                Assert.AreEqual(1, strongResponseMessage.ArticleCount);
-                Assert.AreEqual("您点击了子菜单图文按钮", strongResponseMessage.Articles[0].Title);
+                Assert.AreEqual("media_id", strongResponseMessage.Image.MediaId);
+            }
+            #endregion
+
+            #region Voice
+            {
+                var responseMessageImage = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <ToUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></ToUserName>
+  <FromUserName><![CDATA[gh_a96a4a619366]]></FromUserName>
+  <CreateTime>1384322770</CreateTime>
+  <MsgType><![CDATA[voice]]></MsgType>
+  <Voice>
+    <MediaId><![CDATA[media_id]]></MediaId>
+  </Voice>
+</xml>";
+                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageImage);
+                Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageVoice));
+                var strongResponseMessage = responseMessage as ResponseMessageVoice;
+                Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", strongResponseMessage.ToUserName);
+                Assert.AreEqual("gh_a96a4a619366", strongResponseMessage.FromUserName);
+                Assert.AreEqual("media_id", strongResponseMessage.Voice.MediaId);
+            }
+            #endregion
+
+            #region Video
+            {
+                var responseMessageImage = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <ToUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></ToUserName>
+  <FromUserName><![CDATA[gh_a96a4a619366]]></FromUserName>
+  <CreateTime>1384322770</CreateTime>
+  <MsgType><![CDATA[video]]></MsgType>
+  <Video>
+    <MediaId><![CDATA[media_id]]></MediaId>
+    <Title><![CDATA[title]]></Title>
+    <Description><![CDATA[description]]></Description>
+  </Video> 
+</xml>";
+                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageImage);
+                Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageVideo));
+                var strongResponseMessage = responseMessage as ResponseMessageVideo;
+                Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", strongResponseMessage.ToUserName);
+                Assert.AreEqual("gh_a96a4a619366", strongResponseMessage.FromUserName);
+                Assert.AreEqual("media_id", strongResponseMessage.Video.MediaId);
+                Assert.AreEqual("title", strongResponseMessage.Video.Title);
+                Assert.AreEqual("description", strongResponseMessage.Video.Description);
             }
             #endregion
 
@@ -144,6 +182,36 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
                 Assert.AreEqual("", strongResponseMessage.Music.HQMusicUrl);
             }
             #endregion
+
+            #region News
+            {
+                var responseMessageNews = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <ToUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></ToUserName>
+  <FromUserName><![CDATA[gh_a96a4a619366]]></FromUserName>
+  <CreateTime>1384322646</CreateTime>
+  <MsgType>news</MsgType>
+  <ArticleCount>1</ArticleCount>
+  <Articles>
+    <item>
+      <Title><![CDATA[您点击了子菜单图文按钮]]></Title>
+      <Description><![CDATA[您点击了子菜单图文按钮，这是一条图文信息。]]></Description>
+      <PicUrl><![CDATA[http://weixin.senparc.com/Images/qrcode.jpg]]></PicUrl>
+      <Url><![CDATA[http://weixin.senparc.com]]></Url>
+    </item>
+  </Articles>
+  <FuncFlag>0</FuncFlag>
+</xml>";
+                var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageNews);
+                Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageNews));
+                var strongResponseMessage = responseMessage as ResponseMessageNews;
+                Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", strongResponseMessage.ToUserName);
+                Assert.AreEqual("gh_a96a4a619366", strongResponseMessage.FromUserName);
+                Assert.AreEqual(1, strongResponseMessage.ArticleCount);
+                Assert.AreEqual("您点击了子菜单图文按钮", strongResponseMessage.Articles[0].Title);
+            }
+            #endregion
+
         }
     }
 }

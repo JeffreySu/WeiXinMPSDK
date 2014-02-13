@@ -7,6 +7,10 @@ using Senparc.Weixin.MP.HttpUtility;
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     //接口详见：http://mp.weixin.qq.com/wiki/index.php?title=%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF
+    
+    /// <summary>
+    /// 用户接口
+    /// </summary>
     public static class User
     {
         /// <summary>

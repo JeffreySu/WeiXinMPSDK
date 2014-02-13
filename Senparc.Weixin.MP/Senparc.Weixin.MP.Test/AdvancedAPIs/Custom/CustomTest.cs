@@ -11,7 +11,7 @@ using Senparc.Weixin.MP.Test.CommonAPIs;
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
     //已经通过测试
-    //[TestClass]
+    [TestClass]
     public class CustomTest : CommonApiTest
     {
         private string openId = "omOTCt0E8gm6J2Fg0ArAaPS3_os8";
@@ -21,7 +21,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = Custom.SendText(accessToken, openId, "来自平台的回复<>&");
+            var result = Custom.SendText(accessToken, openId, "来自平台的回复<>&\n换行了");
             Assert.IsNotNull(result);
             Assert.AreEqual("ok", result.errmsg);
         }

@@ -98,6 +98,8 @@ namespace Senparc.Weixin.MP.Test
                 Assert.AreEqual(result.Articles.Count, result.ArticleCount);
             }
 
+            //TODO：测试语音和视频类型
+
             {
                 //Music
                 ResponseMessageMusic exceptResult = new ResponseMessageMusic()

@@ -118,11 +118,21 @@ namespace Senparc.Weixin.MP.Entities
                     case ResponseMsgType.Text:
                         responseMessage = new ResponseMessageText();
                         break;
-                    case ResponseMsgType.News:
-                        responseMessage = new ResponseMessageNews();
+                    case ResponseMsgType.Image:
+                        responseMessage = new ResponseMessageImage();
+                        break;
+                    case ResponseMsgType.Voice:
+                        responseMessage = new ResponseMessageVoice();
+                        break;
+                    case ResponseMsgType.Video:
+                        responseMessage = new ResponseMessageVideo();
                         break;
                     case ResponseMsgType.Music:
                         responseMessage = new ResponseMessageMusic();
+                        break;
+                    case ResponseMsgType.News:
+                        responseMessage = new ResponseMessageNews();
+                        break;
                         break;
                 }
 

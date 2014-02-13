@@ -4,6 +4,11 @@
         <name>Senparc.Weixin.MP</name>
     </assembly>
     <members>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Custom">
+            <summary>
+            客服接口
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.SendText(System.String,System.String,System.String)">
             <summary>
             发送文本信息
@@ -87,6 +92,11 @@
             获取用户分组ID返回结果
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Groups">
+            <summary>
+            用户组接口
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.Create(System.String,System.String)">
             <summary>
             创建分组
@@ -129,6 +139,11 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.GroupsJson_Group.count">
             <summary>
             此属性在CreateGroupResult的Json数据中，创建结果中始终为0
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media">
+            <summary>
+            多媒体文件接口
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.Upload(System.String,Senparc.Weixin.MP.UploadMediaFileType,System.String)">
@@ -225,6 +240,11 @@
             二维码创建返回结果
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.QrCode">
+            <summary>
+            二维码接口
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCode.Create(System.String,System.Int32,System.Int32)">
             <summary>
             创建二维码
@@ -240,6 +260,11 @@
             </summary>
             <param name="ticket"></param>
             <param name="stream"></param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User">
+            <summary>
+            用户接口
+            </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.User.Info(System.String,System.String,Senparc.Weixin.MP.Language)">
             <summary>
@@ -842,11 +867,6 @@
         <member name="P:Senparc.Weixin.MP.Entities.ResponseMessageNews.Articles">
             <summary>
             文章列表，微信客户端只能输出前10条（可能未来数字会有变化，出于视觉效果考虑，建议控制在8条以内）
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageImage">
-            <summary>
-            需要预先上传多媒体文件到微信服务器，只支持认证服务号。
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageVoice">

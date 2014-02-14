@@ -127,20 +127,32 @@ namespace Senparc.Weixin.MP.Helpers
             /* 注意！
              * 经过测试，微信对字段排序有严格要求，这里对排序进行强制约束
             */
-            var propNameOrder = new List<string>();
+            var propNameOrder = new List<string>() { "ToUserName", "FromUserName", "CreateTime", "MsgType" };
             //不同返回类型需要对应不同特殊格式的排序
             if (entity is ResponseMessageNews)
             {
-                propNameOrder.AddRange(new[] { "ToUserName", "FromUserName", "CreateTime", "MsgType", "Content", "ArticleCount", "Articles", "FuncFlag",/*以下是Atricle属性*/ "Title ", "Description ", "PicUrl", "Url" });
+                propNameOrder.AddRange(new[] { "ArticleCount", "Articles", "FuncFlag",/*以下是Atricle属性*/ "Title ", "Description ", "PicUrl", "Url" });
             }
             else if (entity is ResponseMessageMusic)
             {
-                propNameOrder.AddRange(new[] { "ToUserName", "FromUserName", "CreateTime", "MsgType", "Music", "FuncFlag",/*以下是Music属性*/ "Title ", "Description ", "MusicUrl", "HQMusicUrl" });
+                propNameOrder.AddRange(new[] { "Music", "FuncFlag",/*以下是Music属性*/ "Title ", "Description ", "MusicUrl", "HQMusicUrl" });
+            }
+            else if (entity is ResponseMessageImage)
+            {
+                propNameOrder.AddRange(new[] { "Image",/*以下是Image属性*/ "MediaId " });
+            }
+            else if (entity is ResponseMessageVoice)
+            {
+                propNameOrder.AddRange(new[] { "Voice",/*以下是Voice属性*/ "MediaId " });
+            }
+            else if (entity is ResponseMessageVideo)
+            {
+                propNameOrder.AddRange(new[] { "Video",/*以下是Video属性*/ "MediaId ", "Title", "Description" });
             }
             else
             {
                 //如Text类型
-                propNameOrder.AddRange(new[] { "ToUserName", "FromUserName", "CreateTime", "MsgType", "Content", "FuncFlag" });
+                propNameOrder.AddRange(new[] { "Content", "FuncFlag" });
             }
 
             Func<string, int> orderByPropName = propNameOrder.IndexOf;
@@ -161,12 +173,12 @@ namespace Senparc.Weixin.MP.Helpers
                     }
                     root.Add(atriclesElement);
                 }
-                else if (propName == "Music")
+                else if (propName == "Music" || propName == "Image" || propName == "Video" || propName == "Voice")
                 {
-                    //音乐格式
-                    var musicElement = new XElement("Music");
-                    var music = prop.GetValue(entity, null) as Music;
-                    var subNodes = ConvertEntityToXml(music).Root.Elements();
+                    //音乐、图片、视频、语音格式
+                    var musicElement = new XElement(propName);
+                    var media = prop.GetValue(entity, null);// as Music;
+                    var subNodes = ConvertEntityToXml(media).Root.Elements();
                     musicElement.Add(subNodes);
                     root.Add(musicElement);
                 }
@@ -192,7 +204,7 @@ namespace Senparc.Weixin.MP.Helpers
                             }
                             break;
                         case "ResponseMsgType":
-                            root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
+                            root.Add(new XElement(propName, new XCData(prop.GetValue(entity, null).ToString().ToLower())));
                             break;
                         case "Article":
                             root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));

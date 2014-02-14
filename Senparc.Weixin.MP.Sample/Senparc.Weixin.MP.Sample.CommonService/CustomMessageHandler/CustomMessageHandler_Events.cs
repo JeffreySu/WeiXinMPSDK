@@ -15,6 +15,24 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
     /// </summary>
     public partial class CustomMessageHandler
     {
+        private string GetWelcomeInfo()
+        {
+            //获取Senparc.Weixin.MP.dll版本信息
+            var fileVersionInfo = FileVersionInfo.GetVersionInfo(HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll"));
+            var version = string.Format("{0}.{1}", fileVersionInfo.FileMajorPart, fileVersionInfo.FileMinorPart);
+            return string.Format(
+@"欢迎关注【Senparc.Weixin.MP 微信公众平台SDK】，当前运行版本：v{0}。
+您可以发送【文字】【位置】【图片】【语音】等不同类型的信息，查看不同格式的回复。
+
+您也可以直接点击菜单查看各种类型的回复。
+
+SDK官方地址：http://weixin.senparc.com
+源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK
+Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
+                version);
+        }
+
+
         public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
         {
             IResponseMessageBase reponseMessage = null;
@@ -55,6 +73,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                         strongResponseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
                     }
                     break;
+                case "SubClickRoot_Image":
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageImage>();
+                        reponseMessage = strongResponseMessage;
+                        strongResponseMessage.Image.MediaId = "Mj0WUTZeeG9yuBKhGP7iR5n1xUJO9IpTjGNC4buMuswfEOmk6QSIRb_i98do5nwo";
+                    }
+                    break;
                 case "SubClickRoot_Agent"://代理消息
                     {
                         //获取返回的XML
@@ -91,6 +116,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                         reponseMessage = strongResponseMessage;
                     }
                     break;
+                case "Description":
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
+                        strongResponseMessage.Content = GetWelcomeInfo();
+                        reponseMessage = strongResponseMessage;
+                    }
+                    break;
             }
 
             return reponseMessage;
@@ -118,17 +150,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         public override IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
         {
             var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
-
-            //获取Senparc.Weixin.MP.dll版本信息
-            var fileVersionInfo = FileVersionInfo.GetVersionInfo(HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll"));
-            var version = string.Format("{0}.{1}", fileVersionInfo.FileMajorPart, fileVersionInfo.FileMinorPart);
-            responseMessage.Content = string.Format(
-@"欢迎关注【Senparc.Weixin.MP 微信公众平台SDK】，当前运行版本：v{0}。
-您可以发送【文字】【位置】【图片】【语音】等不同类型的信息，查看不同格式的回复。
-
-SDK官方地址：http://weixin.senparc.com
-源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK",
-                version);
+            responseMessage.Content = GetWelcomeInfo();
             return responseMessage;
         }
 

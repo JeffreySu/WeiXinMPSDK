@@ -75,7 +75,8 @@ namespace Senparc.Weixin.MP.Test
         [TestMethod]
         public void ConvertEntityToXml_ImageTest()
         {
-            var imageXML = @"<?xml version=""1.0"" encoding=""utf-8""?>
+            {
+                var imageRequestXML = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
   <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
   <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
@@ -83,28 +84,51 @@ namespace Senparc.Weixin.MP.Test
   <MsgType><![CDATA[image]]></MsgType>
   <PicUrl><![CDATA[http://mmsns.qpic.cn/mmsns/ZxBXNzgHyUqazGkXUvujSOOHruk6XP5P9984HOCSATlW1orZDlpdCA/0]]></PicUrl>
   <MsgId>5832552599987382826</MsgId>
+  <MediaId><![CDATA[Mj0WUTZeeG9yuBKhGP7iR5n1xUJO9IpTjGNC4buMuswfEOmk6QSIRb_i98do5nwo]]></MediaId>
 </xml>";
-            var doc = XDocument.Parse(imageXML);
-            var requestEntity = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageImage;
-            Assert.IsNotNull(requestEntity);
+                var doc = XDocument.Parse(imageRequestXML);
+                var requestEntity = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageImage;
+                Assert.IsNotNull(requestEntity);
 
-            var responseNews =
-                    ResponseMessageBase.CreateFromRequestMessage(requestEntity, ResponseMsgType.News) as
-                    ResponseMessageNews;
-            Assert.IsNotNull(responseNews);
+                //var responseNews =
+                //        ResponseMessageBase.CreateFromRequestMessage(requestEntity, ResponseMsgType.News) as
+                //        ResponseMessageNews;
+                //Assert.IsNotNull(responseNews);
 
-            responseNews.Articles.Add(new Article()
-            {
-                Description = "测试说明",
-                Title = "测试标题",
-                Url = "http://www.senparc.com",
-                PicUrl = requestEntity.PicUrl
-            });
-            Assert.AreEqual(1, responseNews.ArticleCount);
+                //responseNews.Articles.Add(new Article()
+                //{
+                //    Description = "测试说明",
+                //    Title = "测试标题",
+                //    Url = "http://www.senparc.com",
+                //    PicUrl = requestEntity.PicUrl
+                //});
+                //Assert.AreEqual(1, responseNews.ArticleCount);
 
-            var responseDoc = EntityHelper.ConvertEntityToXml(responseNews);
-            Console.WriteLine(responseDoc.ToString());
-            Assert.AreEqual(requestEntity.PicUrl, responseDoc.Root.Element("Articles").Elements("item").First().Element("PicUrl").Value);
+                //var responseDoc = EntityHelper.ConvertEntityToXml(responseNews);
+                //Console.WriteLine(responseDoc.ToString());
+                //Assert.AreEqual(requestEntity.PicUrl, responseDoc.Root.Element("Articles").Elements("item").First().Element("PicUrl").Value);
+   
+
+                //返回图片信息
+                var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageImage>(requestEntity);
+                responseMessage.Image.MediaId = requestEntity.MediaId;
+                var responseDoc = EntityHelper.ConvertEntityToXml(responseMessage);
+                Assert.IsNotNull(responseDoc);
+
+            }
+
+//            {
+//                var imageResponseXML = @"<?xml version=""1.0"" encoding=""utf-8""?>
+//<xml>
+//  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+//<FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+//<CreateTime>1392354263</CreateTime>
+//<MsgType><![CDATA[image]]></MsgType>
+//<PicUrl><![CDATA[http://mmbiz.qpic.cn/mmbiz/ZxBXNzgHyUqDOeR0nSWZ4ibeF49C2yBbUB9tltJaFLqvjvDOUkt1tgp3q2cr1KZMLRsHHA2380sAggSPRuRMjicQ/0]]></PicUrl>
+//<MsgId>5980116024231210973</MsgId>
+//<MediaId><![CDATA[Mj0WUTZeeG9yuBKhGP7iR5n1xUJO9IpTjGNC4buMuswfEOmk6QSIRb_i98do5nwo]]></MediaId>
+//</xml>";
+//            }
         }
 
         [TestMethod]

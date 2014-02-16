@@ -343,8 +343,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.ENTER:
                     responseMessage = OnEvent_EnterRequest(RequestMessage as RequestMessageEvent_Enter);
                     break;
-                case Event.LOCATION:
-                    responseMessage = OnEvent_LocationRequest(RequestMessage as RequestMessageEvent_Location);//目前实际无效
+                case Event.LOCATION://自动发送的用户当前位置
+                    responseMessage = OnEvent_LocationRequest(RequestMessage as RequestMessageEvent_Location);
                     break;
                 case Event.subscribe://订阅
                     responseMessage = OnEvent_SubscribeRequest(RequestMessage as RequestMessageEvent_Subscribe);

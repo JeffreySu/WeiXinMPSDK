@@ -48,7 +48,7 @@
                     当前Demo运行的Senparc.Weixin.MP.dll版本：<a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut" target="_blank">v<%= DllVersion %></a><br />
                 </p>
                 <p>
-                    技术交流QQ群：1群：300313885（已满） 2群：293958349（已满）  3群：342319110
+                    技术交流QQ群：1群：300313885（已满） 2群：293958349（已满）  3群：342319110 <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=5e967270bcf5aa85e123c85d8061cc166ee2fe70186c6b77d1618a6736313d4f"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Senparc.Weixin.MPSDK 3群" title="Senparc.Weixin.MPSDK 3群"></a>
                 </p>
                 <p>
                     业务联系QQ：498977166

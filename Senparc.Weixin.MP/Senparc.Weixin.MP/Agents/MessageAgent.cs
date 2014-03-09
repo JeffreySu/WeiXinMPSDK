@@ -76,16 +76,16 @@ namespace Senparc.Weixin.MP.Agent
         /// 对接Souidea（P2P）平台，获取Xml结果，使用WeiWeiHiKey对接
         /// WeiWeiHiKey的获取方式请看：
         /// </summary>
-        /// <param name="souideKey"></param>
+        /// <param name="weiweihiKey"></param>
         /// <param name="xml"></param>
         /// <returns></returns>
-        public static string RequestWeiWeiHiXml(this IMessageHandler messageHandler, string souideKey, string xml, string souideaDomainName = "www.souidea.com")
+        public static string RequestWeiWeiHiXml(this IMessageHandler messageHandler, string weiweihiKey, string xml, string weiweihiDomainName = "www.weiweihi.com")
         {
             if (messageHandler != null)
             {
                 messageHandler.UsedMessageAgent = true;
             }
-            var url = "http://" + souideaDomainName + "/App/Weixin?WeiWeiHiKey=" + souideKey;//官方地址
+            var url = "http://" + weiweihiDomainName + "/App/Weixin?weiweihiKey=" + weiweihiKey;//官方地址
             using (MemoryStream ms = new MemoryStream())
             {
                 //这里用ms模拟Request.InputStream
@@ -94,7 +94,7 @@ namespace Senparc.Weixin.MP.Agent
                     sw.Write(xml);
                     sw.Flush();
                     sw.BaseStream.Position = 0;
-                    return messageHandler.RequestXml(url, souideKey, sw.BaseStream);
+                    return messageHandler.RequestXml(url, weiweihiKey, sw.BaseStream);
                 }
             }
         }
@@ -126,37 +126,37 @@ namespace Senparc.Weixin.MP.Agent
         /// <summary>
         /// 获取Souidea开放平台的ResponseMessge结果
         /// </summary>
-        /// <param name="WeiWeiHiKey"></param>
+        /// <param name="weiweihiKey"></param>
         /// <param name="xml"></param>
         /// <param name="weiweihiDomainName"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestWeiWeiHiResponseMessage(this IMessageHandler messageHandler, string WeiWeiHiKey, string xml, string weiweihiDomainName = "www.weiweihi.com")
+        public static IResponseMessageBase RequestWeiweihiResponseMessage(this IMessageHandler messageHandler, string weiweihiKey, string xml, string weiweihiDomainName = "www.weiweihi.com")
         {
-            return messageHandler.RequestWeiWeiHiXml(WeiWeiHiKey, xml, weiweihiDomainName).CreateResponseMessage();
+            return messageHandler.RequestWeiWeiHiXml(weiweihiKey, xml, weiweihiDomainName).CreateResponseMessage();
         }
 
         /// <summary>
         /// 获取Souidea开放平台的ResponseMessge结果
         /// </summary>
-        /// <param name="WeiWeiHiKey"></param>
+        /// <param name="weiweihiKey"></param>
         /// <param name="weiweihiDomainName"></param>
         /// <param name="document"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestWeiWeiHiResponseMessage(this IMessageHandler messageHandler, string WeiWeiHiKey, XDocument document, string weiweihiDomainName = "www.weiweihi.com")
+        public static IResponseMessageBase RequestWeiweihiResponseMessage(this IMessageHandler messageHandler, string weiweihiKey, XDocument document, string weiweihiDomainName = "www.weiweihi.com")
         {
-            return messageHandler.RequestWeiWeiHiXml(WeiWeiHiKey, document.ToString(), weiweihiDomainName).CreateResponseMessage();
+            return messageHandler.RequestWeiWeiHiXml(weiweihiKey, document.ToString(), weiweihiDomainName).CreateResponseMessage();
         }
 
         /// <summary>
         /// 获取Souidea开放平台的ResponseMessge结果
         /// </summary>
-        /// <param name="WeiWeiHiKey"></param>
+        /// <param name="weiweihiKey"></param>
         /// <param name="requestMessage"></param>
         /// <param name="weiweihiDomainName"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestWeiWeiHiResponseMessage(this IMessageHandler messageHandler, string WeiWeiHiKey, RequestMessageBase requestMessage, string weiweihiDomainName = "www.weiweihi.com")
+        public static IResponseMessageBase RequestWeiweihiResponseMessage(this IMessageHandler messageHandler, string weiweihiKey, RequestMessageBase requestMessage, string weiweihiDomainName = "www.weiweihi.com")
         {
-            return messageHandler.RequestWeiWeiHiXml(WeiWeiHiKey, requestMessage.ConvertEntityToXmlString(), weiweihiDomainName).CreateResponseMessage();
+            return messageHandler.RequestWeiWeiHiXml(weiweihiKey, requestMessage.ConvertEntityToXmlString(), weiweihiDomainName).CreateResponseMessage();
         }
 
         /// <summary>

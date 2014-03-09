@@ -32,7 +32,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         //下面的Url和Token可以用其他平台的消息，或者到www.souidea.com注册微信用用，并申请“微信营销工具”得到
         private string agentUrl = WebConfigurationManager.AppSettings["WeixinAgentUrl"];//这里使用了www.souidea.com微信自动托管平台
         private string agentToken = WebConfigurationManager.AppSettings["WeixinAgentToken"];//Token
-        private string souideaKey = WebConfigurationManager.AppSettings["WeixinAgentSouideaKey"];//SouideaKey专门用于对接www.souidea.com平台，获取方式见：http://www.souidea.com/ApiDocuments/Item/25#51
+        private string souideaKey = WebConfigurationManager.AppSettings["WeixinAgentWeiweihiKey"];//SouideaKey专门用于对接www.souidea.com平台，获取方式见：http://www.souidea.com/ApiDocuments/Item/25#51
 #endif
 
         public CustomMessageHandler(Stream inputStream, int maxRecordCount = 0)

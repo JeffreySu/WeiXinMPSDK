@@ -28,11 +28,11 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="url"></param>
         /// <param name="token"></param>
         /// <param name="stream"></param>
-        /// <param name="useSouideaKey">是否使用SouideaKey，如果使用，则token为SouideaKey</param>
+        /// <param name="useWeiWeiHiKey">是否使用WeiWeiHiKey，如果使用，则token为WeiWeiHiKey</param>
         /// <returns></returns>
-        public static string RequestXml(this IMessageHandler messageHandler, string url, string token, Stream stream, bool useSouideaKey = false)
+        public static string RequestXml(this IMessageHandler messageHandler, string url, string token, Stream stream, bool useWeiWeiHiKey = false)
         {
-            if (messageHandler!=null)
+            if (messageHandler != null)
             {
                 messageHandler.UsedMessageAgent = true;
             }
@@ -58,7 +58,7 @@ namespace Senparc.Weixin.MP.Agent
             if (messageHandler != null)
             {
                 messageHandler.UsedMessageAgent = true;
-            } 
+            }
             using (MemoryStream ms = new MemoryStream())
             {
                 //这里用ms模拟Request.InputStream
@@ -73,19 +73,19 @@ namespace Senparc.Weixin.MP.Agent
         }
 
         /// <summary>
-        /// 对接Souidea（P2P）平台，获取Xml结果，使用SouideaKey对接
-        /// SouideaKey的获取方式请看：
+        /// 对接Souidea（P2P）平台，获取Xml结果，使用WeiWeiHiKey对接
+        /// WeiWeiHiKey的获取方式请看：
         /// </summary>
         /// <param name="souideKey"></param>
         /// <param name="xml"></param>
         /// <returns></returns>
-        public static string RequestSouideaXml(this IMessageHandler messageHandler, string souideKey, string xml, string souideaDomainName = "www.souidea.com")
+        public static string RequestWeiWeiHiXml(this IMessageHandler messageHandler, string souideKey, string xml, string souideaDomainName = "www.souidea.com")
         {
             if (messageHandler != null)
             {
                 messageHandler.UsedMessageAgent = true;
-            } 
-            var url = "http://" + souideaDomainName + "/App/Weixin?souideaKey=" + souideKey;//官方地址
+            }
+            var url = "http://" + souideaDomainName + "/App/Weixin?WeiWeiHiKey=" + souideKey;//官方地址
             using (MemoryStream ms = new MemoryStream())
             {
                 //这里用ms模拟Request.InputStream
@@ -126,37 +126,63 @@ namespace Senparc.Weixin.MP.Agent
         /// <summary>
         /// 获取Souidea开放平台的ResponseMessge结果
         /// </summary>
-        /// <param name="souideaKey"></param>
+        /// <param name="WeiWeiHiKey"></param>
         /// <param name="xml"></param>
-        /// <param name="souideaDomainName"></param>
+        /// <param name="weiweihiDomainName"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestSouideaResponseMessage(this IMessageHandler messageHandler,string souideaKey, string xml, string souideaDomainName = "www.souidea.com")
+        public static IResponseMessageBase RequestWeiWeiHiResponseMessage(this IMessageHandler messageHandler, string WeiWeiHiKey, string xml, string weiweihiDomainName = "www.weiweihi.com")
         {
-            return messageHandler.RequestSouideaXml(souideaKey, xml, souideaDomainName).CreateResponseMessage();
+            return messageHandler.RequestWeiWeiHiXml(WeiWeiHiKey, xml, weiweihiDomainName).CreateResponseMessage();
         }
 
         /// <summary>
         /// 获取Souidea开放平台的ResponseMessge结果
         /// </summary>
-        /// <param name="souideaKey"></param>
-        /// <param name="souideaDomainName"></param>
+        /// <param name="WeiWeiHiKey"></param>
+        /// <param name="weiweihiDomainName"></param>
         /// <param name="document"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestSouideaResponseMessage(this IMessageHandler messageHandler, string souideaKey, XDocument document, string souideaDomainName = "www.souidea.com")
+        public static IResponseMessageBase RequestWeiWeiHiResponseMessage(this IMessageHandler messageHandler, string WeiWeiHiKey, XDocument document, string weiweihiDomainName = "www.weiweihi.com")
         {
-            return messageHandler.RequestSouideaXml(souideaKey, document.ToString(), souideaDomainName).CreateResponseMessage();
+            return messageHandler.RequestWeiWeiHiXml(WeiWeiHiKey, document.ToString(), weiweihiDomainName).CreateResponseMessage();
         }
 
         /// <summary>
         /// 获取Souidea开放平台的ResponseMessge结果
         /// </summary>
-        /// <param name="souideaKey"></param>
+        /// <param name="WeiWeiHiKey"></param>
         /// <param name="requestMessage"></param>
-        /// <param name="souideaDomainName"></param>
+        /// <param name="weiweihiDomainName"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestSouideaResponseMessage(this IMessageHandler messageHandler, string souideaKey, RequestMessageBase requestMessage, string souideaDomainName = "www.souidea.com")
+        public static IResponseMessageBase RequestWeiWeiHiResponseMessage(this IMessageHandler messageHandler, string WeiWeiHiKey, RequestMessageBase requestMessage, string weiweihiDomainName = "www.weiweihi.com")
         {
-            return messageHandler.RequestSouideaXml(souideaKey, requestMessage.ConvertEntityToXmlString(), souideaDomainName).CreateResponseMessage();
+            return messageHandler.RequestWeiWeiHiXml(WeiWeiHiKey, requestMessage.ConvertEntityToXmlString(), weiweihiDomainName).CreateResponseMessage();
+        }
+
+        /// <summary>
+        /// 使用GET请求测试URL和TOKEN是否可用
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public static bool CheckUrlAndToken(string url, string token)
+        {
+            try
+            {
+                string timestamp = DateTime.Now.Ticks.ToString();
+                string nonce = "GodBlessYou";
+                string echostr = Guid.NewGuid().ToString("n");
+                string signature = CheckSignature.GetSignature(timestamp, nonce, token);
+                url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}&echostr={4}",
+                        url.Contains("?") ? "&" : "?", signature, timestamp, nonce, echostr);
+
+                var responseStr = HttpUtility.RequestUtility.HttpGet(url, null);
+                return echostr == responseStr;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

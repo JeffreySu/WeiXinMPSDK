@@ -15,8 +15,8 @@ namespace Senparc.Weixin.MP.Test.Agents
         [TestMethod]
         public void RequestXmlTest()
         {
-            var url = "http://weixin.senparc.com/weixin";//可以换成你自己的地址
-            var token = "weixin";//替换成自己的Token
+            var url = "http://weixin.senparc.com/weixin"; //可以换成你自己的地址
+            var token = "weixin"; //替换成自己的Token
 
             var requestXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
@@ -28,14 +28,32 @@ namespace Senparc.Weixin.MP.Test.Agents
 <EventKey><![CDATA[OneClick]]></EventKey>
 </xml>";
 
-            var xml = MessageAgent.RequestXml(null,url, token, requestXml);
+            var xml = MessageAgent.RequestXml(null, url, token, requestXml);
             var responseMessage = ResponseMessageBase.CreateFromResponseXml(xml);
             Assert.IsNotNull(responseMessage);
-            Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageText));
+            Assert.IsInstanceOfType(responseMessage, typeof (ResponseMessageText));
             var strongResponseMessage = responseMessage as ResponseMessageText;
             Assert.IsTrue(strongResponseMessage.Content.Contains("您点击了底部按钮。"));
 
             Console.Write(strongResponseMessage.Content);
+        }
+
+        [TestMethod]
+        public void CheckUrlAndTokenTest()
+        {
+            var url = "http://weixin.senparc.com/weixin";
+            var token = "weixin";
+            var result = MessageAgent.CheckUrlAndToken(url, token);
+            Assert.IsTrue(result);
+
+            token = "wrong_token";
+            result = MessageAgent.CheckUrlAndToken(url, token);
+            Assert.IsFalse(false);
+
+            url = "wrong_url";
+            token = "weixin";
+            result = MessageAgent.CheckUrlAndToken(url, token);
+            Assert.IsFalse(false);
         }
     }
 }

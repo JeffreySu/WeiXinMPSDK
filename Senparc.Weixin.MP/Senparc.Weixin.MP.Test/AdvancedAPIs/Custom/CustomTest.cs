@@ -11,7 +11,7 @@ using Senparc.Weixin.MP.Test.CommonAPIs;
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
     //已经通过测试
-    [TestClass]
+    //[TestClass]
     public class CustomTest : CommonApiTest
     {
         private string openId = "omOTCt0E8gm6J2Fg0ArAaPS3_os8";

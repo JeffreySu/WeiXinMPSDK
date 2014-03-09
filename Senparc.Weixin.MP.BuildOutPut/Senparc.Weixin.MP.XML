@@ -306,7 +306,7 @@
             <param name="url"></param>
             <param name="token"></param>
             <param name="stream"></param>
-            <param name="useSouideaKey">是否使用SouideaKey，如果使用，则token为SouideaKey</param>
+            <param name="useWeiWeiHiKey">是否使用WeiWeiHiKey，如果使用，则token为WeiWeiHiKey</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestXml(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
@@ -318,10 +318,10 @@
             <param name="xml"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestSouideaXml(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestWeiWeiHiXml(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
             <summary>
-            对接Souidea（P2P）平台，获取Xml结果，使用SouideaKey对接
-            SouideaKey的获取方式请看：
+            对接Souidea（P2P）平台，获取Xml结果，使用WeiWeiHiKey对接
+            WeiWeiHiKey的获取方式请看：
             </summary>
             <param name="souideKey"></param>
             <param name="xml"></param>
@@ -345,31 +345,39 @@
             <param name="xml"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestSouideaResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestWeiWeiHiResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
             <summary>
             获取Souidea开放平台的ResponseMessge结果
             </summary>
-            <param name="souideaKey"></param>
+            <param name="WeiWeiHiKey"></param>
             <param name="xml"></param>
-            <param name="souideaDomainName"></param>
+            <param name="weiweihiDomainName"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestSouideaResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.Xml.Linq.XDocument,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestWeiWeiHiResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.Xml.Linq.XDocument,System.String)">
             <summary>
             获取Souidea开放平台的ResponseMessge结果
             </summary>
-            <param name="souideaKey"></param>
-            <param name="souideaDomainName"></param>
+            <param name="WeiWeiHiKey"></param>
+            <param name="weiweihiDomainName"></param>
             <param name="document"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestSouideaResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,Senparc.Weixin.MP.Entities.RequestMessageBase,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestWeiWeiHiResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,Senparc.Weixin.MP.Entities.RequestMessageBase,System.String)">
             <summary>
             获取Souidea开放平台的ResponseMessge结果
             </summary>
-            <param name="souideaKey"></param>
+            <param name="WeiWeiHiKey"></param>
             <param name="requestMessage"></param>
-            <param name="souideaDomainName"></param>
+            <param name="weiweihiDomainName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.CheckUrlAndToken(System.String,System.String)">
+            <summary>
+            使用GET请求测试URL和TOKEN是否可用
+            </summary>
+            <param name="url"></param>
+            <param name="token"></param>
             <returns></returns>
         </member>
         <member name="F:Senparc.Weixin.MP.CheckSignature.Token">
@@ -517,7 +525,7 @@
             <param name="accessToken"></param>
             <returns></returns>
         </member>
-        <member name="M:CommonJsonSend.Send(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType)">
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.Send(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType)">
             <summary>
             向需要AccessToken的API发送消息的公共方法
             </summary>
@@ -526,7 +534,7 @@
             <param name="data">如果是Get方式，可以为null</param>
             <returns></returns>
         </member>
-        <member name="M:CommonJsonSend.Send``1(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType)">
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.Send``1(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType)">
             <summary>
             向需要AccessToken的API发送消息的公共方法
             </summary>

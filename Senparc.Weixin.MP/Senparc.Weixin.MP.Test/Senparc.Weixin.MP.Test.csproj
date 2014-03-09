@@ -101,7 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
-      <SubType>Component</SubType>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>

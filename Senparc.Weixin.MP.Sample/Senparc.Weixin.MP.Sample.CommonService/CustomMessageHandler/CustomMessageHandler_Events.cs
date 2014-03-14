@@ -143,6 +143,12 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
             return responseMessage;//这里也可以返回null（需要注意写日志时候null的问题）
         }
 
+        public override IResponseMessageBase OnEvent_ScanRequest(RequestMessageEvent_Scan requestMessage)
+        {
+            //通过扫描关注
+            return base.OnEvent_ScanRequest(requestMessage);
+        }
+
         /// <summary>
         /// 订阅（关注）事件
         /// </summary>

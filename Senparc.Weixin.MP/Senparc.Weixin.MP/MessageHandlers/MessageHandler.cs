@@ -423,7 +423,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 事件之URL跳转视图（View）
         /// </summary>
         /// <returns></returns>
-        private IResponseMessageBase OnEvent_ViewRequest(RequestMessageEvent_View requestMessage)
+        public IResponseMessageBase OnEvent_ViewRequest(RequestMessageEvent_View requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

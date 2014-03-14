@@ -151,6 +151,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
 
         public override IResponseMessageBase OnEvent_ViewRequest(RequestMessageEvent_View requestMessage)
         {
+            //说明：这条消息只作为接收，下面的responseMessage到达不了客户端，类似OnEvent_UnsubscribeRequest
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您点击了view按钮，将打开网页：" + requestMessage.EventKey;
             return responseMessage;

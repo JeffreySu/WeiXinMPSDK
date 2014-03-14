@@ -33,7 +33,7 @@ namespace Senparc.Weixin.MP.Entities
         }
 
         /// <summary>
-        /// 事件KEY值，与自定义菜单接口中KEY值对应
+        /// 事件KEY值，与自定义菜单接口中KEY值对应，如果是View，则是跳转到的URL地址
         /// </summary>
         public string EventKey { get; set; }
     }

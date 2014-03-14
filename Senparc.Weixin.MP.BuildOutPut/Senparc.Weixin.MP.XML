@@ -548,6 +548,17 @@
             最大记录条数（保留尾部），如果小于等于0则不限制
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.Context.MessageQueue`1">
+            <summary>
+            微信消息列队（针对单个账号的往来消息）
+            </summary>
+            <typeparam name="TM"></typeparam>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.MessageQueue`1.ExpireMinutes">
+            <summary>
+            用于覆盖WeixinContext所设置的默认过期时间
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.Context.WeixinContextRemovedEventArgs">
             <summary>
             对话上下文被删除时触发事件的事件数据
@@ -747,7 +758,7 @@
         </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEventBase.EventKey">
             <summary>
-            事件KEY值，与自定义菜单接口中KEY值对应
+            事件KEY值，与自定义菜单接口中KEY值对应，如果是View，则是跳转到的URL地址
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Enter.Event">
@@ -836,10 +847,20 @@
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Scan">
             <summary>
-            事件之取消订阅
+            事件之二维码扫描（关注微信）
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Scan.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_View">
+            <summary>
+            事件之Url跳转视图（View）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_View.Event">
             <summary>
             事件类型
             </summary>
@@ -925,6 +946,11 @@
         <member name="F:Senparc.Weixin.MP.Event.scan">
             <summary>
             二维码扫描
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.VIEW">
+            <summary>
+            Url跳转
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.ResponseMsgType">
@@ -1356,6 +1382,12 @@
             <summary>
             Event事件类型请求之scan
             </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_ViewRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_View)">
+            <summary>
+            事件之Url跳转视图（View）
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.WeixinContext">
             <summary>

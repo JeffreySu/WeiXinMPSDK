@@ -6,9 +6,9 @@ using System.Text;
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
-    /// 事件之二维码扫描（关注微信）
+    /// 事件之Url跳转视图（View）
     /// </summary>
-    public class RequestMessageEvent_Scan : RequestMessageEventBase, IRequestMessageEventBase
+    public class RequestMessageEvent_View : RequestMessageEventBase, IRequestMessageEventBase
     {
         /// <summary>
         /// 事件类型
@@ -17,7 +17,5 @@ namespace Senparc.Weixin.MP.Entities
         {
             get { return Event.scan; }
         }
-
-        public string Ticket { get; set; }
     }
 }

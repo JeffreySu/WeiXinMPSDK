@@ -52,7 +52,12 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 二维码扫描
         /// </summary>
-        scan
+        scan,
+
+        /// <summary>
+        /// Url跳转
+        /// </summary>
+        VIEW
     }
 
 

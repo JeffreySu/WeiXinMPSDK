@@ -358,11 +358,16 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.scan://二维码
                     responseMessage = OnEvent_ScanRequest(RequestMessage as RequestMessageEvent_Scan);
                     break;
+                case Event.VIEW://url跳转（view视图）
+                    responseMessage = OnEvent_ViewRequest(RequestMessage as RequestMessageEvent_View);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
             return responseMessage;
         }
+
+      
 
         #region Event 下属分类
 
@@ -414,6 +419,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
+        /// <summary>
+        /// 事件之Url跳转视图（View）
+        /// </summary>
+        /// <returns></returns>
+        private IResponseMessageBase OnEvent_ViewRequest(RequestMessageEvent_View requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
         #endregion
     }
 }

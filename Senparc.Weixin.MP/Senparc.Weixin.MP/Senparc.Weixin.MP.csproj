@@ -73,6 +73,7 @@
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Context\MessageContainer.cs" />
+    <Compile Include="Context\MessageQueue.cs" />
     <Compile Include="Context\WeixinContextRemovedEventArgs.cs" />
     <Compile Include="Entities\GoogleMap\Markers.cs">
       <SubType>Code</SubType>
@@ -122,6 +123,7 @@
     <Compile Include="Entities\Request\RequestMessageLink.cs" />
     <Compile Include="Entities\Request\RequestMessageEvent_Scan.cs" />
     <Compile Include="Entities\Request\RequestMessageVideo.cs" />
+    <Compile Include="Entities\Request\RequestMessageEvent_View.cs" />
     <Compile Include="Entities\Response\Article.cs">
       <SubType>Code</SubType>
     </Compile>

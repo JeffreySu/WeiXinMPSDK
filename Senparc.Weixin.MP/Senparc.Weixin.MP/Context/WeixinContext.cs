@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * V2.0
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -33,7 +37,7 @@ namespace Senparc.Weixin.MP.Context
         /// <summary>
         /// MessageContext列队（LastActiveTime升序排列）,不要直接操作此对象
         /// </summary>
-        public List<TM> MessageQueue { get; set; }
+        public MessageQueue<TM> MessageQueue { get; set; }
 
         /// <summary>
         /// 每一个MessageContext过期时间
@@ -57,7 +61,7 @@ namespace Senparc.Weixin.MP.Context
         public void Restore()
         {
             MessageCollection = new Dictionary<string, TM>(StringComparer.OrdinalIgnoreCase);
-            MessageQueue = new List<TM>();
+            MessageQueue = new MessageQueue<TM>();
             ExpireMinutes = 90;
         }
 
@@ -74,7 +78,11 @@ namespace Senparc.Weixin.MP.Context
             {
                 var firstMessageContext = MessageQueue[0];
                 var timeSpan = DateTime.Now - firstMessageContext.LastActiveTime;
-                if (timeSpan.TotalMinutes >= ExpireMinutes)
+                //确定对话过期时间
+                var expireMinutes = MessageQueue.ExpireMinutes.HasValue
+                    ? MessageQueue.ExpireMinutes//列队自定义事件
+                    : this.ExpireMinutes;//全局统一默认时间
+                if (timeSpan.TotalMinutes >= expireMinutes)
                 {
                     MessageQueue.RemoveAt(0);//从队列中移除过期对象
                     MessageCollection.Remove(firstMessageContext.UserName);//从集合中删除过期对象

@@ -77,6 +77,9 @@ namespace Senparc.Weixin.MP
                             case "SCAN"://二维码扫描
                                 requestMessage = new RequestMessageEvent_Scan();
                                 break;
+                            case "VIEW"://URL跳转
+                                requestMessage = new RequestMessageEvent_View();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

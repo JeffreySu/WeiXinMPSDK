@@ -358,7 +358,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.scan://二维码
                     responseMessage = OnEvent_ScanRequest(RequestMessage as RequestMessageEvent_Scan);
                     break;
-                case Event.VIEW://url跳转（view视图）
+                case Event.VIEW://URL跳转（view视图）
                     responseMessage = OnEvent_ViewRequest(RequestMessage as RequestMessageEvent_View);
                     break;
                 default:
@@ -420,7 +420,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 事件之Url跳转视图（View）
+        /// 事件之URL跳转视图（View）
         /// </summary>
         /// <returns></returns>
         private IResponseMessageBase OnEvent_ViewRequest(RequestMessageEvent_View requestMessage)

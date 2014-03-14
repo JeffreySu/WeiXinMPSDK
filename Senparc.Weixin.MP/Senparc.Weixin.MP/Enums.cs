@@ -55,7 +55,7 @@ namespace Senparc.Weixin.MP
         scan,
 
         /// <summary>
-        /// Url跳转
+        /// URL跳转
         /// </summary>
         VIEW
     }

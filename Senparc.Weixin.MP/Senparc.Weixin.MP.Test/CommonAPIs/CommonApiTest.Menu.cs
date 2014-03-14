@@ -55,13 +55,6 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                                         });
             bg.button.Add(subButton);
 
-            //url跳转
-            var viewButton = new SingleViewButton()
-                                {
-                                    name = "Url跳转",
-                                    url = "http://weixin.senparc.com"
-                                };
-            bg.button.Add(viewButton);
 
             var result = CommonApi.CreateMenu(accessToken, bg);
 

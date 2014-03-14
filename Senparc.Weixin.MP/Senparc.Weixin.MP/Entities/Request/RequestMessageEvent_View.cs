@@ -6,7 +6,7 @@ using System.Text;
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
-    /// 事件之Url跳转视图（View）
+    /// 事件之URL跳转视图（View）
     /// </summary>
     public class RequestMessageEvent_View : RequestMessageEventBase, IRequestMessageEventBase
     {

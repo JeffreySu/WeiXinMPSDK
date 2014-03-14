@@ -857,7 +857,7 @@
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_View">
             <summary>
-            事件之Url跳转视图（View）
+            事件之URL跳转视图（View）
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_View.Event">
@@ -950,7 +950,7 @@
         </member>
         <member name="F:Senparc.Weixin.MP.Event.VIEW">
             <summary>
-            Url跳转
+            URL跳转
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.ResponseMsgType">
@@ -1385,7 +1385,7 @@
         </member>
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_ViewRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_View)">
             <summary>
-            事件之Url跳转视图（View）
+            事件之URL跳转视图（View）
             </summary>
             <returns></returns>
         </member>

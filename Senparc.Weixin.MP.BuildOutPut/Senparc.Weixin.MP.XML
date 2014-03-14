@@ -554,11 +554,6 @@
             </summary>
             <typeparam name="TM"></typeparam>
         </member>
-        <member name="P:Senparc.Weixin.MP.Context.MessageQueue`1.ExpireMinutes">
-            <summary>
-            用于覆盖WeixinContext所设置的默认过期时间
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.MP.Context.WeixinContextRemovedEventArgs">
             <summary>
             对话上下文被删除时触发事件的事件数据
@@ -1515,6 +1510,11 @@
         <member name="P:Senparc.Weixin.MP.Context.IMessageContext.StorageData">
             <summary>
             临时储存数据，如用户状态等，出于保持.net 3.5版本，这里暂不使用dynamic
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.IMessageContext.ExpireMinutes">
+            <summary>
+            用于覆盖WeixinContext所设置的默认过期时间
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Context.MessageContext">

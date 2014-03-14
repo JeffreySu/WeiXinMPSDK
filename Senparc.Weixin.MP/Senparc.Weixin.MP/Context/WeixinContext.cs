@@ -79,8 +79,8 @@ namespace Senparc.Weixin.MP.Context
                 var firstMessageContext = MessageQueue[0];
                 var timeSpan = DateTime.Now - firstMessageContext.LastActiveTime;
                 //确定对话过期时间
-                var expireMinutes = MessageQueue.ExpireMinutes.HasValue
-                    ? MessageQueue.ExpireMinutes//列队自定义事件
+                var expireMinutes = firstMessageContext.ExpireMinutes.HasValue
+                    ? firstMessageContext.ExpireMinutes.Value //列队自定义事件
                     : this.ExpireMinutes;//全局统一默认时间
                 if (timeSpan.TotalMinutes >= expireMinutes)
                 {

@@ -11,9 +11,6 @@ namespace Senparc.Weixin.MP.Context
     /// <typeparam name="TM"></typeparam>
     public class MessageQueue<TM> : List<TM> where TM : class, IMessageContext, new()
     {
-        /// <summary>
-        /// 用于覆盖WeixinContext所设置的默认过期时间
-        /// </summary>
-        public Double? ExpireMinutes { get; set; }
+
     }
 }

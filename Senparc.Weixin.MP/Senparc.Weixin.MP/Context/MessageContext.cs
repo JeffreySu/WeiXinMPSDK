@@ -34,6 +34,11 @@ namespace Senparc.Weixin.MP.Context
         /// </summary>
         object StorageData { get; set; }
 
+        /// <summary>
+        /// 用于覆盖WeixinContext所设置的默认过期时间
+        /// </summary>
+        Double? ExpireMinutes { get; set; }
+
         event EventHandler<WeixinContextRemovedEventArgs> MessageContextRemoved;
 
         void OnRemoved();
@@ -65,6 +70,8 @@ namespace Senparc.Weixin.MP.Context
             }
         }
         public object StorageData { get; set; }
+
+        public Double? ExpireMinutes { get; set; }
 
         public event EventHandler<WeixinContextRemovedEventArgs> MessageContextRemoved = null;
 

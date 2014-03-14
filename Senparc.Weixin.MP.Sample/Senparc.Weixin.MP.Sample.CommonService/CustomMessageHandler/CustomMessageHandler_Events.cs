@@ -149,6 +149,13 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
             return base.OnEvent_ScanRequest(requestMessage);
         }
 
+        public override IResponseMessageBase OnEvent_ViewRequest(RequestMessageEvent_View requestMessage)
+        {
+            var responseMessage = CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "您点击了view按钮，将打开网页：" + requestMessage.EventKey;
+            return responseMessage;
+        }
+
         /// <summary>
         /// 订阅（关注）事件
         /// </summary>

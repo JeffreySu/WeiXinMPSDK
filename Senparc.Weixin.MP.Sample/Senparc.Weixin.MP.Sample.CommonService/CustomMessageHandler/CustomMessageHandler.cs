@@ -123,7 +123,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 if (requestMessage.Content == "测试")
                 {
                     //进入APP测试
-                    responseMessage.Content = "您已经进入【盛派网络小助手】的测试程序，请发送任意信息进行测试。发送文字【退出】退出测试对话。";
+                    responseMessage.Content = "您已经进入【盛派网络小助手】的测试程序，请发送任意信息进行测试。发送文字【退出】退出测试对话。10分钟内无任何交互将自动退出应用对话状态。";
                 }
                 else
                 {

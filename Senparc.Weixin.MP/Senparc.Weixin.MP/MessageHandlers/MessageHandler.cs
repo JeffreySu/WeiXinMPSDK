@@ -1,4 +1,7 @@
-﻿using System;
+﻿/*
+ * V3.1
+ */
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -52,6 +55,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 是否使用了MessageAgent代理
         /// </summary>
         bool UsedMessageAgent { get; set; }
+
+        /// <summary>
+        /// 执行微信请求
+        /// </summary>
+        void Execute();
     }
 
     /// <summary>
@@ -225,7 +233,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 switch (RequestMessage.MsgType)
                 {
                     case RequestMsgType.Text:
-                        ResponseMessage = OnTextRequest(RequestMessage as RequestMessageText);
+                        {
+                            var requestMessage = RequestMessage as RequestMessageText;
+                            ResponseMessage = OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage);
+                        }
                         break;
                     case RequestMsgType.Location:
                         ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
@@ -240,7 +251,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         ResponseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
                         break;
                     case RequestMsgType.Event:
-                        ResponseMessage = OnEventRequest(RequestMessage as RequestMessageEventBase);
+                        {
+                            var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
+                            ResponseMessage = OnTextOrEventRequest(requestMessageText) ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
+                        }
                         break;
                     default:
                         throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
@@ -280,6 +294,19 @@ namespace Senparc.Weixin.MP.MessageHandlers
         //    responseMessage.Content = "您发送的消息类型暂未被识别。";
         //    return responseMessage;
         //}
+
+        /// <summary>
+        /// 预处理文字或事件类型请求。
+        /// 这个请求是一个比较特殊的请求，通常用于统一处理来自文字或菜单按钮的同一个执行逻辑，
+        /// 会在执行OnTextRequest或OnEventRequest之前触发，具有以下一些特征：
+        /// 1、如果返回null，则继续执行OnTextRequest或OnEventRequest
+        /// 2、如果返回不为null，则终止执行OnTextRequest或OnEventRequest，返回最终ResponseMessage
+        /// 3、如果是事件，则会将RequestMessageEvent自动转为RequestMessageText类型，其中RequestMessageText.Content就是RequestMessageEvent.EventKey
+        /// </summary>
+        public virtual IResponseMessageBase OnTextOrEventRequest(RequestMessageText requestMessage)
+        {
+            return null;
+        }
 
         /// <summary>
         /// 文字类型请求
@@ -334,7 +361,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// Event事件类型请求
         /// </summary>
-        public virtual IResponseMessageBase OnEventRequest(RequestMessageEventBase requestMessage)
+        public virtual IResponseMessageBase OnEventRequest(IRequestMessageEventBase requestMessage)
         {
             var strongRequestMessage = RequestMessage as IRequestMessageEventBase;
             IResponseMessageBase responseMessage = null;
@@ -367,7 +394,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return responseMessage;
         }
 
-      
+
 
         #region Event 下属分类
 

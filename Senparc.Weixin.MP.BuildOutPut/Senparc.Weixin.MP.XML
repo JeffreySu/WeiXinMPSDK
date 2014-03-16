@@ -574,6 +574,13 @@
             上下文对象
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.MP.Entities.Extensions.ConvertToRequestMessageText(Senparc.Weixin.MP.Entities.IRequestMessageEventBase)">
+            <summary>
+            将RequestMessageEventBase转换成RequestMessageText类型，其中Content = requestMessage.EventKey
+            </summary>
+            <param name="requestMessageEvent"></param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.GoogleMap.MarkerSize">
             <summary>
             标记大小
@@ -1244,6 +1251,11 @@
             <param name="url"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.Execute">
+            <summary>
+            执行微信请求
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.WeixinOpenId">
             <summary>
             发送者用户名（OpenId）
@@ -1313,6 +1325,16 @@
             默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnTextOrEventRequest(Senparc.Weixin.MP.Entities.RequestMessageText)">
+            <summary>
+            预处理文字或事件类型请求。
+            这个请求是一个比较特殊的请求，通常用于统一处理来自文字或菜单按钮的同一个执行逻辑，
+            会在执行OnTextRequest或OnEventRequest之前触发，具有以下一些特征：
+            1、如果返回null，则继续执行OnTextRequest或OnEventRequest
+            2、如果返回不为null，则终止执行OnTextRequest或OnEventRequest，返回最终ResponseMessage
+            3、如果是事件，则会将RequestMessageEvent自动转为RequestMessageText类型，其中RequestMessageText.Content就是RequestMessageEvent.EventKey
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnTextRequest(Senparc.Weixin.MP.Entities.RequestMessageText)">
             <summary>
             文字类型请求
@@ -1343,7 +1365,7 @@
             链接消息类型请求
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEventRequest(Senparc.Weixin.MP.Entities.RequestMessageEventBase)">
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEventRequest(Senparc.Weixin.MP.Entities.IRequestMessageEventBase)">
             <summary>
             Event事件类型请求
             </summary>

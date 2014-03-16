@@ -32,6 +32,23 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
                 version);
         }
 
+        public override IResponseMessageBase OnTextOrEventRequest(RequestMessageText requestMessage)
+        {
+            // 预处理文字或事件类型请求。
+            // 这个请求是一个比较特殊的请求，通常用于统一处理来自文字或菜单按钮的同一个执行逻辑，
+            // 会在执行OnTextRequest或OnEventRequest之前触发，具有以下一些特征：
+            // 1、如果返回null，则继续执行OnTextRequest或OnEventRequest
+            // 2、如果返回不为null，则终止执行OnTextRequest或OnEventRequest，返回最终ResponseMessage
+            // 3、如果是事件，则会将RequestMessageEvent自动转为RequestMessageText类型，其中RequestMessageText.Content就是RequestMessageEvent.EventKey
+
+            if (requestMessage.Content == "OneClick")
+            {
+                var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
+                strongResponseMessage.Content = "您点击了底部按钮。\r\n为了测试微信软件换行bug的应对措施，这里做了一个——\r\n换行";
+                return strongResponseMessage;
+            }
+            return null;//返回null，则继续执行OnTextRequest或OnEventRequest
+        }
 
         public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
         {
@@ -41,6 +58,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
             {
                 case "OneClick":
                     {
+                        //这个过程实际已经在OnTextOrEventRequest中完成，这里不会执行到。
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
                         reponseMessage = strongResponseMessage;
                         strongResponseMessage.Content = "您点击了底部按钮。\r\n为了测试微信软件换行bug的应对措施，这里做了一个——\r\n换行";

@@ -10,6 +10,22 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 Senparc.Weixin.MP.dll升级记录
 ----------
 
+v5.6.2 /2014-3-15
+
+添加MessageHendler中的OnTextOrEventRequest方法
+
+v5.5.0 /2014-3-14
+
+添加view事件；添加单个消息列队自定义过期时间
+
+v5.4.0 /2014-03-09
+
+souidea全面升级到weiweihi
+
+v5.1.0 /2014-02-14
+
+优化图片等消息的响应，并添加图片等新回复格式的DEMO
+
 v5.0.0 /2014-02-13
 
 添加图片、语音、视频返回类型

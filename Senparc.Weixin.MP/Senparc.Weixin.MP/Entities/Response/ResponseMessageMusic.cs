@@ -13,6 +13,7 @@ namespace Senparc.Weixin.MP.Entities
         }
 
         public Music Music { get; set; }
+        public string ThumbMediaId { get; set; }
 
         public ResponseMessageMusic()
         {

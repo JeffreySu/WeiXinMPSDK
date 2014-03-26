@@ -135,7 +135,7 @@ namespace Senparc.Weixin.MP.Helpers
             }
             else if (entity is ResponseMessageMusic)
             {
-                propNameOrder.AddRange(new[] { "Music", "FuncFlag",/*以下是Music属性*/ "Title ", "Description ", "MusicUrl", "HQMusicUrl" });
+                propNameOrder.AddRange(new[] { "Music", "FuncFlag", "ThumbMediaId",/*以下是Music属性*/ "Title ", "Description ", "MusicUrl", "HQMusicUrl" });
             }
             else if (entity is ResponseMessageImage)
             {

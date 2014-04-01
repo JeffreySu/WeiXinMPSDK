@@ -250,6 +250,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.Video:
                         ResponseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
                         break;
+                    case RequestMsgType.Link:
+                        ResponseMessage = OnLinkRequest(RequestMessage as RequestMessageLink);
+                        break;
                     case RequestMsgType.Event:
                         {
                             var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();

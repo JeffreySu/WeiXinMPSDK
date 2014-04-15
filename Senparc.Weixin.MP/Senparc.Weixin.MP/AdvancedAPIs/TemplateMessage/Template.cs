@@ -14,7 +14,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
     {
         public static WxJsonResult SendTemplateMessage<T>(string accessToken, string openId, string templateId, string topcolor, T data)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}";
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}";
             var msgData = new TempleteModel()
             {
                 template_id = templateId,

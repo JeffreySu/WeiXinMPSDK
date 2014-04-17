@@ -64,6 +64,8 @@
     <Compile Include="AdvancedAPIs\OAuth\OAuthUserInfo.cs" />
     <Compile Include="AdvancedAPIs\QrCode\CreateQrCodeResult.cs" />
     <Compile Include="AdvancedAPIs\QrCode\QrCode.cs" />
+    <Compile Include="AdvancedAPIs\TemplateMessage\Template.cs" />
+    <Compile Include="AdvancedAPIs\TemplateMessage\TempleteModel.cs" />
     <Compile Include="AdvancedAPIs\User\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\User.cs" />
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Senparc.Weixin.MP.Entities.Request;
 
 namespace Senparc.Weixin.MP
 {
@@ -79,6 +80,9 @@ namespace Senparc.Weixin.MP
                                 break;
                             case "VIEW"://URL跳转
                                 requestMessage = new RequestMessageEvent_View();
+                                break;
+                            case "MASSSENDJOBFINISH":
+                                requestMessage = new RequestMessageEvent_MassSendJobFinish();
                                 break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();

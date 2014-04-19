@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.HttpUtility;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
@@ -41,5 +43,23 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 accessToken, mediaId);
             HttpUtility.Get.Download(url, stream);
         }
+
+        /// <summary>
+        /// 上传图文消息素材
+        /// </summary>
+        /// <param name="accessToken">Token</param>
+        /// <param name="news">图文消息组</param>
+        /// <returns></returns>
+        public static UploadMediaFileResult UploadNews(string accessToken, params NewsModel[] news)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token={0}";
+            var data = new
+            {
+                articles = news
+            };
+            return CommonJsonSend.Send<UploadMediaFileResult>(accessToken, urlFormat, data);
+        }
+
+
     }
 }

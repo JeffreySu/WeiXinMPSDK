@@ -11,14 +11,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService
         {
             var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageNews>(requestMessage);
 
-            var markersList = new List<Markers>();
-            markersList.Add(new Markers()
+            var markersList = new List<GoogleMapMarkers>();
+            markersList.Add(new GoogleMapMarkers()
             {
                 X = requestMessage.Location_X,
                 Y = requestMessage.Location_Y,
                 Color = "red",
                 Label = "S",
-                Size = MarkerSize.Default,
+                Size = GoogleMapMarkerSize.Default,
             });
             var mapSize = "480x600";
             var mapUrl = GoogleMapHelper.GetGoogleStaticMap(19 /*requestMessage.Scale*//*微信和GoogleMap的Scale不一致，这里建议使用固定值*/,

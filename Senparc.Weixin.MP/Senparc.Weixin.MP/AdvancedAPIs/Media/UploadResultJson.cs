@@ -6,6 +6,9 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
+    /// <summary>
+    /// 上传媒体文件返回结果
+    /// </summary>
     public class UploadResultJson : WxJsonResult
     {
        public UploadMediaFileType type { get; set; }

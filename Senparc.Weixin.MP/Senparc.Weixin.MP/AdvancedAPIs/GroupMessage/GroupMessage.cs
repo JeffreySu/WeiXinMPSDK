@@ -13,22 +13,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public static class GroupMessage
     {
         /// <summary>
-        /// 上传图文消息素材
-        /// </summary>
-        /// <param name="accessToken">Token</param>
-        /// <param name="news">图文消息组</param>
-        /// <returns></returns>
-        public static UploadMediaFileResult UploadNews(string accessToken, params NewsModel[] news)
-        {
-            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token={0}";
-            var data = new
-            {
-                articles = news
-            };
-            return CommonJsonSend.Send<UploadMediaFileResult>(accessToken, urlFormat, data);
-        }
-
-        /// <summary>
         /// 根据分组进行群发
         /// 
         /// 请注意：

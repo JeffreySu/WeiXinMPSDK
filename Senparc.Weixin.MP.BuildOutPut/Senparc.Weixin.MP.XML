@@ -72,9 +72,81 @@
             <param name="thumbMediaId">视频缩略图的媒体ID</param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CreateGroupResult">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage">
             <summary>
-            创建分组返回结果
+            高级群发接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.SendGroupMessageByGroupId(System.String,System.String,System.String)">
+            <summary>
+            根据分组进行群发
+            
+            请注意：
+            1、该接口暂时仅提供给已微信认证的服务号
+            2、虽然开发者使用高级群发接口的每日调用限制为100次，但是用户每月只能接收4条，请小心测试
+            3、无论在公众平台网站上，还是使用接口群发，用户每月只能接收4条群发消息，多于4条的群发将对该用户发送失败。
+            
+            </summary>
+            <param name="accessToken"></param>
+            <param name="groupId">群发到的分组的group_id</param>
+            <param name="mediaId">用于群发的消息的media_id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.SendGroupMessageByOpenId(System.String,System.String,System.String[])">
+            <summary>
+            根据OpenId进行群发
+            </summary>
+            <param name="accessToken"></param>
+            <param name="mediaId">用于群发的消息的media_id</param>
+            <param name="openIds">openId字符串数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.DeleteSendMessage(System.String,System.String)">
+            <summary>
+            删除群发消息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="mediaId">发送出去的消息ID</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.NewsModel">
+            <summary>
+            图文消息模型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.NewsModel.thumb_media_id">
+            <summary>
+            图文消息缩略图的media_id，可以在基础支持上传多媒体文件接口中获得
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.NewsModel.author">
+            <summary>
+            图文消息的作者
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.NewsModel.title">
+            <summary>
+            图文消息的标题
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.NewsModel.content_source_url">
+            <summary>
+            在图文消息页面点击“阅读原文”后的页面
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.NewsModel.content">
+            <summary>
+            图文消息页面的内容，支持HTML标签
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.NewsModel.digest">
+            <summary>
+            图文消息的描述
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.SendResult">
+            <summary>
+            发送信息后的结果
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.WxJsonResult">
@@ -85,6 +157,21 @@
         <member name="P:Senparc.Weixin.MP.Entities.WxJsonResult.P2PData">
             <summary>
             为P2P返回结果做准备
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.SendResult.type">
+            <summary>
+            媒体文件类型，分别有图片（image）、语音（voice）、视频（video）和缩略图（thumb），图文消息为news
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.SendResult.msg_id">
+            <summary>
+            消息ID
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CreateGroupResult">
+            <summary>
+            创建分组返回结果
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetGroupIdResult">
@@ -162,6 +249,19 @@
             <param name="accessToken"></param>
             <param name="mediaId"></param>
             <param name="stream"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.UploadNews(System.String,Senparc.Weixin.MP.AdvancedAPIs.NewsModel[])">
+            <summary>
+            上传图文消息素材
+            </summary>
+            <param name="accessToken">Token</param>
+            <param name="news">图文消息组</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UploadResultJson">
+            <summary>
+            上传媒体文件返回结果
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OAuthAccessTokenResult">
             <summary>
@@ -260,6 +360,31 @@
             </summary>
             <param name="ticket"></param>
             <param name="stream"></param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.Template">
+            <summary>
+            模板消息接口
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TempleteModel.touser">
+            <summary>
+            目标用户OpenId
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TempleteModel.template_id">
+            <summary>
+            模板ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TempleteModel.topcolor">
+            <summary>
+            模板消息顶部颜色（16进制）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TempleteModel.data">
+            <summary>
+            数据
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User">
             <summary>
@@ -574,6 +699,57 @@
             上下文对象
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkerSize">
+            <summary>
+            标记大小
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkers.Size">
+            <summary>
+            （可选）有大中小三个值，分别为s、m、l。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkers.Color">
+            <summary>
+            （可选）Color = [0x000000, 0xffffff]或使用css定义的颜色表。
+            black 0x000000 
+            silver 0xC0C0C0 
+            gray 0x808080 
+            white 0xFFFFFF 
+            maroon 0x800000
+            red 0xFF0000 
+            purple 0x800080 
+            fuchsia 0xFF00FF 
+            green 0x008000
+            lime 0x00FF00 
+            olive 0x808000 
+            yellow 0xFFFF00 
+            navy 0x000080 
+            blue 0x0000FF
+            teal 0x008080 
+            aqua 0x00FFFF
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkers.Label">
+            <summary>
+            （可选）指定集合 {A-Z, 0-9} 中的一个大写字母数字字符。不指定时显示A。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkers.url">
+            <summary>
+            自定义icon的地址，图片格式目前仅支持png32的。设置自定义图标标注时，忽略Size、Color、Label三个属性，只设置该属性且该属性前增加-1，如markerStyles=-1, http://api.map.baidu.com/images/marker_red.png，图标大小需小于5k，超过该值会导致加载不上图标的情况发生。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkers.Longitude">
+            <summary>
+            经度longitude（对应GoogleMap的X）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkers.Latitude">
+            <summary>
+            纬度latitude（对应GoogleMap的Y）
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MP.Entities.Extensions.ConvertToRequestMessageText(Senparc.Weixin.MP.Entities.IRequestMessageEventBase)">
             <summary>
             将RequestMessageEventBase转换成RequestMessageText类型，其中Content = requestMessage.EventKey
@@ -581,32 +757,32 @@
             <param name="requestMessageEvent"></param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.MP.Entities.GoogleMap.MarkerSize">
+        <member name="T:Senparc.Weixin.MP.Entities.GoogleMap.GoogleMapMarkerSize">
             <summary>
             标记大小
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Entities.GoogleMap.Markers.Size">
+        <member name="P:Senparc.Weixin.MP.Entities.GoogleMap.GoogleMapMarkers.Size">
             <summary>
             （可选）指定集合 {tiny, mid, small} 中的标记大小。如果未设置 size 参数，标记将以其默认（常规）大小显示。
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Entities.GoogleMap.Markers.Color">
+        <member name="P:Senparc.Weixin.MP.Entities.GoogleMap.GoogleMapMarkers.Color">
             <summary>
             （可选）指定 24 位颜色（例如 color=0xFFFFCC）或集合 {black, brown, green, purple, yellow, blue, gray, orange, red, white} 中预定义的一种颜色。
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Entities.GoogleMap.Markers.Label">
+        <member name="P:Senparc.Weixin.MP.Entities.GoogleMap.GoogleMapMarkers.Label">
             <summary>
             （可选）指定集合 {A-Z, 0-9} 中的一个大写字母数字字符。
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Entities.GoogleMap.Markers.X">
+        <member name="P:Senparc.Weixin.MP.Entities.GoogleMap.GoogleMapMarkers.X">
             <summary>
             经度longitude
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Entities.GoogleMap.Markers.Y">
+        <member name="P:Senparc.Weixin.MP.Entities.GoogleMap.GoogleMapMarkers.Y">
             <summary>
             纬度latitude
             </summary>
@@ -795,6 +971,38 @@
             地理位置精度，事件类型为LOCATION的时存在
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish">
+            <summary>
+            事件推送群发结果。
+            
+            由于群发任务提交后，群发任务可能在一定时间后才完成，因此，群发接口调用时，仅会给出群发任务是否提交成功的提示，若群发任务提交成功，则在群发任务结束时，会向开发者在公众平台填写的开发者URL（callback URL）推送事件。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish.Status">
+            <summary>
+            返回状态
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish.TotalCount">
+            <summary>
+            group_id下粉丝数；或者openid_list中的粉丝数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish.FilterCount">
+            <summary>
+            过滤（过滤是指，有些用户在微信设置不接收该公众号的消息）后，准备发送的粉丝数，原则上，FilterCount = SentCount + ErrorCount
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish.SendCount">
+            <summary>
+            发送成功的粉丝数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish.ErrorCount">
+            <summary>
+            发送失败的粉丝数
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageLocation.Location_X">
             <summary>
             地理位置纬度
@@ -955,6 +1163,11 @@
             URL跳转
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.MP.Event.MASSSENDJOBFINISH">
+            <summary>
+            事件推送群发结果
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.ResponseMsgType">
             <summary>
             发送消息类型
@@ -1000,6 +1213,11 @@
             thumb：64KB，支持JPG格式
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.MP.UploadMediaFileType.news">
+            <summary>
+            图文消息
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.ReturnCode">
             <summary>
             返回码（JSON）
@@ -1034,6 +1252,27 @@
             <summary>
             微信自定义异常基类
             </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Helpers.BaiduMapHelper">
+            <summary>
+            百度地图静态图片API，文档：http://api.map.baidu.com/lbsapi/cloud/staticimg.htm
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.BaiduMapHelper.GetBaiduStaticMap(System.Double,System.Double,System.Int32,System.Int32,System.Collections.Generic.IList{Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkers},System.Int32,System.Int32)">
+             <summary>
+             获取百度地图静态图片
+             </summary>
+             <param name="lng">中心点经度</param>
+             <param name="lat">中心点维度</param>
+             <param name="scale">返回图片大小会根据此标志调整。取值范围为1或2：
+            1表示返回的图片大小为size= width * height;
+            2表示返回图片为(width*2)*(height *2)，且zoom加1
+            注：如果zoom为最大级别，则返回图片为（width*2）*（height*2），zoom不变。</param>
+             <param name="zoom">地图级别。高清图范围[3, 18]；低清图范围[3,19]</param>
+             <param name="markersList">标记列表，如果为null则不输出标记</param>
+             <param name="width">图片宽度。取值范围：(0, 1024]。</param>
+             <param name="height">图片高度。取值范围：(0, 1024]。</param>
+             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.Helpers.DateTimeHelper.GetDateTimeFromXml(System.Int64)">
             <summary>
@@ -1095,7 +1334,7 @@
             <param name="fileName"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Helpers.GoogleMapHelper.GetGoogleStaticMap(System.Int32,System.Collections.Generic.IList{Senparc.Weixin.MP.Entities.GoogleMap.Markers},System.String)">
+        <member name="M:Senparc.Weixin.MP.Helpers.GoogleMapHelper.GetGoogleStaticMap(System.Int32,System.Collections.Generic.IList{Senparc.Weixin.MP.Entities.GoogleMap.GoogleMapMarkers},System.String)">
             <summary>
             获取谷歌今天静态地图Url。API介绍：https://developers.google.com/maps/documentation/staticmaps/?hl=zh-CN
             </summary>
@@ -1403,6 +1642,12 @@
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_ViewRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_View)">
             <summary>
             事件之URL跳转视图（View）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_MassSendJobFinisRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish)">
+            <summary>
+            事件推送群发结果
             </summary>
             <returns></returns>
         </member>

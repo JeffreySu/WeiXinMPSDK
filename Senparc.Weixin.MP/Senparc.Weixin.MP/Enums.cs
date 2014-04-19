@@ -57,7 +57,12 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// URL跳转
         /// </summary>
-        VIEW
+        VIEW,
+
+        /// <summary>
+        /// 事件推送群发结果
+        /// </summary>
+        MASSSENDJOBFINISH
     }
 
 
@@ -109,7 +114,11 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// thumb：64KB，支持JPG格式
         /// </summary>
-        thumb
+        thumb,
+        /// <summary>
+        /// 图文消息
+        /// </summary>
+        news
     }
 
     /// <summary>
@@ -187,6 +196,24 @@ namespace Senparc.Weixin.MP
         发送消息失败_对方关闭了接收消息 = 10703,
         对方不是粉丝 = 10700
     }
+
+    ///// <summary>
+    ///// 群发消息返回状态
+    ///// </summary>
+    //public enum GroupMessageStatus
+    //{
+    //    //高级群发消息的状态
+    //    涉嫌广告 = 10001,
+    //    涉嫌政治 = 20001,
+    //    涉嫌社会 = 20004,
+    //    涉嫌色情 = 20002,
+    //    涉嫌违法犯罪 = 20006,
+    //    涉嫌欺诈 = 20008,
+    //    涉嫌版权 = 20013,
+    //    涉嫌互推 = 22000,
+    //    涉嫌其他 = 21000
+    //}
+
 
     /// <summary>
     /// 语言

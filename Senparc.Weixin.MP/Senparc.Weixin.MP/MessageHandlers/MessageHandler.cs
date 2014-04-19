@@ -391,6 +391,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.VIEW://URL跳转（view视图）
                     responseMessage = OnEvent_ViewRequest(RequestMessage as RequestMessageEvent_View);
                     break;
+                case Event.MASSSENDJOBFINISH://群发消息成功
+                    responseMessage = OneEvent_MassSendJobFinisRequest(RequestMessage as RequestMessageEvent_MassSendJobFinish);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -454,6 +457,15 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <returns></returns>
         public virtual IResponseMessageBase OnEvent_ViewRequest(RequestMessageEvent_View requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 事件推送群发结果
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OneEvent_MassSendJobFinisRequest(RequestMessageEvent_MassSendJobFinish requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

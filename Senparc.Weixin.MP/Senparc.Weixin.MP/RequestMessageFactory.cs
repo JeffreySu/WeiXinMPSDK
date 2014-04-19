@@ -80,6 +80,9 @@ namespace Senparc.Weixin.MP
                             case "VIEW"://URL跳转
                                 requestMessage = new RequestMessageEvent_View();
                                 break;
+                            case "MASSSENDJOBFINISH":
+                                requestMessage = new RequestMessageEvent_MassSendJobFinish();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

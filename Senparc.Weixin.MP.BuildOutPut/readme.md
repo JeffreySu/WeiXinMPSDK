@@ -10,7 +10,7 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 Senparc.Weixin.MP.dll升级记录
 ----------
 
-v5.8.8 /2014-4-19
+v5.8.0 /2014-4-19
 
 添加模板信息接口
 添加群发接口

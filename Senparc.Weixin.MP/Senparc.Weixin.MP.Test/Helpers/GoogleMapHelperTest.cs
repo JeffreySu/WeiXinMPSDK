@@ -13,22 +13,22 @@ namespace Senparc.Weixin.MP.Test
         [TestMethod]
         public void GetGoogleStaticMapTest()
         {
-            var markersList = new List<Markers>();
-            markersList.Add(new Markers()
+            var markersList = new List<GoogleMapMarkers>();
+            markersList.Add(new GoogleMapMarkers()
                                 {
                                     X = 31.285774,
                                     Y = 120.597610,
                                     Color="red",
                                     Label="O",
-                                    Size= MarkerSize.Default,
+                                    Size= GoogleMapMarkerSize.Default,
                                 });
-            markersList.Add(new Markers()
+            markersList.Add(new GoogleMapMarkers()
                                 {
                                     X = 31.289774,
                                     Y = 120.597910,
                                     Color = "blue",
                                     Label = "T",
-                                    Size = MarkerSize.Default,
+                                    Size = GoogleMapMarkerSize.Default,
                                 });
 
             var url = GoogleMapHelper.GetGoogleStaticMap(19, markersList, size: "640x640");

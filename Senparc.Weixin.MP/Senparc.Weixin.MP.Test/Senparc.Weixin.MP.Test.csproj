@@ -78,6 +78,7 @@
     <Compile Include="Context\MessageContainerTest.cs" />
     <Compile Include="Context\WeixinContextTest.cs" />
     <Compile Include="Entities\Response\ResponseMessageBaseTest.cs" />
+    <Compile Include="Helpers\BaiduMapHelperTest.cs" />
     <Compile Include="Helpers\GpsHelperTest.cs" />
     <Compile Include="HttpUtility\RequestUtilityTest.cs" />
     <Compile Include="HttpUtility\GetTest.cs" />

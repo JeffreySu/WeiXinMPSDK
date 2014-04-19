@@ -10,6 +10,17 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 Senparc.Weixin.MP.dll升级记录
 ----------
 
+v5.8.8 /2014-4-19
+
+添加模板信息接口
+添加群发接口
+
+
+v5.7.0 /2014-4-14
+
+添加百度地图有关帮助类
+
+
 v5.6.2 /2014-3-15
 
 添加MessageHendler中的OnTextOrEventRequest方法

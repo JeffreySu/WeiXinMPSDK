@@ -122,40 +122,52 @@
                 </li>
             </ol>
         </section>
-        <section class="content-wrapper clear-fix" id="souidea">
-            <h3>关注Souidea公众平台微信，测试Senparc.Weixin.MP.P2P：</h3>
-            <p>
-                <img src="http://weixin.senparc.com/Images/qrcode_for_souidea.jpg" width="259" />
-            </p>
-            <p><strong>现在Souidea平台已经开放：<a href="http://www.souidea.com">http://www.souidea.com</a>，可以自行注册并对接，甚至可以不需要编写一行代码，直接将微信账号对接到这个平台上，轻松整合关键字回复、菜单管理、会员管理，以及众多微信营销工具。</strong></p>
-            <p>
-                Souidea是用于全面测试<a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.P2P" target="_blank">Senparc.Weixin.MP和Senparc.Weixin.MP.P2P</a>的第一代机器人，由任务驱动，异步反馈。<br />
-                已经对接到微信公众账号。<br />
+      
+<section class="content-wrapper clear-fix" id="weiweihi">
+    <h3>微信营销生态圈——微微嗨：</h3>
+    <p>
+        <img src="http://weixin.senparc.com/Images/WeiWeiHiQrCode.jpg" width="259" />
+    </p>
+    <p><strong><a href="http://www.weiweihi.com">http://www.weiweihi.com</a>，微微嗨是在Senparc.Weixin.MP及Senparc.Weixin.MP P2P核心基础上开发的微信服务平台，联合数万开发者和代理商，打造一流的微信营销生态圈。期待您的加入！</strong></p>
+</section>
 
-                主要特点：1、异步任务驱动（异步推送信息） 2、微信公众账号身份信息识别 3、企业级并发任务处理（欢迎疯狂蹂躏）。可以发送IP、文字进行测试。<br />
-                <br />
-                可以发送如下内容进行测试（由于异步任务驱动，可以不必等待回复，连续发送内容，查看对应任务处理情况）：
-            </p>
-            <ol class="round">
-                <li class="one">
-                    <h5>IPv4地址</h5>
-                    对ip进行ping并异步返回结果。
-                </li>
+<!--
+<section class="content-wrapper clear-fix" id="souidea">
+    <h3>关注Souidea公众平台微信，测试Senparc.Weixin.MP.P2P：</h3>
+    <p>
+        <img src="http://weixin.senparc.com/Images/qrcode_for_souidea.jpg" width="259" />
+    </p>
+    <p><strong>现在Souidea平台已经开放：<a href="http://www.souidea.com">http://www.souidea.com</a>，可以自行注册并对接，甚至可以不需要编写一行代码，直接将微信账号对接到这个平台上，轻松整合关键字回复、菜单管理、会员管理，以及众多微信营销工具。</strong></p>
 
-                <li class="two">
-                    <h5>其他文字</h5>
-                    对文字进行搜索并返回推荐结果。
-                </li>
-                <li class="three">
-                    <h5>图片信息</h5>
-                    搜索相近图片相关信息。
-                </li>
-                <li class="four">
-                    <h5>人工客服</h5>
-                    输入文字【0】进入人工客服呼叫中心。
-                </li>
-            </ol>
-        </section>
+    <p>
+        Souidea是用于全面测试<a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.P2P" target="_blank">Senparc.Weixin.MP和Senparc.Weixin.MP.P2P</a>的第一代机器人，由任务驱动，异步反馈。<br />
+        已经对接到微信公众账号。<br />
+
+        主要特点：1、异步任务驱动（异步推送信息） 2、微信公众账号身份信息识别 3、企业级并发任务处理（欢迎疯狂蹂躏）。可以发送IP、文字进行测试。<br />
+        <br />
+        可以发送如下内容进行测试（由于异步任务驱动，可以不必等待回复，连续发送内容，查看对应任务处理情况）：
+    </p>
+    <ol class="round">
+        <li class="one">
+            <h5>IPv4地址</h5>
+            对ip进行ping并异步返回结果。
+        </li>
+
+        <li class="two">
+            <h5>其他文字</h5>
+            对文字进行搜索并返回推荐结果。
+        </li>
+        <li class="three">
+            <h5>图片信息</h5>
+            搜索相近图片相关信息。
+        </li>
+        <li class="four">
+            <h5>人工客服</h5>
+            输入文字【0】进入人工客服呼叫中心。
+        </li>
+    </ol>
+</section>
+-->
 
     </div>
 

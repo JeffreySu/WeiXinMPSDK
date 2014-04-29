@@ -48,7 +48,8 @@
                     当前Demo运行的Senparc.Weixin.MP.dll版本：<a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut" target="_blank">v<%= DllVersion %></a><br />
                 </p>
                 <p>
-                    技术交流QQ群：1群：300313885（已满） 2群：293958349（已满）  3群：342319110（已满） 4群：372212092 <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=b1732e72573df75bec61b08a2239a33ddc8f4577b541a7ff7bbb4292dcd4aed6"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Senparc.Weixin.MPSDK 4群" title="Senparc.Weixin.MPSDK 4群"></a>
+                    技术交流QQ群：1群：300313885（已满） 2群：293958349（已满）  3群：342319110（已满） 4群：372212092 <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=b1732e72573df75bec61b08a2239a33ddc8f4577b541a7ff7bbb4292dcd4aed6">
+                        <img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Senparc.Weixin.MPSDK 4群" title="Senparc.Weixin.MPSDK 4群"></a>
                 </p>
                 <p>
                     业务联系QQ：498977166
@@ -122,16 +123,19 @@
                 </li>
             </ol>
         </section>
-      
-<section class="content-wrapper clear-fix" id="weiweihi">
-    <h3>微信营销生态圈——微微嗨：</h3>
-    <p>
-        <img src="http://weixin.senparc.com/Images/WeiWeiHiQrCode.jpg" width="259" />
-    </p>
-    <p><strong><a href="http://www.weiweihi.com">http://www.weiweihi.com</a>，微微嗨是在Senparc.Weixin.MP及Senparc.Weixin.MP P2P核心基础上开发的微信服务平台，联合数万开发者和代理商，打造一流的微信营销生态圈。期待您的加入！</strong></p>
-</section>
 
-<!--
+        <section class="content-wrapper clear-fix" id="weiweihi">
+            <h3>微信营销生态圈——微微嗨：</h3>
+            <p>
+                <img src="http://weixin.senparc.com/Images/WeiWeiHiQrCode.jpg" width="259" />
+            </p>
+            <p><strong><a href="http://www.weiweihi.com">http://www.weiweihi.com</a>，微微嗨是在Senparc.Weixin.MP及Senparc.Weixin.MP P2P核心基础上开发的微信服务平台，联合数万开发者和代理商，打造一流的微信营销生态圈。期待您的加入！</strong></p>
+            <p>
+                <strong>申请成为微微嗨代理：<a href="http://www.weiweihi.com/AgentApply">http://www.weiweihi.com/AgentApply</a></strong>
+            </p>
+        </section>
+
+        <!--
 <section class="content-wrapper clear-fix" id="souidea">
     <h3>关注Souidea公众平台微信，测试Senparc.Weixin.MP.P2P：</h3>
     <p>

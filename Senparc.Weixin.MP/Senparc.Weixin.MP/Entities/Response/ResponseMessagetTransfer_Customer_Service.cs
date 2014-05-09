@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Senparc.Weixin.MP.Entities
 {
-	public class ResponseMessagetransfer_customer_service : ResponseMessageBase, IResponseMessageBase
+	public class ResponseMessageTransfer_Customer_Service : ResponseMessageBase, IResponseMessageBase
 	{
 		new public virtual ResponseMsgType MsgType
 		{
-			get { return ResponseMsgType.transfer_customer_service; }
+			get { return ResponseMsgType.Transfer_Customer_Service; }
 		}
 	}
 }

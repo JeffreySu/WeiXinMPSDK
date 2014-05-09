@@ -150,7 +150,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Entities\Response\ResponseMessageImage.cs" />
-    <Compile Include="Entities\Response\ResponseMessagetransfer_customer_service.cs" />
+    <Compile Include="Entities\Response\ResponseMessagetTransfer_Customer_Service.cs" />
     <Compile Include="Entities\Response\ResponseMessageVoice.cs" />
     <Compile Include="Entities\Response\Video.cs" />
     <Compile Include="Entities\Response\Voice.cs" />

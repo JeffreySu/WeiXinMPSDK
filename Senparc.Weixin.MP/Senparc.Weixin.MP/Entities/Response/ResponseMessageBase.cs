@@ -58,8 +58,8 @@ namespace Senparc.Weixin.MP.Entities
 					case ResponseMsgType.Video:
 						responseMessage = new ResponseMessageVideo();
 						break;
-					case ResponseMsgType.transfer_customer_service:
-						responseMessage = new ResponseMessagetransfer_customer_service();
+					case ResponseMsgType.Transfer_Customer_Service:
+						responseMessage = new ResponseMessageTransfer_Customer_Service();
 						break;
 					default:
 						throw new UnknownRequestMsgTypeException(string.Format("ResponseMsgType没有为 {0} 提供对应处理程序。", msgType), new ArgumentOutOfRangeException());

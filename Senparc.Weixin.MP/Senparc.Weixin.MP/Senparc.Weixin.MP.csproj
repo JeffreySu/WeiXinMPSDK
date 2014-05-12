@@ -77,6 +77,7 @@
     <Compile Include="CommonAPIs\AccessTokenContainer.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Context\MessageContainer.cs" />
     <Compile Include="Context\MessageQueue.cs" />
     <Compile Include="Context\WeixinContextRemovedEventArgs.cs" />

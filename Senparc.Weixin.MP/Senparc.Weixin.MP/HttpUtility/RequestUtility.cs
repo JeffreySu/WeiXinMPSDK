@@ -18,13 +18,14 @@ namespace Senparc.Weixin.MP.HttpUtility
         /// <returns></returns>
         public static string HttpGet(string url, Encoding encoding = null)
         {
-            WebClient wc = new WebClient();
-            wc.Encoding = encoding ?? Encoding.UTF8;
+            //WebClient wc = new WebClient();
+            //wc.Encoding = encoding ?? Encoding.UTF8;
             //if (encoding != null)
             //{
             //    wc.Encoding = encoding;
             //}
-            return wc.DownloadString(url);
+            //return wc.DownloadString(url);
+            return HttpGet(url, null, encoding ?? Encoding.UTF8);
         }
 
         /// <summary>
@@ -38,6 +39,7 @@ namespace Senparc.Weixin.MP.HttpUtility
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
+            request.Timeout = Config.TimeOut;
             if (cookieContainer != null)
             {
                 request.CookieContainer = cookieContainer;
@@ -86,6 +88,7 @@ namespace Senparc.Weixin.MP.HttpUtility
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
+            request.Timeout = Config.TimeOut;
 
             #region 处理Form表单文件上传
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件

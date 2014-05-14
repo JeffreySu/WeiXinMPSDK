@@ -57,10 +57,13 @@
                 <p>
                     客服热线：400-031-8816
                 </p>
-                <p>
+               <p>
                     如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！<br />
-                    资金捐助：<a href="https://me.alipay.com/jeffreysu" target="_blank">https://me.alipay.com/jeffreysu</a>
+                    资金捐助（支付宝钱包扫一扫）：
                 </p>
+                <p>
+                    <img src="http://weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX.png" width="200"/>
+                </p>
                 <p>
                     &nbsp;
                 </p>

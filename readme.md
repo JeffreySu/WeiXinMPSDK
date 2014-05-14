@@ -34,7 +34,7 @@ Q&A：https://github.com/JeffreySu/WeiXinMPSDK/wiki/QA
 
 资金捐助（支付宝支付二维码）： 
 
-[![image]](http://weixin.senparc.com/)  
+[![支付宝支付二维码]](http://weixin.senparc.com/)  
 [支付宝支付二维码]: http://weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX.png
 
 

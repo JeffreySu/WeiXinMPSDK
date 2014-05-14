@@ -32,8 +32,10 @@ Q&A：https://github.com/JeffreySu/WeiXinMPSDK/wiki/QA
 如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！
 
 
-资金捐助：[image]: http://weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX.png
+资金捐助（支付宝支付二维码）： 
 
+[![image]](http://weixin.senparc.com/)  
+[支付宝支付二维码]: http://weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX.png
 
 
 ###关注测试账号（SenparcRobot）：

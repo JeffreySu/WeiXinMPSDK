@@ -23,6 +23,11 @@ namespace Senparc.Weixin.MP.Agent
     public static class MessageAgent
     {
         /// <summary>
+        /// 默认代理请求超时时间（毫秒）
+        /// </summary>
+        private const int AGENT_TIME_OUT = 2500;
+
+        /// <summary>
         /// 获取Xml结果。
         /// </summary>
         /// <param name="url"></param>
@@ -42,7 +47,7 @@ namespace Senparc.Weixin.MP.Agent
             string signature = CheckSignature.GetSignature(timestamp, nonce, token);
             url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}&echostr={4}",
                     url.Contains("?") ? "&" : "?", signature, timestamp, nonce, echostr);
-            var responseXml = HttpUtility.RequestUtility.HttpPost(url, null, stream);
+            var responseXml = HttpUtility.RequestUtility.HttpPost(url, null, stream, timeOut: AGENT_TIME_OUT);
             return responseXml;
         }
 
@@ -176,7 +181,7 @@ namespace Senparc.Weixin.MP.Agent
                 url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}&echostr={4}",
                         url.Contains("?") ? "&" : "?", signature, timestamp, nonce, echostr);
 
-                var responseStr = HttpUtility.RequestUtility.HttpGet(url, null);
+                var responseStr = HttpUtility.RequestUtility.HttpGet(url, null, timeOut: 2000);
                 return echostr == responseStr;
             }
             catch

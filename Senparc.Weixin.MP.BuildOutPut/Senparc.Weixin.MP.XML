@@ -424,6 +424,11 @@
             此外这个类中的方法也可以用于模拟服务器发送消息到自己的服务器进行测试。
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.MP.Agent.MessageAgent.AGENT_TIME_OUT">
+            <summary>
+            默认代理请求超时时间（毫秒）
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestXml(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.IO.Stream,System.Boolean)">
             <summary>
             获取Xml结果。
@@ -667,6 +672,16 @@
             <param name="urlFormat"></param>
             <param name="data">如果是Get方式，可以为null</param>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Config">
+            <summary>
+            全局设置
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Config.TIME_OUT">
+            <summary>
+            请求超时设置（以毫秒为单位），默认为10秒
+            </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.Context.MessageContainer`1.MaxRecordCount">
             <summary>
@@ -1429,7 +1444,7 @@
             <param name="url"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.HttpGet(System.String,System.Net.CookieContainer,System.Text.Encoding)">
+        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.HttpGet(System.String,System.Net.CookieContainer,System.Text.Encoding,System.Int32)">
             <summary>
             使用Get方法获取字符串结果（加入Cookie）
             </summary>
@@ -1438,13 +1453,13 @@
             <param name="encoding"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding)">
+        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Int32)">
             <summary>
             使用Post方法获取字符串结果，常规提交
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.IO.Stream,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Text.Encoding)">
+        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.IO.Stream,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Text.Encoding,System.Int32)">
             <summary>
             使用Post方法获取字符串结果
             </summary>

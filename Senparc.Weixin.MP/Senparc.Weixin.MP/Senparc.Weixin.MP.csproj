@@ -171,6 +171,7 @@
     <Compile Include="HttpUtility\Get.cs" />
     <Compile Include="HttpUtility\Post.cs" />
     <Compile Include="HttpUtility\RequestUtility.cs" />
+    <Compile Include="Merchant\Good.cs" />
     <Compile Include="MessageHandlers\MessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestMessageFactory.cs" />

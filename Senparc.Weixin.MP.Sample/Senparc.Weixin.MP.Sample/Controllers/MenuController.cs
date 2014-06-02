@@ -41,6 +41,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     AccessTokenContainer.Register(appId, appSecret);
                 }
                 var result = AccessTokenContainer.GetTokenResult(appId); //CommonAPIs.CommonApi.GetToken(appId, appSecret);
+
+                //也可以直接一步到位：
+                //var result = AccessTokenContainer.TryGetToken(appId, appSecret);
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             catch (Exception)

@@ -5,7 +5,7 @@ using System.Text;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 模板消息接口

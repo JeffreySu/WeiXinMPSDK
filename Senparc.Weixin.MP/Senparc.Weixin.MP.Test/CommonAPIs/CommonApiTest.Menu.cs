@@ -22,11 +22,11 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
             //单击
             bg.button.Add(new SingleClickButton()
-                              {
-                                  name = "单击测试",
-                                  key = "OneClick",
-                                  type = ButtonType.click.ToString(),//默认已经设为此类型，这里只作为演示
-                              });
+                                {
+                                    name = "单击测试",
+                                    key = "OneClick",
+                                    type = ButtonType.click.ToString(),//默认已经设为此类型，这里只作为演示
+                                });
 
             //二级菜单
             var subButton = new SubButton()

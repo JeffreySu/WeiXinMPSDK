@@ -10,6 +10,8 @@ Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/Wei
 Senparc.Weixin.MP.dll升级记录
 ----------
 
+v6.0 之后的升级记录见：http://www.weiweihi.com/ApiDocuments/WeixinMpSdk/48
+
 v5.10.0 /2014-5-16
 
 添加对外请求超时设置

@@ -89,7 +89,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="toGroupId"></param>
         /// <returns></returns>
         public static WxJsonResult MemberUpdate(string accessToken, string openId, int toGroupId)
-                {
+        {
             var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/members/update?access_token={0}";
             var data = new
             {

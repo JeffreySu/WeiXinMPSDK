@@ -29,7 +29,7 @@ namespace Senparc.Weixin.MP.Helpers
         }
 
         /// <summary>
-        /// 获取微信DateTime
+        /// 获取微信DateTime（UNIX时间戳）
         /// </summary>
         /// <param name="dateTime">时间</param>
         /// <returns></returns>

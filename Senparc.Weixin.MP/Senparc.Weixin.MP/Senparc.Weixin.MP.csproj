@@ -52,6 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\CustomService\CustomService.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\RecordJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\GetRecordResult.cs" />
     <Compile Include="AdvancedAPIs\Custom\Custom.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessage.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\NewsModel.cs" />

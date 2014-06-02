@@ -4,6 +4,72 @@
         <name>Senparc.Weixin.MP</name>
     </assembly>
     <members>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CustomService">
+            <summary>
+            多客服接口聊天记录接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%9C%8D%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.GetRecord(System.String,System.DateTime,System.DateTime,System.String,System.Int32,System.Int32)">
+            <summary>
+            获取用户聊天记录
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="startTime">查询开始时间，会自动转为UNIX时间戳</param>
+            <param name="endTime">查询结束时间，会自动转为UNIX时间戳，每次查询不能跨日查询</param>
+            <param name="openId">（非必须）普通用户的标识，对当前公众号唯一</param>
+            <param name="pageSize">每页大小，每页最多拉取1000条</param>
+            <param name="pageIndex">查询第几页，从1开始</param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.RecordJson">
+            <summary>
+            客服记录消息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.RecordJson.worker">
+            <summary>
+            客服账号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.RecordJson.openid">
+            <summary>
+            用户的标识，对当前公众号唯一
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.RecordJson.opercode">
+            <summary>
+            操作ID（会话状态）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.RecordJson.time">
+            <summary>
+            操作时间，UNIX时间戳
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.RecordJson.text">
+            <summary>
+            聊天记录
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Opercode">
+            <summary>
+            操作ID(会化状态）定义
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetRecordResult">
+            <summary>
+            聊天记录结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.WxJsonResult">
+            <summary>
+            JSON返回结果（用于菜单接口等）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.WxJsonResult.P2PData">
+            <summary>
+            为P2P返回结果做准备
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Custom">
             <summary>
             客服接口
@@ -147,16 +213,6 @@
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.SendResult">
             <summary>
             发送信息后的结果
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.Entities.WxJsonResult">
-            <summary>
-            JSON返回结果（用于菜单接口等）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Entities.WxJsonResult.P2PData">
-            <summary>
-            为P2P返回结果做准备
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.SendResult.type">
@@ -361,7 +417,7 @@
             <param name="ticket"></param>
             <param name="stream"></param>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.Template">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Template">
             <summary>
             模板消息接口
             </summary>
@@ -1504,6 +1560,11 @@
             </summary>
             <param name="url"></param>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Merchant.Good">
+            <summary>
+            
+            </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.Execute">
             <summary>

@@ -136,6 +136,8 @@ namespace Senparc.Weixin.MP.Entities
 					case ResponseMsgType.News:
 						responseMessage = new ResponseMessageNews();
 						break;
+					case ResponseMsgType.Transfer_Customer_Service:
+						responseMessage = new ResponseMessageTransfer_Customer_Service();
 						break;
 				}
 

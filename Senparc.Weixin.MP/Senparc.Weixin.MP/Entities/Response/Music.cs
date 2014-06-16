@@ -15,6 +15,6 @@ namespace Senparc.Weixin.MP.Entities
         ///// 缩略图的媒体id，通过上传多媒体文件，得到的id
         ///// 官方API上有，但是加入的话会出错
         ///// </summary>
-        //public string ThumbMediaId { get; set; }
+        public string ThumbMediaId { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     {
        public UploadMediaFileType type { get; set; }
        public string media_id { get; set; }
+       public string thumb_media_id { get; set; } // 上传缩略图返回的meidia_id参数.
        public long created_at { get; set; }
     }
 }

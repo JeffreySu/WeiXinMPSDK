@@ -13,8 +13,7 @@ namespace Senparc.Weixin.MP.Entities
         }
 
         public Music Music { get; set; }
-        public string ThumbMediaId { get; set; }
-
+        //public string ThumbMediaId { get; set; } //把该参数移动到Music对象内部
         public ResponseMessageMusic()
         {
             Music = new Music();

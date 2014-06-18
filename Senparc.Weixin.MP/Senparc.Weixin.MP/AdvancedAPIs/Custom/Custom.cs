@@ -88,9 +88,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
-        /// <param name="thumbMediaId"></param>
+        /// <param name="title"></param>
+        /// <param name="description"></param>
         /// <returns></returns>
-        public static WxJsonResult SendVideo(string accessToken, string openId, string mediaId, string thumbMediaId)
+        public static WxJsonResult SendVideo(string accessToken, string openId, string mediaId, string title, string description)
         {
             var data = new
             {
@@ -99,12 +100,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 video = new
                 {
                     media_id = mediaId,
-                    thumb_media_id = thumbMediaId
+                    title = title,
+                    description = description
                 }
             };
             return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
         }
-
         /// <summary>
         /// 发送音乐消息
         /// </summary>

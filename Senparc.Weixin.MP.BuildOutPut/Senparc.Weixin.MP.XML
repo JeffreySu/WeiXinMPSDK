@@ -102,14 +102,15 @@
             <param name="mediaId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.SendVideo(System.String,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.SendVideo(System.String,System.String,System.String,System.String,System.String)">
             <summary>
             发送视频消息
             </summary>
             <param name="accessToken"></param>
             <param name="openId"></param>
             <param name="mediaId"></param>
-            <param name="thumbMediaId"></param>
+            <param name="title"></param>
+            <param name="description"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.SendMusic(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
@@ -1361,7 +1362,7 @@
         </member>
         <member name="M:Senparc.Weixin.MP.Helpers.DateTimeHelper.GetWeixinDateTime(System.DateTime)">
             <summary>
-            获取微信DateTime
+            获取微信DateTime（UNIX时间戳）
             </summary>
             <param name="dateTime">时间</param>
             <returns></returns>

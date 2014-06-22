@@ -72,7 +72,7 @@ namespace Senparc.Weixin.MP.Test
                                                   CreateTime = DateTimeHelper.GetDateTimeFromXml(63497820384),
                                                   //MsgType = ResponseMsgType.Text,
                                                   Content = "文字信息",
-                                                  FuncFlag = false
+                                                  //FuncFlag = false
                                               };
                 var result = ResponseMessageFactory.GetResponseEntity(xmlText) as ResponseMessageText;
                 Assert.AreEqual(exceptResult.ToUserName, result.ToUserName);
@@ -88,7 +88,7 @@ namespace Senparc.Weixin.MP.Test
                                                          CreateTime = DateTimeHelper.GetDateTimeFromXml(63497821905),
                                                          FromUserName = "gh_a96a4a619366",
                                                          ToUserName = "olPjZjsXuQPJoV0HlruZkNzKc91E",
-                                                         FuncFlag = false,
+                                                         //FuncFlag = false,
                                                          //MsgType = ResponseMsgType.News
                                                      };
                 var result = ResponseMessageFactory.GetResponseEntity(xmlNews) as ResponseMessageNews;
@@ -114,7 +114,7 @@ namespace Senparc.Weixin.MP.Test
                                                             CreateTime = DateTimeHelper.GetDateTimeFromXml(63497823450),
                                                             FromUserName = "gh_a96a4a619366",
                                                             ToUserName = "olPjZjsXuQPJoV0HlruZkNzKc91E",
-                                                            FuncFlag = false,
+                                                            //FuncFlag = false,
                                                             //MsgType = ResponseMsgType.Music
                                                         };
                 var result = ResponseMessageFactory.GetResponseEntity(xmlMusic) as ResponseMessageMusic;

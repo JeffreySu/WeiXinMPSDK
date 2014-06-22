@@ -59,7 +59,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             try
             {
-                var result = Custom.SendVideo(accessToken, openId, "1000018", "1000012");
+                var result = Custom.SendVideo(accessToken, openId, "1000018", "1000012","[description]");
                 Assert.Fail();//因为这里写测试代码的时候，微信账号还没有权限，所以会抛出异常（故意的），如果是已经开通的应该是“请求成功”
             }
             catch (ErrorJsonResultException ex)

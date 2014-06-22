@@ -84,7 +84,7 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
                 Assert.AreEqual("olPjZjsXuQPJoV0HlruZkNzKc91E", strongResponseMessage.ToUserName);
                 Assert.AreEqual("gh_a96a4a619366", strongResponseMessage.FromUserName);
                 Assert.AreEqual("您点击了底部按钮。", strongResponseMessage.Content);
-                Assert.AreEqual(false, strongResponseMessage.FuncFlag);
+                //Assert.AreEqual(false, strongResponseMessage.FuncFlag);
             }
             #endregion
 

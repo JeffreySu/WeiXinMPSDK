@@ -11,7 +11,7 @@ namespace Senparc.Weixin.MP.Entities
 	{
 		ResponseMsgType MsgType { get; }
 		//string Content { get; set; }
-		bool FuncFlag { get; set; }
+		//bool FuncFlag { get; set; }
 	}
 
 	/// <summary>
@@ -24,7 +24,7 @@ namespace Senparc.Weixin.MP.Entities
 			get { return ResponseMsgType.Text; }
 		}
 		//public string Content { get; set; }
-		public bool FuncFlag { get; set; }
+		//public bool FuncFlag { get; set; }
 
 		/// <summary>
 		/// 获取响应类型实例，并初始化

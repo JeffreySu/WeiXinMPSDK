@@ -57,7 +57,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 return Content(ex.Message);
             }
-
         }
 
         public ActionResult BaseCallback(string code, string state)

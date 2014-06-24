@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\CustomService\CustomInfoJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomOnlineJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomService.cs" />
     <Compile Include="AdvancedAPIs\CustomService\RecordJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\GetRecordResult.cs" />

@@ -16,7 +16,8 @@
         }
     </style>
     <script>
-        $(function() {
+        $(function () {
+            $('#requestType').change(checkRequestType);
             checkRequestType();
         });
 
@@ -33,12 +34,16 @@
             var requestType = $('#requestType').val();
             var param = { url: url, token: token, requestType: requestType };
             var paramId = 'param' + requestType;
-            $.each($('#' + paramId).find('input'), function(i, item) {
+            $.each($('#' + paramId).find('input'), function (i, item) {
                 param[$(item).attr('name')] = $(item).val();
             });
 
-            $.post('@Url.Action("Index")', param, function(result) {
+            $.post('@Url.Action("Index")', param, function (result) {
                 $('#responseMessageXML').html(result);
+            });
+
+            $.post('@Url.Action("GetRequestMessageXml")', param, function (result) {
+                $('#requestMessageXML').html(result);
             });
         }
     </script>
@@ -73,16 +78,31 @@
             <div id="paramText" class="param">
                 Content：<input name="Content" />
             </div>
-            <div id="paramLocation" class="param"></div>
-            <div id="paramImage" class="param"></div>
-            <div id="paramVoice" class="param"></div>
-            <div id="paramVideo" class="param"></div>
-            <div id="paramLink" class="param"></div>
-            <div id="paramEvent" class="param"></div>
+            <div id="paramLocation" class="param">
+                Label：<input name="Label" /><br />
+                Location_X：<input name="Location_X" type="number" value="0" /><br />
+                Location_Y：<input name="Location_Y" type="number" value="0" /><br />
+                Scale：<input name="Scale" type="number" value="0" step="1" /><br />
+            </div>
+            <div id="paramImage" class="param">
+                PicUrl：<input name="PicUrl" /><br />
+            </div>
+            <div id="paramVoice" class="param">
+                Format：<input name="Format" value="arm" /><br />
+                Recognition：<input name="Recognition" /><br />
+            </div>
+            <div id="paramVideo" class="param">
+                MsgId：<input name="MsgId" type="number" value="@DateTime.Now.Ticks" step="1" /><br />
+                ThumbMediaId：<input name="ThumbMediaId" /><br />
+            </div>
+            @*<div id="paramLink" class="param"></div>
+            <div id="paramEvent" class="param"></div>*@
             <div>
                 <input type="button" value="提交" onclick="sendMessage()" />
             </div>
         </div>
+        <h3>发送内容</h3>
+        <textarea id="requestMessageXML" rows="10" cols="60" readonly="readonly"></textarea>
         <h3>接收内容</h3>
         <textarea id="responseMessageXML" rows="10" cols="60"></textarea>
     </div>

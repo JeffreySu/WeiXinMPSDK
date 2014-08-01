@@ -1,0 +1,90 @@
+﻿@using Senparc.Weixin.MP.Sample.Controllers
+@{
+    ViewBag.Title = "消息模拟工具";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var nonce = "JeffreySu";
+    var timestamp = DateTime.Now.Ticks.ToString();
+    var echostr = DateTime.Now.Ticks.ToString();
+    var token = ViewData["Token"] as string;
+}
+@section HeaderContent
+{
+    <style>
+        .param {
+            display: none;
+        }
+    </style>
+    <script>
+        $(function() {
+            checkRequestType();
+        });
+
+        function checkRequestType() {
+            var requestType = $('#requestType').val();
+            var paramId = 'param' + requestType;
+            $('div[id^=param]').hide();
+            $('#' + paramId).show();
+        }
+
+        function sendMessage() {
+            var url = $('#Url').val();
+            var token = $('#Token').val();
+            var requestType = $('#requestType').val();
+            var param = { url: url, token: token, requestType: requestType };
+            var paramId = 'param' + requestType;
+            $.each($('#' + paramId).find('input'), function(i, item) {
+                param[$(item).attr('name')] = $(item).val();
+            });
+
+            $.post('@Url.Action("Index")', param, function(result) {
+                $('#responseMessageXML').html(result);
+            });
+        }
+    </script>
+}
+@section Featured
+{
+
+}
+<section class="content-wrapper main-content clear-fix">
+    <h1>消息模拟工具</h1>
+    <div class="clear-fix"></div>
+    <div id="simulateTool">
+        <h3>接口设置</h3>
+        <div>
+            URL：@Html.TextBox("Url", Url.Action("Index", "Weixin", null, "http", Request.Url.Host))<br />
+            Token：@Html.TextBox("Token", token)
+        </div>
+        <h3>发送内容</h3>
+        <div>
+            类型：<select id="requestType">
+                <option value="Text">文本</option>
+                <option value="Location">地理位置</option>
+                <option value="Image">图片</option>
+                <option value="Voice">语音</option>
+                <option value="Video">视频</option>
+                @*                   <option value="Link">连接信息</option>
+                   <option value="Event">事件推送</option>*@
+            </select>
+        </div>
+        <div>
+            参数：
+            <div id="paramText" class="param">
+                Content：<input name="Content" />
+            </div>
+            <div id="paramLocation" class="param"></div>
+            <div id="paramImage" class="param"></div>
+            <div id="paramVoice" class="param"></div>
+            <div id="paramVideo" class="param"></div>
+            <div id="paramLink" class="param"></div>
+            <div id="paramEvent" class="param"></div>
+            <div>
+                <input type="button" value="提交" onclick="sendMessage()" />
+            </div>
+        </div>
+        <h3>接收内容</h3>
+        <textarea id="responseMessageXML" rows="10" cols="60"></textarea>
+    </div>
+
+</section>

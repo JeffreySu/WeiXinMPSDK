@@ -20,7 +20,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
     public partial class WeixinController : Controller
     {
-        public readonly string Token = "weixin";//与微信公众账号后台的Token设置保持一致，区分大小写。
+        public static readonly string Token = "weixin";//与微信公众账号后台的Token设置保持一致，区分大小写。
 
         public WeixinController()
         {

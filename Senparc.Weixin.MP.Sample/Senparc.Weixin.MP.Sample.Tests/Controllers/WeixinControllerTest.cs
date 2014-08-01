@@ -93,7 +93,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 
             var timestamp = "itsafaketimestamp";
             var nonce = "whateveryouwant";
-            var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, target.Token);
+            var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, WeixinController.Token);
 
             DateTime st = DateTime.Now;
             //这里使用MiniPost，绕过日志记录
@@ -136,7 +136,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 
             var timestamp = "itsafaketimestamp";
             var nonce = "whateveryouwant";
-            var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, target.Token);
+            var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, WeixinController.Token);
             var actual = target.MiniPost(signature, timestamp, nonce, "echostr") as WeixinResult;
             Assert.IsNotNull(actual);
             Console.WriteLine(actual.Content);
@@ -151,7 +151,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 
             var timestamp = "itsafaketimestamp";
             var nonce = "whateveryouwant";
-            var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, target.Token);
+            var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, WeixinController.Token);
             var actual = target.MiniPost(signature, timestamp, nonce, "echostr") as WeixinResult;
             Assert.IsNotNull(actual);
             Console.WriteLine(actual.Content);
@@ -166,7 +166,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 
             var timestamp = "itsafaketimestamp";
             var nonce = "whateveryouwant";
-            var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, target.Token);
+            var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, WeixinController.Token);
             var actual = target.MiniPost(signature, timestamp, nonce, "echostr") as WeixinResult;
             Assert.IsNotNull(actual);
             Console.WriteLine(actual.Content);
@@ -183,7 +183,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 
                 var timestamp = "itsafaketimestamp";
                 var nonce = "whateveryouwant";
-                var signature = CheckSignature.GetSignature(timestamp, nonce, target.Token);
+                var signature = CheckSignature.GetSignature(timestamp, nonce, WeixinController.Token);
                 var actual = target.MiniPost(signature, timestamp, nonce, "echostr") as WeixinResult;
                 Assert.IsNotNull(actual);
             }

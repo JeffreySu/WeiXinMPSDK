@@ -67,7 +67,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             requestMessaage.CreateTime = DateTime.Now;
-            requestMessaage.FromUserName = "FromUserName（OpenId）";
+            requestMessaage.FromUserName = "FromUserName（OpenId）" ;//用于区别不同的请求用户
             requestMessaage.ToUserName = "ToUserName";
 
             return requestMessaage.ConvertEntityToXml();
@@ -88,9 +88,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 requestMessaageDoc.Save(ms);
                 ms.Seek(0, SeekOrigin.Begin);
 
-                var messageHandler = new CustomMessageHandler(ms);
-
-                var responseMessageXml = messageHandler.RequestXml(url, token, requestMessaageDoc.ToString());
+                var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString());
 
                 return Content(responseMessageXml);
             }

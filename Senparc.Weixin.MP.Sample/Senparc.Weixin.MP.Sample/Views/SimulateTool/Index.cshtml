@@ -1,6 +1,6 @@
 ﻿@using Senparc.Weixin.MP.Sample.Controllers
 @{
-    ViewBag.Title = "消息模拟工具";
+    ViewBag.Title = "微信消息模拟测试工具";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var nonce = "JeffreySu";
@@ -13,6 +13,30 @@
     <style>
         .param {
             display: none;
+        }
+
+        .messageXmlArea {
+            width: 100%;
+        }
+
+            .messageXmlArea textarea {
+                width: 100%;
+                height: 200px;
+            }
+
+        .paramAreaLeft {
+            float: left;
+            width: 45%;
+            margin-right: 6%;
+        }
+
+        .paramArearight {
+            width: 45%;
+            float: left;
+        }
+
+        #requestType {
+            padding: 5px;
         }
     </style>
     <script>
@@ -56,55 +80,73 @@
     <h1>消息模拟工具</h1>
     <div class="clear-fix"></div>
     <div id="simulateTool">
-        <h3>接口设置</h3>
-        <div>
-            URL：@Html.TextBox("Url", Url.Action("Index", "Weixin", null, "http", Request.Url.Host))<br />
-            Token：@Html.TextBox("Token", token)
-        </div>
-        <h3>发送内容</h3>
-        <div>
-            类型：<select id="requestType">
-                <option value="Text">文本</option>
-                <option value="Location">地理位置</option>
-                <option value="Image">图片</option>
-                <option value="Voice">语音</option>
-                <option value="Video">视频</option>
-                @*                   <option value="Link">连接信息</option>
-                   <option value="Event">事件推送</option>*@
-            </select>
-        </div>
-        <div>
-            参数：
-            <div id="paramText" class="param">
-                Content：<input name="Content" />
-            </div>
-            <div id="paramLocation" class="param">
-                Label：<input name="Label" /><br />
-                Location_X：<input name="Location_X" type="number" value="0" /><br />
-                Location_Y：<input name="Location_Y" type="number" value="0" /><br />
-                Scale：<input name="Scale" type="number" value="0" step="1" /><br />
-            </div>
-            <div id="paramImage" class="param">
-                PicUrl：<input name="PicUrl" /><br />
-            </div>
-            <div id="paramVoice" class="param">
-                Format：<input name="Format" value="arm" /><br />
-                Recognition：<input name="Recognition" /><br />
-            </div>
-            <div id="paramVideo" class="param">
-                MsgId：<input name="MsgId" type="number" value="@DateTime.Now.Ticks" step="1" /><br />
-                ThumbMediaId：<input name="ThumbMediaId" /><br />
-            </div>
-            @*<div id="paramLink" class="param"></div>
-            <div id="paramEvent" class="param"></div>*@
+        <div class="paramAreaLeft">
+            <h3>接口设置</h3>
             <div>
-                <input type="button" value="提交" onclick="sendMessage()" />
+                URL：@Html.TextBox("Url", Url.Action("Index", "Weixin", null, "http", Request.Url.Host))<br />
+                Token：@Html.TextBox("Token", token)
+            </div>
+            <h3>发送参数</h3>
+            <div>
+                类型：<select id="requestType">
+                    <option value="Text">文本</option>
+                    <option value="Location">地理位置</option>
+                    <option value="Image">图片</option>
+                    <option value="Voice">语音</option>
+                    <option value="Video">视频</option>
+                    @*<option value="Link">连接信息</option>*@
+                    <option value="Event">事件推送</option>
+                </select>
+            </div>
+            <div>
+                参数：
+                <div id="paramText" class="param">
+                    Content：<input name="Content" />
+                </div>
+                <div id="paramLocation" class="param">
+                    Label：<input name="Label" /><br />
+                    Location_X：<input name="Location_X" type="number" value="0" /><br />
+                    Location_Y：<input name="Location_Y" type="number" value="0" /><br />
+                    Scale：<input name="Scale" type="number" value="0" step="1" /><br />
+                </div>
+                <div id="paramImage" class="param">
+                    PicUrl：<input name="PicUrl" /><br />
+                </div>
+                <div id="paramVoice" class="param">
+                    Format：<input name="Format" value="arm" /><br />
+                    Recognition：<input name="Recognition" /><br />
+                </div>
+                <div id="paramVideo" class="param">
+                    MsgId：<input name="MsgId" type="number" value="@DateTime.Now.Ticks" step="1" /><br />
+                    ThumbMediaId：<input name="ThumbMediaId" /><br />
+                </div>
+                @*<div id="paramLink" class="param"></div>*@
+                <div id="paramEvent" class="param">
+                    <select id="eventType">
+                        <option value="Text">文本</option>
+                        <option value="Location">地理位置</option>
+                        <option value="Image">图片</option>
+                        <option value="Voice">语音</option>
+                        <option value="Video">视频</option>
+                        @*<option value="Link">连接信息</option>*@
+                        <option value="Event">事件推送</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="button" value="提交" onclick="sendMessage()" />
+                </div>
             </div>
         </div>
-        <h3>发送内容</h3>
-        <textarea id="requestMessageXML" rows="10" cols="60" readonly="readonly"></textarea>
-        <h3>接收内容</h3>
-        <textarea id="responseMessageXML" rows="10" cols="60"></textarea>
-    </div>
+        <div class="paramArearight">
 
+            <div class="messageXmlArea">
+                <h3>发送内容（根据参数自动生成）</h3>
+                <textarea id="requestMessageXML" readonly="readonly"></textarea>
+            </div>
+            <div class="messageXmlArea">
+                <h3>接收内容</h3>
+                <textarea id="responseMessageXML"></textarea>
+            </div>
+        </div>
+    </div>
 </section>

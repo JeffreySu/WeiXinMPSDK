@@ -12,7 +12,7 @@ using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
-    public class SimulateToolController : Controller
+    public class SimulateToolController : BaseController
     {
         /// <summary>
         /// 获取请求XML

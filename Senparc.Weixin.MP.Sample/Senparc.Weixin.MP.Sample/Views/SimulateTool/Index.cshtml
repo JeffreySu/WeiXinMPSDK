@@ -65,8 +65,8 @@
             var txtResponseMessageXML = $('#responseMessageXML');
             var txtRequestMessageXML = $('#requestMessageXML');
 
-            txtResponseMessageXML.empty();
-            txtRequestMessageXML.empty();
+            txtResponseMessageXML.html('载入中...');
+            txtRequestMessageXML.html('载入中...');
 
             $.post('@Url.Action("Index")', param, function (result) {
                 txtResponseMessageXML.html(result);

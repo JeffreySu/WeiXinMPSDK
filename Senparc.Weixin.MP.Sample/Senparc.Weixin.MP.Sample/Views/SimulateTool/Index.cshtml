@@ -62,12 +62,18 @@
                 param[$(item).attr('name')] = $(item).val();
             });
 
+            var txtResponseMessageXML = $('#responseMessageXML');
+            var txtRequestMessageXML = $('#requestMessageXML');
+
+            txtResponseMessageXML.empty();
+            txtRequestMessageXML.empty();
+
             $.post('@Url.Action("Index")', param, function (result) {
-                $('#responseMessageXML').html(result);
+                txtResponseMessageXML.html(result);
             });
 
             $.post('@Url.Action("GetRequestMessageXml")', param, function (result) {
-                $('#requestMessageXML').html(result);
+                txtRequestMessageXML.html(result);
             });
         }
     </script>

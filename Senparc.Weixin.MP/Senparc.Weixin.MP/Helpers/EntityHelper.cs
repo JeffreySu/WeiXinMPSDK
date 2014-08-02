@@ -187,6 +187,12 @@ namespace Senparc.Weixin.MP.Helpers
                     switch (prop.PropertyType.Name)
                     {
                         case "String":
+                            string value = prop.GetValue(entity, null) as string ?? "";
+                            if (prop.PropertyType.Name == "MsgType")
+                            {
+                                value = value.ToLower();//如果是MsgType则转为小写
+                            }
+
                             root.Add(new XElement(propName,
                                                   new XCData(prop.GetValue(entity, null) as string ?? "")));
                             break;

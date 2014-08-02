@@ -187,17 +187,7 @@ namespace Senparc.Weixin.MP.Helpers
                     switch (prop.PropertyType.Name)
                     {
                         case "String":
-                            string value = null;
-                            if (prop.PropertyType.Name == "MsgType")
-                            {
-                                value = (prop.GetValue(entity, null) as string ?? "").ToLower();//如果是MsgType则转为小写
-                            }
-                            else
-                            {
-                                value = prop.GetValue(entity, null) as string ?? "";
-                            }
-
-                            root.Add(new XElement(propName, new XCData(value)));
+                            root.Add(new XElement(propName, new XCData(prop.GetValue(entity, null) as string ?? "")));
                             break;
                         case "DateTime":
                             root.Add(new XElement(propName, DateTimeHelper.GetWeixinDateTime((DateTime)prop.GetValue(entity, null))));
@@ -213,6 +203,7 @@ namespace Senparc.Weixin.MP.Helpers
                             }
                             break;
                         case "ResponseMsgType":
+                        case "RequestMsgType":
                             root.Add(new XElement(propName, new XCData(prop.GetValue(entity, null).ToString().ToLower())));
                             break;
                         case "Article":

@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -133,12 +129,20 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return requestMessaage.ConvertEntityToXml();
         }
 
+        /// <summary>
+        /// 默认页面
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             ViewData["Token"] = WeixinController.Token;
             return View();
         }
 
+        /// <summary>
+        /// 模拟发送并返回结果
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Index(string url, string token, RequestMsgType requestType, Event? eventType)
         {
@@ -154,6 +158,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
         }
 
+        /// <summary>
+        /// 返回模拟发送的XML
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult GetRequestMessageXml(string url, string token, RequestMsgType requestType, Event? eventType)
         {

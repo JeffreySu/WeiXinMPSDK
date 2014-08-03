@@ -20,9 +20,19 @@ namespace Senparc.Weixin.MP.Entities
                 FromUserName = requestMessage.FromUserName,
                 ToUserName = requestMessage.ToUserName,
                 CreateTime = requestMessage.CreateTime,
-                MsgId = requestMessage.MsgId,
-                Content = requestMessage.EventKey
+                MsgId = requestMessage.MsgId
             };
+
+            //判断是否具有EventKey属性
+            if (requestMessageEvent is IRequestMessageEventKey)
+            {
+                requestMessageText.Content = (requestMessageEvent as IRequestMessageEventKey).EventKey;
+            }
+            else
+            {
+                requestMessageText.Content = "";
+            }
+
             return requestMessageText;
         }
     }

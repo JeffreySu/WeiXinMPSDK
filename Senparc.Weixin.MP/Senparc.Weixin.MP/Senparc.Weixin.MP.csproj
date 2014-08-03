@@ -102,19 +102,20 @@
     <Compile Include="Entities\MessageBase.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Entities\Request\Event\IRequestMessageEventKey.cs" />
     <Compile Include="Entities\Request\RequestMessageBase.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Entities\Request\RequestMessageEventBase.cs">
+    <Compile Include="Entities\Request\Event\RequestMessageEventBase.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Entities\Request\RequestMessageEvent_Enter.cs">
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Enter.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Entities\Request\RequestMessageEvent_Location.cs">
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Location.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Entities\Request\RequestMessageEvent_MassSendJobFinish.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_MassSendJobFinish.cs" />
     <Compile Include="Entities\Request\RequestMessageImage.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -127,13 +128,13 @@
     <Compile Include="Entities\Request\RequestMessageVoice.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Entities\Request\RequestMessageEvent_Subscribe.cs" />
-    <Compile Include="Entities\Request\RequestMessageEvent_Unsubscribe.cs" />
-    <Compile Include="Entities\Request\RequestMessageEvent_Click.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Subscribe.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Unsubscribe.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Click.cs" />
     <Compile Include="Entities\Request\RequestMessageLink.cs" />
-    <Compile Include="Entities\Request\RequestMessageEvent_Scan.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Scan.cs" />
     <Compile Include="Entities\Request\RequestMessageVideo.cs" />
-    <Compile Include="Entities\Request\RequestMessageEvent_View.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_View.cs" />
     <Compile Include="Entities\Response\Article.cs">
       <SubType>Code</SubType>
     </Compile>

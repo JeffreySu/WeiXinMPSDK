@@ -986,6 +986,11 @@
             所有Request和Response消息的基类
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.Entities.IRequestMessageEventKey">
+            <summary>
+            具有EventKey属性的RequestMessage接口
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageBase">
             <summary>
             接收到请求的消息
@@ -996,19 +1001,9 @@
             事件类型
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Entities.IRequestMessageEventBase.EventKey">
-            <summary>
-            事件KEY值，与自定义菜单接口中KEY值对应
-            </summary>
-        </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEventBase.Event">
             <summary>
             事件类型
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEventBase.EventKey">
-            <summary>
-            事件KEY值，与自定义菜单接口中KEY值对应，如果是View，则是跳转到的URL地址
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Enter.Event">
@@ -1107,6 +1102,11 @@
             事件类型
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Subscribe.EventKey">
+            <summary>
+            事件KEY值，qrscene_为前缀，后面为二维码的参数值
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Unsubscribe">
             <summary>
             事件之取消订阅
@@ -1127,6 +1127,11 @@
             事件类型
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Click.EventKey">
+            <summary>
+            事件KEY值，与自定义菜单接口中KEY值对应
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Scan">
             <summary>
             事件之二维码扫描（关注微信）
@@ -1137,6 +1142,11 @@
             事件类型
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Scan.EventKey">
+            <summary>
+            事件KEY值，是一个32位无符号整数，即创建二维码时的二维码scene_id
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_View">
             <summary>
             事件之URL跳转视图（View）
@@ -1145,6 +1155,11 @@
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_View.Event">
             <summary>
             事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_View.EventKey">
+            <summary>
+            事件KEY值，设置的跳转URL
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageBase">

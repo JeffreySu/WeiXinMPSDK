@@ -18,7 +18,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// 获取请求XML
         /// </summary>
         /// <returns></returns>
-        private XDocument GetrequestMessaageDoc(string url, string token, RequestMsgType requestType)
+        private XDocument GetrequestMessaageDoc(string url, string token, RequestMsgType requestType, Event? eventType)
         {
             RequestMessageBase requestMessaage = null;
             switch (requestType)
@@ -60,8 +60,40 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     break;
                 //case RequestMsgType.Link:
                 //    break;
-                //case RequestMsgType.Event:
-                //    break;
+                case RequestMsgType.Event:
+                    if (eventType.HasValue)
+                    {
+                        RequestMessageEventBase requestMessageEvent = null;
+                        switch (eventType.Value)
+                        {
+                            //case Event.ENTER:
+                            //    break;
+                            case Event.LOCATION:
+                                requestMessageEvent = new RequestMessageEvent_Location()
+                                {
+                                    Latitude = long.Parse(Request.Form["Event.Latitude"]),
+                                    Longitude = long.Parse(Request.Form["Event.Longitude"]),
+                                    Precision = double.Parse(Request.Form["Event.Precision"])
+                                };
+                                break;
+                            case Event.subscribe:
+                                break;
+                            case Event.unsubscribe:
+                                break;
+                            case Event.CLICK:
+                                break;
+                            case Event.scan:
+                                break;
+                            case Event.VIEW:
+                                break;
+                            case Event.MASSSENDJOBFINISH:
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException("eventType");
+                        }
+
+                    }
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException("requestType");
             }

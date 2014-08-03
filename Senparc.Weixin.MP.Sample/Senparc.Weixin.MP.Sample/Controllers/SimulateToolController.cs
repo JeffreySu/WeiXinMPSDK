@@ -77,21 +77,47 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                 };
                                 break;
                             case Event.subscribe:
+                                requestMessageEvent = new RequestMessageEvent_Subscribe()
+                                {
+                                    EventKey = Request.Form["Event.EventKey"]
+                                };
                                 break;
                             case Event.unsubscribe:
-                                break;
+                                requestMessageEvent = new RequestMessageEvent_Subscribe()
+                                  {
+                                      EventKey = Request.Form["Event.EventKey"]
+                                  }; break;
                             case Event.CLICK:
+                                requestMessageEvent = new RequestMessageEvent_Click()
+                                   {
+                                       EventKey = Request.Form["Event.EventKey"]
+                                   };
                                 break;
                             case Event.scan:
-                                break;
+                                requestMessageEvent = new RequestMessageEvent_Scan()
+                                 {
+                                     EventKey = Request.Form["Event.EventKey"],
+                                     Ticket = Request.Form["Event.Ticket"]
+                                 }; break;
                             case Event.VIEW:
-                                break;
+                                requestMessageEvent = new RequestMessageEvent_View()
+                                 {
+                                     EventKey = Request.Form["Event.EventKey"]
+                                 }; break;
                             case Event.MASSSENDJOBFINISH:
-                                break;
+                                requestMessageEvent = new RequestMessageEvent_MassSendJobFinish()
+                                {
+                                    FromUserName = "mphelper",//系统指定
+                                    ErrorCount = int.Parse(Request.Form["Event.ErrorCount"]),
+                                    FilterCount = int.Parse(Request.Form["Event.FilterCount"]),
+                                    SendCount = int.Parse(Request.Form["Event.SendCount"]),
+                                    Status = Request.Form["Event.Status"],
+                                    TotalCount = int.Parse(Request.Form["Event.TotalCount"])
+                                }; break;
                             default:
                                 throw new ArgumentOutOfRangeException("eventType");
                         }
-
+                        requestMessaage = requestMessageEvent;
                     }
                     break;
                 default:
@@ -99,7 +125,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             requestMessaage.CreateTime = DateTime.Now;
-            requestMessaage.FromUserName = "FromUserName（OpenId）" ;//用于区别不同的请求用户
+            requestMessaage.FromUserName = requestMessaage.FromUserName ?? "FromUserName（OpenId）";//用于区别不同的请求用户
             requestMessaage.ToUserName = "ToUserName";
 
             return requestMessaage.ConvertEntityToXml();
@@ -112,11 +138,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string url, string token, RequestMsgType requestType)
+        public ActionResult Index(string url, string token, RequestMsgType requestType, Event? eventType)
         {
             using (MemoryStream ms = new MemoryStream())
             {
-                var requestMessaageDoc = GetrequestMessaageDoc(url, token, requestType);
+                var requestMessaageDoc = GetrequestMessaageDoc(url, token, requestType, eventType);
                 requestMessaageDoc.Save(ms);
                 ms.Seek(0, SeekOrigin.Begin);
 
@@ -127,9 +153,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         [HttpPost]
-        public ActionResult GetRequestMessageXml(string url, string token, RequestMsgType requestType)
+        public ActionResult GetRequestMessageXml(string url, string token, RequestMsgType requestType, Event? eventType)
         {
-            var requestMessaageDoc = GetrequestMessaageDoc(url, token, requestType);
+            var requestMessaageDoc = GetrequestMessaageDoc(url, token, requestType, eventType);
             return Content(requestMessaageDoc.ToString());
         }
     }

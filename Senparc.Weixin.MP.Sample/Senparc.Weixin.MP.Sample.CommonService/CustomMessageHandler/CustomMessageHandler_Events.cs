@@ -141,6 +141,13 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
                         reponseMessage = strongResponseMessage;
                     }
                     break;
+                default:
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
+                        strongResponseMessage.Content = "您点击了按钮，EventKey：" + requestMessage.EventKey;
+                        reponseMessage = strongResponseMessage;
+                    }
+                    break;
             }
 
             return reponseMessage;
@@ -164,7 +171,9 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
         public override IResponseMessageBase OnEvent_ScanRequest(RequestMessageEvent_Scan requestMessage)
         {
             //通过扫描关注
-            return base.OnEvent_ScanRequest(requestMessage);
+            var responseMessage = CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "通过扫描关注。";
+            return responseMessage;
         }
 
         public override IResponseMessageBase OnEvent_ViewRequest(RequestMessageEvent_View requestMessage)
@@ -172,6 +181,13 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
             //说明：这条消息只作为接收，下面的responseMessage到达不了客户端，类似OnEvent_UnsubscribeRequest
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您点击了view按钮，将打开网页：" + requestMessage.EventKey;
+            return responseMessage;
+        }
+
+        public override IResponseMessageBase OneEvent_MassSendJobFinisRequest(RequestMessageEvent_MassSendJobFinish requestMessage)
+        {
+            var responseMessage = CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "接收到了群发完成的信息。";
             return responseMessage;
         }
 

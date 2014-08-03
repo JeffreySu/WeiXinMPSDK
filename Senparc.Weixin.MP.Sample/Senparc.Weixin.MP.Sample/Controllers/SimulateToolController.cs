@@ -83,10 +83,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                 };
                                 break;
                             case Event.unsubscribe:
-                                requestMessageEvent = new RequestMessageEvent_Subscribe()
-                                  {
-                                      EventKey = Request.Form["Event.EventKey"]
-                                  }; break;
+                                requestMessageEvent = new RequestMessageEvent_Unsubscribe();
+                                  break;
                             case Event.CLICK:
                                 requestMessageEvent = new RequestMessageEvent_Click()
                                    {
@@ -118,6 +116,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                 throw new ArgumentOutOfRangeException("eventType");
                         }
                         requestMessaage = requestMessageEvent;
+                    }
+                    else
+                    {
+                        throw new ArgumentOutOfRangeException("eventType");
                     }
                     break;
                 default:

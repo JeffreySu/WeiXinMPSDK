@@ -19,10 +19,10 @@
             width: 100%;
         }
 
-        .messageXmlArea textarea {
-            width: 100%;
-            height: 200px;
-        }
+            .messageXmlArea textarea {
+                width: 100%;
+                height: 200px;
+            }
 
         .paramAreaLeft {
             float: left;
@@ -40,7 +40,7 @@
         }
     </style>
     <script>
-        $(function() {
+        $(function () {
             $('#requestType').change(checkRequestType);
             $('#eventType').change(checkEventType);
             checkRequestType();
@@ -61,16 +61,25 @@
             $('#' + eventId).show();
         }
 
-     
         function sendMessage() {
             var url = $('#Url').val();
             var token = $('#Token').val();
             var requestType = $('#requestType').val();
+            var eventType = $('#eventType').val();
             var param = { url: url, token: token, requestType: requestType };
             var paramId = 'param' + requestType;
-            $.each($('#' + paramId).find('input'), function(i, item) {
-                param[$(item).attr('name')] = $(item).val();
-            });
+            var eventId = 'event' + eventType;
+            //设置参数
+            if (requestType != 'Event') {
+                $.each($('#' + paramId).find('input'), function (i, item) {
+                    param[$(item).attr('name')] = $(item).val();
+                });
+            } else {
+                param.eventType = eventType;
+                $.each($('#' + eventId).find('input'), function (i, item) {
+                    param[$(item).attr('name')] = $(item).val();
+                });
+            }
 
             var txtResponseMessageXML = $('#responseMessageXML');
             var txtRequestMessageXML = $('#requestMessageXML');
@@ -78,11 +87,11 @@
             txtResponseMessageXML.html('载入中...');
             txtRequestMessageXML.html('载入中...');
 
-            $.post('@Url.Action("Index")', param, function(result) {
+            $.post('@Url.Action("Index")', param, function (result) {
                 txtResponseMessageXML.html(result);
             });
 
-            $.post('@Url.Action("GetRequestMessageXml")', param, function(result) {
+            $.post('@Url.Action("GetRequestMessageXml")', param, function (result) {
                 txtRequestMessageXML.html(result);
             });
         }
@@ -150,14 +159,31 @@
                     </select>
                     @*<div id="eventENTER" class="param"></div>*@
                     <div id="eventLOCATION" class="param">
-                        
+                        Latitude：<input name="Event.Latitude" type="number" value="0"/><br />
+                        Longitude：<input name="Event.Longitude" type="number" value="0"/><br />
+                        Precision：<input name="Event.Precision" type="number" value="0"/><br />
                     </div>
-                    <div id="eventsubscribe" class="param"></div>
+                    <div id="eventsubscribe" class="param">
+                        EventKey：<input name="Event.EventKey" /><br />
+                    </div>
                     <div id="eventunsubscribe" class="param"></div>
-                    <div id="eventCLICK" class="param"></div>
-                    <div id="eventscan" class="param"></div>
-                    <div id="eventVIEW" class="param"></div>
-                    <div id="eventMASSSENDJOBFINISH" class="param"></div>
+                    <div id="eventCLICK" class="param">
+                        EventKey：<input name="Event.EventKey" /><br />
+                    </div>
+                    <div id="eventscan" class="param">
+                        EventKey：<input name="Event.EventKey" /><br />
+                        Ticket：<input name="Event.Ticket" /><br />
+                    </div>
+                    <div id="eventVIEW" class="param">
+                        EventKey：<input name="Event.EventKey" /><br />
+                    </div>
+                    <div id="eventMASSSENDJOBFINISH" class="param">
+                        ErrorCount：<input name="Event.ErrorCount" type="number" value="0"/><br />
+                        FilterCount：<input name="Event.FilterCount" type="number" value="0"/><br />
+                        SendCount：<input name="Event.SendCount" type="number" value="0"/><br />
+                        Status：<input name="Event.Status"/><br />
+                        TotalCount：<input name="Event.TotalCount" type="number" value="0"/><br />
+                    </div>
                 </div>
                 <div>
                     <input type="button" value="提交" onclick="sendMessage()" />

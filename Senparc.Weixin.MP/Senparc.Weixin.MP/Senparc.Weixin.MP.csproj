@@ -75,6 +75,8 @@
     <Compile Include="AdvancedAPIs\User\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\User.cs" />
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
+    <Compile Include="AdvancedAPIs\WeixinPay\WeixinPay.cs" />
+    <Compile Include="AdvancedAPIs\WeixinPay\WeixinPayResult.cs" />
     <Compile Include="Agents\MessageAgent.cs" />
     <Compile Include="CheckSignature.cs" />
     <Compile Include="CommonAPIs\AccessTokenContainer.cs" />
@@ -185,6 +187,11 @@
     <Compile Include="ResponseMessageFactory.cs" />
     <Compile Include="Context\MessageContext.cs" />
     <Compile Include="Context\WeixinContext.cs" />
+    <Compile Include="WeixinPayLib\MD5Util.cs" />
+    <Compile Include="WeixinPayLib\RequestHandler.cs" />
+    <Compile Include="WeixinPayLib\ResponseHandler.cs" />
+    <Compile Include="WeixinPayLib\SHA1Util.cs" />
+    <Compile Include="WeixinPayLib\WeixinPayUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonAPIs\CommonApi.Menu.cs" />

@@ -142,6 +142,30 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WeixinPay\feedback.aspx.cs">
+      <DependentUpon>feedback.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeixinPay\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeixinPay\jsapi.aspx.cs">
+      <DependentUpon>jsapi.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeixinPay\native.aspx.cs">
+      <DependentUpon>native.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeixinPay\nativecall.aspx.cs">
+      <DependentUpon>nativecall.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WeixinPay\payNotifyUrl.aspx.cs">
+      <DependentUpon>payNotifyUrl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -200,6 +224,12 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="WeixinPay\feedback.aspx" />
+    <Content Include="WeixinPay\index.aspx" />
+    <Content Include="WeixinPay\jsapi.aspx" />
+    <Content Include="WeixinPay\native.aspx" />
+    <Content Include="WeixinPay\nativecall.aspx" />
+    <Content Include="WeixinPay\payNotifyUrl.aspx" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\qrcode.jpg" />
     <Content Include="Images\Logo.jpg" />

@@ -2127,14 +2127,14 @@
         </member>
         <member name="T:Senparc.Weixin.MP.WeixinPayLib.ResponseHandler">
                 '============================================================================
-                'api说明：
-                'getKey()/setKey(),获取/设置密钥
-                'getParameter()/setParameter(),获取/设置参数值
-                'getAllParameters(),获取所有参数
-                'isTenpaySign(),是否正确的签名,true:是 false:否
-                'isWXsign(),是否正确的签名,true:是 false:否
-                ' * isWXsignfeedback判断微信维权签名
-                ' *getDebugInfo(),获取debug信息
+                'Api说明：
+                'GetKey()/setKey(),获取/设置密钥
+                'GetParameter()/setParameter(),获取/设置参数值
+                'GetAllParameters(),获取所有参数
+                'IsTenpaySign(),是否正确的签名,true:是 false:否
+                'IsWXsign(),是否正确的签名,true:是 false:否
+                ' * IsWXsignfeedback判断微信维权签名
+                ' *GetDebugInfo(),获取debug信息
                 '============================================================================
         </member>
         <member name="F:Senparc.Weixin.MP.WeixinPayLib.ResponseHandler.key">
@@ -2167,7 +2167,7 @@
             原始内容
             </summary>
         </member>
-        <member name="F:Senparc.Weixin.MP.WeixinPayLib.ResponseHandler.SignField">
+        <member name="F:Senparc.Weixin.MP.WeixinPayLib.ResponseHandler.signField">
             <summary>
             参与签名的参数列表
             </summary>

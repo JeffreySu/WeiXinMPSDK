@@ -12,14 +12,14 @@ namespace Senparc.Weixin.MP.WeixinPayLib
     '签名工具类
      ============================================================================/// <summary>
     'api说明：
-    'init();
+    'Init();
     '初始化函数，默认给一些参数赋值。
-    'setKey(key_)'设置商户密钥
-    'createMd5Sign(signParams);字典生成Md5签名
-    'genPackage(packageParams);获取package包
-    'createSHA1Sign(signParams);创建签名SHA1
-    'parseXML();输出xml
-    'getDebugInfo(),获取debug信息
+    'SetKey(key_)'设置商户密钥
+    'CreateMd5Sign(signParams);字典生成Md5签名
+    'GenPackage(packageParams);获取package包
+    'CreateSHA1Sign(signParams);创建签名SHA1
+    'ParseXML();输出xml
+    'GetDebugInfo(),获取debug信息
      * 
      * ============================================================================
      */

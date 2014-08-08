@@ -10,14 +10,14 @@ namespace Senparc.Weixin.MP.WeixinPayLib
 
     /** 
     '============================================================================
-    'api说明：
-    'getKey()/setKey(),获取/设置密钥
-    'getParameter()/setParameter(),获取/设置参数值
-    'getAllParameters(),获取所有参数
-    'isTenpaySign(),是否正确的签名,true:是 false:否
-    'isWXsign(),是否正确的签名,true:是 false:否
-    ' * isWXsignfeedback判断微信维权签名
-    ' *getDebugInfo(),获取debug信息
+    'Api说明：
+    'GetKey()/setKey(),获取/设置密钥
+    'GetParameter()/setParameter(),获取/设置参数值
+    'GetAllParameters(),获取所有参数
+    'IsTenpaySign(),是否正确的签名,true:是 false:否
+    'IsWXsign(),是否正确的签名,true:是 false:否
+    ' * IsWXsignfeedback判断微信维权签名
+    ' *GetDebugInfo(),获取debug信息
     '============================================================================
     */
 
@@ -57,7 +57,7 @@ namespace Senparc.Weixin.MP.WeixinPayLib
         /// <summary>
         /// 参与签名的参数列表
         /// </summary>
-        private static string SignField = "appid,appkey,timestamp,openid,noncestr,issubscribe";
+        private static string signField = "appid,appkey,timestamp,openid,noncestr,issubscribe";
 
 		protected HttpContext httpContext;
 
@@ -240,7 +240,7 @@ namespace Senparc.Weixin.MP.WeixinPayLib
        
             foreach (string k in xmlMap.Keys)
             {
-                if (SignField.IndexOf(k.ToLower()) != -1)
+                if (signField.IndexOf(k.ToLower()) != -1)
                 {
                     signMap.Add(k.ToLower(), xmlMap[k]);
                 }

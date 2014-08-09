@@ -32,7 +32,7 @@ public partial class nativecall : System.Web.UI.Page
             sp_billno = Request["order_no"].ToString();
         }
 
-        sp_billno = WeixinPayUtil.Partner + sp_billno;
+        sp_billno = WeixinPayUtil.PartnerId + sp_billno;
 
 
 
@@ -43,7 +43,7 @@ public partial class nativecall : System.Web.UI.Page
         packageReqHandler.SetKey(WeixinPayUtil.Key);
 
         //设置package订单参数
-        packageReqHandler.SetParameter("partner", WeixinPayUtil.Partner);		  //商户号
+        packageReqHandler.SetParameter("partner", WeixinPayUtil.PartnerId);		  //商户号
         packageReqHandler.SetParameter("bank_type", "WX");		                      //银行类型
         packageReqHandler.SetParameter("fee_type", "1");                    //币种，1人民币
         packageReqHandler.SetParameter("input_charset", "GBK");

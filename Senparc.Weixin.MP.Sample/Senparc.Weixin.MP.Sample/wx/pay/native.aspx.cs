@@ -63,7 +63,7 @@ public partial class native : System.Web.UI.Page
             sp_billno = Request["order_no"].ToString();
         }
 
-        sp_billno = WeixinPayUtil.Partner + sp_billno;
+        sp_billno = WeixinPayUtil.PartnerId + sp_billno;
 
         
         RequestHandler outParams = new RequestHandler(Context);

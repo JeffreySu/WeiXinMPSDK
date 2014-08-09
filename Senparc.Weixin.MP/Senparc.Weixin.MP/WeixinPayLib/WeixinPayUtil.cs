@@ -13,9 +13,9 @@ namespace Senparc.Weixin.MP.WeixinPayLib
         /// <summary>
         /// 商户号
         /// </summary>
-        public static string Partner { get; set; }
+        public static string PartnerId { get; set; }
         /// <summary>
-        /// //密钥
+        /// 密钥
         /// </summary>
         public static string Key { get; set; }
         /// <summary>
@@ -34,17 +34,16 @@ namespace Senparc.Weixin.MP.WeixinPayLib
         /// <summary>
         /// 注册全局支付信息
         /// </summary>
-        /// <param name="tenpay"></param>
-        /// <param name="partner"></param>
-        /// <param name="key"></param>
-        /// <param name="appId"></param>
-        /// <param name="AppKey"></param>
-        /// <param name="TenpayNotify"></param>
-        public static void Register(string tenpay, string partner, string key, string appId, string appKey,
-                                    string tenpayNotify)
+        /// <param name="tenpay">商户号</param>
+        /// <param name="partnerId"></param>
+        /// <param name="key">密钥</param>
+        /// <param name="appId">appid</param>
+        /// <param name="appKey">paysignkey(非appkey) </param>
+        /// <param name="tenpayNotify">支付完成后的回调处理页面,*替换成notify_url.asp所在路径</param>
+        public static void Register(string tenpay, string partnerId, string key, string appId, string appKey, string tenpayNotify)
         {
             Tenpay = tenpay;
-            Partner = partner;
+            PartnerId = partnerId;
             Key = key;
             AppId = appId;
             AppKey = appKey;

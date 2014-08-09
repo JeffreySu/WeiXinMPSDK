@@ -36,7 +36,7 @@ public partial class _Default : System.Web.UI.Page
             sp_billno = Request["order_no"].ToString();
         }
 
-        sp_billno = WeixinPayUtil.Partner + sp_billno;
+        sp_billno = WeixinPayUtil.PartnerId + sp_billno;
 
 
 
@@ -47,7 +47,7 @@ public partial class _Default : System.Web.UI.Page
 
 
         //设置package订单参数
-        packageReqHandler.SetParameter("partner", WeixinPayUtil.Partner);		  //商户号
+        packageReqHandler.SetParameter("partner", WeixinPayUtil.PartnerId);		  //商户号
         packageReqHandler.SetParameter("fee_type", "1");                    //币种，1人民币
         packageReqHandler.SetParameter("input_charset", "GBK");
         packageReqHandler.SetParameter("out_trade_no", sp_billno);		//商家订单号

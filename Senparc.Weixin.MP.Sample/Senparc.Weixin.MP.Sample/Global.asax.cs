@@ -23,7 +23,7 @@ namespace Senparc.Weixin.MP.Sample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            Senparc.Weixin.MP.WeixinPayLib.WeixinPayUtil.Register();
+            Senparc.Weixin.MP.WeixinPayLib.WeixinPayUtil.Register("", "1219419001", "", "wx402b1453e023f85e", "", "http://weixin.mybeibang.com/wx/pay/payNotifyUrl.aspx");
         }
     }
 }

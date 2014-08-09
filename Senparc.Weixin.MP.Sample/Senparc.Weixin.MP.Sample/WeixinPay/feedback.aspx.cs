@@ -19,7 +19,7 @@ public partial class feedback : System.Web.UI.Page
         //创建支付应答对象
         ResponseHandler resHandler = new ResponseHandler(Context);
         resHandler.Init();
-        resHandler.SetKey(WeixinPayUtil.key, WeixinPayUtil.appkey);
+        resHandler.SetKey(WeixinPayUtil.Key, WeixinPayUtil.AppKey);
 
         //判断签名
         if (resHandler.IsWXsignfeedback())

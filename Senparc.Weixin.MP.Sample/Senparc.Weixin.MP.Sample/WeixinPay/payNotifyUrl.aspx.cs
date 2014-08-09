@@ -25,7 +25,7 @@ public partial class payNotifyUrl : System.Web.UI.Page
 
         ResponseHandler resHandler = new ResponseHandler(Context);
         resHandler.Init();
-        resHandler.SetKey(WeixinPayUtil.key, WeixinPayUtil.appkey);
+        resHandler.SetKey(WeixinPayUtil.Key, WeixinPayUtil.AppKey);
        
         //判断签名
         if (resHandler.IsTenpaySign())

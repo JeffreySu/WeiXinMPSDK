@@ -3,23 +3,59 @@ using System.Text;
 using System.Web;
 namespace Senparc.Weixin.MP.WeixinPayLib
 {
-	/// <summary>
-	/// TenpayUtil 的摘要说明。
+    /// <summary>
+    /// TenpayUtil 的摘要说明。
     /// 配置文件
-	/// </summary>
-	public class WeixinPayUtil
-	{
-        public static string tenpay = "1";
-        public static string partner = "";//商户号
-        public static string key = "";  //密钥
-        public static string appid = "";//appid
-        public static string appkey = "";//paysignkey(非appkey) 
-        public static string tenpay_notify = "http://localhost/payNotifyUrl.aspx"; //支付完成后的回调处理页面,*替换成notify_url.asp所在路径
+    /// </summary>
+    public class WeixinPayUtil
+    {
+        public static string Tenpay { get; set; }
+        /// <summary>
+        /// 商户号
+        /// </summary>
+        public static string Partner { get; set; }
+        /// <summary>
+        /// //密钥
+        /// </summary>
+        public static string Key { get; set; }
+        /// <summary>
+        /// appid
+        /// </summary>
+        public static string AppId { get; set; }
+        /// <summary>
+        /// paysignkey(非appkey) 
+        /// </summary>
+        public static string AppKey { get; set; }
+        /// <summary>
+        /// 支付完成后的回调处理页面,*替换成notify_url.asp所在路径
+        /// </summary>
+        public static string TenpayNotify { get; set; } // = "http://localhost/payNotifyUrl.aspx";
 
-		public WeixinPayUtil()
-		{
-          
-		}
+        /// <summary>
+        /// 注册全局支付信息
+        /// </summary>
+        /// <param name="tenpay"></param>
+        /// <param name="partner"></param>
+        /// <param name="key"></param>
+        /// <param name="appId"></param>
+        /// <param name="AppKey"></param>
+        /// <param name="TenpayNotify"></param>
+        public static void Register(string tenpay, string partner, string key, string appId, string appKey,
+                                    string tenpayNotify)
+        {
+            Tenpay = tenpay;
+            Partner = partner;
+            Key = key;
+            AppId = appId;
+            AppKey = appKey;
+            TenpayNotify = tenpayNotify;
+        }
+
+
+        public WeixinPayUtil()
+        {
+
+        }
 
         /// <summary>
         /// 随机生成Noncestr
@@ -37,107 +73,107 @@ namespace Senparc.Weixin.MP.WeixinPayLib
             TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return Convert.ToInt64(ts.TotalSeconds).ToString();
         }
-      
 
-		/// <summary>
+
+        /// <summary>
         /// 对字符串进行URL编码
-		/// </summary>
-		/// <param name="instr"></param>
-		/// <param name="charset"></param>
-		/// <returns></returns>
-		public static string UrlEncode(string instr, string charset)
-		{
-			//return instr;
-			if(instr == null || instr.Trim() == "")
-				return "";
-			else
-			{
-				string res;
-				
-				try
-				{
+        /// </summary>
+        /// <param name="instr"></param>
+        /// <param name="charset"></param>
+        /// <returns></returns>
+        public static string UrlEncode(string instr, string charset)
+        {
+            //return instr;
+            if (instr == null || instr.Trim() == "")
+                return "";
+            else
+            {
+                string res;
+
+                try
+                {
                     res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
 
-				}
-				catch (Exception ex)
-				{
+                }
+                catch (Exception ex)
+                {
                     res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
-				}
-				
-		
-				return res;
-			}
-		}
+                }
 
-		/// <summary>
+
+                return res;
+            }
+        }
+
+        /// <summary>
         /// 对字符串进行URL解码
-		/// </summary>
-		/// <param name="instr"></param>
-		/// <param name="charset"></param>
-		/// <returns></returns>
-		public static string UrlDecode(string instr, string charset)
-		{
-			if(instr == null || instr.Trim() == "")
-				return "";
-			else
-			{
-				string res;
-				
-				try
-				{
+        /// </summary>
+        /// <param name="instr"></param>
+        /// <param name="charset"></param>
+        /// <returns></returns>
+        public static string UrlDecode(string instr, string charset)
+        {
+            if (instr == null || instr.Trim() == "")
+                return "";
+            else
+            {
+                string res;
+
+                try
+                {
                     res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
 
-				}
-				catch (Exception ex)
-				{
+                }
+                catch (Exception ex)
+                {
                     res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
-				}
-				
-		
-				return res;
+                }
 
-			}
-		}
-       
 
-		/// <summary>
+                return res;
+
+            }
+        }
+
+
+        /// <summary>
         /// 取时间戳生成随即数,替换交易单号中的后10位流水号
-		/// </summary>
-		/// <returns></returns>
-		public static UInt32 UnixStamp()
-		{
-			TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
-			return Convert.ToUInt32(ts.TotalSeconds);
-		}
-		/// <summary>
+        /// </summary>
+        /// <returns></returns>
+        public static UInt32 UnixStamp()
+        {
+            TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+            return Convert.ToUInt32(ts.TotalSeconds);
+        }
+        /// <summary>
         /// 取随机数
-		/// </summary>
-		/// <param name="length"></param>
-		/// <returns></returns>
-		public static string BuildRandomStr(int length) 
-		{
-			Random rand = new Random();
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static string BuildRandomStr(int length)
+        {
+            Random rand = new Random();
 
-			int num = rand.Next();
+            int num = rand.Next();
 
-			string str = num.ToString();
+            string str = num.ToString();
 
-			if(str.Length > length)
-			{
-				str = str.Substring(0,length);
-			}
-			else if(str.Length < length)
-			{
-				int n = length - str.Length;
-				while(n > 0)
-				{
-					str.Insert(0, "0");
-					n--;
-				}
-			}
-			
-			return str;
-		}
-       
-	}
+            if (str.Length > length)
+            {
+                str = str.Substring(0, length);
+            }
+            else if (str.Length < length)
+            {
+                int n = length - str.Length;
+                while (n > 0)
+                {
+                    str.Insert(0, "0");
+                    n--;
+                }
+            }
+
+            return str;
+        }
+
+    }
 }

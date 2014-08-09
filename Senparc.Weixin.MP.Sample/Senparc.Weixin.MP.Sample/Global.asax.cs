@@ -22,6 +22,8 @@ namespace Senparc.Weixin.MP.Sample
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Senparc.Weixin.MP.WeixinPayLib.WeixinPayUtil.Register();
         }
     }
 }

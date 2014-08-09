@@ -32,7 +32,7 @@ public partial class nativecall : System.Web.UI.Page
             sp_billno = Request["order_no"].ToString();
         }
 
-        sp_billno = WeixinPayUtil.partner + sp_billno;
+        sp_billno = WeixinPayUtil.Partner + sp_billno;
 
 
 
@@ -40,16 +40,16 @@ public partial class nativecall : System.Web.UI.Page
         RequestHandler packageReqHandler = new RequestHandler(Context);
         //初始化
         packageReqHandler.Init();
-        packageReqHandler.SetKey(WeixinPayUtil.key);
+        packageReqHandler.SetKey(WeixinPayUtil.Key);
 
         //设置package订单参数
-        packageReqHandler.SetParameter("partner", WeixinPayUtil.partner);		  //商户号
+        packageReqHandler.SetParameter("partner", WeixinPayUtil.Partner);		  //商户号
         packageReqHandler.SetParameter("bank_type", "WX");		                      //银行类型
         packageReqHandler.SetParameter("fee_type", "1");                    //币种，1人民币
         packageReqHandler.SetParameter("input_charset", "GBK");
         packageReqHandler.SetParameter("out_trade_no", sp_billno);		//商家订单号
         packageReqHandler.SetParameter("total_fee", "1");			        //商品金额,以分为单位(money * 100).ToString()
-        packageReqHandler.SetParameter("notify_url", WeixinPayUtil.tenpay_notify);		    //接收财付通通知的URL
+        packageReqHandler.SetParameter("notify_url", WeixinPayUtil.TenpayNotify);		    //接收财付通通知的URL
         packageReqHandler.SetParameter("body", "nativecall");	                    //商品描述
         packageReqHandler.SetParameter("spbill_create_ip", Page.Request.UserHostAddress);   //用户的公网ip，不是商户服务器IP
 
@@ -62,7 +62,7 @@ public partial class nativecall : System.Web.UI.Page
 
         //设置支付参数
         RequestHandler payHandler = new RequestHandler(Context);
-        payHandler.SetParameter("appid", WeixinPayUtil.appid);
+        payHandler.SetParameter("appid", WeixinPayUtil.AppId);
         payHandler.SetParameter("noncestr", nonceStr);
         payHandler.SetParameter("timestamp", timeStamp);
         payHandler.SetParameter("package", packageValue);

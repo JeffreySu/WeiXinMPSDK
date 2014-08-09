@@ -63,7 +63,7 @@ public partial class native : System.Web.UI.Page
             sp_billno = Request["order_no"].ToString();
         }
 
-        sp_billno = WeixinPayUtil.partner + sp_billno;
+        sp_billno = WeixinPayUtil.Partner + sp_billno;
 
         
         RequestHandler outParams = new RequestHandler(Context);
@@ -74,8 +74,8 @@ public partial class native : System.Web.UI.Page
         string nonceStr = WeixinPayUtil.GetNoncestr();
 
         RequestHandler Params = new RequestHandler(Context);
-        Params.SetParameter("appid", WeixinPayUtil.appid);
-        Params.SetParameter("appkey", WeixinPayUtil.appkey);
+        Params.SetParameter("appid", WeixinPayUtil.AppId);
+        Params.SetParameter("appkey", WeixinPayUtil.AppKey);
         Params.SetParameter("noncestr", nonceStr);
         Params.SetParameter("timestamp", timeStamp);
         Params.SetParameter("productid", productid);
@@ -83,7 +83,7 @@ public partial class native : System.Web.UI.Page
         Params.SetParameter("sign",sign);
 
 
-        parm = "weixin://wxpay/bizpayurl?sign=" + sign + "&appid=" + WeixinPayUtil.appid + "&productid=" + productid + "&timeStamp=" + timeStamp + "&nonceStr=" + nonceStr;
+        parm = "weixin://wxpay/bizpayurl?sign=" + sign + "&appid=" + WeixinPayUtil.AppId + "&productid=" + productid + "&timeStamp=" + timeStamp + "&nonceStr=" + nonceStr;
         parm = QRfromGoogle(parm);
       
     }

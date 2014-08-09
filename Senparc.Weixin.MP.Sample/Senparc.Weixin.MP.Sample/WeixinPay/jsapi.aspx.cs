@@ -14,7 +14,7 @@ using Senparc.Weixin.MP.WeixinPayLib;
 //=================================
 public partial class _Default : System.Web.UI.Page
 {
-    public String appId = WeixinPayUtil.appid;
+    public String appId = WeixinPayUtil.AppId;
     public String timeStamp = "";
     public String nonceStr = "";
     public String packageValue = "";
@@ -36,7 +36,7 @@ public partial class _Default : System.Web.UI.Page
             sp_billno = Request["order_no"].ToString();
         }
 
-        sp_billno = WeixinPayUtil.partner + sp_billno;
+        sp_billno = WeixinPayUtil.Partner + sp_billno;
 
 
 
@@ -47,12 +47,12 @@ public partial class _Default : System.Web.UI.Page
 
 
         //设置package订单参数
-        packageReqHandler.SetParameter("partner", WeixinPayUtil.partner);		  //商户号
+        packageReqHandler.SetParameter("partner", WeixinPayUtil.Partner);		  //商户号
         packageReqHandler.SetParameter("fee_type", "1");                    //币种，1人民币
         packageReqHandler.SetParameter("input_charset", "GBK");
         packageReqHandler.SetParameter("out_trade_no", sp_billno);		//商家订单号
         packageReqHandler.SetParameter("total_fee", "1");			        //商品金额,以分为单位(money * 100).ToString()
-        packageReqHandler.SetParameter("notify_url", WeixinPayUtil.tenpay_notify);		    //接收财付通通知的URL
+        packageReqHandler.SetParameter("notify_url", WeixinPayUtil.TenpayNotify);		    //接收财付通通知的URL
         packageReqHandler.SetParameter("body", "JSAPIdemo");	                    //商品描述
         packageReqHandler.SetParameter("spbill_create_ip", Page.Request.UserHostAddress);   //用户的公网ip，不是商户服务器IP
 
@@ -66,7 +66,7 @@ public partial class _Default : System.Web.UI.Page
         //设置支付参数
         RequestHandler paySignReqHandler = new RequestHandler(Context);
         paySignReqHandler.SetParameter("appid", appId);
-        paySignReqHandler.SetParameter("appkey", WeixinPayUtil.appkey);
+        paySignReqHandler.SetParameter("appkey", WeixinPayUtil.AppKey);
         paySignReqHandler.SetParameter("noncestr", nonceStr);
         paySignReqHandler.SetParameter("timestamp", timeStamp);
         paySignReqHandler.SetParameter("package", packageValue);
@@ -79,7 +79,7 @@ public partial class _Default : System.Web.UI.Page
         //Response.Write("<br/>pakcageDebuginfo:" + pakcageDebuginfo + "<br/>");
         //string paySignDebuginfo = paySignReqHandler.getDebugInfo();
         //Response.Write("<br/>paySignDebuginfo:" + paySignDebuginfo + "<br/>");
-      
+
 
     }
-} 
+}

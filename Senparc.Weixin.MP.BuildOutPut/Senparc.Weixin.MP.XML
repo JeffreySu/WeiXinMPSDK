@@ -475,35 +475,35 @@
             <summary>
             Native
             </summary>
-            <param name="appid">开放平台账户的唯一标识</param>
-            <param name="timestamp">时间戳</param>
-            <param name="noncestr">32 位内的随机串，防重发</param>
-            <param name="productid">商品唯一id</param>
+            <param name="appId">开放平台账户的唯一标识</param>
+            <param name="timesTamp">时间戳</param>
+            <param name="nonceStr">32 位内的随机串，防重发</param>
+            <param name="productId">商品唯一id</param>
             <param name="sign">签名</param>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinPay.Delivernotify(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             发货通知
             </summary>
-            <param name="appid">公众平台账户的AppId</param>
-            <param name="openid">购买用户的OpenId</param>
-            <param name="transid">交易单号</param>
-            <param name="out_trade_no">第三方订单号</param>
-            <param name="deliver_timestamp">发货时间戳</param>
-            <param name="deliver_status">发货状态，1 表明成功，0 表明失败，失败时需要在deliver_msg 填上失败原因</param>
-            <param name="deliver_msg">发货状态信息，失败时可以填上UTF8 编码的错误提示信息，比如“该商品已退款</param>
-            <param name="app_signature">签名</param>
-            <param name="sign_method">签名方法</param>
+            <param name="appId">公众平台账户的AppId</param>
+            <param name="openId">购买用户的OpenId</param>
+            <param name="transId">交易单号</param>
+            <param name="out_Trade_No">第三方订单号</param>
+            <param name="deliver_TimesTamp">发货时间戳</param>
+            <param name="deliver_Status">发货状态，1 表明成功，0 表明失败，失败时需要在deliver_msg 填上失败原因</param>
+            <param name="deliver_Msg">发货状态信息，失败时可以填上UTF8 编码的错误提示信息，比如“该商品已退款</param>
+            <param name="app_Signature">签名</param>
+            <param name="sign_Method">签名方法</param>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinPay.Orderquery(System.String,System.String,System.String,System.String,System.String)">
             <summary>
             订单查询
             </summary>
-            <param name="appid">公众平台账户的AppId</param>
+            <param name="appId">公众平台账户的AppId</param>
             <param name="package">查询订单的关键信息数据</param>
-            <param name="timestamp">linux 时间戳</param>
-            <param name="app_signature">签名</param>
-            <param name="sign_method">签名方法</param>
+            <param name="timesTamp">linux 时间戳</param>
+            <param name="app_Signature">签名</param>
+            <param name="sign_Method">签名方法</param>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.DelivernotifyResult">
             <summary>
@@ -513,6 +513,54 @@
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OrderqueryResult">
             <summary>
             订单查询
+            </summary>
+        </member>
+        <!-- 对于成员“T:Senparc.Weixin.MP.AdvancedAPIs.WeixinShop”忽略有格式错误的 XML 注释 -->
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShop.AddProduct(System.String,Senparc.Weixin.MP.AdvancedAPIs.ProductData)">
+            <summary>
+            增加商品
+            </summary>
+            <param name="appId">公众平台账户的AppId</param>
+            <param name="addProductData">提交到接口的数据（AddProductData）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShop.DeleteProduct(System.String,System.String)">
+            <summary>
+            删除商品
+            </summary>
+            <param name="appId">公众平台账户的AppId</param>
+            <param name="product_Id">商品的Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShop.ReviseProduct(System.String,Senparc.Weixin.MP.AdvancedAPIs.ReviseProductData)">
+            <summary>
+            修改商品
+            product_id表示要更新的商品的ID，其他字段说明请参考增加商品接口。
+            从未上架的商品所有信息均可修改，否则商品的名称(name)、商品分类(category)、商品属性(property)这三个字段不可修改。
+            </summary>
+            <param name="appId">公众平台账户的AppId</param>
+            <param name="reviseProduct">修改商品的信息</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.AddProductResult">
+            <summary>
+            增加商品
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ProductData">
+            <summary>
+            商品信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Delivery_info">
+            快递列表(Id   说明)
+            10000027	平邮
+            10000028	快递
+            10000029	EMS
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ReviseProductData">
+            <summary>
+            修改商品信息
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Agent.MessageAgent">
@@ -2253,6 +2301,17 @@
             配置文件
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.MP.WeixinPayLib.WeixinPayUtil.Register(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            注册全局支付信息
+            </summary>
+            <param name="tenpay"></param>
+            <param name="partner"></param>
+            <param name="key"></param>
+            <param name="appId"></param>
+            <param name="AppKey"></param>
+            <param name="TenpayNotify"></param>
+        </member>
         <member name="M:Senparc.Weixin.MP.WeixinPayLib.WeixinPayUtil.GetNoncestr">
             <summary>
             随机生成Noncestr
@@ -2287,6 +2346,31 @@
             </summary>
             <param name="length"></param>
             <returns></returns>
+        </member>
+        <member name="P:Senparc.Weixin.MP.WeixinPayLib.WeixinPayUtil.Partner">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.WeixinPayLib.WeixinPayUtil.Key">
+            <summary>
+            //密钥
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.WeixinPayLib.WeixinPayUtil.AppId">
+            <summary>
+            appid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.WeixinPayLib.WeixinPayUtil.AppKey">
+            <summary>
+            paysignkey(非appkey) 
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.WeixinPayLib.WeixinPayUtil.TenpayNotify">
+            <summary>
+            支付完成后的回调处理页面,*替换成notify_url.asp所在路径
+            </summary>
         </member>
     </members>
 </doc>

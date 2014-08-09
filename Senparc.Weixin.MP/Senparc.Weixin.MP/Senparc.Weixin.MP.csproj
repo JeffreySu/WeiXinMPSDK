@@ -77,6 +77,10 @@
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
     <Compile Include="AdvancedAPIs\WeixinPay\WeixinPay.cs" />
     <Compile Include="AdvancedAPIs\WeixinPay\WeixinPayResult.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\WeixinShop.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\WeixinShopResult.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\ProductData.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\WeixinShopPostData.cs" />
     <Compile Include="Agents\MessageAgent.cs" />
     <Compile Include="CheckSignature.cs" />
     <Compile Include="CommonAPIs\AccessTokenContainer.cs" />

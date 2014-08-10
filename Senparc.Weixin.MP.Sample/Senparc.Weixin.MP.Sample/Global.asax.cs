@@ -30,7 +30,7 @@ namespace Senparc.Weixin.MP.Sample
             var weixinPay_AppKey = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_AppKey"];
             var weixinPay_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_TenpayNotify"];
 
-            Senparc.Weixin.MP.WeixinPayLib.WeixinPayUtil.Register(weixinPay_Tenpay, weixinPay_PartnerId, weixinPay_Key, weixinPay_AppId, weixinPay_AppKey, weixinPay_TenpayNotify);
+            Senparc.Weixin.MP.WeixinPayLib.WeixinPayUtil(weixinPay_Tenpay, weixinPay_PartnerId, weixinPay_Key, weixinPay_AppId, weixinPay_AppKey, weixinPay_TenpayNotify);
         }
     }
 }

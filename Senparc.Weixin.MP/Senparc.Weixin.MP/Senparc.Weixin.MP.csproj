@@ -195,6 +195,7 @@
     <Compile Include="WeixinPayLib\RequestHandler.cs" />
     <Compile Include="WeixinPayLib\ResponseHandler.cs" />
     <Compile Include="WeixinPayLib\SHA1Util.cs" />
+    <Compile Include="WeixinPayLib\WeixinPayInfo.cs" />
     <Compile Include="WeixinPayLib\WeixinPayUtil.cs" />
   </ItemGroup>
   <ItemGroup>

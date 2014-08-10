@@ -138,35 +138,11 @@
     <Compile Include="Controllers\TestUploadMediaFileController.cs" />
     <Compile Include="Controllers\WeixinController.cs" />
     <Compile Include="Controllers\WeixinController_OldPost.cs" />
-    <Compile Include="Controllers\WeixinPayViewerController.cs" />
+    <Compile Include="Controllers\WeixinPayController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="wx\pay\feedback.aspx.cs">
-      <DependentUpon>feedback.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="wx\pay\index.aspx.cs">
-      <DependentUpon>index.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="wx\pay\jsapi.aspx.cs">
-      <DependentUpon>jsapi.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="wx\pay\native.aspx.cs">
-      <DependentUpon>native.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="wx\pay\nativecall.aspx.cs">
-      <DependentUpon>nativecall.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="wx\pay\payNotifyUrl.aspx.cs">
-      <DependentUpon>payNotifyUrl.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -225,12 +201,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="wx\pay\feedback.aspx" />
-    <Content Include="wx\pay\index.aspx" />
-    <Content Include="wx\pay\jsapi.aspx" />
-    <Content Include="wx\pay\native.aspx" />
-    <Content Include="wx\pay\nativecall.aspx" />
-    <Content Include="wx\pay\payNotifyUrl.aspx" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\qrcode.jpg" />
     <Content Include="Images\Logo.jpg" />
@@ -287,6 +257,7 @@
     <Content Include="Views\OAuth2\Index.cshtml" />
     <Content Include="Views\OAuth2\UserInfoCallback.cshtml" />
     <Content Include="Views\SimulateTool\Index.cshtml" />
+    <Content Include="Views\WeixinPay\JsApi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Web;
 namespace Senparc.Weixin.MP.WeixinPayLib
@@ -9,51 +10,18 @@ namespace Senparc.Weixin.MP.WeixinPayLib
     /// </summary>
     public class WeixinPayUtil
     {
-        public static string Tenpay { get; set; }
         /// <summary>
-        /// 商户号
+        /// 微信支付信息集合，Key为商户号（PartnerId）
         /// </summary>
-        public static string PartnerId { get; set; }
-        /// <summary>
-        /// 密钥
-        /// </summary>
-        public static string Key { get; set; }
-        /// <summary>
-        /// appid
-        /// </summary>
-        public static string AppId { get; set; }
-        /// <summary>
-        /// paysignkey(非appkey) 
-        /// </summary>
-        public static string AppKey { get; set; }
-        /// <summary>
-        /// 支付完成后的回调处理页面,*替换成notify_url.asp所在路径
-        /// </summary>
-        public static string TenpayNotify { get; set; } // = "http://localhost/payNotifyUrl.aspx";
+        public static Dictionary<string, WeixinPayInfo> WeixinPayInfoCollection { get; set; }
 
         /// <summary>
-        /// 注册全局支付信息
+        /// WeixinPayInfo
         /// </summary>
-        /// <param name="tenpay">商户号</param>
-        /// <param name="partnerId"></param>
-        /// <param name="key">密钥</param>
-        /// <param name="appId">appid</param>
-        /// <param name="appKey">paysignkey(非appkey) </param>
-        /// <param name="tenpayNotify">支付完成后的回调处理页面,*替换成notify_url.asp所在路径</param>
-        public static void Register(string tenpay, string partnerId, string key, string appId, string appKey, string tenpayNotify)
+        /// <param name="ewixinPayInfo"></param>
+        public static void RegisteWeixinPayInfo(WeixinPayInfo weixinPayInfo)
         {
-            Tenpay = tenpay;
-            PartnerId = partnerId;
-            Key = key;
-            AppId = appId;
-            AppKey = appKey;
-            TenpayNotify = tenpayNotify;
-        }
-
-
-        public WeixinPayUtil()
-        {
-
+            WeixinPayInfoCollection[weixinPayInfo.PartnerId] = weixinPayInfo;
         }
 
         /// <summary>
@@ -72,7 +40,6 @@ namespace Senparc.Weixin.MP.WeixinPayLib
             TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return Convert.ToInt64(ts.TotalSeconds).ToString();
         }
-
 
         /// <summary>
         /// 对字符串进行URL编码

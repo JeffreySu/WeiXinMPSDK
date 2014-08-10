@@ -38,8 +38,6 @@ public partial class _Default : System.Web.UI.Page
 
         sp_billno = WeixinPayUtil.PartnerId + sp_billno;
 
-
-
         //创建支付应答对象
         RequestHandler packageReqHandler = new RequestHandler(Context);
         //初始化

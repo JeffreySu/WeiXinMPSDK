@@ -11,20 +11,6 @@ namespace Senparc.Weixin.MP.WeixinPayLib
     public class WeixinPayUtil
     {
         /// <summary>
-        /// 微信支付信息集合，Key为商户号（PartnerId）
-        /// </summary>
-        public static Dictionary<string, WeixinPayInfo> WeixinPayInfoCollection { get; set; }
-
-        /// <summary>
-        /// WeixinPayInfo
-        /// </summary>
-        /// <param name="ewixinPayInfo"></param>
-        public static void RegisteWeixinPayInfo(WeixinPayInfo weixinPayInfo)
-        {
-            WeixinPayInfoCollection[weixinPayInfo.PartnerId] = weixinPayInfo;
-        }
-
-        /// <summary>
         /// 随机生成Noncestr
         /// </summary>
         /// <returns></returns>
@@ -33,7 +19,6 @@ namespace Senparc.Weixin.MP.WeixinPayLib
             Random random = new Random();
             return MD5Util.GetMD5(random.Next(1000).ToString(), "GBK");
         }
-
 
         public static string GetTimestamp()
         {

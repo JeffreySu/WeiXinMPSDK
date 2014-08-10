@@ -2338,17 +2338,27 @@
             支付完成后的回调处理页面,*替换成notify_url.asp所在路径
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.WeixinPayLib.WeixinPayInfoCollection">
+            <summary>
+            微信支付信息集合，Key为商户号（PartnerId）
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.WeixinPayLib.WeixinPayInfoCollection.Data">
+            <summary>
+            微信支付信息集合，Key为商户号（PartnerId）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.WeixinPayLib.WeixinPayInfoCollection.Register(Senparc.Weixin.MP.WeixinPayLib.WeixinPayInfo)">
+            <summary>
+            注册WeixinPayInfo信息
+            </summary>
+            <param name="weixinPayInfo"></param>
+        </member>
         <member name="T:Senparc.Weixin.MP.WeixinPayLib.WeixinPayUtil">
             <summary>
             TenpayUtil 的摘要说明。
             配置文件
             </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.WeixinPayLib.WeixinPayUtil.RegisteWeixinPayInfo(Senparc.Weixin.MP.WeixinPayLib.WeixinPayInfo)">
-            <summary>
-            WeixinPayInfo
-            </summary>
-            <param name="ewixinPayInfo"></param>
         </member>
         <member name="M:Senparc.Weixin.MP.WeixinPayLib.WeixinPayUtil.GetNoncestr">
             <summary>
@@ -2384,11 +2394,6 @@
             </summary>
             <param name="length"></param>
             <returns></returns>
-        </member>
-        <member name="P:Senparc.Weixin.MP.WeixinPayLib.WeixinPayUtil.WeixinPayInfoCollection">
-            <summary>
-            微信支付信息集合，Key为商户号（PartnerId）
-            </summary>
         </member>
     </members>
 </doc>

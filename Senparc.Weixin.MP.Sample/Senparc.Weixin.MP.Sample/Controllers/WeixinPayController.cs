@@ -21,8 +21,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 if (_weixinPayInfo == null)
                 {
                     _weixinPayInfo =
-                        WeixinPayUtil.WeixinPayInfoCollection[
-                            System.Configuration.ConfigurationManager.AppSettings["WeixinPay_Tenpay"]];
+                        WeixinPayInfoCollection.Data[System.Configuration.ConfigurationManager.AppSettings["WeixinPay_Tenpay"]];
                 }
                 return _weixinPayInfo;
             }
@@ -68,7 +67,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             String packageValue = "";
             String paySign = "";
 
-          
+
             string sp_billno = Request["order_no"];
             //当前时间 yyyyMMdd
             string date = DateTime.Now.ToString("yyyyMMdd");
@@ -86,7 +85,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             sp_billno = WeixinPayInfo.PartnerId + sp_billno;
 
             //创建支付应答对象
-            RequestHandler packageReqHandler = new RequestHandler(Context);
+            RequestHandler packageReqHandler = new RequestHandler(null);
             //初始化
             packageReqHandler.Init();
 

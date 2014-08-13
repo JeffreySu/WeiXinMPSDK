@@ -60,9 +60,9 @@ senparc.menu = {
                 });
         });
 
-        $('#menuLogin_SubmitOldToken').click(function () {
-            senparc.menu.setToken($('#menuLogin_OldToken').val());
-        });
+        //$('#menuLogin_SubmitOldToken').click(function () {
+        //    senparc.menu.setToken($('#menuLogin_OldToken').val());
+        //});
 
         $('#btnGetMenu').click(function () {
             menuState.html('获取菜单中...');

@@ -2,7 +2,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Senparc.Weixin.MP.WeixinPayLib
+namespace Senparc.Weixin.MP.TenPayLib
 {
 	/// <summary>
 	/// MD5Util 的摘要说明。

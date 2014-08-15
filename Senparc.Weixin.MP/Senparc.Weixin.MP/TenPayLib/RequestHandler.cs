@@ -6,7 +6,7 @@ using System.Xml;
 using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-namespace Senparc.Weixin.MP.WeixinPayLib
+namespace Senparc.Weixin.MP.TenPayLib
 {
     /**
     '签名工具类
@@ -28,27 +28,27 @@ namespace Senparc.Weixin.MP.WeixinPayLib
 
         public RequestHandler(HttpContext httpContext)
         {
-            parameters = new Hashtable();
+            Parameters = new Hashtable();
 
-            this.httpContext = httpContext ?? HttpContext.Current;
+            this.HttpContext = httpContext ?? HttpContext.Current;
 
         }
         /// <summary>
         /// 密钥
         /// </summary>
-        private string key;
+        private string Key;
 
-        protected HttpContext httpContext;
+        protected HttpContext HttpContext;
 
         /// <summary>
         /// 请求的参数
         /// </summary>
-        protected Hashtable parameters;
+        protected Hashtable Parameters;
 
         /// <summary>
         /// debug信息
         /// </summary>
-        private string debugInfo;
+        private string DebugInfo;
 
         /// <summary>
         /// 初始化函数
@@ -62,7 +62,7 @@ namespace Senparc.Weixin.MP.WeixinPayLib
         /// <returns></returns>
         public String GetDebugInfo()
         {
-            return debugInfo;
+            return DebugInfo;
         }
         /// <summary>
         /// 获取密钥
@@ -70,7 +70,7 @@ namespace Senparc.Weixin.MP.WeixinPayLib
         /// <returns></returns>
         public string GetKey()
         {
-            return key;
+            return Key;
         }
         /// <summary>
         /// 设置密钥
@@ -78,7 +78,7 @@ namespace Senparc.Weixin.MP.WeixinPayLib
         /// <param name="key"></param>
         public void SetKey(string key)
         {
-            this.key = key;
+            this.Key = key;
         }
 
         /// <summary>
@@ -90,12 +90,12 @@ namespace Senparc.Weixin.MP.WeixinPayLib
         {
             if (parameter != null && parameter != "")
             {
-                if (parameters.Contains(parameter))
+                if (Parameters.Contains(parameter))
                 {
-                    parameters.Remove(parameter);
+                    Parameters.Remove(parameter);
                 }
 
-                parameters.Add(parameter, parameterValue);
+                Parameters.Add(parameter, parameterValue);
             }
         }
 
@@ -108,14 +108,14 @@ namespace Senparc.Weixin.MP.WeixinPayLib
         {
             this.CreateSign();
             StringBuilder sb = new StringBuilder();
-            ArrayList akeys = new ArrayList(parameters.Keys);
+            ArrayList akeys = new ArrayList(Parameters.Keys);
             akeys.Sort();
             foreach (string k in akeys)
             {
-                string v = (string)parameters[k];
+                string v = (string)Parameters[k];
                 if (null != v && "key".CompareTo(k) != 0)
                 {
-                    sb.Append(k + "=" + WeixinPayUtil.UrlEncode(v, GetCharset()) + "&");
+                    sb.Append(k + "=" + TenPayUtil.UrlEncode(v, GetCharset()) + "&");
                 }
             }
 
@@ -137,12 +137,12 @@ namespace Senparc.Weixin.MP.WeixinPayLib
         {
             StringBuilder sb = new StringBuilder();
 
-            ArrayList akeys = new ArrayList(parameters.Keys);
+            ArrayList akeys = new ArrayList(Parameters.Keys);
             akeys.Sort();
 
             foreach (string k in akeys)
             {
-                string v = (string)parameters[k];
+                string v = (string)Parameters[k];
                 if (null != v && "".CompareTo(v) != 0
                     && "sign".CompareTo(k) != 0 && "key".CompareTo(k) != 0)
                 {
@@ -167,12 +167,12 @@ namespace Senparc.Weixin.MP.WeixinPayLib
         public virtual string CreateMd5Sign()
         {
             StringBuilder sb = new StringBuilder();
-            ArrayList akeys = new ArrayList(parameters.Keys);
+            ArrayList akeys = new ArrayList(Parameters.Keys);
             akeys.Sort();
 
             foreach (string k in akeys)
             {
-                string v = (string)parameters[k];
+                string v = (string)Parameters[k];
                 if (null != v && "".CompareTo(v) != 0
                     && "sign".CompareTo(k) != 0 && "".CompareTo(v) != 0)
                 {
@@ -193,12 +193,12 @@ namespace Senparc.Weixin.MP.WeixinPayLib
         public string CreateSHA1Sign()
         {
             StringBuilder sb = new StringBuilder();
-            ArrayList akeys = new ArrayList(parameters.Keys);
+            ArrayList akeys = new ArrayList(Parameters.Keys);
             akeys.Sort();
 
             foreach (string k in akeys)
             {
-                string v = (string)parameters[k];
+                string v = (string)Parameters[k];
                 if (null != v && "".CompareTo(v) != 0
                        && "sign".CompareTo(k) != 0 && "key".CompareTo(k) != 0)
                 {
@@ -228,9 +228,9 @@ namespace Senparc.Weixin.MP.WeixinPayLib
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("<xml>");
-            foreach (string k in parameters.Keys)
+            foreach (string k in Parameters.Keys)
             {
-                string v = (string)parameters[k];
+                string v = (string)Parameters[k];
                 if (Regex.IsMatch(v, @"^[0-9.]$"))
                 {
 
@@ -254,17 +254,17 @@ namespace Senparc.Weixin.MP.WeixinPayLib
         /// <param name="debugInfo"></param>
         public void SetDebugInfo(String debugInfo)
         {
-            this.debugInfo = debugInfo;
+            this.DebugInfo = debugInfo;
         }
 
         public Hashtable GetAllParameters()
         {
-            return this.parameters;
+            return this.Parameters;
         }
 
         protected virtual string GetCharset()
         {
-            return this.httpContext.Request.ContentEncoding.BodyName;
+            return this.HttpContext.Request.ContentEncoding.BodyName;
         }
     }
 }

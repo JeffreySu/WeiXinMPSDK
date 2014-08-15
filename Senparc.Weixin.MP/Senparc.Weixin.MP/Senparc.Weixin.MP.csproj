@@ -77,10 +77,21 @@
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
     <Compile Include="AdvancedAPIs\WeixinPay\WeixinPay.cs" />
     <Compile Include="AdvancedAPIs\WeixinPay\WeixinPayResult.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\WeixinShop.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\WeixinShopResult.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\ProductData.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\WeixinShopPostData.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\Group\Group.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\Group\GroupPostData.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\Group\GroupResult.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\PostageTemplate\PostageTemplate.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\PostageTemplate\PostageTemplatePostData.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\PostageTemplate\PostageTemplateResult.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\Product\Product.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\Product\ProductPostData.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\Product\ProductResult.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\Shelves\Shelves.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\Shelves\ShelvesPostData.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\Shelves\ShelvesResult.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\Stock\Stock.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\Stock\StockPostData.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\Stock\StockResult.cs" />
     <Compile Include="Agents\MessageAgent.cs" />
     <Compile Include="CheckSignature.cs" />
     <Compile Include="CommonAPIs\AccessTokenContainer.cs" />
@@ -191,13 +202,13 @@
     <Compile Include="ResponseMessageFactory.cs" />
     <Compile Include="Context\MessageContext.cs" />
     <Compile Include="Context\WeixinContext.cs" />
-    <Compile Include="WeixinPayLib\MD5Util.cs" />
-    <Compile Include="WeixinPayLib\RequestHandler.cs" />
-    <Compile Include="WeixinPayLib\ResponseHandler.cs" />
-    <Compile Include="WeixinPayLib\SHA1Util.cs" />
-    <Compile Include="WeixinPayLib\WeixinPayInfo.cs" />
-    <Compile Include="WeixinPayLib\WeixinPayInfoCollection.cs" />
-    <Compile Include="WeixinPayLib\WeixinPayUtil.cs" />
+    <Compile Include="TenPayLib\MD5Util.cs" />
+    <Compile Include="TenPayLib\RequestHandler.cs" />
+    <Compile Include="TenPayLib\ResponseHandler.cs" />
+    <Compile Include="TenPayLib\SHA1Util.cs" />
+    <Compile Include="TenPayLib\TenPayUtil.cs" />
+    <Compile Include="TenPayLib\WeixinPayInfo.cs" />
+    <Compile Include="TenPayLib\WeixinPayInfoCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonAPIs\CommonApi.Menu.cs" />

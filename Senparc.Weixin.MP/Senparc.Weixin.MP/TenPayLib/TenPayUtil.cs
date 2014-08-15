@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
-namespace Senparc.Weixin.MP.WeixinPayLib
+namespace Senparc.Weixin.MP.TenPayLib
 {
     /// <summary>
     /// TenpayUtil 的摘要说明。
     /// 配置文件
     /// </summary>
-    public class WeixinPayUtil
+    public class TenPayUtil
     {
         /// <summary>
         /// 随机生成Noncestr

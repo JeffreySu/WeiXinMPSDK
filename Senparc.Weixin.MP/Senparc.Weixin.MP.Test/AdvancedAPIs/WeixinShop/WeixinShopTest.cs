@@ -8,7 +8,7 @@ using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Test.CommonAPIs;
-using Senparc.Weixin.MP.WeixinPayLib;
+using Senparc.Weixin.MP.TenPayLib;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
@@ -20,8 +20,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void AddProdectTest()
         {
-            var addProductData = new ProductData();
-            var result = WeixinShop.AddProduct("[appid]", addProductData);
+            var addProductData = new AddProductData();
+            var result = WeixinShopProduct.AddProduct("[appid]", addProductData);
             Console.Write(result);
             Assert.IsNotNull(result);
         }

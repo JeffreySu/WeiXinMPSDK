@@ -5,7 +5,7 @@ using System.Text;
 using System.Web;
 using System.Xml;
 
-namespace Senparc.Weixin.MP.WeixinPayLib
+namespace Senparc.Weixin.MP.TenPayLib
 {
 
     /** 
@@ -17,7 +17,7 @@ namespace Senparc.Weixin.MP.WeixinPayLib
     'IsTenpaySign(),是否正确的签名,true:是 false:否
     'IsWXsign(),是否正确的签名,true:是 false:否
     ' * IsWXsignfeedback判断微信维权签名
-    ' *GetDebugInfo(),获取debug信息
+    ' *GetDebugInfo(),获取debug信息 
     '============================================================================
     */
 
@@ -26,40 +26,40 @@ namespace Senparc.Weixin.MP.WeixinPayLib
 		/// <summary>
         /// 密钥 
 		/// </summary>
-		private string key;
+		private string Key;
 
         /// <summary>
         /// appkey
         /// </summary>
-        private string appkey;
+        private string Appkey;
 
         /// <summary>
         /// xmlMap
         /// </summary>
-        private Hashtable xmlMap;
+        private Hashtable XmlMap;
 
 		/// <summary>
         /// 应答的参数
 		/// </summary>
-		protected Hashtable parameters;
+		protected Hashtable Parameters;
 		
 		/// <summary>
         /// debug信息
 		/// </summary>
-		private string debugInfo;
+		private string DebugInfo;
         /// <summary>
         /// 原始内容
         /// </summary>
-        protected string content;
+        protected string Content;
 
-        private string charset = "gb2312";
+        private string Charset = "gb2312";
 
         /// <summary>
         /// 参与签名的参数列表
         /// </summary>
-        private static string signField = "appid,appkey,timestamp,openid,noncestr,issubscribe";
+        private static string SignField = "appid,appkey,timestamp,openid,noncestr,issubscribe";
 
-		protected HttpContext httpContext;
+		protected HttpContext HttpContext;
 
         /// <summary>
         /// 初始化函数
@@ -74,15 +74,15 @@ namespace Senparc.Weixin.MP.WeixinPayLib
         /// <param name="httpContext"></param>
         public ResponseHandler(HttpContext httpContext)
         {
-            parameters = new Hashtable();
-            xmlMap = new Hashtable();
+            Parameters = new Hashtable();
+            XmlMap = new Hashtable();
 
-            this.httpContext = httpContext;
+            this.HttpContext = httpContext;
             NameValueCollection collection;
             //post data
-            if (this.httpContext.Request.HttpMethod == "POST")
+            if (this.HttpContext.Request.HttpMethod == "POST")
             {
-                collection = this.httpContext.Request.Form;
+                collection = this.HttpContext.Request.Form;
                 foreach (string k in collection)
                 {
                     string v = (string)collection[k];
@@ -90,22 +90,22 @@ namespace Senparc.Weixin.MP.WeixinPayLib
                 }
             }
             //query string
-            collection = this.httpContext.Request.QueryString;
+            collection = this.HttpContext.Request.QueryString;
             foreach (string k in collection)
             {
                 string v = (string)collection[k];
                 this.SetParameter(k, v);
             }
-            if (this.httpContext.Request.InputStream.Length > 0)
+            if (this.HttpContext.Request.InputStream.Length > 0)
             {
                 XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(this.httpContext.Request.InputStream);
+                xmlDoc.Load(this.HttpContext.Request.InputStream);
                 XmlNode root = xmlDoc.SelectSingleNode("xml");
                 XmlNodeList xnl = root.ChildNodes;
 
                 foreach (XmlNode xnf in xnl)
                 {
-                    xmlMap.Add(xnf.Name, xnf.InnerText);
+                    XmlMap.Add(xnf.Name, xnf.InnerText);
                 }
             }
         }
@@ -116,7 +116,7 @@ namespace Senparc.Weixin.MP.WeixinPayLib
 		/// </summary>
 		/// <returns></returns>
 		public string GetKey() 
-		{ return key;}
+		{ return Key;}
 
 		/// <summary>
         /// 设置密钥
@@ -125,8 +125,8 @@ namespace Senparc.Weixin.MP.WeixinPayLib
 		/// <param name="appkey"></param>
 		public void SetKey(string key, string appkey) 
 		{
-            this.key = key;
-            this.appkey = appkey;
+            this.Key = key;
+            this.Appkey = appkey;
         }
 
 		/// <summary>
@@ -136,7 +136,7 @@ namespace Senparc.Weixin.MP.WeixinPayLib
 		/// <returns></returns>
 		public string GetParameter(string parameter) 
 		{
-			string s = (string)parameters[parameter];
+			string s = (string)Parameters[parameter];
 			return (null == s) ? "" : s;
 		}
 
@@ -149,12 +149,12 @@ namespace Senparc.Weixin.MP.WeixinPayLib
 		{
 			if(parameter != null && parameter != "")
 			{
-				if(parameters.Contains(parameter))
+				if(Parameters.Contains(parameter))
 				{
-					parameters.Remove(parameter);
+					Parameters.Remove(parameter);
 				}
 	
-				parameters.Add(parameter,parameterValue);		
+				Parameters.Add(parameter,parameterValue);		
 			}
 		}
 
@@ -166,12 +166,12 @@ namespace Senparc.Weixin.MP.WeixinPayLib
 		{
 			StringBuilder sb = new StringBuilder();
 
-			ArrayList akeys=new ArrayList(parameters.Keys); 
+			ArrayList akeys=new ArrayList(Parameters.Keys); 
 			akeys.Sort();
 
 			foreach(string k in akeys)
 			{
-				string v = (string)parameters[k];
+				string v = (string)Parameters[k];
 				if(null != v && "".CompareTo(v) != 0
 					&& "sign".CompareTo(k) != 0 && "key".CompareTo(k) != 0) 
 				{
@@ -195,14 +195,14 @@ namespace Senparc.Weixin.MP.WeixinPayLib
             StringBuilder sb = new StringBuilder();
             Hashtable signMap = new Hashtable();
 
-            foreach (string k in xmlMap.Keys)
+            foreach (string k in XmlMap.Keys)
             {
                 if (k != "SignMethod" && k != "AppSignature")
                 {
-                    signMap.Add(k.ToLower(), xmlMap[k]);
+                    signMap.Add(k.ToLower(), XmlMap[k]);
                 }
             }
-            signMap.Add("appkey", this.appkey);
+            signMap.Add("appkey", this.Appkey);
 
 
             ArrayList akeys = new ArrayList(signMap.Keys);
@@ -225,7 +225,7 @@ namespace Senparc.Weixin.MP.WeixinPayLib
 
             this.SetDebugInfo(sb.ToString() + " => SHA1 sign:" + sign);
 
-            return sign.Equals(xmlMap["AppSignature"]);
+            return sign.Equals(XmlMap["AppSignature"]);
 
         }
 
@@ -238,14 +238,14 @@ namespace Senparc.Weixin.MP.WeixinPayLib
             StringBuilder sb = new StringBuilder();
             Hashtable signMap = new Hashtable();
        
-            foreach (string k in xmlMap.Keys)
+            foreach (string k in XmlMap.Keys)
             {
-                if (signField.IndexOf(k.ToLower()) != -1)
+                if (SignField.IndexOf(k.ToLower()) != -1)
                 {
-                    signMap.Add(k.ToLower(), xmlMap[k]);
+                    signMap.Add(k.ToLower(), XmlMap[k]);
                 }
             }
-            signMap.Add("appkey", this.appkey);
+            signMap.Add("appkey", this.Appkey);
           
 
             ArrayList akeys = new ArrayList(signMap.Keys);
@@ -268,7 +268,7 @@ namespace Senparc.Weixin.MP.WeixinPayLib
             
             this.SetDebugInfo(sb.ToString() + " => SHA1 sign:" + sign);
 
-            return sign.Equals( xmlMap["AppSignature"] );
+            return sign.Equals( XmlMap["AppSignature"] );
 
         }
    
@@ -277,18 +277,18 @@ namespace Senparc.Weixin.MP.WeixinPayLib
 		/// </summary>
 		/// <returns></returns>
 		public string GetDebugInfo() 
-		{ return debugInfo;}
+		{ return DebugInfo;}
 				
 		/// <summary>
         /// 设置debug信息
 		/// </summary>
 		/// <param name="debugInfo"></param>
 		protected void SetDebugInfo(String debugInfo)
-		{ this.debugInfo = debugInfo;}
+		{ this.DebugInfo = debugInfo;}
 
 		protected virtual string GetCharset()
 		{
-			return this.httpContext.Request.ContentEncoding.BodyName;
+			return this.HttpContext.Request.ContentEncoding.BodyName;
 			
 		}
 

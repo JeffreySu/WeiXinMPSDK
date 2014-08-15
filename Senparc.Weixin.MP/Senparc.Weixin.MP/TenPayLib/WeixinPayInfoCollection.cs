@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Senparc.Weixin.MP.WeixinPayLib
+namespace Senparc.Weixin.MP.TenPayLib
 {
     /// <summary>
     /// 微信支付信息集合，Key为商户号（PartnerId）

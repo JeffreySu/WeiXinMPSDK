@@ -55,7 +55,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public string product_code { get; set; }//商家商品编码
         public int ori_price { get; set; }//sku原价(单位 : 分)
         public int quantity { get; set; }//sku库存
-        
+
     }
 
     public class Attrext
@@ -90,5 +90,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     {
         public int id { get; set; }//快递ID
         public int price { get; set; }//运费(单位 : 分)
+    }
+    
+    /// <summary>
+    /// 添加商品信息
+    /// </summary>
+    public class AddProductData : ProductData
+    {
+    }
+
+    /// <summary>
+    /// 修改商品信息
+    /// </summary>
+    public class UpdateProductData : ProductData
+    {
+        public string product_id { get; set; }
     }
 }

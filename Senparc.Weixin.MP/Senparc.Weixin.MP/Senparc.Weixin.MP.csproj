@@ -92,6 +92,8 @@
     <Compile Include="AdvancedAPIs\WeixinShop\Stock\Stock.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Stock\StockPostData.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Stock\StockResult.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\Order\Order.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\Order\OrderResult.cs" />
     <Compile Include="Agents\MessageAgent.cs" />
     <Compile Include="CheckSignature.cs" />
     <Compile Include="CommonAPIs\AccessTokenContainer.cs" />

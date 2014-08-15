@@ -87,5 +87,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             var url = string.Format("https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}",accessToken,openId);
             return CommonJsonSend.Send<OAuthUserInfo>(null, url, null, CommonJsonSendType.GET);
         }
+
+        /// <summary>
+		/// 检验授权凭证（access_token）是否有效
+		/// </summary>
+		/// <param name="accessToken"></param>
+        /// <param name="openId">用户的唯一标识</param>
+		/// <returns></returns>
+		public static WxJsonResult Auth(string accessToken, string openId)
+		{
+			var url = string.Format("https://api.weixin.qq.com/sns/auth?access_token={0}&openid={1}", accessToken, openId);
+			return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
+		}
     }
 }

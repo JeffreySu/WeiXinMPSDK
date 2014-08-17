@@ -371,6 +371,14 @@
             <param name="grantType"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.Auth(System.String,System.String)">
+            <summary>
+            检验授权凭证（access_token）是否有效
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OAuthUserInfo">
             <summary>
             通过OAuth的获取到的用户信息（snsapi_userinfo=scope）

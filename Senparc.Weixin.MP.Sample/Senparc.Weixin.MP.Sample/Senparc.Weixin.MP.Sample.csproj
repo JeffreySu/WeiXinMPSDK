@@ -207,6 +207,7 @@
     <Content Include="Images\qrcode_for_souidea.jpg" />
     <Content Include="Images\T1nAXdXb0jXXXXXXXX.png" />
     <Content Include="Images\WeiWeiHiQrCode.jpg" />
+    <Content Include="Images\weiweihi_menu.png" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

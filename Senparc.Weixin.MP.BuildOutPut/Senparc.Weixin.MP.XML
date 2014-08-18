@@ -418,6 +418,13 @@
             <param name="sceneId">场景值ID，临时二维码时为32位整型，永久二维码时最大值为1000</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCode.GetShowQrCodeUrl(System.String)">
+            <summary>
+            获取下载二维码的地址
+            </summary>
+            <param name="ticket"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCode.ShowQrCode(System.String,System.IO.Stream)">
             <summary>
             获取二维码（不需要AccessToken）
@@ -1206,7 +1213,12 @@
         </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Subscribe.EventKey">
             <summary>
-            事件KEY值，qrscene_为前缀，后面为二维码的参数值
+            事件KEY值，qrscene_为前缀，后面为二维码的参数值（如果不是扫描场景二维码，此参数为空）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Subscribe.Ticket">
+            <summary>
+            二维码的ticket，可用来换取二维码图片（如果不是扫描场景二维码，此参数为空）
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Unsubscribe">
@@ -1514,6 +1526,20 @@
             ResponseMessageBase.CreateFromResponseXml(xml)的扩展方法
             </summary>
             <param name="xml">返回给服务器的Response Xml</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.EntityHelper.IsFromScene(Senparc.Weixin.MP.Entities.RequestMessageEvent_Subscribe)">
+            <summary>
+            检查是否是通过场景二维码扫入
+            </summary>
+            <param name="requestMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.EntityHelper.IsSubscribed(Senparc.Weixin.MP.Entities.RequestMessageEvent_Subscribe)">
+            <summary>
+            检查是否通过场景二维码扫入，且已经关注
+            </summary>
+            <param name="requestMessage"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.Helpers.FileHelper.GetFileStream(System.String)">

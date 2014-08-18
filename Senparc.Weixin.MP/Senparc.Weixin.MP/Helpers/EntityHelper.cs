@@ -249,5 +249,26 @@ namespace Senparc.Weixin.MP.Helpers
         {
             return ResponseMessageBase.CreateFromResponseXml(xml);
         }
+
+        /// <summary>
+        /// 检查是否是通过场景二维码扫入
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public static bool IsFromScene(this RequestMessageEvent_Subscribe requestMessage)
+        {
+            return !string.IsNullOrEmpty(requestMessage.EventKey);
+        }
+
+        /// <summary>
+        /// 检查是否通过场景二维码扫入，且已经关注
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public static bool IsSubscribed(this RequestMessageEvent_Subscribe requestMessage)
+        {
+            return requestMessage.IsFromScene() &&
+                   requestMessage.EventKey.StartsWith("qrscene_", StringComparison.OrdinalIgnoreCase);
+        }
     }
 }

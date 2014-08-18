@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -18,11 +19,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="addStockData">增加库存需要Post的数据</param>
         /// <returns></returns>
-        public static AddStockResult AddStock(string accessToken, AddStockData addStockData)
+        public static WxJsonResult AddStock(string accessToken, AddStockData addStockData)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/stock/add?access_token={0}";
 
-            return CommonJsonSend.Send<AddStockResult>(accessToken, urlFormat, addStockData);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, addStockData);
         }
 
         /// <summary>
@@ -31,11 +32,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="reduceStockData">减少库存需要Post的数据</param>
         /// <returns></returns>
-        public static ReduceStockResult ReduceStock(string accessToken, ReduceStockData reduceStockData)
+        public static WxJsonResult ReduceStock(string accessToken, ReduceStockData reduceStockData)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/stock/reduce?access_token={0}";
 
-            return CommonJsonSend.Send<ReduceStockResult>(accessToken, urlFormat, reduceStockData);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, reduceStockData);
         }
     }
 }

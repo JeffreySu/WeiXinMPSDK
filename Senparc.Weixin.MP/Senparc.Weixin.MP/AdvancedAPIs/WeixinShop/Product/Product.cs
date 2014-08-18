@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -31,11 +32,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="productId">商品的Id</param>
         /// <returns></returns>
-        public static DeleteProductResult DeleteProduct(string accessToken, string productId)
+        public static WxJsonResult DeleteProduct(string accessToken, string productId)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/del?access_token={0}";
 
-            return CommonJsonSend.Send<DeleteProductResult>(accessToken, urlFormat, productId);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, productId);
         }
 
         /// <summary>
@@ -46,11 +47,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="reviseProduct">修改商品的信息</param>
         /// <returns></returns>
-        public static UpdateProductResult UpDateProduct(string accessToken, UpdateProductData reviseProduct)
+        public static WxJsonResult UpDateProduct(string accessToken, UpdateProductData reviseProduct)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/update?access_token={0}";
 
-            return CommonJsonSend.Send<UpdateProductResult>(accessToken, urlFormat, reviseProduct);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, reviseProduct);
         }
 
         /// <summary>
@@ -85,11 +86,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="status">商品上下架标识(0-下架, 1-上架)</param>
         /// <returns></returns>
-        public static ModProductStatusResult ModProductStatus(string accessToken, int status)
+        public static WxJsonResult ModProductStatus(string accessToken, int status)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/modproductstatus?access_token={0}";
 
-            return CommonJsonSend.Send<ModProductStatusResult>(accessToken, urlFormat, status);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, status);
         }
 
         /// <summary>

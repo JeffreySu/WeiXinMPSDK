@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -31,11 +32,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="groupId">分组Id</param>
         /// <returns></returns>
-        public static DeleteGroupResult DeleteGroup(string accessToken, int groupId)
+        public static WxJsonResult DeleteGroup(string accessToken, int groupId)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/group/del?access_token={0}";
 
-            return CommonJsonSend.Send<DeleteGroupResult>(accessToken, urlFormat, groupId);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, groupId);
         }
 
         /// <summary>
@@ -44,11 +45,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="propertyModGroup">修改分组属性需要Post的数据</param>
         /// <returns></returns>
-        public static PropertyModGroupResult PropertyModGroup(string accessToken, PropertyModGroup propertyModGroup)
+        public static WxJsonResult PropertyModGroup(string accessToken, PropertyModGroup propertyModGroup)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/group/propertymod?access_token={0}";
 
-            return CommonJsonSend.Send<PropertyModGroupResult>(accessToken, urlFormat, propertyModGroup);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, propertyModGroup);
         }
 
         /// <summary>
@@ -57,11 +58,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="productModGroup">修改分组商品需要Post的数据</param>
         /// <returns></returns>
-        public static ProductModGroupResult ProductModGroup(string accessToken, ProductModGroup productModGroup)
+        public static WxJsonResult ProductModGroup(string accessToken, ProductModGroup productModGroup)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/group/productmod?access_token={0}";
 
-            return CommonJsonSend.Send<ProductModGroupResult>(accessToken, urlFormat, productModGroup);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, productModGroup);
         }
 
         /// <summary>

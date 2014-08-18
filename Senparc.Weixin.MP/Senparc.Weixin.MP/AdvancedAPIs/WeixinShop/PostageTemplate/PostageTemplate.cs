@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -31,11 +32,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="templateId">邮费模板Id</param>
         /// <returns></returns>
-        public static DeletePostageTemplateResult DeletePostageTemplate(string accessToken, int templateId)
+        public static WxJsonResult DeletePostageTemplate(string accessToken, int templateId)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/express/del?access_token={0}";
 
-            return CommonJsonSend.Send<DeletePostageTemplateResult>(accessToken, urlFormat, templateId);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, templateId);
         }
 
         /// <summary>
@@ -44,11 +45,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="upDatePostageTemplateData">修改邮费模板需要Post的数据</param>
         /// <returns></returns>
-        public static UpdatePostageTemplateResult UpDatePostageTemplate(string accessToken, UpDatePostageTemplateData upDatePostageTemplateData)
+        public static WxJsonResult UpDatePostageTemplate(string accessToken, UpDatePostageTemplateData upDatePostageTemplateData)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/express/update?access_token={0}";
 
-            return CommonJsonSend.Send<UpdatePostageTemplateResult>(accessToken, urlFormat, upDatePostageTemplateData);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, upDatePostageTemplateData);
         }
 
         /// <summary>

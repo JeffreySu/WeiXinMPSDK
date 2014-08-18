@@ -52,13 +52,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 删除货架
         /// </summary>
-        /// <param name="appId">公众平台账户的AppId</param>
+        /// <param name="accessToken"></param>
         /// <param name="shelfId">货架Id</param>
         /// <returns></returns>
-        public static WxJsonResult DeleteShelves(string appId, int shelfId)
+        public static WxJsonResult DeleteShelves(string accessToken, int shelfId)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/shelf/del?access_token={0}";
 
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, shelfId);
@@ -107,11 +105,24 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        public static GetAllShelvesResult GetallShelves(string accessToken)
+        public static GetAllShelvesResult GetAllShelves(string accessToken)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/shelf/getall?access_token=ACCESS_TOKEN";
 
             return CommonJsonSend.Send<GetAllShelvesResult>(accessToken, urlFormat, null, CommonJsonSendType.GET);
+        }
+
+        /// <summary>
+        /// 根据货架ID获取货架信息
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="shelfId">货架Id</param>
+        /// <returns></returns>
+        public static GetByIdShelvesResult GetByIdShelves(string accessToken, int shelfId)
+        {
+            var urlFormat = "https://api.weixin.qq.com/merchant/shelf/getbyid?access_token={0}";
+
+            return CommonJsonSend.Send<GetByIdShelvesResult>(accessToken, urlFormat, shelfId);
         }
     }
 }

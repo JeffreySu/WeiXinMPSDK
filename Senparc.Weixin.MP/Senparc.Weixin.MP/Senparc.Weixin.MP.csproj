@@ -80,6 +80,8 @@
     <Compile Include="AdvancedAPIs\WeixinShop\Group\Group.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Group\GroupPostData.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Group\GroupResult.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\Picture\Picture.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\Picture\PictureResult.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\PostageTemplate\PostageTemplate.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\PostageTemplate\PostageTemplatePostData.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\PostageTemplate\PostageTemplateResult.cs" />
@@ -91,7 +93,6 @@
     <Compile Include="AdvancedAPIs\WeixinShop\Shelves\ShelvesResult.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Stock\Stock.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Stock\StockPostData.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\Stock\StockResult.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Order\Order.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Order\OrderResult.cs" />
     <Compile Include="Agents\MessageAgent.cs" />

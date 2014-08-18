@@ -6,38 +6,18 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
-    public class PostageTemplateResult
-    {
-        public int errcode { get; set; }//错误码
-        public string errmsg { get; set; }//错误信息
-    }
-
     /// <summary>
     /// 添加邮费模板返回结果
     /// </summary>
-    public class AddPostageTemplateResult : PostageTemplateResult
+    public class AddPostageTemplateResult : WxJsonResult
     {
         public int template_id { get; set; }//邮费模板ID
     }
 
     /// <summary>
-    /// 删除邮费模板返回结果
-    /// </summary>
-    public class DeletePostageTemplateResult : PostageTemplateResult
-    {
-    }
-
-    /// <summary>
-    /// 修改邮费模板返回结果
-    /// </summary>
-    public class UpdatePostageTemplateResult : PostageTemplateResult
-    {
-    }
-
-    /// <summary>
     /// 获取指定ID的邮费模板返回结果
     /// </summary>
-    public class GetByIdPostageTemplateResult : PostageTemplateResult
+    public class GetByIdPostageTemplateResult : WxJsonResult
     {
         public Template_Info template_info { get; set; }
     }
@@ -80,7 +60,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 获取所有邮费模板
     /// </summary>
-    public class GetAllPostageTemplateResult : PostageTemplateResult
+    public class GetAllPostageTemplateResult : WxJsonResult
     {
         public List<Template_Info> templates_info { get; set; } //所有邮费模板集合
     }

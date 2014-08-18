@@ -376,7 +376,7 @@
             检验授权凭证（access_token）是否有效
             </summary>
             <param name="accessToken"></param>
-            <param name="openId"></param>
+            <param name="openId">用户的唯一标识</param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OAuthUserInfo">
@@ -595,24 +595,19 @@
             增加分组返回信息
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.DeleteGroupResult">
-            <summary>
-            删除分组返回信息
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.PropertyModGroupResult">
-            <summary>
-            修改分组属性返回信息
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ProductModGroupResult">
-            <summary>
-            修改分组商品返回信息
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetAllGroup">
             <summary>
             获取所有分组返回信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopPicture">
+            <summary>
+            微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.PictureResult">
+            <summary>
+            上传图片返回结果
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopPostageTemplate">
@@ -677,16 +672,6 @@
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.AddPostageTemplateResult">
             <summary>
             添加邮费模板返回结果
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.DeletePostageTemplateResult">
-            <summary>
-            删除邮费模板返回结果
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UpdatePostageTemplateResult">
-            <summary>
-            修改邮费模板返回结果
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetByIdPostageTemplateResult">
@@ -799,24 +784,9 @@
             修改商品信息
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ProductResult">
-            <summary>
-            基础返回结果
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.AddProductResult">
             <summary>
             增加商品返回结果
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.DeleteProductResult">
-            <summary>
-            删除商品返回结果
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UpdateProductResult">
-            <summary>
-            删除商品返回结果
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetProductResult">
@@ -840,11 +810,6 @@
             10000027	平邮
             10000028	快递
             10000029	EMS
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ModProductStatusResult">
-            <summary>
-            商品上下架返回结果
-            </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetSubResult">
             <summary>
@@ -884,7 +849,7 @@
             <summary>
             删除货架
             </summary>
-            <param name="appId">公众平台账户的AppId</param>
+            <param name="accessToken"></param>
             <param name="shelfId">货架Id</param>
             <returns></returns>
         </member>
@@ -903,11 +868,19 @@
             <param name="shelfName">货架名称</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopShelves.GetallShelves(System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopShelves.GetAllShelves(System.String)">
             <summary>
             获取所有货架
             </summary>
             <param name="accessToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopShelves.GetByIdShelves(System.String,System.Int32)">
+            <summary>
+            根据货架ID获取货架信息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="shelfId">货架Id</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.M1.#ctor(System.Int32,System.Int32)">
@@ -950,6 +923,16 @@
             添加货架返回结果
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetAllShelvesResult">
+            <summary>
+            获取所有货架
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetByIdShelvesResult">
+            <summary>
+            根据货架ID获取货架信息
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopStock">
             <summary>
             微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
@@ -979,21 +962,6 @@
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ReduceStockData">
             <summary>
             减少库存
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.StockResult">
-            <summary>
-            基础返回结果
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.AddStockResult">
-            <summary>
-            增加库存返回结果
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ReduceStockResult">
-            <summary>
-            减少库存返回结果
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopOrder">

@@ -6,39 +6,12 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
-    public class GroupResult
-    {
-        public int errcode { get; set; }//错误码
-        public string errmsg { get; set; }//错误信息
-    }
-
     /// <summary>
     /// 增加分组返回信息
     /// </summary>
-    public class AddGroupResult : GroupResult
+    public class AddGroupResult : WxJsonResult
     {
         public int group_id { get; set; }//分组ID
-    }
-
-    /// <summary>
-    /// 删除分组返回信息
-    /// </summary>
-    public class DeleteGroupResult : GroupResult
-    {
-    }
-
-    /// <summary>
-    /// 修改分组属性返回信息
-    /// </summary>
-    public class PropertyModGroupResult : GroupResult
-    {
-    }
-
-    /// <summary>
-    /// 修改分组商品返回信息
-    /// </summary>
-    public class ProductModGroupResult : GroupResult
-    {
     }
 
     /// <summary>
@@ -55,7 +28,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public string group_name { get; set; }//分组名称
     }
 
-    public class GetByIdGroup : GroupResult
+    public class GetByIdGroup : WxJsonResult
     {
         public Group_Detail group_detail { get; set; }//分组信息
     }

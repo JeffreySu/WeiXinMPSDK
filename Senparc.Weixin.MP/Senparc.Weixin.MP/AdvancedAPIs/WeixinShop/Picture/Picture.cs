@@ -18,6 +18,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/common/upload_img?access_token={0}&filename={1}";
             var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken, fileName);
+
+            var json=new PictureResult();
+
+            using (var fs = Senparc.Weixin.MP.Helpers.FileHelper.GetFileStream(fileName))
+            {
+                var jsonText = Senparc.Weixin.MP.HttpUtility.RequestUtility.HttpPost(url, null, fs);
+                json = Senparc.Weixin.MP.HttpUtility.Post.GetResult<PictureResult>(jsonText);
+            }
+            return json;
         }
     }
 }

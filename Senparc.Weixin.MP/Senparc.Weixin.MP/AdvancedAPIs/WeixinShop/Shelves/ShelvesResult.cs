@@ -14,6 +14,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public int shelf_id { get; set; }//货架ID
     }
 
+    /// <summary>
+    /// 获取所有货架
+    /// </summary>
     public class GetAllShelvesResult : WxJsonResult
     {
         public List<Shelf> shelves { get; set; }
@@ -35,6 +38,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public class Shelf_ModuleInfo
     {
         public Shelf_GroupInfo group_infos { get; set; }
+        public Shelf_Group group_info { get; set; }
         public int eid { get; set; }
     }
 
@@ -47,8 +51,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public class Shelf_Group
     {
         public int group_id { get; set; }
+        public Shelf_Filter filter { get; set; }
+    }
+
+    public class Shelf_Filter
+    {
+        public int count { get; set; }
+    }
+
+    /// <summary>
+    /// 根据货架ID获取货架信息
+    /// </summary>
+    public class GetByIdShelvesResult : WxJsonResult
+    {
+        public Shelf shelf_info { get; set; }
     }
 }
-
-
 

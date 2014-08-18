@@ -7,40 +7,17 @@ using Senparc.Weixin.MP.Entities;
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
-    /// 基础返回结果
-    /// </summary>
-    public class ProductResult
-    {
-        public int errcode { get; set; }//错误码
-        public string errmsg { get; set; }//错误信息
-    }
-
-    /// <summary>
     /// 增加商品返回结果
     /// </summary>
-    public class AddProductResult : ProductResult
+    public class AddProductResult : WxJsonResult
     {
         public string product_id { get; set; }
     }
 
     /// <summary>
-    /// 删除商品返回结果
-    /// </summary>
-    public class DeleteProductResult : ProductResult
-    {
-    }
-
-    /// <summary>
-    /// 删除商品返回结果
-    /// </summary>
-    public class UpdateProductResult : ProductResult
-    {
-    }
-
-    /// <summary>
     /// 查询商品返回结果
     /// </summary>
-    public class GetProductResult : ProductResult
+    public class GetProductResult : WxJsonResult
     {
         public class Product_Info
         {
@@ -124,7 +101,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 获取指定状态的所有商品返回结果
     /// </summary>
-    public class GetByStatusResult : ProductResult
+    public class GetByStatusResult : WxJsonResult
     {
         public class Products_Info
         {
@@ -211,16 +188,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     }
 
     /// <summary>
-    /// 商品上下架返回结果
-    /// </summary>
-    public class ModProductStatusResult : ProductResult
-    {
-    }
-
-    /// <summary>
     /// 获取指定分类的所有子分类返回结果
     /// </summary>
-    public class GetSubResult : ProductResult
+    public class GetSubResult : WxJsonResult
     {
         public class Cate_List
         {
@@ -237,7 +207,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 获取指定子分类的所有SKU返回结果
     /// </summary>
-    public class GetSkuResult : ProductResult
+    public class GetSkuResult : WxJsonResult
     {
         public class Sku_List
         {
@@ -261,7 +231,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 获取指定分类的所有属性返回结果
     /// </summary>
-    public class GetPropertyResult : ProductResult
+    public class GetPropertyResult : WxJsonResult
     {
         public class Properties
         {

@@ -57,6 +57,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
+        /// 获取下载二维码的地址
+        /// </summary>
+        /// <param name="ticket"></param>
+        /// <returns></returns>
+        public static string GetShowQrCodeUrl(string ticket)
+        {
+            var urlFormat = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket={0}";
+            return string.Format(urlFormat, ticket);
+        }
+
+        /// <summary>
         /// 获取二维码（不需要AccessToken）
         /// 错误情况下（如ticket非法）返回HTTP错误码404。
         /// </summary>
@@ -64,8 +75,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="stream"></param>
         public static void ShowQrCode(string ticket, Stream stream)
         {
-            var urlFormat = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket={0}";
-            HttpUtility.Get.Download(string.Format(urlFormat, ticket), stream);
+            var url = GetShowQrCodeUrl(ticket);
+            HttpUtility.Get.Download(url, stream);
         }
+
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -15,16 +16,37 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 增加货架
         /// </summary>
-        /// <param name="appId">公众平台账户的AppId</param>
-        /// <param name="addStockData">增加货架需要Post的数据</param>
+        /// <param name="accessToken"></param>
+        /// <param name="m1">控件1数据</param>
+        /// <param name="m2">控件2数据</param>
+        /// <param name="m3">控件3数据</param>
+        /// <param name="m4">控件4数据</param>
+        /// <param name="m5">控件5数据</param>
+        /// <param name="shelfBanner">货架招牌图片Url</param>
+        /// <param name="shelfName">货架名称</param>
         /// <returns></returns>
-        public static AddShelvesResult AddShelves(string appId, AddShelvesData addStockData)
+        public static AddShelvesResult AddShelves(string accessToken, M1 m1, M2 m2, M3 m3, M4 m4, M5 m5, string shelfBanner, string shelfName)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/shelf/add?access_token={0}";
 
-            return CommonJsonSend.Send<AddShelvesResult>(accessToken, urlFormat, addStockData);
+            var data = new
+                {
+                    shelf_data = new
+                        {
+                            module_infos = new object[]
+                                {
+                                    m1,
+                                    m2,
+                                    m3,
+                                    m4,
+                                    m5
+                                }
+                        },
+                    shelf_banner = shelfBanner,
+                    shelf_name = shelfName
+                };
+            
+            return CommonJsonSend.Send<AddShelvesResult>(accessToken, urlFormat, data);
         }
 
         /// <summary>
@@ -33,38 +55,63 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="appId">公众平台账户的AppId</param>
         /// <param name="shelfId">货架Id</param>
         /// <returns></returns>
-        public static DeleteShelvesResult DeleteShelves(string appId, int shelfId)
+        public static WxJsonResult DeleteShelves(string appId, int shelfId)
         {
             var accessToken = AccessTokenContainer.GetToken(appId);
 
             var urlFormat = "https://api.weixin.qq.com/merchant/shelf/del?access_token={0}";
 
-            return CommonJsonSend.Send<DeleteShelvesResult>(accessToken, urlFormat, shelfId);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, shelfId);
         }
 
         /// <summary>
         /// 修改货架
         /// </summary>
-        /// <param name="appId">公众平台账户的AppId</param>
-        /// <param name="modShelvesData">修改货架需要Post的数据</param>
+        /// <param name="accessToken"></param>
+        /// <param name="m1">控件1数据</param>
+        /// <param name="m2">控件2数据</param>
+        /// <param name="m3">控件3数据</param>
+        /// <param name="m4">控件4数据</param>
+        /// <param name="m5">控件5数据</param>
+        /// <param name="shelfId">货架Id</param>
+        /// <param name="shelfBanner">货架招牌图片Url</param>
+        /// <param name="shelfName">货架名称</param>
         /// <returns></returns>
-        public static ModShelvesResult ModShelves(string appId, ModShelvesData modShelvesData)
+        public static WxJsonResult ModShelves(string accessToken, M1 m1, M2 m2, M3 m3, M4 m4, M5 m5,int shelfId, string shelfBanner, string shelfName)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/shelf/mod?access_token={0}";
 
-            return CommonJsonSend.Send<ModShelvesResult>(accessToken, urlFormat, modShelvesData);
+            var data = new
+            {
+                shelf_id = shelfId,
+                shelf_data = new
+                {
+                    module_infos = new object[]
+                                {
+                                    m1,
+                                    m2,
+                                    m3,
+                                    m4,
+                                    m5
+                                }
+                },
+                shelf_banner = shelfBanner,
+                shelf_name = shelfName
+            };
+
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
         }
 
-
-        public static ModShelvesResult GetallShelves(string appId)
+        /// <summary>
+        /// 获取所有货架
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public static GetAllShelvesResult GetallShelves(string accessToken)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/shelf/getall?access_token=ACCESS_TOKEN";
 
-            return CommonJsonSend.Send<ModShelvesResult>(accessToken, urlFormat, null,CommonJsonSendType.GET);
+            return CommonJsonSend.Send<GetAllShelvesResult>(accessToken, urlFormat, null, CommonJsonSendType.GET);
         }
     }
 }

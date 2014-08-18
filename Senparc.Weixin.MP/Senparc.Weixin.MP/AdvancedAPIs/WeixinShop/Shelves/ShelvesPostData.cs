@@ -6,30 +6,35 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
-    public class ShelvesData
+    public class MBase
     {
-        public ShelfData shelf_data { get; set; }
-        public string shelf_banner { get; set; }//sku信息,格式"id1:vid1;id2:vid2",如商品为统一规格，则此处赋值为空字符串即可
-        public string shelf_name { get; set; }//增加的库存数量
+        public int eid { get; protected set; }//控件ID
     }
 
-    public class ShelfData
+    public class M1 : MBase
     {
-        public ModuleInfos module_infos { get; set; }
+        public M1_GroupInfo group_info { get; set; }//分组信息
+
+        /// <summary>
+        /// 控件1数据初始化
+        /// </summary>
+        /// <param name="group_info_filter_count">group_info/filter/count</param>
+        /// <param name="group_info_group_id">group_info/group_id</param>
+        public M1(int group_info_filter_count, int group_info_group_id)
+        {
+            base.eid = 1;
+            group_info = new M1_GroupInfo()
+            {
+                filter = new Filter()
+                {
+                    count = group_info_filter_count
+                },
+                group_id = group_info_group_id
+            };
+        }
     }
 
-    public class ModuleInfos
-    {
-        public List<ModuleInfo> module_infos { get; set; }
-    }
-
-    public class ModuleInfo
-    {
-        public GroupInfo group_info { get; set; }//分组信息
-        public int eid { get; set; }//控件1的ID
-    }
-
-    public class GroupInfo
+    public class M1_GroupInfo
     {
         public Filter filter { get; set; }
         public int group_id { get; set; }//分组ID
@@ -40,13 +45,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public int count { get; set; }//该控件展示商品个数
     }
 
-    public class GroupInfos
+    public class M2 : MBase
     {
-        public GroupList group_infos { get; set; }//分组数组
-        public int eid { get; set; }//控件2的ID
+        public M2_GroupInfos group_infos { get; set; }//分组数组
+
+        /// <summary>
+        /// 控件2数据初始化
+        /// </summary>
+        /// <param name="groupIds">groups/[group_id]</param>
+        public M2(int[] groupIds)
+        {
+            group_infos = new M2_GroupInfos()
+                {
+                    groups = new List<Group>()
+                };
+
+            for (int i = 0; i < groupIds.Length; i++)
+            {
+                group_infos.groups.Add(new Group() { group_id = groupIds[i] });
+            }
+            base.eid = 2;
+        }
     }
 
-    public class GroupList
+    public class M2_GroupInfos
     {
         public List<Group> groups { get; set; }//分组ID
     }
@@ -56,54 +78,91 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public int group_id { get; set; }//分组ID
     }
 
-    public class Group_Info
+    public class M3 : MBase
     {
-        public group_Info group_info { get; set; }//分组信息
-        public int eid { get; set; }//控件3的ID
+        public GroupInfo group_info { get; set; }//分组信息
+
+        /// <summary>
+        /// 控件3数据初始化
+        /// </summary>
+        /// <param name="group_info_group_id"></param>
+        /// <param name="group_info_image"></param>
+        public M3(int group_info_group_id, string group_info_image)
+        {
+            base.eid = 3;
+            group_info = new GroupInfo()
+            {
+                group_id = group_info_group_id,
+                img = group_info_image
+            };
+        }
     }
 
-    public class group_Info
+    public class GroupInfo
     {
         public int group_id { get; set; }//分组ID
         public string img { get; set; }//分组照片(图片需调用图片上传接口获得图片Url填写至此，否则添加货架失败，建议分辨率600*208)
     }
 
-    public class Group_Infos
+    public class M4 : MBase
     {
-        public group_Infos group_infos { get; set; }
-        public int eid { get; set; }//控件4的ID
+        public M4_GroupInfos group_infos { get; set; }
+
+        /// <summary>
+        /// 控件4数据初始化
+        /// </summary>
+        /// <param name="groupIds">groups/[group_id]</param>
+        /// <param name="imgs">groups/[img]</param>
+        /// 注意groupIds和imgs要对应
+        public M4(int[] groupIds,string[] imgs)
+        {
+            group_infos = new M4_GroupInfos()
+                {
+                    groups = new List<GroupInfo>()
+                };
+
+            for (int i = 0; i < groupIds.Length; i++)
+            {
+                group_infos.groups.Add(new GroupInfo() { group_id = groupIds[i], img = imgs[i] });
+            }
+            base.eid = 4;
+        }
     }
 
-    public class group_Infos
+    public class M4_GroupInfos
     {
-        public List<group_Info> groups { get; set; }
+        public List<GroupInfo> groups { get; set; }
     }
 
-    public class groupinfos
+    public class M5 : MBase
     {
-        public groupInfos group_infos { get; set; }
-        public int eid { get; set; }//控件5的ID
+        public M5_GroupInfos group_infos { get; set; }
+
+        /// <summary>
+        /// 控件5数据初始化
+        /// </summary>
+        /// <param name="groupIds">groups/[group_id]</param>
+        /// <param name="imgBackground">groups/img_background</param>
+        public M5(int[] groupIds, string imgBackground)
+        {
+            group_infos = new M5_GroupInfos()
+            {
+                groups = new List<Group>(),
+                img_background = imgBackground
+            };
+
+            for (int i = 0; i < groupIds.Length; i++)
+            {
+                group_infos.groups.Add(new Group() { group_id = groupIds[i] });
+            }
+            base.eid = 4;
+        }
     }
 
-    public class groupInfos
+    public class M5_GroupInfos
     {
         public List<Group> groups { get; set; }
         public string img_background { get; set; }
-    }
-
-    /// <summary>
-    /// 添加货架
-    /// </summary>
-    public class AddShelvesData : ShelvesData
-    {
-    }
-
-    /// <summary>
-    /// 修改货架
-    /// </summary>
-    public class ModShelvesData : ShelvesData
-    {
-        public int shelf_id { get; set; }//货架ID
     }
 }
 

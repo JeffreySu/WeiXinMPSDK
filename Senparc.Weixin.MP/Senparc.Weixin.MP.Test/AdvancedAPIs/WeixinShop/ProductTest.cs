@@ -14,9 +14,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
     //需要通过微信支付审核的账户才能成功
     [TestClass]
-    public class WeixinShopTest : CommonApiTest
+    public class ProductTest : CommonApiTest
     {
-
         [TestMethod]
         public void AddProdectTest()
         {

@@ -73,7 +73,8 @@
     <Compile Include="AdvancedAPIs\OAuth\OAuthTest.cs" />
     <Compile Include="AdvancedAPIs\User\CustomTest.cs" />
     <Compile Include="AdvancedAPIs\WeixinPay\WeixinPayTest.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\WeixinShopTest.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\ProductTest.cs" />
+    <Compile Include="AdvancedAPIs\WeixinShop\ShelvesTest.cs" />
     <Compile Include="Agents\MessageAgentTest.cs" />
     <Compile Include="CheckSignatureTest.cs" />
     <Compile Include="CommonAPIs\AccessTokenContainerTest.cs" />

@@ -15,13 +15,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 增加库存
         /// </summary>
-        /// <param name="appId">公众平台账户的AppId</param>
+        /// <param name="accessToken"></param>
         /// <param name="addStockData">增加库存需要Post的数据</param>
         /// <returns></returns>
-        public static AddStockResult AddStock(string appId, AddStockData addStockData)
+        public static AddStockResult AddStock(string accessToken, AddStockData addStockData)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/stock/add?access_token={0}";
 
             return CommonJsonSend.Send<AddStockResult>(accessToken, urlFormat, addStockData);
@@ -30,13 +28,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 减少库存
         /// </summary>
-        /// <param name="appId">公众平台账户的AppId</param>
+        /// <param name="accessToken"></param>
         /// <param name="reduceStockData">减少库存需要Post的数据</param>
         /// <returns></returns>
-        public static ReduceStockResult ReduceStock(string appId, ReduceStockData reduceStockData)
+        public static ReduceStockResult ReduceStock(string accessToken, ReduceStockData reduceStockData)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/stock/reduce?access_token={0}";
 
             return CommonJsonSend.Send<ReduceStockResult>(accessToken, urlFormat, reduceStockData);

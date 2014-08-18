@@ -15,13 +15,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 增加邮费模板
         /// </summary>
-        /// <param name="appId">公众平台账户的AppId</param>
+        /// <param name="accessToken"></param>
         /// <param name="addPostageTemplateData">增加邮费模板需要Post的数据</param>
         /// <returns></returns>
-        public static AddPostageTemplateResult AddPostageTemplate(string appId, AddPostageTemplateData addPostageTemplateData)
+        public static AddPostageTemplateResult AddPostageTemplate(string accessToken, AddPostageTemplateData addPostageTemplateData)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/express/add?access_token={0}";
 
             return CommonJsonSend.Send<AddPostageTemplateResult>(accessToken, urlFormat, addPostageTemplateData);
@@ -30,13 +28,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 删除邮费模板
         /// </summary>
-        /// <param name="appId">公众平台账户的AppId</param>
+        /// <param name="accessToken"></param>
         /// <param name="templateId">邮费模板Id</param>
         /// <returns></returns>
-        public static DeletePostageTemplateResult DeletePostageTemplate(string appId, int templateId)
+        public static DeletePostageTemplateResult DeletePostageTemplate(string accessToken, int templateId)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/express/del?access_token={0}";
 
             return CommonJsonSend.Send<DeletePostageTemplateResult>(accessToken, urlFormat, templateId);
@@ -45,13 +41,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 修改邮费模板
         /// </summary>
-        /// <param name="appId">公众平台账户的AppId</param>
+        /// <param name="accessToken"></param>
         /// <param name="upDatePostageTemplateData">修改邮费模板需要Post的数据</param>
         /// <returns></returns>
-        public static UpdatePostageTemplateResult UpDatePostageTemplate(string appId, UpDatePostageTemplateData upDatePostageTemplateData)
+        public static UpdatePostageTemplateResult UpDatePostageTemplate(string accessToken, UpDatePostageTemplateData upDatePostageTemplateData)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/express/update?access_token={0}";
 
             return CommonJsonSend.Send<UpdatePostageTemplateResult>(accessToken, urlFormat, upDatePostageTemplateData);
@@ -60,13 +54,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取指定ID的邮费模板
         /// </summary>
-        /// <param name="appId">公众平台账户的AppId</param>
+        /// <param name="accessToken"></param>
         /// <param name="templateId">邮费模板Id</param>
         /// <returns></returns>
-        public static GetByIdPostageTemplateResult GetByIdPostageTemplate(string appId, int templateId)
+        public static GetByIdPostageTemplateResult GetByIdPostageTemplate(string accessToken, int templateId)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/express/getbyid?access_token={0}";
 
             return CommonJsonSend.Send<GetByIdPostageTemplateResult>(accessToken, urlFormat, templateId);
@@ -75,12 +67,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取所有邮费模板
         /// </summary>
-        /// <param name="appId">公众平台账户的AppId</param>
+        /// <param name="accessToken"></param>
         /// <returns></returns>
-        public static GetAllPostageTemplateResult GetAllPostageTemplate(string appId)
+        public static GetAllPostageTemplateResult GetAllPostageTemplate(string accessToken)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/express/getall?access_token={0}";
 
             return CommonJsonSend.Send<GetAllPostageTemplateResult>(accessToken, urlFormat, null, CommonJsonSendType.GET);

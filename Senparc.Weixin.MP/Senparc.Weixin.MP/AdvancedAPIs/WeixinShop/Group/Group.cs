@@ -15,13 +15,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 增加分组
         /// </summary>
-        /// <param name="appId">公众平台账户的AppId</param>
+        /// <param name="accessToken"></param>
         /// <param name="addGroupData">增加分组需要Post的数据</param>
         /// <returns></returns>
-        public static AddGroupResult AddGroup(string appId, AddGroupData addGroupData)
+        public static AddGroupResult AddGroup(string accessToken, AddGroupData addGroupData)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/group/add?access_token={0}";
 
             return CommonJsonSend.Send<AddGroupResult>(accessToken, urlFormat, addGroupData);
@@ -30,13 +28,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 删除分组
         /// </summary>
-        /// <param name="appId">公众平台账户的AppId</param>
+        /// <param name="accessToken"></param>
         /// <param name="groupId">分组Id</param>
         /// <returns></returns>
-        public static DeleteGroupResult DeleteGroup(string appId, int groupId)
+        public static DeleteGroupResult DeleteGroup(string accessToken, int groupId)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/group/del?access_token={0}";
 
             return CommonJsonSend.Send<DeleteGroupResult>(accessToken, urlFormat, groupId);
@@ -45,13 +41,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 修改分组属性
         /// </summary>
-        /// <param name="appId">公众平台账户的AppId</param>
+        /// <param name="accessToken"></param>
         /// <param name="propertyModGroup">修改分组属性需要Post的数据</param>
         /// <returns></returns>
-        public static PropertyModGroupResult PropertyModGroup(string appId, PropertyModGroup propertyModGroup)
+        public static PropertyModGroupResult PropertyModGroup(string accessToken, PropertyModGroup propertyModGroup)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/group/propertymod?access_token={0}";
 
             return CommonJsonSend.Send<PropertyModGroupResult>(accessToken, urlFormat, propertyModGroup);
@@ -60,13 +54,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 修改分组商品
         /// </summary>
-        /// <param name="appId">公众平台账户的AppId</param>
+        /// <param name="accessToken"></param>
         /// <param name="productModGroup">修改分组商品需要Post的数据</param>
         /// <returns></returns>
-        public static ProductModGroupResult ProductModGroup(string appId, ProductModGroup productModGroup)
+        public static ProductModGroupResult ProductModGroup(string accessToken, ProductModGroup productModGroup)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/group/productmod?access_token={0}";
 
             return CommonJsonSend.Send<ProductModGroupResult>(accessToken, urlFormat, productModGroup);
@@ -75,12 +67,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取所有分组
         /// </summary>
-        /// <param name="appId">公众平台账户的AppId</param>
+        /// <param name="accessToken"></param>
         /// <returns></returns>
-        public static GetAllGroup GetAllGroup(string appId)
+        public static GetAllGroup GetAllGroup(string accessToken)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/group/getall?access_token={0}";
 
             return CommonJsonSend.Send<GetAllGroup>(accessToken, urlFormat, null, CommonJsonSendType.GET);
@@ -89,13 +79,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 根据分组ID获取分组信息
         /// </summary>
-        /// <param name="appId">公众平台账户的AppId</param>
+        /// <param name="accessToken"></param>
         /// <param name="groupId">分组Id</param>
         /// <returns></returns>
-        public static GetByIdGroup GetByIdGroup(string appId, int groupId)
+        public static GetByIdGroup GetByIdGroup(string accessToken, int groupId)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
-
             var urlFormat = "https://api.weixin.qq.com/merchant/group/getbyid?access_token={0}";
 
             return CommonJsonSend.Send<GetByIdGroup>(accessToken, urlFormat, groupId);

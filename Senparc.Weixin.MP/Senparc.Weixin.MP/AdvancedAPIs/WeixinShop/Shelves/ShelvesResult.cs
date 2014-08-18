@@ -6,36 +6,15 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
-    public class ShelvesResult
-    {
-        public int errcode { get; set; }//错误码
-        public string errmsg { get; set; }//错误信息
-    }
-
     /// <summary>
     /// 添加货架返回结果
     /// </summary>
-    public class AddShelvesResult : ShelvesResult
+    public class AddShelvesResult : WxJsonResult
     {
         public int shelf_id { get; set; }//货架ID
     }
 
-    /// <summary>
-    /// 删除货架返回结果
-    /// </summary>
-    public class DeleteShelvesResult : ShelvesResult
-    {
-    }
-
-    /// <summary>
-    /// 修改货架返回结果
-    /// </summary>
-    public class ModShelvesResult : ShelvesResult
-    {
-    }
-
-
-    public class GetAllShelvesResult : ShelvesResult
+    public class GetAllShelvesResult : WxJsonResult
     {
         public List<Shelf> shelves { get; set; }
     }
@@ -70,58 +49,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public int group_id { get; set; }
     }
 }
-//{
-//    "errcode": 0,
-//    "errmsg": "success",
-//    "shelves": [
-//        {
-//          "shelf_info": {
-//            "module_infos": [
-//              {
-//                "group_infos": {
-//                  "groups": [
-//                    {
-//                      "group_id": 200080093
-//                    },
-//                    {
-//                      "group_id": 200080118
-//                    },
-//                    {
-//                      "group_id": 200080119
-//                    },
-//                    {
-//                      "group_id": 200080135
-//                    }
-//                  ],
-//                  "img_background": "http://mmbiz.qpic.cn/mmbiz/4whpV1VZl294FzPwnf9dAcaN7ButStztAZyy2yHY8pW6sTQKicIhAy5F0a2CqmrvDBjMFLtc2aEhAQ7uHsPow9A/0"
-//                },
-//                "eid": 5
-//              }
-//            ]
-//          },
-//          "shelf_banner": "http://mmbiz.qpic.cn/mmbiz/4whpV1VZl294FzPwnf9dAcaN7ButStztAZyy2yHY8pW6sTQKicIhAy5F0a2CqmrvDBjMFLtc2aEhAQ7uHsPow9A/0",
-//          "shelf_name": "新新人类",
-//          "shelf_id": 22
-//        },
-//        {
-//          "shelf_info": {
-//            "module_infos": [
-//              {
-//                "group_info": {
-//                  "group_id": 200080119,
-//                  "filter": {
-//                    "count": 4
-//                  }
-//                },
-//                "eid": 1
-//              }
-//            ]
-//          },
-//          "shelf_banner": "http://mmbiz.qpic.cn/mmbiz/4whpV1VZl294FzPwnf9dAcaN7ButStztAZyy2yHY8pW6sTQKicIhAy5F0a2CqmrvDBjMFLtc2aEhAQ7uHsPow9A/0",
-//          "shelf_name": "店铺",
-//          "shelf_id": 23
-//        }
-//    ]
-//}
+
 
 

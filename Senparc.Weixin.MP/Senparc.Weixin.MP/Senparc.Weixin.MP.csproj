@@ -96,7 +96,6 @@
     <Compile Include="AdvancedAPIs\WeixinShop\Order\Order.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Order\OrderResult.cs" />
     <Compile Include="AdvancedAPIs\TenPayRights\TenPayRights.cs" />
-    <Compile Include="AdvancedAPIs\TenPayRights\TenPayRightsResult.cs" />
     <Compile Include="Agents\MessageAgent.cs" />
     <Compile Include="CheckSignature.cs" />
     <Compile Include="CommonAPIs\AccessTokenContainer.cs" />
@@ -208,6 +207,7 @@
     <Compile Include="Context\MessageContext.cs" />
     <Compile Include="Context\WeixinContext.cs" />
     <Compile Include="TenPayLib\MD5Util.cs" />
+    <Compile Include="TenPayLib\QRCode.cs" />
     <Compile Include="TenPayLib\RequestHandler.cs" />
     <Compile Include="TenPayLib\ResponseHandler.cs" />
     <Compile Include="TenPayLib\SHA1Util.cs" />

@@ -1033,6 +1033,15 @@
             微信支付维权接口，官方API：https://mp.weixin.qq.com/htmledition/res/bussiness-course2/wxm-payment-kf-api.pdf
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayRights.UpDateFeedBack(System.String,System.String,System.String)">
+            <summary>
+            标记客户的投诉处理状态
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId">支付该笔订单的用户 ID</param>
+            <param name="feedBackId">投诉单号</param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.MP.Agent.MessageAgent">
             <summary>
             代理请求
@@ -2572,6 +2581,18 @@
             </summary>
             <param name="encypStr"></param>
             <param name="charset"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLib.QRCode">
+            <summary>
+            生成Native支付方式使用的二维码
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.QRCode.UrlEncode1(System.String)">
+            <summary>
+            url编码，添加空格转成%20
+            </summary>
+            <param name="con">需要生成二维码的Url</param>
             <returns></returns>
         </member>
         <!-- 对于成员“T:Senparc.Weixin.MP.TenPayLib.RequestHandler”忽略有格式错误的 XML 注释 -->

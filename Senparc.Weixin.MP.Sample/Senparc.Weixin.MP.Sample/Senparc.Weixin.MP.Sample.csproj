@@ -138,7 +138,7 @@
     <Compile Include="Controllers\TestUploadMediaFileController.cs" />
     <Compile Include="Controllers\WeixinController.cs" />
     <Compile Include="Controllers\WeixinController_OldPost.cs" />
-    <Compile Include="Controllers\WeixinPayController.cs" />
+    <Compile Include="Controllers\TenPayController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -258,12 +258,12 @@
     <Content Include="Views\OAuth2\Index.cshtml" />
     <Content Include="Views\OAuth2\UserInfoCallback.cshtml" />
     <Content Include="Views\SimulateTool\Index.cshtml" />
-    <Content Include="Views\WeixinPay\JsApi.cshtml" />
-    <Content Include="Views\WeixinPay\FeedBack.cshtml" />
-    <Content Include="Views\WeixinPay\Index.cshtml" />
-    <Content Include="Views\WeixinPay\Native.cshtml" />
-    <Content Include="Views\WeixinPay\NativeCall.cshtml" />
-    <Content Include="Views\WeixinPay\PayNotifyUrl.cshtml" />
+    <Content Include="Views\TenPay\JsApi.cshtml" />
+    <Content Include="Views\TenPay\FeedBack.cshtml" />
+    <Content Include="Views\TenPay\Index.cshtml" />
+    <Content Include="Views\TenPay\Native.cshtml" />
+    <Content Include="Views\TenPay\NativeCall.cshtml" />
+    <Content Include="Views\TenPay\PayNotifyUrl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -52,11 +52,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\CustomService\CustomInfoJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomOnlineJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomService.cs" />
     <Compile Include="AdvancedAPIs\CustomService\RecordJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\GetRecordResult.cs" />
-    <Compile Include="AdvancedAPIs\CustomService\CustomInfoJson.cs" />
-    <Compile Include="AdvancedAPIs\CustomService\CustomOnlineJson.cs" />
     <Compile Include="AdvancedAPIs\Custom\Custom.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessage.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\NewsModel.cs" />
@@ -74,6 +74,8 @@
     <Compile Include="AdvancedAPIs\QrCode\QrCode.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\Template.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TempleteModel.cs" />
+    <Compile Include="AdvancedAPIs\TenPayRefund\TenPayRefund.cs" />
+    <Compile Include="AdvancedAPIs\TenPayRefund\TenPayRefundResult.cs" />
     <Compile Include="AdvancedAPIs\User\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\User.cs" />
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
@@ -98,11 +100,10 @@
     <Compile Include="AdvancedAPIs\WeixinShop\Order\Order.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Order\OrderResult.cs" />
     <Compile Include="AdvancedAPIs\TenPayRights\TenPayRights.cs" />
-    <Compile Include="AdvancedAPIs\TenPayRefund\TenPayRefund.cs" />
-    <Compile Include="AdvancedAPIs\TenPayRefund\TenPayRefundResult.cs" />
     <Compile Include="Agents\MessageAgent.cs" />
     <Compile Include="CheckSignature.cs" />
     <Compile Include="CommonAPIs\AccessTokenContainer.cs" />
+    <Compile Include="CommonAPIs\AccessTokenHandlerWapper.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Config.cs" />
@@ -211,7 +212,6 @@
     <Compile Include="Context\MessageContext.cs" />
     <Compile Include="Context\WeixinContext.cs" />
     <Compile Include="TenPayLib\MD5Util.cs" />
-    <Compile Include="TenPayLib\QRCode.cs" />
     <Compile Include="TenPayLib\RequestHandler.cs" />
     <Compile Include="TenPayLib\ResponseHandler.cs" />
     <Compile Include="TenPayLib\SHA1Util.cs" />

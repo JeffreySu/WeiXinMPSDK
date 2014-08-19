@@ -4,6 +4,66 @@
         <name>Senparc.Weixin.MP</name>
     </assembly>
     <members>
+        <member name="T:Senparc.Weixin.MP.Entities.WxJsonResult">
+            <summary>
+            JSON返回结果（用于菜单接口等）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.WxJsonResult.P2PData">
+            <summary>
+            为P2P返回结果做准备
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomInfoJson.kf_list">
+            <summary>
+            客服列表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomInfo_Json.kf_account">
+            <summary>
+            客服账号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomInfo_Json.kf_nick">
+            <summary>
+            客服昵称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomInfo_Json.kf_id">
+            <summary>
+            客服工号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnlineJson.kf_online_list">
+            <summary>
+            在线客服列表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnline_Json.kf_account">
+            <summary>
+            客服账号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnline_Json.status">
+            <summary>
+            客服在线状态 1：pc在线，2：手机在线 若pc和手机同时在线则为 1+2=3
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnline_Json.kf_id">
+            <summary>
+            客服工号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnline_Json.auto_accept">
+            <summary>
+            客服设置的最大自动接入数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnline_Json.accepted_case">
+            <summary>
+            客服当前正在接待的会话数
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CustomService">
             <summary>
             多客服接口聊天记录接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%9C%8D%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95
@@ -74,66 +134,6 @@
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetRecordResult">
             <summary>
             聊天记录结果
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.Entities.WxJsonResult">
-            <summary>
-            JSON返回结果（用于菜单接口等）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Entities.WxJsonResult.P2PData">
-            <summary>
-            为P2P返回结果做准备
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomInfoJson.kf_list">
-            <summary>
-            客服列表
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomInfo_Json.kf_account">
-            <summary>
-            客服账号
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomInfo_Json.kf_nick">
-            <summary>
-            客服昵称
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomInfo_Json.kf_id">
-            <summary>
-            客服工号
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnlineJson.kf_online_list">
-            <summary>
-            在线客服列表
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnline_Json.kf_account">
-            <summary>
-            客服账号
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnline_Json.status">
-            <summary>
-            客服在线状态 1：pc在线，2：手机在线 若pc和手机同时在线则为 1+2=3
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnline_Json.kf_id">
-            <summary>
-            客服工号
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnline_Json.auto_accept">
-            <summary>
-            客服设置的最大自动接入数
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnline_Json.accepted_case">
-            <summary>
-            客服当前正在接待的会话数
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Custom">
@@ -522,6 +522,46 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TempleteModel.data">
             <summary>
             数据
+            </summary>
+        </member>
+        <!-- 对于成员“T:Senparc.Weixin.MP.AdvancedAPIs.TenPayRefund”忽略有格式错误的 XML 注释 -->
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayRefund.NativePay(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Native
+            </summary>
+            <param name="appId">开放平台账户的唯一标识</param>
+            <param name="timesTamp">时间戳</param>
+            <param name="nonceStr">32 位内的随机串，防重发</param>
+            <param name="productId">商品唯一id</param>
+            <param name="sign">签名</param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayRefund.Delivernotify(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            发货通知
+            </summary>
+            <param name="appId">公众平台账户的AppId</param>
+            <param name="openId">购买用户的OpenId</param>
+            <param name="transId">交易单号</param>
+            <param name="out_Trade_No">第三方订单号</param>
+            <param name="deliver_TimesTamp">发货时间戳</param>
+            <param name="deliver_Status">发货状态，1 表明成功，0 表明失败，失败时需要在deliver_msg 填上失败原因</param>
+            <param name="deliver_Msg">发货状态信息，失败时可以填上UTF8 编码的错误提示信息，比如“该商品已退款</param>
+            <param name="app_Signature">签名</param>
+            <param name="sign_Method">签名方法</param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayRefund.Orderquery(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            订单查询
+            </summary>
+            <param name="appId">公众平台账户的AppId</param>
+            <param name="package">查询订单的关键信息数据</param>
+            <param name="timesTamp">linux 时间戳</param>
+            <param name="app_Signature">签名</param>
+            <param name="sign_Method">签名方法</param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TenPayRefundResult">
+            <summary>
+            订单查询
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User">
@@ -1108,46 +1148,6 @@
             <param name="feedBackId">投诉单号</param>
             <returns></returns>
         </member>
-        <!-- 对于成员“T:Senparc.Weixin.MP.AdvancedAPIs.TenPayRefund”忽略有格式错误的 XML 注释 -->
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayRefund.NativePay(System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            Native
-            </summary>
-            <param name="appId">开放平台账户的唯一标识</param>
-            <param name="timesTamp">时间戳</param>
-            <param name="nonceStr">32 位内的随机串，防重发</param>
-            <param name="productId">商品唯一id</param>
-            <param name="sign">签名</param>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayRefund.Delivernotify(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            发货通知
-            </summary>
-            <param name="appId">公众平台账户的AppId</param>
-            <param name="openId">购买用户的OpenId</param>
-            <param name="transId">交易单号</param>
-            <param name="out_Trade_No">第三方订单号</param>
-            <param name="deliver_TimesTamp">发货时间戳</param>
-            <param name="deliver_Status">发货状态，1 表明成功，0 表明失败，失败时需要在deliver_msg 填上失败原因</param>
-            <param name="deliver_Msg">发货状态信息，失败时可以填上UTF8 编码的错误提示信息，比如“该商品已退款</param>
-            <param name="app_Signature">签名</param>
-            <param name="sign_Method">签名方法</param>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayRefund.Orderquery(System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            订单查询
-            </summary>
-            <param name="appId">公众平台账户的AppId</param>
-            <param name="package">查询订单的关键信息数据</param>
-            <param name="timesTamp">linux 时间戳</param>
-            <param name="app_Signature">签名</param>
-            <param name="sign_Method">签名方法</param>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TenPayRefundResult">
-            <summary>
-            订单查询
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.MP.Agent.MessageAgent">
             <summary>
             代理请求
@@ -1311,6 +1311,17 @@
             检查是否已经注册
             </summary>
             <param name="appId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenHandlerWapper.Do``1(System.String,System.String,System.Func{System.String,``0},System.Boolean)">
+            <summary>
+            使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+            <param name="fun">第一个参数为accessToken</param>
+            <param name="retryIfFaild"></param>
             <returns></returns>
         </member>
         <!-- 对于成员“T:Senparc.Weixin.MP.CommonAPIs.CommonApi”忽略有格式错误的 XML 注释 -->
@@ -2687,18 +2698,6 @@
             </summary>
             <param name="encypStr"></param>
             <param name="charset"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Senparc.Weixin.MP.TenPayLib.QRCode">
-            <summary>
-            生成Native支付方式使用的二维码
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLib.QRCode.UrlEncode1(System.String)">
-            <summary>
-            url编码，添加空格转成%20
-            </summary>
-            <param name="con">需要生成二维码的Url</param>
             <returns></returns>
         </member>
         <!-- 对于成员“T:Senparc.Weixin.MP.TenPayLib.RequestHandler”忽略有格式错误的 XML 注释 -->

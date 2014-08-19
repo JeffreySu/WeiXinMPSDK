@@ -9,7 +9,7 @@ namespace Senparc.Weixin.MP.Entities
 	{
 		public ResponseMessageTransfer_Customer_Service()
 		{
-			TransInfo = new List<Account>();
+			TransInfo = new List<CustomerServiceAccount>();
 		}
 
 		new public virtual ResponseMsgType MsgType
@@ -17,10 +17,10 @@ namespace Senparc.Weixin.MP.Entities
 			get { return ResponseMsgType.Transfer_Customer_Service; }
 		}
 
-		public List<Account> TransInfo { get; set; }
+		public List<CustomerServiceAccount> TransInfo { get; set; }
 	}
 
-	public class Account
+	public class CustomerServiceAccount
 	{
 		public string KfAccount { get; set; }
 	}

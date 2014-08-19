@@ -84,10 +84,10 @@ namespace Senparc.Weixin.MP.Helpers
 							}
 							else if (genericArguments[0].Name == "Account")
 							{
-								List<Account> accounts = new List<Account>();
+								List<CustomerServiceAccount> accounts = new List<CustomerServiceAccount>();
 								foreach (var item in root.Elements(propName))
 								{
-									var account = new Account();
+									var account = new CustomerServiceAccount();
 									FillEntityWithXml(account, new XDocument(item));
 									accounts.Add(account);
 								}
@@ -191,7 +191,7 @@ namespace Senparc.Weixin.MP.Helpers
 				else if (propName == "TransInfo")
 				{
 					var transInfoElement = new XElement("TransInfo");
-					var transInfo = prop.GetValue(entity, null) as List<Account>;
+					var transInfo = prop.GetValue(entity, null) as List<CustomerServiceAccount>;
 					foreach (var account in transInfo)
 					{
 						var trans = ConvertEntityToXml(account).Root.Elements();

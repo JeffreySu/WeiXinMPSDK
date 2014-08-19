@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Script.Serialization;
 using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
@@ -47,5 +48,36 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             return CommonJsonSend.Send<GetRecordResult>(accessToken, urlFormat, data);
         }
+
+        /// <summary>
+		/// 获取在线客服接待信息
+		/// 官方API：http://dkf.qq.com/document-3_2.html
+		/// </summary>
+		/// <param name="accessToken">调用接口凭证</param>
+		/// <returns></returns>
+		public static CustomOnlineJson GetCustomOnlineInfo(string accessToken)
+		{
+			var urlFormat = string.Format("https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist?access_token={0}", accessToken);
+			return GetCustomInfoResult<CustomOnlineJson>(urlFormat);
+		}
+
+		/// <summary>
+		/// 获取客服基本信息
+		/// 官方API：http://dkf.qq.com/document-3_1.html
+		/// </summary>
+		/// <param name="accessToken">调用接口凭证</param>
+		/// <returns></returns>
+		public static CustomInfoJson GetCustomBasicInfo(string accessToken)
+		{
+			var urlFormat = string.Format("https://api.weixin.qq.com/cgi-bin/customservice/getkflist?access_token={0}", accessToken);
+			return GetCustomInfoResult<CustomInfoJson>(urlFormat);
+		}
+
+		private static T GetCustomInfoResult<T>(string urlFormat)
+		{
+			var jsonString = HttpUtility.RequestUtility.HttpGet(urlFormat, Encoding.UTF8);
+			JavaScriptSerializer js = new JavaScriptSerializer();
+			return js.Deserialize<T>(jsonString);
+		}
     }
 }

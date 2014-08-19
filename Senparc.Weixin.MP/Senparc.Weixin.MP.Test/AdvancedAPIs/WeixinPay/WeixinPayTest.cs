@@ -20,7 +20,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void NativePayTest()
         {
-            var result = WeixinPay.NativePay("[appId]", "[timesTamp]", "[nonceStr]", "[productId]", "[sign]");
+            var result = TenPay.NativePay("[appId]", "[timesTamp]", "[nonceStr]", "[productId]", "[sign]");
             Console.Write(result);
             Assert.IsNotNull(result);
         }
@@ -28,7 +28,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void DelivernotifyTest()
         {
-            var result = WeixinPay.Delivernotify("[appId]", "[openId]", "[transId]", "[out_Trade_No]", "[deliver_TimesTamp]", "[deliver_Status]", "[deliver_Msg]", "[app_Signature]", "sha1");
+            var result = TenPay.Delivernotify("[appId]", "[openId]", "[transId]", "[out_Trade_No]", "[deliver_TimesTamp]", "[deliver_Status]", "[deliver_Msg]", "[app_Signature]", "sha1");
             Console.Write(result);
             Assert.IsNotNull(result);
         }
@@ -36,7 +36,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void OrderqueryTest()
         {
-            var result = WeixinPay.Orderquery("[appId]", "[package]", "[timesTamp]", "[app_Signature]", "[sign_Method]");
+            var result = TenPay.Orderquery("[appId]", "[package]", "[timesTamp]", "[app_Signature]", "[sign_Method]");
             Console.Write(result);
             Assert.IsNotNull(result);
         }

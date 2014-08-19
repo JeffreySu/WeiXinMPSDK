@@ -8,7 +8,7 @@ namespace Senparc.Weixin.MP.TenPayLib
     /// <summary>
     /// 微信支付基础信息储存类
     /// </summary>
-    public class WeixinPayInfo
+    public class TenPayInfo
     {
         /// <summary>
         /// 商户号
@@ -37,7 +37,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         /// <param name="appId">appid</param>
         /// <param name="appKey">paysignkey(非appkey) </param>
         /// <param name="tenPayNotify">支付完成后的回调处理页面,*替换成notify_url.asp所在路径</param>
-        public WeixinPayInfo( string partnerId, string key, string appId, string appKey, string tenPayNotify)
+        public TenPayInfo( string partnerId, string key, string appId, string appKey, string tenPayNotify)
         {
             PartnerId = partnerId;
             Key = key;

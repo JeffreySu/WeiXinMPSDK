@@ -6,7 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Senparc.Weixin.MP.WeixinPayLib;
+using Senparc.Weixin.MP.TenPayLib;
 
 namespace Senparc.Weixin.MP.Sample
 {
@@ -25,16 +25,14 @@ namespace Senparc.Weixin.MP.Sample
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             //提供微信支付信息
-            var weixinPay_Tenpay = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_Tenpay"];
             var weixinPay_PartnerId = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_PartnerId"];
             var weixinPay_Key = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_Key"];
             var weixinPay_AppId = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_AppId"];
             var weixinPay_AppKey = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_AppKey"];
             var weixinPay_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_TenpayNotify"];
 
-            var weixinPayInfo = new WeixinPayInfo(weixinPay_Tenpay, weixinPay_PartnerId, weixinPay_Key, weixinPay_AppId,
-                weixinPay_AppKey, weixinPay_TenpayNotify);
-            WeixinPayInfoCollection.Register(weixinPayInfo);
+            var weixinPayInfo = new TenPayInfo(weixinPay_PartnerId, weixinPay_Key, weixinPay_AppId,weixinPay_AppKey, weixinPay_TenpayNotify);
+            TenPayInfoCollection.Register(weixinPayInfo);
         }
     }
 }

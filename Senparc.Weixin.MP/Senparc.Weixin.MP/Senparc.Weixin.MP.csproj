@@ -75,8 +75,8 @@
     <Compile Include="AdvancedAPIs\User\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\User.cs" />
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
-    <Compile Include="AdvancedAPIs\WeixinPay\WeixinPay.cs" />
-    <Compile Include="AdvancedAPIs\WeixinPay\WeixinPayResult.cs" />
+    <Compile Include="AdvancedAPIs\TenPay\TenPay.cs" />
+    <Compile Include="AdvancedAPIs\TenPay\TenResult.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Group\Group.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Group\GroupPostData.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Group\GroupResult.cs" />
@@ -95,6 +95,8 @@
     <Compile Include="AdvancedAPIs\WeixinShop\Stock\StockPostData.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Order\Order.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Order\OrderResult.cs" />
+    <Compile Include="AdvancedAPIs\TenPayRights\TenPayRights.cs" />
+    <Compile Include="AdvancedAPIs\TenPayRights\TenPayRightsResult.cs" />
     <Compile Include="Agents\MessageAgent.cs" />
     <Compile Include="CheckSignature.cs" />
     <Compile Include="CommonAPIs\AccessTokenContainer.cs" />
@@ -210,8 +212,8 @@
     <Compile Include="TenPayLib\ResponseHandler.cs" />
     <Compile Include="TenPayLib\SHA1Util.cs" />
     <Compile Include="TenPayLib\TenPayUtil.cs" />
-    <Compile Include="TenPayLib\WeixinPayInfo.cs" />
-    <Compile Include="TenPayLib\WeixinPayInfoCollection.cs" />
+    <Compile Include="TenPayLib\TenPayInfo.cs" />
+    <Compile Include="TenPayLib\TenPayInfoCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonAPIs\CommonApi.Menu.cs" />

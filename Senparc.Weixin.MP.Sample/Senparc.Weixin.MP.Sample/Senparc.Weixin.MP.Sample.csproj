@@ -259,6 +259,11 @@
     <Content Include="Views\OAuth2\UserInfoCallback.cshtml" />
     <Content Include="Views\SimulateTool\Index.cshtml" />
     <Content Include="Views\WeixinPay\JsApi.cshtml" />
+    <Content Include="Views\WeixinPay\FeedBack.cshtml" />
+    <Content Include="Views\WeixinPay\Index.cshtml" />
+    <Content Include="Views\WeixinPay\Native.cshtml" />
+    <Content Include="Views\WeixinPay\NativeCall.cshtml" />
+    <Content Include="Views\WeixinPay\PayNotifyUrl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

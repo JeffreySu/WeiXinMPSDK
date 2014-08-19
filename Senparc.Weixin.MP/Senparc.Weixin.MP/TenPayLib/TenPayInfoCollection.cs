@@ -8,23 +8,23 @@ namespace Senparc.Weixin.MP.TenPayLib
     /// <summary>
     /// 微信支付信息集合，Key为商户号（PartnerId）
     /// </summary>
-    public class WeixinPayInfoCollection : Dictionary<string, WeixinPayInfo>
+    public class TenPayInfoCollection : Dictionary<string, TenPayInfo>
     {
         /// <summary>
         /// 微信支付信息集合，Key为商户号（PartnerId）
         /// </summary>
-        public static WeixinPayInfoCollection Data = new WeixinPayInfoCollection();
+        public static TenPayInfoCollection Data = new TenPayInfoCollection();
 
         /// <summary>
         /// 注册WeixinPayInfo信息
         /// </summary>
         /// <param name="weixinPayInfo"></param>
-        public static void Register(WeixinPayInfo weixinPayInfo)
+        public static void Register(TenPayInfo weixinPayInfo)
         {
             Data[weixinPayInfo.PartnerId] = weixinPayInfo;
         }
 
-        new public WeixinPayInfo this[string key]
+        new public TenPayInfo this[string key]
         {
             get
             {
@@ -43,7 +43,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
         }
 
-        public WeixinPayInfoCollection()
+        public TenPayInfoCollection()
             : base(StringComparer.OrdinalIgnoreCase)
         {
 

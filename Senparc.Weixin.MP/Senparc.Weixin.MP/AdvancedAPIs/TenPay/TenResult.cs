@@ -7,15 +7,6 @@ using Senparc.Weixin.MP.Entities;
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
-    /// 发货通知返回结果
-    /// </summary>
-    public class DelivernotifyResult : WxJsonResult
-    {
-        public int errcode { get; set; }
-        public string errmsg { get; set; }
-    }
-
-    /// <summary>
     /// 订单查询
     /// </summary>
     public class OrderqueryResult : WxJsonResult

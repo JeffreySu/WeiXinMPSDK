@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Senparc.Weixin.MP.WeixinPayLib;
+using Senparc.Weixin.MP.TenPayLib;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -12,16 +12,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     /// </summary>
     public class WeixinPayController : Controller
     {
-        private static WeixinPayInfo _weixinPayInfo;
+        private static TenPayInfo _weixinPayInfo;
 
-        public static WeixinPayInfo WeixinPayInfo
+        public static TenPayInfo WeixinPayInfo
         {
             get
             {
                 if (_weixinPayInfo == null)
                 {
                     _weixinPayInfo =
-                        WeixinPayInfoCollection.Data[System.Configuration.ConfigurationManager.AppSettings["WeixinPay_Tenpay"]];
+                        TenPayInfoCollection.Data[System.Configuration.ConfigurationManager.AppSettings["WeixinPay_PartnerId"]];
                 }
                 return _weixinPayInfo;
             }
@@ -29,11 +29,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         public ActionResult Index()
         {
-            Response.Write("页面跳转调用:</br>");
-            Response.Write("<a target=\"_blank\" href=\"" + "jsapi.aspx" + "\">" + "jsapi支付" + "</a></br>");
-            Response.Write("<a target=\"_blank\" href=\"" + "native.aspx" + "\">" + "native支付" + "</a></br>");
-            Response.Write("<a target=\"_blank\" href=\"" + "nativecall.aspx" + "\">" + "nativecall支付" + "</a></br>");
-            return null;
+            return View();
         }
 
         public ActionResult FeedBack()
@@ -75,7 +71,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             if (null == sp_billno)
             {
                 //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                sp_billno = DateTime.Now.ToString("HHmmss") + WeixinPayUtil.BuildRandomStr(4);
+                sp_billno = DateTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
             }
             else
             {
@@ -96,7 +92,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             packageReqHandler.SetParameter("input_charset", "GBK");
             packageReqHandler.SetParameter("out_trade_no", sp_billno);		//商家订单号
             packageReqHandler.SetParameter("total_fee", "1");			        //商品金额,以分为单位(money * 100).ToString()
-            packageReqHandler.SetParameter("notify_url", WeixinPayInfo.TenpayNotify);		    //接收财付通通知的URL
+            packageReqHandler.SetParameter("notify_url", WeixinPayInfo.TenPayNotify);		    //接收财付通通知的URL
             packageReqHandler.SetParameter("body", "JSAPIdemo");	                    //商品描述
             packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);   //用户的公网ip，不是商户服务器IP
 
@@ -104,8 +100,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             packageValue = packageReqHandler.GetRequestURL();
 
             //调起微信支付签名
-            timeStamp = WeixinPayUtil.GetTimestamp();
-            nonceStr = WeixinPayUtil.GetNoncestr();
+            timeStamp = TenPayUtil.GetTimestamp();
+            nonceStr = TenPayUtil.GetNoncestr();
 
             //设置支付参数
             RequestHandler paySignReqHandler = new RequestHandler(null);

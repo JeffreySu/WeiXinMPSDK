@@ -1,3 +1,6 @@
+   namespace Senparc.Weixin.MP.Helpers
+{
+   
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using System.IO;

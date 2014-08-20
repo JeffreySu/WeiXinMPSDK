@@ -74,13 +74,15 @@
     <Compile Include="AdvancedAPIs\QrCode\QrCode.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\Template.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TempleteModel.cs" />
-    <Compile Include="AdvancedAPIs\TenPayRefund\TenPayRefund.cs" />
-    <Compile Include="AdvancedAPIs\TenPayRefund\TenPayRefundResult.cs" />
     <Compile Include="AdvancedAPIs\User\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\User.cs" />
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
-    <Compile Include="AdvancedAPIs\TenPay\TenPay.cs" />
-    <Compile Include="AdvancedAPIs\TenPay\TenResult.cs" />
+    <Compile Include="TenPayLib\CheckRequestHandler.cs" />
+    <Compile Include="TenPayLib\RefundQueryRequestHandler.cs" />
+    <Compile Include="TenPayLib\ClientRequestHandler.cs" />
+    <Compile Include="TenPayLib\ClientResponseHandler.cs" />
+    <Compile Include="TenPayLib\TenPay\TenPay.cs" />
+    <Compile Include="TenPayLib\TenPay\TenPayResult.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Group\Group.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Group\GroupPostData.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Group\GroupResult.cs" />
@@ -99,7 +101,7 @@
     <Compile Include="AdvancedAPIs\WeixinShop\Stock\StockPostData.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Order\Order.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\Order\OrderResult.cs" />
-    <Compile Include="AdvancedAPIs\TenPayRights\TenPayRights.cs" />
+    <Compile Include="TenPayLib\TenPayRights\TenPayRights.cs" />
     <Compile Include="Agents\MessageAgent.cs" />
     <Compile Include="CheckSignature.cs" />
     <Compile Include="CommonAPIs\AccessTokenContainer.cs" />
@@ -212,17 +214,24 @@
     <Compile Include="Context\MessageContext.cs" />
     <Compile Include="Context\WeixinContext.cs" />
     <Compile Include="TenPayLib\MD5Util.cs" />
+    <Compile Include="TenPayLib\QRCode.cs" />
     <Compile Include="TenPayLib\RequestHandler.cs" />
     <Compile Include="TenPayLib\ResponseHandler.cs" />
     <Compile Include="TenPayLib\SHA1Util.cs" />
     <Compile Include="TenPayLib\TenPayUtil.cs" />
     <Compile Include="TenPayLib\TenPayInfo.cs" />
     <Compile Include="TenPayLib\TenPayInfoCollection.cs" />
+    <Compile Include="TenPayLib\RefundRequestHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonAPIs\CommonApi.Menu.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="TenPayLib\RefundResponseHandler.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TenPayLib\TenpayHttpClient.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

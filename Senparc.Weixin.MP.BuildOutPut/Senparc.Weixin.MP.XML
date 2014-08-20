@@ -524,46 +524,6 @@
             数据
             </summary>
         </member>
-        <!-- 对于成员“T:Senparc.Weixin.MP.AdvancedAPIs.TenPayRefund”忽略有格式错误的 XML 注释 -->
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayRefund.NativePay(System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            Native
-            </summary>
-            <param name="appId">开放平台账户的唯一标识</param>
-            <param name="timesTamp">时间戳</param>
-            <param name="nonceStr">32 位内的随机串，防重发</param>
-            <param name="productId">商品唯一id</param>
-            <param name="sign">签名</param>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayRefund.Delivernotify(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            发货通知
-            </summary>
-            <param name="appId">公众平台账户的AppId</param>
-            <param name="openId">购买用户的OpenId</param>
-            <param name="transId">交易单号</param>
-            <param name="out_Trade_No">第三方订单号</param>
-            <param name="deliver_TimesTamp">发货时间戳</param>
-            <param name="deliver_Status">发货状态，1 表明成功，0 表明失败，失败时需要在deliver_msg 填上失败原因</param>
-            <param name="deliver_Msg">发货状态信息，失败时可以填上UTF8 编码的错误提示信息，比如“该商品已退款</param>
-            <param name="app_Signature">签名</param>
-            <param name="sign_Method">签名方法</param>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayRefund.Orderquery(System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            订单查询
-            </summary>
-            <param name="appId">公众平台账户的AppId</param>
-            <param name="package">查询订单的关键信息数据</param>
-            <param name="timesTamp">linux 时间戳</param>
-            <param name="app_Signature">签名</param>
-            <param name="sign_Method">签名方法</param>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TenPayRefundResult">
-            <summary>
-            订单查询
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User">
             <summary>
             用户接口
@@ -590,6 +550,180 @@
             <summary>
             高级接口获取的用户信息
             </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.GateUrl">
+            <summary>
+            网关url地址
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.Key">
+            <summary>
+            密钥
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.Parameters">
+            <summary>
+            请求的参数
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.DebugInfo">
+            <summary>
+            debug信息
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.Init">
+            <summary>
+            初始化函数
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.GetGateUrl">
+            <summary>
+            获取入口地址,不包含参数值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.SetGateUrl(System.String)">
+            <summary>
+            设置入口地址,不包含参数值
+            </summary>
+            <param name="gateUrl"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.GetKey">
+            <summary>
+            获取密钥
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.SetKey(System.String)">
+            <summary>
+            设置密钥
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.GetRequestURL">
+            <summary>
+            获取带参数的请求URL  @return String
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.CreateSign">
+            <summary>
+            创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名。
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.GetParameter(System.String)">
+            <summary>
+            获取参数值
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.SetParameter(System.String,System.String)">
+            <summary>
+            设置参数值
+            </summary>
+            <param name="parameter"></param>
+            <param name="parameterValue"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.GetDebugInfo">
+            <summary>
+            获取debug信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.SetDebugInfo(System.String)">
+            <summary>
+            设置debug信息
+            </summary>
+            <param name="debugInfo"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.CheckRequestHandler.#ctor(System.Web.HttpContext)">
+            <summary>
+            对账单下载接口
+            </summary>
+            <param name="httpContext"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundQueryRequestHandler.#ctor(System.Web.HttpContext)">
+            <summary>
+            退款明细查询接口
+            </summary>
+            <param name="httpContext"></param>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.Key">
+            <summary>
+            密钥
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.Parameters">
+            <summary>
+            应答的参数
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.DebugInfo">
+            <summary>
+            debug信息
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.Content">
+            <summary>
+            原始内容
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.#ctor">
+            <summary>
+            获取服务器通知数据方式，进行参数获取
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.GetKey">
+            <summary>
+            获取密钥
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.SetKey(System.String)">
+            <summary>
+            设置密钥
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.GetParameter(System.String)">
+            <summary>
+            获取参数值
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.SetParameter(System.String,System.String)">
+            <summary>
+            设置参数值
+            </summary>
+            <param name="parameter"></param>
+            <param name="parameterValue"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.IsTenpaySign">
+            <summary>
+            是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名 @return boolean
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.GetDebugInfo">
+            <summary>
+            获取debug信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.SetDebugInfo(System.String)">
+            <summary>
+            设置debug信息
+            </summary>
+            <param name="debugInfo"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.IsTenpaySign(System.Collections.ArrayList)">
+            <summary>
+            是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名  @return boolean
+            </summary>
+            <param name="aKeys"></param>
+            <returns></returns>
         </member>
         <!-- 对于成员“T:Senparc.Weixin.MP.AdvancedAPIs.TenPay”忽略有格式错误的 XML 注释 -->
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPay.NativePay(System.String,System.String,System.String,System.String,System.String)">
@@ -2700,6 +2834,18 @@
             <param name="charset"></param>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLib.QRCode">
+            <summary>
+            生成Native支付方式使用的二维码
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.QRCode.UrlEncode1(System.String)">
+            <summary>
+            url编码，添加空格转成%20
+            </summary>
+            <param name="con">需要生成二维码的Url</param>
+            <returns></returns>
+        </member>
         <!-- 对于成员“T:Senparc.Weixin.MP.TenPayLib.RequestHandler”忽略有格式错误的 XML 注释 -->
         <member name="F:Senparc.Weixin.MP.TenPayLib.RequestHandler.Key">
             <summary>
@@ -2997,6 +3143,211 @@
             注册WeixinPayInfo信息
             </summary>
             <param name="weixinPayInfo"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundRequestHandler.#ctor(System.Web.HttpContext)">
+            <summary>
+            退款接口
+            </summary>
+            <param name="httpContext"></param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler">
+            <summary>
+            ResponseHandler 的摘要说明。
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.Key">
+            <summary>
+            密钥
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.Parameters">
+            <summary>
+            应答的参数
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.DebugInfo">
+            <summary>
+            debug信息
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.#ctor(System.Web.HttpContext)">
+            <summary>
+            获取服务器通知数据方式，进行参数获取
+            </summary>
+            <param name="httpContext"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.GetKey">
+            <summary>
+            获取密钥
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.SetKey(System.String)">
+            <summary>
+            设置密钥
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.GetParameter(System.String)">
+            <summary>
+            获取参数值
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.SetParameter(System.String,System.String)">
+            <summary>
+            设置参数值
+            </summary>
+            <param name="parameter"></param>
+            <param name="parameterValue"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.IsTenpaySign">
+            <summary>
+            是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名 @return boolean 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.DoShow(System.String)">
+            <summary>
+            显示处理结果。
+            @param show_url 显示处</summary>
+            @throws IOException 
+            <param name="show_url"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.GetDebugInfo">
+            <summary>
+            获取debug信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.SetDebugInfo(System.String)">
+            <summary>
+            设置debug信息
+            </summary>
+            <param name="debugInfo"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.IsTenpaySign(System.Collections.ArrayList)">
+            <summary>
+            是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名 @return boolean
+            </summary>
+            <param name="aKeys"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.ReqContent">
+            <summary>
+            请求内容，无论post和get，都用get方式提供
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.ResContent">
+            <summary>
+            应答内容
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.Method">
+            <summary>
+            请求方法
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.ErrInfo">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.CertFile">
+            <summary>
+            证书文件
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.CertPasswd">
+            <summary>
+            证书密码 
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.CaFile">
+            <summary>
+            ca证书文件 
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.TimeOut">
+            <summary>
+            超时时间,以秒为单位 
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.ResponseCode">
+            <summary>
+            http应答编码
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.Charset">
+            <summary>
+            字符编码
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.SetReqContent(System.String)">
+            <summary>
+            设置请求内容
+            </summary>
+            <param name="reqContent"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.GetResContent">
+            <summary>
+            获取结果内容
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.SetMethod(System.String)">
+            <summary>
+            设置请求方法post或者get
+            </summary>
+            <param name="method"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.GetErrInfo">
+            <summary>
+            获取错误信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.SetCertInfo(System.String,System.String)">
+            <summary>
+            设置证书信息
+            </summary>
+            <param name="certFile"></param>
+            <param name="certPasswd"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.SetCaInfo(System.String)">
+            <summary>
+            设置ca
+            </summary>
+            <param name="caFile"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.SetTimeOut(System.Int32)">
+            <summary>
+            设置超时时间,以秒为单位
+            </summary>
+            <param name="timeOut"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.GetResponseCode">
+            <summary>
+            获取http状态码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.CheckValidationResult(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+            <summary>
+            验证服务器证书
+            </summary>
+            <param name="sender"></param>
+            <param name="certificate"></param>
+            <param name="chain"></param>
+            <param name="errors"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.Call">
+            <summary>
+            执行http调用
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

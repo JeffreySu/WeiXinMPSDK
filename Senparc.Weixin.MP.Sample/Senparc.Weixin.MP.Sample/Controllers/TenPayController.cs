@@ -252,7 +252,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //判断签名
             if (resHandler.IsTenpaySign())
             {
-
                 if (resHandler.IsWXsign())
                 {
                     //商户在收到后台通知后根据通知ID向财付通发起验证确认，采用后台系统调用交互模式
@@ -299,17 +298,101 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 else
                 {//SHA1签名失败
-                    message = "fail -SHA1 failed" + resHandler.GetDebugInfo();
+                    message = "SHA1签名失败" + resHandler.GetDebugInfo();
                 }
             }
 
             else
             {//md5签名失败
-                message = "fail -md5 failed" + resHandler.GetDebugInfo();
+                message = "md5签名失败" + resHandler.GetDebugInfo();
             }
             ViewData["message"] = message;
 
             return View();
+        }
+
+        protected void Refund()
+        {
+            //创建请求对象
+            RefundRequestHandler reqHandler = new RefundRequestHandler(null);
+
+            //通信对象
+            TenpayHttpClient httpClient = new TenpayHttpClient();
+
+            //应答对象
+            ClientResponseHandler resHandler = new ClientResponseHandler();
+
+            //-----------------------------
+            //设置请求参数
+            //-----------------------------
+            reqHandler.Init();
+            reqHandler.SetKey(TenPayInfo.Key);
+
+            reqHandler.SetParameter("partner", TenPayInfo.PartnerId);
+            //out_trade_no和transaction_id至少一个必填，同时存在时transaction_id优先
+            //reqHandler.setParameter("out_trade_no", "1458268681");
+            reqHandler.SetParameter("transaction_id", "1900000109201103020030626316");
+            reqHandler.SetParameter("out_refund_no", "2011030201");
+            reqHandler.SetParameter("total_fee", "1");
+            reqHandler.SetParameter("refund_fee", "1");
+            reqHandler.SetParameter("refund_fee", "1");
+            reqHandler.SetParameter("op_user_id", "1900000109");
+            reqHandler.SetParameter("op_user_passwd", MD5Util.GetMD5("111111", "GBK"));
+            reqHandler.SetParameter("service_version", "1.1");
+
+            string requestUrl = reqHandler.GetRequestURL();
+            httpClient.SetCertInfo("c:\\key\\1900000109.pfx", "1900000109");
+            //设置请求内容
+            httpClient.SetReqContent(requestUrl);
+            //设置超时
+            httpClient.SetTimeOut(10);
+
+            string rescontent = "";
+            //后台调用
+            if (httpClient.Call())
+            {
+                //获取结果
+                rescontent = httpClient.GetResContent();
+
+                resHandler.SetKey(TenPayInfo.Key);
+                //设置结果参数
+                resHandler.SetContent(rescontent);
+
+                //判断签名及结果
+                if (resHandler.IsTenpaySign() && resHandler.GetParameter("retcode") == "0")
+                {
+                    //商户订单号
+                    string out_trade_no = resHandler.GetParameter("out_trade_no");
+                    //财付通订单号
+                    string transaction_id = resHandler.GetParameter("transaction_id");
+
+                    //业务处理
+                    Response.Write("OK,transaction_id=" + resHandler.GetParameter("transaction_id") + "<br>");
+                }
+                else
+                {
+                    //错误时，返回结果未签名。
+                    //如包格式错误或未确认结果的，请使用原来订单号重新发起，确认结果，避免多次操作
+                    Response.Write("业务错误信息或签名错误:" + resHandler.GetParameter("retcode") + "," + resHandler.GetParameter("retmsg") + "<br>");
+                }
+
+            }
+            else
+            {
+                //后台调用通信失败
+                Response.Write("call err:" + httpClient.GetErrInfo() + "<br>" + httpClient.GetResponseCode() + "<br>");
+                //有可能因为网络原因，请求已经处理，但未收到应答。
+            }
+
+
+            //获取debug信息,建议把请求、应答内容、debug信息，通信返回码写入日志，方便定位问题
+
+            Response.Write("http res:" + httpClient.GetResponseCode() + "," + httpClient.GetErrInfo() + "<br>");
+            Response.Write("req url:" + requestUrl + "<br/>");
+            Response.Write("req debug:" + reqHandler.GetDebugInfo() + "<br/>");
+            Response.Write("res content:" + Server.HtmlEncode(rescontent) + "<br/>");
+            Response.Write("res debug:" + Server.HtmlEncode(resHandler.GetDebugInfo()) + "<br/>");
+
         }
     }
 }

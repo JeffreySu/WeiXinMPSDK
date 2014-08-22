@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+
+    @RenderSection("HeaderContent", false)
+</head>
+<body>
+    <header>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p class="site-title">
+                    <a href="~/">Senparc.Weixin.MP - 微信公众平台SDK</a>
+                </p>
+            </div>
+            <div class="float-right">
+                <nav>
+                    <ul id="menu">
+                        <li>@Html.ActionLink("首页", "Index", "Home")</li>
+                        <li>@Html.ActionLink("自定义菜单设置工具", "Index", "Menu")</li>
+                        <li>@Html.ActionLink("消息模拟工具", "Index", "SimulateTool")</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div id="body">
+        <section class="featured">
+            <div class="content-wrapper">
+                <hgroup class="title">
+                    <h1>欢迎使用 微信公众平台SDK!</h1>
+                    <h2>Senparc.Weixin.MP.dll</h2>
+                </hgroup>
+                <p>
+                    使用 Senparc.Weixin.MP.dll 整合网站与微信公众账号的自动交流回复。
+                </p>
+                <p>
+                    更多使用说明见： <a href="http://www.cnblogs.com/szw/archive/2013/01/13/senparc-weixin-mp-sdk.html" target="_blank">Senparc.Weixin.MP-微信公众平台SDK（C#）</a><br />
+                    源代码及示例下载： <a href="https://github.com/JeffreySu/WeiXinMPSDK" target="_blank">https://github.com/JeffreySu/WeiXinMPSDK</a><br />
+                    Nuget项目： <a href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">https://www.nuget.org/packages/Senparc.Weixin.MP</a><br />
+                    系列教程： <a href="http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html" target="_blank">打开</a><br />
+                </p>
+                <p>
+                    当前Demo运行的Senparc.Weixin.MP.dll版本：<a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["MpVersion"])</a><br />
+                    Senparc.Weixin.MP.MvcExtension.dll版本：<a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["ExtensionVersion"])</a><br />
+                </p>
+                <p>
+                    技术交流QQ群：1群：300313885（已满） 2群：293958349（已满）  3群：342319110（已满） 4群：372212092 <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=b1732e72573df75bec61b08a2239a33ddc8f4577b541a7ff7bbb4292dcd4aed6">
+                        <img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Senparc.Weixin.MPSDK 4群" title="Senparc.Weixin.MPSDK 4群"></a>
+                </p>
+                @RenderSection("Featured", false)
+                @if (!IsSectionDefined("Featured"))
+                {
+                    
+                    <p>
+                        业务联系QQ：498977166
+                    </p>
+                    <p>
+                        客服热线：400-031-8816
+                    </p>
+                    <p>
+                        如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！<br />
+                        资金捐助（支付宝钱包扫一扫）：
+                    </p>
+                    <p>
+                        <img src="@Url.Content("~/Images/T1nAXdXb0jXXXXXXXX.png")" width="200"/>@*<a href="https://me.alipay.com/jeffreysu" target="_blank">https://me.alipay.com/jeffreysu</a>*@
+                    </p>
+                    <p>
+                        &nbsp;
+                    </p>
+                }
+                辅助工具：<h2>@Html.ActionLink("自定义菜单设置工具", "Index", "Menu")</h2>
+                <h2>@Html.ActionLink("消息模拟工具", "Index", "SimulateTool")</h2>
+
+            </div>
+        </section>
+        @RenderBody()
+    </div>
+
+    <footer>
+        <p>新浪微博：<a href="http://weibo.com/jeffreysu1984" target="_blank">@@苏震巍</a> QQ：498977166</p>
+        <p>&copy;2006-2014 Senparc</p>
+    </footer>
+    @RenderSection("scripts", required: false)
+    <div style="display: none;">
+        <script>
+            var _hmt = _hmt || [];
+            (function () {
+                var hm = document.createElement("script");
+                hm.src = "//hm.baidu.com/hm.js?a8ad9ff7b9dd4cbb5510f6a929ba085f";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    </div>
+</body>
+</html>

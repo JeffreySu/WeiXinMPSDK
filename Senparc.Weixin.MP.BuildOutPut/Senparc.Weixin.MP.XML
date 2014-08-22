@@ -1,0 +1,3353 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Senparc.Weixin.MP</name>
+    </assembly>
+    <members>
+        <member name="T:Senparc.Weixin.MP.Entities.WxJsonResult">
+            <summary>
+            JSON返回结果（用于菜单接口等）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.WxJsonResult.P2PData">
+            <summary>
+            为P2P返回结果做准备
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomInfoJson.kf_list">
+            <summary>
+            客服列表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomInfo_Json.kf_account">
+            <summary>
+            客服账号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomInfo_Json.kf_nick">
+            <summary>
+            客服昵称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomInfo_Json.kf_id">
+            <summary>
+            客服工号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnlineJson.kf_online_list">
+            <summary>
+            在线客服列表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnline_Json.kf_account">
+            <summary>
+            客服账号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnline_Json.status">
+            <summary>
+            客服在线状态 1：pc在线，2：手机在线 若pc和手机同时在线则为 1+2=3
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnline_Json.kf_id">
+            <summary>
+            客服工号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnline_Json.auto_accept">
+            <summary>
+            客服设置的最大自动接入数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomOnline_Json.accepted_case">
+            <summary>
+            客服当前正在接待的会话数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CustomService">
+            <summary>
+            多客服接口聊天记录接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%9C%8D%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.GetRecord(System.String,System.DateTime,System.DateTime,System.String,System.Int32,System.Int32)">
+            <summary>
+            获取用户聊天记录
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="startTime">查询开始时间，会自动转为UNIX时间戳</param>
+            <param name="endTime">查询结束时间，会自动转为UNIX时间戳，每次查询不能跨日查询</param>
+            <param name="openId">（非必须）普通用户的标识，对当前公众号唯一</param>
+            <param name="pageSize">每页大小，每页最多拉取1000条</param>
+            <param name="pageIndex">查询第几页，从1开始</param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.GetCustomOnlineInfo(System.String)">
+            <summary>
+            获取在线客服接待信息
+            官方API：http://dkf.qq.com/document-3_2.html
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.GetCustomBasicInfo(System.String)">
+            <summary>
+            获取客服基本信息
+            官方API：http://dkf.qq.com/document-3_1.html
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.RecordJson">
+            <summary>
+            客服记录消息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.RecordJson.worker">
+            <summary>
+            客服账号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.RecordJson.openid">
+            <summary>
+            用户的标识，对当前公众号唯一
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.RecordJson.opercode">
+            <summary>
+            操作ID（会话状态）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.RecordJson.time">
+            <summary>
+            操作时间，UNIX时间戳
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.RecordJson.text">
+            <summary>
+            聊天记录
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Opercode">
+            <summary>
+            操作ID(会化状态）定义
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetRecordResult">
+            <summary>
+            聊天记录结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Custom">
+            <summary>
+            客服接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.SendText(System.String,System.String,System.String)">
+            <summary>
+            发送文本信息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId"></param>
+            <param name="content"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.SendImage(System.String,System.String,System.String)">
+            <summary>
+            发送图片消息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId"></param>
+            <param name="mediaId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.SendVoice(System.String,System.String,System.String)">
+            <summary>
+            发送语音消息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId"></param>
+            <param name="mediaId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.SendVideo(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            发送视频消息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId"></param>
+            <param name="mediaId"></param>
+            <param name="title"></param>
+            <param name="description"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.SendMusic(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            发送音乐消息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId"></param>
+            <param name="title">音乐标题（非必须）</param>
+            <param name="description">音乐描述（非必须）</param>
+            <param name="musicUrl">音乐链接</param>
+            <param name="hqMusicUrl">高品质音乐链接，wifi环境优先使用该链接播放音乐</param>
+            <param name="thumbMediaId">视频缩略图的媒体ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.SendNews(System.String,System.String,System.Collections.Generic.List{Senparc.Weixin.MP.Entities.Article})">
+            <summary>
+            发送图文消息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId"></param>
+            <param name="title">音乐标题（非必须）</param>
+            <param name="description">音乐描述（非必须）</param>
+            <param name="musicUrl">音乐链接</param>
+            <param name="hqMusicUrl">高品质音乐链接，wifi环境优先使用该链接播放音乐</param>
+            <param name="thumbMediaId">视频缩略图的媒体ID</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage">
+            <summary>
+            高级群发接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.SendGroupMessageByGroupId(System.String,System.String,System.String)">
+            <summary>
+            根据分组进行群发
+            
+            请注意：
+            1、该接口暂时仅提供给已微信认证的服务号
+            2、虽然开发者使用高级群发接口的每日调用限制为100次，但是用户每月只能接收4条，请小心测试
+            3、无论在公众平台网站上，还是使用接口群发，用户每月只能接收4条群发消息，多于4条的群发将对该用户发送失败。
+            
+            </summary>
+            <param name="accessToken"></param>
+            <param name="groupId">群发到的分组的group_id</param>
+            <param name="mediaId">用于群发的消息的media_id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.SendGroupMessageByOpenId(System.String,System.String,System.String[])">
+            <summary>
+            根据OpenId进行群发
+            </summary>
+            <param name="accessToken"></param>
+            <param name="mediaId">用于群发的消息的media_id</param>
+            <param name="openIds">openId字符串数组</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.DeleteSendMessage(System.String,System.String)">
+            <summary>
+            删除群发消息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="mediaId">发送出去的消息ID</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.NewsModel">
+            <summary>
+            图文消息模型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.NewsModel.thumb_media_id">
+            <summary>
+            图文消息缩略图的media_id，可以在基础支持上传多媒体文件接口中获得
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.NewsModel.author">
+            <summary>
+            图文消息的作者
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.NewsModel.title">
+            <summary>
+            图文消息的标题
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.NewsModel.content_source_url">
+            <summary>
+            在图文消息页面点击“阅读原文”后的页面
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.NewsModel.content">
+            <summary>
+            图文消息页面的内容，支持HTML标签
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.NewsModel.digest">
+            <summary>
+            图文消息的描述
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.SendResult">
+            <summary>
+            发送信息后的结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.SendResult.type">
+            <summary>
+            媒体文件类型，分别有图片（image）、语音（voice）、视频（video）和缩略图（thumb），图文消息为news
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.SendResult.msg_id">
+            <summary>
+            消息ID
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CreateGroupResult">
+            <summary>
+            创建分组返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetGroupIdResult">
+            <summary>
+            获取用户分组ID返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Groups">
+            <summary>
+            用户组接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.Create(System.String,System.String)">
+            <summary>
+            创建分组
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.Get(System.String)">
+            <summary>
+            发送文本信息
+            </summary>
+            <param name="accessToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.GetId(System.String,System.String)">
+            <summary>
+            获取用户分组
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.Update(System.String,System.Int32,System.String)">
+            <summary>
+            创建分组
+            </summary>
+            <param name="accessToken"></param>
+            <param name="id"></param>
+            <param name="name">分组名字（30个字符以内）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.MemberUpdate(System.String,System.String,System.Int32)">
+            <summary>
+            移动用户分组
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId"></param>
+            <param name="toGroupId"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.GroupsJson_Group.count">
+            <summary>
+            此属性在CreateGroupResult的Json数据中，创建结果中始终为0
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media">
+            <summary>
+            多媒体文件接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.Upload(System.String,Senparc.Weixin.MP.UploadMediaFileType,System.String)">
+            <summary>
+            上传媒体文件
+            </summary>
+            <param name="accessToken"></param>
+            <param name="type"></param>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.Get(System.String,System.String,System.IO.Stream)">
+            <summary>
+            下载媒体文件
+            </summary>
+            <param name="accessToken"></param>
+            <param name="mediaId"></param>
+            <param name="stream"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.UploadNews(System.String,Senparc.Weixin.MP.AdvancedAPIs.NewsModel[])">
+            <summary>
+            上传图文消息素材
+            </summary>
+            <param name="accessToken">Token</param>
+            <param name="news">图文消息组</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UploadResultJson">
+            <summary>
+            上传媒体文件返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OAuthAccessTokenResult">
+            <summary>
+            获取OAuth AccessToken的结果
+            如果错误，返回结果{"errcode":40029,"errmsg":"invalid code"}
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OAuthScope">
+            <summary>
+            应用授权作用域
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.AdvancedAPIs.OAuthScope.snsapi_base">
+            <summary>
+            不弹出授权页面，直接跳转，只能获取用户openid
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.AdvancedAPIs.OAuthScope.snsapi_userinfo">
+            <summary>
+            弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.GetAuthorizeUrl(System.String,System.String,System.String,Senparc.Weixin.MP.AdvancedAPIs.OAuthScope,System.String)">
+            <summary>
+            获取验证地址
+            </summary>
+            <param name="appId"></param>
+            <param name="redirectUrl"></param>
+            <param name="state"></param>
+            <param name="scope"></param>
+            <param name="responseType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.GetAccessToken(System.String,System.String,System.String,System.String)">
+            <summary>
+            获取AccessToken
+            </summary>
+            <param name="appId"></param>
+            <param name="secret"></param>
+            <param name="code">code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。</param>
+            <param name="grantType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.RefreshToken(System.String,System.String,System.String)">
+            <summary>
+            刷新access_token（如果需要）
+            </summary>
+            <param name="appId"></param>
+            <param name="refreshToken">填写通过access_token获取到的refresh_token参数</param>
+            <param name="grantType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.Auth(System.String,System.String)">
+            <summary>
+            检验授权凭证（access_token）是否有效
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId">用户的唯一标识</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OAuthUserInfo">
+            <summary>
+            通过OAuth的获取到的用户信息（snsapi_userinfo=scope）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthUserInfo.sex">
+            <summary>
+            用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthUserInfo.headimgurl">
+            <summary>
+            用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthUserInfo.privilege">
+            <summary>
+            用户特权信息，json 数组，如微信沃卡用户为（chinaunicom）
+            作者注：其实这个格式称不上JSON，只是个单纯数组。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CreateQrCodeResult">
+            <summary>
+            二维码创建返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.QrCode">
+            <summary>
+            二维码接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCode.Create(System.String,System.Int32,System.Int32)">
+            <summary>
+            创建二维码
+            </summary>
+            <param name="expireSeconds">该二维码有效时间，以秒为单位。 最大不超过1800。0时为永久二维码</param>
+            <param name="sceneId">场景值ID，临时二维码时为32位整型，永久二维码时最大值为1000</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCode.GetShowQrCodeUrl(System.String)">
+            <summary>
+            获取下载二维码的地址
+            </summary>
+            <param name="ticket"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCode.ShowQrCode(System.String,System.IO.Stream)">
+            <summary>
+            获取二维码（不需要AccessToken）
+            错误情况下（如ticket非法）返回HTTP错误码404。
+            </summary>
+            <param name="ticket"></param>
+            <param name="stream"></param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Template">
+            <summary>
+            模板消息接口
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TempleteModel.touser">
+            <summary>
+            目标用户OpenId
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TempleteModel.template_id">
+            <summary>
+            模板ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TempleteModel.topcolor">
+            <summary>
+            模板消息顶部颜色（16进制）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TempleteModel.data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User">
+            <summary>
+            用户接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.User.Info(System.String,System.String,Senparc.Weixin.MP.Language)">
+            <summary>
+            获取用户信息
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="openId">普通用户的标识，对当前公众号唯一</param>
+            <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.User.Get(System.String,System.String)">
+            <summary>
+            获取关注着OpenId信息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="nextOpenId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UserInfoJson">
+            <summary>
+            高级接口获取的用户信息
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.GateUrl">
+            <summary>
+            网关url地址
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.Key">
+            <summary>
+            密钥
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.Parameters">
+            <summary>
+            请求的参数
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.DebugInfo">
+            <summary>
+            debug信息
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.Init">
+            <summary>
+            初始化函数
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.GetGateUrl">
+            <summary>
+            获取入口地址,不包含参数值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.SetGateUrl(System.String)">
+            <summary>
+            设置入口地址,不包含参数值
+            </summary>
+            <param name="gateUrl"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.GetKey">
+            <summary>
+            获取密钥
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.SetKey(System.String)">
+            <summary>
+            设置密钥
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.GetRequestURL">
+            <summary>
+            获取带参数的请求URL  @return String
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.CreateSign">
+            <summary>
+            创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名。
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.GetParameter(System.String)">
+            <summary>
+            获取参数值
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.SetParameter(System.String,System.String)">
+            <summary>
+            设置参数值
+            </summary>
+            <param name="parameter"></param>
+            <param name="parameterValue"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.GetDebugInfo">
+            <summary>
+            获取debug信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.SetDebugInfo(System.String)">
+            <summary>
+            设置debug信息
+            </summary>
+            <param name="debugInfo"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.CheckRequestHandler.#ctor(System.Web.HttpContext)">
+            <summary>
+            对账单下载接口
+            </summary>
+            <param name="httpContext"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundQueryRequestHandler.#ctor(System.Web.HttpContext)">
+            <summary>
+            退款明细查询接口
+            </summary>
+            <param name="httpContext"></param>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.Key">
+            <summary>
+            密钥
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.Parameters">
+            <summary>
+            应答的参数
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.DebugInfo">
+            <summary>
+            debug信息
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.Content">
+            <summary>
+            原始内容
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.#ctor">
+            <summary>
+            获取服务器通知数据方式，进行参数获取
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.GetKey">
+            <summary>
+            获取密钥
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.SetKey(System.String)">
+            <summary>
+            设置密钥
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.GetParameter(System.String)">
+            <summary>
+            获取参数值
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.SetParameter(System.String,System.String)">
+            <summary>
+            设置参数值
+            </summary>
+            <param name="parameter"></param>
+            <param name="parameterValue"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.IsTenpaySign">
+            <summary>
+            是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名 @return boolean
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.GetDebugInfo">
+            <summary>
+            获取debug信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.SetDebugInfo(System.String)">
+            <summary>
+            设置debug信息
+            </summary>
+            <param name="debugInfo"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ClientResponseHandler.IsTenpaySign(System.Collections.ArrayList)">
+            <summary>
+            是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名  @return boolean
+            </summary>
+            <param name="aKeys"></param>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“T:Senparc.Weixin.MP.AdvancedAPIs.TenPay”忽略有格式错误的 XML 注释 -->
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPay.NativePay(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Native
+            </summary>
+            <param name="appId">开放平台账户的唯一标识</param>
+            <param name="timesTamp">时间戳</param>
+            <param name="nonceStr">32 位内的随机串，防重发</param>
+            <param name="productId">商品唯一id</param>
+            <param name="sign">签名</param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPay.Delivernotify(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            发货通知
+            </summary>
+            <param name="appId">公众平台账户的AppId</param>
+            <param name="openId">购买用户的OpenId</param>
+            <param name="transId">交易单号</param>
+            <param name="out_Trade_No">第三方订单号</param>
+            <param name="deliver_TimesTamp">发货时间戳</param>
+            <param name="deliver_Status">发货状态，1 表明成功，0 表明失败，失败时需要在deliver_msg 填上失败原因</param>
+            <param name="deliver_Msg">发货状态信息，失败时可以填上UTF8 编码的错误提示信息，比如“该商品已退款</param>
+            <param name="app_Signature">签名</param>
+            <param name="sign_Method">签名方法</param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPay.Orderquery(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            订单查询
+            </summary>
+            <param name="appId">公众平台账户的AppId</param>
+            <param name="package">查询订单的关键信息数据</param>
+            <param name="timesTamp">linux 时间戳</param>
+            <param name="app_Signature">签名</param>
+            <param name="sign_Method">签名方法</param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OrderqueryResult">
+            <summary>
+            订单查询
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopGroup">
+            <summary>
+            微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopGroup.AddGroup(System.String,Senparc.Weixin.MP.AdvancedAPIs.AddGroupData)">
+            <summary>
+            增加分组
+            </summary>
+            <param name="accessToken"></param>
+            <param name="addGroupData">增加分组需要Post的数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopGroup.DeleteGroup(System.String,System.Int32)">
+            <summary>
+            删除分组
+            </summary>
+            <param name="accessToken"></param>
+            <param name="groupId">分组Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopGroup.PropertyModGroup(System.String,Senparc.Weixin.MP.AdvancedAPIs.PropertyModGroup)">
+            <summary>
+            修改分组属性
+            </summary>
+            <param name="accessToken"></param>
+            <param name="propertyModGroup">修改分组属性需要Post的数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopGroup.ProductModGroup(System.String,Senparc.Weixin.MP.AdvancedAPIs.ProductModGroup)">
+            <summary>
+            修改分组商品
+            </summary>
+            <param name="accessToken"></param>
+            <param name="productModGroup">修改分组商品需要Post的数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopGroup.GetAllGroup(System.String)">
+            <summary>
+            获取所有分组
+            </summary>
+            <param name="accessToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopGroup.GetByIdGroup(System.String,System.Int32)">
+            <summary>
+            根据分组ID获取分组信息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="groupId">分组Id</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.PropertyModGroup">
+            <summary>
+            修改分组属性需要Post的数据
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ProductModGroup">
+            <summary>
+            修改分组商品需要Post的数据
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.AddGroupData">
+            <summary>
+            增加分组
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.AddGroupResult">
+            <summary>
+            增加分组返回信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetAllGroup">
+            <summary>
+            获取所有分组返回信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopPicture">
+            <summary>
+            微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.PictureResult">
+            <summary>
+            上传图片返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopPostageTemplate">
+            <summary>
+            微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopPostageTemplate.AddPostageTemplate(System.String,Senparc.Weixin.MP.AdvancedAPIs.AddPostageTemplateData)">
+            <summary>
+            增加邮费模板
+            </summary>
+            <param name="accessToken"></param>
+            <param name="addPostageTemplateData">增加邮费模板需要Post的数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopPostageTemplate.DeletePostageTemplate(System.String,System.Int32)">
+            <summary>
+            删除邮费模板
+            </summary>
+            <param name="accessToken"></param>
+            <param name="templateId">邮费模板Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopPostageTemplate.UpDatePostageTemplate(System.String,Senparc.Weixin.MP.AdvancedAPIs.UpDatePostageTemplateData)">
+            <summary>
+            修改邮费模板
+            </summary>
+            <param name="accessToken"></param>
+            <param name="upDatePostageTemplateData">修改邮费模板需要Post的数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopPostageTemplate.GetByIdPostageTemplate(System.String,System.Int32)">
+            <summary>
+            获取指定ID的邮费模板
+            </summary>
+            <param name="accessToken"></param>
+            <param name="templateId">邮费模板Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopPostageTemplate.GetAllPostageTemplate(System.String)">
+            <summary>
+            获取所有邮费模板
+            </summary>
+            <param name="accessToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.PostageTemplateData">
+            <summary>
+            邮费模板信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.AddPostageTemplateData">
+            <summary>
+            增加邮费模板
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UpDatePostageTemplateData">
+            <summary>
+            修改邮费模板Post数据
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.AddPostageTemplateResult">
+            <summary>
+            添加邮费模板返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetByIdPostageTemplateResult">
+            <summary>
+            获取指定ID的邮费模板返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetAllPostageTemplateResult">
+            <summary>
+            获取所有邮费模板
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopProduct">
+            <summary>
+            微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopProduct.AddProduct(System.String,Senparc.Weixin.MP.AdvancedAPIs.AddProductData)">
+            <summary>
+            增加商品
+            </summary>
+            <param name="accessToken"></param>
+            <param name="addProductData">提交到接口的数据（AddProductData）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopProduct.DeleteProduct(System.String,System.String)">
+            <summary>
+            删除商品              
+            </summary>
+            <param name="accessToken"></param>
+            <param name="productId">商品的Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopProduct.UpDateProduct(System.String,Senparc.Weixin.MP.AdvancedAPIs.UpdateProductData)">
+            <summary>
+            修改商品
+            product_id表示要更新的商品的ID，其他字段说明请参考增加商品接口。
+            从未上架的商品所有信息均可修改，否则商品的名称(name)、商品分类(category)、商品属性(property)这三个字段不可修改。
+            </summary>
+            <param name="accessToken"></param>
+            <param name="reviseProduct">修改商品的信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopProduct.GetProduct(System.String,System.String)">
+            <summary>
+            查询商品
+            </summary>
+            <param name="accessToken"></param>
+            <param name="productId">商品的Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopProduct.Getbystatus(System.String,System.Int32)">
+            <summary>
+            获取指定状态的所有商品
+            </summary>
+            <param name="accessToken"></param>
+            <param name="state">商品状态(0-全部, 1-上架, 2-下架)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopProduct.ModProductStatus(System.String,System.Int32)">
+            <summary>
+            商品上下架
+            </summary>
+            <param name="accessToken"></param>
+            <param name="status">商品上下架标识(0-下架, 1-上架)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopProduct.GetSub(System.String,System.Int32)">
+            <summary>
+            获取指定分类的所有子分类
+            </summary>
+            <param name="accessToken"></param>
+            <param name="cateId">大分类ID(根节点分类id为1)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopProduct.GetSku(System.String,System.Int32)">
+            <summary>
+            获取指定子分类的所有SKU
+            </summary>
+            <param name="accessToken"></param>
+            <param name="cateId">商品子分类ID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopProduct.GetProperty(System.String,System.Int32)">
+            <summary>
+            获取指定分类的所有属性
+            </summary>
+            <param name="accessToken"></param>
+            <param name="cateId">分类ID</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ProductData">
+            <summary>
+            商品信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Delivery_info">
+            快递列表(Id   说明)
+            10000027	平邮
+            10000028	快递
+            10000029	EMS
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.AddProductData">
+            <summary>
+            添加商品信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UpdateProductData">
+            <summary>
+            修改商品信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.AddProductResult">
+            <summary>
+            增加商品返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetProductResult">
+            <summary>
+            查询商品返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetProductResult.Delivery_info">
+            快递列表(Id   说明)
+            10000027	平邮
+            10000028	快递
+            10000029	EMS
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetByStatusResult">
+            <summary>
+            获取指定状态的所有商品返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetByStatusResult.Delivery_info">
+            快递列表(Id   说明)
+            10000027	平邮
+            10000028	快递
+            10000029	EMS
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetSubResult">
+            <summary>
+            获取指定分类的所有子分类返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetSkuResult">
+            <summary>
+            获取指定子分类的所有SKU返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetPropertyResult">
+            <summary>
+            获取指定分类的所有属性返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopShelves">
+            <summary>
+            微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopShelves.AddShelves(System.String,Senparc.Weixin.MP.AdvancedAPIs.M1,Senparc.Weixin.MP.AdvancedAPIs.M2,Senparc.Weixin.MP.AdvancedAPIs.M3,Senparc.Weixin.MP.AdvancedAPIs.M4,Senparc.Weixin.MP.AdvancedAPIs.M5,System.String,System.String)">
+            <summary>
+            增加货架
+            </summary>
+            <param name="accessToken"></param>
+            <param name="m1">控件1数据</param>
+            <param name="m2">控件2数据</param>
+            <param name="m3">控件3数据</param>
+            <param name="m4">控件4数据</param>
+            <param name="m5">控件5数据</param>
+            <param name="shelfBanner">货架招牌图片Url</param>
+            <param name="shelfName">货架名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopShelves.DeleteShelves(System.String,System.Int32)">
+            <summary>
+            删除货架
+            </summary>
+            <param name="accessToken"></param>
+            <param name="shelfId">货架Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopShelves.ModShelves(System.String,Senparc.Weixin.MP.AdvancedAPIs.M1,Senparc.Weixin.MP.AdvancedAPIs.M2,Senparc.Weixin.MP.AdvancedAPIs.M3,Senparc.Weixin.MP.AdvancedAPIs.M4,Senparc.Weixin.MP.AdvancedAPIs.M5,System.Int32,System.String,System.String)">
+            <summary>
+            修改货架
+            </summary>
+            <param name="accessToken"></param>
+            <param name="m1">控件1数据</param>
+            <param name="m2">控件2数据</param>
+            <param name="m3">控件3数据</param>
+            <param name="m4">控件4数据</param>
+            <param name="m5">控件5数据</param>
+            <param name="shelfId">货架Id</param>
+            <param name="shelfBanner">货架招牌图片Url</param>
+            <param name="shelfName">货架名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopShelves.GetAllShelves(System.String)">
+            <summary>
+            获取所有货架
+            </summary>
+            <param name="accessToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopShelves.GetByIdShelves(System.String,System.Int32)">
+            <summary>
+            根据货架ID获取货架信息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="shelfId">货架Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.M1.#ctor(System.Int32,System.Int32)">
+            <summary>
+            控件1数据初始化
+            </summary>
+            <param name="group_info_filter_count">group_info/filter/count</param>
+            <param name="group_info_group_id">group_info/group_id</param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.M2.#ctor(System.Int32[])">
+            <summary>
+            控件2数据初始化
+            </summary>
+            <param name="groupIds">groups/[group_id]</param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.M3.#ctor(System.Int32,System.String)">
+            <summary>
+            控件3数据初始化
+            </summary>
+            <param name="group_info_group_id"></param>
+            <param name="group_info_image"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.M4.#ctor(System.Int32[],System.String[])">
+            <summary>
+            控件4数据初始化
+            </summary>
+            <param name="groupIds">groups/[group_id]</param>
+            <param name="imgs">groups/[img]</param>
+            注意groupIds和imgs要对应
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.M5.#ctor(System.Int32[],System.String)">
+            <summary>
+            控件5数据初始化
+            </summary>
+            <param name="groupIds">groups/[group_id]</param>
+            <param name="imgBackground">groups/img_background</param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.AddShelvesResult">
+            <summary>
+            添加货架返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetAllShelvesResult">
+            <summary>
+            获取所有货架
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetByIdShelvesResult">
+            <summary>
+            根据货架ID获取货架信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopStock">
+            <summary>
+            微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopStock.AddStock(System.String,Senparc.Weixin.MP.AdvancedAPIs.AddStockData)">
+            <summary>
+            增加库存
+            </summary>
+            <param name="accessToken"></param>
+            <param name="addStockData">增加库存需要Post的数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopStock.ReduceStock(System.String,Senparc.Weixin.MP.AdvancedAPIs.ReduceStockData)">
+            <summary>
+            减少库存
+            </summary>
+            <param name="accessToken"></param>
+            <param name="reduceStockData">减少库存需要Post的数据</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.AddStockData">
+            <summary>
+            增加库存
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ReduceStockData">
+            <summary>
+            减少库存
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopOrder">
+            <summary>
+            微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopOrder.GetByIdOrder(System.String,System.String)">
+            <summary>
+            根据订单ID获取订单详情
+            </summary>
+            <param name="accessToken"></param>
+            <param name="orderId">订单Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopOrder.GetByFilterOrder(System.String,System.Int32,System.String,System.String)">
+            <summary>
+            根据订单状态/创建时间获取订单详情
+            </summary>
+            <param name="accessToken"></param>
+            <param name="status">订单状态(不带该字段-全部状态, 2-待发货, 3-已发货, 5-已完成, 8-维权中, )</param>
+            <param name="beginTime">订单创建时间起始时间(不带该字段则不按照时间做筛选)</param>
+            <param name="endTime">订单创建时间终止时间(不带该字段则不按照时间做筛选)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopOrder.SetdeliveryOrder(System.String,System.String,System.String,System.String)">
+            <summary>
+            设置订单发货信息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="orderId">订单ID</param>
+            <param name="deliveryCompany">物流公司ID</param>
+            <param name="deliveryTrackNo">运单ID</param>
+            <returns></returns>
+            物流公司    Id
+            邮政EMS	    Fsearch_code
+            申通快递	002shentong
+            中通速递	066zhongtong
+            圆通速递	056yuantong
+            天天快递	042tiantian
+            顺丰速运	003shunfeng
+            韵达快运	059Yunda
+            宅急送	    064zhaijisong
+            汇通快运	020huitong
+            易迅快递	zj001yixun
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WeixinShopOrder.CloseOrder(System.String,System.String)">
+            <summary>
+            关闭订单
+            </summary>
+            <param name="accessToken"></param>
+            <param name="orderId">订单ID</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetByIdOrderResult">
+            <summary>
+            根据订单ID获取订单详情返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetByFilterResult">
+            <summary>
+            根据订单状态/创建时间获取订单详情返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TenPayRights">
+            <summary>
+            微信支付维权接口，官方API：https://mp.weixin.qq.com/htmledition/res/bussiness-course2/wxm-payment-kf-api.pdf
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayRights.UpDateFeedBack(System.String,System.String,System.String)">
+            <summary>
+            标记客户的投诉处理状态
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId">支付该笔订单的用户 ID</param>
+            <param name="feedBackId">投诉单号</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Agent.MessageAgent">
+            <summary>
+            代理请求
+            注意！使用代理必然导致网络访问节点增加，会加重响应延时，
+                  因此建议准备至少2-3秒的延迟时间的准备，
+                  如果增加2-3秒后远远超过5秒的微信服务器等待时间，
+                  需要慎重使用，否则可能导致用户无法收到消息。
+            
+            此外这个类中的方法也可以用于模拟服务器发送消息到自己的服务器进行测试。
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Agent.MessageAgent.AGENT_TIME_OUT">
+            <summary>
+            默认代理请求超时时间（毫秒）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestXml(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.IO.Stream,System.Boolean)">
+            <summary>
+            获取Xml结果。
+            </summary>
+            <param name="url"></param>
+            <param name="token"></param>
+            <param name="stream"></param>
+            <param name="useWeiWeiHiKey">是否使用WeiWeiHiKey，如果使用，则token为WeiWeiHiKey</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestXml(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
+            <summary>
+            获取Xml结果
+            </summary>
+            <param name="url"></param>
+            <param name="token"></param>
+            <param name="xml"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestWeiWeiHiXml(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
+            <summary>
+            对接Souidea（P2P）平台，获取Xml结果，使用WeiWeiHiKey对接
+            WeiWeiHiKey的获取方式请看：
+            </summary>
+            <param name="weiweihiKey"></param>
+            <param name="xml"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.IO.Stream)">
+            <summary>
+            获取ResponseMessge结果
+            </summary>
+            <param name="url"></param>
+            <param name="token"></param>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
+            <summary>
+            获取ResponseMessge结果
+            </summary>
+            <param name="url"></param>
+            <param name="token"></param>
+            <param name="xml"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestWeiweihiResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
+            <summary>
+            获取Souidea开放平台的ResponseMessge结果
+            </summary>
+            <param name="weiweihiKey"></param>
+            <param name="xml"></param>
+            <param name="weiweihiDomainName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestWeiweihiResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.Xml.Linq.XDocument,System.String)">
+            <summary>
+            获取Souidea开放平台的ResponseMessge结果
+            </summary>
+            <param name="weiweihiKey"></param>
+            <param name="weiweihiDomainName"></param>
+            <param name="document"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestWeiweihiResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,Senparc.Weixin.MP.Entities.RequestMessageBase,System.String)">
+            <summary>
+            获取Souidea开放平台的ResponseMessge结果
+            </summary>
+            <param name="weiweihiKey"></param>
+            <param name="requestMessage"></param>
+            <param name="weiweihiDomainName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.CheckUrlAndToken(System.String,System.String)">
+            <summary>
+            使用GET请求测试URL和TOKEN是否可用
+            </summary>
+            <param name="url"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Senparc.Weixin.MP.CheckSignature.Token">
+            <summary>
+            在网站没有提供Token（或传入为null）的情况下的默认Token，建议在网站中进行配置。
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CheckSignature.Check(System.String,System.String,System.String,System.String)">
+            <summary>
+            检查签名是否正确
+            </summary>
+            <param name="signature"></param>
+            <param name="timestamp"></param>
+            <param name="nonce"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CheckSignature.GetSignature(System.String,System.String,System.String)">
+            <summary>
+            返回正确的签名
+            </summary>
+            <param name="timestamp"></param>
+            <param name="nonce"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer">
+            <summary>
+            通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.Register(System.String,System.String)">
+            <summary>
+            注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
+            </summary>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.TryGetToken(System.String,System.String,System.Boolean)">
+            <summary>
+            使用完整的应用凭证获取Token，如果不存在将自动注册
+            </summary>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+            <param name="getNewToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetToken(System.String,System.Boolean)">
+            <summary>
+            获取可用Token
+            </summary>
+            <param name="appId"></param>
+            <param name="getNewToken">是否强制重新获取新的Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetTokenResult(System.String,System.Boolean)">
+            <summary>
+            获取可用Token
+            </summary>
+            <param name="appId"></param>
+            <param name="getNewToken">是否强制重新获取新的Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.CheckRegistered(System.String)">
+            <summary>
+            检查是否已经注册
+            </summary>
+            <param name="appId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenHandlerWapper.Do``1(System.String,System.String,System.Func{System.String,``0},System.Boolean)">
+            <summary>
+            使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+            <param name="fun">第一个参数为accessToken</param>
+            <param name="retryIfFaild"></param>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“T:Senparc.Weixin.MP.CommonAPIs.CommonApi”忽略有格式错误的 XML 注释 -->
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetToken(System.String,System.String,System.String)">
+            <summary>
+            获取凭证接口
+            </summary>
+            <param name="grant_type">获取access_token填写client_credential</param>
+            <param name="appid">第三方用户唯一凭证</param>
+            <param name="secret">第三方用户唯一凭证密钥，既appsecret</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetUserInfo(System.String,System.String)">
+            <summary>
+            用户信息接口
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.UploadMediaFile(System.String,Senparc.Weixin.MP.UploadMediaFileType,System.String)">
+             <summary>
+             媒体文件上传接口
+            注意事项
+            1.上传的媒体文件限制：
+            图片（image) : 1MB，支持JPG格式
+            语音（voice）：1MB，播放长度不超过60s，支持MP4格式
+            视频（video）：10MB，支持MP4格式
+            缩略图（thumb)：64KB，支持JPG格式
+            2.媒体文件在后台保存时间为3天，即3天后media_id失效
+             </summary>
+             <param name="accessToken"></param>
+             <param name="type">上传文件类型</param>
+             <param name="fileName">上传文件完整路径+文件名</param>
+             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.CreateMenu(System.String,Senparc.Weixin.MP.Entities.Menu.ButtonGroup)">
+            <summary>
+            创建菜单
+            </summary>
+            <param name="accessToken"></param>
+            <param name="buttonData">菜单内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetSingleButtonFromJsonObject(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            获取单击按钮
+            </summary>
+            <param name="objs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenuFromJson(System.String)">
+            <summary>
+            从JSON字符串获取菜单对象
+            </summary>
+            <param name="jsonString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenu(System.String)">
+            <summary>
+            获取当前菜单，如果菜单不存在，将返回null
+            </summary>
+            <param name="accessToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenuFromJsonResult(Senparc.Weixin.MP.GetMenuResultFull)">
+            <summary>
+            根据微信返回的Json数据得到可用的GetMenuResult结果
+            </summary>
+            <param name="resultFull"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.DeleteMenu(System.String)">
+            <summary>
+            删除菜单
+            </summary>
+            <param name="accessToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.Send(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType)">
+            <summary>
+            向需要AccessToken的API发送消息的公共方法
+            </summary>
+            <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
+            <param name="urlFormat"></param>
+            <param name="data">如果是Get方式，可以为null</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.Send``1(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType)">
+            <summary>
+            向需要AccessToken的API发送消息的公共方法
+            </summary>
+            <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
+            <param name="urlFormat"></param>
+            <param name="data">如果是Get方式，可以为null</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Config">
+            <summary>
+            全局设置
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Config.TIME_OUT">
+            <summary>
+            请求超时设置（以毫秒为单位），默认为10秒
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.MessageContainer`1.MaxRecordCount">
+            <summary>
+            最大记录条数（保留尾部），如果小于等于0则不限制
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Context.MessageQueue`1">
+            <summary>
+            微信消息列队（针对单个账号的往来消息）
+            </summary>
+            <typeparam name="TM"></typeparam>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Context.WeixinContextRemovedEventArgs">
+            <summary>
+            对话上下文被删除时触发事件的事件数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.WeixinContextRemovedEventArgs.OpenId">
+            <summary>
+            该用户的OpenId
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.WeixinContextRemovedEventArgs.LastActiveTime">
+            <summary>
+            最后一次响应时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.WeixinContextRemovedEventArgs.MessageContext">
+            <summary>
+            上下文对象
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkerSize">
+            <summary>
+            标记大小
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkers.Size">
+            <summary>
+            （可选）有大中小三个值，分别为s、m、l。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkers.Color">
+            <summary>
+            （可选）Color = [0x000000, 0xffffff]或使用css定义的颜色表。
+            black 0x000000 
+            silver 0xC0C0C0 
+            gray 0x808080 
+            white 0xFFFFFF 
+            maroon 0x800000
+            red 0xFF0000 
+            purple 0x800080 
+            fuchsia 0xFF00FF 
+            green 0x008000
+            lime 0x00FF00 
+            olive 0x808000 
+            yellow 0xFFFF00 
+            navy 0x000080 
+            blue 0x0000FF
+            teal 0x008080 
+            aqua 0x00FFFF
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkers.Label">
+            <summary>
+            （可选）指定集合 {A-Z, 0-9} 中的一个大写字母数字字符。不指定时显示A。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkers.url">
+            <summary>
+            自定义icon的地址，图片格式目前仅支持png32的。设置自定义图标标注时，忽略Size、Color、Label三个属性，只设置该属性且该属性前增加-1，如markerStyles=-1, http://api.map.baidu.com/images/marker_red.png，图标大小需小于5k，超过该值会导致加载不上图标的情况发生。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkers.Longitude">
+            <summary>
+            经度longitude（对应GoogleMap的X）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkers.Latitude">
+            <summary>
+            纬度latitude（对应GoogleMap的Y）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Entities.Extensions.ConvertToRequestMessageText(Senparc.Weixin.MP.Entities.IRequestMessageEventBase)">
+            <summary>
+            将RequestMessageEventBase转换成RequestMessageText类型，其中Content = requestMessage.EventKey
+            </summary>
+            <param name="requestMessageEvent"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.GoogleMap.GoogleMapMarkerSize">
+            <summary>
+            标记大小
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.GoogleMap.GoogleMapMarkers.Size">
+            <summary>
+            （可选）指定集合 {tiny, mid, small} 中的标记大小。如果未设置 size 参数，标记将以其默认（常规）大小显示。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.GoogleMap.GoogleMapMarkers.Color">
+            <summary>
+            （可选）指定 24 位颜色（例如 color=0xFFFFCC）或集合 {black, brown, green, purple, yellow, blue, gray, orange, red, white} 中预定义的一种颜色。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.GoogleMap.GoogleMapMarkers.Label">
+            <summary>
+            （可选）指定集合 {A-Z, 0-9} 中的一个大写字母数字字符。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.GoogleMap.GoogleMapMarkers.X">
+            <summary>
+            经度longitude
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.GoogleMap.GoogleMapMarkers.Y">
+            <summary>
+            纬度latitude
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.AccessTokenResult">
+            <summary>
+            access_token请求后的JSON返回格式
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.AccessTokenResult.access_token">
+            <summary>
+            获取到的凭证
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.AccessTokenResult.expires_in">
+            <summary>
+            凭证有效时间，单位：秒
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.GetMenuResultFull">
+            <summary>
+            获取菜单时候的完整结构，用于接收微信服务器返回的Json信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.GetMenuResult">
+            <summary>
+            GetMenu返回的Json结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.UploadMediaFileResult">
+            <summary>
+            上传媒体文件返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.WeixinUserInfoResult">
+            <summary>
+            用户信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.WeixinUserInfoResult.subscribe">
+            <summary>
+            用户是否订阅该公众号标识，值为0时，拉取不到其余信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.WeixinUserInfoResult.openid">
+            <summary>
+            普通用户的标识，对当前公众号唯一
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.WeixinUserInfoResult.nickname">
+            <summary>
+            普通用户的昵称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.WeixinUserInfoResult.headimgurl">
+            <summary>
+            普通用户的头像链接
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.WeixinUserInfoResult.language">
+            <summary>
+            普通用户的语言，简体中文为zh_CN
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.BaseButton">
+            <summary>
+            所有按钮基类
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.BaseButton.name">
+            <summary>
+            按钮描述，既按钮名字，不超过16个字节，子菜单不超过40个字节
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.ButtonGroup">
+            <summary>
+            整个按钮设置（可以直接用ButtonGroup实例返回JSON对象）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.ButtonGroup.button">
+            <summary>
+            按钮数组，按钮个数应为2~3个
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleButton">
+            <summary>
+            所有单击按钮的基类（view，click等）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.SingleButton.type">
+            <summary>
+            按钮类型（click或view）
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleClickButton">
+            <summary>
+            单个按键
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.SingleClickButton.key">
+            <summary>
+            类型为click时必须。
+            按钮KEY值，用于消息接口(event类型)推送，不超过128字节
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.SubButton">
+            <summary>
+            子菜单
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.SubButton.sub_button">
+            <summary>
+            子按钮数组，按钮个数应为2~5个
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleViewButton">
+            <summary>
+            Url按键
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.SingleViewButton.url">
+            <summary>
+            类型为view时必须
+            网页链接，用户点击按钮可打开链接，不超过256字节
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.MessageBase">
+            <summary>
+            所有Request和Response消息的基类
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.IRequestMessageEventKey">
+            <summary>
+            具有EventKey属性的RequestMessage接口
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageBase">
+            <summary>
+            接收到请求的消息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.IRequestMessageEventBase.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEventBase.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Enter.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Location">
+            <summary>
+            获取用户地理位置（高级接口下才能用）
+            获取用户地理位置的方式有两种，一种是仅在进入会话时上报一次，一种是进入会话后每隔5秒上报一次。公众号可以在公众平台网站中设置。
+            用户同意上报地理位置后，每次进入公众号会话时，都会在进入时上报地理位置，或在进入会话后每5秒上报一次地理位置，上报地理位置以推送XML数据包到开发者填写的URL来实现。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Location.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Location.Latitude">
+            <summary>
+            地理位置维度，事件类型为LOCATION的时存在
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Location.Longitude">
+            <summary>
+            地理位置经度，事件类型为LOCATION的时存在
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Location.Precision">
+            <summary>
+            地理位置精度，事件类型为LOCATION的时存在
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish">
+            <summary>
+            事件推送群发结果。
+            
+            由于群发任务提交后，群发任务可能在一定时间后才完成，因此，群发接口调用时，仅会给出群发任务是否提交成功的提示，若群发任务提交成功，则在群发任务结束时，会向开发者在公众平台填写的开发者URL（callback URL）推送事件。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish.Status">
+            <summary>
+            群发的结构，为“send success”或“send fail”或“err(num)”。但send success时，也有可能因用户拒收公众号的消息、系统错误等原因造成少量用户接收失败。err(num)是审核失败的具体原因，可能的情况如下：
+            err(10001), //涉嫌广告 err(20001), //涉嫌政治 err(20004), //涉嫌社会 err(20002), //涉嫌色情 err(20006), //涉嫌违法犯罪 err(20008), //涉嫌欺诈 err(20013), //涉嫌版权 err(22000), //涉嫌互推(互相宣传) err(21000), //涉嫌其他
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish.TotalCount">
+            <summary>
+            group_id下粉丝数；或者openid_list中的粉丝数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish.FilterCount">
+            <summary>
+            过滤（过滤是指，有些用户在微信设置不接收该公众号的消息）后，准备发送的粉丝数，原则上，FilterCount = SentCount + ErrorCount
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish.SendCount">
+            <summary>
+            发送成功的粉丝数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish.ErrorCount">
+            <summary>
+            发送失败的粉丝数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageLocation.Location_X">
+            <summary>
+            地理位置纬度
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageLocation.Location_Y">
+            <summary>
+            地理位置经度
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageVoice.Format">
+            <summary>
+            语音格式：amr
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageVoice.Recognition">
+            <summary>
+            语音识别结果，UTF8编码
+            开通语音识别功能，用户每次发送语音给公众号时，微信会在推送的语音消息XML数据包中，增加一个Recongnition字段。
+            注：由于客户端缓存，开发者开启或者关闭语音识别功能，对新关注者立刻生效，对已关注用户需要24小时生效。开发者可以重新关注此帐号进行测试。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Subscribe">
+            <summary>
+            事件之订阅
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Subscribe.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Subscribe.EventKey">
+            <summary>
+            事件KEY值，qrscene_为前缀，后面为二维码的参数值（如果不是扫描场景二维码，此参数为空）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Subscribe.Ticket">
+            <summary>
+            二维码的ticket，可用来换取二维码图片（如果不是扫描场景二维码，此参数为空）
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Unsubscribe">
+            <summary>
+            事件之取消订阅
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Unsubscribe.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Click">
+            <summary>
+            事件之取消订阅
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Click.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Click.EventKey">
+            <summary>
+            事件KEY值，与自定义菜单接口中KEY值对应
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Scan">
+            <summary>
+            事件之二维码扫描（关注微信）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Scan.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Scan.EventKey">
+            <summary>
+            事件KEY值，是一个32位无符号整数，即创建二维码时的二维码scene_id
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_View">
+            <summary>
+            事件之URL跳转视图（View）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_View.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_View.EventKey">
+            <summary>
+            事件KEY值，设置的跳转URL
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageBase">
+            <summary>
+            响应回复消息
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Entities.ResponseMessageBase.CreateFromRequestMessage(Senparc.Weixin.MP.Entities.IRequestMessageBase,Senparc.Weixin.MP.ResponseMsgType)">
+            <summary>
+            获取响应类型实例，并初始化
+            </summary>
+            <param name="requestMessage">请求</param>
+            <param name="msgType">响应类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Entities.ResponseMessageBase.CreateFromRequestMessage``1(Senparc.Weixin.MP.Entities.IRequestMessageBase)">
+            <summary>
+            获取响应类型实例，并初始化
+            </summary>
+            <typeparam name="T">需要返回的类型</typeparam>
+            <param name="requestMessage">请求数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Entities.ResponseMessageBase.CreateFromResponseXml(System.String)">
+            <summary>
+            从返回结果XML转换成IResponseMessageBase实体类
+            </summary>
+            <param name="xml">返回给服务器的Response Xml</param>
+            <returns></returns>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.ResponseMessageNews.Articles">
+            <summary>
+            文章列表，微信客户端只能输出前10条（可能未来数字会有变化，出于视觉效果考虑，建议控制在8条以内）
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageVoice">
+            <summary>
+            需要预先上传多媒体文件到微信服务器，只支持认证服务号。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageVideo">
+            <summary>
+            需要预先上传多媒体文件到微信服务器，只支持认证服务号。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.RequestMsgType">
+            <summary>
+            接收消息类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Event">
+            <summary>
+            当RequestMsgType类型为Event时，Event属性的类型
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.ENTER">
+            <summary>
+            进入会话（似乎已从官方API中移除）
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.LOCATION">
+            <summary>
+            地理位置（似乎已从官方API中移除）
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.subscribe">
+            <summary>
+            订阅
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.unsubscribe">
+            <summary>
+            取消订阅
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.CLICK">
+            <summary>
+            自定义菜单点击事件
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.scan">
+            <summary>
+            二维码扫描
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.VIEW">
+            <summary>
+            URL跳转
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.MASSSENDJOBFINISH">
+            <summary>
+            事件推送群发结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.ResponseMsgType">
+            <summary>
+            发送消息类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.ButtonType">
+            <summary>
+            菜单按钮类型
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.ButtonType.click">
+            <summary>
+            点击
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.ButtonType.view">
+            <summary>
+            Url
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.UploadMediaFileType">
+            <summary>
+            上传媒体文件类型
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.UploadMediaFileType.image">
+            <summary>
+            图片: 128K，支持JPG格式
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.UploadMediaFileType.voice">
+            <summary>
+            语音：256K，播放长度不超过60s，支持AMR\MP3格式
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.UploadMediaFileType.video">
+            <summary>
+            视频：1MB，支持MP4格式
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.UploadMediaFileType.thumb">
+            <summary>
+            thumb：64KB，支持JPG格式
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.UploadMediaFileType.news">
+            <summary>
+            图文消息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.ReturnCode">
+            <summary>
+            返回码（JSON）
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Language">
+            <summary>
+            语言
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Language.zh_CN">
+            <summary>
+            中文简体
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Language.zh_TW">
+            <summary>
+            中文繁体
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Language.en">
+            <summary>
+            英文
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.ErrorJsonResultException">
+            <summary>
+            JSON返回错误代码（比如token_access相关操作中使用）。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.WeixinException">
+            <summary>
+            微信自定义异常基类
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Helpers.BaiduMapHelper">
+            <summary>
+            百度地图静态图片API，文档：http://api.map.baidu.com/lbsapi/cloud/staticimg.htm
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.BaiduMapHelper.GetBaiduStaticMap(System.Double,System.Double,System.Int32,System.Int32,System.Collections.Generic.IList{Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkers},System.Int32,System.Int32)">
+             <summary>
+             获取百度地图静态图片
+             </summary>
+             <param name="lng">中心点经度</param>
+             <param name="lat">中心点维度</param>
+             <param name="scale">返回图片大小会根据此标志调整。取值范围为1或2：
+            1表示返回的图片大小为size= width * height;
+            2表示返回图片为(width*2)*(height *2)，且zoom加1
+            注：如果zoom为最大级别，则返回图片为（width*2）*（height*2），zoom不变。</param>
+             <param name="zoom">地图级别。高清图范围[3, 18]；低清图范围[3,19]</param>
+             <param name="markersList">标记列表，如果为null则不输出标记</param>
+             <param name="width">图片宽度。取值范围：(0, 1024]。</param>
+             <param name="height">图片高度。取值范围：(0, 1024]。</param>
+             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.DateTimeHelper.GetDateTimeFromXml(System.Int64)">
+            <summary>
+            转换微信DateTime时间到C#时间
+            </summary>
+            <param name="dateTimeFromXml">微信DateTime</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.DateTimeHelper.GetDateTimeFromXml(System.String)">
+            <summary>
+            转换微信DateTime时间到C#时间
+            </summary>
+            <param name="dateTimeFromXml">微信DateTime</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.DateTimeHelper.GetWeixinDateTime(System.DateTime)">
+            <summary>
+            获取微信DateTime（UNIX时间戳）
+            </summary>
+            <param name="dateTime">时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.EntityHelper.FillEntityWithXml``1(``0,System.Xml.Linq.XDocument)">
+            <summary>
+            根据XML信息填充实实体
+            </summary>
+            <typeparam name="T">MessageBase为基类的类型，Response和Request都可以</typeparam>
+            <param name="entity">实体</param>
+            <param name="doc">XML</param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.EntityHelper.ConvertEntityToXml``1(``0)">
+            <summary>
+            将实体转为XML
+            </summary>
+            <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
+            <param name="entity">实体</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.EntityHelper.ConvertEntityToXmlString``1(``0)">
+            <summary>
+            将实体转为XML字符串
+            </summary>
+            <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
+            <param name="entity">实体</param>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“M:Senparc.Weixin.MP.Helpers.EntityHelper.CreateResponseMessage``1(Senparc.Weixin.MP.Entities.IRequestMessageBase)”忽略有格式错误的 XML 注释 -->
+        <member name="M:Senparc.Weixin.MP.Helpers.EntityHelper.CreateResponseMessage(System.String)">
+            <summary>
+            ResponseMessageBase.CreateFromResponseXml(xml)的扩展方法
+            </summary>
+            <param name="xml">返回给服务器的Response Xml</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.EntityHelper.IsFromScene(Senparc.Weixin.MP.Entities.RequestMessageEvent_Subscribe)">
+            <summary>
+            检查是否是通过场景二维码扫入
+            </summary>
+            <param name="requestMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.FileHelper.GetFileStream(System.String)">
+            <summary>
+            根据完整文件路径获取FileStream
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.GoogleMapHelper.GetGoogleStaticMap(System.Int32,System.Collections.Generic.IList{Senparc.Weixin.MP.Entities.GoogleMap.GoogleMapMarkers},System.String)">
+            <summary>
+            获取谷歌今天静态地图Url。API介绍：https://developers.google.com/maps/documentation/staticmaps/?hl=zh-CN
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.GpsHelper.Distance(System.Double,System.Double,System.Double,System.Double)">
+             <summary>
+            计算两点GPS坐标的距离（单位：米）
+             </summary>
+             <param name="n1">第一点的纬度坐标</param>
+             <param name="e1">第一点的经度坐标</param>
+             <param name="n2">第二点的纬度坐标</param>
+             <param name="e2">第二点的经度坐标</param>
+             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.GpsHelper.GetLatitudeDifference(System.Double)">
+            <summary>
+            获取维度差
+            </summary>
+            <param name="km">千米</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.GpsHelper.GetLongitudeDifference(System.Double)">
+            <summary>
+            获取经度差
+            </summary>
+            <param name="km">千米</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.MsgTypeHelper.GetRequestMsgType(System.Xml.Linq.XDocument)">
+            <summary>
+            根据xml信息，返回RequestMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.MsgTypeHelper.GetRequestMsgType(System.String)">
+            <summary>
+            根据xml信息，返回RequestMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.MsgTypeHelper.GetResponseMsgType(System.Xml.Linq.XDocument)">
+            <summary>
+            根据xml信息，返回ResponseMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.MsgTypeHelper.GetResponseMsgType(System.String)">
+            <summary>
+            根据xml信息，返回ResponseMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.SerializerHelper.DecodeUnicode(System.Text.RegularExpressions.Match)">
+            <summary>
+            unicode解码
+            </summary>
+            <param name="match"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.HttpUtility.Post.GetResult``1(System.String)">
+            <summary>
+            获取Post结果
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="returnText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.HttpUtility.Post.PostFileGetJson``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding)">
+            <summary>
+            发起Post请求
+            </summary>
+            <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
+            <param name="url">请求Url</param>
+            <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.HttpUtility.Post.PostGetJson``1(System.String,System.Net.CookieContainer,System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            发起Post请求
+            </summary>
+            <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
+            <param name="url">请求Url</param>
+            <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
+            <param name="fileStream">文件流</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.HttpGet(System.String,System.Text.Encoding)">
+            <summary>
+            使用Get方法获取字符串结果（没有加入Cookie）
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.HttpGet(System.String,System.Net.CookieContainer,System.Text.Encoding,System.Int32)">
+            <summary>
+            使用Get方法获取字符串结果（加入Cookie）
+            </summary>
+            <param name="url"></param>
+            <param name="cookieContainer"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Int32)">
+            <summary>
+            使用Post方法获取字符串结果，常规提交
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.IO.Stream,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Text.Encoding,System.Int32)">
+            <summary>
+            使用Post方法获取字符串结果
+            </summary>
+            <param name="url"></param>
+            <param name="cookieContainer"></param>
+            <param name="postStream"></param>
+            <param name="fileDictionary">需要上传的文件，Key：对应要上传的Name，Value：本地文件名</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.IsWeixinClientRequest(System.Web.HttpContext)">
+            <summary>
+            请求是否发起自微信客户端的浏览器
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“M:Senparc.Weixin.MP.HttpUtility.RequestUtility.GetQueryString(System.Collections.Generic.Dictionary{System.String,System.String})”忽略有格式错误的 XML 注释 -->
+        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.HtmlEncode(System.String)">
+            <summary>
+            封装System.Web.HttpUtility.HtmlEncode
+            </summary>
+            <param name="html"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.HtmlDecode(System.String)">
+            <summary>
+            封装System.Web.HttpUtility.HtmlDecode
+            </summary>
+            <param name="html"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.UrlEncode(System.String)">
+            <summary>
+            封装System.Web.HttpUtility.UrlEncode
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.HttpUtility.RequestUtility.UrlDecode(System.String)">
+            <summary>
+            封装System.Web.HttpUtility.UrlDecode
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Merchant.Good">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.Execute">
+            <summary>
+            执行微信请求
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.WeixinOpenId">
+            <summary>
+            发送者用户名（OpenId）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.CancelExcute">
+            <summary>
+            取消执行Execute()方法。一般在OnExecuting()中用于临时阻止执行Execute()。
+            默认为False。
+            如果在执行OnExecuting()执行前设为True，则所有OnExecuting()、Execute()、OnExecuted()代码都不会被执行。
+            如果在执行OnExecuting()执行过程中设为True，则后续Execute()及OnExecuted()代码不会被执行。
+            建议在设为True的时候，给ResponseMessage赋值，以返回友好信息。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.RequestDocument">
+            <summary>
+            在构造函数中转换得到原始XML数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.ResponseDocument">
+            <summary>
+            根据ResponseMessageBase获得转换后的ResponseDocument
+            注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.RequestMessage">
+            <summary>
+            请求实体
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.ResponseMessage">
+            <summary>
+            响应实体
+            只有当执行Execute()方法后才可能有值
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.UsedMessageAgent">
+            <summary>
+            是否使用了MessageAgent代理
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1">
+            <summary>
+            微信请求的集中处理方法
+            此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.GlobalWeixinContext">
+            <summary>
+            上下文
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.CreateResponseMessage``1">
+            <summary>
+            根据当前的RequestMessage创建指定类型的ResponseMessage
+            </summary>
+            <typeparam name="TR">基于ResponseMessageBase的响应消息类型</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.Execute">
+            <summary>
+            执行微信请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.DefaultResponseMessage(Senparc.Weixin.MP.Entities.IRequestMessageBase)">
+            <summary>
+            默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnTextOrEventRequest(Senparc.Weixin.MP.Entities.RequestMessageText)">
+            <summary>
+            预处理文字或事件类型请求。
+            这个请求是一个比较特殊的请求，通常用于统一处理来自文字或菜单按钮的同一个执行逻辑，
+            会在执行OnTextRequest或OnEventRequest之前触发，具有以下一些特征：
+            1、如果返回null，则继续执行OnTextRequest或OnEventRequest
+            2、如果返回不为null，则终止执行OnTextRequest或OnEventRequest，返回最终ResponseMessage
+            3、如果是事件，则会将RequestMessageEvent自动转为RequestMessageText类型，其中RequestMessageText.Content就是RequestMessageEvent.EventKey
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnTextRequest(Senparc.Weixin.MP.Entities.RequestMessageText)">
+            <summary>
+            文字类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnLocationRequest(Senparc.Weixin.MP.Entities.RequestMessageLocation)">
+            <summary>
+            位置类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnImageRequest(Senparc.Weixin.MP.Entities.RequestMessageImage)">
+            <summary>
+            图片类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnVoiceRequest(Senparc.Weixin.MP.Entities.RequestMessageVoice)">
+            <summary>
+            语音类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnVideoRequest(Senparc.Weixin.MP.Entities.RequestMessageVideo)">
+            <summary>
+            视频类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnLinkRequest(Senparc.Weixin.MP.Entities.RequestMessageLink)">
+            <summary>
+            链接消息类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEventRequest(Senparc.Weixin.MP.Entities.IRequestMessageEventBase)">
+            <summary>
+            Event事件类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_EnterRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Enter)">
+            <summary>
+            Event事件类型请求之ENTER
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_LocationRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Location)">
+            <summary>
+            Event事件类型请求之LOCATION
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_SubscribeRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Subscribe)">
+            <summary>
+            Event事件类型请求之subscribe
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_UnsubscribeRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Unsubscribe)">
+            <summary>
+            Event事件类型请求之unsubscribe
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_ClickRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Click)">
+            <summary>
+            Event事件类型请求之CLICK
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_ScanRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Scan)">
+            <summary>
+            Event事件类型请求之scan
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_ViewRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_View)">
+            <summary>
+            事件之URL跳转视图（View）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_MassSendJobFinisRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish)">
+            <summary>
+            事件推送群发结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.WeixinContext">
+            <summary>
+            全局消息上下文
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.CurrentMessageContext">
+            <summary>
+            当前用户消息上下文
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.WeixinOpenId">
+            <summary>
+            发送者用户名（OpenId）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.UserName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.CancelExcute">
+            <summary>
+            取消执行Execute()方法。一般在OnExecuting()中用于临时阻止执行Execute()。
+            默认为False。
+            如果在执行OnExecuting()执行前设为True，则所有OnExecuting()、Execute()、OnExecuted()代码都不会被执行。
+            如果在执行OnExecuting()执行过程中设为True，则后续Execute()及OnExecuted()代码不会被执行。
+            建议在设为True的时候，给ResponseMessage赋值，以返回友好信息。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.RequestDocument">
+            <summary>
+            在构造函数中转换得到原始XML数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.ResponseDocument">
+            <summary>
+            根据ResponseMessageBase获得转换后的ResponseDocument
+            注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.RequestMessage">
+            <summary>
+            请求实体
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.ResponseMessage">
+            <summary>
+            响应实体
+            正常情况下只有当执行Execute()方法后才可能有值。
+            也可以结合Cancel，提前给ResponseMessage赋值。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.UsedMessageAgent">
+            <summary>
+            是否使用了MessageAgent代理
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.RequestMessageFactory.GetRequestEntity(System.Xml.Linq.XDocument)">
+            <summary>
+            获取XDocument转换后的IRequestMessageBase实例。
+            如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.RequestMessageFactory.GetRequestEntity(System.String)">
+            <summary>
+            获取XDocument转换后的IRequestMessageBase实例。
+            如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.RequestMessageFactory.GetRequestEntity(System.IO.Stream)">
+            <summary>
+            获取XDocument转换后的IRequestMessageBase实例。
+            如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+            </summary>
+            <param name="stream">如Request.InputStream</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.UnknownRequestMsgTypeException">
+            <summary>
+            未知请求类型。
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.ResponseMessageFactory.GetResponseEntity(System.Xml.Linq.XDocument)">
+            <summary>
+            获取XDocument转换后的IResponseMessageBase实例（通常在反向读取日志的时候用到）。
+            如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.ResponseMessageFactory.GetResponseEntity(System.String)">
+            <summary>
+            获取XDocument转换后的IRequestMessageBase实例。
+            如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.IMessageContext.UserName">
+            <summary>
+            用户名（OpenID）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.IMessageContext.LastActiveTime">
+            <summary>
+            最后一次活动时间（用户主动发送Resquest请求的时间）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.IMessageContext.RequestMessages">
+            <summary>
+            接收消息记录
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.IMessageContext.ResponseMessages">
+            <summary>
+            响应消息记录
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.IMessageContext.MaxRecordCount">
+            <summary>
+            最大储存容量（分别针对RequestMessages和ResponseMessages）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.IMessageContext.StorageData">
+            <summary>
+            临时储存数据，如用户状态等，出于保持.net 3.5版本，这里暂不使用dynamic
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.IMessageContext.ExpireMinutes">
+            <summary>
+            用于覆盖WeixinContext所设置的默认过期时间
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Context.MessageContext">
+            <summary>
+            微信消息上下文（单个用户）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Context.MessageContext.OnMessageContextRemoved(Senparc.Weixin.MP.Context.WeixinContextRemovedEventArgs)">
+            <summary>
+            执行上下文被移除的事件
+            注意：此事件不是实时触发的，而是等过期后任意一个人发过来的下一条消息执行之前触发。
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Context.MessageContext.#ctor">
+            <summary>
+            
+            </summary>
+            <param name="maxRecordCount">maxRecordCount如果小于等于0，则不限制</param>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Context.WeixinContextGlobal.UseWeixinContext">
+            <summary>
+            是否开启上下文记录
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Context.WeixinContext`1">
+            <summary>
+            微信消息上下文（全局）
+            默认过期时间：90分钟
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.Restore">
+            <summary>
+            重置所有上下文参数，所有记录将被清空
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.GetMessageContext(System.String)">
+            <summary>
+            获取MessageContext，如果不存在，返回null
+            这个方法的更重要意义在于操作TM队列，及时移除过期信息，并将最新活动的对象移到尾部
+            </summary>
+            <param name="userName">用户名（OpenId）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.GetMessageContext(System.String,System.Boolean)">
+            <summary>
+            获取MessageContext
+            </summary>
+            <param name="userName">用户名（OpenId）</param>
+            <param name="createIfNotExists">True：如果用户不存在，则创建一个实例，并返回这个最新的实例
+            False：用户储存在，则返回null</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.GetMessageContext(Senparc.Weixin.MP.Entities.IRequestMessageBase)">
+            <summary>
+            获取MessageContext，如果不存在，使用requestMessage信息初始化一个，并返回原始实例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.GetMessageContext(Senparc.Weixin.MP.Entities.IResponseMessageBase)">
+            <summary>
+            获取MessageContext，如果不存在，使用requestMessage信息初始化一个，并返回原始实例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.InsertMessage(Senparc.Weixin.MP.Entities.IRequestMessageBase)">
+            <summary>
+            记录请求信息
+            </summary>
+            <param name="requestMessage">请求信息</param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.InsertMessage(Senparc.Weixin.MP.Entities.IResponseMessageBase)">
+            <summary>
+            记录响应信息
+            </summary>
+            <param name="responseMessage">响应信息</param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.GetLastRequestMessage(System.String)">
+            <summary>
+            获取最新一条请求数据，如果不存在，则返回Null
+            </summary>
+            <param name="userName">用户名（OpenId）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.GetLastResponseMessage(System.String)">
+            <summary>
+            获取最新一条响应数据，如果不存在，则返回Null
+            </summary>
+            <param name="userName">用户名（OpenId）</param>
+            <returns></returns>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.WeixinContext`1.MessageCollection">
+            <summary>
+            所有MessageContext集合，不要直接操作此对象
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.WeixinContext`1.MessageQueue">
+            <summary>
+            MessageContext列队（LastActiveTime升序排列）,不要直接操作此对象
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.WeixinContext`1.ExpireMinutes">
+            <summary>
+            每一个MessageContext过期时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Context.WeixinContext`1.MaxRecordCount">
+            <summary>
+            最大储存上下文数量（分别针对请求和响应信息）
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLib.MD5Util">
+            <summary>
+            MD5Util 的摘要说明。
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.MD5Util.GetMD5(System.String,System.String)">
+            <summary>
+            获取大写的MD5签名结果
+            </summary>
+            <param name="encypStr"></param>
+            <param name="charset"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLib.QRCode">
+            <summary>
+            生成Native支付方式使用的二维码
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.QRCode.UrlEncode1(System.String)">
+            <summary>
+            url编码，添加空格转成%20
+            </summary>
+            <param name="con">需要生成二维码的Url</param>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“T:Senparc.Weixin.MP.TenPayLib.RequestHandler”忽略有格式错误的 XML 注释 -->
+        <member name="F:Senparc.Weixin.MP.TenPayLib.RequestHandler.Key">
+            <summary>
+            密钥
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.RequestHandler.Parameters">
+            <summary>
+            请求的参数
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.RequestHandler.DebugInfo">
+            <summary>
+            debug信息
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.Init">
+            <summary>
+            初始化函数
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.GetDebugInfo">
+            <summary>
+            获取debug信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.GetKey">
+            <summary>
+            获取密钥
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.SetKey(System.String)">
+            <summary>
+            设置密钥
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.SetParameter(System.String,System.String)">
+            <summary>
+            设置参数值
+            </summary>
+            <param name="parameter"></param>
+            <param name="parameterValue"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.GetRequestURL">
+            <summary>
+            获取package带参数的签名包
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.CreateSign">
+            <summary>
+            创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.CreateMd5Sign">
+            <summary>
+            创建package签名
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.CreateSHA1Sign">
+            <summary>
+            创建sha1签名
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.ParseXML">
+            <summary>
+            输出XML
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.SetDebugInfo(System.String)">
+            <summary>
+            设置debug信息
+            </summary>
+            <param name="debugInfo"></param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLib.ResponseHandler">
+                '============================================================================
+                'Api说明：
+                'GetKey()/setKey(),获取/设置密钥
+                'GetParameter()/setParameter(),获取/设置参数值
+                'GetAllParameters(),获取所有参数
+                'IsTenpaySign(),是否正确的签名,true:是 false:否
+                'IsWXsign(),是否正确的签名,true:是 false:否
+                ' * IsWXsignfeedback判断微信维权签名
+                ' *GetDebugInfo(),获取debug信息 
+                '============================================================================
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.Key">
+            <summary>
+            密钥 
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.Appkey">
+            <summary>
+            appkey
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.XmlMap">
+            <summary>
+            xmlMap
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.Parameters">
+            <summary>
+            应答的参数
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.DebugInfo">
+            <summary>
+            debug信息
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.Content">
+            <summary>
+            原始内容
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.SignField">
+            <summary>
+            参与签名的参数列表
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.Init">
+            <summary>
+            初始化函数
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.#ctor(System.Web.HttpContext)">
+            <summary>
+            获取页面提交的get和post参数
+            </summary>
+            <param name="httpContext"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.GetKey">
+            <summary>
+            获取密钥
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.SetKey(System.String,System.String)">
+            <summary>
+            设置密钥
+            </summary>
+            <param name="key"></param>
+            <param name="appkey"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.GetParameter(System.String)">
+            <summary>
+            获取参数值
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.SetParameter(System.String,System.String)">
+            <summary>
+            设置参数值
+            </summary>
+            <param name="parameter"></param>
+            <param name="parameterValue"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.IsTenpaySign">
+            <summary>
+            是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名。return boolean
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.IsWXsign">
+            <summary>
+            判断微信签名
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.IsWXsignfeedback">
+            <summary>
+            判断微信维权签名
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.GetDebugInfo">
+            <summary>
+            获取debug信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.SetDebugInfo(System.String)">
+            <summary>
+            设置debug信息
+            </summary>
+            <param name="debugInfo"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.SHA1Util.GetSha1(System.String)">
+            <summary>
+            签名算法
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLib.TenPayUtil">
+            <summary>
+            TenpayUtil 的摘要说明。
+            配置文件
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayUtil.GetNoncestr">
+            <summary>
+            随机生成Noncestr
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayUtil.UrlEncode(System.String,System.String)">
+            <summary>
+            对字符串进行URL编码
+            </summary>
+            <param name="instr"></param>
+            <param name="charset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayUtil.UrlDecode(System.String,System.String)">
+            <summary>
+            对字符串进行URL解码
+            </summary>
+            <param name="instr"></param>
+            <param name="charset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayUtil.UnixStamp">
+            <summary>
+            取时间戳生成随即数,替换交易单号中的后10位流水号
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayUtil.BuildRandomStr(System.Int32)">
+            <summary>
+            取随机数
+            </summary>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLib.TenPayInfo">
+            <summary>
+            微信支付基础信息储存类
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayInfo.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <param name="tenpay">商户号</param>
+            <param name="partnerId"></param>
+            <param name="key">密钥</param>
+            <param name="appId">appid</param>
+            <param name="appKey">paysignkey(非appkey) </param>
+            <param name="tenPayNotify">支付完成后的回调处理页面,*替换成notify_url.asp所在路径</param>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLib.TenPayInfo.PartnerId">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLib.TenPayInfo.Key">
+            <summary>
+            密钥
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLib.TenPayInfo.AppId">
+            <summary>
+            appid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLib.TenPayInfo.AppKey">
+            <summary>
+            paysignkey(非appkey) 
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLib.TenPayInfo.TenPayNotify">
+            <summary>
+            支付完成后的回调处理页面,*替换成notify_url.asp所在路径
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLib.TenPayInfoCollection">
+            <summary>
+            微信支付信息集合，Key为商户号（PartnerId）
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenPayInfoCollection.Data">
+            <summary>
+            微信支付信息集合，Key为商户号（PartnerId）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayInfoCollection.Register(Senparc.Weixin.MP.TenPayLib.TenPayInfo)">
+            <summary>
+            注册WeixinPayInfo信息
+            </summary>
+            <param name="weixinPayInfo"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundRequestHandler.#ctor(System.Web.HttpContext)">
+            <summary>
+            退款接口
+            </summary>
+            <param name="httpContext"></param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler">
+            <summary>
+            ResponseHandler 的摘要说明。
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.Key">
+            <summary>
+            密钥
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.Parameters">
+            <summary>
+            应答的参数
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.DebugInfo">
+            <summary>
+            debug信息
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.#ctor(System.Web.HttpContext)">
+            <summary>
+            获取服务器通知数据方式，进行参数获取
+            </summary>
+            <param name="httpContext"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.GetKey">
+            <summary>
+            获取密钥
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.SetKey(System.String)">
+            <summary>
+            设置密钥
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.GetParameter(System.String)">
+            <summary>
+            获取参数值
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.SetParameter(System.String,System.String)">
+            <summary>
+            设置参数值
+            </summary>
+            <param name="parameter"></param>
+            <param name="parameterValue"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.IsTenpaySign">
+            <summary>
+            是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名 @return boolean 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.DoShow(System.String)">
+            <summary>
+            显示处理结果。
+            @param show_url 显示处</summary>
+            @throws IOException 
+            <param name="show_url"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.GetDebugInfo">
+            <summary>
+            获取debug信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.SetDebugInfo(System.String)">
+            <summary>
+            设置debug信息
+            </summary>
+            <param name="debugInfo"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.RefundResponseHandler.IsTenpaySign(System.Collections.ArrayList)">
+            <summary>
+            是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名 @return boolean
+            </summary>
+            <param name="aKeys"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.ReqContent">
+            <summary>
+            请求内容，无论post和get，都用get方式提供
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.ResContent">
+            <summary>
+            应答内容
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.Method">
+            <summary>
+            请求方法
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.ErrInfo">
+            <summary>
+            错误信息
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.CertFile">
+            <summary>
+            证书文件
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.CertPasswd">
+            <summary>
+            证书密码 
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.CaFile">
+            <summary>
+            ca证书文件 
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.TimeOut">
+            <summary>
+            超时时间,以秒为单位 
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.ResponseCode">
+            <summary>
+            http应答编码
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.Charset">
+            <summary>
+            字符编码
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.SetReqContent(System.String)">
+            <summary>
+            设置请求内容
+            </summary>
+            <param name="reqContent"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.GetResContent">
+            <summary>
+            获取结果内容
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.SetMethod(System.String)">
+            <summary>
+            设置请求方法post或者get
+            </summary>
+            <param name="method"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.GetErrInfo">
+            <summary>
+            获取错误信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.SetCertInfo(System.String,System.String)">
+            <summary>
+            设置证书信息
+            </summary>
+            <param name="certFile"></param>
+            <param name="certPasswd"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.SetCaInfo(System.String)">
+            <summary>
+            设置ca
+            </summary>
+            <param name="caFile"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.SetTimeOut(System.Int32)">
+            <summary>
+            设置超时时间,以秒为单位
+            </summary>
+            <param name="timeOut"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.GetResponseCode">
+            <summary>
+            获取http状态码
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.CheckValidationResult(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+            <summary>
+            验证服务器证书
+            </summary>
+            <param name="sender"></param>
+            <param name="certificate"></param>
+            <param name="chain"></param>
+            <param name="errors"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.TenpayHttpClient.Call">
+            <summary>
+            执行http调用
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

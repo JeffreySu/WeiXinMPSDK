@@ -1,0 +1,204 @@
+﻿@{
+    ViewBag.Title = "微信消息模拟测试工具";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var nonce = "JeffreySu";
+    var timestamp = DateTime.Now.Ticks.ToString();
+    var echostr = DateTime.Now.Ticks.ToString();
+    var token = ViewData["Token"] as string;
+}
+@section HeaderContent
+{
+    <style>
+        .param {
+            display: none;
+        }
+
+        .messageXmlArea {
+            width: 100%;
+        }
+
+            .messageXmlArea textarea {
+                width: 100%;
+                height: 200px;
+            }
+
+        .paramAreaLeft {
+            float: left;
+            width: 45%;
+            margin-right: 6%;
+        }
+
+        .paramArearight {
+            width: 45%;
+            float: left;
+        }
+
+        #requestType, #eventType {
+            padding: 5px;
+        }
+    </style>
+    <script>
+        $(function () {
+            $('#requestType').change(checkRequestType);
+            $('#eventType').change(checkEventType);
+            checkRequestType();
+            checkEventType();
+        });
+
+        function checkRequestType() {
+            var requestType = $('#requestType').val();
+            var paramId = 'param' + requestType;
+            $('div[id^=param]').hide();
+            $('#' + paramId).show();
+        }
+
+        function checkEventType() {
+            var requestType = $('#eventType').val();
+            var eventId = 'event' + requestType;
+            $('div[id^=event]').hide();
+            $('#' + eventId).show();
+        }
+
+        function sendMessage() {
+            var url = $('#Url').val();
+            var token = $('#Token').val();
+            var requestType = $('#requestType').val();
+            var eventType = $('#eventType').val();
+            var param = { url: url, token: token, requestType: requestType };
+            var paramId = 'param' + requestType;
+            var eventId = 'event' + eventType;
+            //设置参数
+            if (requestType != 'Event') {
+                $.each($('#' + paramId).find('input'), function (i, item) {
+                    param[$(item).attr('name')] = $(item).val();
+                });
+            } else {
+                param.eventType = eventType;
+                $.each($('#' + eventId).find('input'), function (i, item) {
+                    param[$(item).attr('name')] = $(item).val();
+                });
+            }
+
+            var txtResponseMessageXML = $('#responseMessageXML');
+            var txtRequestMessageXML = $('#requestMessageXML');
+
+            txtResponseMessageXML.html('载入中...');
+            txtRequestMessageXML.html('载入中...');
+
+            $.post('@Url.Action("Index")', param, function (result) {
+                txtResponseMessageXML.html(result);
+            });
+
+            $.post('@Url.Action("GetRequestMessageXml")', param, function (result) {
+                txtRequestMessageXML.html(result);
+            });
+        }
+    </script>
+}
+@section Featured
+{
+
+}
+<section class="content-wrapper main-content clear-fix">
+    <h1>消息模拟工具</h1>
+    <div class="clear-fix"></div>
+    <div id="simulateTool">
+        <div class="paramAreaLeft">
+            <h3>接口设置</h3>
+            <div>
+                URL：@Html.TextBox("Url", Url.Action("Index", "Weixin", null, "http", Request.Url.Host))<br />
+                Token：@Html.TextBox("Token", token)
+            </div>
+            <h3>发送参数</h3>
+            <div>
+                类型：<select id="requestType">
+                    <option value="Text">文本</option>
+                    <option value="Location">地理位置</option>
+                    <option value="Image">图片</option>
+                    <option value="Voice">语音</option>
+                    <option value="Video">视频</option>
+                    @*<option value="Link">连接信息</option>*@
+                    <option value="Event">事件推送</option>
+                </select>
+            </div>
+            <div>
+                参数：
+                <div id="paramText" class="param">
+                    Content：<input name="Content" />
+                </div>
+                <div id="paramLocation" class="param">
+                    Label：<input name="Label" /><br />
+                    Location_X：<input name="Location_X" type="number" value="0" /><br />
+                    Location_Y：<input name="Location_Y" type="number" value="0" /><br />
+                    Scale：<input name="Scale" type="number" value="0" step="1" /><br />
+                </div>
+                <div id="paramImage" class="param">
+                    PicUrl：<input name="PicUrl" /><br />
+                </div>
+                <div id="paramVoice" class="param">
+                    Format：<input name="Format" value="arm" /><br />
+                    Recognition：<input name="Recognition" /><br />
+                </div>
+                <div id="paramVideo" class="param">
+                    MsgId：<input name="MsgId" type="number" value="@DateTime.Now.Ticks" step="1" /><br />
+                    ThumbMediaId：<input name="ThumbMediaId" /><br />
+                </div>
+                @*<div id="paramLink" class="param"></div>*@
+                <div id="paramEvent" class="param">
+                    事件类型：<select id="eventType">
+                        @*<option value="ENTER">进入会话</option>*@
+                        <option value="LOCATION">地理位置</option>
+                        <option value="subscribe">订阅</option>
+                        <option value="unsubscribe">取消订阅</option>
+                        <option value="CLICK">自定义菜单点击事件</option>
+                        <option value="scan">二维码扫描</option>
+                        <option value="VIEW">URL跳转</option>
+                        <option value="MASSSENDJOBFINISH">事件推送群发结果</option>
+                    </select>
+                    @*<div id="eventENTER" class="param"></div>*@
+                    <div id="eventLOCATION" class="param">
+                        Latitude：<input name="Event.Latitude" type="number" value="0"/><br />
+                        Longitude：<input name="Event.Longitude" type="number" value="0"/><br />
+                        Precision：<input name="Event.Precision" type="number" value="0"/><br />
+                    </div>
+                    <div id="eventsubscribe" class="param">
+                        EventKey：<input name="Event.EventKey" /><br />
+                    </div>
+                    <div id="eventunsubscribe" class="param"></div>
+                    <div id="eventCLICK" class="param">
+                        EventKey：<input name="Event.EventKey" /><br />
+                    </div>
+                    <div id="eventscan" class="param">
+                        EventKey：<input name="Event.EventKey" /><br />
+                        Ticket：<input name="Event.Ticket" /><br />
+                    </div>
+                    <div id="eventVIEW" class="param">
+                        EventKey：<input name="Event.EventKey" value="http://" /><br />
+                    </div>
+                    <div id="eventMASSSENDJOBFINISH" class="param">
+                        ErrorCount：<input name="Event.ErrorCount" type="number" value="0"/><br />
+                        FilterCount：<input name="Event.FilterCount" type="number" value="0"/><br />
+                        SendCount：<input name="Event.SendCount" type="number" value="0"/><br />
+                        Status：<input name="Event.Status"/><br />
+                        TotalCount：<input name="Event.TotalCount" type="number" value="0"/><br />
+                    </div>
+                </div>
+                <div>
+                    <input type="button" value="提交" onclick="sendMessage()" />
+                </div>
+            </div>
+        </div>
+        <div class="paramArearight">
+
+            <div class="messageXmlArea">
+                <h3>发送内容（根据参数自动生成）</h3>
+                <textarea id="requestMessageXML" readonly="readonly"></textarea>
+            </div>
+            <div class="messageXmlArea">
+                <h3>接收内容</h3>
+                <textarea id="responseMessageXML"></textarea>
+            </div>
+        </div>
+    </div>
+</section>

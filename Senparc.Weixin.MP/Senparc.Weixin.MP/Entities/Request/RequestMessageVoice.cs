@@ -12,6 +12,9 @@ namespace Senparc.Weixin.MP.Entities
             get { return RequestMsgType.Voice; }
         }
 
+        /// <summary>
+        /// 语音消息媒体id，可以调用多媒体文件下载接口拉取数据。
+        /// </summary>
         public string MediaId { get; set; }
         /// <summary>
         /// 语音格式：amr

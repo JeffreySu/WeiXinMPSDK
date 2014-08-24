@@ -145,7 +145,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
         
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
-            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();//ResponseMessageText也可以是News等其他类型
+            var responseMessage = CreateResponseMessage<ResponseMessageText>();//ResponseMessageText也可以是News等其他类型
             responseMessage.Content = "这条消息来自DefaultResponseMessage。";
             return responseMessage;
         }
@@ -172,7 +172,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
       public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
       {
           //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
-          var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);//v0.3版本之前的非泛型方法仍然有效
+          var responseMessage = CreateResponseMessage<ResponseMessageText>();
           responseMessage.Content =
               string.Format(
                   "您刚才发送了文字信息：{0}",

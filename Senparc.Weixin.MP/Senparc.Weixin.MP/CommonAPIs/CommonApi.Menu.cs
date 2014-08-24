@@ -218,10 +218,10 @@ namespace Senparc.Weixin.MP.CommonAPIs
                             });
                         }
                     }
-                    else if (availableSubButton < 2)
-                    {
-                        throw new WeixinMenuException("子菜单至少需要填写2个！");
-                    }
+                    //else if (availableSubButton < 2)
+                    //{
+                    //    throw new WeixinMenuException("子菜单至少需要填写2个！");
+                    //}
                     else
                     {
                         //底部二级菜单

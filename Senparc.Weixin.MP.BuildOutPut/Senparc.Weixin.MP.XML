@@ -551,6 +551,11 @@
             高级接口获取的用户信息
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.WeixinException">
+            <summary>
+            微信自定义异常基类
+            </summary>
+        </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.GateUrl">
             <summary>
             网关url地址
@@ -2167,11 +2172,6 @@
         <member name="T:Senparc.Weixin.MP.ErrorJsonResultException">
             <summary>
             JSON返回错误代码（比如token_access相关操作中使用）。
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.WeixinException">
-            <summary>
-            微信自定义异常基类
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Helpers.BaiduMapHelper">

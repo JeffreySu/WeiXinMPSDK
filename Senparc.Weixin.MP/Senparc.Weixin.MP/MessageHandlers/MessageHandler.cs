@@ -10,6 +10,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Exceptions;
 using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.MessageHandlers
@@ -271,7 +272,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new MessageHandlerException("MessageHandler中Execute()过程发生错误：" + ex.Message, ex);
             }
             finally
             {

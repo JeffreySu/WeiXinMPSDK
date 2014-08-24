@@ -1904,6 +1904,11 @@
             地理位置经度
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageVoice.MediaId">
+            <summary>
+            语音消息媒体id，可以调用多媒体文件下载接口拉取数据。
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageVoice.Format">
             <summary>
             语音格式：amr

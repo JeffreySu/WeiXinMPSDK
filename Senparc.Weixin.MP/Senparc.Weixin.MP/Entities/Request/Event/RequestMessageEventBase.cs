@@ -17,7 +17,7 @@ namespace Senparc.Weixin.MP.Entities
         //string EventKey { get; set; }
     }
 
-    public class RequestMessageEventBase : RequestMessageBase, IRequestMessageBase
+    public class RequestMessageEventBase : RequestMessageBase, IRequestMessageEventBase
     {
         public override RequestMsgType MsgType
         {

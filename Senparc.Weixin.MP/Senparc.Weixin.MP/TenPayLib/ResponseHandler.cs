@@ -77,7 +77,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             Parameters = new Hashtable();
             XmlMap = new Hashtable();
 
-            this.HttpContext = httpContext;
+            this.HttpContext = httpContext ?? HttpContext.Current;
             NameValueCollection collection;
             //post data
             if (this.HttpContext.Request.HttpMethod == "POST")

@@ -60,12 +60,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         public ActionResult JsApi()
         {
-            string appId = TenPayInfo.AppId;
+            //string appId = TenPayInfo.AppId;
             string timeStamp = "";
             string nonceStr = "";
             string packageValue = "";
             string paySign = "";
-
+            var TenPayInfo = new TenPayInfo("1219419001", "cb6009b1cbf4c598d45770df2a07c639", "wx402b1453e023f85e", "qDuRnnrCLd9UFOL9LQ19wcHg2j1QltcPlWJOH5XNDyO0easun2RNBn4gDvuVyYwdk4CX0nmfhu1ROF64Gj5gNw7ss8xbAsRdbKEbPyXqbPNzbbToL9KE34TWHfPhxzMF", "http://weixin.mybeibang.com/TenPay/FeedBack");
 
             string sp_billno = Request["order_no"];
             //当前时间 yyyyMMdd
@@ -87,12 +87,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             RequestHandler packageReqHandler = new RequestHandler(null);
             //初始化
             packageReqHandler.Init();
-
+            packageReqHandler.SetKey(TenPayInfo.Key);
 
             //设置package订单参数
             packageReqHandler.SetParameter("partner", TenPayInfo.PartnerId);		  //商户号
             packageReqHandler.SetParameter("fee_type", "1");                    //币种，1人民币
             packageReqHandler.SetParameter("input_charset", "GBK");
+            packageReqHandler.SetParameter("bank_type", "WX");
             packageReqHandler.SetParameter("out_trade_no", sp_billno);		//商家订单号
             packageReqHandler.SetParameter("total_fee", "1");			        //商品金额,以分为单位(money * 100).ToString()
             packageReqHandler.SetParameter("notify_url", TenPayInfo.TenPayNotify);		    //接收财付通通知的URL
@@ -108,7 +109,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //设置支付参数
             RequestHandler paySignReqHandler = new RequestHandler(null);
-            paySignReqHandler.SetParameter("appid", appId);
+            paySignReqHandler.SetParameter("appid", TenPayInfo.AppId);
             paySignReqHandler.SetParameter("appkey", TenPayInfo.AppKey);
             paySignReqHandler.SetParameter("noncestr", nonceStr);
             paySignReqHandler.SetParameter("timestamp", timeStamp);
@@ -123,7 +124,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //string paySignDebuginfo = paySignReqHandler.getDebugInfo();
             //Response.Write("<br/>paySignDebuginfo:" + paySignDebuginfo + "<br/>");
 
-            ViewData["appId"] = appId;
+            ViewData["appId"] = TenPayInfo.AppId;
             ViewData["timeStamp"] = timeStamp;
             ViewData["nonceStr"] = nonceStr;
             ViewData["packageValue"] = packageValue;

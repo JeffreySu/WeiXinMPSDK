@@ -11,7 +11,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         {
             Parameters = new Hashtable();
 
-            this.HttpContext = httpContext;
+            this.HttpContext = httpContext ?? HttpContext.Current;
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             this.SetParameter("sign", sign);
 
             //debug信息
-            this.SetDebugInfo(sb.ToString() + " => sign:" + sign);
+            this.SetDebugInfo(sb.ToString() + " &sign=" + sign);
         }
 
         /// <summary>

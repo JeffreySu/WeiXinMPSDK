@@ -65,7 +65,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             string nonceStr = "";
             string packageValue = "";
             string paySign = "";
-            var TenPayInfo = new TenPayInfo("1219419001", "cb6009b1cbf4c598d45770df2a07c639", "wx402b1453e023f85e", "qDuRnnrCLd9UFOL9LQ19wcHg2j1QltcPlWJOH5XNDyO0easun2RNBn4gDvuVyYwdk4CX0nmfhu1ROF64Gj5gNw7ss8xbAsRdbKEbPyXqbPNzbbToL9KE34TWHfPhxzMF", "http://weixin.mybeibang.com/TenPay/FeedBack");
 
             string sp_billno = Request["order_no"];
             //当前时间 yyyyMMdd

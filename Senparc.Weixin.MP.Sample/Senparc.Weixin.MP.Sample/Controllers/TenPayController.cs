@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.TenPayLib;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
@@ -114,7 +115,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             paySignReqHandler.SetParameter("timestamp", timeStamp);
             paySignReqHandler.SetParameter("package", packageValue);
             paySign = paySignReqHandler.CreateSHA1Sign();
-
+            //TenPay.Delivernotify(TenPayInfo.AppId, "oX99MDgNcgwnz3zFN3DNmo8uwa-w", "111112222233333", sp_billno,
+            //                     timeStamp, "1", "ok", "53cca9d47b883bd4a5c85a9300df3da0cb48565c", "sha1");
 
 
             //获取debug信息,建议把请求和debug信息写入日志，方便定位问题
@@ -393,6 +395,47 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             Response.Write("res content:" + Server.HtmlEncode(rescontent) + "<br/>");
             Response.Write("res debug:" + Server.HtmlEncode(resHandler.GetDebugInfo()) + "<br/>");
 
+        }
+
+        public ActionResult Delivernotify()
+        {
+            string timeStamp = "";
+            string appSignature = "";
+            //string appId, string openId, string transId, string out_Trade_No, string deliver_TimesTamp, string deliver_Status, string deliver_Msg, string app_Signature, 
+            string sp_billno = Request["order_no"];
+            //当前时间 yyyyMMdd
+            string date = DateTime.Now.ToString("yyyyMMdd");
+
+            if (null == sp_billno)
+            {
+                //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
+                sp_billno = DateTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
+            }
+            else
+            {
+                sp_billno = Request["order_no"].ToString();
+            }
+
+            sp_billno = TenPayInfo.PartnerId + sp_billno;
+
+            //调起微信支付签名
+            timeStamp = TenPayUtil.GetTimestamp();
+
+            //设置支付参数
+            RequestHandler paySignReqHandler = new RequestHandler(null);
+            paySignReqHandler.SetParameter("appid", TenPayInfo.AppId);
+            paySignReqHandler.SetParameter("openId", TenPayInfo.AppKey);
+            paySignReqHandler.SetParameter("transId", "111112222233333");
+            paySignReqHandler.SetParameter("deliver_TimesTamp", timeStamp);
+            paySignReqHandler.SetParameter("out_Trade_No", sp_billno);
+            paySignReqHandler.SetParameter("deliver_Status", "1");
+            paySignReqHandler.SetParameter("deliver_Msg", "ok");
+            appSignature = paySignReqHandler.CreateSHA1Sign();
+            var result = TenPay.Delivernotify(TenPayInfo.AppId, "oX99MDgNcgwnz3zFN3DNmo8uwa-w", "111112222233333", sp_billno,
+                                 timeStamp, "1", "ok", appSignature, "sha1");
+
+            ViewData["message"] = result.errcode;
+            return View();
         }
     }
 }

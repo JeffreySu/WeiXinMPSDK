@@ -264,6 +264,7 @@
     <Content Include="Views\TenPay\Native.cshtml" />
     <Content Include="Views\TenPay\NativeCall.cshtml" />
     <Content Include="Views\TenPay\PayNotifyUrl.cshtml" />
+    <Content Include="Views\TenPay\Delivernotify.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

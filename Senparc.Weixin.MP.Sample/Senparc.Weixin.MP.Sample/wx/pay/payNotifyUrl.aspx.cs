@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
-using Senparc.Weixin.MP.WeixinPayLib;
+using Senparc.Weixin.MP.TenPayLib;
 
 //'---------------------------------------------------------
 //'微信支付接口处理回调示例，商户按照此示例进行开发即可
@@ -20,12 +20,27 @@ using Senparc.Weixin.MP.WeixinPayLib;
 
 public partial class payNotifyUrl : System.Web.UI.Page
 {
+    private static TenPayInfo _tenPayInfo;
+
+    public static TenPayInfo TenPayInfo
+    {
+        get
+        {
+            if (_tenPayInfo == null)
+            {
+                _tenPayInfo =
+                    TenPayInfoCollection.Data[System.Configuration.ConfigurationManager.AppSettings["WeixinPay_PartnerId"]];
+            }
+            return _tenPayInfo;
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
         ResponseHandler resHandler = new ResponseHandler(Context);
         resHandler.Init();
-        resHandler.SetKey(WeixinPayUtil.Key, WeixinPayUtil.AppKey);
+        resHandler.SetKey(TenPayInfo.Key, TenPayInfo.AppKey);
        
         //判断签名
         if (resHandler.IsTenpaySign())

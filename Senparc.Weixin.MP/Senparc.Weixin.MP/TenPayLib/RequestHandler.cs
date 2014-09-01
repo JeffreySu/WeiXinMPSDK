@@ -156,7 +156,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             this.SetParameter("sign", sign);
 
             //debug信息
-            this.SetDebugInfo(sb.ToString() + " &sign=" + sign);
+            this.SetDebugInfo(sb.ToString() + " => sign:" + sign);
         }
 
 
@@ -215,7 +215,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             string paySign = SHA1Util.GetSha1(sb.ToString()).ToString().ToLower();
 
             //debug信息
-            this.SetDebugInfo(sb.ToString() + " &sign=" + paySign);
+            this.SetDebugInfo(sb.ToString() + " => sign:" + paySign);
             return paySign;
         }
 

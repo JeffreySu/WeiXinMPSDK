@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Collections;
-using Senparc.Weixin.MP.WeixinPayLib;
+using Senparc.Weixin.MP.TenPayLib;
 using System.Collections;
 using System.Text;
 using System.Security.Cryptography;
@@ -18,6 +18,21 @@ using System.Collections.Generic;
 //=================================
 public partial class native : System.Web.UI.Page
 {
+    private static TenPayInfo _tenPayInfo;
+
+    public static TenPayInfo TenPayInfo
+    {
+        get
+        {
+            if (_tenPayInfo == null)
+            {
+                _tenPayInfo =
+                    TenPayInfoCollection.Data[System.Configuration.ConfigurationManager.AppSettings["WeixinPay_PartnerId"]];
+            }
+            return _tenPayInfo;
+        }
+    }
+
     public String parm;
     //url编码，添加空格转成%20
     public string UrlEncode1(string con)
@@ -56,26 +71,26 @@ public partial class native : System.Web.UI.Page
         if (null == sp_billno)
         {
             //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-            sp_billno = DateTime.Now.ToString("HHmmss") + WeixinPayUtil.BuildRandomStr(4);
+            sp_billno = DateTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(4);
         }
         else
         {
             sp_billno = Request["order_no"].ToString();
         }
 
-        sp_billno = WeixinPayUtil.PartnerId + sp_billno;
+        sp_billno = TenPayInfo.PartnerId + sp_billno;
 
         
         RequestHandler outParams = new RequestHandler(Context);
         
         outParams.Init();
         string productid = sp_billno;
-        string timeStamp = WeixinPayUtil.GetTimestamp();
-        string nonceStr = WeixinPayUtil.GetNoncestr();
+        string timeStamp = TenPayUtil.GetTimestamp();
+        string nonceStr = TenPayUtil.GetNoncestr();
 
         RequestHandler Params = new RequestHandler(Context);
-        Params.SetParameter("appid", WeixinPayUtil.AppId);
-        Params.SetParameter("appkey", WeixinPayUtil.AppKey);
+        Params.SetParameter("appid", TenPayInfo.AppId);
+        Params.SetParameter("appkey", TenPayInfo.AppKey);
         Params.SetParameter("noncestr", nonceStr);
         Params.SetParameter("timestamp", timeStamp);
         Params.SetParameter("productid", productid);
@@ -83,7 +98,7 @@ public partial class native : System.Web.UI.Page
         Params.SetParameter("sign",sign);
 
 
-        parm = "weixin://wxpay/bizpayurl?sign=" + sign + "&appid=" + WeixinPayUtil.AppId + "&productid=" + productid + "&timeStamp=" + timeStamp + "&nonceStr=" + nonceStr;
+        parm = "weixin://wxpay/bizpayurl?sign=" + sign + "&appid=" + TenPayInfo.AppId + "&productid=" + productid + "&timeStamp=" + timeStamp + "&nonceStr=" + nonceStr;
         parm = QRfromGoogle(parm);
       
     }

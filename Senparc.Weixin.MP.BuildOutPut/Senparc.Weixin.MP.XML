@@ -514,6 +514,28 @@
             msgid
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateDataItem">
+            <summary>
+            模板消息的数据项类型
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TemplateDataItem.#ctor(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="v">value</param>
+            <param name="c">color</param>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TemplateDataItem.value">
+            <summary>
+            项目值
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TemplateDataItem.color">
+            <summary>
+            16进制颜色代码，如：#FF0000
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TempleteModel.touser">
             <summary>
             目标用户OpenId
@@ -526,7 +548,7 @@
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TempleteModel.topcolor">
             <summary>
-            模板消息顶部颜色（16进制）
+            模板消息顶部颜色（16进制），默认为#FF0000
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TempleteModel.data">

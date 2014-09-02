@@ -18,7 +18,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public string template_id { get; set; }
 
         /// <summary>
-        /// 模板消息顶部颜色（16进制）
+        /// 模板消息顶部颜色（16进制），默认为#FF0000
         /// </summary>
         public string topcolor { get; set; }
 
@@ -26,5 +26,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 数据
         /// </summary>
         public object data { get; set; }
+
+        public string url { get; set; }
+
+
+        public TempleteModel()
+        {
+            topcolor = "#FF0000";
+        }
     }
 }

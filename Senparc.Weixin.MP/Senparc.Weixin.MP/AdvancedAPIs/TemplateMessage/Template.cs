@@ -12,14 +12,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class Template
     {
-        public static SendTemplateMessageResult SendTemplateMessage<T>(string accessToken, string openId, string templateId, string topcolor, T data)
+        public static SendTemplateMessageResult SendTemplateMessage<T>(string accessToken, string openId, string templateId, string topcolor,string url, T data)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}";
             var msgData = new TempleteModel()
             {
+                touser = openId,
                 template_id = templateId,
                 topcolor = topcolor,
-                touser = openId,
+                url = url,
                 data = data
             };
             return CommonJsonSend.Send<SendTemplateMessageResult>(accessToken, urlFormat, msgData);

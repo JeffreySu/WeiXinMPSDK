@@ -36,8 +36,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
                 sec_type = new TemplateDataItem("重试密码次数太多"),
                 remark = new TemplateDataItem("更详细信息，请到微微嗨官方网站（http://www.weiweihi.com）查看！")
             };
-            var result = MP.AdvancedAPIs.Template.SendTemplateMessage(accessToken, openId, templateId, "#FF0000",
-                testData);
+            var result = MP.AdvancedAPIs.Template.SendTemplateMessage(accessToken, openId, templateId, "#FF0000", "http://www.weiweihi.com", testData);
 
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
         }

@@ -395,6 +395,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.MASSSENDJOBFINISH://群发消息成功
                     responseMessage = OneEvent_MassSendJobFinisRequest(RequestMessage as RequestMessageEvent_MassSendJobFinish);
                     break;
+                case Event.TEMPLATESENDJOBFINISH://推送模板消息成功
+                    responseMessage = OneEvent_TemplateSendJobFinishRequest(RequestMessage as RequestMessageEvent_TemplateSendJobFinish);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -467,6 +470,16 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <returns></returns>
         public virtual IResponseMessageBase OneEvent_MassSendJobFinisRequest(RequestMessageEvent_MassSendJobFinish requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+
+        /// <summary>
+        /// 发送模板消息返回结果
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OneEvent_TemplateSendJobFinishRequest(RequestMessageEvent_TemplateSendJobFinish requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

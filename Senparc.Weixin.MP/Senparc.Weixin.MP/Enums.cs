@@ -62,7 +62,12 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 事件推送群发结果
         /// </summary>
-        MASSSENDJOBFINISH
+        MASSSENDJOBFINISH,
+
+        /// <summary>
+        /// 模板信息发送完成
+        /// </summary>
+        TEMPLATESENDJOBFINISH
     }
 
 
@@ -77,7 +82,7 @@ namespace Senparc.Weixin.MP
         Image,
         Voice,
         Video,
-        Transfer_Customer_Service
+        Transfer_Customer_Service,
 		//transfer_customer_service
     }
 

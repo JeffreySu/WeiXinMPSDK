@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.TenPayLib;
 
@@ -435,6 +436,29 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                  timeStamp, "1", "ok", appSignature, "sha1");
 
             ViewData["message"] = result.errcode;
+            return View();
+        }
+
+        public ActionResult SharedAddress()
+        {
+            var accessToken = AccessTokenContainer.TryGetToken(TenPayInfo.AppId, "49b71198b776e18521659a32a97501a6");
+
+            string timeStamp = TenPayUtil.GetTimestamp();
+            string nonceStr = TenPayUtil.GetNoncestr();
+
+            RequestHandler paySignReqHandler = new RequestHandler(null);
+            paySignReqHandler.SetParameter("accessToken", accessToken);
+            paySignReqHandler.SetParameter("appid", TenPayInfo.AppId);
+            paySignReqHandler.SetParameter("nonceStr", nonceStr);
+            paySignReqHandler.SetParameter("timeStamp", timeStamp);
+            paySignReqHandler.SetParameter("url", TenPayInfo.TenPayNotify);
+            var addrSign = paySignReqHandler.CreateSHA1Sign();
+
+            ViewData["appId"] = TenPayInfo.AppId;
+            ViewData["addrSign"] = addrSign;
+            ViewData["timeStamp"] = timeStamp;
+            ViewData["nonceStr"] = nonceStr;
+
             return View();
         }
     }

@@ -87,6 +87,8 @@
     <Compile Include="QYAPIs\MailList\Department\Department.cs" />
     <Compile Include="QYAPIs\MailList\Member\Member.cs" />
     <Compile Include="QYAPIs\MailList\Member\MemberResult.cs" />
+    <Compile Include="QYAPIs\MailList\Tag\Tag.cs" />
+    <Compile Include="QYAPIs\MailList\Tag\TagResult.cs" />
     <Compile Include="TenPayLib\CheckRequestHandler.cs" />
     <Compile Include="TenPayLib\RefundQueryRequestHandler.cs" />
     <Compile Include="TenPayLib\ClientRequestHandler.cs" />

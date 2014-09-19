@@ -93,9 +93,9 @@ namespace Senparc.Weixin.MP.QYAPIs
         /// <returns></returns>
         public static WxJsonResult DeleteMember(string accessToken, string userId)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/user/delete?access_token={0}&userid={1}";
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/delete?access_token={0}&userid={1}", accessToken, userId);
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -106,9 +106,9 @@ namespace Senparc.Weixin.MP.QYAPIs
         /// <returns></returns>
         public static GetMemberResult GetMember(string accessToken, string userId)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token={0}&userid={1}";
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token={0}&userid={1}", accessToken, userId);
 
-            return CommonJsonSend.Send<GetMemberResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<GetMemberResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>

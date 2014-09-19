@@ -81,6 +81,8 @@
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
     <Compile Include="Exceptions\MessageHandlerException.cs" />
+    <Compile Include="QYAPIs\AccessToken\GetAccessToken.cs" />
+    <Compile Include="QYAPIs\AccessToken\AccessTokenResult.cs" />
     <Compile Include="TenPayLib\CheckRequestHandler.cs" />
     <Compile Include="TenPayLib\RefundQueryRequestHandler.cs" />
     <Compile Include="TenPayLib\ClientRequestHandler.cs" />

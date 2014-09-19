@@ -6,9 +6,12 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.QYPIs
 {
+    /// <summary>
+    /// 创建部门返回结果
+    /// </summary>
     public class CreateDepartmentResult : WxJsonResult
     {
-        public int id { get; set; }
+        public int id { get; set; }//创建的部门id
     }
 
     public class GetDepartmentListResult : WxJsonResult

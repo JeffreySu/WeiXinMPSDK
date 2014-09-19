@@ -79,7 +79,7 @@ namespace Senparc.Weixin.MP.QYAPIs
         /// <returns></returns>
         public static GetDepartmentListResult GetDepartmentList(string accessToken)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token=={0]";
+            var url = "https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token={0]";
 
             return CommonJsonSend.Send<GetDepartmentListResult>(accessToken, url, null, CommonJsonSendType.GET);
         }

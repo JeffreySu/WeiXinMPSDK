@@ -10,7 +10,7 @@ namespace Senparc.Weixin.MP.QYAPIs
 {
     //官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8
 
-    public static class GetAccessToken
+    public static class AccessToken
     {
         /// <summary>
         /// 获取AccessToken

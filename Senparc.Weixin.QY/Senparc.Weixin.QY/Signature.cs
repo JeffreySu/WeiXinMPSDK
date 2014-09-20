@@ -65,6 +65,16 @@ namespace Senparc.Weixin.QY
             }
         }
 
+        /// <summary>
+        /// 加密消息
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="encodingAESKey"></param>
+        /// <param name="corpId"></param>
+        /// <param name="replyMsg"></param>
+        /// <param name="timeStamp"></param>
+        /// <param name="nonce"></param>
+        /// <returns></returns>
         public static string EncryptMsg(string token, string encodingAESKey, string corpId, string replyMsg, string timeStamp, string nonce)
         {
             WXBizMsgCrypt crypt = new WXBizMsgCrypt(token, encodingAESKey, corpId);

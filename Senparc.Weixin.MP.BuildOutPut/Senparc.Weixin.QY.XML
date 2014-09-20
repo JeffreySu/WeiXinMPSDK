@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Senparc.Weixin.QY</name>
+    </assembly>
+    <members>
+        <member name="T:Senparc.Weixin.QY.CommonAPIs.CommonApi">
+            <summary>
+            通用基础API
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.CommonApi.GetToken(System.String,System.String)">
+            <summary>
+            获取AccessToken
+            API地址：http://qydev.weixin.qq.com/wiki/index.php?title=%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8
+            </summary>
+            <param name="corpId"></param>
+            <param name="corpSecret"></param>
+        </member>
+        <member name="T:Senparc.Weixin.QY.Entities.AccessTokenResult">
+            <summary>
+            GetToken请求后的JSON返回格式
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.AccessTokenResult.access_token">
+            <summary>
+            获取到的凭证
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.Signature.Token">
+            <summary>
+            在网站没有提供Token（或传入为null）的情况下的默认Token，建议在网站中进行配置。
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.Signature.EncodingAESKey">
+            <summary>
+            在网站没有提供EncodingAESKey（或传入为null）的情况下的默认Token，建议在网站中进行配置。
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.Signature.CorpId">
+            <summary>
+            在网站没有提供CorpId（或传入为null）的情况下的默认Token，建议在网站中进行配置。
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Signature.GenarateSinature(System.String,System.String,System.String,System.String)">
+            <summary>
+            获取签名
+            </summary>
+            <param name="token"></param>
+            <param name="timeStamp"></param>
+            <param name="nonce"></param>
+            <param name="msgEncrypt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Signature.VerifyURL(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            检查签名
+            </summary>
+            <param name="token"></param>
+            <param name="encodingAESKey"></param>
+            <param name="corpId"></param>
+            <param name="msgSignature">签名串，对应URL参数的msg_signature</param>
+            <param name="timeStamp">时间戳，对应URL参数的timestamp</param>
+            <param name="nonce">随机串，对应URL参数的nonce</param>
+            <param name="echoStr">随机串，对应URL参数的echostr</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tencent.Cryptography.AES_decrypt(System.String,System.String,System.String@)">
+            <summary>
+            解密方法
+            </summary>
+            <param name="Input">密文</param>
+            <param name="EncodingAESKey"></param>
+            <returns></returns>
+            
+        </member>
+        <member name="M:Tencent.Cryptography.chr(System.Int32)">
+            将数字转化成ASCII码对应的字符，用于对明文进行补码
+            
+            @param a 需要转化的数字
+            @return 转化得到的字符
+        </member>
+    </members>
+</doc>

@@ -6,10 +6,10 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
-using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
+    using Senparc.Weixin.MP.MessageHandlers;
     using Senparc.Weixin.MP.Entities;
     using Senparc.Weixin.MP.Helpers;
     using Senparc.Weixin.MP.MvcExtension;

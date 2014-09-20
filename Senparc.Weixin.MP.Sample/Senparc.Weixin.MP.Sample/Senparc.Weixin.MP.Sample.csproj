@@ -43,6 +43,9 @@
     <Reference Include="Senparc.Weixin.MP">
       <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.MP.dll</HintPath>
     </Reference>
+    <Reference Include="Senparc.Weixin.QY">
+      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.QY.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -134,6 +137,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\OAuth2Controller.cs" />
+    <Compile Include="Controllers\QY\QYController.cs" />
     <Compile Include="Controllers\SimulateToolController.cs" />
     <Compile Include="Controllers\TestUploadMediaFileController.cs" />
     <Compile Include="Controllers\WeixinController.cs" />

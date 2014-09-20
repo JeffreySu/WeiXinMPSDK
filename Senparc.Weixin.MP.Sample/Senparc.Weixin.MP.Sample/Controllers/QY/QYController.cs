@@ -6,7 +6,9 @@ using System.Web.Mvc;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
-
+    /// <summary>
+    /// 企业号对接测试
+    /// </summary>
     public class QYController : Controller
     {
         public static readonly string Token = "fzBsmSaI8XE1OwBh";//与微信企业账号后台的Token设置保持一致，区分大小写。
@@ -29,7 +31,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //return Content(echostr); //返回随机字符串则表示验证通过
             var verifyUrl = QY.Signature.VerifyURL(Token, EncodingAESKey, CorpId, msg_signature, timestamp, nonce,
                 echostr);
-            if (verifyUrl!=null)
+            if (verifyUrl != null)
             {
                 return Content(verifyUrl); //返回解密后的随机字符串则表示验证通过
             }
@@ -39,6 +41,18 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("签名:" + signature + "," + QY.Signature.GenarateSinature(Token, timestamp, nonce, msgEncrypt) + "。" +
                    "如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
             }
+        }
+
+        /// <summary>
+        /// 微信后台验证地址（使用Post），微信企业后台应用的“修改配置”的Url填写如：http://weixin.senparc.com/qy
+        /// </summary>
+        [HttpPost]
+        [ActionName("Index")]
+        public ActionResult Post(string msg_signature = "", string signature = "", string timestamp = "", string nonce = "", string echostr = "")
+        {
+            string postData = null;
+
+            return Content("");//TODO还没做完
         }
     }
 }

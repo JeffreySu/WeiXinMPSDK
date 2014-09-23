@@ -68,23 +68,20 @@ namespace Senparc.Weixin.MessageHandlers
     /// </summary>
     public abstract class MessageHandler<TC> : IMessageHandler where TC : class, IMessageContext, new()
     {
-        /// <summary>
-        /// 上下文
-        /// </summary>
-        public static WeixinContext<TC> GlobalWeixinContext = new WeixinContext<TC>();
+        ///// <summary>
+        ///// 上下文
+        ///// </summary>
+        //public static WeixinContext<TC> GlobalWeixinContext = new WeixinContext<TC>();
 
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public WeixinContext<TC> WeixinContext
-        {
-            get { return GlobalWeixinContext; }
-        }
+        public abstract WeixinContext<TC> WeixinContext { get; }
 
         /// <summary>
         /// 当前用户消息上下文
         /// </summary>
-        public TC CurrentMessageContext
+        public virtual TC CurrentMessageContext
         {
             get { return WeixinContext.GetMessageContext(RequestMessage); }
         }
@@ -173,14 +170,8 @@ namespace Senparc.Weixin.MessageHandlers
         }
 
         public abstract void Init(XDocument requestDocument);
-       
-        /// <summary>
-        /// 根据当前的RequestMessage创建指定类型的ResponseMessage
-        /// </summary>
-        /// <typeparam name="TR">基于ResponseMessageBase的响应消息类型</typeparam>
-        /// <returns></returns>
-        public abstract TR CreateResponseMessage<TR>() where TR : ResponseMessageBase;
-       
+
+
         /// <summary>
         /// 执行微信请求
         /// </summary>

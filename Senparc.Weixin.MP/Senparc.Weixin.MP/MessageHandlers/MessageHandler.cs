@@ -8,76 +8,34 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
-using Senparc.Weixin.MP.Context;
+using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Helpers;
+using IMessageContext = Senparc.Weixin.MP.Context.IMessageContext;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
-    public interface IMessageHandler
+    public interface IMessageHandler : Weixin.MessageHandlers.IMessageHandler
     {
-        /// <summary>
-        /// 发送者用户名（OpenId）
-        /// </summary>
-        string WeixinOpenId { get; }
 
-        /// <summary>
-        /// 取消执行Execute()方法。一般在OnExecuting()中用于临时阻止执行Execute()。
-        /// 默认为False。
-        /// 如果在执行OnExecuting()执行前设为True，则所有OnExecuting()、Execute()、OnExecuted()代码都不会被执行。
-        /// 如果在执行OnExecuting()执行过程中设为True，则后续Execute()及OnExecuted()代码不会被执行。
-        /// 建议在设为True的时候，给ResponseMessage赋值，以返回友好信息。
-        /// </summary>
-        bool CancelExcute { get; set; }
-
-        /// <summary>
-        /// 在构造函数中转换得到原始XML数据
-        /// </summary>
-        XDocument RequestDocument { get; set; }
-
-        /// <summary>
-        /// 根据ResponseMessageBase获得转换后的ResponseDocument
-        /// 注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
-        /// </summary>
-        XDocument ResponseDocument { get; }
-
-        /// <summary>
-        /// 请求实体
-        /// </summary>
-        IRequestMessageBase RequestMessage { get; set; }
-        /// <summary>
-        /// 响应实体
-        /// 只有当执行Execute()方法后才可能有值
-        /// </summary>
-        IResponseMessageBase ResponseMessage { get; set; }
-
-        /// <summary>
-        /// 是否使用了MessageAgent代理
-        /// </summary>
-        bool UsedMessageAgent { get; set; }
-
-        /// <summary>
-        /// 执行微信请求
-        /// </summary>
-        void Execute();
     }
 
     /// <summary>
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
     /// </summary>
-    public abstract class MessageHandler<TC> : IMessageHandler where TC : class, IMessageContext, new()
+    public abstract class MessageHandler<TC> : Weixin.MessageHandlers.MessageHandler<TC>, IMessageHandler where TC : class, IMessageContext, new()
     {
         /// <summary>
         /// 上下文
         /// </summary>
-        public static WeixinContext<TC> GlobalWeixinContext = new WeixinContext<TC>();
+        public static WeixinContext<TC> GlobalWeixinContext = new Context.WeixinContext<TC>();
 
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public WeixinContext<TC> WeixinContext
+        public override Weixin.Context.WeixinContext<TC> WeixinContext
         {
             get { return GlobalWeixinContext; }
         }
@@ -85,7 +43,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 当前用户消息上下文
         /// </summary>
-        public TC CurrentMessageContext
+        public override TC CurrentMessageContext
         {
             get { return WeixinContext.GetMessageContext(RequestMessage); }
         }
@@ -135,7 +93,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 根据ResponseMessageBase获得转换后的ResponseDocument
         /// 注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
         /// </summary>
-        public XDocument ResponseDocument
+        public override XDocument ResponseDocument
         {
             get
             {
@@ -151,20 +109,17 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 请求实体
         /// </summary>
-        public IRequestMessageBase RequestMessage { get; set; }
+        new public IRequestMessageBase RequestMessage { get; set; }
         /// <summary>
         /// 响应实体
         /// 正常情况下只有当执行Execute()方法后才可能有值。
         /// 也可以结合Cancel，提前给ResponseMessage赋值。
         /// </summary>
-        public IResponseMessageBase ResponseMessage { get; set; }
+        new public IResponseMessageBase ResponseMessage { get; set; }
 
-        /// <summary>
-        /// 是否使用了MessageAgent代理
-        /// </summary>
-        public bool UsedMessageAgent { get; set; }
 
         public MessageHandler(Stream inputStream, int maxRecordCount = 0)
+            : base(inputStream, maxRecordCount)
         {
             WeixinContext.MaxRecordCount = maxRecordCount;
             using (XmlReader xr = XmlReader.Create(inputStream))
@@ -175,6 +130,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         public MessageHandler(XDocument requestDocument, int maxRecordCount = 0)
+            : base(requestDocument, maxRecordCount)
         {
             WeixinContext.MaxRecordCount = maxRecordCount;
             Init(requestDocument);
@@ -210,7 +166,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 执行微信请求
         /// </summary>
-        public void Execute()
+        public override void Execute()
         {
             if (CancelExcute)
             {
@@ -403,8 +359,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
             return responseMessage;
         }
-
-
 
         #region Event 下属分类
 

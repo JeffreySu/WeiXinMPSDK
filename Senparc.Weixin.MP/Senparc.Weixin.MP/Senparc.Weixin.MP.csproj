@@ -79,7 +79,6 @@
     <Compile Include="AdvancedAPIs\User\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\User.cs" />
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
-    <Compile Include="Entities\MessageBase.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="QYAPIs\AccessToken\AccessToken.cs" />

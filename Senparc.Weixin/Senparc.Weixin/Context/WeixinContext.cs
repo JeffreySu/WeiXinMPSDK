@@ -22,11 +22,16 @@ namespace Senparc.Weixin.Context
 
     }
 
+    //public interface IWeixinContext<TM> where TM : class, IMessageContext, new()
+    //{
+
+    //}
+
     /// <summary>
     /// 微信消息上下文（全局）
     /// 默认过期时间：90分钟
     /// </summary>
-    public class WeixinContext<TM> where TM : class, IMessageContext, new()
+    public class WeixinContext<TM> /*: IWeixinContext<TM>*/ where TM : class, IMessageContext, new()
     {
         private int _maxRecordCount;
 

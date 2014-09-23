@@ -2,26 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public interface IRequestMessageBase : IMessageBase
+    public interface IRequestMessageBase : Weixin.Entities.IRequestMessageBase
     {
-        RequestMsgType MsgType { get; }
-        long MsgId { get; set; }
+
     }
 
     /// <summary>
     /// 接收到请求的消息
     /// </summary>
-    public class RequestMessageBase : MessageBase, IRequestMessageBase
+    public class RequestMessageBase : Weixin.Entities.RequestMessageBase, IRequestMessageBase
     {
         public RequestMessageBase()
         {
 
         }
 
-        public virtual RequestMsgType MsgType
+        public override RequestMsgType MsgType
         {
             get { return RequestMsgType.Text; }
         }

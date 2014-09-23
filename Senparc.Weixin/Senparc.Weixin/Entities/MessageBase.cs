@@ -15,10 +15,10 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// 所有Request和Response消息的基类
     /// </summary>
-    public abstract class MessageBase
+    public class MessageBase : IMessageBase
     {
-        public abstract string ToUserName { get; set; }
-        public abstract string FromUserName { get; set; }
-        public abstract DateTime CreateTime { get; set; }
+        public string ToUserName { get; set; }
+        public string FromUserName { get; set; }
+        public DateTime CreateTime { get; set; }
     }
 }

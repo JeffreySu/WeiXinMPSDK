@@ -9,7 +9,7 @@ namespace Senparc.Weixin.MP.Context
     /// 微信消息列队（针对单个账号的往来消息）
     /// </summary>
     /// <typeparam name="TM"></typeparam>
-    public class MessageQueue<TM> : List<TM> where TM : class, IMessageContext, new()
+    public class MessageQueue<TM> : Weixin.Context.MessageQueue<TM> where TM : class, IMessageContext, new()
     {
 
     }

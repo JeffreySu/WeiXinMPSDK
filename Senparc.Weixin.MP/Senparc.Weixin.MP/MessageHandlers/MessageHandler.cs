@@ -136,7 +136,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             Init(requestDocument);
         }
 
-        private void Init(XDocument requestDocument)
+        public override void Init(XDocument requestDocument)
         {
             RequestDocument = requestDocument;
             RequestMessage = RequestMessageFactory.GetRequestEntity(RequestDocument);

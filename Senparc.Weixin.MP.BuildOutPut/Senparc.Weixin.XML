@@ -510,26 +510,9 @@
             此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
             </summary>
         </member>
-        <member name="F:Senparc.Weixin.MessageHandlers.MessageHandler`1.GlobalWeixinContext">
-            <summary>
-            上下文
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MessageHandlers.MessageHandler`1.CreateResponseMessage``1">
-            <summary>
-            根据当前的RequestMessage创建指定类型的ResponseMessage
-            </summary>
-            <typeparam name="TR">基于ResponseMessageBase的响应消息类型</typeparam>
-            <returns></returns>
-        </member>
         <member name="M:Senparc.Weixin.MessageHandlers.MessageHandler`1.Execute">
             <summary>
             执行微信请求
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MessageHandlers.MessageHandler`1.DefaultResponseMessage(Senparc.Weixin.Entities.IRequestMessageBase)">
-            <summary>
-            默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MessageHandlers.MessageHandler`1.WeixinContext">

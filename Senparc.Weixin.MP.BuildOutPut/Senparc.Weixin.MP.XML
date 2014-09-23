@@ -583,11 +583,6 @@
             高级接口获取的用户信息
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.Entities.MessageBase">
-            <summary>
-            所有Request和Response消息的基类
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_TemplateSendJobFinish">
             <summary>
             事件推送群发结果。
@@ -1836,11 +1831,6 @@
             <param name="data">如果是Get方式，可以为null</param>
             <returns></returns>
         </member>
-        <member name="P:Senparc.Weixin.MP.Context.MessageContainer`1.MaxRecordCount">
-            <summary>
-            最大记录条数（保留尾部），如果小于等于0则不限制
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.MP.Context.MessageQueue`1">
             <summary>
             微信消息列队（针对单个账号的往来消息）
@@ -1850,21 +1840,6 @@
         <member name="T:Senparc.Weixin.MP.Context.WeixinContextRemovedEventArgs">
             <summary>
             对话上下文被删除时触发事件的事件数据
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Context.WeixinContextRemovedEventArgs.OpenId">
-            <summary>
-            该用户的OpenId
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Context.WeixinContextRemovedEventArgs.LastActiveTime">
-            <summary>
-            最后一次响应时间
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Context.WeixinContextRemovedEventArgs.MessageContext">
-            <summary>
-            上下文对象
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkerSize">
@@ -2404,52 +2379,6 @@
             
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.Execute">
-            <summary>
-            执行微信请求
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.WeixinOpenId">
-            <summary>
-            发送者用户名（OpenId）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.CancelExcute">
-            <summary>
-            取消执行Execute()方法。一般在OnExecuting()中用于临时阻止执行Execute()。
-            默认为False。
-            如果在执行OnExecuting()执行前设为True，则所有OnExecuting()、Execute()、OnExecuted()代码都不会被执行。
-            如果在执行OnExecuting()执行过程中设为True，则后续Execute()及OnExecuted()代码不会被执行。
-            建议在设为True的时候，给ResponseMessage赋值，以返回友好信息。
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.RequestDocument">
-            <summary>
-            在构造函数中转换得到原始XML数据
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.ResponseDocument">
-            <summary>
-            根据ResponseMessageBase获得转换后的ResponseDocument
-            注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.RequestMessage">
-            <summary>
-            请求实体
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.ResponseMessage">
-            <summary>
-            响应实体
-            只有当执行Execute()方法后才可能有值
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.MessageHandlers.IMessageHandler.UsedMessageAgent">
-            <summary>
-            是否使用了MessageAgent代理
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1">
             <summary>
             微信请求的集中处理方法
@@ -2623,11 +2552,6 @@
             也可以结合Cancel，提前给ResponseMessage赋值。
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.UsedMessageAgent">
-            <summary>
-            是否使用了MessageAgent代理
-            </summary>
-        </member>
         <member name="M:Senparc.Weixin.MP.RequestMessageFactory.GetRequestEntity(System.Xml.Linq.XDocument)">
             <summary>
             获取XDocument转换后的IRequestMessageBase实例。
@@ -2664,148 +2588,15 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="P:Senparc.Weixin.MP.Context.IMessageContext.UserName">
-            <summary>
-            用户名（OpenID）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Context.IMessageContext.LastActiveTime">
-            <summary>
-            最后一次活动时间（用户主动发送Resquest请求的时间）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Context.IMessageContext.RequestMessages">
-            <summary>
-            接收消息记录
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Context.IMessageContext.ResponseMessages">
-            <summary>
-            响应消息记录
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Context.IMessageContext.MaxRecordCount">
-            <summary>
-            最大储存容量（分别针对RequestMessages和ResponseMessages）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Context.IMessageContext.StorageData">
-            <summary>
-            临时储存数据，如用户状态等，出于保持.net 3.5版本，这里暂不使用dynamic
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Context.IMessageContext.ExpireMinutes">
-            <summary>
-            用于覆盖WeixinContext所设置的默认过期时间
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.MP.Context.MessageContext">
             <summary>
             微信消息上下文（单个用户）
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.Context.MessageContext.OnMessageContextRemoved(Senparc.Weixin.MP.Context.WeixinContextRemovedEventArgs)">
-            <summary>
-            执行上下文被移除的事件
-            注意：此事件不是实时触发的，而是等过期后任意一个人发过来的下一条消息执行之前触发。
-            </summary>
-            <param name="e"></param>
-        </member>
-        <member name="M:Senparc.Weixin.MP.Context.MessageContext.#ctor">
-            <summary>
-            
-            </summary>
-            <param name="maxRecordCount">maxRecordCount如果小于等于0，则不限制</param>
-        </member>
-        <member name="F:Senparc.Weixin.MP.Context.WeixinContextGlobal.UseWeixinContext">
-            <summary>
-            是否开启上下文记录
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Context.WeixinContext`1">
             <summary>
             微信消息上下文（全局）
             默认过期时间：90分钟
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.Restore">
-            <summary>
-            重置所有上下文参数，所有记录将被清空
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.GetMessageContext(System.String)">
-            <summary>
-            获取MessageContext，如果不存在，返回null
-            这个方法的更重要意义在于操作TM队列，及时移除过期信息，并将最新活动的对象移到尾部
-            </summary>
-            <param name="userName">用户名（OpenId）</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.GetMessageContext(System.String,System.Boolean)">
-            <summary>
-            获取MessageContext
-            </summary>
-            <param name="userName">用户名（OpenId）</param>
-            <param name="createIfNotExists">True：如果用户不存在，则创建一个实例，并返回这个最新的实例
-            False：用户储存在，则返回null</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.GetMessageContext(Senparc.Weixin.MP.Entities.IRequestMessageBase)">
-            <summary>
-            获取MessageContext，如果不存在，使用requestMessage信息初始化一个，并返回原始实例
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.GetMessageContext(Senparc.Weixin.MP.Entities.IResponseMessageBase)">
-            <summary>
-            获取MessageContext，如果不存在，使用requestMessage信息初始化一个，并返回原始实例
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.InsertMessage(Senparc.Weixin.MP.Entities.IRequestMessageBase)">
-            <summary>
-            记录请求信息
-            </summary>
-            <param name="requestMessage">请求信息</param>
-        </member>
-        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.InsertMessage(Senparc.Weixin.MP.Entities.IResponseMessageBase)">
-            <summary>
-            记录响应信息
-            </summary>
-            <param name="responseMessage">响应信息</param>
-        </member>
-        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.GetLastRequestMessage(System.String)">
-            <summary>
-            获取最新一条请求数据，如果不存在，则返回Null
-            </summary>
-            <param name="userName">用户名（OpenId）</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.Context.WeixinContext`1.GetLastResponseMessage(System.String)">
-            <summary>
-            获取最新一条响应数据，如果不存在，则返回Null
-            </summary>
-            <param name="userName">用户名（OpenId）</param>
-            <returns></returns>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Context.WeixinContext`1.MessageCollection">
-            <summary>
-            所有MessageContext集合，不要直接操作此对象
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Context.WeixinContext`1.MessageQueue">
-            <summary>
-            MessageContext列队（LastActiveTime升序排列）,不要直接操作此对象
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Context.WeixinContext`1.ExpireMinutes">
-            <summary>
-            每一个MessageContext过期时间
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Context.WeixinContext`1.MaxRecordCount">
-            <summary>
-            最大储存上下文数量（分别针对请求和响应信息）
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.TenPayLib.MD5Util">

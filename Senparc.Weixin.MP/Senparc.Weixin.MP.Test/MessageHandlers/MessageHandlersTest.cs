@@ -86,16 +86,6 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             responseMessage.Content = "您发送的消息类型暂未被识别。";
             return responseMessage;
         }
-
-        public override void Init(XDocument requestDocument)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override Weixin.Entities.IResponseMessageBase DefaultResponseMessage(Weixin.Entities.IRequestMessageBase requestMessage)
-        {
-            throw new NotImplementedException();
-        }
     }
 
     [TestClass]

@@ -184,16 +184,5 @@ namespace Senparc.Weixin.MessageHandlers
         public virtual void OnExecuted()
         {
         }
-
-        /// <summary>
-        /// 默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
-        /// </summary>
-        public abstract IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage);
-        //{
-        //    例如可以这样实现：
-        //    var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-        //    responseMessage.Content = "您发送的消息类型暂未被识别。";
-        //    return responseMessage;
-        //}
     }
 }

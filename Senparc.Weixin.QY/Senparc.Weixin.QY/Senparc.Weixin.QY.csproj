@@ -44,8 +44,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\Custom\Custom.cs" />
+    <Compile Include="AdvancedAPIs\Custom\CustomResult.cs" />
+    <Compile Include="AdvancedAPIs\MailList\Department\Department.cs" />
+    <Compile Include="AdvancedAPIs\MailList\Department\DepartmentResult.cs" />
+    <Compile Include="AdvancedAPIs\MailList\Member\Member.cs" />
+    <Compile Include="AdvancedAPIs\MailList\Member\MemberResult.cs" />
+    <Compile Include="AdvancedAPIs\MailList\Tag\Tag.cs" />
+    <Compile Include="AdvancedAPIs\MailList\Tag\TagResult.cs" />
+    <Compile Include="AdvancedAPIs\Media\Media.cs" />
+    <Compile Include="AdvancedAPIs\Media\UploadResultJson.cs" />
+    <Compile Include="AdvancedAPIs\OAuth2\OAuth2.cs" />
+    <Compile Include="AdvancedAPIs\OAuth2\OAuth2Result.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="Entities\JsonResult\AccessTokenResult.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Exceptions\ErrorJsonResultException.cs" />
+    <Compile Include="Exceptions\MessageHandlerException.cs" />
+    <Compile Include="Exceptions\UnknownRequestMsgTypeException.cs" />
+    <Compile Include="Exceptions\WeixinException.cs" />
+    <Compile Include="Exceptions\WeixinMenuException.cs" />
+    <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Signature.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
@@ -53,6 +72,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Tencent\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
+      <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
+      <Name>Senparc.Weixin</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -8,8 +8,8 @@ using System.Text;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
-using Senparc.Weixin.MP.Exceptions;
-using Senparc.Weixin.MP.HttpUtility;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {

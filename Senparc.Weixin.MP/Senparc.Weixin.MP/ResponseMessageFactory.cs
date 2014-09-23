@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.MP
 {

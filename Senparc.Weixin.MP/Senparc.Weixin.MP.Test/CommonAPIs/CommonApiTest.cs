@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 

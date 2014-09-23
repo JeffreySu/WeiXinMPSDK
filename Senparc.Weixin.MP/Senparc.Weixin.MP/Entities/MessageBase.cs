@@ -5,20 +5,18 @@ using System.Text;
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public interface IMessageBase
+    public interface IMessageBase : Weixin.Entities.IMessageBase
     {
-        string ToUserName { get; set; }
-        string FromUserName { get; set; }
-        DateTime CreateTime { get; set; }
+
     }
 
     /// <summary>
     /// 所有Request和Response消息的基类
     /// </summary>
-    public class MessageBase
+    public class MessageBase : Weixin.Entities.MessageBase, IMessageBase
     {
-        public string ToUserName { get; set; }
-        public string FromUserName { get; set; }
-        public DateTime CreateTime { get; set; }
+        public override string ToUserName { get; set; }
+        public override string FromUserName { get; set; }
+        public override DateTime CreateTime { get; set; }
     }
 }

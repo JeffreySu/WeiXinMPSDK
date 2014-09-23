@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.HttpUtility;
+using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.Test.HttpUtility
 {

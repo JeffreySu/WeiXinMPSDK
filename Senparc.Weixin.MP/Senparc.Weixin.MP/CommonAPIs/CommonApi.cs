@@ -5,10 +5,11 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web.Script.Serialization;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.HttpUtility;
+using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {

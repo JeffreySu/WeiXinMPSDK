@@ -10,7 +10,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Exceptions;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.MessageHandlers

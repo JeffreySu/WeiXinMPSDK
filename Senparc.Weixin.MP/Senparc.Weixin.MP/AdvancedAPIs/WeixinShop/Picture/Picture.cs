@@ -21,10 +21,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             var json=new PictureResult();
 
-            using (var fs = Senparc.Weixin.MP.Helpers.FileHelper.GetFileStream(fileName))
+            using (var fs = Senparc.Weixin.Helpers.FileHelper.GetFileStream(fileName))
             {
-                var jsonText = Senparc.Weixin.MP.HttpUtility.RequestUtility.HttpPost(url, null, fs);
-                json = Senparc.Weixin.MP.HttpUtility.Post.GetResult<PictureResult>(jsonText);
+                var jsonText = Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(url, null, fs);
+                json = Senparc.Weixin.HttpUtility.Post.GetResult<PictureResult>(jsonText);
             }
             return json;
         }

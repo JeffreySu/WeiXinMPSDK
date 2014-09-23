@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.Test.Entities.Response

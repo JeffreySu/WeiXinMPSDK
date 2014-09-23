@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.MP.Test
 {

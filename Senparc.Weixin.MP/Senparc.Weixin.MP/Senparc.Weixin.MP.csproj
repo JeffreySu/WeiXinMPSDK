@@ -79,8 +79,9 @@
     <Compile Include="AdvancedAPIs\User\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\User.cs" />
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
+    <Compile Include="Entities\MessageBase.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
-    <Compile Include="Exceptions\MessageHandlerException.cs" />
+    <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="QYAPIs\AccessToken\AccessToken.cs" />
     <Compile Include="QYAPIs\AccessToken\AccessTokenResult.cs" />
     <Compile Include="QYAPIs\MailList\Department\DepartmentResult.cs" />
@@ -120,7 +121,6 @@
     <Compile Include="CommonAPIs\AccessTokenHandlerWapper.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
-    <Compile Include="Config.cs" />
     <Compile Include="Context\MessageContainer.cs" />
     <Compile Include="Context\MessageQueue.cs" />
     <Compile Include="Context\WeixinContextRemovedEventArgs.cs" />
@@ -139,9 +139,6 @@
     <Compile Include="Entities\Menu\SingleClickButton.cs" />
     <Compile Include="Entities\Menu\SubButton.cs" />
     <Compile Include="Entities\Menu\SingleViewButton.cs" />
-    <Compile Include="Entities\MessageBase.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Entities\Request\Event\IRequestMessageEventKey.cs" />
     <Compile Include="Entities\Request\RequestMessageBase.cs">
       <SubType>Code</SubType>
@@ -182,9 +179,6 @@
     <Compile Include="Entities\Response\Music.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Entities\Response\ResponseMessageBase.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Entities\Response\ResponseMessageMusic.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -201,27 +195,15 @@
     <Compile Include="Entities\Response\Voice.cs" />
     <Compile Include="Entities\Response\ResponseMessageVideo.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="Exceptions\ErrorJsonResultException.cs" />
-    <Compile Include="Exceptions\WeixinMenuException.cs" />
     <Compile Include="Helpers\BaiduMapHelper.cs" />
-    <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
-    <Compile Include="Helpers\EventHelper.cs" />
-    <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\GoogleMapHelper.cs" />
     <Compile Include="Helpers\GpsHelper.cs" />
-    <Compile Include="Helpers\MsgTypeHelper.cs" />
-    <Compile Include="Helpers\SerializerHelper.cs" />
-    <Compile Include="HttpUtility\Get.cs" />
-    <Compile Include="HttpUtility\Post.cs" />
-    <Compile Include="HttpUtility\RequestUtility.cs" />
     <Compile Include="Merchant\Entities\ProductBase.cs" />
     <Compile Include="Merchant\Good.cs" />
     <Compile Include="MessageHandlers\MessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestMessageFactory.cs" />
-    <Compile Include="Exceptions\UnknownRequestMsgTypeException.cs" />
-    <Compile Include="Exceptions\WeixinException.cs" />
     <Compile Include="ResponseMessageFactory.cs" />
     <Compile Include="Context\MessageContext.cs" />
     <Compile Include="Context\WeixinContext.cs" />
@@ -243,6 +225,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TenPayLib\TenpayHttpClient.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
+      <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
+      <Name>Senparc.Weixin</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.MP
 {

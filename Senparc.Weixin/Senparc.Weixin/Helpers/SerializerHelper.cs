@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 
-namespace Senparc.Weixin.MP.Helpers
+namespace Senparc.Weixin.Helpers
 {
     public class SerializerHelper
     {

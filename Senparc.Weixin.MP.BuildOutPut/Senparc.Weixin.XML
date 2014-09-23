@@ -1,0 +1,603 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Senparc.Weixin</name>
+    </assembly>
+    <members>
+        <member name="T:Senparc.Weixin.Config">
+            <summary>
+            全局设置
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Config.TIME_OUT">
+            <summary>
+            请求超时设置（以毫秒为单位），默认为10秒
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Context.MessageContainer`1.MaxRecordCount">
+            <summary>
+            最大记录条数（保留尾部），如果小于等于0则不限制
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Context.IMessageContext.UserName">
+            <summary>
+            用户名（OpenID）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Context.IMessageContext.LastActiveTime">
+            <summary>
+            最后一次活动时间（用户主动发送Resquest请求的时间）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Context.IMessageContext.RequestMessages">
+            <summary>
+            接收消息记录
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Context.IMessageContext.ResponseMessages">
+            <summary>
+            响应消息记录
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Context.IMessageContext.MaxRecordCount">
+            <summary>
+            最大储存容量（分别针对RequestMessages和ResponseMessages）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Context.IMessageContext.StorageData">
+            <summary>
+            临时储存数据，如用户状态等，出于保持.net 3.5版本，这里暂不使用dynamic
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Context.IMessageContext.ExpireMinutes">
+            <summary>
+            用于覆盖WeixinContext所设置的默认过期时间
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Context.MessageContext">
+            <summary>
+            微信消息上下文（单个用户）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Context.MessageContext.OnMessageContextRemoved(Senparc.Weixin.Context.WeixinContextRemovedEventArgs)">
+            <summary>
+            执行上下文被移除的事件
+            注意：此事件不是实时触发的，而是等过期后任意一个人发过来的下一条消息执行之前触发。
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Senparc.Weixin.Context.MessageContext.#ctor">
+            <summary>
+            
+            </summary>
+            <param name="maxRecordCount">maxRecordCount如果小于等于0，则不限制</param>
+        </member>
+        <member name="T:Senparc.Weixin.Context.MessageQueue`1">
+            <summary>
+            微信消息列队（针对单个账号的往来消息）
+            </summary>
+            <typeparam name="TM"></typeparam>
+        </member>
+        <member name="F:Senparc.Weixin.Context.WeixinContextGlobal.UseWeixinContext">
+            <summary>
+            是否开启上下文记录
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Context.WeixinContext`1">
+            <summary>
+            微信消息上下文（全局）
+            默认过期时间：90分钟
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Context.WeixinContext`1.Restore">
+            <summary>
+            重置所有上下文参数，所有记录将被清空
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Context.WeixinContext`1.GetMessageContext(System.String)">
+            <summary>
+            获取MessageContext，如果不存在，返回null
+            这个方法的更重要意义在于操作TM队列，及时移除过期信息，并将最新活动的对象移到尾部
+            </summary>
+            <param name="userName">用户名（OpenId）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Context.WeixinContext`1.GetMessageContext(System.String,System.Boolean)">
+            <summary>
+            获取MessageContext
+            </summary>
+            <param name="userName">用户名（OpenId）</param>
+            <param name="createIfNotExists">True：如果用户不存在，则创建一个实例，并返回这个最新的实例
+            False：用户储存在，则返回null</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Context.WeixinContext`1.GetMessageContext(Senparc.Weixin.Entities.IRequestMessageBase)">
+            <summary>
+            获取MessageContext，如果不存在，使用requestMessage信息初始化一个，并返回原始实例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Context.WeixinContext`1.GetMessageContext(Senparc.Weixin.Entities.IResponseMessageBase)">
+            <summary>
+            获取MessageContext，如果不存在，使用requestMessage信息初始化一个，并返回原始实例
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Context.WeixinContext`1.InsertMessage(Senparc.Weixin.Entities.IRequestMessageBase)">
+            <summary>
+            记录请求信息
+            </summary>
+            <param name="requestMessage">请求信息</param>
+        </member>
+        <member name="M:Senparc.Weixin.Context.WeixinContext`1.InsertMessage(Senparc.Weixin.Entities.IResponseMessageBase)">
+            <summary>
+            记录响应信息
+            </summary>
+            <param name="responseMessage">响应信息</param>
+        </member>
+        <member name="M:Senparc.Weixin.Context.WeixinContext`1.GetLastRequestMessage(System.String)">
+            <summary>
+            获取最新一条请求数据，如果不存在，则返回Null
+            </summary>
+            <param name="userName">用户名（OpenId）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Context.WeixinContext`1.GetLastResponseMessage(System.String)">
+            <summary>
+            获取最新一条响应数据，如果不存在，则返回Null
+            </summary>
+            <param name="userName">用户名（OpenId）</param>
+            <returns></returns>
+        </member>
+        <member name="P:Senparc.Weixin.Context.WeixinContext`1.MessageCollection">
+            <summary>
+            所有MessageContext集合，不要直接操作此对象
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Context.WeixinContext`1.MessageQueue">
+            <summary>
+            MessageContext列队（LastActiveTime升序排列）,不要直接操作此对象
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Context.WeixinContext`1.ExpireMinutes">
+            <summary>
+            每一个MessageContext过期时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Context.WeixinContext`1.MaxRecordCount">
+            <summary>
+            最大储存上下文数量（分别针对请求和响应信息）
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Context.WeixinContextRemovedEventArgs">
+            <summary>
+            对话上下文被删除时触发事件的事件数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Context.WeixinContextRemovedEventArgs.OpenId">
+            <summary>
+            该用户的OpenId
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Context.WeixinContextRemovedEventArgs.LastActiveTime">
+            <summary>
+            最后一次响应时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Context.WeixinContextRemovedEventArgs.MessageContext">
+            <summary>
+            上下文对象
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Entities.MessageBase">
+            <summary>
+            所有Request和Response消息的基类
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.RequestMsgType">
+            <summary>
+            接收消息类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Event">
+            <summary>
+            当RequestMsgType类型为Event时，Event属性的类型
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Event.ENTER">
+            <summary>
+            进入会话（似乎已从官方API中移除）
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Event.LOCATION">
+            <summary>
+            地理位置（似乎已从官方API中移除）
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Event.subscribe">
+            <summary>
+            订阅
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Event.unsubscribe">
+            <summary>
+            取消订阅
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Event.CLICK">
+            <summary>
+            自定义菜单点击事件
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Event.scan">
+            <summary>
+            二维码扫描
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Event.VIEW">
+            <summary>
+            URL跳转
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Event.MASSSENDJOBFINISH">
+            <summary>
+            事件推送群发结果
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Event.TEMPLATESENDJOBFINISH">
+            <summary>
+            模板信息发送完成
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.ResponseMsgType">
+            <summary>
+            发送消息类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.ReturnCode">
+            <summary>
+            返回码（JSON）
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Language">
+            <summary>
+            语言
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Language.zh_CN">
+            <summary>
+            中文简体
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Language.zh_TW">
+            <summary>
+            中文繁体
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Language.en">
+            <summary>
+            英文
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Exceptions.ErrorJsonResultException">
+            <summary>
+            JSON返回错误代码（比如token_access相关操作中使用）。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Exceptions.WeixinException">
+            <summary>
+            微信自定义异常基类
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Exceptions.UnknownRequestMsgTypeException">
+            <summary>
+            未知请求类型。
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.DateTimeHelper.GetDateTimeFromXml(System.Int64)">
+            <summary>
+            转换微信DateTime时间到C#时间
+            </summary>
+            <param name="dateTimeFromXml">微信DateTime</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.DateTimeHelper.GetDateTimeFromXml(System.String)">
+            <summary>
+            转换微信DateTime时间到C#时间
+            </summary>
+            <param name="dateTimeFromXml">微信DateTime</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(System.DateTime)">
+            <summary>
+            获取微信DateTime（UNIX时间戳）
+            </summary>
+            <param name="dateTime">时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.FileHelper.GetFileStream(System.String)">
+            <summary>
+            根据完整文件路径获取FileStream
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.MsgTypeHelper.GetRequestMsgType(System.Xml.Linq.XDocument)">
+            <summary>
+            根据xml信息，返回RequestMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.MsgTypeHelper.GetRequestMsgType(System.String)">
+            <summary>
+            根据xml信息，返回RequestMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.MsgTypeHelper.GetResponseMsgType(System.Xml.Linq.XDocument)">
+            <summary>
+            根据xml信息，返回ResponseMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.MsgTypeHelper.GetResponseMsgType(System.String)">
+            <summary>
+            根据xml信息，返回ResponseMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.SerializerHelper.DecodeUnicode(System.Text.RegularExpressions.Match)">
+            <summary>
+            unicode解码
+            </summary>
+            <param name="match"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.Post.GetResult``1(System.String)">
+            <summary>
+            获取Post结果
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="returnText"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostFileGetJson``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding)">
+            <summary>
+            发起Post请求
+            </summary>
+            <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
+            <param name="url">请求Url</param>
+            <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJson``1(System.String,System.Net.CookieContainer,System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            发起Post请求
+            </summary>
+            <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
+            <param name="url">请求Url</param>
+            <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
+            <param name="fileStream">文件流</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpGet(System.String,System.Text.Encoding)">
+            <summary>
+            使用Get方法获取字符串结果（没有加入Cookie）
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpGet(System.String,System.Net.CookieContainer,System.Text.Encoding,System.Int32)">
+            <summary>
+            使用Get方法获取字符串结果（加入Cookie）
+            </summary>
+            <param name="url"></param>
+            <param name="cookieContainer"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Int32)">
+            <summary>
+            使用Post方法获取字符串结果，常规提交
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.IO.Stream,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Text.Encoding,System.Int32)">
+            <summary>
+            使用Post方法获取字符串结果
+            </summary>
+            <param name="url"></param>
+            <param name="cookieContainer"></param>
+            <param name="postStream"></param>
+            <param name="fileDictionary">需要上传的文件，Key：对应要上传的Name，Value：本地文件名</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.IsWeixinClientRequest(System.Web.HttpContext)">
+            <summary>
+            请求是否发起自微信客户端的浏览器
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“M:Senparc.Weixin.HttpUtility.RequestUtility.GetQueryString(System.Collections.Generic.Dictionary{System.String,System.String})”忽略有格式错误的 XML 注释 -->
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HtmlEncode(System.String)">
+            <summary>
+            封装System.Web.HttpUtility.HtmlEncode
+            </summary>
+            <param name="html"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HtmlDecode(System.String)">
+            <summary>
+            封装System.Web.HttpUtility.HtmlDecode
+            </summary>
+            <param name="html"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.UrlEncode(System.String)">
+            <summary>
+            封装System.Web.HttpUtility.UrlEncode
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.UrlDecode(System.String)">
+            <summary>
+            封装System.Web.HttpUtility.UrlDecode
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.Entities.WxJsonResult">
+            <summary>
+            JSON返回结果（用于菜单接口等）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Entities.WxJsonResult.P2PData">
+            <summary>
+            为P2P返回结果做准备
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MessageHandlers.IMessageHandler.Execute">
+            <summary>
+            执行微信请求
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandler.WeixinOpenId">
+            <summary>
+            发送者用户名（OpenId）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandler.CancelExcute">
+            <summary>
+            取消执行Execute()方法。一般在OnExecuting()中用于临时阻止执行Execute()。
+            默认为False。
+            如果在执行OnExecuting()执行前设为True，则所有OnExecuting()、Execute()、OnExecuted()代码都不会被执行。
+            如果在执行OnExecuting()执行过程中设为True，则后续Execute()及OnExecuted()代码不会被执行。
+            建议在设为True的时候，给ResponseMessage赋值，以返回友好信息。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandler.RequestDocument">
+            <summary>
+            在构造函数中转换得到原始XML数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandler.ResponseDocument">
+            <summary>
+            根据ResponseMessageBase获得转换后的ResponseDocument
+            注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandler.RequestMessage">
+            <summary>
+            请求实体
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandler.ResponseMessage">
+            <summary>
+            响应实体
+            只有当执行Execute()方法后才可能有值
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandler.UsedMessageAgent">
+            <summary>
+            是否使用了MessageAgent代理
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MessageHandlers.MessageHandler`1">
+            <summary>
+            微信请求的集中处理方法
+            此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MessageHandlers.MessageHandler`1.GlobalWeixinContext">
+            <summary>
+            上下文
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MessageHandlers.MessageHandler`1.CreateResponseMessage``1">
+            <summary>
+            根据当前的RequestMessage创建指定类型的ResponseMessage
+            </summary>
+            <typeparam name="TR">基于ResponseMessageBase的响应消息类型</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MessageHandlers.MessageHandler`1.Execute">
+            <summary>
+            执行微信请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MessageHandlers.MessageHandler`1.DefaultResponseMessage(Senparc.Weixin.Entities.IRequestMessageBase)">
+            <summary>
+            默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.MessageHandler`1.WeixinContext">
+            <summary>
+            全局消息上下文
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.MessageHandler`1.CurrentMessageContext">
+            <summary>
+            当前用户消息上下文
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.MessageHandler`1.WeixinOpenId">
+            <summary>
+            发送者用户名（OpenId）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.MessageHandler`1.UserName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.MessageHandler`1.CancelExcute">
+            <summary>
+            取消执行Execute()方法。一般在OnExecuting()中用于临时阻止执行Execute()。
+            默认为False。
+            如果在执行OnExecuting()执行前设为True，则所有OnExecuting()、Execute()、OnExecuted()代码都不会被执行。
+            如果在执行OnExecuting()执行过程中设为True，则后续Execute()及OnExecuted()代码不会被执行。
+            建议在设为True的时候，给ResponseMessage赋值，以返回友好信息。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.MessageHandler`1.RequestDocument">
+            <summary>
+            在构造函数中转换得到原始XML数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.MessageHandler`1.ResponseDocument">
+            <summary>
+            根据ResponseMessageBase获得转换后的ResponseDocument
+            注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.MessageHandler`1.RequestMessage">
+            <summary>
+            请求实体
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.MessageHandler`1.ResponseMessage">
+            <summary>
+            响应实体
+            正常情况下只有当执行Execute()方法后才可能有值。
+            也可以结合Cancel，提前给ResponseMessage赋值。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.MessageHandler`1.UsedMessageAgent">
+            <summary>
+            是否使用了MessageAgent代理
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Entities.RequestMessageBase">
+            <summary>
+            接收到请求的消息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Entities.ResponseMessageBase">
+            <summary>
+            响应回复消息
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Senparc.Weixin.MP.Helpers
+namespace Senparc.Weixin.Helpers
 {
     public static class MsgTypeHelper
     {

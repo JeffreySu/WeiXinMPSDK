@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.Helpers

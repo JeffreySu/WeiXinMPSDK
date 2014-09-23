@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Senparc.Weixin.MP.Helpers
+namespace Senparc.Weixin.Helpers
 {
     public static class DateTimeHelper
     {

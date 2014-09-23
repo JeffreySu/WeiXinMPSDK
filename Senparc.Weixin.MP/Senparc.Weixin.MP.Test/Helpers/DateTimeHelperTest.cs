@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.Test

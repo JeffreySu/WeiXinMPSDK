@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Senparc.Weixin.MP.Helpers
+namespace Senparc.Weixin.Helpers
 {
     public class FileHelper
     {

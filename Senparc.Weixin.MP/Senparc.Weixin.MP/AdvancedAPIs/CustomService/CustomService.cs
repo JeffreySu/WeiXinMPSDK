@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.MP.CommonAPIs;
-
+using Senparc.Weixin.Helpers;
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
@@ -39,8 +39,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             //组装发送消息
             var data = new
             {
-                starttime = Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
-                endtime = Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
+                starttime = DateTimeHelper.GetWeixinDateTime(startTime),
+                endtime = DateTimeHelper.GetWeixinDateTime(endTime),
                 openId = openId,
                 pagesize = pageSize,
                 pageIndex = pageIndex

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web.Compilation;
-using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Context
 {
@@ -36,13 +34,9 @@ namespace Senparc.Weixin.Context
         /// <summary>
         /// 上下文对象
         /// </summary>
-        public IMessageContext<MessageContainer<IRequestMessageBase>, MessageContainer<IResponseMessageBase>, IRequestMessageBase, IResponseMessageBase, WeixinContextRemovedEventArgs> MessageContext { get; set; }
+        public IMessageContext MessageContext { get; set; }
 
-        public WeixinContextRemovedEventArgs()
-        {
-        }
-
-        public WeixinContextRemovedEventArgs(IMessageContext<MessageContainer<IRequestMessageBase>, MessageContainer<IResponseMessageBase>, IRequestMessageBase, IResponseMessageBase, WeixinContextRemovedEventArgs> messageContext)
+        public WeixinContextRemovedEventArgs(IMessageContext messageContext)
         {
             MessageContext = messageContext;
         }

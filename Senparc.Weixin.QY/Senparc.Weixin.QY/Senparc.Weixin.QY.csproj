@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\Concern\Concern.cs" />
     <Compile Include="AdvancedAPIs\Custom\Custom.cs" />
     <Compile Include="AdvancedAPIs\Custom\CustomResult.cs" />
     <Compile Include="AdvancedAPIs\MailList\Department\Department.cs" />
@@ -88,17 +89,16 @@
     <Compile Include="Entities\Request\RequestMessageVoice.cs" />
     <Compile Include="Entities\Response\Article.cs" />
     <Compile Include="Entities\Response\Image.cs" />
-    <Compile Include="Entities\Response\Music.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Entities\Response\ResponseMessageImage.cs" />
-    <Compile Include="Entities\Response\ResponseMessageMusic.cs" />
     <Compile Include="Entities\Response\ResponseMessageNews.cs" />
     <Compile Include="Entities\Response\ResponseMessageText.cs" />
-    <Compile Include="Entities\Response\ResponseMessagetTransfer_Customer_Service.cs" />
     <Compile Include="Entities\Response\ResponseMessageVideo.cs" />
     <Compile Include="Entities\Response\ResponseMessageVoice.cs" />
     <Compile Include="Entities\Response\Video.cs" />
     <Compile Include="Entities\Response\Voice.cs" />
+    <Compile Include="Entities\Response\MpNewsArticle.cs" />
+    <Compile Include="Entities\Response\ResponseMessageMpNews.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\ErrorJsonResultException.cs" />
     <Compile Include="Exceptions\MessageHandlerException.cs" />

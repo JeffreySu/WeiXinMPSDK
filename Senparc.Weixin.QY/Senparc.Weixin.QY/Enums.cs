@@ -82,8 +82,7 @@ namespace Senparc.Weixin.QY
         Image,
         Voice,
         Video,
-        Transfer_Customer_Service,
-		//transfer_customer_service
+        MpNews
     }
 
     /// <summary>

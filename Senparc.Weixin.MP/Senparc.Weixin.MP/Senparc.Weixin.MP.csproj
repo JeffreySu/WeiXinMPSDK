@@ -81,14 +81,6 @@
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
-    <Compile Include="QYAPIs\AccessToken\AccessToken.cs" />
-    <Compile Include="QYAPIs\AccessToken\AccessTokenResult.cs" />
-    <Compile Include="QYAPIs\MailList\Department\DepartmentResult.cs" />
-    <Compile Include="QYAPIs\MailList\Department\Department.cs" />
-    <Compile Include="QYAPIs\MailList\Member\Member.cs" />
-    <Compile Include="QYAPIs\MailList\Member\MemberResult.cs" />
-    <Compile Include="QYAPIs\MailList\Tag\Tag.cs" />
-    <Compile Include="QYAPIs\MailList\Tag\TagResult.cs" />
     <Compile Include="TenPayLib\CheckRequestHandler.cs" />
     <Compile Include="TenPayLib\RefundQueryRequestHandler.cs" />
     <Compile Include="TenPayLib\ClientRequestHandler.cs" />

@@ -17,6 +17,9 @@ namespace Senparc.Weixin.MP.Context
     /// </summary>
     public class MessageContext : Weixin.Context.MessageContext, IMessageContext
     {
+        public MessageContext()
+        {
 
+        }
     }
 }

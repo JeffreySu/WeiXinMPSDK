@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Context
 {
-    public class MessageContainer<T> : List<T>
+    public class MessageContainer<T> : List<T> 
+        //where T : IMessageBase
     {
         /// <summary>
         /// 最大记录条数（保留尾部），如果小于等于0则不限制

@@ -94,8 +94,8 @@ namespace Senparc.Weixin.Context
         /// 
         /// </summary>
         /// <param name="maxRecordCount">maxRecordCount如果小于等于0，则不限制</param>
-        public MessageContext(MessageContainer<IRequestMessageBase> requestMessageContainer,
-            MessageContainer<IResponseMessageBase> responseMessageContainer)
+        public MessageContext(/*MessageContainer<IRequestMessageBase> requestMessageContainer,
+            MessageContainer<IResponseMessageBase> responseMessageContainer*/)
         {
             /*
              * 注意：即使使用其他类实现IMessageContext，
@@ -103,8 +103,8 @@ namespace Senparc.Weixin.Context
              * 这个时间关系到及时从缓存中移除过期的消息，节约内存使用
              */
 
-            RequestMessages = requestMessageContainer;
-            ResponseMessages = responseMessageContainer;
+            RequestMessages = new MessageContainer<IRequestMessageBase>(MaxRecordCount);
+            ResponseMessages = new MessageContainer<IResponseMessageBase>(MaxRecordCount);
             LastActiveTime = DateTime.Now;
         }
 

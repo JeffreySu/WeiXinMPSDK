@@ -13,7 +13,7 @@ namespace Senparc.Weixin.Context
         /// </summary>
         public int MaxRecordCount { get; set; }
 
-        private MessageContainer()
+        public MessageContainer()
         {
         }
 

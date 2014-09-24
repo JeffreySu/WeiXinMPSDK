@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Compilation;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Context
 {
     /// <summary>
     /// 对话上下文被删除时触发事件的事件数据
     /// </summary>
-    public class WeixinContextRemovedEventArgs: EventArgs
+    public class WeixinContextRemovedEventArgs : EventArgs
     {
         /// <summary>
         /// 该用户的OpenId
@@ -30,12 +32,17 @@ namespace Senparc.Weixin.Context
                 return MessageContext.LastActiveTime;
             }
         }
+
         /// <summary>
         /// 上下文对象
         /// </summary>
-        public IMessageContext MessageContext { get; set; }
+        public IMessageContext<MessageContainer<IRequestMessageBase>, MessageContainer<IResponseMessageBase>, IRequestMessageBase, IResponseMessageBase, WeixinContextRemovedEventArgs> MessageContext { get; set; }
 
-        public WeixinContextRemovedEventArgs(IMessageContext messageContext)
+        public WeixinContextRemovedEventArgs()
+        {
+        }
+
+        public WeixinContextRemovedEventArgs(IMessageContext<MessageContainer<IRequestMessageBase>, MessageContainer<IResponseMessageBase>, IRequestMessageBase, IResponseMessageBase, WeixinContextRemovedEventArgs> messageContext)
         {
             MessageContext = messageContext;
         }

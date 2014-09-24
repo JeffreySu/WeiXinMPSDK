@@ -31,7 +31,14 @@ namespace Senparc.Weixin.Context
     /// 微信消息上下文（全局）
     /// 默认过期时间：90分钟
     /// </summary>
-    public class WeixinContext<TM> /*: IWeixinContext<TM>*/ where TM : class, IMessageContext, new()
+    public class WeixinContext<TM, TRequestMessageContainer, TResponseMessageContainer, TIRequestMessageBase, TIResponseMessageBase, TWeixinContextRemovedEventArgs>
+        /*: IWeixinContext<TM>*/
+        where TM : class, IMessageContext<TRequestMessageContainer, TResponseMessageContainer, TIRequestMessageBase, TIResponseMessageBase, TWeixinContextRemovedEventArgs>, new()
+        where TRequestMessageContainer : MessageContainer<TIRequestMessageBase>, new()
+        where TResponseMessageContainer : MessageContainer<TIResponseMessageBase>, new()
+        where TIRequestMessageBase : IRequestMessageBase
+        where TIResponseMessageBase : IResponseMessageBase
+        where TWeixinContextRemovedEventArgs : WeixinContextRemovedEventArgs, new()
     {
         private int _maxRecordCount;
 
@@ -42,7 +49,7 @@ namespace Senparc.Weixin.Context
         /// <summary>
         /// MessageContext列队（LastActiveTime升序排列）,不要直接操作此对象
         /// </summary>
-        public MessageQueue<TM> MessageQueue { get; set; }
+        public MessageQueue<TM, TRequestMessageContainer, TResponseMessageContainer, TIRequestMessageBase, TIResponseMessageBase, TWeixinContextRemovedEventArgs> MessageQueue { get; set; }
 
         /// <summary>
         /// 每一个MessageContext过期时间

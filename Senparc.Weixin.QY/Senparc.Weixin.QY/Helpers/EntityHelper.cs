@@ -6,8 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.QY.Entities;
 
 namespace Senparc.Weixin.QY.Helpers
 {

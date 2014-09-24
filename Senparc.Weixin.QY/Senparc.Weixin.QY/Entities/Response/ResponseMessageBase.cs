@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.QY.Helpers;
 
 namespace Senparc.Weixin.QY.Entities
 {

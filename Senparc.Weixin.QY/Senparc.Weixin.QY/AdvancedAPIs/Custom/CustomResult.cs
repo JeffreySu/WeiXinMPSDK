@@ -5,11 +5,10 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     /// <summary>
     /// 发送消息返回结果

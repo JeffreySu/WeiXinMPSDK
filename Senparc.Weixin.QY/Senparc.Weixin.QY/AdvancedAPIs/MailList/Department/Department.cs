@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.MP.QYPIs;
 
-namespace Senparc.Weixin.MP.QYAPIs
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     //官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E9%83%A8%E9%97%A8
 

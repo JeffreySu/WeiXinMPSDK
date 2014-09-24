@@ -5,11 +5,11 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     //官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF
 

@@ -131,22 +131,19 @@ namespace Senparc.Weixin.MessageHandlers
         /// 根据ResponseMessageBase获得转换后的ResponseDocument
         /// 注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
         /// </summary>
-        public abstract XDocument ResponseDocument
-        {
-            get;
-        }
+        public abstract XDocument ResponseDocument { get; }
 
         //protected Stream InputStream { get; set; }
         /// <summary>
         /// 请求实体
         /// </summary>
-        public IRequestMessageBase RequestMessage { get; set; }
+        public virtual IRequestMessageBase RequestMessage { get; set; }
         /// <summary>
         /// 响应实体
         /// 正常情况下只有当执行Execute()方法后才可能有值。
         /// 也可以结合Cancel，提前给ResponseMessage赋值。
         /// </summary>
-        public IResponseMessageBase ResponseMessage { get; set; }
+        public virtual IResponseMessageBase ResponseMessage { get; set; }
 
         /// <summary>
         /// 是否使用了MessageAgent代理
@@ -156,6 +153,7 @@ namespace Senparc.Weixin.MessageHandlers
         public MessageHandler(Stream inputStream, int maxRecordCount = 0)
         {
             WeixinContext.MaxRecordCount = maxRecordCount;
+            inputStream.Seek(0, SeekOrigin.Begin);//强制调整指针位置
             using (XmlReader xr = XmlReader.Create(inputStream))
             {
                 RequestDocument = XDocument.Load(xr);
@@ -171,6 +169,7 @@ namespace Senparc.Weixin.MessageHandlers
 
         public abstract void Init(XDocument requestDocument);
 
+        //public abstract TR CreateResponseMessage<TR>() where TR : ResponseMessageBase;
 
         /// <summary>
         /// 执行微信请求
@@ -184,5 +183,10 @@ namespace Senparc.Weixin.MessageHandlers
         public virtual void OnExecuted()
         {
         }
+
+        ///// <summary>
+        ///// 默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
+        ///// </summary>
+        //public abstract IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage);
     }
 }

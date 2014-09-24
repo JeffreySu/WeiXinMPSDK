@@ -2,7 +2,8 @@
 using System.IO;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.MP.Context;
+using Senparc.Weixin.Helpers;
+using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.MvcExtension;

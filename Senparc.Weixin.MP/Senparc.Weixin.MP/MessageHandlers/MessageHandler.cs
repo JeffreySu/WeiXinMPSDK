@@ -12,82 +12,35 @@ using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Helpers;
-using IMessageContext = Senparc.Weixin.MP.Context.IMessageContext;
+
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
     public interface IMessageHandler : Weixin.MessageHandlers.IMessageHandler
     {
-
+        new IRequestMessageBase RequestMessage { get; set; }
+        new IResponseMessageBase ResponseMessage { get; set; }
     }
 
     /// <summary>
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
     /// </summary>
-    public abstract class MessageHandler<TC> : Weixin.MessageHandlers.MessageHandler<TC>, IMessageHandler where TC : class, IMessageContext, new()
+    public abstract class MessageHandler<TC> :
+        Weixin.MessageHandlers.MessageHandler<TC>, IMessageHandler where TC : class, IMessageContext, new()
     {
         /// <summary>
-        /// 上下文
+        /// 上下文（仅限于当前MessageHandler基类内）
         /// </summary>
         public static WeixinContext<TC> GlobalWeixinContext = new Context.WeixinContext<TC>();
 
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public override Weixin.Context.WeixinContext<TC> WeixinContext
+        public override WeixinContext<TC> WeixinContext
         {
             get { return GlobalWeixinContext; }
         }
-
-        /// <summary>
-        /// 当前用户消息上下文
-        /// </summary>
-        public override TC CurrentMessageContext
-        {
-            get { return WeixinContext.GetMessageContext(RequestMessage); }
-        }
-
-        /// <summary>
-        /// 发送者用户名（OpenId）
-        /// </summary>
-        public string WeixinOpenId
-        {
-            get
-            {
-                if (RequestMessage != null)
-                {
-                    return RequestMessage.FromUserName;
-                }
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Obsolete("UserName属性从v0.6起已过期，建议使用WeixinOpenId")]
-        public string UserName
-        {
-            get
-            {
-                return WeixinOpenId;
-            }
-        }
-
-        /// <summary>
-        /// 取消执行Execute()方法。一般在OnExecuting()中用于临时阻止执行Execute()。
-        /// 默认为False。
-        /// 如果在执行OnExecuting()执行前设为True，则所有OnExecuting()、Execute()、OnExecuted()代码都不会被执行。
-        /// 如果在执行OnExecuting()执行过程中设为True，则后续Execute()及OnExecuted()代码不会被执行。
-        /// 建议在设为True的时候，给ResponseMessage赋值，以返回友好信息。
-        /// </summary>
-        public bool CancelExcute { get; set; }
-
-        /// <summary>
-        /// 在构造函数中转换得到原始XML数据
-        /// </summary>
-        public XDocument RequestDocument { get; set; }
 
         /// <summary>
         /// 根据ResponseMessageBase获得转换后的ResponseDocument
@@ -105,28 +58,43 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
-        //protected Stream InputStream { get; set; }
         /// <summary>
         /// 请求实体
         /// </summary>
-        new public IRequestMessageBase RequestMessage { get; set; }
+        public new IRequestMessageBase RequestMessage
+        {
+            get
+            {
+                return base.RequestMessage as IRequestMessageBase;
+            }
+            set
+            {
+                base.RequestMessage = value;
+            }
+        }
+
         /// <summary>
         /// 响应实体
         /// 正常情况下只有当执行Execute()方法后才可能有值。
         /// 也可以结合Cancel，提前给ResponseMessage赋值。
         /// </summary>
-        new public IResponseMessageBase ResponseMessage { get; set; }
+        public new IResponseMessageBase ResponseMessage
+        {
+            get
+            {
+                return base.ResponseMessage as IResponseMessageBase;
+            }
+            set
+            {
+                base.ResponseMessage = value;
+            }
+        }
 
 
         public MessageHandler(Stream inputStream, int maxRecordCount = 0)
             : base(inputStream, maxRecordCount)
         {
-            WeixinContext.MaxRecordCount = maxRecordCount;
-            using (XmlReader xr = XmlReader.Create(inputStream))
-            {
-                RequestDocument = XDocument.Load(xr);
-                Init(RequestDocument);
-            }
+
         }
 
         public MessageHandler(XDocument requestDocument, int maxRecordCount = 0)
@@ -248,6 +216,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
         /// </summary>
         public abstract IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage);
+
         //{
         //    例如可以这样实现：
         //    var responseMessage = this.CreateResponseMessage<ResponseMessageText>();

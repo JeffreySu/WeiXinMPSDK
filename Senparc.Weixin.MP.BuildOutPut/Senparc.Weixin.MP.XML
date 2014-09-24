@@ -1831,17 +1831,6 @@
             <param name="data">如果是Get方式，可以为null</param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.MP.Context.MessageQueue`1">
-            <summary>
-            微信消息列队（针对单个账号的往来消息）
-            </summary>
-            <typeparam name="TM"></typeparam>
-        </member>
-        <member name="T:Senparc.Weixin.MP.Context.WeixinContextRemovedEventArgs">
-            <summary>
-            对话上下文被删除时触发事件的事件数据
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkerSize">
             <summary>
             标记大小
@@ -2387,7 +2376,7 @@
         </member>
         <member name="F:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.GlobalWeixinContext">
             <summary>
-            上下文
+            上下文（仅限于当前MessageHandler基类内）
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.CreateResponseMessage``1">
@@ -2505,35 +2494,6 @@
             全局消息上下文
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.CurrentMessageContext">
-            <summary>
-            当前用户消息上下文
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.WeixinOpenId">
-            <summary>
-            发送者用户名（OpenId）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.UserName">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.CancelExcute">
-            <summary>
-            取消执行Execute()方法。一般在OnExecuting()中用于临时阻止执行Execute()。
-            默认为False。
-            如果在执行OnExecuting()执行前设为True，则所有OnExecuting()、Execute()、OnExecuted()代码都不会被执行。
-            如果在执行OnExecuting()执行过程中设为True，则后续Execute()及OnExecuted()代码不会被执行。
-            建议在设为True的时候，给ResponseMessage赋值，以返回友好信息。
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.RequestDocument">
-            <summary>
-            在构造函数中转换得到原始XML数据
-            </summary>
-        </member>
         <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.ResponseDocument">
             <summary>
             根据ResponseMessageBase获得转换后的ResponseDocument
@@ -2587,17 +2547,6 @@
             如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
             </summary>
             <returns></returns>
-        </member>
-        <member name="T:Senparc.Weixin.MP.Context.MessageContext">
-            <summary>
-            微信消息上下文（单个用户）
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.Context.WeixinContext`1">
-            <summary>
-            微信消息上下文（全局）
-            默认过期时间：90分钟
-            </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.TenPayLib.MD5Util">
             <summary>

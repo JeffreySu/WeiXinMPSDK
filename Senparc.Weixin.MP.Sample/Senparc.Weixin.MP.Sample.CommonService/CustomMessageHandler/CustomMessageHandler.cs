@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Web.Configuration;
 using Senparc.Weixin.MP.Agent;
-using Senparc.Weixin.MP.Context;
+using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.Helpers;

@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using Senparc.Weixin.MP.Agent;
-using Senparc.Weixin.MP.Context;
+using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;

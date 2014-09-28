@@ -8,7 +8,7 @@ namespace Senparc.Weixin.MP.Entities
 {
     public interface IRequestMessageBase : Weixin.Entities.IRequestMessageBase
     {
-
+        long MsgId { get; set; }
     }
 
     /// <summary>
@@ -21,10 +21,10 @@ namespace Senparc.Weixin.MP.Entities
 
         }
 
-        public override RequestMsgType MsgType
-        {
-            get { return RequestMsgType.Text; }
-        }
+        //public override RequestMsgType MsgType
+        //{
+        //    get { return RequestMsgType.Text; }
+        //}
 
         public long MsgId { get; set; }
     }

@@ -583,6 +583,37 @@
             高级接口获取的用户信息
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleScancodePushButton">
+            <summary>
+            单个按键
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleButton">
+            <summary>
+            所有单击按钮的基类（view，click等）
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.BaseButton">
+            <summary>
+            所有按钮基类
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.BaseButton.name">
+            <summary>
+            按钮描述，既按钮名字，不超过16个字节，子菜单不超过40个字节
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.SingleButton.type">
+            <summary>
+            按钮类型（click或view）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.SingleScancodePushButton.key">
+            <summary>
+            类型为scancode_push时必须。
+            用户点击按钮后，微信客户端将调起扫一扫工具，完成扫码操作后显示扫描结果（如果是URL，将进入URL），且会将扫码的结果传给开发者，开发者可以下发消息。
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_TemplateSendJobFinish">
             <summary>
             事件推送群发结果。
@@ -637,197 +668,6 @@
             </summary>
             <param name="xml">返回给服务器的Response Xml</param>
             <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.QYAPIs.AccessToken.GetAccessToken(System.String,System.String)">
-            <summary>
-            获取AccessToken
-            </summary>
-            <param name="corpid">企业Id </param>
-            <param name="corpsecret">管理组的凭证密钥 </param>
-            <returns></returns>
-        </member>
-        <member name="T:Senparc.Weixin.MP.QYPIs.AccessTokenResult">
-            <summary>
-            获取AccessToken的结果
-            如果错误，返回结果{"errcode": 43003,"errmsg":"require https"}
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.QYPIs.CreateDepartmentResult">
-            <summary>
-            创建部门返回结果
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.QYAPIs.Department.CreateDepartment(System.String,System.String,System.Int32)">
-            <summary>
-            创建部门
-            </summary>
-            <param name="accessToken">调用接口凭证</param>
-            <param name="name">部门名称。长度限制为1~64个字符</param>
-            <param name="parentId">父亲部门id。根部门id为1 </param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.QYAPIs.Department.UpdateDepartment(System.String,System.String,System.String)">
-            <summary>
-            更新部门
-            </summary>
-            <param name="accessToken">调用接口凭证</param>
-            <param name="id">部门id</param>
-            <param name="name">更新的部门名称。长度限制为0~64个字符。修改部门名称时指定该参数</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.QYAPIs.Department.DeleteDepartment(System.String,System.String[])">
-            <summary>
-            删除部门
-            </summary>
-            <param name="accessToken">调用接口凭证</param>
-            <param name="id">部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）</param>
-            可以一次性删除一个或多个部门（删除多个时传入id数组）
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.QYAPIs.Department.GetDepartmentList(System.String)">
-            <summary>
-            获取部门列表
-            </summary>
-            <param name="accessToken">调用接口凭证</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.QYAPIs.Member.CreateMember(System.String,System.String,System.String,System.Int32[],System.String,System.String,System.String,System.String,System.String,System.Int32)">
-            <summary>
-            创建成员
-            </summary>
-            <param name="accessToken">调用接口凭证</param>
-            <param name="userId">员工UserID。必须企业内唯一</param>
-            <param name="name">成员名称。长度为1~64个字符</param>
-            <param name="department">成员所属部门id列表。注意，每个部门的直属员工上限为1000个</param>
-            <param name="position">职位信息。长度为0~64个字符</param>
-            <param name="mobile">手机号码。必须企业内唯一，mobile/weixinid/email三者不能同时为空</param>
-            <param name="tel">办公电话。长度为0~64个字符</param>
-            <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
-            <param name="weixinId">微信号。必须企业内唯一</param>
-            <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0</param>
-            accessToken和userId为必须的参数，其余参数不是必须的，可以传入null
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.QYAPIs.Member.UpdateMember(System.String,System.String,System.String,System.Int32[],System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
-            <summary>
-            更新成员
-            </summary>
-            <param name="accessToken">调用接口凭证</param>
-            <param name="userId">员工UserID。必须企业内唯一</param>
-            <param name="name">成员名称。长度为1~64个字符</param>
-            <param name="department">成员所属部门id列表。注意，每个部门的直属员工上限为1000个</param>
-            <param name="position">职位信息。长度为0~64个字符</param>
-            <param name="mobile">手机号码。必须企业内唯一，mobile/weixinid/email三者不能同时为空</param>
-            <param name="tel">办公电话。长度为0~64个字符</param>
-            <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
-            <param name="weixinId">微信号。必须企业内唯一</param>
-            <param name="enable">启用/禁用成员。1表示启用成员，0表示禁用成员</param>
-            <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0</param>
-            accessToken和userId为必须的参数，其余参数不是必须的，可以传入null
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.QYAPIs.Member.DeleteMember(System.String,System.String)">
-            <summary>
-            删除成员
-            </summary>
-            <param name="accessToken">调用接口凭证</param>
-            <param name="userId">员工UserID</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.QYAPIs.Member.GetMember(System.String,System.String)">
-            <summary>
-            获取成员
-            </summary>
-            <param name="accessToken">调用接口凭证</param>
-            <param name="userId">员工UserID</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.QYAPIs.Member.GetDepartmentMember(System.String,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            获取部门成员
-            </summary>
-            <param name="accessToken">调用接口凭证</param>
-            <param name="departmentId">获取的部门id</param>
-            <param name="fetchChild">1/0：是否递归获取子部门下面的成员</param>
-            <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.QYAPIs.Tag.CreateTag(System.String,System.String)">
-            <summary>
-            创建标签
-            </summary>
-            <param name="accessToken">调用接口凭证</param>
-            <param name="tagName">标签名称。长度为1~64个字符，标签不可与其他同组的标签重名，也不可与全局标签重名</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.QYAPIs.Tag.UpdateTag(System.String,System.Int32,System.String)">
-            <summary>
-            更新标签名字
-            </summary>
-            <param name="accessToken">调用接口凭证</param>
-            <param name="tagId">标签ID</param>
-            <param name="tagName">标签名称。长度为0~64个字符</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.QYAPIs.Tag.DeleteTag(System.String,System.Int32)">
-            <summary>
-            删除标签
-            </summary>
-            <param name="accessToken">调用接口凭证</param>
-            <param name="tagId"> 标签ID </param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.QYAPIs.Tag.GetTagMember(System.String,System.String)">
-            <summary>
-            获取标签成员
-            </summary>
-            <param name="accessToken">调用接口凭证</param>
-            <param name="userId">员工UserID</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.QYAPIs.Tag.AddTagMember(System.String,System.String,System.String[])">
-            <summary>
-            增加标签成员
-            </summary>
-            <param name="accessToken">调用接口凭证</param>
-            <param name="tagId">标签ID</param>
-            <param name="userList">企业员工ID列表</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.QYAPIs.Tag.DelTagMember(System.String,System.String,System.String[])">
-            <summary>
-            删除标签成员
-            </summary>
-            <param name="accessToken">调用接口凭证</param>
-            <param name="tagId">标签ID</param>
-            <param name="userList">企业员工ID列表</param>
-            <returns></returns>
-        </member>
-        <member name="T:Senparc.Weixin.MP.QYPIs.CreateTagResult">
-            <summary>
-            创建标签返回结果
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.QYPIs.GetTagMemberResult">
-            <summary>
-            获取标签成员返回结果
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.QYPIs.AddTagMemberResult">
-            <summary>
-            添加标签成员返回结果
-            a)正确时返回{"errcode": 0,"errmsg": "ok"}
-            b)若部分userid非法，则返回{"errcode": 0,"errmsg": "invalid userlist failed","invalidlist"："usr1|usr2|usr"}
-            c)当包含userid全部非法时返回{"errcode": 40070,"errmsg": "all list invalid "}
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.QYPIs.DelTagMemberResult">
-            <summary>
-            添加标签成员返回结果
-            a)正确时返回{"errcode": 0,"errmsg": "ok"}
-            b)若部分userid非法，则返回{"errcode": 0,"errmsg": "invalid userlist failed","invalidlist"："usr1|usr2|usr"}
-            c)当包含userid全部非法时返回{"errcode": 40070,"errmsg": "all list invalid "}
-            </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.GateUrl">
             <summary>
@@ -1979,16 +1819,6 @@
             普通用户的语言，简体中文为zh_CN
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.Entities.Menu.BaseButton">
-            <summary>
-            所有按钮基类
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Entities.Menu.BaseButton.name">
-            <summary>
-            按钮描述，既按钮名字，不超过16个字节，子菜单不超过40个字节
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.ButtonGroup">
             <summary>
             整个按钮设置（可以直接用ButtonGroup实例返回JSON对象）
@@ -1997,16 +1827,6 @@
         <member name="P:Senparc.Weixin.MP.Entities.Menu.ButtonGroup.button">
             <summary>
             按钮数组，按钮个数应为2~3个
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleButton">
-            <summary>
-            所有单击按钮的基类（view，click等）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Entities.Menu.SingleButton.type">
-            <summary>
-            按钮类型（click或view）
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleClickButton">
@@ -2241,6 +2061,36 @@
         <member name="F:Senparc.Weixin.MP.ButtonType.view">
             <summary>
             Url
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.ButtonType.scancode_push">
+            <summary>
+            扫码推事件
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.ButtonType.scancode_waitmsg">
+            <summary>
+            扫码推事件且弹出“消息接收中”提示框
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.ButtonType.pic_sysphoto">
+            <summary>
+            弹出系统拍照发图
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.ButtonType.pic_photo_or_album">
+            <summary>
+            弹出拍照或者相册发图
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.ButtonType.pic_weixin">
+            <summary>
+            弹出微信相册发图器
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.ButtonType.location_select">
+            <summary>
+            弹出地理位置选择器
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.UploadMediaFileType">
@@ -3075,6 +2925,61 @@
             执行http调用
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleScancodeWaitmsgButton">
+            <summary>
+            单个按键
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.SingleScancodeWaitmsgButton.key">
+            <summary>
+            类型为scancode_waitmsg时必须。
+            用户点击按钮后，微信客户端将调起扫一扫工具，完成扫码操作后，将扫码的结果传给开发者，同时收起扫一扫工具，然后弹出“消息接收中”提示框，随后可能会收到开发者下发的消息。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.SinglePicSysphotoButton">
+            <summary>
+            单个按键
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.SinglePicSysphotoButton.key">
+            <summary>
+            类型为pic_sysphoto时必须。
+            用户点击按钮后，微信客户端将调起系统相机，完成拍照操作后，会将拍摄的相片发送给开发者，并推送事件给开发者，同时收起系统相机，随后可能会收到开发者下发的消息。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.SinglePicPhotoOrAlbumButton">
+            <summary>
+            单个按键
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.SinglePicPhotoOrAlbumButton.key">
+            <summary>
+            类型为pic_photo_or_album时必须。
+            用户点击按钮后，微信客户端将弹出选择器供用户选择“拍照”或者“从手机相册选择”。用户选择后即走其他两种流程。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.SinglePicWeixinButton">
+            <summary>
+            单个按键
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.SinglePicWeixinButton.key">
+            <summary>
+            类型为pic_weixin时必须。
+            用户点击按钮后，微信客户端将调起微信相册，完成选择操作后，将选择的相片发送给开发者的服务器，并推送事件给开发者，同时收起相册，随后可能会收到开发者下发的消息。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleLocationSelectButton">
+            <summary>
+            单个按键
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.SingleLocationSelectButton.key">
+            <summary>
+            类型为location_select时必须。
+            用户点击按钮后，微信客户端将调起地理位置选择工具，完成选择操作后，将选择的地理位置发送给开发者的服务器，同时收起位置选择工具，随后可能会收到开发者下发的消息。
+            </summary>
         </member>
     </members>
 </doc>

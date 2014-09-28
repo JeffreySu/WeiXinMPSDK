@@ -79,6 +79,7 @@
     <Compile Include="AdvancedAPIs\User\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\User.cs" />
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
+    <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="TenPayLib\CheckRequestHandler.cs" />
@@ -217,6 +218,21 @@
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Menu\SingleScancodeWaitmsgButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Menu\SinglePicSysphotoButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Menu\SinglePicPhotoOrAlbumButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Menu\SinglePicWeixinButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Menu\SingleLocationSelectButton.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -507,7 +507,7 @@
         <member name="T:Senparc.Weixin.MessageHandlers.MessageHandler`1">
             <summary>
             微信请求的集中处理方法
-            此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
+            此方法中所有过程，都基于Senparc.Weixin的基础功能，只为简化代码而设。
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MessageHandlers.MessageHandler`1.Execute">

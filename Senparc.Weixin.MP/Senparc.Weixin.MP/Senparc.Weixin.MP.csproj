@@ -82,6 +82,14 @@
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
+    <Compile Include="TenPayLibV3\MD5Util.cs" />
+    <Compile Include="TenPayLibV3\RequestHandler.cs" />
+    <Compile Include="TenPayLibV3\ResponseHandler.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3InfoCollection.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3Info.cs" />
+    <Compile Include="TenPayLibV3\TenPayUtil.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3Result.cs" />
     <Compile Include="TenPayLib\CheckRequestHandler.cs" />
     <Compile Include="TenPayLib\RefundQueryRequestHandler.cs" />
     <Compile Include="TenPayLib\ClientRequestHandler.cs" />

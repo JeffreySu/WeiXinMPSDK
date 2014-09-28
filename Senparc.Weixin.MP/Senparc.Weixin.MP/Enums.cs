@@ -89,5 +89,10 @@ namespace Senparc.Weixin.MP
     //    涉嫌互推 = 22000,
     //    涉嫌其他 = 21000
     //}
-
+    public enum TenPayV3Type
+    {
+        JSAPI,
+        NATIVE,
+        APP
+    }
 }

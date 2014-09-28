@@ -143,6 +143,9 @@
     <Compile Include="Controllers\OAuth2Controller.cs" />
     <Compile Include="Controllers\QY\QYController.cs" />
     <Compile Include="Controllers\SimulateToolController.cs" />
+    <Compile Include="Controllers\TenPayV3Controller.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controllers\TestUploadMediaFileController.cs" />
     <Compile Include="Controllers\WeixinController.cs" />
     <Compile Include="Controllers\WeixinController_OldPost.cs" />

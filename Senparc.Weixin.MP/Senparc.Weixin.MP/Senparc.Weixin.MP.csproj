@@ -81,6 +81,8 @@
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_LocationSelect.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_PicWeixin.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="TenPayLibV3\MD5Util.cs" />
     <Compile Include="TenPayLibV3\RequestHandler.cs" />
@@ -241,6 +243,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Menu\SingleLocationSelectButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_PicPhotoOrAlbum.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_ScancodeWaitmsg.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_ScancodePush.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_PicSysphoto.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

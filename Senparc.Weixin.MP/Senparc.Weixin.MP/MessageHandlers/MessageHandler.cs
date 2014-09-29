@@ -323,6 +323,24 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.TEMPLATESENDJOBFINISH://推送模板消息成功
                     responseMessage = OneEvent_TemplateSendJobFinishRequest(RequestMessage as RequestMessageEvent_TemplateSendJobFinish);
                     break;
+                case Event.PICPHOTOORALBUM://弹出拍照或者相册发图
+                    responseMessage = OneEvent_PicPhotoOrAlbumRequest(RequestMessage as RequestMessageEvent_PicPhotoOrAlbum);
+                    break;
+                case Event.SCANCODEPUSH://扫码推事件
+                    responseMessage = OneEvent_ScancodePushRequest(RequestMessage as RequestMessageEvent_ScancodePush);
+                    break;
+                case Event.SCANCODEWAITMSG://扫码推事件且弹出“消息接收中”提示框
+                    responseMessage = OneEvent_ScancodeWaitmsgRequest(RequestMessage as RequestMessageEvent_ScancodeWaitmsg);
+                    break;
+                case Event.LOCATIONSELECT://弹出地理位置选择器
+                    responseMessage = OneEvent_LocationSelectRequest(RequestMessage as RequestMessageEvent_LocationSelect);
+                    break;
+                case Event.PICWEIXIN://弹出微信相册发图器
+                    responseMessage = OneEvent_PicWeixinRequest(RequestMessage as RequestMessageEvent_PicWeixin);
+                    break;
+                case Event.PICSYSPHOTO://弹出系统拍照发图
+                    responseMessage = OneEvent_PicSysphotoRequest(RequestMessage as RequestMessageEvent_PicSysphoto);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -403,6 +421,60 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <returns></returns>
         public virtual IResponseMessageBase OneEvent_TemplateSendJobFinishRequest(RequestMessageEvent_TemplateSendJobFinish requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 弹出拍照或者相册发图
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OneEvent_PicPhotoOrAlbumRequest(RequestMessageEvent_PicPhotoOrAlbum requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 扫码推事件
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OneEvent_ScancodePushRequest(RequestMessageEvent_ScancodePush requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 扫码推事件且弹出“消息接收中”提示框
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OneEvent_ScancodeWaitmsgRequest(RequestMessageEvent_ScancodeWaitmsg requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 弹出地理位置选择器
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OneEvent_LocationSelectRequest(RequestMessageEvent_LocationSelect requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 弹出微信相册发图器
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OneEvent_PicWeixinRequest(RequestMessageEvent_PicWeixin requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 弹出系统拍照发图
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OneEvent_PicSysphotoRequest(RequestMessageEvent_PicSysphoto requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

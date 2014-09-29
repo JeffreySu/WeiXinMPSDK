@@ -72,9 +72,9 @@
     <Compile Include="AdvancedAPIs\Media\MediaTest.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthTest.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateTest.cs" />
-    <Compile Include="AdvancedAPIs\TenPay\TenPayRightsTest.cs" />
+    <Compile Include="TenPay\TenPayRightsTest.cs" />
     <Compile Include="AdvancedAPIs\User\CustomTest.cs" />
-    <Compile Include="AdvancedAPIs\TenPay\TenPayTest.cs" />
+    <Compile Include="TenPay\TenPayTest.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\ProductTest.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\ShelvesTest.cs" />
     <Compile Include="Agents\MessageAgentTest.cs" />
@@ -99,6 +99,7 @@
     <Compile Include="Helpers\DateTimeHelperTest.cs" />
     <Compile Include="Exceptions\WeixinExceptionTest.cs" />
     <Compile Include="ResponseMessageFactoryTest.cs" />
+    <Compile Include="TenPayV3\TenPayV3Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">

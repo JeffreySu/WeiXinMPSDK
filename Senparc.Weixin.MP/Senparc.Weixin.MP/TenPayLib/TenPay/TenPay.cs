@@ -16,15 +16,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// Native
         /// </summary>
+        /// <param name="sign">签名</param>
         /// <param name="appId">开放平台账户的唯一标识</param>
         /// <param name="timesTamp">时间戳</param>
         /// <param name="nonceStr">32 位内的随机串，防重发</param>
         /// <param name="productId">商品唯一id</param>
-        /// <param name="sign">签名</param>
-        public static string NativePay(string appId, string timesTamp, string nonceStr, string productId, string sign)
+        public static string NativePay(string sign, string appId, string timesTamp, string nonceStr, string productId)
         {
             var urlFormat = "weixin://wxpay/bizpayurl?sign={0}&appid={1}&productid={2}&timestamp={3}&noncestr={4}";
-            var url = string.Format(urlFormat, appId, timesTamp, nonceStr, productId, sign);
+            var url = string.Format(urlFormat, sign, appId, productId, timesTamp, nonceStr);
 
             return url;
         }

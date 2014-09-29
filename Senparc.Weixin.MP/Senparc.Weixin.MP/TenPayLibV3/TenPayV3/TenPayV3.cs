@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -23,7 +24,28 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 
-            return CommonJsonSend.Send<string>(null, urlFormat, data);
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+        }
+
+        /// <summary>
+        /// Native
+        /// </summary>
+        /// <param name="appId">开放平台账户的唯一标识</param>
+        /// <param name="timesTamp">时间戳</param>
+        /// <param name="nonceStr">32 位内的随机串，防重发</param>
+        /// <param name="productId">商品唯一id</param>
+        /// <param name="sign">签名</param>
+        /// <param name="mchId">商户Id</param>
+        public static string NativePay(string appId, string timesTamp, string mchId, string nonceStr, string productId, string sign)
+        {
+            var urlFormat = "weixin://wxpay/bizpayurl?sign={0}&appid={1}&mch_id={2}&product_id={3}&time_stamp={4}&nonce_str={5}";
+            var url = string.Format(urlFormat, sign, appId, mchId, productId, timesTamp, nonceStr);
+
+            return url;
         }
 
         /// <summary>

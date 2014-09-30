@@ -108,7 +108,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             packageReqHandler.SetParameter("sign", sign);	                    //交易类型
 
             string data = packageReqHandler.ParseXML();
-            var result = TenPayV3.TenPay(data);
+            var result = TenPayV3.Unifiedorder(data);
 
             var res = XDocument.Parse(result);
             string prepayId = res.Element("xml").Element("prepay_id").Value;

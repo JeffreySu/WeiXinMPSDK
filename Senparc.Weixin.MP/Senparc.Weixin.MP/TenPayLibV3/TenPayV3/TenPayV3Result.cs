@@ -7,7 +7,7 @@ using Senparc.Weixin.MP.Entities;
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
-    /// 统一支付接口返回结果
+    /// 基础返回结果
     /// </summary>
     public class TenPayV3Result
     {
@@ -15,7 +15,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public string return_msg { get; set; }
     }
     /// <summary>
-    /// 以下字段在 return_code为 SUCCESS的时候有返回
+    /// 统一支付接口在 return_code为 SUCCESS的时候有返回
     /// </summary>
     public class Result : TenPayV3Result
     {
@@ -29,9 +29,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public string err_code_des { get; set; }
     }
     /// <summary>
-    /// 在return_code 和result_code 都为SUCCESS 的时候有返回
+    /// 统一支付接口在return_code 和result_code 都为SUCCESS 的时候有返回
     /// </summary>
-    public class SuccessResult : Result
+    public class UnifiedorderResult : Result
     {
         public string trade_type { get; set; }//交易类型:JSAPI、NATIVE、APP
         public string prepay_id { get; set; }//微信生成的预支付ID，用于后续接口调用中使用

@@ -138,12 +138,12 @@ senparc.menu = {
     },
     typeChanged: function () {
         var val = $('#buttonDetails_type').val();
-        if (val.toUpperCase() == 'CLICK') {
-            $('#buttonDetails_key_area').slideDown(100);
-            $('#buttonDetails_url_area').slideUp(100);
-        } else {
+        if (val.toUpperCase() == 'VIEW') {
             $('#buttonDetails_key_area').slideUp(100);
             $('#buttonDetails_url_area').slideDown(100);
+        } else {
+            $('#buttonDetails_key_area').slideDown(100);
+            $('#buttonDetails_url_area').slideUp(100);
         }
     },
     setToken: function (token) {

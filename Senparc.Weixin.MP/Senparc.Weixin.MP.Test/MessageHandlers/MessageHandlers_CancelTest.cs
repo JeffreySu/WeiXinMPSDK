@@ -2,13 +2,12 @@
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Context;
-using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
-    public class CancelMessageHandlers : MessageHandler<MessageContext>
+    public class CancelMessageHandlers : MessageHandler<MessageContext<IRequestMessageBase,IResponseMessageBase>>
     {
         public string RunStep { get; set; }
 

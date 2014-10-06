@@ -5,13 +5,12 @@ using System.Threading;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Context;
-using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
-    public class CustomerMessageHandlers : MessageHandler<MessageContext>
+    public class CustomerMessageHandlers : MessageHandler<MessageContext<IRequestMessageBase,IResponseMessageBase>>
     {
         public CustomerMessageHandlers(XDocument requestDoc, int maxRecordCount = 0)
             : base(requestDoc, maxRecordCount)
@@ -206,7 +205,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         public void MutipleThreadsTest()
         {
             //
-            var weixinContext = MessageHandler<MessageContext>.GlobalWeixinContext;//全局共享的WeixinContext上下文对象
+            var weixinContext = MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>.GlobalWeixinContext;//全局共享的WeixinContext上下文对象
             weixinContext.Restore();
 
             //多线程并发写入测试

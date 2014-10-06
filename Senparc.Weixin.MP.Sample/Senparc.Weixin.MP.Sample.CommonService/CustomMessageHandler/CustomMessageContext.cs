@@ -4,12 +4,11 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using Senparc.Weixin.Context;
-using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
-    public class CustomMessageContext : MessageContext
+    public class CustomMessageContext : MessageContext<IRequestMessageBase,IResponseMessageBase>
     {
         public CustomMessageContext()
         {

@@ -8,7 +8,6 @@ using System.Xml.Linq;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.Entities;
-using Senparc.Weixin.QY.Entities.Request;
 using Senparc.Weixin.QY.Helpers;
 using Tencent;
 

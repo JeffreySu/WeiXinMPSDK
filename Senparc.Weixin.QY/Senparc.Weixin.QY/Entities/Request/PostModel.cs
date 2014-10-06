@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Senparc.Weixin.QY.Entities.Request
+namespace Senparc.Weixin.QY.Entities
 {
     /// <summary>
     /// 微信企业号服务器Post过来的参数集合（不包括PostData）

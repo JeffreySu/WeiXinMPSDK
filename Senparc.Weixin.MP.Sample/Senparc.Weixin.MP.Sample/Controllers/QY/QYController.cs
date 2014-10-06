@@ -5,7 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using Senparc.Weixin.QY.Entities.Request;
+using Senparc.Weixin.MP.Sample.CommonService.QyMessageHandlers;
+using Senparc.Weixin.QY.Entities;
+using Senparc.Weixin.QY.Entities.Response;
 using Tencent;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
@@ -61,41 +63,98 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         [ActionName("Index")]
         public ActionResult Post(PostModel postModel)
         {
-            string postData = null;
+            var maxRecordCount = 10;
 
-            using (StreamReader sr = new StreamReader(Request.InputStream))
-            {
-                postData = sr.ReadToEnd();
-            }
+            postModel.Token = Token;
+            postModel.EncodingAESKey = EncodingAESKey;
+            postModel.CorpId = CorpId;
 
-            //get test Msg
-
-            StringBuilder sb=new StringBuilder();
-            sb.AppendFormat("{0}={1}\r\n", "msg_signature", postModel.Msg_Signature);
-            sb.AppendFormat("{0}={1}\r\n", "timestamp", postModel.Timestamp);
-            sb.AppendFormat("{0}={1}\r\n", "nonce", postModel.Nonce);
-            sb.AppendFormat("{0}={1}\r\n", "postData", postData);
+            //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
+            var messageHandler = new QyCustomMessageHandler(Request.InputStream, postModel);
 
             try
             {
-                string msgXml = null;
+                //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
+                messageHandler.RequestDocument.Save(Server.MapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_Request_" + messageHandler.RequestMessage.FromUserName + ".txt"));
+                //执行微信处理过程
+                messageHandler.Execute();
+                //测试时可开启，帮助跟踪数据
+                messageHandler.ResponseDocument.Save(Server.MapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+
+                //直接加密（后期会放到SDK中）
+                var encryptResponseMessage = new EncryptResponseMessage()
+               {
+                   MsgSignature = postModel.Msg_Signature,
+                   TimeStamp = postModel.Timestamp,
+                   Nonce = postModel.Nonce,
+               };
+
                 WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(Token, EncodingAESKey, CorpId);
-                var result = msgCrype.DecryptMsg(postModel.Msg_Signature, postModel.Timestamp, postModel.Nonce, postData, ref msgXml);
-                sb.AppendFormat("{0}={1}\r\n", "msgXml", msgXml);
+                string postMsg = null;
+                msgCrype.EncryptMsg(messageHandler.ResponseDocument.ToString(), encryptResponseMessage.TimeStamp,
+                    encryptResponseMessage.Nonce, ref postMsg);//TODO:这里官方的方法已经把EncryptResponseMessage对应的XML输出出来了
+
+                encryptResponseMessage.Encrypt = postMsg;
+
+
+                return Content(encryptResponseMessage.Encrypt);
+
             }
             catch (Exception ex)
             {
-                sb.AppendFormat("{0}={1}\r\n", "Exception", ex.Message);
+                using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Qy_Error_" + DateTime.Now.Ticks + ".txt")))
+                {
+                    tw.WriteLine("ExecptionMessage:" + ex.Message);
+                    tw.WriteLine(ex.Source);
+                    tw.WriteLine(ex.StackTrace);
+                    //tw.WriteLine("InnerExecptionMessage:" + ex.InnerException.Message);
+
+                    if (messageHandler.ResponseDocument != null)
+                    {
+                        tw.WriteLine(messageHandler.ResponseDocument.ToString());
+                    }
+                    tw.Flush();
+                    tw.Close();
+                }
+                return Content("");
             }
 
-            using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/QY/QY_" + DateTime.Now.Ticks + ".txt")))
-            {
-                tw.WriteLine(sb.ToString());
-                tw.Flush();
-                tw.Close();
-            }
 
-            return Content("");//TODO还没做完
+            //string postData = null;
+
+            //using (StreamReader sr = new StreamReader(Request.InputStream))
+            //{
+            //    postData = sr.ReadToEnd();
+            //}
+
+            ////get test Msg
+
+            //StringBuilder sb=new StringBuilder();
+            //sb.AppendFormat("{0}={1}\r\n", "msg_signature", postModel.Msg_Signature);
+            //sb.AppendFormat("{0}={1}\r\n", "timestamp", postModel.Timestamp);
+            //sb.AppendFormat("{0}={1}\r\n", "nonce", postModel.Nonce);
+            //sb.AppendFormat("{0}={1}\r\n", "postData", postData);
+
+            //try
+            //{
+            //    string msgXml = null;
+            //    WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(Token, EncodingAESKey, CorpId);
+            //    var result = msgCrype.DecryptMsg(postModel.Msg_Signature, postModel.Timestamp, postModel.Nonce, postData, ref msgXml);
+            //    sb.AppendFormat("{0}={1}\r\n", "msgXml", msgXml);
+            //}
+            //catch (Exception ex)
+            //{
+            //    sb.AppendFormat("{0}={1}\r\n", "Exception", ex.Message);
+            //}
+
+            //using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/QY/QY_" + DateTime.Now.Ticks + ".txt")))
+            //{
+            //    tw.WriteLine(sb.ToString());
+            //    tw.Flush();
+            //    tw.Close();
+            //}
+
+            //return Content("");//TODO还没做完
         }
     }
 }

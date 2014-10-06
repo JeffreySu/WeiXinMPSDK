@@ -8,7 +8,6 @@ using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.QY.Entities;
-using Senparc.Weixin.QY.Entities.Request;
 using Senparc.Weixin.QY.MessageHandlers;
 
 namespace Senparc.Weixin.QY.Test.MessageHandlers

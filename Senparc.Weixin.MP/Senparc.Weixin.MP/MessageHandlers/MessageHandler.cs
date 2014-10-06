@@ -9,6 +9,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Context;
+using Senparc.Weixin.MP.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Helpers;
@@ -33,14 +34,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 上下文（仅限于当前MessageHandler基类内）
         /// </summary>
-        public static WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new Context.WeixinContext<TC,IRequestMessageBase, IResponseMessageBase>();
+        public static WeixinContext GlobalWeixinContext = new WeixinContext();
 
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public override WeixinContext<TC> WeixinContext
+        public override WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> WeixinContext
         {
-            get { return GlobalWeixinContext; }
+            get { return GlobalWeixinContext as WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>; }
         }
 
         /// <summary>

@@ -5,7 +5,19 @@ using System.Text;
 
 namespace Senparc.Weixin.QY
 {
-
+    /// <summary>
+    /// 接收消息类型
+    /// </summary>
+    public enum RequestMsgType
+    {
+        Text, //文本
+        Location, //地理位置
+        Image, //图片
+        Voice, //语音
+        Video, //视频
+        Link, //连接信息
+        Event, //事件推送
+    }
 
     /// <summary>
     /// 当RequestMsgType类型为Event时，Event属性的类型

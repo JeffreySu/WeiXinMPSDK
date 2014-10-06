@@ -84,6 +84,8 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_LocationSelect.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_PicWeixin.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
+    <Compile Include="Helpers\EventHelper.cs" />
+    <Compile Include="Helpers\MsgTypeHelper.cs" />
     <Compile Include="TenPayLibV3\MD5Util.cs" />
     <Compile Include="TenPayLibV3\RequestHandler.cs" />
     <Compile Include="TenPayLibV3\ResponseHandler.cs" />

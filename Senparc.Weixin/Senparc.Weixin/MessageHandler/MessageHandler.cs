@@ -167,6 +167,11 @@ namespace Senparc.Weixin.MessageHandlers
             Init(requestDocument);
         }
 
+        protected MessageHandler()
+        {
+            throw new NotImplementedException();
+        }
+
         public abstract void Init(XDocument requestDocument);
 
         //public abstract TR CreateResponseMessage<TR>() where TR : ResponseMessageBase;

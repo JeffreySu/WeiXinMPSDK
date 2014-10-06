@@ -14,7 +14,10 @@ namespace Senparc.Weixin.MP.Entities
 
         public int ArticleCount
         {
-            get { return (Articles ?? new List<Article>()).Count; }
+            get
+            {
+                return Articles == null ? 0 : Articles.Count;
+            }
             set
             {
                 //这里开放set只为了逆向从Response的Xml转成实体的操作一致性，没有实际意义。

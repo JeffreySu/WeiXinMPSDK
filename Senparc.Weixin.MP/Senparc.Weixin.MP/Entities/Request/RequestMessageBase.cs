@@ -8,6 +8,8 @@ namespace Senparc.Weixin.MP.Entities
 {
     public interface IRequestMessageBase : Weixin.Entities.IRequestMessageBase
     {
+        RequestMsgType MsgType { get; }
+
         long MsgId { get; set; }
     }
 
@@ -16,6 +18,12 @@ namespace Senparc.Weixin.MP.Entities
     /// </summary>
     public class RequestMessageBase : Weixin.Entities.RequestMessageBase, IRequestMessageBase
     {
+        public virtual RequestMsgType MsgType
+        {
+            get { return RequestMsgType.Text; }
+        }
+
+
         public RequestMessageBase()
         {
 

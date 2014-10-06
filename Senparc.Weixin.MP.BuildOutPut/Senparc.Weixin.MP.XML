@@ -612,6 +612,7 @@
             <summary>
             类型为scancode_push时必须。
             用户点击按钮后，微信客户端将调起扫一扫工具，完成扫码操作后显示扫描结果（如果是URL，将进入URL），且会将扫码的结果传给开发者，开发者可以下发消息。
+            仅支持微信iPhone5.4.1以上版本，和Android5.4以上版本的微信用户，旧版本微信用户点击后将没有回应，开发者也不能正常接收到事件推送。
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_TemplateSendJobFinish">
@@ -641,12 +642,47 @@
             群发的结构，为“success”（送达成功）或“failed:user block”（送达由于用户拒收（用户设置拒绝接收公众号消息））或“failed: system failed”（送达由于其他原因失败）。
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_LocationSelect">
+            <summary>
+            事件之弹出地理位置选择器（location_select）
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.IRequestMessageEventKey">
+            <summary>
+            具有EventKey属性的RequestMessage接口
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_LocationSelect.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_LocationSelect.EventKey">
+            <summary>
+            事件KEY值，与自定义菜单接口中KEY值对应
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_PicWeixin">
+            <summary>
+            事件之弹出微信相册发图器(pic_weixin)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_PicWeixin.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_PicWeixin.EventKey">
+            <summary>
+            事件KEY值，与自定义菜单接口中KEY值对应
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageBase">
             <summary>
             响应回复消息
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.Entities.ResponseMessageBase.CreateFromRequestMessage(Senparc.Weixin.MP.Entities.IRequestMessageBase,Senparc.Weixin.ResponseMsgType)">
+        <member name="M:Senparc.Weixin.MP.Entities.ResponseMessageBase.CreateFromRequestMessage(Senparc.Weixin.MP.Entities.IRequestMessageBase,Senparc.Weixin.MP.ResponseMsgType)">
             <summary>
             获取响应类型实例，并初始化
             </summary>
@@ -667,6 +703,30 @@
             从返回结果XML转换成IResponseMessageBase实体类
             </summary>
             <param name="xml">返回给服务器的Response Xml</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.MsgTypeHelper.GetRequestMsgType(System.Xml.Linq.XDocument)">
+            <summary>
+            根据xml信息，返回RequestMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.MsgTypeHelper.GetRequestMsgType(System.String)">
+            <summary>
+            根据xml信息，返回RequestMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.MsgTypeHelper.GetResponseMsgType(System.Xml.Linq.XDocument)">
+            <summary>
+            根据xml信息，返回ResponseMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.MsgTypeHelper.GetResponseMsgType(System.String)">
+            <summary>
+            根据xml信息，返回ResponseMsgType
+            </summary>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.MP.TenPayLibV3.MD5Util">
@@ -728,21 +788,13 @@
             <param name="parameter"></param>
             <param name="parameterValue"></param>
         </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.CreateSign">
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.CreateMd5Sign(System.String,System.String)">
             <summary>
             创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
             </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.CreateMd5Sign">
-            <summary>
-            创建package签名
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.CreateSHA1Sign">
-            <summary>
-            创建sha1签名
-            </summary>
+            <param name="key">参数名</param>
+            <param name="value">参数值</param>
+            key和value通常用于填充最后一组参数
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.ParseXML">
@@ -848,18 +900,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLibV3.ResponseHandler.IsWXsign">
-            <summary>
-            判断微信签名
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLibV3.ResponseHandler.IsWXsignfeedback">
-            <summary>
-            判断微信维权签名
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.ResponseHandler.GetDebugInfo">
             <summary>
             获取debug信息
@@ -872,12 +912,51 @@
             </summary>
             <param name="debugInfo"></param>
         </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLibV3.SHA1Util.GetSha1(System.String)">
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3InfoCollection">
             <summary>
-            签名算法
+            微信支付信息集合，Key为商户号（PartnerId）
             </summary>
-            <param name="str"></param>
-            <returns></returns>
+        </member>
+        <member name="F:Senparc.Weixin.MP.TenPayLibV3.TenPayV3InfoCollection.Data">
+            <summary>
+            微信支付信息集合，Key为商户号（PartnerId）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3InfoCollection.Register(Senparc.Weixin.MP.TenPayLibV3.TenPayV3Info)">
+            <summary>
+            注册WeixinPayInfo信息
+            </summary>
+            <param name="weixinPayInfo"></param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Info">
+            <summary>
+            微信支付基础信息储存类
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Info.AppId">
+            <summary>
+            appid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Info.Mchid">
+            <summary>
+            商户ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Info.Key">
+            <summary>
+            密钥
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Info.Appsecret">
+            <summary>
+            JSAPI 接口中获取openid，审核后在公众平台开启开发模式后可查看 
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Info.TenPayNotify">
+            <summary>
+            支付完成后的回调处理页面,*替换成notify_url.asp所在路径
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayUtil">
             <summary>
@@ -921,7 +1000,7 @@
             <returns></returns>
         </member>
         <!-- 对于成员“T:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3”忽略有格式错误的 XML 注释 -->
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.TenPay(System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.Unifiedorder(System.String)">
             <summary>
             统一支付接口
             统一支付接口，可接受JSAPI/NATIVE/APP 下预支付订单，返回预支付订单号。NATIVE 支付返回二维码code_url。
@@ -929,33 +1008,44 @@
             <param name="data">微信支付需要post的xml数据</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.Delivernotify(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.NativePay(System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
-            发货通知
+            Native
             </summary>
-            <param name="appId">公众平台账户的AppId</param>
-            <param name="openId">购买用户的OpenId</param>
-            <param name="transId">交易单号</param>
-            <param name="out_Trade_No">第三方订单号</param>
-            <param name="deliver_TimesTamp">发货时间戳</param>
-            <param name="deliver_Status">发货状态，1 表明成功，0 表明失败，失败时需要在deliver_msg 填上失败原因</param>
-            <param name="deliver_Msg">发货状态信息，失败时可以填上UTF8 编码的错误提示信息，比如“该商品已退款</param>
-            <param name="app_Signature">签名</param>
-            <param name="sign_Method">签名方法</param>
+            <param name="appId">开放平台账户的唯一标识</param>
+            <param name="timesTamp">时间戳</param>
+            <param name="mchId">商户Id</param>
+            <param name="nonceStr">32 位内的随机串，防重发</param>
+            <param name="productId">商品唯一id</param>
+            <param name="sign">签名</param>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.Orderquery(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.OrderQuery(System.String)">
             <summary>
-            订单查询
+            订单查询接口
             </summary>
-            <param name="appId">公众平台账户的AppId</param>
-            <param name="package">查询订单的关键信息数据</param>
-            <param name="timesTamp">linux 时间戳</param>
-            <param name="app_Signature">签名</param>
-            <param name="sign_Method">签名方法</param>
+            <param name="data"></param>
+            <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TenPayResult">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.CloseOrder(System.String)">
             <summary>
-            订单查询
+            关闭订单接口
+            </summary>
+            <param name="data">关闭订单需要post的xml数据</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3Result">
+            <summary>
+            基础返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Result">
+            <summary>
+            统一支付接口在 return_code为 SUCCESS的时候有返回
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UnifiedorderResult">
+            <summary>
+            统一支付接口在return_code 和result_code 都为SUCCESS 的时候有返回
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.GateUrl">
@@ -1137,11 +1227,11 @@
             <summary>
             Native
             </summary>
+            <param name="sign">签名</param>
             <param name="appId">开放平台账户的唯一标识</param>
             <param name="timesTamp">时间戳</param>
             <param name="nonceStr">32 位内的随机串，防重发</param>
             <param name="productId">商品唯一id</param>
-            <param name="sign">签名</param>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPay.Delivernotify(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
@@ -2150,11 +2240,6 @@
             网页链接，用户点击按钮可打开链接，不超过256字节
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.Entities.IRequestMessageEventKey">
-            <summary>
-            具有EventKey属性的RequestMessage接口
-            </summary>
-        </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Enter.Event">
             <summary>
             事件类型
@@ -2335,6 +2420,96 @@
         <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageVideo">
             <summary>
             需要预先上传多媒体文件到微信服务器，只支持认证服务号。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.RequestMsgType">
+            <summary>
+            接收消息类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Event">
+            <summary>
+            当RequestMsgType类型为Event时，Event属性的类型
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.ENTER">
+            <summary>
+            进入会话（似乎已从官方API中移除）
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.LOCATION">
+            <summary>
+            地理位置（似乎已从官方API中移除）
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.subscribe">
+            <summary>
+            订阅
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.unsubscribe">
+            <summary>
+            取消订阅
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.CLICK">
+            <summary>
+            自定义菜单点击事件
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.scan">
+            <summary>
+            二维码扫描
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.VIEW">
+            <summary>
+            URL跳转
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.MASSSENDJOBFINISH">
+            <summary>
+            事件推送群发结果
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.TEMPLATESENDJOBFINISH">
+            <summary>
+            模板信息发送完成
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.SCANCODEPUSH">
+            <summary>
+            扫码推事件
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.SCANCODEWAITMSG">
+            <summary>
+            扫码推事件且弹出“消息接收中”提示框
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.PICSYSPHOTO">
+            <summary>
+            弹出系统拍照发图
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.PICPHOTOORALBUM">
+            <summary>
+            弹出拍照或者相册发图
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.PICWEIXIN">
+            <summary>
+            弹出微信相册发图器
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.LOCATIONSELECT">
+            <summary>
+            弹出地理位置选择器
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.ResponseMsgType">
+            <summary>
+            发送消息类型
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.ButtonType">
@@ -2625,6 +2800,42 @@
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_TemplateSendJobFinishRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_TemplateSendJobFinish)">
             <summary>
             发送模板消息返回结果
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_PicPhotoOrAlbumRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_PicPhotoOrAlbum)">
+            <summary>
+            弹出拍照或者相册发图
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_ScancodePushRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_ScancodePush)">
+            <summary>
+            扫码推事件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_ScancodeWaitmsgRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_ScancodeWaitmsg)">
+            <summary>
+            扫码推事件且弹出“消息接收中”提示框
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_LocationSelectRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_LocationSelect)">
+            <summary>
+            弹出地理位置选择器
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_PicWeixinRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_PicWeixin)">
+            <summary>
+            弹出微信相册发图器
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_PicSysphotoRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_PicSysphoto)">
+            <summary>
+            弹出系统拍照发图
             </summary>
             <returns></returns>
         </member>
@@ -3224,6 +3435,7 @@
             <summary>
             类型为scancode_waitmsg时必须。
             用户点击按钮后，微信客户端将调起扫一扫工具，完成扫码操作后，将扫码的结果传给开发者，同时收起扫一扫工具，然后弹出“消息接收中”提示框，随后可能会收到开发者下发的消息。
+            仅支持微信iPhone5.4.1以上版本，和Android5.4以上版本的微信用户，旧版本微信用户点击后将没有回应，开发者也不能正常接收到事件推送。
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.SinglePicSysphotoButton">
@@ -3235,6 +3447,7 @@
             <summary>
             类型为pic_sysphoto时必须。
             用户点击按钮后，微信客户端将调起系统相机，完成拍照操作后，会将拍摄的相片发送给开发者，并推送事件给开发者，同时收起系统相机，随后可能会收到开发者下发的消息。
+            仅支持微信iPhone5.4.1以上版本，和Android5.4以上版本的微信用户，旧版本微信用户点击后将没有回应，开发者也不能正常接收到事件推送。
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.SinglePicPhotoOrAlbumButton">
@@ -3246,6 +3459,7 @@
             <summary>
             类型为pic_photo_or_album时必须。
             用户点击按钮后，微信客户端将弹出选择器供用户选择“拍照”或者“从手机相册选择”。用户选择后即走其他两种流程。
+            仅支持微信iPhone5.4.1以上版本，和Android5.4以上版本的微信用户，旧版本微信用户点击后将没有回应，开发者也不能正常接收到事件推送。
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.SinglePicWeixinButton">
@@ -3257,6 +3471,7 @@
             <summary>
             类型为pic_weixin时必须。
             用户点击按钮后，微信客户端将调起微信相册，完成选择操作后，将选择的相片发送给开发者的服务器，并推送事件给开发者，同时收起相册，随后可能会收到开发者下发的消息。
+            仅支持微信iPhone5.4.1以上版本，和Android5.4以上版本的微信用户，旧版本微信用户点击后将没有回应，开发者也不能正常接收到事件推送。
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleLocationSelectButton">
@@ -3268,6 +3483,67 @@
             <summary>
             类型为location_select时必须。
             用户点击按钮后，微信客户端将调起地理位置选择工具，完成选择操作后，将选择的地理位置发送给开发者的服务器，同时收起位置选择工具，随后可能会收到开发者下发的消息。
+            仅支持微信iPhone5.4.1以上版本，和Android5.4以上版本的微信用户，旧版本微信用户点击后将没有回应，开发者也不能正常接收到事件推送。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_PicPhotoOrAlbum">
+            <summary>
+            事件之弹出拍照或者相册发图（pic_photo_or_album）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_PicPhotoOrAlbum.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_PicPhotoOrAlbum.EventKey">
+            <summary>
+            事件KEY值，与自定义菜单接口中KEY值对应
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_ScancodeWaitmsg">
+            <summary>
+            事件之扫码推事件且弹出“消息接收中”提示框(scancode_waitmsg)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_ScancodeWaitmsg.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_ScancodeWaitmsg.EventKey">
+            <summary>
+            事件KEY值，与自定义菜单接口中KEY值对应
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_ScancodePush">
+            <summary>
+            事件之扫码推事件(scancode_push)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_ScancodePush.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_ScancodePush.EventKey">
+            <summary>
+            事件KEY值，与自定义菜单接口中KEY值对应
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_PicSysphoto">
+            <summary>
+            事件之弹出系统拍照发图(pic_sysphoto)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_PicSysphoto.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_PicSysphoto.EventKey">
+            <summary>
+            事件KEY值，与自定义菜单接口中KEY值对应
             </summary>
         </member>
     </members>

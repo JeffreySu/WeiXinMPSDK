@@ -5,10 +5,12 @@ using System.Text;
 
 namespace Senparc.Weixin
 {
+   
+
     /// <summary>
-    /// 接收消息类型
+    /// 企业接收消息类型
     /// </summary>
-    public enum RequestMsgType
+    public enum QyRequestMsgType
     {
         Text, //文本
         Location, //地理位置
@@ -18,105 +20,6 @@ namespace Senparc.Weixin
         Link, //连接信息
         Event, //事件推送
     }
-
-
-    /// <summary>
-    /// 当RequestMsgType类型为Event时，Event属性的类型
-    /// </summary>
-    public enum Event
-    {
-        /// <summary>
-        /// 进入会话（似乎已从官方API中移除）
-        /// </summary>
-        ENTER,
-
-        /// <summary>
-        /// 地理位置（似乎已从官方API中移除）
-        /// </summary>
-        LOCATION,
-
-        /// <summary>
-        /// 订阅
-        /// </summary>
-        subscribe,
-
-        /// <summary>
-        /// 取消订阅
-        /// </summary>
-        unsubscribe,
-
-        /// <summary>
-        /// 自定义菜单点击事件
-        /// </summary>
-        CLICK,
-
-        /// <summary>
-        /// 二维码扫描
-        /// </summary>
-        scan,
-
-        /// <summary>
-        /// URL跳转
-        /// </summary>
-        VIEW,
-
-        /// <summary>
-        /// 事件推送群发结果
-        /// </summary>
-        MASSSENDJOBFINISH,
-
-        /// <summary>
-        /// 模板信息发送完成
-        /// </summary>
-        TEMPLATESENDJOBFINISH,
-
-        /// <summary>
-        /// 扫码推事件
-        /// </summary>
-        SCANCODEPUSH,
-
-        /// <summary>
-        /// 扫码推事件且弹出“消息接收中”提示框
-        /// </summary>
-        SCANCODEWAITMSG,
-
-        /// <summary>
-        /// 弹出系统拍照发图
-        /// </summary>
-        PICSYSPHOTO,
-
-        /// <summary>
-        /// 弹出拍照或者相册发图
-        /// </summary>
-        PICPHOTOORALBUM,
-
-        /// <summary>
-        /// 弹出微信相册发图器
-        /// </summary>
-        PICWEIXIN,
-
-        /// <summary>
-        /// 弹出地理位置选择器
-        /// </summary>
-        LOCATIONSELECT
-    }
-
-
-    /// <summary>
-    /// 发送消息类型
-    /// </summary>
-    public enum ResponseMsgType
-    {
-        Text,
-        News,
-        Music,
-        Image,
-        Voice,
-        Video,
-        Transfer_Customer_Service,
-        //transfer_customer_service
-    }
-
 
     /// <summary>
     /// 返回码（JSON）

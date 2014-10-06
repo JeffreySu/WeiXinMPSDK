@@ -194,64 +194,9 @@
             所有Request和Response消息的基类
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.RequestMsgType">
+        <member name="T:Senparc.Weixin.QyRequestMsgType">
             <summary>
-            接收消息类型
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.Event">
-            <summary>
-            当RequestMsgType类型为Event时，Event属性的类型
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.Event.ENTER">
-            <summary>
-            进入会话（似乎已从官方API中移除）
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.Event.LOCATION">
-            <summary>
-            地理位置（似乎已从官方API中移除）
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.Event.subscribe">
-            <summary>
-            订阅
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.Event.unsubscribe">
-            <summary>
-            取消订阅
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.Event.CLICK">
-            <summary>
-            自定义菜单点击事件
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.Event.scan">
-            <summary>
-            二维码扫描
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.Event.VIEW">
-            <summary>
-            URL跳转
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.Event.MASSSENDJOBFINISH">
-            <summary>
-            事件推送群发结果
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.Event.TEMPLATESENDJOBFINISH">
-            <summary>
-            模板信息发送完成
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.ResponseMsgType">
-            <summary>
-            发送消息类型
+            企业接收消息类型
             </summary>
         </member>
         <member name="T:Senparc.Weixin.ReturnCode">
@@ -320,30 +265,6 @@
             根据完整文件路径获取FileStream
             </summary>
             <param name="fileName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.Helpers.MsgTypeHelper.GetRequestMsgType(System.Xml.Linq.XDocument)">
-            <summary>
-            根据xml信息，返回RequestMsgType
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.Helpers.MsgTypeHelper.GetRequestMsgType(System.String)">
-            <summary>
-            根据xml信息，返回RequestMsgType
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.Helpers.MsgTypeHelper.GetResponseMsgType(System.Xml.Linq.XDocument)">
-            <summary>
-            根据xml信息，返回ResponseMsgType
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.Helpers.MsgTypeHelper.GetResponseMsgType(System.String)">
-            <summary>
-            根据xml信息，返回ResponseMsgType
-            </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Helpers.SerializerHelper.DecodeUnicode(System.Text.RegularExpressions.Match)">

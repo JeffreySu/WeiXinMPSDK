@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Senparc.Weixin.QY.Entities
 {
-    public interface IRequestMessageBase : IMessageBase
+    public interface IRequestMessageBase : Senparc.Weixin.Entities.IRequestMessageBase
     {
         RequestMsgType MsgType { get; }
         long MsgId { get; set; }
@@ -14,7 +14,7 @@ namespace Senparc.Weixin.QY.Entities
     /// <summary>
     /// 接收到请求的消息
     /// </summary>
-    public class RequestMessageBase : MessageBase, IRequestMessageBase
+    public class RequestMessageBase : Weixin.Entities.ResponseMessageBase, IResponseMessageBase
     {
         public RequestMessageBase()
         {

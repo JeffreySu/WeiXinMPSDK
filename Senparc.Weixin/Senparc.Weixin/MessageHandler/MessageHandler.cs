@@ -155,29 +155,40 @@ namespace Senparc.Weixin.MessageHandlers
         /// </summary>
         public bool UsedMessageAgent { get; set; }
 
-        public MessageHandler(Stream inputStream, int maxRecordCount = 0)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="inputStream"></param>
+        /// <param name="maxRecordCount"></param>
+        /// <param name="postData">需要传入到Init的参数</param>
+        public MessageHandler(Stream inputStream, int maxRecordCount = 0, object postData = null)
         {
             WeixinContext.MaxRecordCount = maxRecordCount;
             inputStream.Seek(0, SeekOrigin.Begin);//强制调整指针位置
             using (XmlReader xr = XmlReader.Create(inputStream))
             {
-                RequestDocument = XDocument.Load(xr);
-                Init(RequestDocument);
+                var postDataDocument = XDocument.Load(xr);
+                RequestDocument = Init(postDataDocument, postData);
             }
         }
 
-        public MessageHandler(XDocument requestDocument, int maxRecordCount = 0)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="postDataDocument"></param>
+        /// <param name="maxRecordCount"></param>
+        /// <param name="postData">需要传入到Init的参数</param>
+        public MessageHandler(XDocument postDataDocument, int maxRecordCount = 0, object postData = null)
         {
             WeixinContext.MaxRecordCount = maxRecordCount;
-            Init(requestDocument);
+            RequestDocument = Init(postDataDocument, postData);
         }
 
-        protected MessageHandler()
-        {
-            throw new NotImplementedException();
-        }
-
-        public abstract void Init(XDocument requestDocument);
+        /// <summary>
+        /// 初始化，获取RequestDocument
+        /// </summary>
+        /// <param name="requestDocument"></param>
+        public abstract XDocument Init(XDocument requestDocument, object postData = null);
 
         //public abstract TR CreateResponseMessage<TR>() where TR : ResponseMessageBase;
 

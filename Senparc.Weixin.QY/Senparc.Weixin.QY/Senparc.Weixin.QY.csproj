@@ -56,6 +56,7 @@
     <Compile Include="AdvancedAPIs\OAuth2\OAuth2Result.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonSend.cs" />
+    <Compile Include="Entities\Request\EncryptPostData.cs" />
     <Compile Include="Entities\Extensions.cs" />
     <Compile Include="Entities\JsonResult\AccessTokenResult.cs" />
     <Compile Include="Entities\Menu\BaseButton.cs" />
@@ -69,14 +70,8 @@
     <Compile Include="Entities\Request\Event\IRequestMessageEventKey.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEventBase.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Click.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_Enter.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_Location.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_MassSendJobFinish.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_Scan.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_Subscribe.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_Unsubscribe.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_View.cs" />
+    <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\RequestMessageBase.cs" />
     <Compile Include="Entities\Request\RequestMessageImage.cs" />
     <Compile Include="Entities\Request\RequestMessageLink.cs" />
@@ -97,14 +92,11 @@
     <Compile Include="Entities\Response\MpNewsArticle.cs" />
     <Compile Include="Entities\Response\ResponseMessageMpNews.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="Exceptions\ErrorJsonResultException.cs" />
-    <Compile Include="Exceptions\MessageHandlerException.cs" />
-    <Compile Include="Exceptions\UnknownRequestMsgTypeException.cs" />
-    <Compile Include="Exceptions\WeixinException.cs" />
-    <Compile Include="Exceptions\WeixinMenuException.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="MessageHandlers\QyMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestMessageFactory.cs" />
+    <Compile Include="ResponseMessageFactory.cs" />
     <Compile Include="Signature.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
@@ -118,7 +110,9 @@
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

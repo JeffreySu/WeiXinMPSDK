@@ -277,15 +277,5 @@ namespace Senparc.Weixin.QY.Helpers
         {
             return ResponseMessageBase.CreateFromResponseXml(xml);
         }
-
-        /// <summary>
-        /// 检查是否是通过场景二维码扫入
-        /// </summary>
-        /// <param name="requestMessage"></param>
-        /// <returns></returns>
-        public static bool IsFromScene(this RequestMessageEvent_Subscribe requestMessage)
-        {
-            return !string.IsNullOrEmpty(requestMessage.EventKey);
-        }
     }
 }

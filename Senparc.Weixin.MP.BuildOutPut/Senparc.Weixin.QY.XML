@@ -515,128 +515,6 @@
             事件KEY值，与自定义菜单接口中KEY值对应
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Enter.Event">
-            <summary>
-            事件类型
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_Location">
-            <summary>
-            获取用户地理位置（高级接口下才能用）
-            获取用户地理位置的方式有两种，一种是仅在进入会话时上报一次，一种是进入会话后每隔5秒上报一次。公众号可以在公众平台网站中设置。
-            用户同意上报地理位置后，每次进入公众号会话时，都会在进入时上报地理位置，或在进入会话后每5秒上报一次地理位置，上报地理位置以推送XML数据包到开发者填写的URL来实现。
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Location.Event">
-            <summary>
-            事件类型
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Location.Latitude">
-            <summary>
-            地理位置维度，事件类型为LOCATION的时存在
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Location.Longitude">
-            <summary>
-            地理位置经度，事件类型为LOCATION的时存在
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Location.Precision">
-            <summary>
-            地理位置精度，事件类型为LOCATION的时存在
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_MassSendJobFinish">
-            <summary>
-            事件推送群发结果。
-            
-            由于群发任务提交后，群发任务可能在一定时间后才完成，因此，群发接口调用时，仅会给出群发任务是否提交成功的提示，若群发任务提交成功，则在群发任务结束时，会向开发者在公众平台填写的开发者URL（callback URL）推送事件。
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_MassSendJobFinish.Status">
-            <summary>
-            群发的结构，为“send success”或“send fail”或“err(num)”。当send success时，也有可能因用户拒收公众号的消息、系统错误等原因造成少量用户接收失败。err(num)是审核失败的具体原因，可能的情况如下：
-            err(10001), //涉嫌广告 err(20001), //涉嫌政治 err(20004), //涉嫌社会 err(20002), //涉嫌色情 err(20006), //涉嫌违法犯罪 err(20008), //涉嫌欺诈 err(20013), //涉嫌版权 err(22000), //涉嫌互推(互相宣传) err(21000), //涉嫌其他
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_MassSendJobFinish.TotalCount">
-            <summary>
-            group_id下粉丝数；或者openid_list中的粉丝数
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_MassSendJobFinish.FilterCount">
-            <summary>
-            过滤（过滤是指，有些用户在微信设置不接收该公众号的消息）后，准备发送的粉丝数，原则上，FilterCount = SentCount + ErrorCount
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_MassSendJobFinish.SendCount">
-            <summary>
-            发送成功的粉丝数
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_MassSendJobFinish.ErrorCount">
-            <summary>
-            发送失败的粉丝数
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_Scan">
-            <summary>
-            事件之二维码扫描（关注微信）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Scan.Event">
-            <summary>
-            事件类型
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Scan.EventKey">
-            <summary>
-            事件KEY值，是一个32位无符号整数，即创建二维码时的二维码scene_id
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_Subscribe">
-            <summary>
-            事件之订阅
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Subscribe.Event">
-            <summary>
-            事件类型
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Subscribe.EventKey">
-            <summary>
-            事件KEY值，qrscene_为前缀，后面为二维码的参数值（如果不是扫描场景二维码，此参数为空）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Subscribe.Ticket">
-            <summary>
-            二维码的ticket，可用来换取二维码图片（如果不是扫描场景二维码，此参数为空）
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_TemplateSendJobFinish">
-            <summary>
-            事件推送群发结果。
-            
-            由于群发任务提交后，群发任务可能在一定时间后才完成，因此，群发接口调用时，仅会给出群发任务是否提交成功的提示，若群发任务提交成功，则在群发任务结束时，会向开发者在公众平台填写的开发者URL（callback URL）推送事件。
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_TemplateSendJobFinish.Status">
-            <summary>
-            群发的结构，为“success”（送达成功）或“failed:user block”（送达由于用户拒收（用户设置拒绝接收公众号消息））或“failed: system failed”（送达由于其他原因失败）。
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_Unsubscribe">
-            <summary>
-            事件之取消订阅
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Unsubscribe.Event">
-            <summary>
-            事件类型
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_View">
             <summary>
             事件之URL跳转视图（View）
@@ -650,6 +528,11 @@
         <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_View.EventKey">
             <summary>
             事件KEY值，设置的跳转URL
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.Entities.Request.PostModel">
+            <summary>
+            微信企业号服务器Post过来的参数集合（不包括PostData）
             </summary>
         </member>
         <member name="P:Senparc.Weixin.QY.Entities.RequestMessageLocation.Location_X">
@@ -852,21 +735,6 @@
             英文
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.ErrorJsonResultException">
-            <summary>
-            JSON返回错误代码（比如token_access相关操作中使用）。
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.WeixinException">
-            <summary>
-            微信自定义异常基类
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.UnknownRequestMsgTypeException">
-            <summary>
-            未知请求类型。
-            </summary>
-        </member>
         <member name="M:Senparc.Weixin.QY.Helpers.EntityHelper.FillEntityWithXml``1(``0,System.Xml.Linq.XDocument)">
             <summary>
             根据XML信息填充实实体
@@ -899,17 +767,83 @@
             <param name="xml">返回给服务器的Response Xml</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.EntityHelper.IsFromScene(Senparc.Weixin.QY.Entities.RequestMessageEvent_Subscribe)">
+        <member name="P:Senparc.Weixin.QY.MessageHandlers.IQyMessageHandler.EncryptPostData">
             <summary>
-            检查是否是通过场景二维码扫入
+            原始加密信息
             </summary>
-            <param name="requestMessage"></param>
-            <returns></returns>
         </member>
         <member name="F:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.GlobalWeixinContext">
             <summary>
             上下文（仅限于当前MessageHandler基类内）
             </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.CreateResponseMessage``1">
+            <summary>
+            根据当前的RequestMessage创建指定类型的ResponseMessage
+            </summary>
+            <typeparam name="TR">基于ResponseMessageBase的响应消息类型</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.DefaultResponseMessage(Senparc.Weixin.QY.Entities.IRequestMessageBase)">
+            <summary>
+            默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnTextOrEventRequest(Senparc.Weixin.QY.Entities.RequestMessageText)">
+            <summary>
+            预处理文字或事件类型请求。
+            这个请求是一个比较特殊的请求，通常用于统一处理来自文字或菜单按钮的同一个执行逻辑，
+            会在执行OnTextRequest或OnEventRequest之前触发，具有以下一些特征：
+            1、如果返回null，则继续执行OnTextRequest或OnEventRequest
+            2、如果返回不为null，则终止执行OnTextRequest或OnEventRequest，返回最终ResponseMessage
+            3、如果是事件，则会将RequestMessageEvent自动转为RequestMessageText类型，其中RequestMessageText.Content就是RequestMessageEvent.EventKey
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnTextRequest(Senparc.Weixin.QY.Entities.RequestMessageText)">
+            <summary>
+            文字类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnLocationRequest(Senparc.Weixin.QY.Entities.RequestMessageLocation)">
+            <summary>
+            位置类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnImageRequest(Senparc.Weixin.QY.Entities.RequestMessageImage)">
+            <summary>
+            图片类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnVoiceRequest(Senparc.Weixin.QY.Entities.RequestMessageVoice)">
+            <summary>
+            语音类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnVideoRequest(Senparc.Weixin.QY.Entities.RequestMessageVideo)">
+            <summary>
+            视频类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnLinkRequest(Senparc.Weixin.QY.Entities.RequestMessageLink)">
+            <summary>
+            链接消息类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEventRequest(Senparc.Weixin.QY.Entities.IRequestMessageEventBase)">
+            <summary>
+            Event事件类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_ClickRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_Click)">
+            <summary>
+            Event事件类型请求之CLICK
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_ViewRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_View)">
+            <summary>
+            事件之URL跳转视图（View）
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.WeixinContext">
             <summary>
@@ -921,6 +855,70 @@
             根据ResponseMessageBase获得转换后的ResponseDocument
             注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
             </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.AgentId">
+            <summary>
+            应用ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.EncryptPostData">
+            <summary>
+            原始加密信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.RequestMessage">
+            <summary>
+            请求实体
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.ResponseMessage">
+            <summary>
+            响应实体
+            正常情况下只有当执行Execute()方法后才可能有值。
+            也可以结合Cancel，提前给ResponseMessage赋值。
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.RequestMessageFactory.GetRequestEntity(System.Xml.Linq.XDocument)">
+            <summary>
+            获取XDocument转换后的IRequestMessageBase实例。
+            如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.RequestMessageFactory.GetRequestEntity(System.String)">
+            <summary>
+            获取XDocument转换后的IRequestMessageBase实例。
+            如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.RequestMessageFactory.GetRequestEntity(System.IO.Stream)">
+            <summary>
+            获取XDocument转换后的IRequestMessageBase实例。
+            如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+            </summary>
+            <param name="stream">如Request.InputStream</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.RequestMessageFactory.GetEncryptPostData(System.String)">
+            <summary>
+            获取微信服务器发送过来的加密xml信息
+            </summary>
+            <param name="xml"></param>
+        </member>
+        <member name="M:Senparc.Weixin.QY.ResponseMessageFactory.GetResponseEntity(System.Xml.Linq.XDocument)">
+            <summary>
+            获取XDocument转换后的IResponseMessageBase实例（通常在反向读取日志的时候用到）。
+            如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.ResponseMessageFactory.GetResponseEntity(System.String)">
+            <summary>
+            获取XDocument转换后的IRequestMessageBase实例。
+            如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+            </summary>
+            <returns></returns>
         </member>
         <member name="F:Senparc.Weixin.QY.Signature.Token">
             <summary>

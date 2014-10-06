@@ -106,13 +106,12 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public MessageHandler(XDocument requestDocument, int maxRecordCount = 0)
             : base(requestDocument, maxRecordCount)
         {
-            WeixinContext.MaxRecordCount = maxRecordCount;
-            Init(requestDocument);
+            //WeixinContext.MaxRecordCount = maxRecordCount;
+            //Init(requestDocument);
         }
 
-        public override void Init(XDocument requestDocument)
+        public override XDocument Init(XDocument postDataDocument, object postData = null)
         {
-            RequestDocument = requestDocument;
             RequestMessage = RequestMessageFactory.GetRequestEntity(RequestDocument);
 
             //记录上下文
@@ -120,6 +119,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
             {
                 WeixinContext.InsertMessage(RequestMessage);
             }
+
+            return postDataDocument;
         }
 
         /// <summary>
@@ -217,6 +218,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public virtual void OnExecuted()
         {
         }
+
+        #region 接收消息方法
 
         /// <summary>
         /// 默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
@@ -485,5 +488,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
         #endregion
+
+        #endregion
+
     }
 }

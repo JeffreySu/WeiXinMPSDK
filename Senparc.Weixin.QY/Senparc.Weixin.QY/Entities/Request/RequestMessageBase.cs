@@ -14,7 +14,7 @@ namespace Senparc.Weixin.QY.Entities
     /// <summary>
     /// 接收到请求的消息
     /// </summary>
-    public class RequestMessageBase : Weixin.Entities.ResponseMessageBase, IResponseMessageBase
+    public class RequestMessageBase : Weixin.Entities.RequestMessageBase, IRequestMessageBase
     {
         public RequestMessageBase()
         {

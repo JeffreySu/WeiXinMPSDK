@@ -438,6 +438,28 @@
             此方法中所有过程，都基于Senparc.Weixin的基础功能，只为简化代码而设。
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.MessageHandlers.MessageHandler`3.#ctor(System.IO.Stream,System.Int32,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="inputStream"></param>
+            <param name="maxRecordCount"></param>
+            <param name="postData">需要传入到Init的参数</param>
+        </member>
+        <member name="M:Senparc.Weixin.MessageHandlers.MessageHandler`3.#ctor(System.Xml.Linq.XDocument,System.Int32,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="postDataDocument"></param>
+            <param name="maxRecordCount"></param>
+            <param name="postData">需要传入到Init的参数</param>
+        </member>
+        <member name="M:Senparc.Weixin.MessageHandlers.MessageHandler`3.Init(System.Xml.Linq.XDocument,System.Object)">
+            <summary>
+            初始化，获取RequestDocument
+            </summary>
+            <param name="requestDocument"></param>
+        </member>
         <member name="M:Senparc.Weixin.MessageHandlers.MessageHandler`3.Execute">
             <summary>
             执行微信请求

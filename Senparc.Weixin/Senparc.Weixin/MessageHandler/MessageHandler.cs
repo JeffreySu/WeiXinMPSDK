@@ -14,7 +14,9 @@ using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.MessageHandlers
 {
-    public interface IMessageHandler
+    public interface IMessageHandler<TRest, TResp>
+        where TRest : IRequestMessageBase
+        where TResp : IResponseMessageBase
     {
         /// <summary>
         /// 发送者用户名（OpenId）
@@ -44,12 +46,12 @@ namespace Senparc.Weixin.MessageHandlers
         /// <summary>
         /// 请求实体
         /// </summary>
-        IRequestMessageBase RequestMessage { get; set; }
+        TRest RequestMessage { get; set; }
         /// <summary>
         /// 响应实体
         /// 只有当执行Execute()方法后才可能有值
         /// </summary>
-        IResponseMessageBase ResponseMessage { get; set; }
+        TResp ResponseMessage { get; set; }
 
         /// <summary>
         /// 是否使用了MessageAgent代理
@@ -66,7 +68,10 @@ namespace Senparc.Weixin.MessageHandlers
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin的基础功能，只为简化代码而设。
     /// </summary>
-    public abstract class MessageHandler<TC> : IMessageHandler where TC : class, IMessageContext, new()
+    public abstract class MessageHandler<TC, TRest, TResp> : IMessageHandler<TRest, TResp>
+        where TC : class, IMessageContext<TRest, TResp>, new()
+        where TRest : IRequestMessageBase
+        where TResp : IResponseMessageBase
     {
         ///// <summary>
         ///// 上下文
@@ -76,7 +81,7 @@ namespace Senparc.Weixin.MessageHandlers
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public abstract WeixinContext<TC> WeixinContext { get; }
+        public abstract WeixinContext<TC, TRest, TResp> WeixinContext { get; }
 
         /// <summary>
         /// 当前用户消息上下文
@@ -137,13 +142,13 @@ namespace Senparc.Weixin.MessageHandlers
         /// <summary>
         /// 请求实体
         /// </summary>
-        public virtual IRequestMessageBase RequestMessage { get; set; }
+        public virtual TRest RequestMessage { get; set; }
         /// <summary>
         /// 响应实体
         /// 正常情况下只有当执行Execute()方法后才可能有值。
         /// 也可以结合Cancel，提前给ResponseMessage赋值。
         /// </summary>
-        public virtual IResponseMessageBase ResponseMessage { get; set; }
+        public virtual TResp ResponseMessage { get; set; }
 
         /// <summary>
         /// 是否使用了MessageAgent代理

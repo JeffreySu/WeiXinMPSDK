@@ -16,7 +16,7 @@ using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
-    public interface IMessageHandler : Weixin.MessageHandlers.IMessageHandler
+    public interface IMessageHandler : Weixin.MessageHandlers.IMessageHandler<IRequestMessageBase, IResponseMessageBase>
     {
         new IRequestMessageBase RequestMessage { get; set; }
         new IResponseMessageBase ResponseMessage { get; set; }
@@ -27,12 +27,13 @@ namespace Senparc.Weixin.MP.MessageHandlers
     /// 此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
     /// </summary>
     public abstract class MessageHandler<TC> :
-        Weixin.MessageHandlers.MessageHandler<TC>, IMessageHandler where TC : class, IMessageContext, new()
+        Weixin.MessageHandlers.MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IMessageHandler
+        where TC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         /// <summary>
         /// 上下文（仅限于当前MessageHandler基类内）
         /// </summary>
-        public static WeixinContext<TC> GlobalWeixinContext = new Context.WeixinContext<TC>();
+        public static WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new Context.WeixinContext<TC,IRequestMessageBase, IResponseMessageBase>();
 
         /// <summary>
         /// 全局消息上下文

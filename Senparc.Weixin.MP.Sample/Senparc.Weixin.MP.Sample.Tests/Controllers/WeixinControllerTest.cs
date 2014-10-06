@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Context;
-using Senparc.Weixin.MP.Context;
+using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.MvcExtension;
@@ -189,10 +189,10 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                 var actual = target.MiniPost(signature, timestamp, nonce, "echostr") as WeixinResult;
                 Assert.IsNotNull(actual);
             }
-            Assert.AreEqual(1, MessageHandler<MessageContext>.GlobalWeixinContext.MessageQueue.Count);
+            Assert.AreEqual(1, MessageHandler<MessageContext<IRequestMessageBase,IResponseMessageBase>>.GlobalWeixinContext.MessageQueue.Count);
 
-            var weixinContext = MessageHandler<MessageContext>.GlobalWeixinContext.MessageQueue[0];
-            var recordCount = MessageHandler<MessageContext>.GlobalWeixinContext.MaxRecordCount;
+            var weixinContext = MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>.GlobalWeixinContext.MessageQueue[0];
+            var recordCount = MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>.GlobalWeixinContext.MaxRecordCount;
             Assert.AreEqual(recordCount, weixinContext.RequestMessages.Count);
             Assert.AreEqual(recordCount, weixinContext.ResponseMessages.Count);
         }

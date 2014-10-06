@@ -34,13 +34,18 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 上下文（仅限于当前MessageHandler基类内）
         /// </summary>
         public static WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>();
+        //TODO:这里如果用一个MP自定义的WeixinContext，继承WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>，在下面的WeixinContext中将无法转换成基类要求的类型
+
 
         /// <summary>
         /// 全局消息上下文
         /// </summary>
         public override WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> WeixinContext
         {
-            get { return GlobalWeixinContext as WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>; }
+            get
+            {
+                return GlobalWeixinContext;
+            }
         }
 
         /// <summary>

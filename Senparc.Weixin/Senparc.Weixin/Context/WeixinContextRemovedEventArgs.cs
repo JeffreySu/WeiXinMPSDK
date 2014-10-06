@@ -6,6 +6,7 @@ using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Context
 {
+
     /// <summary>
     /// 对话上下文被删除时触发事件的事件数据
     /// </summary>

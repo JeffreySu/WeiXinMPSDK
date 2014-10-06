@@ -19,6 +19,13 @@
             最大记录条数（保留尾部），如果小于等于0则不限制
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.Context.IMessageContext`2">
+            <summary>
+            微信消息上下文（单个用户）接口
+            </summary>
+            <typeparam name="TRest">请求消息类型</typeparam>
+            <typeparam name="TResp">响应消息类型</typeparam>
+        </member>
         <member name="P:Senparc.Weixin.Context.IMessageContext`2.UserName">
             <summary>
             用户名（OpenID）

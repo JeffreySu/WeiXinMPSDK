@@ -7,6 +7,11 @@ using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Context
 {
+    /// <summary>
+    /// 微信消息上下文（单个用户）接口
+    /// </summary>
+    /// <typeparam name="TRest">请求消息类型</typeparam>
+    /// <typeparam name="TResp">响应消息类型</typeparam>
     public interface IMessageContext<TRest,TResp>
         where TRest : IRequestMessageBase
         where TResp : IResponseMessageBase

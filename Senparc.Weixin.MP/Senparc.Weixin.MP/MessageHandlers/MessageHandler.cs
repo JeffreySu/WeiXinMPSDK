@@ -124,7 +124,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
         public override XDocument Init(XDocument postDataDocument, object postData = null)
         {
-            RequestMessage = RequestMessageFactory.GetRequestEntity(RequestDocument);
+            RequestMessage = RequestMessageFactory.GetRequestEntity(postDataDocument);
 
             //记录上下文
             if (WeixinContextGlobal.UseWeixinContext)

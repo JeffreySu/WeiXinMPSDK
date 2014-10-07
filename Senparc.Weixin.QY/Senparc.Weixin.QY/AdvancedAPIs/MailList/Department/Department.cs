@@ -21,7 +21,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static CreateDepartmentResult CreateDepartment(string accessToken, string name, int parentId)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token={0}";
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token={0}", accessToken);
 
             var data = new
             {
@@ -29,7 +29,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 parentid = parentId
             };
 
-            return CommonJsonSend.Send<CreateDepartmentResult>(accessToken, url, data, CommonJsonSendType.POST);
+            return CommonJsonSend.Send<CreateDepartmentResult>(null, url, data, CommonJsonSendType.POST);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static WxJsonResult UpdateDepartment(string accessToken, string id, string name)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token={0]";
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token={0}", accessToken);
 
             var data = new
             {
@@ -49,26 +49,26 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 name = name
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST);
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST);
         }
 
         /// <summary>
         /// 删除部门
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="id">部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）</param>
+        /// <param name="ids">部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）</param>
         /// 可以一次性删除一个或多个部门（删除多个时传入id数组）
         /// <returns></returns>
-        public static WxJsonResult DeleteDepartment(string accessToken, string[] id)
+        public static WxJsonResult DeleteDepartment(string accessToken, string[] ids)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token={0]";
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token={0}", accessToken);
 
-            for (int i = 0; i < id.Length; i++)
+            foreach (var id in ids)
             {
-                url += string.Format("&id={0}", i + 1);
+                url += string.Format("&id={0}", id);
             }
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -78,9 +78,9 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static GetDepartmentListResult GetDepartmentList(string accessToken)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token={0]";
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token={0}", accessToken);
 
-            return CommonJsonSend.Send<GetDepartmentListResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<GetDepartmentListResult>(null, url, null, CommonJsonSendType.GET);
         }
     }
 }

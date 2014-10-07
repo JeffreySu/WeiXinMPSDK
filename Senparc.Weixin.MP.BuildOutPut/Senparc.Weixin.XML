@@ -386,6 +386,17 @@
             为P2P返回结果做准备
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandlerDocument.RequestDocument">
+            <summary>
+            在构造函数中转换得到原始XML数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandlerDocument.ResponseDocument">
+            <summary>
+            根据ResponseMessageBase获得转换后的ResponseDocument
+            注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MessageHandlers.IMessageHandler`2.Execute">
             <summary>
             执行微信请求
@@ -403,17 +414,6 @@
             如果在执行OnExecuting()执行前设为True，则所有OnExecuting()、Execute()、OnExecuted()代码都不会被执行。
             如果在执行OnExecuting()执行过程中设为True，则后续Execute()及OnExecuted()代码不会被执行。
             建议在设为True的时候，给ResponseMessage赋值，以返回友好信息。
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandler`2.RequestDocument">
-            <summary>
-            在构造函数中转换得到原始XML数据
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandler`2.ResponseDocument">
-            <summary>
-            根据ResponseMessageBase获得转换后的ResponseDocument
-            注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandler`2.RequestMessage">

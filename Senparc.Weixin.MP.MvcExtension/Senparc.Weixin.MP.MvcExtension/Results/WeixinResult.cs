@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.MessageHandlers;
 
 namespace Senparc.Weixin.MP.MvcExtension
 {
-    using Senparc.Weixin.MP;
-    using Senparc.Weixin.MP.MessageHandlers;
 
     //public static class WeixinResultExtension
     //{
@@ -23,7 +23,7 @@ namespace Senparc.Weixin.MP.MvcExtension
     public class WeixinResult : ContentResult
     {
         //private string _content;
-        protected IMessageHandler _messageHandler;
+        protected IMessageHandler<IRequestMessageBase,IResponseMessageBase> _messageHandler;
 
         public WeixinResult(string content)
         {
@@ -31,7 +31,7 @@ namespace Senparc.Weixin.MP.MvcExtension
             base.Content = content;
         }
 
-        public WeixinResult(IMessageHandler messageHandler)
+        public WeixinResult(IMessageHandler<IRequestMessageBase, IResponseMessageBase> messageHandler)
         {
             _messageHandler = messageHandler;
         }

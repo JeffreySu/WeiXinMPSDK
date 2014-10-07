@@ -27,22 +27,9 @@
             一般在测试的时候使用。
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.MvcExtension.FixWeixinBugWeixinResult.#ctor(Senparc.Weixin.MP.MessageHandlers.IMessageHandler)">
+        <member name="M:Senparc.Weixin.MP.MvcExtension.FixWeixinBugWeixinResult.#ctor(Senparc.Weixin.MessageHandlers.IMessageHandlerDocument)">
             <summary>
             这个类型只用于特殊阶段：目前IOS版本微信有换行的bug，\r\n会识别为2行
-            
-            肯
-            请
-            微
-            信
-            团
-            队
-            加
-            把
-            劲
-            啊
-            ！
-            
             </summary>
         </member>
     </members>

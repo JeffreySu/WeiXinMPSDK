@@ -76,7 +76,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
                 return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0软件换行bug暂时添加的方法，平时用下面一个方法即可
-                return new WeixinResult(messageHandler);//v0.8+
+                //return new WeixinResult(messageHandler);//v0.8+
             }
             catch (Exception ex)
             {

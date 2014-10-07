@@ -65,6 +65,17 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
+        /// 最后返回的ResponseDocument。
+        /// 这里是Senparc.Weixin.MP，则应当和ResponseDocument一致
+        /// </summary>
+        public override XDocument FinalResponseDocument {
+            get
+            {
+                return ResponseDocument;
+            }
+        }
+
+        /// <summary>
         /// 请求实体
         /// </summary>
         public new IRequestMessageBase RequestMessage

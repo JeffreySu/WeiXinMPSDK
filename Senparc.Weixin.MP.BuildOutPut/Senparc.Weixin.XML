@@ -386,6 +386,12 @@
             为P2P返回结果做准备
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MessageHandlers.IMessageHandlerDocument">
+            <summary>
+            为IMessageHandler单独提供XDocument类型的属性接口（主要是ResponseDocument）。
+            分离这个接口的目的是为了在MvcExtension中对IMessageHandler解耦，使用IMessageHandlerDocument接口直接操作XML。
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandlerDocument.RequestDocument">
             <summary>
             在构造函数中转换得到原始XML数据
@@ -395,6 +401,12 @@
             <summary>
             根据ResponseMessageBase获得转换后的ResponseDocument
             注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandlerDocument.FinalResponseDocument">
+            <summary>
+            最后返回的ResponseDocument。
+            如果是Senparc.Weixin.MP，则应当和ResponseDocument一致；如果是Senparc.Weixin.QY，则应当在ResponseDocument基础上进行加密
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MessageHandlers.IMessageHandler`2.Execute">
@@ -503,6 +515,12 @@
             <summary>
             根据ResponseMessageBase获得转换后的ResponseDocument
             注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.MessageHandler`3.FinalResponseDocument">
+            <summary>
+            最后返回的ResponseDocument。
+            如果是Senparc.Weixin.MP，则应当和ResponseDocument一致；如果是Senparc.Weixin.QY，则应当在ResponseDocument基础上进行加密
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MessageHandlers.MessageHandler`3.RequestMessage">

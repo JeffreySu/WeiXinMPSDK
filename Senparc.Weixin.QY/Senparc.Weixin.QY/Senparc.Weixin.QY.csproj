@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -56,7 +57,9 @@
     <Compile Include="CommonAPIs\AccessTokenContainer.cs" />
     <Compile Include="CommonAPIs\AccessTokenHandlerWapper.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
-    <Compile Include="CommonAPIs\CommonSend.cs" />
+    <Compile Include="CommonAPIs\CommonJsonSend.cs" />
+    <Compile Include="Entities\JsonResult\GetMenuResult.cs" />
+    <Compile Include="Entities\JsonResult\GetMenuResultFull.cs" />
     <Compile Include="Entities\Request\EncryptPostData.cs" />
     <Compile Include="Entities\Extensions.cs" />
     <Compile Include="Entities\JsonResult\AccessTokenResult.cs" />
@@ -113,6 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommonAPIs\CommonApi.Menu.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

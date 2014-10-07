@@ -409,6 +409,52 @@
             <param name="corpId"></param>
             <param name="corpSecret"></param>
         </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.CommonApi.CreateMenu(System.String,System.Int32,Senparc.Weixin.QY.Entities.Menu.ButtonGroup)">
+            <summary>
+            创建菜单
+            </summary>
+            <param name="accessToken"></param>
+            <param name="agentId"></param>
+            <param name="buttonData">菜单内容</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.CommonApi.GetSingleButtonFromJsonObject(System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            获取单击按钮
+            </summary>
+            <param name="objs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.CommonApi.GetMenuFromJson(System.String)">
+            <summary>
+            从JSON字符串获取菜单对象
+            </summary>
+            <param name="jsonString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.CommonApi.GetMenu(System.String,System.Int32)">
+            <summary>
+            获取当前菜单，如果菜单不存在，将返回null
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="agentId">企业应用的id，整型。可在应用的设置页面查看</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.CommonApi.GetMenuFromJsonResult(Senparc.Weixin.QY.GetMenuResultFull)">
+            <summary>
+            根据微信返回的Json数据得到可用的GetMenuResult结果
+            </summary>
+            <param name="resultFull"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.CommonApi.DeleteMenu(System.String,System.Int32)">
+            <summary>
+            删除菜单
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="agentId">企业应用的id，整型。可在应用的设置页面查看</param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.QY.CommonAPIs.CommonJsonSend.Send(System.String,System.String,System.Object,Senparc.Weixin.QY.CommonAPIs.CommonJsonSendType)">
             <summary>
             向需要AccessToken的API发送消息的公共方法
@@ -426,6 +472,16 @@
             <param name="urlFormat"></param>
             <param name="data">如果是Get方式，可以为null</param>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.QY.Entities.GetMenuResult">
+            <summary>
+            GetMenu返回的Json结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.GetMenuResultFull">
+            <summary>
+            获取菜单时候的完整结构，用于接收微信服务器返回的Json信息
+            </summary>
         </member>
         <member name="M:Senparc.Weixin.QY.Entities.Extensions.ConvertToRequestMessageText(Senparc.Weixin.QY.Entities.IRequestMessageEventBase)">
             <summary>

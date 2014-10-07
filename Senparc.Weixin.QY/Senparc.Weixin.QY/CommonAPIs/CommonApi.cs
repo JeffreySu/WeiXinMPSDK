@@ -10,7 +10,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
     /// <summary>
     /// 通用基础API
     /// </summary>
-    public static class CommonApi
+    public partial class CommonApi
     {
         public const string API_URL = "https://qyapi.weixin.qq.com/cgi-bin";
 

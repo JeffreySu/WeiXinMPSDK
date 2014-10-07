@@ -386,11 +386,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     }
                 }
 
-                if (bg.button.Count < 2)
-                {
-                    throw new WeixinMenuException("一级菜单按钮至少为2个！");
-                }
-
                 result = new GetMenuResult()
                              {
                                  menu = bg

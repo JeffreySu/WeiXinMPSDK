@@ -52,6 +52,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CommonApis\CommonApiTest.cs" />
     <Compile Include="MessageHandlers\QyMessageHandlerTest.cs" />
     <Compile Include="RequestMessageFactoryTest.cs" />
     <Compile Include="SignatureTest.cs" />
@@ -66,6 +67,9 @@
       <Project>{2ca35598-f1a1-4dc9-aa20-a4346bfcb954}</Project>
       <Name>Senparc.Weixin.QY</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommonApis\CommonApiTest.Menu.cs" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

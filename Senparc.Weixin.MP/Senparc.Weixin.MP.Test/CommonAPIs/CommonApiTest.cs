@@ -38,6 +38,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             Assert.IsTrue(tokenResult.expires_in > 0);
         }
 
+        [TestMethod]
         public void GetTokenFailTest()
         {
             try

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,6 +12,7 @@ namespace Senparc.Weixin.QY.Test.CommonApis
 {
     public partial class CommonApiTest
     {
+        private int _agentId = 2;
         [TestMethod]
         public void CreateMenuTest()
         {
@@ -56,8 +58,34 @@ namespace Senparc.Weixin.QY.Test.CommonApis
             bg.button.Add(subButton);
 
 
-            var result = CommonApi.CreateMenu(accessToken, 2, bg);
+            var result = CommonApi.CreateMenu(accessToken, _agentId, bg);
 
+            Assert.IsNotNull(result);
+            Assert.AreEqual("ok", result.errmsg);
+        }
+
+
+        [TestMethod]
+        public void GetMenuTest()
+        {
+            //return;//已经通过测试
+            var accessToken = AccessTokenContainer.GetToken(_corpId);
+
+            var result = CommonApi.GetMenu(accessToken, _agentId);
+
+            //Assert.IsNull(result);//如果菜单不存在返回Null
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.menu.button.Count > 0);
+        }
+
+        [TestMethod]
+        public void DeleteMenuTest()
+        {
+            //return;//已经通过测试，删除之后，GetMenu将返回null
+
+            var accessToken = AccessTokenContainer.GetToken(_corpId);
+
+            var result = CommonApi.DeleteMenu(accessToken, _agentId);
             Assert.IsNotNull(result);
             Assert.AreEqual("ok", result.errmsg);
         }

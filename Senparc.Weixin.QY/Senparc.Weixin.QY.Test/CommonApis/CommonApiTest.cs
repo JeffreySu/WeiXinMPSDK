@@ -14,7 +14,7 @@ namespace Senparc.Weixin.QY.Test.CommonApis
     public partial class CommonApiTest
     {
         protected string _corpId = "wx7618c0a6d9358622"; //换成你的信息
-        protected string _corpSecret = "uNI3il6F_2sg3NxSgG_95lRkfpnbWrd__SUFlfit53M31VyiLFW_uEoEioREBQ-x"; //换成你的信息
+        protected string _corpSecret = "PKrd-r76fDCNjbUY5-9I1vhOkMqBly038Sc8zcODscmu202dqCtUWkxK7nrCGUR4"; //换成你的信息
 
         public CommonApiTest()
         {

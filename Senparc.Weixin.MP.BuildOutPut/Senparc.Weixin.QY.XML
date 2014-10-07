@@ -140,7 +140,7 @@
             <param name="name">更新的部门名称。长度限制为0~64个字符。修改部门名称时指定该参数</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Department.DeleteDepartment(System.String,System.String[])">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Department.DeleteDepartment(System.String,System.String)">
             <summary>
             删除部门
             </summary>

@@ -59,14 +59,9 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="ids">部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）</param>
         /// 可以一次性删除一个或多个部门（删除多个时传入id数组）
         /// <returns></returns>
-        public static WxJsonResult DeleteDepartment(string accessToken, string[] ids)
+        public static WxJsonResult DeleteDepartment(string accessToken, string id)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token={0}", accessToken);
-
-            foreach (var id in ids)
-            {
-                url += string.Format("&id={0}", id);
-            }
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/delete?access_token={0}&id={1}", accessToken, id);
 
             return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }

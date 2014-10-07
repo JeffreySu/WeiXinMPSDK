@@ -78,7 +78,6 @@ namespace Senparc.Weixin.MP.Sample.WebForms
                         tw.Flush();
                         tw.Close();
                     }
-                    WriteContent("");
                 }
                 finally
                 {

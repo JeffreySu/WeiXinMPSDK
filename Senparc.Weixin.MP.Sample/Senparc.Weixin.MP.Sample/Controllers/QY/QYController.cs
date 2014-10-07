@@ -36,13 +36,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         [ActionName("Index")]
         public ActionResult Get(string msg_signature = "", string timestamp = "", string nonce = "", string echostr = "")
         {
-            using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/QY/QY_Get_" + DateTime.Now.Ticks + ".txt")))
-            {
-                tw.WriteLine(msg_signature);
-                tw.Flush();
-                tw.Close();
-            }
-
             //return Content(echostr); //返回随机字符串则表示验证通过
             var verifyUrl = QY.Signature.VerifyURL(Token, EncodingAESKey, CorpId, msg_signature, timestamp, nonce,
                 echostr);
@@ -72,7 +65,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             postModel.CorpId = CorpId;
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-            var messageHandler = new QyCustomMessageHandler(Request.InputStream, postModel,maxRecordCount);
+            var messageHandler = new QyCustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
+
+            if (messageHandler.RequestMessage == null)
+            {
+                //验证不通过或接受信息有错误
+            }
 
             try
             {

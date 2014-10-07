@@ -63,7 +63,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
         {
             get
             {
-                if (ResponseDocument==null)
+                if (ResponseDocument == null)
                 {
                     return null;
                 }
@@ -152,8 +152,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
             WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.CorpId);
             string msgXml = null;
             var result = msgCrype.DecryptMsg(_postModel.Msg_Signature, _postModel.Timestamp, _postModel.Nonce, postDataStr, ref msgXml);
-            //TODO:判断result类型
-            /*
+            /* msgXml
 <xml><ToUserName><![CDATA[wx7618c0a6d9358622]]></ToUserName>
 <FromUserName><![CDATA[001]]></FromUserName>
 <CreateTime>1412585107</CreateTime>
@@ -163,6 +162,14 @@ namespace Senparc.Weixin.QY.MessageHandlers
 <AgentID>2</AgentID>
 </xml>
              */
+
+            //判断result类型
+            if (result != 0)
+            {
+                //验证没有通过，取消执行
+                CancelExcute = true;
+                return null;
+            }
 
             var requestDocument = XDocument.Parse(msgXml);
             RequestMessage = RequestMessageFactory.GetRequestEntity(requestDocument);

@@ -856,6 +856,12 @@
             注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.FinalResponseDocument">
+            <summary>
+            最后返回的ResponseDocument。
+            这里是Senparc.Weixin.QY，应当在ResponseDocument基础上进行加密（每次获取重新加密，所以结果会不同）
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.AgentId">
             <summary>
             应用ID

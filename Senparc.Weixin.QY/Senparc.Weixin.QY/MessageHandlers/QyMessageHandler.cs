@@ -56,6 +56,30 @@ namespace Senparc.Weixin.QY.MessageHandlers
         }
 
         /// <summary>
+        /// 最后返回的ResponseDocument。
+        /// 这里是Senparc.Weixin.QY，应当在ResponseDocument基础上进行加密（每次获取重新加密，所以结果会不同）
+        /// </summary>
+        public override XDocument FinalResponseDocument
+        {
+            get
+            {
+                if (ResponseDocument==null)
+                {
+                    return null;
+                }
+
+                var timeStamp = DateTime.Now.Ticks.ToString();
+                var nonce = DateTime.Now.Ticks.ToString();
+
+                WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.CorpId);
+                string finalResponseXml = null;
+                msgCrype.EncryptMsg(ResponseDocument.ToString(), timeStamp, nonce, ref finalResponseXml);//TODO:这里官方的方法已经把EncryptResponseMessage对应的XML输出出来了
+
+                return XDocument.Parse(finalResponseXml);
+            }
+        }
+
+        /// <summary>
         /// 应用ID
         /// </summary>
         public int AgentId

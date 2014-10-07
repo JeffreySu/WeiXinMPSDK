@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using System.Xml.Linq;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MessageHandlers;
 
@@ -37,9 +38,9 @@ namespace Senparc.Weixin.MP.MvcExtension
                 {
                     return base.Content;
                 }
-                else if (_messageHandlerDocument != null && _messageHandlerDocument.ResponseDocument != null)
+                else if (_messageHandlerDocument != null && _messageHandlerDocument.FinalResponseDocument != null)
                 {
-                    return _messageHandlerDocument.ResponseDocument.ToString().Replace("\r\n", "\n");
+                    return _messageHandlerDocument.FinalResponseDocument.ToString(SaveOptions.OmitDuplicateNamespaces).Replace("\r\n", "\n");
                 }
                 else
                 {
@@ -59,16 +60,16 @@ namespace Senparc.Weixin.MP.MvcExtension
                     throw new Senparc.Weixin.Exceptions.WeixinException("执行WeixinResult时提供的MessageHandler不能为Null！", null);
                 }
 
-                if (_messageHandlerDocument.ResponseDocument == null)
+                if (_messageHandlerDocument.FinalResponseDocument == null)
                 {
-                    //throw new Senparc.Weixin.MP.WeixinException("ResponseMessage不能为Null！", null);
+                    //throw new Senparc.Weixin.MP.WeixinException("FinalResponseDocument不能为Null！", null);
                 }
                 else
                 {
                     context.HttpContext.Response.ClearContent();
                     context.HttpContext.Response.ContentType = "text/xml";
 
-                    var xml = _messageHandlerDocument.ResponseDocument.ToString().Replace("\r\n", "\n"); //腾
+                    var xml = _messageHandlerDocument.FinalResponseDocument.ToString().Replace("\r\n", "\n"); //腾
                     using (MemoryStream ms = new MemoryStream())//迅
                     {//真
                         var bytes = Encoding.UTF8.GetBytes(xml);//的

@@ -68,7 +68,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 最后返回的ResponseDocument。
         /// 这里是Senparc.Weixin.MP，则应当和ResponseDocument一致
         /// </summary>
-        public override XDocument FinalResponseDocument {
+        public override XDocument FinalResponseDocument
+        {
             get
             {
                 return ResponseDocument;

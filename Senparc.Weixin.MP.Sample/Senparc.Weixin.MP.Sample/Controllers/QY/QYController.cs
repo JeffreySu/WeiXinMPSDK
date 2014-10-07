@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
+using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.QyMessageHandlers;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Entities.Response;
@@ -70,7 +72,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             postModel.CorpId = CorpId;
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-            var messageHandler = new QyCustomMessageHandler(Request.InputStream, postModel);
+            var messageHandler = new QyCustomMessageHandler(Request.InputStream, postModel,maxRecordCount);
 
             try
             {
@@ -80,25 +82,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 messageHandler.Execute();
                 //测试时可开启，帮助跟踪数据
                 messageHandler.ResponseDocument.Save(Server.MapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                messageHandler.FinalResponseDocument.Save(Server.MapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_FinalResponse_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
 
-                //直接加密（后期会放到SDK中）
-                var encryptResponseMessage = new EncryptResponseMessage()
-               {
-                   MsgSignature = postModel.Msg_Signature,
-                   TimeStamp = postModel.Timestamp,
-                   Nonce = postModel.Nonce,
-               };
-
-                WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(Token, EncodingAESKey, CorpId);
-                string postMsg = null;
-                msgCrype.EncryptMsg(messageHandler.ResponseDocument.ToString(), encryptResponseMessage.TimeStamp,
-                    encryptResponseMessage.Nonce, ref postMsg);//TODO:这里官方的方法已经把EncryptResponseMessage对应的XML输出出来了
-
-                encryptResponseMessage.Encrypt = postMsg;
-
-
-                return Content(encryptResponseMessage.Encrypt);
-
+                //自动返回加密后结果
+                return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0软件换行bug暂时添加的方法，平时用下面一个方法即可
             }
             catch (Exception ex)
             {
@@ -109,52 +96,37 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     tw.WriteLine(ex.StackTrace);
                     //tw.WriteLine("InnerExecptionMessage:" + ex.InnerException.Message);
 
-                    if (messageHandler.ResponseDocument != null)
+                    if (messageHandler.FinalResponseDocument != null)
                     {
-                        tw.WriteLine(messageHandler.ResponseDocument.ToString());
+                        tw.WriteLine(messageHandler.FinalResponseDocument.ToString());
                     }
                     tw.Flush();
                     tw.Close();
                 }
                 return Content("");
             }
+        }
 
+        /// <summary>
+        /// 这是一个最简洁的过程演示
+        /// </summary>
+        /// <param name="postModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult MiniPost(PostModel postModel)
+        {
+            var maxRecordCount = 10;
 
-            //string postData = null;
+            postModel.Token = Token;
+            postModel.EncodingAESKey = EncodingAESKey;
+            postModel.CorpId = CorpId;
 
-            //using (StreamReader sr = new StreamReader(Request.InputStream))
-            //{
-            //    postData = sr.ReadToEnd();
-            //}
-
-            ////get test Msg
-
-            //StringBuilder sb=new StringBuilder();
-            //sb.AppendFormat("{0}={1}\r\n", "msg_signature", postModel.Msg_Signature);
-            //sb.AppendFormat("{0}={1}\r\n", "timestamp", postModel.Timestamp);
-            //sb.AppendFormat("{0}={1}\r\n", "nonce", postModel.Nonce);
-            //sb.AppendFormat("{0}={1}\r\n", "postData", postData);
-
-            //try
-            //{
-            //    string msgXml = null;
-            //    WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(Token, EncodingAESKey, CorpId);
-            //    var result = msgCrype.DecryptMsg(postModel.Msg_Signature, postModel.Timestamp, postModel.Nonce, postData, ref msgXml);
-            //    sb.AppendFormat("{0}={1}\r\n", "msgXml", msgXml);
-            //}
-            //catch (Exception ex)
-            //{
-            //    sb.AppendFormat("{0}={1}\r\n", "Exception", ex.Message);
-            //}
-
-            //using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/QY/QY_" + DateTime.Now.Ticks + ".txt")))
-            //{
-            //    tw.WriteLine(sb.ToString());
-            //    tw.Flush();
-            //    tw.Close();
-            //}
-
-            //return Content("");//TODO还没做完
+            //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
+            var messageHandler = new QyCustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
+            //执行微信处理过程
+            messageHandler.Execute();
+            //自动返回加密后结果
+            return new FixWeixinBugWeixinResult(messageHandler);
         }
     }
 }

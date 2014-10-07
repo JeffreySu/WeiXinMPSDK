@@ -13,10 +13,11 @@ namespace Senparc.Weixin.QY.Test.CommonApis
     public partial class CommonApiTest
     {
         private int _agentId = 2;
+
         [TestMethod]
         public void CreateMenuTest()
         {
-            //return;//已经通过测试
+            return;//已经通过测试
 
             var accessToken = AccessTokenContainer.GetToken(_corpId);
 
@@ -68,7 +69,7 @@ namespace Senparc.Weixin.QY.Test.CommonApis
         [TestMethod]
         public void GetMenuTest()
         {
-            //return;//已经通过测试
+            return;//已经通过测试
             var accessToken = AccessTokenContainer.GetToken(_corpId);
 
             var result = CommonApi.GetMenu(accessToken, _agentId);
@@ -81,7 +82,7 @@ namespace Senparc.Weixin.QY.Test.CommonApis
         [TestMethod]
         public void DeleteMenuTest()
         {
-            //return;//已经通过测试，删除之后，GetMenu将返回null
+            return;//已经通过测试，删除之后，GetMenu将返回null
 
             var accessToken = AccessTokenContainer.GetToken(_corpId);
 

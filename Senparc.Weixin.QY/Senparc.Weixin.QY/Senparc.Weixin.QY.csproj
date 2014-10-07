@@ -36,7 +36,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -54,6 +53,8 @@
     <Compile Include="AdvancedAPIs\Media\UploadResultJson.cs" />
     <Compile Include="AdvancedAPIs\OAuth2\OAuth2.cs" />
     <Compile Include="AdvancedAPIs\OAuth2\OAuth2Result.cs" />
+    <Compile Include="CommonAPIs\AccessTokenContainer.cs" />
+    <Compile Include="CommonAPIs\AccessTokenHandlerWapper.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonSend.cs" />
     <Compile Include="Entities\Request\EncryptPostData.cs" />

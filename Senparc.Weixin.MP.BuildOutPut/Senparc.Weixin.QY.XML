@@ -341,6 +341,61 @@
             获取成员信息返回结果
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.QY.CommonAPIs.AccessTokenContainer">
+            <summary>
+            通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.AccessTokenContainer.Register(System.String,System.String)">
+            <summary>
+            注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
+            </summary>
+            <param name="corpId"></param>
+            <param name="corpSecret"></param>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.AccessTokenContainer.TryGetToken(System.String,System.String,System.Boolean)">
+            <summary>
+            使用完整的应用凭证获取Token，如果不存在将自动注册
+            </summary>
+            <param name="corpId"></param>
+            <param name="corpSecret"></param>
+            <param name="getNewToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.AccessTokenContainer.GetToken(System.String,System.Boolean)">
+            <summary>
+            获取可用Token
+            </summary>
+            <param name="corpId"></param>
+            <param name="getNewToken">是否强制重新获取新的Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.AccessTokenContainer.GetTokenResult(System.String,System.Boolean)">
+            <summary>
+            获取可用Token
+            </summary>
+            <param name="corpId"></param>
+            <param name="getNewToken">是否强制重新获取新的Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.AccessTokenContainer.CheckRegistered(System.String)">
+            <summary>
+            检查是否已经注册
+            </summary>
+            <param name="corpId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.AccessTokenHandlerWapper.Do``1(System.String,System.String,System.Func{System.String,``0},System.Boolean)">
+            <summary>
+            使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+            <param name="fun">第一个参数为accessToken</param>
+            <param name="retryIfFaild"></param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.QY.CommonAPIs.CommonApi">
             <summary>
             通用基础API
@@ -708,11 +763,6 @@
         <member name="F:Senparc.Weixin.QY.UploadMediaFileType.file">
             <summary>
             普通文件：10MB
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.ReturnCode">
-            <summary>
-            返回码（JSON）
             </summary>
         </member>
         <member name="T:Senparc.Weixin.QY.Language">

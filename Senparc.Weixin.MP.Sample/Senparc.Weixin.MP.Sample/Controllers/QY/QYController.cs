@@ -9,8 +9,6 @@ using System.Xml.Linq;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.QyMessageHandlers;
 using Senparc.Weixin.QY.Entities;
-using Senparc.Weixin.QY.Entities.Response;
-using Tencent;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -45,9 +43,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             else
             {
-                var msgEncrypt = QY.Signature.EncryptMsg(Token, EncodingAESKey, CorpId, msg_signature, timestamp, nonce);
-                return Content("签名:" + msg_signature + "," + QY.Signature.GenarateSinature(Token, timestamp, nonce, msgEncrypt) + "。" +
-                   "如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
+                return Content("如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
             }
         }
 

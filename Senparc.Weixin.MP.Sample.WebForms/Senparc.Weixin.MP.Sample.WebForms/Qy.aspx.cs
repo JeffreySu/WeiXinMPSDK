@@ -35,11 +35,7 @@ namespace Senparc.Weixin.MP.Sample.WebForms
                 }
                 else
                 {
-                    var msgEncrypt = QY.Signature.EncryptMsg(Token, EncodingAESKey, CorpId, msg_signature, timestamp,
-                        nonce);
-                    WriteContent("签名:" + msg_signature + "," +
-                                 QY.Signature.GenarateSinature(Token, timestamp, nonce, msgEncrypt) + "。" +
-                                 "如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
+                    WriteContent("如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
                 }
 
                 Response.End();

@@ -56,8 +56,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// 删除部门
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="ids">部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）</param>
-        /// 可以一次性删除一个或多个部门（删除多个时传入id数组）
+        /// <param name="id">部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）</param>
         /// <returns></returns>
         public static WxJsonResult DeleteDepartment(string accessToken, string id)
         {

@@ -52,6 +52,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\MailList\Department\DepartmentTest.cs" />
+    <Compile Include="AdvancedAPIs\MailList\Member\MemberTest.cs" />
+    <Compile Include="AdvancedAPIs\MailList\Tag\TagTest.cs" />
     <Compile Include="CommonApis\CommonApiTest.cs" />
     <Compile Include="MessageHandlers\QyMessageHandlerTest.cs" />
     <Compile Include="RequestMessageFactoryTest.cs" />

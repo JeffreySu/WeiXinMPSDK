@@ -13,21 +13,21 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     public static class Member
     {
         /// <summary>
-        /// 创建成员
+        /// 创建成员(mobile/weixinid/email三者不能同时为空)
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="userId">员工UserID。必须企业内唯一</param>
         /// <param name="name">成员名称。长度为1~64个字符</param>
         /// <param name="department">成员所属部门id列表。注意，每个部门的直属员工上限为1000个</param>
         /// <param name="position">职位信息。长度为0~64个字符</param>
-        /// <param name="mobile">手机号码。必须企业内唯一，mobile/weixinid/email三者不能同时为空</param>
+        /// <param name="mobile">手机号码。必须企业内唯一</param>
         /// <param name="tel">办公电话。长度为0~64个字符</param>
         /// <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
         /// <param name="weixinId">微信号。必须企业内唯一</param>
         /// <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0</param>
-        /// accessToken和userId为必须的参数，其余参数不是必须的，可以传入null
+        /// accessToken、userId和name为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
-        public static WxJsonResult CreateMember(string accessToken, string userId, string name, int[] department, string position, string mobile, string tel, string email, string weixinId, int gender = 0)
+        public static WxJsonResult CreateMember(string accessToken, string userId, string name, int[] department = null, string position = null, string mobile = null, string tel = null, string email = null, string weixinId = null, int gender = 0)
         {
             var url = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token={0}";
 
@@ -48,14 +48,14 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         }
 
         /// <summary>
-        /// 更新成员
+        /// 更新成员(mobile/weixinid/email三者不能同时为空)
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="userId">员工UserID。必须企业内唯一</param>
         /// <param name="name">成员名称。长度为1~64个字符</param>
         /// <param name="department">成员所属部门id列表。注意，每个部门的直属员工上限为1000个</param>
         /// <param name="position">职位信息。长度为0~64个字符</param>
-        /// <param name="mobile">手机号码。必须企业内唯一，mobile/weixinid/email三者不能同时为空</param>
+        /// <param name="mobile">手机号码。必须企业内唯一</param>
         /// <param name="tel">办公电话。长度为0~64个字符</param>
         /// <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
         /// <param name="weixinId">微信号。必须企业内唯一</param>
@@ -63,9 +63,9 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0</param>
         /// accessToken和userId为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
-        public static WxJsonResult UpdateMember(string accessToken, string userId, string name, int[] department, string position, string mobile, string tel, string email, string weixinId,int enable, int gender = 0)
+        public static WxJsonResult UpdateMember(string accessToken, string userId, string name = null, int[] department = null, string position = null, string mobile = null, string tel = null, string email = null, string weixinId = null, int enable = 1, int gender = 0)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token={0]";
+            var url = "https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token={0}";
 
             var data = new
             {
@@ -120,9 +120,9 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static GetDepartmentMemberResult GetDepartmentMember(string accessToken, int departmentId, int fetchChild, int status)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}&status={3}";
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}&status={3}",accessToken,departmentId,fetchChild,status);
 
-            return CommonJsonSend.Send<GetDepartmentMemberResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<GetDepartmentMemberResult>(null, url, null, CommonJsonSendType.GET);
         }
     }
 }

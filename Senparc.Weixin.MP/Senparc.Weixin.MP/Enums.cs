@@ -17,6 +17,7 @@ namespace Senparc.Weixin.MP
         Video, //视频
         Link, //连接信息
         Event, //事件推送
+        PicSysphoto,  //弹出系统拍照发图的事件推送
     }
 
 
@@ -115,6 +116,7 @@ namespace Senparc.Weixin.MP
         Video,
         Transfer_Customer_Service,
         //transfer_customer_service
+        PicSysphoto,
     }
 
     /// <summary>

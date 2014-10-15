@@ -279,7 +279,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         }
 
         [TestMethod]
-        public void OneEvent_MassSendJobFinisRequestTest()
+        public void OnEvent_MassSendJobFinisRequestTest()
         {
             var xml = @"<xml>
 <ToUserName><![CDATA[gh_3e8adccde292]]></ToUserName>

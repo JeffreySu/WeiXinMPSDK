@@ -2750,6 +2750,11 @@
             链接消息类型请求
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnPicSysphotoRequest(Senparc.Weixin.MP.Entities.RequestMessagePicSysphoto)">
+            <summary>
+            链接消息类型请求
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEventRequest(Senparc.Weixin.MP.Entities.IRequestMessageEventBase)">
             <summary>
             Event事件类型请求
@@ -2791,49 +2796,49 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_MassSendJobFinisRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish)">
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_MassSendJobFinishRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_MassSendJobFinish)">
             <summary>
             事件推送群发结果
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_TemplateSendJobFinishRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_TemplateSendJobFinish)">
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_TemplateSendJobFinishRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_TemplateSendJobFinish)">
             <summary>
             发送模板消息返回结果
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_PicPhotoOrAlbumRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_PicPhotoOrAlbum)">
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_PicPhotoOrAlbumRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_PicPhotoOrAlbum)">
             <summary>
             弹出拍照或者相册发图
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_ScancodePushRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_ScancodePush)">
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_ScancodePushRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_ScancodePush)">
             <summary>
             扫码推事件
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_ScancodeWaitmsgRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_ScancodeWaitmsg)">
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_ScancodeWaitmsgRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_ScancodeWaitmsg)">
             <summary>
             扫码推事件且弹出“消息接收中”提示框
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_LocationSelectRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_LocationSelect)">
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_LocationSelectRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_LocationSelect)">
             <summary>
             弹出地理位置选择器
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_PicWeixinRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_PicWeixin)">
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_PicWeixinRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_PicWeixin)">
             <summary>
             弹出微信相册发图器
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OneEvent_PicSysphotoRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_PicSysphoto)">
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_PicSysphotoRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_PicSysphoto)">
             <summary>
             弹出系统拍照发图
             </summary>

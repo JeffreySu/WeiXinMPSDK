@@ -309,14 +309,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
-        /// 链接消息类型请求
-        /// </summary>
-        public virtual IResponseMessageBase OnPicSysphotoRequest(RequestMessagePicSysphoto requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
         /// Event事件类型请求
         /// </summary>
         public virtual IResponseMessageBase OnEventRequest(IRequestMessageEventBase requestMessage)

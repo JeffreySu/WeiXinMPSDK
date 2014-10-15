@@ -82,24 +82,6 @@ namespace Senparc.Weixin.MP
                             case "VIEW"://URL跳转
                                 requestMessage = new RequestMessageEvent_View();
                                 break;
-                            case "PIC_PHOTO_OR_ALBUM":
-                                requestMessage = new RequestMessageEvent_PicPhotoOrAlbum();
-                                break;
-                            case "PIC_SYSPHOTO":
-                                requestMessage = new RequestMessageEvent_PicSysphoto();
-                                break;
-                            case "PIC_WEIXIN":
-                                requestMessage = new RequestMessageEvent_PicWeixin();
-                                break;
-                            case "LOCATION_SELECT":
-                                requestMessage = new RequestMessageEvent_LocationSelect();
-                                break;
-                            case "SCANCODE_PUSH":
-                                requestMessage = new RequestMessageEvent_ScancodePush();
-                                break;
-                            case "SCANCODE_WAITMSG":
-                                requestMessage = new RequestMessageEvent_ScancodeWaitmsg();
-                                break;
                             case "MASSSENDJOBFINISH":
                                 requestMessage = new RequestMessageEvent_MassSendJobFinish();
                                 break;

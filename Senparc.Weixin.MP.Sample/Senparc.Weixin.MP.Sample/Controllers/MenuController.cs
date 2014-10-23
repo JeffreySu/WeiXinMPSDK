@@ -16,7 +16,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         public ActionResult Index()
         {
-            GetMenuResult reslt = new GetMenuResult();
+            GetMenuResult result = new GetMenuResult();
 
             //初始化
             for (int i = 0; i < 3; i++)
@@ -29,7 +29,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 }
             }
 
-            return View(reslt);
+            return View(result);
         }
 
         public ActionResult GetToken(string appId, string appSecret)

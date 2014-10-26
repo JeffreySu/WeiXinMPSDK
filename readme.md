@@ -106,7 +106,7 @@ public ActionResult Post(string signature, string timestamp, string nonce, strin
     ...
 }
 ```
-###如何处理微信请求？
+###如何处理微信公众账号请求？
 Senparc.Weixin.MP提供了2中处理请求的方式，[传统方法](https://github.com/JeffreySu/WeiXinMPSDK/wiki/处理微信信息的常规方法)及使用[MessageHandler](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)处理方法（推荐）。上面两个方法在wiki中已经有比较详细的说明，这里简单举例MessageHandler的处理方法。
 
 MessageHandler的处理流程非常简单：
@@ -196,6 +196,11 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 ```
 PM> Install-Package Senparc.Weixin.MP
 ```
+
+###如何处理微信企业号请求？
+Senparc.Weixin.QY.dll对企业号相关功能进行了封装，操作过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致。
+
+Nuget对应地址为：https://www.nuget.org/packages/Senparc.Weixin.QY
 
 捐助
 --------------

@@ -39,8 +39,8 @@ Q&A：https://github.com/JeffreySu/WeiXinMPSDK/wiki/QA
 
 
 ###关注测试账号（SenparcRobot）：
-[![image]](http://weixin.senparc.com/)  
-[image]: http://weixin.senparc.com/Images/qrcode.jpg
+[![qrcode]](http://weixin.senparc.com/)  
+[qrcode]: http://weixin.senparc.com/Images/qrcode.jpg
 
 
 微信公众平台开发系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
@@ -206,8 +206,8 @@ Nuget对应地址为：https://www.nuget.org/packages/Senparc.Weixin.QY
 
 资金捐助：
 
-[![image]](http://weixin.senparc.com/)  
-[image]: http://weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png
+[![donate]](http://weixin.senparc.com/)  
+[donate]: http://weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png
 
 
 License

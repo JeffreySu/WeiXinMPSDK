@@ -205,6 +205,7 @@ Nuget对应地址为：https://www.nuget.org/packages/Senparc.Weixin.QY
 如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！
 
 资金捐助：
+
 [![image]](http://weixin.senparc.com/)  
 [image]: http://weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png
 

@@ -206,7 +206,7 @@ Nuget对应地址为：https://www.nuget.org/packages/Senparc.Weixin.QY
 
 资金捐助：
 [![image]](http://weixin.senparc.com/)  
-[image]: http://weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX.png
+[image]: http://weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png
 
 
 License

@@ -48,7 +48,7 @@ Q&A：https://github.com/JeffreySu/WeiXinMPSDK/wiki/QA
 
 项目文件夹说明
 --------------
-> Senparc.Weixin.MP.BuildOutPut：最新版本Senparc.Weixin.MP.dll及Senparc.Weixin.MP.MvcExtension.dll发布文件夹
+> Senparc.Weixin.MP.BuildOutPut：所有最新版本DLL发布文件夹
 
 > Senparc.Weixin.MP.MvcExtension：Senparc.Weixin.MP.MvcExtension.dll源码，为MVC4.0项目提供的扩展包。
 

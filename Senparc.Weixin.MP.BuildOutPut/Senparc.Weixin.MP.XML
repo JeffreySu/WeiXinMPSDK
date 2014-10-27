@@ -2864,6 +2864,11 @@
             全局消息上下文
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.EcryptRequestDocument">
+            <summary>
+            原始的加密请求（如果不加密则为null）
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.ResponseDocument">
             <summary>
             根据ResponseMessageBase获得转换后的ResponseDocument

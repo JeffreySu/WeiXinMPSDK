@@ -184,7 +184,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
             return responseMessage;
         }
 
-        public override IResponseMessageBase OneEvent_MassSendJobFinisRequest(RequestMessageEvent_MassSendJobFinish requestMessage)
+        public override IResponseMessageBase OnEvent_MassSendJobFinishRequest(RequestMessageEvent_MassSendJobFinish requestMessage)
         {
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "接收到了群发完成的信息。";

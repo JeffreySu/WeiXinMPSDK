@@ -165,6 +165,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsNotNull(messageHandlers.RequestMessage);
             Assert.IsNotNull(messageHandlers.RequestMessage.Encrypt);
             Assert.IsNotNull(messageHandlers.RequestMessage.FromUserName);
+            Assert.IsNotNull(messageHandlers.EcryptRequestDocument);
             Assert.IsTrue(messageHandlers.UsingEcryptMessage);
             Assert.IsTrue(messageHandlers.UsingCompatibilityModelEcryptMessage);
 
@@ -179,6 +180,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsNotNull(messageHandlers.RequestMessage);
             Assert.IsNotNull(messageHandlers.RequestMessage.Encrypt);
             Assert.IsNotNull(messageHandlers.RequestMessage.FromUserName);
+            Assert.IsNotNull(messageHandlers.EcryptRequestDocument);
             Assert.IsTrue(messageHandlers.UsingEcryptMessage);
             Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);
         }

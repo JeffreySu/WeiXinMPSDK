@@ -10,6 +10,7 @@ namespace Senparc.Weixin.MP.Entities.Request
     /// </summary>
     public class PostModel : EncryptPostModel
     {
+        public string Signature { get; set; }
         public string Msg_Signature { get; set; }
         public string Timestamp { get; set; }
         public string Nonce { get; set; }

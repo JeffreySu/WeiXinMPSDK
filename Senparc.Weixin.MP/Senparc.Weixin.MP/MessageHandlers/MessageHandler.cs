@@ -51,6 +51,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
         }
 
         /// <summary>
+        /// 原始的加密请求（如果不加密则为null）
+        /// </summary>
+        public XDocument EcryptRequestDocument { get; set; }
+
+        /// <summary>
         /// 根据ResponseMessageBase获得转换后的ResponseDocument
         /// 注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
         /// </summary>
@@ -165,6 +170,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             {
                 //使用了加密
                 UsingEcryptMessage = true;
+                EcryptRequestDocument = postDataDocument;
 
                 WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
                 string msgXml = null;

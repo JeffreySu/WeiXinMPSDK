@@ -52,8 +52,6 @@ Q&A：https://github.com/JeffreySu/WeiXinMPSDK/wiki/QA
 
 > Senparc.Weixin.MP.MvcExtension：Senparc.Weixin.MP.MvcExtension.dll源码，为MVC4.0项目提供的扩展包。
 
-> Senparc.Weixin.MP.P2P：用户点对点及无限制群发的扩展功能包，同时具备侦探fakeid和OpenId的功能。
-
 > Senparc.Weixin.MP.Sample：可以直接发布使用的Demo（ASP.NET MVC 4.0，需要.NET 4.0）
 
 > Senparc.Weixin.MP.Sample.WebForms：可以直接发布使用的Demo（ASP.NET WebForms，需要.NET 3.5）

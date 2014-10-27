@@ -677,6 +677,11 @@
             事件KEY值，与自定义菜单接口中KEY值对应
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Request.PostModel">
+            <summary>
+            微信公众服务器Post过来的加密参数集合（不包括PostData）
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageBase">
             <summary>
             响应回复消息
@@ -728,6 +733,21 @@
             根据xml信息，返回ResponseMsgType
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Tencent.Cryptography.AES_decrypt(System.String,System.String,System.String@)">
+            <summary>
+            解密方法
+            </summary>
+            <param name="Input">密文</param>
+            <param name="EncodingAESKey"></param>
+            <returns></returns>
+            
+        </member>
+        <member name="M:Tencent.Cryptography.chr(System.Int32)">
+            将数字转化成ASCII码对应的字符，用于对明文进行补码
+            
+            @param a 需要转化的数字
+            @return 转化得到的字符
         </member>
         <member name="T:Senparc.Weixin.MP.TenPayLibV3.MD5Util">
             <summary>
@@ -2750,11 +2770,6 @@
             链接消息类型请求
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnPicSysphotoRequest(Senparc.Weixin.MP.Entities.RequestMessagePicSysphoto)">
-            <summary>
-            链接消息类型请求
-            </summary>
-        </member>
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEventRequest(Senparc.Weixin.MP.Entities.IRequestMessageEventBase)">
             <summary>
             Event事件类型请求
@@ -2858,7 +2873,7 @@
         <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.FinalResponseDocument">
             <summary>
             最后返回的ResponseDocument。
-            这里是Senparc.Weixin.MP，则应当和ResponseDocument一致
+            这里是Senparc.Weixin.MP，根据请求消息半段在ResponseDocument基础上是否需要再次进行加密（每次获取重新加密，所以结果会不同）
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.RequestMessage">
@@ -2873,7 +2888,17 @@
             也可以结合Cancel，提前给ResponseMessage赋值。
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.RequestMessageFactory.GetRequestEntity(System.Xml.Linq.XDocument)">
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.UsingEcryptMessage">
+            <summary>
+            是否使用了加密信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.UsingCompatibilityModelEcryptMessage">
+            <summary>
+            是否使用了兼容模式加密信息
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.RequestMessageFactory.GetRequestEntity(System.Xml.Linq.XDocument,Senparc.Weixin.MP.Entities.Request.PostModel)">
             <summary>
             获取XDocument转换后的IRequestMessageBase实例。
             如果MsgType不存在，抛出UnknownRequestMsgTypeException异常

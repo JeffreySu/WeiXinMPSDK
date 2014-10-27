@@ -18,5 +18,7 @@ namespace Senparc.Weixin.MP.Entities.Request
         public string Token { get; set; }
         public string EncodingAESKey { get; set; }
         public string AppId { get; set; }
+
+
     }
 }

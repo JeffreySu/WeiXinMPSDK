@@ -31,7 +31,7 @@ namespace Senparc.Weixin.MP.Test.Context
             var maxRecordCount = 1;
             for (int i = 0; i < 100; i++)
             {
-                var messageHandler = new CustomerMessageHandlers(doc,maxRecordCount);
+                var messageHandler = new CustomerMessageHandlers(doc,null,maxRecordCount);
                 messageHandler.Execute();
             }
             var weixinContext = MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>.GlobalWeixinContext.MessageQueue.FirstOrDefault();

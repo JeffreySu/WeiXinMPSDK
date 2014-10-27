@@ -68,15 +68,33 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
         /// <summary>
         /// 最后返回的ResponseDocument。
-        /// 这里是Senparc.Weixin.MP，则应当和ResponseDocument一致
+        /// 这里是Senparc.Weixin.MP，根据请求消息半段在ResponseDocument基础上是否需要再次进行加密（每次获取重新加密，所以结果会不同）
         /// </summary>
         public override XDocument FinalResponseDocument
         {
             get
             {
-                return ResponseDocument;
+                if (ResponseDocument == null)
+                {
+                    return null;
+                }
+
+                if (!UsingEcryptMessage)
+                {
+                    return ResponseDocument;
+                }
+
+                var timeStamp = DateTime.Now.Ticks.ToString();
+                var nonce = DateTime.Now.Ticks.ToString();
+
+                WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
+                string finalResponseXml = null;
+                msgCrype.EncryptMsg(ResponseDocument.ToString(), timeStamp, nonce, ref finalResponseXml);//TODO:这里官方的方法已经把EncryptResponseMessage对应的XML输出出来了
+
+                return XDocument.Parse(finalResponseXml);
             }
         }
+
 
         /// <summary>
         /// 请求实体
@@ -112,6 +130,16 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
         private PostModel _postModel;
 
+        /// <summary>
+        /// 是否使用了加密信息
+        /// </summary>
+        public bool UsingEcryptMessage { get; set; }
+
+        /// <summary>
+        /// 是否使用了兼容模式加密信息
+        /// </summary>
+        public bool UsingCompatibilityModelEcryptMessage { get; set; }
+
         public MessageHandler(Stream inputStream, PostModel postModel = null, int maxRecordCount = 0)
             : base(inputStream, maxRecordCount, postModel)
         {
@@ -133,9 +161,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
             XDocument decryptDoc = postDataDocument;
 
-            if (_postModel != null && postDataDocument.Element("Encrypt") != null && !string.IsNullOrEmpty(postDataDocument.Element("Encrypt").Value))
+            if (_postModel != null && postDataDocument.Root.Element("Encrypt") != null && !string.IsNullOrEmpty(postDataDocument.Root.Element("Encrypt").Value))
             {
                 //使用了加密
+                UsingEcryptMessage = true;
 
                 WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
                 string msgXml = null;
@@ -149,15 +178,21 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     return null;
                 }
 
-                if (postDataDocument.Element("FromUserName") != null && !string.IsNullOrEmpty(postDataDocument.Element("FromUserName").Value))
+                if (postDataDocument.Root.Element("FromUserName") != null && !string.IsNullOrEmpty(postDataDocument.Root.Element("FromUserName").Value))
                 {
                     //TODO：使用了兼容模式，进行验证即可
+                    UsingCompatibilityModelEcryptMessage = true;
                 }
 
                 decryptDoc = XDocument.Parse(msgXml);//完成解密
             }
 
             RequestMessage = RequestMessageFactory.GetRequestEntity(decryptDoc);
+            if (UsingEcryptMessage)
+            {
+                RequestMessage.Encrypt = postDataDocument.Root.Element("Encrypt").Value;
+            }
+
 
             //记录上下文
             if (WeixinContextGlobal.UseWeixinContext)

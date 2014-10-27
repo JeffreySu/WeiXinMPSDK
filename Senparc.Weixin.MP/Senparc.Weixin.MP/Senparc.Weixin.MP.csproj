@@ -83,9 +83,12 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_LocationSelect.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_PicWeixin.cs" />
+    <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Helpers\EventHelper.cs" />
     <Compile Include="Helpers\MsgTypeHelper.cs" />
+    <Compile Include="Tencent\Cryptography.cs" />
+    <Compile Include="Tencent\WXBizMsgCrypt.cs" />
     <Compile Include="TenPayLibV3\MD5Util.cs" />
     <Compile Include="TenPayLibV3\RequestHandler.cs" />
     <Compile Include="TenPayLibV3\ResponseHandler.cs" />
@@ -258,7 +261,6 @@
   <ItemGroup>
     <Compile Include="Entities\Request\Event\RequestMessageEvent_PicSysphoto.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

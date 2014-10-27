@@ -69,7 +69,7 @@ namespace Senparc.Weixin.QY.Test.CommonApis
         [TestMethod]
         public void GetMenuTest()
         {
-            return;//已经通过测试
+            //return;//已经通过测试
             var accessToken = AccessTokenContainer.GetToken(_corpId);
 
             var result = CommonApi.GetMenu(accessToken, _agentId);

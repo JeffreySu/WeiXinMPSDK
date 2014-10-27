@@ -9,7 +9,7 @@ namespace Senparc.Weixin.MP.Entities
     public interface IRequestMessageBase : Weixin.Entities.IRequestMessageBase
     {
         RequestMsgType MsgType { get; }
-
+        string Encrypt { get; set; }
         long MsgId { get; set; }
     }
 
@@ -23,6 +23,7 @@ namespace Senparc.Weixin.MP.Entities
             get { return RequestMsgType.Text; }
         }
 
+        public string Encrypt { get; set; }
 
         public RequestMessageBase()
         {

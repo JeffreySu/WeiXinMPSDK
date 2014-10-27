@@ -201,6 +201,16 @@
             所有Request和Response消息的基类
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.IEncryptPostModel">
+            <summary>
+            接收解密信息统一接口
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.EncryptPostModel">
+            <summary>
+            接收加密信息统一基类
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.QyRequestMsgType">
             <summary>
             企业接收消息类型

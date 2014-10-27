@@ -13,8 +13,8 @@ namespace Senparc.Weixin.QY.Test.CommonApis
     [TestClass]
     public partial class CommonApiTest
     {
-        protected string _corpId = "wx7618c0a6d9358622"; //换成你的信息
-        protected string _corpSecret = "PKrd-r76fDCNjbUY5-9I1vhOkMqBly038Sc8zcODscmu202dqCtUWkxK7nrCGUR4"; //换成你的信息
+        protected string _corpId = "wxfe945cf862049d6a"; //换成你的信息
+        protected string _corpSecret = "D_up3tV0O9sUChBJ6aMAXf__wrWkN5ZrIWmFJVhgmG4MsUEumP7CXpzLxN4OZd5i"; //换成你的信息
 
         public CommonApiTest()
         {

@@ -11,7 +11,9 @@ using System.Xml.Linq;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
+using Tencent;
 
 
 namespace Senparc.Weixin.MP.MessageHandlers
@@ -108,15 +110,16 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
+        private PostModel _postModel;
 
-        public MessageHandler(Stream inputStream, int maxRecordCount = 0)
-            : base(inputStream, maxRecordCount)
+        public MessageHandler(Stream inputStream, PostModel postModel = null, int maxRecordCount = 0)
+            : base(inputStream, maxRecordCount, postModel)
         {
 
         }
 
-        public MessageHandler(XDocument requestDocument, int maxRecordCount = 0)
-            : base(requestDocument, maxRecordCount)
+        public MessageHandler(XDocument requestDocument, PostModel postModel = null, int maxRecordCount = 0)
+            : base(requestDocument, maxRecordCount, postModel)
         {
             //WeixinContext.MaxRecordCount = maxRecordCount;
             //Init(requestDocument);
@@ -124,7 +127,37 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
         public override XDocument Init(XDocument postDataDocument, object postData = null)
         {
-            RequestMessage = RequestMessageFactory.GetRequestEntity(postDataDocument);
+            //进行加密判断并处理
+            _postModel = postData as PostModel;
+            var postDataStr = postDataDocument.ToString();
+
+            XDocument decryptDoc = postDataDocument;
+
+            if (_postModel != null && postDataDocument.Element("Encrypt") != null && !string.IsNullOrEmpty(postDataDocument.Element("Encrypt").Value))
+            {
+                //使用了加密
+
+                WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
+                string msgXml = null;
+                var result = msgCrype.DecryptMsg(_postModel.Msg_Signature, _postModel.Timestamp, _postModel.Nonce, postDataStr, ref msgXml);
+
+                //判断result类型
+                if (result != 0)
+                {
+                    //验证没有通过，取消执行
+                    CancelExcute = true;
+                    return null;
+                }
+
+                if (postDataDocument.Element("FromUserName") != null && !string.IsNullOrEmpty(postDataDocument.Element("FromUserName").Value))
+                {
+                    //TODO：使用了兼容模式，进行验证即可
+                }
+
+                decryptDoc = XDocument.Parse(msgXml);//完成解密
+            }
+
+            RequestMessage = RequestMessageFactory.GetRequestEntity(decryptDoc);
 
             //记录上下文
             if (WeixinContextGlobal.UseWeixinContext)
@@ -132,7 +165,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 WeixinContext.InsertMessage(RequestMessage);
             }
 
-            return postDataDocument;
+            return decryptDoc;
         }
 
         /// <summary>

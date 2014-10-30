@@ -17,12 +17,12 @@
             <param name="userId">员工UserID</param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Custom">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Mass">
             <summary>
             发送消息
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Custom.SendText(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Mass.SendText(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             发送文本信息
             </summary>
@@ -35,7 +35,7 @@
             <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Custom.SendImage(System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Mass.SendImage(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             发送图片消息
             </summary>
@@ -47,7 +47,7 @@
             <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Custom.SendVoice(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Mass.SendVoice(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             发送语音消息
             </summary>
@@ -60,7 +60,7 @@
             <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Custom.SendVideo(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Mass.SendVideo(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             发送视频消息
             </summary>
@@ -75,7 +75,7 @@
             <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Custom.SendFile(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Mass.SendFile(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             发送文件消息
             </summary>
@@ -88,7 +88,7 @@
             <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Custom.SendNews(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.List{Senparc.Weixin.QY.Entities.Article},System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Mass.SendNews(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.List{Senparc.Weixin.QY.Entities.Article},System.Int32)">
             <summary>
             发送图文消息
             </summary>
@@ -101,7 +101,7 @@
             <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Custom.SendMpNews(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.List{Senparc.Weixin.QY.Entities.MpNewsArticle},System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Mass.SendMpNews(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.List{Senparc.Weixin.QY.Entities.MpNewsArticle},System.String,System.Int32)">
             <summary>
             发送mpnews消息
             注：mpnews消息与news消息类似，不同的是图文消息内容存储在微信后台，并且支持保密选项。
@@ -116,7 +116,7 @@
             <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.CustomResult">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.MassResult">
             <summary>
             发送消息返回结果
             如果对应用或收件人、部门、标签任何一个无权限，则本次发送失败；如果收件人、部门或标签不存在，发送仍然执行，但返回无效的部分。

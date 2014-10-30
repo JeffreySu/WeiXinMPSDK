@@ -16,7 +16,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     /// <summary>
     /// 发送消息
     /// </summary>
-    public static class Custom
+    public static class Mass
     {
         private const string URL_FORMAT = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={0}";
 
@@ -31,7 +31,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="content">消息内容</param>
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <returns></returns>
-        public static CustomResult SendText(string accessToken, string toUser, string toParty, string toTag, string agentId, string content, int safe = 0)
+        public static MassResult SendText(string accessToken, string toUser, string toParty, string toTag, string agentId, string content, int safe = 0)
         {
             var data = new
             {
@@ -46,7 +46,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 },
                 safe = safe
             };
-            return CommonJsonSend.Send<CustomResult>(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data);
         }
 
         /// <summary>
@@ -59,12 +59,13 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="mediaId">媒体资源文件ID</param>
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <returns></returns>
-        public static CustomResult SendImage(string accessToken, string toUser, string toParty, string agentId, string mediaId, int safe = 0)
+        public static MassResult SendImage(string accessToken, string toUser, string toParty, string toTag, string agentId, string mediaId, int safe = 0)
         {
             var data = new
             {
                 touser = toUser,
                 toparty = toParty,
+                totag = toTag,
                 msgtype = "image",
                 agentid = agentId,
                 image = new
@@ -73,7 +74,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 },
                 safe = safe
             };
-            return CommonJsonSend.Send<CustomResult>(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data);
         }
 
         /// <summary>
@@ -87,7 +88,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="mediaId">媒体资源文件ID</param>
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <returns></returns>
-        public static CustomResult SendVoice(string accessToken, string toUser, string toParty, string toTag, string agentId, string mediaId, int safe = 0)
+        public static MassResult SendVoice(string accessToken, string toUser, string toParty, string toTag, string agentId, string mediaId, int safe = 0)
         {
             var data = new
             {
@@ -102,7 +103,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 },
                 safe = safe
             };
-            return CommonJsonSend.Send<CustomResult>(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data);
         }
 
         /// <summary>
@@ -118,7 +119,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="description">视频消息的描述</param>
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <returns></returns>
-        public static CustomResult SendVideo(string accessToken, string toUser, string toParty, string toTag, string agentId, string mediaId, string title, string description, int safe = 0)
+        public static MassResult SendVideo(string accessToken, string toUser, string toParty, string toTag, string agentId, string mediaId, string title, string description, int safe = 0)
         {
             var data = new
             {
@@ -135,7 +136,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 },
                 safe = safe
             };
-            return CommonJsonSend.Send<CustomResult>(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data);
         }
 
         /// <summary>
@@ -149,7 +150,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="mediaId">媒体资源文件ID</param>
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <returns></returns>
-        public static CustomResult SendFile(string accessToken, string toUser, string toParty, string toTag, string agentId, string mediaId, int safe = 0)
+        public static MassResult SendFile(string accessToken, string toUser, string toParty, string toTag, string agentId, string mediaId, int safe = 0)
         {
             var data = new
             {
@@ -164,7 +165,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 },
                 safe = safe
             };
-            return CommonJsonSend.Send<CustomResult>(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data);
         }
 
         /// <summary>
@@ -178,7 +179,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="articles">图文信息内容，包括title（标题）、description（描述）、url（点击后跳转的链接。企业可根据url里面带的code参数校验员工的真实身份）和picurl（图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80。如不填，在客户端不显示图片）</param>
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <returns></returns>
-        public static CustomResult SendNews(string accessToken, string toUser, string toParty, string toTag, string agentId, List<Article> articles, int safe = 0)
+        public static MassResult SendNews(string accessToken, string toUser, string toParty, string toTag, string agentId, List<Article> articles, int safe = 0)
         {
             var data = new
             {
@@ -198,7 +199,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                                 }).ToList()
                 }
             };
-            return CommonJsonSend.Send<CustomResult>(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data);
         }
 
         /// <summary>
@@ -214,7 +215,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="mediaId">媒体资源文件ID</param>
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <returns></returns>
-        public static CustomResult SendMpNews(string accessToken, string toUser, string toParty, string toTag, string agentId, List<MpNewsArticle> articles,string mediaId, int safe = 0)
+        public static MassResult SendMpNews(string accessToken, string toUser, string toParty, string toTag, string agentId, List<MpNewsArticle> articles,string mediaId, int safe = 0)
         {
             var data = new
             {
@@ -238,7 +239,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 },
                 safe = safe
             };
-            return CommonJsonSend.Send<CustomResult>(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data);
         }
     }
 }

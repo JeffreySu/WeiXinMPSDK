@@ -42,8 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvancedAPIs\Concern\Concern.cs" />
-    <Compile Include="AdvancedAPIs\Custom\Custom.cs" />
-    <Compile Include="AdvancedAPIs\Custom\CustomResult.cs" />
+    <Compile Include="AdvancedAPIs\Mass\Mass.cs" />
+    <Compile Include="AdvancedAPIs\Mass\MassResult.cs" />
     <Compile Include="AdvancedAPIs\MailList\Department\Department.cs" />
     <Compile Include="AdvancedAPIs\MailList\Department\DepartmentResult.cs" />
     <Compile Include="AdvancedAPIs\MailList\Member\Member.cs" />

@@ -212,10 +212,9 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
         /// <param name="agentId">企业应用的id，可在应用的设置页面查看</param>
         /// <param name="articles"></param>
-        /// <param name="mediaId">媒体资源文件ID</param>
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <returns></returns>
-        public static MassResult SendMpNews(string accessToken, string toUser, string toParty, string toTag, string agentId, List<MpNewsArticle> articles,string mediaId, int safe = 0)
+        public static MassResult SendMpNews(string accessToken, string toUser, string toParty, string toTag, string agentId, List<MpNewsArticle> articles, int safe = 0)
         {
             var data = new
             {
@@ -228,6 +227,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 {
                     articles = articles.Select(z => new
                     {
+                        title = z.Title,
                         thumb_media_id = z.ThumbMediaId,
                         author = z.Author,
                         content_source_url = z.ContentSourceUrl,
@@ -235,7 +235,6 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                         digest = z.Digest,
                         show_cover_pic = z.ShowCoverPic
                     }).ToList(),
-                    media_id = mediaId
                 },
                 safe = safe
             };

@@ -7,6 +7,7 @@ namespace Senparc.Weixin.QY.Entities
 {
     public class MpNewsArticle
     {
+        public string Title { get; set; }
         public string ThumbMediaId { get; set; }
         public string Author { get; set; }
         public string ContentSourceUrl { get; set; }

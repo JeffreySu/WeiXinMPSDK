@@ -122,11 +122,9 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// …Ë÷√√‹‘ø
 		/// </summary>
 		/// <param name="key"></param>
-		/// <param name="appkey"></param>
-		public void SetKey(string key, string appkey) 
+		public void SetKey(string key) 
 		{
             this.Key = key;
-            this.Appkey = appkey;
         }
 
 		/// <summary>

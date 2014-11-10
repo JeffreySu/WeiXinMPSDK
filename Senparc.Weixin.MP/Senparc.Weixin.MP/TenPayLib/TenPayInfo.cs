@@ -31,7 +31,6 @@ namespace Senparc.Weixin.MP.TenPayLib
         /// </summary>
         public string TenPayNotify { get; set; } // = "http://localhost/payNotifyUrl.aspx";
 
-        /// <param name="tenpay">商户号</param>
         /// <param name="partnerId"></param>
         /// <param name="key">密钥</param>
         /// <param name="appId">appid</param>

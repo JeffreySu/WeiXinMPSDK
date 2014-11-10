@@ -26,7 +26,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 if (_tenPayInfo == null)
                 {
                     _tenPayInfo =
-                        TenPayInfoCollection.Data[System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppId"]];
+                        TenPayInfoCollection.Data[System.Configuration.ConfigurationManager.AppSettings["WeixinPay_PartnerId"]];
                 }
                 return _tenPayInfo;
             }
@@ -243,6 +243,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return View();
         }
 
+        public ActionResult Alert()
+        {
+            return Content("success");
+        }
+
         public ActionResult PayNotifyUrl()
         {
 
@@ -311,7 +316,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             ViewData["message"] = message;
 
-            return View();
+            return Content("Success");
         }
 
         protected void Refund()
@@ -320,7 +325,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             RefundRequestHandler reqHandler = new RefundRequestHandler(null);
 
             //通信对象
-            TenpayHttpClient httpClient = new TenpayHttpClient();
+            TenPayHttpClient httpClient = new TenPayHttpClient();
 
             //应答对象
             ClientResponseHandler resHandler = new ClientResponseHandler();

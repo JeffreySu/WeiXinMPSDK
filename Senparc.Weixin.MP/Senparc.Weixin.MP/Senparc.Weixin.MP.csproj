@@ -226,7 +226,7 @@
     <Compile Include="TenPayLib\RefundResponseHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TenPayLib\TenpayHttpClient.cs" />
+    <Compile Include="TenPayLib\TenPayHttpClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">

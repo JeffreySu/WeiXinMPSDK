@@ -38,15 +38,17 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="id">部门id</param>
         /// <param name="name">更新的部门名称。长度限制为0~64个字符。修改部门名称时指定该参数</param>
+        /// <param name="parentId">父亲部门id。根部门id为1 </param>
         /// <returns></returns>
-        public static WxJsonResult UpdateDepartment(string accessToken, string id, string name)
+        public static WxJsonResult UpdateDepartment(string accessToken, string id, string name, int parentId)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token={0}", accessToken);
 
             var data = new
             {
                 id = id,
-                name = name
+                name = name,
+                parentid = parentId
             };
 
             return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST);

@@ -115,11 +115,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //设置支付参数
             RequestHandler paySignReqHandler = new RequestHandler(null);
-            paySignReqHandler.SetParameter("appid", appId);
-            paySignReqHandler.SetParameter("timestamp", timeStamp);
-            paySignReqHandler.SetParameter("noncestr", nonceStr);
+            paySignReqHandler.SetParameter("appId", appId);
+            paySignReqHandler.SetParameter("timeStamp", timeStamp);
+            paySignReqHandler.SetParameter("nonceStr", nonceStr);
             paySignReqHandler.SetParameter("package", string.Format("prepay_id={0}", prepayId));
-            paySign = paySignReqHandler.CreateMd5Sign("signType", "MD5");
+            paySign = paySignReqHandler.CreateMd5Sign("key", ""/*TenPayV3Info.Key*/);
 
 
 

@@ -10,21 +10,21 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
     /** 
     '============================================================================
-    'ApiËµÃ÷£º
-    'GetKey()/setKey(),»ñÈ¡/ÉèÖÃÃÜÔ¿
-    'GetParameter()/setParameter(),»ñÈ¡/ÉèÖÃ²ÎÊıÖµ
-    'GetAllParameters(),»ñÈ¡ËùÓĞ²ÎÊı
-    'IsTenpaySign(),ÊÇ·ñÕıÈ·µÄÇ©Ãû,true:ÊÇ false:·ñ
-    'IsWXsign(),ÊÇ·ñÕıÈ·µÄÇ©Ãû,true:ÊÇ false:·ñ
-    ' * IsWXsignfeedbackÅĞ¶ÏÎ¢ĞÅÎ¬È¨Ç©Ãû
-    ' *GetDebugInfo(),»ñÈ¡debugĞÅÏ¢ 
+    'Apiè¯´æ˜ï¼š
+    'GetKey()/setKey(),è·å–/è®¾ç½®å¯†é’¥
+    'GetParameter()/setParameter(),è·å–/è®¾ç½®å‚æ•°å€¼
+    'GetAllParameters(),è·å–æ‰€æœ‰å‚æ•°
+    'IsTenpaySign(),æ˜¯å¦æ­£ç¡®çš„ç­¾å,true:æ˜¯ false:å¦
+    'IsWXsign(),æ˜¯å¦æ­£ç¡®çš„ç­¾å,true:æ˜¯ false:å¦
+    ' * IsWXsignfeedbackåˆ¤æ–­å¾®ä¿¡ç»´æƒç­¾å
+    ' *GetDebugInfo(),è·å–debugä¿¡æ¯ 
     '============================================================================
     */
 
     public class ResponseHandler
 	{
 		/// <summary>
-        /// ÃÜÔ¿ 
+        /// å¯†é’¥ 
 		/// </summary>
 		private string Key;
 
@@ -39,37 +39,37 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         private Hashtable XmlMap;
 
 		/// <summary>
-        /// Ó¦´ğµÄ²ÎÊı
+        /// åº”ç­”çš„å‚æ•°
 		/// </summary>
 		protected Hashtable Parameters;
 		
 		/// <summary>
-        /// debugĞÅÏ¢
+        /// debugä¿¡æ¯
 		/// </summary>
 		private string DebugInfo;
         /// <summary>
-        /// Ô­Ê¼ÄÚÈİ
+        /// åŸå§‹å†…å®¹
         /// </summary>
         protected string Content;
 
         private string Charset = "gb2312";
 
         /// <summary>
-        /// ²ÎÓëÇ©ÃûµÄ²ÎÊıÁĞ±í
+        /// å‚ä¸ç­¾åçš„å‚æ•°åˆ—è¡¨
         /// </summary>
         private static string SignField = "appid,appkey,timestamp,openid,noncestr,issubscribe";
 
 		protected HttpContext HttpContext;
 
         /// <summary>
-        /// ³õÊ¼»¯º¯Êı
+        /// åˆå§‹åŒ–å‡½æ•°
         /// </summary>
         public virtual void Init()
         {
         }
 
         /// <summary>
-        /// »ñÈ¡Ò³ÃæÌá½»µÄgetºÍpost²ÎÊı
+        /// è·å–é¡µé¢æäº¤çš„getå’Œpostå‚æ•°
         /// </summary>
         /// <param name="httpContext"></param>
         public ResponseHandler(HttpContext httpContext)
@@ -106,20 +106,21 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 foreach (XmlNode xnf in xnl)
                 {
                     XmlMap.Add(xnf.Name, xnf.InnerText);
+                    this.SetParameter(xnf.Name, xnf.InnerText);
                 }
             }
         }
     
 
 		/// <summary>
-        /// »ñÈ¡ÃÜÔ¿
+        /// è·å–å¯†é’¥
 		/// </summary>
 		/// <returns></returns>
 		public string GetKey() 
 		{ return Key;}
 
 		/// <summary>
-        /// ÉèÖÃÃÜÔ¿
+        /// è®¾ç½®å¯†é’¥
 		/// </summary>
 		/// <param name="key"></param>
 		public void SetKey(string key) 
@@ -128,7 +129,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
 
 		/// <summary>
-        /// »ñÈ¡²ÎÊıÖµ
+        /// è·å–å‚æ•°å€¼
 		/// </summary>
 		/// <param name="parameter"></param>
 		/// <returns></returns>
@@ -139,7 +140,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 		}
 
 		/// <summary>
-        /// ÉèÖÃ²ÎÊıÖµ
+        /// è®¾ç½®å‚æ•°å€¼
 		/// </summary>
 		/// <param name="parameter"></param>
 		/// <param name="parameterValue"></param>
@@ -157,7 +158,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 		}
 
 		/// <summary>
-		/// ÊÇ·ñ²Æ¸¶Í¨Ç©Ãû,¹æÔòÊÇ:°´²ÎÊıÃû³Æa-zÅÅĞò,Óöµ½¿ÕÖµµÄ²ÎÊı²»²Î¼ÓÇ©Ãû¡£return boolean
+		/// æ˜¯å¦è´¢ä»˜é€šç­¾å,è§„åˆ™æ˜¯:æŒ‰å‚æ•°åç§°a-zæ’åº,é‡åˆ°ç©ºå€¼çš„å‚æ•°ä¸å‚åŠ ç­¾åã€‚return boolean
 		/// </summary>
 		/// <returns></returns>
         public virtual Boolean IsTenpaySign() 
@@ -180,19 +181,19 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 			sb.Append("key=" + this.GetKey());
             string sign = MD5Util.GetMD5(sb.ToString(), GetCharset()).ToLower();
             this.SetDebugInfo(sb.ToString() + " &sign=" + sign);
-			//debugĞÅÏ¢
+			//debugä¿¡æ¯
 			return GetParameter("sign").ToLower().Equals(sign); 
 		}
 
 		/// <summary>
-        /// »ñÈ¡debugĞÅÏ¢
+        /// è·å–debugä¿¡æ¯
 		/// </summary>
 		/// <returns></returns>
 		public string GetDebugInfo() 
 		{ return DebugInfo;}
 				
 		/// <summary>
-        /// ÉèÖÃdebugĞÅÏ¢
+        /// è®¾ç½®debugä¿¡æ¯
 		/// </summary>
 		/// <param name="debugInfo"></param>
 		protected void SetDebugInfo(String debugInfo)

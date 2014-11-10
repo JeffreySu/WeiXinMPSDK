@@ -60,6 +60,12 @@
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Entities\JsonResult\GetMenuResult.cs" />
     <Compile Include="Entities\JsonResult\GetMenuResultFull.cs" />
+    <Compile Include="Entities\Menu\SingleLocationSelectButton.cs" />
+    <Compile Include="Entities\Menu\SinglePicPhotoOrAlbumButton.cs" />
+    <Compile Include="Entities\Menu\SinglePicSysphotoButton.cs" />
+    <Compile Include="Entities\Menu\SinglePicWeixinButton.cs" />
+    <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
+    <Compile Include="Entities\Menu\SingleScancodeWaitmsgButton.cs" />
     <Compile Include="Entities\Request\EncryptPostData.cs" />
     <Compile Include="Entities\Extensions.cs" />
     <Compile Include="Entities\JsonResult\AccessTokenResult.cs" />

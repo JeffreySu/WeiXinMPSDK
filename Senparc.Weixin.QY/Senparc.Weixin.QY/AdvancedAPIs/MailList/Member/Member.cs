@@ -25,9 +25,12 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
         /// <param name="weixinId">微信号。必须企业内唯一</param>
         /// <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0</param>
+        /// <param name="extattr">扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值</param>
         /// accessToken、userId和name为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
-        public static WxJsonResult CreateMember(string accessToken, string userId, string name, int[] department = null, string position = null, string mobile = null, string tel = null, string email = null, string weixinId = null, int gender = 0)
+        public static WxJsonResult CreateMember(string accessToken, string userId, string name, int[] department = null,
+            string position = null, string mobile = null, string tel = null, string email = null, string weixinId = null,
+            int gender = 0, Extattr extattr = null)
         {
             var url = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token={0}";
 
@@ -41,7 +44,8 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 gender = gender,
                 tel = tel,
                 email = email,
-                weixinid = weixinId
+                weixinid = weixinId,
+                extattr = extattr
             };
 
             return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST);
@@ -61,9 +65,12 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="weixinId">微信号。必须企业内唯一</param>
         /// <param name="enable">启用/禁用成员。1表示启用成员，0表示禁用成员</param>
         /// <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0</param>
+        /// <param name="extattr">扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值</param>
         /// accessToken和userId为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
-        public static WxJsonResult UpdateMember(string accessToken, string userId, string name = null, int[] department = null, string position = null, string mobile = null, string tel = null, string email = null, string weixinId = null, int enable = 1, int gender = 0)
+        public static WxJsonResult UpdateMember(string accessToken, string userId, string name = null, int[] department = null, string position = null,
+            string mobile = null, string tel = null, string email = null, string weixinId = null, int enable = 1,
+            int gender = 0, Extattr extattr = null)
         {
             var url = "https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token={0}";
 
@@ -78,7 +85,8 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 tel = tel,
                 email = email,
                 weixinid = weixinId,
-                enable = enable
+                enable = enable,
+                extattr = extattr
             };
 
             return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST);

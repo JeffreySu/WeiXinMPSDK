@@ -18,15 +18,17 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="name">部门名称。长度限制为1~64个字符</param>
         /// <param name="parentId">父亲部门id。根部门id为1 </param>
+        /// <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
         /// <returns></returns>
-        public static CreateDepartmentResult CreateDepartment(string accessToken, string name, int parentId)
+        public static CreateDepartmentResult CreateDepartment(string accessToken, string name, int parentId, int order = 1)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token={0}", accessToken);
 
             var data = new
             {
                 name = name,
-                parentid = parentId
+                parentid = parentId,
+                order = order
             };
 
             return CommonJsonSend.Send<CreateDepartmentResult>(null, url, data, CommonJsonSendType.POST);
@@ -39,8 +41,9 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="id">部门id</param>
         /// <param name="name">更新的部门名称。长度限制为0~64个字符。修改部门名称时指定该参数</param>
         /// <param name="parentId">父亲部门id。根部门id为1 </param>
+        /// <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
         /// <returns></returns>
-        public static WxJsonResult UpdateDepartment(string accessToken, string id, string name, int parentId)
+        public static WxJsonResult UpdateDepartment(string accessToken, string id, string name, int parentId, int order = 1)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token={0}", accessToken);
 
@@ -48,7 +51,8 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             {
                 id = id,
                 name = name,
-                parentid = parentId
+                parentid = parentId,
+                order = order
             };
 
             return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST);

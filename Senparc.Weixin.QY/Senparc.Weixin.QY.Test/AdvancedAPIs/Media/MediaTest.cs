@@ -16,7 +16,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
     public partial class MediaTest
     {
         protected string _corpId = "wxccd01c4e6bf59232"; //换成你的信息
-        protected string _corpSecret = "ejXcV7rb9OtakBucpMji1kUtPmnKy4hNCskW_bUKLx8lRxO_aVrcc0gVTMEv13Gt"; //换成你的信息
+        protected string _corpSecret = "ejXcV7rb9OtakBucpMji1kUtPmnKy4hNCskW_bUKLx8lRxO_aVrcc0gVTMEv13G1"; //换成你的信息
 
         public MediaTest()
         {

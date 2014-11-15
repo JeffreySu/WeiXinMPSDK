@@ -88,6 +88,12 @@ namespace Senparc.Weixin.MP
                             case "MASSSENDJOBFINISH":
                                 requestMessage = new RequestMessageEvent_MassSendJobFinish();
                                 break;
+                            case "SCANCODE_PUSH":
+                                requestMessage = new RequestMessageEvent_ScancodePush();
+                                break;
+                            case "SCANCODE_WAITMSG":
+                                requestMessage = new RequestMessageEvent_ScancodeWaitmsg();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

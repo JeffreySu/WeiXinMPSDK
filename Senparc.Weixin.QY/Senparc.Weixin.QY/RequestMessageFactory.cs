@@ -43,9 +43,6 @@ namespace Senparc.Weixin.QY
                     case RequestMsgType.Video:
                         requestMessage = new RequestMessageVideo();
                         break;
-                    case RequestMsgType.Link:
-                        requestMessage = new RequestMessageLink();
-                        break;
                     case RequestMsgType.Event:
                         //判断Event类型
                         switch (doc.Root.Element("Event").Value.ToUpper())
@@ -55,6 +52,12 @@ namespace Senparc.Weixin.QY
                                 break;
                             case "VIEW"://URL跳转
                                 requestMessage = new RequestMessageEvent_View();
+                                break;
+                            case "SUBSCRIBE"://订阅（关注）
+                                requestMessage = new RequestMessageEvent_Subscribe();
+                                break;
+                            case "UNSUBSCRIBE"://取消订阅（关注）
+                                requestMessage = new RequestMessageEvent_UnSubscribe();
                                 break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();

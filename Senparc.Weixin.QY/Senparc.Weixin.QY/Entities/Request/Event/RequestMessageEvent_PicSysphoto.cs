@@ -6,16 +6,16 @@ using System.Text;
 namespace Senparc.Weixin.QY.Entities
 {
     /// <summary>
-    /// 事件之点击推事件(Click)
+    /// 事件之弹出系统拍照发图(pic_sysphoto)
     /// </summary>
-    public class RequestMessageEvent_Click : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
+    public class RequestMessageEvent_PicSysphoto : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
     {
         /// <summary>
         /// 事件类型
         /// </summary>
         public override Event Event
         {
-            get { return Event.CLICK; }
+            get { return Event.PICSYSPHOTO; }
         }
 
         /// <summary>

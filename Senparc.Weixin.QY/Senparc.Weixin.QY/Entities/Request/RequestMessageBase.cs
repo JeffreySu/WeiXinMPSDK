@@ -9,6 +9,7 @@ namespace Senparc.Weixin.QY.Entities
     {
         RequestMsgType MsgType { get; }
         long MsgId { get; set; }
+        int AgentId { get; set; }
     }
 
     /// <summary>
@@ -27,5 +28,6 @@ namespace Senparc.Weixin.QY.Entities
         }
 
         public long MsgId { get; set; }
+        public int AgentId { get; set; }
     }
 }

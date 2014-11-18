@@ -115,7 +115,7 @@ namespace Senparc.Weixin.MP.Helpers
 							FillEntityWithXml(video, new XDocument(root.Element(propName)));
 							prop.SetValue(entity, video, null);
 							break;
-                        case "ScanCodeInfo":
+                        case "ScanCodeInfo"://菜单扫码信息
                             ScanCodeInfo scanInfo = new ScanCodeInfo();
                             FillEntityWithXml(scanInfo, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, scanInfo, null);

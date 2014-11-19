@@ -61,6 +61,8 @@
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessage.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\NewsModel.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\SendResult.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\BaseGroupMessageDataByGroupId.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\BaseGroupMessageDataByOpenId.cs" />
     <Compile Include="AdvancedAPIs\Groups\CreateGroupResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\GetIdResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\Groups.cs" />

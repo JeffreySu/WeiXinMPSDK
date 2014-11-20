@@ -214,5 +214,77 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
             responseMessage.Content = "有空再来";
             return responseMessage;
         }
+
+        /// <summary>
+        /// 事件之扫码推事件(scancode_push)
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public override IResponseMessageBase OnEvent_ScancodePushRequest(RequestMessageEvent_ScancodePush requestMessage)
+        {
+            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "事件之扫码推事件";
+            return responseMessage;
+        }
+
+        /// <summary>
+        /// 事件之扫码推事件且弹出“消息接收中”提示框(scancode_waitmsg)
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public override IResponseMessageBase OnEvent_ScancodeWaitmsgRequest(RequestMessageEvent_ScancodeWaitmsg requestMessage)
+        {
+            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "事件之扫码推事件且弹出“消息接收中”提示框";
+            return responseMessage;
+        }
+
+        /// <summary>
+        /// 事件之弹出拍照或者相册发图（pic_photo_or_album）
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public override IResponseMessageBase OnEvent_PicPhotoOrAlbumRequest(RequestMessageEvent_PicPhotoOrAlbum requestMessage)
+        {
+            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "事件之弹出拍照或者相册发图";
+            return responseMessage;
+        }
+
+        /// <summary>
+        /// 事件之弹出系统拍照发图(pic_sysphoto)
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public override IResponseMessageBase OnEvent_PicSysphotoRequest(RequestMessageEvent_PicSysphoto requestMessage)
+        {
+            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "事件之弹出系统拍照发图";
+            return responseMessage;
+        }
+
+        /// <summary>
+        /// 事件之弹出微信相册发图器(pic_weixin)
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public override IResponseMessageBase OnEvent_PicWeixinRequest(RequestMessageEvent_PicWeixin requestMessage)
+        {
+            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "事件之弹出微信相册发图器";
+            return responseMessage;
+        }
+
+        /// <summary>
+        /// 事件之弹出地理位置选择器（location_select）
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public override IResponseMessageBase OnEvent_LocationSelectRequest(RequestMessageEvent_LocationSelect requestMessage)
+        {
+            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "事件之弹出地理位置选择器";
+            return responseMessage;
+        }
     }
 }

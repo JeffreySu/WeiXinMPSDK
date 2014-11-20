@@ -88,6 +88,9 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_View.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Subscribe.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_UnSubscribe.cs" />
+    <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
+    <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
+    <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\RequestMessageBase.cs" />
     <Compile Include="Entities\Request\RequestMessageImage.cs" />

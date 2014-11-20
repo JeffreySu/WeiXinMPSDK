@@ -59,6 +59,24 @@ namespace Senparc.Weixin.QY
                             case "UNSUBSCRIBE"://取消订阅（关注）
                                 requestMessage = new RequestMessageEvent_UnSubscribe();
                                 break;
+                            case "SCANCODEPUSH"://扫码推事件(scancode_push)
+                                requestMessage = new RequestMessageEvent_ScancodePush();
+                                break;
+                            case "SCANCODEWAITMSG"://扫码推事件且弹出“消息接收中”提示框(scancode_waitmsg)
+                                requestMessage = new RequestMessageEvent_ScancodeWaitmsg();
+                                break;
+                            case "PICSYSPHOTO"://弹出系统拍照发图(pic_sysphoto)
+                                requestMessage = new RequestMessageEvent_PicSysphoto();
+                                break;
+                            case "PICPHOTOORALBUM"://弹出拍照或者相册发图（pic_photo_or_album）
+                                requestMessage = new RequestMessageEvent_PicPhotoOrAlbum();
+                                break;
+                            case "PICWEIXIN"://弹出微信相册发图器(pic_weixin)
+                                requestMessage = new RequestMessageEvent_PicWeixin();
+                                break;
+                            case "LOCATIONSELECT"://弹出地理位置选择器（location_select）
+                                requestMessage = new RequestMessageEvent_LocationSelect();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

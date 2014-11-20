@@ -22,5 +22,9 @@ namespace Senparc.Weixin.QY.Entities
         /// 事件KEY值，与自定义菜单接口中KEY值对应
         /// </summary>
         public string EventKey { get; set; }
+        /// <summary>
+        /// 扫描信息
+        /// </summary>
+        public ScanCodeInfo ScanCodeInfo { get; set; }
     }
 }

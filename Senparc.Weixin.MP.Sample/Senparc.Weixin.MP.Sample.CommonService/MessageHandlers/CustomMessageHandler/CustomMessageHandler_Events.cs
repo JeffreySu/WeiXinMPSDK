@@ -214,5 +214,42 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
             responseMessage.Content = "有空再来";
             return responseMessage;
         }
+
+        public override IResponseMessageBase OnEvent_ScancodePushRequest(RequestMessageEvent_ScancodePush requestMessage)
+        {
+            return base.OnEvent_ScancodePushRequest(requestMessage);
+        }
+
+        public override IResponseMessageBase OnEvent_ScancodeWaitmsgRequest(RequestMessageEvent_ScancodeWaitmsg requestMessage)
+        {
+            IResponseMessageBase responseMessage = null;
+
+            switch (requestMessage.EventKey)
+            {
+                case "Scancode_Waitmsg":
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
+                        responseMessage = strongResponseMessage;
+                        strongResponseMessage.Content = "您点击了扫码带提示按钮。";
+                    }
+                    break;
+                default:
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
+                        responseMessage = strongResponseMessage;
+                        if (requestMessage.ScanCodeInfo == null)
+                        {
+                            strongResponseMessage.Content = "扫描失败！";
+                        }
+                        else
+                        {
+                            strongResponseMessage.Content = "扫描信息如下：\r\n扫描类型：" + requestMessage.ScanCodeInfo.ScanType + "\r\n扫描结果:" + requestMessage.ScanCodeInfo.ScanResult;
+                        }
+                    }
+                    break;
+            }
+
+            return responseMessage;
+        }
     }
 }

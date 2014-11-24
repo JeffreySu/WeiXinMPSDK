@@ -220,7 +220,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_ScancodePushRequest(RequestMessageEvent_ScancodePush requestMessage)
+        public override IResponseMessageBase OnEvent_ScancodePushRequest(RequestMessageEvent_Scancode_Push requestMessage)
         {
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "事件之扫码推事件";
@@ -232,7 +232,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_ScancodeWaitmsgRequest(RequestMessageEvent_ScancodeWaitmsg requestMessage)
+        public override IResponseMessageBase OnEvent_ScancodeWaitmsgRequest(RequestMessageEvent_Scancode_Waitmsg requestMessage)
         {
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "事件之扫码推事件且弹出“消息接收中”提示框";
@@ -244,7 +244,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_PicPhotoOrAlbumRequest(RequestMessageEvent_PicPhotoOrAlbum requestMessage)
+        public override IResponseMessageBase OnEvent_PicPhotoOrAlbumRequest(RequestMessageEvent_Pic_Photo_Or_Album requestMessage)
         {
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "事件之弹出拍照或者相册发图";
@@ -256,7 +256,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_PicSysphotoRequest(RequestMessageEvent_PicSysphoto requestMessage)
+        public override IResponseMessageBase OnEvent_PicSysphotoRequest(RequestMessageEvent_Pic_Sysphoto requestMessage)
         {
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "事件之弹出系统拍照发图";
@@ -268,7 +268,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_PicWeixinRequest(RequestMessageEvent_PicWeixin requestMessage)
+        public override IResponseMessageBase OnEvent_PicWeixinRequest(RequestMessageEvent_Pic_Weixin requestMessage)
         {
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "事件之弹出微信相册发图器";
@@ -280,7 +280,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        public override IResponseMessageBase OnEvent_LocationSelectRequest(RequestMessageEvent_LocationSelect requestMessage)
+        public override IResponseMessageBase OnEvent_LocationSelectRequest(RequestMessageEvent_Location_Select requestMessage)
         {
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "事件之弹出地理位置选择器";

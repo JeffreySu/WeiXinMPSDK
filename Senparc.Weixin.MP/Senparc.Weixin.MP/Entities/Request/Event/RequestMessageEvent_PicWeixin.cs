@@ -8,14 +8,14 @@ namespace Senparc.Weixin.MP.Entities
     /// <summary>
     /// 事件之弹出微信相册发图器(pic_weixin)
     /// </summary>
-    public class RequestMessageEvent_PicWeixin : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
+    public class RequestMessageEvent_Pic_Weixin : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
     {
         /// <summary>
         /// 事件类型
         /// </summary>
         public override Event Event
         {
-            get { return Event.PICWEIXIN; }
+            get { return Event.pic_weixin; }
         }
 
         /// <summary>

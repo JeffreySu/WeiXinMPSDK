@@ -8,14 +8,14 @@ namespace Senparc.Weixin.MP.Entities
     /// <summary>
     /// 事件之弹出系统拍照发图(pic_sysphoto)
     /// </summary>
-    public class RequestMessageEvent_PicSysphoto : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
+    public class RequestMessageEvent_Pic_Sysphoto : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
     {
         /// <summary>
         /// 事件类型
         /// </summary>
         public override Event Event
         {
-            get { return Event.PICSYSPHOTO; }
+            get { return Event.pic_sysphoto; }
         }
 
         /// <summary>

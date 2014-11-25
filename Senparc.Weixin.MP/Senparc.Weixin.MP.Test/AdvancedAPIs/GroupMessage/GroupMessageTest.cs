@@ -13,7 +13,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
     public class GroupMessageTest : CommonApiTest
     {
         [TestMethod]
-        public void GetRecordTest()
+        public void SendImageTest()
         {
             string file = "";//文件路径，以下以图片为例
             string groupId = "";//分组Id
@@ -21,7 +21,19 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_appId);
             var mediaId = Media.Upload(accessToken, UploadMediaFileType.image, file).media_id;
 
-            var result = GroupMessage.SendGroupMessageByGroupId(accessToken, groupId, mediaId, GroupMessageType.image);
+            var result = GroupMessage.SendGroupMessageByGroupId(accessToken, groupId, GroupMessageType.image, mediaId);
+
+            Assert.IsTrue(result.msg_id.Length > 0);
+        }
+
+        [TestMethod]
+        public void SendTextTest()
+        {
+            string content = "文本内容";
+            string groupId = "";//分组Id
+
+            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var result = GroupMessage.SendGroupMessageByGroupId(accessToken, groupId, GroupMessageType.text, null, content);
 
             Assert.IsTrue(result.msg_id.Length > 0);
         }

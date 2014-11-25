@@ -25,8 +25,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="groupId">群发到的分组的group_id</param>
         /// <param name="mediaId">用于群发的消息的media_id</param>
         /// <param name="type"></param>
+        /// <param name="content">用于群发文本消息的content</param>
         /// <returns></returns>
-        public static SendResult SendGroupMessageByGroupId(string accessToken, string groupId, string mediaId, GroupMessageType type)
+        public static SendResult SendGroupMessageByGroupId(string accessToken, string groupId, GroupMessageType type, string mediaId = null, string content = null)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token={0}";
             
@@ -68,11 +69,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             group_id = groupId
                         },
-                        text = new GroupMessageByGroupId_MediaId()
+                        text = new GroupMessageByGroupId_Content()
                         {
-                            media_id = mediaId
+                            content = content
                         },
-                        msgtype = "image"
+                        msgtype = "text"
                     };
                     break;
                 case GroupMessageType.mpnews:
@@ -168,9 +169,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             touser = openIds
                         },
-                        text = new GroupMessageByOpenId_MediaId()
+                        text = new GroupMessageByOpenId_Content()
                         {
-                            media_id = mediaId
+                            content = mediaId
                         },
                         msgtype = "image"
                     };

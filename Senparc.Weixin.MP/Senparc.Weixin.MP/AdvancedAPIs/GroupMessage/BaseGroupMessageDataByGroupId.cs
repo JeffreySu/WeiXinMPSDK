@@ -21,6 +21,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public string media_id { get; set; }
     }
 
+    public class GroupMessageByGroupId_Content
+    {
+        public string content { get; set; }
+    }
+
     public class GroupMessageByGroupId_VoiceData : BaseGroupMessageDataByGroupId
     {
         public GroupMessageByGroupId_MediaId voice { get; set; }  
@@ -33,7 +38,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
     public class GroupMessageByGroupId_TextData : BaseGroupMessageDataByGroupId
     {
-        public GroupMessageByGroupId_MediaId text { get; set; }
+        public GroupMessageByGroupId_Content text { get; set; }
     }
 
     public class GroupMessageByGroupId_MpNewsData : BaseGroupMessageDataByGroupId

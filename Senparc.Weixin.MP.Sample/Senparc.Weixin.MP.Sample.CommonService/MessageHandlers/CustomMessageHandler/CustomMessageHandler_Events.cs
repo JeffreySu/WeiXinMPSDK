@@ -253,6 +253,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
 
         /// <summary>
         /// 事件之弹出系统拍照发图(pic_sysphoto)
+        /// 实际测试时发现微信并没有推送RequestMessageEvent_Pic_Sysphoto消息，只能接收到用户在微信中发送的图片消息。
         /// </summary>
         /// <param name="requestMessage"></param>
         /// <returns></returns>

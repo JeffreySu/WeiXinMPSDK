@@ -25,9 +25,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="groupId">群发到的分组的group_id</param>
         /// <param name="mediaId">用于群发的消息的media_id</param>
         /// <param name="type"></param>
-        /// <param name="content">用于群发文本消息的content</param>
         /// <returns></returns>
-        public static SendResult SendGroupMessageByGroupId(string accessToken, string groupId, GroupMessageType type, string mediaId = null, string content = null)
+        public static SendResult SendGroupMessageByGroupId(string accessToken, string groupId, string mediaId, GroupMessageType type)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token={0}";
             
@@ -59,21 +58,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             media_id = mediaId
                         },
-                        msgtype = "image"
-                    };
-                    break;
-                case GroupMessageType.text:
-                    baseData = new GroupMessageByGroupId_TextData()
-                    {
-                        filter = new GroupMessageByGroupId_GroupId()
-                        {
-                            group_id = groupId
-                        },
-                        text = new GroupMessageByGroupId_Content()
-                        {
-                            content = content
-                        },
-                        msgtype = "text"
+                        msgtype = "voice"
                     };
                     break;
                 case GroupMessageType.mpnews:
@@ -104,7 +89,40 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         msgtype = "mpvideo"
                     };
                     break;
+                case GroupMessageType.text:
+                    throw new Exception("发送文本信息请使用SendTextGroupMessageByGroupId方法。");
+                    break;
+                default:
+                    throw new Exception("参数错误。");
+                    break;
             }
+
+            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData);
+        }
+
+        /// <summary>
+        /// 根据GroupId进行群发文本信息
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="groupId">群发到的分组的group_id</param>
+        /// <param name="content">用于群发文本消息的content</param>
+        /// <returns></returns>
+        public static SendResult SendTextGroupMessageByGroupId(string accessToken, string groupId, string content)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token={0}";
+
+            BaseGroupMessageDataByGroupId baseData = new GroupMessageByGroupId_TextData()
+                    {
+                        filter = new GroupMessageByGroupId_GroupId()
+                        {
+                            group_id = groupId
+                        },
+                        text = new GroupMessageByGroupId_Content()
+                        {
+                            content = content
+                        },
+                        msgtype = "text"
+                    };
 
             return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData);
         }
@@ -116,20 +134,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="mediaId">用于群发的消息的media_id</param>
         /// <param name="type"></param>
         /// <param name="openIds">openId字符串数组</param>
+        /// 注意mediaId和content不可同时为空
         /// <returns></returns>
-        public static SendResult SendGroupMessageByOpenId(string accessToken, string mediaId, GroupMessageType type, params string[] openIds)
+        public static SendResult SendGroupMessageByOpenId(string accessToken, GroupMessageType type, string mediaId, params string[] openIds)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
-
-            var data = new
-            {
-                touser = openIds,
-                mpnews = new
-                {
-                    media_id = mediaId
-                },
-                msgtype = type.ToString()
-            };
 
             BaseGroupMessageDataByOpenId baseData = null;
             switch (type)
@@ -159,21 +168,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             media_id = mediaId
                         },
-                        msgtype = "image"
-                    };
-                    break;
-                case GroupMessageType.text:
-                    baseData = new GroupMessageByOpenId_TextData()
-                    {
-                        filter = new GroupMessageByOpenId_GroupId()
-                        {
-                            touser = openIds
-                        },
-                        text = new GroupMessageByOpenId_Content()
-                        {
-                            content = mediaId
-                        },
-                        msgtype = "image"
+                        msgtype = "voice"
                     };
                     break;
                 case GroupMessageType.mpnews:
@@ -191,20 +186,75 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     };
                     break;
                 case GroupMessageType.video:
-                    baseData = new GroupMessageByOpenId_MpVideoData()
+                    throw new Exception("发送视频信息请使用SendVideoGroupMessageByOpenId方法。");
+                    break;
+                case GroupMessageType.text:
+                    throw new Exception("发送文本信息请使用SendTextGroupMessageByOpenId方法。");
+                    break;
+                default:
+                    throw new Exception("参数错误。");
+                    break;
+            }
+            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData);
+        }
+
+        /// <summary>
+        /// 根据OpenId进行群发文本消息
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="content"></param>
+        /// <param name="openIds">openId字符串数组</param>
+        /// 注意mediaId和content不可同时为空
+        /// <returns></returns>
+        public static SendResult SendTextGroupMessageByOpenId(string accessToken, string content, params string[] openIds)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
+
+            BaseGroupMessageDataByOpenId baseData = new GroupMessageByOpenId_TextData()
                     {
                         filter = new GroupMessageByOpenId_GroupId()
                         {
                             touser = openIds
                         },
-                        video = new GroupMessageByOpenId_MediaId()
+                        text = new GroupMessageByOpenId_Content()
                         {
-                            media_id = mediaId
+                            content = content
                         },
-                        msgtype = "video"
+                        msgtype = "text"
                     };
-                    break;
-            }
+                    
+            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData);
+        }
+
+        /// <summary>
+        /// 根据OpenId进行群发视频消息
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="title"></param>
+        /// <param name="mediaId"></param>
+        /// <param name="openIds">openId字符串数组</param>
+        /// <param name="description"></param>
+        /// 注意mediaId和content不可同时为空
+        /// <returns></returns>
+        public static SendResult SendVideoGroupMessageByOpenId(string accessToken, string title, string description, string mediaId, params string[] openIds)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
+
+            BaseGroupMessageDataByOpenId baseData = new GroupMessageByOpenId_MpVideoData()
+            {
+                filter = new GroupMessageByOpenId_GroupId()
+                {
+                    touser = openIds
+                },
+                video = new GroupMessageByOpenId_Video()
+                {
+                    title = title,
+                    description = description,
+                    media_id = mediaId
+                },
+                msgtype = "video"
+            };
+
             return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData);
         }
 

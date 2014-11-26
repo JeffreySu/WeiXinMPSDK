@@ -26,6 +26,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public string content { get; set; }
     }
 
+    public class GroupMessageByOpenId_Video
+    {
+        public string title { get; set; }
+        public string media_id { get; set; }
+        public string description { get; set; }
+    }
+
     public class GroupMessageByOpenId_VoiceData : BaseGroupMessageDataByOpenId
     {
         public GroupMessageByOpenId_MediaId voice { get; set; }  
@@ -48,6 +55,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
     public class GroupMessageByOpenId_MpVideoData : BaseGroupMessageDataByOpenId
     {
-        public GroupMessageByOpenId_MediaId video { get; set; }
+        public GroupMessageByOpenId_Video video { get; set; }
     }
 }

@@ -210,7 +210,7 @@
             高级群发接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.SendGroupMessageByGroupId(System.String,System.String,Senparc.Weixin.MP.GroupMessageType,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.SendGroupMessageByGroupId(System.String,System.String,System.String,Senparc.Weixin.MP.GroupMessageType)">
             <summary>
             根据分组进行群发
             
@@ -224,10 +224,18 @@
             <param name="groupId">群发到的分组的group_id</param>
             <param name="mediaId">用于群发的消息的media_id</param>
             <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.SendTextGroupMessageByGroupId(System.String,System.String,System.String)">
+            <summary>
+            根据GroupId进行群发文本信息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="groupId">群发到的分组的group_id</param>
             <param name="content">用于群发文本消息的content</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.SendGroupMessageByOpenId(System.String,System.String,Senparc.Weixin.MP.GroupMessageType,System.String[])">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.SendGroupMessageByOpenId(System.String,Senparc.Weixin.MP.GroupMessageType,System.String,System.String[])">
             <summary>
             根据OpenId进行群发
             </summary>
@@ -235,6 +243,29 @@
             <param name="mediaId">用于群发的消息的media_id</param>
             <param name="type"></param>
             <param name="openIds">openId字符串数组</param>
+            注意mediaId和content不可同时为空
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.SendTextGroupMessageByOpenId(System.String,System.String,System.String[])">
+            <summary>
+            根据OpenId进行群发文本消息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="content"></param>
+            <param name="openIds">openId字符串数组</param>
+            注意mediaId和content不可同时为空
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.SendVideoGroupMessageByOpenId(System.String,System.String,System.String,System.String,System.String[])">
+            <summary>
+            根据OpenId进行群发视频消息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="title"></param>
+            <param name="mediaId"></param>
+            <param name="openIds">openId字符串数组</param>
+            <param name="description"></param>
+            注意mediaId和content不可同时为空
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.DeleteSendMessage(System.String,System.String)">

@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Senparc.Weixin.MP.Entities
+namespace Senparc.Weixin.QY.Entities
 {
     /// <summary>
-    /// 事件之扫码推事件且弹出“消息接收中”提示框(scancode_waitmsg)
+    /// 事件之扫码推事件(scancode_push)
     /// </summary>
-    public class RequestMessageEvent_Scancode_Waitmsg : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
+    public class RequestMessageEvent_ScancodePush : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
     {
         /// <summary>
         /// 事件类型
         /// </summary>
         public override Event Event
         {
-            get { return Event.scancode_waitmsg; }
+            get { return Event.SCANCODEPUSH; }
         }
 
         /// <summary>

@@ -61,7 +61,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 创建分组
+        /// 修改分组名
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="id"></param>

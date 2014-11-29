@@ -19,6 +19,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         public string weixinid { get; set; }//微信号 
         public string avatar { get; set; }//头像url。注：小图将url最后的"/0"改成"/64"
         public int status { get; set; }//关注状态: 1=已关注，2=已冻结，4=未关注 
+        public Extattr extattr { get; set; }
     }
 
     public class GetDepartmentMemberResult : WxJsonResult
@@ -30,5 +31,19 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     {
         public string userid { get; set; }//员工UserID
         public string name { get; set; }//成员名称
+    }
+
+    /// <summary>
+    /// 扩展属性
+    /// </summary>
+    public class Extattr
+    {
+        public List<Attr> attrs { get; set; }
+    }
+
+    public class Attr
+    {
+        public string name { get; set; }
+        public string value { get; set; }
     }
 }

@@ -61,6 +61,8 @@
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessage.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\NewsModel.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\SendResult.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\BaseGroupMessageDataByGroupId.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\BaseGroupMessageDataByOpenId.cs" />
     <Compile Include="AdvancedAPIs\Groups\CreateGroupResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\GetIdResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\Groups.cs" />
@@ -83,7 +85,10 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_LocationSelect.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_PicWeixin.cs" />
+    <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
+    <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
+    <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Helpers\EventHelper.cs" />
     <Compile Include="Helpers\MsgTypeHelper.cs" />
@@ -226,7 +231,7 @@
     <Compile Include="TenPayLib\RefundResponseHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TenPayLib\TenpayHttpClient.cs" />
+    <Compile Include="TenPayLib\TenPayHttpClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">

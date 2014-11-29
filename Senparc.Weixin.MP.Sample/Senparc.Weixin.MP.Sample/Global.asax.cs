@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Senparc.Weixin.MP.TenPayLib;
+using Senparc.Weixin.MP.TenPayLibV3;
 
 namespace Senparc.Weixin.MP.Sample
 {
@@ -31,8 +32,17 @@ namespace Senparc.Weixin.MP.Sample
             var weixinPay_AppKey = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_AppKey"];
             var weixinPay_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_TenpayNotify"];
 
+            var tenPayV3_MchId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_MchId"];
+            var tenPayV3_Key = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_Key"];
+            var tenPayV3_AppId = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppId"];
+            var tenPayV3_AppSecret = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppSecret"];
+            var tenPayV3_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_TenpayNotify"];
+
             var weixinPayInfo = new TenPayInfo(weixinPay_PartnerId, weixinPay_Key, weixinPay_AppId,weixinPay_AppKey, weixinPay_TenpayNotify);
             TenPayInfoCollection.Register(weixinPayInfo);
+            var tenPayV3Info = new TenPayV3Info(tenPayV3_AppId, tenPayV3_AppSecret, tenPayV3_MchId, tenPayV3_Key,
+                                                tenPayV3_TenpayNotify);
+            TenPayV3InfoCollection.Register(tenPayV3Info);
         }
     }
 }

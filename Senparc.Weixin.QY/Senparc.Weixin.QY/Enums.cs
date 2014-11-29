@@ -8,7 +8,7 @@ namespace Senparc.Weixin.QY
     /// <summary>
     /// 接收消息类型
     /// </summary>
-    public enum RequestMsgType
+    public enum  RequestMsgType
     {
         Text, //文本
         Location, //地理位置
@@ -67,7 +67,37 @@ namespace Senparc.Weixin.QY
         /// <summary>
         /// 模板信息发送完成
         /// </summary>
-        TEMPLATESENDJOBFINISH
+        TEMPLATESENDJOBFINISH,
+
+        /// <summary>
+        /// 扫码推事件
+        /// </summary>
+        SCANCODEPUSH,
+
+        /// <summary>
+        /// 扫码推事件且弹出“消息接收中”提示框
+        /// </summary>
+        SCANCODEWAITMSG,
+
+        /// <summary>
+        /// 弹出系统拍照发图
+        /// </summary>
+        PICSYSPHOTO,
+
+        /// <summary>
+        /// 弹出拍照或者相册发图
+        /// </summary>
+        PICPHOTOORALBUM,
+
+        /// <summary>
+        /// 弹出微信相册发图器
+        /// </summary>
+        PICWEIXIN,
+
+        /// <summary>
+        /// 弹出地理位置选择器
+        /// </summary>
+        LOCATIONSELECT
     }
 
 

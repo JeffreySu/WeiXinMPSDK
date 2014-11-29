@@ -61,7 +61,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             postModel.Token = Token;
-            postModel.EncodingAESKey = "mNnY5GekpChwqhy2c4NBH90g3hND6GeI4gii2YCvKLY";//根据自己后台的设置保持一致
+            postModel.EncodingAESKey = "YTJkZmVjMzQ5NDU5NDY3MDhiZWI0NTdiMjFiY2I5MmU";//根据自己后台的设置保持一致
             postModel.AppId = "wx669ef95216eef885";//根据自己后台的设置保持一致
 
             //v4.2.2之后的版本，可以设置每个人上下文消息储存的最大数量，防止内存占用过多，如果该参数小于等于0，则不限制

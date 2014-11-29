@@ -11,33 +11,33 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     public class TenPayV3Info
     {
         /// <summary>
-        /// appid
+        /// 第三方用户唯一凭证appid
         /// </summary>
         public string AppId { get; set; }
         /// <summary>
+        /// 第三方用户唯一凭证密钥，即appsecret
+        /// </summary>
+        public string AppSecret { get; set; }
+        /// <summary>
         /// 商户ID
         /// </summary>
-        public string Mchid { get; set; }
+        public string MchId { get; set; }
         /// <summary>
-        /// 密钥
+        /// 商户支付密钥Key。登录微信商户后台，进入栏目【账户设置】【密码安全】【API 安全】【API 密钥】
         /// </summary>
         public string Key { get; set; }
         /// <summary>
-        /// JSAPI 接口中获取openid，审核后在公众平台开启开发模式后可查看 
-        /// </summary>
-        public string Appsecret { get; set; }
-        /// <summary>
         /// 支付完成后的回调处理页面,*替换成notify_url.asp所在路径
         /// </summary>
-        public string TenPayNotify { get; set; } // = "http://localhost/payNotifyUrl.aspx";
+        public string TenPayV3Notify { get; set; } // = "http://localhost/payNotifyUrl.aspx";
 
-        public TenPayV3Info(string appId, string mchid, string key, string appsecret, string tenPayNotify)
+        public TenPayV3Info(string appId, string appSecret, string mchId, string key, string tenPayV3Notify)
         {
             AppId = appId;
-            Mchid = mchid;
+            AppSecret = appSecret;
+            MchId = mchId;
             Key = key;
-            Appsecret = appsecret;
-            TenPayNotify = tenPayNotify;
+            TenPayV3Notify = tenPayV3Notify;
         }
     }
 }

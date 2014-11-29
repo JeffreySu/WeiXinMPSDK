@@ -6,7 +6,7 @@ using System.Text;
 namespace Senparc.Weixin.QY.Entities
 {
     /// <summary>
-    /// 事件之取消订阅
+    /// 事件之点击推事件(Click)
     /// </summary>
     public class RequestMessageEvent_Click : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
     {

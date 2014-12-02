@@ -3,7 +3,7 @@
     public interface IRequestMessageBase : IMessageBase
     {
         //RequestMsgType MsgType { get; }
-        //long MsgId { get; set; }
+        long MsgId { get; set; }
     }
 
     /// <summary>
@@ -21,6 +21,6 @@
         //    get { return RequestMsgType.Text; }
         //}
 
-        //public long MsgId { get; set; }
+        public long MsgId { get; set; }
     }
 }

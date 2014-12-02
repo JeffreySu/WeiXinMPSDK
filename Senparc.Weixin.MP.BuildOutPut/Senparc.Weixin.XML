@@ -454,6 +454,11 @@
             是否使用了MessageAgent代理
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandler`2.OmitRepeatedMessage">
+            <summary>
+            忽略重复发送的同一条消息（通常因为微信服务器没有收到及时的响应）
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MessageHandlers.MessageHandler`3">
             <summary>
             微信请求的集中处理方法
@@ -478,7 +483,8 @@
         </member>
         <member name="M:Senparc.Weixin.MessageHandlers.MessageHandler`3.Init(System.Xml.Linq.XDocument,System.Object)">
             <summary>
-            初始化，获取RequestDocument
+            初始化，获取RequestDocument。
+            Init中需要对上下文添加当前消息（如果使用上下文）
             </summary>
             <param name="requestDocument"></param>
         </member>
@@ -548,6 +554,11 @@
         <member name="P:Senparc.Weixin.MessageHandlers.MessageHandler`3.UsedMessageAgent">
             <summary>
             是否使用了MessageAgent代理
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageHandlers.MessageHandler`3.OmitRepeatedMessage">
+            <summary>
+            忽略重复发送的同一条消息（通常因为微信服务器没有收到及时的响应）
             </summary>
         </member>
         <member name="T:Senparc.Weixin.Entities.RequestMessageBase">

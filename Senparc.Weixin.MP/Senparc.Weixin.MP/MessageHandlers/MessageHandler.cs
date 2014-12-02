@@ -299,10 +299,12 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
         public virtual void OnExecuting()
         {
+            base.OnExecuting();
         }
 
         public virtual void OnExecuted()
         {
+            base.OnExecuted();
         }
 
         #region 接收消息方法

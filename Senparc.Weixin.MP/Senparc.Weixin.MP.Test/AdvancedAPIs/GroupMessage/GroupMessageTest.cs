@@ -21,7 +21,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_appId);
             var mediaId = Media.Upload(accessToken, UploadMediaFileType.image, file).media_id;
 
-            var result = GroupMessage.SendGroupMessageByGroupId(accessToken, groupId, GroupMessageType.image, mediaId);
+            var result = GroupMessage.SendGroupMessageByGroupId(accessToken, groupId, mediaId,GroupMessageType.image);
 
             Assert.IsTrue(result.msg_id.Length > 0);
         }
@@ -33,7 +33,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             string groupId = "";//分组Id
 
             var accessToken = AccessTokenContainer.GetToken(_appId);
-            var result = GroupMessage.SendGroupMessageByGroupId(accessToken, groupId, GroupMessageType.text, null, content);
+            var result = GroupMessage.SendGroupMessageByGroupId(accessToken, groupId,null, GroupMessageType.text);
 
             Assert.IsTrue(result.msg_id.Length > 0);
         }

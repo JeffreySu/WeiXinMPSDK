@@ -87,11 +87,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 messageHandler.Execute();
 
                 //测试时可开启，帮助跟踪数据
-                messageHandler.ResponseDocument.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
-                if (messageHandler.UsingEcryptMessage)
+                if (messageHandler.ResponseDocument != null)
                 {
-                    //记录加密后的响应信息
-                    messageHandler.FinalResponseDocument.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Response_Final_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                    messageHandler.ResponseDocument.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                    if (messageHandler.UsingEcryptMessage)
+                    {
+                        //记录加密后的响应信息
+                        messageHandler.FinalResponseDocument.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Response_Final_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                    }
                 }
 
                 //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
@@ -133,6 +136,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             var messageHandler = new CustomMessageHandler(Request.InputStream, null, 10);
+
+            messageHandler.OmitRepeatedMessage = true;//启用消息去重功能
 
             messageHandler.Execute();//执行微信处理过程
 

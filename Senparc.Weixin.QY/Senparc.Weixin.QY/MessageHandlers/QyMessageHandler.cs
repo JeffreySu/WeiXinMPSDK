@@ -268,10 +268,12 @@ namespace Senparc.Weixin.QY.MessageHandlers
 
         public virtual void OnExecuting()
         {
+            base.OnExecuting();
         }
 
         public virtual void OnExecuted()
         {
+            base.OnExecuted();
         }
 
         /// <summary>

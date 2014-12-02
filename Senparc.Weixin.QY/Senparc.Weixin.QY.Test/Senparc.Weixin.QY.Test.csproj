@@ -57,6 +57,7 @@
     <Compile Include="AdvancedAPIs\MailList\Tag\TagTest.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaTest.cs" />
     <Compile Include="CommonApis\CommonApiTest.cs" />
+    <Compile Include="MessageHandlers\QyMessageHandlers_OmitRepeatMessageTest.cs" />
     <Compile Include="MessageHandlers\QyMessageHandlerTest.cs" />
     <Compile Include="RequestMessageFactoryTest.cs" />
     <Compile Include="SignatureTest.cs" />

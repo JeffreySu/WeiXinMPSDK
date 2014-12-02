@@ -111,6 +111,10 @@ namespace Senparc.Weixin.MessageHandlers
         /// </summary>
         public bool UsedMessageAgent { get; set; }
 
+        /// <summary>
+        /// 忽略重复发送的同一条消息（通常因为微信服务器没有收到及时的响应）
+        /// </summary>
+        public bool OmitRepeatedMessage { get; set; }
 
         /// <summary>
         /// 
@@ -142,7 +146,8 @@ namespace Senparc.Weixin.MessageHandlers
         }
 
         /// <summary>
-        /// 初始化，获取RequestDocument
+        /// 初始化，获取RequestDocument。
+        /// Init中需要对上下文添加当前消息（如果使用上下文）
         /// </summary>
         /// <param name="requestDocument"></param>
         public abstract XDocument Init(XDocument requestDocument, object postData = null);
@@ -156,6 +161,14 @@ namespace Senparc.Weixin.MessageHandlers
 
         public virtual void OnExecuting()
         {
+            if (OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1)
+            {
+                var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 2];
+                if (lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)
+                {
+                    CancelExcute = true;//重复消息，取消执行
+                }
+            }
         }
 
         public virtual void OnExecuted()

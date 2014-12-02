@@ -41,6 +41,11 @@ namespace Senparc.Weixin.MessageHandlers
         bool UsedMessageAgent { get; set; }
 
         /// <summary>
+        /// 忽略重复发送的同一条消息（通常因为微信服务器没有收到及时的响应）
+        /// </summary>
+        bool OmitRepeatedMessage { get; set; }
+
+        /// <summary>
         /// 执行微信请求
         /// </summary>
         void Execute();

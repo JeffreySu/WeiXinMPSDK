@@ -14,7 +14,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// 获取请求XML
         /// </summary>
         /// <returns></returns>
-        private XDocument GetrequestMessaageDoc(string url, string token, RequestMsgType requestType, Event? eventType, string omitRepeat)
+        private XDocument GetrequestMessaageDoc(string url, string token, RequestMsgType requestType, Event? eventType)
         {
             RequestMessageBase requestMessaage = null;
             switch (requestType)
@@ -144,11 +144,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Index(string url, string token, RequestMsgType requestType, Event? eventType, string omitRepeat)
+        public ActionResult Index(string url, string token, RequestMsgType requestType, Event? eventType)
         {
             using (MemoryStream ms = new MemoryStream())
             {
-                var requestMessaageDoc = GetrequestMessaageDoc(url, token, requestType, eventType, omitRepeat);
+                var requestMessaageDoc = GetrequestMessaageDoc(url, token, requestType, eventType);
                 requestMessaageDoc.Save(ms);
                 ms.Seek(0, SeekOrigin.Begin);
 
@@ -156,7 +156,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 if (string.IsNullOrEmpty(responseMessageXml))
                 {
-                    responseMessageXml = "返回消息为空，可能已经被去重";
+                    responseMessageXml = "返回消息为空，可能已经被去重。\r\nMsgId相同的连续消息将被自动去重。";
                 }
 
                 return Content(responseMessageXml);
@@ -168,9 +168,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult GetRequestMessageXml(string url, string token, RequestMsgType requestType, Event? eventType, string omitRepeat)
+        public ActionResult GetRequestMessageXml(string url, string token, RequestMsgType requestType, Event? eventType)
         {
-            var requestMessaageDoc = GetrequestMessaageDoc(url, token, requestType, eventType, omitRepeat);
+            var requestMessaageDoc = GetrequestMessaageDoc(url, token, requestType, eventType);
             return Content(requestMessaageDoc.ToString());
         }
     }

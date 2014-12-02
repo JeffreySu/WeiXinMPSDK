@@ -87,7 +87,6 @@
                 });
             }
             param.MsgId = msgId;
-            param.omitRepeat = $('#cbOmitRepeat:checked').size();
             
             var txtResponseMessageXML = $('#responseMessageXML');
             var txtRequestMessageXML = $('#requestMessageXML');
@@ -198,9 +197,7 @@
                     <div>
                         MsgId：<input id="txtMsgId" name="MsgId" type="number" value="@DateTime.Now.Ticks" /><br />
                     </div>
-                    <div>
-                        <label><input id="cbOmitRepeat" type="checkbox"/>使用去重功能（MsgId相同的连续消息将被忽略）</label>
-                    </div>
+                   
                     <input type="button" value="提交" onclick="sendMessage()" />
                 </div>
             </div>

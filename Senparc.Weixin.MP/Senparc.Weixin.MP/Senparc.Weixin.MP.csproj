@@ -63,6 +63,7 @@
     <Compile Include="AdvancedAPIs\GroupMessage\SendResult.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\BaseGroupMessageDataByGroupId.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\BaseGroupMessageDataByOpenId.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\BaseGroupMessageDataPreview.cs" />
     <Compile Include="AdvancedAPIs\Groups\CreateGroupResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\GetIdResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\Groups.cs" />
@@ -74,6 +75,8 @@
     <Compile Include="AdvancedAPIs\OAuth\OAuthUserInfo.cs" />
     <Compile Include="AdvancedAPIs\QrCode\CreateQrCodeResult.cs" />
     <Compile Include="AdvancedAPIs\QrCode\QrCode.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\Semantic.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\Template.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\SendTemplateMessageResult.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateDataItem.cs" />

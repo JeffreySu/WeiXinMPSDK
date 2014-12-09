@@ -14,6 +14,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public class GroupMessageByGroupId_GroupId
     {
         public string group_id { get; set; }
+        public bool is_to_all { get; set; }
     }
 
     public class GroupMessageByGroupId_MediaId

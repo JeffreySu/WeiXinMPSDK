@@ -13,7 +13,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public static class GroupMessage
     {
         /// <summary>
-        /// 根据分组进行群发
+        /// 根据分组进行群发【订阅号与服务号认证后均可用】
         /// 
         /// 请注意：
         /// 1、该接口暂时仅提供给已微信认证的服务号
@@ -22,11 +22,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 
         /// </summary>
         /// <param name="accessToken"></param>
-        /// <param name="groupId">群发到的分组的group_id</param>
+        /// <param name="groupId">群发到的分组的group_id，参加用户管理中用户分组接口，若is_to_all值为true，可不填写group_id</param>
         /// <param name="mediaId">用于群发的消息的media_id</param>
         /// <param name="type"></param>
+        /// <param name="isToAll">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户</param>
         /// <returns></returns>
-        public static SendResult SendGroupMessageByGroupId(string accessToken, string groupId, string mediaId, GroupMessageType type)
+        public static SendResult SendGroupMessageByGroupId(string accessToken, string groupId, string mediaId, GroupMessageType type, bool isToAll = false)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token={0}";
             
@@ -38,7 +39,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             filter = new GroupMessageByGroupId_GroupId()
                                 {
-                                  group_id  = groupId
+                                  group_id  = groupId,
+                                  is_to_all = isToAll
                                 },
                             image = new GroupMessageByGroupId_MediaId()
                                  {
@@ -52,7 +54,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     {
                         filter = new GroupMessageByGroupId_GroupId()
                         {
-                            group_id = groupId
+                            group_id = groupId,
+                            is_to_all = isToAll
                         },
                         voice = new GroupMessageByGroupId_MediaId()
                         {
@@ -66,7 +69,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     {
                         filter = new GroupMessageByGroupId_GroupId()
                         {
-                            group_id = groupId
+                            group_id = groupId,
+                            is_to_all = isToAll
                         },
                         mpnews = new GroupMessageByGroupId_MediaId()
                         {
@@ -80,7 +84,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     {
                         filter = new GroupMessageByGroupId_GroupId()
                         {
-                            group_id = groupId
+                            group_id = groupId,
+                            is_to_all = isToAll
                         },
                         mpvideo = new GroupMessageByGroupId_MediaId()
                         {
@@ -101,13 +106,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 根据GroupId进行群发文本信息
+        /// 根据GroupId进行群发文本信息【订阅号与服务号认证后均可用】
         /// </summary>
         /// <param name="accessToken"></param>
-        /// <param name="groupId">群发到的分组的group_id</param>
+        /// <param name="groupId">群发到的分组的group_id，参加用户管理中用户分组接口，若is_to_all值为true，可不填写group_id</param>
         /// <param name="content">用于群发文本消息的content</param>
+        /// <param name="isToAll">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户</param>
         /// <returns></returns>
-        public static SendResult SendTextGroupMessageByGroupId(string accessToken, string groupId, string content)
+        public static SendResult SendTextGroupMessageByGroupId(string accessToken, string groupId, string content, bool isToAll = false)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token={0}";
 
@@ -115,7 +121,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     {
                         filter = new GroupMessageByGroupId_GroupId()
                         {
-                            group_id = groupId
+                            group_id = groupId,
+                            is_to_all = isToAll
                         },
                         text = new GroupMessageByGroupId_Content()
                         {
@@ -146,10 +153,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 case GroupMessageType.image:
                     baseData = new GroupMessageByOpenId_ImageData()
                     {
-                        filter = new GroupMessageByOpenId_GroupId()
-                        {
-                            touser = openIds
-                        },
+                        touser = openIds,
                         image = new GroupMessageByOpenId_MediaId()
                         {
                             media_id = mediaId
@@ -160,10 +164,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 case GroupMessageType.voice:
                     baseData = new GroupMessageByOpenId_VoiceData()
                     {
-                        filter = new GroupMessageByOpenId_GroupId()
-                        {
-                            touser = openIds
-                        },
+                        touser = openIds,
                         voice = new GroupMessageByOpenId_MediaId()
                         {
                             media_id = mediaId
@@ -174,10 +175,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 case GroupMessageType.mpnews:
                     baseData = new GroupMessageByOpenId_MpNewsData()
                     {
-                        filter = new GroupMessageByOpenId_GroupId()
-                        {
-                            touser = openIds
-                        },
+                        touser = openIds,
                         mpnews = new GroupMessageByOpenId_MediaId()
                         {
                             media_id = mediaId
@@ -199,7 +197,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 根据OpenId进行群发文本消息
+        /// 根据OpenID列表群发文本消息【订阅号不可用，服务号认证后可用】
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="content"></param>
@@ -212,10 +210,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             BaseGroupMessageDataByOpenId baseData = new GroupMessageByOpenId_TextData()
                     {
-                        filter = new GroupMessageByOpenId_GroupId()
-                        {
-                            touser = openIds
-                        },
+                        touser = openIds,
                         text = new GroupMessageByOpenId_Content()
                         {
                             content = content
@@ -227,7 +222,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 根据OpenId进行群发视频消息
+        /// 根据OpenID列表群发视频消息【订阅号不可用，服务号认证后可用】
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="title"></param>
@@ -242,10 +237,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             BaseGroupMessageDataByOpenId baseData = new GroupMessageByOpenId_MpVideoData()
             {
-                filter = new GroupMessageByOpenId_GroupId()
-                {
-                    touser = openIds
-                },
+                touser = openIds,
                 video = new GroupMessageByOpenId_Video()
                 {
                     title = title,
@@ -274,6 +266,119 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 msgid = mediaId
             };
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
+        }
+
+        /// <summary>
+        /// 预览接口【订阅号与服务号认证后均可用】
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="mediaId">用于群发的消息的media_id</param>
+        /// <param name="type"></param>
+        /// <param name="openId">接收消息用户对应该公众号的openid</param>
+        /// 注意mediaId和content不可同时为空
+        /// <returns></returns>
+        public static SendResult SendGroupMessagePreview(string accessToken, GroupMessageType type, string mediaId, string openId)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
+
+            BaseGroupMessageDataPreview baseData = null;
+            switch (type)
+            {
+                case GroupMessageType.image:
+                    baseData = new GroupMessagePreview_ImageData()
+                    {
+                        touser = openId,
+                        image = new GroupMessagePreview_MediaId()
+                        {
+                            media_id = mediaId
+                        },
+                        msgtype = "image"
+                    };
+                    break;
+                case GroupMessageType.voice:
+                    baseData = new GroupMessagePreview_VoiceData()
+                    {
+                        touser = openId,
+                        voice = new GroupMessagePreview_MediaId()
+                        {
+                            media_id = mediaId
+                        },
+                        msgtype = "voice"
+                    };
+                    break;
+                case GroupMessageType.mpnews:
+                    baseData = new GroupMessagePreview_MpNewsData()
+                    {
+                        touser = openId,
+                        mpnews = new GroupMessagePreview_MediaId()
+                        {
+                            media_id = mediaId
+                        },
+                        msgtype = "mpnews"
+                    };
+                    break;
+                case GroupMessageType.video:
+                    baseData = new GroupMessagePreview_MpVideoData()
+                    {
+                        touser = openId,
+                        mpvideo = new GroupMessagePreview_MediaId()
+                        {
+                            media_id = mediaId
+                        },
+                        msgtype = "mpvideo"
+                    };
+                    break;
+                case GroupMessageType.text:
+                    throw new Exception("发送文本信息请使用SendTextGroupMessagePreview方法。");
+                    break;
+                default:
+                    throw new Exception("参数错误。");
+                    break;
+            }
+            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData);
+        }
+
+        /// <summary>
+        /// 预览接口Test【订阅号与服务号认证后均可用】
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="content"></param>
+        /// <param name="openId">接收消息用户对应该公众号的openid</param>
+        /// 注意mediaId和content不可同时为空
+        /// <returns></returns>
+        public static SendResult SendTextGroupMessagePreview(string accessToken, string content, string openId)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
+
+            BaseGroupMessageDataPreview baseData = new GroupMessagePreview_TextData()
+            {
+                touser = openId,
+                text = new GroupMessagePreview_Content()
+                {
+                    content = content
+                },
+                msgtype = "text"
+            };
+
+            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData);
+        }
+
+        /// <summary>
+        /// 查询群发消息发送状态【订阅号与服务号认证后均可用】
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="msgId">群发消息后返回的消息id</param>
+        /// <returns></returns>
+        public static GetSendResult GetGroupMessageResult(string accessToken, string msgId)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/get?access_token={0}";
+
+            var data = new
+                {
+                    msg_id = msgId
+                };
+
+            return CommonJsonSend.Send<GetSendResult>(accessToken, urlFormat, data);
         }
     }
 }

@@ -88,6 +88,9 @@ namespace Senparc.Weixin.MP
                             case "MASSSENDJOBFINISH":
                                 requestMessage = new RequestMessageEvent_MassSendJobFinish();
                                 break;
+                            case "TEMPLATESENDJOBFINISH"://模板信息
+                                requestMessage = new RequestMessageEvent_TemplateSendJobFinish();
+                                break;
                             case "SCANCODE_PUSH"://扫码推事件(scancode_push)
                                 requestMessage = new RequestMessageEvent_Scancode_Push();
                                 break;

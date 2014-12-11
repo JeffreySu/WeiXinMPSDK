@@ -244,6 +244,20 @@ namespace Senparc.Weixin.MP.Test
 </SendLocationInfo>
 </xml>";
 
+        private string xmlEvent_MassSendJobFinish = @"<xml>
+<ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+<FromUserName><![CDATA[oR5Gjjl_eiZoUpGozMo7dbBJ362A]]></FromUserName>
+<CreateTime>1394524295</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[MASSSENDJOBFINISH]]></Event>
+<MsgID>1988</MsgID>
+<Status><![CDATA[sendsuccess]]></Status>
+<TotalCount>100</TotalCount>
+<FilterCount>80</FilterCount>
+<SentCount>75</SentCount>
+<ErrorCount>5</ErrorCount>
+</xml>";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -433,13 +447,24 @@ namespace Senparc.Weixin.MP.Test
             }
 
             {
-                //Event-Scancode_Location_Select
+                //Event-Location_Select
                 var doc = XDocument.Parse(xmlEvent_Location_Select);
                 var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Location_Select;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.location_select, result.Event);
                 Assert.IsNotNull(result.SendLocationInfo.Location_X);
+            }
+
+            {
+                //Event-MassSendJobFinish
+                var doc = XDocument.Parse(xmlEvent_MassSendJobFinish);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_MassSendJobFinish;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual(Event.MASSSENDJOBFINISH, result.Event);
+                Assert.IsNotNull(result.MsgID);
+                Assert.AreEqual(1988, result.MsgID);
             }
         }
     }

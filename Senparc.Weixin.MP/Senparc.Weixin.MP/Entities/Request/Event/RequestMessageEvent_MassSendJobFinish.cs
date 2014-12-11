@@ -42,5 +42,13 @@ namespace Senparc.Weixin.MP.Entities
         /// 发送失败的粉丝数
         /// </summary>
         public int ErrorCount { get; set; }
+
+        /// <summary>
+        /// 群发的消息ID
+        /// </summary>
+        public long MsgID { get; set; }
+
+        [Obsolete("请使用MsgID")]
+        public new long MsgId { get; set; }
     }
 }

@@ -7,13 +7,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     public class BaseGroupMessageDataByOpenId
     {
-        public GroupMessageByOpenId_GroupId filter { get; set; }
-        public string msgtype { get; set; }
-    }
-
-    public class GroupMessageByOpenId_GroupId
-    {
         public string[] touser { get; set; }
+        public string msgtype { get; set; }
     }
 
     public class GroupMessageByOpenId_MediaId

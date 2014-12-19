@@ -109,6 +109,18 @@ namespace Senparc.Weixin.MP
                             case "LOCATION_SELECT"://弹出地理位置选择器（location_select）
                                 requestMessage = new RequestMessageEvent_Location_Select();
                                 break;
+                            case "CARD_PASS_CHECK"://卡券通过审核
+                                requestMessage = new RequestMessageEvent_Card_Pass_Check();
+                                break;
+                            case "CARD_NOT_PASS_CHECK"://卡券未通过审核
+                                requestMessage = new RequestMessageEvent_Card_Not_Pass_Check();
+                                break;
+                            case "USER_GET_CARD"://领取卡券
+                                requestMessage = new RequestMessageEvent_User_Get_Card();
+                                break;
+                            case "USER_DEL_CARD"://删除卡券
+                                requestMessage = new RequestMessageEvent_User_Del_Card();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

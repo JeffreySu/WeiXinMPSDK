@@ -130,32 +130,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return sign;
         }
 
-
-        ///// <summary>
-        ///// 创建package签名
-        ///// </summary>
-        ///// <returns></returns>
-        //public virtual string CreateMd5Sign()
-        //{
-        //    StringBuilder sb = new StringBuilder();
-        //    ArrayList akeys = new ArrayList(Parameters.Keys);
-        //    akeys.Sort();
-
-        //    foreach (string k in akeys)
-        //    {
-        //        string v = (string)Parameters[k];
-        //        if (null != v && "".CompareTo(v) != 0
-        //            && "sign".CompareTo(k) != 0 && "".CompareTo(v) != 0)
-        //        {
-        //            sb.Append(k + "=" + v + "&");
-        //        }
-        //    }
-        //    string sign = MD5Util.GetMD5(sb.ToString(), GetCharset()).ToUpper();
-
-        //    this.SetParameter("sign", sign);
-        //    return sign;
-        //}
-
         /// <summary>
         /// 输出XML
         /// </summary>

@@ -23,11 +23,18 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             AccessTokenContainer.Register(_corpId, _corpSecret);
         }
 
-        //[TestMethod]
+        [TestMethod]
         public void CreateMemberTest(string userId)
         {
+            Extattr extattr = new Extattr()
+            {
+                attrs = new List<Attr>()
+                        {
+                            new Attr(){ name = "员工角色",value = "123"}
+                        }
+            };
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.CreateMember(accessToken, userId, "ceshi", new[]{2}, null, "18913536683");
+            var result = Member.CreateMember(accessToken, userId, "ceshi", new[]{2}, null, "18913536683",null,null,null,0,extattr);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }

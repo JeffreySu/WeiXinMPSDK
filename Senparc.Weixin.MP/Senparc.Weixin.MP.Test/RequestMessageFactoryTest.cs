@@ -258,6 +258,42 @@ namespace Senparc.Weixin.MP.Test
 <ErrorCount>5</ErrorCount>
 </xml>";
 
+        private string xmlEvent_Card_Pass_Check = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[card_pass_check]]></Event> //不通过为card_not_pass_check
+<CardId><![CDATA[cardid]]></CardId>
+</xml>";
+
+           private string xmlEvent_Card_Not_Pass_Check=@"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[card_not_pass_check]]></Event> //不通过为card_not_pass_check
+<CardId><![CDATA[cardid]]></CardId>
+</xml>";
+
+        private string xmlEvent_User_Get_Card = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<FriendUserName><![CDATA[FriendUser]]></FriendUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[user_get_card]]></Event>
+<CardId><![CDATA[cardid]]></CardId>
+<IsGiveByFriend>1</IsGiveByFriend>
+<UserCardCode><![CDATA[12312312]]></UserCardCode>
+</xml>";
+
+        private string xmlEvent_User_Del_Card = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[user_del_card]]></Event>
+<CardId><![CDATA[cardid]]></CardId>
+<UserCardCode><![CDATA[12312312]]></UserCardCode>
+</xml>";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -465,6 +501,50 @@ namespace Senparc.Weixin.MP.Test
                 Assert.AreEqual(Event.MASSSENDJOBFINISH, result.Event);
                 Assert.IsNotNull(result.MsgID);
                 Assert.AreEqual(1988, result.MsgID);
+            }
+
+            {
+                //Event-Card_Pass_Check
+                var doc = XDocument.Parse(xmlEvent_Card_Pass_Check);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Card_Pass_Check;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.card_pass_check, result.Event);
+                Assert.IsNotNull(result.CardId);
+                Assert.AreEqual("cardid", result.CardId);
+            }
+
+            {
+                //Event-Card_Not_Pass_Check
+                var doc = XDocument.Parse(xmlEvent_Card_Not_Pass_Check);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Card_Not_Pass_Check;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.card_not_pass_check, result.Event);
+                Assert.IsNotNull(result.CardId);
+                Assert.AreEqual("cardid", result.CardId);
+            }
+
+            {
+                //Event-User_Get_Card
+                var doc = XDocument.Parse(xmlEvent_User_Get_Card);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_User_Get_Card;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.user_get_card, result.Event);
+                Assert.IsNotNull(result.CardId);
+                Assert.AreEqual(1, result.IsGiveByFriend);
+            }
+
+            {
+                //Event-User_Del_Card
+                var doc = XDocument.Parse(xmlEvent_User_Del_Card);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_User_Del_Card;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.user_del_card, result.Event);
+                Assert.IsNotNull(result.CardId);
+                Assert.AreEqual("12312312", result.UserCardCode);
             }
         }
     }

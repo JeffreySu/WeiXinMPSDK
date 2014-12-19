@@ -66,6 +66,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\Card\CardTest.cs" />
+    <Compile Include="AdvancedAPIs\Card\StoreTest.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomServiceTest.cs" />
     <Compile Include="AdvancedAPIs\Custom\CustomTest.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageTest.cs" />

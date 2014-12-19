@@ -52,6 +52,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\Card\CardCreate\BaseCardCreateInfo.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreate.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateData.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\BaseCardUpdateInfo.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\BaseCardResult.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\CardManage.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\CardManageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\CardUpdateData.cs" />
+    <Compile Include="AdvancedAPIs\Card\Store\StoreResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\Store\StoreLocationData.cs" />
+    <Compile Include="AdvancedAPIs\Card\Store\Store.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomInfoJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomOnlineJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomService.cs" />
@@ -89,6 +101,10 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_LocationSelect.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_PicWeixin.cs" />
     <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Card_Pass_Check.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Card_Not_Pass_Check.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_UserGetCard.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Del_Card.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
     <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
@@ -269,6 +285,7 @@
   <ItemGroup>
     <Compile Include="Entities\Request\Event\RequestMessageEvent_PicSysphoto.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

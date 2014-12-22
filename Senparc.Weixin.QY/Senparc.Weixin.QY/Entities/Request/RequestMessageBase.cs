@@ -8,7 +8,7 @@ namespace Senparc.Weixin.QY.Entities
     public interface IRequestMessageBase : Senparc.Weixin.Entities.IRequestMessageBase
     {
         RequestMsgType MsgType { get; }
-        int AgentId { get; set; }
+        int AgentID { get; set; }
     }
 
     /// <summary>
@@ -26,6 +26,6 @@ namespace Senparc.Weixin.QY.Entities
             get { return RequestMsgType.Text; }
         }
 
-        public int AgentId { get; set; }
+        public int AgentID { get; set; }
     }
 }

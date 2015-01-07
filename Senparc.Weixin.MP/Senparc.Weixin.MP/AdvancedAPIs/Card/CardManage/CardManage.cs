@@ -29,7 +29,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     card_id = cardId
                 };
 
-            return CommonJsonSend.Send<CardDeleteResultJson>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<CardDeleteResultJson>(null, urlFormat, data);
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 card_id = cardId
             };
 
-            return CommonJsonSend.Send<CardGetResultJson>(accessToken, urlFormat, data); 
+            return CommonJsonSend.Send<CardGetResultJson>(null, urlFormat, data); 
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 count = count
             };
 
-            return CommonJsonSend.Send<CardBatchGetResultJson>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<CardBatchGetResultJson>(null, urlFormat, data);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 card_id = cardId
             };
 
-            return CommonJsonSend.Send<CardDetailGetResultJson>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<CardDetailGetResultJson>(null, urlFormat, data);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 new_code = newCode
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 card_id = cardId
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data);
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     break;
             }
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, cardData);
+            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, cardData);
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 username = userNames
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data);
         }
 
         /// <summary>
@@ -250,7 +250,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 card_id = cardId
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data);
         }
 
         /// <summary>
@@ -278,7 +278,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 record_balance = recordBalance,
             };
 
-            return CommonJsonSend.Send<MemberCardDeal>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<MemberCardDeal>(null, urlFormat, data);
         }
 
         /// <summary>
@@ -308,7 +308,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 seat_number = seatNumbers
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data);
         }
 
         /// <summary>
@@ -362,7 +362,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 balance = balance
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data);
         }
     }
 }

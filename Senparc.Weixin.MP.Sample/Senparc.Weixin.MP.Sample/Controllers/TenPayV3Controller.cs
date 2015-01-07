@@ -138,11 +138,114 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         public ActionResult PayNotifyUrl()
         {
+            ResponseHandler resHandler = new ResponseHandler(null);
+            string result_code = resHandler.GetParameter("result_code");
+            string appid = resHandler.GetParameter("appid");
+            string mch_id = resHandler.GetParameter("mch_id");
+            string device_info = resHandler.GetParameter("device_info");
+            string nonce_str = resHandler.GetParameter("nonce_str");
+            string sign = resHandler.GetParameter("sign");
+            string err_code = resHandler.GetParameter("err_code");
+            string err_code_des = resHandler.GetParameter("err_code_des");
+            string openid = resHandler.GetParameter("openid");
+            string is_subscribe = resHandler.GetParameter("is_subscribe");
+            string trade_type = resHandler.GetParameter("trade_type");
+            string bank_type = resHandler.GetParameter("bank_type");
+            string total_fee = resHandler.GetParameter("total_fee");
+            string coupon_fee = resHandler.GetParameter("coupon_fee");
+            string fee_type = resHandler.GetParameter("fee_type");
+            string transaction_id = resHandler.GetParameter("transaction_id");
+            string out_trade_no = resHandler.GetParameter("out_trade_no");
+            string attach = resHandler.GetParameter("attach");
+            string time_end = resHandler.GetParameter("time_end");
+
             var fileStream = System.IO.File.OpenWrite(Server.MapPath("~/1.txt"));
-            var bytes = Encoding.UTF8.GetBytes(Request.InputStream.ToString());
-            fileStream.Write(bytes, 0, bytes.Length);
+            fileStream.Write(Encoding.Default.GetBytes(result_code), 0, Encoding.Default.GetByteCount(result_code));
             fileStream.Close();
-            return Content("");
+            return Content("success");
+        }
+
+        /// <summary>
+        /// 订单查询
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult OrderQuery()
+        {
+            string nonceStr = TenPayUtil.GetNoncestr();
+            RequestHandler packageReqHandler = new RequestHandler(null);
+
+            //设置package订单参数
+            packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		  //公众账号ID
+            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
+            packageReqHandler.SetParameter("transaction_id", "");       //填入微信订单号 
+            packageReqHandler.SetParameter("out_trade_no", "");         //填入商家订单号
+            packageReqHandler.SetParameter("nonce_str", nonceStr);             //随机字符串
+            string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+            packageReqHandler.SetParameter("sign", sign);	                    //签名
+
+            string data = packageReqHandler.ParseXML();
+
+            var result = TenPayV3.OrderQuery(data);
+            var res = XDocument.Parse(result);
+            string openid = res.Element("xml").Element("sign").Value;
+
+            return Content(openid);
+        }
+
+        /// <summary>
+        /// 关闭订单接口
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult CloseOrder()
+        {
+            string nonceStr = TenPayUtil.GetNoncestr();
+            RequestHandler packageReqHandler = new RequestHandler(null);
+
+            //设置package订单参数
+            packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		  //公众账号ID
+            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
+            packageReqHandler.SetParameter("out_trade_no", "");                 //填入商家订单号
+            packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
+            string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+            packageReqHandler.SetParameter("sign", sign);	                    //签名
+
+            string data = packageReqHandler.ParseXML();
+
+            var result = TenPayV3.CloseOrder(data);
+            var res = XDocument.Parse(result);
+            string openid = res.Element("xml").Element("openid").Value;
+
+            return Content(openid);
+        }
+
+        /// <summary>
+        /// 退款申请接口
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Refund()
+        {
+            string nonceStr = TenPayUtil.GetNoncestr();
+            RequestHandler packageReqHandler = new RequestHandler(null);
+
+            //设置package订单参数
+            packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		  //公众账号ID
+            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
+            packageReqHandler.SetParameter("out_trade_no", "");                 //填入商家订单号
+            packageReqHandler.SetParameter("out_refund_no", "");                //填入退款订单号
+            packageReqHandler.SetParameter("total_fee", "1");               //总金额
+            packageReqHandler.SetParameter("refund_fee", "1");               //退款金额
+            packageReqHandler.SetParameter("op_user_id", TenPayV3Info.MchId);   //操作员Id，默认就是商户号
+            packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
+            string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+            packageReqHandler.SetParameter("sign", sign);	                    //签名
+
+            string data = packageReqHandler.ParseXML();
+
+            var result = TenPayV3.Refund(data);
+            var res = XDocument.Parse(result);
+            string openid = res.Element("xml").Element("out_refund_no").Value;
+
+            return Content(openid);
         }
     }
 }

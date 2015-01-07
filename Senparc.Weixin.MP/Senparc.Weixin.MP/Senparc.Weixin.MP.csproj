@@ -93,6 +93,8 @@
     <Compile Include="AdvancedAPIs\TemplateMessage\SendTemplateMessageResult.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateDataItem.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TempleteModel.cs" />
+    <Compile Include="AdvancedAPIs\UserAnalysis\UserAnalysisResultJson.cs" />
+    <Compile Include="AdvancedAPIs\UserAnalysis\UserAnalysis.cs" />
     <Compile Include="AdvancedAPIs\User\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\User.cs" />
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />

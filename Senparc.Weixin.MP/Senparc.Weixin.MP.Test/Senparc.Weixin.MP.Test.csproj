@@ -76,6 +76,7 @@
     <Compile Include="AdvancedAPIs\OAuth\OAuthTest.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticTest.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateTest.cs" />
+    <Compile Include="AdvancedAPIs\UserAnalysis\UserAnalysisTest.cs" />
     <Compile Include="MessageHandlers\MessageHandlers_OmitRepeatMessageTest.cs" />
     <Compile Include="TenPay\TenPayRightsTest.cs" />
     <Compile Include="AdvancedAPIs\User\CustomTest.cs" />

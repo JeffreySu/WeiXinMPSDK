@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -72,6 +73,70 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static string CloseOrder(string data)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/closeorder";
+
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+        }
+
+        /// <summary>
+        /// 退款申请接口
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string Refund(string data)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+        }
+
+        /// <summary>
+        /// 退款查询接口
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string RefundQuery(string data)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/pay/refundquery";
+
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+        }
+
+        /// <summary>
+        /// 对账单接口
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string DownloadBill(string data)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/pay/downloadbill";
+
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+        }
+
+        /// <summary>
+        /// 短链接转换接口
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string ShortUrl(string data)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/tools/shorturl";
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();

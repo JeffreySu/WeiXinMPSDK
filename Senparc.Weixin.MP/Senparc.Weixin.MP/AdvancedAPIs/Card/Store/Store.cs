@@ -24,7 +24,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/location/batchadd?access_token={0}", accessToken);
 
-            return CommonJsonSend.Send<StoreResultJson>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<StoreResultJson>(null, urlFormat, data);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     count = count
                 };
 
-            return CommonJsonSend.Send<StoreGetResultJson>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<StoreGetResultJson>(null, urlFormat, data);
         }
     }
 }

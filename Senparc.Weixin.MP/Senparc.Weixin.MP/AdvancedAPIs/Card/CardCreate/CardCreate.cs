@@ -133,7 +133,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     break;
             }
 
-            return CommonJsonSend.Send<CardCreateResultJson>(accessToken, urlFormat, cardData);
+            return CommonJsonSend.Send<CardCreateResultJson>(null, urlFormat, cardData);
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/getcolors?access_token={0}", accessToken);
 
-            return CommonJsonSend.Send<GetColorsResultJson>(accessToken, urlFormat, null);
+            return CommonJsonSend.Send<GetColorsResultJson>(null, urlFormat, null);
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
                 };
 
-            return CommonJsonSend.Send<CreateQRResultJson>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data);
         }
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 card_id = cardId
             };
 
-            return CommonJsonSend.Send<CardConsumeResultJson>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<CardConsumeResultJson>(null, urlFormat, data);
         }
 
         /// <summary>
@@ -222,7 +222,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 encrypt_code = encryptCode,
             };
 
-            return CommonJsonSend.Send<CardDecryptResultJson>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<CardDecryptResultJson>(null, urlFormat, data);
         }
     }
 }

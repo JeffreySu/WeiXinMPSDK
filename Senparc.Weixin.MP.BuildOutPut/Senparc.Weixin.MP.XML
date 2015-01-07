@@ -2143,6 +2143,70 @@
             数据
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UserSummaryResultJson">
+            <summary>
+            获取用户增减数据返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserSummary.ref_date">
+            <summary>
+            数据的日期
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserSummary.user_source">
+             <summary>
+             用户的渠道，数值代表的含义如下：
+            0代表其他 30代表扫二维码 17代表名片分享 35代表搜号码（即微信添加朋友页的搜索） 39代表查询微信公众帐号 43代表图文页右上角菜单
+             </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserSummary.new_user">
+            <summary>
+            新增的用户数量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserSummary.cancel_user">
+            <summary>
+            取消关注的用户数量，new_user减去cancel_user即为净增用户数量
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UserCumulateResultJson">
+            <summary>
+            获取累计用户数据返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserCumulate.ref_date">
+            <summary>
+            数据的日期
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserCumulate.cumulate_user">
+            <summary>
+            总用户量
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UserAnalysis">
+            <summary>
+            用户分析数据接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.UserAnalysis.GetUserSummary(System.String,System.String,System.String)">
+            <summary>
+            获取用户增减数据
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.UserAnalysis.GetUserCumulate(System.String,System.String,System.String)">
+            <summary>
+            获取累计用户数据
+            </summary>
+            <param name="accessToken"></param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User">
             <summary>
             用户接口
@@ -2762,6 +2826,34 @@
             关闭订单接口
             </summary>
             <param name="data">关闭订单需要post的xml数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.Refund(System.String)">
+            <summary>
+            退款申请接口
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.RefundQuery(System.String)">
+            <summary>
+            退款查询接口
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.DownloadBill(System.String)">
+            <summary>
+            对账单接口
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.ShortUrl(System.String)">
+            <summary>
+            短链接转换接口
+            </summary>
+            <param name="data"></param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3Result">

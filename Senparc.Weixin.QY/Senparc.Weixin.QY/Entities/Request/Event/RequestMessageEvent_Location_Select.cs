@@ -6,16 +6,16 @@ using System.Text;
 namespace Senparc.Weixin.QY.Entities
 {
     /// <summary>
-    /// 事件之弹出拍照或者相册发图（pic_photo_or_album）
+    /// 事件之弹出地理位置选择器（location_select）
     /// </summary>
-    public class RequestMessageEvent_PicPhotoOrAlbum : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
+    public class RequestMessageEvent_Location_Select : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
     {
         /// <summary>
         /// 事件类型
         /// </summary>
         public override Event Event
         {
-            get { return Event.PICPHOTOORALBUM; }
+            get { return Event.LOCATION_SELECT; }
         }
 
         /// <summary>
@@ -23,8 +23,8 @@ namespace Senparc.Weixin.QY.Entities
         /// </summary>
         public string EventKey { get; set; }
         /// <summary>
-        /// 发送的图片信息
+        /// 发送的位置信息
         /// </summary>
-        public SendPicsInfo SendPicsInfo { get; set; }
+        public SendLocationInfo SendLocationInfo { get; set; }
     }
 }

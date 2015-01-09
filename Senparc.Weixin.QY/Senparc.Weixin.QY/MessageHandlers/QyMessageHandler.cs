@@ -353,23 +353,23 @@ namespace Senparc.Weixin.QY.MessageHandlers
                 case Event.VIEW://URL跳转（view视图）
                     responseMessage = OnEvent_ViewRequest(RequestMessage as RequestMessageEvent_View);
                     break;
-                case Event.PICPHOTOORALBUM://弹出拍照或者相册发图
-                    responseMessage = OnEvent_PicPhotoOrAlbumRequest(RequestMessage as RequestMessageEvent_PicPhotoOrAlbum);
+                case Event.PIC_PHOTO_OR_ALBUM://弹出拍照或者相册发图
+                    responseMessage = OnEvent_PicPhotoOrAlbumRequest(RequestMessage as RequestMessageEvent_Pic_Photo_Or_Album);
                     break;
-                case Event.SCANCODEPUSH://扫码推事件
-                    responseMessage = OnEvent_ScancodePushRequest(RequestMessage as RequestMessageEvent_ScancodePush);
+                case Event.SCANCODE_PUSH://扫码推事件
+                    responseMessage = OnEvent_ScancodePushRequest(RequestMessage as RequestMessageEvent_Scancode_Push);
                     break;
-                case Event.SCANCODEWAITMSG://扫码推事件且弹出“消息接收中”提示框
-                    responseMessage = OnEvent_ScancodeWaitmsgRequest(RequestMessage as RequestMessageEvent_ScancodeWaitmsg);
+                case Event.SCANCODE_WAITMSG://扫码推事件且弹出“消息接收中”提示框
+                    responseMessage = OnEvent_ScancodeWaitmsgRequest(RequestMessage as RequestMessageEvent_Scancode_Waitmsg);
                     break;
-                case Event.LOCATIONSELECT://弹出地理位置选择器
-                    responseMessage = OnEvent_LocationSelectRequest(RequestMessage as RequestMessageEvent_LocationSelect);
+                case Event.LOCATION_SELECT://弹出地理位置选择器
+                    responseMessage = OnEvent_LocationSelectRequest(RequestMessage as RequestMessageEvent_Location_Select);
                     break;
-                case Event.PICWEIXIN://弹出微信相册发图器
-                    responseMessage = OnEvent_PicWeixinRequest(RequestMessage as RequestMessageEvent_PicWeixin);
+                case Event.PIC_WEIXIN://弹出微信相册发图器
+                    responseMessage = OnEvent_PicWeixinRequest(RequestMessage as RequestMessageEvent_Pic_Weixin);
                     break;
-                case Event.PICSYSPHOTO://弹出系统拍照发图
-                    responseMessage = OnEvent_PicSysphotoRequest(RequestMessage as RequestMessageEvent_PicSysphoto);
+                case Event.PIC_SYSPHOTO://弹出系统拍照发图
+                    responseMessage = OnEvent_PicSysphotoRequest(RequestMessage as RequestMessageEvent_Pic_Sysphoto);
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -401,7 +401,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
         /// 弹出拍照或者相册发图
         /// </summary>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_PicPhotoOrAlbumRequest(RequestMessageEvent_PicPhotoOrAlbum requestMessage)
+        public virtual IResponseMessageBase OnEvent_PicPhotoOrAlbumRequest(RequestMessageEvent_Pic_Photo_Or_Album requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -410,7 +410,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
         /// 扫码推事件
         /// </summary>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_ScancodePushRequest(RequestMessageEvent_ScancodePush requestMessage)
+        public virtual IResponseMessageBase OnEvent_ScancodePushRequest(RequestMessageEvent_Scancode_Push requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -419,7 +419,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
         /// 扫码推事件且弹出“消息接收中”提示框
         /// </summary>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_ScancodeWaitmsgRequest(RequestMessageEvent_ScancodeWaitmsg requestMessage)
+        public virtual IResponseMessageBase OnEvent_ScancodeWaitmsgRequest(RequestMessageEvent_Scancode_Waitmsg requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -428,7 +428,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
         /// 弹出地理位置选择器
         /// </summary>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_LocationSelectRequest(RequestMessageEvent_LocationSelect requestMessage)
+        public virtual IResponseMessageBase OnEvent_LocationSelectRequest(RequestMessageEvent_Location_Select requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -437,7 +437,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
         /// 弹出微信相册发图器
         /// </summary>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_PicWeixinRequest(RequestMessageEvent_PicWeixin requestMessage)
+        public virtual IResponseMessageBase OnEvent_PicWeixinRequest(RequestMessageEvent_Pic_Weixin requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -446,7 +446,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
         /// 弹出系统拍照发图
         /// </summary>
         /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_PicSysphotoRequest(RequestMessageEvent_PicSysphoto requestMessage)
+        public virtual IResponseMessageBase OnEvent_PicSysphotoRequest(RequestMessageEvent_Pic_Sysphoto requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

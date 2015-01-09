@@ -106,6 +106,24 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         }
 
         /// <summary>
+        /// 批量删除成员
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="userIds"></param>
+        /// <returns></returns>
+        public static WxJsonResult BatchDeleteMember(string accessToken, string[] userIds)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/batchdelete?access_token={0}", accessToken);
+
+            var data = new
+                {
+                    useridlist = userIds
+                };
+
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST);
+        }
+
+        /// <summary>
         /// 获取成员
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
@@ -131,6 +149,21 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}&status={3}",accessToken,departmentId,fetchChild,status);
 
             return CommonJsonSend.Send<GetDepartmentMemberResult>(null, url, null, CommonJsonSendType.GET);
+        }
+
+        /// <summary>
+        /// 获取部门成员(详情)
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="departmentId">获取的部门id</param>
+        /// <param name="fetchChild">1/0：是否递归获取子部门下面的成员</param>
+        /// <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
+        /// <returns></returns>
+        public static GetDepartmentMemberInfoResult GetDepartmentMemberInfo(string accessToken, int departmentId, int fetchChild, int status)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken, departmentId, fetchChild, status);
+
+            return CommonJsonSend.Send<GetDepartmentMemberInfoResult>(null, url, null, CommonJsonSendType.GET);
         }
     }
 }

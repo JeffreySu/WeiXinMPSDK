@@ -6,16 +6,16 @@ using System.Text;
 namespace Senparc.Weixin.QY.Entities
 {
     /// <summary>
-    /// 事件之弹出系统拍照发图(pic_sysphoto)
+    /// 事件之弹出微信相册发图器(pic_weixin)
     /// </summary>
-    public class RequestMessageEvent_PicSysphoto : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
+    public class RequestMessageEvent_Pic_Weixin : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
     {
         /// <summary>
         /// 事件类型
         /// </summary>
         public override Event Event
         {
-            get { return Event.PICSYSPHOTO; }
+            get { return Event.PIC_WEIXIN; }
         }
 
         /// <summary>

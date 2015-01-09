@@ -26,6 +26,9 @@ namespace Senparc.Weixin.QY.Entities
             get { return RequestMsgType.Text; }
         }
 
+        /// <summary>
+        /// 企业应用的id，整型。可在应用的设置页面查看
+        /// </summary>
         public int AgentID { get; set; }
     }
 }

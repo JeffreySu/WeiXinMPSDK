@@ -6,16 +6,16 @@ using System.Text;
 namespace Senparc.Weixin.QY.Entities
 {
     /// <summary>
-    /// 事件之扫码推事件(scancode_push)
+    /// 事件之弹出系统拍照发图(pic_sysphoto)
     /// </summary>
-    public class RequestMessageEvent_ScancodePush : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
+    public class RequestMessageEvent_Pic_Sysphoto : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
     {
         /// <summary>
         /// 事件类型
         /// </summary>
         public override Event Event
         {
-            get { return Event.SCANCODEPUSH; }
+            get { return Event.PIC_SYSPHOTO; }
         }
 
         /// <summary>
@@ -23,8 +23,8 @@ namespace Senparc.Weixin.QY.Entities
         /// </summary>
         public string EventKey { get; set; }
         /// <summary>
-        /// 扫描信息
+        /// 发送的图片信息
         /// </summary>
-        public ScanCodeInfo ScanCodeInfo { get; set; }
+        public SendPicsInfo SendPicsInfo { get; set; }
     }
 }

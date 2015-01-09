@@ -14,8 +14,8 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
     [TestClass]
     public partial class MemberTest
     {
-        protected string _corpId = "wxccd01c4e6bf59232"; //换成你的信息
-        protected string _corpSecret = "ejXcV7rb9OtakBucpMji1kUtPmnKy4hNCskW_bUKLx8lRxO_aVrcc0gVTMEv13G1"; //换成你的信息
+        protected string _corpId = "wx7618c0a6d9358622"; //换成你的信息
+        protected string _corpSecret = "PKrd-r76fDCNjbUY5-9I1vhOkMqBly038Sc8zcODscmu202dqCtUWkxK7nrCGUaas"; //换成你的信息
 
         public MemberTest()
         {
@@ -34,7 +34,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
                         }
             };
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.CreateMember(accessToken, userId, "ceshi", new[]{2}, null, "18913536683",null,null,null,0,extattr);
+            var result = Member.CreateMember(accessToken, userId, "ceshi", new[] { 2 }, null, "18913536683", null, null, null, 0, extattr);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }
@@ -58,6 +58,15 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         }
 
         //[TestMethod]
+        public void BatchDeleteMemberTest(string[] userIds)
+        {
+            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var result = Member.BatchDeleteMember(accessToken, userIds);
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+        }
+
+        //[TestMethod]
         public void GetMember(string userId)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
@@ -75,14 +84,29 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }
 
+        //[TestMethod]
+        public void GetDepartmentMemberInfoTest()
+        {
+            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var result = Member.GetDepartmentMemberInfo(accessToken, 2, 0, 0);
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+        }
+
         [TestMethod]
         public void MemberTestAllSet()
         {
             string userId = "003";
+
+            
+            //var userIds = new string[] { "ceshi1", "ceshi2" };
+            // BatchDeleteMemberTest(userIds);
+
             CreateMemberTest(userId);
             UpdateMemberTest(userId);
             GetMember(userId);
             GetDepartmentMemberTest();
+            GetDepartmentMemberInfoTest();
             DeleteMemberTest(userId);
         }
     }

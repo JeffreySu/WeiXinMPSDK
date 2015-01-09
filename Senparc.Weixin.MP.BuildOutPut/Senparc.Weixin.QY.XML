@@ -207,6 +207,14 @@
             <param name="userId">员工UserID</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Member.BatchDeleteMember(System.String,System.String[])">
+            <summary>
+            批量删除成员
+            </summary>
+            <param name="accessToken"></param>
+            <param name="userIds"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Member.GetMember(System.String,System.String)">
             <summary>
             获取成员

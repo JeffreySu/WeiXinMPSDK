@@ -13,8 +13,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         public int[] department { get; set; }//成员所属部门id列表
         public string position { get; set; }//职位信息 
         public string mobile { get; set; }//手机号码 
-        public int gender { get; set; }//性别。gender=0表示男，=1表示女 
-        public string tel { get; set; }//办公电话
+
+        //最新接口去除了以下两个属性
+        //public int gender { get; set; }//性别。gender=0表示男，=1表示女 
+        //public string tel { get; set; }//办公电话
+
         public string email { get; set; }//邮箱
         public string weixinid { get; set; }//微信号 
         public string avatar { get; set; }//头像url。注：小图将url最后的"/0"改成"/64"
@@ -24,10 +27,10 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
     public class GetDepartmentMemberResult : WxJsonResult
     {
-        public List<UserList> userlist { get; set; }//成员列表
+        public List<UserList_Simple> userlist { get; set; }//成员列表
     }
 
-    public class UserList
+    public class UserList_Simple
     {
         public string userid { get; set; }//员工UserID
         public string name { get; set; }//成员名称
@@ -45,5 +48,13 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     {
         public string name { get; set; }
         public string value { get; set; }
+    }
+
+    /// <summary>
+    /// 获取部门成员(详情)返回结果
+    /// </summary>
+    public class GetDepartmentMemberInfoResult : WxJsonResult
+    {
+        public List<GetMemberResult> userlist { get; set; }//成员列表
     }
 }

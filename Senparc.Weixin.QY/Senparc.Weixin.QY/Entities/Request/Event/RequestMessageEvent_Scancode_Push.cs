@@ -6,16 +6,16 @@ using System.Text;
 namespace Senparc.Weixin.QY.Entities
 {
     /// <summary>
-    /// 事件之弹出微信相册发图器(pic_weixin)
+    /// 事件之扫码推事件(scancode_push)
     /// </summary>
-    public class RequestMessageEvent_PicWeixin : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
+    public class RequestMessageEvent_Scancode_Push : RequestMessageEventBase, IRequestMessageEventBase, IRequestMessageEventKey
     {
         /// <summary>
         /// 事件类型
         /// </summary>
         public override Event Event
         {
-            get { return Event.PICWEIXIN; }
+            get { return Event.SCANCODE_PUSH; }
         }
 
         /// <summary>
@@ -23,8 +23,8 @@ namespace Senparc.Weixin.QY.Entities
         /// </summary>
         public string EventKey { get; set; }
         /// <summary>
-        /// 发送的图片信息
+        /// 扫描信息
         /// </summary>
-        public SendPicsInfo SendPicsInfo { get; set; }
+        public ScanCodeInfo ScanCodeInfo { get; set; }
     }
 }

@@ -59,23 +59,29 @@ namespace Senparc.Weixin.QY
                             case "UNSUBSCRIBE"://取消订阅（关注）
                                 requestMessage = new RequestMessageEvent_UnSubscribe();
                                 break;
-                            case "SCANCODEPUSH"://扫码推事件(scancode_push)
-                                requestMessage = new RequestMessageEvent_ScancodePush();
+                            case "SCANCODE_PUSH"://扫码推事件(scancode_push)
+                                requestMessage = new RequestMessageEvent_Scancode_Push();
                                 break;
-                            case "SCANCODEWAITMSG"://扫码推事件且弹出“消息接收中”提示框(scancode_waitmsg)
-                                requestMessage = new RequestMessageEvent_ScancodeWaitmsg();
+                            case "SCANCODE_WAITMSG"://扫码推事件且弹出“消息接收中”提示框(scancode_waitmsg)
+                                requestMessage = new RequestMessageEvent_Scancode_Waitmsg();
                                 break;
-                            case "PICSYSPHOTO"://弹出系统拍照发图(pic_sysphoto)
-                                requestMessage = new RequestMessageEvent_PicSysphoto();
+                            case "PIC_SYSPHOTO"://弹出系统拍照发图(pic_sysphoto)
+                                requestMessage = new RequestMessageEvent_Pic_Sysphoto();
                                 break;
-                            case "PICPHOTOORALBUM"://弹出拍照或者相册发图（pic_photo_or_album）
-                                requestMessage = new RequestMessageEvent_PicPhotoOrAlbum();
+                            case "PIC_PHOTO_OR_ALBUM"://弹出拍照或者相册发图（pic_photo_or_album）
+                                requestMessage = new RequestMessageEvent_Pic_Photo_Or_Album();
                                 break;
-                            case "PICWEIXIN"://弹出微信相册发图器(pic_weixin)
-                                requestMessage = new RequestMessageEvent_PicWeixin();
+                            case "PIC_WEIXIN"://弹出微信相册发图器(pic_weixin)
+                                requestMessage = new RequestMessageEvent_Pic_Weixin();
                                 break;
-                            case "LOCATIONSELECT"://弹出地理位置选择器（location_select）
-                                requestMessage = new RequestMessageEvent_LocationSelect();
+                            case "LOCATION_SELECT"://弹出地理位置选择器（location_select）
+                                requestMessage = new RequestMessageEvent_Location_Select();
+                                break;
+                            case "LOCATION"://上报地理位置事件（location）
+                                requestMessage = new RequestMessageEvent_Location();
+                                break;
+                            case "ENTER_AGENT"://用户进入应用的事件推送（enter_agent）
+                                requestMessage = new RequestMessageEvent_Enter_Agent();
                                 break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();

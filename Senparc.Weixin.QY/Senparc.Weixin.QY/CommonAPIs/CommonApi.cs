@@ -49,5 +49,17 @@ namespace Senparc.Weixin.QY.CommonAPIs
             var result = Get.GetJson<AccessTokenResult>(url);
             return result;
         }
+
+        /// <summary>
+        /// 获取微信服务器的ip段
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public static GetCallBackIpResult GetCallBackIp(string accessToken)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/getcallbackip?access_token={0}", accessToken);
+
+            return CommonJsonSend.Send<GetCallBackIpResult>(null, url, null, CommonJsonSendType.GET);
+        }
     }
 }

@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvancedAPIs\Concern\Concern.cs" />
+    <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
     <Compile Include="AdvancedAPIs\Mass\Mass.cs" />
     <Compile Include="AdvancedAPIs\Mass\MassResult.cs" />
     <Compile Include="AdvancedAPIs\MailList\Department\Department.cs" />
@@ -79,18 +80,20 @@
     <Compile Include="Entities\Request\Event\IRequestMessageEventKey.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEventBase.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Click.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_LocationSelect.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_PicPhotoOrAlbum.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_PicSysphoto.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_PicWeixin.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_ScancodePush.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_ScancodeWaitmsg.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Pic_Photo_Or_Album.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Pic_Sysphoto.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Pic_Weixin.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Scancode_Push.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Scancode_Waitmsg.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_View.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Subscribe.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_UnSubscribe.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Location.cs" />
     <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
     <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
     <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Enter_Agent.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\RequestMessageBase.cs" />
     <Compile Include="Entities\Request\RequestMessageImage.cs" />

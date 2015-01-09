@@ -53,8 +53,7 @@
                     2群：293958349（已满）  
                     3群：342319110（已满）
                     4群：372212092（已满）@*<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=5b30ba94ecabbae22504b38704aa825bdc36c76c66344d502d73c287fce450e2"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Senparc.Weixin.MPSDK 4群" title="Senparc.Weixin.MPSDK 4群"></a>*@<br />
-                    5群：377815480 <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=02951042f9979fb660d2200d724721e738c837a8e803990c4be0997ebc730199">
-                        <img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Senparc.Weixin.MP SDK 5群" title="Senparc.Weixin.MP SDK 5群"></a>
+                    5群：377815480（已满）@*<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=02951042f9979fb660d2200d724721e738c837a8e803990c4be0997ebc730199"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Senparc.Weixin.MP SDK 5群" title="Senparc.Weixin.MP SDK 5群"></a>*@
                     6群：425898825<a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=f0ce6bfbca174df5c88b2929c3a39ad2e117b9315de993f5f7b48d8c27fcdd9b"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Senparc.Weixin.MP SDK 6群" title="Senparc.Weixin.MP SDK 6群"></a>
                 </p>
                 <p>

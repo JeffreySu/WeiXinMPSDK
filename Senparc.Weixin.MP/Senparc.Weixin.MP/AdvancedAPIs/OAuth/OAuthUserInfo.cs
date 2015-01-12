@@ -28,5 +28,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 作者注：其实这个格式称不上JSON，只是个单纯数组。
         /// </summary>
         public string[] privilege { get; set; }
+        //绑定开放平台后会有这个字段
+        public string unionid { get; set; }
     }
 }

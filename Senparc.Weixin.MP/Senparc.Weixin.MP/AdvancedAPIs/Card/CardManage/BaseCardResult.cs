@@ -56,7 +56,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 通用券数据
     /// </summary>
-    public class Card_GeneralCouponResult : BaseInfoResult
+    public class Card_GeneralCouponResult : BaseCardInfoResult
     {
         /// <summary>
         /// 描述文本
@@ -66,7 +66,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 团购券数据
     /// </summary>
-    public class Card_GrouponResult : BaseInfoResult
+    public class Card_GrouponResult : BaseCardInfoResult
     {
         /// <summary>
         /// 团购券专用，团购详情
@@ -76,7 +76,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 礼品券数据
     /// </summary>
-    public class Card_GiftResult : BaseInfoResult
+    public class Card_GiftResult : BaseCardInfoResult
     {
         /// <summary>
         /// 礼品券专用，表示礼品名字
@@ -86,7 +86,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 代金券数据
     /// </summary>
-    public class Card_CashResult : BaseInfoResult
+    public class Card_CashResult : BaseCardInfoResult
     {
         /// <summary>
         /// 代金券专用，表示起用金额（单位为分）
@@ -100,7 +100,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 折扣券数据
     /// </summary>
-    public class Card_DisCountResult : BaseInfoResult
+    public class Card_DisCountResult : BaseCardInfoResult
     {
         /// <summary>
         ///折扣券专用，表示打折额度（百分比）。填30 就是七折。
@@ -110,7 +110,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 会员卡数据
     /// </summary>
-    public class Card_MemberCardResult : BaseInfoResult
+    public class Card_MemberCardResult : BaseCardInfoResult
     {
         /// <summary>
         /// 是否支持积分，填写true 或false，如填写true，积分相关字段均为必填。填写false，积分字段无需填写。储值字段处理方式相同。
@@ -148,7 +148,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 门票数据
     /// </summary>
-    public class Card_ScenicTicketResult : BaseInfoResult
+    public class Card_ScenicTicketResult : BaseCardInfoResult
     {
         /// <summary>
         /// 票类型，例如平日全票，套票等
@@ -162,7 +162,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 电影票数据
     /// </summary>
-    public class Card_MovieTicketResult : BaseInfoResult
+    public class Card_MovieTicketResult : BaseCardInfoResult
     {
         /// <summary>
         /// 电影票详请
@@ -172,7 +172,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 飞机票数据
     /// </summary>
-    public class Card_BoardingPassResult : BaseInfoResult
+    public class Card_BoardingPassResult : BaseCardInfoResult
     {
         /// <summary>
         /// 起点，上限为18 个汉字
@@ -214,7 +214,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 红包数据
     /// </summary>
-    public class Card_LuckyMoneyResult : BaseInfoResult
+    public class Card_LuckyMoneyResult : BaseCardInfoResult
     {
     }
 
@@ -235,7 +235,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 卡券Id
         /// </summary>
-        public string card_id { get; set; }
+        public string id { get; set; }
         /// <summary>
         /// 卡券的商户logo
         /// </summary>
@@ -301,7 +301,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 门店位置ID
         /// 非必填
         /// </summary>
-        public string location_id_list { get; set; }
+        public List<string> location_id_list { get; set; }
         /// <summary>
         /// 使用日期，有效期的信息
         /// 必填
@@ -329,6 +329,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 1：待审核，2：审核失败，3：通过审核， 4：已删除（飞机票的status 字段为1：正常2：已删除）
         /// </summary>
         public string status { get; set; }
+
+        public List<string> js_oauth_uin_list { get; set; }
     }
 
     #endregion

@@ -763,129 +763,9 @@
             通用券数据
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseCardInfoResult.base_info">
             <summary>
-            基本的卡券数据，所有卡券通用。
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.card_id">
-            <summary>
-            卡券Id
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.logo_url">
-            <summary>
-            卡券的商户logo
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.code_type">
-            <summary>
-            code 码展示类型
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.brand_name">
-            <summary>
-            商户名字
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.title">
-            <summary>
-            券名
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.sub_title">
-            <summary>
-            券名的副标题
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.color">
-            <summary>
-            券颜色。色彩规范标注值对应的色值。如#3373bb
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.notice">
-            <summary>
-            使用提醒（一句话描述，展示在首页，示例：请出示二维码核销卡券）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.service_phone">
-            <summary>
-            客服电话
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.description">
-            <summary>
-            使用说明。长文本描述，可以分行，上限为1000 个汉字。
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.use_limit">
-            <summary>
-            每人使用次数限制
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.get_limit">
-            <summary>
-            每人最大领取次数，不填写默认等于quantity。
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.use_custom_code">
-            <summary>
-            是否自定义code 码
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.bind_openid">
-            <summary>
-            是否指定用户领取
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.can_share">
-            <summary>
-            领取卡券原生页面是否可分享
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.can_give_friend">
-            <summary>
-            卡券是否可转赠
-            非必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.location_id_list">
-            <summary>
-            门店位置ID
-            非必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.date_info">
-            <summary>
-            使用日期，有效期的信息
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.sku">
-            <summary>
-            商品信息
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.url_name_type">
-            <summary>
-            商户自定义cell 名称
-            非必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.custom_url">
-            <summary>
-            商户自定义url 地址，支持卡券页内跳转,跳转页面内容需与自定义cell 名称保持一致。
-            非必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.source">
-            <summary>
-            第三方来源名，例如同程旅游、格瓦拉
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.status">
-            <summary>
-            1：待审核，2：审核失败，3：通过审核， 4：已删除（飞机票的status 字段为1：正常2：已删除）
+            基本的卡券数据
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_GeneralCouponResult.default_detail">
@@ -1063,9 +943,129 @@
             红包数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseCardInfoResult.base_info">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult">
             <summary>
-            基本的卡券数据
+            基本的卡券数据，所有卡券通用。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.id">
+            <summary>
+            卡券Id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.logo_url">
+            <summary>
+            卡券的商户logo
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.code_type">
+            <summary>
+            code 码展示类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.brand_name">
+            <summary>
+            商户名字
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.title">
+            <summary>
+            券名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.sub_title">
+            <summary>
+            券名的副标题
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.color">
+            <summary>
+            券颜色。色彩规范标注值对应的色值。如#3373bb
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.notice">
+            <summary>
+            使用提醒（一句话描述，展示在首页，示例：请出示二维码核销卡券）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.service_phone">
+            <summary>
+            客服电话
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.description">
+            <summary>
+            使用说明。长文本描述，可以分行，上限为1000 个汉字。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.use_limit">
+            <summary>
+            每人使用次数限制
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.get_limit">
+            <summary>
+            每人最大领取次数，不填写默认等于quantity。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.use_custom_code">
+            <summary>
+            是否自定义code 码
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.bind_openid">
+            <summary>
+            是否指定用户领取
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.can_share">
+            <summary>
+            领取卡券原生页面是否可分享
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.can_give_friend">
+            <summary>
+            卡券是否可转赠
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.location_id_list">
+            <summary>
+            门店位置ID
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.date_info">
+            <summary>
+            使用日期，有效期的信息
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.sku">
+            <summary>
+            商品信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.url_name_type">
+            <summary>
+            商户自定义cell 名称
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.custom_url">
+            <summary>
+            商户自定义url 地址，支持卡券页内跳转,跳转页面内容需与自定义cell 名称保持一致。
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.source">
+            <summary>
+            第三方来源名，例如同程旅游、格瓦拉
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.status">
+            <summary>
+            1：待审核，2：审核失败，3：通过审核， 4：已删除（飞机票的status 字段为1：正常2：已删除）
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CardManage">
@@ -3795,22 +3795,6 @@
             <param name="accessToken"></param>
             <param name="openId"></param>
             <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.UploadMediaFile(System.String,Senparc.Weixin.MP.UploadMediaFileType,System.String)">
-             <summary>
-             媒体文件上传接口
-            注意事项
-            1.上传的媒体文件限制：
-            图片（image) : 1MB，支持JPG格式
-            语音（voice）：1MB，播放长度不超过60s，支持MP4格式
-            视频（video）：10MB，支持MP4格式
-            缩略图（thumb)：64KB，支持JPG格式
-            2.媒体文件在后台保存时间为3天，即3天后media_id失效
-             </summary>
-             <param name="accessToken"></param>
-             <param name="type">上传文件类型</param>
-             <param name="fileName">上传文件完整路径+文件名</param>
-             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.CreateMenu(System.String,Senparc.Weixin.MP.Entities.Menu.ButtonGroup)">
             <summary>

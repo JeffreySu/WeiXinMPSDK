@@ -197,7 +197,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 门店位置ID。商户需在mp 平台上录入门店信息或调用批量导入门店信息接口获取门店位置ID。
         /// 非必填
         /// </summary>
-        public string location_id_list { get; set; }
+        public List<string> location_id_list { get; set; }
         /// <summary>
         /// 使用日期，有效期的信息
         /// 必填

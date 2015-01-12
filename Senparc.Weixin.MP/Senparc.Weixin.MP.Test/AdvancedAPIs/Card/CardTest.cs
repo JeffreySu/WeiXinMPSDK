@@ -99,5 +99,17 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Console.Write(result);
             Assert.IsNotNull(result);
         }
+
+        [TestMethod]
+        public void CardDetailGet()
+        {
+            string cardId = "p3IHxjt-CLCTd_r3eZ9cQqM7jrZE";    //换成你的卡券Id
+
+            var accessToken = AccessTokenContainer.GetToken(_appId);
+
+            var result = CardManage.CardDetailGet(accessToken, cardId);
+            Console.Write(result);
+            Assert.IsNotNull(result);
+        }
     }
 }

@@ -80,6 +80,7 @@
     <Compile Include="AdvancedAPIs\Groups\GetIdResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\Groups.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson.cs" />
+    <Compile Include="AdvancedAPIs\JS-SDK\JSSDK.cs" />
     <Compile Include="AdvancedAPIs\Media\Media.cs" />
     <Compile Include="AdvancedAPIs\Media\UploadResultJson.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthAccessTokenResult.cs" />
@@ -98,6 +99,8 @@
     <Compile Include="AdvancedAPIs\User\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\User.cs" />
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
+    <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
+    <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_LocationSelect.cs" />
@@ -113,6 +116,8 @@
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Helpers\EventHelper.cs" />
     <Compile Include="Helpers\MsgTypeHelper.cs" />
+    <Compile Include="Helpers\JSSDKHelper.cs" />
+    <Compile Include="Helpers\SHA1UtilHelper.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
     <Compile Include="TenPayLibV3\MD5Util.cs" />
@@ -124,6 +129,7 @@
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3Result.cs" />
     <Compile Include="TenPayLib\CheckRequestHandler.cs" />
+    <Compile Include="TenPayLib\MD5Util.cs" />
     <Compile Include="TenPayLib\RefundQueryRequestHandler.cs" />
     <Compile Include="TenPayLib\ClientRequestHandler.cs" />
     <Compile Include="TenPayLib\ClientResponseHandler.cs" />
@@ -235,7 +241,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="ResponseMessageFactory.cs" />
-    <Compile Include="TenPayLib\MD5Util.cs" />
+    <Compile Include="Helpers\MD5UtilHelper.cs" />
     <Compile Include="TenPayLib\QRCode.cs" />
     <Compile Include="TenPayLib\RequestHandler.cs" />
     <Compile Include="TenPayLib\ResponseHandler.cs" />

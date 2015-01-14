@@ -76,5 +76,23 @@ namespace Senparc.Weixin.MP.CommonAPIs
         //    UploadMediaFileResult result = Post.PostGetJson<UploadMediaFileResult>(url, cookieContainer, fileStream);
         //    return result;
         //}
+
+        /// <summary>
+        /// 获取调用微信JS接口的临时票据
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="secret"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static JsApiTicketResult GetTicket(string appId, string secret, string type = "jsapi")
+        {
+            var accessToken = AccessTokenContainer.TryGetToken(appId, secret);
+
+            var url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type={1}",
+                                    accessToken, type);
+
+            JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
+            return result;
+        }
     }
 }

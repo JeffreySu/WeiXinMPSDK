@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.QY.Entities
 {

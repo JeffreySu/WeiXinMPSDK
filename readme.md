@@ -1,8 +1,8 @@
-微信公众平台C# SDK：Senparc.Weixin.MP.dll
+微信公众平台及企业号C# SDK：Senparc.Weixin.MP.dll、Senparc.Weixin.QY.dll
 =================
 
 
-已经支持所有微信5.x API，包括自定义菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口等。
+已经支持所有微信6 API，包括自定义菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口等。
 
 （同时由于易信的API目前与微信保持一致，此SDK也可以直接用于易信，如需使用易信的自定义菜单，通用接口改成易信的通讯地址即可）
 
@@ -25,7 +25,7 @@ Q&A：https://github.com/JeffreySu/WeiXinMPSDK/wiki/QA
 
 系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
 
-技术交流QQ群：1群：300313885（已满） 2群：293958349（已满）  3群：342319110（已满） 4群：372212092（已满） 5群：377815480
+技术交流QQ群：1群：300313885（已满） 2群：293958349（已满）  3群：342319110（已满） 4群：372212092（已满） 5群：377815480（已满）6群：425898825
 
 业务联系QQ：498977166
 
@@ -39,8 +39,8 @@ Q&A：https://github.com/JeffreySu/WeiXinMPSDK/wiki/QA
 
 
 ###关注测试账号（SenparcRobot）：
-[![image]](http://weixin.senparc.com/)  
-[image]: http://weixin.senparc.com/Images/qrcode.jpg
+[![qrcode]](http://weixin.senparc.com/)  
+[qrcode]: http://weixin.senparc.com/Images/qrcode.jpg
 
 
 微信公众平台开发系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
@@ -48,17 +48,19 @@ Q&A：https://github.com/JeffreySu/WeiXinMPSDK/wiki/QA
 
 项目文件夹说明
 --------------
-> Senparc.Weixin.MP.BuildOutPut：最新版本Senparc.Weixin.MP.dll及Senparc.Weixin.MP.MvcExtension.dll发布文件夹
+> Senparc.Weixin.MP.BuildOutPut：所有最新版本DLL发布文件夹
 
 > Senparc.Weixin.MP.MvcExtension：Senparc.Weixin.MP.MvcExtension.dll源码，为MVC4.0项目提供的扩展包。
-
-> Senparc.Weixin.MP.P2P：用户点对点及无限制群发的扩展功能包，同时具备侦探fakeid和OpenId的功能。
 
 > Senparc.Weixin.MP.Sample：可以直接发布使用的Demo（ASP.NET MVC 4.0，需要.NET 4.0）
 
 > Senparc.Weixin.MP.Sample.WebForms：可以直接发布使用的Demo（ASP.NET WebForms，需要.NET 3.5）
 
-> Senparc.Weixin.MP：Senparc.Weixin.MP.dll源代码
+> Senparc.Weixin.MP：Senparc.Weixin.MP.dll 微信公众账号SDK源代码
+
+> Senparc.Weixin.QY：Senparc.Weixin.QY.dll 微信企业号SDK源代码
+
+> Senparc.Wiexin：所有Senparc.Weixin.[x].dll 基础类库源代码
 
 Senparc.Weixin.MP.Sample中的关键代码说明（这是MVC项目，WebForms项目见Weixin.aspx）
 --------------
@@ -102,7 +104,7 @@ public ActionResult Post(string signature, string timestamp, string nonce, strin
     ...
 }
 ```
-###如何处理微信请求？
+###如何处理微信公众账号请求？
 Senparc.Weixin.MP提供了2中处理请求的方式，[传统方法](https://github.com/JeffreySu/WeiXinMPSDK/wiki/处理微信信息的常规方法)及使用[MessageHandler](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)处理方法（推荐）。上面两个方法在wiki中已经有比较详细的说明，这里简单举例MessageHandler的处理方法。
 
 MessageHandler的处理流程非常简单：
@@ -193,11 +195,19 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 PM> Install-Package Senparc.Weixin.MP
 ```
 
+###如何处理微信企业号请求？
+Senparc.Weixin.QY.dll对企业号相关功能进行了封装，操作过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致。
+
+Nuget对应地址为：https://www.nuget.org/packages/Senparc.Weixin.QY
+
 捐助
 --------------
 如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！
 
-资金捐助：https://me.alipay.com/jeffreysu
+资金捐助：
+
+[![donate]](http://weixin.senparc.com/)  
+[donate]: http://weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png
 
 
 License

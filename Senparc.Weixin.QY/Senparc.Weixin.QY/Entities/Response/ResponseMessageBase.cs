@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.QY.Helpers;
 
 namespace Senparc.Weixin.QY.Entities
 {
-	public interface IResponseMessageBase : IMessageBase
+	public interface IResponseMessageBase : Senparc.Weixin.Entities.IResponseMessageBase, IMessageBase
 	{
 		ResponseMsgType MsgType { get; }
 		//string Content { get; set; }
@@ -46,9 +48,6 @@ namespace Senparc.Weixin.QY.Entities
 					case ResponseMsgType.News:
 						responseMessage = new ResponseMessageNews();
 						break;
-					case ResponseMsgType.Music:
-						responseMessage = new ResponseMessageMusic();
-						break;
 					case ResponseMsgType.Image:
 						responseMessage = new ResponseMessageImage();
 						break;
@@ -58,8 +57,8 @@ namespace Senparc.Weixin.QY.Entities
 					case ResponseMsgType.Video:
 						responseMessage = new ResponseMessageVideo();
 						break;
-					case ResponseMsgType.Transfer_Customer_Service:
-						responseMessage = new ResponseMessageTransfer_Customer_Service();
+					case ResponseMsgType.MpNews:
+						responseMessage = new ResponseMessageMpNews();
 						break;
 					default:
 						throw new UnknownRequestMsgTypeException(string.Format("ResponseMsgType没有为 {0} 提供对应处理程序。", msgType), new ArgumentOutOfRangeException());
@@ -130,14 +129,11 @@ namespace Senparc.Weixin.QY.Entities
 					case ResponseMsgType.Video:
 						responseMessage = new ResponseMessageVideo();
 						break;
-					case ResponseMsgType.Music:
-						responseMessage = new ResponseMessageMusic();
-						break;
 					case ResponseMsgType.News:
 						responseMessage = new ResponseMessageNews();
 						break;
-                    case ResponseMsgType.Transfer_Customer_Service:
-                        responseMessage = new ResponseMessageTransfer_Customer_Service();
+                    case ResponseMsgType.MpNews:
+                        responseMessage = new ResponseMessageMpNews();
 						break;
 				}
 

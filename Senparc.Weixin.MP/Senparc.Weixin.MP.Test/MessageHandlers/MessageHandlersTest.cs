@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.MP.Context;
+using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
-    public class CustomerMessageHandlers : MessageHandler<MessageContext>
+    public class CustomerMessageHandlers : MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
     {
-        public CustomerMessageHandlers(XDocument requestDoc, int maxRecordCount = 0)
-            : base(requestDoc, maxRecordCount)
+        public CustomerMessageHandlers(XDocument requestDoc, PostModel postModel = null, int maxRecordCount = 0)
+            : base(requestDoc, postModel, maxRecordCount)
         {
         }
 
@@ -123,6 +124,9 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             messageHandlers.Execute();
             Assert.IsNotNull(messageHandlers.ResponseMessage);
             Assert.IsNotNull(messageHandlers.ResponseDocument);
+            Assert.IsFalse(messageHandlers.UsingEcryptMessage);//没有使用加密模式
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);//没有加密模式，所以也没有兼容模式
+
             Console.Write(messageHandlers.ResponseDocument.ToString());
 
             Assert.AreEqual("gh_a96a4a619366", messageHandlers.ResponseMessage.FromUserName);
@@ -130,6 +134,55 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             var responseMessage = messageHandlers.ResponseMessage as ResponseMessageText;
             Assert.IsNotNull(responseMessage);
             Assert.AreEqual("文字信息", responseMessage.Content);
+        }
+
+        [TestMethod]
+        public void EcryptMessageRequestTest()
+        {
+            //兼容模式测试
+            var ecryptXml = @"<xml>
+    <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+    <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+    <CreateTime>1414387151</CreateTime>
+    <MsgType><![CDATA[text]]></MsgType>
+    <Content><![CDATA[你好]]></Content>
+    <MsgId>6074746557628292943</MsgId>
+    <Encrypt><![CDATA[2gUBUpAeuPFKBS+gkcvrR1cBq1VjTOQluB7+FQF00VnybRpYR3xko4S4wh0qD+64cWmJfF93ZNLm+HLZBexjHLAdJBs5RBG2rP1AJnU0/1vQU/Ac9Q1Nq7vfC4l3ciF8YwhQW0o/GE4MYWWakgdwnp0hQ7aVVwqMLd67A5bsURQHJiFY/cH0fVlsKe6J3aazGhRXFCxceOq2VTJ2Eulc8aBDVSM5/lAIUA/JPq5Z2RzomM0+aoa5XIfGyAtAdlBXD0ADTemxgfYAKI5EMfKtH5za3dKV2UWbGAlJQZ0fwrwPx6Rs8MsoEtyxeQ52gO94gafA+/kIVjamKTVLSgudLLz5rAdGneKkBVhXyfyfousm1DoDRjQdAdqMWpwbeG5hanoJyJiH+humW/1q8PAAiaEfA+BOuvBk/a5xL0Q2l2k=]]></Encrypt>
+</xml>";
+            //signature=e3203b6433eb554dd2fcba78fa48cb948fcb4801&timestamp=1414387151&nonce=917222494&encrypt_type=aes&msg_signature=ae70d4e343d946fc0477a5c760b95be0947fddbb
+            var postModel = new PostModel()
+            {
+                Msg_Signature = "ae70d4e343d946fc0477a5c760b95be0947fddbb",
+                Timestamp = "1414387151",
+                Nonce = "917222494",
+
+                Token = "weixin",
+                EncodingAESKey = "mNnY5GekpChwqhy2c4NBH90g3hND6GeI4gii2YCvKLY",
+                AppId = "wx669ef95216eef885"
+            };
+            var messageHandlers = new CustomerMessageHandlers(XDocument.Parse(ecryptXml), postModel);
+            Assert.IsNotNull(messageHandlers.RequestDocument);
+            Assert.IsNotNull(messageHandlers.RequestMessage);
+            Assert.IsNotNull(messageHandlers.RequestMessage.Encrypt);
+            Assert.IsNotNull(messageHandlers.RequestMessage.FromUserName);
+            Assert.IsNotNull(messageHandlers.EcryptRequestDocument);
+            Assert.IsTrue(messageHandlers.UsingEcryptMessage);
+            Assert.IsTrue(messageHandlers.UsingCompatibilityModelEcryptMessage);
+
+
+            //安全模式测试
+            ecryptXml = @"<xml>
+    <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+    <Encrypt><![CDATA[2gUBUpAeuPFKBS+gkcvrR1cBq1VjTOQluB7+FQF00VnybRpYR3xko4S4wh0qD+64cWmJfF93ZNLm+HLZBexjHLAdJBs5RBG2rP1AJnU0/1vQU/Ac9Q1Nq7vfC4l3ciF8YwhQW0o/GE4MYWWakgdwnp0hQ7aVVwqMLd67A5bsURQHJiFY/cH0fVlsKe6J3aazGhRXFCxceOq2VTJ2Eulc8aBDVSM5/lAIUA/JPq5Z2RzomM0+aoa5XIfGyAtAdlBXD0ADTemxgfYAKI5EMfKtH5za3dKV2UWbGAlJQZ0fwrwPx6Rs8MsoEtyxeQ52gO94gafA+/kIVjamKTVLSgudLLz5rAdGneKkBVhXyfyfousm1DoDRjQdAdqMWpwbeG5hanoJyJiH+humW/1q8PAAiaEfA+BOuvBk/a5xL0Q2l2k=]]></Encrypt>
+</xml>";
+             messageHandlers = new CustomerMessageHandlers(XDocument.Parse(ecryptXml), postModel);
+            Assert.IsNotNull(messageHandlers.RequestDocument);
+            Assert.IsNotNull(messageHandlers.RequestMessage);
+            Assert.IsNotNull(messageHandlers.RequestMessage.Encrypt);
+            Assert.IsNotNull(messageHandlers.RequestMessage.FromUserName);
+            Assert.IsNotNull(messageHandlers.EcryptRequestDocument);
+            Assert.IsTrue(messageHandlers.UsingEcryptMessage);
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);
         }
 
         [TestMethod]
@@ -205,7 +258,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         public void MutipleThreadsTest()
         {
             //
-            var weixinContext = MessageHandler<MessageContext>.GlobalWeixinContext;//全局共享的WeixinContext上下文对象
+            var weixinContext = MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>.GlobalWeixinContext;//全局共享的WeixinContext上下文对象
             weixinContext.Restore();
 
             //多线程并发写入测试
@@ -247,7 +300,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         }
 
         [TestMethod]
-        public void OneEvent_MassSendJobFinisRequestTest()
+        public void OnEvent_MassSendJobFinishRequestTest()
         {
             var xml = @"<xml>
 <ToUserName><![CDATA[gh_3e8adccde292]]></ToUserName>

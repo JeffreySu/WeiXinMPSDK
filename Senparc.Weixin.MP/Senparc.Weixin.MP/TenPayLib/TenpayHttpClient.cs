@@ -37,7 +37,7 @@ using System.Web.UI.WebControls.WebParts;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
-    public class TenpayHttpClient
+    public class TenPayHttpClient
     {
         /// <summary>
         /// 请求内容，无论post和get，都用get方式提供
@@ -91,7 +91,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         /// </summary>
         private string Charset;
 
-        public TenpayHttpClient()
+        public TenPayHttpClient()
         {
             this.CaFile = "";
             this.CertFile = "";

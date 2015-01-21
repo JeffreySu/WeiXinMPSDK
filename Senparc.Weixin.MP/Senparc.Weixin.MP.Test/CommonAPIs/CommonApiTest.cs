@@ -27,6 +27,9 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         {
             //全局只需注册一次
             AccessTokenContainer.Register(_appId, _appSecret);
+
+            //全局只需注册一次
+            JsApiTicketContainer.Register(_appId, _appSecret);
         }
 
         [TestMethod]
@@ -38,6 +41,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             Assert.IsTrue(tokenResult.expires_in > 0);
         }
 
+        [TestMethod]
         public void GetTokenFailTest()
         {
             try
@@ -65,6 +69,15 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             {
                 //如果不参加内测，只是“服务号”，这类接口仍然不能使用，会抛出异常：错误代码：45009：api freq out of limit
             }
+        }
+
+        [TestMethod]
+        public void GetTicketTest()
+        {
+            var tokenResult = CommonApi.GetTicket(_appId, _appSecret);
+            Assert.IsNotNull(tokenResult);
+            Assert.IsTrue(tokenResult.ticket.Length > 0);
+            Assert.IsTrue(tokenResult.expires_in > 0);
         }
     }
 }

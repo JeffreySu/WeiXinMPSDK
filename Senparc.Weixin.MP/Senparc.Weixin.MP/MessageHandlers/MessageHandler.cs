@@ -11,83 +11,49 @@ using System.Xml.Linq;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
-using IMessageContext = Senparc.Weixin.MP.Context.IMessageContext;
+using Tencent;
+
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
-    public interface IMessageHandler : Weixin.MessageHandlers.IMessageHandler
+    public interface IMessageHandler : Weixin.MessageHandlers.IMessageHandler<IRequestMessageBase, IResponseMessageBase>
     {
-
+        new IRequestMessageBase RequestMessage { get; set; }
+        new IResponseMessageBase ResponseMessage { get; set; }
     }
 
     /// <summary>
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
     /// </summary>
-    public abstract class MessageHandler<TC> : Weixin.MessageHandlers.MessageHandler<TC>, IMessageHandler where TC : class, IMessageContext, new()
+    public abstract class MessageHandler<TC> :
+        Weixin.MessageHandlers.MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IMessageHandler
+        where TC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         /// <summary>
-        /// 上下文
+        /// 上下文（仅限于当前MessageHandler基类内）
         /// </summary>
-        public static WeixinContext<TC> GlobalWeixinContext = new Context.WeixinContext<TC>();
+        public static WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>();
+        //TODO:这里如果用一个MP自定义的WeixinContext，继承WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>，在下面的WeixinContext中将无法转换成基类要求的类型
+
 
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public override Weixin.Context.WeixinContext<TC> WeixinContext
-        {
-            get { return GlobalWeixinContext; }
-        }
-
-        /// <summary>
-        /// 当前用户消息上下文
-        /// </summary>
-        public override TC CurrentMessageContext
-        {
-            get { return WeixinContext.GetMessageContext(RequestMessage); }
-        }
-
-        /// <summary>
-        /// 发送者用户名（OpenId）
-        /// </summary>
-        public string WeixinOpenId
+        public override WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> WeixinContext
         {
             get
             {
-                if (RequestMessage != null)
-                {
-                    return RequestMessage.FromUserName;
-                }
-                return null;
+                return GlobalWeixinContext;
             }
         }
 
         /// <summary>
-        /// 
+        /// 原始的加密请求（如果不加密则为null）
         /// </summary>
-        [Obsolete("UserName属性从v0.6起已过期，建议使用WeixinOpenId")]
-        public string UserName
-        {
-            get
-            {
-                return WeixinOpenId;
-            }
-        }
-
-        /// <summary>
-        /// 取消执行Execute()方法。一般在OnExecuting()中用于临时阻止执行Execute()。
-        /// 默认为False。
-        /// 如果在执行OnExecuting()执行前设为True，则所有OnExecuting()、Execute()、OnExecuted()代码都不会被执行。
-        /// 如果在执行OnExecuting()执行过程中设为True，则后续Execute()及OnExecuted()代码不会被执行。
-        /// 建议在设为True的时候，给ResponseMessage赋值，以返回友好信息。
-        /// </summary>
-        public bool CancelExcute { get; set; }
-
-        /// <summary>
-        /// 在构造函数中转换得到原始XML数据
-        /// </summary>
-        public XDocument RequestDocument { get; set; }
+        public XDocument EcryptRequestDocument { get; set; }
 
         /// <summary>
         /// 根据ResponseMessageBase获得转换后的ResponseDocument
@@ -105,47 +71,142 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
-        //protected Stream InputStream { get; set; }
+        /// <summary>
+        /// 最后返回的ResponseDocument。
+        /// 这里是Senparc.Weixin.MP，根据请求消息半段在ResponseDocument基础上是否需要再次进行加密（每次获取重新加密，所以结果会不同）
+        /// </summary>
+        public override XDocument FinalResponseDocument
+        {
+            get
+            {
+                if (ResponseDocument == null)
+                {
+                    return null;
+                }
+
+                if (!UsingEcryptMessage)
+                {
+                    return ResponseDocument;
+                }
+
+                var timeStamp = DateTime.Now.Ticks.ToString();
+                var nonce = DateTime.Now.Ticks.ToString();
+
+                WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
+                string finalResponseXml = null;
+                msgCrype.EncryptMsg(ResponseDocument.ToString(), timeStamp, nonce, ref finalResponseXml);//TODO:这里官方的方法已经把EncryptResponseMessage对应的XML输出出来了
+
+                return XDocument.Parse(finalResponseXml);
+            }
+        }
+
+
         /// <summary>
         /// 请求实体
         /// </summary>
-        new public IRequestMessageBase RequestMessage { get; set; }
+        public new IRequestMessageBase RequestMessage
+        {
+            get
+            {
+                return base.RequestMessage as IRequestMessageBase;
+            }
+            set
+            {
+                base.RequestMessage = value;
+            }
+        }
+
         /// <summary>
         /// 响应实体
         /// 正常情况下只有当执行Execute()方法后才可能有值。
         /// 也可以结合Cancel，提前给ResponseMessage赋值。
         /// </summary>
-        new public IResponseMessageBase ResponseMessage { get; set; }
-
-
-        public MessageHandler(Stream inputStream, int maxRecordCount = 0)
-            : base(inputStream, maxRecordCount)
+        public new IResponseMessageBase ResponseMessage
         {
-            WeixinContext.MaxRecordCount = maxRecordCount;
-            using (XmlReader xr = XmlReader.Create(inputStream))
+            get
             {
-                RequestDocument = XDocument.Load(xr);
-                Init(RequestDocument);
+                return base.ResponseMessage as IResponseMessageBase;
+            }
+            set
+            {
+                base.ResponseMessage = value;
             }
         }
 
-        public MessageHandler(XDocument requestDocument, int maxRecordCount = 0)
-            : base(requestDocument, maxRecordCount)
+        private PostModel _postModel;
+
+        /// <summary>
+        /// 是否使用了加密信息
+        /// </summary>
+        public bool UsingEcryptMessage { get; set; }
+
+        /// <summary>
+        /// 是否使用了兼容模式加密信息
+        /// </summary>
+        public bool UsingCompatibilityModelEcryptMessage { get; set; }
+
+        public MessageHandler(Stream inputStream, PostModel postModel = null, int maxRecordCount = 0)
+            : base(inputStream, maxRecordCount, postModel)
         {
-            WeixinContext.MaxRecordCount = maxRecordCount;
-            Init(requestDocument);
+
         }
 
-        public override void Init(XDocument requestDocument)
+        public MessageHandler(XDocument requestDocument, PostModel postModel = null, int maxRecordCount = 0)
+            : base(requestDocument, maxRecordCount, postModel)
         {
-            RequestDocument = requestDocument;
-            RequestMessage = RequestMessageFactory.GetRequestEntity(RequestDocument);
+            //WeixinContext.MaxRecordCount = maxRecordCount;
+            //Init(requestDocument);
+        }
+
+        public override XDocument Init(XDocument postDataDocument, object postData = null)
+        {
+            //进行加密判断并处理
+            _postModel = postData as PostModel;
+            var postDataStr = postDataDocument.ToString();
+
+            XDocument decryptDoc = postDataDocument;
+
+            if (_postModel != null && postDataDocument.Root.Element("Encrypt") != null && !string.IsNullOrEmpty(postDataDocument.Root.Element("Encrypt").Value))
+            {
+                //使用了加密
+                UsingEcryptMessage = true;
+                EcryptRequestDocument = postDataDocument;
+
+                WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
+                string msgXml = null;
+                var result = msgCrype.DecryptMsg(_postModel.Msg_Signature, _postModel.Timestamp, _postModel.Nonce, postDataStr, ref msgXml);
+
+                //判断result类型
+                if (result != 0)
+                {
+                    //验证没有通过，取消执行
+                    CancelExcute = true;
+                    return null;
+                }
+
+                if (postDataDocument.Root.Element("FromUserName") != null && !string.IsNullOrEmpty(postDataDocument.Root.Element("FromUserName").Value))
+                {
+                    //TODO：使用了兼容模式，进行验证即可
+                    UsingCompatibilityModelEcryptMessage = true;
+                }
+
+                decryptDoc = XDocument.Parse(msgXml);//完成解密
+            }
+
+            RequestMessage = RequestMessageFactory.GetRequestEntity(decryptDoc);
+            if (UsingEcryptMessage)
+            {
+                RequestMessage.Encrypt = postDataDocument.Root.Element("Encrypt").Value;
+            }
+
 
             //记录上下文
             if (WeixinContextGlobal.UseWeixinContext)
             {
                 WeixinContext.InsertMessage(RequestMessage);
             }
+
+            return decryptDoc;
         }
 
         /// <summary>
@@ -238,16 +299,21 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
         public virtual void OnExecuting()
         {
+            base.OnExecuting();
         }
 
         public virtual void OnExecuted()
         {
+            base.OnExecuted();
         }
+
+        #region 接收消息方法
 
         /// <summary>
         /// 默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
         /// </summary>
         public abstract IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage);
+
         //{
         //    例如可以这样实现：
         //    var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
@@ -349,10 +415,28 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     responseMessage = OnEvent_ViewRequest(RequestMessage as RequestMessageEvent_View);
                     break;
                 case Event.MASSSENDJOBFINISH://群发消息成功
-                    responseMessage = OneEvent_MassSendJobFinisRequest(RequestMessage as RequestMessageEvent_MassSendJobFinish);
+                    responseMessage = OnEvent_MassSendJobFinishRequest(RequestMessage as RequestMessageEvent_MassSendJobFinish);
                     break;
                 case Event.TEMPLATESENDJOBFINISH://推送模板消息成功
-                    responseMessage = OneEvent_TemplateSendJobFinishRequest(RequestMessage as RequestMessageEvent_TemplateSendJobFinish);
+                    responseMessage = OnEvent_TemplateSendJobFinishRequest(RequestMessage as RequestMessageEvent_TemplateSendJobFinish);
+                    break;
+                case Event.pic_photo_or_album://弹出拍照或者相册发图
+                    responseMessage = OnEvent_PicPhotoOrAlbumRequest(RequestMessage as RequestMessageEvent_Pic_Photo_Or_Album);
+                    break;
+                case Event.scancode_push://扫码推事件
+                    responseMessage = OnEvent_ScancodePushRequest(RequestMessage as RequestMessageEvent_Scancode_Push);
+                    break;
+                case Event.scancode_waitmsg://扫码推事件且弹出“消息接收中”提示框
+                    responseMessage = OnEvent_ScancodeWaitmsgRequest(RequestMessage as RequestMessageEvent_Scancode_Waitmsg);
+                    break;
+                case Event.location_select://弹出地理位置选择器
+                    responseMessage = OnEvent_LocationSelectRequest(RequestMessage as RequestMessageEvent_Location_Select);
+                    break;
+                case Event.pic_weixin://弹出微信相册发图器
+                    responseMessage = OnEvent_PicWeixinRequest(RequestMessage as RequestMessageEvent_Pic_Weixin);
+                    break;
+                case Event.pic_sysphoto://弹出系统拍照发图
+                    responseMessage = OnEvent_PicSysphotoRequest(RequestMessage as RequestMessageEvent_Pic_Sysphoto);
                     break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
@@ -423,7 +507,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 事件推送群发结果
         /// </summary>
         /// <returns></returns>
-        public virtual IResponseMessageBase OneEvent_MassSendJobFinisRequest(RequestMessageEvent_MassSendJobFinish requestMessage)
+        public virtual IResponseMessageBase OnEvent_MassSendJobFinishRequest(RequestMessageEvent_MassSendJobFinish requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -433,10 +517,67 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 发送模板消息返回结果
         /// </summary>
         /// <returns></returns>
-        public virtual IResponseMessageBase OneEvent_TemplateSendJobFinishRequest(RequestMessageEvent_TemplateSendJobFinish requestMessage)
+        public virtual IResponseMessageBase OnEvent_TemplateSendJobFinishRequest(RequestMessageEvent_TemplateSendJobFinish requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 弹出拍照或者相册发图
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_PicPhotoOrAlbumRequest(RequestMessageEvent_Pic_Photo_Or_Album requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 扫码推事件
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_ScancodePushRequest(RequestMessageEvent_Scancode_Push requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 扫码推事件且弹出“消息接收中”提示框
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_ScancodeWaitmsgRequest(RequestMessageEvent_Scancode_Waitmsg requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 弹出地理位置选择器
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_LocationSelectRequest(RequestMessageEvent_Location_Select requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 弹出微信相册发图器
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_PicWeixinRequest(RequestMessageEvent_Pic_Weixin requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 弹出系统拍照发图
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_PicSysphotoRequest(RequestMessageEvent_Pic_Sysphoto requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
         #endregion
+
+        #endregion
+
     }
 }

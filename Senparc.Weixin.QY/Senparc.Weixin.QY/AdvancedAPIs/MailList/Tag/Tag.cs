@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.MP.QYPIs;
 
-namespace Senparc.Weixin.MP.QYAPIs
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     //官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E9%83%A8%E9%97%A8
 
@@ -55,7 +54,7 @@ namespace Senparc.Weixin.MP.QYAPIs
         /// 删除标签
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="tagId"> 标签ID </param>
+        /// <param name="tagId">标签ID</param>
         /// <returns></returns>
         public static WxJsonResult DeleteTag(string accessToken, int tagId)
         {
@@ -68,9 +67,9 @@ namespace Senparc.Weixin.MP.QYAPIs
         /// 获取标签成员
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="userId">员工UserID</param>
+        /// <param name="tagId">标签ID</param>
         /// <returns></returns>
-        public static GetTagMemberResult GetTagMember(string accessToken, string tagId)
+        public static GetTagMemberResult GetTagMember(string accessToken, int tagId)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/get?access_token={0}&tagid={1}", accessToken, tagId);
 
@@ -84,7 +83,7 @@ namespace Senparc.Weixin.MP.QYAPIs
         /// <param name="tagId">标签ID</param>
         /// <param name="userList">企业员工ID列表</param>
         /// <returns></returns>
-        public static AddTagMemberResult AddTagMember(string accessToken, string tagId, string[] userList)
+        public static AddTagMemberResult AddTagMember(string accessToken, int tagId, string[] userList)
         {
             var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token={0}";
 
@@ -104,7 +103,7 @@ namespace Senparc.Weixin.MP.QYAPIs
         /// <param name="tagId">标签ID</param>
         /// <param name="userList">企业员工ID列表</param>
         /// <returns></returns>
-        public static DelTagMemberResult DelTagMember(string accessToken, string tagId, string[] userList)
+        public static DelTagMemberResult DelTagMember(string accessToken, int tagId, string[] userList)
         {
             var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers?access_token={0}";
 

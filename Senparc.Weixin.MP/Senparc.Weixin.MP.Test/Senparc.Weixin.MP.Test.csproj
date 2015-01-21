@@ -66,15 +66,22 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\Card\CardTest.cs" />
+    <Compile Include="AdvancedAPIs\Card\StoreTest.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomServiceTest.cs" />
     <Compile Include="AdvancedAPIs\Custom\CustomTest.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageTest.cs" />
     <Compile Include="AdvancedAPIs\Groups\CustomTest.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaTest.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthTest.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticTest.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateTest.cs" />
-    <Compile Include="AdvancedAPIs\TenPay\TenPayRightsTest.cs" />
+    <Compile Include="AdvancedAPIs\UserAnalysis\UserAnalysisTest.cs" />
+    <Compile Include="CommonAPIs\JsApiTicketContainerTest.cs" />
+    <Compile Include="MessageHandlers\MessageHandlers_OmitRepeatMessageTest.cs" />
+    <Compile Include="TenPay\TenPayRightsTest.cs" />
     <Compile Include="AdvancedAPIs\User\CustomTest.cs" />
-    <Compile Include="AdvancedAPIs\TenPay\TenPayTest.cs" />
+    <Compile Include="TenPay\TenPayTest.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\ProductTest.cs" />
     <Compile Include="AdvancedAPIs\WeixinShop\ShelvesTest.cs" />
     <Compile Include="Agents\MessageAgentTest.cs" />
@@ -99,6 +106,7 @@
     <Compile Include="Helpers\DateTimeHelperTest.cs" />
     <Compile Include="Exceptions\WeixinExceptionTest.cs" />
     <Compile Include="ResponseMessageFactoryTest.cs" />
+    <Compile Include="TenPayV3\TenPayV3Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">

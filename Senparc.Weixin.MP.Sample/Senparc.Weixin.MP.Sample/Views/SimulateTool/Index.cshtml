@@ -68,6 +68,13 @@
             var param = { url: url, token: token, requestType: requestType };
             var paramId = 'param' + requestType;
             var eventId = 'event' + eventType;
+            var msgId = $('#txtMsgId').val();
+
+            if (!msgId) {
+                alert('MsgId必须填写！');
+                return;
+            }
+
             //设置参数
             if (requestType != 'Event') {
                 $.each($('#' + paramId).find('input'), function (i, item) {
@@ -79,7 +86,8 @@
                     param[$(item).attr('name')] = $(item).val();
                 });
             }
-
+            param.MsgId = msgId;
+            
             var txtResponseMessageXML = $('#responseMessageXML');
             var txtRequestMessageXML = $('#requestMessageXML');
 
@@ -87,11 +95,11 @@
             txtRequestMessageXML.html('载入中...');
 
             $.post('@Url.Action("Index")', param, function (result) {
-                txtResponseMessageXML.html(result);
+                txtResponseMessageXML.text(result);
             });
 
             $.post('@Url.Action("GetRequestMessageXml")', param, function (result) {
-                txtRequestMessageXML.html(result);
+                txtRequestMessageXML.text(result);
             });
         }
     </script>
@@ -183,8 +191,13 @@
                         Status：<input name="Event.Status"/><br />
                         TotalCount：<input name="Event.TotalCount" type="number" value="0"/><br />
                     </div>
+                    
                 </div>
                 <div>
+                    <div>
+                        MsgId：<input id="txtMsgId" name="MsgId" type="number" value="@DateTime.Now.Ticks" /><br />
+                    </div>
+                   
                     <input type="button" value="提交" onclick="sendMessage()" />
                 </div>
             </div>

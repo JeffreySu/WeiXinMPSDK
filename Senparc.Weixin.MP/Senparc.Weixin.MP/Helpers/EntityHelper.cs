@@ -94,6 +94,19 @@ namespace Senparc.Weixin.MP.Helpers
 								}
 								prop.SetValue(entity, accounts, null);
 							}
+                            else if (genericArguments[0].Name == "PicItem")
+							{
+                                List<PicItem> picItems = new List<PicItem>();
+                                foreach (var item in root.Elements(propName).Elements("item"))
+                                {
+                                    var picItem = new PicItem();
+                                    var picMd5Sum = item.Element("PicMd5Sum").Value;
+                                    Md5Sum md5Sum = new Md5Sum() { PicMd5Sum=picMd5Sum};
+                                    picItem.item = md5Sum;
+                                    picItems.Add(picItem);
+                                }
+                                prop.SetValue(entity, picItems, null);
+							}
 							break;
 						case "Music"://ResponseMessageMusic适用
 							Music music = new Music();
@@ -115,6 +128,21 @@ namespace Senparc.Weixin.MP.Helpers
 							FillEntityWithXml(video, new XDocument(root.Element(propName)));
 							prop.SetValue(entity, video, null);
 							break;
+                        case "ScanCodeInfo"://扫码事件中的ScanCodeInfo适用
+                            ScanCodeInfo scanCodeInfo = new ScanCodeInfo();
+                            FillEntityWithXml(scanCodeInfo, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, scanCodeInfo, null);
+                            break;
+                        case "SendLocationInfo"://弹出地理位置选择器的事件推送中的SendLocationInfo适用
+                            SendLocationInfo sendLocationInfo = new SendLocationInfo();
+                            FillEntityWithXml(sendLocationInfo, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, sendLocationInfo, null);
+                            break;
+                        case "SendPicsInfo"://系统拍照发图中的SendPicsInfo适用
+                            SendPicsInfo sendPicsInfo = new SendPicsInfo();
+                            FillEntityWithXml(sendPicsInfo, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, sendPicsInfo, null);
+                            break;
 						default:
 							prop.SetValue(entity, root.Element(propName).Value, null);
 							break;
@@ -174,106 +202,106 @@ namespace Senparc.Weixin.MP.Helpers
             Func<string, int> orderByPropName = propNameOrder.IndexOf;
 
             var props = entity.GetType().GetProperties().OrderBy(p => orderByPropName(p.Name)).ToList();
-			foreach (var prop in props)
-			{
-				var propName = prop.Name;
-				if (propName == "Articles")
-				{
-					//文章列表
-					var atriclesElement = new XElement("Articles");
-					var articales = prop.GetValue(entity, null) as List<Article>;
-					foreach (var articale in articales)
-					{
-						var subNodes = ConvertEntityToXml(articale).Root.Elements();
-						atriclesElement.Add(new XElement("item", subNodes));
-					}
-					root.Add(atriclesElement);
-				}
-				else if (propName == "TransInfo")
-				{
-					var transInfoElement = new XElement("TransInfo");
-					var transInfo = prop.GetValue(entity, null) as List<CustomerServiceAccount>;
-					foreach (var account in transInfo)
-					{
-						var trans = ConvertEntityToXml(account).Root.Elements();
-						transInfoElement.Add(trans);
-					}
+            foreach (var prop in props)
+            {
+                var propName = prop.Name;
+                if (propName == "Articles")
+                {
+                    //文章列表
+                    var atriclesElement = new XElement("Articles");
+                    var articales = prop.GetValue(entity, null) as List<Article>;
+                    foreach (var articale in articales)
+                    {
+                        var subNodes = ConvertEntityToXml(articale).Root.Elements();
+                        atriclesElement.Add(new XElement("item", subNodes));
+                    }
+                    root.Add(atriclesElement);
+                }
+                else if (propName == "TransInfo")
+                {
+                    var transInfoElement = new XElement("TransInfo");
+                    var transInfo = prop.GetValue(entity, null) as List<CustomerServiceAccount>;
+                    foreach (var account in transInfo)
+                    {
+                        var trans = ConvertEntityToXml(account).Root.Elements();
+                        transInfoElement.Add(trans);
+                    }
 
                     root.Add(transInfoElement);
-				}
-				else if (propName == "Music" || propName == "Image" || propName == "Video" || propName == "Voice")
-				{
-					//音乐、图片、视频、语音格式
-					var musicElement = new XElement(propName);
-					var media = prop.GetValue(entity, null);// as Music;
-					var subNodes = ConvertEntityToXml(media).Root.Elements();
-					musicElement.Add(subNodes);
-					root.Add(musicElement);
-				}
-				else if (propName == "KfAccount")
-				{
-					root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
-				}
-				else
-				{
-					switch (prop.PropertyType.Name)
-					{
-						case "String":
-							root.Add(new XElement(propName,
-												  new XCData(prop.GetValue(entity, null) as string ?? "")));
-							break;
-						case "DateTime":
-							root.Add(new XElement(propName, DateTimeHelper.GetWeixinDateTime((DateTime)prop.GetValue(entity, null))));
-							break;
-						case "Boolean":
-							if (propName == "FuncFlag")
-							{
-								root.Add(new XElement(propName, (bool)prop.GetValue(entity, null) ? "1" : "0"));
-							}
-							else
-							{
-								goto default;
-							}
-							break;
-						case "ResponseMsgType":
-							root.Add(new XElement(propName, new XCData(prop.GetValue(entity, null).ToString().ToLower())));
-							break;
-						case "Article":
-							root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
-							break;
-						case "TransInfo":
-							root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
-							break;
-						default:
-							root.Add(new XElement(propName, prop.GetValue(entity, null)));
-							break;
-					}
-				}
-			}
-			return doc;
-		}
+                }
+                else if (propName == "Music" || propName == "Image" || propName == "Video" || propName == "Voice")
+                {
+                    //音乐、图片、视频、语音格式
+                    var musicElement = new XElement(propName);
+                    var media = prop.GetValue(entity, null);// as Music;
+                    var subNodes = ConvertEntityToXml(media).Root.Elements();
+                    musicElement.Add(subNodes);
+                    root.Add(musicElement);
+                }
+                else if (propName == "KfAccount")
+                {
+                    root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
+                }
+                else
+                {
+                    switch (prop.PropertyType.Name)
+                    {
+                        case "String":
+                            root.Add(new XElement(propName,
+                                                  new XCData(prop.GetValue(entity, null) as string ?? "")));
+                            break;
+                        case "DateTime":
+                            root.Add(new XElement(propName, DateTimeHelper.GetWeixinDateTime((DateTime)prop.GetValue(entity, null))));
+                            break;
+                        case "Boolean":
+                            if (propName == "FuncFlag")
+                            {
+                                root.Add(new XElement(propName, (bool)prop.GetValue(entity, null) ? "1" : "0"));
+                            }
+                            else
+                            {
+                                goto default;
+                            }
+                            break;
+                        case "ResponseMsgType":
+                            root.Add(new XElement(propName, new XCData(prop.GetValue(entity, null).ToString().ToLower())));
+                            break;
+                        case "Article":
+                            root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
+                            break;
+                        case "TransInfo":
+                            root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
+                            break;
+                        default:
+                            root.Add(new XElement(propName, prop.GetValue(entity, null)));
+                            break;
+                    }
+                }
+            }
+            return doc;
+        }
 
         /// <summary>
-		/// 将实体转为XML字符串
-		/// </summary>
-		/// <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
-		/// <param name="entity">实体</param>
-		/// <returns></returns>
-		public static string ConvertEntityToXmlString<T>(this T entity) where T : class , new()
-		{
-			return entity.ConvertEntityToXml().ToString();
-		}
+        /// 将实体转为XML字符串
+        /// </summary>
+        /// <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
+        /// <param name="entity">实体</param>
+        /// <returns></returns>
+        public static string ConvertEntityToXmlString<T>(this T entity) where T : class , new()
+        {
+            return entity.ConvertEntityToXml().ToString();
+        }
 
         /// <summary>
-		/// ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage)的扩展方法
-		/// </summary>
-		/// <typeparam name="T">需要生成的ResponseMessage类型</typeparam>
-		/// <param name="requestMessage">IRequestMessageBase接口下的接收信息类型</param>
-		/// <returns></returns>
-		public static T CreateResponseMessage<T>(this IRequestMessageBase requestMessage) where T : ResponseMessageBase
-		{
-			return ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage);
-		}
+        /// ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage)的扩展方法
+        /// </summary>
+        /// <typeparam name="T">需要生成的ResponseMessage类型</typeparam>
+        /// <param name="requestMessage">IRequestMessageBase接口下的接收信息类型</param>
+        /// <returns></returns>
+        public static T CreateResponseMessage<T>(this IRequestMessageBase requestMessage) where T : ResponseMessageBase
+        {
+            return ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage);
+        }
 
         /// <summary>
         /// ResponseMessageBase.CreateFromResponseXml(xml)的扩展方法

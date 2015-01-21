@@ -6,6 +6,8 @@ using System.Text;
 using System.Xml;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
+using Senparc.Weixin.MP.Entities.Request;
+using Tencent;
 
 namespace Senparc.Weixin.MP
 {
@@ -30,10 +32,11 @@ namespace Senparc.Weixin.MP
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>
-        public static IRequestMessageBase GetRequestEntity(XDocument doc)
+        public static IRequestMessageBase GetRequestEntity(XDocument doc, PostModel postModel = null)
         {
             RequestMessageBase requestMessage = null;
             RequestMsgType msgType;
+
             try
             {
                 msgType = MsgTypeHelper.GetRequestMsgType(doc);
@@ -85,6 +88,39 @@ namespace Senparc.Weixin.MP
                             case "MASSSENDJOBFINISH":
                                 requestMessage = new RequestMessageEvent_MassSendJobFinish();
                                 break;
+                            case "TEMPLATESENDJOBFINISH"://模板信息
+                                requestMessage = new RequestMessageEvent_TemplateSendJobFinish();
+                                break;
+                            case "SCANCODE_PUSH"://扫码推事件(scancode_push)
+                                requestMessage = new RequestMessageEvent_Scancode_Push();
+                                break;
+                            case "SCANCODE_WAITMSG"://扫码推事件且弹出“消息接收中”提示框(scancode_waitmsg)
+                                requestMessage = new RequestMessageEvent_Scancode_Waitmsg();
+                                break;
+                            case "PIC_SYSPHOTO"://弹出系统拍照发图(pic_sysphoto)
+                                requestMessage = new RequestMessageEvent_Pic_Sysphoto();
+                                break;
+                            case "PIC_PHOTO_OR_ALBUM"://弹出拍照或者相册发图（pic_photo_or_album）
+                                requestMessage = new RequestMessageEvent_Pic_Photo_Or_Album();
+                                break;
+                            case "PIC_WEIXIN"://弹出微信相册发图器(pic_weixin)
+                                requestMessage = new RequestMessageEvent_Pic_Weixin();
+                                break;
+                            case "LOCATION_SELECT"://弹出地理位置选择器（location_select）
+                                requestMessage = new RequestMessageEvent_Location_Select();
+                                break;
+                            case "CARD_PASS_CHECK"://卡券通过审核
+                                requestMessage = new RequestMessageEvent_Card_Pass_Check();
+                                break;
+                            case "CARD_NOT_PASS_CHECK"://卡券未通过审核
+                                requestMessage = new RequestMessageEvent_Card_Not_Pass_Check();
+                                break;
+                            case "USER_GET_CARD"://领取卡券
+                                requestMessage = new RequestMessageEvent_User_Get_Card();
+                                break;
+                            case "USER_DEL_CARD"://删除卡券
+                                requestMessage = new RequestMessageEvent_User_Del_Card();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;
@@ -125,6 +161,9 @@ namespace Senparc.Weixin.MP
             using (XmlReader xr = XmlReader.Create(stream))
             {
                 var doc = XDocument.Load(xr);
+
+                //
+
                 return GetRequestEntity(doc);
             }
         }

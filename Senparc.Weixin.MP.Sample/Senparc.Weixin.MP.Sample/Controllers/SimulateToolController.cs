@@ -80,7 +80,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                 break;
                             case Event.unsubscribe:
                                 requestMessageEvent = new RequestMessageEvent_Unsubscribe();
-                                  break;
+                                break;
                             case Event.CLICK:
                                 requestMessageEvent = new RequestMessageEvent_Click()
                                    {
@@ -121,7 +121,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 default:
                     throw new ArgumentOutOfRangeException("requestType");
             }
-
+            requestMessaage.MsgId = long.Parse(Request.Form["MsgId"]);
             requestMessaage.CreateTime = DateTime.Now;
             requestMessaage.FromUserName = requestMessaage.FromUserName ?? "FromUserName（OpenId）";//用于区别不同的请求用户
             requestMessaage.ToUserName = "ToUserName";
@@ -153,6 +153,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 ms.Seek(0, SeekOrigin.Begin);
 
                 var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString());
+
+                if (string.IsNullOrEmpty(responseMessageXml))
+                {
+                    responseMessageXml = "返回消息为空，可能已经被去重。\r\nMsgId相同的连续消息将被自动去重。";
+                }
 
                 return Content(responseMessageXml);
             }

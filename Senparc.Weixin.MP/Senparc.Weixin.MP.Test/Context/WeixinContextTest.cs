@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.MP.Context;
+using Senparc.Weixin.Context;
+using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.Test.MessageHandlers;
 
@@ -30,11 +31,11 @@ namespace Senparc.Weixin.MP.Test.Context
             var maxRecordCount = 1;
             for (int i = 0; i < 100; i++)
             {
-                var messageHandler = new CustomerMessageHandlers(doc,maxRecordCount);
+                var messageHandler = new CustomerMessageHandlers(doc,null,maxRecordCount);
                 messageHandler.Execute();
             }
-            var weixinContext = MessageHandler<MessageContext>.GlobalWeixinContext.MessageQueue.FirstOrDefault();
-            var recordCount = MessageHandler<MessageContext>.GlobalWeixinContext.MaxRecordCount;
+            var weixinContext = MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>.GlobalWeixinContext.MessageQueue.FirstOrDefault();
+            var recordCount = MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>.GlobalWeixinContext.MaxRecordCount;
 
             Assert.IsNotNull(weixinContext);
             Assert.AreEqual(recordCount, weixinContext.RequestMessages.Count);

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.Entities;
 
@@ -11,7 +10,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
     /// <summary>
     /// 通用基础API
     /// </summary>
-    public static class CommonApi
+    public partial class CommonApi
     {
         public const string API_URL = "https://qyapi.weixin.qq.com/cgi-bin";
 
@@ -49,6 +48,18 @@ namespace Senparc.Weixin.QY.CommonAPIs
             var url = string.Format(API_URL + "/gettoken?corpid={0}&corpsecret={1}", corpId, corpSecret);
             var result = Get.GetJson<AccessTokenResult>(url);
             return result;
+        }
+
+        /// <summary>
+        /// 获取微信服务器的ip段
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public static GetCallBackIpResult GetCallBackIp(string accessToken)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/getcallbackip?access_token={0}", accessToken);
+
+            return CommonJsonSend.Send<GetCallBackIpResult>(null, url, null, CommonJsonSendType.GET);
         }
     }
 }

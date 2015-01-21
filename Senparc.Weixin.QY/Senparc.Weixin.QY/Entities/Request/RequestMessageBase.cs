@@ -5,16 +5,16 @@ using System.Text;
 
 namespace Senparc.Weixin.QY.Entities
 {
-    public interface IRequestMessageBase : IMessageBase
+    public interface IRequestMessageBase : Senparc.Weixin.Entities.IRequestMessageBase
     {
         RequestMsgType MsgType { get; }
-        long MsgId { get; set; }
+        int AgentID { get; set; }
     }
 
     /// <summary>
     /// 接收到请求的消息
     /// </summary>
-    public class RequestMessageBase : MessageBase, IRequestMessageBase
+    public class RequestMessageBase : Weixin.Entities.RequestMessageBase, IRequestMessageBase
     {
         public RequestMessageBase()
         {
@@ -26,6 +26,9 @@ namespace Senparc.Weixin.QY.Entities
             get { return RequestMsgType.Text; }
         }
 
-        public long MsgId { get; set; }
+        /// <summary>
+        /// 企业应用的id，整型。可在应用的设置页面查看
+        /// </summary>
+        public int AgentID { get; set; }
     }
 }

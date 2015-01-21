@@ -2,7 +2,7 @@
 {
 	public interface IResponseMessageBase : IMessageBase
 	{
-		ResponseMsgType MsgType { get; }
+		//ResponseMsgType MsgType { get; }
 		//string Content { get; set; }
 		//bool FuncFlag { get; set; }
 	}
@@ -12,9 +12,9 @@
 	/// </summary>
 	public abstract class ResponseMessageBase : MessageBase, IResponseMessageBase
 	{
-		public virtual ResponseMsgType MsgType
-		{
-			get { return ResponseMsgType.Text; }
-		}
+        //public virtual ResponseMsgType MsgType
+        //{
+        //    get { return ResponseMsgType.Text; }
+        //}
 	}
 }

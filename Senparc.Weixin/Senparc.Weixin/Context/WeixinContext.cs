@@ -22,16 +22,44 @@ namespace Senparc.Weixin.Context
 
     }
 
-    //public interface IWeixinContext<TM> where TM : class, IMessageContext, new()
+    #region 废除接口
+    //public interface IWeixinContext<TM, TRest, TResp>
+    //    where TM : class, IMessageContext<TRest, TResp>, new()
+    //    where TRest : IRequestMessageBase
+    //    where TResp : IResponseMessageBase
     //{
+    //    /// <summary>
+    //    /// 所有MessageContext集合，不要直接操作此对象
+    //    /// </summary>
+    //    Dictionary<string, TM> MessageCollection { get; set; }
+    //    /// <summary>
+    //    /// MessageContext列队（LastActiveTime升序排列）,不要直接操作此对象
+    //    /// </summary>
+    //    MessageQueue<TM, TRest, TResp> MessageQueue { get; set; }
 
+    //    /// <summary>
+    //    /// 每一个MessageContext过期时间
+    //    /// </summary>
+    //    Double ExpireMinutes { get; set; }
+
+    //    /// <summary>
+    //    /// 最大储存上下文数量（分别针对请求和响应信息）
+    //    /// </summary>
+    //    int MaxRecordCount { get; set; }
+
+    //    TM GetMessageContext(TRest requestMessage);
+    //    TM GetMessageContext(TResp responseMessage);
     //}
+    #endregion
 
     /// <summary>
     /// 微信消息上下文（全局）
     /// 默认过期时间：90分钟
     /// </summary>
-    public class WeixinContext<TM> /*: IWeixinContext<TM>*/ where TM : class, IMessageContext, new()
+    public class WeixinContext<TM, TRest, TResp> /*: IWeixinContext<TM, TRest, TResp>*/
+        where TM : class, IMessageContext<TRest, TResp>, new() //TODO:TRest, TResp直接写明基类类型
+        where TRest : IRequestMessageBase
+        where TResp : IResponseMessageBase
     {
         private int _maxRecordCount;
 
@@ -42,7 +70,7 @@ namespace Senparc.Weixin.Context
         /// <summary>
         /// MessageContext列队（LastActiveTime升序排列）,不要直接操作此对象
         /// </summary>
-        public MessageQueue<TM> MessageQueue { get; set; }
+        public MessageQueue<TM, TRest, TResp> MessageQueue { get; set; }
 
         /// <summary>
         /// 每一个MessageContext过期时间
@@ -66,7 +94,7 @@ namespace Senparc.Weixin.Context
         public void Restore()
         {
             MessageCollection = new Dictionary<string, TM>(StringComparer.OrdinalIgnoreCase);
-            MessageQueue = new MessageQueue<TM>();
+            MessageQueue = new MessageQueue<TM, TRest, TResp>();
             ExpireMinutes = 90;
         }
 
@@ -152,7 +180,7 @@ namespace Senparc.Weixin.Context
         /// 获取MessageContext，如果不存在，使用requestMessage信息初始化一个，并返回原始实例
         /// </summary>
         /// <returns></returns>
-        public TM GetMessageContext(IRequestMessageBase requestMessage)
+        public TM GetMessageContext(TRest requestMessage)
         {
             lock (WeixinContextGlobal.Lock)
             {
@@ -164,7 +192,7 @@ namespace Senparc.Weixin.Context
         /// 获取MessageContext，如果不存在，使用requestMessage信息初始化一个，并返回原始实例
         /// </summary>
         /// <returns></returns>
-        public TM GetMessageContext(IResponseMessageBase responseMessage)
+        public TM GetMessageContext(TResp responseMessage)
         {
             lock (WeixinContextGlobal.Lock)
             {
@@ -176,7 +204,7 @@ namespace Senparc.Weixin.Context
         /// 记录请求信息
         /// </summary>
         /// <param name="requestMessage">请求信息</param>
-        public void InsertMessage(IRequestMessageBase requestMessage)
+        public void InsertMessage(TRest requestMessage)
         {
             lock (WeixinContextGlobal.Lock)
             {
@@ -204,7 +232,7 @@ namespace Senparc.Weixin.Context
         /// 记录响应信息
         /// </summary>
         /// <param name="responseMessage">响应信息</param>
-        public void InsertMessage(IResponseMessageBase responseMessage)
+        public void InsertMessage(TResp responseMessage)
         {
             lock (WeixinContextGlobal.Lock)
             {
@@ -218,7 +246,7 @@ namespace Senparc.Weixin.Context
         /// </summary>
         /// <param name="userName">用户名（OpenId）</param>
         /// <returns></returns>
-        public IRequestMessageBase GetLastRequestMessage(string userName)
+        public TRest GetLastRequestMessage(string userName)
         {
             lock (WeixinContextGlobal.Lock)
             {
@@ -232,7 +260,7 @@ namespace Senparc.Weixin.Context
         /// </summary>
         /// <param name="userName">用户名（OpenId）</param>
         /// <returns></returns>
-        public IResponseMessageBase GetLastResponseMessage(string userName)
+        public TResp GetLastResponseMessage(string userName)
         {
             lock (WeixinContextGlobal.Lock)
             {

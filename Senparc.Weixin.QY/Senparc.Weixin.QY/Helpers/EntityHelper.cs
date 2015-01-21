@@ -6,8 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.QY.Entities;
 
 namespace Senparc.Weixin.QY.Helpers
 {
@@ -84,22 +83,30 @@ namespace Senparc.Weixin.QY.Helpers
 								}
 								prop.SetValue(entity, articles, null);
 							}
-							else if (genericArguments[0].Name == "Account")
+                            else if (genericArguments[0].Name == "MpNewsArticle")
 							{
-								List<CustomerServiceAccount> accounts = new List<CustomerServiceAccount>();
+                                List<MpNewsArticle> mpNewsArticles = new List<MpNewsArticle>();
 								foreach (var item in root.Elements(propName))
 								{
-									var account = new CustomerServiceAccount();
-									FillEntityWithXml(account, new XDocument(item));
-									accounts.Add(account);
+                                    var mpNewsArticle = new MpNewsArticle();
+                                    FillEntityWithXml(mpNewsArticle, new XDocument(item));
+                                    mpNewsArticles.Add(mpNewsArticle);
 								}
-								prop.SetValue(entity, accounts, null);
+                                prop.SetValue(entity, mpNewsArticles, null);
 							}
-							break;
-						case "Music"://ResponseMessageMusic适用
-							Music music = new Music();
-							FillEntityWithXml(music, new XDocument(root.Element(propName)));
-							prop.SetValue(entity, music, null);
+                            else if (genericArguments[0].Name == "PicItem")
+                            {
+                                List<PicItem> picItems = new List<PicItem>();
+                                foreach (var item in root.Elements(propName).Elements("item"))
+                                {
+                                    var picItem = new PicItem();
+                                    var picMd5Sum = item.Element("PicMd5Sum").Value;
+                                    Md5Sum md5Sum = new Md5Sum() { PicMd5Sum = picMd5Sum };
+                                    picItem.item = md5Sum;
+                                    picItems.Add(picItem);
+                                }
+                                prop.SetValue(entity, picItems, null);
+                            }
 							break;
 						case "Image"://ResponseMessageImage适用
 							Image image = new Image();
@@ -116,6 +123,21 @@ namespace Senparc.Weixin.QY.Helpers
 							FillEntityWithXml(video, new XDocument(root.Element(propName)));
 							prop.SetValue(entity, video, null);
 							break;
+                        case "ScanCodeInfo"://扫码事件中的ScanCodeInfo适用
+                            ScanCodeInfo scanCodeInfo = new ScanCodeInfo();
+                            FillEntityWithXml(scanCodeInfo, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, scanCodeInfo, null);
+                            break;
+                        case "SendLocationInfo"://弹出地理位置选择器的事件推送中的SendLocationInfo适用
+                            SendLocationInfo sendLocationInfo = new SendLocationInfo();
+                            FillEntityWithXml(sendLocationInfo, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, sendLocationInfo, null);
+                            break;
+                        case "SendPicsInfo"://系统拍照发图中的SendPicsInfo适用
+                            SendPicsInfo sendPicsInfo = new SendPicsInfo();
+                            FillEntityWithXml(sendPicsInfo, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, sendPicsInfo, null);
+                            break;
 						default:
 							prop.SetValue(entity, root.Element(propName).Value, null);
 							break;
@@ -140,19 +162,15 @@ namespace Senparc.Weixin.QY.Helpers
             /* 注意！
              * 经过测试，微信对字段排序有严格要求，这里对排序进行强制约束
             */
-            var propNameOrder = new List<string>() { "ToUserName", "FromUserName", "CreateTime", "MsgType", "AgentID" };
+            var propNameOrder = new List<string>() { "ToUserName", "FromUserName", "CreateTime", "MsgType"};
             //不同返回类型需要对应不同特殊格式的排序
             if (entity is ResponseMessageNews)
             {
                 propNameOrder.AddRange(new[] { "ArticleCount", "Articles", "FuncFlag",/*以下是Atricle属性*/ "Title ", "Description ", "PicUrl", "Url" });
             }
-            else if (entity is ResponseMessageTransfer_Customer_Service)
+            else if (entity is ResponseMessageMpNews)
             {
-                propNameOrder.AddRange(new[] { "TransInfo", "KfAccount", "FuncFlag" });
-            }
-            else if (entity is ResponseMessageMusic)
-            {
-                propNameOrder.AddRange(new[] { "Music", "FuncFlag", "ThumbMediaId",/*以下是Music属性*/ "Title ", "Description ", "MusicUrl", "HQMusicUrl" });
+                propNameOrder.AddRange(new[] { "MpNewsArticleCount", "MpNewsArticles", "FuncFlag",/*以下是MpNewsAtricle属性*/ "Title ", "Description ", "PicUrl", "Url" });
             }
             else if (entity is ResponseMessageImage)
             {
@@ -172,6 +190,8 @@ namespace Senparc.Weixin.QY.Helpers
                 propNameOrder.AddRange(new[] { "Content", "FuncFlag" });
             }
 
+            propNameOrder.AddRange(new[] { "AgentID" });
+
             Func<string, int> orderByPropName = propNameOrder.IndexOf;
 
             var props = entity.GetType().GetProperties().OrderBy(p => orderByPropName(p.Name)).ToList();
@@ -190,23 +210,23 @@ namespace Senparc.Weixin.QY.Helpers
 					}
 					root.Add(atriclesElement);
 				}
-				else if (propName == "TransInfo")
+                else if (propName == "MpNewsArticles")
 				{
-					var transInfoElement = new XElement("TransInfo");
-					var transInfo = prop.GetValue(entity, null) as List<CustomerServiceAccount>;
-					foreach (var account in transInfo)
+                    var mpNewsAtriclesElement = new XElement("MpNewsArticles");
+                    var mpNewsAtricles = prop.GetValue(entity, null) as List<MpNewsArticle>;
+                    foreach (var mpNewsArticale in mpNewsAtricles)
 					{
-						var trans = ConvertEntityToXml(account).Root.Elements();
-						transInfoElement.Add(trans);
+                        var subNodes = ConvertEntityToXml(mpNewsArticale).Root.Elements();
+                        mpNewsAtriclesElement.Add(subNodes);
 					}
 
-                    root.Add(transInfoElement);
+                    root.Add(mpNewsAtriclesElement);
 				}
-				else if (propName == "Music" || propName == "Image" || propName == "Video" || propName == "Voice")
+				else if (propName == "Image" || propName == "Video" || propName == "Voice")
 				{
-					//音乐、图片、视频、语音格式
+					//图片、视频、语音格式
 					var musicElement = new XElement(propName);
-					var media = prop.GetValue(entity, null);// as Music;
+					var media = prop.GetValue(entity, null);
 					var subNodes = ConvertEntityToXml(media).Root.Elements();
 					musicElement.Add(subNodes);
 					root.Add(musicElement);
@@ -242,7 +262,7 @@ namespace Senparc.Weixin.QY.Helpers
 						case "Article":
 							root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
 							break;
-						case "TransInfo":
+                        case "MpNewsArticle":
 							root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
 							break;
 						default:
@@ -284,16 +304,6 @@ namespace Senparc.Weixin.QY.Helpers
         public static IResponseMessageBase CreateResponseMessage(this string xml)
         {
             return ResponseMessageBase.CreateFromResponseXml(xml);
-        }
-
-        /// <summary>
-        /// 检查是否是通过场景二维码扫入
-        /// </summary>
-        /// <param name="requestMessage"></param>
-        /// <returns></returns>
-        public static bool IsFromScene(this RequestMessageEvent_Subscribe requestMessage)
-        {
-            return !string.IsNullOrEmpty(requestMessage.EventKey);
         }
     }
 }

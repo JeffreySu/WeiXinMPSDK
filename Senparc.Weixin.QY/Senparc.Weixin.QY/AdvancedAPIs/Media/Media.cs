@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     //接口详见：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E5%A4%9A%E5%AA%92%E4%BD%93%E6%96%87%E4%BB%B6
-    
+
     /// <summary>
     /// 多媒体文件接口
     /// </summary>
@@ -36,7 +33,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="mediaId"></param>
-        public static void Get(string accessToken, string mediaId,Stream stream)
+        public static void Get(string accessToken, string mediaId, Stream stream)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}",
                 accessToken, mediaId);

@@ -165,6 +165,135 @@ namespace Senparc.Weixin.MP.Test
 </xml>
 ";
 
+        private string xmlEvent_Scancode_Push = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+<ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+<FromUserName><![CDATA[oMgHVjngRipVsoxg6TuX3vz6glDg]]></FromUserName>
+<CreateTime>1408090502</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[scancode_push]]></Event>
+<EventKey><![CDATA[6]]></EventKey>
+<ScanCodeInfo><ScanType><![CDATA[qrcode]]></ScanType>
+<ScanResult><![CDATA[1]]></ScanResult>
+</ScanCodeInfo>
+</xml>";
+
+        private string xmlEvent_Scancode_Waitmsg = @"<xml><ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+<FromUserName><![CDATA[oMgHVjngRipVsoxg6TuX3vz6glDg]]></FromUserName>
+<CreateTime>1408090606</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[scancode_waitmsg]]></Event>
+<EventKey><![CDATA[6]]></EventKey>
+<ScanCodeInfo><ScanType><![CDATA[qrcode]]></ScanType>
+<ScanResult><![CDATA[2]]></ScanResult>
+</ScanCodeInfo>
+</xml>";
+
+        private string xmlEvent_Pic_Sysphoto = @"<xml><ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+<FromUserName><![CDATA[oMgHVjngRipVsoxg6TuX3vz6glDg]]></FromUserName>
+<CreateTime>1408090651</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[pic_sysphoto]]></Event>
+<EventKey><![CDATA[6]]></EventKey>
+<SendPicsInfo><Count>1</Count>
+<PicList><item><PicMd5Sum><![CDATA[1b5f7c23b5bf75682a53e7b6d163e185]]></PicMd5Sum>
+</item>
+</PicList>
+</SendPicsInfo>
+</xml>";
+
+        private string xmlEvent_Pic_Photo_Or_Album = @"<xml><ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+<FromUserName><![CDATA[oMgHVjngRipVsoxg6TuX3vz6glDg]]></FromUserName>
+<CreateTime>1408090816</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[pic_photo_or_album]]></Event>
+<EventKey><![CDATA[6]]></EventKey>
+<SendPicsInfo><Count>1</Count>
+<PicList><item><PicMd5Sum><![CDATA[5a75aaca956d97be686719218f275c6b]]></PicMd5Sum>
+</item>
+<item><PicMd5Sum><![CDATA[5a75aaca956d97be686719218f275c6b]]></PicMd5Sum>
+</item>
+</PicList>
+</SendPicsInfo>
+</xml>";
+
+        private string xmlEvent_Pic_Weixin = @"<xml><ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+<FromUserName><![CDATA[oMgHVjngRipVsoxg6TuX3vz6glDg]]></FromUserName>
+<CreateTime>1408090816</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[pic_weixin]]></Event>
+<EventKey><![CDATA[6]]></EventKey>
+<SendPicsInfo><Count>1</Count>
+<PicList><item><PicMd5Sum><![CDATA[5a75aaca956d97be686719218f275c6b]]></PicMd5Sum>
+</item>
+</PicList>
+</SendPicsInfo>
+</xml>";
+
+        private string xmlEvent_Location_Select = @"<xml><ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+<FromUserName><![CDATA[oMgHVjngRipVsoxg6TuX3vz6glDg]]></FromUserName>
+<CreateTime>1408091189</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[location_select]]></Event>
+<EventKey><![CDATA[6]]></EventKey>
+<SendLocationInfo><Location_X><![CDATA[23]]></Location_X>
+<Location_Y><![CDATA[113]]></Location_Y>
+<Scale><![CDATA[15]]></Scale>
+<Label><![CDATA[ 广州市海珠区客村艺苑路 106号]]></Label>
+<Poiname><![CDATA[]]></Poiname>
+</SendLocationInfo>
+</xml>";
+
+        private string xmlEvent_MassSendJobFinish = @"<xml>
+<ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+<FromUserName><![CDATA[oR5Gjjl_eiZoUpGozMo7dbBJ362A]]></FromUserName>
+<CreateTime>1394524295</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[MASSSENDJOBFINISH]]></Event>
+<MsgID>1988</MsgID>
+<Status><![CDATA[sendsuccess]]></Status>
+<TotalCount>100</TotalCount>
+<FilterCount>80</FilterCount>
+<SentCount>75</SentCount>
+<ErrorCount>5</ErrorCount>
+</xml>";
+
+        private string xmlEvent_Card_Pass_Check = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[card_pass_check]]></Event> //不通过为card_not_pass_check
+<CardId><![CDATA[cardid]]></CardId>
+</xml>";
+
+           private string xmlEvent_Card_Not_Pass_Check=@"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[card_not_pass_check]]></Event> //不通过为card_not_pass_check
+<CardId><![CDATA[cardid]]></CardId>
+</xml>";
+
+        private string xmlEvent_User_Get_Card = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<FriendUserName><![CDATA[FriendUser]]></FriendUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[user_get_card]]></Event>
+<CardId><![CDATA[cardid]]></CardId>
+<IsGiveByFriend>1</IsGiveByFriend>
+<UserCardCode><![CDATA[12312312]]></UserCardCode>
+</xml>";
+
+        private string xmlEvent_User_Del_Card = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[user_del_card]]></Event>
+<CardId><![CDATA[cardid]]></CardId>
+<UserCardCode><![CDATA[12312312]]></UserCardCode>
+</xml>";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -298,9 +427,124 @@ namespace Senparc.Weixin.MP.Test
                 var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_View;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
-                Assert.AreEqual(Event.scan, result.Event);
+                Assert.AreEqual(Event.VIEW, result.Event);
                 Assert.AreEqual(new DateTime(2014, 3, 14), result.CreateTime.Date);
                 Assert.AreEqual("http://weixin.senparc.com", result.EventKey);
+            }
+            
+            {
+                //Event-Scancode_Push
+                var doc = XDocument.Parse(xmlEvent_Scancode_Push);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Scancode_Push;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual(Event.scancode_push, result.Event);
+                Assert.IsNotNull(result.ScanCodeInfo.ScanResult);
+            }
+
+            {
+                //Event-Scancode_Scancode_Waitmsg
+                var doc = XDocument.Parse(xmlEvent_Scancode_Waitmsg);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Scancode_Waitmsg;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual(Event.scancode_waitmsg, result.Event);
+                Assert.IsNotNull(result.ScanCodeInfo.ScanResult);
+            }
+
+            {
+                //Event-Scancode_Pic_Sysphoto
+                var doc = XDocument.Parse(xmlEvent_Pic_Sysphoto);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Pic_Sysphoto;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual(Event.pic_sysphoto, result.Event);
+                Assert.IsNotNull(result.SendPicsInfo.PicList);
+            }
+
+            {
+                //Event-Scancode_Pic_Photo_Or_Album
+                var doc = XDocument.Parse(xmlEvent_Pic_Photo_Or_Album);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Pic_Photo_Or_Album;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual(Event.pic_photo_or_album, result.Event);
+                Assert.IsNotNull(result.SendPicsInfo.PicList);
+            }
+
+            {
+                //Event-Scancode_Pic_Weixin
+                var doc = XDocument.Parse(xmlEvent_Pic_Weixin);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Pic_Weixin;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual(Event.pic_weixin, result.Event);
+                Assert.IsNotNull(result.SendPicsInfo.PicList);
+            }
+
+            {
+                //Event-Location_Select
+                var doc = XDocument.Parse(xmlEvent_Location_Select);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Location_Select;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual(Event.location_select, result.Event);
+                Assert.IsNotNull(result.SendLocationInfo.Location_X);
+            }
+
+            {
+                //Event-MassSendJobFinish
+                var doc = XDocument.Parse(xmlEvent_MassSendJobFinish);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_MassSendJobFinish;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual(Event.MASSSENDJOBFINISH, result.Event);
+                Assert.IsNotNull(result.MsgID);
+                Assert.AreEqual(1988, result.MsgID);
+            }
+
+            {
+                //Event-Card_Pass_Check
+                var doc = XDocument.Parse(xmlEvent_Card_Pass_Check);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Card_Pass_Check;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.card_pass_check, result.Event);
+                Assert.IsNotNull(result.CardId);
+                Assert.AreEqual("cardid", result.CardId);
+            }
+
+            {
+                //Event-Card_Not_Pass_Check
+                var doc = XDocument.Parse(xmlEvent_Card_Not_Pass_Check);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Card_Not_Pass_Check;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.card_not_pass_check, result.Event);
+                Assert.IsNotNull(result.CardId);
+                Assert.AreEqual("cardid", result.CardId);
+            }
+
+            {
+                //Event-User_Get_Card
+                var doc = XDocument.Parse(xmlEvent_User_Get_Card);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_User_Get_Card;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.user_get_card, result.Event);
+                Assert.IsNotNull(result.CardId);
+                Assert.AreEqual(1, result.IsGiveByFriend);
+            }
+
+            {
+                //Event-User_Del_Card
+                var doc = XDocument.Parse(xmlEvent_User_Del_Card);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_User_Del_Card;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.user_del_card, result.Event);
+                Assert.IsNotNull(result.CardId);
+                Assert.AreEqual("12312312", result.UserCardCode);
             }
         }
     }

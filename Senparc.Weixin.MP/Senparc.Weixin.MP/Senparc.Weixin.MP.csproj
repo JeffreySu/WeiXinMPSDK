@@ -52,6 +52,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\Card\CardCreate\BaseCardCreateInfo.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreate.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateData.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\BaseCardUpdateInfo.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\BaseCardResult.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\CardManage.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\CardManageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\CardUpdateData.cs" />
+    <Compile Include="AdvancedAPIs\Card\Store\StoreResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\Store\StoreLocationData.cs" />
+    <Compile Include="AdvancedAPIs\Card\Store\Store.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomInfoJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomOnlineJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomService.cs" />
@@ -61,10 +73,14 @@
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessage.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\NewsModel.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\SendResult.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\BaseGroupMessageDataByGroupId.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\BaseGroupMessageDataByOpenId.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\BaseGroupMessageDataPreview.cs" />
     <Compile Include="AdvancedAPIs\Groups\CreateGroupResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\GetIdResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\Groups.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson.cs" />
+    <Compile Include="AdvancedAPIs\JS-SDK\JSSDK.cs" />
     <Compile Include="AdvancedAPIs\Media\Media.cs" />
     <Compile Include="AdvancedAPIs\Media\UploadResultJson.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthAccessTokenResult.cs" />
@@ -72,24 +88,48 @@
     <Compile Include="AdvancedAPIs\OAuth\OAuthUserInfo.cs" />
     <Compile Include="AdvancedAPIs\QrCode\CreateQrCodeResult.cs" />
     <Compile Include="AdvancedAPIs\QrCode\QrCode.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\Semantic.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\Template.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\SendTemplateMessageResult.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateDataItem.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TempleteModel.cs" />
+    <Compile Include="AdvancedAPIs\UserAnalysis\UserAnalysisResultJson.cs" />
+    <Compile Include="AdvancedAPIs\UserAnalysis\UserAnalysis.cs" />
     <Compile Include="AdvancedAPIs\User\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\User.cs" />
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
+    <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
+    <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
+    <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_LocationSelect.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_PicWeixin.cs" />
+    <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Card_Pass_Check.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Card_Not_Pass_Check.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_UserGetCard.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Del_Card.cs" />
+    <Compile Include="Entities\Request\PostModel.cs" />
+    <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
+    <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
-    <Compile Include="QYAPIs\AccessToken\AccessToken.cs" />
-    <Compile Include="QYAPIs\AccessToken\AccessTokenResult.cs" />
-    <Compile Include="QYAPIs\MailList\Department\DepartmentResult.cs" />
-    <Compile Include="QYAPIs\MailList\Department\Department.cs" />
-    <Compile Include="QYAPIs\MailList\Member\Member.cs" />
-    <Compile Include="QYAPIs\MailList\Member\MemberResult.cs" />
-    <Compile Include="QYAPIs\MailList\Tag\Tag.cs" />
-    <Compile Include="QYAPIs\MailList\Tag\TagResult.cs" />
+    <Compile Include="Helpers\EventHelper.cs" />
+    <Compile Include="Helpers\MsgTypeHelper.cs" />
+    <Compile Include="Helpers\JSSDKHelper.cs" />
+    <Compile Include="Helpers\SHA1UtilHelper.cs" />
+    <Compile Include="Tencent\Cryptography.cs" />
+    <Compile Include="Tencent\WXBizMsgCrypt.cs" />
+    <Compile Include="TenPayLibV3\MD5Util.cs" />
+    <Compile Include="TenPayLibV3\RequestHandler.cs" />
+    <Compile Include="TenPayLibV3\ResponseHandler.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3InfoCollection.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3Info.cs" />
+    <Compile Include="TenPayLibV3\TenPayUtil.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3Result.cs" />
     <Compile Include="TenPayLib\CheckRequestHandler.cs" />
+    <Compile Include="TenPayLib\MD5Util.cs" />
     <Compile Include="TenPayLib\RefundQueryRequestHandler.cs" />
     <Compile Include="TenPayLib\ClientRequestHandler.cs" />
     <Compile Include="TenPayLib\ClientResponseHandler.cs" />
@@ -120,9 +160,6 @@
     <Compile Include="CommonAPIs\AccessTokenHandlerWapper.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
-    <Compile Include="Context\MessageContainer.cs" />
-    <Compile Include="Context\MessageQueue.cs" />
-    <Compile Include="Context\WeixinContextRemovedEventArgs.cs" />
     <Compile Include="Entities\BaiduMap\BaiduMapMarkers.cs" />
     <Compile Include="Entities\Extensions.cs" />
     <Compile Include="Entities\GoogleMap\GoogleMapMarkers.cs" />
@@ -204,9 +241,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="ResponseMessageFactory.cs" />
-    <Compile Include="Context\MessageContext.cs" />
-    <Compile Include="Context\WeixinContext.cs" />
-    <Compile Include="TenPayLib\MD5Util.cs" />
+    <Compile Include="Helpers\MD5UtilHelper.cs" />
     <Compile Include="TenPayLib\QRCode.cs" />
     <Compile Include="TenPayLib\RequestHandler.cs" />
     <Compile Include="TenPayLib\ResponseHandler.cs" />
@@ -223,7 +258,7 @@
     <Compile Include="TenPayLib\RefundResponseHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TenPayLib\TenpayHttpClient.cs" />
+    <Compile Include="TenPayLib\TenPayHttpClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
@@ -231,6 +266,34 @@
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Menu\SingleScancodeWaitmsgButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Menu\SinglePicSysphotoButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Menu\SinglePicPhotoOrAlbumButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Menu\SinglePicWeixinButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Menu\SingleLocationSelectButton.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_PicPhotoOrAlbum.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_ScancodeWaitmsg.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_ScancodePush.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_PicSysphoto.cs" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

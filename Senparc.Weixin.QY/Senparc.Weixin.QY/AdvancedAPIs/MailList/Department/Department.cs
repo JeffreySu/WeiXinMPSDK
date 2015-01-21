@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.MP.QYPIs;
 
-namespace Senparc.Weixin.MP.QYAPIs
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     //官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E9%83%A8%E9%97%A8
 
@@ -19,18 +18,20 @@ namespace Senparc.Weixin.MP.QYAPIs
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="name">部门名称。长度限制为1~64个字符</param>
         /// <param name="parentId">父亲部门id。根部门id为1 </param>
+        /// <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
         /// <returns></returns>
-        public static CreateDepartmentResult CreateDepartment(string accessToken, string name, int parentId)
+        public static CreateDepartmentResult CreateDepartment(string accessToken, string name, int parentId, int order = 1)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token={0}";
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token={0}", accessToken);
 
             var data = new
             {
                 name = name,
-                parentid = parentId
+                parentid = parentId,
+                order = order
             };
 
-            return CommonJsonSend.Send<CreateDepartmentResult>(accessToken, url, data, CommonJsonSendType.POST);
+            return CommonJsonSend.Send<CreateDepartmentResult>(null, url, data, CommonJsonSendType.POST);
         }
 
         /// <summary>
@@ -39,18 +40,22 @@ namespace Senparc.Weixin.MP.QYAPIs
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="id">部门id</param>
         /// <param name="name">更新的部门名称。长度限制为0~64个字符。修改部门名称时指定该参数</param>
+        /// <param name="parentId">父亲部门id。根部门id为1 </param>
+        /// <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
         /// <returns></returns>
-        public static WxJsonResult UpdateDepartment(string accessToken, string id, string name)
+        public static WxJsonResult UpdateDepartment(string accessToken, string id, string name, int parentId, int order = 1)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token={0]";
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token={0}", accessToken);
 
             var data = new
             {
                 id = id,
-                name = name
+                name = name,
+                parentid = parentId,
+                order = order
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST);
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST);
         }
 
         /// <summary>
@@ -58,18 +63,12 @@ namespace Senparc.Weixin.MP.QYAPIs
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="id">部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）</param>
-        /// 可以一次性删除一个或多个部门（删除多个时传入id数组）
         /// <returns></returns>
-        public static WxJsonResult DeleteDepartment(string accessToken, string[] id)
+        public static WxJsonResult DeleteDepartment(string accessToken, string id)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token={0]";
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/delete?access_token={0}&id={1}", accessToken, id);
 
-            for (int i = 0; i < id.Length; i++)
-            {
-                url += string.Format("&id={0}", i + 1);
-            }
-
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -79,9 +78,9 @@ namespace Senparc.Weixin.MP.QYAPIs
         /// <returns></returns>
         public static GetDepartmentListResult GetDepartmentList(string accessToken)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token={0]";
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token={0}", accessToken);
 
-            return CommonJsonSend.Send<GetDepartmentListResult>(accessToken, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<GetDepartmentListResult>(null, url, null, CommonJsonSendType.GET);
         }
     }
 }

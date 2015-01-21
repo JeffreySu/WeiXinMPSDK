@@ -2,7 +2,7 @@
 {
     public interface IRequestMessageBase : IMessageBase
     {
-        RequestMsgType MsgType { get; }
+        //RequestMsgType MsgType { get; }
         long MsgId { get; set; }
     }
 
@@ -16,10 +16,10 @@
 
         }
 
-        public virtual RequestMsgType MsgType
-        {
-            get { return RequestMsgType.Text; }
-        }
+        //public virtual RequestMsgType MsgType
+        //{
+        //    get { return RequestMsgType.Text; }
+        //}
 
         public long MsgId { get; set; }
     }

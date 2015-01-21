@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Senparc.Weixin.MP.Entities.Request;
 
 namespace Senparc.Weixin.MP.Sample.WebForms
 {
@@ -30,7 +31,7 @@ namespace Senparc.Weixin.MP.Sample.WebForms
                 }
                 else
                 {
-                    WriteContent("failed:" + signature + "," + CheckSignature.GetSignature(timestamp, nonce, Token)+"。"+
+                    WriteContent("failed:" + signature + "," + CheckSignature.GetSignature(timestamp, nonce, Token) + "。" +
                                 "如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
                 }
                 Response.End();
@@ -44,11 +45,24 @@ namespace Senparc.Weixin.MP.Sample.WebForms
                     return;
                 }
 
+                //post method - 当有用户想公众账号发送消息时触发
+                var postModel = new PostModel()
+                {
+                    Signature = Request.QueryString["signature"],
+                    Msg_Signature = Request.QueryString["msg_signature"],
+                    Timestamp = Request.QueryString["timestamp"],
+                    Nonce = Request.QueryString["nonce"],
+                    //以下保密信息不会（不应该）在网络上传播，请注意
+                    Token = Token,
+                    EncodingAESKey = "mNnY5GekpChwqhy2c4NBH90g3hND6GeI4gii2YCvKLY",//根据自己后台的设置保持一致
+                    AppId = "wx669ef95216eef885"//根据自己后台的设置保持一致
+                };
+
                 //v4.2.2之后的版本，可以设置每个人上下文消息储存的最大数量，防止内存占用过多，如果该参数小于等于0，则不限制
                 var maxRecordCount = 10;
 
                 //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-                var messageHandler = new CustomMessageHandler(Request.InputStream, maxRecordCount);
+                var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
 
                 try
                 {
@@ -78,7 +92,6 @@ namespace Senparc.Weixin.MP.Sample.WebForms
                         tw.Flush();
                         tw.Close();
                     }
-                    WriteContent("");
                 }
                 finally
                 {
@@ -93,7 +106,7 @@ namespace Senparc.Weixin.MP.Sample.WebForms
         }
 
         /// <summary>
-        /// 最简单的Page_Load写法（本方法仅用于演示过程，未实际使用到）
+        /// 最简单的Page_Load写法（本方法仅用于演示过程，针对未加密消息，未实际在DEMO演示中使用到）
         /// </summary>
         private void MiniProcess()
         {
@@ -124,7 +137,7 @@ namespace Senparc.Weixin.MP.Sample.WebForms
                 }
 
                 //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
-                var messageHandler = new CustomMessageHandler(Request.InputStream);
+                var messageHandler = new CustomMessageHandler(Request.InputStream, null);
                 //执行微信处理过程
                 messageHandler.Execute();
                 //输出结果

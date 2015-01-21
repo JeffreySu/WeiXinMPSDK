@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
+using Senparc.Weixin.MP.MvcExtension;
+using Senparc.Weixin.MP.Sample.CommonService.QyMessageHandlers;
+using Senparc.Weixin.QY.Entities;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -26,7 +32,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// </summary>
         [HttpGet]
         [ActionName("Index")]
-        public ActionResult Get(string msg_signature = "", string signature = "", string timestamp = "", string nonce = "", string echostr = "")
+        public ActionResult Get(string msg_signature = "", string timestamp = "", string nonce = "", string echostr = "")
         {
             //return Content(echostr); //返回随机字符串则表示验证通过
             var verifyUrl = QY.Signature.VerifyURL(Token, EncodingAESKey, CorpId, msg_signature, timestamp, nonce,
@@ -37,9 +43,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             else
             {
-                var msgEncrypt = QY.Signature.EncryptMsg(Token, EncodingAESKey, CorpId, msg_signature, timestamp, nonce);
-                return Content("签名:" + signature + "," + QY.Signature.GenarateSinature(Token, timestamp, nonce, msgEncrypt) + "。" +
-                   "如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
+                return Content("如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
             }
         }
 
@@ -48,11 +52,75 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// </summary>
         [HttpPost]
         [ActionName("Index")]
-        public ActionResult Post(string msg_signature = "", string signature = "", string timestamp = "", string nonce = "", string echostr = "")
+        public ActionResult Post(PostModel postModel)
         {
-            string postData = null;
+            var maxRecordCount = 10;
 
-            return Content("");//TODO还没做完
+            postModel.Token = Token;
+            postModel.EncodingAESKey = EncodingAESKey;
+            postModel.CorpId = CorpId;
+
+            //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
+            var messageHandler = new QyCustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
+
+            if (messageHandler.RequestMessage == null)
+            {
+                //验证不通过或接受信息有错误
+            }
+
+            try
+            {
+                //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
+                messageHandler.RequestDocument.Save(Server.MapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_Request_" + messageHandler.RequestMessage.FromUserName + ".txt"));
+                //执行微信处理过程
+                messageHandler.Execute();
+                //测试时可开启，帮助跟踪数据
+                messageHandler.ResponseDocument.Save(Server.MapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                messageHandler.FinalResponseDocument.Save(Server.MapPath("~/App_Data/Qy/" + DateTime.Now.Ticks + "_FinalResponse_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+
+                //自动返回加密后结果
+                return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0软件换行bug暂时添加的方法，平时用下面一个方法即可
+            }
+            catch (Exception ex)
+            {
+                using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Qy_Error_" + DateTime.Now.Ticks + ".txt")))
+                {
+                    tw.WriteLine("ExecptionMessage:" + ex.Message);
+                    tw.WriteLine(ex.Source);
+                    tw.WriteLine(ex.StackTrace);
+                    //tw.WriteLine("InnerExecptionMessage:" + ex.InnerException.Message);
+
+                    if (messageHandler.FinalResponseDocument != null)
+                    {
+                        tw.WriteLine(messageHandler.FinalResponseDocument.ToString());
+                    }
+                    tw.Flush();
+                    tw.Close();
+                }
+                return Content("");
+            }
+        }
+
+        /// <summary>
+        /// 这是一个最简洁的过程演示
+        /// </summary>
+        /// <param name="postModel"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult MiniPost(PostModel postModel)
+        {
+            var maxRecordCount = 10;
+
+            postModel.Token = Token;
+            postModel.EncodingAESKey = EncodingAESKey;
+            postModel.CorpId = CorpId;
+
+            //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
+            var messageHandler = new QyCustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
+            //执行微信处理过程
+            messageHandler.Execute();
+            //自动返回加密后结果
+            return new FixWeixinBugWeixinResult(messageHandler);
         }
     }
 }

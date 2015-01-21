@@ -21,5 +21,13 @@ namespace Senparc.Weixin.MP.Entities
         /// 群发的结构，为“success”（送达成功）或“failed:user block”（送达由于用户拒收（用户设置拒绝接收公众号消息））或“failed: system failed”（送达由于其他原因失败）。
         /// </summary>
         public string Status { get; set; }
+
+        /// <summary>
+        /// 消息id
+        /// </summary>
+        public long MsgID { get; set; }
+
+        [Obsolete("请使用MsgID")]
+        public new long MsgId { get; set; }
     }
 }

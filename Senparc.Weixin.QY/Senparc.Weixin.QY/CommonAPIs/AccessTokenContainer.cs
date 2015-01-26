@@ -13,6 +13,10 @@ namespace Senparc.Weixin.QY.CommonAPIs
         public string CorpSecret { get; set; }
         public DateTime ExpireTime { get; set; }
         public AccessTokenResult AccessTokenResult { get; set; }
+        /// <summary>
+        /// 只针对这个CorpId的锁
+        /// </summary>
+        public object Lock = new object();
     }
 
     /// <summary>
@@ -80,11 +84,15 @@ namespace Senparc.Weixin.QY.CommonAPIs
             }
 
             var accessTokenBag = AccessTokenCollection[corpId];
-            if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
+            lock (accessTokenBag.Lock)
             {
-                //已过期，重新获取
-                accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.CorpId, accessTokenBag.CorpSecret);
-                accessTokenBag.ExpireTime = DateTime.Now.AddSeconds(7200);
+                if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
+                {
+                    //已过期，重新获取
+                    accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.CorpId,
+                        accessTokenBag.CorpSecret);
+                    accessTokenBag.ExpireTime = DateTime.Now.AddSeconds(7200);
+                }
             }
             return accessTokenBag.AccessTokenResult;
         }

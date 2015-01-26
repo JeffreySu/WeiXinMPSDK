@@ -233,9 +233,24 @@
             <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Member.GetDepartmentMemberInfo(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            获取部门成员(详情)
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="departmentId">获取的部门id</param>
+            <param name="fetchChild">1/0：是否递归获取子部门下面的成员</param>
+            <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Extattr">
             <summary>
             扩展属性
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.GetDepartmentMemberInfoResult">
+            <summary>
+            获取部门成员(详情)返回结果
             </summary>
         </member>
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Tag.CreateTag(System.String,System.String)">
@@ -357,6 +372,11 @@
             获取成员信息返回结果
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.QY.CommonAPIs.AccessTokenBag.Lock">
+            <summary>
+            只针对这个CorpId的锁
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.QY.CommonAPIs.AccessTokenContainer">
             <summary>
             通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
@@ -424,6 +444,13 @@
             </summary>
             <param name="corpId"></param>
             <param name="corpSecret"></param>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.CommonApi.GetCallBackIp(System.String)">
+            <summary>
+            获取微信服务器的ip段
+            </summary>
+            <param name="accessToken"></param>
+            <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.CommonAPIs.CommonApi.CreateMenu(System.String,System.Int32,Senparc.Weixin.QY.Entities.Menu.ButtonGroup)">
             <summary>
@@ -689,6 +716,11 @@
             接收到请求的消息
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageBase.AgentID">
+            <summary>
+            企业应用的id，整型。可在应用的设置页面查看
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEventBase.Event">
             <summary>
             事件类型
@@ -709,122 +741,122 @@
             事件KEY值，与自定义菜单接口中KEY值对应
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_LocationSelect">
+        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_Location_Select">
             <summary>
             事件之弹出地理位置选择器（location_select）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_LocationSelect.Event">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Location_Select.Event">
             <summary>
             事件类型
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_LocationSelect.EventKey">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Location_Select.EventKey">
             <summary>
             事件KEY值，与自定义菜单接口中KEY值对应
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_LocationSelect.SendLocationInfo">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Location_Select.SendLocationInfo">
             <summary>
             发送的位置信息
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_PicPhotoOrAlbum">
+        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_Pic_Photo_Or_Album">
             <summary>
             事件之弹出拍照或者相册发图（pic_photo_or_album）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_PicPhotoOrAlbum.Event">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Pic_Photo_Or_Album.Event">
             <summary>
             事件类型
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_PicPhotoOrAlbum.EventKey">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Pic_Photo_Or_Album.EventKey">
             <summary>
             事件KEY值，与自定义菜单接口中KEY值对应
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_PicPhotoOrAlbum.SendPicsInfo">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Pic_Photo_Or_Album.SendPicsInfo">
             <summary>
             发送的图片信息
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_PicSysphoto">
+        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_Pic_Sysphoto">
             <summary>
             事件之弹出系统拍照发图(pic_sysphoto)
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_PicSysphoto.Event">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Pic_Sysphoto.Event">
             <summary>
             事件类型
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_PicSysphoto.EventKey">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Pic_Sysphoto.EventKey">
             <summary>
             事件KEY值，与自定义菜单接口中KEY值对应
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_PicSysphoto.SendPicsInfo">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Pic_Sysphoto.SendPicsInfo">
             <summary>
             发送的图片信息
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_PicWeixin">
+        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_Pic_Weixin">
             <summary>
             事件之弹出微信相册发图器(pic_weixin)
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_PicWeixin.Event">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Pic_Weixin.Event">
             <summary>
             事件类型
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_PicWeixin.EventKey">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Pic_Weixin.EventKey">
             <summary>
             事件KEY值，与自定义菜单接口中KEY值对应
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_PicWeixin.SendPicsInfo">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Pic_Weixin.SendPicsInfo">
             <summary>
             发送的图片信息
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_ScancodePush">
+        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_Scancode_Push">
             <summary>
             事件之扫码推事件(scancode_push)
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_ScancodePush.Event">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Scancode_Push.Event">
             <summary>
             事件类型
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_ScancodePush.EventKey">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Scancode_Push.EventKey">
             <summary>
             事件KEY值，与自定义菜单接口中KEY值对应
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_ScancodePush.ScanCodeInfo">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Scancode_Push.ScanCodeInfo">
             <summary>
             扫描信息
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_ScancodeWaitmsg">
+        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_Scancode_Waitmsg">
             <summary>
             事件之扫码推事件且弹出“消息接收中”提示框(scancode_waitmsg)
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_ScancodeWaitmsg.Event">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Scancode_Waitmsg.Event">
             <summary>
             事件类型
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_ScancodeWaitmsg.EventKey">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Scancode_Waitmsg.EventKey">
             <summary>
             事件KEY值，与自定义菜单接口中KEY值对应
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_ScancodeWaitmsg.ScanCodeInfo">
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Scancode_Waitmsg.ScanCodeInfo">
             <summary>
             扫描信息
             </summary>
@@ -862,6 +894,26 @@
         <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_UnSubscribe.Event">
             <summary>
             事件类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_Location">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Location.Latitude">
+            <summary>
+            地理位置纬度
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Location.Longitude">
+            <summary>
+            地理位置经度
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Location.Precision">
+            <summary>
+            地理位置精度
             </summary>
         </member>
         <member name="T:Senparc.Weixin.QY.Entities.ScanCodeInfo">
@@ -917,6 +969,21 @@
         <member name="P:Senparc.Weixin.QY.Entities.Md5Sum.PicMd5Sum">
             <summary>
             图片的MD5值，开发者若需要，可用于验证接收到图片
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_Enter_Agent">
+            <summary>
+            用户进入应用的事件推送(enter_agent)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Enter_Agent.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Enter_Agent.EventKey">
+            <summary>
+            事件KEY值，此事件该值为空
             </summary>
         </member>
         <member name="T:Senparc.Weixin.QY.Entities.PostModel">
@@ -1014,7 +1081,7 @@
         </member>
         <member name="F:Senparc.Weixin.QY.Event.LOCATION">
             <summary>
-            地理位置（似乎已从官方API中移除）
+            地理位置
             </summary>
         </member>
         <member name="F:Senparc.Weixin.QY.Event.subscribe">
@@ -1052,34 +1119,39 @@
             模板信息发送完成
             </summary>
         </member>
-        <member name="F:Senparc.Weixin.QY.Event.SCANCODEPUSH">
+        <member name="F:Senparc.Weixin.QY.Event.SCANCODE_PUSH">
             <summary>
             扫码推事件
             </summary>
         </member>
-        <member name="F:Senparc.Weixin.QY.Event.SCANCODEWAITMSG">
+        <member name="F:Senparc.Weixin.QY.Event.SCANCODE_WAITMSG">
             <summary>
             扫码推事件且弹出“消息接收中”提示框
             </summary>
         </member>
-        <member name="F:Senparc.Weixin.QY.Event.PICSYSPHOTO">
+        <member name="F:Senparc.Weixin.QY.Event.PIC_SYSPHOTO">
             <summary>
             弹出系统拍照发图
             </summary>
         </member>
-        <member name="F:Senparc.Weixin.QY.Event.PICPHOTOORALBUM">
+        <member name="F:Senparc.Weixin.QY.Event.PIC_PHOTO_OR_ALBUM">
             <summary>
             弹出拍照或者相册发图
             </summary>
         </member>
-        <member name="F:Senparc.Weixin.QY.Event.PICWEIXIN">
+        <member name="F:Senparc.Weixin.QY.Event.PIC_WEIXIN">
             <summary>
             弹出微信相册发图器
             </summary>
         </member>
-        <member name="F:Senparc.Weixin.QY.Event.LOCATIONSELECT">
+        <member name="F:Senparc.Weixin.QY.Event.LOCATION_SELECT">
             <summary>
             弹出地理位置选择器
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.Event.ENTER_AGENT">
+            <summary>
+            用户进入应用的事件推送
             </summary>
         </member>
         <member name="T:Senparc.Weixin.QY.ResponseMsgType">
@@ -1282,37 +1354,37 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_PicPhotoOrAlbumRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_PicPhotoOrAlbum)">
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_PicPhotoOrAlbumRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_Pic_Photo_Or_Album)">
             <summary>
             弹出拍照或者相册发图
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_ScancodePushRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_ScancodePush)">
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_ScancodePushRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_Scancode_Push)">
             <summary>
             扫码推事件
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_ScancodeWaitmsgRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_ScancodeWaitmsg)">
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_ScancodeWaitmsgRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_Scancode_Waitmsg)">
             <summary>
             扫码推事件且弹出“消息接收中”提示框
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_LocationSelectRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_LocationSelect)">
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_LocationSelectRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_Location_Select)">
             <summary>
             弹出地理位置选择器
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_PicWeixinRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_PicWeixin)">
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_PicWeixinRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_Pic_Weixin)">
             <summary>
             弹出微信相册发图器
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_PicSysphotoRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_PicSysphoto)">
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_PicSysphotoRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_Pic_Sysphoto)">
             <summary>
             弹出系统拍照发图
             </summary>

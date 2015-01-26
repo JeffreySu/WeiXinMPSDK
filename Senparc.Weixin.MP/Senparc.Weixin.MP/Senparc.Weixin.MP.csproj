@@ -52,6 +52,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\Analysis\ArticleAnalysis\ArticleAnalysis.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\ArticleAnalysis\ArticleAnalysisResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\MessageAnalysis\MessageAnalysis.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\MessageAnalysis\MessageAnalysisResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\InterfaceAnalysis\InterfaceAnalysis.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\InterfaceAnalysis\InterfaceAnalysisResultJson.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\BaseCardCreateInfo.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreate.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateResultJson.cs" />
@@ -94,8 +100,8 @@
     <Compile Include="AdvancedAPIs\TemplateMessage\SendTemplateMessageResult.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateDataItem.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TempleteModel.cs" />
-    <Compile Include="AdvancedAPIs\UserAnalysis\UserAnalysisResultJson.cs" />
-    <Compile Include="AdvancedAPIs\UserAnalysis\UserAnalysis.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\UserAnalysis\UserAnalysisResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\UserAnalysis\UserAnalysis.cs" />
     <Compile Include="AdvancedAPIs\User\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\User.cs" />
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />

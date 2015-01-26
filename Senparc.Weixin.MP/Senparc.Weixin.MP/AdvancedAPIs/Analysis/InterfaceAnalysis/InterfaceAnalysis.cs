@@ -7,23 +7,26 @@ using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
-    //接口详见：http://mp.weixin.qq.com/wiki/3/ecfed6e1a0a03b5f35e5efac98e864b7.html
+    //接口详见：http://mp.weixin.qq.com/wiki/8/30ed81ae38cf4f977194bf1a5db73668.html
     
     /// <summary>
-    /// 用户分析数据接口
+    /// 接口分析数据接口
+    /// 最大时间跨度是指一次接口调用时最大可获取数据的时间范围，如最大时间跨度为7是指最多一次性获取7天的数据。
+    /// 注意：所有的日期请使用【yyyy-MM-dd】的格式
     /// </summary>
-    public static class UserAnalysis
+    public static class InterfaceAnalysis
     {
         /// <summary>
-        /// 获取用户增减数据
+        /// 获取接口分析数据（getinterfacesummary）
+        /// 最大时间跨度 30
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <returns></returns>
-        public static UserSummaryResultJson GetUserSummary(string accessToken, string beginDate, string endDate)
+        public static UserSummaryResultJson GetInterfaceSummary(string accessToken, string beginDate, string endDate)
         {
-            string urlFormat = "https://api.weixin.qq.com/datacube/getusersummary?access_token={0}";
+            string urlFormat = "https://api.weixin.qq.com/datacube/getinterfacesummary?access_token={0}";
 
             var data = new
                 {
@@ -35,15 +38,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 获取累计用户数据
+        /// 获取接口分析分时数据（getinterfacesummaryhour）
+        /// 最大时间跨度 1
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
         /// <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
         /// <returns></returns>
-        public static UserCumulateResultJson GetUserCumulate(string accessToken, string beginDate, string endDate)
+        public static UserCumulateResultJson GetInterfaceSummaryHour(string accessToken, string beginDate, string endDate)
         {
-            string urlFormat = "https://api.weixin.qq.com/datacube/getusercumulate?access_token={0}";
+            string urlFormat = "https://api.weixin.qq.com/datacube/getinterfacesummaryhour?access_token={0}";
 
             var data = new
             {

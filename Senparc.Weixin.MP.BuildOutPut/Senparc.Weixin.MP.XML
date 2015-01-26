@@ -4,6 +4,595 @@
         <name>Senparc.Weixin.MP</name>
     </assembly>
     <members>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ArticleAnalysis">
+            <summary>
+            图文分析数据接口
+            最大时间跨度是指一次接口调用时最大可获取数据的时间范围，如最大时间跨度为7是指最多一次性获取7天的数据。
+            注意：所有的日期请使用【yyyy-MM-dd】的格式
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ArticleAnalysis.GetArticleSummary(System.String,System.String,System.String)">
+            <summary>
+            获取图文群发每日数据（getarticlesummary）
+            最大时间跨度 1
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ArticleAnalysis.GetArticleTotal(System.String,System.String,System.String)">
+            <summary>
+            获取图文群发总数据（getarticletotal）
+            请注意，details中，每天对应的数值为该文章到该日为止的总量（而不是当日的量）
+            最大时间跨度 1
+            </summary>
+            <param name="accessToken"></param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ArticleAnalysis.GetUserRead(System.String,System.String,System.String)">
+            <summary>
+            获取图文统计数据（getuserread）
+            最大时间跨度 3
+            </summary>
+            <param name="accessToken"></param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ArticleAnalysis.GetUserReadHour(System.String,System.String,System.String)">
+            <summary>
+            获取图文统计分时数据（getuserreadhour）
+            最大时间跨度 1
+            </summary>
+            <param name="accessToken"></param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ArticleAnalysis.GetUserShare(System.String,System.String,System.String)">
+            <summary>
+            获取图文分享转发数据（getusershare）
+            最大时间跨度 7
+            </summary>
+            <param name="accessToken"></param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ArticleAnalysis.GetUserShareHour(System.String,System.String,System.String)">
+            <summary>
+            获取图文分享转发分时数据（getusersharehour）
+            最大时间跨度 1
+            </summary>
+            <param name="accessToken"></param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ArticleSummaryResultJson">
+            <summary>
+            获取图文群发每日数据返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.WxJsonResult">
+            <summary>
+            JSON返回结果（用于菜单接口等）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.WxJsonResult.P2PData">
+            <summary>
+            为P2P返回结果做准备
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleSummary.ref_date">
+            <summary>
+            数据的日期
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleSummary.msgid">
+            <summary>
+            这里的msgid实际上是由msgid（图文消息id）和index（消息次序索引）组成， 例如12003_3， 其中12003是msgid，即一次群发的id消息的； 3为index，假设该次群发的图文消息共5个文章（因为可能为多图文）， 3表示5个中的第3个
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleSummary.title">
+            <summary>
+            图文消息的标题
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleSummary.int_page_read_user">
+            <summary>
+            图文页（点击群发图文卡片进入的页面）的阅读人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleSummary.int_page_read_count">
+            <summary>
+            图文页的阅读次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleSummary.ori_page_read_user">
+            <summary>
+            原文页（点击图文页“阅读原文”进入的页面）的阅读人数，无原文页时此处数据为0
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleSummary.ori_page_read_count">
+            <summary>
+            原文页的阅读次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleSummary.share_user">
+            <summary>
+            分享的人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleSummary.share_count">
+            <summary>
+            分享的次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleSummary.add_to_fav_user">
+            <summary>
+            收藏的人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleSummary.add_to_fav_count">
+            <summary>
+            收藏的次数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ArticleTotalResultJson">
+            <summary>
+            获取图文群发总数据返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleTotal.ref_date">
+            <summary>
+            数据的日期
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleTotal.msgid">
+            <summary>
+            这里的msgid实际上是由msgid（图文消息id）和index（消息次序索引）组成， 例如12003_3， 其中12003是msgid，即一次群发的id消息的； 3为index，假设该次群发的图文消息共5个文章（因为可能为多图文）， 3表示5个中的第3个
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleTotal.title">
+            <summary>
+            图文消息的标题
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleTotal_Detail.stat_date">
+            <summary>
+            统计的日期，在getarticletotal接口中，ref_date指的是文章群发出日期， 而stat_date是数据统计日期
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleTotal_Detail.target_user">
+            <summary>
+            送达人数，一般约等于总粉丝数（需排除黑名单或其他异常情况下无法收到消息的粉丝）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleTotal_Detail.int_page_read_user">
+            <summary>
+            图文页（点击群发图文卡片进入的页面）的阅读人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleTotal_Detail.int_page_read_count">
+            <summary>
+            图文页的阅读次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleTotal_Detail.ori_page_read_user">
+            <summary>
+            原文页（点击图文页“阅读原文”进入的页面）的阅读人数，无原文页时此处数据为0
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleTotal_Detail.ori_page_read_count">
+            <summary>
+            原文页的阅读次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleTotal_Detail.share_user">
+            <summary>
+            分享的人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleTotal_Detail.share_count">
+            <summary>
+            分享的次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleTotal_Detail.add_to_fav_user">
+            <summary>
+            收藏的人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ArticleTotal_Detail.add_to_fav_count">
+            <summary>
+            收藏的次数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UserReadResultJson">
+            <summary>
+            获取图文统计数据返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadItem.ref_date">
+            <summary>
+            数据的日期
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadItem.int_page_read_user">
+            <summary>
+            图文页（点击群发图文卡片进入的页面）的阅读人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadItem.int_page_read_count">
+            <summary>
+            图文页的阅读次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadItem.ori_page_read_user">
+            <summary>
+            原文页（点击图文页“阅读原文”进入的页面）的阅读人数，无原文页时此处数据为0
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadItem.ori_page_read_count">
+            <summary>
+            原文页的阅读次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadItem.share_user">
+            <summary>
+            分享的人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadItem.share_count">
+            <summary>
+            分享的次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadItem.add_to_fav_user">
+            <summary>
+            收藏的人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadItem.add_to_fav_count">
+            <summary>
+            收藏的次数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UserReadHourResultJson">
+            <summary>
+            获取图文统计分时数据返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadHourItem.ref_date">
+            <summary>
+            数据的日期
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadHourItem.ref_hour">
+            <summary>
+            数据的小时，包括从000到2300，分别代表的是[000,100)到[2300,2400)，即每日的第1小时和最后1小时
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadHourItem.int_page_read_user">
+            <summary>
+            图文页（点击群发图文卡片进入的页面）的阅读人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadHourItem.int_page_read_count">
+            <summary>
+            图文页的阅读次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadHourItem.ori_page_read_user">
+            <summary>
+            原文页（点击图文页“阅读原文”进入的页面）的阅读人数，无原文页时此处数据为0
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadHourItem.ori_page_read_count">
+            <summary>
+            原文页的阅读次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadHourItem.share_user">
+            <summary>
+            分享的人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadHourItem.share_count">
+            <summary>
+            分享的次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadHourItem.add_to_fav_user">
+            <summary>
+            收藏的人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserReadHourItem.add_to_fav_count">
+            <summary>
+            收藏的次数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UserShareResultJson">
+            <summary>
+            获取图文分享转发数据返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserShareItem.ref_date">
+            <summary>
+            数据的日期
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserShareItem.share_scene">
+             <summary>
+             分享的场景
+            1代表好友转发 2代表朋友圈 3代表腾讯微博 255代表其他
+             </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserShareItem.share_count">
+            <summary>
+            分享的人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserShareItem.share_user">
+            <summary>
+            分享的次数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UserShareHourResultJson">
+            <summary>
+            获取图文分享转发分时数据返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserShareHourItem.ref_date">
+            <summary>
+            数据的日期
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserShareHourItem.ref_hour">
+            <summary>
+            数据的小时，包括从000到2300，分别代表的是[000,100)到[2300,2400)，即每日的第1小时和最后1小时
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserShareHourItem.share_scene">
+             <summary>
+             分享的场景
+            1代表好友转发 2代表朋友圈 3代表腾讯微博 255代表其他
+             </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserShareHourItem.share_count">
+            <summary>
+            分享的人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UserShareHourItem.share_user">
+            <summary>
+            分享的次数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.MessageAnalysis">
+            <summary>
+            消息分析数据接口
+            最大时间跨度是指一次接口调用时最大可获取数据的时间范围，如最大时间跨度为7是指最多一次性获取7天的数据。
+            注意：所有的日期请使用【yyyy-MM-dd】的格式
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MessageAnalysis.GetUpStreamMsg(System.String,System.String,System.String)">
+            <summary>
+            获取消息发送概况数据（getupstreammsg）
+            最大时间跨度 7
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MessageAnalysis.GetUpStreamMsgHour(System.String,System.String,System.String)">
+            <summary>
+            获取消息分送分时数据（getupstreammsghour）
+            最大时间跨度 1
+            </summary>
+            <param name="accessToken"></param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MessageAnalysis.GetUpStreamMsgWeek(System.String,System.String,System.String)">
+            <summary>
+            获取消息发送周数据（getupstreammsgweek）
+            最大时间跨度 30
+            </summary>
+            <param name="accessToken"></param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MessageAnalysis.GetUpStreamMsgMonth(System.String,System.String,System.String)">
+            <summary>
+            获取消息发送月数据（getupstreammsgmonth）
+            最大时间跨度 30
+            </summary>
+            <param name="accessToken"></param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MessageAnalysis.GetUpStreamMsgDist(System.String,System.String,System.String)">
+            <summary>
+            获取消息发送分布数据（getupstreammsgdist）
+            最大时间跨度 15
+            </summary>
+            <param name="accessToken"></param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MessageAnalysis.GetUpStreamMsgDistWeek(System.String,System.String,System.String)">
+            <summary>
+            获取消息发送分布周数据（getupstreammsgdistweek）
+            最大时间跨度 30
+            </summary>
+            <param name="accessToken"></param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MessageAnalysis.GetUpStreamMsgDistMonth(System.String,System.String,System.String)">
+            <summary>
+            获取消息发送分布月数据（getupstreammsgdistmonth）
+            最大时间跨度 30
+            </summary>
+            <param name="accessToken"></param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseUpStreamMsgResult.ref_date">
+            <summary>
+            数据的日期，需在begin_date和end_date之间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseUpStreamMsgResult.msg_type">
+            <summary>
+            消息类型，代表含义如下：1代表文字 2代表图片 3代表语音 4代表视频 6代表第三方应用消息（链接消息）        
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseUpStreamMsgResult.msg_user">
+            <summary>
+            上行发送了（向公众号发送了）消息的用户数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseUpStreamMsgResult.msg_count">
+            <summary>
+            上行发送了消息的消息总数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UpStreamMsgResultJson">
+            <summary>
+            获取消息发送概况数据返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UpStreamMsgHourResultJson">
+            <summary>
+            获取消息分送分时数据返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UpStreamMsgHour.ref_hour">
+            <summary>
+            数据的小时，包括从000到2300，分别代表的是[000,100)到[2300,2400)，即每日的第1小时和最后1小时
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UpStreamMsgWeekResultJson">
+            <summary>
+            获取消息发送周数据返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UpStreamMsgMonthResultJson">
+            <summary>
+            获取消息发送月数据返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseUpStreamMsgDist.ref_date">
+            <summary>
+            数据的日期，需在begin_date和end_date之间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseUpStreamMsgDist.count_interval">
+            <summary>
+            当日发送消息量分布的区间，0代表 “0”，1代表“1-5”，2代表“6-10”，3代表“10次以上”
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseUpStreamMsgDist.msg_user">
+            <summary>
+            上行发送了（向公众号发送了）消息的用户数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UpStreamMsgDistResultJson">
+            <summary>
+            获取消息发送分布数据返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UpStreamMsgDistWeekResultJson">
+            <summary>
+            获取消息发送分布周数据返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UpStreamMsgDistMonthResultJson">
+            <summary>
+            获取消息发送分布月数据返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.InterfaceAnalysis">
+            <summary>
+            接口分析数据接口
+            最大时间跨度是指一次接口调用时最大可获取数据的时间范围，如最大时间跨度为7是指最多一次性获取7天的数据。
+            注意：所有的日期请使用【yyyy-MM-dd】的格式
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.InterfaceAnalysis.GetInterfaceSummary(System.String,System.String,System.String)">
+            <summary>
+            获取接口分析数据（getinterfacesummary）
+            最大时间跨度 30
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.InterfaceAnalysis.GetInterfaceSummaryHour(System.String,System.String,System.String)">
+            <summary>
+            获取接口分析分时数据（getinterfacesummaryhour）
+            最大时间跨度 1
+            </summary>
+            <param name="accessToken"></param>
+            <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
+            <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
+            <returns></returns>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInterfaceAnalysisResult.ref_date">
+            <summary>
+            数据的日期，需在begin_date和end_date之间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInterfaceAnalysisResult.callback_count">
+            <summary>
+            通过服务器配置地址获得消息后，被动回复用户消息的次数      
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInterfaceAnalysisResult.fail_count">
+            <summary>
+            上述动作的失败次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInterfaceAnalysisResult.total_time_cost">
+            <summary>
+            总耗时，除以callback_count即为平均耗时
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInterfaceAnalysisResult.max_time_cost">
+            <summary>
+            最大耗时
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.InterfaceSummaryResultJson">
+            <summary>
+            获取接口分析数据返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.InterfaceSummaryHourResultJson">
+            <summary>
+            获取接口分析分时数据返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.InterfaceSummaryHour.ref_hour">
+            <summary>
+            数据的小时
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseCardCreateInfo.card">
             <summary>
             卡券信息部分
@@ -298,16 +887,6 @@
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CardCreateResultJson">
             <summary>
             创建卡券返回结果
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.Entities.WxJsonResult">
-            <summary>
-            JSON返回结果（用于菜单接口等）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Entities.WxJsonResult.P2PData">
-            <summary>
-            为P2P返回结果做准备
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CardCreateResultJson.card_id">
@@ -1927,6 +2506,61 @@
             此属性在CreateGroupResult的Json数据中，创建结果中始终为0
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.JSSDK">
+            <summary>
+            创建卡券接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.JSSDK.CreateCard(System.String,Senparc.Weixin.MP.CardType,System.Object)">
+            <summary>
+            创建卡券
+            </summary>
+            <param name="accessToken"></param>
+            <param name="cardType">卡券类型</param>
+            <param name="data">创建卡券需要的数据，格式可以看CardCreateData.cs</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.JSSDK.GetColors(System.String)">
+            <summary>
+            获取颜色列表接口
+            </summary>
+            <param name="accessToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.JSSDK.CreateQR(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            生成卡券二维码
+            获取二维码ticket 后，开发者可用ticket 换取二维码图片。换取指引参考：http://mp.weixin.qq.com/wiki/index.php?title=生成带参数的二维码
+            </summary>
+            <param name="accessToken"></param>
+            <param name="cardId">卡券ID</param>
+            <param name="code">指定卡券code 码，只能被领一次。use_custom_code 字段为true 的卡券必须填写，非自定义code 不必填写。</param>
+            <param name="openId">指定领取者的openid，只有该用户能领取。bind_openid 字段为true 的卡券必须填写，非自定义openid 不必填写。</param>
+            <param name="expireSeconds">指定二维码的有效时间，范围是60 ~ 1800 秒。不填默认为永久有效。</param>
+            <param name="isUniqueCode">指定下发二维码，生成的二维码随机分配一个code，领取后不可再次扫描。填写true 或false。默认false。</param>
+            <param name="balance">红包余额，以分为单位。红包类型必填（LUCKY_MONEY），其他卡券类型不填。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.JSSDK.CardConsume(System.String,System.String,System.String)">
+            <summary>
+            卡券消耗code
+            </summary>
+            <param name="accessToken"></param>
+            <param name="code">要消耗的序列号</param>
+            <param name="cardId">要消耗序列号所述的card_id，创建卡券时use_custom_code 填写true 时必填。非自定义code不必填写。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.JSSDK.CardDecrypt(System.String,System.String)">
+            <summary>
+            code 解码接口
+            code 解码接口支持两种场景：
+            1.商家获取choos_card_info 后，将card_id 和encrypt_code 字段通过解码接口，获取真实code。
+            2.卡券内跳转外链的签名中会对code 进行加密处理，通过调用解码接口获取真实code。
+            </summary>
+            <param name="accessToken"></param>
+            <param name="encryptCode">通过choose_card_info 获取的加密字符串</param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media">
             <summary>
             多媒体文件接口
@@ -2187,11 +2821,14 @@
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UserAnalysis">
             <summary>
             用户分析数据接口
+            最大时间跨度是指一次接口调用时最大可获取数据的时间范围，如最大时间跨度为7是指最多一次性获取7天的数据。
+            注意：所有的日期请使用【yyyy-MM-dd】的格式
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.UserAnalysis.GetUserSummary(System.String,System.String,System.String)">
             <summary>
             获取用户增减数据
+            最大时间跨度 7
             </summary>
             <param name="accessToken">调用接口凭证</param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
@@ -2201,6 +2838,7 @@
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.UserAnalysis.GetUserCumulate(System.String,System.String,System.String)">
             <summary>
             获取累计用户数据
+            最大时间跨度 7
             </summary>
             <param name="accessToken"></param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
@@ -2232,6 +2870,65 @@
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UserInfoJson">
             <summary>
             高级接口获取的用户信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer">
+            <summary>
+            通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.Register(System.String,System.String)">
+            <summary>
+            注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
+            </summary>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.TryGetTicket(System.String,System.String,System.Boolean)">
+            <summary>
+            使用完整的应用凭证获取Ticket，如果不存在将自动注册
+            </summary>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+            <param name="getNewTicket"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.GetTicket(System.String,System.Boolean)">
+            <summary>
+            获取可用Ticket
+            </summary>
+            <param name="appId"></param>
+            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.GetTicketResult(System.String,System.Boolean)">
+            <summary>
+            获取可用Ticket
+            </summary>
+            <param name="appId"></param>
+            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.CheckRegistered(System.String)">
+            <summary>
+            检查是否已经注册
+            </summary>
+            <param name="appId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.JsApiTicketResult">
+            <summary>
+            jsapi_ticket请求后的JSON返回格式
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.JsApiTicketResult.ticket">
+            <summary>
+            获取到的凭证
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.JsApiTicketResult.expires_in">
+            <summary>
+            凭证有效时间，单位：秒
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleScancodePushButton">
@@ -2508,6 +3205,78 @@
             <summary>
             根据xml信息，返回ResponseMsgType
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.SetParameter(System.String,System.String)">
+            <summary>
+            设置参数值
+            </summary>
+            <param name="parameter"></param>
+            <param name="parameterValue"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetNoncestr">
+            <summary>
+            获取随机字符串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetTimestamp">
+            <summary>
+            获取时间戳
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.CreateSha1">
+            <summary>
+            sha1加密
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.CreateCardSha1">
+            <summary>
+            生成cardSign的加密方法
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetSignature(System.String,System.String,System.String,System.String)">
+            <summary>
+            获取JS-SDK权限验证的签名Signature
+            </summary>
+            <param name="ticket"></param>
+            <param name="noncestr"></param>
+            <param name="timestamp"></param>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetAddrSign(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            获取位置签名AddrSign
+            </summary>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+            <param name="noncestr"></param>
+            <param name="timestamp"></param>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetCardSign(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            获取卡券签名CardSign
+            </summary>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+            <param name="locationId"></param>
+            <param name="noncestr"></param>
+            <param name="timestamp"></param>
+            <param name="cardId"></param>
+            <param name="cardType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.SHA1UtilHelper.GetSha1(System.String)">
+            <summary>
+            签名算法
+            </summary>
+            <param name="str"></param>
             <returns></returns>
         </member>
         <member name="M:Tencent.Cryptography.AES_decrypt(System.String,System.String,System.String@)">
@@ -2962,6 +3731,19 @@
             对账单下载接口
             </summary>
             <param name="httpContext"></param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLib.MD5Util">
+            <summary>
+            MD5Util 的摘要说明。
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.MD5Util.GetMD5(System.String,System.String)">
+            <summary>
+            获取大写的MD5签名结果
+            </summary>
+            <param name="encypStr"></param>
+            <param name="charset"></param>
+            <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RefundQueryRequestHandler.#ctor(System.Web.HttpContext)">
             <summary>
@@ -3794,6 +4576,15 @@
             </summary>
             <param name="accessToken"></param>
             <param name="openId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetTicket(System.String,System.String,System.String)">
+            <summary>
+            获取调用微信JS接口的临时票据
+            </summary>
+            <param name="appId"></param>
+            <param name="secret"></param>
+            <param name="type"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.CreateMenu(System.String,Senparc.Weixin.MP.Entities.Menu.ButtonGroup)">
@@ -4886,12 +5677,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.MP.TenPayLib.MD5Util">
+        <member name="T:Senparc.Weixin.MP.Helpers.MD5UtilHelper">
             <summary>
-            MD5Util 的摘要说明。
+            MD5UtilHelper 的摘要说明。
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLib.MD5Util.GetMD5(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.Helpers.MD5UtilHelper.GetMD5(System.String,System.String)">
             <summary>
             获取大写的MD5签名结果
             </summary>

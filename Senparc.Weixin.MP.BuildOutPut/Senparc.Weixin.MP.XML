@@ -1927,6 +1927,61 @@
             此属性在CreateGroupResult的Json数据中，创建结果中始终为0
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.JSSDK">
+            <summary>
+            创建卡券接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.JSSDK.CreateCard(System.String,Senparc.Weixin.MP.CardType,System.Object)">
+            <summary>
+            创建卡券
+            </summary>
+            <param name="accessToken"></param>
+            <param name="cardType">卡券类型</param>
+            <param name="data">创建卡券需要的数据，格式可以看CardCreateData.cs</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.JSSDK.GetColors(System.String)">
+            <summary>
+            获取颜色列表接口
+            </summary>
+            <param name="accessToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.JSSDK.CreateQR(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            生成卡券二维码
+            获取二维码ticket 后，开发者可用ticket 换取二维码图片。换取指引参考：http://mp.weixin.qq.com/wiki/index.php?title=生成带参数的二维码
+            </summary>
+            <param name="accessToken"></param>
+            <param name="cardId">卡券ID</param>
+            <param name="code">指定卡券code 码，只能被领一次。use_custom_code 字段为true 的卡券必须填写，非自定义code 不必填写。</param>
+            <param name="openId">指定领取者的openid，只有该用户能领取。bind_openid 字段为true 的卡券必须填写，非自定义openid 不必填写。</param>
+            <param name="expireSeconds">指定二维码的有效时间，范围是60 ~ 1800 秒。不填默认为永久有效。</param>
+            <param name="isUniqueCode">指定下发二维码，生成的二维码随机分配一个code，领取后不可再次扫描。填写true 或false。默认false。</param>
+            <param name="balance">红包余额，以分为单位。红包类型必填（LUCKY_MONEY），其他卡券类型不填。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.JSSDK.CardConsume(System.String,System.String,System.String)">
+            <summary>
+            卡券消耗code
+            </summary>
+            <param name="accessToken"></param>
+            <param name="code">要消耗的序列号</param>
+            <param name="cardId">要消耗序列号所述的card_id，创建卡券时use_custom_code 填写true 时必填。非自定义code不必填写。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.JSSDK.CardDecrypt(System.String,System.String)">
+            <summary>
+            code 解码接口
+            code 解码接口支持两种场景：
+            1.商家获取choos_card_info 后，将card_id 和encrypt_code 字段通过解码接口，获取真实code。
+            2.卡券内跳转外链的签名中会对code 进行加密处理，通过调用解码接口获取真实code。
+            </summary>
+            <param name="accessToken"></param>
+            <param name="encryptCode">通过choose_card_info 获取的加密字符串</param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media">
             <summary>
             多媒体文件接口
@@ -2234,6 +2289,65 @@
             高级接口获取的用户信息
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer">
+            <summary>
+            通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.Register(System.String,System.String)">
+            <summary>
+            注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
+            </summary>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.TryGetTicket(System.String,System.String,System.Boolean)">
+            <summary>
+            使用完整的应用凭证获取Ticket，如果不存在将自动注册
+            </summary>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+            <param name="getNewTicket"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.GetTicket(System.String,System.Boolean)">
+            <summary>
+            获取可用Ticket
+            </summary>
+            <param name="appId"></param>
+            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.GetTicketResult(System.String,System.Boolean)">
+            <summary>
+            获取可用Ticket
+            </summary>
+            <param name="appId"></param>
+            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.CheckRegistered(System.String)">
+            <summary>
+            检查是否已经注册
+            </summary>
+            <param name="appId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.JsApiTicketResult">
+            <summary>
+            jsapi_ticket请求后的JSON返回格式
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.JsApiTicketResult.ticket">
+            <summary>
+            获取到的凭证
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.JsApiTicketResult.expires_in">
+            <summary>
+            凭证有效时间，单位：秒
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleScancodePushButton">
             <summary>
             单个按键
@@ -2508,6 +2622,78 @@
             <summary>
             根据xml信息，返回ResponseMsgType
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.SetParameter(System.String,System.String)">
+            <summary>
+            设置参数值
+            </summary>
+            <param name="parameter"></param>
+            <param name="parameterValue"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetNoncestr">
+            <summary>
+            获取随机字符串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetTimestamp">
+            <summary>
+            获取时间戳
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.CreateSha1">
+            <summary>
+            sha1加密
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.CreateCardSha1">
+            <summary>
+            生成cardSign的加密方法
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetSignature(System.String,System.String,System.String,System.String)">
+            <summary>
+            获取JS-SDK权限验证的签名Signature
+            </summary>
+            <param name="ticket"></param>
+            <param name="noncestr"></param>
+            <param name="timestamp"></param>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetAddrSign(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            获取位置签名AddrSign
+            </summary>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+            <param name="noncestr"></param>
+            <param name="timestamp"></param>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetCardSign(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            获取卡券签名CardSign
+            </summary>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+            <param name="locationId"></param>
+            <param name="noncestr"></param>
+            <param name="timestamp"></param>
+            <param name="cardId"></param>
+            <param name="cardType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.SHA1UtilHelper.GetSha1(System.String)">
+            <summary>
+            签名算法
+            </summary>
+            <param name="str"></param>
             <returns></returns>
         </member>
         <member name="M:Tencent.Cryptography.AES_decrypt(System.String,System.String,System.String@)">
@@ -2962,6 +3148,19 @@
             对账单下载接口
             </summary>
             <param name="httpContext"></param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLib.MD5Util">
+            <summary>
+            MD5Util 的摘要说明。
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLib.MD5Util.GetMD5(System.String,System.String)">
+            <summary>
+            获取大写的MD5签名结果
+            </summary>
+            <param name="encypStr"></param>
+            <param name="charset"></param>
+            <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RefundQueryRequestHandler.#ctor(System.Web.HttpContext)">
             <summary>
@@ -3723,6 +3922,11 @@
             <param name="token"></param>
             <returns></returns>
         </member>
+        <member name="F:Senparc.Weixin.MP.CommonAPIs.AccessTokenBag.Lock">
+            <summary>
+            只针对这个AppId的锁
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer">
             <summary>
             通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
@@ -3794,6 +3998,15 @@
             </summary>
             <param name="accessToken"></param>
             <param name="openId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetTicket(System.String,System.String,System.String)">
+            <summary>
+            获取调用微信JS接口的临时票据
+            </summary>
+            <param name="appId"></param>
+            <param name="secret"></param>
+            <param name="type"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.CreateMenu(System.String,Senparc.Weixin.MP.Entities.Menu.ButtonGroup)">
@@ -4886,12 +5099,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.MP.TenPayLib.MD5Util">
+        <member name="T:Senparc.Weixin.MP.Helpers.MD5UtilHelper">
             <summary>
-            MD5Util 的摘要说明。
+            MD5UtilHelper 的摘要说明。
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLib.MD5Util.GetMD5(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.Helpers.MD5UtilHelper.GetMD5(System.String,System.String)">
             <summary>
             获取大写的MD5签名结果
             </summary>

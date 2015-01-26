@@ -13,6 +13,10 @@ namespace Senparc.Weixin.MP.CommonAPIs
         public string AppSecret { get; set; }
         public DateTime ExpireTime { get; set; }
         public AccessTokenResult AccessTokenResult { get; set; }
+        /// <summary>
+        /// 只针对这个AppId的锁
+        /// </summary>
+        public object Lock = new object();
     }
 
     /// <summary>
@@ -80,11 +84,14 @@ namespace Senparc.Weixin.MP.CommonAPIs
             }
 
             var accessTokenBag = AccessTokenCollection[appId];
-            if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
+            lock (accessTokenBag.Lock)
             {
-                //已过期，重新获取
-                accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.AppId, accessTokenBag.AppSecret);
-                accessTokenBag.ExpireTime = DateTime.Now.AddSeconds(accessTokenBag.AccessTokenResult.expires_in);
+                if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
+                {
+                    //已过期，重新获取
+                    accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.AppId, accessTokenBag.AppSecret);
+                    accessTokenBag.ExpireTime = DateTime.Now.AddSeconds(accessTokenBag.AccessTokenResult.expires_in);
+                }
             }
             return accessTokenBag.AccessTokenResult;
         }

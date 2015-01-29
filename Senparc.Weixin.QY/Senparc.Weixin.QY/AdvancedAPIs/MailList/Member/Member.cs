@@ -165,5 +165,27 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return CommonJsonSend.Send<GetDepartmentMemberInfoResult>(null, url, null, CommonJsonSendType.GET);
         }
+
+        /// <summary>
+        /// 邀请成员关注
+        /// 认证号优先使用微信推送邀请关注，如果没有weixinid字段则依次对手机号，邮箱绑定的微信进行推送，全部没有匹配则通过邮件邀请关注。 邮箱字段无效则邀请失败。 非认证号只通过邮件邀请关注。邮箱字段无效则邀请失败。 已关注以及被禁用用户不允许发起邀请关注请求。
+        /// 测试发现同一个邮箱只发送一封邀请关注邮件，第二次再对此邮箱发送微信会提示系统错误
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="userId">用户的userid</param>
+        /// <param name="inviteTips">推送到微信上的提示语（只有认证号可以使用）。当使用微信推送时，该字段默认为“请关注XXX企业号”，邮件邀请时，该字段无效。</param>
+        /// <returns></returns>
+        public static GetDepartmentMemberInfoResult InviteMember(string accessToken, string userId, string inviteTips = null)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/invite/send?access_token={0}", accessToken);
+
+            var data = new
+                {
+                    userid = userId,
+                    invite_tips = inviteTips
+                };
+
+            return CommonJsonSend.Send<GetDepartmentMemberInfoResult>(null, url, data, CommonJsonSendType.POST);
+        }
     }
 }

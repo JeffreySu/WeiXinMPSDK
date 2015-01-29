@@ -243,6 +243,17 @@
             <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Member.InviteMember(System.String,System.String,System.String)">
+            <summary>
+            邀请成员关注
+            认证号优先使用微信推送邀请关注，如果没有weixinid字段则依次对手机号，邮箱绑定的微信进行推送，全部没有匹配则通过邮件邀请关注。 邮箱字段无效则邀请失败。 非认证号只通过邮件邀请关注。邮箱字段无效则邀请失败。 已关注以及被禁用用户不允许发起邀请关注请求。
+            测试发现同一个邮箱只发送一封邮件，第二次再对此邮箱发送微信会提示系统错误
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="userId">用户的userid</param>
+            <param name="inviteTips">推送到微信上的提示语（只有认证号可以使用）。当使用微信推送时，该字段默认为“请关注XXX企业号”，邮件邀请时，该字段无效。</param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Extattr">
             <summary>
             扩展属性
@@ -251,6 +262,11 @@
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.GetDepartmentMemberInfoResult">
             <summary>
             获取部门成员(详情)返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.InviteMemberResult.type">
+            <summary>
+            1:微信邀请 2.邮件邀请
             </summary>
         </member>
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Tag.CreateTag(System.String,System.String)">

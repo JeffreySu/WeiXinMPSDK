@@ -15,7 +15,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
     public partial class MemberTest
     {
         protected string _corpId = "wx7618c0a6d9358622"; //换成你的信息
-        protected string _corpSecret = "PKrd-r76fDCNjbUY5-9I1vhOkMqBly038Sc8zcODscmu202dqCtUWkxK7nrCGUaas"; //换成你的信息
+        protected string _corpSecret = "PKrd-r76fDCNjbUY5-9I1vhOkMqBly038Sc8zcODscmu202dqCtUWkxK7nrCGURss"; //换成你的信息
 
         public MemberTest()
         {
@@ -43,7 +43,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public void UpdateMemberTest(string userId)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.UpdateMember(accessToken, userId, null, new[] { 2 }, null, "18913536683");
+            var result = Member.UpdateMember(accessToken, userId, null, new[] { 2 }, null, "18913536683", email: "xxx@qq.com");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }
@@ -93,10 +93,19 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }
 
+        //[TestMethod]
+        public void InviteMemberTest(string userId)
+        {
+            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var result = Member.InviteMember(accessToken, userId, "欢迎");
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+        }
+
         [TestMethod]
         public void MemberTestAllSet()
         {
-            string userId = "003";
+            string userId = "33";
 
             
             //var userIds = new string[] { "ceshi1", "ceshi2" };
@@ -104,6 +113,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
 
             CreateMemberTest(userId);
             UpdateMemberTest(userId);
+            InviteMemberTest(userId);
             GetMember(userId);
             GetDepartmentMemberTest();
             GetDepartmentMemberInfoTest();

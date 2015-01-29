@@ -57,4 +57,12 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     {
         public List<GetMemberResult> userlist { get; set; }//成员列表
     }
+
+    public class InviteMemberResult:WxJsonResult
+    {
+        /// <summary>
+        /// 1:微信邀请 2.邮件邀请
+        /// </summary>
+        public int type { get; set; }
+    }
 }

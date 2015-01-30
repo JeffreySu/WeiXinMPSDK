@@ -2422,6 +2422,11 @@
             图文消息的描述
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.NewsModel.show_cover_pic">
+            <summary>
+            是否显示封面，1为显示，0为不显示
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.SendResult">
             <summary>
             发送信息后的结果

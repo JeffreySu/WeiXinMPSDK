@@ -116,6 +116,32 @@ namespace Senparc.Weixin.MessageHandlers
         /// </summary>
         public bool OmitRepeatedMessage { get; set; }
 
+        private string _textResponseMessage = null;
+
+        /// <summary>
+        /// 文字类型返回消息
+        /// </summary>
+        public string TextResponseMessage
+        {
+            get
+            {
+                if (_textResponseMessage == null)
+                {
+                    var reqponseMessageDocument = ResponseDocument;
+                    return reqponseMessageDocument == null ? null : reqponseMessageDocument.ToString();
+                }
+                else
+                {
+                    return _textResponseMessage;
+                }
+            }
+            set
+            {
+                _textResponseMessage = value;
+            }
+        }
+
+
         /// <summary>
         /// 
         /// </summary>

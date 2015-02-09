@@ -23,7 +23,7 @@ namespace Senparc.Weixin.QY.Entities
 
         public virtual RequestMsgType MsgType
         {
-            get { return RequestMsgType.Text; }
+            get { return RequestMsgType.DEFAULT; }
         }
 
         /// <summary>

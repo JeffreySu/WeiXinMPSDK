@@ -127,6 +127,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
             }
         }
 
+      
 
         private PostModel _postModel;
 
@@ -222,6 +223,31 @@ namespace Senparc.Weixin.QY.MessageHandlers
 
                 switch (RequestMessage.MsgType)
                 {
+                    case RequestMsgType.DEFAULT://第三方回调
+                        {
+                            if (RequestMessage is IThirdPartyInfoBase)
+                            {
+                                var thirdPartyInfo = RequestMessage as IThirdPartyInfoBase;
+                                switch (thirdPartyInfo.InfoType)
+                                {
+                                    case ThirdPartyInfo.SUITE_TICKET:
+                                        break;
+                                    case ThirdPartyInfo.CHANGE_AUTH:
+                                        break;
+                                    case ThirdPartyInfo.CANCEL_AUTH:
+                                        break;
+                                    default:
+                                        throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
+                                }
+                                TextResponseMessage = "success";//设置文字类型返回
+                            }
+                            else
+                            {
+                                throw new WeixinException("没有找到合适的消息类型。");
+                            }
+                        }
+                        break;
+                    //以下是普通信息
                     case RequestMsgType.Text:
                         {
                             var requestMessage = RequestMessage as RequestMessageText;

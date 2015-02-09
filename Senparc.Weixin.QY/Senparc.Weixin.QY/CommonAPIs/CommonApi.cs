@@ -61,5 +61,22 @@ namespace Senparc.Weixin.QY.CommonAPIs
 
             return CommonJsonSend.Send<GetCallBackIpResult>(null, url, null, CommonJsonSendType.GET);
         }
+
+        /// <summary>
+        /// 获取调用微信JS接口的临时票据
+        /// </summary>
+        /// <param name="corpId"></param>
+        /// <param name="corpSecret"></param>
+        /// <returns></returns>
+        public static JsApiTicketResult GetTicket(string corpId, string corpSecret)
+        {
+            var accessToken = GetToken(corpId, corpSecret).access_token;
+
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token={0}",
+                                    accessToken);
+
+            JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
+            return result;
+        }
     }
 }

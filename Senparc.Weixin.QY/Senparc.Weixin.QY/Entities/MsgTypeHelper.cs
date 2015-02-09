@@ -28,6 +28,26 @@ namespace Senparc.Weixin.QY.Helpers
 
         #endregion
 
+        #region ThirdPartyInfo
+        /// <summary>
+        /// 根据xml信息，返回ThirdPartyInfo
+        /// </summary>
+        /// <returns></returns>
+        public static ThirdPartyInfo GetThirdPartyInfo(XDocument doc)
+        {
+            return GetThirdPartyInfo(doc.Root.Element("InfoType").Value);
+        }
+        /// <summary>
+        /// 根据xml信息，返回RequestInfoType
+        /// </summary>
+        /// <returns></returns>
+        public static ThirdPartyInfo GetThirdPartyInfo(string str)
+        {
+            return (ThirdPartyInfo)Enum.Parse(typeof(ThirdPartyInfo), str, true);
+        }
+
+        #endregion
+
         #region ResponseMsgType
         /// <summary>
         /// 根据xml信息，返回ResponseMsgType

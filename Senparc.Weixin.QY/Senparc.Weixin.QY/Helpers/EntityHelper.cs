@@ -64,6 +64,10 @@ namespace Senparc.Weixin.QY.Helpers
 							//已设为只读
 							//prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
 							break;
+                        case "ThirdPartyInfo"://ThirdPartyInfo适用
+                            //已设为只读
+                            //prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
+                            break;
 						case "Event":
 							//已设为只读
 							//prop.SetValue(entity, EventHelper.GetEventType(root.Element(propName).Value), null);

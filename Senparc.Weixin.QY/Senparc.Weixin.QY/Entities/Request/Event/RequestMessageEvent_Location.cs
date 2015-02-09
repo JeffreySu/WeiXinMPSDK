@@ -6,7 +6,7 @@ using System.Text;
 namespace Senparc.Weixin.QY.Entities
 {
     /// <summary>
-    /// 
+    /// 上报地理位置事件
     /// </summary>
     public class RequestMessageEvent_Location : RequestMessageEventBase, IRequestMessageEventBase
     {

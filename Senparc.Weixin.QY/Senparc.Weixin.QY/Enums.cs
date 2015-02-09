@@ -10,6 +10,7 @@ namespace Senparc.Weixin.QY
     /// </summary>
     public enum  RequestMsgType
     {
+        DEFAULT,//默认
         Text, //文本
         Location, //地理位置
         Image, //图片
@@ -102,7 +103,25 @@ namespace Senparc.Weixin.QY
         /// <summary>
         /// 用户进入应用的事件推送
         /// </summary>
-        ENTER_AGENT
+        ENTER_AGENT,
+    }
+
+    public enum ThirdPartyInfo
+    {
+        /// <summary>
+        /// 推送suite_ticket协议
+        /// </summary>
+        SUITE_TICKET,
+
+        /// <summary>
+        /// 变更授权的通知
+        /// </summary>
+        CHANGE_AUTH,
+
+        /// <summary>
+        /// 取消授权的通知
+        /// </summary>
+        CANCEL_AUTH,
     }
 
 
@@ -295,5 +314,11 @@ namespace Senparc.Weixin.QY
         /// 英文
         /// </summary>
         en
+    }
+
+    public enum SetAgent_IsReportUser
+    {
+        不接受 = 0,
+        接收 = 1
     }
 }

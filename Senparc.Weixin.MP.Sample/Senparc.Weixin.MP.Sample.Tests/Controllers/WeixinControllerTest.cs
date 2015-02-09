@@ -196,5 +196,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             Assert.AreEqual(recordCount, weixinContext.RequestMessages.Count);
             Assert.AreEqual(recordCount, weixinContext.ResponseMessages.Count);
         }
+
+       
     }
 }

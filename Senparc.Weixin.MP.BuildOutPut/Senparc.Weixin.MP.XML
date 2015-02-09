@@ -2877,6 +2877,11 @@
             高级接口获取的用户信息
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.MP.CommonAPIs.JsApiTicketBag.Lock">
+            <summary>
+            只针对这个AppId的锁
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer">
             <summary>
             通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
@@ -3600,13 +3605,6 @@
             关闭订单接口
             </summary>
             <param name="data">关闭订单需要post的xml数据</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.Refund(System.String)">
-            <summary>
-            退款申请接口
-            </summary>
-            <param name="data"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.RefundQuery(System.String)">

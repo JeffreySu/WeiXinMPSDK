@@ -42,6 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvancedAPIs\Concern\Concern.cs" />
+    <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuth.cs" />
+    <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthResult.cs" />
+    <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthPostData.cs" />
+    <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
     <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
     <Compile Include="AdvancedAPIs\Mass\Mass.cs" />
     <Compile Include="AdvancedAPIs\Mass\MassResult.cs" />
@@ -61,6 +65,7 @@
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Entities\JsonResult\GetMenuResult.cs" />
     <Compile Include="Entities\JsonResult\GetMenuResultFull.cs" />
+    <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\Menu\SingleLocationSelectButton.cs" />
     <Compile Include="Entities\Menu\SinglePicPhotoOrAlbumButton.cs" />
     <Compile Include="Entities\Menu\SinglePicSysphotoButton.cs" />
@@ -94,6 +99,10 @@
     <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
     <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Enter_Agent.cs" />
+    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfoBase.cs" />
+    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Suite_Ticket.cs" />
+    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Change_Auth.cs" />
+    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Cancel_Auth.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\RequestMessageBase.cs" />
     <Compile Include="Entities\Request\RequestMessageImage.cs" />
@@ -116,6 +125,9 @@
     <Compile Include="Entities\Response\ResponseMessageMpNews.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
+    <Compile Include="Helpers\JSSDKHelper.cs" />
+    <Compile Include="Helpers\MD5UtilHelper.cs" />
+    <Compile Include="Helpers\SHA1UtilHelper.cs" />
     <Compile Include="MessageHandlers\QyMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestMessageFactory.cs" />

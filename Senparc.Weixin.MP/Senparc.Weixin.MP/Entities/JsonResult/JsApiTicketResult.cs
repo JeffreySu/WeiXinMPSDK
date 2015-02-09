@@ -8,7 +8,7 @@ namespace Senparc.Weixin.MP.Entities
     /// <summary>
     /// jsapi_ticket请求后的JSON返回格式
     /// </summary>
-    public class JsApiTicketResult
+    public class JsApiTicketResult : WxJsonResult
     {
         /// <summary>
         /// 获取到的凭证

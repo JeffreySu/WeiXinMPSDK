@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -232,20 +236,54 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
             packageReqHandler.SetParameter("out_trade_no", "");                 //填入商家订单号
             packageReqHandler.SetParameter("out_refund_no", "");                //填入退款订单号
-            packageReqHandler.SetParameter("total_fee", "1");               //总金额
-            packageReqHandler.SetParameter("refund_fee", "1");               //退款金额
+            packageReqHandler.SetParameter("total_fee", "");               //填入总金额
+            packageReqHandler.SetParameter("refund_fee", "");               //填入退款金额
             packageReqHandler.SetParameter("op_user_id", TenPayV3Info.MchId);   //操作员Id，默认就是商户号
             packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
             string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
             packageReqHandler.SetParameter("sign", sign);	                    //签名
-
+            //退款需要post的数据
             string data = packageReqHandler.ParseXML();
 
-            var result = TenPayV3.Refund(data);
-            var res = XDocument.Parse(result);
+            //退款接口地址
+            string url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+            //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
+            string cert = @"F:\apiclient_cert.p12";
+            //私钥（在安装证书时设置）
+            string password = "";
+            ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
+            //调用证书
+            X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+
+            #region 发起post请求
+            HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            webrequest.ClientCertificates.Add(cer);
+            webrequest.Method = "post";
+
+            byte[] postdatabyte = Encoding.UTF8.GetBytes(data);
+            webrequest.ContentLength = postdatabyte.Length;
+            Stream stream;
+            stream = webrequest.GetRequestStream();
+            stream.Write(postdatabyte, 0, postdatabyte.Length);
+            stream.Close();
+
+            HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
+            StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
+            string responseContent = streamReader.ReadToEnd();
+            #endregion
+
+            var res = XDocument.Parse(responseContent);
             string openid = res.Element("xml").Element("out_refund_no").Value;
 
             return Content(openid);
         }
+
+        private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
+        {
+            if (errors == SslPolicyErrors.None)
+                return true;
+            return false;
+        }
+
     }
 }

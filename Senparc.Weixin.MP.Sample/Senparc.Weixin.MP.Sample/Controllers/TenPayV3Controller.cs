@@ -285,5 +285,69 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return false;
         }
 
+        /// <summary>
+        /// 目前支持向指定微信用户的openid发放指定金额红包
+        /// 注意total_amount、min_value、max_value值相同
+        /// total_num=1固定
+        /// 单个红包金额介于[1.00元，200.00元]之间
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult SendRedPack()
+        {
+            string mchbillno = DateTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(28);
+
+            string nonceStr = TenPayUtil.GetNoncestr();
+            RequestHandler packageReqHandler = new RequestHandler(null);
+
+            //设置package订单参数
+            packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
+            packageReqHandler.SetParameter("wxappid", TenPayV3Info.AppId);		  //公众账号ID
+            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
+            packageReqHandler.SetParameter("mch_billno", mchbillno);                 //填入商家订单号
+            packageReqHandler.SetParameter("nick_name", "提供方名称");                 //提供方名称
+            packageReqHandler.SetParameter("send_name", "红包发送者名称");                 //红包发送者名称
+            packageReqHandler.SetParameter("re_openid", "接受收红包的用户的openId");                 //接受收红包的用户的openId
+            packageReqHandler.SetParameter("total_amount", "100");                //付款金额，单位分
+            packageReqHandler.SetParameter("min_value", "100");                //最小红包金额，单位分
+            packageReqHandler.SetParameter("max_value", "100");                //最大红包金额，单位分
+            packageReqHandler.SetParameter("total_num", "1");               //红包发放总人数
+            packageReqHandler.SetParameter("wishing", "红包祝福语");               //红包祝福语
+            packageReqHandler.SetParameter("client_ip", Request.UserHostAddress);               //调用接口的机器Ip地址
+            packageReqHandler.SetParameter("act_name", "活动名称");   //活动名称
+            packageReqHandler.SetParameter("remark", "备注信息");   //备注信息
+            string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+            packageReqHandler.SetParameter("sign", sign);	                    //签名
+            //退款需要post的数据
+            string data = packageReqHandler.ParseXML();
+
+            //退款接口地址
+            string url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
+            //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
+            string cert = @"F:\apiclient_cert.p12";
+            //私钥（在安装证书时设置）
+            string password = "";
+            ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
+            //调用证书
+            X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+
+            #region 发起post请求
+            HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            webrequest.ClientCertificates.Add(cer);
+            webrequest.Method = "post";
+
+            byte[] postdatabyte = Encoding.UTF8.GetBytes(data);
+            webrequest.ContentLength = postdatabyte.Length;
+            Stream stream;
+            stream = webrequest.GetRequestStream();
+            stream.Write(postdatabyte, 0, postdatabyte.Length);
+            stream.Close();
+
+            HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
+            StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
+            string responseContent = streamReader.ReadToEnd();
+            #endregion
+
+            return Content(responseContent);
+        }
     }
 }

@@ -593,264 +593,27 @@
             数据的小时
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseCardCreateInfo.card">
-            <summary>
-            卡券信息部分
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_GeneralCoupon">
-            <summary>
-            通用券
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_Groupon">
-            <summary>
-            团购券
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_Gift">
-            <summary>
-            礼品券
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_Cash">
-            <summary>
-            代金券
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_DisCount">
-            <summary>
-            折扣券
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_MemberCard">
-            <summary>
-            会员卡
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_ScenicTicket">
-            <summary>
-            门票
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_MovieTicket">
-            <summary>
-            电影票
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_BoardingPass">
-            <summary>
-            飞机票
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_LuckyMoney">
-            <summary>
-            红包
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseCardInfo.base_info">
-            <summary>
-            基本的卡券数据
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo">
-            <summary>
-            基本的卡券数据，所有卡券通用。
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.logo_url">
-            <summary>
-            卡券的商户logo，尺寸为300*300。
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.code_type">
-            <summary>
-            code 码展示类型
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.brand_name">
-            <summary>
-            商户名字,字数上限为12 个汉字。（填写直接提供服务的商户名， 第三方商户名填写在source 字段）
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.title">
-            <summary>
-            券名，字数上限为9 个汉字。(建议涵盖卡券属性、服务及金额)
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.sub_title">
-            <summary>
-            券名的副标题，字数上限为18个汉字。
-            非必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.color">
-            <summary>
-            券颜色。按色彩规范标注填写Color010-Color100
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.notice">
-            <summary>
-            使用提醒，字数上限为9 个汉字。（一句话描述，展示在首页，示例：请出示二维码核销卡券）
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.service_phone">
-            <summary>
-            客服电话
-            非必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.source">
-            <summary>
-            第三方来源名，例如同程旅游、格瓦拉。
-            非必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.description">
-            <summary>
-            使用说明。长文本描述，可以分行，上限为1000 个汉字。
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.use_limit">
-            <summary>
-            每人使用次数限制
-            非必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.get_limit">
-            <summary>
-            每人最大领取次数，不填写默认等于quantity。
-            非必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.use_custom_code">
-            <summary>
-            是否自定义code 码。填写true或false，不填代表默认为false。
-            非必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.bind_openid">
-            <summary>
-            是否指定用户领取，填写true或false。不填代表默认为否。
-            非必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.can_share">
-            <summary>
-            领取卡券原生页面是否可分享，填写true 或false，true 代表可分享。默认可分享。
-            非必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.can_give_friend">
-            <summary>
-            卡券是否可转赠，填写true 或false,true 代表可转赠。默认可转赠。
-            非必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.location_id_list">
-            <summary>
-            门店位置ID。商户需在mp 平台上录入门店信息或调用批量导入门店信息接口获取门店位置ID。
-            非必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.date_info">
-            <summary>
-            使用日期，有效期的信息
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.sku">
-            <summary>
-            商品信息
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.url_name_type">
-            <summary>
-            商户自定义cell 名称
-            非必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfo.custom_url">
-            <summary>
-            商户自定义url 地址，支持卡券页内跳转,跳转页面内容需与自定义cell 名称保持一致。
-            非必填
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CardCreate_DateInfo">
-            <summary>
-            使用日期，有效期的信息
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CardCreate_DateInfo.type">
-            <summary>
-            使用时间的类型 1：固定日期区间，2：固定时长（自领取后按天算）
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CardCreate_DateInfo.begin_timestamp">
-            <summary>
-            固定日期区间专用，表示起用时间。从1970 年1 月1 日00:00:00 至起用时间的秒数，最终需转换为字符串形态传入，下同。（单位为秒）
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CardCreate_DateInfo.end_timestamp">
-            <summary>
-            固定日期区间专用，表示结束时间。（单位为秒）
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CardCreate_DateInfo.fixed_term">
-            <summary>
-            固定时长专用，表示自领取后多少天内有效。（单位为天）
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CardCreate_DateInfo.fixed_begin_term">
-            <summary>
-            固定时长专用，表示自领取后多少天开始生效。（单位为天）
-            必填
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CardCreate_Sku">
-            <summary>
-            商品信息
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CardCreate_Sku.quantity">
-            <summary>
-            上架的数量。（不支持填写0或无限大）
-            必填
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CardCreate">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CardAPI">
             <summary>
             创建卡券接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardCreate.CreateCard(System.String,Senparc.Weixin.MP.CardType,System.Object)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardAPI.CreateCard(System.String,Senparc.Weixin.MP.AdvancedAPIs.Card.BaseCardInfo)">
             <summary>
             创建卡券
             </summary>
             <param name="accessToken"></param>
-            <param name="cardType">卡券类型</param>
-            <param name="data">创建卡券需要的数据，格式可以看CardCreateData.cs</param>
+            <param name="cardInfo">创建卡券需要的数据，格式可以看CardCreateData.cs</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardCreate.GetColors(System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardAPI.GetColors(System.String)">
             <summary>
             获取颜色列表接口
             </summary>
             <param name="accessToken"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardCreate.CreateQR(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardAPI.CreateQR(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String)">
             <summary>
             生成卡券二维码
             获取二维码ticket 后，开发者可用ticket 换取二维码图片。换取指引参考：http://mp.weixin.qq.com/wiki/index.php?title=生成带参数的二维码
@@ -864,7 +627,7 @@
             <param name="balance">红包余额，以分为单位。红包类型必填（LUCKY_MONEY），其他卡券类型不填。</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardCreate.CardConsume(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardAPI.CardConsume(System.String,System.String,System.String)">
             <summary>
             卡券消耗code
             </summary>
@@ -873,7 +636,7 @@
             <param name="cardId">要消耗序列号所述的card_id，创建卡券时use_custom_code 填写true 时必填。非自定义code不必填写。</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardCreate.CardDecrypt(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardAPI.CardDecrypt(System.String,System.String)">
             <summary>
             code 解码接口
             code 解码接口支持两种场景：
@@ -883,6 +646,81 @@
             <param name="accessToken"></param>
             <param name="encryptCode">通过choose_card_info 获取的加密字符串</param>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CardCreateInfo">
+            <summary>
+            创建卡券数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CardCreateInfo.card">
+            <summary>
+            卡券信息部分
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.CardCreateInfo_Card">
+            <summary>
+            卡券信息数据中的card字段
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_GeneralCoupon">
+            <summary>
+            通用券
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_Groupon">
+            <summary>
+            团购券
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_Gift">
+            <summary>
+            礼品券
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_Cash">
+            <summary>
+            代金券
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_DisCount">
+            <summary>
+            折扣券
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCard">
+            <summary>
+            会员卡
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_ScenicTicket">
+            <summary>
+            门票
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MovieTicket">
+            <summary>
+            电影票
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BoardingPass">
+            <summary>
+            飞机票
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_LuckyMoney">
+            <summary>
+            红包
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.BaseCardInfo.base_info">
+            <summary>
+            基本的卡券数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.BaseCardInfo.CardType">
+            <summary>
+            卡类型（不在Json数据中）
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CardCreateResultJson">
             <summary>
@@ -944,339 +782,339 @@
             code 解码
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_GeneralCouponData">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_GeneralCouponData">
             <summary>
             通用券数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_GeneralCouponData.default_detail">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_GeneralCouponData.default_detail">
             <summary>
             描述文本
             必填
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_GrouponData">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_GrouponData">
             <summary>
             团购券数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_GrouponData.deal_detail">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_GrouponData.deal_detail">
             <summary>
             团购券专用，团购详情
             必填
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_GiftData">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_GiftData">
             <summary>
             礼品券数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_GiftData.gift">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_GiftData.gift">
             <summary>
             礼品券专用，表示礼品名字
             必填
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_CashData">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_CashData">
             <summary>
             代金券数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_CashData.least_cost">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_CashData.least_cost">
             <summary>
             代金券专用，表示起用金额（单位为分）
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_CashData.reduce_cost">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_CashData.reduce_cost">
             <summary>
             代金券专用，表示减免金额（单位为分）
             必填
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_DisCountData">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_DisCountData">
             <summary>
             折扣券数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_DisCountData.discount">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_DisCountData.discount">
              <summary>
             折扣券专用，表示打折额度（百分比）。填30 就是七折。
              必填
              </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_MemberCardData">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData">
             <summary>
             会员卡数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_MemberCardData.supply_bonus">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.supply_bonus">
             <summary>
             是否支持积分，填写true 或false，如填写true，积分相关字段均为必填。填写false，积分字段无需填写。储值字段处理方式相同。
             必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_MemberCardData.supply_balance">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.supply_balance">
             <summary>
             是否支持储值，填写true 或false。
             必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_MemberCardData.bonus_cleared">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.bonus_cleared">
             <summary>
             积分清零规则
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_MemberCardData.bonus_rules">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.bonus_rules">
             <summary>
             积分规则
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_MemberCardData.balance_rules">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.balance_rules">
             <summary>
             储值说明
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_MemberCardData.prerogative">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.prerogative">
             <summary>
             特权说明
             必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_MemberCardData.bind_old_card_url">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.bind_old_card_url">
             <summary>
             绑定旧卡的url，与“activate_url”字段二选一必填。
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_MemberCardData.activate_url">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.activate_url">
             <summary>
             激活会员卡的url，与“bind_old_card_url”字段二选一必填。
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_ScenicTicketData">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_ScenicTicketData">
             <summary>
             门票数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_ScenicTicketData.ticket_class">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_ScenicTicketData.ticket_class">
             <summary>
             票类型，例如平日全票，套票等
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_ScenicTicketData.guide_url">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_ScenicTicketData.guide_url">
             <summary>
             导览图url
             非必填
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_MovieTicketData">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MovieTicketData">
             <summary>
             电影票数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_MovieTicketData.detail">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MovieTicketData.detail">
             <summary>
             电影票详请
             非必填
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_BoardingPassData">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BoardingPassData">
             <summary>
             飞机票数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_BoardingPassData.from">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BoardingPassData.from">
             <summary>
             起点，上限为18 个汉字
             必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_BoardingPassData.to">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BoardingPassData.to">
             <summary>
             终点，上限为18 个汉字
             必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_BoardingPassData.flight">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BoardingPassData.flight">
             <summary>
             航班
             必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_BoardingPassData.departure_time">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BoardingPassData.departure_time">
             <summary>
             起飞时间，上限为17 个汉字
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_BoardingPassData.landing_time">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BoardingPassData.landing_time">
             <summary>
             降落时间，上限为17 个汉字
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_BoardingPassData.check_in_url">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BoardingPassData.check_in_url">
             <summary>
             在线值机的链接
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_BoardingPassData.gate">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BoardingPassData.gate">
             <summary>
             登机口。如发生登机口变更，建议商家实时调用该接口变更
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_BoardingPassData.boarding_time">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BoardingPassData.boarding_time">
             <summary>
             登机时间，只显示“时分”不显示日期，按时间戳格式填写。如发生登机时间变更，建议商家实时调用该接口变更
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_BoardingPassData.air_model">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BoardingPassData.air_model">
             <summary>
             机型，上限为8 个汉字
             非必填
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_LuckyMoneyData">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_LuckyMoneyData">
             <summary>
             红包数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseCardUpdateInfo.card_id">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.BaseCardUpdateInfo.card_id">
             <summary>
             卡券信息部分
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CardUpdate_MemberCard">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.CardUpdate_MemberCard">
             <summary>
             会员卡
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CardUpdate_ScenicTicket">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.CardUpdate_ScenicTicket">
             <summary>
             门票
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CardUpdate_MovieTicket">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.CardUpdate_MovieTicket">
             <summary>
             电影票
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CardUpdate_BoardingPass">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.CardUpdate_BoardingPass">
             <summary>
             飞机票
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseUpdateInfo.base_info">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.BaseUpdateInfo.base_info">
             <summary>
             基本的卡券数据
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Update_BaseCardInfo">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Update_BaseCardInfo">
             <summary>
             基本的卡券数据，所有卡券通用。
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Update_BaseCardInfo.logo_url">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Update_BaseCardInfo.logo_url">
             <summary>
             卡券的商户logo，尺寸为300*300。
             必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Update_BaseCardInfo.color">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Update_BaseCardInfo.color">
             <summary>
             券颜色。按色彩规范标注填写Color010-Color100
             必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Update_BaseCardInfo.notice">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Update_BaseCardInfo.notice">
             <summary>
             使用提醒，字数上限为9 个汉字。（一句话描述，展示在首页，示例：请出示二维码核销卡券）
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Update_BaseCardInfo.service_phone">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Update_BaseCardInfo.service_phone">
             <summary>
             客服电话
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Update_BaseCardInfo.description">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Update_BaseCardInfo.description">
             <summary>
             使用说明。长文本描述，可以分行，上限为1000 个汉字。
             必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Update_BaseCardInfo.code_type">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Update_BaseCardInfo.code_type">
             <summary>
             code 码展示类型
             必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Update_BaseCardInfo.use_limit">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Update_BaseCardInfo.use_limit">
             <summary>
             每人使用次数限制
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Update_BaseCardInfo.get_limit">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Update_BaseCardInfo.get_limit">
             <summary>
             每人最大领取次数，不填写默认等于quantity。
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Update_BaseCardInfo.can_share">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Update_BaseCardInfo.can_share">
             <summary>
             领取卡券原生页面是否可分享，填写true 或false，true 代表可分享。默认可分享。
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Update_BaseCardInfo.can_give_friend">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Update_BaseCardInfo.can_give_friend">
             <summary>
             卡券是否可转赠，填写true 或false,true 代表可转赠。默认可转赠。
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Update_BaseCardInfo.location_id_list">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Update_BaseCardInfo.location_id_list">
             <summary>
             门店位置ID。商户需在mp 平台上录入门店信息或调用批量导入门店信息接口获取门店位置ID。
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Update_BaseCardInfo.date_info">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Update_BaseCardInfo.date_info">
             <summary>
             使用日期，有效期的信息
             必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Update_BaseCardInfo.url_name_type">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Update_BaseCardInfo.url_name_type">
             <summary>
             商户自定义cell 名称
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Update_BaseCardInfo.custom_url">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Update_BaseCardInfo.custom_url">
             <summary>
             商户自定义url 地址，支持卡券页内跳转,跳转页面内容需与自定义cell 名称保持一致。
             非必填
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_UpdateDateInfo">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_UpdateDateInfo">
             <summary>
             使用日期，有效期的信息
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_UpdateDateInfo.begin_timestamp">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_UpdateDateInfo.begin_timestamp">
             <summary>
             固定日期区间专用，表示起用时间。从1970 年1 月1 日00:00:00 至起用时间的秒数，最终需转换为字符串形态传入，下同。（单位为秒）
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_UpdateDateInfo.end_timestamp">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_UpdateDateInfo.end_timestamp">
             <summary>
             固定日期区间专用，表示结束时间。（单位为秒）
             非必填
@@ -1527,132 +1365,147 @@
             基本的卡券数据，所有卡券通用。
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.id">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase">
             <summary>
-            卡券Id
+            基本的卡券数据，所有卡券通用。作为 Card_BaseInfo和 的基类
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.logo_url">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.logo_url">
             <summary>
-            卡券的商户logo
+            卡券的商户logo，尺寸为300*300。
+            必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.code_type">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.code_type">
             <summary>
             code 码展示类型
+            必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.brand_name">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.brand_name">
             <summary>
-            商户名字
+            商户名字,字数上限为12 个汉字。（填写直接提供服务的商户名， 第三方商户名填写在source 字段）
+            必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.title">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.title">
             <summary>
-            券名
+            券名，字数上限为9 个汉字。(建议涵盖卡券属性、服务及金额)
+            必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.sub_title">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.sub_title">
             <summary>
-            券名的副标题
+            券名的副标题，字数上限为18个汉字。
+            非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.color">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.color">
             <summary>
-            券颜色。色彩规范标注值对应的色值。如#3373bb
+            券颜色。按色彩规范标注填写Color010-Color100
+            必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.notice">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.notice">
             <summary>
-            使用提醒（一句话描述，展示在首页，示例：请出示二维码核销卡券）
+            使用提醒，字数上限为9 个汉字。（一句话描述，展示在首页，示例：请出示二维码核销卡券）
+            必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.service_phone">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.service_phone">
             <summary>
             客服电话
+            非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.description">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.source">
+            <summary>
+            第三方来源名，例如同程旅游、格瓦拉。
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.description">
             <summary>
             使用说明。长文本描述，可以分行，上限为1000 个汉字。
+            必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.use_limit">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.use_limit">
             <summary>
             每人使用次数限制
+            非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.get_limit">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.get_limit">
             <summary>
             每人最大领取次数，不填写默认等于quantity。
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.use_custom_code">
-            <summary>
-            是否自定义code 码
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.bind_openid">
-            <summary>
-            是否指定用户领取
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.can_share">
-            <summary>
-            领取卡券原生页面是否可分享
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.can_give_friend">
-            <summary>
-            卡券是否可转赠
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.location_id_list">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.use_custom_code">
             <summary>
-            门店位置ID
+            是否自定义code 码。填写true或false，不填代表默认为false。
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.date_info">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.bind_openid">
+            <summary>
+            是否指定用户领取，填写true或false。不填代表默认为否。
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.can_share">
+            <summary>
+            领取卡券原生页面是否可分享，填写true 或false，true 代表可分享。默认可分享。
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.can_give_friend">
+            <summary>
+            卡券是否可转赠，填写true 或false,true 代表可转赠。默认可转赠。
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.location_id_list">
+            <summary>
+            门店位置ID。商户需在mp 平台上录入门店信息或调用批量导入门店信息接口获取门店位置ID。
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.date_info">
             <summary>
             使用日期，有效期的信息
             必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.sku">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.sku">
             <summary>
             商品信息
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.url_name_type">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.url_name_type">
             <summary>
             商户自定义cell 名称
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.custom_url">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.custom_url">
             <summary>
             商户自定义url 地址，支持卡券页内跳转,跳转页面内容需与自定义cell 名称保持一致。
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.source">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.id">
             <summary>
-            第三方来源名，例如同程旅游、格瓦拉
+            卡券Id
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseInfoResult.status">
-            <summary>
-            1：待审核，2：审核失败，3：通过审核， 4：已删除（飞机票的status 字段为1：正常2：已删除）
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CardManage">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.CardManage">
             <summary>
             卡券管理接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardManage.CardDelete(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardManage.CardDelete(System.String,System.String)">
             <summary>
             删除卡券
             </summary>
@@ -1660,7 +1513,7 @@
             <param name="cardId">卡券ID</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardManage.CardGet(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardManage.CardGet(System.String,System.String,System.String)">
             <summary>
             查询code接口
             </summary>
@@ -1669,7 +1522,7 @@
             <param name="cardId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardManage.CardBatchGet(System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardManage.CardBatchGet(System.String,System.Int32,System.Int32)">
             <summary>
             批量查询卡列表
             </summary>
@@ -1678,7 +1531,7 @@
             <param name="count">需要查询的卡片的数量（数量最大50）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardManage.CardDetailGet(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardManage.CardDetailGet(System.String,System.String)">
             <summary>
             查询卡券详情
             </summary>
@@ -1686,7 +1539,7 @@
             <param name="cardId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardManage.CardChangeCode(System.String,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardManage.CardChangeCode(System.String,System.String,System.String,System.String)">
             <summary>
             更改code
             </summary>
@@ -1696,7 +1549,7 @@
             <param name="newCode">新的卡券code 编码</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardManage.CardUnavailable(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardManage.CardUnavailable(System.String,System.String,System.String)">
             <summary>
             设置卡券失效接口
             </summary>
@@ -1705,7 +1558,7 @@
             <param name="cardId">自定义code 的卡券必填。非自定义code 的卡券不填。</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardManage.CardUpdate(System.String,Senparc.Weixin.MP.CardType,System.Object,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardManage.CardUpdate(System.String,Senparc.Weixin.MP.CardType,System.Object,System.String)">
             <summary>
             更改卡券信息接口
             支持更新部分通用字段及特殊卡券（会员卡、飞机票、电影票、红包）中特定字段的信息。
@@ -1716,7 +1569,7 @@
             <param name="cardId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardManage.AuthoritySet(System.String,System.String[],System.String[])">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardManage.AuthoritySet(System.String,System.String[],System.String[])">
              <summary>
              设置测试用户白名单
              由于卡券有审核要求，为方便公众号调试，可以设置一些测试帐号，这些帐号可以领取未通过审核的卡券，体验整个流程。
@@ -1727,7 +1580,7 @@
              <param name="userNames">测试的微信号列表</param>
              <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardManage.MemberCardActivate(System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardManage.MemberCardActivate(System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.String,System.String)">
              <summary>
              激活/绑定会员卡
              参数【initBonus、initBalance】和【bonus、balance】取其一，不可同时传入
@@ -1758,7 +1611,7 @@
              <param name="balance">余额查询，仅用于init_balance 无法同步的情况填写，调转外链查询积分</param>
              <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardManage.MemberCardDeal(System.String,System.String,System.String,System.String,System.Decimal,System.Decimal,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardManage.MemberCardDeal(System.String,System.String,System.String,System.String,System.Decimal,System.Decimal,System.String)">
             <summary>
             会员卡交易
             </summary>
@@ -1771,7 +1624,7 @@
             <param name="recordBalance">商家自定义金额消耗记录，不超过14 个汉字</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardManage.MovieCardUpdate(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String[])">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardManage.MovieCardUpdate(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String[])">
             <summary>
             更新电影票
             </summary>
@@ -1785,7 +1638,7 @@
             <param name="seatNumbers">座位号</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardManage.BoardingPassCheckIn(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardManage.BoardingPassCheckIn(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean)">
             <summary>
             飞机票在线选座
             </summary>
@@ -1800,7 +1653,7 @@
             <param name="isCancel">是否取消值机。填写true 或false。true 代表取消，如填写true 上述字段（如calss 等）均不做判断，机票返回未值机状态，乘客可重新值机。默认填写false</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardManage.BoardingPassCheckIn(System.String,System.String,System.String,System.Decimal)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardManage.BoardingPassCheckIn(System.String,System.String,System.String,System.Decimal)">
             <summary>
             更新红包金额
             </summary>
@@ -1875,82 +1728,128 @@
             用户openid
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_MemberCardUpdateData">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardUpdateData">
             <summary>
             会员卡数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_MemberCardUpdateData.bonus_cleared">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardUpdateData.bonus_cleared">
             <summary>
             积分清零规则
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_MemberCardUpdateData.bonus_rules">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardUpdateData.bonus_rules">
             <summary>
             积分规则
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_MemberCardUpdateData.balance_rules">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardUpdateData.balance_rules">
             <summary>
             储值说明
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_MemberCardUpdateData.prerogative">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardUpdateData.prerogative">
             <summary>
             特权说明
             非必填
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_ScenicTicketUpdateData">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_ScenicTicketUpdateData">
             <summary>
             门票数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_ScenicTicketUpdateData.guide_url">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_ScenicTicketUpdateData.guide_url">
             <summary>
             导览图url
             非必填
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_MovieTicketUpdateData">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MovieTicketUpdateData">
             <summary>
             电影票数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_MovieTicketUpdateData.detail">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MovieTicketUpdateData.detail">
             <summary>
             电影票详请
             非必填
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card_BoardingPassUpdateData">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BoardingPassUpdateData">
             <summary>
             飞机票数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_BoardingPassUpdateData.departure_time">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BoardingPassUpdateData.departure_time">
             <summary>
             起飞时间，上限为17 个汉字
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_BoardingPassUpdateData.landing_time">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BoardingPassUpdateData.landing_time">
             <summary>
             降落时间，上限为17 个汉字
             非必填
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_BoardingPassUpdateData.gate">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BoardingPassUpdateData.gate">
             <summary>
             登机口。如发生登机口变更，建议商家实时调用该接口变更
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card_BoardingPassUpdateData.boarding_time">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BoardingPassUpdateData.boarding_time">
             <summary>
             登机时间，只显示“时分”不显示日期，按时间戳格式填写。如发生登机时间变更，建议商家实时调用该接口变更
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfo_DateInfo">
+            <summary>
+            使用日期，有效期的信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfo_DateInfo.type">
+            <summary>
+            使用时间的类型 1：固定日期区间，2：固定时长（自领取后按天算）
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfo_DateInfo.begin_timestamp">
+            <summary>
+            固定日期区间专用，表示起用时间。从1970 年1 月1 日00:00:00 至起用时间的秒数，最终需转换为字符串形态传入，下同。（单位为秒）
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfo_DateInfo.end_timestamp">
+            <summary>
+            固定日期区间专用，表示结束时间。（单位为秒）
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfo_DateInfo.fixed_term">
+            <summary>
+            固定时长专用，表示自领取后多少天内有效。（单位为天）
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfo_DateInfo.fixed_begin_term">
+            <summary>
+            固定时长专用，表示自领取后多少天开始生效。（单位为天）
+            必填
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfo_Sku">
+            <summary>
+            商品信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfo_Sku.quantity">
+            <summary>
+            上架的数量。（不支持填写0或无限大）
+            必填
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.StoreResultJson">
@@ -2714,16 +2613,581 @@
             <param name="ticket"></param>
             <param name="stream"></param>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseSemanticResultJson.res">
+            <summary>
+            用于标识用户请求后的状态
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseSemanticResultJson.query">
+            <summary>
+            用户的输入字符串
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseSemanticResultJson.type">
+            <summary>
+            服务的全局类别id
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic">
             <summary>
             语意理解接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Semantic.SemanticUnderStand(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Semantic.SemanticSend(System.String,Senparc.Weixin.MP.AdvancedAPIs.SemanticPostData)">
             <summary>
             发送语义理解请求
             </summary>
+            <param name="accessToken"></param>
+            <param name="semanticPostData">语义理解请求需要post的数据</param>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.SemanticPostData">
+            <summary>
+            语义输入协议
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.SemanticPostData.query">
+            <summary>
+            输入文本串
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.SemanticPostData.category">
+            <summary>
+            需要使用的服务类别，多个用,隔开，不能为空
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.SemanticPostData.latitude">
+            <summary>
+            纬度坐标，与经度同时传入；与城市二选一传入
+            见说明，选填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.SemanticPostData.longitude">
+            <summary>
+            经度坐标，与纬度同时传入；与城市二选一传入
+            见说明，选填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.SemanticPostData.city">
+            <summary>
+            城市名称，与经纬度二选一传入
+            见说明，选填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.SemanticPostData.region">
+            <summary>
+            区域名称，在城市存在的情况下可省；与经纬度二选一传入`
+            见说明，选填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.SemanticPostData.appid">
+            <summary>
+            App id，开发者的唯一标识，用于区分开放者，如果为空，则没法使用上下文理解功能。
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.SemanticPostData.uid">
+            <summary>
+            用户唯一id（并非开发者id），用于区分该开发者下不同用户，如果为空，则没法使用上下文理解功能。appid和uid同时存在的情况下，才可以使用上下文理解功能。
+            非必填
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_SingleDateTime">
+            <summary>
+            单时间的描述协议datetime
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_SingleDateTime.type">
+            <summary>
+            大类型：“DT_SINGLE”。DT_SINGLE又细分为两个类别：DT_ORI和DT_INFER。DT_ORI是字面时间，比如：“上午九点”；DT_INFER是推理时间，比如：“提前5分钟”
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_SingleDateTime.date">
+            <summary>
+            格式：YYYY-MM-DD，默认是当天时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_SingleDateTime.date_ori">
+            <summary>
+            date的原始字符串
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_SingleDateTime.time">
+            <summary>
+            24小时制，格式：HH:MM:SS，默认为00:00:00
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_SingleDateTime.time_ori">
+            <summary>
+            Time的原始字符串
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_IntervalDateTime">
+            <summary>
+            时间段的描述协议datetime
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_IntervalDateTime.type">
+            <summary>
+            类型：“DT_INTERVAL”
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_IntervalDateTime.date">
+            <summary>
+            格式：YYYY-MM-DD，默认是当天时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_IntervalDateTime.date_ori">
+            <summary>
+            date的原始字符串
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_IntervalDateTime.time">
+            <summary>
+            24小时制，格式：HH:MM:SS
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_IntervalDateTime.time_ori">
+            <summary>
+            time的原始字符串
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_IntervalDateTime.end_date">
+            <summary>
+            格式：YYYY-MM-DD，默认是当前时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_IntervalDateTime.end_date_ori">
+            <summary>
+            date的原始字符串
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_IntervalDateTime.end_time">
+            <summary>
+            24小时制，格式：HH:MM:SS
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_IntervalDateTime.end_time_ori">
+            <summary>
+            Time的原始字符串
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_RepeatDateTime">
+            <summary>
+            重复时间的描述协议datetime
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_RepeatDateTime.type">
+            <summary>
+            类型：“DT_REPEAT”  DT_ REPEAT又细分为两个类别：DT_RORI和DT_RINFER。DT_RORI是字面时间，比如：“每天上午九点”；DT_RINFER是推理时间，比如：“工作日除外”
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_RepeatDateTime.time">
+            <summary>
+            24小时制，格式：HH:MM:SS
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_RepeatDateTime.time_ori">
+            <summary>
+            time的原始字符串
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_RepeatDateTime.repeat">
+            <summary>
+            重复标记：0000000 注：依次代表周日，周六，…，周一；1表示该天要重复，0表示不重复
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_RepeatDateTime.repeat_ori">
+            <summary>
+            date的原始字符串
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Location">
+            <summary>
+            地点相关协议
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Location.type">
+            <summary>
+            大类型：“LOC”  LOC又细分为如下类别：LOC_COUNTRY、LOC_PROVINCE、LOC_CITY、LOC_TOWN、LOC_POI、NORMAL_POI。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Location.country">
+            <summary>
+            国家
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Location.province">
+            <summary>
+            省全称，例如：广东省
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Location.province_simple">
+            <summary>
+            省简称，例如：广东|粤
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Location.city">
+            <summary>
+            市全称，例如：北京市
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Location.city_simple">
+            <summary>
+            市简称，例如：北京
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Location.town">
+            <summary>
+            县区全称，例如：海淀区
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Location.town_simple">
+            <summary>
+            县区简称，例如：海淀
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Location.poi">
+            <summary>
+            poi详细地址
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Location.loc_ori">
+            <summary>
+            原始地名串
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Number">
+             <summary>
+             说明：begin或end，如果为“-1”表示无上限或者下限，如果为“-2”，表示该字段无信息。
+            NUM_PRICE：价格相关，例：200元左右
+            NUM_RADIUS：距离相关，例：200米以内
+            NUM_DISCOUNT：折扣相关，例：八折
+            NUM_SEASON：部，季相关，例：第一部
+            NUM_EPI：集相关，例：第一集
+             </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Number.type">
+            <summary>
+            大类型：“NUMBER”  NUMBER又细分为如下类别：NUM_PRICE、NUM_PADIUS、NUM_DISCOUNT、NUM_SEASON、NUM_EPI、NUM_CHAPTER。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Number.begin">
+            <summary>
+            开始
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Number.end">
+            <summary>
+            结束
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_RestaurantResult">
+            <summary>
+            餐馆服务（restaurant）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_RestaurantResult.intent">
+            <summary>
+            SEARCH 普通查询
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Restaurant.location">
+            <summary>
+            地点
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Restaurant.name">
+            <summary>
+            餐馆名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Restaurant.category">
+            <summary>
+            餐馆类型/菜系
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Restaurant.special">
+            <summary>
+            菜名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Restaurant.price">
+            <summary>
+            价格（单位元）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Restaurant.radius">
+            <summary>
+            距离（单位米）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Restaurant.coupon">
+            <summary>
+            优惠信息：0无（默认），1优惠券，2团购
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Restaurant.sort">
+            <summary>
+            排序类型：0距离（默认），1点评高优先级，2服务质量高优先级，3环境高优
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_MapResult">
+            <summary>
+            地图服务（map）
+            注：地点区域是地点位置的修饰描述，比如：“我现在在皇寺广场远东大厦门口”，起点区域是：“皇寺广场”，起点位置是：“远东大厦门口”。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_MapResult.intent">
+            <summary>
+            SEARCH 普通查询
+            ROUTE 路线查询
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.start_area">
+            <summary>
+            起点区域
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.start_loc">
+            <summary>
+            起点位置
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.end_area">
+            <summary>
+            终点区域
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.end_loc">
+            <summary>
+            终点位置
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.route_type">
+            <summary>
+            出行方式：walk（步行）, taxi（打车）, bus（公交）, subway（地铁）, drive（自驾）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.bus_num">
+            <summary>
+            公交车号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.subway_num">
+            <summary>
+            地铁线
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.type">
+            <summary>
+            排序类型：0较快捷（默认），1少换乘，2少步行
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.keyword">
+            <summary>
+            关键词
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_NearByResult">
+            <summary>
+            周边服务（nearby）
+            注：service字段表示是否是服务类，比如：找家政、租房、招聘等即为服务类；找ATM、羽毛球馆等即为非服务类。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_NearByResult.intent">
+            <summary>
+            SEARCH 普通查询
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_NearBy.location">
+            <summary>
+            地点
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_NearBy.keyword">
+            <summary>
+            关键词
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_NearBy.limit">
+            <summary>
+            限定词
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_NearBy.price">
+            <summary>
+            价格（单位元）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_NearBy.radius">
+            <summary>
+            距离（单位米）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_NearBy.service">
+            <summary>
+            是否是服务类：0不是（默认），1是
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_NearBy.coupon">
+            <summary>
+            优惠信息：0无（默认），1优惠券，2团购
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_NearBy.sort">
+            <summary>
+            排序类型：0距离（默认），1点评高优先级，2服务质量高优先级，3环境高优先级，4价格高到低，5价格低到高
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_CouponResult">
+            <summary>
+            团购服务（coupon）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_CouponResult.intent">
+            <summary>
+            SEARCH 普通查询
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Coupon.location">
+            <summary>
+            地点
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Coupon.price">
+            <summary>
+            价格（单位元）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Coupon.radius">
+            <summary>
+            距离（单位米）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Coupon.keyword">
+            <summary>
+            关键词
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Coupon.coupon">
+            <summary>
+            优惠信息：0所有（默认），1优惠券，2团购
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Coupon.sort">
+            <summary>
+            排序类型：0距离（默认），1价格高到低，2价格低到高
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_HotelResult">
+            <summary>
+            酒店服务（hotel）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_HotelResult.intent">
+            <summary>
+            SEARCH 普通查询
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.location">
+            <summary>
+            地点
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.start_date">
+            <summary>
+            入住时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.end_date">
+            <summary>
+            离开时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.name">
+            <summary>
+            酒店名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.price">
+            <summary>
+            价格（单位元）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.radius">
+            <summary>
+            距离（单位米）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.level">
+            <summary>
+            等级：五星级酒店，四星级酒店，三星级酒店，青年旅社，经济型酒店，公寓式酒店
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.wifi">
+            <summary>
+            1（有wifi），0（无wifi）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.roomtype">
+            <summary>
+            房间类型：标准间，单人间，双人间，三人间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.coupon">
+            <summary>
+            优惠信息：0无（默认），1优惠券，2团购
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.sort">
+            <summary>
+            排序类型：0距离（默认），1点评高优先级，2服务质量高优先级，3环境高优先级，4价格高到低，5价格低到高
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_TravelResult">
+            <summary>
+            旅游服务（travel）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_TravelResult.intent">
+            <summary>
+            SEARCH 普通查询
+            PRICE 价格查询
+            GUIDE 攻略查询
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Travel.location">
+            <summary>
+            旅游目的地
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Travel.spot">
+            <summary>
+            景点名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Travel.datetime">
+            <summary>
+            旅游日期
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Travel.tag">
+            <summary>
+            旅游类型词
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Travel.category">
+            <summary>
+            0默认，1自由行，2跟团游
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_FlightResult">
+            <summary>
+            航班服务（flight）
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Template">
             <summary>

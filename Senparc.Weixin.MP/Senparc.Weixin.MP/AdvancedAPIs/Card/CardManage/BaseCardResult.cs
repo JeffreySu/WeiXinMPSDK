@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.MP.AdvancedAPIs.Card;
 using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
@@ -230,107 +231,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 基本的卡券数据，所有卡券通用。
     /// </summary>
-    public class BaseInfoResult
+    public class BaseInfoResult : Card_BaseInfoBase
     {
         /// <summary>
         /// 卡券Id
         /// </summary>
         public string id { get; set; }
-        /// <summary>
-        /// 卡券的商户logo
-        /// </summary>
-        public string logo_url { get; set; }
-        /// <summary>
-        /// code 码展示类型
-        /// </summary>
-        public string code_type { get; set; }
-        /// <summary>
-        /// 商户名字
-        /// </summary>
-        public string brand_name { get; set; }
-        /// <summary>
-        /// 券名
-        /// </summary>
-        public string title { get; set; }
-        /// <summary>
-        /// 券名的副标题
-        /// </summary>
-        public string sub_title { get; set; }
-        /// <summary>
-        /// 券颜色。色彩规范标注值对应的色值。如#3373bb
-        /// </summary>
-        public string color { get; set; }
-        /// <summary>
-        /// 使用提醒（一句话描述，展示在首页，示例：请出示二维码核销卡券）
-        /// </summary>
-        public string notice { get; set; }
-        /// <summary>
-        /// 客服电话
-        /// </summary>
-        public string service_phone { get; set; }
-        /// <summary>
-        /// 使用说明。长文本描述，可以分行，上限为1000 个汉字。
-        /// </summary>
-        public string description { get; set; }
-        /// <summary>
-        /// 每人使用次数限制
-        /// </summary>
-        public int use_limit { get; set; }
-        /// <summary>
-        /// 每人最大领取次数，不填写默认等于quantity。
-        /// </summary>
-        public int get_limit { get; set; }
-        /// <summary>
-        /// 是否自定义code 码
-        /// </summary>
-        public bool use_custom_code { get; set; }
-        /// <summary>
-        /// 是否指定用户领取
-        /// </summary>
-        public bool bind_openid { get; set; }
-        /// <summary>
-        /// 领取卡券原生页面是否可分享
-        /// </summary>
-        public bool can_share { get; set; }
-        /// <summary>
-        /// 卡券是否可转赠
-        /// 非必填
-        /// </summary>
-        public bool can_give_friend { get; set; }
-        /// <summary>
-        /// 门店位置ID
-        /// 非必填
-        /// </summary>
-        public List<string> location_id_list { get; set; }
-        /// <summary>
-        /// 使用日期，有效期的信息
-        /// 必填
-        /// </summary>
-        public CardCreate_DateInfo date_info { get; set; }
-        /// <summary>
-        /// 商品信息
-        /// </summary>
-        public CardCreate_Sku sku { get; set; }
-        /// <summary>
-        /// 商户自定义cell 名称
-        /// 非必填
-        /// </summary>
-        public string url_name_type { get; set; }
-        /// <summary>
-        /// 商户自定义url 地址，支持卡券页内跳转,跳转页面内容需与自定义cell 名称保持一致。
-        /// 非必填
-        /// </summary>
-        public string custom_url { get; set; }
-        /// <summary>
-        /// 第三方来源名，例如同程旅游、格瓦拉
-        /// </summary>
-        public string source { get; set; }
-        /// <summary>
-        /// 1：待审核，2：审核失败，3：通过审核， 4：已删除（飞机票的status 字段为1：正常2：已删除）
-        /// </summary>
-        public string status { get; set; }
-
-        public List<string> js_oauth_uin_list { get; set; }
     }
 
     #endregion

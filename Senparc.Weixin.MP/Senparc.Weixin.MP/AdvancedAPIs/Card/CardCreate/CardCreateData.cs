@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.MP.Entities;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs
+namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
+    /* 所有类型的卡券数据 */
+
+
     /// <summary>
     /// 通用券数据
     /// </summary>
@@ -16,7 +19,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 必填
         /// </summary>
         public string default_detail { get; set; }
+
+        public Card_GeneralCouponData()
+            : base(CardType.GENERAL_COUPON)
+        {
+        }
     }
+
     /// <summary>
     /// 团购券数据
     /// </summary>
@@ -27,7 +36,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 必填
         /// </summary>
         public string deal_detail { get; set; }
+
+        public Card_GrouponData()
+            : base(CardType.GROUPON)
+        {
+        }
     }
+
     /// <summary>
     /// 礼品券数据
     /// </summary>
@@ -38,7 +53,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 必填
         /// </summary>
         public string gift { get; set; }
+
+        public Card_GiftData()
+            : base(CardType.GIFT)
+        {
+        }
     }
+
     /// <summary>
     /// 代金券数据
     /// </summary>
@@ -54,7 +75,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 必填
         /// </summary>
         public decimal reduce_cost { get; set; }
+
+        public Card_CashData()
+            : base(CardType.CASH)
+        {
+        }
     }
+
     /// <summary>
     /// 折扣券数据
     /// </summary>
@@ -65,7 +92,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 必填
         /// </summary>
         public float discount { get; set; }
+       
+        public Card_DisCountData()
+            : base(CardType.DISCOUNT)
+        {
+        }
     }
+
     /// <summary>
     /// 会员卡数据
     /// </summary>
@@ -109,7 +142,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 激活会员卡的url，与“bind_old_card_url”字段二选一必填。
         /// </summary>
         public string activate_url { get; set; }
+
+        public Card_MemberCardData()
+            : base(CardType.MEMBER_CARD)
+        {
+        }
     }
+
     /// <summary>
     /// 门票数据
     /// </summary>
@@ -125,7 +164,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 非必填
         /// </summary>
         public string guide_url { get; set; }
+
+        public Card_ScenicTicketData()
+            : base(CardType.SCENIC_TICKET)
+        {
+        }
     }
+
     /// <summary>
     /// 电影票数据
     /// </summary>
@@ -136,7 +181,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 非必填
         /// </summary>
         public string detail { get; set; }
+
+        public Card_MovieTicketData()
+            : base(CardType.MOVIE_TICKET)
+        {
+        }
     }
+
     /// <summary>
     /// 飞机票数据
     /// </summary>
@@ -185,11 +236,21 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 非必填
         /// </summary>
         public string air_model { get; set; }
+
+        public Card_BoardingPassData()
+            : base(CardType.BOARDING_PASS)
+        {
+        }
     }
+
     /// <summary>
     /// 红包数据
     /// </summary>
     public class Card_LuckyMoneyData : BaseCardInfo
     {
+        public Card_LuckyMoneyData()
+            : base(CardType.LUCKY_MONEY)
+        {
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.MP.Entities;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs
+namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
     /// <summary>
     /// 会员卡数据

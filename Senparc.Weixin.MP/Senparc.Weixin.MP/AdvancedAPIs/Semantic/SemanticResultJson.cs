@@ -6,26 +6,13 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
-
-    public class BaseSemanticResultJson : WxJsonResult
-    {
-        public int res { get; set; }//用于标识用户请求后的状态
-        public string query { get; set; }//用户的输入字符串
-        public string type { get; set; }//服务的全局类别id
-        //public BaseSemantic semantic { get; set; }//语义理解后的结构化标识，各个服务不同
-        public string answer { get; set; }//部分类别的结果html5展示，目前不支持
-        public string text { get; set; }//特殊回复说明
-    }
-    public class BaseSemantic
-    {
-        public string intent { get; set; }
-    }
+    
 
     public class SearchResultJson : BaseSemanticResultJson
     {
         public SearchSemantic semantic { get; set; }
     }
-    public class SearchSemantic : BaseSemantic
+    public class SearchSemantic
     {
         public SearchSemanticDetail details { get; set; }
     }
@@ -36,199 +23,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     }
     
 
-    //public class SemanticResultJson : WxJsonResult
-    //{
-    //    public int res { get; set; }
-    //    public string query { get; set; }
-    //    public string type { get; set; }
-    //    public BaseSemanticInfo semantic { get; set; }
-    //}
-
-    //public class BaseSemanticInfo
-    //{
-    //    public string intent { get; set; }//SEARCH 普通查询、ROUTE 路线查询、PRICE 价格查询、GUIDE 攻略查询
-    //    public BaseDetails details { get; set; }
-    //}
-
-    //public class BaseDetails
-    //{ 
-
-    //}
-
-    //public class Semantic_DateTime
-    //{
-    //    public string type { get; set; }//类型：“DT_REPEAT”  DT_ REPEAT又细分为两个类别：DT_RORI和DT_RINFER。DT_RORI是字面时间，比如：“每天上午九点”；DT_RINFER是推理时间，比如：“工作日除外”
-    //    public string time { get; set; }//24小时制，格式：HH:MM:SS
-    //    public string time_ori { get; set; }//time的原始字符串
-    //    public string repeat { get; set; }//重复标记：0000000 注：依次代表周日，周六，…，周一；1表示该天要重复，0表示不重复
-    //    public string repeat_ori { get; set; }//date的原始字符串
-    //}
-
-    ///// <summary>
-    ///// 注：LOC_POI和NORMAL_POI的区别：LOC_POI是指地名除了国家、省、市、区县的详细地址；NORMAL_POI是指地图上偏向机构的poi点，比如：饭馆、酒店、大厦等等
-    ///// </summary>
-    //public class Semantic_Location
-    //{
-    //    public string type { get; set; }//大类型：“LOC”  LOC又细分为如下类别：LOC_COUNTRY、LOC_PROVINCE、LOC_CITY、LOC_TOWN、LOC_POI、NORMAL_POI。
-    //    public string country { get; set; }//国家
-    //    public string province { get; set; }//省全称，例如：广东省
-    //    public string province_simple { get; set; }//省简称，例如：广东|粤
-    //    public string city { get; set; }//市全称，例如：北京市
-    //    public string city_simple { get; set; }//市简称，例如：北京
-    //    public string town { get; set; }//县区全称，例如：海淀区
-    //    public string town_simple { get; set; }//县区简称，例如：海淀
-    //    public string poi { get; set; }//poi详细地址
-    //    public string loc_ori { get; set; }//原始地名串
-    //}
-
-    ///// <summary>
-    ///// 说明：begin或end，如果为“-1”表示无上限或者下限，如果为“-2”，表示该字段无信息。
-    /////NUM_PRICE：价格相关，例：200元左右
-    /////NUM_RADIUS：距离相关，例：200米以内
-    /////NUM_DISCOUNT：折扣相关，例：八折
-    /////NUM_SEASON：部，季相关，例：第一部
-    /////NUM_EPI：集相关，例：第一集
-    ///// </summary>
-    //public class Semantic_Number
-    //{
-    //    public string type { get; set; }//大类型：“NUMBER”  NUMBER又细分为如下类别：NUM_PRICE、NUM_PADIUS、NUM_DISCOUNT、NUM_SEASON、NUM_EPI、NUM_CHAPTER。
-    //    public string begin { get; set; }//开始
-    //    public string end { get; set; }//结束
-    //}
-
-    //public class Restaurant : BaseDetails
-    //{
-    //    public Details_Restaurant details { get; set; }
-    //}
-    ///// <summary>
-    ///// 餐馆服务（restaurant）
-    ///// </summary>
-    //public class Details_Restaurant
-    //{
-    //    public Semantic_Location location { get; set; }//地点
-    //    public string name { get; set; }//餐馆名称
-    //    public string category { get; set; }//餐馆类型/菜系
-    //    public string special { get; set; }//菜名
-    //    public Semantic_Number price { get; set; }//价格（单位元）
-    //    public Semantic_Number radius { get; set; }//距离（单位米）
-    //    public int coupon { get; set; }//优惠信息：0无（默认），1优惠券，2团购
-    //    public int sort { get; set; }//排序类型：0距离（默认），1点评高优先级，2服务质量高优先级，3环境高优
-    //}
-    ///// <summary>
-    ///// 地图服务（map）
-    ///// 注：地点区域是地点位置的修饰描述，比如：“我现在在皇寺广场远东大厦门口”，起点区域是：“皇寺广场”，起点位置是：“远东大厦门口”。
-    ///// </summary>
-    //public class Map : BaseSemanticInfo
-    //{
-    //    public Details_Map details { get; set; }
-    //}
-
-    //public class Details_Map
-    //{
-    //    public Semantic_Location start_area { get; set; }//起点区域
-    //    public Semantic_Location start_loc { get; set; }//起点位置
-    //    public Semantic_Location end_area { get; set; }//终点区域
-    //    public Semantic_Location end_loc { get; set; }//终点位置
-    //    public string route_type { get; set; }//出行方式：walk（步行）, taxi（打车）, bus（公交）, subway（地铁）, drive（自驾）
-    //    public int bus_num { get; set; }//公交车号
-    //    public string subway_num { get; set; }//地铁线
-    //    public int type { get; set; }//排序类型：0较快捷（默认），1少换乘，2少步行
-    //    public string keyword { get; set; }//关键词
-    //}
-    ///// <summary>
-    ///// 周边服务（nearby）
-    ///// 注：service字段表示是否是服务类，比如：找家政、租房、招聘等即为服务类；找ATM、羽毛球馆等即为非服务类。
-    ///// </summary>
-    //public class NearBy : BaseSemanticInfo
-    //{
-    //    public Details_NearBy details { get; set; }
-    //}
-
-    //public class Details_NearBy
-    //{
-    //    public Semantic_Location location { get; set; }//地点
-    //    public string keyword { get; set; }//关键词
-    //    public string limit { get; set; }//限定词
-    //    public Semantic_Number price { get; set; }//价格（单位元）
-    //    public Semantic_Number radius { get; set; }//距离（单位米）
-    //    public int service { get; set; }//是否是服务类：0不是（默认），1是
-    //    public int coupon { get; set; }//优惠信息：0无（默认），1优惠券，2团购
-    //    public int sort { get; set; }//排序类型：0距离（默认），1点评高优先级，2服务质量高优先级，3环境高优先级，4价格高到低，5价格低到高
-    //}
-    ///// <summary>
-    ///// 团购服务（coupon）
-    ///// </summary>
-    //public class Coupon : BaseSemanticInfo
-    //{
-    //    public Details_Coupon details { get; set; }
-    //}
-
-    //public class Details_Coupon
-    //{
-    //    public Semantic_Location location { get; set; }//地点
-    //    public Semantic_Number price { get; set; }//价格（单位元）
-    //    public Semantic_Number radius { get; set; }//距离（单位米）
-    //    public string keyword { get; set; }//关键词
-    //    public int coupon { get; set; }//优惠信息：0所有（默认），1优惠券，2团购
-    //    public int sort { get; set; }//排序类型：0距离（默认），1价格高到低，2价格低到高
-    //}
-    ///// <summary>
-    ///// 酒店服务（hotel）
-    ///// </summary>
-    //public class Hotel : BaseSemanticInfo
-    //{
-    //    public Details_Hotel details { get; set; }
-    //}
-
-    //public class Details_Hotel
-    //{
-    //    public Semantic_Location location { get; set; }//地点
-    //    public Semantic_DateTime start_date { get; set; }//入住时间
-    //    public Semantic_DateTime end_date { get; set; }//离开时间
-    //    public string name { get; set; }//酒店名称
-    //    public Semantic_Number price { get; set; }//价格（单位元）
-    //    public Semantic_Number radius { get; set; }//距离（单位米）
-    //    public string level { get; set; }//等级：五星级酒店，四星级酒店，三星级酒店，青年旅社，经济型酒店，公寓式酒店
-    //    public int wifi { get; set; }//1（有wifi），0（无wifi）
-    //    public string roomtype { get; set; }//房间类型：标准间，单人间，双人间，三人间
-    //    public int coupon { get; set; }//优惠信息：0无（默认），1优惠券，2团购
-    //    public int sort { get; set; }//排序类型：0距离（默认），1点评高优先级，2服务质量高优先级，3环境高优先级，4价格高到低，5价格低到高
-    //}
-    ///// <summary>
-    ///// 旅游服务（travel）
-    ///// </summary>
-    //public class Travel : BaseSemanticInfo
-    //{
-    //    public Details_Travel details { get; set; }
-    //}
-
-    //public class Details_Travel
-    //{
-    //    public Semantic_Location location { get; set; }//旅游目的地
-    //    public string spot { get; set; }//景点名称
-    //    public Semantic_DateTime datetime { get; set; }//旅游日期
-    //    public string tag { get; set; }//旅游类型词
-    //    public int category { get; set; }//0默认，1自由行，2跟团游
-    //}
-    ///// <summary>
-    ///// 航班服务（flight）
-    ///// </summary>
-    //public class Flight : BaseSemanticInfo
-    //{
-    //    public Details_Flight details { get; set; }
-    //}
-
-    //public class Details_Flight
-    //{
-    //    public string flight_no { get; set; }//航班号
-    //    public Semantic_Location start_loc { get; set; }//出发地
-    //    public Semantic_Location end_loc { get; set; }//目的地
-    //    public Semantic_DateTime start_date { get; set; }//出发日期
-    //    public Semantic_DateTime end_date { get; set; }//返回日期
-    //    public string airline { get; set; }//航空公司
-    //    public string seat { get; set; }//座位级别（默认无限制）：ECONOMY（经济舱）BIZ（商务舱）FIRST（头等舱）
-    //    public int sort { get; set; }//排序类型：0排序无要求（默认），1价格升序，2价格降序，3时间升序，4时间降序
-    //}
+    
+    
+    
+    
+    
+    
     ///// <summary>
     ///// 火车服务（train）
     ///// </summary>

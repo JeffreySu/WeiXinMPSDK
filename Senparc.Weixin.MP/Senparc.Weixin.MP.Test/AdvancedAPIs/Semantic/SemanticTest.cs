@@ -14,15 +14,23 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
     [TestClass]
     public class SemanticTest : CommonApiTest
     {
+        protected SemanticPostData SemanticPostData = new SemanticPostData()
+            {
+                query = "附近有什么饭馆",
+                category = "restaurant",
+                latitude = 31,
+                longitude = 120
+            };
+
         [TestMethod]
         public void SemanticUnderStandTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
-            var result = Semantic.SemanticUnderStand(accessToken, "百度一下明天从北京到上海的南航机票", "flight,search", "北京", _appId);
+            var result = Semantic.SemanticSend(accessToken, SemanticPostData);
             SearchResultJson json = new SearchResultJson();
             
             Assert.IsNotNull(result.query);
-            Assert.AreEqual("百度一下明天从北京到上海的南航机票", result.query);
+            Assert.AreEqual("附近有什么川菜馆", result.query);
         }
     }
 }

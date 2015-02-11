@@ -35,7 +35,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 pageSize = 1000;
             }
 
-
             //组装发送消息
             var data = new
             {

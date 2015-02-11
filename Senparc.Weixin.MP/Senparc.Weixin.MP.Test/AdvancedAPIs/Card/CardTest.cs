@@ -7,6 +7,7 @@ using System.Web.Script.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.AdvancedAPIs.Card;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Test.CommonAPIs;
@@ -17,7 +18,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
     [TestClass]
     public class CardTest : CommonApiTest
     {
-        protected  BaseInfo _BaseInfo=new BaseInfo()
+        protected Card_BaseInfoBase _BaseInfo = new Card_BaseInfoBase()
             {
                 logo_url = "http:\\www.supadmin.cn/uploads/allimg/120216/1_120216214725_1.jpg",
                 brand_name = "海底捞",
@@ -30,13 +31,13 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 description = @"不可与其他优惠同享\n 如需团购券发票，请在消费时向商户提出\n 店内均可
 使用，仅限堂食\n 餐前不可打包，餐后未吃完，可打包\n 本团购券不限人数，建议2 人使用，超过建议人
 数须另收酱料费5 元/位\n 本单谢绝自带酒水饮料",
-                date_info = new CardCreate_DateInfo()
+                date_info = new Card_BaseInfo_DateInfo()
                 {
                     type = 1,
                     begin_timestamp = DateTimeHelper.GetWeixinDateTime(DateTime.Now),
                     end_timestamp = DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddDays(10)),
                 },
-                sku = new CardCreate_Sku()
+                sku = new Card_BaseInfo_Sku()
                 {
                     quantity = 5
                 },
@@ -61,7 +62,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                     deal_detail = "测试"
                 };
 
-            var result = CardCreate.CreateCard(accessToken, CardType.GROUPON, data);
+            var result = CardAPI.CreateCard(accessToken, data);
             Console.Write(result);
             Assert.IsNotNull(result);
         }
@@ -85,7 +86,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var cardIdList = CardBatchGetTest();
             var cardId = cardIdList.FirstOrDefault();
 
-            var result = CardCreate.CreateQR(accessToken, cardId);
+            var result = CardAPI.CreateQR(accessToken, cardId);
             Console.Write(result);
             Assert.IsNotNull(result);
         }
@@ -95,7 +96,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = CardCreate.GetColors(accessToken);
+            var result = CardAPI.GetColors(accessToken);
             Console.Write(result);
             Assert.IsNotNull(result);
         }

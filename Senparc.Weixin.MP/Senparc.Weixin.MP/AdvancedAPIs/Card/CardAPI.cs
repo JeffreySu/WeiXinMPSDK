@@ -1,133 +1,149 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：CardAPI.cs
+    文件功能描述：卡券高级功能API
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150212
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+/* 
+   API地址：http://mp.weixin.qq.com/wiki/9/d8a5f3b102915f30516d79b44fe665ed.html
+   PDF下载：https://mp.weixin.qq.com/zh_CN/htmledition/comm_htmledition/res/cardticket/wx_card_document.zip
+*/
+
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.MP.AdvancedAPIs.Card;
 using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 创建卡券接口
     /// </summary>
-    public static class CardCreate
+    public static class CardAPI
     {
         /// <summary>
         /// 创建卡券
         /// </summary>
         /// <param name="accessToken"></param>
-        /// <param name="cardType">卡券类型</param>
-        /// <param name="data">创建卡券需要的数据，格式可以看CardCreateData.cs</param>
+        /// <param name="cardInfo">创建卡券需要的数据，格式可以看CardCreateData.cs</param>
         /// <returns></returns>
-        public static CardCreateResultJson CreateCard(string accessToken, CardType cardType, object data)
+        public static CardCreateResultJson CreateCard(string accessToken, BaseCardInfo cardInfo)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/create?access_token={0}", accessToken);
 
-            BaseCardCreateInfo cardData = null;
-
+            CardCreateInfo cardData = null;
+            CardType cardType = cardInfo.CardType;
             switch (cardType)
             {
                 case CardType.GENERAL_COUPON:
-                    cardData = new BaseCardCreateInfo()
+                    cardData = new CardCreateInfo()
                         {
                             card = new Card_GeneralCoupon()
                                 {
                                     card_type = cardType,
-                                    general_coupon = data as Card_GeneralCouponData
+                                    general_coupon = cardInfo as Card_GeneralCouponData
                                 }
                         };
                     break;
                 case CardType.GROUPON:
-                    cardData = new BaseCardCreateInfo()
-                    {
-                        card = new Card_Groupon()
+                    cardData = new CardCreateInfo()
                         {
-                            card_type = cardType,
-                            groupon = data as Card_GrouponData
-                        }
-                    };
+                            card = new Card_Groupon()
+                                {
+                                    card_type = cardType,
+                                    groupon = cardInfo as Card_GrouponData
+                                }
+                        };
                     break;
                 case CardType.GIFT:
-                    cardData = new BaseCardCreateInfo()
-                    {
-                        card = new Card_Gift()
+                    cardData = new CardCreateInfo()
                         {
-                            card_type = cardType,
-                            gift = data as Card_GiftData
-                        }
-                    };
+                            card = new Card_Gift()
+                                {
+                                    card_type = cardType,
+                                    gift = cardInfo as Card_GiftData
+                                }
+                        };
                     break;
                 case CardType.CASH:
-                    cardData = new BaseCardCreateInfo()
-                    {
-                        card = new Card_Cash()
+                    cardData = new CardCreateInfo()
                         {
-                            card_type = cardType,
-                            cash = data as Card_CashData
-                        }
-                    };
+                            card = new Card_Cash()
+                                {
+                                    card_type = cardType,
+                                    cash = cardInfo as Card_CashData
+                                }
+                        };
                     break;
                 case CardType.DISCOUNT:
-                    cardData = new BaseCardCreateInfo()
-                    {
-                        card = new Card_DisCount()
+                    cardData = new CardCreateInfo()
                         {
-                            card_type = cardType,
-                            discount = data as Card_DisCountData
-                        }
-                    };
+                            card = new Card_DisCount()
+                                {
+                                    card_type = cardType,
+                                    discount = cardInfo as Card_DisCountData
+                                }
+                        };
                     break;
                 case CardType.MEMBER_CARD:
-                    cardData = new BaseCardCreateInfo()
-                    {
-                        card = new Card_MemberCard()
+                    cardData = new CardCreateInfo()
                         {
-                            card_type = cardType,
-                            member_card = data as Card_MemberCardData
-                        }
-                    };
+                            card = new Card_MemberCard()
+                                {
+                                    card_type = cardType,
+                                    member_card = cardInfo as Card_MemberCardData
+                                }
+                        };
                     break;
                 case CardType.SCENIC_TICKET:
-                    cardData = new BaseCardCreateInfo()
-                    {
-                        card = new Card_ScenicTicket()
+                    cardData = new CardCreateInfo()
                         {
-                            card_type = cardType,
-                            scenic_ticket = data as Card_ScenicTicketData
-                        }
-                    };
+                            card = new Card_ScenicTicket()
+                                {
+                                    card_type = cardType,
+                                    scenic_ticket = cardInfo as Card_ScenicTicketData
+                                }
+                        };
                     break;
                 case CardType.MOVIE_TICKET:
-                    cardData = new BaseCardCreateInfo()
-                    {
-                        card = new Card_MovieTicket()
+                    cardData = new CardCreateInfo()
                         {
-                            card_type = cardType,
-                            movie_ticket = data as Card_MovieTicketData
-                        }
-                    };
+                            card = new Card_MovieTicket()
+                                {
+                                    card_type = cardType,
+
+                                    movie_ticket = cardInfo as Card_MovieTicketData
+                                }
+                        };
                     break;
                 case CardType.BOARDING_PASS:
-                    cardData = new BaseCardCreateInfo()
-                    {
-                        card = new Card_BoardingPass()
+                    cardData = new CardCreateInfo()
                         {
-                            card_type = cardType,
-                            boarding_pass = data as Card_BoardingPassData
-                        }
-                    };
+                            card = new Card_BoardingPass()
+                                {
+                                    card_type = cardType,
+                                    boarding_pass = cardInfo as Card_BoardingPassData
+                                }
+                        };
                     break;
                 case CardType.LUCKY_MONEY:
-                    cardData = new BaseCardCreateInfo()
-                    {
-                        card = new Card_LuckyMoney()
+                    cardData = new CardCreateInfo()
                         {
-                            card_type = cardType,
-                            lucky_money = data as Card_LuckyMoneyData
-                        }
-                    };
+                            card = new Card_LuckyMoney()
+                                {
+                                    card_type = cardType,
+                                    lucky_money = cardInfo as Card_LuckyMoneyData
+                                }
+                        };
                     break;
                 default:
                     break;
@@ -160,7 +176,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="isUniqueCode">指定下发二维码，生成的二维码随机分配一个code，领取后不可再次扫描。填写true 或false。默认false。</param>
         /// <param name="balance">红包余额，以分为单位。红包类型必填（LUCKY_MONEY），其他卡券类型不填。</param>
         /// <returns></returns>
-        public static CreateQRResultJson CreateQR(string accessToken, string cardId, string code = null, string openId = null, string expireSeconds = null, bool isUniqueCode = false, string balance = null)
+        public static CreateQRResultJson CreateQR(string accessToken, string cardId, string code = null,
+                                                  string openId = null, string expireSeconds = null,
+                                                  bool isUniqueCode = false, string balance = null)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/qrcode/create?access_token={0}", accessToken);
 
@@ -168,17 +186,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     action_name = "QR_CARD",
                     action_info = new
-                    {
-                        card = new
                         {
-                            card_id = cardId,
-                            code = code,
-                            openid = openId,
-                            expire_seconds = expireSeconds,
-                            is_unique_code = false,
-                            balance = balance
+                            card = new
+                                {
+                                    card_id = cardId,
+                                    code = code,
+                                    openid = openId,
+                                    expire_seconds = expireSeconds,
+                                    is_unique_code = false,
+                                    balance = balance
+                                }
                         }
-                    }
                 };
 
             return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data);
@@ -196,10 +214,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             var urlFormat = string.Format("https://api.weixin.qq.com/card/code/consume?access_token={0}", accessToken);
 
             var data = new
-            {
-                code = code,
-                card_id = cardId
-            };
+                {
+                    code = code,
+                    card_id = cardId
+                };
 
             return CommonJsonSend.Send<CardConsumeResultJson>(null, urlFormat, data);
         }
@@ -218,9 +236,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             var urlFormat = string.Format("https://api.weixin.qq.com/card/code/decrypt?access_token={0}", accessToken);
 
             var data = new
-            {
-                encrypt_code = encryptCode,
-            };
+                {
+                    encrypt_code = encryptCode,
+                };
 
             return CommonJsonSend.Send<CardDecryptResultJson>(null, urlFormat, data);
         }

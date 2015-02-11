@@ -25,7 +25,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/create?access_token={0}", accessToken);
 
-            BaseCardCreateInfo cardData = null;
+            CardCreateInfo cardData = null;
 
             return CommonJsonSend.Send<CardCreateResultJson>(null, urlFormat, cardData);
         }

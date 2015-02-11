@@ -2,116 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Senparc.Weixin.MP.Entities;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs
+namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
-    public class BaseCardCreateInfo
-    {
-        /// <summary>
-        /// 卡券信息部分
-        /// </summary>
-        public Card_Card card { get; set; }
-    }
-    
-    public class Card_Card
-    {
-        public CardType card_type { get; set; }
-    }
-
     /// <summary>
-    /// 通用券
+    /// 基本的卡券数据，所有卡券通用。作为 Card_BaseInfo和 的基类
     /// </summary>
-    public class Card_GeneralCoupon : Card_Card
-    {
-        public Card_GeneralCouponData general_coupon { get; set; }
-    }
-
-    /// <summary>
-    /// 团购券
-    /// </summary>
-    public class Card_Groupon : Card_Card
-    {
-        public Card_GrouponData groupon { get; set; }
-    }
-
-    /// <summary>
-    /// 礼品券
-    /// </summary>
-    public class Card_Gift : Card_Card
-    {
-        public Card_GiftData gift { get; set; }
-    }
-
-    /// <summary>
-    /// 代金券
-    /// </summary>
-    public class Card_Cash : Card_Card
-    {
-        public Card_CashData cash { get; set; }
-    }
-
-    /// <summary>
-    /// 折扣券
-    /// </summary>
-    public class Card_DisCount : Card_Card
-    {
-        public Card_DisCountData discount { get; set; }
-    }
-
-    /// <summary>
-    /// 会员卡
-    /// </summary>
-    public class Card_MemberCard : Card_Card
-    {
-        public Card_MemberCardData member_card { get; set; }
-    }
-
-    /// <summary>
-    /// 门票
-    /// </summary>
-    public class Card_ScenicTicket : Card_Card
-    {
-        public Card_ScenicTicketData scenic_ticket { get; set; }
-    }
-
-    /// <summary>
-    /// 电影票
-    /// </summary>
-    public class Card_MovieTicket : Card_Card
-    {
-        public Card_MovieTicketData movie_ticket { get; set; }
-    }
-
-    /// <summary>
-    /// 飞机票
-    /// </summary>
-    public class Card_BoardingPass : Card_Card
-    {
-        public Card_BoardingPassData boarding_pass { get; set; }
-    }
-
-    /// <summary>
-    /// 红包
-    /// </summary>
-    public class Card_LuckyMoney : Card_Card
-    {
-        public Card_LuckyMoneyData lucky_money { get; set; }
-    }
-
-    public class BaseCardInfo
-    {
-        /// <summary>
-        /// 基本的卡券数据
-        /// </summary>
-        public BaseInfo base_info { get; set; }
-    }
-
-    #region 基本的卡券数据，所有卡券通用(BaseInfo)
-    /// <summary>
-    /// 基本的卡券数据，所有卡券通用。
-    /// </summary>
-    public class BaseInfo
+    public class Card_BaseInfoBase
     {
         /// <summary>
         /// 卡券的商户logo，尺寸为300*300。
@@ -202,11 +99,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 使用日期，有效期的信息
         /// 必填
         /// </summary>
-        public CardCreate_DateInfo date_info { get; set; }
+        public Card_BaseInfo_DateInfo date_info { get; set; }
         /// <summary>
         /// 商品信息
         /// </summary>
-        public CardCreate_Sku sku { get; set; }
+        public Card_BaseInfo_Sku sku { get; set; }
         /// <summary>
         /// 商户自定义cell 名称
         /// 非必填
@@ -218,48 +115,4 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         public string custom_url { get; set; }
     }
-    /// <summary>
-    /// 使用日期，有效期的信息
-    /// </summary>
-    public class CardCreate_DateInfo
-    {
-        /// <summary>
-        /// 使用时间的类型 1：固定日期区间，2：固定时长（自领取后按天算）
-        /// 必填
-        /// </summary>
-        public int type { get; set; }
-        /// <summary>
-        /// 固定日期区间专用，表示起用时间。从1970 年1 月1 日00:00:00 至起用时间的秒数，最终需转换为字符串形态传入，下同。（单位为秒）
-        /// 必填
-        /// </summary>
-        public long begin_timestamp { get; set; }
-        /// <summary>
-        /// 固定日期区间专用，表示结束时间。（单位为秒）
-        /// 必填
-        /// </summary>
-        public long end_timestamp { get; set; }
-        /// <summary>
-        /// 固定时长专用，表示自领取后多少天内有效。（单位为天）
-        /// 必填
-        /// </summary>
-        public int fixed_term { get; set; }
-        /// <summary>
-        /// 固定时长专用，表示自领取后多少天开始生效。（单位为天）
-        /// 必填
-        /// </summary>
-        public int fixed_begin_term { get; set; }
-    }
-    /// <summary>
-    /// 商品信息
-    /// </summary>
-    public class CardCreate_Sku
-    {
-        /// <summary>
-        /// 上架的数量。（不支持填写0或无限大）
-        /// 必填
-        /// </summary>
-        public int quantity { get; set; }
-    }
-
-    #endregion
 }

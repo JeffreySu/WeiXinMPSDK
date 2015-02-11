@@ -509,7 +509,7 @@
             如果对应用或收件人、部门、标签任何一个无权限，则本次发送失败；如果收件人、部门或标签不存在，发送仍然执行，但返回无效的部分。
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Department.CreateDepartment(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Department.CreateDepartment(System.String,System.String,System.Int32,System.Int32,System.Nullable{System.Int32})">
             <summary>
             创建部门
             </summary>
@@ -517,6 +517,7 @@
             <param name="name">部门名称。长度限制为1~64个字符</param>
             <param name="parentId">父亲部门id。根部门id为1 </param>
             <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
+            <param name="id">部门ID。用指定部门ID新建部门，不指定此参数时，则自动生成</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Department.UpdateDepartment(System.String,System.String,System.String,System.Int32,System.Int32)">
@@ -538,11 +539,12 @@
             <param name="id">部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Department.GetDepartmentList(System.String)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Department.GetDepartmentList(System.String,System.Nullable{System.Int32})">
             <summary>
             获取部门列表
             </summary>
             <param name="accessToken">调用接口凭证</param>
+            <param name="id">部门ID。获取指定部门ID下的子部门</param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.CreateDepartmentResult">

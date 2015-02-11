@@ -19,8 +19,9 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="name">部门名称。长度限制为1~64个字符</param>
         /// <param name="parentId">父亲部门id。根部门id为1 </param>
         /// <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
+        /// <param name="id">部门ID。用指定部门ID新建部门，不指定此参数时，则自动生成</param>
         /// <returns></returns>
-        public static CreateDepartmentResult CreateDepartment(string accessToken, string name, int parentId, int order = 1)
+        public static CreateDepartmentResult CreateDepartment(string accessToken, string name, int parentId, int order = 1, int? id = null)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token={0}", accessToken);
 
@@ -28,7 +29,8 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             {
                 name = name,
                 parentid = parentId,
-                order = order
+                order = order,
+                id = id
             };
 
             return CommonJsonSend.Send<CreateDepartmentResult>(null, url, data, CommonJsonSendType.POST);
@@ -75,10 +77,16 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// 获取部门列表
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="id">部门ID。获取指定部门ID下的子部门</param>
         /// <returns></returns>
-        public static GetDepartmentListResult GetDepartmentList(string accessToken)
+        public static GetDepartmentListResult GetDepartmentList(string accessToken, int? id = null)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token={0}", accessToken);
+
+            if (id.HasValue)
+            {
+                url = url + string.Format("&id={0}", id.Value);
+            }
 
             return CommonJsonSend.Send<GetDepartmentListResult>(null, url, null, CommonJsonSendType.GET);
         }

@@ -14,8 +14,8 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
     [TestClass]
     public partial class DepartmentTest
     {
-        protected string _corpId = "wxccd01c4e6bf59232"; //换成你的信息
-        protected string _corpSecret = "ejXcV7rb9OtakBucpMji1kUtPmnKy4hNCskW_bUKLx8lRxO_aVrcc0gVTMEv13G1"; //换成你的信息
+        protected string _corpId = "wx082ca5152399ba3c"; //换成你的信息
+        protected string _corpSecret = "42sfSwoii8R48DGwZ5FNH7-AHBgOWeF5vXf0e-ewyg6UMohDM6RrQfUIq8Pqkicv"; //换成你的信息
 
         public DepartmentTest()
         {
@@ -27,7 +27,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public int CreateDepartmentTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Department.CreateDepartment(accessToken,"test", 1);
+            var result = Department.CreateDepartment(accessToken, "test", 1, id: 3);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.id > 0);
             return result.id;
@@ -55,7 +55,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public void GetDepartmentListTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Department.GetDepartmentList(accessToken);
+            var result = Department.GetDepartmentList(accessToken,4);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }

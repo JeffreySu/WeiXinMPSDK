@@ -397,6 +397,18 @@ namespace Senparc.Weixin.QY.MessageHandlers
                 case Event.PIC_SYSPHOTO://弹出系统拍照发图
                     responseMessage = OnEvent_PicSysphotoRequest(RequestMessage as RequestMessageEvent_Pic_Sysphoto);
                     break;
+                case Event.subscribe://订阅
+                    responseMessage = OnEvent_SubscribeRequest(RequestMessage as RequestMessageEvent_Subscribe);
+                    break;
+                case Event.unsubscribe://取消订阅
+                    responseMessage = OnEvent_UnSubscribeRequest(RequestMessage as RequestMessageEvent_UnSubscribe);
+                    break;
+                case Event.LOCATION://上报地理位置事件
+                    responseMessage = OnEvent_LocationRequest(RequestMessage as RequestMessageEvent_Location);
+                    break;
+                case Event.ENTER_AGENT://用户进入应用的事件推送(enter_agent)
+                    responseMessage = OnEvent_EnterAgentRequest(RequestMessage as RequestMessageEvent_Enter_Agent);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -473,6 +485,42 @@ namespace Senparc.Weixin.QY.MessageHandlers
         /// </summary>
         /// <returns></returns>
         public virtual IResponseMessageBase OnEvent_PicSysphotoRequest(RequestMessageEvent_Pic_Sysphoto requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 订阅
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 取消订阅
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_UnSubscribeRequest(RequestMessageEvent_UnSubscribe requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 上报地理位置事件
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 用户进入应用的事件推送(enter_agent)
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_EnterAgentRequest(RequestMessageEvent_Enter_Agent requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

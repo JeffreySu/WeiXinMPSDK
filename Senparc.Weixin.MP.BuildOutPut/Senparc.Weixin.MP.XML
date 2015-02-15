@@ -4895,7 +4895,7 @@
             <param name="xml"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.IO.Stream)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequesTResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.IO.Stream)">
             <summary>
             获取ResponseMessge结果
             </summary>
@@ -4904,7 +4904,7 @@
             <param name="stream"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequesTResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
             <summary>
             获取ResponseMessge结果
             </summary>
@@ -4995,7 +4995,7 @@
             </summary>
             <param name="appId"></param>
             <param name="appSecret"></param>
-            <param name="getNewToken"></param>
+            <param name="getNewToken">强制获取最新的AccessToken（也可能得到的是服务器上缓存的Token）</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetToken(System.String,System.Boolean)">

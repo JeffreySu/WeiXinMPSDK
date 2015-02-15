@@ -7,9 +7,9 @@ using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MessageHandlers
 {
-    public interface IMessageHandler<TRest, TResp> : IMessageHandlerDocument
-        where TRest : IRequestMessageBase
-        where TResp : IResponseMessageBase
+    public interface IMessageHandler<TRequest, TResponse> : IMessageHandlerDocument
+        where TRequest : IRequestMessageBase
+        where TResponse : IResponseMessageBase
     {
         /// <summary>
         /// 发送者用户名（OpenId）
@@ -28,12 +28,12 @@ namespace Senparc.Weixin.MessageHandlers
         /// <summary>
         /// 请求实体
         /// </summary>
-        TRest RequestMessage { get; set; }
+        TRequest RequestMessage { get; set; }
         /// <summary>
         /// 响应实体
         /// 只有当执行Execute()方法后才可能有值
         /// </summary>
-        TResp ResponseMessage { get; set; }
+        TResponse ResponseMessage { get; set; }
 
         /// <summary>
         /// 是否使用了MessageAgent代理

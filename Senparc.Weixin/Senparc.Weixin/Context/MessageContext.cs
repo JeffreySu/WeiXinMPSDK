@@ -10,11 +10,11 @@ namespace Senparc.Weixin.Context
     /// <summary>
     /// 微信消息上下文（单个用户）接口
     /// </summary>
-    /// <typeparam name="TRest">请求消息类型</typeparam>
-    /// <typeparam name="TResp">响应消息类型</typeparam>
-    public interface IMessageContext<TRest,TResp>
-        where TRest : IRequestMessageBase
-        where TResp : IResponseMessageBase
+    /// <typeparam name="TRequest">请求消息类型</typeparam>
+    /// <typeparam name="TResponse">响应消息类型</typeparam>
+    public interface IMessageContext<TRequest,TResponse>
+        where TRequest : IRequestMessageBase
+        where TResponse : IResponseMessageBase
     {
         /// <summary>
         /// 用户名（OpenID）
@@ -27,11 +27,11 @@ namespace Senparc.Weixin.Context
         /// <summary>
         /// 接收消息记录
         /// </summary>
-        MessageContainer<TRest> RequestMessages { get; set; }
+        MessageContainer<TRequest> RequestMessages { get; set; }
         /// <summary>
         /// 响应消息记录
         /// </summary>
-        MessageContainer<TResp> ResponseMessages { get; set; }
+        MessageContainer<TResponse> ResponseMessages { get; set; }
         /// <summary>
         /// 最大储存容量（分别针对RequestMessages和ResponseMessages）
         /// </summary>
@@ -46,7 +46,7 @@ namespace Senparc.Weixin.Context
         /// </summary>
         Double? ExpireMinutes { get; set; }
 
-        event EventHandler<WeixinContextRemovedEventArgs<TRest, TResp>> MessageContextRemoved;
+        event EventHandler<WeixinContextRemovedEventArgs<TRequest, TResponse>> MessageContextRemoved;
 
         void OnRemoved();
     }
@@ -54,16 +54,16 @@ namespace Senparc.Weixin.Context
     /// <summary>
     /// 微信消息上下文（单个用户）
     /// </summary>
-    public class MessageContext<TRest,TResp>: IMessageContext<TRest, TResp>
-        where TRest : IRequestMessageBase
-        where TResp : IResponseMessageBase
+    public class MessageContext<TRequest,TResponse>: IMessageContext<TRequest, TResponse>
+        where TRequest : IRequestMessageBase
+        where TResponse : IResponseMessageBase
     {
         private int _maxRecordCount;
 
         public string UserName { get; set; }
         public DateTime LastActiveTime { get; set; }
-        public MessageContainer<TRest> RequestMessages { get; set; }
-        public MessageContainer<TResp> ResponseMessages { get; set; }
+        public MessageContainer<TRequest> RequestMessages { get; set; }
+        public MessageContainer<TResponse> ResponseMessages { get; set; }
         public int MaxRecordCount
         {
             get
@@ -82,16 +82,16 @@ namespace Senparc.Weixin.Context
 
         public Double? ExpireMinutes { get; set; }
 
-        public virtual event EventHandler<WeixinContextRemovedEventArgs<TRest, TResp>> MessageContextRemoved = null;
+        public virtual event EventHandler<WeixinContextRemovedEventArgs<TRequest, TResponse>> MessageContextRemoved = null;
 
         /// <summary>
         /// 执行上下文被移除的事件
         /// 注意：此事件不是实时触发的，而是等过期后任意一个人发过来的下一条消息执行之前触发。
         /// </summary>
         /// <param name="e"></param>
-        private void OnMessageContextRemoved(WeixinContextRemovedEventArgs<TRest, TResp> e)
+        private void OnMessageContextRemoved(WeixinContextRemovedEventArgs<TRequest, TResponse> e)
         {
-            EventHandler<WeixinContextRemovedEventArgs<TRest, TResp>> temp = MessageContextRemoved;
+            EventHandler<WeixinContextRemovedEventArgs<TRequest, TResponse>> temp = MessageContextRemoved;
 
             if (temp != null)
             {
@@ -112,14 +112,14 @@ namespace Senparc.Weixin.Context
              * 这个时间关系到及时从缓存中移除过期的消息，节约内存使用
              */
 
-            RequestMessages = new MessageContainer<TRest>(MaxRecordCount);
-            ResponseMessages = new MessageContainer<TResp>(MaxRecordCount);
+            RequestMessages = new MessageContainer<TRequest>(MaxRecordCount);
+            ResponseMessages = new MessageContainer<TResponse>(MaxRecordCount);
             LastActiveTime = DateTime.Now;
         }
 
         public virtual void OnRemoved()
         {
-            var onRemovedArg = new WeixinContextRemovedEventArgs<TRest, TResp>(this);
+            var onRemovedArg = new WeixinContextRemovedEventArgs<TRequest, TResponse>(this);
             OnMessageContextRemoved(onRemovedArg);
         }
     }

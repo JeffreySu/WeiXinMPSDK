@@ -43,10 +43,9 @@ namespace Senparc.Weixin.MP.Agent
             }
             string timestamp = DateTime.Now.Ticks.ToString();
             string nonce = "GodBlessYou";
-            string echostr = Guid.NewGuid().ToString("n");
             string signature = CheckSignature.GetSignature(timestamp, nonce, token);
-            url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}&echostr={4}",
-                    url.Contains("?") ? "&" : "?", signature, timestamp, nonce, echostr);
+            url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}",
+                    url.Contains("?") ? "&" : "?", signature, timestamp, nonce);
             var responseXml = HttpUtility.RequestUtility.HttpPost(url, null, stream, timeOut: AGENT_TIME_OUT);
             return responseXml;
         }

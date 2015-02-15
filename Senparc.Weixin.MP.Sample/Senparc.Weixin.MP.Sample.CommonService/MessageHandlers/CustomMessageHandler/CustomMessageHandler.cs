@@ -83,18 +83,24 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //注意：下面泛型ResponseMessageText即返回给客户端的类型，可以根据自己的需要填写ResponseMessageNews等不同类型。
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
 
-            if (requestMessage.Content == "约束")
+            if (requestMessage.Content)
             {
-                responseMessage.Content = "<a href=\"http://weixin.senparc.com/FilterTest/\">点击这里</a>进行客户端约束测试（地址：http://weixin.senparc.com/FilterTest/）。";
+
             }
-            if (requestMessage.Content == "托管" || requestMessage.Content == "代理")
+            else if (requestMessage.Content == "约束")
+            {
+                responseMessage.Content =
+                    "<a href=\"http://weixin.senparc.com/FilterTest/\">点击这里</a>进行客户端约束测试（地址：http://weixin.senparc.com/FilterTest/）。";
+            }
+            else if (requestMessage.Content == "托管" || requestMessage.Content == "代理")
             {
                 //开始用代理托管，把请求转到其他服务器上去，然后拿回结果
                 //甚至也可以将所有请求在DefaultResponseMessage()中托管到外部。
 
-                DateTime dt1 = DateTime.Now;//计时开始
+                DateTime dt1 = DateTime.Now; //计时开始
 
-                var responseXml = MessageAgent.RequestXml(this, agentUrl, agentToken, RequestDocument.ToString());//获取返回的XML
+                var responseXml = MessageAgent.RequestXml(this, agentUrl, agentToken, RequestDocument.ToString());
+                    //获取返回的XML
                 //上面的方法也可以使用扩展方法：this.RequestResponseMessage(this,agentUrl, agentToken, RequestDocument.ToString());
 
                 /* 如果有WeiweihiKey，可以直接使用下面的这个MessageAgent.RequestWeiweihiXml()方法。
@@ -102,7 +108,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                  */
                 //var responseXml = MessageAgent.RequestWeiweihiXml(weiweihiKey, RequestDocument.ToString());//获取Weiweihi返回的XML
 
-                DateTime dt2 = DateTime.Now;//计时结束
+                DateTime dt2 = DateTime.Now; //计时结束
 
                 //转成实体。
                 /* 如果要写成一行，可以直接用：
@@ -138,7 +144,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                 if (CurrentMessageContext.RequestMessages.Count > 1)
                 {
-                    result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count, CurrentMessageContext.StorageData);
+                    result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count,
+                                        CurrentMessageContext.StorageData);
                     for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
                     {
                         var historyMessage = CurrentMessageContext.RequestMessages[i];
@@ -153,9 +160,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     result.AppendLine("\r\n");
                 }
 
-                result.AppendFormat("如果您在{0}分钟内连续发送消息，记录将被自动保留（当前设置：最多记录{1}条）。过期后记录将会自动清除。\r\n", WeixinContext.ExpireMinutes, WeixinContext.MaxRecordCount);
+                result.AppendFormat("如果您在{0}分钟内连续发送消息，记录将被自动保留（当前设置：最多记录{1}条）。过期后记录将会自动清除。\r\n",
+                                    WeixinContext.ExpireMinutes, WeixinContext.MaxRecordCount);
                 result.AppendLine("\r\n");
-                result.AppendLine("您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com");
+                result.AppendLine(
+                    "您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com");
 
                 responseMessage.Content = result.ToString();
             }

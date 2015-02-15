@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Senparc.Weixin
 {
-   
+
 
     /// <summary>
     /// 企业接收消息类型
@@ -118,5 +118,20 @@ namespace Senparc.Weixin
         /// 英文
         /// </summary>
         en
+    }
+
+    /// <summary>
+    /// AppStore状态
+    /// </summary>
+    public enum AppStoreState
+    {
+        /// <summary>
+        /// 无状态
+        /// </summary>
+        None,
+        /// <summary>
+        /// 已进入应用状态
+        /// </summary>
+        Enter
     }
 }

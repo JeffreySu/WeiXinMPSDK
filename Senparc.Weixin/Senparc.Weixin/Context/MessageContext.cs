@@ -46,6 +46,11 @@ namespace Senparc.Weixin.Context
         /// </summary>
         Double? ExpireMinutes { get; set; }
 
+        /// <summary>
+        /// AppStore状态，系统属性，请勿操作
+        /// </summary>
+        AppStoreState AppStoreState { get; set; }
+
         event EventHandler<WeixinContextRemovedEventArgs<TRest, TResp>> MessageContextRemoved;
 
         void OnRemoved();
@@ -81,6 +86,11 @@ namespace Senparc.Weixin.Context
         public object StorageData { get; set; }
 
         public Double? ExpireMinutes { get; set; }
+
+        /// <summary>
+        /// AppStore状态，系统属性，请勿操作
+        /// </summary>
+        public AppStoreState AppStoreState { get; set; }
 
         public virtual event EventHandler<WeixinContextRemovedEventArgs<TRest, TResp>> MessageContextRemoved = null;
 

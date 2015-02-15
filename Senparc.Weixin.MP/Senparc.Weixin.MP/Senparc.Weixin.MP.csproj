@@ -118,6 +118,8 @@
     <Compile Include="AdvancedAPIs\User\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\User.cs" />
     <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
+    <Compile Include="AppStore\Api.cs" />
+    <Compile Include="AppStore\DeveloperInfo.cs" />
     <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />

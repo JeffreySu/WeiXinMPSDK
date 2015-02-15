@@ -9,6 +9,8 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Context;
+using Senparc.Weixin.MP.Agent;
+using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities.Request;
@@ -145,15 +147,35 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public bool UsingCompatibilityModelEcryptMessage { get; set; }
 
-        public MessageHandler(Stream inputStream, PostModel postModel = null, int maxRecordCount = 0)
+        /// <summary>
+        /// 微微嗨开发者信息
+        /// </summary>
+        public DeveloperInfo DeveloperInfo { get; set; }
+
+        /// <summary>
+        /// 构造MessageHandler
+        /// </summary>
+        /// <param name="inputStream">请求消息流</param>
+        /// <param name="postModel">PostModel</param>
+        /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
+        /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
+        public MessageHandler(Stream inputStream, PostModel postModel = null, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
             : base(inputStream, maxRecordCount, postModel)
         {
-
+            DeveloperInfo = developerInfo;
         }
 
-        public MessageHandler(XDocument requestDocument, PostModel postModel = null, int maxRecordCount = 0)
+        /// <summary>
+        /// 构造MessageHandler
+        /// </summary>
+        /// <param name="requestDocument">请求消息的XML</param>
+        /// <param name="postModel">PostModel</param>
+        /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
+        /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
+        public MessageHandler(XDocument requestDocument, PostModel postModel = null, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
             : base(requestDocument, maxRecordCount, postModel)
         {
+            DeveloperInfo = developerInfo;
             //WeixinContext.MaxRecordCount = maxRecordCount;
             //Init(requestDocument);
         }
@@ -300,6 +322,13 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public virtual void OnExecuting()
         {
             base.OnExecuting();
+
+            //判断是否已经接入开发者信息
+            if (DeveloperInfo != null || CurrentMessageContext.AppStoreState == AppStoreState.Enter)
+            {
+                //优先请求云端应用商店资源
+
+            }
         }
 
         public virtual void OnExecuted()

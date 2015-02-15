@@ -6,7 +6,7 @@
 {
     <script>
         $(function () {
-            $(".test table td").hover(function () {
+            $(".test table td:not(:empty)").hover(function () {
                 $(this).addClass('currentTestItem');
             }, function () {
                 $(this).removeClass('currentTestItem');

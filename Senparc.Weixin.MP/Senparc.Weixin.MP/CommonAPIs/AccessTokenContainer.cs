@@ -48,7 +48,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
-        /// <param name="getNewToken">强制获取最新的AccessToken（也可能得到的是服务器上缓存的Token）</param>
+        /// <param name="getNewToken"></param>
         /// <returns></returns>
         public static string TryGetToken(string appId, string appSecret, bool getNewToken = false)
         {

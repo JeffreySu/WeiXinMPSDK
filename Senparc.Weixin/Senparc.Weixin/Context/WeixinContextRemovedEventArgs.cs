@@ -10,9 +10,9 @@ namespace Senparc.Weixin.Context
     /// <summary>
     /// 对话上下文被删除时触发事件的事件数据
     /// </summary>
-    public class WeixinContextRemovedEventArgs<TRequest,TResponse> : EventArgs
-        where TRequest : IRequestMessageBase
-        where TResponse : IResponseMessageBase
+    public class WeixinContextRemovedEventArgs<TRest,TResp> : EventArgs
+        where TRest : IRequestMessageBase
+        where TResp : IResponseMessageBase
     {
         /// <summary>
         /// 该用户的OpenId
@@ -38,9 +38,9 @@ namespace Senparc.Weixin.Context
         /// <summary>
         /// 上下文对象
         /// </summary>
-        public IMessageContext<TRequest, TResponse> MessageContext { get; set; }
+        public IMessageContext<TRest, TResp> MessageContext { get; set; }
 
-        public WeixinContextRemovedEventArgs(IMessageContext<TRequest, TResponse> messageContext)
+        public WeixinContextRemovedEventArgs(IMessageContext<TRest, TResp> messageContext)
         {
             MessageContext = messageContext;
         }

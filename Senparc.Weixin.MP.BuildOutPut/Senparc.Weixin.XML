@@ -24,8 +24,8 @@
             <summary>
             微信消息上下文（单个用户）接口
             </summary>
-            <typeparam name="TRequest">请求消息类型</typeparam>
-            <typeparam name="TResponse">响应消息类型</typeparam>
+            <typeparam name="TRest">请求消息类型</typeparam>
+            <typeparam name="TResp">响应消息类型</typeparam>
         </member>
         <member name="P:Senparc.Weixin.Context.IMessageContext`2.UserName">
             <summary>
@@ -150,7 +150,7 @@
             <param name="userName">用户名（OpenId）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Context.WeixinContext`3.GetLasTResponseMessage(System.String)">
+        <member name="M:Senparc.Weixin.Context.WeixinContext`3.GetLastResponseMessage(System.String)">
             <summary>
             获取最新一条响应数据，如果不存在，则返回Null
             </summary>

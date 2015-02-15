@@ -1941,30 +1941,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_SubscribeRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_Subscribe)">
-            <summary>
-            订阅
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_UnSubscribeRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_UnSubscribe)">
-            <summary>
-            取消订阅
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_LocationRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_Location)">
-            <summary>
-            上报地理位置事件
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_EnterAgentRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_Enter_Agent)">
-            <summary>
-            用户进入应用的事件推送(enter_agent)
-            </summary>
-            <returns></returns>
-        </member>
         <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.WeixinContext">
             <summary>
             全局消息上下文

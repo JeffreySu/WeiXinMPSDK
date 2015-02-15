@@ -111,7 +111,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="token"></param>
         /// <param name="stream"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequesTResponseMessage(this IMessageHandler messageHandler, string url, string token, Stream stream)
+        public static IResponseMessageBase RequestResponseMessage(this IMessageHandler messageHandler, string url, string token, Stream stream)
         {
             return messageHandler.RequestXml(url, token, stream).CreateResponseMessage();
         }
@@ -123,7 +123,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="token"></param>
         /// <param name="xml"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequesTResponseMessage(this IMessageHandler messageHandler, string url, string token, string xml)
+        public static IResponseMessageBase RequestResponseMessage(this IMessageHandler messageHandler, string url, string token, string xml)
         {
             return messageHandler.RequestXml(url, token, xml).CreateResponseMessage();
         }

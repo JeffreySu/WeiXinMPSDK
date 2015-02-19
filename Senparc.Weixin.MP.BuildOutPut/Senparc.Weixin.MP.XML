@@ -3351,6 +3351,21 @@
             在www.weiweihi.com对接微信公众号之后，自动生成的WeiweihiKey。
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.AppStore.ReturnResult.AppStoreState">
+            <summary>
+            如果>0则进入某个APP状态，如果=0则维持当前状态不变，如果>0则退出某个App状态
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AppStore.ReturnResult.AppId">
+            <summary>
+            改变状态的AppId
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AppStore.ReturnResult.ErrorMessage">
+            <summary>
+            错误信息
+            </summary>
+        </member>
         <member name="F:Senparc.Weixin.MP.CommonAPIs.JsApiTicketBag.Lock">
             <summary>
             只针对这个AppId的锁

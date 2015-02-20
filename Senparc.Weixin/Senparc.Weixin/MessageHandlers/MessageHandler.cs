@@ -172,6 +172,14 @@ namespace Senparc.Weixin.MessageHandlers
         }
 
         /// <summary>
+        /// 默认构造函数
+        /// </summary>
+        public MessageHandler()
+        {
+            
+        }
+
+        /// <summary>
         /// 初始化，获取RequestDocument。
         /// Init中需要对上下文添加当前消息（如果使用上下文）
         /// </summary>

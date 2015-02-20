@@ -180,6 +180,20 @@ namespace Senparc.Weixin.MP.MessageHandlers
             //Init(requestDocument);
         }
 
+        /// <summary>
+        /// 直接传入IRequestMessageBase，For UnitTest
+        /// </summary>
+        /// <param name="requestMessageBase"></param>
+        public MessageHandler(IRequestMessageBase requestMessageBase)
+        {
+            this.RequestMessage = requestMessageBase;
+            if (WeixinContextGlobal.UseWeixinContext)
+            {
+                WeixinContext.InsertMessage(RequestMessage);
+            }
+        }
+
+
         public override XDocument Init(XDocument postDataDocument, object postData = null)
         {
             //进行加密判断并处理

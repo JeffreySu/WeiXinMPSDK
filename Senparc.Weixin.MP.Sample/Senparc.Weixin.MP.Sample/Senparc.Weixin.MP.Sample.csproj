@@ -283,7 +283,6 @@
     <Content Include="Views\TenPay\Delivernotify.cshtml" />
     <Content Include="Views\TenPay\SharedAddress.cshtml" />
     <Content Include="Views\TenPayV3\JsApi.cshtml" />
-    <Content Include="Views\TenPayV3\GetOpenId.cshtml" />
     <Content Include="Views\TenPayV3\Index.cshtml" />
     <Content Include="Views\TenPayV3\PayNotifyUrl.cshtml" />
   </ItemGroup>

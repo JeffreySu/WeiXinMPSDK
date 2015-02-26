@@ -83,7 +83,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //注意：下面泛型ResponseMessageText即返回给客户端的类型，可以根据自己的需要填写ResponseMessageNews等不同类型。
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
 
-            if (requestMessage.Content)
+            if (requestMessage.Content == null)
             {
 
             }

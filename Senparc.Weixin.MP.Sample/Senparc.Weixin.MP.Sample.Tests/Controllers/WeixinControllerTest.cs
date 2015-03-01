@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.MvcExtension;
@@ -66,6 +67,16 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
   </Video> 
 </xml>";
 
+        private string xmlImageFormat = @"<xml>
+  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+  <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+  <CreateTime>1425200601</CreateTime>
+  <MsgType><![CDATA[image]]></MsgType>
+  <PicUrl><![CDATA[http://mmbiz.qpic.cn/mmbiz/ZxBXNzgHyUq9W2782SegwYFwpf9mK9a6GGToC31ZjpJRH4pD4xnMXStxmx9vQbvZPwmJ1kcffz3KyNtGPVDJhw/0]]></PicUrl>
+  <MsgId>6121189971737837469</MsgId>
+  <MediaId><![CDATA[rS0qWb1wSLNpLjv3gD1QQnZV8WcL29CTqlf9uyC0jj1Nha2Sv4jJ_0LsT88qVe2a]]></MediaId>
+</xml>
+";
 
         /// <summary>
         /// 初始化控制器及相关请求参数
@@ -99,7 +110,14 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 
             DateTime st = DateTime.Now;
             //这里使用MiniPost，绕过日志记录
-            var actual = target.MiniPost(signature, timestamp, nonce, "echostr") as WeixinResult;
+
+            var postModel = new PostModel()
+                {
+                    Signature = signature,
+                    Timestamp=timestamp,
+                    Nonce = nonce,
+                };
+            var actual = target.MiniPost(postModel) as FixWeixinBugWeixinResult;
             DateTime et = DateTime.Now;
 
             Assert.IsNotNull(actual);
@@ -128,6 +146,12 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             PostTest(xmlVideoFormat);
         }
 
+        [TestMethod]
+        public void ImagePostTest()
+        {
+            PostTest(xmlImageFormat);
+        }
+
 
         [TestMethod]
         public void MessageAgent_TextTest()
@@ -139,8 +163,13 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             var timestamp = "itsafaketimestamp";
             var nonce = "whateveryouwant";
             var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, WeixinController.Token);
-            var actual = target.MiniPost(signature, timestamp, nonce, "echostr") as WeixinResult;
-            Assert.IsNotNull(actual);
+            var postModel = new PostModel()
+            {
+                Signature = signature,
+                Timestamp = timestamp,
+                Nonce = nonce
+            };
+            var actual = target.MiniPost(postModel) as FixWeixinBugWeixinResult; Assert.IsNotNull(actual);
             Console.WriteLine(actual.Content);
         }
 
@@ -154,8 +183,13 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             var timestamp = "itsafaketimestamp";
             var nonce = "whateveryouwant";
             var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, WeixinController.Token);
-            var actual = target.MiniPost(signature, timestamp, nonce, "echostr") as WeixinResult;
-            Assert.IsNotNull(actual);
+            var postModel = new PostModel()
+            {
+                Signature = signature,
+                Timestamp = timestamp,
+                Nonce = nonce
+            };
+            var actual = target.MiniPost(postModel) as FixWeixinBugWeixinResult; Assert.IsNotNull(actual);
             Console.WriteLine(actual.Content);
         }
 
@@ -169,8 +203,13 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             var timestamp = "itsafaketimestamp";
             var nonce = "whateveryouwant";
             var signature = Senparc.Weixin.MP.CheckSignature.GetSignature(timestamp, nonce, WeixinController.Token);
-            var actual = target.MiniPost(signature, timestamp, nonce, "echostr") as WeixinResult;
-            Assert.IsNotNull(actual);
+            var postModel = new PostModel()
+            {
+                Signature = signature,
+                Timestamp = timestamp,
+                Nonce = nonce
+            };
+            var actual = target.MiniPost(postModel) as FixWeixinBugWeixinResult; Assert.IsNotNull(actual);
             Console.WriteLine(actual.Content);
         }
 
@@ -186,8 +225,13 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                 var timestamp = "itsafaketimestamp";
                 var nonce = "whateveryouwant";
                 var signature = CheckSignature.GetSignature(timestamp, nonce, WeixinController.Token);
-                var actual = target.MiniPost(signature, timestamp, nonce, "echostr") as WeixinResult;
-                Assert.IsNotNull(actual);
+                var postModel = new PostModel()
+                {
+                    Signature = signature,
+                    Timestamp = timestamp,
+                    Nonce = nonce
+                };
+                var actual = target.MiniPost(postModel) as FixWeixinBugWeixinResult; Assert.IsNotNull(actual);
             }
             Assert.AreEqual(1, MessageHandler<MessageContext<IRequestMessageBase,IResponseMessageBase>>.GlobalWeixinContext.MessageQueue.Count);
 

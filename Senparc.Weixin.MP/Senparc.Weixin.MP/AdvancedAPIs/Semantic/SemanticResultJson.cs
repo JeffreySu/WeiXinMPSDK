@@ -29,86 +29,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     
     
     
-    ///// <summary>
-    ///// 火车服务（train）
-    ///// </summary>
-    //public class Train : BaseSemanticInfo
-    //{
-    //    public Details_Train details { get; set; }
-    //}
-
-    //public class Details_Train
-    //{
-    //    public Semantic_DateTime start_date { get; set; }//出发日期
-    //    public Semantic_DateTime end_date { get; set; }//返回日期
-    //    public Semantic_Location start_loc { get; set; }//起点
-    //    public Semantic_Location end_loc { get; set; }//终点
-    //    public string code { get; set; }//车次代码，比如：T43等
-    //    public string seat { get; set; }//座位级别：YZ（硬座），RZ（软座），YW（硬卧），RW（软卧），YD（一等座），ED（二等座），TD（特等座）
-    //    public string category { get; set; }//车次类型：G（高铁），D（动车），T（特快），K（快速），Z（直达），L（临时客车），P（普通）
-    //    public string type { get; set; }//类型：DC（单程），WF（往返）
-    //}
-    ///// <summary>
-    ///// 上映电影服务（movie）
-    ///// </summary>
-    //public class Movie : BaseSemanticInfo
-    //{
-    //    public Details_Movie details { get; set; }
-    //}
-
-    //public class Details_Movie
-    //{
-    //    public string name { get; set; }//电影名
-    //    public string actor { get; set; }//主演
-    //    public string director { get; set; }//导演
-    //    public string tag { get; set; }//类型：动作片，剧情片，…
-    //    public string country { get; set; }//地区：美国，大陆，香港，…
-    //    public string cinema { get; set; }//电影院
-    //    public Semantic_Location location { get; set; }//地点
-    //    public Semantic_DateTime datetime { get; set; }//时间
-    //    public int coupon { get; set; }//优惠信息：0无（默认），1优惠券，2团购
-    //    public int sort { get; set; }//排序类型：0排序无要求（默认），1评价高优先级
-    //}
-    ///// <summary>
-    ///// 音乐服务（music）
-    ///// </summary>
-    //public class Music : BaseSemanticInfo
-    //{
-    //    public Details_Music details { get; set; }
-    //}
-
-    //public class Details_Music
-    //{
-    //    public string song { get; set; }//歌曲名
-    //    public string singer { get; set; }//歌手
-    //    public string album { get; set; }//专辑
-    //    public string category { get; set; }//歌曲类型
-    //    public string language { get; set; }//语言：中文，英文，韩文，日文，…
-    //    public string movie { get; set; }//电影名
-    //    public string tv { get; set; }//电视剧名
-    //    public string show { get; set; }//节目名
-    //    public int sort { get; set; }//排序类型：0排序无要求（默认），1时间升序，2时间降序，3热度高优先级
-    //}
-    ///// <summary>
-    ///// 视频服务（video）
-    ///// </summary>
-    //public class Video : BaseSemanticInfo
-    //{
-    //    public Details_Video details { get; set; }
-    //}
-
-    //public class Details_Video
-    //{
-    //    public string name { get; set; }
-    //    public string actor { get; set; }
-    //    public string director { get; set; }
-    //    public string category { get; set; }
-    //    public string tag { get; set; }
-    //    public string country { get; set; }
-    //    public Semantic_Number season { get; set; }
-    //    public Semantic_Number episode { get; set; }
-    //    public int sort { get; set; }
-    //}
+    
+    
+    
+    
     ///// <summary>
     ///// 小说服务（novel）
     ///// </summary>

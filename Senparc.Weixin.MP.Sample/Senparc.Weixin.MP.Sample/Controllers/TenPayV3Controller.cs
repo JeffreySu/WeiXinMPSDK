@@ -37,20 +37,15 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         /// <summary>
         /// 获取用户的OpenId
         /// </summary>
         /// <returns></returns>
-        public ActionResult GetOpenId()
+        public ActionResult Index()
         {
-            ViewData["UrlUserInfo"] = OAuth.GetAuthorizeUrl(TenPayV3Info.AppId, "http://weixin.senparc.com/TenPayV3/JsApi", "JeffreySu", OAuthScope.snsapi_userinfo);
+            var url = OAuth.GetAuthorizeUrl(TenPayV3Info.AppId, "http://weixin.senparc.com/TenPayV3/JsApi", "JeffreySu", OAuthScope.snsapi_userinfo);
 
-            return View();
+            return Redirect(url);
         }
 
         public ActionResult JsApi(string code, string state)
@@ -107,7 +102,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             packageReqHandler.SetParameter("nonce_str", nonceStr);                    //随机字符串
             packageReqHandler.SetParameter("body", "test");
             packageReqHandler.SetParameter("out_trade_no", sp_billno);		//商家订单号
-            packageReqHandler.SetParameter("total_fee", "1");			        //商品金额,以分为单位(money * 100).ToString()
+            packageReqHandler.SetParameter("total_fee", "100");			        //商品金额,以分为单位(money * 100).ToString()
             packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);   //用户的公网ip，不是商户服务器IP
             packageReqHandler.SetParameter("notify_url", TenPayV3Info.TenPayV3Notify);		    //接收财付通通知的URL
             packageReqHandler.SetParameter("trade_type", TenPayV3Type.JSAPI.ToString());	                    //交易类型

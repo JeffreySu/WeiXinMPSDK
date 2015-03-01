@@ -12,7 +12,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class Semantic_MapResult : BaseSemanticResultJson
     {
-        public Details_Map details { get; set; }
+        public Semantic_Details_Map details { get; set; }
         /// <summary>
         /// SEARCH 普通查询
         /// ROUTE 路线查询
@@ -20,7 +20,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public string intent { get; set; }
     }
 
-    public class Details_Map
+    public class Semantic_Details_Map
     {
         /// <summary>
         /// 起点区域

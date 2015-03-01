@@ -9,6 +9,7 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
@@ -35,6 +36,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         private string agentToken = WebConfigurationManager.AppSettings["WeixinAgentToken"];//Token
         private string wiweihiKey = WebConfigurationManager.AppSettings["WeixinAgentWeiweihiKey"];//WeiweihiKey专门用于对接www.Weiweihi.com平台，获取方式见：http://www.weiweihi.com/ApiDocuments/Item/25#51
 #endif
+
+        private string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
+        private string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
 
         public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)
@@ -83,7 +87,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //注意：下面泛型ResponseMessageText即返回给客户端的类型，可以根据自己的需要填写ResponseMessageNews等不同类型。
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
 
-            if (requestMessage.Content)
+            if (requestMessage.Content == null)
             {
 
             }
@@ -100,7 +104,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 DateTime dt1 = DateTime.Now; //计时开始
 
                 var responseXml = MessageAgent.RequestXml(this, agentUrl, agentToken, RequestDocument.ToString());
-                    //获取返回的XML
+                //获取返回的XML
                 //上面的方法也可以使用扩展方法：this.RequestResponseMessage(this,agentUrl, agentToken, RequestDocument.ToString());
 
                 /* 如果有WeiweihiKey，可以直接使用下面的这个MessageAgent.RequestWeiweihiXml()方法。
@@ -205,6 +209,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 PicUrl = requestMessage.PicUrl,
                 Url = "http://weixin.senparc.com"
             });
+
             return responseMessage;
         }
 
@@ -216,13 +221,19 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         public override IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
         {
             var responseMessage = CreateResponseMessage<ResponseMessageMusic>();
-            responseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
-            responseMessage.Music.Title = "这里是一条音乐消息";
-            responseMessage.Music.Description = "来自Jeffrey Su的美妙歌声~~";
-            responseMessage.Music.ThumbMediaId = "mediaid";
+            //上传缩略图
+            var accessToken = CommonAPIs.AccessTokenContainer.TryGetToken(appId, appSecret);
+            var uploadResult = AdvancedAPIs.Media.Upload(accessToken, UploadMediaFileType.image,
+                                                         Server.GetMapPath("~/Images/Logo.jpg"));
+
+            //设置音乐信息
+            responseMessage.Music.Title = "天籁之音";
+            responseMessage.Music.Description = "播放您上传的语音";
+            responseMessage.Music.MusicUrl = "http://weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
+            responseMessage.Music.HQMusicUrl = "http://weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
+            responseMessage.Music.ThumbMediaId = uploadResult.media_id;
             return responseMessage;
         }
-
         /// <summary>
         /// 处理视频请求
         /// </summary>

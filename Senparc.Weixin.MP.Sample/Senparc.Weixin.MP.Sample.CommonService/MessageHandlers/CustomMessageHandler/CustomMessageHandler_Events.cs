@@ -7,6 +7,7 @@ using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
@@ -86,16 +87,29 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
                     break;
                 case "SubClickRoot_Music":
                     {
+                        //上传缩略图
+                        var accessToken = CommonAPIs.AccessTokenContainer.TryGetToken(appId, appSecret);
+                        var uploadResult = AdvancedAPIs.Media.Upload(accessToken, UploadMediaFileType.thumb,
+                                                                     Server.GetMapPath("~/Images/Logo.jpg"));
+                        //设置音乐信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageMusic>();
                         reponseMessage = strongResponseMessage;
+                        strongResponseMessage.Music.Title = "天籁之音";
+                        strongResponseMessage.Music.Description = "真的是天籁之音";
                         strongResponseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
+                        strongResponseMessage.Music.ThumbMediaId = uploadResult.thumb_media_id;
                     }
                     break;
                 case "SubClickRoot_Image":
                     {
+                        //上传图片
+                        var accessToken = CommonAPIs.AccessTokenContainer.TryGetToken(appId, appSecret);
+                        var uploadResult = AdvancedAPIs.Media.Upload(accessToken, UploadMediaFileType.image,
+                                                                     Server.GetMapPath("~/Images/Logo.jpg"));
+                        //设置图片信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageImage>();
                         reponseMessage = strongResponseMessage;
-                        strongResponseMessage.Image.MediaId = "Mj0WUTZeeG9yuBKhGP7iR5n1xUJO9IpTjGNC4buMuswfEOmk6QSIRb_i98do5nwo";
+                        strongResponseMessage.Image.MediaId = uploadResult.media_id;
                     }
                     break;
                 case "SubClickRoot_Agent"://代理消息

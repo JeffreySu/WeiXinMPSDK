@@ -100,9 +100,14 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
                     break;
                 case "SubClickRoot_Image":
                     {
+                        //上传图片
+                        var accessToken = CommonAPIs.AccessTokenContainer.TryGetToken(appId, appSecret);
+                        var uploadResult = AdvancedAPIs.Media.Upload(accessToken, UploadMediaFileType.image,
+                                                                     Server.GetMapPath("~/Images/Logo.jpg"));
+                        //设置图片信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageImage>();
                         reponseMessage = strongResponseMessage;
-                        strongResponseMessage.Image.MediaId = "Mj0WUTZeeG9yuBKhGP7iR5n1xUJO9IpTjGNC4buMuswfEOmk6QSIRb_i98do5nwo";
+                        strongResponseMessage.Image.MediaId = uploadResult.media_id;
                     }
                     break;
                 case "SubClickRoot_Agent"://代理消息

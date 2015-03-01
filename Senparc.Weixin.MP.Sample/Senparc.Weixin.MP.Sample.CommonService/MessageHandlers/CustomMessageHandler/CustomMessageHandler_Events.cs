@@ -7,6 +7,7 @@ using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
@@ -86,9 +87,15 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
                     break;
                 case "SubClickRoot_Music":
                     {
+                        //上传缩略图
+                        var accessToken = CommonAPIs.AccessTokenContainer.TryGetToken(appId, appSecret);
+                        var uploadResult = AdvancedAPIs.Media.Upload(accessToken, UploadMediaFileType.thumb,
+                                                                     Server.GetMapPath("~/Images/Logo.jpg"));
+                        //设置音乐信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageMusic>();
                         reponseMessage = strongResponseMessage;
                         strongResponseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
+                        strongResponseMessage.Music.ThumbMediaId = uploadResult.thumb_media_id;
                     }
                     break;
                 case "SubClickRoot_Image":

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.Entities.Request;
@@ -21,7 +22,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
     public partial class WeixinController : Controller
     {
-        public static readonly string Token = "weixin";//与微信公众账号后台的Token设置保持一致，区分大小写。
+        public static readonly string Token = WebConfigurationManager.AppSettings["WeixinToken"];//与微信公众账号后台的Token设置保持一致，区分大小写。
 
         public WeixinController()
         {

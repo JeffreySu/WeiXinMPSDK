@@ -23,6 +23,20 @@ namespace Senparc.Weixin.MP.Sample.CommonService.QyMessageHandlers
             return responseMessage;
         }
 
+        public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
+        {
+            var responseMessage = CreateResponseMessage<ResponseMessageImage>();
+            responseMessage.Image.MediaId = requestMessage.MediaId;
+            return responseMessage;
+        }
+
+        public override IResponseMessageBase OnEvent_PicPhotoOrAlbumRequest(RequestMessageEvent_Pic_Photo_Or_Album requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "您刚发送的图片如下：";
+            return responseMessage;
+        }
+
         public override QY.Entities.IResponseMessageBase DefaultResponseMessage(QY.Entities.IRequestMessageBase requestMessage)
         {
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();

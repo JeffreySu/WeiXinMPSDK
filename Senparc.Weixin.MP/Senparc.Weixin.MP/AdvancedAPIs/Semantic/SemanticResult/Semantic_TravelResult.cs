@@ -7,40 +7,46 @@ using Senparc.Weixin.MP.Entities;
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
-    /// 旅游服务（travel）
+    /// 火车服务（train）
     /// </summary>
-    public class Semantic_TravelResult : BaseSemanticResultJson
+    public class Semantic_TrainResult : BaseSemanticResultJson
     {
-        public Details_Travel details { get; set; }
-        /// <summary>
-        /// SEARCH 普通查询
-        /// PRICE 价格查询
-        /// GUIDE 攻略查询
-        /// </summary>
-        public string intent { get; set; }
+        public Semantic_Details_Train details { get; set; }
     }
 
-    public class Details_Travel
+    public class Semantic_Details_Train
     {
         /// <summary>
-        /// 旅游目的地
+        /// 出发日期
         /// </summary>
-        public Semantic_Location location { get; set; }
+        public Semantic_SingleDateTime start_date { get; set; }
         /// <summary>
-        /// 景点名称
+        /// 返回日期
         /// </summary>
-        public string spot { get; set; }
+        public Semantic_SingleDateTime end_date { get; set; }
         /// <summary>
-        /// 旅游日期
+        /// 起点
         /// </summary>
-        public Semantic_SingleDateTime datetime { get; set; }
+        public Semantic_Location start_loc { get; set; }
         /// <summary>
-        /// 旅游类型词
+        /// 终点
         /// </summary>
-        public string tag { get; set; }
+        public Semantic_Location end_loc { get; set; }
         /// <summary>
-        /// 0默认，1自由行，2跟团游
+        /// 车次代码，比如：T43等
         /// </summary>
-        public int category { get; set; }
+        public string code { get; set; }
+        /// <summary>
+        /// 座位级别：YZ（硬座），RZ（软座），YW（硬卧），RW（软卧），YD（一等座），ED（二等座），TD（特等座）
+        /// </summary>
+        public string seat { get; set; }
+        /// <summary>
+        /// 车次类型：G（高铁），D（动车），T（特快），K（快速），Z（直达），L（临时客车），P（普通）
+        /// </summary>
+        public string category { get; set; }
+        /// <summary>
+        /// 类型：DC（单程），WF（往返）
+        /// </summary>
+        public string type { get; set; }
     }
 }

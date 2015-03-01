@@ -11,10 +11,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class Semantic_FlightResult : BaseSemanticResultJson
     {
-        public Details_Flight details { get; set; }
+        public Semantic_Details_Flight details { get; set; }
     }
 
-    public class Details_Flight
+    public class Semantic_Details_Flight
     {
         public string flight_no { get; set; }//航班号
         public Semantic_Location start_loc { get; set; }//出发地

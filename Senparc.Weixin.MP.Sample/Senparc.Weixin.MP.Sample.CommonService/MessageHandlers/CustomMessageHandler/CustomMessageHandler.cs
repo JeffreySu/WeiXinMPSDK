@@ -36,6 +36,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         private string wiweihiKey = WebConfigurationManager.AppSettings["WeixinAgentWeiweihiKey"];//WeiweihiKey专门用于对接www.Weiweihi.com平台，获取方式见：http://www.weiweihi.com/ApiDocuments/Item/25#51
 #endif
 
+        private string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
+        private string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
+
         public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)
         {

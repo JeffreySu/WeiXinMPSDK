@@ -3289,6 +3289,106 @@
             类型：DC（单程），WF（往返）
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_MusicResult">
+            <summary>
+            音乐服务（music）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.song">
+            <summary>
+            歌曲名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.singer">
+            <summary>
+            歌手
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.album">
+            <summary>
+            专辑
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.category">
+            <summary>
+            歌曲类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.language">
+            <summary>
+            语言：中文，英文，韩文，日文，…
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.movie">
+            <summary>
+            电影名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.tv">
+            <summary>
+            电视剧名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.show">
+            <summary>
+            节目名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.sort">
+            <summary>
+            排序类型：0排序无要求（默认），1时间升序，2时间降序，3热度高优先级
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_VideoResult">
+            <summary>
+            视频服务（video）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.name">
+            <summary>
+            视频名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.actor">
+            <summary>
+            主演/嘉宾
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.director">
+            <summary>
+            导演/主持人
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.category">
+            <summary>
+            视频类型：MOVIE（电影），TV（电视剧），COMIC（动漫），SHOW（综艺节目），OTHER（其他）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.tag">
+            <summary>
+            类型：动作片，剧情片，…
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.country">
+            <summary>
+            地区：美国，大陆，香港，…
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.season">
+            <summary>
+            季，部等
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.episode">
+            <summary>
+            集
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.sort">
+            <summary>
+            排序类型：0好评（默认），1热门，2经典
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Template">
             <summary>
             模板消息接口

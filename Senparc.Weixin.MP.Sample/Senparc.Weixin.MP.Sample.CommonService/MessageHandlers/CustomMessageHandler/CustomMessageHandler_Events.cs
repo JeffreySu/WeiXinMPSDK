@@ -94,6 +94,8 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
                         //设置音乐信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageMusic>();
                         reponseMessage = strongResponseMessage;
+                        strongResponseMessage.Music.Title = "天籁之音";
+                        strongResponseMessage.Music.Description = "真的是天籁之音";
                         strongResponseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
                         strongResponseMessage.Music.ThumbMediaId = uploadResult.thumb_media_id;
                     }

@@ -139,6 +139,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\OAuth2Controller.cs" />
     <Compile Include="Controllers\QY\QYController.cs" />

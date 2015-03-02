@@ -2,6 +2,7 @@
 {
     public interface IRequestMessageBase : IMessageBase
     {
+        //删除MsgType因为企业号和公众号的MsgType为两个独立的枚举类型
         //RequestMsgType MsgType { get; }
         long MsgId { get; set; }
     }

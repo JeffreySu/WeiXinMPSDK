@@ -267,6 +267,11 @@
             已进入应用状态
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.AppStoreState.Exit">
+            <summary>
+            退出App状态（临时传输状态，退出后即为None）
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.Exceptions.ErrorJsonResultException">
             <summary>
             JSON返回错误代码（比如token_access相关操作中使用）。

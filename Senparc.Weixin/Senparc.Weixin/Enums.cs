@@ -128,10 +128,14 @@ namespace Senparc.Weixin
         /// <summary>
         /// 无状态
         /// </summary>
-        None,
+        None=1,
         /// <summary>
         /// 已进入应用状态
         /// </summary>
-        Enter
+        Enter=2,
+        /// <summary>
+        /// 退出App状态（临时传输状态，退出后即为None）
+        /// </summary>
+        Exit=4
     }
 }

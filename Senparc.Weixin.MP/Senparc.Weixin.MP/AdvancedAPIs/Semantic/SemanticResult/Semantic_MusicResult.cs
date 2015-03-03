@@ -11,6 +11,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class Semantic_MusicResult : BaseSemanticResultJson
     {
+        public Semantic_Music semantic { get; set; }
+    }
+
+    public class Semantic_Music : BaseSemanticIntent
+    {
         public Semantic_Details_Music details { get; set; }
     }
 

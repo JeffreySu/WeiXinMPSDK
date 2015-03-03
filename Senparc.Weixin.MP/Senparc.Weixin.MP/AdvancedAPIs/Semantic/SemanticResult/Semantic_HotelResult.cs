@@ -11,11 +11,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class Semantic_HotelResult : BaseSemanticResultJson
     {
+        public Semantic_Hotel semantic { get; set; }
+    }
+
+    public class Semantic_Hotel : BaseSemanticIntent
+    {
         public Semantic_Details_Hotel details { get; set; }
-        /// <summary>
-        /// SEARCH 普通查询
-        /// </summary>
-        public string intent { get; set; }
     }
 
     public class Semantic_Details_Hotel
@@ -27,11 +28,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 入住时间
         /// </summary>
-        public Semantic_SingleDateTime start_date { get; set; }
+        public Semantic_DateTime start_date { get; set; }
         /// <summary>
         /// 离开时间
         /// </summary>
-        public Semantic_SingleDateTime end_date { get; set; }
+        public Semantic_DateTime end_date { get; set; }
         /// <summary>
         /// 酒店名称
         /// </summary>

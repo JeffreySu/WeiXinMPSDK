@@ -20,20 +20,21 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 发送语义理解请求
         /// </summary>
+        /// <typeparam name="T">语意理解返回的结果类型，在 AdvancedAPIs/Semantic/SemanticResult </typeparam>
         /// <param name="accessToken"></param>
         /// <param name="semanticPostData">语义理解请求需要post的数据</param>
         /// <returns></returns>
-        public static BaseSemanticResultJson SemanticSend(string accessToken, SemanticPostData semanticPostData)
+        public static T SemanticSend<T>(string accessToken, SemanticPostData semanticPostData)
         {
             var urlFormat = "https://api.weixin.qq.com/semantic/semproxy/search?access_token={0}";
 
             //switch (semanticPostData.category)
             //{
             //    case "restaurant":
-            //        BaseSemanticResultJson as
+            //        BaseSemanticResultJson as Semantic_RestaurantResult;
             //}
 
-            return CommonJsonSend.Send<Semantic_RestaurantResult>(accessToken, urlFormat, semanticPostData);
+            return CommonJsonSend.Send<T>(accessToken, urlFormat, semanticPostData);
         }
     }
 }

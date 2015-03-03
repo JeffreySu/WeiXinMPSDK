@@ -11,6 +11,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class Semantic_MovieResult : BaseSemanticResultJson
     {
+        public Semantic_Movie semantic { get; set; }
+    }
+
+    public class Semantic_Movie : BaseSemanticIntent
+    {
         public Semantic_Details_Movie details { get; set; }
     }
 
@@ -47,7 +52,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 时间
         /// </summary>
-        public Semantic_SingleDateTime datetime { get; set; }
+        public Semantic_DateTime datetime { get; set; }
         /// <summary>
         /// 优惠信息：0无（默认），1优惠券，2团购
         /// </summary>

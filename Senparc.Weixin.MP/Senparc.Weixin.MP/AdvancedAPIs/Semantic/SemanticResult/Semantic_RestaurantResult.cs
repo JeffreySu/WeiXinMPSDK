@@ -11,6 +11,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class Semantic_RestaurantResult : BaseSemanticResultJson
     {
+        public Semantic_Restaurant semantic { get; set; }
+    }
+
+    public class Semantic_Restaurant : BaseSemanticIntent
+    {
         public Semantic_Details_Restaurant details { get; set; }
         /// <summary>
         /// SEARCH 普通查询

@@ -11,6 +11,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class Semantic_TravelResult : BaseSemanticResultJson
     {
+        public Semantic_Travel semantic { get; set; }
+    }
+
+    public class Semantic_Travel : BaseSemanticIntent
+    {
         public Semantic_Details_Travel details { get; set; }
         /// <summary>
         /// SEARCH 普通查询
@@ -33,7 +38,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 旅游日期
         /// </summary>
-        public Semantic_SingleDateTime datetime { get; set; }
+        public Semantic_DateTime datetime { get; set; }
         /// <summary>
         /// 旅游类型词
         /// </summary>

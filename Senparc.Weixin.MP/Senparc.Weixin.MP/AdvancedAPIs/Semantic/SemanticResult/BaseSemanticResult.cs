@@ -10,8 +10,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     {
         /// <summary>
         /// 用于标识用户请求后的状态
+        /// 文档中写的是res，但实际测试应该是ret
         /// </summary>
-        public int res { get; set; }
+        public string ret { get; set; }
         /// <summary>
         /// 用户的输入字符串
         /// </summary>
@@ -22,12 +23,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public string type { get; set; }
     }
 
-    //public class BaseSemantic
-    //{
-    //    /// <summary>
-    //    /// SEARCH 普通查询
-    //    /// ROUTE 路线查询
-    //    /// </summary>
-    //    public string intent { get; set; }
-    //}
+    public class BaseSemanticIntent
+    {
+        /// <summary>
+        /// SEARCH 普通查询
+        /// ROUTE 路线查询
+        /// </summary>
+        public string intent { get; set; }
+    }
 }

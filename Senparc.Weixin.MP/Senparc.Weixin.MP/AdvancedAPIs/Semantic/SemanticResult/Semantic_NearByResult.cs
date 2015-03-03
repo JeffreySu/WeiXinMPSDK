@@ -12,6 +12,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class Semantic_NearByResult : BaseSemanticResultJson
     {
+        public Semantic_NearBy semantic { get; set; }
+    }
+
+    public class Semantic_NearBy : BaseSemanticIntent
+    {
         public Semantic_Details_NearBy details { get; set; }
         /// <summary>
         /// SEARCH 普通查询

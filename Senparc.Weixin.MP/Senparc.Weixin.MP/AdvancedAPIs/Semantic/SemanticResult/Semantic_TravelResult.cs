@@ -11,6 +11,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class Semantic_TrainResult : BaseSemanticResultJson
     {
+        public Semantic_Train semantic { get; set; }
+    }
+
+    public class Semantic_Train : BaseSemanticIntent
+    {
         public Semantic_Details_Train details { get; set; }
     }
 
@@ -19,11 +24,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 出发日期
         /// </summary>
-        public Semantic_SingleDateTime start_date { get; set; }
+        public Semantic_DateTime start_date { get; set; }
         /// <summary>
         /// 返回日期
         /// </summary>
-        public Semantic_SingleDateTime end_date { get; set; }
+        public Semantic_DateTime end_date { get; set; }
         /// <summary>
         /// 起点
         /// </summary>

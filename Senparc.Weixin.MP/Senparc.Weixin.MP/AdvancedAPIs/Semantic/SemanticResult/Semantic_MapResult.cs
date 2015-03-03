@@ -12,12 +12,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class Semantic_MapResult : BaseSemanticResultJson
     {
+        public Semantic_Map semantic { get; set; }
+    }
+
+    public class Semantic_Map : BaseSemanticIntent
+    {
         public Semantic_Details_Map details { get; set; }
-        /// <summary>
-        /// SEARCH 普通查询
-        /// ROUTE 路线查询
-        /// </summary>
-        public string intent { get; set; }
     }
 
     public class Semantic_Details_Map

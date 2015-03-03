@@ -11,6 +11,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class Semantic_CouponResult : BaseSemanticResultJson
     {
+        public Semantic_Coupon semantic { get; set; }
+    }
+
+    public class Semantic_Coupon : BaseSemanticIntent
+    {
         public Semantic_Details_Coupon details { get; set; }
         /// <summary>
         /// SEARCH 普通查询

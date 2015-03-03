@@ -11,6 +11,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class Semantic_VideoResult : BaseSemanticResultJson
     {
+        public Semantic_Video semantic { get; set; }
+    }
+
+    public class Semantic_Video : BaseSemanticIntent
+    {
         public Semantic_Details_Video details { get; set; }
     }
 

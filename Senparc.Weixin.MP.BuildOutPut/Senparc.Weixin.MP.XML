@@ -2613,6 +2613,19 @@
             <param name="ticket"></param>
             <param name="stream"></param>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic">
+            <summary>
+            语意理解接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Semantic.SemanticSend(System.String,Senparc.Weixin.MP.AdvancedAPIs.SemanticPostData)">
+            <summary>
+            发送语义理解请求
+            </summary>
+            <param name="accessToken"></param>
+            <param name="semanticPostData">语义理解请求需要post的数据</param>
+            <returns></returns>
+        </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseSemanticResultJson.res">
             <summary>
             用于标识用户请求后的状态
@@ -2628,18 +2641,11 @@
             服务的全局类别id
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.BaseSemanticIntent.intent">
             <summary>
-            语意理解接口
+            SEARCH 普通查询
+            ROUTE 路线查询
             </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Semantic.SemanticSend(System.String,Senparc.Weixin.MP.AdvancedAPIs.SemanticPostData)">
-            <summary>
-            发送语义理解请求
-            </summary>
-            <param name="accessToken"></param>
-            <param name="semanticPostData">语义理解请求需要post的数据</param>
-            <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.SemanticPostData">
             <summary>
@@ -2694,14 +2700,26 @@
             非必填
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_DateTime">
+            <summary>
+            时间相关协议datetime
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_DateTime.type">
+            <summary>
+            单时间的描述协议类型：“DT_SINGLE”。DT_SINGLE又细分为两个类别：DT_ORI和DT_INFER。DT_ORI是字面时间，比如：“上午九点”；DT_INFER是推理时间，比如：“提前5分钟”
+            时间段的描述协议类型：“DT_INTERVAL”
+            重复时间的描述协议类型：“DT_REPEAT”  DT_ REPEAT又细分为两个类别：DT_RORI和DT_RINFER。DT_RORI是字面时间，比如：“每天上午九点”；DT_RINFER是推理时间，比如：“工作日除外”
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_DateTime.time">
+            <summary>
+            24小时制，格式：HH:MM:SS，默认为00:00:00
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_SingleDateTime">
             <summary>
             单时间的描述协议datetime
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_SingleDateTime.type">
-            <summary>
-            大类型：“DT_SINGLE”。DT_SINGLE又细分为两个类别：DT_ORI和DT_INFER。DT_ORI是字面时间，比如：“上午九点”；DT_INFER是推理时间，比如：“提前5分钟”
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_SingleDateTime.date">
@@ -2714,11 +2732,6 @@
             date的原始字符串
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_SingleDateTime.time">
-            <summary>
-            24小时制，格式：HH:MM:SS，默认为00:00:00
-            </summary>
-        </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_SingleDateTime.time_ori">
             <summary>
             Time的原始字符串
@@ -2729,11 +2742,6 @@
             时间段的描述协议datetime
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_IntervalDateTime.type">
-            <summary>
-            类型：“DT_INTERVAL”
-            </summary>
-        </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_IntervalDateTime.date">
             <summary>
             格式：YYYY-MM-DD，默认是当天时间
@@ -2742,11 +2750,6 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_IntervalDateTime.date_ori">
             <summary>
             date的原始字符串
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_IntervalDateTime.time">
-            <summary>
-            24小时制，格式：HH:MM:SS
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_IntervalDateTime.time_ori">
@@ -2777,16 +2780,6 @@
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_RepeatDateTime">
             <summary>
             重复时间的描述协议datetime
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_RepeatDateTime.type">
-            <summary>
-            类型：“DT_REPEAT”  DT_ REPEAT又细分为两个类别：DT_RORI和DT_RINFER。DT_RORI是字面时间，比如：“每天上午九点”；DT_RINFER是推理时间，比如：“工作日除外”
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_RepeatDateTime.time">
-            <summary>
-            24小时制，格式：HH:MM:SS
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_RepeatDateTime.time_ori">
@@ -2884,52 +2877,157 @@
             结束
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_MovieResult">
+            <summary>
+            上映电影服务（movie）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Movie.name">
+            <summary>
+            电影名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Movie.actor">
+            <summary>
+            主演
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Movie.director">
+            <summary>
+            导演
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Movie.tag">
+            <summary>
+            类型：动作片，剧情片，…
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Movie.country">
+            <summary>
+            地区：美国，大陆，香港，…
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Movie.cinema">
+            <summary>
+            电影院
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Movie.location">
+            <summary>
+            地点
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Movie.datetime">
+            <summary>
+            时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Movie.coupon">
+            <summary>
+            优惠信息：0无（默认），1优惠券，2团购
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Movie.sort">
+            <summary>
+            排序类型：0排序无要求（默认），1评价高优先级
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_MusicResult">
+            <summary>
+            音乐服务（music）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.song">
+            <summary>
+            歌曲名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.singer">
+            <summary>
+            歌手
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.album">
+            <summary>
+            专辑
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.category">
+            <summary>
+            歌曲类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.language">
+            <summary>
+            语言：中文，英文，韩文，日文，…
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.movie">
+            <summary>
+            电影名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.tv">
+            <summary>
+            电视剧名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.show">
+            <summary>
+            节目名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Music.sort">
+            <summary>
+            排序类型：0排序无要求（默认），1时间升序，2时间降序，3热度高优先级
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_RestaurantResult">
             <summary>
             餐馆服务（restaurant）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_RestaurantResult.intent">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Restaurant.intent">
             <summary>
             SEARCH 普通查询
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Restaurant.location">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Restaurant.location">
             <summary>
             地点
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Restaurant.name">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Restaurant.name">
             <summary>
             餐馆名称
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Restaurant.category">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Restaurant.category">
             <summary>
             餐馆类型/菜系
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Restaurant.special">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Restaurant.special">
             <summary>
             菜名
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Restaurant.price">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Restaurant.price">
             <summary>
             价格（单位元）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Restaurant.radius">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Restaurant.radius">
             <summary>
             距离（单位米）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Restaurant.coupon">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Restaurant.coupon">
             <summary>
             优惠信息：0无（默认），1优惠券，2团购
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Restaurant.sort">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Restaurant.sort">
             <summary>
             排序类型：0距离（默认），1点评高优先级，2服务质量高优先级，3环境高优
             </summary>
@@ -2940,53 +3038,47 @@
             注：地点区域是地点位置的修饰描述，比如：“我现在在皇寺广场远东大厦门口”，起点区域是：“皇寺广场”，起点位置是：“远东大厦门口”。
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_MapResult.intent">
-            <summary>
-            SEARCH 普通查询
-            ROUTE 路线查询
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.start_area">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Map.start_area">
             <summary>
             起点区域
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.start_loc">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Map.start_loc">
             <summary>
             起点位置
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.end_area">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Map.end_area">
             <summary>
             终点区域
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.end_loc">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Map.end_loc">
             <summary>
             终点位置
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.route_type">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Map.route_type">
             <summary>
             出行方式：walk（步行）, taxi（打车）, bus（公交）, subway（地铁）, drive（自驾）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.bus_num">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Map.bus_num">
             <summary>
             公交车号
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.subway_num">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Map.subway_num">
             <summary>
             地铁线
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.type">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Map.type">
             <summary>
             排序类型：0较快捷（默认），1少换乘，2少步行
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Map.keyword">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Map.keyword">
             <summary>
             关键词
             </summary>
@@ -2997,47 +3089,47 @@
             注：service字段表示是否是服务类，比如：找家政、租房、招聘等即为服务类；找ATM、羽毛球馆等即为非服务类。
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_NearByResult.intent">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_NearBy.intent">
             <summary>
             SEARCH 普通查询
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_NearBy.location">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_NearBy.location">
             <summary>
             地点
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_NearBy.keyword">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_NearBy.keyword">
             <summary>
             关键词
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_NearBy.limit">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_NearBy.limit">
             <summary>
             限定词
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_NearBy.price">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_NearBy.price">
             <summary>
             价格（单位元）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_NearBy.radius">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_NearBy.radius">
             <summary>
             距离（单位米）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_NearBy.service">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_NearBy.service">
             <summary>
             是否是服务类：0不是（默认），1是
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_NearBy.coupon">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_NearBy.coupon">
             <summary>
             优惠信息：0无（默认），1优惠券，2团购
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_NearBy.sort">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_NearBy.sort">
             <summary>
             排序类型：0距离（默认），1点评高优先级，2服务质量高优先级，3环境高优先级，4价格高到低，5价格低到高
             </summary>
@@ -3047,37 +3139,37 @@
             团购服务（coupon）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_CouponResult.intent">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Coupon.intent">
             <summary>
             SEARCH 普通查询
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Coupon.location">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Coupon.location">
             <summary>
             地点
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Coupon.price">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Coupon.price">
             <summary>
             价格（单位元）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Coupon.radius">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Coupon.radius">
             <summary>
             距离（单位米）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Coupon.keyword">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Coupon.keyword">
             <summary>
             关键词
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Coupon.coupon">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Coupon.coupon">
             <summary>
             优惠信息：0所有（默认），1优惠券，2团购
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Coupon.sort">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Coupon.sort">
             <summary>
             排序类型：0距离（默认），1价格高到低，2价格低到高
             </summary>
@@ -3087,62 +3179,57 @@
             酒店服务（hotel）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_HotelResult.intent">
-            <summary>
-            SEARCH 普通查询
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.location">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Hotel.location">
             <summary>
             地点
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.start_date">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Hotel.start_date">
             <summary>
             入住时间
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.end_date">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Hotel.end_date">
             <summary>
             离开时间
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.name">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Hotel.name">
             <summary>
             酒店名称
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.price">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Hotel.price">
             <summary>
             价格（单位元）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.radius">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Hotel.radius">
             <summary>
             距离（单位米）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.level">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Hotel.level">
             <summary>
             等级：五星级酒店，四星级酒店，三星级酒店，青年旅社，经济型酒店，公寓式酒店
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.wifi">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Hotel.wifi">
             <summary>
             1（有wifi），0（无wifi）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.roomtype">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Hotel.roomtype">
             <summary>
             房间类型：标准间，单人间，双人间，三人间
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.coupon">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Hotel.coupon">
             <summary>
             优惠信息：0无（默认），1优惠券，2团购
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Hotel.sort">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Hotel.sort">
             <summary>
             排序类型：0距离（默认），1点评高优先级，2服务质量高优先级，3环境高优先级，4价格高到低，5价格低到高
             </summary>
@@ -3152,41 +3239,547 @@
             旅游服务（travel）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_TravelResult.intent">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Travel.intent">
             <summary>
             SEARCH 普通查询
             PRICE 价格查询
             GUIDE 攻略查询
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Travel.location">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Travel.location">
             <summary>
             旅游目的地
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Travel.spot">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Travel.spot">
             <summary>
             景点名称
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Travel.datetime">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Travel.datetime">
             <summary>
             旅游日期
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Travel.tag">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Travel.tag">
             <summary>
             旅游类型词
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Travel.category">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Travel.category">
             <summary>
             0默认，1自由行，2跟团游
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_TrainResult">
+            <summary>
+            火车服务（train）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Train.start_date">
+            <summary>
+            出发日期
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Train.end_date">
+            <summary>
+            返回日期
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Train.start_loc">
+            <summary>
+            起点
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Train.end_loc">
+            <summary>
+            终点
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Train.code">
+            <summary>
+            车次代码，比如：T43等
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Train.seat">
+            <summary>
+            座位级别：YZ（硬座），RZ（软座），YW（硬卧），RW（软卧），YD（一等座），ED（二等座），TD（特等座）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Train.category">
+            <summary>
+            车次类型：G（高铁），D（动车），T（特快），K（快速），Z（直达），L（临时客车），P（普通）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Train.type">
+            <summary>
+            类型：DC（单程），WF（往返）
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_FlightResult">
             <summary>
             航班服务（flight）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Flight.flight_no">
+            <summary>
+            航班号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Flight.start_loc">
+            <summary>
+            出发地
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Flight.end_loc">
+            <summary>
+            目的地
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Flight.start_date">
+            <summary>
+            出发日期
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Flight.end_date">
+            <summary>
+            返回日期
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Flight.airline">
+            <summary>
+            航空公司
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Flight.seat">
+            <summary>
+            座位级别（默认无限制）：ECONOMY（经济舱）BIZ（商务舱）FIRST（头等舱）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Flight.sort">
+            <summary>
+            排序类型：0排序无要求（默认），1价格升序，2价格降序，3时间升序，4时间降序
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_VideoResult">
+            <summary>
+            视频服务（video）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.name">
+            <summary>
+            视频名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.actor">
+            <summary>
+            主演/嘉宾
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.director">
+            <summary>
+            导演/主持人
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.category">
+            <summary>
+            视频类型：MOVIE（电影），TV（电视剧），COMIC（动漫），SHOW（综艺节目），OTHER（其他）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.tag">
+            <summary>
+            类型：动作片，剧情片，…
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.country">
+            <summary>
+            地区：美国，大陆，香港，…
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.season">
+            <summary>
+            季，部等
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.episode">
+            <summary>
+            集
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Video.sort">
+            <summary>
+            排序类型：0好评（默认），1热门，2经典
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_NovelResult">
+            <summary>
+            小说服务（novel）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Novel.name">
+            <summary>
+            小说名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Novel.author">
+            <summary>
+            小说作者
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Novel.category">
+            <summary>
+            小说类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Novel.chapter">
+            <summary>
+            小说章节
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Novel.sort">
+            <summary>
+            排序类型：0排序无要求（默认），1热度高优先级，2时间升序，3时间降序
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_BaikeResult">
+            <summary>
+            百科服务（baike）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Baike.keyword">
+            <summary>
+            百科关键词
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_StockResult">
+            <summary>
+            股票服务（stock）
+            注：1、币种单位同上市所在地；2、如果用户输入的时间是未来的时间，那么结果展示的是当前时间的信息。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Stock.name">
+            <summary>
+            股票名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Stock.code">
+            <summary>
+            标准股票代码
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Stock.category">
+            <summary>
+            市场：sz,sh,hk,us
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Stock.datetime">
+            <summary>
+            时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Stock_Result.cd">
+            <summary>
+            股票代码
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Stock_Result.np">
+            <summary>
+            当前价
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Stock_Result.ap">
+            <summary>
+            涨幅
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Stock_Result.apn">
+            <summary>
+            涨幅比例
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Stock_Result.tp_max">
+            <summary>
+            最高价
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Stock_Result.tp_min">
+            <summary>
+            最低价
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Stock_Result.dn">
+            <summary>
+            成交量(单位：万)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Stock_Result.de">
+            <summary>
+            成交额(单位：亿)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Stock_Result.pe">
+            <summary>
+            市盈率
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Stock_Result.sz">
+            <summary>
+            市值(单位：亿)
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_RemindResult">
+            <summary>
+            提醒服务（remind）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Remind.datetime">
+            <summary>
+            时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Remind.event">
+            <summary>
+            事件
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Remind.remind_type">
+            <summary>
+            类别：0提醒；1闹钟  注：提醒有具体事件，闹钟没有具体事件
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_TelephoneResult">
+            <summary>
+            常用电话服务（telephone）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Telephone.name">
+            <summary>
+            名字
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Details_Telephone.telephone">
+            <summary>
+            电话
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_CookbookResult">
+            <summary>
+            菜谱服务（cookbook）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Cookbook.name">
+            <summary>
+            菜名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Cookbook.category">
+            <summary>
+            菜系
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Cookbook.ingredient">
+            <summary>
+            食材
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_WeatherResult">
+            <summary>
+            天气服务（weather）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Weather.location">
+            <summary>
+            地点
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Weather.datetime">
+            <summary>
+            时间
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_NewsResult">
+            <summary>
+            资讯服务（news）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_News.keyword">
+            <summary>
+            关键词
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_News.category">
+            <summary>
+            新闻类别
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_TVResult">
+            <summary>
+            电视节目预告（tv）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_TV.datetime">
+            <summary>
+            播放时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_TV.tv_name">
+            <summary>
+            电视台名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_TV.tv_channel">
+            <summary>
+            电视频道名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_TV.show_name">
+            <summary>
+            节目名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_TV.category">
+            <summary>
+            节目类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_InstructionResult">
+            <summary>
+            通用指令（instruction）[beta]
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Instruction.number">
+            <summary>
+            数字，根据intent有不同的含义，例如：把声音调到20；
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Instruction.value">
+            <summary>
+            操作值：STANDARD(标准模式)，MUTE(静音模式)，VIBRA(振动模式)，INAIR(飞行模式)，RING(铃声)，WALLPAPER(壁纸)，TIME(时间)，WIFI(无线网络)，BLUETOOTH(蓝牙)，GPS(GPS)，NET(移动网络)，SPACE(存储空间)，INPUT(输入法设置)，LANGUAGE(语言设置)，PERSONAL(个性化设置)，SCREEN(屏幕保护)，FACTORY_SETTINGS (出厂设置)，SI(系统信息)，UPDATE(系统更新)，PLAY(播放)，OPEN_MUSIC(开机音乐)，TIME_ON(定时开机)，TIME_OFF(定时关机)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Instruction.operator">
+            <summary>
+            操作值：OPEN (打开)，CLOSE (关闭)，MIN (最小)，MAX (最大)，UP (变大)，DOWN (变小)
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_TV_InstructionResult">
+            <summary>
+            电视指令（tv_instruction）[beta]
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_TV_Instruction.tv_name">
+            <summary>
+            电视台名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_TV_Instruction.tv_channel">
+            <summary>
+            电视频道名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_TV_Instruction.category">
+            <summary>
+            节目类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_TV_Instruction.number">
+            <summary>
+            数字，根据intent有不同的含义，例如：把声音调到20；换到5台。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_TV_Instruction.value">
+            <summary>
+            操作值：3D，AV(视频)，AV1(视频1)，AV2(视频2)，HDMI，HDMI1，HDMI2，HDMI3，DTV，ATV，YPBPR，DVI，VGA，USB，ANALOG(模拟电视)，DIGITAL(数字电视)，IMAGE(图像设置)，SCREEN(屏幕比例)，SOUND(声音模式) ，IMAGE_MODEL(图像模式)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_TV_Instruction.operator">
+            <summary>
+            操作值：OPEN (打开)，CLOSE (关闭)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_TV_Instruction.device">
+            <summary>
+            设备：U(U盘)，CLOUD(云存储)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_TV_Instruction.file_type">
+            <summary>
+            文件类型：VIDEO(视频)，TEXT(文本)，APP(安装包)，PIC(照片)，MUSIC(音乐)
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Car_InstructionResult">
+            <summary>
+            车载指令（car_instruction）[beta]
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Car_Instruction.number">
+            <summary>
+            数字，根据intent有不同的含义，例如：把温度调到20度
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Car_Instruction.position">
+            <summary>
+            窗户位置：1(司机)，2(副驾驶)，3(司机后面)，4(副驾驶后面)，5(天窗)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Car_Instruction.operator">
+            <summary>
+            操作值：OPEN (打开)，CLOSE (关闭)，MIN (最小)，MAX (最大)，UP (变大)，DOWN (变小)
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_AppResult">
+            <summary>
+            应用服务（app）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_App.name">
+            <summary>
+            app名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_App.category">
+            <summary>
+            app类别
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_App.sort">
+            <summary>
+            排序方式：0（按质量从高到低），1（按时间从新到旧）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_App.type">
+            <summary>
+            查看的类型：install（已安装），buy（已购买），update（可更新），latest（最近运行的），home（主页）
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_WebsiteResult">
+            <summary>
+            网址服务（website）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Website.name">
+            <summary>
+            网址名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Website.url">
+            <summary>
+            url
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic_SearchResult">
+            <summary>
+            网页搜索（search））
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Search.keyword">
+            <summary>
+            关键词
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Semantic_Details_Search.channel">
+            <summary>
+            搜索引擎类型：google, baidu, sogou, 360, taobao,jingdong
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Template">

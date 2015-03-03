@@ -60,14 +60,27 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     #region 时间相关协议
 
     /// <summary>
-    /// 单时间的描述协议datetime
+    /// 时间相关协议datetime
     /// </summary>
-    public class Semantic_SingleDateTime
+    public class Semantic_DateTime
     {
         /// <summary>
-        /// 大类型：“DT_SINGLE”。DT_SINGLE又细分为两个类别：DT_ORI和DT_INFER。DT_ORI是字面时间，比如：“上午九点”；DT_INFER是推理时间，比如：“提前5分钟”
+        /// 单时间的描述协议类型：“DT_SINGLE”。DT_SINGLE又细分为两个类别：DT_ORI和DT_INFER。DT_ORI是字面时间，比如：“上午九点”；DT_INFER是推理时间，比如：“提前5分钟”
+        /// 时间段的描述协议类型：“DT_INTERVAL”
+        /// 重复时间的描述协议类型：“DT_REPEAT”  DT_ REPEAT又细分为两个类别：DT_RORI和DT_RINFER。DT_RORI是字面时间，比如：“每天上午九点”；DT_RINFER是推理时间，比如：“工作日除外”
         /// </summary>
         public string type { get; set; }
+        /// <summary>
+        /// 24小时制，格式：HH:MM:SS，默认为00:00:00
+        /// </summary>
+        public string time { get; set; }
+    }
+
+    /// <summary>
+    /// 单时间的描述协议datetime
+    /// </summary>
+    public class Semantic_SingleDateTime : Semantic_DateTime
+    {
         /// <summary>
         /// 格式：YYYY-MM-DD，默认是当天时间
         /// </summary>
@@ -76,10 +89,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// date的原始字符串
         /// </summary>
         public string date_ori { get; set; }
-        /// <summary>
-        /// 24小时制，格式：HH:MM:SS，默认为00:00:00
-        /// </summary>
-        public string time { get; set; }
         /// <summary>
         /// Time的原始字符串
         /// </summary>
@@ -89,12 +98,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 时间段的描述协议datetime
     /// </summary>
-    public class Semantic_IntervalDateTime
+    public class Semantic_IntervalDateTime : Semantic_DateTime
     {
-        /// <summary>
-        /// 类型：“DT_INTERVAL”
-        /// </summary>
-        public string type { get; set; }
         /// <summary>
         /// 格式：YYYY-MM-DD，默认是当天时间
         /// </summary>
@@ -103,10 +108,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// date的原始字符串
         /// </summary>
         public string date_ori { get; set; }
-        /// <summary>
-        /// 24小时制，格式：HH:MM:SS
-        /// </summary>
-        public string time { get; set; }
         /// <summary>
         /// time的原始字符串
         /// </summary>
@@ -133,16 +134,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 重复时间的描述协议datetime
     /// </summary>
-    public class Semantic_RepeatDateTime
+    public class Semantic_RepeatDateTime : Semantic_DateTime
     {
-        /// <summary>
-        /// 类型：“DT_REPEAT”  DT_ REPEAT又细分为两个类别：DT_RORI和DT_RINFER。DT_RORI是字面时间，比如：“每天上午九点”；DT_RINFER是推理时间，比如：“工作日除外”
-        /// </summary>
-        public string type { get; set; }
-        /// <summary>
-        /// 24小时制，格式：HH:MM:SS
-        /// </summary>
-        public string time { get; set; }
         /// <summary>
         /// time的原始字符串
         /// </summary>

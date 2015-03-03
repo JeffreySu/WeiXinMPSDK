@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
+using Senparc.Weixin.MP.Helpers;
+
 namespace Senparc.Weixin.MP.TenPayLib
 {
     /// <summary>
@@ -17,7 +19,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         public static string GetNoncestr()
         {
             Random random = new Random();
-            return MD5Util.GetMD5(random.Next(1000).ToString(), "GBK");
+            return MD5UtilHelper.GetMD5(random.Next(1000).ToString(), "GBK");
         }
 
         public static string GetTimestamp()

@@ -1,4 +1,21 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：CommonApi.cs
+    文件功能描述：通用接口(用于和微信服务器通讯，一般不涉及自有网站服务器的通讯)
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+/*
+    API：http://mp.weixin.qq.com/wiki/index.php?title=%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3&oldid=103
+ */
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,7 +33,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// <summary>
     /// 通用接口
     /// 通用接口用于和微信服务器通讯，一般不涉及自有网站服务器的通讯
-    /// 见 http://mp.weixin.qq.com/wiki/index.php?title=%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3&oldid=103
     /// </summary>
     public partial class CommonApi
     {

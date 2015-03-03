@@ -6,6 +6,8 @@ using System.Xml;
 using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Senparc.Weixin.MP.Helpers;
+
 namespace Senparc.Weixin.MP.TenPayLib
 {
     /**
@@ -151,7 +153,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5Util.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
 
             this.SetParameter("sign", sign);
 
@@ -179,7 +181,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                     sb.Append(k + "=" + v + "&");
                 }
             }
-            string sign = MD5Util.GetMD5(sb.ToString(), GetCharset()).ToLower();
+            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
 
             this.SetParameter("sign", sign);
             return sign;

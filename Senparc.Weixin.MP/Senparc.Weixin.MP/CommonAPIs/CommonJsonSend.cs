@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：CommonJsonSend.cs
+    文件功能描述：向需要AccessToken的API发送消息的公共方法
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

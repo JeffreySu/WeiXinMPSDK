@@ -18,7 +18,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var accessToken = CommonAPIs.AccessTokenContainer.TryGetToken(appId, appSecret);
 
             MemoryStream ms = new MemoryStream();
-            AdvancedAPIs.Media.Get(accessToken, mediaId, ms);
+            AdvancedAPIs.Media.MediaAPI.Get(accessToken, mediaId, ms);
             ms.Seek(0, SeekOrigin.Begin);
             return File(ms, "audio/amr","voice.amr");
         }

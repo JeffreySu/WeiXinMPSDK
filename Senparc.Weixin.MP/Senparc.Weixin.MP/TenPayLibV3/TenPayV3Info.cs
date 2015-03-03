@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    文件名：TenPayV3Info.cs
+    文件功能描述：微信支付基础信息储存类
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

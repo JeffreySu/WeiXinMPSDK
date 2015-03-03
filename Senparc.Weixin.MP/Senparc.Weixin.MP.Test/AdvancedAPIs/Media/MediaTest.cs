@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.AdvancedAPIs.Media;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 
@@ -23,7 +23,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             var type = UploadMediaFileType.image;
             var file = @"E:\testpic.jpg";
-            var result = Media.Upload(accessToken, type, file);
+            var result = MediaAPI.Upload(accessToken, type, file);
 
             Assert.AreEqual(type, result.type);
             Assert.IsNotNull(result.media_id);
@@ -39,7 +39,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             using (MemoryStream ms = new MemoryStream())
             {
-                Media.Get(accessToken, mediaId, ms);
+                MediaAPI.Get(accessToken, mediaId, ms);
                 Assert.IsTrue(ms.Length > 0);
 
                 //保存到文件

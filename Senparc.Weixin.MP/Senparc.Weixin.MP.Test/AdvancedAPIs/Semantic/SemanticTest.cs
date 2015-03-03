@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.AdvancedAPIs.Semantic;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 
@@ -26,7 +26,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         public void SemanticUnderStandTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
-            var result = Semantic.SemanticSend<Semantic_RestaurantResult>(accessToken, SemanticPostData);
+            var result = SemanticAPI.SemanticSend<Semantic_RestaurantResult>(accessToken, SemanticPostData);
             
             Assert.IsNotNull(result.query);
             Assert.AreEqual("附近有什么川菜馆", result.query);

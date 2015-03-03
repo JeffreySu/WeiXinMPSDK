@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -17,8 +17,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public ActionResult Index()
         {
             //此页面引导用户点击授权
-            ViewData["UrlUserInfo"] = OAuth.GetAuthorizeUrl(appId, "http://weixin.senparc.com/oauth2/UserInfoCallback", "JeffreySu", OAuthScope.snsapi_userinfo);
-            ViewData["UrlBase"] = OAuth.GetAuthorizeUrl(appId, "http://weixin.senparc.com/oauth2/BaseCallback", "JeffreySu", OAuthScope.snsapi_base);
+            ViewData["UrlUserInfo"] = OAuthAPI.GetAuthorizeUrl(appId, "http://weixin.senparc.com/oauth2/UserInfoCallback", "JeffreySu", OAuthScope.snsapi_userinfo);
+            ViewData["UrlBase"] = OAuthAPI.GetAuthorizeUrl(appId, "http://weixin.senparc.com/oauth2/BaseCallback", "JeffreySu", OAuthScope.snsapi_base);
             return View();
         }
 
@@ -37,7 +37,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             //通过，用code换取access_token
-            var result = OAuth.GetAccessToken(appId, secret, code);
+            var result = OAuthAPI.GetAccessToken(appId, secret, code);
             if (result.errcode != ReturnCode.请求成功)
             {
                 return Content("错误：" + result.errmsg);
@@ -51,7 +51,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //因为第一步选择的是OAuthScope.snsapi_userinfo，这里可以进一步获取用户详细信息
             try
             {
-                var userInfo = OAuth.GetUserInfo(result.access_token, result.openid);
+                var userInfo = OAuthAPI.GetUserInfo(result.access_token, result.openid);
                 return View(userInfo);
             }
             catch (ErrorJsonResultException ex)
@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             //通过，用code换取access_token
-            var result = OAuth.GetAccessToken(appId, secret, code);
+            var result = OAuthAPI.GetAccessToken(appId, secret, code);
             if (result.errcode != ReturnCode.请求成功)
             {
                 return Content("错误：" + result.errmsg);
@@ -91,7 +91,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             try
             {
                 //已关注，可以得到详细信息
-                userInfo = OAuth.GetUserInfo(result.access_token, result.openid);
+                userInfo = OAuthAPI.GetUserInfo(result.access_token, result.openid);
                 ViewData["ByBase"] = true;
                 return View("UserInfoCallback", userInfo);
             }

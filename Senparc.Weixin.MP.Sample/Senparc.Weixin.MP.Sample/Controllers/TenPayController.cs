@@ -8,6 +8,7 @@ using System.Web.UI;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.TenPayLib;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
@@ -345,7 +346,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             reqHandler.SetParameter("refund_fee", "1");
             reqHandler.SetParameter("refund_fee", "1");
             reqHandler.SetParameter("op_user_id", "1900000109");
-            reqHandler.SetParameter("op_user_passwd", MD5Util.GetMD5("111111", "GBK"));
+            reqHandler.SetParameter("op_user_passwd", MD5UtilHelper.GetMD5("111111", "GBK"));
             reqHandler.SetParameter("service_version", "1.1");
 
             string requestUrl = reqHandler.GetRequestURL();

@@ -1,7 +1,20 @@
+/*----------------------------------------------------------------
+    文件名：TenPayV3Info.cs
+    文件功能描述：微信支付基础信息储存类
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
+using Senparc.Weixin.MP.Helpers;
+
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /// <summary>
@@ -17,7 +30,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public static string GetNoncestr()
         {
             Random random = new Random();
-            return MD5Util.GetMD5(random.Next(1000).ToString(), "GBK");
+            return MD5UtilHelper.GetMD5(random.Next(1000).ToString(), "GBK");
         }
 
         public static string GetTimestamp()

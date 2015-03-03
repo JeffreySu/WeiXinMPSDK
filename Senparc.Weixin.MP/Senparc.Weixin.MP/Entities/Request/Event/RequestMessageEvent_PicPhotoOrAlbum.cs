@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：RequestMessageEvent_PicPhotoOrAlbum.cs
+    文件功能描述：事件之弹出拍照或者相册发图（pic_photo_or_album）
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

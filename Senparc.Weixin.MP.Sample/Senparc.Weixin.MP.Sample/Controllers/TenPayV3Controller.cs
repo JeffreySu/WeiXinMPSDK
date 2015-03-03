@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.TenPayLibV3;
@@ -43,7 +44,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            var url = OAuth.GetAuthorizeUrl(TenPayV3Info.AppId, "http://weixin.senparc.com/TenPayV3/JsApi", "JeffreySu", OAuthScope.snsapi_userinfo);
+            var url = OAuthAPI.GetAuthorizeUrl(TenPayV3Info.AppId, "http://weixin.senparc.com/TenPayV3/JsApi", "JeffreySu", OAuthScope.snsapi_userinfo);
 
             return Redirect(url);
         }
@@ -63,7 +64,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             //通过，用code换取access_token
-            var openIdResult = OAuth.GetAccessToken(TenPayV3Info.AppId, TenPayV3Info.AppSecret, code);
+            var openIdResult = OAuthAPI.GetAccessToken(TenPayV3Info.AppId, TenPayV3Info.AppSecret, code);
             if (openIdResult.errcode != ReturnCode.请求成功)
             {
                 return Content("错误：" + openIdResult.errmsg);

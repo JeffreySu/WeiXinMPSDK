@@ -1,4 +1,21 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：CommonApi.Menu.cs
+    文件功能描述：通用自定义菜单接口
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+/*
+    API：http://mp.weixin.qq.com/wiki/13/43de8269be54a0a6f64413e4dfa94f39.html
+ */
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;

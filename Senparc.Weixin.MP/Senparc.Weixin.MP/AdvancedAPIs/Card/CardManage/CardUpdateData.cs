@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：CardUpdateData.cs
+    文件功能描述：卡券更新需要的数据
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,6 +45,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public string prerogative { get; set; }
     }
+
     /// <summary>
     /// 门票数据
     /// </summary>
@@ -43,6 +57,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public string guide_url { get; set; }
     }
+
     /// <summary>
     /// 电影票数据
     /// </summary>
@@ -54,6 +69,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public string detail { get; set; }
     }
+
     /// <summary>
     /// 飞机票数据
     /// </summary>

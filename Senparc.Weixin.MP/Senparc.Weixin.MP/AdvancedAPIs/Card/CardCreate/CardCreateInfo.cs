@@ -1,11 +1,24 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：CardCreateInfo.cs
+    文件功能描述：创建卡券数据
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.MP.AdvancedAPIs.Card;
 using Senparc.Weixin.MP.Entities;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs
+namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
     /// <summary>
     /// 创建卡券数据

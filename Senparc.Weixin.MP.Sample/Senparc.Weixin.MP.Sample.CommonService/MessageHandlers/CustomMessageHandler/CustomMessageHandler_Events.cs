@@ -89,7 +89,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
                     {
                         //上传缩略图
                         var accessToken = CommonAPIs.AccessTokenContainer.TryGetToken(appId, appSecret);
-                        var uploadResult = AdvancedAPIs.Media.Upload(accessToken, UploadMediaFileType.thumb,
+                        var uploadResult = AdvancedAPIs.Media.MediaAPI.Upload(accessToken, UploadMediaFileType.thumb,
                                                                      Server.GetMapPath("~/Images/Logo.jpg"));
                         //设置音乐信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageMusic>();
@@ -104,7 +104,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
                     {
                         //上传图片
                         var accessToken = CommonAPIs.AccessTokenContainer.TryGetToken(appId, appSecret);
-                        var uploadResult = AdvancedAPIs.Media.Upload(accessToken, UploadMediaFileType.image,
+                        var uploadResult = AdvancedAPIs.Media.MediaAPI.Upload(accessToken, UploadMediaFileType.image,
                                                                      Server.GetMapPath("~/Images/Logo.jpg"));
                         //设置图片信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageImage>();

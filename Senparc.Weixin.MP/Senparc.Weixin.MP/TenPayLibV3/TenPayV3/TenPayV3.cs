@@ -1,4 +1,19 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    文件名：TenPayV3.cs
+    文件功能描述：微信支付接口
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+/*
+    官方API：https://mp.weixin.qq.com/paymch/readtemplate?t=mp/business/course2_tmpl&lang=zh_CN&token=25857919#4
+ */
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

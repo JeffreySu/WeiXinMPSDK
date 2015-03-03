@@ -1,57 +1,64 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：Semantic_TravelResult.cs
+    文件功能描述：语意理解接口旅游服务（travel）返回信息
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.MP.Entities;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs
+namespace Senparc.Weixin.MP.AdvancedAPIs.Semantic
 {
     /// <summary>
-    /// 火车服务（train）
+    /// 旅游服务（travel）
     /// </summary>
-    public class Semantic_TrainResult : BaseSemanticResultJson
+    public class Semantic_TravelResult : BaseSemanticResultJson
     {
-        public Semantic_Train semantic { get; set; }
+        public Semantic_Travel semantic { get; set; }
     }
 
-    public class Semantic_Train : BaseSemanticIntent
+    public class Semantic_Travel : BaseSemanticIntent
     {
-        public Semantic_Details_Train details { get; set; }
+        public Semantic_Details_Travel details { get; set; }
+        /// <summary>
+        /// SEARCH 普通查询
+        /// PRICE 价格查询
+        /// GUIDE 攻略查询
+        /// </summary>
+        public string intent { get; set; }
     }
 
-    public class Semantic_Details_Train
+    public class Semantic_Details_Travel
     {
         /// <summary>
-        /// 出发日期
+        /// 旅游目的地
         /// </summary>
-        public Semantic_DateTime start_date { get; set; }
+        public Semantic_Location location { get; set; }
         /// <summary>
-        /// 返回日期
+        /// 景点名称
         /// </summary>
-        public Semantic_DateTime end_date { get; set; }
+        public string spot { get; set; }
         /// <summary>
-        /// 起点
+        /// 旅游日期
         /// </summary>
-        public Semantic_Location start_loc { get; set; }
+        public Semantic_DateTime datetime { get; set; }
         /// <summary>
-        /// 终点
+        /// 旅游类型词
         /// </summary>
-        public Semantic_Location end_loc { get; set; }
+        public string tag { get; set; }
         /// <summary>
-        /// 车次代码，比如：T43等
+        /// 0默认，1自由行，2跟团游
         /// </summary>
-        public string code { get; set; }
-        /// <summary>
-        /// 座位级别：YZ（硬座），RZ（软座），YW（硬卧），RW（软卧），YD（一等座），ED（二等座），TD（特等座）
-        /// </summary>
-        public string seat { get; set; }
-        /// <summary>
-        /// 车次类型：G（高铁），D（动车），T（特快），K（快速），Z（直达），L（临时客车），P（普通）
-        /// </summary>
-        public string category { get; set; }
-        /// <summary>
-        /// 类型：DC（单程），WF（往返）
-        /// </summary>
-        public string type { get; set; }
+        public int category { get; set; }
     }
 }

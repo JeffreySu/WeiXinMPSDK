@@ -19,7 +19,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = Groups.Create(accessToken, "测试组");
+            var result = GroupsAPI.Create(accessToken, "测试组");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.group.id >= 100);
         }
@@ -29,7 +29,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = Groups.Get(accessToken);
+            var result = GroupsAPI.Get(accessToken);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.groups.Count >= 3);
         }
@@ -39,7 +39,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = Groups.GetId(accessToken, _testOpenId);
+            var result = GroupsAPI.GetId(accessToken, _testOpenId);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.groupid >= 0);
         }
@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = Groups.Update(accessToken, 100, "测试组更新");
+            var result = GroupsAPI.Update(accessToken, 100, "测试组更新");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }
@@ -62,10 +62,10 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var idArr = new[] { 0, 1, 2, 100, 0 };
             foreach (var id in idArr)
             {
-                var result = Groups.MemberUpdate(accessToken, _testOpenId, id);
+                var result = GroupsAPI.MemberUpdate(accessToken, _testOpenId, id);
                 Assert.IsNotNull(result);
                 Assert.IsTrue(result.errcode == ReturnCode.请求成功);
-                var newGroupIdResult = Groups.GetId(accessToken, _testOpenId);
+                var newGroupIdResult = GroupsAPI.GetId(accessToken, _testOpenId);
                 Assert.AreEqual(id, newGroupIdResult.groupid);
             }
         }

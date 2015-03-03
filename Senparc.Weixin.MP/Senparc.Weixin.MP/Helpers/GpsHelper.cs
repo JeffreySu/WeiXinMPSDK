@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：GpsHelper.cs
+    文件功能描述：处理坐标距离
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +21,7 @@ namespace Senparc.Weixin.MP.Helpers
     public class GpsHelper
     {
         /// <summary>
-        ///计算两点GPS坐标的距离（单位：米）
+        /// 计算两点GPS坐标的距离（单位：米）
         /// </summary>
         /// <param name="n1">第一点的纬度坐标</param>
         /// <param name="e1">第一点的经度坐标</param>

@@ -27,7 +27,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
     /// <summary>
     /// 模板消息接口
     /// </summary>
-    public static class TemplateAPI
+    public static class TemplateApi
     {
         public static SendTemplateMessageResult SendTemplateMessage<T>(string accessToken, string openId, string templateId, string topcolor,string url, T data)
         {

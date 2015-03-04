@@ -27,7 +27,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
     /// <summary>
     /// 高级群发接口
     /// </summary>
-    public static class GroupMessageAPI
+    public static class GroupMessageApi
     {
         /// <summary>
         /// 根据分组进行群发【订阅号与服务号认证后均可用】

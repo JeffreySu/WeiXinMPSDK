@@ -27,7 +27,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.QrCode
     /// <summary>
     /// 二维码接口
     /// </summary>
-    public static class QrCodeAPI
+    public static class QrCodeApi
     {
         /// <summary>
         /// 创建二维码

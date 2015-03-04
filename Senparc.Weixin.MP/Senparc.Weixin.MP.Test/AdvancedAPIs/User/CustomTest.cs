@@ -21,7 +21,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = UserAPI.Info(accessToken, _testOpenId);
+            var result = UserApi.Info(accessToken, _testOpenId);
             Assert.IsNotNull(result);
         }
 
@@ -30,7 +30,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = UserAPI.Get(accessToken, _testOpenId);
+            var result = UserApi.Get(accessToken, _testOpenId);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.total > 0);
             Assert.IsTrue(result.data == null || result.data.openid.Count > 0);

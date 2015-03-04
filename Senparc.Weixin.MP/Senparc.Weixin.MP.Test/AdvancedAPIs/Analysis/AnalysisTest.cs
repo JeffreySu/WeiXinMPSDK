@@ -22,7 +22,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         public void ArticleSummaryTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
-            var result = AnalysisAPI.GetArticleSummary(accessToken, beginData, endData);
+            var result = AnalysisApi.GetArticleSummary(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
@@ -32,7 +32,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = AnalysisAPI.GetArticleTotal(accessToken, beginData, endData);
+            var result = AnalysisApi.GetArticleTotal(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
@@ -42,7 +42,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = AnalysisAPI.GetUserRead(accessToken, beginData, endData);
+            var result = AnalysisApi.GetUserRead(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
@@ -52,7 +52,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = AnalysisAPI.GetUserReadHour(accessToken, beginData, endData);
+            var result = AnalysisApi.GetUserReadHour(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
@@ -62,7 +62,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = AnalysisAPI.GetUserShare(accessToken, beginData, endData);
+            var result = AnalysisApi.GetUserShare(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
@@ -72,7 +72,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = AnalysisAPI.GetUserShareHour(accessToken, beginData, endData);
+            var result = AnalysisApi.GetUserShareHour(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
@@ -82,7 +82,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = AnalysisAPI.GetInterfaceSummary(accessToken, beginData, endData);
+            var result = AnalysisApi.GetInterfaceSummary(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
@@ -92,7 +92,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = AnalysisAPI.GetInterfaceSummaryHour(accessToken, beginData, endData);
+            var result = AnalysisApi.GetInterfaceSummaryHour(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
@@ -102,7 +102,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = AnalysisAPI.GetUpStreamMsg(accessToken, beginData, endData);
+            var result = AnalysisApi.GetUpStreamMsg(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
@@ -112,7 +112,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = AnalysisAPI.GetUpStreamMsgHour(accessToken, beginData, endData);
+            var result = AnalysisApi.GetUpStreamMsgHour(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
@@ -122,7 +122,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = AnalysisAPI.GetUpStreamMsgWeek(accessToken, beginData, endData);
+            var result = AnalysisApi.GetUpStreamMsgWeek(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
@@ -132,7 +132,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = AnalysisAPI.GetUpStreamMsgMonth(accessToken, beginData, endData);
+            var result = AnalysisApi.GetUpStreamMsgMonth(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
@@ -142,7 +142,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = AnalysisAPI.GetUpStreamMsgDist(accessToken, beginData, endData);
+            var result = AnalysisApi.GetUpStreamMsgDist(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
@@ -152,7 +152,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = AnalysisAPI.GetUpStreamMsgDistWeek(accessToken, beginData, endData);
+            var result = AnalysisApi.GetUpStreamMsgDistWeek(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
@@ -162,7 +162,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = AnalysisAPI.GetUpStreamMsgDistMonth(accessToken, beginData, endData);
+            var result = AnalysisApi.GetUpStreamMsgDistMonth(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
@@ -172,7 +172,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = AnalysisAPI.GetUserSummary(accessToken, beginData, endData);
+            var result = AnalysisApi.GetUserSummary(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.list[0].ref_date != null);
         }
@@ -182,7 +182,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = AnalysisAPI.GetUserCumulate(accessToken, beginData, endData);
+            var result = AnalysisApi.GetUserCumulate(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.list[0].ref_date != null);
         }

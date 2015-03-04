@@ -30,7 +30,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
     /// <summary>
     /// 多媒体文件接口
     /// </summary>
-    public static class MediaAPI
+    public static class MediaApi
     {
         /// <summary>
         /// 上传媒体文件

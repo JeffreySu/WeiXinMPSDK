@@ -32,7 +32,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
     /// <summary>
     /// 客服接口
     /// </summary>
-    public static class CustomAPI
+    public static class CustomApi
     {
         private const string URL_FORMAT = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={0}";
 

@@ -27,7 +27,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
     /// <summary>
     /// 多客服接口
     /// </summary>
-    public static class CustomServiceAPI
+    public static class CustomServiceApi
     {
         /// <summary>
         /// 获取用户聊天记录

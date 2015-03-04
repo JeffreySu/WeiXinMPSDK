@@ -26,7 +26,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
     /// <summary>
     /// 用户接口
     /// </summary>
-    public static class UserAPI
+    public static class UserApi
     {
         /// <summary>
         /// 获取用户信息

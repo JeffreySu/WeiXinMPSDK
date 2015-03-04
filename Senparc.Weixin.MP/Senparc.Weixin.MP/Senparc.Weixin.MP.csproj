@@ -52,11 +52,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdvancedAPIs\Analysis\AnalysisAPI.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisApi.cs" />
     <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\ArticleAnalysisResultJson.cs" />
     <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\MessageAnalysisResultJson.cs" />
     <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\InterfaceAnalysisResultJson.cs" />
-    <Compile Include="AdvancedAPIs\Card\CardAPI.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardApi.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateInfo.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateInfo_Card.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateResultJson.cs" />
@@ -72,11 +72,11 @@
     <Compile Include="AdvancedAPIs\Card\Store\StoreLocationData.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomServiceJson\CustomInfoJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomServiceJson\CustomOnlineJson.cs" />
-    <Compile Include="AdvancedAPIs\CustomService\CustomServiceAPI.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomServiceApi.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomServiceJson\RecordJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomServiceJson\GetRecordResult.cs" />
-    <Compile Include="AdvancedAPIs\Custom\CustomAPI.cs" />
-    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageAPI.cs" />
+    <Compile Include="AdvancedAPIs\Custom\CustomApi.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageApi.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\NewsModel.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\SendResult.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataByGroupId.cs" />
@@ -84,16 +84,16 @@
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataPreview.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson\CreateGroupResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson\GetIdResult.cs" />
-    <Compile Include="AdvancedAPIs\Groups\GroupsAPI.cs" />
+    <Compile Include="AdvancedAPIs\Groups\GroupsApi.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson\GroupsJson.cs" />
-    <Compile Include="AdvancedAPIs\Media\MediaAPI.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaApi.cs" />
     <Compile Include="AdvancedAPIs\Media\UploadResultJson.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
-    <Compile Include="AdvancedAPIs\OAuth\OAuthAPI.cs" />
+    <Compile Include="AdvancedAPIs\OAuth\OAuthApi.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthUserInfo.cs" />
     <Compile Include="AdvancedAPIs\QrCode\CreateQrCodeResult.cs" />
-    <Compile Include="AdvancedAPIs\QrCode\QrCodeAPI.cs" />
-    <Compile Include="AdvancedAPIs\Semantic\SemanticAPI.cs" />
+    <Compile Include="AdvancedAPIs\QrCode\QrCodeApi.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticApi.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\BaseSemanticResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticAgreement.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_MovieResult.cs" />
@@ -122,13 +122,13 @@
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_AppResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_WebsiteResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_SearchResult.cs" />
-    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateAPI.cs" />
+    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateApi.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\SendTemplateMessageResult.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\TemplateDataItem.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\TempleteModel.cs" />
     <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\UserAnalysisResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\UserJson\OpenIdResultJson.cs" />
-    <Compile Include="AdvancedAPIs\User\UserAPI.cs" />
+    <Compile Include="AdvancedAPIs\User\UserApi.cs" />
     <Compile Include="AdvancedAPIs\User\UserJson\UserInfoJson.cs" />
     <Compile Include="AppStore\Api.cs" />
     <Compile Include="AppStore\DeveloperInfo.cs" />
@@ -158,7 +158,7 @@
     <Compile Include="TenPayLibV3\ResponseHandler.cs" />
     <Compile Include="TenPayLibV3\TenPayV3InfoCollection.cs" />
     <Compile Include="TenPayLibV3\TenPayV3Info.cs" />
-    <Compile Include="TenPayLibV3\TenPayUtil.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3Util.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3Result.cs" />
     <Compile Include="TenPayLib\CheckRequestHandler.cs" />
@@ -275,7 +275,6 @@
     <Compile Include="TenPayLib\QRCode.cs" />
     <Compile Include="TenPayLib\RequestHandler.cs" />
     <Compile Include="TenPayLib\ResponseHandler.cs" />
-    <Compile Include="TenPayLib\SHA1Util.cs" />
     <Compile Include="TenPayLib\TenPayUtil.cs" />
     <Compile Include="TenPayLib\TenPayInfo.cs" />
     <Compile Include="TenPayLib\TenPayInfoCollection.cs" />

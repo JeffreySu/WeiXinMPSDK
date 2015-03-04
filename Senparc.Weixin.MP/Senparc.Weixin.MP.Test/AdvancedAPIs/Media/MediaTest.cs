@@ -23,7 +23,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             var type = UploadMediaFileType.image;
             var file = @"E:\testpic.jpg";
-            var result = MediaAPI.Upload(accessToken, type, file);
+            var result = MediaApi.Upload(accessToken, type, file);
 
             Assert.AreEqual(type, result.type);
             Assert.IsNotNull(result.media_id);
@@ -39,7 +39,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             using (MemoryStream ms = new MemoryStream())
             {
-                MediaAPI.Get(accessToken, mediaId, ms);
+                MediaApi.Get(accessToken, mediaId, ms);
                 Assert.IsTrue(ms.Length > 0);
 
                 //保存到文件

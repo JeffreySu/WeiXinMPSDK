@@ -33,7 +33,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Semantic
     /// <summary>
     /// 语意理解接口
     /// </summary>
-    public static class SemanticAPI
+    public static class SemanticApi
     {
         /// <summary>
         /// 发送语义理解请求

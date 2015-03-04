@@ -1,6 +1,8 @@
 /*----------------------------------------------------------------
-    文件名：TenPayV3Info.cs
-    文件功能描述：微信支付基础信息储存类
+    Copyright (C) 2015 Senparc
+ 
+    文件名：TenPayV3Util.cs
+    文件功能描述：微信支付V3配置文件
     
     
     创建标识：Senparc - 20150211
@@ -21,7 +23,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// TenpayUtil 的摘要说明。
     /// 配置文件
     /// </summary>
-    public class TenPayUtil
+    public class TenPayV3Util
     {
         /// <summary>
         /// 随机生成Noncestr

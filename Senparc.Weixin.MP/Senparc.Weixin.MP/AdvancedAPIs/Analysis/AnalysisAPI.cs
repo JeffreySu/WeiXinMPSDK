@@ -32,7 +32,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
     /// 最大时间跨度是指一次接口调用时最大可获取数据的时间范围，如最大时间跨度为7是指最多一次性获取7天的数据。
     /// 注意：所有的日期请使用【yyyy-MM-dd】的格式
     /// </summary>
-    public static class AnalysisAPI
+    public static class AnalysisApi
     {
         /// <summary>
         /// 获取图文群发每日数据（getarticlesummary）

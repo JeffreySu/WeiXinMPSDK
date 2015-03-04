@@ -62,7 +62,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                     deal_detail = "测试"
                 };
 
-            var result = CardAPI.CreateCard(accessToken, data);
+            var result = CardApi.CreateCard(accessToken, data);
             Console.Write(result);
             Assert.IsNotNull(result);
         }
@@ -72,7 +72,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = CardAPI.CardBatchGet(accessToken, 0, 5);
+            var result = CardApi.CardBatchGet(accessToken, 0, 5);
             Console.Write(result);
             Assert.IsNotNull(result);
             return result.card_id_list;
@@ -86,7 +86,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var cardIdList = CardBatchGetTest();
             var cardId = cardIdList.FirstOrDefault();
 
-            var result = CardAPI.CreateQR(accessToken, cardId);
+            var result = CardApi.CreateQR(accessToken, cardId);
             Console.Write(result);
             Assert.IsNotNull(result);
         }
@@ -96,7 +96,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = CardAPI.GetColors(accessToken);
+            var result = CardApi.GetColors(accessToken);
             Console.Write(result);
             Assert.IsNotNull(result);
         }
@@ -108,7 +108,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = CardAPI.CardDetailGet(accessToken, cardId);
+            var result = CardApi.CardDetailGet(accessToken, cardId);
             Console.Write(result);
             Assert.IsNotNull(result);
         }
@@ -138,7 +138,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                         },
             };
 
-            var result = CardAPI.StoreBatchAdd(accessToken, data);
+            var result = CardApi.StoreBatchAdd(accessToken, data);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
@@ -148,7 +148,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = CardAPI.BatchGet(accessToken, 0, 5);
+            var result = CardApi.BatchGet(accessToken, 0, 5);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }

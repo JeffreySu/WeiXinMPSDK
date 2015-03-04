@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
         snsapi_userinfo
     }
 
-    public static class OAuthAPI
+    public static class OAuthApi
     {
         /// <summary>
         /// 获取验证地址

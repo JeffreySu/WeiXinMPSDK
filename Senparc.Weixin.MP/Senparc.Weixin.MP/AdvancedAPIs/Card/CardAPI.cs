@@ -31,7 +31,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// <summary>
     /// 卡券接口
     /// </summary>
-    public static class CardAPI
+    public static class CardApi
     {
         /// <summary>
         /// 创建卡券

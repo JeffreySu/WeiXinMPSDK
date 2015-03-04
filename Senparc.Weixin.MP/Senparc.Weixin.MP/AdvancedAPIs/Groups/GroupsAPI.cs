@@ -32,7 +32,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 用户组接口
     /// </summary>
-    public static class GroupsAPI
+    public static class GroupsApi
     {
 
         /// <summary>

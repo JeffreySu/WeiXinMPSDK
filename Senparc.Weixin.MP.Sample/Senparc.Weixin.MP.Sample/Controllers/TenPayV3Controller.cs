@@ -44,7 +44,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            var url = OAuthAPI.GetAuthorizeUrl(TenPayV3Info.AppId, "http://weixin.senparc.com/TenPayV3/JsApi", "JeffreySu", OAuthScope.snsapi_userinfo);
+            var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, "http://weixin.senparc.com/TenPayV3/JsApi", "JeffreySu", OAuthScope.snsapi_userinfo);
 
             return Redirect(url);
         }
@@ -64,7 +64,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             //通过，用code换取access_token
-            var openIdResult = OAuthAPI.GetAccessToken(TenPayV3Info.AppId, TenPayV3Info.AppSecret, code);
+            var openIdResult = OAuthApi.GetAccessToken(TenPayV3Info.AppId, TenPayV3Info.AppSecret, code);
             if (openIdResult.errcode != ReturnCode.请求成功)
             {
                 return Content("错误：" + openIdResult.errmsg);
@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             if (null == sp_billno)
             {
                 //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                sp_billno = DateTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(28);
+                sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
             }
             else
             {
@@ -94,8 +94,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             packageReqHandler.Init();
             //packageReqHandler.SetKey(""/*TenPayV3Info.Key*/);
 
-            timeStamp = TenPayUtil.GetTimestamp();
-            nonceStr = TenPayUtil.GetNoncestr();
+            timeStamp = TenPayV3Util.GetTimestamp();
+            nonceStr = TenPayV3Util.GetNoncestr();
 
             //设置package订单参数
             packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		  //公众账号ID
@@ -171,7 +171,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult OrderQuery()
         {
-            string nonceStr = TenPayUtil.GetNoncestr();
+            string nonceStr = TenPayV3Util.GetNoncestr();
             RequestHandler packageReqHandler = new RequestHandler(null);
 
             //设置package订单参数
@@ -198,7 +198,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult CloseOrder()
         {
-            string nonceStr = TenPayUtil.GetNoncestr();
+            string nonceStr = TenPayV3Util.GetNoncestr();
             RequestHandler packageReqHandler = new RequestHandler(null);
 
             //设置package订单参数
@@ -224,7 +224,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult Refund()
         {
-            string nonceStr = TenPayUtil.GetNoncestr();
+            string nonceStr = TenPayV3Util.GetNoncestr();
             RequestHandler packageReqHandler = new RequestHandler(null);
 
             //设置package订单参数
@@ -290,9 +290,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult SendRedPack()
         {
-            string mchbillno = DateTime.Now.ToString("HHmmss") + TenPayUtil.BuildRandomStr(28);
+            string mchbillno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
 
-            string nonceStr = TenPayUtil.GetNoncestr();
+            string nonceStr = TenPayV3Util.GetNoncestr();
             RequestHandler packageReqHandler = new RequestHandler(null);
 
             //设置package订单参数

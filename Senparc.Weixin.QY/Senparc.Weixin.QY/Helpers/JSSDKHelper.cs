@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
-namespace Senparc.Weixin.QA.Helpers
+namespace Senparc.Weixin.QY.Helpers
 {
     public class JSSDKHelper
     {

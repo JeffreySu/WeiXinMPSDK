@@ -1777,32 +1777,32 @@
             <param name="xml">返回给服务器的Response Xml</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QA.Helpers.JSSDKHelper.SetParameter(System.String,System.String)">
+        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.SetParameter(System.String,System.String)">
             <summary>
             设置参数值
             </summary>
             <param name="parameter"></param>
             <param name="parameterValue"></param>
         </member>
-        <member name="M:Senparc.Weixin.QA.Helpers.JSSDKHelper.GetNoncestr">
+        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.GetNoncestr">
             <summary>
             获取随机字符串
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QA.Helpers.JSSDKHelper.GetTimestamp">
+        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.GetTimestamp">
             <summary>
             获取时间戳
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QA.Helpers.JSSDKHelper.CreateSha1">
+        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.CreateSha1">
             <summary>
             sha1加密
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QA.Helpers.JSSDKHelper.GetSignature(System.String,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.GetSignature(System.String,System.String,System.String,System.String)">
             <summary>
             获取JS-SDK权限验证的签名Signature
             </summary>
@@ -1812,12 +1812,12 @@
             <param name="url"></param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.QA.Helpers.MD5UtilHelper">
+        <member name="T:Senparc.Weixin.QY.Helpers.MD5UtilHelper">
             <summary>
             MD5UtilHelper 的摘要说明。
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.QA.Helpers.MD5UtilHelper.GetMD5(System.String,System.String)">
+        <member name="M:Senparc.Weixin.QY.Helpers.MD5UtilHelper.GetMD5(System.String,System.String)">
             <summary>
             获取大写的MD5签名结果
             </summary>
@@ -1825,7 +1825,7 @@
             <param name="charset"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QA.Helpers.SHA1UtilHelper.GetSha1(System.String)">
+        <member name="M:Senparc.Weixin.QY.Helpers.SHA1UtilHelper.GetSha1(System.String)">
             <summary>
             签名算法
             </summary>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Security.Cryptography;
 
-namespace Senparc.Weixin.QA.Helpers
+namespace Senparc.Weixin.QY.Helpers
 {
     public class SHA1UtilHelper
     {

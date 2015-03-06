@@ -1,4 +1,6 @@
-.senparc-header {
+.content {
+    min-width: 1000px;
+}.senparc-header {
 	background:#034067;
 }
 .logo {

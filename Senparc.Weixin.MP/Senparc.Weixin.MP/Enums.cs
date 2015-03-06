@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20150306
+    修改描述：添加多客服事件
 ----------------------------------------------------------------*/
 
 using System;
@@ -133,6 +136,20 @@ namespace Senparc.Weixin.MP
         /// </summary>
         user_del_card,
 
+        /// <summary>
+        /// 多客服接入会话
+        /// </summary>
+        kf_create_session,
+
+        /// <summary>
+        /// 多客服关闭会话
+        /// </summary>
+        kf_close_session,
+
+        /// <summary>
+        /// 多客服转接会话
+        /// </summary>
+        kf_switch_session,
     }
 
 

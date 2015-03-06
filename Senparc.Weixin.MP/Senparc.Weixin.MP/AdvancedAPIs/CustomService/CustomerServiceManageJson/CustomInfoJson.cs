@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20150306
+    修改描述：增加“客服头像”
 ----------------------------------------------------------------*/
 
 using System;
@@ -42,6 +45,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
 		/// <summary>
 		/// 客服工号
 		/// </summary>
-		public int kf_id { get; set; }
+        public int kf_id { get; set; }
+
+        /// <summary>
+        /// 客服头像
+        /// </summary>
+        public int kf_headimgurl { get; set; }
 	}
 }

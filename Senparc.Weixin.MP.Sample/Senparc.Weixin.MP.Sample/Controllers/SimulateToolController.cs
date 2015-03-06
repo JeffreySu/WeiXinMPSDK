@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web.Mvc;
 using System.Xml.Linq;
@@ -75,7 +76,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                             case Event.subscribe:
                                 requestMessageEvent = new RequestMessageEvent_Subscribe()
                                 {
-                                    EventKey = Request.Form["Event.EventKey"]
+                                    EventKey = Request.Form["Event.EventKey"],
+                                    Ticket = Request.Form["Event.Ticket"]
                                 };
                                 break;
                             case Event.unsubscribe:
@@ -108,6 +110,112 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                     Status = Request.Form["Event.Status"],
                                     TotalCount = int.Parse(Request.Form["Event.TotalCount"])
                                 }; break;
+                            case Event.TEMPLATESENDJOBFINISH:
+                                requestMessageEvent = new RequestMessageEvent_TemplateSendJobFinish()
+                                {
+                                    FromUserName = "mphelper",//系统指定
+                                    MsgID = long.Parse(Request.Form["Event.MsgID"]),
+                                    Status = Request.Form["Event.Status"],
+                                }; break;
+                            case Event.scancode_push:
+                                requestMessageEvent = new RequestMessageEvent_Scancode_Push()
+                                {
+                                    FromUserName = "mphelper",//系统指定
+                                    EventKey = Request.Form["Event.EventKey"],
+                                    ScanCodeInfo = new ScanCodeInfo()
+                                        {
+                                            ScanResult = Request.Form["Event.ScanResult"],
+                                            ScanType = Request.Form["Event.ScanType"],
+                                        }
+                                }; break;
+                            case Event.scancode_waitmsg:
+                                requestMessageEvent = new RequestMessageEvent_Scancode_Waitmsg()
+                                {
+                                    FromUserName = "mphelper",//系统指定
+                                    EventKey = Request.Form["Event.EventKey"],
+                                    ScanCodeInfo = new ScanCodeInfo()
+                                    {
+                                        ScanResult = Request.Form["Event.ScanResult"],
+                                        ScanType = Request.Form["Event.ScanType"],
+                                    }
+                                }; break;
+                            case Event.pic_sysphoto:
+                                var sysphotoPicMd5Sum = Request.Form["Event.PicMd5Sum"];
+                                PicItem sysphotoPicItem = new PicItem()
+                                    {
+                                        item = new Md5Sum()
+                                            {
+                                                PicMd5Sum = sysphotoPicMd5Sum
+                                            }
+                                    };
+                                List<PicItem> sysphotoPicItems = new List<PicItem>();
+                                sysphotoPicItems.Add(sysphotoPicItem);
+                                requestMessageEvent = new RequestMessageEvent_Pic_Sysphoto()
+                            {
+                                FromUserName = "mphelper",//系统指定
+                                EventKey = Request.Form["Event.EventKey"],
+                                SendPicsInfo = new SendPicsInfo()
+                                {
+                                    Count = Request.Form["Event.Count"],
+                                    PicList = sysphotoPicItems
+                                }
+                            }; break;
+                            case Event.pic_photo_or_album:
+                                var photoOrAlbumPicMd5Sum = Request.Form["Event.PicMd5Sum"];
+                                PicItem photoOrAlbumPicItem = new PicItem()
+                                {
+                                    item = new Md5Sum()
+                                    {
+                                        PicMd5Sum = photoOrAlbumPicMd5Sum
+                                    }
+                                };
+                                List<PicItem> photoOrAlbumPicItems = new List<PicItem>();
+                                photoOrAlbumPicItems.Add(photoOrAlbumPicItem);
+                                requestMessageEvent = new RequestMessageEvent_Pic_Sysphoto()
+                                {
+                                    FromUserName = "mphelper",//系统指定
+                                    EventKey = Request.Form["Event.EventKey"],
+                                    SendPicsInfo = new SendPicsInfo()
+                                    {
+                                        Count = Request.Form["Event.Count"],
+                                        PicList = photoOrAlbumPicItems
+                                    }
+                                }; break;
+                            case Event.pic_weixin:
+                                var weixinPicMd5Sum = Request.Form["Event.PicMd5Sum"];
+                                PicItem weixinPicItem = new PicItem()
+                                {
+                                    item = new Md5Sum()
+                                    {
+                                        PicMd5Sum = weixinPicMd5Sum
+                                    }
+                                };
+                                List<PicItem> weixinPicItems = new List<PicItem>();
+                                weixinPicItems.Add(weixinPicItem);
+                                requestMessageEvent = new RequestMessageEvent_Pic_Sysphoto()
+                                {
+                                    FromUserName = "mphelper",//系统指定
+                                    EventKey = Request.Form["Event.EventKey"],
+                                    SendPicsInfo = new SendPicsInfo()
+                                    {
+                                        Count = Request.Form["Event.Count"],
+                                        PicList = weixinPicItems
+                                    }
+                                }; break;
+                            case Event.location_select:
+                                requestMessageEvent = new RequestMessageEvent_Location_Select()
+                                {
+                                    FromUserName = "mphelper",//系统指定
+                                    EventKey = Request.Form["Event.EventKey"],
+                                    SendLocationInfo = new SendLocationInfo()
+                                        {
+                                            Label = Request.Form["Event.Label"],
+                                            Location_X = Request.Form["Event.Location_X"],
+                                            Location_Y = Request.Form["Event.Location_Y"],
+                                            Poiname = Request.Form["Event.Poiname"],
+                                            Scale = Request.Form["Event.Scale"],
+                                        }
+                                }; break;
                             default:
                                 throw new ArgumentOutOfRangeException("eventType");
                         }
@@ -121,6 +229,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 default:
                     throw new ArgumentOutOfRangeException("requestType");
             }
+
             requestMessaage.MsgId = long.Parse(Request.Form["MsgId"]);
             requestMessaage.CreateTime = DateTime.Now;
             requestMessaage.FromUserName = requestMessaage.FromUserName ?? "FromUserName（OpenId）";//用于区别不同的请求用户

@@ -70,11 +70,14 @@
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfo_Sku.cs" />
     <Compile Include="AdvancedAPIs\Card\Store\StoreResultJson.cs" />
     <Compile Include="AdvancedAPIs\Card\Store\StoreLocationData.cs" />
-    <Compile Include="AdvancedAPIs\CustomService\CustomServiceJson\CustomInfoJson.cs" />
-    <Compile Include="AdvancedAPIs\CustomService\CustomServiceJson\CustomOnlineJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomInfoJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomOnlineJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomServiceApi.cs" />
-    <Compile Include="AdvancedAPIs\CustomService\CustomServiceJson\RecordJson.cs" />
-    <Compile Include="AdvancedAPIs\CustomService\CustomServiceJson\GetRecordResult.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\RecordJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\GetRecordResult.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetSessionStateResultJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetSessionListResultJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetWaitCaseResultJson.cs" />
     <Compile Include="AdvancedAPIs\Custom\CustomApi.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageApi.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\NewsModel.cs" />
@@ -137,7 +140,7 @@
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_LocationSelect.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_PicWeixin.cs" />
     <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Card_Pass_Check.cs" />

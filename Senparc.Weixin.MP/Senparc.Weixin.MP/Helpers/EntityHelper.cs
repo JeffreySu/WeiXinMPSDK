@@ -251,12 +251,25 @@ namespace Senparc.Weixin.MP.Helpers
                     musicElement.Add(subNodes);
                     root.Add(musicElement);
                 }
-                else if (propName == "KfAccount")
+                else if (propName == "PicList")
                 {
-                    root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
+                    var picListElement = new XElement("PicList");
+                    var picItems = prop.GetValue(entity, null) as List<PicItem>;
+                    foreach (var picItem in picItems)
+                    {
+                        var item = ConvertEntityToXml(picItem).Root.Elements();
+                        picListElement.Add(item);
+                    }
+                    root.Add(picListElement);
                 }
+                //else if (propName == "KfAccount")
+                //{
+                //    //TODO:可以交给string处理
+                //    root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
+                //}
                 else
                 {
+                    //其他非特殊类型
                     switch (prop.PropertyType.Name)
                     {
                         case "String":
@@ -264,12 +277,14 @@ namespace Senparc.Weixin.MP.Helpers
                                                   new XCData(prop.GetValue(entity, null) as string ?? "")));
                             break;
                         case "DateTime":
-                            root.Add(new XElement(propName, DateTimeHelper.GetWeixinDateTime((DateTime)prop.GetValue(entity, null))));
+                            root.Add(new XElement(propName,
+                                                  DateTimeHelper.GetWeixinDateTime(
+                                                      (DateTime) prop.GetValue(entity, null))));
                             break;
                         case "Boolean":
                             if (propName == "FuncFlag")
                             {
-                                root.Add(new XElement(propName, (bool)prop.GetValue(entity, null) ? "1" : "0"));
+                                root.Add(new XElement(propName, (bool) prop.GetValue(entity, null) ? "1" : "0"));
                             }
                             else
                             {
@@ -286,7 +301,18 @@ namespace Senparc.Weixin.MP.Helpers
                             root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
                             break;
                         default:
-                            root.Add(new XElement(propName, prop.GetValue(entity, null)));
+                            if (prop.PropertyType.IsClass  && prop.PropertyType.IsPublic)
+                            {
+                                //自动处理其他实体属性
+                                var subEntity = prop.GetValue(entity, null);
+                                var subNodes = ConvertEntityToXml(subEntity).Root.Elements();
+                                root.Add(new XElement(propName, subNodes));
+                            }
+                            else
+                            {
+                                root.Add(new XElement(propName, prop.GetValue(entity, null)));
+                                
+                            }
                             break;
                     }
                 }

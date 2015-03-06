@@ -4,14 +4,14 @@
         <name>Senparc.Weixin.MP</name>
     </assembly>
     <members>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi">
             <summary>
             分析数据接口
             最大时间跨度是指一次接口调用时最大可获取数据的时间范围，如最大时间跨度为7是指最多一次性获取7天的数据。
             注意：所有的日期请使用【yyyy-MM-dd】的格式
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetArticleSummary(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetArticleSummary(System.String,System.String,System.String)">
             <summary>
             获取图文群发每日数据（getarticlesummary）
             最大时间跨度 1
@@ -21,7 +21,7 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetArticleTotal(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetArticleTotal(System.String,System.String,System.String)">
             <summary>
             获取图文群发总数据（getarticletotal）
             请注意，details中，每天对应的数值为该文章到该日为止的总量（而不是当日的量）
@@ -32,7 +32,7 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetUserRead(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUserRead(System.String,System.String,System.String)">
             <summary>
             获取图文统计数据（getuserread）
             最大时间跨度 3
@@ -42,7 +42,7 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetUserReadHour(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUserReadHour(System.String,System.String,System.String)">
             <summary>
             获取图文统计分时数据（getuserreadhour）
             最大时间跨度 1
@@ -52,7 +52,7 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetUserShare(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUserShare(System.String,System.String,System.String)">
             <summary>
             获取图文分享转发数据（getusershare）
             最大时间跨度 7
@@ -62,7 +62,7 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetUserShareHour(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUserShareHour(System.String,System.String,System.String)">
             <summary>
             获取图文分享转发分时数据（getusersharehour）
             最大时间跨度 1
@@ -72,7 +72,7 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetInterfaceSummary(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetInterfaceSummary(System.String,System.String,System.String)">
             <summary>
             获取接口分析数据（getinterfacesummary）
             最大时间跨度 30
@@ -82,7 +82,7 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetInterfaceSummaryHour(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetInterfaceSummaryHour(System.String,System.String,System.String)">
             <summary>
             获取接口分析分时数据（getinterfacesummaryhour）
             最大时间跨度 1
@@ -92,7 +92,7 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetUpStreamMsg(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUpStreamMsg(System.String,System.String,System.String)">
             <summary>
             获取消息发送概况数据（getupstreammsg）
             最大时间跨度 7
@@ -102,7 +102,7 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetUpStreamMsgHour(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUpStreamMsgHour(System.String,System.String,System.String)">
             <summary>
             获取消息分送分时数据（getupstreammsghour）
             最大时间跨度 1
@@ -112,7 +112,7 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetUpStreamMsgWeek(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUpStreamMsgWeek(System.String,System.String,System.String)">
             <summary>
             获取消息发送周数据（getupstreammsgweek）
             最大时间跨度 30
@@ -122,7 +122,7 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetUpStreamMsgMonth(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUpStreamMsgMonth(System.String,System.String,System.String)">
             <summary>
             获取消息发送月数据（getupstreammsgmonth）
             最大时间跨度 30
@@ -132,7 +132,7 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetUpStreamMsgDist(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUpStreamMsgDist(System.String,System.String,System.String)">
             <summary>
             获取消息发送分布数据（getupstreammsgdist）
             最大时间跨度 15
@@ -142,7 +142,7 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetUpStreamMsgDistWeek(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUpStreamMsgDistWeek(System.String,System.String,System.String)">
             <summary>
             获取消息发送分布周数据（getupstreammsgdistweek）
             最大时间跨度 30
@@ -152,7 +152,7 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetUpStreamMsgDistMonth(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUpStreamMsgDistMonth(System.String,System.String,System.String)">
             <summary>
             获取消息发送分布月数据（getupstreammsgdistmonth）
             最大时间跨度 30
@@ -162,7 +162,7 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetUserSummary(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUserSummary(System.String,System.String,System.String)">
             <summary>
             获取用户增减数据
             最大时间跨度 7
@@ -172,7 +172,7 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisAPI.GetUserCumulate(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUserCumulate(System.String,System.String,System.String)">
             <summary>
             获取累计用户数据
             最大时间跨度 7
@@ -599,12 +599,12 @@
             数据的小时
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi">
             <summary>
             卡券接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.CreateCard(System.String,Senparc.Weixin.MP.AdvancedAPIs.Card.BaseCardInfo)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CreateCard(System.String,Senparc.Weixin.MP.AdvancedAPIs.Card.BaseCardInfo)">
             <summary>
             创建卡券
             </summary>
@@ -612,14 +612,14 @@
             <param name="cardInfo">创建卡券需要的数据，格式可以看CardCreateData.cs</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.GetColors(System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.GetColors(System.String)">
             <summary>
             获取颜色列表接口
             </summary>
             <param name="accessToken"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.CreateQR(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CreateQR(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String)">
             <summary>
             生成卡券二维码
             获取二维码ticket 后，开发者可用ticket 换取二维码图片。换取指引参考：http://mp.weixin.qq.com/wiki/index.php?title=生成带参数的二维码
@@ -633,7 +633,7 @@
             <param name="balance">红包余额，以分为单位。红包类型必填（LUCKY_MONEY），其他卡券类型不填。</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.CardConsume(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardConsume(System.String,System.String,System.String)">
             <summary>
             卡券消耗code
             </summary>
@@ -642,7 +642,7 @@
             <param name="cardId">要消耗序列号所述的card_id，创建卡券时use_custom_code 填写true 时必填。非自定义code不必填写。</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.CardDecrypt(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardDecrypt(System.String,System.String)">
             <summary>
             code 解码接口
             code 解码接口支持两种场景：
@@ -653,7 +653,7 @@
             <param name="encryptCode">通过choose_card_info 获取的加密字符串</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.CardDelete(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardDelete(System.String,System.String)">
             <summary>
             删除卡券
             </summary>
@@ -661,7 +661,7 @@
             <param name="cardId">卡券ID</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.CardGet(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardGet(System.String,System.String,System.String)">
             <summary>
             查询code接口
             </summary>
@@ -670,7 +670,7 @@
             <param name="cardId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.CardBatchGet(System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardBatchGet(System.String,System.Int32,System.Int32)">
             <summary>
             批量查询卡列表
             </summary>
@@ -679,7 +679,7 @@
             <param name="count">需要查询的卡片的数量（数量最大50）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.CardDetailGet(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardDetailGet(System.String,System.String)">
             <summary>
             查询卡券详情
             </summary>
@@ -687,7 +687,7 @@
             <param name="cardId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.CardChangeCode(System.String,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardChangeCode(System.String,System.String,System.String,System.String)">
             <summary>
             更改code
             </summary>
@@ -697,7 +697,7 @@
             <param name="newCode">新的卡券code 编码</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.CardUnavailable(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardUnavailable(System.String,System.String,System.String)">
             <summary>
             设置卡券失效接口
             </summary>
@@ -706,7 +706,7 @@
             <param name="cardId">自定义code 的卡券必填。非自定义code 的卡券不填。</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.CardUpdate(System.String,Senparc.Weixin.MP.CardType,System.Object,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardUpdate(System.String,Senparc.Weixin.MP.CardType,System.Object,System.String)">
             <summary>
             更改卡券信息接口
             支持更新部分通用字段及特殊卡券（会员卡、飞机票、电影票、红包）中特定字段的信息。
@@ -717,7 +717,7 @@
             <param name="cardId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.AuthoritySet(System.String,System.String[],System.String[])">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.AuthoritySet(System.String,System.String[],System.String[])">
              <summary>
              设置测试用户白名单
              由于卡券有审核要求，为方便公众号调试，可以设置一些测试帐号，这些帐号可以领取未通过审核的卡券，体验整个流程。
@@ -728,7 +728,7 @@
              <param name="userNames">测试的微信号列表</param>
              <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.MemberCardActivate(System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.MemberCardActivate(System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.String,System.String)">
              <summary>
              激活/绑定会员卡
              参数【initBonus、initBalance】和【bonus、balance】取其一，不可同时传入
@@ -759,7 +759,7 @@
              <param name="balance">余额查询，仅用于init_balance 无法同步的情况填写，调转外链查询积分</param>
              <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.MemberCardDeal(System.String,System.String,System.String,System.String,System.Decimal,System.Decimal,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.MemberCardDeal(System.String,System.String,System.String,System.String,System.Decimal,System.Decimal,System.String)">
             <summary>
             会员卡交易
             </summary>
@@ -772,7 +772,7 @@
             <param name="recordBalance">商家自定义金额消耗记录，不超过14 个汉字</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.MovieCardUpdate(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String[])">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.MovieCardUpdate(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String[])">
             <summary>
             更新电影票
             </summary>
@@ -786,7 +786,7 @@
             <param name="seatNumbers">座位号</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.BoardingPassCheckIn(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.BoardingPassCheckIn(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean)">
             <summary>
             飞机票在线选座
             </summary>
@@ -801,7 +801,7 @@
             <param name="isCancel">是否取消值机。填写true 或false。true 代表取消，如填写true 上述字段（如calss 等）均不做判断，机票返回未值机状态，乘客可重新值机。默认填写false</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.BoardingPassCheckIn(System.String,System.String,System.String,System.Decimal)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.BoardingPassCheckIn(System.String,System.String,System.String,System.Decimal)">
             <summary>
             更新红包金额
             </summary>
@@ -811,7 +811,7 @@
             <param name="balance">红包余额</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.StoreBatchAdd(System.String,Senparc.Weixin.MP.AdvancedAPIs.Card.StoreLocationData)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.StoreBatchAdd(System.String,Senparc.Weixin.MP.AdvancedAPIs.Card.StoreLocationData)">
             <summary>
             批量导入门店信息
             </summary>
@@ -819,7 +819,7 @@
             <param name="data">门店数据</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardAPI.BatchGet(System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.BatchGet(System.String,System.Int32,System.Int32)">
             <summary>
             拉取门店列表
             </summary>
@@ -2009,6 +2009,11 @@
             客服工号
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomInfo_Json.kf_headimgurl">
+            <summary>
+            客服头像
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomOnlineJson.kf_online_list">
             <summary>
             在线客服列表
@@ -2039,12 +2044,12 @@
             客服当前正在接待的会话数
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceAPI">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi">
             <summary>
             多客服接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceAPI.GetRecord(System.String,System.DateTime,System.DateTime,System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.GetRecord(System.String,System.DateTime,System.DateTime,System.String,System.Int32,System.Int32)">
             <summary>
             获取用户聊天记录
             </summary>
@@ -2055,20 +2060,98 @@
             <param name="pageSize">每页大小，每页最多拉取1000条</param>
             <param name="pageIndex">查询第几页，从1开始</param>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceAPI.GetCustomOnlineInfo(System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.GetCustomBasicInfo(System.String)">
             <summary>
-            获取在线客服接待信息
-            官方API：http://dkf.qq.com/document-3_2.html
+            获取客服基本信息
             </summary>
             <param name="accessToken">调用接口凭证</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceAPI.GetCustomBasicInfo(System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.GetCustomOnlineInfo(System.String)">
             <summary>
-            获取客服基本信息
-            官方API：http://dkf.qq.com/document-3_1.html
+            获取在线客服接待信息
             </summary>
             <param name="accessToken">调用接口凭证</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.AddCustom(System.String,System.String,System.String,System.String)">
+            <summary>
+            添加客服账号
+            </summary>
+            <param name="accessToken"></param>
+            <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号，账号前缀最多10个字符，必须是英文或者数字字符。如果没有公众号微信号，请前往微信公众平台设置。</param>
+            <param name="nickName">客服昵称，最长6个汉字或12个英文字符</param>
+            <param name="passWord">客服账号登录密码，格式为密码明文的32位加密MD5值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.UpdateCustom(System.String,System.String,System.String,System.String)">
+            <summary>
+            设置客服信息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号，账号前缀最多10个字符，必须是英文或者数字字符。如果没有公众号微信号，请前往微信公众平台设置。</param>
+            <param name="nickName">客服昵称，最长6个汉字或12个英文字符</param>
+            <param name="passWord">客服账号登录密码，格式为密码明文的32位加密MD5值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.UploadCustomHeadimg(System.String,System.String,System.String)">
+            <summary>
+            上传客服头像
+            </summary>
+            <param name="accessToken"></param>
+            <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号</param>
+            <param name="file">form-data中媒体文件标识，有filename、filelength、content-type等信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.DeleteCustom(System.String,System.String)">
+            <summary>
+            删除客服账号
+            </summary>
+            <param name="accessToken"></param>
+            <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.CreateSession(System.String,System.String,System.String,System.String)">
+            <summary>
+            创建会话
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId">客户openid</param>
+            <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号</param>
+            <param name="text">附加信息，文本会展示在客服人员的多客服客户端(非必须)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.CloseSession(System.String,System.String,System.String,System.String)">
+            <summary>
+            关闭会话
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId">客户openid</param>
+            <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号</param>
+            <param name="text">附加信息，文本会展示在客服人员的多客服客户端(非必须)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.GetSessionState(System.String,System.String)">
+            <summary>
+            获取客户的会话状态
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId">客户openid</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.GetSessionList(System.String,System.String)">
+            <summary>
+            获取客服的会话列表
+            </summary>
+            <param name="accessToken"></param>
+            <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号，账号前缀最多10个字符，必须是英文或者数字字符。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.GetWaitCase(System.String)">
+            <summary>
+            获取未接入会话列表
+            </summary>
+            <param name="accessToken"></param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CustomService.RecordJson">
@@ -2111,12 +2194,77 @@
             聊天记录结果
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomAPI">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CustomService.GetSessionStateResultJson">
+            <summary>
+            获取客户的会话状态返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomService.GetSessionStateResultJson.kf_account">
+            <summary>
+            正在接待的客服，为空表示没有人在接待
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomService.GetSessionStateResultJson.createtime">
+            <summary>
+            会话接入的时间
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CustomService.GetSessionListResultJson">
+            <summary>
+            获取客服的会话列表返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomService.GetSessionListResultJson.sessionlist">
+            <summary>
+            会话列表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomService.SingleSessionList.openid">
+            <summary>
+            客户openid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomService.SingleSessionList.createtime">
+            <summary>
+            会话创建时间，UNIX时间戳
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CustomService.GetWaitCaseResultJson">
+            <summary>
+            获取未接入会话列表返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomService.GetWaitCaseResultJson.count">
+            <summary>
+            未接入会话数量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomService.GetWaitCaseResultJson.waitcaselist">
+            <summary>
+            未接入会话列表，最多返回100条数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomService.SingleWaitCase.openid">
+            <summary>
+            客户openid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomService.SingleWaitCase.kf_account">
+            <summary>
+            指定接待的客服，为空表示未指定客服
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomService.SingleWaitCase.createtime">
+            <summary>
+            用户来访时间，UNIX时间戳
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomApi">
             <summary>
             客服接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomAPI.SendText(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomApi.SendText(System.String,System.String,System.String)">
             <summary>
             发送文本信息
             </summary>
@@ -2125,7 +2273,7 @@
             <param name="content"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomAPI.SendImage(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomApi.SendImage(System.String,System.String,System.String)">
             <summary>
             发送图片消息
             </summary>
@@ -2134,7 +2282,7 @@
             <param name="mediaId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomAPI.SendVoice(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomApi.SendVoice(System.String,System.String,System.String)">
             <summary>
             发送语音消息
             </summary>
@@ -2143,7 +2291,7 @@
             <param name="mediaId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomAPI.SendVideo(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomApi.SendVideo(System.String,System.String,System.String,System.String,System.String)">
             <summary>
             发送视频消息
             </summary>
@@ -2154,7 +2302,7 @@
             <param name="description"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomAPI.SendMusic(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomApi.SendMusic(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             发送音乐消息
             </summary>
@@ -2167,7 +2315,7 @@
             <param name="thumbMediaId">视频缩略图的媒体ID</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomAPI.SendNews(System.String,System.String,System.Collections.Generic.List{Senparc.Weixin.MP.Entities.Article})">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomApi.SendNews(System.String,System.String,System.Collections.Generic.List{Senparc.Weixin.MP.Entities.Article})">
             <summary>
             发送图文消息
             </summary>
@@ -2176,12 +2324,12 @@
             <param name="articles"></param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageAPI">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi">
             <summary>
             高级群发接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageAPI.SendGroupMessageByGroupId(System.String,System.String,System.String,Senparc.Weixin.MP.GroupMessageType,System.Boolean)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.SendGroupMessageByGroupId(System.String,System.String,System.String,Senparc.Weixin.MP.GroupMessageType,System.Boolean)">
             <summary>
             根据分组进行群发【订阅号与服务号认证后均可用】
             
@@ -2198,7 +2346,7 @@
             <param name="isToAll">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageAPI.SendTextGroupMessageByGroupId(System.String,System.String,System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.SendTextGroupMessageByGroupId(System.String,System.String,System.String,System.Boolean)">
             <summary>
             根据GroupId进行群发文本信息【订阅号与服务号认证后均可用】
             </summary>
@@ -2208,7 +2356,7 @@
             <param name="isToAll">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageAPI.SendGroupMessageByOpenId(System.String,Senparc.Weixin.MP.GroupMessageType,System.String,System.String[])">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.SendGroupMessageByOpenId(System.String,Senparc.Weixin.MP.GroupMessageType,System.String,System.String[])">
             <summary>
             根据OpenId进行群发
             </summary>
@@ -2219,7 +2367,7 @@
             注意mediaId和content不可同时为空
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageAPI.SendTextGroupMessageByOpenId(System.String,System.String,System.String[])">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.SendTextGroupMessageByOpenId(System.String,System.String,System.String[])">
             <summary>
             根据OpenID列表群发文本消息【订阅号不可用，服务号认证后可用】
             </summary>
@@ -2229,7 +2377,7 @@
             注意mediaId和content不可同时为空
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageAPI.SendVideoGroupMessageByOpenId(System.String,System.String,System.String,System.String,System.String[])">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.SendVideoGroupMessageByOpenId(System.String,System.String,System.String,System.String,System.String[])">
             <summary>
             根据OpenID列表群发视频消息【订阅号不可用，服务号认证后可用】
             </summary>
@@ -2241,7 +2389,7 @@
             注意mediaId和content不可同时为空
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageAPI.DeleteSendMessage(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.DeleteSendMessage(System.String,System.String)">
             <summary>
             删除群发消息
             </summary>
@@ -2249,7 +2397,7 @@
             <param name="mediaId">发送出去的消息ID</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageAPI.SendGroupMessagePreview(System.String,Senparc.Weixin.MP.GroupMessageType,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.SendGroupMessagePreview(System.String,Senparc.Weixin.MP.GroupMessageType,System.String,System.String)">
             <summary>
             预览接口【订阅号与服务号认证后均可用】
             </summary>
@@ -2260,7 +2408,7 @@
             注意mediaId和content不可同时为空
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageAPI.SendTextGroupMessagePreview(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.SendTextGroupMessagePreview(System.String,System.String,System.String)">
             <summary>
             预览接口Test【订阅号与服务号认证后均可用】
             </summary>
@@ -2270,7 +2418,7 @@
             注意mediaId和content不可同时为空
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageAPI.GetGroupMessageResult(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.GetGroupMessageResult(System.String,System.String)">
             <summary>
             查询群发消息发送状态【订阅号与服务号认证后均可用】
             </summary>
@@ -2353,25 +2501,25 @@
             获取用户分组ID返回结果
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GroupsAPI">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi">
             <summary>
             用户组接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsAPI.Create(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.Create(System.String,System.String)">
             <summary>
             创建分组
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsAPI.Get(System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.Get(System.String)">
             <summary>
             发送文本信息
             </summary>
             <param name="accessToken"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsAPI.GetId(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.GetId(System.String,System.String)">
             <summary>
             获取用户分组
             </summary>
@@ -2379,7 +2527,7 @@
             <param name="openId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsAPI.Update(System.String,System.Int32,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.Update(System.String,System.Int32,System.String)">
             <summary>
             修改分组名
             </summary>
@@ -2388,7 +2536,7 @@
             <param name="name">分组名字（30个字符以内）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsAPI.MemberUpdate(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.MemberUpdate(System.String,System.String,System.Int32)">
             <summary>
             移动用户分组
             </summary>
@@ -2402,12 +2550,12 @@
             此属性在CreateGroupResult的Json数据中，创建结果中始终为0
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaAPI">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi">
             <summary>
             多媒体文件接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaAPI.Upload(System.String,Senparc.Weixin.MP.UploadMediaFileType,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.Upload(System.String,Senparc.Weixin.MP.UploadMediaFileType,System.String)">
             <summary>
             上传媒体文件
             </summary>
@@ -2416,7 +2564,7 @@
             <param name="file"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaAPI.Get(System.String,System.String,System.IO.Stream)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.Get(System.String,System.String,System.IO.Stream)">
             <summary>
             下载媒体文件
             </summary>
@@ -2424,7 +2572,7 @@
             <param name="mediaId"></param>
             <param name="stream"></param>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaAPI.UploadNews(System.String,Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.NewsModel[])">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UploadNews(System.String,Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.NewsModel[])">
             <summary>
             上传图文消息素材
             </summary>
@@ -2463,7 +2611,7 @@
             弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAPI.GetAuthorizeUrl(System.String,System.String,System.String,Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthScope,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.GetAuthorizeUrl(System.String,System.String,System.String,Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthScope,System.String)">
             <summary>
             获取验证地址
             </summary>
@@ -2474,7 +2622,7 @@
             <param name="responseType"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAPI.GetAccessToken(System.String,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.GetAccessToken(System.String,System.String,System.String,System.String)">
             <summary>
             获取AccessToken
             </summary>
@@ -2484,7 +2632,7 @@
             <param name="grantType"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAPI.RefreshToken(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.RefreshToken(System.String,System.String,System.String)">
             <summary>
             刷新access_token（如果需要）
             </summary>
@@ -2493,7 +2641,7 @@
             <param name="grantType"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAPI.Auth(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.Auth(System.String,System.String)">
             <summary>
             检验授权凭证（access_token）是否有效
             </summary>
@@ -2527,12 +2675,12 @@
             二维码创建返回结果
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.QrCode.QrCodeAPI">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.QrCode.QrCodeApi">
             <summary>
             二维码接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCode.QrCodeAPI.Create(System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCode.QrCodeApi.Create(System.String,System.Int32,System.Int32)">
             <summary>
             创建二维码
             </summary>
@@ -2540,14 +2688,14 @@
             <param name="sceneId">场景值ID，临时二维码时为32位整型，永久二维码时最大值为1000</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCode.QrCodeAPI.GetShowQrCodeUrl(System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCode.QrCodeApi.GetShowQrCodeUrl(System.String)">
             <summary>
             获取下载二维码的地址
             </summary>
             <param name="ticket"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCode.QrCodeAPI.ShowQrCode(System.String,System.IO.Stream)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCode.QrCodeApi.ShowQrCode(System.String,System.IO.Stream)">
             <summary>
             获取二维码（不需要AccessToken）
             错误情况下（如ticket非法）返回HTTP错误码404。
@@ -2555,12 +2703,12 @@
             <param name="ticket"></param>
             <param name="stream"></param>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic.SemanticAPI">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic.SemanticApi">
             <summary>
             语意理解接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Semantic.SemanticAPI.SemanticSend``1(System.String,Senparc.Weixin.MP.AdvancedAPIs.Semantic.SemanticPostData)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Semantic.SemanticApi.SemanticSend``1(System.String,Senparc.Weixin.MP.AdvancedAPIs.Semantic.SemanticPostData)">
             <summary>
             发送语义理解请求
             </summary>
@@ -3726,7 +3874,7 @@
             搜索引擎类型：google, baidu, sogou, 360, taobao,jingdong
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.TemplateAPI">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.TemplateApi">
             <summary>
             模板消息接口
             </summary>
@@ -3824,12 +3972,12 @@
             总用户量
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User.UserAPI">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User.UserApi">
             <summary>
             用户接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.User.UserAPI.Info(System.String,System.String,Senparc.Weixin.Language)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.User.UserApi.Info(System.String,System.String,Senparc.Weixin.Language)">
             <summary>
             获取用户信息
             </summary>
@@ -3838,7 +3986,7 @@
             <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.User.UserAPI.Get(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.User.UserApi.Get(System.String,System.String)">
             <summary>
             获取关注者OpenId信息
             </summary>
@@ -4303,19 +4451,6 @@
             @param a 需要转化的数字
             @return 转化得到的字符
         </member>
-        <member name="T:Senparc.Weixin.MP.TenPayLibV3.MD5Util">
-            <summary>
-            MD5Util 的摘要说明。
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLibV3.MD5Util.GetMD5(System.String,System.String)">
-            <summary>
-            获取大写的MD5签名结果
-            </summary>
-            <param name="encypStr"></param>
-            <param name="charset"></param>
-            <returns></returns>
-        </member>
         <!-- 对于成员“T:Senparc.Weixin.MP.TenPayLibV3.RequestHandler”忽略有格式错误的 XML 注释 -->
         <member name="F:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.Key">
             <summary>
@@ -4531,19 +4666,19 @@
             支付完成后的回调处理页面,*替换成notify_url.asp所在路径
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayUtil">
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util">
             <summary>
             TenpayUtil 的摘要说明。
             配置文件
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayUtil.GetNoncestr">
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.GetNoncestr">
             <summary>
             随机生成Noncestr
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayUtil.UrlEncode(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.UrlEncode(System.String,System.String)">
             <summary>
             对字符串进行URL编码
             </summary>
@@ -4551,7 +4686,7 @@
             <param name="charset"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayUtil.UrlDecode(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.UrlDecode(System.String,System.String)">
             <summary>
             对字符串进行URL解码
             </summary>
@@ -4559,13 +4694,13 @@
             <param name="charset"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayUtil.UnixStamp">
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.UnixStamp">
             <summary>
             取时间戳生成随即数,替换交易单号中的后10位流水号
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayUtil.BuildRandomStr(System.Int32)">
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.BuildRandomStr(System.Int32)">
             <summary>
             取随机数
             </summary>
@@ -4637,9 +4772,54 @@
             统一支付接口在 return_code为 SUCCESS的时候有返回
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Result.appid">
+            <summary>
+            微信分配的公众账号ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Result.mch_id">
+            <summary>
+            微信支付分配的商户号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Result.device_info">
+            <summary>
+            微信支付分配的终端设备号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Result.nonce_str">
+            <summary>
+            随机字符串，不长于32 位
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Result.sign">
+            <summary>
+            签名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Result.result_code">
+            <summary>
+            SUCCESS/FAIL
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UnifiedorderResult">
             <summary>
             统一支付接口在return_code 和result_code 都为SUCCESS 的时候有返回
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UnifiedorderResult.trade_type">
+            <summary>
+            交易类型:JSAPI、NATIVE、APP
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UnifiedorderResult.prepay_id">
+            <summary>
+            微信生成的预支付ID，用于后续接口调用中使用
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UnifiedorderResult.code_url">
+            <summary>
+            trade_type为NATIVE时有返回，此参数可直接生成二维码展示出来进行扫码支付
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.ClientRequestHandler.GateUrl">
@@ -4733,19 +4913,6 @@
             对账单下载接口
             </summary>
             <param name="httpContext"></param>
-        </member>
-        <member name="T:Senparc.Weixin.MP.TenPayLib.MD5Util">
-            <summary>
-            MD5Util 的摘要说明。
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLib.MD5Util.GetMD5(System.String,System.String)">
-            <summary>
-            获取大写的MD5签名结果
-            </summary>
-            <param name="encypStr"></param>
-            <param name="charset"></param>
-            <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RefundQueryRequestHandler.#ctor(System.Web.HttpContext)">
             <summary>
@@ -5841,7 +6008,7 @@
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleViewButton">
             <summary>
-            Url按键
+            Url按钮
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.Entities.Menu.SingleViewButton.url">
@@ -6142,6 +6309,21 @@
             删除卡券
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.MP.Event.kf_create_session">
+            <summary>
+            多客服接入会话
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.kf_close_session">
+            <summary>
+            多客服关闭会话
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.kf_switch_session">
+            <summary>
+            多客服转接会话
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.ResponseMsgType">
             <summary>
             发送消息类型
@@ -6424,14 +6606,14 @@
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.Helpers.GpsHelper.Distance(System.Double,System.Double,System.Double,System.Double)">
-             <summary>
+            <summary>
             计算两点GPS坐标的距离（单位：米）
-             </summary>
-             <param name="n1">第一点的纬度坐标</param>
-             <param name="e1">第一点的经度坐标</param>
-             <param name="n2">第二点的纬度坐标</param>
-             <param name="e2">第二点的经度坐标</param>
-             <returns></returns>
+            </summary>
+            <param name="n1">第一点的纬度坐标</param>
+            <param name="e1">第一点的经度坐标</param>
+            <param name="n2">第二点的纬度坐标</param>
+            <param name="e2">第二点的经度坐标</param>
+            <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.Helpers.GpsHelper.GetLatitudeDifference(System.Double)">
             <summary>
@@ -6446,11 +6628,6 @@
             </summary>
             <param name="km">千米</param>
             <returns></returns>
-        </member>
-        <member name="T:Senparc.Weixin.MP.Merchant.Good">
-            <summary>
-            
-            </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1">
             <summary>
@@ -6932,13 +7109,6 @@
             设置debug信息
             </summary>
             <param name="debugInfo"></param>
-        </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLib.SHA1Util.GetSha1(System.String)">
-            <summary>
-            签名算法
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.MP.TenPayLib.TenPayUtil">
             <summary>

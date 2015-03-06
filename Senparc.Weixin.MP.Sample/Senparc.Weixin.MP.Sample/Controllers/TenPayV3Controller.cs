@@ -316,7 +316,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //退款需要post的数据
             string data = packageReqHandler.ParseXML();
 
-            //退款接口地址
+            //发红包接口地址
             string url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
             //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
             string cert = @"F:\apiclient_cert.p12";

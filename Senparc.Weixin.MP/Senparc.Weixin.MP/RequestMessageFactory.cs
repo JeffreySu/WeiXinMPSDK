@@ -134,6 +134,15 @@ namespace Senparc.Weixin.MP
                             case "USER_DEL_CARD"://删除卡券
                                 requestMessage = new RequestMessageEvent_User_Del_Card();
                                 break;
+                            case "KF_CREATE_SESSION"://多客服接入会话
+                                requestMessage = new RequestMessageEvent_Kf_Create_Session();
+                                break;
+                            case "KF_CLOSE_SESSION"://多客服关闭会话
+                                requestMessage = new RequestMessageEvent_Kf_Close_Session();
+                                break;
+                            case "KF_SWITCH_SESSION"://多客服转接会话
+                                requestMessage = new RequestMessageEvent_Kf_Switch_Session();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

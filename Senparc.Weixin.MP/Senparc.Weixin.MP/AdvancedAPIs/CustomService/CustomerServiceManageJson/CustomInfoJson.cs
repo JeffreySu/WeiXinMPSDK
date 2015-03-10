@@ -50,6 +50,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <summary>
         /// 客服头像
         /// </summary>
-        public int kf_headimgurl { get; set; }
+        public string kf_headimgurl { get; set; }
 	}
 }

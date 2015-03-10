@@ -491,6 +491,27 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.pic_sysphoto://弹出系统拍照发图
                     responseMessage = OnEvent_PicSysphotoRequest(RequestMessage as RequestMessageEvent_Pic_Sysphoto);
                     break;
+                case Event.card_pass_check://卡券通过审核
+                    responseMessage = OnEvent_Card_Pass_CheckRequest(RequestMessage as RequestMessageEvent_Card_Pass_Check);
+                    break;
+                case Event.card_not_pass_check://卡券未通过审核
+                    responseMessage = OnEvent_Card_Not_Pass_CheckRequest(RequestMessage as RequestMessageEvent_Card_Not_Pass_Check);
+                    break;
+                case Event.user_get_card://领取卡券
+                    responseMessage = OnEvent_User_Get_CardRequest(RequestMessage as RequestMessageEvent_User_Get_Card);
+                    break;
+                case Event.user_del_card://删除卡券
+                    responseMessage = OnEvent_User_Del_CardRequest(RequestMessage as RequestMessageEvent_User_Del_Card);
+                    break;
+                case Event.kf_create_session://多客服接入会话
+                    responseMessage = OnEvent_Kf_Create_SessionRequest(RequestMessage as RequestMessageEvent_Kf_Create_Session);
+                    break;
+                case Event.kf_close_session://多客服关闭会话
+                    responseMessage = OnEvent_Kf_Close_SessionRequest(RequestMessage as RequestMessageEvent_Kf_Close_Session);
+                    break;
+                case Event.kf_switch_session://多客服转接会话
+                    responseMessage = OnEvent_Kf_Switch_SessionRequest(RequestMessage as RequestMessageEvent_Kf_Switch_Session);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -625,6 +646,69 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <returns></returns>
         public virtual IResponseMessageBase OnEvent_PicSysphotoRequest(RequestMessageEvent_Pic_Sysphoto requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 卡券通过审核
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Card_Pass_CheckRequest(RequestMessageEvent_Card_Pass_Check requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 卡券未通过审核
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Card_Not_Pass_CheckRequest(RequestMessageEvent_Card_Not_Pass_Check requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 领取卡券
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_User_Get_CardRequest(RequestMessageEvent_User_Get_Card requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 删除卡券
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_User_Del_CardRequest(RequestMessageEvent_User_Del_Card requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 多客服接入会话
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Kf_Create_SessionRequest(RequestMessageEvent_Kf_Create_Session requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 多客服关闭会话
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Kf_Close_SessionRequest(RequestMessageEvent_Kf_Close_Session requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 多客服转接会话
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_Kf_Switch_SessionRequest(RequestMessageEvent_Kf_Switch_Session requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

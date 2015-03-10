@@ -1,8 +1,8 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2015 Senparc
     
-    文件名：RequestMessageEvent_Kf_Create_Session.cs
-    文件功能描述：事件之多客服接入会话(kf_create_session)
+    文件名：RequestMessageEvent_Kf_Close_Session.cs
+    文件功能描述：事件之多客服关闭会话(kf_close_session)
     
     
     创建标识：Senparc - 20150309
@@ -17,16 +17,16 @@ using System.Text;
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
-    /// 事件之多客服接入会话(kf_create_session)
+    /// 事件之多客服关闭会话(kf_close_session)
     /// </summary>
-    public class RequestMessageEvent_Kf_Create_Session : RequestMessageEventBase, IRequestMessageEventBase
+    public class RequestMessageEvent_Kf_Close_Session : RequestMessageEventBase, IRequestMessageEventBase
     {
         /// <summary>
         /// 事件类型
         /// </summary>
         public override Event Event
         {
-            get { return Event.kf_create_session; }
+            get { return Event.kf_close_session; }
         }
 
         /// <summary>

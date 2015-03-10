@@ -15,8 +15,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
     [TestClass]
     public class AnalysisTest : CommonApiTest
     {
-        protected string beginData = "2015-3-5";
-        protected string endData = "2015-3-5";
+        protected string beginData = "2015-3-9";
+        protected string endData = "2015-3-9";
 
         [TestMethod]
         public void ArticleSummaryTest()

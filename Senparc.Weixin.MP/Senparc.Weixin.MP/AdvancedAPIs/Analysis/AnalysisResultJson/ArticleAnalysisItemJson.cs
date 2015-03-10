@@ -1,14 +1,17 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2015 Senparc
     
-    文件名：ArticleAnalysisResultJson.cs
-    文件功能描述：获取图文群发每日数据返回结果
+    文件名：ArticleAnalysisItemJson.cs
+    文件功能描述：获取图文群发每日数据返回结果 单条数据类
     
     
     创建标识：Senparc - 20150211
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+  
+    修改标识：Senparc - 20150310
+    修改描述：修改类
 ----------------------------------------------------------------*/
 
 using System;
@@ -20,14 +23,9 @@ using Senparc.Weixin.MP.Entities;
 namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
 {
     /// <summary>
-    /// 获取图文群发每日数据返回结果
+    /// 图文群发每日数据 单条数据
     /// </summary>
-    public class ArticleSummaryResultJson : WxJsonResult
-    {
-        public List<ArticleSummary> list { get; set; }
-    }
-
-    public class ArticleSummary
+    public class ArticleSummaryItem : BaseAnalysisObject
     {
         /// <summary>
         /// 数据的日期
@@ -76,14 +74,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
     }
 
     /// <summary>
-    /// 获取图文群发总数据返回结果
+    /// 图文群发总数据 单条数据
     /// </summary>
-    public class ArticleTotalResultJson : WxJsonResult
-    {
-        public List<ArticleTotal> list { get; set; }
-    }
-
-    public class ArticleTotal
+    public class ArticleTotalItem : BaseAnalysisObject
     {
         /// <summary>
         /// 数据的日期
@@ -144,15 +137,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
         /// </summary>
         public int add_to_fav_count { get; set; }
     }
+    
     /// <summary>
-    /// 获取图文统计数据返回结果
+    /// 图文统计数据 单条数据
     /// </summary>
-    public class UserReadResultJson : WxJsonResult
-    {
-        public List<UserReadItem> list { get; set; }
-    }
-
-    public class UserReadItem
+    public class UserReadItem : BaseAnalysisObject
     {
         /// <summary>
         /// 数据的日期
@@ -193,14 +182,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
     }
 
     /// <summary>
-    /// 获取图文统计分时数据返回结果
+    /// 图文统计分时数据 单条数据
     /// </summary>
-    public class UserReadHourResultJson : WxJsonResult
-    {
-        public List<UserReadHourItem> list { get; set; }
-    }
-
-    public class UserReadHourItem
+    public class UserReadHourItem : BaseAnalysisObject
     {
         /// <summary>
         /// 数据的日期
@@ -245,14 +229,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
     }
 
     /// <summary>
-    /// 获取图文分享转发数据返回结果
+    /// 图文分享转发数据 单条数据
     /// </summary>
-    public class UserShareResultJson : WxJsonResult
-    {
-        public List<UserShareItem> list { get; set; }
-    }
-
-    public class UserShareItem
+    public class UserShareItem : BaseAnalysisObject
     {
         /// <summary>
         /// 数据的日期
@@ -274,14 +253,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
     }
 
     /// <summary>
-    /// 获取图文分享转发分时数据返回结果
+    /// 图文分享转发分时数据 单条数据
     /// </summary>
-    public class UserShareHourResultJson : WxJsonResult
-    {
-        public List<UserShareHourItem> list { get; set; }
-    }
-
-    public class UserShareHourItem
+    public class UserShareHourItem : BaseAnalysisObject
     {
         /// <summary>
         /// 数据的日期

@@ -1,14 +1,17 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2015 Senparc
     
-    文件名：UserAnalysisResultJson.cs
-    文件功能描述：获取用户增减数据返回结果
+    文件名：UserAnalysisItemJson.cs
+    文件功能描述：获取用户增减数据返回结果 单条数据类
     
     
     创建标识：Senparc - 20150211
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+  
+    修改标识：Senparc - 20150310
+    修改描述：修改类
 ----------------------------------------------------------------*/
 
 using System;
@@ -20,14 +23,9 @@ using Senparc.Weixin.MP.Entities;
 namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
 {
     /// <summary>
-    /// 获取用户增减数据返回结果
+    /// 用户增减数据 单条数据
     /// </summary>
-    public class UserSummaryResultJson : WxJsonResult
-    {
-        public List<UserSummary> list { get; set; }
-    }
-
-    public class UserSummary
+    public class UserSummaryItem : BaseUpStreamMsgDist
     {
         /// <summary>
         /// 数据的日期
@@ -49,14 +47,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
     }
 
     /// <summary>
-    /// 获取累计用户数据返回结果
+    /// 累计用户数据 单条数据
     /// </summary>
-    public class UserCumulateResultJson : WxJsonResult
-    {
-        public List<UserCumulate> list { get; set; }
-    }
-
-    public class UserCumulate
+    public class UserCumulateItem : BaseUpStreamMsgDist
     {
         /// <summary>
         /// 数据的日期

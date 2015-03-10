@@ -182,92 +182,82 @@
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummaryResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummaryItem">
             <summary>
-            获取图文群发每日数据返回结果
+            图文群发每日数据 单条数据
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.Entities.WxJsonResult">
-            <summary>
-            JSON返回结果（用于菜单接口等）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Entities.WxJsonResult.P2PData">
-            <summary>
-            为P2P返回结果做准备
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummary.ref_date">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummaryItem.ref_date">
             <summary>
             数据的日期
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummary.msgid">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummaryItem.msgid">
             <summary>
             这里的msgid实际上是由msgid（图文消息id）和index（消息次序索引）组成， 例如12003_3， 其中12003是msgid，即一次群发的id消息的； 3为index，假设该次群发的图文消息共5个文章（因为可能为多图文）， 3表示5个中的第3个
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummary.title">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummaryItem.title">
             <summary>
             图文消息的标题
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummary.int_page_read_user">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummaryItem.int_page_read_user">
             <summary>
             图文页（点击群发图文卡片进入的页面）的阅读人数
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummary.int_page_read_count">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummaryItem.int_page_read_count">
             <summary>
             图文页的阅读次数
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummary.ori_page_read_user">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummaryItem.ori_page_read_user">
             <summary>
             原文页（点击图文页“阅读原文”进入的页面）的阅读人数，无原文页时此处数据为0
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummary.ori_page_read_count">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummaryItem.ori_page_read_count">
             <summary>
             原文页的阅读次数
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummary.share_user">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummaryItem.share_user">
             <summary>
             分享的人数
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummary.share_count">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummaryItem.share_count">
             <summary>
             分享的次数
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummary.add_to_fav_user">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummaryItem.add_to_fav_user">
             <summary>
             收藏的人数
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummary.add_to_fav_count">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleSummaryItem.add_to_fav_count">
             <summary>
             收藏的次数
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleTotalResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleTotalItem">
             <summary>
-            获取图文群发总数据返回结果
+            图文群发总数据 单条数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleTotal.ref_date">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleTotalItem.ref_date">
             <summary>
             数据的日期
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleTotal.msgid">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleTotalItem.msgid">
             <summary>
             这里的msgid实际上是由msgid（图文消息id）和index（消息次序索引）组成， 例如12003_3， 其中12003是msgid，即一次群发的id消息的； 3为index，假设该次群发的图文消息共5个文章（因为可能为多图文）， 3表示5个中的第3个
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleTotal.title">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.ArticleTotalItem.title">
             <summary>
             图文消息的标题
             </summary>
@@ -322,9 +312,9 @@
             收藏的次数
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserReadResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserReadItem">
             <summary>
-            获取图文统计数据返回结果
+            图文统计数据 单条数据
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserReadItem.ref_date">
@@ -372,9 +362,9 @@
             收藏的次数
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserReadHourResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserReadHourItem">
             <summary>
-            获取图文统计分时数据返回结果
+            图文统计分时数据 单条数据
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserReadHourItem.ref_date">
@@ -427,9 +417,9 @@
             收藏的次数
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserShareResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserShareItem">
             <summary>
-            获取图文分享转发数据返回结果
+            图文分享转发数据 单条数据
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserShareItem.ref_date">
@@ -453,9 +443,9 @@
             分享的次数
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserShareHourResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserShareHourItem">
             <summary>
-            获取图文分享转发分时数据返回结果
+            图文分享转发分时数据 单条数据
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserShareHourItem.ref_date">
@@ -484,6 +474,21 @@
             分享的次数
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisResultJson`1">
+            <summary>
+            分析数据接口返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.WxJsonResult">
+            <summary>
+            JSON返回结果（用于菜单接口等）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.WxJsonResult.P2PData">
+            <summary>
+            为P2P返回结果做准备
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.BaseUpStreamMsgResult.ref_date">
             <summary>
             数据的日期，需在begin_date和end_date之间
@@ -504,29 +509,29 @@
             上行发送了消息的消息总数
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UpStreamMsgResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UpStreamMsgItem">
             <summary>
-            获取消息发送概况数据返回结果
+            消息发送概况数据 单条数据
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UpStreamMsgHourResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UpStreamMsgHourItem">
             <summary>
-            获取消息分送分时数据返回结果
+            消息分送分时数据 单条数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UpStreamMsgHour.ref_hour">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UpStreamMsgHourItem.ref_hour">
             <summary>
             数据的小时，包括从000到2300，分别代表的是[000,100)到[2300,2400)，即每日的第1小时和最后1小时
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UpStreamMsgWeekResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UpStreamMsgWeekItem">
             <summary>
-            获取消息发送周数据返回结果
+            消息发送周数据 单条数据
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UpStreamMsgMonthResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UpStreamMsgMonthItem">
             <summary>
-            获取消息发送月数据返回结果
+            消息发送月数据 单条数据
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.BaseUpStreamMsgDist.ref_date">
@@ -544,19 +549,19 @@
             上行发送了（向公众号发送了）消息的用户数
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UpStreamMsgDistResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UpStreamMsgDistItem">
             <summary>
-            获取消息发送分布数据返回结果
+            消息发送分布数据 单条数据
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UpStreamMsgDistWeekResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UpStreamMsgDistWeekItem">
             <summary>
-            获取消息发送分布周数据返回结果
+            消息发送分布周数据 单条数据
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UpStreamMsgDistMonthResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UpStreamMsgDistMonthItem">
             <summary>
-            获取消息发送分布月数据返回结果
+            消息发送分布月数据 单条数据
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.BaseInterfaceAnalysisResult.ref_date">
@@ -584,17 +589,17 @@
             最大耗时
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.InterfaceSummaryResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.InterfaceSummaryItem">
             <summary>
-            获取接口分析数据返回结果
+            接口分析数据 单条数据
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.InterfaceSummaryHourResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.InterfaceSummaryHourItem">
             <summary>
-            获取接口分析分时数据返回结果
+            接口分析分时数据 单条数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.InterfaceSummaryHour.ref_hour">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.InterfaceSummaryHourItem.ref_hour">
             <summary>
             数据的小时
             </summary>
@@ -3931,43 +3936,43 @@
             数据
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserSummaryResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserSummaryItem">
             <summary>
-            获取用户增减数据返回结果
+            用户增减数据 单条数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserSummary.ref_date">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserSummaryItem.ref_date">
             <summary>
             数据的日期
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserSummary.user_source">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserSummaryItem.user_source">
              <summary>
              用户的渠道，数值代表的含义如下：
             0代表其他 30代表扫二维码 17代表名片分享 35代表搜号码（即微信添加朋友页的搜索） 39代表查询微信公众帐号 43代表图文页右上角菜单
              </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserSummary.new_user">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserSummaryItem.new_user">
             <summary>
             新增的用户数量
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserSummary.cancel_user">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserSummaryItem.cancel_user">
             <summary>
             取消关注的用户数量，new_user减去cancel_user即为净增用户数量
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserCumulateResultJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserCumulateItem">
             <summary>
-            获取累计用户数据返回结果
+            累计用户数据 单条数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserCumulate.ref_date">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserCumulateItem.ref_date">
             <summary>
             数据的日期
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserCumulate.cumulate_user">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.UserCumulateItem.cumulate_user">
             <summary>
             总用户量
             </summary>
@@ -4280,6 +4285,56 @@
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Del_Card.UserCardCode">
             <summary>
             code 序列号。自定义code 及非自定义code的卡券被领取后都支持事件推送。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Kf_Create_Session">
+            <summary>
+            事件之多客服接入会话(kf_create_session)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Kf_Create_Session.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Kf_Create_Session.KfAccount">
+            <summary>
+            完整客服账号，格式为：账号前缀@公众号微信号
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Kf_Close_Session">
+            <summary>
+            事件之多客服关闭会话(kf_close_session)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Kf_Close_Session.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Kf_Close_Session.KfAccount">
+            <summary>
+            完整客服账号，格式为：账号前缀@公众号微信号
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Kf_Switch_Session">
+            <summary>
+            事件之多客服转接会话kf_switch_session)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Kf_Switch_Session.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Kf_Switch_Session.FromKfAccount">
+            <summary>
+            完整客服账号，格式为：账号前缀@公众号微信号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Kf_Switch_Session.ToKfAccount">
+            <summary>
+            
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.Request.PostModel">
@@ -6801,6 +6856,48 @@
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_PicSysphotoRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Pic_Sysphoto)">
             <summary>
             弹出系统拍照发图
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_Card_Pass_CheckRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Card_Pass_Check)">
+            <summary>
+            卡券通过审核
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_Card_Not_Pass_CheckRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Card_Not_Pass_Check)">
+            <summary>
+            卡券未通过审核
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_User_Get_CardRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Get_Card)">
+            <summary>
+            领取卡券
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_User_Del_CardRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Del_Card)">
+            <summary>
+            删除卡券
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_Kf_Create_SessionRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Kf_Create_Session)">
+            <summary>
+            多客服接入会话
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_Kf_Close_SessionRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Kf_Close_Session)">
+            <summary>
+            多客服关闭会话
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_Kf_Switch_SessionRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Kf_Switch_Session)">
+            <summary>
+            多客服转接会话
             </summary>
             <returns></returns>
         </member>

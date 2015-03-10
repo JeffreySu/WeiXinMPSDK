@@ -156,6 +156,20 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
                         reponseMessage = strongResponseMessage;
                     }
                     break;
+                case "SubClickRoot_PicPhotoOrAlbum":
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
+                        reponseMessage = strongResponseMessage;
+                        strongResponseMessage.Content = "您点击了【微信拍照】按钮。系统将会弹出拍照或者相册发图。";
+                    }
+                    break;
+                case "SubClickRoot_ScancodePush":
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
+                        reponseMessage = strongResponseMessage;
+                        strongResponseMessage.Content = "您点击了【微信扫码】按钮。";
+                    }
+                    break;
                 default:
                     {
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();

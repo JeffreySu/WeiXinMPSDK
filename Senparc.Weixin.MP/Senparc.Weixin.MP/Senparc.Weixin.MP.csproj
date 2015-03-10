@@ -53,9 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvancedAPIs\Analysis\AnalysisApi.cs" />
-    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\ArticleAnalysisResultJson.cs" />
-    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\MessageAnalysisResultJson.cs" />
-    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\InterfaceAnalysisResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\ArticleAnalysisItemJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\AnalysisResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\BaseAnalysisResult.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\MessageAnalysisItemJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\InterfaceAnalysisItemJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\BaseAnalysisObject.cs" />
     <Compile Include="AdvancedAPIs\Card\CardApi.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateInfo.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateInfo_Card.cs" />
@@ -129,7 +132,7 @@
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\SendTemplateMessageResult.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\TemplateDataItem.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\TempleteModel.cs" />
-    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\UserAnalysisResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\UserAnalysisItemJson.cs" />
     <Compile Include="AdvancedAPIs\User\UserJson\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\UserApi.cs" />
     <Compile Include="AdvancedAPIs\User\UserJson\UserInfoJson.cs" />
@@ -145,8 +148,11 @@
     <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Card_Pass_Check.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Card_Not_Pass_Check.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_UserGetCard.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Get_Card.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Del_Card.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Kf_Create_Session.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Kf_Close_Session.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Kf_Switch_Session.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
     <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />

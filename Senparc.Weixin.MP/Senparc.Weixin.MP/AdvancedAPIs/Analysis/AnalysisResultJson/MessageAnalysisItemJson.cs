@@ -1,14 +1,17 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2015 Senparc
     
-    文件名：MessageAnalysisResultJson.cs
-    文件功能描述：获取消息发送概况数据返回结果
+    文件名：MessageAnalysisItemJson.cs
+    文件功能描述：获取消息发送概况数据返回结果 单条数据类
     
     
     创建标识：Senparc - 20150211
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20150310
+    修改描述：修改类
 ----------------------------------------------------------------*/
 
 using System;
@@ -19,7 +22,7 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
 {
-    public class BaseUpStreamMsgResult
+    public class BaseUpStreamMsgResult : BaseAnalysisObject
     {
         /// <summary>
         /// 数据的日期，需在begin_date和end_date之间
@@ -40,22 +43,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
     }
 
     /// <summary>
-    /// 获取消息发送概况数据返回结果
+    /// 消息发送概况数据 单条数据
     /// </summary>
-    public class UpStreamMsgResultJson : WxJsonResult
+    public class UpStreamMsgItem : BaseUpStreamMsgResult
     {
-        public List<BaseUpStreamMsgResult> list { get; set; }
+
     }
 
     /// <summary>
-    /// 获取消息分送分时数据返回结果
+    /// 消息分送分时数据 单条数据
     /// </summary>
-    public class UpStreamMsgHourResultJson : WxJsonResult
-    {
-        public List<UpStreamMsgHour> list { get; set; }
-    }
-
-    public class UpStreamMsgHour : BaseUpStreamMsgResult
+    public class UpStreamMsgHourItem : BaseUpStreamMsgResult
     {
         /// <summary>
         /// 数据的小时，包括从000到2300，分别代表的是[000,100)到[2300,2400)，即每日的第1小时和最后1小时
@@ -64,22 +62,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
     }
 
     /// <summary>
-    /// 获取消息发送周数据返回结果
+    /// 消息发送周数据 单条数据
     /// </summary>
-    public class UpStreamMsgWeekResultJson : WxJsonResult
+    public class UpStreamMsgWeekItem : BaseUpStreamMsgResult
     {
-        public List<BaseUpStreamMsgResult> list { get; set; }
+
     }
 
     /// <summary>
-    /// 获取消息发送月数据返回结果
+    /// 消息发送月数据 单条数据
     /// </summary>
-    public class UpStreamMsgMonthResultJson : WxJsonResult
+    public class UpStreamMsgMonthItem : BaseUpStreamMsgResult
     {
-        public List<BaseUpStreamMsgResult> list { get; set; }
+
     }
 
-    public class BaseUpStreamMsgDist
+    public class BaseUpStreamMsgDist : BaseAnalysisObject
     {
         /// <summary>
         /// 数据的日期，需在begin_date和end_date之间
@@ -96,26 +94,26 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
     }
 
     /// <summary>
-    /// 获取消息发送分布数据返回结果
+    /// 消息发送分布数据 单条数据
     /// </summary>
-    public class UpStreamMsgDistResultJson : WxJsonResult
+    public class UpStreamMsgDistItem : BaseUpStreamMsgDist
     {
-        public List<BaseUpStreamMsgDist> list { get; set; }
+
     }
 
     /// <summary>
-    /// 获取消息发送分布周数据返回结果
+    /// 消息发送分布周数据 单条数据
     /// </summary>
-    public class UpStreamMsgDistWeekResultJson : WxJsonResult
+    public class UpStreamMsgDistWeekItem : BaseUpStreamMsgDist
     {
-        public List<BaseUpStreamMsgDist> list { get; set; }
+
     }
 
     /// <summary>
-    /// 获取消息发送分布月数据返回结果
+    /// 消息发送分布月数据 单条数据
     /// </summary>
-    public class UpStreamMsgDistMonthResultJson : WxJsonResult
+    public class UpStreamMsgDistMonthItem : BaseUpStreamMsgDist
     {
-        public List<BaseUpStreamMsgDist> list { get; set; }
+
     }
 }

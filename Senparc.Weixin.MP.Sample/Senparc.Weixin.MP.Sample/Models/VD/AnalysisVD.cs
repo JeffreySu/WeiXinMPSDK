@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Sample.Controllers;
 
 namespace Senparc.Weixin.MP.Sample.Models.VD
@@ -13,6 +14,7 @@ namespace Senparc.Weixin.MP.Sample.Models.VD
         public AnalysisType AnalysisType { get; set; }
         public string AppId { get; set; }
         public string AppSecret { get; set; }
-        public string Result { get; set; }
+        public object Result { get; set; }
+        public WxJsonResult WxJsonResult { get; set; }
     }
 }

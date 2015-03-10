@@ -132,7 +132,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             ViewData["nonceStr"] = nonceStr;
             ViewData["package"] = string.Format("prepay_id={0}", prepayId);
             ViewData["paySign"] = paySign;
-
+            
             return View();
         }
 

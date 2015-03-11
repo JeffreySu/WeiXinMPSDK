@@ -11,6 +11,11 @@ using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
+    /// <summary>
+    /// 此Action为异步Action，使用异步线程处理并发请求。
+    /// 为了方便演示，此Controller中没有加入多余的日志记录等示例，保持了最简单的Controller写法。日志等其他操作可以参考WeixinController.cs。
+    /// 提示：异步Controller并不是在任何情况下都能提升效率（响应时间），当请求量非常小的时候反而会增加一定的开销。
+    /// </summary>
     public class WeixinAsyncController : AsyncController
     {
         public static readonly string Token = WebConfigurationManager.AppSettings["WeixinToken"];//与微信公众账号后台的Token设置保持一致，区分大小写。

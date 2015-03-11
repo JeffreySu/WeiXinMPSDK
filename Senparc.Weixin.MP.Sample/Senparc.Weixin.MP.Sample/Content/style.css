@@ -288,6 +288,8 @@
 	font-size:18px;
 	color:#585858;
 	padding-left:93px;
+    margin-top: 20px;
+    overflow: hidden;
 }
 .send {
 	padding-left:0;

@@ -37,10 +37,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                          return "failed:" + signature + "," + MP.CheckSignature.GetSignature(timestamp, nonce, Token) + "。" +
                              "如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。";
                      }
-                 }).ContinueWith<ActionResult>(task =>
-                    {
-                        return Content((string)task.Result);
-                    });
+                 }).ContinueWith<ActionResult>(task => Content(task.Result));
         }
 
 
@@ -51,7 +48,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         [ActionName("Index")]
         public Task<ActionResult> MiniPost(PostModel postModel)
         {
-            return Task.Factory.StartNew(() =>
+            return Task.Factory.StartNew<ActionResult>(() =>
             {
                 if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
                 {
@@ -68,14 +65,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 return new FixWeixinBugWeixinResult(messageHandler);
 
-            }).ContinueWith<ActionResult>(task =>
-            {
-                return task;
-            });
-
-
-
-
+            }).ContinueWith<ActionResult>(task => task.Result);
         }
     }
 }

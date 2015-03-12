@@ -112,7 +112,6 @@
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
     <Compile Include="Controllers\FilterTestControllerTest.cs" />
-    <Compile Include="Controllers\WeixinAsyncControllerTest.cs" />
     <Compile Include="Controllers\WeixinControllerTest.cs" />
     <Compile Include="Controllers\FixWeixinBugWeixinResultTest.cs" />
     <Compile Include="Mock\MvcMockHelpers.cs" />

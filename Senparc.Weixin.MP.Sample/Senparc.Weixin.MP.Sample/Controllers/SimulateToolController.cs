@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.Agent;
@@ -242,27 +239,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         /// <summary>
-        /// 模拟并发请求
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="token"></param>
-        /// <param name="requestMessaageDoc"></param>
-        /// <returns></returns>
-        private string TestAsyncTask(string url, string token, XDocument requestMessaageDoc)
-        {
-            //修改MsgId，防止被去重
-            if (requestMessaageDoc.Root.Element("MagId") != null)
-            {
-                requestMessaageDoc.Root.Element("MagId").Value =
-                    Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddSeconds(Thread.CurrentThread.GetHashCode())).ToString();
-            }
-
-            var responseMessageXml = MessageAgent.RequestXml(null, url, token, requestMessaageDoc.ToString(), 1000 * 20);
-            Thread.Sleep(100); //模拟服务器响应时间
-            return responseMessageXml;
-        }
-
-        /// <summary>
         /// 默认页面
         /// </summary>
         /// <returns></returns>
@@ -277,7 +253,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Index(string url, string token, RequestMsgType requestType, Event? eventType, bool testConcurrence, int testConcurrenceCount)
+        public ActionResult Index(string url, string token, RequestMsgType requestType, Event? eventType)
         {
             using (MemoryStream ms = new MemoryStream())
             {
@@ -292,32 +268,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     responseMessageXml = "返回消息为空，可能已经被去重。\r\nMsgId相同的连续消息将被自动去重。";
                 }
 
-                try
-                {
-                    DateTime dt1 = DateTime.Now;
-                    if (testConcurrence)
-                    {
-                        testConcurrenceCount = testConcurrenceCount > 30 ? 30 : testConcurrenceCount;//设定最高限额
-
-                        //模拟并发请求
-                        List<Task<string>> taskList = new List<Task<string>>();
-                        for (int i = 0; i < testConcurrenceCount; i++)
-                        {
-                            var task = Task.Factory.StartNew(() => TestAsyncTask(url, token, requestMessaageDoc));
-                            taskList.Add(task);
-                        }
-                        Task.WaitAll(taskList.ToArray(), 1000 * 10);
-                    }
-                    DateTime dt2 = DateTime.Now;
-
-                    return Json(new { Success = true, LoadTime = (dt2 - dt1).TotalMilliseconds, Result = responseMessageXml });
-                }
-                catch (Exception ex)
-                {
-                    var msg = string.Format("{0}\r\n{1}\r\n{2}", ex.Message, null, ex.InnerException != null ? ex.InnerException.Message : null);
-                    return Json(new { Success = false, Result = msg });
-
-                }
+                return Content(responseMessageXml);
             }
         }
 

@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+ 
+    修改标识：Senparc - 20150312
+    修改描述：开放代理请求超时时间
 ----------------------------------------------------------------*/
 
 using System;
@@ -39,10 +42,11 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
         /// <param name="urlFormat"></param>
         /// <param name="data">如果是Get方式，可以为null</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult Send(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST)
+        public static WxJsonResult Send(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT)
         {
-            return Send<WxJsonResult>(accessToken, urlFormat, data, sendType);
+            return Send<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut);
         }
 
         /// <summary>
@@ -51,8 +55,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
         /// <param name="urlFormat"></param>
         /// <param name="data">如果是Get方式，可以为null</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST)
+        public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT)
         {
             var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken);
             switch (sendType)
@@ -68,7 +73,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         ms.Write(bytes, 0, bytes.Length);
                         ms.Seek(0, SeekOrigin.Begin);
 
-                        return Post.PostGetJson<T>(url, null, ms);
+                        return Post.PostGetJson<T>(url, null, ms, timeOut: timeOut);
                     }
                 default:
                     throw new ArgumentOutOfRangeException("sendType");
@@ -76,4 +81,3 @@ namespace Senparc.Weixin.MP.CommonAPIs
         }
     }
 }
-

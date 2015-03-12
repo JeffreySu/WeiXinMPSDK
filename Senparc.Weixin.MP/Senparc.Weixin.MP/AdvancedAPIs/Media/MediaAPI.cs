@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+ 
+    修改标识：Senparc - 20150312
+    修改描述：开放代理请求超时时间
 ----------------------------------------------------------------*/
 
 /*
@@ -38,13 +41,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// <param name="accessToken"></param>
         /// <param name="type"></param>
         /// <param name="file"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static UploadResultJson Upload(string accessToken, UploadMediaFileType type, string file)
+        public static UploadResultJson Upload(string accessToken, UploadMediaFileType type, string file, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken, type.ToString());
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = file;
-            return HttpUtility.Post.PostFileGetJson<UploadResultJson>(url, null, fileDictionary, null);
+            return HttpUtility.Post.PostFileGetJson<UploadResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
         }
 
         /// <summary>
@@ -65,15 +69,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// </summary>
         /// <param name="accessToken">Token</param>
         /// <param name="news">图文消息组</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static UploadMediaFileResult UploadNews(string accessToken, params NewsModel[] news)
+        public static UploadMediaFileResult UploadNews(string accessToken, int timeOut = Config.TIME_OUT, params NewsModel[] news)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token={0}";
             var data = new
             {
                 articles = news
             };
-            return CommonJsonSend.Send<UploadMediaFileResult>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<UploadMediaFileResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
 
 

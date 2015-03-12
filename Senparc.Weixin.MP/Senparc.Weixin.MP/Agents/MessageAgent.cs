@@ -9,9 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
-
+ 
     修改标识：Senparc - 20150312
-    修改描述：整理接口
+    修改描述：开放代理请求超时时间
 ----------------------------------------------------------------*/
 
 using System;
@@ -51,7 +51,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="token"></param>
         /// <param name="stream"></param>
         /// <param name="useWeiWeiHiKey">是否使用WeiWeiHiKey，如果使用，则token为WeiWeiHiKey</param>
-        /// <param name="timeOut"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static string RequestXml(this IMessageHandler messageHandler, string url, string token, Stream stream, bool useWeiWeiHiKey = false, int timeOut = AGENT_TIME_OUT)
         {
@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="url"></param>
         /// <param name="token"></param>
         /// <param name="xml"></param>
-        /// <param name="timeOut"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static string RequestXml(this IMessageHandler messageHandler, string url, string token, string xml, int timeOut = AGENT_TIME_OUT)
         {
@@ -104,7 +104,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="weiweihiKey"></param>
         /// <param name="xml"></param>
         /// <param name="weiweihiDomainName"></param>
-        /// <param name="timeOut"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static string RequestWeiWeiHiXml(this IMessageHandler messageHandler, string weiweihiKey, string xml, string weiweihiDomainName = "www.weiweihi.com", int timeOut = AGENT_TIME_OUT)
         {
@@ -133,7 +133,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="url"></param>
         /// <param name="token"></param>
         /// <param name="stream"></param>
-        /// <param name="timeOut"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static IResponseMessageBase RequestResponseMessage(this IMessageHandler messageHandler, string url, string token, Stream stream, int timeOut = AGENT_TIME_OUT)
         {
@@ -147,7 +147,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="url"></param>
         /// <param name="token"></param>
         /// <param name="xml"></param>
-        /// <param name="timeOut"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static IResponseMessageBase RequestResponseMessage(this IMessageHandler messageHandler, string url, string token, string xml, int timeOut = AGENT_TIME_OUT)
         {
@@ -161,7 +161,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="weiweihiKey"></param>
         /// <param name="xml"></param>
         /// <param name="weiweihiDomainName"></param>
-        /// <param name="timeOut"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static IResponseMessageBase RequestWeiweihiResponseMessage(this IMessageHandler messageHandler, string weiweihiKey, string xml, string weiweihiDomainName = "www.weiweihi.com", int timeOut = AGENT_TIME_OUT)
         {
@@ -175,7 +175,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="weiweihiKey"></param>
         /// <param name="weiweihiDomainName"></param>
         /// <param name="document"></param>
-        /// <param name="timeOut"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static IResponseMessageBase RequestWeiweihiResponseMessage(this IMessageHandler messageHandler, string weiweihiKey, XDocument document, string weiweihiDomainName = "www.weiweihi.com", int timeOut = AGENT_TIME_OUT)
         {
@@ -189,7 +189,7 @@ namespace Senparc.Weixin.MP.Agent
         /// <param name="weiweihiKey"></param>
         /// <param name="requestMessage"></param>
         /// <param name="weiweihiDomainName"></param>
-        /// <param name="timeOut"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static IResponseMessageBase RequestWeiweihiResponseMessage(this IMessageHandler messageHandler, string weiweihiKey, RequestMessageBase requestMessage, string weiweihiDomainName = "www.weiweihi.com", int timeOut = AGENT_TIME_OUT)
         {
@@ -201,7 +201,7 @@ namespace Senparc.Weixin.MP.Agent
         /// </summary>
         /// <param name="url"></param>
         /// <param name="token"></param>
-        /// <param name="timeOut"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static bool CheckUrlAndToken(string url, string token, int timeOut = 2000)
         {

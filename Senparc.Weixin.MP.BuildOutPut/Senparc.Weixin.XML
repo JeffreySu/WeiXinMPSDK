@@ -330,16 +330,17 @@
             <param name="returnText"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Post.PostFileGetJson``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding)">
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostFileGetJson``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Int32)">
             <summary>
             发起Post请求
             </summary>
             <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
             <param name="url">请求Url</param>
             <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJson``1(System.String,System.Net.CookieContainer,System.IO.Stream,System.Text.Encoding)">
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJson``1(System.String,System.Net.CookieContainer,System.IO.Stream,System.Text.Encoding,System.Int32)">
             <summary>
             发起Post请求
             </summary>
@@ -347,6 +348,7 @@
             <param name="url">请求Url</param>
             <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
             <param name="fileStream">文件流</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpGet(System.String,System.Text.Encoding)">

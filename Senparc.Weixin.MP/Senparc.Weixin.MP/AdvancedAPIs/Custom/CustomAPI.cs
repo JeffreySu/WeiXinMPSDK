@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+ 
+    修改标识：Senparc - 20150312
+    修改描述：开放代理请求超时时间
 ----------------------------------------------------------------*/
 
 /* 
@@ -42,8 +45,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="accessToken"></param>
         /// <param name="openId"></param>
         /// <param name="content"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult SendText(string accessToken, string openId, string content)
+        public static WxJsonResult SendText(string accessToken, string openId, string content, int timeOut = Config.TIME_OUT)
         {
             var data = new
             {
@@ -54,7 +58,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
                     content = content
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -63,8 +67,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="accessToken"></param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult SendImage(string accessToken, string openId, string mediaId)
+        public static WxJsonResult SendImage(string accessToken, string openId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             var data = new
             {
@@ -75,7 +80,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
                     media_id = mediaId
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -84,8 +89,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="accessToken"></param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult SendVoice(string accessToken, string openId, string mediaId)
+        public static WxJsonResult SendVoice(string accessToken, string openId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             var data = new
             {
@@ -96,7 +102,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
                     media_id = mediaId
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -107,8 +113,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="mediaId"></param>
         /// <param name="title"></param>
         /// <param name="description"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult SendVideo(string accessToken, string openId, string mediaId, string title, string description)
+        public static WxJsonResult SendVideo(string accessToken, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT)
         {
             var data = new
             {
@@ -121,7 +128,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
                     description = description
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
         }
         /// <summary>
         /// 发送音乐消息
@@ -133,9 +140,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="musicUrl">音乐链接</param>
         /// <param name="hqMusicUrl">高品质音乐链接，wifi环境优先使用该链接播放音乐</param>
         /// <param name="thumbMediaId">视频缩略图的媒体ID</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult SendMusic(string accessToken, string openId, string title, string description,
-                                    string musicUrl, string hqMusicUrl, string thumbMediaId)
+                                    string musicUrl, string hqMusicUrl, string thumbMediaId, int timeOut = Config.TIME_OUT)
         {
             var data = new
             {
@@ -150,7 +158,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
                     thumb_media_id = thumbMediaId
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -159,8 +167,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="accessToken"></param>
         /// <param name="openId"></param>
         /// <param name="articles"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult SendNews(string accessToken, string openId, List<Article> articles)
+        public static WxJsonResult SendNews(string accessToken, string openId, List<Article> articles, int timeOut = Config.TIME_OUT)
         {
             var data = new
             {
@@ -169,15 +178,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
                 news = new
                 {
                     articles = articles.Select(z => new
-                                {
-                                    title = z.Title,
-                                    description = z.Description,
-                                    url = z.Url,
-                                    picurl = z.PicUrl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
-                                }).ToList()
+                    {
+                        title = z.Title,
+                        description = z.Description,
+                        url = z.Url,
+                        picurl = z.PicUrl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
+                    }).ToList()
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
         }
     }
 }

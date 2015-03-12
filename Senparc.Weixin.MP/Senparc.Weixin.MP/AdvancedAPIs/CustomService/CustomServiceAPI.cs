@@ -12,9 +12,6 @@
     
     修改标识：Senparc - 20150306
     修改描述：增加多客服接口
- 
-    修改标识：Senparc - 20150312
-    修改描述：开放默认代理请求超时时间
 ----------------------------------------------------------------*/
 
 /* 
@@ -46,8 +43,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <param name="openId">（非必须）普通用户的标识，对当前公众号唯一</param>
         /// <param name="pageSize">每页大小，每页最多拉取1000条</param>
         /// <param name="pageIndex">查询第几页，从1开始</param>
-        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
-        /// <returns></returns>
         public static GetRecordResult GetRecord(string accessToken, DateTime startTime, DateTime endTime, string openId = null, int pageSize = 10, int pageIndex = 1, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.weixin.qq.com/cgi-bin/customservice/getrecord?access_token={0}";
@@ -79,7 +74,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// 获取客服基本信息
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CustomInfoJson GetCustomBasicInfo(string accessToken, int timeOut = Config.TIME_OUT)
         {
@@ -92,7 +86,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// 获取在线客服接待信息
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CustomOnlineJson GetCustomOnlineInfo(string accessToken, int timeOut = Config.TIME_OUT)
         {
@@ -115,7 +108,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号，账号前缀最多10个字符，必须是英文或者数字字符。如果没有公众号微信号，请前往微信公众平台设置。</param>
         /// <param name="nickName">客服昵称，最长6个汉字或12个英文字符</param>
         /// <param name="passWord">客服账号登录密码，格式为密码明文的32位加密MD5值</param>
-        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult AddCustom(string accessToken, string kfAccount, string nickName, string passWord, int timeOut = Config.TIME_OUT)
         {
@@ -138,7 +130,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号，账号前缀最多10个字符，必须是英文或者数字字符。如果没有公众号微信号，请前往微信公众平台设置。</param>
         /// <param name="nickName">客服昵称，最长6个汉字或12个英文字符</param>
         /// <param name="passWord">客服账号登录密码，格式为密码明文的32位加密MD5值</param>
-        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult UpdateCustom(string accessToken, string kfAccount, string nickName, string passWord, int timeOut = Config.TIME_OUT)
         {
@@ -160,7 +151,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <param name="accessToken"></param>
         /// <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号</param>
         /// <param name="file">form-data中媒体文件标识，有filename、filelength、content-type等信息</param>
-        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult UploadCustomHeadimg(string accessToken, string kfAccount, string file, int timeOut = Config.TIME_OUT)
         {
@@ -211,7 +201,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <param name="openId">客户openid</param>
         /// <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号</param>
         /// <param name="text">附加信息，文本会展示在客服人员的多客服客户端(非必须)</param>
-        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult CloseSession(string accessToken, string openId, string kfAccount, string text = null, int timeOut = Config.TIME_OUT)
         {
@@ -233,11 +222,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <param name="accessToken"></param>
         /// <param name="openId">客户openid</param>
         /// <returns></returns>
-        public static GetSessionStateResultJson GetSessionState(string accessToken, string openId)
+        public static GetSessionStateResultJson GetSessionState(string accessToken, string openId, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/getsession?access_token={0}&openid={1}", accessToken, openId);
 
-            return CommonJsonSend.Send<GetSessionStateResultJson>(null, urlFormat, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<GetSessionStateResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
         }
 
         /// <summary>
@@ -246,11 +235,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <param name="accessToken"></param>
         /// <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号，账号前缀最多10个字符，必须是英文或者数字字符。</param>
         /// <returns></returns>
-        public static GetSessionListResultJson GetSessionList(string accessToken, string kfAccount)
+        public static GetSessionListResultJson GetSessionList(string accessToken, string kfAccount, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/getsessionlist?access_token={0}&kf_account={1}", accessToken, kfAccount);
 
-            return CommonJsonSend.Send<GetSessionListResultJson>(null, urlFormat, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<GetSessionListResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
         }
 
         /// <summary>
@@ -258,11 +247,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        public static GetWaitCaseResultJson GetWaitCase(string accessToken)
+        public static GetWaitCaseResultJson GetWaitCase(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/getwaitcase?access_token={0}", accessToken);
 
-            return CommonJsonSend.Send<GetWaitCaseResultJson>(null, urlFormat, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<GetWaitCaseResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
         }
     }
 }

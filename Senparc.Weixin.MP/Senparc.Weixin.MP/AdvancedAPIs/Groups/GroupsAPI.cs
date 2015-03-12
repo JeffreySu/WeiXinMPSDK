@@ -9,9 +9,6 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
- 
-    修改标识：Senparc - 20150312
-    修改描述：开放默认代理请求超时时间
 ----------------------------------------------------------------*/
 
 /* 
@@ -41,7 +38,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 创建分组
         /// </summary>
-        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CreateGroupResult Create(string accessToken, string name, int timeOut = Config.TIME_OUT)
         {

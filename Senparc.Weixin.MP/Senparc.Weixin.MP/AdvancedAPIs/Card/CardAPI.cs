@@ -9,8 +9,12 @@
     
     修改标识：Senparc - 20150212
     修改描述：整理接口
+ 
     修改标识：Senparc - 20150303
     修改描述：整理接口
+ 
+    修改标识：Senparc - 20150312
+    修改描述：开放默认代理请求超时时间
 ----------------------------------------------------------------*/
 
 /* 
@@ -38,6 +42,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="cardInfo">创建卡券需要的数据，格式可以看CardCreateData.cs</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CardCreateResultJson CreateCard(string accessToken, BaseCardInfo cardInfo, int timeOut = Config.TIME_OUT)
         {
@@ -160,11 +165,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        public static GetColorsResultJson GetColors(string accessToken, int timeOut = Config.TIME_OUT)
+        public static GetColorsResultJson GetColors(string accessToken)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/getcolors?access_token={0}", accessToken);
 
-            return CommonJsonSend.Send<GetColorsResultJson>(null, urlFormat, null, timeOut: timeOut);
+            return CommonJsonSend.Send<GetColorsResultJson>(null, urlFormat, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -178,6 +183,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="expireSeconds">指定二维码的有效时间，范围是60 ~ 1800 秒。不填默认为永久有效。</param>
         /// <param name="isUniqueCode">指定下发二维码，生成的二维码随机分配一个code，领取后不可再次扫描。填写true 或false。默认false。</param>
         /// <param name="balance">红包余额，以分为单位。红包类型必填（LUCKY_MONEY），其他卡券类型不填。</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CreateQRResultJson CreateQR(string accessToken, string cardId, string code = null,
                                                   string openId = null, string expireSeconds = null,
@@ -211,6 +217,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="accessToken"></param>
         /// <param name="code">要消耗的序列号</param>
         /// <param name="cardId">要消耗序列号所述的card_id，创建卡券时use_custom_code 填写true 时必填。非自定义code不必填写。</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CardConsumeResultJson CardConsume(string accessToken, string code, string cardId = null, int timeOut = Config.TIME_OUT)
         {
@@ -233,6 +240,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="encryptCode">通过choose_card_info 获取的加密字符串</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CardDecryptResultJson CardDecrypt(string accessToken, string encryptCode, int timeOut = Config.TIME_OUT)
         {
@@ -251,6 +259,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="cardId">卡券ID</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CardDeleteResultJson CardDelete(string accessToken, string cardId, int timeOut = Config.TIME_OUT)
         {
@@ -270,6 +279,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="accessToken"></param>
         /// <param name="code"></param>
         /// <param name="cardId"></param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CardGetResultJson CardGet(string accessToken, string code, string cardId = null, int timeOut = Config.TIME_OUT)
         {
@@ -290,6 +300,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="accessToken"></param>
         /// <param name="offset">查询卡列表的起始偏移量，从0 开始，即offset: 5 是指从从列表里的第六个开始读取。</param>
         /// <param name="count">需要查询的卡片的数量（数量最大50）</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CardBatchGetResultJson CardBatchGet(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
@@ -309,6 +320,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="cardId"></param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CardDetailGetResultJson CardDetailGet(string accessToken, string cardId, int timeOut = Config.TIME_OUT)
         {
@@ -329,6 +341,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="code">卡券的code 编码</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="newCode">新的卡券code 编码</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult CardChangeCode(string accessToken, string code, string cardId, string newCode, int timeOut = Config.TIME_OUT)
         {
@@ -350,6 +363,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="accessToken"></param>
         /// <param name="code">需要设置为失效的code</param>
         /// <param name="cardId">自定义code 的卡券必填。非自定义code 的卡券不填。</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult CardUnavailable(string accessToken, string code, string cardId = null, int timeOut = Config.TIME_OUT)
         {
@@ -372,6 +386,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="cardType">卡券种类，会员卡、飞机票、电影票、红包中的一种</param>
         /// <param name="data">创建卡券需要的数据，格式可以看CardUpdateData.cs</param>
         /// <param name="cardId"></param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult CardUpdate(string accessToken, CardType cardType, object data, string cardId = null, int timeOut = Config.TIME_OUT)
         {
@@ -424,6 +439,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="accessToken"></param>
         /// <param name="openIds">测试的openid 列表</param>
         /// <param name="userNames">测试的微信号列表</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult AuthoritySet(string accessToken, string[] openIds, string[] userNames, int timeOut = Config.TIME_OUT)
         {
@@ -466,6 +482,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="initBalance">初始余额，不填为0</param>
         /// <param name="bonus">积分查询，仅用于init_bonus 无法同步的情况填写，调转外链查询积分</param>
         /// <param name="balance">余额查询，仅用于init_balance 无法同步的情况填写，调转外链查询积分</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult MemberCardActivate(string accessToken, string membershipNumber, string code, string cardId, int initBonus, int initBalance, string bonus = null, string balance = null, int timeOut = Config.TIME_OUT)
         {
@@ -495,6 +512,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="addBonus">需要变更的积分，扣除积分用“-“表</param>
         /// <param name="addBalance">需要变更的余额，扣除金额用“-”表示。单位为分</param>
         /// <param name="recordBalance">商家自定义金额消耗记录，不超过14 个汉字</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static MemberCardDeal MemberCardDeal(string accessToken, string code, string cardId, string recordBonus, decimal addBonus, decimal addBalance, string recordBalance, int timeOut = Config.TIME_OUT)
         {
@@ -524,6 +542,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="duration">放映时长，填写整数</param>
         /// <param name="screeningRoom">该场电影的影厅信息</param>
         /// <param name="seatNumbers">座位号</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult MovieCardUpdate(string accessToken, string code, string cardId, string ticketClass, string showTime, int duration, string screeningRoom, string[] seatNumbers, int timeOut = Config.TIME_OUT)
         {
@@ -555,6 +574,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="etktBnr">电子客票号，上限为14 个数字</param>
         /// <param name="qrcodeData">二维码数据。乘客用于值机的二维码字符串，微信会通过此数据为用户生成值机用的二维码</param>
         /// <param name="isCancel">是否取消值机。填写true 或false。true 代表取消，如填写true 上述字段（如calss 等）均不做判断，机票返回未值机状态，乘客可重新值机。默认填写false</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult BoardingPassCheckIn(string accessToken, string code, string cardId, string passengerName, string classType, string seat, string etktBnr, string qrcodeData, bool isCancel = false, int timeOut = Config.TIME_OUT)
         {
@@ -582,6 +602,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="code">红包的序列号</param>
         /// <param name="cardId">自定义code 的卡券必填。非自定义code 可不填。</param>
         /// <param name="balance">红包余额</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult BoardingPassCheckIn(string accessToken, string code, string cardId, decimal balance, int timeOut = Config.TIME_OUT)
         {
@@ -602,6 +623,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="data">门店数据</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static StoreResultJson StoreBatchAdd(string accessToken, StoreLocationData data, int timeOut = Config.TIME_OUT)
         {
@@ -616,6 +638,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="accessToken"></param>
         /// <param name="offset">偏移量，0 开始</param>
         /// <param name="count">拉取数量</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static StoreGetResultJson BatchGet(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {

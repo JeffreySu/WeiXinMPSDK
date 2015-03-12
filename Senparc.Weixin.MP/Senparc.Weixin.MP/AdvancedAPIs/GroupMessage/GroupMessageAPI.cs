@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+ 
+    修改标识：Senparc - 20150312
+    修改描述：开放默认代理请求超时时间
 ----------------------------------------------------------------*/
 
 /* 
@@ -43,6 +46,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="mediaId">用于群发的消息的media_id</param>
         /// <param name="type"></param>
         /// <param name="isToAll">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static SendResult SendGroupMessageByGroupId(string accessToken, string groupId, string mediaId, GroupMessageType type, bool isToAll = false, int timeOut = Config.TIME_OUT)
         {
@@ -129,6 +133,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="groupId">群发到的分组的group_id，参加用户管理中用户分组接口，若is_to_all值为true，可不填写group_id</param>
         /// <param name="content">用于群发文本消息的content</param>
         /// <param name="isToAll">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static SendResult SendTextGroupMessageByGroupId(string accessToken, string groupId, string content, bool isToAll = false, int timeOut = Config.TIME_OUT)
         {
@@ -158,6 +163,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="mediaId">用于群发的消息的media_id</param>
         /// <param name="type"></param>
         /// <param name="openIds">openId字符串数组</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// 注意mediaId和content不可同时为空
         /// <returns></returns>
         public static SendResult SendGroupMessageByOpenId(string accessToken, GroupMessageType type, string mediaId, int timeOut = Config.TIME_OUT, params string[] openIds)
@@ -219,6 +225,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="accessToken"></param>
         /// <param name="content"></param>
         /// <param name="openIds">openId字符串数组</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// 注意mediaId和content不可同时为空
         /// <returns></returns>
         public static SendResult SendTextGroupMessageByOpenId(string accessToken, string content, int timeOut = Config.TIME_OUT, params string[] openIds)
@@ -246,6 +253,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="mediaId"></param>
         /// <param name="openIds">openId字符串数组</param>
         /// <param name="description"></param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// 注意mediaId和content不可同时为空
         /// <returns></returns>
         public static SendResult SendVideoGroupMessageByOpenId(string accessToken, string title, string description, string mediaId, int timeOut = Config.TIME_OUT, params string[] openIds)
@@ -272,6 +280,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="mediaId">发送出去的消息ID</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult DeleteSendMessage(string accessToken, string mediaId, int timeOut = Config.TIME_OUT)
         {
@@ -292,6 +301,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="mediaId">用于群发的消息的media_id</param>
         /// <param name="type"></param>
         /// <param name="openId">接收消息用户对应该公众号的openid</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// 注意mediaId和content不可同时为空
         /// <returns></returns>
         public static SendResult SendGroupMessagePreview(string accessToken, GroupMessageType type, string mediaId, string openId, int timeOut = Config.TIME_OUT)
@@ -361,6 +371,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="accessToken"></param>
         /// <param name="content"></param>
         /// <param name="openId">接收消息用户对应该公众号的openid</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// 注意mediaId和content不可同时为空
         /// <returns></returns>
         public static SendResult SendTextGroupMessagePreview(string accessToken, string content, string openId, int timeOut = Config.TIME_OUT)
@@ -385,6 +396,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="msgId">群发消息后返回的消息id</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static GetSendResult GetGroupMessageResult(string accessToken, string msgId, int timeOut = Config.TIME_OUT)
         {

@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+ 
+    修改标识：Senparc - 20150312
+    修改描述：开放默认代理请求超时时间
 ----------------------------------------------------------------*/
 
 /* 
@@ -42,6 +45,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="accessToken"></param>
         /// <param name="openId"></param>
         /// <param name="content"></param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult SendText(string accessToken, string openId, string content, int timeOut = Config.TIME_OUT)
         {
@@ -63,6 +67,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="accessToken"></param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult SendImage(string accessToken, string openId, string mediaId, int timeOut = Config.TIME_OUT)
         {
@@ -84,6 +89,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="accessToken"></param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult SendVoice(string accessToken, string openId, string mediaId, int timeOut = Config.TIME_OUT)
         {
@@ -107,6 +113,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="mediaId"></param>
         /// <param name="title"></param>
         /// <param name="description"></param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult SendVideo(string accessToken, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT)
         {
@@ -133,6 +140,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="musicUrl">音乐链接</param>
         /// <param name="hqMusicUrl">高品质音乐链接，wifi环境优先使用该链接播放音乐</param>
         /// <param name="thumbMediaId">视频缩略图的媒体ID</param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult SendMusic(string accessToken, string openId, string title, string description,
                                     string musicUrl, string hqMusicUrl, string thumbMediaId, int timeOut = Config.TIME_OUT)
@@ -159,6 +167,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="accessToken"></param>
         /// <param name="openId"></param>
         /// <param name="articles"></param>
+        /// <param name="timeOut">默认代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static WxJsonResult SendNews(string accessToken, string openId, List<Article> articles, int timeOut = Config.TIME_OUT)
         {

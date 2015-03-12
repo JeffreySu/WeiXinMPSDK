@@ -379,6 +379,7 @@
             <param name="cookieContainer"></param>
             <param name="postStream"></param>
             <param name="fileDictionary">需要上传的文件，Key：对应要上传的Name，Value：本地文件名</param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.IsWeixinClientRequest(System.Web.HttpContext)">

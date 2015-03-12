@@ -5624,85 +5624,103 @@
             默认代理请求超时时间（毫秒）
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestXml(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.IO.Stream,System.Boolean)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestXml(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.IO.Stream,System.Boolean,System.Int32)">
             <summary>
             获取Xml结果。
             </summary>
+            <param name="messageHandler"></param>
             <param name="url"></param>
             <param name="token"></param>
             <param name="stream"></param>
             <param name="useWeiWeiHiKey">是否使用WeiWeiHiKey，如果使用，则token为WeiWeiHiKey</param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestXml(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestXml(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String,System.Int32)">
             <summary>
             获取Xml结果
             </summary>
+            <param name="messageHandler"></param>
             <param name="url"></param>
             <param name="token"></param>
             <param name="xml"></param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestWeiWeiHiXml(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestWeiWeiHiXml(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String,System.Int32)">
             <summary>
             对接Souidea（P2P）平台，获取Xml结果，使用WeiWeiHiKey对接
             WeiWeiHiKey的获取方式请看：
             </summary>
+            <param name="messageHandler"></param>
             <param name="weiweihiKey"></param>
             <param name="xml"></param>
+            <param name="weiweihiDomainName"></param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.IO.Stream)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.IO.Stream,System.Int32)">
             <summary>
             获取ResponseMessge结果
             </summary>
+            <param name="messageHandler"></param>
             <param name="url"></param>
             <param name="token"></param>
             <param name="stream"></param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String,System.Int32)">
             <summary>
             获取ResponseMessge结果
             </summary>
+            <param name="messageHandler"></param>
             <param name="url"></param>
             <param name="token"></param>
             <param name="xml"></param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestWeiweihiResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestWeiweihiResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.String,System.String,System.Int32)">
             <summary>
             获取Souidea开放平台的ResponseMessge结果
             </summary>
+            <param name="messageHandler"></param>
             <param name="weiweihiKey"></param>
             <param name="xml"></param>
             <param name="weiweihiDomainName"></param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestWeiweihiResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.Xml.Linq.XDocument,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestWeiweihiResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,System.Xml.Linq.XDocument,System.String,System.Int32)">
             <summary>
             获取Souidea开放平台的ResponseMessge结果
             </summary>
+            <param name="messageHandler"></param>
             <param name="weiweihiKey"></param>
             <param name="weiweihiDomainName"></param>
             <param name="document"></param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestWeiweihiResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,Senparc.Weixin.MP.Entities.RequestMessageBase,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.RequestWeiweihiResponseMessage(Senparc.Weixin.MP.MessageHandlers.IMessageHandler,System.String,Senparc.Weixin.MP.Entities.RequestMessageBase,System.String,System.Int32)">
             <summary>
             获取Souidea开放平台的ResponseMessge结果
             </summary>
+            <param name="messageHandler"></param>
             <param name="weiweihiKey"></param>
             <param name="requestMessage"></param>
             <param name="weiweihiDomainName"></param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.CheckUrlAndToken(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.Agent.MessageAgent.CheckUrlAndToken(System.String,System.String,System.Int32)">
             <summary>
             使用GET请求测试URL和TOKEN是否可用
             </summary>
             <param name="url"></param>
             <param name="token"></param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
         <member name="F:Senparc.Weixin.MP.CheckSignature.Token">

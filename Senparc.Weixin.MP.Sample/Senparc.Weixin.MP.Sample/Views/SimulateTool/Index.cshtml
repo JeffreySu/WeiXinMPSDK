@@ -43,12 +43,17 @@
             padding-left: 85px;
             overflow: hidden;
         }
+
+        #loadResult_Loading, #loadResult_Result {
+            display: none;
+        }
     </style>
     <script>
         $(function () {
             $('#requestType').change(checkRequestType);
             $('#eventType').change(checkEventType);
             $('#UseAsyncController').change(switchAsyncController);
+            $('#TestConcurrence').change(switchTestConcurrenceRange);
 
             checkRequestType();
             checkEventType();
@@ -68,12 +73,17 @@
             $('#' + eventId).show();
         }
 
+        function checkTestConcurrence() {
+            return $('#TestConcurrence:checked').length > 0;
+        }
+
         function sendMessage() {
             var url = $('#Url').val();
             var token = $('#Token').val();
             var requestType = $('#requestType').val();
             var eventType = $('#eventType').val();
-            var param = { url: url, token: token, requestType: requestType };
+            var testConcurrenceCount = $('#TestConcurrenceRange').val();
+            var param = { url: url, token: token, requestType: requestType, testConcurrence: checkTestConcurrence(), testConcurrenceCount: testConcurrenceCount };
             var paramId = 'param' + requestType;
             var eventId = 'event' + eventType;
             var msgId = $('#txtMsgId').val();
@@ -98,17 +108,38 @@
 
             var txtResponseMessageXML = $('#responseMessageXML');
             var txtRequestMessageXML = $('#requestMessageXML');
+            var loadResult_Loading = $('#loadResult_Loading');
+            var loadResult_Result = $('#loadResult_Result');
 
             txtResponseMessageXML.html('载入中...');
             txtRequestMessageXML.html('载入中...');
 
-            $.post('@Url.Action("Index")', param, function (result) {
-                txtResponseMessageXML.text(result);
+            if (checkTestConcurrence()) {
+                loadResult_Loading.show();
+                loadResult_Result.hide();
+            } else {
+                loadResult_Loading.hide();
+                loadResult_Result.hide();
+            }
+
+            $.post('@Url.Action("Index")', param, function (json) {
+                txtResponseMessageXML.text(json.Result);
+                loadResult_Loading.hide();
+                if (json.Success) {
+                    $('#loadTime').text(json.LoadTime);
+                    if (checkTestConcurrence()) {
+                        loadResult_Result.show();
+                    }
+                } else {
+                    loadResult_Result.hide();
+                }
             });
 
             $.post('@Url.Action("GetRequestMessageXml")', param, function (result) {
                 txtRequestMessageXML.text(result);
             });
+
+            $('#txtMsgId').val(parseInt($('#txtMsgId').val()) + 10000);
         }
 
         function switchAsyncController() {
@@ -116,6 +147,14 @@
                 $('#Url').val('@Url.Action("Index", "WeixinAsync", null, "http", Request.Url.Host)');
             } else {
                 $('#Url').val('@Url.Action("Index", "Weixin", null, "http", Request.Url.Host)');
+            }
+        }
+
+        function switchTestConcurrenceRange() {
+            if (checkTestConcurrence()) {
+                $('#TestConcurrenceRange').show();
+            } else {
+                $('#TestConcurrenceRange').hide();
             }
         }
     </script>
@@ -135,7 +174,7 @@
                 @Html.TextBox("Url", Url.Action("Index", "Weixin", null, "http", Request.Url.Host), new { @class = "control-input" })
             </li>
             <li>
-                <label class="checkbox">@Html.CheckBox("UseAsyncController")使用异步Controller</label>
+                <label class="checkbox">@Html.CheckBox("UseAsyncController", true)使用异步Controller</label>
             </li>
             <li>
                 <label class="control-label">Token:</label>
@@ -271,6 +310,10 @@
                 <input class="control-input" id="txtMsgId" name="MsgId" type="number" value="@DateTime.Now.Ticks" />
             </li>
             <li>
+                <label class="checkbox">@Html.CheckBox("TestConcurrence", true)测试并发性能</label>
+                <input id="TestConcurrenceRange" type="range" min="2" max="30" value="10" />
+            </li>
+            <li>
                 <button class="control-btn" onclick="sendMessage()">提交</button>
             </li>
         </ul>
@@ -284,6 +327,12 @@
             <li>
                 <label class="control-title send">接收内容</label>
                 <textarea class="control-text" id="responseMessageXML"></textarea>
+            </li>
+            <li>
+                <label class="control-title send" id="loadResult_Loading">模拟并发请求中……</label>
+                <label class="control-title send" id="loadResult_Result">模拟并发响应时间：<span id="loadTime"></span> ms<br/>
+                由于后台代理转发暂时没有使用异步请求，结果可能会受影响
+                </label>
             </li>
             <li></li>
         </ul>

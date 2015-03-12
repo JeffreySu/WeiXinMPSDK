@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20150312
+    修改描述：整理接口
 ----------------------------------------------------------------*/
 
 using System;
@@ -43,12 +46,14 @@ namespace Senparc.Weixin.MP.Agent
         /// <summary>
         /// 获取Xml结果。
         /// </summary>
+        /// <param name="messageHandler"></param>
         /// <param name="url"></param>
         /// <param name="token"></param>
         /// <param name="stream"></param>
         /// <param name="useWeiWeiHiKey">是否使用WeiWeiHiKey，如果使用，则token为WeiWeiHiKey</param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static string RequestXml(this IMessageHandler messageHandler, string url, string token, Stream stream, bool useWeiWeiHiKey = false)
+        public static string RequestXml(this IMessageHandler messageHandler, string url, string token, Stream stream, bool useWeiWeiHiKey = false, int timeOut = AGENT_TIME_OUT)
         {
             if (messageHandler != null)
             {
@@ -59,18 +64,20 @@ namespace Senparc.Weixin.MP.Agent
             string signature = CheckSignature.GetSignature(timestamp, nonce, token);
             url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}",
                     url.Contains("?") ? "&" : "?", signature, timestamp, nonce);
-            var responseXml = HttpUtility.RequestUtility.HttpPost(url, null, stream, timeOut: AGENT_TIME_OUT);
+            var responseXml = HttpUtility.RequestUtility.HttpPost(url, null, stream, timeOut: timeOut);
             return responseXml;
         }
 
         /// <summary>
         /// 获取Xml结果
         /// </summary>
+        /// <param name="messageHandler"></param>
         /// <param name="url"></param>
         /// <param name="token"></param>
         /// <param name="xml"></param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static string RequestXml(this IMessageHandler messageHandler, string url, string token, string xml)
+        public static string RequestXml(this IMessageHandler messageHandler, string url, string token, string xml, int timeOut = AGENT_TIME_OUT)
         {
             if (messageHandler != null)
             {
@@ -84,7 +91,7 @@ namespace Senparc.Weixin.MP.Agent
                     sw.Write(xml);
                     sw.Flush();
                     sw.BaseStream.Position = 0;
-                    return messageHandler.RequestXml(url, token, sw.BaseStream);
+                    return messageHandler.RequestXml(url, token, sw.BaseStream, timeOut: timeOut);
                 }
             }
         }
@@ -93,10 +100,13 @@ namespace Senparc.Weixin.MP.Agent
         /// 对接Souidea（P2P）平台，获取Xml结果，使用WeiWeiHiKey对接
         /// WeiWeiHiKey的获取方式请看：
         /// </summary>
+        /// <param name="messageHandler"></param>
         /// <param name="weiweihiKey"></param>
         /// <param name="xml"></param>
+        /// <param name="weiweihiDomainName"></param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static string RequestWeiWeiHiXml(this IMessageHandler messageHandler, string weiweihiKey, string xml, string weiweihiDomainName = "www.weiweihi.com")
+        public static string RequestWeiWeiHiXml(this IMessageHandler messageHandler, string weiweihiKey, string xml, string weiweihiDomainName = "www.weiweihi.com", int timeOut = AGENT_TIME_OUT)
         {
             if (messageHandler != null)
             {
@@ -111,7 +121,7 @@ namespace Senparc.Weixin.MP.Agent
                     sw.Write(xml);
                     sw.Flush();
                     sw.BaseStream.Position = 0;
-                    return messageHandler.RequestXml(url, weiweihiKey, sw.BaseStream);
+                    return messageHandler.RequestXml(url, weiweihiKey, sw.BaseStream, timeOut: timeOut);
                 }
             }
         }
@@ -119,61 +129,71 @@ namespace Senparc.Weixin.MP.Agent
         /// <summary>
         /// 获取ResponseMessge结果
         /// </summary>
+        /// <param name="messageHandler"></param>
         /// <param name="url"></param>
         /// <param name="token"></param>
         /// <param name="stream"></param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestResponseMessage(this IMessageHandler messageHandler, string url, string token, Stream stream)
+        public static IResponseMessageBase RequestResponseMessage(this IMessageHandler messageHandler, string url, string token, Stream stream, int timeOut = AGENT_TIME_OUT)
         {
-            return messageHandler.RequestXml(url, token, stream).CreateResponseMessage();
+            return messageHandler.RequestXml(url, token, stream, timeOut: timeOut).CreateResponseMessage();
         }
 
         /// <summary>
         /// 获取ResponseMessge结果
         /// </summary>
+        /// <param name="messageHandler"></param>
         /// <param name="url"></param>
         /// <param name="token"></param>
         /// <param name="xml"></param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestResponseMessage(this IMessageHandler messageHandler, string url, string token, string xml)
+        public static IResponseMessageBase RequestResponseMessage(this IMessageHandler messageHandler, string url, string token, string xml, int timeOut = AGENT_TIME_OUT)
         {
-            return messageHandler.RequestXml(url, token, xml).CreateResponseMessage();
+            return messageHandler.RequestXml(url, token, xml, timeOut).CreateResponseMessage();
         }
 
         /// <summary>
         /// 获取Souidea开放平台的ResponseMessge结果
         /// </summary>
+        /// <param name="messageHandler"></param>
         /// <param name="weiweihiKey"></param>
         /// <param name="xml"></param>
         /// <param name="weiweihiDomainName"></param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestWeiweihiResponseMessage(this IMessageHandler messageHandler, string weiweihiKey, string xml, string weiweihiDomainName = "www.weiweihi.com")
+        public static IResponseMessageBase RequestWeiweihiResponseMessage(this IMessageHandler messageHandler, string weiweihiKey, string xml, string weiweihiDomainName = "www.weiweihi.com", int timeOut = AGENT_TIME_OUT)
         {
-            return messageHandler.RequestWeiWeiHiXml(weiweihiKey, xml, weiweihiDomainName).CreateResponseMessage();
+            return messageHandler.RequestWeiWeiHiXml(weiweihiKey, xml, weiweihiDomainName, timeOut).CreateResponseMessage();
         }
 
         /// <summary>
         /// 获取Souidea开放平台的ResponseMessge结果
         /// </summary>
+        /// <param name="messageHandler"></param>
         /// <param name="weiweihiKey"></param>
         /// <param name="weiweihiDomainName"></param>
         /// <param name="document"></param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestWeiweihiResponseMessage(this IMessageHandler messageHandler, string weiweihiKey, XDocument document, string weiweihiDomainName = "www.weiweihi.com")
+        public static IResponseMessageBase RequestWeiweihiResponseMessage(this IMessageHandler messageHandler, string weiweihiKey, XDocument document, string weiweihiDomainName = "www.weiweihi.com", int timeOut = AGENT_TIME_OUT)
         {
-            return messageHandler.RequestWeiWeiHiXml(weiweihiKey, document.ToString(), weiweihiDomainName).CreateResponseMessage();
+            return messageHandler.RequestWeiWeiHiXml(weiweihiKey, document.ToString(), weiweihiDomainName, timeOut).CreateResponseMessage();
         }
 
         /// <summary>
         /// 获取Souidea开放平台的ResponseMessge结果
         /// </summary>
+        /// <param name="messageHandler"></param>
         /// <param name="weiweihiKey"></param>
         /// <param name="requestMessage"></param>
         /// <param name="weiweihiDomainName"></param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static IResponseMessageBase RequestWeiweihiResponseMessage(this IMessageHandler messageHandler, string weiweihiKey, RequestMessageBase requestMessage, string weiweihiDomainName = "www.weiweihi.com")
+        public static IResponseMessageBase RequestWeiweihiResponseMessage(this IMessageHandler messageHandler, string weiweihiKey, RequestMessageBase requestMessage, string weiweihiDomainName = "www.weiweihi.com", int timeOut = AGENT_TIME_OUT)
         {
-            return messageHandler.RequestWeiWeiHiXml(weiweihiKey, requestMessage.ConvertEntityToXmlString(), weiweihiDomainName).CreateResponseMessage();
+            return messageHandler.RequestWeiWeiHiXml(weiweihiKey, requestMessage.ConvertEntityToXmlString(), weiweihiDomainName, timeOut).CreateResponseMessage();
         }
 
         /// <summary>
@@ -181,8 +201,9 @@ namespace Senparc.Weixin.MP.Agent
         /// </summary>
         /// <param name="url"></param>
         /// <param name="token"></param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static bool CheckUrlAndToken(string url, string token)
+        public static bool CheckUrlAndToken(string url, string token, int timeOut = 2000)
         {
             try
             {
@@ -193,7 +214,7 @@ namespace Senparc.Weixin.MP.Agent
                 url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}&echostr={4}",
                         url.Contains("?") ? "&" : "?", signature, timestamp, nonce, echostr);
 
-                var responseStr = HttpUtility.RequestUtility.HttpGet(url, null, timeOut: 2000);
+                var responseStr = HttpUtility.RequestUtility.HttpGet(url, null, timeOut: timeOut);
                 return echostr == responseStr;
             }
             catch

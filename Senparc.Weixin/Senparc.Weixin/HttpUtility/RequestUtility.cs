@@ -96,6 +96,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cookieContainer"></param>
         /// <param name="postStream"></param>
         /// <param name="fileDictionary">需要上传的文件，Key：对应要上传的Name，Value：本地文件名</param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
         public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null,int timeOut = Config.TIME_OUT)
         {

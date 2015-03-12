@@ -50,7 +50,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             string[] openIds = new string[] { _testOpenId };
 
             var accessToken = AccessTokenContainer.GetToken(_appId);
-            var result = GroupMessageApi.SendTextGroupMessageByOpenId(accessToken, content, openIds);
+            var result = GroupMessageApi.SendTextGroupMessageByOpenId(accessToken, content, Config.TIME_OUT, openIds);
 
             Assert.IsTrue(result.msg_id.Length > 0);
         }
@@ -63,7 +63,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             var accessToken = AccessTokenContainer.GetToken(_appId);
             var mediaId = MediaApi.Upload(accessToken, UploadMediaFileType.image, file).media_id;
-            var result = GroupMessageApi.SendGroupMessageByOpenId(accessToken, GroupMessageType.image, mediaId, openIds);
+            var result = GroupMessageApi.SendGroupMessageByOpenId(accessToken, GroupMessageType.image, mediaId, Config.TIME_OUT, openIds);
 
             Assert.IsTrue(result.msg_id.Length > 0);
 

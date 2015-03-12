@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：CustomMessageHandler_Events.cs
+    文件功能描述：自定义MessageHandler
+    
+    
+    创建标识：Senparc - 20150312
+----------------------------------------------------------------*/
+
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;

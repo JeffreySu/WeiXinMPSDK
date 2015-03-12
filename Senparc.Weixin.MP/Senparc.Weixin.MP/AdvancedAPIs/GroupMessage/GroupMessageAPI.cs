@@ -44,7 +44,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="type"></param>
         /// <param name="isToAll">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户</param>
         /// <returns></returns>
-        public static SendResult SendGroupMessageByGroupId(string accessToken, string groupId, string mediaId, GroupMessageType type, bool isToAll = false)
+        public static SendResult SendGroupMessageByGroupId(string accessToken, string groupId, string mediaId, GroupMessageType type, bool isToAll = false, int timeOut = Config.TIME_OUT)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token={0}";
             
@@ -119,7 +119,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
                     break;
             }
 
-            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData);
+            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="content">用于群发文本消息的content</param>
         /// <param name="isToAll">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户</param>
         /// <returns></returns>
-        public static SendResult SendTextGroupMessageByGroupId(string accessToken, string groupId, string content, bool isToAll = false)
+        public static SendResult SendTextGroupMessageByGroupId(string accessToken, string groupId, string content, bool isToAll = false, int timeOut = Config.TIME_OUT)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token={0}";
 
@@ -148,7 +148,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
                         msgtype = "text"
                     };
 
-            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData);
+            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="openIds">openId字符串数组</param>
         /// 注意mediaId和content不可同时为空
         /// <returns></returns>
-        public static SendResult SendGroupMessageByOpenId(string accessToken, GroupMessageType type, string mediaId, params string[] openIds)
+        public static SendResult SendGroupMessageByOpenId(string accessToken, GroupMessageType type, string mediaId, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
 
@@ -210,7 +210,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
                     throw new Exception("参数错误。");
                     break;
             }
-            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData);
+            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
         }
 
         /// <summary>
@@ -221,7 +221,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="openIds">openId字符串数组</param>
         /// 注意mediaId和content不可同时为空
         /// <returns></returns>
-        public static SendResult SendTextGroupMessageByOpenId(string accessToken, string content, params string[] openIds)
+        public static SendResult SendTextGroupMessageByOpenId(string accessToken, string content, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
 
@@ -234,8 +234,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
                         },
                         msgtype = "text"
                     };
-                    
-            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData);
+
+            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
         }
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="description"></param>
         /// 注意mediaId和content不可同时为空
         /// <returns></returns>
-        public static SendResult SendVideoGroupMessageByOpenId(string accessToken, string title, string description, string mediaId, params string[] openIds)
+        public static SendResult SendVideoGroupMessageByOpenId(string accessToken, string title, string description, string mediaId, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
 
@@ -264,7 +264,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
                 msgtype = "video"
             };
 
-            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData);
+            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
         }
 
         /// <summary>
@@ -273,7 +273,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="accessToken"></param>
         /// <param name="mediaId">发送出去的消息ID</param>
         /// <returns></returns>
-        public static WxJsonResult DeleteSendMessage(string accessToken, string mediaId)
+        public static WxJsonResult DeleteSendMessage(string accessToken, string mediaId, int timeOut = Config.TIME_OUT)
         {
             //官方API地址为https://api.weixin.qq.com//cgi-bin/message/mass/delete?access_token={0}，应该是多了一个/
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/delete?access_token={0}";
@@ -282,7 +282,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
             {
                 msgid = mediaId
             };
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -294,7 +294,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="openId">接收消息用户对应该公众号的openid</param>
         /// 注意mediaId和content不可同时为空
         /// <returns></returns>
-        public static SendResult SendGroupMessagePreview(string accessToken, GroupMessageType type, string mediaId, string openId)
+        public static SendResult SendGroupMessagePreview(string accessToken, GroupMessageType type, string mediaId, string openId, int timeOut = Config.TIME_OUT)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
 
@@ -352,7 +352,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
                     throw new Exception("参数错误。");
                     break;
             }
-            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData);
+            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
         }
 
         /// <summary>
@@ -363,7 +363,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="openId">接收消息用户对应该公众号的openid</param>
         /// 注意mediaId和content不可同时为空
         /// <returns></returns>
-        public static SendResult SendTextGroupMessagePreview(string accessToken, string content, string openId)
+        public static SendResult SendTextGroupMessagePreview(string accessToken, string content, string openId, int timeOut = Config.TIME_OUT)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
 
@@ -377,7 +377,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
                 msgtype = "text"
             };
 
-            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData);
+            return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
         }
 
         /// <summary>
@@ -386,7 +386,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="accessToken"></param>
         /// <param name="msgId">群发消息后返回的消息id</param>
         /// <returns></returns>
-        public static GetSendResult GetGroupMessageResult(string accessToken, string msgId)
+        public static GetSendResult GetGroupMessageResult(string accessToken, string msgId, int timeOut = Config.TIME_OUT)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/get?access_token={0}";
 
@@ -395,7 +395,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
                     msg_id = msgId
                 };
 
-            return CommonJsonSend.Send<GetSendResult>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<GetSendResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
     }
 }

@@ -42,7 +42,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Semantic
         /// <param name="accessToken"></param>
         /// <param name="semanticPostData">语义理解请求需要post的数据</param>
         /// <returns></returns>
-        public static T SemanticSend<T>(string accessToken, SemanticPostData semanticPostData)
+        public static T SemanticSend<T>(string accessToken, SemanticPostData semanticPostData, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.weixin.qq.com/semantic/semproxy/search?access_token={0}";
 
@@ -52,7 +52,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Semantic
             //        BaseSemanticResultJson as Semantic_RestaurantResult;
             //}
 
-            return CommonJsonSend.Send<T>(accessToken, urlFormat, semanticPostData);
+            return CommonJsonSend.Send<T>(accessToken, urlFormat, semanticPostData, timeOut: timeOut);
         }
     }
 }

@@ -61,9 +61,9 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="url">请求Url</param>
         /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
         /// <returns></returns>
-        public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Encoding encoding = null)
+        public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
         {
-            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, null, fileDictionary, null, encoding);
+            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, null, fileDictionary, null, encoding, timeOut: timeOut);
             var result = GetResult<T>(returnText);
             return result;
         }
@@ -75,17 +75,18 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="url">请求Url</param>
         /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
         /// <param name="fileStream">文件流</param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null)
+        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
         {
-            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileStream, null, null, encoding);
+            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileStream, null, null, encoding, timeOut: timeOut);
             var result = GetResult<T>(returnText);
             return result;
         }
 
-        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null)
+        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
         {
-            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, formData, encoding);
+            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, formData, encoding, timeOut: timeOut);
             var result = GetResult<T>(returnText);
             return result;
         }

@@ -73,13 +73,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
         /// <param name="code">code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。</param>
         /// <param name="grantType"></param>
         /// <returns></returns>
-        public static OAuthAccessTokenResult GetAccessToken(string appId, string secret, string code, string grantType = "authorization_code")
+        public static OAuthAccessTokenResult GetAccessToken(string appId, string secret, string code, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
         {
             var url =
                 string.Format("https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type={3}",
                                 appId, secret, code, grantType);
 
-            return CommonJsonSend.Send<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut);
         }
 
         /// <summary>
@@ -89,19 +89,19 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
         /// <param name="refreshToken">填写通过access_token获取到的refresh_token参数</param>
         /// <param name="grantType"></param>
         /// <returns></returns>
-        public static OAuthAccessTokenResult RefreshToken(string appId, string refreshToken, string grantType = "refresh_token")
+        public static OAuthAccessTokenResult RefreshToken(string appId, string refreshToken, string grantType = "refresh_token", int timeOut = Config.TIME_OUT)
         {
             var url =
                 string.Format("https://api.weixin.qq.com/sns/oauth2/refresh_token?appid={0}&grant_type={1}&refresh_token={2}",
                                 appId, grantType, refreshToken);
 
-            return CommonJsonSend.Send<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut);
         }
 
-        public static OAuthUserInfo GetUserInfo(string accessToken,string openId)
+        public static OAuthUserInfo GetUserInfo(string accessToken, string openId, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}",accessToken,openId);
-            return CommonJsonSend.Send<OAuthUserInfo>(null, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<OAuthUserInfo>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut);
         }
 
         /// <summary>
@@ -110,10 +110,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
 		/// <param name="accessToken"></param>
         /// <param name="openId">用户的唯一标识</param>
 		/// <returns></returns>
-		public static WxJsonResult Auth(string accessToken, string openId)
+        public static WxJsonResult Auth(string accessToken, string openId, int timeOut = Config.TIME_OUT)
 		{
 			var url = string.Format("https://api.weixin.qq.com/sns/auth?access_token={0}&openid={1}", accessToken, openId);
-			return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut: timeOut);
 		}
     }
 }

@@ -43,7 +43,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="openId"></param>
         /// <param name="content"></param>
         /// <returns></returns>
-        public static WxJsonResult SendText(string accessToken, string openId, string content)
+        public static WxJsonResult SendText(string accessToken, string openId, string content, int timeOut = Config.TIME_OUT)
         {
             var data = new
             {
@@ -54,7 +54,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
                     content = content
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
-        public static WxJsonResult SendImage(string accessToken, string openId, string mediaId)
+        public static WxJsonResult SendImage(string accessToken, string openId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             var data = new
             {
@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
                     media_id = mediaId
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
-        public static WxJsonResult SendVoice(string accessToken, string openId, string mediaId)
+        public static WxJsonResult SendVoice(string accessToken, string openId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             var data = new
             {
@@ -96,7 +96,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
                     media_id = mediaId
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="title"></param>
         /// <param name="description"></param>
         /// <returns></returns>
-        public static WxJsonResult SendVideo(string accessToken, string openId, string mediaId, string title, string description)
+        public static WxJsonResult SendVideo(string accessToken, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT)
         {
             var data = new
             {
@@ -121,7 +121,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
                     description = description
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
         }
         /// <summary>
         /// 发送音乐消息
@@ -135,7 +135,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="thumbMediaId">视频缩略图的媒体ID</param>
         /// <returns></returns>
         public static WxJsonResult SendMusic(string accessToken, string openId, string title, string description,
-                                    string musicUrl, string hqMusicUrl, string thumbMediaId)
+                                    string musicUrl, string hqMusicUrl, string thumbMediaId, int timeOut = Config.TIME_OUT)
         {
             var data = new
             {
@@ -150,7 +150,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
                     thumb_media_id = thumbMediaId
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="openId"></param>
         /// <param name="articles"></param>
         /// <returns></returns>
-        public static WxJsonResult SendNews(string accessToken, string openId, List<Article> articles)
+        public static WxJsonResult SendNews(string accessToken, string openId, List<Article> articles, int timeOut = Config.TIME_OUT)
         {
             var data = new
             {
@@ -177,7 +177,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
                                 }).ToList()
                 }
             };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data);
+            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
         }
     }
 }

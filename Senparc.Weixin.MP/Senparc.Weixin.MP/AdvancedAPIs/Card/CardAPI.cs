@@ -39,7 +39,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="accessToken"></param>
         /// <param name="cardInfo">创建卡券需要的数据，格式可以看CardCreateData.cs</param>
         /// <returns></returns>
-        public static CardCreateResultJson CreateCard(string accessToken, BaseCardInfo cardInfo)
+        public static CardCreateResultJson CreateCard(string accessToken, BaseCardInfo cardInfo, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/create?access_token={0}", accessToken);
 
@@ -152,7 +152,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                     break;
             }
 
-            return CommonJsonSend.Send<CardCreateResultJson>(null, urlFormat, cardData);
+            return CommonJsonSend.Send<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut);
         }
 
         /// <summary>
@@ -160,11 +160,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        public static GetColorsResultJson GetColors(string accessToken)
+        public static GetColorsResultJson GetColors(string accessToken, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/getcolors?access_token={0}", accessToken);
 
-            return CommonJsonSend.Send<GetColorsResultJson>(null, urlFormat, null);
+            return CommonJsonSend.Send<GetColorsResultJson>(null, urlFormat, null, timeOut: timeOut);
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <returns></returns>
         public static CreateQRResultJson CreateQR(string accessToken, string cardId, string code = null,
                                                   string openId = null, string expireSeconds = null,
-                                                  bool isUniqueCode = false, string balance = null)
+                                                  bool isUniqueCode = false, string balance = null, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/qrcode/create?access_token={0}", accessToken);
 
@@ -202,7 +202,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                         }
                 };
 
-            return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data);
+            return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -212,7 +212,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="code">要消耗的序列号</param>
         /// <param name="cardId">要消耗序列号所述的card_id，创建卡券时use_custom_code 填写true 时必填。非自定义code不必填写。</param>
         /// <returns></returns>
-        public static CardConsumeResultJson CardConsume(string accessToken, string code, string cardId = null)
+        public static CardConsumeResultJson CardConsume(string accessToken, string code, string cardId = null, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/code/consume?access_token={0}", accessToken);
 
@@ -222,7 +222,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                     card_id = cardId
                 };
 
-            return CommonJsonSend.Send<CardConsumeResultJson>(null, urlFormat, data);
+            return CommonJsonSend.Send<CardConsumeResultJson>(null, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -234,7 +234,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="accessToken"></param>
         /// <param name="encryptCode">通过choose_card_info 获取的加密字符串</param>
         /// <returns></returns>
-        public static CardDecryptResultJson CardDecrypt(string accessToken, string encryptCode)
+        public static CardDecryptResultJson CardDecrypt(string accessToken, string encryptCode, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/code/decrypt?access_token={0}", accessToken);
 
@@ -243,7 +243,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                     encrypt_code = encryptCode,
                 };
 
-            return CommonJsonSend.Send<CardDecryptResultJson>(null, urlFormat, data);
+            return CommonJsonSend.Send<CardDecryptResultJson>(null, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -252,7 +252,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="accessToken"></param>
         /// <param name="cardId">卡券ID</param>
         /// <returns></returns>
-        public static CardDeleteResultJson CardDelete(string accessToken, string cardId)
+        public static CardDeleteResultJson CardDelete(string accessToken, string cardId, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/delete?access_token={0}", accessToken);
 
@@ -261,7 +261,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                 card_id = cardId
             };
 
-            return CommonJsonSend.Send<CardDeleteResultJson>(null, urlFormat, data);
+            return CommonJsonSend.Send<CardDeleteResultJson>(null, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -271,7 +271,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="code"></param>
         /// <param name="cardId"></param>
         /// <returns></returns>
-        public static CardGetResultJson CardGet(string accessToken, string code, string cardId = null)
+        public static CardGetResultJson CardGet(string accessToken, string code, string cardId = null, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/code/get?access_token={0}", accessToken);
 
@@ -281,7 +281,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                 card_id = cardId
             };
 
-            return CommonJsonSend.Send<CardGetResultJson>(null, urlFormat, data);
+            return CommonJsonSend.Send<CardGetResultJson>(null, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -291,7 +291,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="offset">查询卡列表的起始偏移量，从0 开始，即offset: 5 是指从从列表里的第六个开始读取。</param>
         /// <param name="count">需要查询的卡片的数量（数量最大50）</param>
         /// <returns></returns>
-        public static CardBatchGetResultJson CardBatchGet(string accessToken, int offset, int count)
+        public static CardBatchGetResultJson CardBatchGet(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/batchget?access_token={0}", accessToken);
 
@@ -301,7 +301,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                 count = count
             };
 
-            return CommonJsonSend.Send<CardBatchGetResultJson>(null, urlFormat, data);
+            return CommonJsonSend.Send<CardBatchGetResultJson>(null, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -310,7 +310,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="accessToken"></param>
         /// <param name="cardId"></param>
         /// <returns></returns>
-        public static CardDetailGetResultJson CardDetailGet(string accessToken, string cardId)
+        public static CardDetailGetResultJson CardDetailGet(string accessToken, string cardId, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/get?access_token={0}", accessToken);
 
@@ -319,7 +319,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                 card_id = cardId
             };
 
-            return CommonJsonSend.Send<CardDetailGetResultJson>(null, urlFormat, data);
+            return CommonJsonSend.Send<CardDetailGetResultJson>(null, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -330,7 +330,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="cardId">卡券ID</param>
         /// <param name="newCode">新的卡券code 编码</param>
         /// <returns></returns>
-        public static WxJsonResult CardChangeCode(string accessToken, string code, string cardId, string newCode)
+        public static WxJsonResult CardChangeCode(string accessToken, string code, string cardId, string newCode, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/code/update?access_token={0}", accessToken);
 
@@ -341,7 +341,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                 new_code = newCode
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -351,7 +351,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="code">需要设置为失效的code</param>
         /// <param name="cardId">自定义code 的卡券必填。非自定义code 的卡券不填。</param>
         /// <returns></returns>
-        public static WxJsonResult CardUnavailable(string accessToken, string code, string cardId = null)
+        public static WxJsonResult CardUnavailable(string accessToken, string code, string cardId = null, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/code/unavailable?access_token={0}", accessToken);
 
@@ -361,7 +361,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                 card_id = cardId
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -373,7 +373,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="data">创建卡券需要的数据，格式可以看CardUpdateData.cs</param>
         /// <param name="cardId"></param>
         /// <returns></returns>
-        public static WxJsonResult CardUpdate(string accessToken, CardType cardType, object data, string cardId = null)
+        public static WxJsonResult CardUpdate(string accessToken, CardType cardType, object data, string cardId = null, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/update?access_token={0}", accessToken);
 
@@ -413,7 +413,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                     break;
             }
 
-            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, cardData);
+            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut);
         }
 
         /// <summary>
@@ -425,7 +425,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="openIds">测试的openid 列表</param>
         /// <param name="userNames">测试的微信号列表</param>
         /// <returns></returns>
-        public static WxJsonResult AuthoritySet(string accessToken, string[] openIds, string[] userNames)
+        public static WxJsonResult AuthoritySet(string accessToken, string[] openIds, string[] userNames, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/testwhitelist/set?access_token={0}", accessToken);
 
@@ -435,7 +435,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                 username = userNames
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -467,7 +467,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="bonus">积分查询，仅用于init_bonus 无法同步的情况填写，调转外链查询积分</param>
         /// <param name="balance">余额查询，仅用于init_balance 无法同步的情况填写，调转外链查询积分</param>
         /// <returns></returns>
-        public static WxJsonResult MemberCardActivate(string accessToken, string membershipNumber, string code, string cardId, int initBonus, int initBalance, string bonus = null, string balance = null)
+        public static WxJsonResult MemberCardActivate(string accessToken, string membershipNumber, string code, string cardId, int initBonus, int initBalance, string bonus = null, string balance = null, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/testwhitelist/set?access_token={0}", accessToken);
 
@@ -482,7 +482,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                 card_id = cardId
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -496,7 +496,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="addBalance">需要变更的余额，扣除金额用“-”表示。单位为分</param>
         /// <param name="recordBalance">商家自定义金额消耗记录，不超过14 个汉字</param>
         /// <returns></returns>
-        public static MemberCardDeal MemberCardDeal(string accessToken, string code, string cardId, string recordBonus, decimal addBonus, decimal addBalance, string recordBalance)
+        public static MemberCardDeal MemberCardDeal(string accessToken, string code, string cardId, string recordBonus, decimal addBonus, decimal addBalance, string recordBalance, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/membercard/updateuser?access_token={0}", accessToken);
 
@@ -510,7 +510,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                 record_balance = recordBalance,
             };
 
-            return CommonJsonSend.Send<MemberCardDeal>(null, urlFormat, data);
+            return CommonJsonSend.Send<MemberCardDeal>(null, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -525,7 +525,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="screeningRoom">该场电影的影厅信息</param>
         /// <param name="seatNumbers">座位号</param>
         /// <returns></returns>
-        public static WxJsonResult MovieCardUpdate(string accessToken, string code, string cardId, string ticketClass, string showTime, int duration, string screeningRoom, string[] seatNumbers)
+        public static WxJsonResult MovieCardUpdate(string accessToken, string code, string cardId, string ticketClass, string showTime, int duration, string screeningRoom, string[] seatNumbers, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/movieticket/updateuser?access_token={0}", accessToken);
 
@@ -540,7 +540,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                 seat_number = seatNumbers
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -556,7 +556,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="qrcodeData">二维码数据。乘客用于值机的二维码字符串，微信会通过此数据为用户生成值机用的二维码</param>
         /// <param name="isCancel">是否取消值机。填写true 或false。true 代表取消，如填写true 上述字段（如calss 等）均不做判断，机票返回未值机状态，乘客可重新值机。默认填写false</param>
         /// <returns></returns>
-        public static WxJsonResult BoardingPassCheckIn(string accessToken, string code, string cardId, string passengerName, string classType, string seat, string etktBnr, string qrcodeData, bool isCancel = false)
+        public static WxJsonResult BoardingPassCheckIn(string accessToken, string code, string cardId, string passengerName, string classType, string seat, string etktBnr, string qrcodeData, bool isCancel = false, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/boardingpass/checkin?access_token={0}", accessToken);
 
@@ -572,7 +572,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                 is_cancel = isCancel
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -583,7 +583,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="cardId">自定义code 的卡券必填。非自定义code 可不填。</param>
         /// <param name="balance">红包余额</param>
         /// <returns></returns>
-        public static WxJsonResult BoardingPassCheckIn(string accessToken, string code, string cardId, decimal balance)
+        public static WxJsonResult BoardingPassCheckIn(string accessToken, string code, string cardId, decimal balance, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/luckymoney/updateuserbalance?access_token={0}", accessToken);
 
@@ -594,7 +594,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                 balance = balance
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data);
+            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -603,11 +603,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="accessToken"></param>
         /// <param name="data">门店数据</param>
         /// <returns></returns>
-        public static StoreResultJson StoreBatchAdd(string accessToken, StoreLocationData data)
+        public static StoreResultJson StoreBatchAdd(string accessToken, StoreLocationData data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/location/batchadd?access_token={0}", accessToken);
 
-            return CommonJsonSend.Send<StoreResultJson>(null, urlFormat, data);
+            return CommonJsonSend.Send<StoreResultJson>(null, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -617,7 +617,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="offset">偏移量，0 开始</param>
         /// <param name="count">拉取数量</param>
         /// <returns></returns>
-        public static StoreGetResultJson BatchGet(string accessToken, int offset, int count)
+        public static StoreGetResultJson BatchGet(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/location/batchget?access_token={0}", accessToken);
 
@@ -627,7 +627,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                 count = count
             };
 
-            return CommonJsonSend.Send<StoreGetResultJson>(null, urlFormat, data);
+            return CommonJsonSend.Send<StoreGetResultJson>(null, urlFormat, data, timeOut: timeOut);
         }
     }
 }

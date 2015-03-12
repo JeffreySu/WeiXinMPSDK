@@ -58,7 +58,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="deliver_Msg">发货状态信息，失败时可以填上UTF8 编码的错误提示信息，比如“该商品已退款</param>
         /// <param name="app_Signature">签名</param>
         /// <param name="sign_Method">签名方法</param>
-        public static WxJsonResult Delivernotify(string appId, string openId, string transId, string out_Trade_No, string deliver_TimesTamp, string deliver_Status, string deliver_Msg, string app_Signature, string sign_Method = "sha1")
+        public static WxJsonResult Delivernotify(string appId, string openId, string transId, string out_Trade_No, string deliver_TimesTamp, string deliver_Status, string deliver_Msg, string app_Signature, string sign_Method = "sha1", int timeOut = Config.TIME_OUT)
         {
             var accessToken = AccessTokenContainer.GetToken(appId);
 
@@ -78,7 +78,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 sign_method = sign_Method
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timesTamp">linux 时间戳</param>
         /// <param name="app_Signature">签名</param>
         /// <param name="sign_Method">签名方法</param>
-        public static OrderqueryResult Orderquery(string appId, string package, string timesTamp, string app_Signature, string sign_Method)
+        public static OrderqueryResult Orderquery(string appId, string package, string timesTamp, string app_Signature, string sign_Method, int timeOut = Config.TIME_OUT)
         {
             var accessToken = AccessTokenContainer.GetToken(appId);
 
@@ -105,7 +105,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 sign_method = sign_Method
             };
 
-            return CommonJsonSend.Send<OrderqueryResult>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<OrderqueryResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
     }
 }

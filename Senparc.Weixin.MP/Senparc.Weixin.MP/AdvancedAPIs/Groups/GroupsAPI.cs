@@ -39,7 +39,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 创建分组
         /// </summary>
         /// <returns></returns>
-        public static CreateGroupResult Create(string accessToken, string name)
+        public static CreateGroupResult Create(string accessToken, string name, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/create?access_token={0}";
             var data = new
@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     name = name
                 }
             };
-            return CommonJsonSend.Send<CreateGroupResult>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<CreateGroupResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -70,11 +70,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="openId"></param>
         /// <returns></returns>
-        public static GetGroupIdResult GetId(string accessToken, string openId)
+        public static GetGroupIdResult GetId(string accessToken, string openId, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/getid?access_token={0}";
             var data = new { openid = openId };
-            return CommonJsonSend.Send<GetGroupIdResult>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<GetGroupIdResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="id"></param>
         /// <param name="name">分组名字（30个字符以内）</param>
         /// <returns></returns>
-        public static WxJsonResult Update(string accessToken, int id, string name)
+        public static WxJsonResult Update(string accessToken, int id, string name, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/update?access_token={0}";
             var data = new
@@ -95,7 +95,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     name = name
                 }
             };
-            return CommonJsonSend.Send(accessToken, urlFormat, data);
+            return CommonJsonSend.Send(accessToken, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId"></param>
         /// <param name="toGroupId"></param>
         /// <returns></returns>
-        public static WxJsonResult MemberUpdate(string accessToken, string openId, int toGroupId)
+        public static WxJsonResult MemberUpdate(string accessToken, string openId, int toGroupId, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/members/update?access_token={0}";
             var data = new
@@ -113,7 +113,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 openid = openId,
                 to_groupid = toGroupId
             };
-            return CommonJsonSend.Send(accessToken, urlFormat, data);
+            return CommonJsonSend.Send(accessToken, urlFormat, data, timeOut: timeOut);
         }
     }
 }

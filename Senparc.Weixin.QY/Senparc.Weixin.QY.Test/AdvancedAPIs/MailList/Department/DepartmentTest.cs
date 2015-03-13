@@ -3,7 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.QY.AdvancedAPIs;
+using Senparc.Weixin.QY.AdvancedAPIs.MailList;
 using Senparc.Weixin.QY.CommonAPIs;
 
 namespace Senparc.Weixin.QY.Test.AdvancedAPIs
@@ -27,7 +27,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public int CreateDepartmentTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Department.CreateDepartment(accessToken, "test", 1, id: 3);
+            var result = MailListApi.CreateDepartment(accessToken, "test", 1, id: 3);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.id > 0);
             return result.id;
@@ -37,7 +37,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public void UpdateDepartmentTest(string id)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Department.UpdateDepartment(accessToken,id, "更新test",1);
+            var result = MailListApi.UpdateDepartment(accessToken, id, "更新test", 1);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode ==ReturnCode.请求成功);
         }
@@ -46,7 +46,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public void DeleteDepartmentTest(string id)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Department.DeleteDepartment(accessToken, id);
+            var result = MailListApi.DeleteDepartment(accessToken, id);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }
@@ -55,7 +55,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public void GetDepartmentListTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Department.GetDepartmentList(accessToken,4);
+            var result = MailListApi.GetDepartmentList(accessToken, 4);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }

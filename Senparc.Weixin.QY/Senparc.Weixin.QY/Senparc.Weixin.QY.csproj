@@ -41,23 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdvancedAPIs\Concern\Concern.cs" />
-    <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuth.cs" />
-    <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthResult.cs" />
-    <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthPostData.cs" />
+    <Compile Include="AdvancedAPIs\Concern\ConcernApi.cs" />
+    <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthApi.cs" />
+    <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthResult.cs" />
+    <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthPostData.cs" />
     <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
     <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
-    <Compile Include="AdvancedAPIs\Mass\Mass.cs" />
+    <Compile Include="AdvancedAPIs\Mass\MassApi.cs" />
     <Compile Include="AdvancedAPIs\Mass\MassResult.cs" />
-    <Compile Include="AdvancedAPIs\MailList\Department\Department.cs" />
+    <Compile Include="AdvancedAPIs\MailList\MailListApi.cs" />
     <Compile Include="AdvancedAPIs\MailList\Department\DepartmentResult.cs" />
-    <Compile Include="AdvancedAPIs\MailList\Member\Member.cs" />
     <Compile Include="AdvancedAPIs\MailList\Member\MemberResult.cs" />
-    <Compile Include="AdvancedAPIs\MailList\Tag\Tag.cs" />
     <Compile Include="AdvancedAPIs\MailList\Tag\TagResult.cs" />
-    <Compile Include="AdvancedAPIs\Media\Media.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaApi.cs" />
     <Compile Include="AdvancedAPIs\Media\UploadResultJson.cs" />
-    <Compile Include="AdvancedAPIs\OAuth2\OAuth2.cs" />
+    <Compile Include="AdvancedAPIs\OAuth2\OAuth2Api.cs" />
     <Compile Include="AdvancedAPIs\OAuth2\OAuth2Result.cs" />
     <Compile Include="CommonAPIs\AccessTokenContainer.cs" />
     <Compile Include="CommonAPIs\AccessTokenHandlerWapper.cs" />

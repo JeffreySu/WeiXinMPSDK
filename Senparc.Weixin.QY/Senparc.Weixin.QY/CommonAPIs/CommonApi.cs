@@ -1,4 +1,23 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：CommonApi.cs
+    文件功能描述：通用基础API
+    
+    
+    创建标识：Senparc - 20130313
+    
+    修改标识：Senparc - 20130313
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+/*
+    获取AccessToken API地址：http://qydev.weixin.qq.com/wiki/index.php?title=%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8
+    获取微信服务器ip段 API地址：http://qydev.weixin.qq.com/wiki/index.php?title=%E5%9B%9E%E8%B0%83%E6%A8%A1%E5%BC%8F#.E8.8E.B7.E5.8F.96.E5.BE.AE.E4.BF.A1.E6.9C.8D.E5.8A.A1.E5.99.A8.E7.9A.84ip.E6.AE.B5
+    获取调用微信JS接口的临时票据 API地址：http://qydev.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1JS%E6%8E%A5%E5%8F%A3
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +35,6 @@ namespace Senparc.Weixin.QY.CommonAPIs
 
         /// <summary>
         /// 获取AccessToken
-        /// API地址：http://qydev.weixin.qq.com/wiki/index.php?title=%E4%B8%BB%E5%8A%A8%E8%B0%83%E7%94%A8
         /// </summary>
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
@@ -59,7 +77,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/getcallbackip?access_token={0}", accessToken);
 
-            return CommonJsonSend.Send<GetCallBackIpResult>(null, url, null, CommonJsonSendType.GET);
+            return Get.GetJson<GetCallBackIpResult>(url);
         }
 
         /// <summary>

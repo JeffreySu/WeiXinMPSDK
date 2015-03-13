@@ -1,10 +1,23 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：ThirdPartyAuthResult.cs
+    文件功能描述：第三方应用授权返回结果
+    
+    
+    创建标识：Senparc - 20130313
+    
+    修改标识：Senparc - 20130313
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs
+namespace Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth
 {
     /// <summary>
     /// 获取应用套件令牌返回结果

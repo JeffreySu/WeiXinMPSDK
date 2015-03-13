@@ -1,17 +1,33 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：DepartmentResult.cs
+    文件功能描述：部门接口返回结果
+    
+    
+    创建标识：Senparc - 20130313
+    
+    修改标识：Senparc - 20130313
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs
+namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
 {
     /// <summary>
     /// 创建部门返回结果
     /// </summary>
     public class CreateDepartmentResult : WxJsonResult
     {
-        public int id { get; set; }//创建的部门id
+        /// <summary>
+        /// 创建的部门id
+        /// </summary>
+        public int id { get; set; }
     }
 
     public class GetDepartmentListResult : WxJsonResult
@@ -21,8 +37,17 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
     public class DepartmentList
     {
+        /// <summary>
+        /// 部门id
+        /// </summary>
         public int id { get; set; }
+        /// <summary>
+        /// 部门名称
+        /// </summary>
         public string name { get; set; }
+        /// <summary>
+        /// 上级部门id
+        /// </summary>
         public int parentid { get; set; }
     }
 }

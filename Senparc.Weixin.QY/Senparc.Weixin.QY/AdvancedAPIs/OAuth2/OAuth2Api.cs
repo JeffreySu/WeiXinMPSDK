@@ -1,14 +1,30 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：UploadResultJson.cs
+    文件功能描述：上传媒体文件返回结果
+    
+    
+    创建标识：Senparc - 20130313
+    
+    修改标识：Senparc - 20130313
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+/*
+    官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=OAuth2%E9%AA%8C%E8%AF%81%E6%8E%A5%E5%8F%A3
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs
+namespace Senparc.Weixin.QY.AdvancedAPIs.OAuth2
 {
-    //官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=OAuth2%E9%AA%8C%E8%AF%81%E6%8E%A5%E5%8F%A3
 
-    public static class OAuth2
+    public static class OAuth2Api
     {
         /// <summary>
         /// 企业获取code

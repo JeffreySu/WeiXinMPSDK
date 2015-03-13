@@ -4,7 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.QY.AdvancedAPIs;
+using Senparc.Weixin.QY.AdvancedAPIs.Media;
 using Senparc.Weixin.QY.CommonAPIs;
 
 namespace Senparc.Weixin.QY.Test.AdvancedAPIs
@@ -29,7 +29,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         {
             string _media = "E:\\test2.mp4";
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Media.Upload(accessToken, UploadMediaFileType.video, _media);
+            var result = MediaApi.Upload(accessToken, UploadMediaFileType.video, _media);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }
@@ -39,7 +39,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         {
             string _media = "E:\\1.jpg";
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Media.Upload(accessToken, UploadMediaFileType.image, _media);
+            var result = MediaApi.Upload(accessToken, UploadMediaFileType.image, _media);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
             return result.media_id;
@@ -53,7 +53,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
 
             using (MemoryStream ms = new MemoryStream())
             {
-                Media.Get(accessToken, mediaId, ms);
+                MediaApi.Get(accessToken, mediaId, ms);
                 Assert.IsTrue(ms.Length > 0);
 
                 //保存到文件

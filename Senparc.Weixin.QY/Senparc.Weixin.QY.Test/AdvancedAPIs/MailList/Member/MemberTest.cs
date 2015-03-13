@@ -3,7 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.QY.AdvancedAPIs;
+using Senparc.Weixin.QY.AdvancedAPIs.MailList;
 using Senparc.Weixin.QY.CommonAPIs;
 
 namespace Senparc.Weixin.QY.Test.AdvancedAPIs
@@ -34,7 +34,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
                         }
             };
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.CreateMember(accessToken, userId, "ceshi", new[] { 2 }, null, "18913536683", null, null, null, 0, extattr);
+            var result = MailListApi.CreateMember(accessToken, userId, "ceshi", new[] { 2 }, null, "18913536683", null, null, null, 0, extattr);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }
@@ -43,7 +43,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public void UpdateMemberTest(string userId)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.UpdateMember(accessToken, userId, null, new[] { 2 }, null, "18913536683", email: "xxx@qq.com");
+            var result = MailListApi.UpdateMember(accessToken, userId, null, new[] { 2 }, null, "18913536683", email: "xxx@qq.com");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }
@@ -52,7 +52,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public void DeleteMemberTest(string userId)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.DeleteMember(accessToken, userId);
+            var result = MailListApi.DeleteMember(accessToken, userId);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }
@@ -61,7 +61,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public void BatchDeleteMemberTest(string[] userIds)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.BatchDeleteMember(accessToken, userIds);
+            var result = MailListApi.BatchDeleteMember(accessToken, userIds);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }
@@ -70,7 +70,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public void GetMember(string userId)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.GetMember(accessToken, userId);
+            var result = MailListApi.GetMember(accessToken, userId);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }
@@ -79,7 +79,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public void GetDepartmentMemberTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.GetDepartmentMember(accessToken, 2, 0, 0);
+            var result = MailListApi.GetDepartmentMember(accessToken, 2, 0, 0);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }
@@ -88,7 +88,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public void GetDepartmentMemberInfoTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.GetDepartmentMemberInfo(accessToken, 2, 0, 0);
+            var result = MailListApi.GetDepartmentMemberInfo(accessToken, 2, 0, 0);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }
@@ -97,7 +97,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public void InviteMemberTest(string userId)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.InviteMember(accessToken, userId, "欢迎");
+            var result = MailListApi.InviteMember(accessToken, userId, "欢迎");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }

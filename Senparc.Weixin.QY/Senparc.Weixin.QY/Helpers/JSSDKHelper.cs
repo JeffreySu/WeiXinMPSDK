@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：JSSDKHelper.cs
+    文件功能描述：JSSDK生成签名的方法等
+    
+    
+    创建标识：Senparc - 20150313
+    
+    修改标识：Senparc - 20150313
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

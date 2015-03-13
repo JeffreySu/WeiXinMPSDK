@@ -12,6 +12,9 @@
 
     修改标识：Senparc - 20150306
     修改描述：添加多客服事件
+
+    修改标识：Senparc - 20150313
+    修改描述：添加语言类型
 ----------------------------------------------------------------*/
 
 using System;
@@ -374,5 +377,24 @@ namespace Senparc.Weixin.MP
         /// 车辆信息
         /// </summary>
         URL_NAME_TYPE_VEHICLE_INFORMATION = 5,
+    }
+
+    /// <summary>
+    /// 语言类型
+    /// </summary>
+    public enum LanguageType
+    {
+        /// <summary>
+        /// 简体中文
+        /// </summary>
+        zh_CN,
+        /// <summary>
+        /// 繁体中文
+        /// </summary>
+        zh_TW,
+        /// <summary>
+        /// 英语
+        /// </summary>
+        en
     }
 }

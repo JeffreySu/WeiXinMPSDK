@@ -320,7 +320,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     }
                     DateTime dt2 = DateTime.Now;
 
-                    return Json(new { Success = true, LoadTime = (dt2 - dt1).TotalMilliseconds, Result = responseMessageXml });
+                    return Json(new { Success = true, LoadTime = (dt2 - dt1).TotalMilliseconds.ToString("##.####"), Result = responseMessageXml });
                 }
                 catch (Exception ex)
                 {

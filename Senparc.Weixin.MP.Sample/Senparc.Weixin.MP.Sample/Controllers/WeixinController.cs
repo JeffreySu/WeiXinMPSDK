@@ -46,15 +46,15 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// </summary>
         [HttpGet]
         [ActionName("Index")]
-        public ActionResult Get(string signature, string timestamp, string nonce, string echostr)
+        public ActionResult Get(PostModel postModel, string echostr)
         {
-            if (CheckSignature.Check(signature, timestamp, nonce, Token))
+            if (CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
             {
                 return Content(echostr); //返回随机字符串则表示验证通过
             }
             else
             {
-                return Content("failed:" + signature + "," + MP.CheckSignature.GetSignature(timestamp, nonce, Token) + "。" +
+                return Content("failed:" + postModel.Signature + "," + MP.CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, Token) + "。" +
                     "如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
             }
         }

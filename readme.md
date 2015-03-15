@@ -139,7 +139,7 @@ public ActionResult Post(PostModel postModel)
     return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0以后软件换行bug暂时添加的方法，平时用上面一个方法即可
 }
 ```
-整个消息的接收、处理、返回分别只需要一行代码。
+整个消息除了postModel的赋值以外，接收、处理、返回分别只需要一行代码。
 
 上述代码中的CustomMessageHandler是一个自定义的类，继承自Senparc.Weixin.MP.MessageHandler.cs。MessageHandler是一个抽象类，包含了执行各种不同请求类型的抽象方法（如文字，语音，位置、图片等等），我们只需要在自己创建的CustomMessageHandler中逐个实现这些方法就可以了。刚建好的CustomMessageHandler.cs如下：
 ```C#

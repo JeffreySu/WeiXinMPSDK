@@ -347,6 +347,8 @@
 	font-size:18px;
 	padding: 10px 20px;
 }
+
+.version{ margin-top: 16px;}
 .sdk-version{color:#fff;text-decoration:underline;}
 .sdk-version:hover{text-decoration:underline;}
 #menuEditor h3{text-align: left;

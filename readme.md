@@ -80,15 +80,16 @@ public readonly string Token = "weixin";
 /// </summary>
 [HttpGet]
 [ActionName("Index")]
-public ActionResult Get(string signature, string timestamp, string nonce, string echostr)
+public ActionResult Get(PostModel postModel, string echostr)
 {
-    if (CheckSignature.Check(signature, timestamp, nonce, Token))
+    if (CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
     {
-        return Content(echostr);//返回随机字符串则表示验证通过
+        return Content(echostr); //返回随机字符串则表示验证通过
     }
     else
     {
-        return Content("failed:" + signature + "," + CheckSignature.GetSignature(timestamp, nonce, Token));
+        return Content("failed:" + postModel.Signature + "," + MP.CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, Token) + "。" +
+            "如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
     }
 }
 ```
@@ -99,9 +100,9 @@ public ActionResult Get(string signature, string timestamp, string nonce, string
 /// </summary>
 [HttpPost]
 [ActionName("Index")]
-public ActionResult Post(string signature, string timestamp, string nonce, string echostr)
+public ActionResult Post(PostModel postModel)
 {
-    if (!CheckSignature.Check(signature, timestamp, nonce, Token))
+    if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
     {
         return Content("参数错误！");
     }
@@ -115,19 +116,24 @@ MessageHandler的处理流程非常简单：
 ``` C#
 [HttpPost]
 [ActionName("Index")]
-public ActionResult Post(string signature, string timestamp, string nonce, string echostr)
+public ActionResult Post(PostModel postModel)
 {
-    if (!CheckSignature.Check(signature, timestamp, nonce, Token))
+    if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
     {
         return Content("参数错误！");
     }
+    
+    postModel.Token = Token;
+    postModel.EncodingAESKey = EncodingAESKey;//根据自己后台的设置保持一致
+    postModel.AppId = AppId;//根据自己后台的设置保持一致
 
-    var messageHandler = new CustomMessageHandler(Request.InputStream);//接收消息
+    var messageHandler = new CustomMessageHandler(Request.InputStream, postModel);//接收消息
     
     messageHandler.Execute();//执行微信处理过程
     
     //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
-    return new WeixinResult(messageHandler);//v0.8+ with MvcExtension
+    //return new WeixinResult(messageHandler);//v0.8+ with MvcExtension
+    return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0以后软件换行bug暂时添加的方法，平时用上面一个方法即可
 }
 ```
 整个消息的接收、处理、返回分别只需要一行代码。
@@ -143,8 +149,8 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 {
     public class CustomMessageHandler : MessageHandler<MessageContext>
     {
-        public CustomMessageHandler(Stream inputStream)
-            : base(inputStream)
+        public public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
+            : base(inputStream, postModel, maxRecordCount)
         {
 
         }

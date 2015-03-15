@@ -47,7 +47,7 @@
 .senparc-jumbotron {
 	background:url(/images/v2/background.png);
 	width:100%;
-	padding:48px 0;
+	padding:28px 0;
 }
 .senparc-container {
 }
@@ -71,10 +71,9 @@
 	display:block;
 }
 .container-right {
-	width: 650px;
 	float: left;
 	padding-left: 49px;
-	margin-top:48px;
+	margin-top:4px;
 }
 .container-span {
 	font-size:28px;
@@ -90,7 +89,7 @@
     display: block;
 }
 .contact {
-	margin-top:58px;
+	margin-top:28px;
 }
 .contatc-name {
 	font-size:16px;

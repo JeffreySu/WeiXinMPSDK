@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\App\AppApi.cs" />
+    <Compile Include="AdvancedAPIs\App\AppJson\GetAppInfoResult.cs" />
+    <Compile Include="AdvancedAPIs\App\AppJson\SetAppPostData.cs" />
     <Compile Include="AdvancedAPIs\Concern\ConcernApi.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthApi.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthResult.cs" />

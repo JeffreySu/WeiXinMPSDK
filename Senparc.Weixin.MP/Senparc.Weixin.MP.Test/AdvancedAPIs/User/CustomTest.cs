@@ -21,7 +21,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = UserApi.Info(accessToken, _testOpenId);
+            var result = UserApi.Info(accessToken, _testOpenId,Language.zh_TW);
             Assert.IsNotNull(result);
         }
 

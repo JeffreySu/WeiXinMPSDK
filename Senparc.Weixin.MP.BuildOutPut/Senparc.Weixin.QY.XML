@@ -4,6 +4,145 @@
         <name>Senparc.Weixin.QY</name>
     </assembly>
     <members>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.App.AppApi">
+            <summary>
+            管理企业号应用
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.App.AppApi.GetAppInfo(System.String,System.Int32,System.Int32)">
+            <summary>
+            获取企业号应用信息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="agentId">企业应用的id，可在应用的设置页面查看</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.App.AppApi.SetApp(System.String,Senparc.Weixin.QY.AdvancedAPIs.App.SetAppPostData,System.Int32)">
+            <summary>
+            设置企业号应用
+            此App只能修改现有的并且有权限管理的应用，无法创建新应用（因为新应用没有权限）
+            </summary>
+            <param name="accessToken"></param>
+            <param name="data">设置应用需要Post的数据</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppInfoResult">
+            <summary>
+            获取企业号应用返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppInfoResult.agentid">
+            <summary>
+            企业应用id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppInfoResult.name">
+            <summary>
+            企业应用名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppInfoResult.square_logo_url">
+            <summary>
+            企业应用方形头像
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppInfoResult.round_logo_url">
+            <summary>
+            企业应用圆形头像
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppInfoResult.description">
+            <summary>
+            企业应用详情
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppInfoResult.allow_userinfos">
+            <summary>
+            企业应用可见范围（人员），其中包括userid和关注状态state
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppInfoResult.allow_partys">
+            <summary>
+            企业应用可见范围（部门）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppInfoResult.allow_tags">
+            <summary>
+            企业应用可见范围（标签）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppInfoResult.close">
+            <summary>
+            企业应用是否被禁用
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppInfoResult.redirect_domain">
+            <summary>
+            企业应用可信域名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppInfoResult.report_location_flag">
+            <summary>
+            企业应用是否打开地理位置上报 0：不上报；1：进入会话上报；2：持续上报
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppInfoResult.isreportuser">
+            <summary>
+            是否接收用户变更通知。0：不接收；1：接收
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppInfoResult.isreportenter">
+            <summary>
+            是否上报用户进入应用事件。0：不接收；1：接收
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.App.SetAppPostData">
+            <summary>
+            设置企业号应用需要Post的数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.SetAppPostData.agentid">
+            <summary>
+            企业应用id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.SetAppPostData.report_location_flag">
+            <summary>
+            企业应用是否打开地理位置上报 0：不上报；1：进入会话上报；2：持续上报
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.SetAppPostData.logo_mediaid">
+            <summary>
+            企业应用头像的mediaid，通过多媒体接口上传图片获得mediaid，上传后会自动裁剪成方形和圆形两个头像
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.SetAppPostData.name">
+            <summary>
+            企业应用名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.SetAppPostData.description">
+            <summary>
+            企业应用详情
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.SetAppPostData.redirect_domain">
+            <summary>
+            企业应用可信域名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.SetAppPostData.isreportuser">
+            <summary>
+            是否接收用户变更通知。0：不接收；1：接收
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.SetAppPostData.isreportenter">
+            <summary>
+            是否上报用户进入应用事件。0：不接收；1：接收
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Concern.ConcernApi">
             <summary>
             关注与取消关注
@@ -918,6 +1057,11 @@
         <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetUserIdResult.UserId">
             <summary>
             员工UserID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetUserIdResult.DeviceId">
+            <summary>
+            手机设备号(由微信在安装时随机生成)
             </summary>
         </member>
         <member name="F:Senparc.Weixin.QY.CommonAPIs.AccessTokenBag.Lock">

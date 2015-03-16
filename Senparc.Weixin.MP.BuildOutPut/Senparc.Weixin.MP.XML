@@ -2719,7 +2719,7 @@
             <param name="grantType"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.GetUserInfo(System.String,System.String,Senparc.Weixin.MP.LanguageType)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.GetUserInfo(System.String,System.String,Senparc.Weixin.Language)">
             <summary>
             获取用户基本信息
             </summary>
@@ -6710,26 +6710,6 @@
         <member name="F:Senparc.Weixin.MP.Card_UrlNameType.URL_NAME_TYPE_VEHICLE_INFORMATION">
             <summary>
             车辆信息
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.LanguageType">
-            <summary>
-            语言类型
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.MP.LanguageType.zh_CN">
-            <summary>
-            简体中文
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.MP.LanguageType.zh_TW">
-            <summary>
-            繁体中文
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.MP.LanguageType.en">
-            <summary>
-            英语
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Helpers.BaiduMapHelper">

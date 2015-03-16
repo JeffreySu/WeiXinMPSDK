@@ -12,6 +12,9 @@
  
     修改标识：Senparc - 20130312
     修改描述：开放代理请求超时时间
+ 
+    修改标识：zhanghao-kooboo - 20130316
+    修改描述：增加
 ----------------------------------------------------------------*/
 
 using System;
@@ -20,6 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
@@ -28,6 +32,8 @@ namespace Senparc.Weixin.HttpUtility
 {
     public static class Post
     {
+        #region 同步方法
+
         /// <summary>
         /// 获取Post结果
         /// </summary>
@@ -94,5 +100,59 @@ namespace Senparc.Weixin.HttpUtility
             var result = GetResult<T>(returnText);
             return result;
         }
+
+        #endregion
+
+        #region 异步方法
+
+        /// <summary>
+        /// PostFileGetJson的异步版本
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="cookieContainer"></param>
+        /// <param name="fileDictionary"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Encoding encoding = null)
+        {
+            string returnText = await HttpUtility.RequestUtility.HttpPostAsync(url, cookieContainer, null, fileDictionary, null, encoding);
+            var result = GetResult<T>(returnText);
+            return result;
+        }
+
+        /// <summary>
+        /// PostGetJson的异步版本
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="cookieContainer"></param>
+        /// <param name="fileStream"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null)
+        {
+            string returnText = await HttpUtility.RequestUtility.HttpPostAsync(url, cookieContainer, fileStream, null, null, encoding);
+            var result = GetResult<T>(returnText);
+            return result;
+        }
+
+        /// <summary>
+        /// PostGetJson的异步版本
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url"></param>
+        /// <param name="cookieContainer"></param>
+        /// <param name="formData"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null)
+        {
+            string returnText = await HttpUtility.RequestUtility.HttpPostAsync(url, cookieContainer, formData, encoding);
+            var result = GetResult<T>(returnText);
+            return result;
+        }
+
+        #endregion
     }
 }

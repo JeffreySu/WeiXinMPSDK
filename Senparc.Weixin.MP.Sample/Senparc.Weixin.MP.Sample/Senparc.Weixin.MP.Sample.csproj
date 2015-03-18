@@ -290,6 +290,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\AppStore\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

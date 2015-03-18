@@ -8,7 +8,7 @@ using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AppStore
 {
-    public static class OAuth
+    public static class AppStoreOAuth
     {
         private static string Domain
         {

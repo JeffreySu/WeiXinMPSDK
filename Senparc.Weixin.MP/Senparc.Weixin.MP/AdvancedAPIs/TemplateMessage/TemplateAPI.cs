@@ -44,7 +44,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
         /// <param name="data"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static SendTemplateMessageResult SendTemplateMessage<T>(string accessToken, string openId, string templateId, string topcolor, string url, T data, int timeOut = Config.TIME_OUT)
+        public static SendTemplateMessageResult SendTemplateMessage(string accessToken, string openId, string templateId, string topcolor, string url, object data, int timeOut = Config.TIME_OUT)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}";
             var msgData = new TempleteModel()

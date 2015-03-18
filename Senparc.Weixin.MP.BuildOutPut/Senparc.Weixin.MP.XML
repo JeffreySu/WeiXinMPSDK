@@ -3968,7 +3968,7 @@
             模板消息接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.TemplateApi.SendTemplateMessage``1(System.String,System.String,System.String,System.String,System.String,``0,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.TemplateApi.SendTemplateMessage(System.String,System.String,System.String,System.String,System.String,System.Object,System.Int32)">
             <summary>
             模板消息接口
             </summary>
@@ -4254,7 +4254,7 @@
             性别
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AppStore.OAuth.GetAuthorizeUrl(System.Int32,System.String,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AppStore.AppStoreOAuth.GetAuthorizeUrl(System.Int32,System.String,System.String,System.String,System.String)">
             <summary>
             获取验证地址
             </summary>
@@ -4265,7 +4265,7 @@
             <param name="responseType"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AppStore.OAuth.GetAccessToken(System.String,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AppStore.AppStoreOAuth.GetAccessToken(System.String,System.String,System.String,System.String)">
             <summary>
             获取AccessToken
             </summary>

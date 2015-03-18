@@ -153,7 +153,7 @@
     <Compile Include="AppStore\Entities\Passport.cs" />
     <Compile Include="AppStore\Entities\WxJsonResult.cs" />
     <Compile Include="AppStore\Enums.cs" />
-    <Compile Include="AppStore\OAuth.cs" />
+    <Compile Include="AppStore\AppStoreOAuth.cs" />
     <Compile Include="AppStore\Entities\Passport\PassportBag.cs" />
     <Compile Include="AppStore\Entities\Passport\PassportCollection.cs" />
     <Compile Include="AppStore\ReturnResult.cs" />

@@ -82,5 +82,32 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             }).ContinueWith<ActionResult>(task => task.Result);
         }
+
+        /// <summary>
+        /// 为测试并发性能而建
+        /// </summary>
+        /// <returns></returns>
+        public Task<ActionResult> ForTest()
+        {
+            //异步并发测试（提供给单元测试使用）
+            return Task.Factory.StartNew<ActionResult>(() =>
+            {
+                DateTime begin = DateTime.Now;
+                int t1, t2, t3;
+                System.Threading.ThreadPool.GetAvailableThreads(out t1, out t3);
+                System.Threading.ThreadPool.GetMaxThreads(out t2, out t3);
+                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(0.1));
+                DateTime end = DateTime.Now;
+                var thread = System.Threading.Thread.CurrentThread;
+                var result = string.Format("TId:{0}\tApp:{1}\tBegin:{2:mm:ss,ffff}\tEnd:{3:mm:ss,ffff}\tTPool：{4}",
+                    thread.ManagedThreadId,
+                    HttpContext.ApplicationInstance.GetHashCode(),
+                    begin,
+                    end,
+                    t2 - t1
+                    );
+                return Content(result);
+            });
+        }
     }
 }

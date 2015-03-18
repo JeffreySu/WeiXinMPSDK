@@ -186,5 +186,29 @@ namespace Senparc.Weixin.MP.Sample.Controllers
          * 因此如果需要深入了解Senparc.Weixin.MP内部处理消息的机制，可以查看WeixinController_OldPost.cs中的OldPost方法。
          * 目前为止OldPost依然有效，依然可用于生产。
          */
+
+        /// <summary>
+        /// 为测试并发性能而建
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ForTest()
+        {
+            //异步并发测试（提供给单元测试使用）
+            DateTime begin = DateTime.Now;
+            int t1, t2, t3;
+            System.Threading.ThreadPool.GetAvailableThreads(out t1, out t3);
+            System.Threading.ThreadPool.GetMaxThreads(out t2, out t3);
+            System.Threading.Thread.Sleep(TimeSpan.FromSeconds(0.5));
+            DateTime end = DateTime.Now;
+            var thread = System.Threading.Thread.CurrentThread;
+            var result= string.Format("TId:{0}\tApp:{1}\tBegin:{2:mm:ss,ffff}\tEnd:{3:mm:ss,ffff}\tTPool：{4}",
+                    thread.ManagedThreadId,
+                    HttpContext.ApplicationInstance.GetHashCode(),
+                    begin,
+                    end,
+                    t2 - t1
+                    );
+            return Content(result);
+        }
     }
 }

@@ -615,5 +615,27 @@
             响应回复消息
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.StreamUtility.StreamUtility.GetBase64String(System.IO.Stream)">
+            <summary>
+            获取Stream的Base64字符串
+            </summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.StreamUtility.StreamUtility.GetStreamFromBase64String(System.String,System.String)">
+            <summary>
+            将base64String反序列化到流，或保存成文件
+            </summary>
+            <param name="base64String"></param>
+            <param name="savePath">如果为null则不保存</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.StreamUtility.StreamUtility.SaveFileFromStream(System.IO.MemoryStream,System.String)">
+            <summary>
+            将memoryStream保存到文件
+            </summary>
+            <param name="memoryStream"></param>
+            <param name="savePath"></param>
+        </member>
     </members>
 </doc>

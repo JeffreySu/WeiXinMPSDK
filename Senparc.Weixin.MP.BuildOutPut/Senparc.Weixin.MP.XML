@@ -4112,6 +4112,128 @@
             在www.weiweihi.com对接微信公众号之后，自动生成的WeiweihiKey。
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AppStore.AppResult`1">
+            <summary>
+            JSON返回结果（用于菜单接口等）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AppStore.AppResult`1.Data">
+            <summary>
+            如果结果未成功，则Data为期望的类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AppStore.AppResult`1.ErrorMessage">
+            <summary>
+            错误信息，如果结果为成功，错误信息为Null
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AppStore.AppResult`1.RunTime">
+            <summary>
+            Api执行时间
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AppStore.GetMemberResult">
+            <summary>
+            获取微信会员信息结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AppStore.GetMemberResult.HeadImageBase64">
+            <summary>
+            Base64格式的头像信息，当提供HeadImageUrl时不再提供HeadImageBase64
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AppStore.GetMemberResult.HeadImageUrl">
+            <summary>
+            头像URL地址
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AppStore.NormalAppResult">
+            <summary>
+            普通API返回类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AppStore.PassportResult">
+            <summary>
+            获取通行证结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AppStore.OAuthAccessTokenResult">
+            <summary>
+            获取OAuth AccessToken的结果
+            如果错误，返回结果{"errcode":40029,"errmsg":"invalid code"}
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AppStore.WxJsonResult">
+            <summary>
+            JSON返回结果（用于菜单接口等）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AppStore.OAuthAccessTokenResult.ExpireTimeTicks">
+            <summary>
+            过期时间Ticks
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AppStore.OAuthAccessTokenResult.ExpireTime">
+            <summary>
+            过期时间
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AppStore.Passport">
+            <summary>
+            P2P通行证
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AppStore.Passport.ApiUrl">
+            <summary>
+            API常规URL
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AppStore.Passport.DeveloperId">
+            <summary>
+            供微微嗨服务器记录唯一开发人员ID
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AppStore.AppResultKind">
+            <summary>
+            P2P返回结果类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AppStore.WeixinSex">
+            <summary>
+            性别
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AppStore.OAuth.GetAuthorizeUrl(System.Int32,System.String,System.String,System.String,System.String)">
+            <summary>
+            获取验证地址
+            </summary>
+            <param name="weixinId">正在使用此APP的weixinId</param>
+            <param name="clientId">此App的唯一标识。可以在此APP的【开发接入】页面的【OAuth认证 设置】页面看到</param>
+            <param name="redirectUrl"></param>
+            <param name="state"></param>
+            <param name="responseType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AppStore.OAuth.GetAccessToken(System.String,System.String,System.String,System.String)">
+            <summary>
+            获取AccessToken
+            </summary>
+            <param name="clientId">此App的唯一标识。可以在此APP的【开发接入】页面的【OAuth认证 设置】页面看到</param>
+            <param name="clientSecret">对应此App的唯一标识的密码。可以在此APP的【开发接入】页面的【OAuth认证 设置】页面看到</param>
+            <param name="code">code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。</param>
+            <param name="grantType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AppStore.PassportCollection">
+            <summary>
+            同时管理多个应用的Passport的容器
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AppStore.PassportCollection.BasicUrl">
+            <summary>
+            统一URL前缀，如http://api.weiweihi.com:8080/App/Api
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.AppStore.ReturnResult.AppStoreState">
             <summary>
             如果>0则进入某个APP状态，如果=0则维持当前状态不变，如果>0则退出某个App状态

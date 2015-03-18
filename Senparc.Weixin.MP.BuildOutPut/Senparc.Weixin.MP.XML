@@ -4125,7 +4125,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AppStore.SdkManager.Register(System.String,System.String,System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.MP.AppStore.AppStoreManager.Register(System.String,System.String,System.String,System.Boolean)">
             <summary>
             注册P2P应用基本信息（可以选择不立即载入Passport以节省系统启动时间）
             </summary>
@@ -4134,18 +4134,18 @@
             <param name="url">API地址，建议使用默认值</param>
             <param name="getPassportImmediately">是否马上获取Passport，默认为False</param>
         </member>
-        <member name="M:Senparc.Weixin.MP.AppStore.SdkManager.ApplyPassport(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AppStore.AppStoreManager.ApplyPassport(System.String,System.String,System.String)">
             <summary>
             申请新的通行证。
             每次调用完毕前将有1秒左右的Thread.Sleep时间
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AppStore.SdkManager.RemovePassport(System.String)">
+        <member name="M:Senparc.Weixin.MP.AppStore.AppStoreManager.RemovePassport(System.String)">
             <summary>
             清除当前的通行证
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AppStore.SdkManager.GetApiContainer(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AppStore.AppStoreManager.GetApiContainer(System.String,System.String,System.String)">
             <summary>
             获取appKey对应的接口集合。
             调用此方法请确认此appKey已经成功使用SdkManager.Register(appKey, appSecret, appUrl)方法注册过。

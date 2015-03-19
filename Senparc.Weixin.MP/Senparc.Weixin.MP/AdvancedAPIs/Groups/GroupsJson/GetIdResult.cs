@@ -17,7 +17,7 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.MP.Entities;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs
+namespace Senparc.Weixin.MP.AdvancedAPIs.Groups
 {
     /// <summary>
     /// 获取用户分组ID返回结果

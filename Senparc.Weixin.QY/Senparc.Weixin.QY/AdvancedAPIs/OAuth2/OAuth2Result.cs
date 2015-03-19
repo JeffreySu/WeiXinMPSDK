@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20130313
     修改描述：整理接口
+ 
+    修改标识：Senparc - 20130316
+    修改描述：添加DeviceId字段
 ----------------------------------------------------------------*/
 
 using System;
@@ -28,5 +31,9 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.OAuth2
         /// 员工UserID
         /// </summary>
         public string UserId { get; set; }
+        /// <summary>
+        /// 手机设备号(由微信在安装时随机生成)
+        /// </summary>
+        public string DeviceId { get; set; }
     }
 }

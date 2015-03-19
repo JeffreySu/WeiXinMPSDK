@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.AdvancedAPIs.MailList;
 using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.QY.Test.CommonApis;
 
 namespace Senparc.Weixin.QY.Test.AdvancedAPIs
 {
@@ -12,17 +13,8 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
     /// CommonApiTest 的摘要说明
     /// </summary>
     [TestClass]
-    public partial class MemberTest
+    public partial class MemberTest : CommonApiTest
     {
-        protected string _corpId = "wx7618c0a6d9358622"; //换成你的信息
-        protected string _corpSecret = "PKrd-r76fDCNjbUY5-9I1vhOkMqBly038Sc8zcODscmu202dqCtUWkxK7nrCGURss"; //换成你的信息
-
-        public MemberTest()
-        {
-            //全局只需注册一次
-            AccessTokenContainer.Register(_corpId, _corpSecret);
-        }
-
         [TestMethod]
         public void CreateMemberTest(string userId)
         {

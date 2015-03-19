@@ -378,23 +378,4 @@ namespace Senparc.Weixin.MP
         /// </summary>
         URL_NAME_TYPE_VEHICLE_INFORMATION = 5,
     }
-
-    /// <summary>
-    /// 语言类型
-    /// </summary>
-    public enum LanguageType
-    {
-        /// <summary>
-        /// 简体中文
-        /// </summary>
-        zh_CN,
-        /// <summary>
-        /// 繁体中文
-        /// </summary>
-        zh_TW,
-        /// <summary>
-        /// 英语
-        /// </summary>
-        en
-    }
 }

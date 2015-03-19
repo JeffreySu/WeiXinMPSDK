@@ -105,7 +105,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
         /// <param name="openId">普通用户的标识，对当前公众号唯一</param>
         /// <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
         /// <returns></returns>
-        public static OAuthUserInfo GetUserInfo(string accessToken, string openId, LanguageType lang = LanguageType.zh_CN)
+        public static OAuthUserInfo GetUserInfo(string accessToken, string openId, Language lang = Language.zh_CN)
         {
             var url = string.Format("https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}&lang={2}", accessToken, openId, lang);
             return CommonJsonSend.Send<OAuthUserInfo>(null, url, null, CommonJsonSendType.GET);

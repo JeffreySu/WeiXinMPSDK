@@ -65,9 +65,9 @@
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\SerializerHelper.cs" />
-    <Compile Include="HttpUtility\Get.cs" />
-    <Compile Include="HttpUtility\Post.cs" />
-    <Compile Include="HttpUtility\RequestUtility.cs" />
+    <Compile Include="Utilities\HttpUtility\Get.cs" />
+    <Compile Include="Utilities\HttpUtility\Post.cs" />
+    <Compile Include="Utilities\HttpUtility\RequestUtility.cs" />
     <Compile Include="JsonResult\WxJsonResult.cs" />
     <Compile Include="MessageHandlers\IMessageHandler.cs" />
     <Compile Include="MessageHandlers\IMessageHandlerDocument.cs" />
@@ -77,9 +77,7 @@
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Utilities\StreamUtility\StreamUtility.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utilities\HttpUtility\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

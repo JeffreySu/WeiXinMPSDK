@@ -4300,6 +4300,35 @@
             错误信息
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AppStore.Utility.WeixinRequestInfo">
+            <summary>
+            微信请求中ToUserName包含的信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AppStore.Utility.WeixinRequestInfo.WeixinId">
+            <summary>
+            使用此应用的微信账号ID（在微微嗨平台上的唯一ID）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AppStore.Utility.WeixinRequestInfo.AppId">
+            <summary>
+            被请求应用的唯一ID
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AppStore.Utility.AppUtility.GetWeixinRequestInfo(System.String)">
+            <summary>
+            获取RequestMessage中ToUserName中的信息（这条信息由微微嗨平台向APP发出）
+            </summary>
+            <param name="toUserName">RequestMessage中的ToUserName属性</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AppStore.Utility.AppUtility.GetWeixinRequestInfo(Senparc.Weixin.MP.Entities.IRequestMessageBase)">
+            <summary>
+            获取RequestMessage中ToUserName中的信息（这条信息由微微嗨平台向APP发出）
+            </summary>
+            <param name="requestMessage"></param>
+            <returns></returns>
+        </member>
         <member name="F:Senparc.Weixin.MP.CommonAPIs.JsApiTicketBag.Lock">
             <summary>
             只针对这个AppId的锁

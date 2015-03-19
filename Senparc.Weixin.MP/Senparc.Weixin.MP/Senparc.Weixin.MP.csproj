@@ -157,6 +157,7 @@
     <Compile Include="AppStore\Entities\Passport\PassportBag.cs" />
     <Compile Include="AppStore\Entities\Passport\PassportCollection.cs" />
     <Compile Include="AppStore\ReturnResult.cs" />
+    <Compile Include="AppStore\Utility\AppUtility.cs" />
     <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />

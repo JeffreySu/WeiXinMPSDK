@@ -131,8 +131,8 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         /// accessToken、userId和name为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
         public static WxJsonResult CreateMember(string accessToken, string userId, string name, int[] department = null,
-            string position = null, string mobile = null, string tel = null, string email = null, string weixinId = null,
-            int gender = 0, Extattr extattr = null, int timeOut = Config.TIME_OUT)
+            string position = null, string mobile = null, string email = null, string weixinId = null, /*string tel = null,
+            int gender = 0,*/ Extattr extattr = null, int timeOut = Config.TIME_OUT)
         {
             var url = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token={0}";
 
@@ -143,8 +143,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
                 department = department,
                 position = position,
                 mobile = mobile,
-                gender = gender,
-                tel = tel,
+
+                //最新的接口中去除了以下两个字段
+                //gender = gender,
+                //tel = tel,
+
                 email = email,
                 weixinid = weixinId,
                 extattr = extattr

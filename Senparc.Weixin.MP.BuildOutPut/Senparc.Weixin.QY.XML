@@ -703,7 +703,7 @@
             <param name="id">部门ID。获取指定部门ID下的子部门</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.CreateMember(System.String,System.String,System.String,System.Int32[],System.String,System.String,System.String,System.String,System.String,System.Int32,Senparc.Weixin.QY.AdvancedAPIs.MailList.Extattr,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.CreateMember(System.String,System.String,System.String,System.Int32[],System.String,System.String,System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.MailList.Extattr,System.Int32)">
             <summary>
             创建成员(mobile/weixinid/email三者不能同时为空)
             </summary>

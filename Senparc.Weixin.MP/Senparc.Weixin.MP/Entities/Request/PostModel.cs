@@ -9,6 +9,11 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20150321 v11.2.7
+    修改描述：添加SetSecretInfo()方法
+ 
+ 
 ----------------------------------------------------------------*/
 
 using System;
@@ -33,6 +38,17 @@ namespace Senparc.Weixin.MP.Entities.Request
         public string EncodingAESKey { get; set; }
         public string AppId { get; set; }
 
-
+        /// <summary>
+        /// 设置服务器内部保密信息
+        /// </summary>
+        /// <param name="token"></param>
+        /// <param name="encodingAESKey"></param>
+        /// <param name="appId"></param>
+        public void SetSecretInfo(string token, string encodingAESKey, string appId)
+        {
+            Token = token;
+            EncodingAESKey = encodingAESKey;
+            AppId = appId;
+        }
     }
 }

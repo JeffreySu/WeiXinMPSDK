@@ -193,14 +193,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// 直接传入IRequestMessageBase，For UnitTest
         /// </summary>
+        /// <param name="postModel">PostModel</param>
+        /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
+        /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
         /// <param name="requestMessageBase"></param>
-        public MessageHandler(IRequestMessageBase requestMessageBase)
+        public MessageHandler(IRequestMessageBase requestMessageBase, PostModel postModel = null, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
+            : base(requestMessageBase, maxRecordCount, postModel)
         {
-            this.RequestMessage = requestMessageBase;
-            if (WeixinContextGlobal.UseWeixinContext)
-            {
-                WeixinContext.InsertMessage(RequestMessage);
-            }
+            DeveloperInfo = developerInfo;
         }
 
 

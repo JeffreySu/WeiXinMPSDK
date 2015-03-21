@@ -154,6 +154,17 @@ namespace Senparc.Weixin.MessageHandlers
             }
         }
 
+        /// <summary>
+        /// 构造函数公用的初始化方法
+        /// </summary>
+        /// <param name="postDataDocument"></param>
+        /// <param name="maxRecordCount"></param>
+        /// <param name="postData"></param>
+        private void CommonInitialize(XDocument postDataDocument, int maxRecordCount, object postData)
+        {
+            WeixinContext.MaxRecordCount = maxRecordCount;
+            RequestDocument = Init(postDataDocument, postData);
+        }
 
         /// <summary>
         /// 
@@ -163,34 +174,37 @@ namespace Senparc.Weixin.MessageHandlers
         /// <param name="postData">需要传入到Init的参数</param>
         public MessageHandler(Stream inputStream, int maxRecordCount = 0, object postData = null)
         {
-            WeixinContext.MaxRecordCount = maxRecordCount;
-            inputStream.Seek(0, SeekOrigin.Begin);//强制调整指针位置
-            using (XmlReader xr = XmlReader.Create(inputStream))
-            {
-                var postDataDocument = XDocument.Load(xr);
-                RequestDocument = Init(postDataDocument, postData);
-            }
+            var postDataDocument = XmlUtility.XmlUtility.Convert(inputStream);
+
+            CommonInitialize(postDataDocument, maxRecordCount, postData);
         }
 
         /// <summary>
-        /// 
+        /// 使用postDataDocument的构造函数
         /// </summary>
         /// <param name="postDataDocument"></param>
         /// <param name="maxRecordCount"></param>
         /// <param name="postData">需要传入到Init的参数</param>
         public MessageHandler(XDocument postDataDocument, int maxRecordCount = 0, object postData = null)
         {
-            WeixinContext.MaxRecordCount = maxRecordCount;
-            RequestDocument = Init(postDataDocument, postData);
+            CommonInitialize(postDataDocument, maxRecordCount, postData);
         }
 
         /// <summary>
-        /// 默认构造函数
+        /// 使用requestMessageBase的构造函数
         /// </summary>
-        public MessageHandler()
+        /// <param name="postDataDocument"></param>
+        /// <param name="maxRecordCount"></param>
+        /// <param name="postData">需要传入到Init的参数</param>
+        public MessageHandler(IRequestMessageBase requestMessageBase, int maxRecordCount = 0, object postData = null)
         {
-            
+            //将requestMessageBase生成XML格式。
+            var xmlStr = XmlUtility.XmlUtility.Serializer(requestMessageBase);
+            var postDataDocument = XDocument.Parse(xmlStr);
+
+            CommonInitialize(postDataDocument, maxRecordCount, postData);
         }
+
 
         /// <summary>
         /// 初始化，获取RequestDocument。

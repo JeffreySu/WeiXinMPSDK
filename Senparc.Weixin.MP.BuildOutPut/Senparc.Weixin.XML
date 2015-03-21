@@ -322,6 +322,37 @@
             <param name="match"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.XmlUtility.XmlUtility.Deserialize``1(System.String)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="type">类型</param>
+            <param name="xml">XML字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.XmlUtility.XmlUtility.Deserialize``1(System.IO.Stream)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="type"></param>
+            <param name="xml"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.XmlUtility.XmlUtility.Serializer``1(``0)">
+            <summary>
+            序列化
+            </summary>
+            <param name="type">类型</param>
+            <param name="obj">对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.XmlUtility.XmlUtility.Convert(System.IO.Stream)">
+            <summary>
+            序列化将流转成XML字符串
+            </summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.HttpUtility.Post.GetResult``1(System.String)">
             <summary>
             获取Post结果
@@ -504,6 +535,14 @@
             此方法中所有过程，都基于Senparc.Weixin的基础功能，只为简化代码而设。
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.MessageHandlers.MessageHandler`3.CommonInitialize(System.Xml.Linq.XDocument,System.Int32,System.Object)">
+            <summary>
+            构造函数公用的初始化方法
+            </summary>
+            <param name="postDataDocument"></param>
+            <param name="maxRecordCount"></param>
+            <param name="postData"></param>
+        </member>
         <member name="M:Senparc.Weixin.MessageHandlers.MessageHandler`3.#ctor(System.IO.Stream,System.Int32,System.Object)">
             <summary>
             
@@ -514,7 +553,15 @@
         </member>
         <member name="M:Senparc.Weixin.MessageHandlers.MessageHandler`3.#ctor(System.Xml.Linq.XDocument,System.Int32,System.Object)">
             <summary>
-            
+            使用postDataDocument的构造函数
+            </summary>
+            <param name="postDataDocument"></param>
+            <param name="maxRecordCount"></param>
+            <param name="postData">需要传入到Init的参数</param>
+        </member>
+        <member name="M:Senparc.Weixin.MessageHandlers.MessageHandler`3.#ctor(Senparc.Weixin.Entities.IRequestMessageBase,System.Int32,System.Object)">
+            <summary>
+            使用requestMessageBase的构造函数
             </summary>
             <param name="postDataDocument"></param>
             <param name="maxRecordCount"></param>

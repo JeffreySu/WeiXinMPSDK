@@ -76,6 +76,8 @@ namespace Senparc.Weixin.QY.Test.MessageHandlers
             Assert.IsNotNull(messageHandler.ResponseDocument);
             Assert.IsNotNull(messageHandler.ResponseMessage);
 
+
+            Console.WriteLine(messageHandler.RequestDocument);
         }
     }
 }

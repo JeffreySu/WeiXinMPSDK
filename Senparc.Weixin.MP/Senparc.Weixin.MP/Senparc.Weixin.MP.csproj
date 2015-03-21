@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,54 +53,140 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdvancedAPIs\CustomService\CustomInfoJson.cs" />
-    <Compile Include="AdvancedAPIs\CustomService\CustomOnlineJson.cs" />
-    <Compile Include="AdvancedAPIs\CustomService\CustomService.cs" />
-    <Compile Include="AdvancedAPIs\CustomService\RecordJson.cs" />
-    <Compile Include="AdvancedAPIs\CustomService\GetRecordResult.cs" />
-    <Compile Include="AdvancedAPIs\Custom\Custom.cs" />
-    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessage.cs" />
-    <Compile Include="AdvancedAPIs\GroupMessage\NewsModel.cs" />
-    <Compile Include="AdvancedAPIs\GroupMessage\SendResult.cs" />
-    <Compile Include="AdvancedAPIs\GroupMessage\BaseGroupMessageDataByGroupId.cs" />
-    <Compile Include="AdvancedAPIs\GroupMessage\BaseGroupMessageDataByOpenId.cs" />
-    <Compile Include="AdvancedAPIs\Groups\CreateGroupResult.cs" />
-    <Compile Include="AdvancedAPIs\Groups\GetIdResult.cs" />
-    <Compile Include="AdvancedAPIs\Groups\Groups.cs" />
-    <Compile Include="AdvancedAPIs\Groups\GroupsJson.cs" />
-    <Compile Include="AdvancedAPIs\Media\Media.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisApi.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\ArticleAnalysisItemJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\AnalysisResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\BaseAnalysisResult.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\MessageAnalysisItemJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\InterfaceAnalysisItemJson.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\BaseAnalysisObject.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardApi.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateInfo.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateInfo_Card.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateData.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\BaseCardUpdateInfo.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\BaseCardDetails.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\CardManageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\CardUpdateData.cs" />
+    <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfoBase.cs" />
+    <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfo_DataInfo.cs" />
+    <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfo_Sku.cs" />
+    <Compile Include="AdvancedAPIs\Card\Store\StoreResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\Store\StoreLocationData.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomInfoJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomOnlineJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomServiceApi.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\RecordJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\GetRecordResult.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetSessionStateResultJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetSessionListResultJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetWaitCaseResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Custom\CustomApi.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageApi.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\NewsModel.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\SendResult.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataByGroupId.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataByOpenId.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataPreview.cs" />
+    <Compile Include="AdvancedAPIs\Groups\GroupsJson\CreateGroupResult.cs" />
+    <Compile Include="AdvancedAPIs\Groups\GroupsJson\GetIdResult.cs" />
+    <Compile Include="AdvancedAPIs\Groups\GroupsApi.cs" />
+    <Compile Include="AdvancedAPIs\Groups\GroupsJson\GroupsJson.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaApi.cs" />
     <Compile Include="AdvancedAPIs\Media\UploadResultJson.cs" />
-    <Compile Include="AdvancedAPIs\OAuth\OAuthAccessTokenResult.cs" />
-    <Compile Include="AdvancedAPIs\OAuth\OAuth.cs" />
-    <Compile Include="AdvancedAPIs\OAuth\OAuthUserInfo.cs" />
+    <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
+    <Compile Include="AdvancedAPIs\OAuth\OAuthApi.cs" />
+    <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthUserInfo.cs" />
     <Compile Include="AdvancedAPIs\QrCode\CreateQrCodeResult.cs" />
-    <Compile Include="AdvancedAPIs\QrCode\QrCode.cs" />
-    <Compile Include="AdvancedAPIs\TemplateMessage\Template.cs" />
-    <Compile Include="AdvancedAPIs\TemplateMessage\SendTemplateMessageResult.cs" />
-    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateDataItem.cs" />
-    <Compile Include="AdvancedAPIs\TemplateMessage\TempleteModel.cs" />
-    <Compile Include="AdvancedAPIs\User\OpenIdResultJson.cs" />
-    <Compile Include="AdvancedAPIs\User\User.cs" />
-    <Compile Include="AdvancedAPIs\User\UserInfoJson.cs" />
+    <Compile Include="AdvancedAPIs\QrCode\QrCodeApi.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticApi.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\BaseSemanticResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticAgreement.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_MovieResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_MusicResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_RestaurantResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_MapResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_NearByResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_CouponResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_HotelResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_TrainResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_TravelResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_FlightResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_VideoResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_NovelResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_BaikeResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_StockResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_RemindResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_TelephoneResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_CookbookResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_WeatherResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_NewsResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_TVResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_InstructionResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_TV_InstructionResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_Car_InstructionResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_AppResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_WebsiteResult.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_SearchResult.cs" />
+    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateApi.cs" />
+    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\SendTemplateMessageResult.cs" />
+    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\TemplateDataItem.cs" />
+    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\TempleteModel.cs" />
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\UserAnalysisItemJson.cs" />
+    <Compile Include="AdvancedAPIs\User\UserJson\OpenIdResultJson.cs" />
+    <Compile Include="AdvancedAPIs\User\UserApi.cs" />
+    <Compile Include="AdvancedAPIs\User\UserJson\UserInfoJson.cs" />
+    <Compile Include="AppStore\Api.cs" />
+    <Compile Include="AppStore\Api\ApiConnection.cs" />
+    <Compile Include="AppStore\Api\ApiContainer.cs" />
+    <Compile Include="AppStore\Api\BaseApi.cs" />
+    <Compile Include="AppStore\Api\MemberApi.cs" />
+    <Compile Include="AppStore\AppStoreManager.cs" />
+    <Compile Include="AppStore\Config.cs" />
+    <Compile Include="AppStore\DeveloperInfo.cs" />
+    <Compile Include="AppStore\Entities\AppResult\AppResult.cs" />
+    <Compile Include="AppStore\Entities\AppResult\GetMemberResult.cs" />
+    <Compile Include="AppStore\Entities\AppResult\NormalAppResult.cs" />
+    <Compile Include="AppStore\Entities\AppResult\PassportResult.cs" />
+    <Compile Include="AppStore\Entities\OAuthAccessTokenResult.cs" />
+    <Compile Include="AppStore\Entities\Passport.cs" />
+    <Compile Include="AppStore\Entities\WxJsonResult.cs" />
+    <Compile Include="AppStore\Enums.cs" />
+    <Compile Include="AppStore\AppStoreOAuth.cs" />
+    <Compile Include="AppStore\Entities\Passport\PassportBag.cs" />
+    <Compile Include="AppStore\Entities\Passport\PassportCollection.cs" />
+    <Compile Include="AppStore\ReturnResult.cs" />
+    <Compile Include="AppStore\Utility\AppUtility.cs" />
+    <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
+    <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_LocationSelect.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_PicWeixin.cs" />
     <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Card_Pass_Check.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Card_Not_Pass_Check.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Get_Card.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Del_Card.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Kf_Create_Session.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Kf_Close_Session.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Kf_Switch_Session.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
     <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Helpers\EventHelper.cs" />
     <Compile Include="Helpers\MsgTypeHelper.cs" />
+    <Compile Include="Helpers\JSSDKHelper.cs" />
+    <Compile Include="Helpers\SHA1UtilHelper.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
-    <Compile Include="TenPayLibV3\MD5Util.cs" />
     <Compile Include="TenPayLibV3\RequestHandler.cs" />
     <Compile Include="TenPayLibV3\ResponseHandler.cs" />
     <Compile Include="TenPayLibV3\TenPayV3InfoCollection.cs" />
     <Compile Include="TenPayLibV3\TenPayV3Info.cs" />
-    <Compile Include="TenPayLibV3\TenPayUtil.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3Util.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3Result.cs" />
     <Compile Include="TenPayLib\CheckRequestHandler.cs" />
@@ -208,17 +295,14 @@
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\GoogleMapHelper.cs" />
     <Compile Include="Helpers\GpsHelper.cs" />
-    <Compile Include="Merchant\Entities\ProductBase.cs" />
-    <Compile Include="Merchant\Good.cs" />
     <Compile Include="MessageHandlers\MessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="ResponseMessageFactory.cs" />
-    <Compile Include="TenPayLib\MD5Util.cs" />
+    <Compile Include="Helpers\MD5UtilHelper.cs" />
     <Compile Include="TenPayLib\QRCode.cs" />
     <Compile Include="TenPayLib\RequestHandler.cs" />
     <Compile Include="TenPayLib\ResponseHandler.cs" />
-    <Compile Include="TenPayLib\SHA1Util.cs" />
     <Compile Include="TenPayLib\TenPayUtil.cs" />
     <Compile Include="TenPayLib\TenPayInfo.cs" />
     <Compile Include="TenPayLib\TenPayInfoCollection.cs" />
@@ -266,6 +350,10 @@
   <ItemGroup>
     <Compile Include="Entities\Request\Event\RequestMessageEvent_PicSysphoto.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="AdvancedAPIs\Card\readme.txt" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

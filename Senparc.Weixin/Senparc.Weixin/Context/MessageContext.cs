@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：MessageContext.cs
+    文件功能描述：微信消息上下文（单个用户）接口
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -46,6 +59,11 @@ namespace Senparc.Weixin.Context
         /// </summary>
         Double? ExpireMinutes { get; set; }
 
+        /// <summary>
+        /// AppStore状态，系统属性，请勿操作
+        /// </summary>
+        AppStoreState AppStoreState { get; set; }
+
         event EventHandler<WeixinContextRemovedEventArgs<TRest, TResp>> MessageContextRemoved;
 
         void OnRemoved();
@@ -81,6 +99,11 @@ namespace Senparc.Weixin.Context
         public object StorageData { get; set; }
 
         public Double? ExpireMinutes { get; set; }
+
+        /// <summary>
+        /// AppStore状态，系统属性，请勿操作
+        /// </summary>
+        public AppStoreState AppStoreState { get; set; }
 
         public virtual event EventHandler<WeixinContextRemovedEventArgs<TRest, TResp>> MessageContextRemoved = null;
 

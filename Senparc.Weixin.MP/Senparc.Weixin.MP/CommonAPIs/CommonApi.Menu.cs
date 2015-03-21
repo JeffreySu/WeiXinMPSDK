@@ -1,4 +1,24 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：CommonApi.Menu.cs
+    文件功能描述：通用自定义菜单接口
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+ 
+    修改标识：Senparc - 20150312
+    修改描述：开放代理请求超时时间
+----------------------------------------------------------------*/
+
+/*
+    API：http://mp.weixin.qq.com/wiki/13/43de8269be54a0a6f64413e4dfa94f39.html
+ */
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -32,7 +52,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="accessToken"></param>
         /// <param name="buttonData">菜单内容</param>
         /// <returns></returns>
-        public static WxJsonResult CreateMenu(string accessToken, ButtonGroup buttonData)
+        public static WxJsonResult CreateMenu(string accessToken, ButtonGroup buttonData, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
             ////对特殊符号进行URL转义
@@ -48,7 +68,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             //        }
             //    }
             //}
-            return CommonJsonSend.Send(accessToken, urlFormat, buttonData);
+            return CommonJsonSend.Send(accessToken, urlFormat, buttonData, timeOut: timeOut);
         }
 
         #region GetMenu
@@ -201,11 +221,11 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         {
                             //点击
                             bg.button.Add(new SingleClickButton()
-                                              {
-                                                  name = rootButton.name,
-                                                  key = rootButton.key,
-                                                  type = rootButton.type
-                                              });
+                            {
+                                name = rootButton.name,
+                                key = rootButton.key,
+                                type = rootButton.type
+                            });
                         }
                         else if (rootButton.type.Equals("VIEW", StringComparison.OrdinalIgnoreCase))
                         {
@@ -387,9 +407,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 }
 
                 result = new GetMenuResult()
-                             {
-                                 menu = bg
-                             };
+                {
+                    menu = bg
+                };
             }
             catch (Exception ex)
             {

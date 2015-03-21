@@ -1,3 +1,16 @@
+/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+ 
+    文件名：RequestHandler.cs
+    文件功能描述：微信支付V3 请求处理
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
 using System;
 using System.Collections;
 using System.Text;
@@ -6,6 +19,8 @@ using System.Xml;
 using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Senparc.Weixin.MP.Helpers;
+
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /**
@@ -125,36 +140,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             }
 
             sb.Append(key + "=" + value);
-            string sign = MD5Util.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
 
             return sign;
         }
-
-
-        ///// <summary>
-        ///// 创建package签名
-        ///// </summary>
-        ///// <returns></returns>
-        //public virtual string CreateMd5Sign()
-        //{
-        //    StringBuilder sb = new StringBuilder();
-        //    ArrayList akeys = new ArrayList(Parameters.Keys);
-        //    akeys.Sort();
-
-        //    foreach (string k in akeys)
-        //    {
-        //        string v = (string)Parameters[k];
-        //        if (null != v && "".CompareTo(v) != 0
-        //            && "sign".CompareTo(k) != 0 && "".CompareTo(v) != 0)
-        //        {
-        //            sb.Append(k + "=" + v + "&");
-        //        }
-        //    }
-        //    string sign = MD5Util.GetMD5(sb.ToString(), GetCharset()).ToUpper();
-
-        //    this.SetParameter("sign", sign);
-        //    return sign;
-        //}
 
         /// <summary>
         /// 输出XML

@@ -1,4 +1,21 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：GoogleMapHelper.cs
+    文件功能描述：获取谷歌今天静态地图Url
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+/*
+     API介绍：https://developers.google.com/maps/documentation/staticmaps/?hl=zh-CN
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

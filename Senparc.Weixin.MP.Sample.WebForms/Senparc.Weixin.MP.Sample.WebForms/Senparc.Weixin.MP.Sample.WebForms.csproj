@@ -68,6 +68,7 @@
     <Content Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="readme.txt" />
     <Content Include="Web.config" />
     <Content Include="Weixin.aspx" />
   </ItemGroup>

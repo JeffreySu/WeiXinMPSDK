@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP.AdvancedAPIs.User;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 
@@ -11,7 +13,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
     //[TestClass]
     public partial class CommonApiTest
     {
-        protected string _appId = "wxd838c2d5a1bc5801"; //换成你的信息
+        protected string _appId = "wx669ef95216eef885"; //换成你的信息
         protected string _appSecret = ""; //换成你的信息
 
 
@@ -23,10 +25,29 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
         protected string _testOpenId = "oIb08txj1En8hGXzHRvAjf-3X9Oc";//换成实际关注者的OpenId
 
+        /// <summary>
+        /// 自动获取Openid
+        /// </summary>
+        /// <param name="getNew">是否从服务器上强制获取一个</param>
+        /// <returns></returns>
+        protected string getTestOpenId(bool getNew)
+        {
+            if (getNew || string.IsNullOrEmpty(_testOpenId))
+            {
+                var accessToken = AccessTokenContainer.GetToken(_appId);
+                var openIdResult = UserApi.Get(accessToken, null);
+                _testOpenId = openIdResult.data.openid.First();
+            }
+            return _testOpenId;
+        }
+
         public CommonApiTest()
         {
             //全局只需注册一次
             AccessTokenContainer.Register(_appId, _appSecret);
+
+            //全局只需注册一次
+            JsApiTicketContainer.Register(_appId, _appSecret);
         }
 
         [TestMethod]
@@ -66,6 +87,15 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             {
                 //如果不参加内测，只是“服务号”，这类接口仍然不能使用，会抛出异常：错误代码：45009：api freq out of limit
             }
+        }
+
+        [TestMethod]
+        public void GetTicketTest()
+        {
+            var tokenResult = CommonApi.GetTicket(_appId, _appSecret);
+            Assert.IsNotNull(tokenResult);
+            Assert.IsTrue(tokenResult.ticket.Length > 0);
+            Assert.IsTrue(tokenResult.expires_in > 0);
         }
     }
 }

@@ -2,7 +2,7 @@
 =================
 
 
-已经支持所有微信5.x API，包括自定义菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口等。
+已经支持所有微信6 API，包括自定义菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口等。
 
 （同时由于易信的API目前与微信保持一致，此SDK也可以直接用于易信，如需使用易信的自定义菜单，通用接口改成易信的通讯地址即可）
 
@@ -23,9 +23,13 @@ Q&A：https://github.com/JeffreySu/WeiXinMPSDK/wiki/QA
 
 自定义菜单在线编辑工具：http://weixin.senparc.com/Menu
 
+在线消息测试工具：http://weixin.senparc.com/SimulateTool
+
 系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
 
-技术交流QQ群：1群：300313885（已满） 2群：293958349（已满）  3群：342319110（已满） 4群：372212092（已满） 5群：377815480
+微信技术交流社区：http://www.weiweihi.com/QA
+
+技术交流QQ群：1群：300313885 2群：293958349（已满）  3群：342319110（已满） 4群：372212092（已满） 5群：377815480（已满）6群：425898825
 
 业务联系QQ：498977166
 
@@ -76,18 +80,22 @@ public readonly string Token = "weixin";
 /// </summary>
 [HttpGet]
 [ActionName("Index")]
-public ActionResult Get(string signature, string timestamp, string nonce, string echostr)
+public ActionResult Get(PostModel postModel, string echostr)
 {
-    if (CheckSignature.Check(signature, timestamp, nonce, Token))
+    if (CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
     {
-        return Content(echostr);//返回随机字符串则表示验证通过
+        return Content(echostr); //返回随机字符串则表示验证通过
     }
     else
     {
-        return Content("failed:" + signature + "," + CheckSignature.GetSignature(timestamp, nonce, Token));
+        return Content("failed:" + postModel.Signature + "," + MP.CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, Token) + "。" +
+            "如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
     }
 }
 ```
+上述方法中的PostModel是一个包括了了Signature、Timestamp、Nonce（由微信服务器通过请求时的Url参数传入），以及AppId、Token、EncodingAESKey等一系列内部敏感的信息（需要自行传入）的实体类，同时也会在后面用到。
+
+
 下面这个Action（Post）用于接收来自微信服务器的Post请求（通常由用户发起），这里的if必不可少，之前的Get只提供微信后台保存Url时的验证，每次Post必须重新验证，否则很容易伪造请求。
 ```C#
 /// <summary>
@@ -95,9 +103,9 @@ public ActionResult Get(string signature, string timestamp, string nonce, string
 /// </summary>
 [HttpPost]
 [ActionName("Index")]
-public ActionResult Post(string signature, string timestamp, string nonce, string echostr)
+public ActionResult Post(PostModel postModel)
 {
-    if (!CheckSignature.Check(signature, timestamp, nonce, Token))
+    if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
     {
         return Content("参数错误！");
     }
@@ -111,22 +119,27 @@ MessageHandler的处理流程非常简单：
 ``` C#
 [HttpPost]
 [ActionName("Index")]
-public ActionResult Post(string signature, string timestamp, string nonce, string echostr)
+public ActionResult Post(PostModel postModel)
 {
-    if (!CheckSignature.Check(signature, timestamp, nonce, Token))
+    if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
     {
         return Content("参数错误！");
     }
+    
+    postModel.Token = Token;
+    postModel.EncodingAESKey = EncodingAESKey;//根据自己后台的设置保持一致
+    postModel.AppId = AppId;//根据自己后台的设置保持一致
 
-    var messageHandler = new CustomMessageHandler(Request.InputStream);//接收消息
+    var messageHandler = new CustomMessageHandler(Request.InputStream, postModel);//接收消息
     
     messageHandler.Execute();//执行微信处理过程
     
     //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
-    return new WeixinResult(messageHandler);//v0.8+ with MvcExtension
+    //return new WeixinResult(messageHandler);//v0.8+ with MvcExtension
+    return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0以后软件换行bug暂时添加的方法，平时用上面一个方法即可
 }
 ```
-整个消息的接收、处理、返回分别只需要一行代码。
+整个消息除了postModel的赋值以外，接收、处理、返回分别只需要一行代码。
 
 上述代码中的CustomMessageHandler是一个自定义的类，继承自Senparc.Weixin.MP.MessageHandler.cs。MessageHandler是一个抽象类，包含了执行各种不同请求类型的抽象方法（如文字，语音，位置、图片等等），我们只需要在自己创建的CustomMessageHandler中逐个实现这些方法就可以了。刚建好的CustomMessageHandler.cs如下：
 ```C#
@@ -139,8 +152,8 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 {
     public class CustomMessageHandler : MessageHandler<MessageContext>
     {
-        public CustomMessageHandler(Stream inputStream)
-            : base(inputStream)
+        public public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
+            : base(inputStream, postModel, maxRecordCount)
         {
 
         }

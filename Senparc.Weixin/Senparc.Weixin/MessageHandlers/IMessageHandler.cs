@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：RequestUtility.cs
+    文件功能描述：微信请求集中处理接口
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,6 +52,11 @@ namespace Senparc.Weixin.MessageHandlers
         /// 是否使用了MessageAgent代理
         /// </summary>
         bool UsedMessageAgent { get; set; }
+
+        /// <summary>
+        /// 忽略重复发送的同一条消息（通常因为微信服务器没有收到及时的响应）
+        /// </summary>
+        bool OmitRepeatedMessage { get; set; }
 
         /// <summary>
         /// 执行微信请求

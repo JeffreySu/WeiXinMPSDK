@@ -1,8 +1,22 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+ 
+    文件名：RefundResponseHandler.cs
+    文件功能描述：微信支付退款 响应处理
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Text;
 using System.Web;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
@@ -119,7 +133,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5Util.GetMD5(sb.ToString(), getCharset()).ToLower();
+            string sign = MD5UtilHelper.GetMD5(sb.ToString(), getCharset()).ToLower();
 
             //debug信息
             this.SetDebugInfo(sb.ToString() + " => sign:" + sign);
@@ -185,7 +199,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5Util.GetMD5(sb.ToString(), getCharset()).ToLower();
+            string sign = MD5UtilHelper.GetMD5(sb.ToString(), getCharset()).ToLower();
 
             //debug信息
             this.SetDebugInfo(sb.ToString() + " => sign:" + sign);

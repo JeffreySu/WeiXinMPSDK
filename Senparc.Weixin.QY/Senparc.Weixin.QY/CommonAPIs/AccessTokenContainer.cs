@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：AccessTokenContainer.cs
+    文件功能描述：通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
+    
+    
+    创建标识：Senparc - 20130313
+    
+    修改标识：Senparc - 20130313
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +26,10 @@ namespace Senparc.Weixin.QY.CommonAPIs
         public string CorpSecret { get; set; }
         public DateTime ExpireTime { get; set; }
         public AccessTokenResult AccessTokenResult { get; set; }
+        /// <summary>
+        /// 只针对这个CorpId的锁
+        /// </summary>
+        public object Lock = new object();
     }
 
     /// <summary>
@@ -80,11 +97,15 @@ namespace Senparc.Weixin.QY.CommonAPIs
             }
 
             var accessTokenBag = AccessTokenCollection[corpId];
-            if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
+            lock (accessTokenBag.Lock)
             {
-                //已过期，重新获取
-                accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.CorpId, accessTokenBag.CorpSecret);
-                accessTokenBag.ExpireTime = DateTime.Now.AddSeconds(7200);
+                if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
+                {
+                    //已过期，重新获取
+                    accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.CorpId,
+                        accessTokenBag.CorpSecret);
+                    accessTokenBag.ExpireTime = DateTime.Now.AddSeconds(7200);
+                }
             }
             return accessTokenBag.AccessTokenResult;
         }

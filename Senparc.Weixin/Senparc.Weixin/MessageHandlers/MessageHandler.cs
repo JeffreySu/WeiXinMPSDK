@@ -1,4 +1,17 @@
-﻿/*
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：MessageHandler.cs
+    文件功能描述：微信请求的集中处理方法
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+/*
  * V3.1
  */
 using System;
@@ -111,6 +124,47 @@ namespace Senparc.Weixin.MessageHandlers
         /// </summary>
         public bool UsedMessageAgent { get; set; }
 
+        /// <summary>
+        /// 忽略重复发送的同一条消息（通常因为微信服务器没有收到及时的响应）
+        /// </summary>
+        public bool OmitRepeatedMessage { get; set; }
+
+        private string _textResponseMessage = null;
+
+        /// <summary>
+        /// 文字类型返回消息
+        /// </summary>
+        public string TextResponseMessage
+        {
+            get
+            {
+                if (_textResponseMessage == null)
+                {
+                    var reqponseMessageDocument = ResponseDocument;
+                    return reqponseMessageDocument == null ? null : reqponseMessageDocument.ToString();
+                }
+                else
+                {
+                    return _textResponseMessage;
+                }
+            }
+            set
+            {
+                _textResponseMessage = value;
+            }
+        }
+
+        /// <summary>
+        /// 构造函数公用的初始化方法
+        /// </summary>
+        /// <param name="postDataDocument"></param>
+        /// <param name="maxRecordCount"></param>
+        /// <param name="postData"></param>
+        public void CommonInitialize(XDocument postDataDocument, int maxRecordCount, object postData)
+        {
+            WeixinContext.MaxRecordCount = maxRecordCount;
+            RequestDocument = Init(postDataDocument, postData);
+        }
 
         /// <summary>
         /// 
@@ -120,29 +174,43 @@ namespace Senparc.Weixin.MessageHandlers
         /// <param name="postData">需要传入到Init的参数</param>
         public MessageHandler(Stream inputStream, int maxRecordCount = 0, object postData = null)
         {
-            WeixinContext.MaxRecordCount = maxRecordCount;
-            inputStream.Seek(0, SeekOrigin.Begin);//强制调整指针位置
-            using (XmlReader xr = XmlReader.Create(inputStream))
-            {
-                var postDataDocument = XDocument.Load(xr);
-                RequestDocument = Init(postDataDocument, postData);
-            }
+            var postDataDocument = XmlUtility.XmlUtility.Convert(inputStream);
+
+            CommonInitialize(postDataDocument, maxRecordCount, postData);
         }
 
         /// <summary>
-        /// 
+        /// 使用postDataDocument的构造函数
         /// </summary>
         /// <param name="postDataDocument"></param>
         /// <param name="maxRecordCount"></param>
         /// <param name="postData">需要传入到Init的参数</param>
         public MessageHandler(XDocument postDataDocument, int maxRecordCount = 0, object postData = null)
         {
-            WeixinContext.MaxRecordCount = maxRecordCount;
-            RequestDocument = Init(postDataDocument, postData);
+            CommonInitialize(postDataDocument, maxRecordCount, postData);
         }
 
         /// <summary>
-        /// 初始化，获取RequestDocument
+        /// 使用requestMessageBase的构造函数
+        /// </summary>
+        /// <param name="postDataDocument"></param>
+        /// <param name="maxRecordCount"></param>
+        /// <param name="postData">需要传入到Init的参数</param>
+        public MessageHandler(RequestMessageBase requestMessageBase, int maxRecordCount = 0, object postData = null)
+        {
+            ////将requestMessageBase生成XML格式。
+            //var xmlStr = XmlUtility.XmlUtility.Serializer(requestMessageBase);
+            //var postDataDocument = XDocument.Parse(xmlStr);
+
+            //CommonInitialize(postDataDocument, maxRecordCount, postData);
+
+            //此方法不执行任何方法，提供给具体的类库进行测试使用，例如Senparc.Weixin.MP
+        }
+
+
+        /// <summary>
+        /// 初始化，获取RequestDocument。
+        /// Init中需要对上下文添加当前消息（如果使用上下文）
         /// </summary>
         /// <param name="requestDocument"></param>
         public abstract XDocument Init(XDocument requestDocument, object postData = null);

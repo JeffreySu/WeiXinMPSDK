@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：CustomMessageContext.cs
+    文件功能描述：微信消息上下文
+    
+    
+    创建标识：Senparc - 20150312
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -15,6 +25,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             base.MessageContextRemoved += CustomMessageContext_MessageContextRemoved;
         }
 
+        /// <summary>
+        /// 当上下文过期，被移除时触发的时间
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void CustomMessageContext_MessageContextRemoved(object sender, Senparc.Weixin.Context.WeixinContextRemovedEventArgs<IRequestMessageBase,IResponseMessageBase> e)
         {
             /* 注意，这个事件不是实时触发的（当然你也可以专门写一个线程监控）

@@ -244,6 +244,84 @@ namespace Senparc.Weixin.MP.Test
 </SendLocationInfo>
 </xml>";
 
+        private string xmlEvent_MassSendJobFinish = @"<xml>
+<ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+<FromUserName><![CDATA[oR5Gjjl_eiZoUpGozMo7dbBJ362A]]></FromUserName>
+<CreateTime>1394524295</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[MASSSENDJOBFINISH]]></Event>
+<MsgID>1988</MsgID>
+<Status><![CDATA[sendsuccess]]></Status>
+<TotalCount>100</TotalCount>
+<FilterCount>80</FilterCount>
+<SentCount>75</SentCount>
+<ErrorCount>5</ErrorCount>
+</xml>";
+
+        private string xmlEvent_Card_Pass_Check = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[card_pass_check]]></Event> //不通过为card_not_pass_check
+<CardId><![CDATA[cardid]]></CardId>
+</xml>";
+
+           private string xmlEvent_Card_Not_Pass_Check=@"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[card_not_pass_check]]></Event> //不通过为card_not_pass_check
+<CardId><![CDATA[cardid]]></CardId>
+</xml>";
+
+        private string xmlEvent_User_Get_Card = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<FriendUserName><![CDATA[FriendUser]]></FriendUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[user_get_card]]></Event>
+<CardId><![CDATA[cardid]]></CardId>
+<IsGiveByFriend>1</IsGiveByFriend>
+<UserCardCode><![CDATA[12312312]]></UserCardCode>
+</xml>";
+
+        private string xmlEvent_User_Del_Card = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[user_del_card]]></Event>
+<CardId><![CDATA[cardid]]></CardId>
+<UserCardCode><![CDATA[12312312]]></UserCardCode>
+</xml>";
+
+        private string xmlEvent_Kf_Create_Session = @"<xml>
+ <ToUserName><![CDATA[touser]]></ToUserName>
+ <FromUserName><![CDATA[fromuser]]></FromUserName>
+ <CreateTime>1399197672</CreateTime>
+ <MsgType><![CDATA[event]]></MsgType>
+ <Event><![CDATA[kf_create_session]]></Event>
+ <KfAccount><![CDATA[test1@test]]></KfAccount>
+ </xml>";
+
+        private string xmlEvent_Kf_Close_Session = @"<xml>
+ <ToUserName><![CDATA[touser]]></ToUserName>
+ <FromUserName><![CDATA[fromuser]]></FromUserName>
+ <CreateTime>1399197672</CreateTime>
+ <MsgType><![CDATA[event]]></MsgType>
+ <Event><![CDATA[kf_close_session]]></Event>
+ <KfAccount><![CDATA[test1@test]]></KfAccount>
+ </xml>";
+
+        private string xmlEvent_Kf_Switch_Session = @"<xml>
+ <ToUserName><![CDATA[touser]]></ToUserName>
+ <FromUserName><![CDATA[fromuser]]></FromUserName>
+ <CreateTime>1399197672</CreateTime>
+ <MsgType><![CDATA[event]]></MsgType>
+ <Event><![CDATA[kf_switch_session]]></Event>
+ <FromKfAccount><![CDATA[test1@test]]></FromKfAccount>
+ <ToKfAccount><![CDATA[test2@test]]></ToKfAccount>
+ </xml>";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -433,13 +511,99 @@ namespace Senparc.Weixin.MP.Test
             }
 
             {
-                //Event-Scancode_Location_Select
+                //Event-Location_Select
                 var doc = XDocument.Parse(xmlEvent_Location_Select);
                 var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Location_Select;
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.location_select, result.Event);
                 Assert.IsNotNull(result.SendLocationInfo.Location_X);
+            }
+
+            {
+                //Event-MassSendJobFinish
+                var doc = XDocument.Parse(xmlEvent_MassSendJobFinish);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_MassSendJobFinish;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
+                Assert.AreEqual(Event.MASSSENDJOBFINISH, result.Event);
+                Assert.IsNotNull(result.MsgID);
+                Assert.AreEqual(1988, result.MsgID);
+            }
+
+            {
+                //Event-Card_Pass_Check
+                var doc = XDocument.Parse(xmlEvent_Card_Pass_Check);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Card_Pass_Check;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.card_pass_check, result.Event);
+                Assert.IsNotNull(result.CardId);
+                Assert.AreEqual("cardid", result.CardId);
+            }
+
+            {
+                //Event-Card_Not_Pass_Check
+                var doc = XDocument.Parse(xmlEvent_Card_Not_Pass_Check);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Card_Not_Pass_Check;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.card_not_pass_check, result.Event);
+                Assert.IsNotNull(result.CardId);
+                Assert.AreEqual("cardid", result.CardId);
+            }
+
+            {
+                //Event-User_Get_Card
+                var doc = XDocument.Parse(xmlEvent_User_Get_Card);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_User_Get_Card;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.user_get_card, result.Event);
+                Assert.IsNotNull(result.CardId);
+                Assert.AreEqual(1, result.IsGiveByFriend);
+            }
+
+            {
+                //Event-User_Del_Card
+                var doc = XDocument.Parse(xmlEvent_User_Del_Card);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_User_Del_Card;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.user_del_card, result.Event);
+                Assert.IsNotNull(result.CardId);
+                Assert.AreEqual("12312312", result.UserCardCode);
+            }
+
+            {
+                //Event-Kf_Create_Session
+                var doc = XDocument.Parse(xmlEvent_Kf_Create_Session);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Kf_Create_Session;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("touser", result.ToUserName);
+                Assert.AreEqual(Event.kf_create_session, result.Event);
+                Assert.AreEqual("test1@test", result.KfAccount);
+            }
+
+            {
+                //Event-Kf_Close_Session
+                var doc = XDocument.Parse(xmlEvent_Kf_Close_Session);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Kf_Close_Session;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("touser", result.ToUserName);
+                Assert.AreEqual(Event.kf_close_session, result.Event);
+                Assert.AreEqual("test1@test", result.KfAccount);
+            }
+
+            {
+                //Event-Kf_Switch_Session
+                var doc = XDocument.Parse(xmlEvent_Kf_Switch_Session);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Kf_Switch_Session;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("touser", result.ToUserName);
+                Assert.AreEqual(Event.kf_switch_session, result.Event);
+                Assert.AreEqual("test1@test", result.FromKfAccount);
+                Assert.AreEqual("test2@test", result.ToKfAccount);
             }
         }
     }

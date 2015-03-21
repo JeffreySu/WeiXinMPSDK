@@ -8,7 +8,7 @@ using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs
+namespace Senparc.Weixin.QY.AdvancedAPIs.Mass
 {
     /// <summary>
     /// 发送消息返回结果

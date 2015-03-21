@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+  
+    文件名：RequestMessageFactory.cs
+    文件功能描述：获取XDocument转换后的IRequestMessageBase实例
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -88,6 +101,9 @@ namespace Senparc.Weixin.MP
                             case "MASSSENDJOBFINISH":
                                 requestMessage = new RequestMessageEvent_MassSendJobFinish();
                                 break;
+                            case "TEMPLATESENDJOBFINISH"://模板信息
+                                requestMessage = new RequestMessageEvent_TemplateSendJobFinish();
+                                break;
                             case "SCANCODE_PUSH"://扫码推事件(scancode_push)
                                 requestMessage = new RequestMessageEvent_Scancode_Push();
                                 break;
@@ -105,6 +121,27 @@ namespace Senparc.Weixin.MP
                                 break;
                             case "LOCATION_SELECT"://弹出地理位置选择器（location_select）
                                 requestMessage = new RequestMessageEvent_Location_Select();
+                                break;
+                            case "CARD_PASS_CHECK"://卡券通过审核
+                                requestMessage = new RequestMessageEvent_Card_Pass_Check();
+                                break;
+                            case "CARD_NOT_PASS_CHECK"://卡券未通过审核
+                                requestMessage = new RequestMessageEvent_Card_Not_Pass_Check();
+                                break;
+                            case "USER_GET_CARD"://领取卡券
+                                requestMessage = new RequestMessageEvent_User_Get_Card();
+                                break;
+                            case "USER_DEL_CARD"://删除卡券
+                                requestMessage = new RequestMessageEvent_User_Del_Card();
+                                break;
+                            case "KF_CREATE_SESSION"://多客服接入会话
+                                requestMessage = new RequestMessageEvent_Kf_Create_Session();
+                                break;
+                            case "KF_CLOSE_SESSION"://多客服关闭会话
+                                requestMessage = new RequestMessageEvent_Kf_Close_Session();
+                                break;
+                            case "KF_SWITCH_SESSION"://多客服转接会话
+                                requestMessage = new RequestMessageEvent_Kf_Switch_Session();
                                 break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();

@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Senparc.Weixin.MP.Test</RootNamespace>
     <AssemblyName>Senparc.Weixin.MP.Test</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -66,13 +66,19 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\Analysis\AnalysisTest.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardAPITest.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomServiceTest.cs" />
     <Compile Include="AdvancedAPIs\Custom\CustomTest.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageTest.cs" />
     <Compile Include="AdvancedAPIs\Groups\CustomTest.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaTest.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthTest.cs" />
+    <Compile Include="AdvancedAPIs\Semantic\SemanticTest.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateTest.cs" />
+    <Compile Include="CommonAPIs\JsApiTicketContainerTest.cs" />
+    <Compile Include="Entities\Request\PostModelTest.cs" />
+    <Compile Include="MessageHandlers\MessageHandlers_OmitRepeatMessageTest.cs" />
     <Compile Include="TenPay\TenPayRightsTest.cs" />
     <Compile Include="AdvancedAPIs\User\CustomTest.cs" />
     <Compile Include="TenPay\TenPayTest.cs" />
@@ -120,6 +126,7 @@
   <ItemGroup>
     <Compile Include="CommonAPIs\CommonApiTest.Menu.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

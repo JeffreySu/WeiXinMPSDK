@@ -1,4 +1,14 @@
-﻿using System.Collections.Generic;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：LocationService.cs
+    文件功能描述：地理位置信息处理
+    
+    
+    创建标识：Senparc - 20150312
+----------------------------------------------------------------*/
+
+using System.Collections.Generic;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.GoogleMap;
 using Senparc.Weixin.MP.Helpers;

@@ -1,11 +1,24 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：Enums.cs
+    文件功能描述：枚举类型
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace Senparc.Weixin
 {
-   
+
 
     /// <summary>
     /// 企业接收消息类型
@@ -118,5 +131,24 @@ namespace Senparc.Weixin
         /// 英文
         /// </summary>
         en
+    }
+
+    /// <summary>
+    /// AppStore状态
+    /// </summary>
+    public enum AppStoreState
+    {
+        /// <summary>
+        /// 无状态
+        /// </summary>
+        None=1,
+        /// <summary>
+        /// 已进入应用状态
+        /// </summary>
+        Enter=2,
+        /// <summary>
+        /// 退出App状态（临时传输状态，退出后即为None）
+        /// </summary>
+        Exit=4
     }
 }

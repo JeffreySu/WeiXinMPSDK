@@ -52,11 +52,15 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\App\AppTest.cs" />
     <Compile Include="AdvancedAPIs\MailList\Department\DepartmentTest.cs" />
     <Compile Include="AdvancedAPIs\MailList\Member\MemberTest.cs" />
     <Compile Include="AdvancedAPIs\MailList\Tag\TagTest.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaTest.cs" />
+    <Compile Include="CommonApis\AccessTokenContainerTest.cs" />
     <Compile Include="CommonApis\CommonApiTest.cs" />
+    <Compile Include="CommonApis\JsApiTicketContainerTest.cs" />
+    <Compile Include="MessageHandlers\QyMessageHandlers_OmitRepeatMessageTest.cs" />
     <Compile Include="MessageHandlers\QyMessageHandlerTest.cs" />
     <Compile Include="RequestMessageFactoryTest.cs" />
     <Compile Include="SignatureTest.cs" />

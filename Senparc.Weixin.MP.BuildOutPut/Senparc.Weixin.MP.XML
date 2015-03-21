@@ -7042,10 +7042,13 @@
             <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
             <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
         </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.#ctor(Senparc.Weixin.MP.Entities.IRequestMessageBase,Senparc.Weixin.MP.Entities.Request.PostModel,System.Int32,Senparc.Weixin.MP.AppStore.DeveloperInfo)">
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.#ctor(Senparc.Weixin.MP.Entities.RequestMessageBase,Senparc.Weixin.MP.Entities.Request.PostModel,System.Int32,Senparc.Weixin.MP.AppStore.DeveloperInfo)">
             <summary>
             直接传入IRequestMessageBase，For UnitTest
             </summary>
+            <param name="postModel">PostModel</param>
+            <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
+            <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
             <param name="requestMessageBase"></param>
         </member>
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.CreateResponseMessage``1">

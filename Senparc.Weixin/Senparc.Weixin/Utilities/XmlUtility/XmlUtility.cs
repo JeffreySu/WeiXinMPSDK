@@ -55,6 +55,7 @@ namespace Senparc.Weixin.XmlUtility
 
         /// <summary>
         /// 序列化
+        /// 说明：此方法序列化复杂类，如果没有声明XmlInclude等特性，可能会引发“使用 XmlInclude 或 SoapInclude 特性静态指定非已知的类型。”的错误。
         /// </summary>
         /// <param name="type">类型</param>
         /// <param name="obj">对象</param>

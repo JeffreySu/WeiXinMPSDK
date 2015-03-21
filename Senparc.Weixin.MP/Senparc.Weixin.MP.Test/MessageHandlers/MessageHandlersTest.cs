@@ -18,6 +18,12 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
         }
 
+        public CustomerMessageHandlers(RequestMessageBase requestMessage, PostModel postModel = null, int maxRecordCount = 0)
+            : base(requestMessage, postModel, maxRecordCount)
+        {
+        }
+
+
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
             var responseMessage =
@@ -334,6 +340,30 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
             Assert.AreEqual("您发送的消息类型暂未被识别。", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
+        }
+
+        /// <summary>
+        /// 专为测试用的构造函数测试
+        /// </summary>
+        [TestMethod]
+        public void TestConstructorTest()
+        {
+            var requestMessage = new RequestMessageText()
+            {
+                Content="Hi",
+                CreateTime = DateTime.Now,
+                FromUserName="FromeUserName",
+                ToUserName = "ToUserName",
+                MsgId=123,
+            };
+            var messageHandler = new CustomerMessageHandlers(requestMessage);
+            messageHandler.Execute();
+
+            //TestMessageHandlers中没有处理坐标信息的重写方法，将返回默认消息
+
+
+            Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
+            Assert.AreEqual("文字信息", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
         }
     }
 }

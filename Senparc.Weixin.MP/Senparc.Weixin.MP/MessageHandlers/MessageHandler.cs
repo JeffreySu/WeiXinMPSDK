@@ -197,10 +197,13 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="maxRecordCount">单个用户上下文消息列表储存的最大长度</param>
         /// <param name="developerInfo">微微嗨开发者信息，如果不为空，则优先请求云端应用商店的资源</param>
         /// <param name="requestMessageBase"></param>
-        public MessageHandler(IRequestMessageBase requestMessageBase, PostModel postModel = null, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
+        public MessageHandler(RequestMessageBase requestMessageBase, PostModel postModel = null, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
             : base(requestMessageBase, maxRecordCount, postModel)
         {
             DeveloperInfo = developerInfo;
+
+            var postDataDocument = requestMessageBase.ConvertEntityToXml();
+            base.CommonInitialize(postDataDocument,maxRecordCount,postModel);
         }
 
 

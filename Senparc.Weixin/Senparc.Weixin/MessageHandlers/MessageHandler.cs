@@ -160,7 +160,7 @@ namespace Senparc.Weixin.MessageHandlers
         /// <param name="postDataDocument"></param>
         /// <param name="maxRecordCount"></param>
         /// <param name="postData"></param>
-        private void CommonInitialize(XDocument postDataDocument, int maxRecordCount, object postData)
+        public void CommonInitialize(XDocument postDataDocument, int maxRecordCount, object postData)
         {
             WeixinContext.MaxRecordCount = maxRecordCount;
             RequestDocument = Init(postDataDocument, postData);
@@ -196,13 +196,15 @@ namespace Senparc.Weixin.MessageHandlers
         /// <param name="postDataDocument"></param>
         /// <param name="maxRecordCount"></param>
         /// <param name="postData">需要传入到Init的参数</param>
-        public MessageHandler(IRequestMessageBase requestMessageBase, int maxRecordCount = 0, object postData = null)
+        public MessageHandler(RequestMessageBase requestMessageBase, int maxRecordCount = 0, object postData = null)
         {
-            //将requestMessageBase生成XML格式。
-            var xmlStr = XmlUtility.XmlUtility.Serializer(requestMessageBase);
-            var postDataDocument = XDocument.Parse(xmlStr);
+            ////将requestMessageBase生成XML格式。
+            //var xmlStr = XmlUtility.XmlUtility.Serializer(requestMessageBase);
+            //var postDataDocument = XDocument.Parse(xmlStr);
 
-            CommonInitialize(postDataDocument, maxRecordCount, postData);
+            //CommonInitialize(postDataDocument, maxRecordCount, postData);
+
+            //此方法不执行任何方法，提供给具体的类库进行测试使用，例如Senparc.Weixin.MP
         }
 
 

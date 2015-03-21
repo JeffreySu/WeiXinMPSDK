@@ -48,7 +48,9 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
             var result = MailListApi.GetDepartmentList(accessToken, 4);
+            var result1 = MailListApi.GetDepartmentList(accessToken);
             Assert.IsNotNull(result);
+            Assert.IsNotNull(result1);
             Assert.IsTrue(result.errcode == ReturnCode.请求成功);
         }
 

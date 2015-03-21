@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+  
+    文件名：ApiConnection.cs
+    文件功能描述：API链接
+    
+    
+    创建标识：Senparc - 20150319
+----------------------------------------------------------------*/
+
+using System;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP;
 

@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,11 +22,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     public class OAuth2Controller : Controller
     {
         //下面换成账号对应的信息，也可以放入web.config等地方方便配置和更换
-        private string appId = "wxaa572be2f86423fc";
-        private string secret = "21a4cdca12444e5c79e4445cb184b38c";
+        private string appId = ConfigurationManager.AppSettings["TenPayV3_AppId"];
+        private string secret = ConfigurationManager.AppSettings["TenPayV3_AppSecret"];
 
         public ActionResult Index()
         {
+
             //此页面引导用户点击授权
             ViewData["UrlUserInfo"] = OAuthApi.GetAuthorizeUrl(appId, "http://weixin.senparc.com/oauth2/UserInfoCallback", "JeffreySu", OAuthScope.snsapi_userinfo);
             ViewData["UrlBase"] = OAuthApi.GetAuthorizeUrl(appId, "http://weixin.senparc.com/oauth2/BaseCallback", "JeffreySu", OAuthScope.snsapi_base);

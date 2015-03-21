@@ -1,4 +1,14 @@
-﻿namespace Senparc.Weixin.MP.AppStore
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+  
+    文件名：Enums.cs
+    文件功能描述：返回结果枚举类型
+    
+    
+    创建标识：Senparc - 20150319
+----------------------------------------------------------------*/
+
+namespace Senparc.Weixin.MP.AppStore
 {
     /// <summary>
     /// P2P返回结果类型

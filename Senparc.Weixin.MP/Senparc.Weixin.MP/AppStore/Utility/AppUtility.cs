@@ -1,4 +1,14 @@
-﻿using Senparc.Weixin.MP.Entities;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+  
+    文件名：AppUtility.cs
+    文件功能描述：获取RequestMessage中ToUserName中的信息
+    
+    
+    创建标识：Senparc - 20150319
+----------------------------------------------------------------*/
+
+using Senparc.Weixin.MP.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

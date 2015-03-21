@@ -12,6 +12,9 @@
  
     修改标识：Senparc - 20150313
     修改描述：开放代理请求超时时间
+  
+    修改标识：Senparc - 20150319
+    修改描述: 去除无效字段（tel、gender）
 ----------------------------------------------------------------*/
 
 /*
@@ -107,7 +110,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
 
             if (id.HasValue)
             {
-                url = url + string.Format("&id={0}", id.Value);
+                url += string.Format("&id={0}", id.Value);
             }
 
             return CommonJsonSend.Send<GetDepartmentListResult>(null, url, null, CommonJsonSendType.GET);

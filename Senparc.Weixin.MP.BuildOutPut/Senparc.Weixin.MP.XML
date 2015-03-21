@@ -2561,22 +2561,22 @@
             消息发送后的状态，SEND_SUCCESS表示发送成功
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CreateGroupResult">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Groups.CreateGroupResult">
             <summary>
             创建分组返回结果
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GetGroupIdResult">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Groups.GetGroupIdResult">
             <summary>
             获取用户分组ID返回结果
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsApi">
             <summary>
             用户组接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.Create(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsApi.Create(System.String,System.String,System.Int32)">
             <summary>
             创建分组
             </summary>
@@ -2585,14 +2585,14 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.Get(System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsApi.Get(System.String)">
             <summary>
             发送文本信息
             </summary>
             <param name="accessToken"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.GetId(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsApi.GetId(System.String,System.String,System.Int32)">
             <summary>
             获取用户分组
             </summary>
@@ -2601,7 +2601,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.Update(System.String,System.Int32,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsApi.Update(System.String,System.Int32,System.String,System.Int32)">
             <summary>
             修改分组名
             </summary>
@@ -2611,7 +2611,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.MemberUpdate(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsApi.MemberUpdate(System.String,System.String,System.Int32,System.Int32)">
             <summary>
             移动用户分组
             </summary>
@@ -2621,7 +2621,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.GroupsJson_Group.count">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsJson_Group.count">
             <summary>
             此属性在CreateGroupResult的Json数据中，创建结果中始终为0
             </summary>
@@ -2719,7 +2719,7 @@
             <param name="grantType"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.GetUserInfo(System.String,System.String,Senparc.Weixin.MP.LanguageType)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.GetUserInfo(System.String,System.String,Senparc.Weixin.Language)">
             <summary>
             获取用户基本信息
             </summary>
@@ -4119,9 +4119,9 @@
             API调用类基类
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AppStore.Api.MemberApi.SendMessage(System.Int32,System.String)">
+        <member name="M:Senparc.Weixin.MP.AppStore.Api.MemberApi.GetMember(System.Int32,System.String)">
             <summary>
-            发送图文消息
+            获取用户信息
             </summary>
             <returns></returns>
         </member>
@@ -6912,26 +6912,6 @@
         <member name="F:Senparc.Weixin.MP.Card_UrlNameType.URL_NAME_TYPE_VEHICLE_INFORMATION">
             <summary>
             车辆信息
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.LanguageType">
-            <summary>
-            语言类型
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.MP.LanguageType.zh_CN">
-            <summary>
-            简体中文
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.MP.LanguageType.zh_TW">
-            <summary>
-            繁体中文
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.MP.LanguageType.en">
-            <summary>
-            英语
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Helpers.BaiduMapHelper">

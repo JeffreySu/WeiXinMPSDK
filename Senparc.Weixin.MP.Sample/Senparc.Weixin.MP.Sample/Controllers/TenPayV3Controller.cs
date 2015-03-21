@@ -149,28 +149,45 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public ActionResult PayNotifyUrl()
         {
             ResponseHandler resHandler = new ResponseHandler(null);
-            string result_code = resHandler.GetParameter("result_code");
-            string appid = resHandler.GetParameter("appid");
-            string mch_id = resHandler.GetParameter("mch_id");
-            string device_info = resHandler.GetParameter("device_info");
-            string nonce_str = resHandler.GetParameter("nonce_str");
-            string sign = resHandler.GetParameter("sign");
-            string err_code = resHandler.GetParameter("err_code");
-            string err_code_des = resHandler.GetParameter("err_code_des");
-            string openid = resHandler.GetParameter("openid");
-            string is_subscribe = resHandler.GetParameter("is_subscribe");
-            string trade_type = resHandler.GetParameter("trade_type");
-            string bank_type = resHandler.GetParameter("bank_type");
-            string total_fee = resHandler.GetParameter("total_fee");
-            string coupon_fee = resHandler.GetParameter("coupon_fee");
-            string fee_type = resHandler.GetParameter("fee_type");
-            string transaction_id = resHandler.GetParameter("transaction_id");
-            string out_trade_no = resHandler.GetParameter("out_trade_no");
-            string attach = resHandler.GetParameter("attach");
-            string time_end = resHandler.GetParameter("time_end");
+            //string result_code = resHandler.GetParameter("result_code");
+            //string appid = resHandler.GetParameter("appid");
+            //string mch_id = resHandler.GetParameter("mch_id");
+            //string device_info = resHandler.GetParameter("device_info");
+            //string nonce_str = resHandler.GetParameter("nonce_str");
+            //string sign = resHandler.GetParameter("sign");
+            //string err_code = resHandler.GetParameter("err_code");
+            //string err_code_des = resHandler.GetParameter("err_code_des");
+            //string openid = resHandler.GetParameter("openid");
+            //string is_subscribe = resHandler.GetParameter("is_subscribe");
+            //string trade_type = resHandler.GetParameter("trade_type");
+            //string bank_type = resHandler.GetParameter("bank_type");
+            //string total_fee = resHandler.GetParameter("total_fee");
+            //string coupon_fee = resHandler.GetParameter("coupon_fee");
+            //string fee_type = resHandler.GetParameter("fee_type");
+            //string transaction_id = resHandler.GetParameter("transaction_id");
+            //string out_trade_no = resHandler.GetParameter("out_trade_no");
+            //string attach = resHandler.GetParameter("attach");
+            //string time_end = resHandler.GetParameter("time_end");
+
+            string res = null;
+            
+            resHandler.SetKey(TenPayV3Info.Key);
+            //验证请求是否从微信发过来（安全）
+            if (resHandler.IsTenpaySign())
+            {
+                res = "success";
+
+                //正确的订单处理
+            }
+            else
+            {
+                res = "wrong";
+
+                //错误的订单处理
+            }
 
             var fileStream = System.IO.File.OpenWrite(Server.MapPath("~/1.txt"));
-            fileStream.Write(Encoding.Default.GetBytes(result_code), 0, Encoding.Default.GetByteCount(result_code));
+            fileStream.Write(Encoding.Default.GetBytes(res), 0, Encoding.Default.GetByteCount(res));
             fileStream.Close();
             return Content("success");
         }

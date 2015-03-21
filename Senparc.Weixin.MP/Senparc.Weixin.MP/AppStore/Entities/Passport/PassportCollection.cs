@@ -1,4 +1,14 @@
-﻿using System.Collections.Generic;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+  
+    文件名：PassportCollection.cs
+    文件功能描述：同时管理多个应用的Passport的容器
+    
+    
+    创建标识：Senparc - 20150319
+----------------------------------------------------------------*/
+
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AppStore
 {

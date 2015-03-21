@@ -2757,6 +2757,7 @@
             作者注：其实这个格式称不上JSON，只是个单纯数组。
             </summary>
         </member>
+        <!-- 对于成员“P:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthUserInfo.unionid”忽略有格式错误的 XML 注释 -->
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.QrCode.CreateQrCodeResult">
             <summary>
             二维码创建返回结果

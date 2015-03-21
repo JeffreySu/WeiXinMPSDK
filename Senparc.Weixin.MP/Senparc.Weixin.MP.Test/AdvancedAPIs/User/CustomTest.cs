@@ -12,7 +12,7 @@ using Senparc.Weixin.MP.Test.CommonAPIs;
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
     //已经通过测试
-    //[TestClass]
+    [TestClass]
     public class UserTest : CommonApiTest
     {
 
@@ -20,6 +20,9 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         public void InfoTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
+
+            //获取OpenId
+            getTestOpenId(true);
 
             var result = UserApi.Info(accessToken, _testOpenId);
             Assert.IsNotNull(result);

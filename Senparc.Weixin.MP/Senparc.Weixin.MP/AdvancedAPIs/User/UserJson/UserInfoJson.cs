@@ -9,6 +9,12 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+ 
+    修改标识：jsionr - 20150321
+    修改描述：添加remark属性
+
+    修改标识：Senparc - 20150321
+    修改描述：添加unionid属性
 ----------------------------------------------------------------*/
 
 using System;
@@ -33,6 +39,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
         public string country { get; set; }
         public string headimgurl { get; set; }
         public long subscribe_time { get; set; }
+        public string unionid { get; set; }
         public string remark { get; set; }
     }
 }

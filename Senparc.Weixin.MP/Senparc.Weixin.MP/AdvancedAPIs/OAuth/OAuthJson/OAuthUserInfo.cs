@@ -41,7 +41,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
         /// 作者注：其实这个格式称不上JSON，只是个单纯数组。
         /// </summary>
         public string[] privilege { get; set; }
-        //绑定开放平台后会有这个字段
+        /// <summary>
+        /// 只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。详见：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&lang=zh_CN
+        /// </summary>
         public string unionid { get; set; }
     }
 }

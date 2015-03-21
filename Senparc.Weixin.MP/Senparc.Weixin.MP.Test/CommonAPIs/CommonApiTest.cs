@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP.AdvancedAPIs.User;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 
@@ -12,7 +14,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
     public partial class CommonApiTest
     {
         protected string _appId = "wx669ef95216eef885"; //换成你的信息
-        protected string _appSecret = ""; //换成你的信息
+        protected string _appSecret = "0a9f8daa099d06d488ff900eb0cf0f43"; //换成你的信息
 
 
         /* 由于获取accessToken有次数限制，为了节约请求，
@@ -22,6 +24,22 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         private string _access_token = null;
 
         protected string _testOpenId = "oIb08txj1En8hGXzHRvAjf-3X9Oc";//换成实际关注者的OpenId
+
+        /// <summary>
+        /// 自动获取Openid
+        /// </summary>
+        /// <param name="getNew">是否从服务器上强制获取一个</param>
+        /// <returns></returns>
+        protected string getTestOpenId(bool getNew)
+        {
+            if (getNew || string.IsNullOrEmpty(_testOpenId))
+            {
+                var accessToken = AccessTokenContainer.GetToken(_appId);
+                var openIdResult = UserApi.Get(accessToken, null);
+                _testOpenId = openIdResult.data.openid.First();
+            }
+            return _testOpenId;
+        }
 
         public CommonApiTest()
         {

@@ -33,5 +33,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
         public string country { get; set; }
         public string headimgurl { get; set; }
         public long subscribe_time { get; set; }
+        public string remark { get; set; }
     }
 }

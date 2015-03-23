@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.MP.AdvancedAPIs.Media;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.HttpUtility;
 
@@ -46,7 +47,7 @@ namespace Senparc.Weixin.MP.Test.HttpUtility
             Console.WriteLine(actualResult);
 
             //比较强类型示例的结果
-            UploadMediaFileResult resultEntity = Post.GetResult<UploadMediaFileResult>(actualResult);
+            UploadTemporaryMediaFileResult resultEntity = Post.GetResult<UploadTemporaryMediaFileResult>(actualResult);
             Assert.IsNotNull(resultEntity);
             Assert.AreEqual(UploadMediaFileType.image, resultEntity.type);
             Assert.AreEqual("MEDIA_ID", resultEntity.media_id);

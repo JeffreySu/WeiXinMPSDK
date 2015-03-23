@@ -11,19 +11,19 @@ using Senparc.Weixin.MP.Test.CommonAPIs;
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
     //已测试通过
-    //[TestClass]
+    [TestClass]
     public class MediaTest : CommonApiTest
     {
         private string mediaId = null;
 
         [TestMethod]
-        public void UploadTest()
+        public void UploadTemporaryMediaTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
             var type = UploadMediaFileType.image;
-            var file = @"E:\testpic.jpg";
-            var result = MediaApi.Upload(accessToken, type, file);
+            var file = @"E:\1.jpg";
+            var result = MediaApi.UploadTemporaryMedia(accessToken, type, file);
 
             Assert.AreEqual(type, result.type);
             Assert.IsNotNull(result.media_id);
@@ -35,7 +35,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            UploadTest();//上传
+            UploadTemporaryMediaTest();//上传
 
             using (MemoryStream ms = new MemoryStream())
             {
@@ -58,6 +58,20 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
                 Assert.IsTrue(File.Exists(fileName));
             }
+        }
+
+        [TestMethod]
+        public void UploadForeverMediaTest()
+        {
+            var accessToken = AccessTokenContainer.GetToken(_appId);
+
+            var type = UploadMediaFileType.image;
+            var file = @"E:\1.jpg";
+            var result = MediaApi.UploadForeverMedia(accessToken, type, file);
+
+            Assert.AreEqual(type, result.type);
+            Assert.IsNotNull(result.media_id);
+            mediaId = result.media_id;
         }
     }
 }

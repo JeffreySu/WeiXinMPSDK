@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20150323
+    修改描述：添加OuterId字段
 ----------------------------------------------------------------*/
 
 using System;
@@ -42,5 +45,10 @@ namespace Senparc.Weixin.MP.Entities
         /// code 序列号。自定义code 及非自定义code的卡券被领取后都支持事件推送。
         /// </summary>
         public string UserCardCode { get; set; }
+
+        /// <summary>
+        /// 领取场景值，用于领取渠道数据统计。可在生成二维码接口及添加JS API 接口中自定义该字段的整型值。
+        /// </summary>
+        public int OuterId { get; set; }
     }
 }

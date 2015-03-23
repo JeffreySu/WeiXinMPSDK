@@ -94,7 +94,6 @@
     <Compile Include="AdvancedAPIs\Groups\GroupsApi.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson\GroupsJson.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaApi.cs" />
-    <Compile Include="AdvancedAPIs\Media\UploadResultJson.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthApi.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthUserInfo.cs" />
@@ -226,7 +225,7 @@
     <Compile Include="Entities\JsonResult\AccessTokenResult.cs" />
     <Compile Include="Entities\JsonResult\GetMenuResultFull.cs" />
     <Compile Include="Entities\JsonResult\GetMenuResult.cs" />
-    <Compile Include="Entities\JsonResult\UploadMediaFileResult.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaJson\UploadMediaFileResult.cs" />
     <Compile Include="Entities\JsonResult\WeixinUserInfoResult.cs" />
     <Compile Include="Entities\JsonResult\WxJsonResult.cs" />
     <Compile Include="Entities\Menu\BaseButton.cs" />

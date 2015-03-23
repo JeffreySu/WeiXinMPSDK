@@ -652,5 +652,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 
             return CommonJsonSend.Send<StoreGetResultJson>(null, urlFormat, data, timeOut: timeOut);
         }
+
+        /// <summary>
+        /// 上传LOGO
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="file">文件路径</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static Card_UploadLogoResultJson UploadLogo(string accessToken, string file, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}", accessToken);
+            var fileDictionary = new Dictionary<string, string>();
+            fileDictionary["media"] = file;
+            return HttpUtility.Post.PostFileGetJson<Card_UploadLogoResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
+        }
     }
 }

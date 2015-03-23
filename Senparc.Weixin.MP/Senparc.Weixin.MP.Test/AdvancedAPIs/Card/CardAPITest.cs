@@ -152,5 +152,16 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
+
+        [TestMethod]
+        public void UploadLogoTest()
+        {
+            string file = @"E:\1.jpg";
+
+            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var result = CardApi.UploadLogo(accessToken, file);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.errcode, ReturnCode.请求成功);
+        }
     }
 }

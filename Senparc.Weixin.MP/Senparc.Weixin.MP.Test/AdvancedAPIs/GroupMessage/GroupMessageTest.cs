@@ -20,7 +20,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             string groupId = "";//分组Id
 
             var accessToken = AccessTokenContainer.GetToken(_appId);
-            var mediaId = MediaApi.Upload(accessToken, UploadMediaFileType.image, file).media_id;
+            var mediaId = MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image, file).media_id;
 
             var result = GroupMessageApi.SendGroupMessageByGroupId(accessToken, groupId, mediaId,GroupMessageType.image,false);
 
@@ -31,7 +31,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         public void SendTextByGroupIdTest()
         {
             string content = "文本内容";
-            string groupId = "";//分组Id
+            string groupId = "102";//分组Id
 
             var accessToken = AccessTokenContainer.GetToken(_appId);
             //发送给指定分组
@@ -62,7 +62,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             string[] openIds = new string[] { _testOpenId };
 
             var accessToken = AccessTokenContainer.GetToken(_appId);
-            var mediaId = MediaApi.Upload(accessToken, UploadMediaFileType.image, file).media_id;
+            var mediaId = MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image, file).media_id;
             var result = GroupMessageApi.SendGroupMessageByOpenId(accessToken, GroupMessageType.image, mediaId, Config.TIME_OUT, openIds);
 
             Assert.IsTrue(result.msg_id.Length > 0);

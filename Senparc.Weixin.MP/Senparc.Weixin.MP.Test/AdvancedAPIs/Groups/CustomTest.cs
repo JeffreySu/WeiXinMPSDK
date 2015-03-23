@@ -11,7 +11,7 @@ using Senparc.Weixin.MP.Test.CommonAPIs;
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
     //已经通过测试
-    //[TestClass]
+    [TestClass]
     public class GroupTest : CommonApiTest
     {
         [TestMethod]

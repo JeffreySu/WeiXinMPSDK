@@ -17,17 +17,17 @@
 ----------------
 官网地址：http://weixin.senparc.com/
 
-源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
+系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
 
-Q&A：https://github.com/JeffreySu/WeiXinMPSDK/wiki/QA
+微信技术交流社区：http://www.weiweihi.com/QA
 
 自定义菜单在线编辑工具：http://weixin.senparc.com/Menu
 
 在线消息测试工具：http://weixin.senparc.com/SimulateTool
 
-系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
+源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
 
-微信技术交流社区：http://www.weiweihi.com/QA
+
 
 技术交流QQ群：1群：300313885 2群：293958349（已满）  3群：342319110（已满） 4群：372212092（已满） 5群：377815480（已满）6群：425898825
 

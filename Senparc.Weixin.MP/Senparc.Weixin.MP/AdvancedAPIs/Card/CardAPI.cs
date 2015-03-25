@@ -152,6 +152,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                         }
                     };
                     break;
+                case CardType.MEETING_TICKET:
+                    cardData = new CardCreateInfo()
+                    {
+                        card = new Card_MeetingTicket()
+                        {
+                            card_type = cardType,
+                            meeting_ticket = cardInfo as Card_MeetingTicketData
+                        }
+                    };
+                    break;
                 default:
                     break;
             }
@@ -604,7 +614,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <param name="balance">红包余额</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult BoardingPassCheckIn(string accessToken, string code, string cardId, decimal balance, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult UpdateUserBalance(string accessToken, string code, string cardId, decimal balance, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://api.weixin.qq.com/card/luckymoney/updateuserbalance?access_token={0}", accessToken);
 
@@ -613,6 +623,33 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                 code = code,
                 card_id = cardId,
                 balance = balance
+            };
+            
+            return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="code">用户的门票唯一序列号</param>
+        /// <param name="cardId">要更新门票序列号所述的card_id ， 生成券时use_custom_code 填写true 时必填。</param>
+        /// <param name="zone">区域</param>
+        /// <param name="entrance">入口</param>
+        /// <param name="seatNumber">座位号</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static WxJsonResult UpdateMeetingTicket(string accessToken, string code, string cardId = null, string zone = null, string entrance = null, string seatNumber = null, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = string.Format("https://api.weixin.qq.com/card/meetingticket/updateuser?access_token={0}", accessToken);
+
+            var data = new
+            {
+                code = code,
+                card_id = cardId,
+                zone = zone,
+                entrance = entrance,
+                seat_number = seatNumber
             };
 
             return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);

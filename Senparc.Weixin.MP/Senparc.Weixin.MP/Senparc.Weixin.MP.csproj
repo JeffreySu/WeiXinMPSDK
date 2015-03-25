@@ -94,6 +94,10 @@
     <Compile Include="AdvancedAPIs\Groups\GroupsApi.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson\GroupsJson.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaApi.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaJson\GetNewsResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaJson\UpdateForeverNewsData.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaJson\GetMediaCountResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaJson\GetMediaListResultJson.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthApi.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthUserInfo.cs" />

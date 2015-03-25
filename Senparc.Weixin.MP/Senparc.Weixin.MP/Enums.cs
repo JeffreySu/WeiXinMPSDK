@@ -15,6 +15,9 @@
 
     修改标识：Senparc - 20150313
     修改描述：添加语言类型
+
+    修改标识：Senparc - 20150323
+    修改描述：卡券新增会议门票类型
 ----------------------------------------------------------------*/
 
 using System;
@@ -329,6 +332,10 @@ namespace Senparc.Weixin.MP
         /// 红包
         /// </summary>
         LUCKY_MONEY = 9,
+        /// <summary>
+        /// 会议门票
+        /// </summary>
+        MEETING_TICKET=10,
     }
     /// <summary>
     /// 卡券code码展示类型

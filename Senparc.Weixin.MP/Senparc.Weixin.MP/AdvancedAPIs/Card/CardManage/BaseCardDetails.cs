@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20150323
+    修改描述：添加新卡券类型：会议门票
 ----------------------------------------------------------------*/
 
 using System;
@@ -249,6 +252,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 卡券Id
         /// </summary>
         public string id { get; set; }
+
+        public string status { get; set; }
     }
 
     #endregion

@@ -840,7 +840,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.BoardingPassCheckIn(System.String,System.String,System.String,System.Decimal,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.UpdateUserBalance(System.String,System.String,System.String,System.Decimal,System.Int32)">
             <summary>
             更新红包金额
             </summary>
@@ -848,6 +848,19 @@
             <param name="code">红包的序列号</param>
             <param name="cardId">自定义code 的卡券必填。非自定义code 可不填。</param>
             <param name="balance">红包余额</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.UpdateMeetingTicket(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="accessToken"></param>
+            <param name="code">用户的门票唯一序列号</param>
+            <param name="cardId">要更新门票序列号所述的card_id ， 生成券时use_custom_code 填写true 时必填。</param>
+            <param name="zone">区域</param>
+            <param name="entrance">入口</param>
+            <param name="seatNumber">座位号</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
@@ -868,6 +881,15 @@
             <param name="offset">偏移量，0 开始</param>
             <param name="count">拉取数量</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.UploadLogo(System.String,System.String,System.Int32)">
+            <summary>
+            上传LOGO
+            </summary>
+            <param name="accessToken"></param>
+            <param name="file">文件路径</param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.CardCreateInfo">
@@ -933,6 +955,11 @@
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_LuckyMoney">
             <summary>
             红包
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MeetingTicket">
+            <summary>
+            会议门票
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.BaseCardInfo.base_info">
@@ -1003,6 +1030,11 @@
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.CardDecryptResultJson">
             <summary>
             code 解码
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_UploadLogoResultJson">
+            <summary>
+            上传logo返回结果
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_GeneralCouponData">
@@ -1205,6 +1237,21 @@
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_LuckyMoneyData">
             <summary>
             红包数据
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MeetingTicketData">
+            <summary>
+            会议门票数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MeetingTicketData.meeting_detail">
+            <summary>
+            会议详情
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MeetingTicketData.map_url">
+            <summary>
+            会场导览图
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.BaseCardUpdateInfo.card_id">
@@ -2628,12 +2675,12 @@
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi">
             <summary>
-            多媒体文件接口
+            素材管理接口（原多媒体文件接口）
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.Upload(System.String,Senparc.Weixin.MP.UploadMediaFileType,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UploadTemporaryMedia(System.String,Senparc.Weixin.MP.UploadMediaFileType,System.String,System.Int32)">
             <summary>
-            上传媒体文件
+            新增临时素材（原上传媒体文件）
             </summary>
             <param name="accessToken"></param>
             <param name="type"></param>
@@ -2643,7 +2690,7 @@
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.Get(System.String,System.String,System.IO.Stream)">
             <summary>
-            下载媒体文件
+            获取临时素材（原下载媒体文件）
             </summary>
             <param name="accessToken"></param>
             <param name="mediaId"></param>
@@ -2651,21 +2698,166 @@
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UploadNews(System.String,System.Int32,Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.NewsModel[])">
             <summary>
-            上传图文消息素材
+            新增永久图文素材（原上传图文消息素材）
             </summary>
             <param name="accessToken">Token</param>
             <param name="news">图文消息组</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media.UploadResultJson">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UploadForeverMedia(System.String,Senparc.Weixin.MP.UploadMediaFileType,System.String,System.Int32)">
             <summary>
-            上传媒体文件返回结果
+            新增其他类型永久素材
+            </summary>
+            <param name="accessToken"></param>
+            <param name="type"></param>
+            <param name="file"></param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.GetForeverNews(System.String,System.String,System.Int32)">
+            <summary>
+            获取永久图文素材
+            </summary>
+            <param name="accessToken"></param>
+            <param name="mediaId"></param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.DeleteForeverMedia(System.String,System.String,System.Int32)">
+            <summary>
+            删除永久素材
+            </summary>
+            <param name="accessToken"></param>
+            <param name="mediaId"></param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UpdateForeverNews(System.String,System.String,System.Int32,System.Int32,Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.NewsModel[])">
+            <summary>
+            修改永久图文素材
+            </summary>
+            <param name="accessToken"></param>
+            <param name="mediaId">要修改的图文消息的id</param>
+            <param name="index">要更新的文章在图文消息中的位置（多图文消息时，此字段才有意义），第一篇为0</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <param name="news">图文素材</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.GetMediaCount(System.String)">
+            <summary>
+            获取素材总数
+            永久素材的总数，也会计算公众平台官网素材管理中的素材
+            图片和图文消息素材（包括单图文和多图文）的总数上限为5000，其他素材的总数上限为1000
+            </summary>
+            <param name="accessToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.GetNewsMediaList(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            获取图文素材列表
+            </summary>
+            <param name="accessToken"></param>
+            <param name="offset">从全部素材的该偏移位置开始返回，0表示从第一个素材 返回</param>
+            <param name="count">返回素材的数量，取值在1到20之间</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.GetOthersMediaList(System.String,Senparc.Weixin.MP.UploadMediaFileType,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            获取图片、视频、语音素材列表
+            </summary>
+            <param name="accessToken"></param>
+            <param name="type">素材的类型，图片（image）、视频（video）、语音 （voice）</param>
+            <param name="offset"></param>
+            <param name="count"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media.GetNewsResultJson">
+            <summary>
+            获取图文类型永久素材返回结果
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Media.UploadResultJson.thumb_media_id">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media.UpdateForeverNewsData">
             <summary>
-            上传缩略图返回的meidia_id参数.
+            修改永久图文素材需要post的数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Media.UpdateForeverNewsData.media_id">
+            <summary>
+            要修改的图文消息的id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Media.UpdateForeverNewsData.index">
+            <summary>
+            要更新的文章在图文消息中的位置（多图文消息时，此字段才有意义），第一篇为0
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Media.UpdateForeverNewsData.articles">
+            <summary>
+            图文素材
+            若新增的是多图文素材，则此处应还有几段articles结构
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media.GetMediaCountResultJson">
+            <summary>
+            获取素材总数返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Media.GetMediaCountResultJson.voice_count">
+            <summary>
+            语音总数量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Media.GetMediaCountResultJson.video_count">
+            <summary>
+            视频总数量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Media.GetMediaCountResultJson.image_count">
+            <summary>
+            图片总数量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Media.GetMediaCountResultJson.news_count">
+            <summary>
+            图文总数量
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media.BaseMediaListResultJson">
+            <summary>
+            获取素材总数返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Media.BaseMediaListResultJson.total_count">
+            <summary>
+            该类型的素材的总数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Media.BaseMediaListResultJson.item_count">
+            <summary>
+            本次调用获取的素材的数量
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaList_NewsResult">
+            <summary>
+            图文素材的Item
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaList_OthersResult">
+            <summary>
+            除图文之外的其他素材的Item
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaList_Others_Item.name">
+            <summary>
+            文件名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaList_Others_Item.update_time">
+            <summary>
+            这篇图文消息素材的最后更新时间
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAccessTokenResult">
@@ -4573,6 +4765,11 @@
             code 序列号。自定义code 及非自定义code的卡券被领取后都支持事件推送。
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Get_Card.OuterId">
+            <summary>
+            领取场景值，用于领取渠道数据统计。可在生成二维码接口及添加JS API 接口中自定义该字段的整型值。
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Del_Card.Event">
             <summary>
             删除卡券
@@ -6324,9 +6521,19 @@
             GetMenu返回的Json结果
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.Entities.UploadMediaFileResult">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media.UploadTemporaryMediaFileResult">
             <summary>
-            上传媒体文件返回结果
+            上传临时媒体文件返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Media.UploadTemporaryMediaFileResult.thumb_media_id">
+            <summary>
+            上传缩略图返回的meidia_id参数.
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media.UploadForeverMediaFileResult">
+            <summary>
+            上传永久媒体文件返回结果
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.WeixinUserInfoResult">
@@ -6866,6 +7073,11 @@
         <member name="F:Senparc.Weixin.MP.CardType.LUCKY_MONEY">
             <summary>
             红包
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.CardType.MEETING_TICKET">
+            <summary>
+            会议门票
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Card_CodeType">

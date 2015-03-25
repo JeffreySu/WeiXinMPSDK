@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20150323
+    修改描述：添加会议门票
 ----------------------------------------------------------------*/
 
 using System;
@@ -109,6 +112,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         public Card_LuckyMoneyData lucky_money { get; set; }
     }
 
+    /// <summary>
+    /// 会议门票
+    /// </summary>
+    public class Card_MeetingTicket : CardCreateInfo_Card
+    {
+        public Card_MeetingTicketData meeting_ticket { get; set; }
+    }
     #endregion
 
 

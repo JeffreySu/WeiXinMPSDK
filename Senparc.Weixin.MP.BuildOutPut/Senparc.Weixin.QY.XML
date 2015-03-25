@@ -156,6 +156,121 @@
             <param name="userId">员工UserID</param>
             <returns></returns>
         </member>
+        <!-- 对于成员“M:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginAuthApi.GetLoginAuthUrl(System.String,System.String,System.String)”忽略有格式错误的 XML 注释 -->
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginAuthApi.GetLoginInfo(System.String,System.String,System.Int32)">
+            <summary>
+            获取企业号管理员登录信息
+            </summary>
+            <param name="providerAccessToken">服务提供商的accesstoken</param>
+            <param name="authCode">oauth2.0授权企业号管理员登录产生的code</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.GetLoginInfoResult">
+            <summary>
+            获取企业号管理员登录信息返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.GetLoginInfoResult.is_sys">
+            <summary>
+            是否系统管理员
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.GetLoginInfoResult.is_inner">
+            <summary>
+            是否内部管理员
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.GetLoginInfoResult.user_info">
+            <summary>
+            登录管理员的信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.GetLoginInfoResult.corp_info">
+            <summary>
+            授权方企业信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.GetLoginInfoResult.agent">
+            <summary>
+            该管理员在该提供商中能使用的应用列表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.GetLoginInfoResult.auth_info">
+            <summary>
+            该管理员拥有的通讯录权限
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginInfo_UserInfo.email">
+            <summary>
+            管理员邮箱
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginInfo_UserInfo.userid">
+            <summary>
+            该管理员的userid（仅为内部管理员时展示）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginInfo_UserInfo.name">
+            <summary>
+            该管理员的名字（仅为内部管理员时展示）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginInfo_UserInfo.avatar">
+            <summary>
+            该管理员的头像（仅为内部管理员时展示）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginInfo_UserInfo.mobile">
+            <summary>
+            该管理员的手机（仅为内部管理员时展示）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginInfo_CorpInfo.corpid">
+            <summary>
+            授权方企业号id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginInfo_CorpInfo.corp_name">
+            <summary>
+            授权方企业号名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginInfo_CorpInfo.corp_type">
+            <summary>
+            授权方企业号类型，认证号：verified, 注册号：unverified，体验号：test
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginInfo_CorpInfo.corp_round_logo_url">
+            <summary>
+            授权方企业号圆形头像
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginInfo_CorpInfo.corp_square_logo_url">
+            <summary>
+            授权方企业号方形头像
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginInfo_CorpInfo.corp_user_max">
+            <summary>
+            授权方企业号用户规模
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginInfo_CorpInfo.corp_agent_max">
+            <summary>
+            授权方企业号应用规模
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginInfo_AgentItem.agentid">
+            <summary>
+            应用id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginInfo_AgentItem.auth_type">
+            <summary>
+            该管理员对应用的权限：1.管理权限，0.使用权限
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth.ThirdPartyAuthApi.GetSuiteToken(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取应用套件令牌
@@ -549,6 +664,55 @@
             检查是否已经注册
             </summary>
             <param name="appId"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Senparc.Weixin.QY.CommonAPIs.ProviderTokenBag.Lock">
+            <summary>
+            只针对这个CorpId的锁
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer">
+            <summary>
+            通用接口ProviderToken容器，用于自动管理ProviderToken，如果过期会重新获取
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer.Register(System.String,System.String)">
+            <summary>
+            注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
+            </summary>
+            <param name="corpId"></param>
+            <param name="corpSecret"></param>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer.TryGetToken(System.String,System.String,System.Boolean)">
+            <summary>
+            使用完整的应用凭证获取Token，如果不存在将自动注册
+            </summary>
+            <param name="corpId"></param>
+            <param name="corpSecret"></param>
+            <param name="getNewToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer.GetToken(System.String,System.Boolean)">
+            <summary>
+            获取可用Token
+            </summary>
+            <param name="corpId"></param>
+            <param name="getNewToken">是否强制重新获取新的Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer.GetTokenResult(System.String,System.Boolean)">
+            <summary>
+            获取可用Token
+            </summary>
+            <param name="corpId"></param>
+            <param name="getNewToken">是否强制重新获取新的Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer.CheckRegistered(System.String)">
+            <summary>
+            检查是否已经注册
+            </summary>
+            <param name="corpId"></param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Mass.MassApi">
@@ -1137,6 +1301,15 @@
             <param name="corpSecret"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.CommonApi.GetProviderToken(System.String,System.String,System.Int32)">
+            <summary>
+            获取应用提供商凭证
+            </summary>
+            <param name="corpId"></param>
+            <param name="providerSecret"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.QY.CommonAPIs.CommonApi.CreateMenu(System.String,System.Int32,Senparc.Weixin.QY.Entities.Menu.ButtonGroup,System.Int32)">
             <summary>
             创建菜单
@@ -1225,6 +1398,21 @@
             </summary>
         </member>
         <member name="P:Senparc.Weixin.QY.Entities.JsApiTicketResult.expires_in">
+            <summary>
+            凭证有效时间，单位：秒
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.Entities.ProviderTokenResult">
+            <summary>
+            获取应用提供商凭证返回格式
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.ProviderTokenResult.provider_access_token">
+            <summary>
+            服务提供商的accesstoken，可用于用户授权登录信息查询接口
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.ProviderTokenResult.expires_in">
             <summary>
             凭证有效时间，单位：秒
             </summary>

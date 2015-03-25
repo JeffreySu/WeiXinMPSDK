@@ -95,7 +95,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/delete?access_token={0}&id={1}", accessToken, id);
 
-            return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
+            return Get.GetJson<WxJsonResult>(url);
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
                 url += string.Format("&id={0}", id.Value);
             }
 
-            return CommonJsonSend.Send<GetDepartmentListResult>(null, url, null, CommonJsonSendType.GET);
+            return Get.GetJson<GetDepartmentListResult>(url);
         }
 
         /// <summary>
@@ -214,7 +214,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/delete?access_token={0}&userid={1}", accessToken, userId);
 
-            return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
+            return Get.GetJson<WxJsonResult>(url);
         }
 
         /// <summary>
@@ -246,7 +246,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token={0}&userid={1}", accessToken, userId);
 
-            return CommonJsonSend.Send<GetMemberResult>(null, url, null, CommonJsonSendType.GET);
+            return Get.GetJson<GetMemberResult>(url);
         }
 
         /// <summary>
@@ -261,7 +261,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken, departmentId, fetchChild, status);
 
-            return CommonJsonSend.Send<GetDepartmentMemberResult>(null, url, null, CommonJsonSendType.GET);
+            return Get.GetJson<GetDepartmentMemberResult>(url);
         }
 
         /// <summary>
@@ -276,7 +276,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken, departmentId, fetchChild, status);
 
-            return CommonJsonSend.Send<GetDepartmentMemberInfoResult>(null, url, null, CommonJsonSendType.GET);
+            return Get.GetJson<GetDepartmentMemberInfoResult>(url);
         }
 
         /// <summary>
@@ -353,7 +353,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/delete?access_token={0}&tagid={1}", accessToken, tagId);
 
-            return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
+            return Get.GetJson<WxJsonResult>(url);
         }
 
         /// <summary>
@@ -366,7 +366,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/get?access_token={0}&tagid={1}", accessToken, tagId);
 
-            return CommonJsonSend.Send<GetTagMemberResult>(null, url, null, CommonJsonSendType.GET);
+            return Get.GetJson<GetTagMemberResult>(url);
         }
 
         /// <summary>

@@ -42,7 +42,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.App
         {
             string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken, agentId);
 
-            return CommonJsonSend.Send<GetAppInfoResult>(null, url, null, CommonJsonSendType.GET, timeOut);
+            return Get.GetJson<GetAppInfoResult>(url);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.App
         {
             string url = "https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}";
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            return Get.GetJson<WxJsonResult>(url);
         }
     }
 }

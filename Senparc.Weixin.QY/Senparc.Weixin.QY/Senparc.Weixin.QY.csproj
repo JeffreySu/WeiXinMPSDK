@@ -45,10 +45,13 @@
     <Compile Include="AdvancedAPIs\App\AppJson\GetAppInfoResult.cs" />
     <Compile Include="AdvancedAPIs\App\AppJson\SetAppPostData.cs" />
     <Compile Include="AdvancedAPIs\Concern\ConcernApi.cs" />
+    <Compile Include="AdvancedAPIs\LoginAuth\LoginAuthApi.cs" />
+    <Compile Include="AdvancedAPIs\LoginAuth\GetLoginInfoResult.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthApi.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthResult.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthPostData.cs" />
     <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
+    <Compile Include="CommonAPIs\ProviderTokenContainer.cs" />
     <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
     <Compile Include="AdvancedAPIs\Mass\MassApi.cs" />
     <Compile Include="AdvancedAPIs\Mass\MassResult.cs" />
@@ -67,6 +70,7 @@
     <Compile Include="Entities\JsonResult\GetMenuResult.cs" />
     <Compile Include="Entities\JsonResult\GetMenuResultFull.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
+    <Compile Include="Entities\JsonResult\ProviderTokenResult.cs" />
     <Compile Include="Entities\Menu\SingleLocationSelectButton.cs" />
     <Compile Include="Entities\Menu\SinglePicPhotoOrAlbumButton.cs" />
     <Compile Include="Entities\Menu\SinglePicSysphotoButton.cs" />

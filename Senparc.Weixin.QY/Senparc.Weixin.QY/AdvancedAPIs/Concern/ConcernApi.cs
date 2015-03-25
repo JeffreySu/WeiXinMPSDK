@@ -43,7 +43,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Concern
         {
             var url = "https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}";
 
-            return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
+            return Get.GetJson<WxJsonResult>(url);
         }
     }
 }

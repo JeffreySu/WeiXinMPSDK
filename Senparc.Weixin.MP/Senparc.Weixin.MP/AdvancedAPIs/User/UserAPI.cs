@@ -20,6 +20,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.User
 {
@@ -60,6 +62,25 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
                 url += "&next_openid=" + nextOpenId;
             }
             return HttpUtility.Get.GetJson<OpenIdResultJson>(url);
+        }
+        
+        /// <summary>
+        /// 修改关注者备注信息
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="openId">普通用户的标识，对当前公众号唯一</param>
+        /// <param name="remark">新的备注名，长度必须小于30字符</param>
+        /// <returns></returns>
+        public static WxJsonResult UpdateRemark(string accessToken, string openId, string remark)
+        {
+            string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token={0}", 
+                accessToken);
+            var data = new
+            {
+            openid = openId,
+            remark = remark
+            };
+            return CommonJsonSend.Send(accessToken, url, data);
         }
     }
 }

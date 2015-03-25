@@ -9,7 +9,7 @@
 
 已经支持用户会话上下文（解决服务器无法使用Session处理用户信息的问题）。
 
-目前官方的API都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的[Senparc.Weixin.MP.dll](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut)。
+目前官方的API都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的[Senparc.Weixin.MP.dll](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut) 或 [Senparc.Weixin.dll](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut) 。
 
 如果需要使用或修改此项目的源代码，建议先Fork。也欢迎将您修改的通用版本Pull Request过来。
 
@@ -17,17 +17,17 @@
 ----------------
 官网地址：http://weixin.senparc.com/
 
-源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
+系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
 
-Q&A：https://github.com/JeffreySu/WeiXinMPSDK/wiki/QA
+微信技术交流社区：http://www.weiweihi.com/QA
 
 自定义菜单在线编辑工具：http://weixin.senparc.com/Menu
 
 在线消息测试工具：http://weixin.senparc.com/SimulateTool
 
-系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
+源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
 
-微信技术交流社区：http://www.weiweihi.com/QA
+
 
 技术交流QQ群：1群：300313885 2群：293958349（已满）  3群：342319110（已满） 4群：372212092（已满） 5群：377815480（已满）6群：425898825
 

@@ -9,6 +9,12 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：jsionr - 20150322
+    修改描述：添加修改关注者备注信息接口
+    
+    修改标识：Senparc - 20150325
+    修改描述：修改关注者备注信息开放代理请求超时时间
 ----------------------------------------------------------------*/
 
 /*
@@ -63,15 +69,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
             }
             return HttpUtility.Get.GetJson<OpenIdResultJson>(url);
         }
-        
+
         /// <summary>
         /// 修改关注者备注信息
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="openId">普通用户的标识，对当前公众号唯一</param>
         /// <param name="remark">新的备注名，长度必须小于30字符</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult UpdateRemark(string accessToken, string openId, string remark)
+        public static WxJsonResult UpdateRemark(string accessToken, string openId, string remark, int timeOut = Config.TIME_OUT)
         {
             string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token={0}", 
                 accessToken);
@@ -80,7 +87,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
             openid = openId,
             remark = remark
             };
-            return CommonJsonSend.Send(accessToken, url, data);
+            return CommonJsonSend.Send(accessToken, url, data, timeOut: timeOut);
         }
     }
 }

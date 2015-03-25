@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 using Senparc.Weixin.MP.AdvancedAPIs.Media;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Test.CommonAPIs;
@@ -72,6 +73,44 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Assert.AreEqual(type, result.type);
             Assert.IsNotNull(result.media_id);
             mediaId = result.media_id;
+        }
+
+        [TestMethod]
+        public void UploadNewsTest()
+        {
+            var accessToken = AccessTokenContainer.GetToken(_appId);
+
+            var type = UploadMediaFileType.thumb;
+            var file = @"E:\1.jpg";
+            var result = MediaApi.UploadForeverMedia(accessToken, type, file);
+
+            Assert.AreEqual(type, result.type);
+            Assert.IsNotNull(result.thumb_media_id);
+
+            var news = new NewsModel()
+                {
+                    author = "test",
+                    content = "test",
+                    content_source_url = "http://qy.weiweihi.com/Content/Images/app/qyhelper.png",
+                    digest = "test",
+                    show_cover_pic = "1",
+                    thumb_media_id = result.thumb_media_id,
+                    title = "test"
+                };
+
+            var result1 = MediaApi.UploadNews(accessToken, 10000, news);
+
+            Assert.IsNotNull(result1.media_id);
+        }
+
+        [TestMethod]
+        public void GetMediaListTest()
+        {
+            var accessToken = AccessTokenContainer.GetToken(_appId);
+
+            var result = MediaApi.GetNewsMediaList(accessToken, 0, 5);
+
+            Assert.IsNotNull(result.item_count);
         }
     }
 }

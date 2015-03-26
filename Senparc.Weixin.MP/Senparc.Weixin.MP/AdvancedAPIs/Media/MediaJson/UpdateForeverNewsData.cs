@@ -25,15 +25,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// <summary>
         /// 要修改的图文消息的id
         /// </summary>
-        public string media_id { get; set; }
+        public long media_id { get; set; }
         /// <summary>
         /// 要更新的文章在图文消息中的位置（多图文消息时，此字段才有意义），第一篇为0
         /// </summary>
-        public int index { get; set; }
+        public int? index { get; set; }
         /// <summary>
         /// 图文素材
         /// 若新增的是多图文素材，则此处应还有几段articles结构
         /// </summary>
-        public NewsModel[] articles { get; set; }
+        public List<NewsModel> articles { get; set; }
     }
 }

@@ -98,21 +98,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         }
 
         /// <summary>
-        /// 新增其他类型永久素材
+        /// 新增其他类型永久素材(图片（image）、语音（voice）和缩略图（thumb）)
         /// </summary>
         /// <param name="accessToken"></param>
-        /// <param name="type"></param>
         /// <param name="file"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static UploadTemporaryMediaFileResult UploadForeverMedia(string accessToken, UploadMediaFileType type, string file, int timeOut = Config.TIME_OUT)
+        public static UploadTemporaryMediaFileResult UploadForeverMedia(string accessToken, string file, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("http://file.api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken, type.ToString());
+            var url = string.Format("http://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken);
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = file;
             return HttpUtility.Post.PostFileGetJson<UploadTemporaryMediaFileResult>(url, null, fileDictionary, null, timeOut: timeOut);
         }
 
+
+        public static UploadTemporaryMediaFileResult UploadForeverVideo(string accessToken, string file, string title, string introduction, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format("http://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken);
+            var fileDictionary = new Dictionary<string, string>();
+            fileDictionary["media"] = file;
+            //string description = string.Format("{title = {0},introduction = {1}}", title, introduction);
+            //fileDictionary["description"] = description;
+            return HttpUtility.Post.PostFileGetJson<UploadTemporaryMediaFileResult>(url, null, fileDictionary, null, timeOut: timeOut);
+        } 
 
         /// <summary>
         /// 获取永久图文素材
@@ -131,18 +140,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
             return CommonJsonSend.Send<GetNewsResultJson>(accessToken, url, data, CommonJsonSendType.POST, timeOut: timeOut);
         }
 
-        ///// <summary>
-        ///// 获取永久素材(除了图文)
-        ///// </summary>
-        ///// <param name="accessToken"></param>
-        ///// <param name="mediaId"></param>
-        ///// <param name="stream"></param>
-        //public static void GetForeverMedia(string accessToken, string mediaId, Stream stream)
-        //{
-        //    var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/get_material?access_token={0}",
-        //        accessToken, mediaId);
-        //    HttpUtility.Get.Download(url, stream);
-        //}
+        /// <summary>
+        /// 获取永久素材(除了图文)
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="mediaId"></param>
+        /// <param name="stream"></param>
+        public static void GetForeverMedia(string accessToken, string mediaId, Stream stream)
+        {
+            var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/get_material?access_token={0}",
+                accessToken, mediaId);
+            HttpUtility.Get.Download(url, stream);
+        }
 
         /// <summary>
         /// 删除永久素材
@@ -170,10 +179,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="news">图文素材</param>
         /// <returns></returns>
-        public static WxJsonResult UpdateForeverNews(string accessToken, string mediaId, int index, int timeOut = Config.TIME_OUT, params NewsModel[] news)
+        public static WxJsonResult UpdateForeverNews(string accessToken, string mediaId, int? index, int timeOut = Config.TIME_OUT, params NewsModel[] news)
         {
             string url = "https://api.weixin.qq.com/cgi-bin/material/update_news?access_token={0}";
-            UpdateForeverNewsData data = new UpdateForeverNewsData()
+
+            var data = new 
             {
                 media_id = mediaId,
                 index = index,

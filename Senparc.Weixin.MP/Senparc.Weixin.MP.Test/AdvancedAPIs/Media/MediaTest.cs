@@ -66,41 +66,79 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var type = UploadMediaFileType.image;
             var file = @"E:\1.jpg";
-            var result = MediaApi.UploadForeverMedia(accessToken, type, file);
+            var result = MediaApi.UploadForeverMedia(accessToken, file);
 
-            Assert.AreEqual(type, result.type);
             Assert.IsNotNull(result.media_id);
             mediaId = result.media_id;
         }
 
-        [TestMethod]
-        public void UploadNewsTest()
+        //[TestMethod]
+        private string UploadAndUpdateNewsTest(string accessToken)
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
-
-            var type = UploadMediaFileType.thumb;
             var file = @"E:\1.jpg";
-            var result = MediaApi.UploadForeverMedia(accessToken, type, file);
+            var result = MediaApi.UploadForeverMedia(accessToken, file);
 
-            Assert.AreEqual(type, result.type);
-            Assert.IsNotNull(result.thumb_media_id);
+            Assert.IsNotNull(result.media_id);
 
-            var news = new NewsModel()
+            var new1 = new NewsModel()
                 {
                     author = "test",
                     content = "test",
                     content_source_url = "http://qy.weiweihi.com/Content/Images/app/qyhelper.png",
                     digest = "test",
                     show_cover_pic = "1",
-                    thumb_media_id = result.thumb_media_id,
+                    thumb_media_id = result.media_id,
                     title = "test"
                 };
 
-            var result1 = MediaApi.UploadNews(accessToken, 10000, news);
+            var new2 = new NewsModel()
+            {
+                author = "test",
+                content = "test111",
+                content_source_url = "http://qy.weiweihi.com/Content/Images/app/qyhelper.png",
+                digest = "test",
+                show_cover_pic = "1",
+                thumb_media_id = result.media_id,
+                title = "test"
+            };
+
+            var result1 = MediaApi.UploadNews(accessToken, 10000, new1, new2);
 
             Assert.IsNotNull(result1.media_id);
+
+            //var result2 = MediaApi.UpdateForeverNews(accessToken, result1.media_id, 0, 10000, new2);
+
+            //Assert.AreEqual(result2.errcode, ReturnCode.请求成功);
+
+            return result1.media_id;
+        }
+
+        //[TestMethod]
+        private void GetForeverNewsTest(string accessToken, string mediaId)
+        {
+            var result = MediaApi.GetForeverNews(accessToken, mediaId);
+
+            Assert.IsTrue(result.news_item.Count > 0);
+            Assert.AreEqual(result.news_item[0].content,"test");
+        }
+
+        //[TestMethod]
+        private void DeleteForeverMediaTest(string accessToken, string mediaId)
+        {
+            var result = MediaApi.DeleteForeverMedia(accessToken, mediaId);
+
+            Assert.AreEqual(result.errcode, ReturnCode.请求成功);
+        }
+
+        [TestMethod]
+        public void ForeverNewsTest()
+        {
+            var accessToken = AccessTokenContainer.GetToken(_appId);
+
+            string mediaId = UploadAndUpdateNewsTest(accessToken);
+            GetForeverNewsTest(accessToken, mediaId);
+            DeleteForeverMediaTest(accessToken, mediaId);
         }
 
         [TestMethod]
@@ -111,6 +149,28 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var result = MediaApi.GetNewsMediaList(accessToken, 0, 5);
 
             Assert.IsNotNull(result.item_count);
+        }
+
+        [TestMethod]
+        public void GetNewsMediaListTest()
+        {
+            var accessToken = AccessTokenContainer.GetToken(_appId);
+
+            var result = MediaApi.GetNewsMediaList(accessToken, 0, 3);
+
+            Assert.AreEqual(result.errcode, ReturnCode.请求成功);
+            Assert.AreEqual(result.item_count, 3);
+        }
+
+        [TestMethod]
+        public void GetOthersMediaListTest()
+        {
+            var accessToken = AccessTokenContainer.GetToken(_appId);
+
+            var result = MediaApi.GetOthersMediaList(accessToken, UploadMediaFileType.image, 0, 3);
+
+            Assert.AreEqual(result.errcode, ReturnCode.请求成功);
+            Assert.AreEqual(result.item_count, 3);
         }
     }
 }

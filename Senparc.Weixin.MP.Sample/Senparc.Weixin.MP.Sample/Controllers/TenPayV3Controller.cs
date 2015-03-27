@@ -340,7 +340,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             packageReqHandler.SetParameter("remark", "备注信息");   //备注信息
             string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
             packageReqHandler.SetParameter("sign", sign);	                    //签名
-            //退款需要post的数据
+            //发红包需要post的数据
             string data = packageReqHandler.ParseXML();
 
             //发红包接口地址

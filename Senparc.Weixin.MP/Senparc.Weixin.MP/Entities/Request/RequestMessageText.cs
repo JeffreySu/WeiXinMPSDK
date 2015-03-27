@@ -24,6 +24,10 @@ namespace Senparc.Weixin.MP.Entities
         {
             get { return RequestMsgType.Text; }
         }
+
+        /// <summary>
+        /// 文本消息内容
+        /// </summary>
         public string Content { get; set; }
     }
 }

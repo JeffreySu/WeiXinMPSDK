@@ -65,6 +65,16 @@ namespace Senparc.Weixin.MP.Test
   <ThumbMediaId><![CDATA[thumbMediaId]]></ThumbMediaId>
 </xml>";
 
+        private string xmlShortVideo = @"<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>1357290913</CreateTime>
+<MsgType><![CDATA[shortvideo]]></MsgType>
+<MediaId><![CDATA[media_id]]></MediaId>
+<ThumbMediaId><![CDATA[thumb_media_id]]></ThumbMediaId>
+<MsgId>1234567890123456</MsgId>
+</xml>";
+
 //        @"<?xml version=""1.0"" encoding=""utf-8""?>
 //<xml>
 //  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
@@ -371,6 +381,16 @@ namespace Senparc.Weixin.MP.Test
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual("mediaId", result.MediaId);
                 Assert.AreEqual("thumbMediaId", result.ThumbMediaId);
+            }
+
+            {
+                //ShortVideo
+                var doc = XDocument.Parse(xmlShortVideo);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageShortVideo;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual("media_id", result.MediaId);
+                Assert.AreEqual("thumb_media_id", result.ThumbMediaId);
             }
 
             {

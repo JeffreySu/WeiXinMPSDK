@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20150327
+    修改描述：添加小视频类型
 ----------------------------------------------------------------*/
 
 using System;
@@ -72,6 +75,9 @@ namespace Senparc.Weixin.MP
                         break;
                     case RequestMsgType.Link:
                         requestMessage = new RequestMessageLink();
+                        break;
+                    case RequestMsgType.ShortVideo:
+                        requestMessage = new RequestMessageShortVideo();
                         break;
                     case RequestMsgType.Event:
                         //判断Event类型

@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20150327
+    修改描述：添加接收小视频消息方法
 ----------------------------------------------------------------*/
 
 using System;
@@ -320,6 +323,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.Link:
                         ResponseMessage = OnLinkRequest(RequestMessage as RequestMessageLink);
                         break;
+                    case RequestMsgType.ShortVideo:
+                        ResponseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
+                        break;
                     case RequestMsgType.Event:
                         {
                             var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
@@ -450,6 +456,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 链接消息类型请求
         /// </summary>
         public virtual IResponseMessageBase OnLinkRequest(RequestMessageLink requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 链接消息类型请求
+        /// </summary>
+        public virtual IResponseMessageBase OnShortVideoRequest(RequestMessageShortVideo requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

@@ -227,7 +227,7 @@ License
 --------------
 FreeBSD License
 ```
-Copyright (c) 2015, Jeffrey Su <www.jeffrey.su@gmail.com>, Suzhou Senparc Network Technology Co.,Ltd. <www.senparc.com>
+Copyright (c) 2015, Jeffrey Su <www.jeffrey.su@gmail.com>, Suzhou Senparc Network Technology Co.,Ltd.
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

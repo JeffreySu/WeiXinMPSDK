@@ -2705,12 +2705,11 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UploadForeverMedia(System.String,Senparc.Weixin.MP.UploadMediaFileType,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UploadForeverMedia(System.String,System.String,System.Int32)">
             <summary>
-            新增其他类型永久素材
+            新增其他类型永久素材(图片（image）、语音（voice）和缩略图（thumb）)
             </summary>
             <param name="accessToken"></param>
-            <param name="type"></param>
             <param name="file"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -2724,6 +2723,14 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.GetForeverMedia(System.String,System.String,System.IO.Stream)">
+            <summary>
+            获取永久素材(除了图文)
+            </summary>
+            <param name="accessToken"></param>
+            <param name="mediaId"></param>
+            <param name="stream"></param>
+        </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.DeleteForeverMedia(System.String,System.String,System.Int32)">
             <summary>
             删除永久素材
@@ -2733,7 +2740,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UpdateForeverNews(System.String,System.String,System.Int32,System.Int32,Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.NewsModel[])">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UpdateForeverNews(System.String,System.String,System.Nullable{System.Int32},System.Int32,Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.NewsModel[])">
             <summary>
             修改永久图文素材
             </summary>
@@ -4290,6 +4297,16 @@
             <param name="nextOpenId"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.User.UserApi.UpdateRemark(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            修改关注者备注信息
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="openId">普通用户的标识，对当前公众号唯一</param>
+            <param name="remark">新的备注名，长度必须小于30字符</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User.UserInfoJson">
             <summary>
             高级接口获取的用户信息
@@ -4871,6 +4888,16 @@
         <member name="P:Senparc.Weixin.MP.Entities.Md5Sum.PicMd5Sum">
             <summary>
             图片的MD5值，开发者若需要，可用于验证接收到图片
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageShortVideo.MediaId">
+            <summary>
+            视频消息媒体id，可以调用多媒体文件下载接口拉取数据。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageShortVideo.ThumbMediaId">
+            <summary>
+            视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageBase">
@@ -6678,6 +6705,16 @@
             群发的消息ID
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageImage.MediaId">
+            <summary>
+            图片消息媒体id，可以调用多媒体文件下载接口拉取数据。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageImage.PicUrl">
+            <summary>
+            图片链接
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageLocation.Location_X">
             <summary>
             地理位置纬度
@@ -6686,6 +6723,21 @@
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageLocation.Location_Y">
             <summary>
             地理位置经度
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageLocation.Scale">
+            <summary>
+            地图缩放大小
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageLocation.Label">
+            <summary>
+            地理位置信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageText.Content">
+            <summary>
+            文本消息内容
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageVoice.MediaId">
@@ -6750,6 +6802,21 @@
             事件KEY值，与自定义菜单接口中KEY值对应
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageLink.Title">
+            <summary>
+            消息标题
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageLink.Description">
+            <summary>
+            消息描述
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageLink.Url">
+            <summary>
+            消息链接
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Scan">
             <summary>
             事件之二维码扫描（关注微信）
@@ -6763,6 +6830,16 @@
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Scan.EventKey">
             <summary>
             事件KEY值，是一个32位无符号整数，即创建二维码时的二维码scene_id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageVideo.MediaId">
+            <summary>
+            视频消息媒体id，可以调用多媒体文件下载接口拉取数据。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageVideo.ThumbMediaId">
+            <summary>
+            视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_View">
@@ -7316,6 +7393,11 @@
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnLinkRequest(Senparc.Weixin.MP.Entities.RequestMessageLink)">
+            <summary>
+            链接消息类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnShortVideoRequest(Senparc.Weixin.MP.Entities.RequestMessageShortVideo)">
             <summary>
             链接消息类型请求
             </summary>

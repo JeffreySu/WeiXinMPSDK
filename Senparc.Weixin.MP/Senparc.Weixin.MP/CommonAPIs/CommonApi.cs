@@ -102,7 +102,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static JsApiTicketResult GetTicket(string appId, string secret, string type = "jsapi")
         {
-            var accessToken = GetToken(appId, secret).access_token;
+            var accessToken = AccessTokenContainer.TryGetToken(appId, secret);
 
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type={1}",
                                     accessToken, type);

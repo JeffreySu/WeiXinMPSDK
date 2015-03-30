@@ -161,6 +161,9 @@
     <Compile Include="AppStore\Entities\Passport\PassportCollection.cs" />
     <Compile Include="AppStore\ReturnResult.cs" />
     <Compile Include="AppStore\Utility\AppUtility.cs" />
+    <Compile Include="CommonAPIs\AccessTokenContainer.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
@@ -220,7 +223,6 @@
     <Compile Include="TenPayLib\TenPayRights\TenPayRights.cs" />
     <Compile Include="Agents\MessageAgent.cs" />
     <Compile Include="CheckSignature.cs" />
-    <Compile Include="CommonAPIs\AccessTokenContainer.cs" />
     <Compile Include="CommonAPIs\AccessTokenHandlerWapper.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />

@@ -165,7 +165,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
-    <Compile Include="CommonAPIs\OAuthAccessTokenContainer.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />

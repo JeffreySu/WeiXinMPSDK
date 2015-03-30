@@ -54,9 +54,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //通过，用code换取access_token
             try
             {
-                //获取OAuthAccessToken缓存
-                result = OAuthAccessTokenContainer.TryGetOAuthToken(appId, secret, code);
-                //result = OAuthApi.GetAccessToken(appId, secret, code);
+                result = OAuthApi.GetAccessToken(appId, secret, code);
             }
             catch (Exception ex)
             {

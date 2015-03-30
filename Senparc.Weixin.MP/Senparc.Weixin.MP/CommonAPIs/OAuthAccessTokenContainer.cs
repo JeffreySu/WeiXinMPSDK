@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
     public class OAuthAccessTokenContainer
     {
         static Dictionary<string, OAuthAccessTokenBag> OAuthAccessTokenCollection =
-           new Dictionary<string, AccessTokenBag>(StringComparer.OrdinalIgnoreCase);
+           new Dictionary<string, OAuthAccessTokenBag>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
@@ -65,52 +65,55 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
+        /// <param name="code"></param>
         /// <param name="getNewToken"></param>
         /// <returns></returns>
-        public static string TryGetToken(string appId, string appSecret, string code, bool getNewToken = false)
+        public static OAuthAccessTokenResult TryGetOAuthToken(string appId, string appSecret, string code, bool getNewToken = false)
         {
             if (!CheckRegistered(appId) || getNewToken)
             {
                 Register(appId, appSecret, code);
             }
-            return GetToken(appId);
+            return GetOAuthToken(appId, code);
         }
 
         /// <summary>
         /// 获取可用Token
         /// </summary>
         /// <param name="appId"></param>
+        /// <param name="code"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static string GetToken(string appId, bool getNewToken = false)
+        public static OAuthAccessTokenResult GetOAuthToken(string appId,string code, bool getNewToken = false)
         {
-            return GetTokenResult(appId, getNewToken).access_token;
+            return GetOAuthTokenResult(appId, code, getNewToken);
         }
 
         /// <summary>
         /// 获取可用Token
         /// </summary>
         /// <param name="appId"></param>
+        /// <param name="code"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static AccessTokenResult GetTokenResult(string appId, bool getNewToken = false)
+        public static OAuthAccessTokenResult GetOAuthTokenResult(string appId, string code, bool getNewToken = false)
         {
-            if (!AccessTokenCollection.ContainsKey(appId))
+            if (!OAuthAccessTokenCollection.ContainsKey(appId))
             {
                 throw new WeixinException("此appId尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var accessTokenBag = AccessTokenCollection[appId];
-            lock (accessTokenBag.Lock)
+            var oAuthAccessTokenBag = OAuthAccessTokenCollection[appId];
+            lock (oAuthAccessTokenBag.Lock)
             {
-                if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
+                if (getNewToken || oAuthAccessTokenBag.ExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
-                    accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.AppId, accessTokenBag.AppSecret);
-                    accessTokenBag.ExpireTime = DateTime.Now.AddSeconds(accessTokenBag.AccessTokenResult.expires_in);
+                    oAuthAccessTokenBag.OAuthAccessTokenResult = OAuthApi.GetAccessToken(oAuthAccessTokenBag.AppId, oAuthAccessTokenBag.AppSecret,code);
+                    oAuthAccessTokenBag.ExpireTime = DateTime.Now.AddSeconds(oAuthAccessTokenBag.OAuthAccessTokenResult.expires_in);
                 }
             }
-            return accessTokenBag.AccessTokenResult;
+            return oAuthAccessTokenBag.OAuthAccessTokenResult;
         }
 
         /// <summary>
@@ -120,7 +123,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static bool CheckRegistered(string appId)
         {
-            return AccessTokenCollection.ContainsKey(appId);
+            return OAuthAccessTokenCollection.ContainsKey(appId);
         }
     }
 }

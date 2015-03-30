@@ -1,3 +1,6 @@
+.hide {
+    display: none;
+}
 .content {
     min-width: 1000px;
 }.senparc-header {

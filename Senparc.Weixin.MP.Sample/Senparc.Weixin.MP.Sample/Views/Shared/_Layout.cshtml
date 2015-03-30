@@ -58,56 +58,11 @@
                     <div class="contact">
                         <div class="contatc-name">400客服热线：4008-661-666</div>
                         <div class="clear"></div>
-                        
-                        <div id="contact1-tooltip">
-                            1群：300313885
-                            <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=82247c6c20c8ed6baa223ea4a5514a3f0f241e4479e5a6997dbd42dacda12d2c">
-                                <img border="0" style="vertical-align:middle;" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Senparc.Weixin.MP SDK 1群" title="Senparc.Weixin.MP SDK 1群">
-                            </a>
-                        </div>
 
-                        <ul id="contact-content">
-                            <li class="contatc-name">技术交流群：</li>
-                            <li class="contatc-img contact-qq" data-tooltip="#contact1-tooltip">
-                                <a href="javascript:;">
-                                    <img src="/images/v2/QQ.png" />
-                                </a>
-                            </li>
-                            <li class="contatc-img contact-qq" data-tooltip="2群：293958349（已满）">
-                                <a href="javascript:;">
-                                    <img src="/images/v2/QQ.png" />
-                                </a>
-                            </li>
-                            <li class="contatc-img contact-qq" data-tooltip="3群：342319110（已满）">
-                                <a href="javascript:;">
-                                    <img src="/images/v2/QQ.png" />
-                                </a>
-                            </li>
-                            <li class="contatc-img contact-qq" data-tooltip="4群：372212092（已满）">
-                                <a href="javascript:;">
-                                    <img src="/images/v2/QQ.png" />
-                                </a>
-                            </li>
-                            <li class="contatc-img contact-qq" data-tooltip="5群：377815480（已满）">
-                                <a href="javascript:;">
-                                    <img src="/images/v2/QQ.png" />
-                                </a>
-                            </li>
-                            <li class="contatc-img contact-qq" data-tooltip="#contact-tooltip">
-                                <a href="javascript:;">
-                                    <img src="/images/v2/QQ.png" />
-                                </a>
-                            </li>
-                            <li class="contatc-name">业务联系QQ：498977166</li>
-                        </ul>
+                        <div id="qqGroups">QQ群载入中……</div>
+
                         <div class="clear"></div>
 
-                        <div id="contact-tooltip">
-                            6群：425898825
-                            <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=f0ce6bfbca174df5c88b2929c3a39ad2e117b9315de993f5f7b48d8c27fcdd9b">
-                                <img border="0" style="vertical-align:middle;" src="http://pub.idqqimg.com/wpa/images/group.png" alt="Senparc.Weixin.MP SDK 6群" title="Senparc.Weixin.MP SDK 6群">
-                            </a>
-                        </div>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -140,17 +95,36 @@
         <div style="display: none;">
             <script>
                 var _hmt = _hmt || [];
-                (function () {
+                (function() {
                     var hm = document.createElement("script");
                     hm.src = "//hm.baidu.com/hm.js?a8ad9ff7b9dd4cbb5510f6a929ba085f";
                     var s = document.getElementsByTagName("script")[0];
                     s.parentNode.insertBefore(hm, s);
                 })();
-                $(function () {
-                    $('#contact-content li.contact-qq').darkTooltip({
-                        theme: 'light'
+
+                $(function() {
+                    loadQQGroups();
+                });
+
+                function loadQQGroups() {
+                    $.ajax({
+                        type: "get",
+                        async: false,
+                        url: "http://www.weiweihi.com/WeixinSdk/GetSdkQqGroupListJson",
+                        dataType: "jsonp",
+                        jsonp: "callbackparam", //服务端用于接收callback调用的function名的参数
+                        jsonpCallback: "success_jsonpCallback", //callback的function名称
+                        success: function (json) {
+                            $('#qqGroups').html(json[0].html);
+                            $('#contact-content li.contact-qq').darkTooltip({
+                                theme: 'light'
+                            });
+                        },
+                        error: function () {
+                            //alert('fail');
+                        }
                     });
-                })
+                }
             </script>
         </div>
     </div>

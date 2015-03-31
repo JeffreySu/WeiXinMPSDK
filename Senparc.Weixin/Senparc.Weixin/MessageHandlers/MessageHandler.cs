@@ -31,10 +31,10 @@ namespace Senparc.Weixin.MessageHandlers
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin的基础功能，只为简化代码而设。
     /// </summary>
-    public abstract class MessageHandler<TC, TRest, TResp> : IMessageHandler<TRest, TResp>
-        where TC : class, IMessageContext<TRest, TResp>, new()
-        where TRest : IRequestMessageBase
-        where TResp : IResponseMessageBase
+    public abstract class MessageHandler<TC, TRequest, TResponse> : IMessageHandler<TRequest, TResponse>
+        where TC : class, IMessageContext<TRequest, TResponse>, new()
+        where TRequest : IRequestMessageBase
+        where TResponse : IResponseMessageBase
     {
         ///// <summary>
         ///// 上下文
@@ -44,7 +44,7 @@ namespace Senparc.Weixin.MessageHandlers
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public abstract WeixinContext<TC, TRest, TResp> WeixinContext { get; }
+        public abstract WeixinContext<TC, TRequest, TResponse> WeixinContext { get; }
 
         /// <summary>
         /// 当前用户消息上下文
@@ -111,13 +111,13 @@ namespace Senparc.Weixin.MessageHandlers
         /// <summary>
         /// 请求实体
         /// </summary>
-        public virtual TRest RequestMessage { get; set; }
+        public virtual TRequest RequestMessage { get; set; }
         /// <summary>
         /// 响应实体
         /// 正常情况下只有当执行Execute()方法后才可能有值。
         /// 也可以结合Cancel，提前给ResponseMessage赋值。
         /// </summary>
-        public virtual TResp ResponseMessage { get; set; }
+        public virtual TResponse ResponseMessage { get; set; }
 
         /// <summary>
         /// 是否使用了MessageAgent代理

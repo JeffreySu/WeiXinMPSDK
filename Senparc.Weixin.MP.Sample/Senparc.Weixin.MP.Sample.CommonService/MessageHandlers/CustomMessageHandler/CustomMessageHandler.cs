@@ -216,6 +216,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             return responseMessage;
         }
 
+        public override IResponseMessageBase OnShortVideoRequest(RequestMessageShortVideo requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "您刚才发送的是小视频";
+            return responseMessage;
+        }
+
         /// <summary>
         /// 处理图片请求
         /// </summary>

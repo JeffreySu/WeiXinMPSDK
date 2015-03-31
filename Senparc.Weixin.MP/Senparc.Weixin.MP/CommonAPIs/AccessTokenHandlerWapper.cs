@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             }
             catch (ErrorJsonResultException ex)
             {
-                if (retryIfFaild && ex.JsonResult.errcode == ReturnCode.验证失败)
+                if (retryIfFaild && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
                 {
                     //尝试重新验证
                     var accessToken = AccessTokenContainer.TryGetToken(appId, appSecret, true);

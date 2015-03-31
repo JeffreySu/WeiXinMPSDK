@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.MP.Entities;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
+namespace Senparc.Weixin.MP.AdvancedAPIs.OAuthOpen
 {
     /// <summary>
     /// 代公众号发起网页授权获取OAuth AccessToken的结果

@@ -25,7 +25,7 @@ namespace Senparc.Weixin.MP.Test.HttpUtility
             catch (ErrorJsonResultException ex)
             {
                 //实际返回的信息（错误信息）
-                Assert.AreEqual(ex.JsonResult.errcode, ReturnCode.验证失败);
+                Assert.AreEqual(ex.JsonResult.errcode, ReturnCode.获取access_token时AppSecret错误或者access_token无效);
             }
         }
 

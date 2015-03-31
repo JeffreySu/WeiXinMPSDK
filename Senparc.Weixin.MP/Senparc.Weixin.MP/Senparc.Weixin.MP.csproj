@@ -187,6 +187,8 @@
     <Compile Include="Helpers\MsgTypeHelper.cs" />
     <Compile Include="Helpers\JSSDKHelper.cs" />
     <Compile Include="Helpers\SHA1UtilHelper.cs" />
+    <Compile Include="Open\OAuthOpen\OAuthOpenJson\OAuthOpenAccessTokenResult.cs" />
+    <Compile Include="Open\OAuthOpen\OAuthOpenAPI.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
     <Compile Include="TenPayLibV3\RequestHandler.cs" />

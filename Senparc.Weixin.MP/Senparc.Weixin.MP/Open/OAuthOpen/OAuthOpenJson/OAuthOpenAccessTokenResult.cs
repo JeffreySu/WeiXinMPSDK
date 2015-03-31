@@ -1,17 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2015 Senparc
     
-    文件名：OAuthAccessTokenResult.cs
-    文件功能描述：获取OAuth AccessToken的结果
+    文件名：OAuthOpenAccessTokenResult.cs
+    文件功能描述：代公众号发起网页授权获取OAuth AccessToken的结果
     
     
-    创建标识：Senparc - 20150211
-    
-    修改标识：Senparc - 20150303
-    修改描述：整理接口
-    
-    修改标识：Senparc - 20150331
-    修改描述：添加注释说明
+    创建标识：Senparc - 20150331
 ----------------------------------------------------------------*/
 
 using System;
@@ -23,10 +17,10 @@ using Senparc.Weixin.MP.Entities;
 namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
 {
     /// <summary>
-    /// 获取OAuth AccessToken的结果
+    /// 代公众号发起网页授权获取OAuth AccessToken的结果
     /// 如果错误，返回结果{"errcode":40029,"errmsg":"invalid code"}
     /// </summary>
-    public class OAuthAccessTokenResult : WxJsonResult
+    public class OAuthOpenAccessTokenResult : WxJsonResult
     {
         /// <summary>
         /// 接口调用凭证

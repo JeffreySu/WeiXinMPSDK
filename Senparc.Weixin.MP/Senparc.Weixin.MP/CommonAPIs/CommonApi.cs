@@ -12,10 +12,14 @@
     
     修改标识：Senparc - 20150330
     修改描述：获取调用微信JS接口的临时票据中的AccessToken添加缓存
+    
+    修改标识：Senparc - 20150401
+    修改描述：添加公众号第三方平台获取授权码接口
 ----------------------------------------------------------------*/
 
 /*
     API：http://mp.weixin.qq.com/wiki/index.php?title=%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3&oldid=103
+    
  */
 
 using System;

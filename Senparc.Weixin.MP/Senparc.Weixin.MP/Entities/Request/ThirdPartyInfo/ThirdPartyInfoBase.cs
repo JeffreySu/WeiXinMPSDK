@@ -5,10 +5,7 @@
     文件功能描述：第三方应用授权回调消息服务
     
     
-    创建标识：Senparc - 20150313
-    
-    修改标识：Senparc - 20150313
-    修改描述：整理接口
+    创建标识：Senparc - 20150401
 ----------------------------------------------------------------*/
 
 using System;
@@ -16,32 +13,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.MP.Entities
 {
-    public interface IThirdPartyInfoBase : IRequestMessageBase
+    public interface IThirdPartyInfoBase
     {
         ThirdPartyInfo InfoType { get; }
-        string SuiteId { get; set; }
-        string TimeStamp { get; set; }
+        string AppId { get; set; }
+        string CreateTime { get; set; }
     }
 
-    public class ThirdPartyInfoBase : RequestMessageBase, IThirdPartyInfoBase
+    public class ThirdPartyInfoBase : IThirdPartyInfoBase
     {
         #region 以下内容为第三方应用授权回调消息服务
         public virtual ThirdPartyInfo InfoType
         {
-            get { return ThirdPartyInfo.SUITE_TICKET; }
+            get { return ThirdPartyInfo.component_verify_ticket; }
         }
 
         /// <summary>
-        /// 应用套件的SuiteId
+        /// 第三方平台appid
         /// </summary>
-        public string SuiteId { get; set; }
+        public string AppId { get; set; }
 
         /// <summary>
         /// 时间戳
         /// </summary>
-        public string TimeStamp { get; set; }
+        public string CreateTime { get; set; }
         #endregion
 
         public ThirdPartyInfoBase()

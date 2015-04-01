@@ -410,4 +410,45 @@ namespace Senparc.Weixin.MP
         /// </summary>
         snsapi_userinfo
     }
+
+    /// <summary>
+    /// 选项设置信息选项名称
+    /// </summary>
+    public enum OptionName
+    {
+        /// <summary>
+        /// 地理位置上报选项
+        /// 0	无上报
+        /// 1	进入会话时上报
+        /// 2	每5s上报
+        /// </summary>
+        location_report,
+        /// <summary>
+        /// 语音识别开关选项
+        /// 0	关闭语音识别
+        /// 1	开启语音识别
+        /// </summary>
+        voice_recognize,
+        /// <summary>
+        /// 客服开关选项
+        /// 0	关闭多客服
+        /// 1	开启多客服
+        /// </summary>
+        customer_service
+    }
+
+    /// <summary>
+    /// 公众号第三方平台推送消息类型
+    /// </summary>
+    public enum ThirdPartyInfo
+    {
+        /// <summary>
+        /// 推送component_verify_ticket协议
+        /// </summary>
+        component_verify_ticket,
+        /// <summary>
+        /// 推送取消授权通知
+        /// </summary>
+        unauthorized
+    }
 }

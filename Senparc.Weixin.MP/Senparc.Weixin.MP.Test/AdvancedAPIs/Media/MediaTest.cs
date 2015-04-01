@@ -32,6 +32,43 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         }
 
         [TestMethod]
+        public void UploadTemporaryNewsTest()
+        {
+            var accessToken = AccessTokenContainer.GetToken(_appId);
+
+            var file = @"E:\1.jpg";
+            var mediaId = MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.thumb, file).thumb_media_id;
+
+            Assert.IsNotNull(mediaId);
+
+            var new1 = new NewsModel()
+            {
+                author = "test",
+                content = "test",
+                content_source_url = "http://qy.weiweihi.com/Content/Images/app/qyhelper.png",
+                digest = "test",
+                show_cover_pic = "1",
+                thumb_media_id = mediaId,
+                title = "test"
+            };
+
+            var new2 = new NewsModel()
+            {
+                author = "test",
+                content = "test111",
+                content_source_url = "http://qy.weiweihi.com/Content/Images/app/qyhelper.png",
+                digest = "test",
+                show_cover_pic = "1",
+                thumb_media_id = mediaId,
+                title = "test"
+            };
+
+            var result = MediaApi.UploadTemporaryNews(accessToken, 10000, new1, new2);
+
+            Assert.IsNotNull(result.media_id);
+        }
+
+        [TestMethod]
         public void GetTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);

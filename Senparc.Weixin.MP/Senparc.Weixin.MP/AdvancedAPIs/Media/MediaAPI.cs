@@ -15,6 +15,9 @@
  
     修改标识：Senparc - 20150321
     修改描述：变更为素材管理接口
+ 
+    修改标识：Senparc - 20150401
+    修改描述：上传临时图文消息接口
 ----------------------------------------------------------------*/
 
 /*
@@ -56,6 +59,24 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         }
 
         /// <summary>
+        /// 上传临时图文消息素材（原上传图文消息素材）
+        /// </summary>
+        /// <param name="accessToken">Token</param>
+        /// <param name="news">图文消息组</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static UploadForeverMediaFileResult UploadTemporaryNews(string accessToken, int timeOut = Config.TIME_OUT, params NewsModel[] news)
+        {
+            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token={0}";
+
+            var data = new
+            {
+                articles = news
+            };
+            return CommonJsonSend.Send<UploadForeverMediaFileResult>(accessToken, urlFormat, data, timeOut: timeOut);
+        }
+
+        /// <summary>
         /// 获取临时素材（原下载媒体文件）
         /// </summary>
         /// <param name="accessToken"></param>
@@ -77,7 +98,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
          */
 
         /// <summary>
-        /// 新增永久图文素材（原上传图文消息素材）
+        /// 新增永久图文素材
         /// </summary>
         /// <param name="accessToken">Token</param>
         /// <param name="news">图文消息组</param>
@@ -85,11 +106,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// <returns></returns>
         public static UploadForeverMediaFileResult UploadNews(string accessToken, int timeOut = Config.TIME_OUT, params NewsModel[] news)
         {
-            //原上传图文素材接口
-            //const string urlFormat = "https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token={0}";
-
-            //新增永久图文素材接口
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token={0}";
+
             var data = new
             {
                 articles = news

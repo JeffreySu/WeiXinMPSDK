@@ -68,11 +68,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         private string Charset = "gb2312";
 
-        /// <summary>
-        /// 参与签名的参数列表
-        /// </summary>
-        private static string SignField = "appid,appkey,timestamp,openid,noncestr,issubscribe";
-
 		protected HttpContext HttpContext;
 
         /// <summary>

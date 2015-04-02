@@ -102,7 +102,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             RequestHandler packageReqHandler = new RequestHandler(null);
             //初始化
             packageReqHandler.Init();
-            //packageReqHandler.SetKey(""/*TenPayV3Info.Key*/);
 
             timeStamp = TenPayV3Util.GetTimestamp();
             nonceStr = TenPayV3Util.GetNoncestr();

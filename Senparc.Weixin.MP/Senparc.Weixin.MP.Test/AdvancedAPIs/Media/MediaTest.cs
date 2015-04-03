@@ -110,6 +110,18 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             mediaId = result.media_id;
         }
 
+        [TestMethod]
+        public void UploadForeverVideoTest()
+        {
+            var accessToken = AccessTokenContainer.GetToken(_appId);
+
+            var file = @"E:\Test.mp4";
+            var result = MediaApi.UploadForeverVideo(accessToken,file,"test","test");
+
+            Assert.IsNotNull(result.media_id);
+            mediaId = result.media_id;
+        }
+
         //[TestMethod]
         private string UploadAndUpdateNewsTest(string accessToken)
         {

@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public string Key { get; set; }
         /// <summary>
-        /// 支付完成后的回调处理页面,*替换成notify_url.asp所在路径
+        /// 支付完成后的回调处理页面
         /// </summary>
         public string TenPayV3Notify { get; set; } // = "http://localhost/payNotifyUrl.aspx";
 

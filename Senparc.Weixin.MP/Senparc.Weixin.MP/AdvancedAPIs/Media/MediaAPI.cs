@@ -136,9 +136,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
             var url = string.Format("http://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken);
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = file;
-            //string description = string.Format("{title = {0},introduction = {1}}", title, introduction);
-            //fileDictionary["description"] = description;
-            return HttpUtility.Post.PostFileGetJson<UploadTemporaryMediaFileResult>(url, null, fileDictionary, null, timeOut: timeOut);
+            fileDictionary["type"] = "video";
+            fileDictionary["title"] = title;
+            fileDictionary["introduction"] = introduction;
+            HttpUtility.Post.PostFileGetJson<UploadTemporaryMediaFileResult>(url, null, fileDictionary, null, timeOut: timeOut);
+
+            var data = new
+                {
+                    title = title,
+                    introduction = introduction
+                };
+
+            return CommonJsonSend.Send<UploadTemporaryMediaFileResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         } 
 
         /// <summary>

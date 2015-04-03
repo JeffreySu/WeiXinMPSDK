@@ -124,5 +124,26 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Groups
             };
             return CommonJsonSend.Send(accessToken, urlFormat, data, timeOut: timeOut);
         }
+
+        /// <summary>
+        /// 批量移动用户分组
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="toGroupId">分组id</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="openIds">用户唯一标识符openid的列表（size不能超过50）</param>
+        /// <returns></returns>
+        public static WxJsonResult BatchUpdate(string accessToken, int toGroupId, int timeOut = Config.TIME_OUT, params string[] openIds)
+        {
+            var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/members/batchupdate?access_token={0}";
+
+            var data = new
+                {
+                    openid_list = openIds,
+                    to_groupid = toGroupId
+                };
+
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+        }
     }
 }

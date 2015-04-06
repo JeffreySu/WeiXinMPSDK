@@ -3,6 +3,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace Senparc.Weixin.MP.Util.Conf
 {
@@ -73,6 +74,10 @@ namespace Senparc.Weixin.MP.Util.Conf
         }
 
 
+        public static ICollection<String> GetKeys()
+        {
+            return _items.Keys;
+        }
     }
 }
 

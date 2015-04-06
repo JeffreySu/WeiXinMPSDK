@@ -35,6 +35,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,8 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppCtx.cs" />
     <Compile Include="Conf\ConfigItem.cs" />
     <Compile Include="Conf\ConfigManager.cs" />
+    <Compile Include="Content\CustomMessageContext.cs" />
+    <Compile Include="Content\CustomMessageHandler.cs" />
+    <Compile Include="Content\CustomMessageHandler_Events.cs" />
+    <Compile Include="IAppCustomHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

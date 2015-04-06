@@ -30,6 +30,11 @@ namespace Senparc.Weixin.MP.Util.Conf
         /// </summary>
         public string WxWelcomeMessage;
 
+        /// <summary>
+        /// 自定义请求处理类的全名(用于反射)
+        /// </summary>
+        public string CustomHandlerClassName;
+
         public ConfigItem(string filePath)
         {
             this._filePath = filePath;
@@ -51,6 +56,7 @@ namespace Senparc.Weixin.MP.Util.Conf
             this.WxWelcomeMessage = this._file.Get("Weixin_WelcomeMessage") ?? "";
             this.WxEnterMessage = this._file.Get("Weixin_EnterMessage") ?? "";
             this.WxDefaultResponseMessage = this._file.Get("Weixin_DefaultResponseMessage")?? "";
+            this.CustomHandlerClassName = this._file.Get("Weixin_CustomHandlerClassName");
         }
 
         /// <summary>
@@ -65,6 +71,7 @@ namespace Senparc.Weixin.MP.Util.Conf
             this._file.Set("Weixin_WelcomeMessage",this.WxWelcomeMessage);
             this._file.Set("Weixin_EnterMessage",this.WxEnterMessage);
             this._file.Set("Weixin_DefaultResponseMessage",this.WxDefaultResponseMessage);
+            this._file.Set("Weixin_CustomHandlerClassName", this.CustomHandlerClassName);
         }
 
         /// <summary>

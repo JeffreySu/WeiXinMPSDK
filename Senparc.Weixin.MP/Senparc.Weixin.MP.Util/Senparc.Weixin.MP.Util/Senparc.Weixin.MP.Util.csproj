@@ -49,6 +49,7 @@
     <Compile Include="Content\CustomMessageContext.cs" />
     <Compile Include="Content\CustomMessageHandler.cs" />
     <Compile Include="Content\CustomMessageHandler_Events.cs" />
+    <Compile Include="DefaultAppCustomHandler.cs" />
     <Compile Include="IAppCustomHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

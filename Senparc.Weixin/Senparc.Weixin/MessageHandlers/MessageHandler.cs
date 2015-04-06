@@ -54,31 +54,13 @@ namespace Senparc.Weixin.MessageHandlers
             get { return WeixinContext.GetMessageContext(RequestMessage); }
         }
 
-        /// <summary>
-        /// 发送者用户名（OpenId）
-        /// </summary>
-        public string WeixinOpenId
+        public string GetOpenId()
         {
-            get
+            if (RequestMessage != null)
             {
-                if (RequestMessage != null)
-                {
-                    return RequestMessage.FromUserName;
-                }
-                return null;
+                return RequestMessage.FromUserName;
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Obsolete("UserName属性从v0.6起已过期，建议使用WeixinOpenId")]
-        public string UserName
-        {
-            get
-            {
-                return WeixinOpenId;
-            }
+            return null;
         }
 
         /// <summary>
@@ -193,7 +175,7 @@ namespace Senparc.Weixin.MessageHandlers
         /// <summary>
         /// 使用requestMessageBase的构造函数
         /// </summary>
-        /// <param name="postDataDocument"></param>
+        /// <param name="requestMessageBase"></param>
         /// <param name="maxRecordCount"></param>
         /// <param name="postData">需要传入到Init的参数</param>
         public MessageHandler(RequestMessageBase requestMessageBase, int maxRecordCount = 0, object postData = null)

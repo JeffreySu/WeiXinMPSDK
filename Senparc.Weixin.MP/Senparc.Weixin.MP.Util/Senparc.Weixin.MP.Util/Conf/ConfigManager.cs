@@ -9,6 +9,8 @@ namespace Senparc.Weixin.MP.Util.Conf
     public static class ConfigManager
     {
         private static IDictionary<String, ConfigItem> _items;
+        private static string _directoryPath;
+
         /// <summary>
         /// Get config of micro message by config key.
         /// </summary>
@@ -37,7 +39,7 @@ namespace Senparc.Weixin.MP.Util.Conf
             {
                 throw new IOException(directoryPath + " not exist!");
             }
-
+            _directoryPath = directoryPath;
             ResetItems();
 
             FileInfo[] confFiles = dir.GetFiles("*.config");
@@ -49,9 +51,14 @@ namespace Senparc.Weixin.MP.Util.Conf
 
         }
 
-        private static void ResetItems()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="config"></param>
+        public static void NewConfig(ConfigItem config)
         {
-            _items = new ConcurrentDictionary<string, ConfigItem>();
+            config.Flush();
+            Load(_directoryPath);
         }
 
         private static void LoadFormFile(String filePath)
@@ -59,6 +66,12 @@ namespace Senparc.Weixin.MP.Util.Conf
             ConfigItem item = new ConfigItem(filePath);
             _items.Add(item.GetKey(), item);
         }
+
+        private static void ResetItems()
+        {
+            _items = new ConcurrentDictionary<string, ConfigItem>();
+        }
+
 
     }
 }

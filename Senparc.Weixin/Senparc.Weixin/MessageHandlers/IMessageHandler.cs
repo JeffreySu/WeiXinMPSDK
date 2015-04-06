@@ -25,9 +25,10 @@ namespace Senparc.Weixin.MessageHandlers
         where TResp : IResponseMessageBase
     {
         /// <summary>
-        /// 发送者用户名（OpenId）
+        /// 获取用户的OpenId
         /// </summary>
-        string WeixinOpenId { get; }
+        /// <returns></returns>
+        string GetOpenId();
 
         /// <summary>
         /// 取消执行Execute()方法。一般在OnExecuting()中用于临时阻止执行Execute()。

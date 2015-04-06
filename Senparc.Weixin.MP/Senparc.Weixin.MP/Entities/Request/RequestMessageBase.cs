@@ -23,7 +23,7 @@ namespace Senparc.Weixin.MP.Entities
     {
         RequestMsgType MsgType { get; }
         string Encrypt { get; set; }
-        long MsgId { get; set; }
+        new long MsgId { get; set; }
     }
 
     /// <summary>

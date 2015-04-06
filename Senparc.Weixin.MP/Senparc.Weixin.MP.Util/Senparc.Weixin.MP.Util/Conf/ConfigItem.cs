@@ -6,30 +6,74 @@ namespace Senparc.Weixin.MP.Util.Conf
 {
     public class ConfigItem
     {
-        public static string Token;
+        public  string Token;
 
-        public static string AppId;
+        public  string AppId;
 
-        public static string AppSecret;
+        public  string AppSecret;
 
         /// <summary>
         /// 解密字符串
         /// </summary>
-        public static string AppEncodeString;
-        public static string ApiDomain;         //
-        public static string MenuButtons;       //自定义菜单
-        public static string WxWelcomeMessage;    //微信欢迎文字
-        public static string WxEnterMessage; //微信进入文字
-        public static string WxDefaultResponseMessage;  //微信默认自动回复消息
-        public static bool DebugMode = false;
-        private string _filePath;
+        public  string AppEncodeString;
+        public  string ApiDomain;         //
+        public  string MenuButtons;       //自定义菜单
+        public  string WxEnterMessage; //微信进入文字
+        public  string WxDefaultResponseMessage;  //微信默认自动回复消息
+        public  bool DebugMode = false;
+        private readonly string _filePath;
         private string _key;
-        private SettingFile _file;
+        private readonly SettingFile _file;
+
+        /// <summary>
+        /// 欢迎文字
+        /// </summary>
+        public string WxWelcomeMessage;
 
         public ConfigItem(string filePath)
         {
             this._filePath = filePath;
             this._file = new SettingFile(this._filePath);
+            this.Deserialize();
+        }
+
+        /// <summary>
+        /// 解码
+        /// </summary>
+        private void Deserialize()
+        {
+            this.Token = this._file.Get("Weixin_Token")??"";
+            this.AppId = this._file.Get("Weixin_AppId")??"";
+            this.AppSecret = this._file.Get("Weixin_AppSecret")??"";
+            this.AppEncodeString =this._file.Get("Weixin_AppEncodeString")??"";
+            this.ApiDomain = this._file.Get("Weixin_ApiDomain")??"";
+            this.MenuButtons = this._file.Get("Weixin_MenuButtons")??"[]";
+            this.WxWelcomeMessage = this._file.Get("Weixin_WelcomeMessage") ?? "";
+            this.WxEnterMessage = this._file.Get("Weixin_EnterMessage") ?? "";
+            this.WxDefaultResponseMessage = this._file.Get("Weixin_DefaultResponseMessage")?? "";
+        }
+
+        /// <summary>
+        /// 编码
+        /// </summary>
+        private void Serialize()
+        {
+            this._file.Set("Weixin_Token",this.Token);
+            this._file.Set("Weixin_AppId",this.AppId);
+            this._file.Set("Weixin_AppSecret",this.AppSecret);
+            this._file.Set("Weixin_AppEncodeString",this.AppEncodeString);
+            this._file.Set("Weixin_WelcomeMessage",this.WxWelcomeMessage);
+            this._file.Set("Weixin_EnterMessage",this.WxEnterMessage);
+            this._file.Set("Weixin_DefaultResponseMessage",this.WxDefaultResponseMessage);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Flush()
+        {
+            this.Serialize();
+            this._file.Flush();
         }
 
         #region 按钮模板

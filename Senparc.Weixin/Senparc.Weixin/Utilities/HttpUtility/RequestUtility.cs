@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20150407
+    修改描述：使用Post方法获取字符串结果 修改表单处理方法
 ----------------------------------------------------------------*/
 
 using System;
@@ -50,7 +53,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cookieContainer"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static string HttpGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null,int timeOut= Config.TIME_OUT)
+        public static string HttpGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
@@ -82,14 +85,11 @@ namespace Senparc.Weixin.HttpUtility
         /// 使用Post方法获取字符串结果，常规提交
         /// </summary>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null,int timeOut = Config.TIME_OUT)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
         {
-            string dataString = GetQueryString(formData);
-            var formDataBytes = formData == null ? new byte[0] : Encoding.UTF8.GetBytes(dataString);
             MemoryStream ms = new MemoryStream();
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return HttpPost(url, cookieContainer, ms, null, null, encoding,timeOut);
+            formData.FillFormDataStream(ms);//填充formData
+            return HttpPost(url, cookieContainer, ms, null, null, encoding, timeOut);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="fileDictionary">需要上传的文件，Key：对应要上传的Name，Value：本地文件名</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null,int timeOut = Config.TIME_OUT)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
@@ -112,12 +112,13 @@ namespace Senparc.Weixin.HttpUtility
             if (formUploadFile)
             {
                 //通过表单上传文件
-                postStream = new MemoryStream();
+                postStream = postStream ?? new MemoryStream();
 
                 string boundary = "----" + DateTime.Now.Ticks.ToString("x");
                 //byte[] boundarybytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
-                string formdataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n";
-
+                string fileFormdataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n";
+                string dataFormdataTemplate = "\r\n--" + boundary +
+                                              "\r\nContent-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
                 foreach (var file in fileDictionary)
                 {
                     try
@@ -126,16 +127,31 @@ namespace Senparc.Weixin.HttpUtility
                         //准备文件流
                         using (var fileStream = FileHelper.GetFileStream(fileName))
                         {
-                            var formdata = string.Format(formdataTemplate, file.Key, fileName /*Path.GetFileName(fileName)*/);
+                            string formdata = null;
+                            if (fileStream != null)
+                            {
+                                //存在文件
+                                formdata = string.Format(fileFormdataTemplate, file.Key, fileName /*Path.GetFileName(fileName)*/);
+                            }
+                            else
+                            {
+                                //不存在文件或只是注释
+                                formdata = string.Format(dataFormdataTemplate, file.Key, file.Value);
+                            }
+
+                            //统一处理
                             var formdataBytes = Encoding.ASCII.GetBytes(postStream.Length == 0 ? formdata.Substring(2, formdata.Length - 2) : formdata);//第一行不需要换行
                             postStream.Write(formdataBytes, 0, formdataBytes.Length);
 
                             //写入文件
-                            byte[] buffer = new byte[1024];
-                            int bytesRead = 0;
-                            while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
+                            if (fileStream != null)
                             {
-                                postStream.Write(buffer, 0, bytesRead);
+                                byte[] buffer = new byte[1024];
+                                int bytesRead = 0;
+                                while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) != 0)
+                                {
+                                    postStream.Write(buffer, 0, bytesRead);
+                                }
                             }
                         }
                     }
@@ -185,6 +201,13 @@ namespace Senparc.Weixin.HttpUtility
                 {
                     requestStream.Write(buffer, 0, bytesRead);
                 }
+
+
+                //debug
+                postStream.Seek(0, SeekOrigin.Begin);
+                StreamReader sr = new StreamReader(postStream);
+                var postStr = sr.ReadToEnd();
+
 
                 postStream.Close();//关闭文件访问
             }
@@ -358,6 +381,19 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// 填充表单信息的Stream
+        /// </summary>
+        /// <param name="formData"></param>
+        /// <param name="stream"></param>
+        public static void FillFormDataStream(this Dictionary<string, string> formData, Stream stream)
+        {
+            string dataString = GetQueryString(formData);
+            var formDataBytes = formData == null ? new byte[0] : Encoding.UTF8.GetBytes(dataString);
+            stream.Write(formDataBytes, 0, formDataBytes.Length);
+            stream.Seek(0, SeekOrigin.Begin);//设置指针读取位置
         }
 
         /// <summary>

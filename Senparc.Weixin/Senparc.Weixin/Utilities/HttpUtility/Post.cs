@@ -15,6 +15,9 @@
  
     修改标识：zhanghao-kooboo - 20130316
     修改描述：增加
+ 
+    修改标识：Senparc - 20130407
+    修改描述：发起Post请求方法修改，为了上传永久视频素材
 ----------------------------------------------------------------*/
 
 using System;
@@ -71,11 +74,16 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
+        public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
         {
-            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, null, fileDictionary, null, encoding, timeOut: timeOut);
-            var result = GetResult<T>(returnText);
-            return result;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                postDataDictionary.FillFormDataStream(ms); //填充formData
+                string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, ms, fileDictionary, null, encoding, timeOut: timeOut);
+                var result = GetResult<T>(returnText);
+                return result;
+            }
+
         }
 
         /// <summary>

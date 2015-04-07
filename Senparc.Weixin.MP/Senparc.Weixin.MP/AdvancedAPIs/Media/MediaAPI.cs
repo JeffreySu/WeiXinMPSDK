@@ -18,6 +18,9 @@
  
     修改标识：Senparc - 20150401
     修改描述：上传临时图文消息接口
+ 
+    修改标识：Senparc - 20150407
+    修改描述：上传永久视频接口修改
 ----------------------------------------------------------------*/
 
 /*
@@ -119,7 +122,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// 新增其他类型永久素材(图片（image）、语音（voice）和缩略图（thumb）)
         /// </summary>
         /// <param name="accessToken"></param>
-        /// <param name="file"></param>
+        /// <param name="file">文件路径</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static UploadTemporaryMediaFileResult UploadForeverMedia(string accessToken, string file, int timeOut = Config.TIME_OUT)
@@ -130,25 +133,24 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
             return HttpUtility.Post.PostFileGetJson<UploadTemporaryMediaFileResult>(url, null, fileDictionary, null, timeOut: timeOut);
         }
 
-
+        /// <summary>
+        /// 新增永久视频素材
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="file">文件路径</param>
+        /// <param name="title"></param>
+        /// <param name="introduction"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
         public static UploadTemporaryMediaFileResult UploadForeverVideo(string accessToken, string file, string title, string introduction, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("http://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken);
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = file;
-            fileDictionary["type"] = "video";
-            fileDictionary["title"] = title;
-            fileDictionary["introduction"] = introduction;
-            HttpUtility.Post.PostFileGetJson<UploadTemporaryMediaFileResult>(url, null, fileDictionary, null, timeOut: timeOut);
+            fileDictionary["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction);
 
-            var data = new
-                {
-                    title = title,
-                    introduction = introduction
-                };
-
-            return CommonJsonSend.Send<UploadTemporaryMediaFileResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-        } 
+            return HttpUtility.Post.PostFileGetJson<UploadTemporaryMediaFileResult>(url, null, fileDictionary, null, timeOut: timeOut);
+        }
 
         /// <summary>
         /// 获取永久图文素材
@@ -210,7 +212,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         {
             string url = "https://api.weixin.qq.com/cgi-bin/material/update_news?access_token={0}";
 
-            var data = new 
+            var data = new
             {
                 media_id = mediaId,
                 index = index,
@@ -241,7 +243,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// <param name="count">返回素材的数量，取值在1到20之间</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static MediaList_NewsResult GetNewsMediaList(string accessToken, int offset,int count, int timeOut = Config.TIME_OUT)
+        public static MediaList_NewsResult GetNewsMediaList(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             string url = string.Format("https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token={0}",
                                        accessToken);

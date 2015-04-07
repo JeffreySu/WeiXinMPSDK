@@ -54,7 +54,9 @@ namespace Senparc.Weixin.MP.Util.Content
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
             AppCtx ctx = AppCtx.Current;
-            return ctx.GetHandler().TextOrEventRequest(ctx, this, requestMessage);
+
+            ctx.SetContextHandler(this);
+            return ctx.GetHandler().TextOrEventRequest(ctx, requestMessage);
         }
 
         /// <summary>
@@ -159,7 +161,9 @@ Url:{2}", requestMessage.Title, requestMessage.Description, requestMessage.Url);
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
             AppCtx ctx = AppCtx.Current;
-            return ctx.GetHandler().RequestAgent(ctx, this, requestMessage);
+
+            ctx.SetContextHandler(this);
+            return ctx.GetHandler().RequestAgent(ctx,  requestMessage);
         }
     }
 }

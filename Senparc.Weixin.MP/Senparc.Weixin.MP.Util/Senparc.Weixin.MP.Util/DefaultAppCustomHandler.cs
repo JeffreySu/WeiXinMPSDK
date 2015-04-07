@@ -44,7 +44,7 @@ namespace Senparc.Weixin.MP.Util
             throw new NotImplementedException();
         }
 
-        public IResponseMessageBase ClickEventRequest(AppCtx ctx,CustomMessageHandler handler, string eventKey)
+        public IResponseMessageBase ClickEventRequest(AppCtx ctx, string eventKey)
         {
             IResponseMessageBase reponseMessage = null;
             //菜单点击，需要跟创建菜单时的Key匹配
@@ -53,14 +53,14 @@ namespace Senparc.Weixin.MP.Util
                 case "OneClick":
                     {
                         //这个过程实际已经在OnTextOrEventRequest中完成，这里不会执行到。
-                        var strongResponseMessage = handler.CreateResponseMessage<ResponseMessageText>();
+                        var strongResponseMessage = ctx.CreateResponseMessage<ResponseMessageText>();
                         reponseMessage = strongResponseMessage;
                         strongResponseMessage.Content = "您点击了底部按钮。\r\n为了测试微信软件换行bug的应对措施，这里做了一个——\r\n换行";
                     }
                     break;
                 case "SubClickRoot_Text":
                     {
-                        var strongResponseMessage = handler.CreateResponseMessage<ResponseMessageText>();
+                        var strongResponseMessage = ctx.CreateResponseMessage<ResponseMessageText>();
                         reponseMessage = strongResponseMessage;
                         strongResponseMessage.Content = "您点击了子菜单按钮。";
                     }
@@ -68,7 +68,7 @@ namespace Senparc.Weixin.MP.Util
                 case "product_promotion":
                     {
 
-                        var strongResponseMessage = handler.CreateResponseMessage<ResponseMessageNews>();
+                        var strongResponseMessage = ctx.CreateResponseMessage<ResponseMessageNews>();
                         reponseMessage = strongResponseMessage;
                         strongResponseMessage.Articles.Add(new Article()
                         {
@@ -81,14 +81,14 @@ namespace Senparc.Weixin.MP.Util
                     break;
                 case "SubClickRoot_Music":
                     {
-                        var strongResponseMessage = handler.CreateResponseMessage<ResponseMessageMusic>();
+                        var strongResponseMessage = ctx.CreateResponseMessage<ResponseMessageMusic>();
                         reponseMessage = strongResponseMessage;
                         strongResponseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
                     }
                     break;
                 case "SubClickRoot_Image":
                     {
-                        var strongResponseMessage = handler.CreateResponseMessage<ResponseMessageImage>();
+                        var strongResponseMessage = ctx.CreateResponseMessage<ResponseMessageImage>();
                         reponseMessage = strongResponseMessage;
                         strongResponseMessage.Image.MediaId = "Mj0WUTZeeG9yuBKhGP7iR5n1xUJO9IpTjGNC4buMuswfEOmk6QSIRb_i98do5nwo";
                     }
@@ -96,7 +96,7 @@ namespace Senparc.Weixin.MP.Util
 
                 case "OAuth"://OAuth授权测试
                     {
-                        var strongResponseMessage = handler.CreateResponseMessage<ResponseMessageNews>();
+                        var strongResponseMessage = ctx.CreateResponseMessage<ResponseMessageNews>();
                         strongResponseMessage.Articles.Add(new Article()
                         {
                             Title = "用户登陆",
@@ -109,14 +109,14 @@ namespace Senparc.Weixin.MP.Util
                     break;
                 case "Description":
                     {
-                        var strongResponseMessage = handler.CreateResponseMessage<ResponseMessageText>();
+                        var strongResponseMessage = ctx.CreateResponseMessage<ResponseMessageText>();
                         strongResponseMessage.Content = ctx.GetConfig().WxWelcomeMessage;
                         reponseMessage = strongResponseMessage;
                     }
                     break;
                 default:
                     {
-                        var strongResponseMessage = handler.CreateResponseMessage<ResponseMessageText>();
+                        var strongResponseMessage = ctx.CreateResponseMessage<ResponseMessageText>();
                         strongResponseMessage.Content = "您点击了按钮，EventKey：" + eventKey;
                         reponseMessage = strongResponseMessage;
                     }
@@ -127,7 +127,7 @@ namespace Senparc.Weixin.MP.Util
         }
 
 
-        public IResponseMessageBase TextOrEventRequest(AppCtx ctx, CustomMessageHandler customMessageHandler, RequestMessageText requestMessage)
+        public IResponseMessageBase TextOrEventRequest(AppCtx ctx, RequestMessageText requestMessage)
         {
             return null;
 //            string txt = requestMessage.Content.ToLower();
@@ -163,7 +163,7 @@ namespace Senparc.Weixin.MP.Util
         }
 
 
-        public IResponseMessageBase EnterEventRequest(AppCtx ctx, CustomMessageHandler customMessageHandler, RequestMessageEvent_Enter requestMessage)
+        public IResponseMessageBase EnterEventRequest(AppCtx ctx, RequestMessageEvent_Enter requestMessage)
         {
             return null;
             //            String content = Variables.WxEnterMessage;
@@ -181,7 +181,7 @@ namespace Senparc.Weixin.MP.Util
         }
 
 
-        public IResponseMessageBase TextRequest(AppCtx ctx, CustomMessageHandler handler, RequestMessageText requestMessage)
+        public IResponseMessageBase TextRequest(AppCtx ctx, RequestMessageText requestMessage)
         {
 
             //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
@@ -206,7 +206,7 @@ namespace Senparc.Weixin.MP.Util
 
             //方法四（v0.6+），仅适合在HandlerMessage内部使用，本质上是对方法三的封装
             //注意：下面泛型ResponseMessageText即返回给客户端的类型，可以根据自己的需要填写ResponseMessageNews等不同类型。
-            var responseMessage = handler.CreateResponseMessage<ResponseMessageText>();
+            var responseMessage = ctx.CreateResponseMessage<ResponseMessageText>();
 
             if (requestMessage.Content == "测试")
             {
@@ -217,7 +217,7 @@ namespace Senparc.Weixin.MP.Util
                 var result = new StringBuilder();
                 result.AppendFormat("您刚才发送了文字信息：{0}\r\n\r\n", requestMessage.Content);
 
-                var msgCtx = handler.CurrentMessageContext;
+                var msgCtx = ctx.ContextHandler.CurrentMessageContext;
                 if (msgCtx.RequestMessages.Count > 1)
                 {
                     result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n",msgCtx.RequestMessages.Count,
@@ -243,7 +243,7 @@ namespace Senparc.Weixin.MP.Util
         }
 
 
-        public IResponseMessageBase RequestAgent(AppCtx ctx, CustomMessageHandler customMessageHandler, IRequestMessageBase requestMessage)
+        public IResponseMessageBase RequestAgent(AppCtx ctx, IRequestMessageBase requestMessage)
         {
 
             /* 所有没有被处理的消息会默认返回这里的结果，
@@ -256,7 +256,7 @@ namespace Senparc.Weixin.MP.Util
             String defaultMsg = ctx.GetConfig().WxDefaultResponseMessage;
             if (!String.IsNullOrEmpty(defaultMsg))
             {
-                var strongResponseMessage = customMessageHandler.CreateResponseMessage<ResponseMessageText>();
+                var strongResponseMessage = ctx.CreateResponseMessage<ResponseMessageText>();
                 strongResponseMessage.Content =defaultMsg;
                 return strongResponseMessage;
             }

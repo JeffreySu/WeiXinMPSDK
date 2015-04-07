@@ -7,15 +7,15 @@ namespace Senparc.Weixin.MP.Util
     {
         IResponseMessageBase SubscribeRequest(AppCtx ctx, RequestMessageEvent_Subscribe requestMessage);
 
-        IResponseMessageBase UnsubscribeRequest(AppCtx ctx, RequestMessageEvent_Unsubscribe requestMessage);
+        IResponseMessageBase UnsubscribeRequest(AppCtx ctx,  RequestMessageEvent_Unsubscribe requestMessage);
 
-        IResponseMessageBase ScancodePushRequest(AppCtx ctx, RequestMessageEvent_Scancode_Push requestMessage);
+        IResponseMessageBase ScancodePushRequest(AppCtx ctx,  RequestMessageEvent_Scancode_Push requestMessage);
 
-        IResponseMessageBase ClickEventRequest(AppCtx ctx, CustomMessageHandler customMessageHandler, string p);
+        IResponseMessageBase ClickEventRequest(AppCtx ctx,  string eventKey);
 
-        IResponseMessageBase TextOrEventRequest(AppCtx ctx, CustomMessageHandler customMessageHandler, RequestMessageText requestMessage);
+        IResponseMessageBase TextOrEventRequest(AppCtx ctx,  RequestMessageText requestMessage);
 
-        IResponseMessageBase EnterEventRequest(AppCtx ctx, CustomMessageHandler customMessageHandler, RequestMessageEvent_Enter requestMessage);
+        IResponseMessageBase EnterEventRequest(AppCtx ctx,  RequestMessageEvent_Enter requestMessage);
 
         /// <summary>
         /// 所有没有被处理的消息会默认返回这里的结果，
@@ -25,9 +25,9 @@ namespace Senparc.Weixin.MP.Util
         /// return responseMessage;
         /// </summary>
         /// <param name="ctx"></param>
-        /// <param name="customMessageHandler"></param>
+        /// <param name="handler"></param>
         /// <param name="requestMessage"></param>
         /// <returns></returns>
-        IResponseMessageBase RequestAgent(AppCtx ctx, CustomMessageHandler customMessageHandler, IRequestMessageBase requestMessage);
+        IResponseMessageBase RequestAgent(AppCtx ctx,  IRequestMessageBase requestMessage);
     }
 }

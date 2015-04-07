@@ -4,6 +4,8 @@ using System.Reflection;
 using System.Web;
 using System.Text.RegularExpressions;
 using Senparc.Weixin.MP.Util.Conf;
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Util.Content;
 
 namespace Senparc.Weixin.MP.Util
 {
@@ -13,6 +15,7 @@ namespace Senparc.Weixin.MP.Util
         private static readonly Regex AppKeyRegexp = new Regex("/app-(.+?)/");
         private MenuFull_ButtonGroup _buttonGroup;
         private IAppCustomHandler _handler;
+        private CustomMessageHandler _contextHandler;
 
 
         private AppCtx(String appKey)
@@ -82,6 +85,42 @@ namespace Senparc.Weixin.MP.Util
                 }
             }
             return this._handler;
+        }
+
+
+        /// <summary>
+        /// 设置上下文处理对象
+        /// </summary>
+        /// <param name="handler"></param>
+        public void SetContextHandler(CustomMessageHandler handler)
+        {
+            this._contextHandler = handler;
+        }
+
+
+        /// <summary>
+        /// 上下文处理对象
+        /// </summary>
+        public CustomMessageHandler ContextHandler
+        {
+            get
+            {
+                if (this._contextHandler == null)
+                {
+                    throw new ArgumentNullException("please use SetContextHandler() first!");
+                }
+                return this._contextHandler;
+            }
+        }
+
+        /// <summary>
+        /// 根据当前的RequestMessage创建指定类型的ResponseMessage
+        /// </summary>
+        /// <typeparam name="T">基于ResponseMessageBase的响应消息类型</typeparam>
+        /// <returns></returns>
+        public T CreateResponseMessage<T>() where T : ResponseMessageBase
+        {
+            return this._contextHandler.CreateResponseMessage<T>();
         }
     }
 }

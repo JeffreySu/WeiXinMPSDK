@@ -12,7 +12,8 @@ namespace Senparc.Weixin.MP.Util.Content
         public override IResponseMessageBase OnTextOrEventRequest(RequestMessageText requestMessage)
         {
             AppCtx ctx = AppCtx.Current;
-            return ctx.GetHandler().TextOrEventRequest(ctx, this, requestMessage);
+            ctx.SetContextHandler(this);
+            return ctx.GetHandler().TextOrEventRequest(ctx, requestMessage);
            
         }
 
@@ -20,13 +21,17 @@ namespace Senparc.Weixin.MP.Util.Content
         public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
         {
             AppCtx ctx = AppCtx.Current;
-            return ctx.GetHandler().ClickEventRequest(ctx,this, requestMessage.EventKey);
+
+            ctx.SetContextHandler(this);
+            return ctx.GetHandler().ClickEventRequest(ctx,requestMessage.EventKey);
         }
 
         public override IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage)
         {
             AppCtx ctx = AppCtx.Current;
-            return ctx.GetHandler().EnterEventRequest(ctx, this,requestMessage);
+
+            ctx.SetContextHandler(this);
+            return ctx.GetHandler().EnterEventRequest(ctx, requestMessage);
         }
 
         public override IResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage)

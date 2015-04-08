@@ -15,6 +15,9 @@
   
     修改标识：Senparc - 20150319
     修改描述: 去除无效字段（tel、gender）
+  
+    修改标识：Senparc - 20150408
+    修改描述: 添加获取标签列表接口
 ----------------------------------------------------------------*/
 
 /*
@@ -409,6 +412,18 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
             };
 
             return CommonJsonSend.Send<DelTagMemberResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 获取标签列表
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public static GetTagListResult GetTagList(string accessToken)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/list?access_token={0}", accessToken);
+
+            return Get.GetJson<GetTagListResult>(url);
         }
     }
 }

@@ -74,4 +74,18 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
     {
         public string invalidlist { get; set; }
     }
+
+    /// <summary>
+    /// 获取标签列表返回结果
+    /// </summary>
+    public class GetTagListResult : WxJsonResult
+    {
+        public List<TagItem> taglist { get; set; }
+    }
+
+    public class TagItem
+    {
+        public string tagid { get; set; }
+        public string tagname { get; set; }
+    }
 }

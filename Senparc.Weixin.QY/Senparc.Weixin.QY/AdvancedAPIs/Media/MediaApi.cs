@@ -44,7 +44,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Media
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken, type.ToString());
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = media;
-            return HttpUtility.Post.PostFileGetJson<UploadResultJson>(url, null, fileDictionary, null, timeOut);
+            return HttpUtility.Post.PostFileGetJson<UploadResultJson>(url, null, fileDictionary, null, null, timeOut);
         }
 
         /// <summary>

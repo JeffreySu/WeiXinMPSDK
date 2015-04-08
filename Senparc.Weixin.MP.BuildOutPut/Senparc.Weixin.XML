@@ -229,7 +229,8 @@
         </member>
         <member name="T:Senparc.Weixin.ReturnCode">
             <summary>
-            返回码（JSON）
+            公众号返回码（JSON）
+            应该更名为ReturnCode_MP，但为减少项目中的修改，此处依旧用ReturnCode命名
             </summary>
         </member>
         <member name="F:Senparc.Weixin.ReturnCode.客服帐号名长度超过限制">
@@ -245,6 +246,11 @@
         <member name="F:Senparc.Weixin.ReturnCode.客服帐号个数超过限制">
             <summary>
              	客服帐号个数超过限制(10个客服账号)(kf_account count exceeded) 
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.ReturnCode_QY">
+            <summary>
+            企业号返回码
             </summary>
         </member>
         <member name="T:Senparc.Weixin.Language">
@@ -377,7 +383,7 @@
             <param name="returnText"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Post.PostFileGetJson``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Int32)">
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostFileGetJson``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Int32)">
             <summary>
             发起Post请求
             </summary>
@@ -439,6 +445,13 @@
             <returns></returns>
         </member>
         <!-- 对于成员“M:Senparc.Weixin.HttpUtility.RequestUtility.GetQueryString(System.Collections.Generic.Dictionary{System.String,System.String})”忽略有格式错误的 XML 注释 -->
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.FillFormDataStream(System.Collections.Generic.Dictionary{System.String,System.String},System.IO.Stream)">
+            <summary>
+            填充表单信息的Stream
+            </summary>
+            <param name="formData"></param>
+            <param name="stream"></param>
+        </member>
         <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HtmlEncode(System.String)">
             <summary>
             封装System.Web.HttpUtility.HtmlEncode

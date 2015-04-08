@@ -1004,6 +1004,13 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.GetTagList(System.String)">
+            <summary>
+            获取标签列表
+            </summary>
+            <param name="accessToken"></param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.MailList.CreateDepartmentResult">
             <summary>
             创建部门返回结果
@@ -1158,6 +1165,11 @@
             a)正确时返回{"errcode": 0,"errmsg": "ok"}
             b)若部分userid非法，则返回{"errcode": 0,"errmsg": "invalid userlist failed","invalidlist"："usr1|usr2|usr"}
             c)当包含userid全部非法时返回{"errcode": 40070,"errmsg": "all list invalid "}
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.MailList.GetTagListResult">
+            <summary>
+            获取标签列表返回结果
             </summary>
         </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi">

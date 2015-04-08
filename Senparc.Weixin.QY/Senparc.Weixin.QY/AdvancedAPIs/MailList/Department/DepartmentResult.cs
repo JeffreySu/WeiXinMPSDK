@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20130313
     修改描述：整理接口
+    
+    修改标识：Senparc - 20130408
+    修改描述：添加order字段
 ----------------------------------------------------------------*/
 
 using System;
@@ -49,5 +52,9 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         /// 上级部门id
         /// </summary>
         public int parentid { get; set; }
+        /// <summary>
+        /// 在父部门中的次序值。order值小的排序靠前。
+        /// </summary>
+        public int order { get; set; }
     }
 }

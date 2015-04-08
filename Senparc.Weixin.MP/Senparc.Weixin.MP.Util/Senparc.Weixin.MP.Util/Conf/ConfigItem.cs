@@ -1,6 +1,9 @@
 ﻿
 using System;
+using System.Runtime.InteropServices;
 using AtNet.DevFw.Framework;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Senparc.Weixin.MP.Util.Conf
 {
@@ -9,6 +12,7 @@ namespace Senparc.Weixin.MP.Util.Conf
         public  string Token;
 
         public  string AppId;
+        public String AppName;
 
         public  string AppSecret;
 
@@ -24,6 +28,7 @@ namespace Senparc.Weixin.MP.Util.Conf
         private readonly string _filePath;
         private string _key;
         private readonly SettingFile _file;
+        private static readonly Regex fileNameParttner = new Regex("/([^/]+).config");
 
         /// <summary>
         /// 欢迎文字
@@ -37,9 +42,16 @@ namespace Senparc.Weixin.MP.Util.Conf
 
         public ConfigItem(string filePath)
         {
-            this._filePath = filePath;
-            this._file = new SettingFile(this._filePath);
-            this.Deserialize();
+            this._filePath = filePath.Replace("\\","/");
+            if (fileNameParttner.IsMatch(this._filePath))
+            {
+                bool isExists = File.Exists(this._filePath);
+                this._file = new SettingFile(this._filePath);
+                if (isExists)
+                {
+                    this.Deserialize();
+                }
+            }
         }
 
         /// <summary>
@@ -47,9 +59,10 @@ namespace Senparc.Weixin.MP.Util.Conf
         /// </summary>
         private void Deserialize()
         {
-            this.Token = this._file.Get("Weixin_Token")??"";
             this.AppId = this._file.Get("Weixin_AppId")??"";
+            this.AppName = this._file.Get("Weixin_AppName") ?? "";
             this.AppSecret = this._file.Get("Weixin_AppSecret")??"";
+            this.Token = this._file.Get("Weixin_Token") ?? "";
             this.AppEncodeString =this._file.Get("Weixin_AppEncodeString")??"";
             this.ApiDomain = this._file.Get("Weixin_ApiDomain")??"";
             this.MenuButtons = this._file.Get("Weixin_MenuButtons")??"[]";
@@ -64,14 +77,17 @@ namespace Senparc.Weixin.MP.Util.Conf
         /// </summary>
         private void Serialize()
         {
+            this._file.Set("Weixin_AppId", this.AppId);
+            this._file.Set("Weixin_AppName", this.AppName);
+            this._file.Set("Weixin_AppSecret", this.AppSecret);
             this._file.Set("Weixin_Token",this.Token);
-            this._file.Set("Weixin_AppId",this.AppId);
-            this._file.Set("Weixin_AppSecret",this.AppSecret);
             this._file.Set("Weixin_AppEncodeString",this.AppEncodeString);
             this._file.Set("Weixin_WelcomeMessage",this.WxWelcomeMessage);
             this._file.Set("Weixin_EnterMessage",this.WxEnterMessage);
             this._file.Set("Weixin_DefaultResponseMessage",this.WxDefaultResponseMessage);
             this._file.Set("Weixin_CustomHandlerClassName", this.CustomHandlerClassName);
+            this._file.Set("Weixin_ApiDomain", this.ApiDomain);
+            this._file.Set("Weixin_MenuButtons",this.MenuButtons??"[]");
         }
 
         /// <summary>
@@ -116,9 +132,7 @@ namespace Senparc.Weixin.MP.Util.Conf
         {
             if (this._key == null)
             {
-                this._key = _filePath.Substring(
-                    _filePath.LastIndexOfAny(new char[] {'\\', '/'}) + 1,
-                    _filePath.LastIndexOf(".", StringComparison.Ordinal));
+                this._key = fileNameParttner.Match(this._filePath).Groups[1].Value;
             }
             return this._key;
         }

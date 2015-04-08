@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Web;
@@ -54,9 +55,7 @@ namespace Senparc.Weixin.MP.Util
                     }
                 }
 
-                throw new ArgumentException("App not exists!");
-
-
+                return CacheCtx(context, new AppCtx(ConfigManager.GetKeys().First()));
             }
         }
 

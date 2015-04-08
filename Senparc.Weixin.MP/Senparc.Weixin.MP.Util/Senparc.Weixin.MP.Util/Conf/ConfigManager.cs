@@ -36,7 +36,7 @@ namespace Senparc.Weixin.MP.Util.Conf
         public static void Load(String directoryPath)
         {
             DirectoryInfo dir = new DirectoryInfo(directoryPath);
-            if (dir.Exists)
+            if (!dir.Exists)
             {
                 throw new IOException(directoryPath + " not exist!");
             }
@@ -55,10 +55,8 @@ namespace Senparc.Weixin.MP.Util.Conf
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="config"></param>
-        public static void NewConfig(ConfigItem config)
+        public static void Reload()
         {
-            config.Flush();
             Load(_directoryPath);
         }
 
@@ -76,6 +74,10 @@ namespace Senparc.Weixin.MP.Util.Conf
 
         public static ICollection<String> GetKeys()
         {
+            if (_items == null)
+            {
+                throw new Exception("not contain config items,plase use \"Load()\" first.");
+            }
             return _items.Keys;
         }
     }

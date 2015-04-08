@@ -13,7 +13,7 @@ namespace Senparc.Weixin.MP.Util
     public class AppCtx
     {
         private readonly string _appKey;
-        private static readonly Regex AppKeyRegexp = new Regex("/app-(.+?)/");
+        private static readonly Regex AppKeyRegexp = new Regex("/app-(.+?)(/*$|/)");
         private MenuFull_ButtonGroup _buttonGroup;
         private IAppCustomHandler _handler;
         private CustomMessageHandler _contextHandler;

@@ -19,7 +19,7 @@ using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.QY.Entities
 {
-    public class GetCallBackIpResult : WxJsonResult
+    public class GetCallBackIpResult : QyJsonResult
     {
         public string[] ip_list { get; set; }
     }

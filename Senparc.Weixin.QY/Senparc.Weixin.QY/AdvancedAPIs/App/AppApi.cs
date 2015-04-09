@@ -5,7 +5,7 @@
     文件功能描述：管理企业号应用接口
     
     
-    创建标识：Senparc - 20130316
+    创建标识：Senparc - 20150316
 ----------------------------------------------------------------*/
 
 /*
@@ -53,11 +53,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.App
         /// <param name="data">设置应用需要Post的数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult SetApp(string accessToken, SetAppPostData data, int timeOut = Config.TIME_OUT)
+        public static QyJsonResult SetApp(string accessToken, SetAppPostData data, int timeOut = Config.TIME_OUT)
         {
             string url = "https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}";
 
-            return Get.GetJson<WxJsonResult>(url);
+            return Get.GetJson<QyJsonResult>(url);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Senparc.Weixin.QY.Entities
     /// <summary>
     /// 获取应用提供商凭证返回格式
     /// </summary>
-    public class ProviderTokenResult : WxJsonResult
+    public class ProviderTokenResult : QyJsonResult
     {
         /// <summary>
         /// 服务提供商的accesstoken，可用于用户授权登录信息查询接口

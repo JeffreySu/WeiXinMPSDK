@@ -31,7 +31,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId);
             var result = MailListApi.UpdateDepartment(accessToken, id, "更新test", 1);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode ==ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode ==ReturnCode_QY.请求成功);
         }
 
         //[TestMethod]
@@ -40,7 +40,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId);
             var result = MailListApi.DeleteDepartment(accessToken, id);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
 
         //[TestMethod]
@@ -51,7 +51,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var result1 = MailListApi.GetDepartmentList(accessToken);
             Assert.IsNotNull(result);
             Assert.IsNotNull(result1);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
 
         [TestMethod]

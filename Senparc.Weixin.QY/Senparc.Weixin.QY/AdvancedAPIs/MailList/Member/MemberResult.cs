@@ -5,9 +5,9 @@
     文件功能描述：成员接口返回结果
     
     
-    创建标识：Senparc - 20130313
+    创建标识：Senparc - 20150313
     
-    修改标识：Senparc - 20130313
+    修改标识：Senparc - 20150313
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
@@ -19,7 +19,7 @@ using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
 {
-    public class GetMemberResult : WxJsonResult
+    public class GetMemberResult : QyJsonResult
     {
         /// <summary>
         /// 员工UserID 
@@ -74,7 +74,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         public Extattr extattr { get; set; }
     }
 
-    public class GetDepartmentMemberResult : WxJsonResult
+    public class GetDepartmentMemberResult : QyJsonResult
     {
         /// <summary>
         /// 成员列表
@@ -111,7 +111,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
     /// <summary>
     /// 获取部门成员(详情)返回结果
     /// </summary>
-    public class GetDepartmentMemberInfoResult : WxJsonResult
+    public class GetDepartmentMemberInfoResult : QyJsonResult
     {
         /// <summary>
         /// 成员列表
@@ -119,7 +119,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         public List<GetMemberResult> userlist { get; set; }
     }
 
-    public class InviteMemberResult:WxJsonResult
+    public class InviteMemberResult:QyJsonResult
     {
         /// <summary>
         /// 1:微信邀请 2.邮件邀请

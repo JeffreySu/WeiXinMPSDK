@@ -482,10 +482,20 @@
         </member>
         <member name="T:Senparc.Weixin.Entities.WxJsonResult">
             <summary>
-            JSON返回结果（用于菜单接口等）
+            公众号JSON返回结果（用于菜单接口等）
             </summary>
         </member>
         <member name="P:Senparc.Weixin.Entities.WxJsonResult.P2PData">
+            <summary>
+            为P2P返回结果做准备
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Entities.QyJsonResult">
+            <summary>
+            企业号JSON返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Entities.QyJsonResult.P2PData">
             <summary>
             为P2P返回结果做准备
             </summary>

@@ -73,7 +73,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         /// <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult UpdateDepartment(string accessToken, string id, string name, int parentId, int order = 1, int timeOut = Config.TIME_OUT)
+        public static QyJsonResult UpdateDepartment(string accessToken, string id, string name, int parentId, int order = 1, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token={0}", accessToken);
 
@@ -85,7 +85,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
                 order = order
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -94,11 +94,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="id">部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）</param>
         /// <returns></returns>
-        public static WxJsonResult DeleteDepartment(string accessToken, string id)
+        public static QyJsonResult DeleteDepartment(string accessToken, string id)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/delete?access_token={0}&id={1}", accessToken, id);
 
-            return Get.GetJson<WxJsonResult>(url);
+            return Get.GetJson<QyJsonResult>(url);
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// accessToken、userId和name为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
-        public static WxJsonResult CreateMember(string accessToken, string userId, string name, int[] department = null,
+        public static QyJsonResult CreateMember(string accessToken, string userId, string name, int[] department = null,
             string position = null, string mobile = null, string email = null, string weixinId = null, /*string tel = null,
             int gender = 0,*/ Extattr extattr = null, int timeOut = Config.TIME_OUT)
         {
@@ -159,7 +159,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
                 extattr = extattr
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// accessToken和userId为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
-        public static WxJsonResult UpdateMember(string accessToken, string userId, string name = null, int[] department = null, string position = null,
+        public static QyJsonResult UpdateMember(string accessToken, string userId, string name = null, int[] department = null, string position = null,
             string mobile = null, string email = null, string weixinId = null, int enable = 1, /*string tel = null,
             int gender = 0,*/ Extattr extattr = null, int timeOut = Config.TIME_OUT)
         {
@@ -204,7 +204,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
                 extattr = extattr
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -213,11 +213,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="userId">员工UserID</param>
         /// <returns></returns>
-        public static WxJsonResult DeleteMember(string accessToken, string userId)
+        public static QyJsonResult DeleteMember(string accessToken, string userId)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/delete?access_token={0}&userid={1}", accessToken, userId);
 
-            return Get.GetJson<WxJsonResult>(url);
+            return Get.GetJson<QyJsonResult>(url);
         }
 
         /// <summary>
@@ -227,7 +227,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         /// <param name="userIds"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult BatchDeleteMember(string accessToken, string[] userIds, int timeOut = Config.TIME_OUT)
+        public static QyJsonResult BatchDeleteMember(string accessToken, string[] userIds, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/batchdelete?access_token={0}", accessToken);
 
@@ -236,7 +236,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
                 useridlist = userIds
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -333,7 +333,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         /// <param name="tagName">标签名称。长度为0~64个字符</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult UpdateTag(string accessToken, int tagId, string tagName, int timeOut = Config.TIME_OUT)
+        public static QyJsonResult UpdateTag(string accessToken, int tagId, string tagName, int timeOut = Config.TIME_OUT)
         {
             var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/update?access_token={0}";
 
@@ -343,7 +343,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
                 tagname = tagName
             };
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -352,11 +352,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="tagId">标签ID</param>
         /// <returns></returns>
-        public static WxJsonResult DeleteTag(string accessToken, int tagId)
+        public static QyJsonResult DeleteTag(string accessToken, int tagId)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/delete?access_token={0}&tagid={1}", accessToken, tagId);
 
-            return Get.GetJson<WxJsonResult>(url);
+            return Get.GetJson<QyJsonResult>(url);
         }
 
         /// <summary>

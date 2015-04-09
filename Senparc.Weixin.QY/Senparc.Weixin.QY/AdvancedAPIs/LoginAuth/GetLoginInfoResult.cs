@@ -5,7 +5,7 @@
     文件功能描述：获取企业号管理员登录信息返回结果
     
     
-    创建标识：Senparc - 20130325
+    创建标识：Senparc - 20150325
 ----------------------------------------------------------------*/
 
 using System;
@@ -19,7 +19,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.LoginAuth
     /// <summary>
     /// 获取企业号管理员登录信息返回结果
     /// </summary>
-    public class GetLoginInfoResult : WxJsonResult
+    public class GetLoginInfoResult : QyJsonResult
     {
         /// <summary>
         /// 是否系统管理员

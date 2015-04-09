@@ -24,7 +24,7 @@ namespace Senparc.Weixin.QY
     /// <summary>
     /// 获取菜单时候的完整结构，用于接收微信服务器返回的Json信息
     /// </summary>
-    public class GetMenuResultFull : WxJsonResult
+    public class GetMenuResultFull : QyJsonResult
     {
         public MenuFull_ButtonGroup menu { get; set; }
     }

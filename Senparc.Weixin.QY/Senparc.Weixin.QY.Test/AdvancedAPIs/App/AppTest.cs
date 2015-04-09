@@ -44,7 +44,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
 
             var result = AppApi.SetApp(accessToken, date);
 
-            Assert.AreEqual(result.errcode, ReturnCode.请求成功);
+            Assert.AreEqual(result.errcode, ReturnCode_QY.请求成功);
         }
     }
 }

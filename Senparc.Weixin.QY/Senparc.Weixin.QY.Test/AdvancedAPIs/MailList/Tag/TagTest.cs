@@ -21,7 +21,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId);
             var result = MailListApi.CreateTag(accessToken, "ceshi1");
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
             return result.tagid;
         }
 
@@ -31,7 +31,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId);
             var result = MailListApi.UpdateTag(accessToken, tagId, "ceshi2");
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
 
         //[TestMethod]
@@ -40,7 +40,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId);
             var result = MailListApi.DeleteTag(accessToken, tagId);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
 
         //[TestMethod]
@@ -49,7 +49,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId);
             var result = MailListApi.GetTagMember(accessToken, tagId);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
 
         //[TestMethod]
@@ -58,7 +58,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId);
             var result = MailListApi.AddTagMember(accessToken, tagId, new[] { "TYSZCC" });
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
 
         //[TestMethod]
@@ -67,7 +67,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId);
             var result = MailListApi.DelTagMember(accessToken, tagId, new[] { "TYSZCC" });
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
 
         [TestMethod]

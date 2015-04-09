@@ -23,7 +23,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId);
             var result = MediaApi.Upload(accessToken, UploadMediaFileType.video, _media);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
 
         //[TestMethod]
@@ -33,7 +33,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId);
             var result = MediaApi.Upload(accessToken, UploadMediaFileType.image, _media);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
             return result.media_id;
         }
 

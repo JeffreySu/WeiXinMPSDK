@@ -5,12 +5,12 @@
     文件功能描述：获取成员信息返回结果
     
     
-    创建标识：Senparc - 20130313
+    创建标识：Senparc - 20150313
     
-    修改标识：Senparc - 20130313
+    修改标识：Senparc - 20150313
     修改描述：整理接口
  
-    修改标识：Senparc - 20130316
+    修改标识：Senparc - 20150316
     修改描述：添加DeviceId字段
 ----------------------------------------------------------------*/
 
@@ -25,7 +25,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.OAuth2
     /// <summary>
     /// 获取成员信息返回结果
     /// </summary>
-    public class GetUserIdResult : WxJsonResult
+    public class GetUserIdResult : QyJsonResult
     {
         /// <summary>
         /// 员工UserID

@@ -5,9 +5,9 @@
     文件功能描述：使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
     
     
-    创建标识：Senparc - 20130313
+    创建标识：Senparc - 20150313
     
-    修改标识：Senparc - 20130313
+    修改标识：Senparc - 20150313
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
@@ -31,7 +31,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="fun">第一个参数为accessToken</param>
         /// <param name="retryIfFaild"></param>
         /// <returns></returns>
-        public static T Do<T>(string appId, string appSecret, Func<string, T> fun, bool retryIfFaild = true) where T : WxJsonResult
+        public static T Do<T>(string appId, string appSecret, Func<string, T> fun, bool retryIfFaild = true) where T : QyJsonResult
         {
             T result = null;
             try

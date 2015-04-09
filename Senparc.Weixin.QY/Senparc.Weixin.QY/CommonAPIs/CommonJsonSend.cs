@@ -5,9 +5,9 @@
     文件功能描述：向需要AccessToken的API发送消息的公共方法
     
     
-    创建标识：Senparc - 20130313
+    创建标识：Senparc - 20150313
  
-    修改标识：Senparc - 20130313
+    修改标识：Senparc - 20150313
     修改描述：开放代理请求超时时间
 ----------------------------------------------------------------*/
 
@@ -38,9 +38,9 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="data">如果是Get方式，可以为null</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult Send(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT)
+        public static QyJsonResult Send(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT)
         {
-            return Send<WxJsonResult>(accessToken, urlFormat, data, sendType, timeOut);
+            return Send<QyJsonResult>(accessToken, urlFormat, data, sendType, timeOut);
         }
 
         /// <summary>

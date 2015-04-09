@@ -143,6 +143,223 @@
             是否上报用户进入应用事件。0：不接收；1：接收
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousApi">
+            <summary>
+            异步任务接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousApi.BatchInviteUser(System.String,System.String,System.String,System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.Asynchronous_CallBack,System.Int32)">
+            <summary>
+            邀请成员关注
+            </summary>
+            <param name="accessToken">企业的access_token</param>
+            <param name="toUser">成员ID列表，多个接收者用‘|’分隔，最多支持1000个。</param>
+            <param name="toParty">部门ID列表，多个接收者用‘|’分隔，最多支持100个。</param>
+            <param name="toTag">标签ID列表，多个接收者用‘|’分隔。</param>
+            <param name="inviteTips">推送到微信上的提示语（只有认证号可以使用）。当使用微信推送时，该字段默认为“请关注XXX企业号”，邮件邀请时，该字段无效。</param>
+            <param name="callBack">回调信息。任务完成后，通过callback推送事件给企业。具体请参考应用回调模式中的相应选项</param>
+            <param name="timeOut"></param>
+            post数据格式：
+            {
+                "touser":"xxx|xxx",
+                "toparty":"xxx|xxx",
+                "totag":"xxx|xxx",
+                "invite_tips":"xxx",
+                "callback":
+                {
+                    "url": "xxx",
+                    "token": "xxx",
+                    "encodingaeskey": "xxx"
+                }
+            }
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousApi.BatchSyncUser(System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.Asynchronous_CallBack,System.Int32)">
+            <summary>
+            增量更新成员
+            CSV模板下载地址：http://qydev.weixin.qq.com/batch_user_sample.csv
+            注意事项：
+            1.模板中的部门需填写部门ID，多个部门用分号分隔，部门ID必须为数字
+            2.文件中存在、通讯录中也存在的成员，更新成员在文件中指定的字段值
+            3.文件中存在、通讯录中不存在的成员，执行添加操作
+            4.通讯录中存在、文件中不存在的成员，保持不变
+            </summary>
+            <param name="accessToken"></param>
+            <param name="mediaId">上传的csv文件的media_id</param>
+            <param name="callBack">回调信息。任务完成后，通过callback推送事件给企业。具体请参考应用回调模式中的相应选项</param>
+            <param name="timeOut"></param>
+            post数据格式：
+            {
+               "media_id":"xxxxxx",
+               "callback":
+               {
+                   "url": "xxx",
+                   "token": "xxx",
+                   "encodingaeskey": "xxx"
+               }
+            }
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousApi.BatchReplaceUser(System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.Asynchronous_CallBack,System.Int32)">
+            <summary>
+            全量覆盖成员
+            CSV模板下载地址：http://qydev.weixin.qq.com/batch_user_sample.csv
+            注意事项：
+            1.模板中的部门需填写部门ID，多个部门用分号分隔，部门ID必须为数字
+            2.文件中存在、通讯录中也存在的成员，完全以文件为准
+            3.文件中存在、通讯录中不存在的成员，执行添加操作
+            4.通讯录中存在、文件中不存在的成员，执行删除操作。出于安全考虑，如果需要删除的成员多于50人，且多于现有人数的20%以上，系统将中止导入并返回相应的错误码
+            </summary>
+            <param name="accessToken"></param>
+            <param name="mediaId">上传的csv文件的media_id</param>
+            <param name="callBack">回调信息。任务完成后，通过callback推送事件给企业。具体请参考应用回调模式中的相应选项</param>
+            <param name="timeOut"></param>
+            post数据格式：
+            {
+               "media_id":"xxxxxx",
+               "callback":
+               {
+                   "url": "xxx",
+                   "token": "xxx",
+                   "encodingaeskey": "xxx"
+               }
+            }
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousApi.BatchReplaceParty(System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.Asynchronous_CallBack,System.Int32)">
+            <summary>
+            全量覆盖部门
+            CSV模板下载地址：http://qydev.weixin.qq.com/batch_party_sample.csv
+            注意事项：
+            1.文件中存在、通讯录中也存在的部门，执行修改操作
+            2.文件中存在、通讯录中不存在的部门，执行添加操作
+            3.文件中不存在、通讯录中存在的部门，当部门为空时，执行删除操作
+            4.CSV文件中，部门名称、部门ID、父部门ID为必填字段，部门ID必须为数字；排序为可选字段，置空或填0不修改排序
+            </summary>
+            <param name="accessToken"></param>
+            <param name="mediaId">上传的csv文件的media_id</param>
+            <param name="callBack">回调信息。任务完成后，通过callback推送事件给企业。具体请参考应用回调模式中的相应选项</param>
+            <param name="timeOut"></param>
+            post数据格式：
+            {
+               "media_id":"xxxxxx",
+               "callback":
+               {
+                   "url": "xxx",
+                   "token": "xxx",
+                   "encodingaeskey": "xxx"
+               }
+            }
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousApi.GetInviteUserResult(System.String,System.String)">
+            <summary>
+            获取异步邀请成员关注结果
+            </summary>
+            <param name="accessToken"></param>
+            <param name="jobId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousApi.GetReplaceUserResult(System.String,System.String)">
+            <summary>
+            获取异步更新或全面覆盖成员结果
+            </summary>
+            <param name="accessToken"></param>
+            <param name="jobId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousApi.GetReplacePartyResult(System.String,System.String)">
+            <summary>
+            获取异步全面覆盖部门结果
+            </summary>
+            <param name="accessToken"></param>
+            <param name="jobId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousJobId">
+            <summary>
+            异步任务Id返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousJobId.jobid">
+            <summary>
+            异步任务id，最大长度为64字符
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.BaseAsynchronousResult.status">
+            <summary>
+            任务状态，整型，1表示任务开始，2表示任务进行中，3表示任务已完成
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.BaseAsynchronousResult.type">
+            <summary>
+            操作类型，字符串，目前分别有：
+            1. sync_user(增量更新成员)
+            2. replace_user(全量覆盖成员)
+            3. invite_user(邀请成员关注)
+            4. replace_party(全量覆盖部门)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.BaseAsynchronousResult.total">
+            <summary>
+            任务运行总条数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.BaseAsynchronousResult.percentage">
+            <summary>
+            目前运行百分比，当任务完成时为100
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.BaseAsynchronousResult.remaintime">
+            <summary>
+            预估剩余时间（单位：分钟），当任务完成时为0
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousInviteUserResult">
+            <summary>
+            异步邀请成员返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousInviteUserItem.userid">
+            <summary>
+            成员UserID。对应管理端的帐号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousInviteUserItem.invitetype">
+            <summary>
+            邀请类型：0 没有邀请方式或未邀请 1 微信邀请 2 邮件邀请
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousReplaceUserResult">
+            <summary>
+            异步新增或更新成员返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousReplaceUserItem.userid">
+            <summary>
+            成员UserID。对应管理端的帐号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousReplaceUserItem.action">
+            <summary>
+            操作类型（按位或）：1 表示修改，2 表示新增
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousReplacePartyResult">
+            <summary>
+            异步覆盖部门返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousReplacePartyItem.partyid">
+            <summary>
+            部门ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousReplacePartyItem.action">
+            <summary>
+            操作类型（按位或）：1 新建部门 ，2 更改部门名称， 4 移动部门， 8 修改部门排序
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Concern.ConcernApi">
             <summary>
             关注与取消关注
@@ -1036,6 +1253,11 @@
             上级部门id
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.MailList.DepartmentList.order">
+            <summary>
+            在父部门中的次序值。order值小的排序靠前。
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.QY.AdvancedAPIs.MailList.GetMemberResult.userid">
             <summary>
             员工UserID 
@@ -1139,6 +1361,11 @@
         <member name="P:Senparc.Weixin.QY.AdvancedAPIs.MailList.GetTagMemberResult.userlist">
             <summary>
             成员列表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.MailList.GetTagMemberResult.partylist">
+            <summary>
+            部门列表
             </summary>
         </member>
         <member name="P:Senparc.Weixin.QY.AdvancedAPIs.MailList.Tag_UserList.userid">

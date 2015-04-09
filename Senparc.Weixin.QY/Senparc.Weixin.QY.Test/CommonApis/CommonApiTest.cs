@@ -41,7 +41,7 @@ namespace Senparc.Weixin.QY.Test.CommonApis
             catch (ErrorJsonResultException ex)
             {
                 //实际返回的信息（错误信息）
-                Assert.AreEqual(ex.JsonResult.errcode, ReturnCode.不合法的APPID);
+                Assert.AreEqual(ex.JsonResult.errcode, ReturnCode_QY.不合法的corpid);
             }
         }
 
@@ -52,7 +52,7 @@ namespace Senparc.Weixin.QY.Test.CommonApis
 
             var result = CommonApi.GetCallBackIp(accessToken);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
     }
 }

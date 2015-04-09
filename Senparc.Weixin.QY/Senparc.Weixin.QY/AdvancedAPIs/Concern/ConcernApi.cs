@@ -39,11 +39,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Concern
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="userId">员工UserID</param>
         /// <returns></returns>
-        public static WxJsonResult TwoVerification(string accessToken, string userId)
+        public static QyJsonResult TwoVerification(string accessToken, string userId)
         {
             var url = "https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}";
 
-            return Get.GetJson<WxJsonResult>(url);
+            return Get.GetJson<QyJsonResult>(url);
         }
     }
 }

@@ -5,7 +5,7 @@
     文件功能描述：获取企业号应用返回结果
     
     
-    创建标识：Senparc - 20130316
+    创建标识：Senparc - 20150316
 ----------------------------------------------------------------*/
 
 using System;
@@ -23,7 +23,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.App
     /// <summary>
     /// 获取企业号应用返回结果
     /// </summary>
-    public class GetAppInfoResult : WxJsonResult
+    public class GetAppInfoResult : QyJsonResult
     {
         /// <summary>
         /// 企业应用id

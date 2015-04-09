@@ -22,7 +22,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth
     /// <summary>
     /// 获取应用套件令牌返回结果
     /// </summary>
-    public class GetSuiteTokenResult : WxJsonResult
+    public class GetSuiteTokenResult : QyJsonResult
     {
         /// <summary>
         /// 应用套件access_token
@@ -38,7 +38,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth
     /// <summary>
     /// 获取预授权码返回结果
     /// </summary>
-    public class GetPreAuthCodeResult : WxJsonResult
+    public class GetPreAuthCodeResult : QyJsonResult
     {
         /// <summary>
         /// 预授权码
@@ -202,7 +202,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth
         public ThirdParty_AuthInfo auth_info { get; set; }
     }
 
-    public class GetAgentResult : WxJsonResult
+    public class GetAgentResult : QyJsonResult
     {
         /// <summary>
         /// 授权方企业应用id

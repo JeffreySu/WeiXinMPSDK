@@ -22,7 +22,7 @@ namespace Senparc.Weixin.QY.Entities
     /// <summary>
     /// jsapi_ticket请求后的JSON返回格式
     /// </summary>
-    public class JsApiTicketResult : WxJsonResult
+    public class JsApiTicketResult : QyJsonResult
     {
         /// <summary>
         /// 获取到的凭证

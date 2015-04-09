@@ -44,6 +44,9 @@
     <Compile Include="AdvancedAPIs\App\AppApi.cs" />
     <Compile Include="AdvancedAPIs\App\AppJson\GetAppInfoResult.cs" />
     <Compile Include="AdvancedAPIs\App\AppJson\SetAppPostData.cs" />
+    <Compile Include="AdvancedAPIs\Asynchronous\AsynchronousApi.cs" />
+    <Compile Include="AdvancedAPIs\Asynchronous\AsynchronousJson\AsynchronousPostData.cs" />
+    <Compile Include="AdvancedAPIs\Asynchronous\AsynchronousJson\AsynchronousResultJson.cs" />
     <Compile Include="AdvancedAPIs\Concern\ConcernApi.cs" />
     <Compile Include="AdvancedAPIs\LoginAuth\LoginAuthApi.cs" />
     <Compile Include="AdvancedAPIs\LoginAuth\GetLoginInfoResult.cs" />

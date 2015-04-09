@@ -21,7 +21,7 @@ namespace Senparc.Weixin.QY
     /// <summary>
     /// 接收消息类型
     /// </summary>
-    public enum  RequestMsgType
+    public enum RequestMsgType
     {
         DEFAULT,//默认
         Text, //文本
@@ -334,4 +334,27 @@ namespace Senparc.Weixin.QY
         不接受 = 0,
         接收 = 1
     }
+
+    ///// <summary>
+    ///// 异步任务类型
+    ///// </summary>
+    //public enum Asynchronous_Type
+    //{
+    //    /// <summary>
+    //    /// 增量更新成员
+    //    /// </summary>
+    //    sync_user = 0,
+    //    /// <summary>
+    //    /// 全量覆盖成员
+    //    /// </summary>
+    //    replace_user = 1,
+    //    /// <summary>
+    //    /// 邀请成员关注
+    //    /// </summary>
+    //    invite_user = 2,
+    //    /// <summary>
+    //    /// 全量覆盖部门
+    //    /// </summary>
+    //    replace_party = 3,
+    //}
 }

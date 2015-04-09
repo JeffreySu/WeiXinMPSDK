@@ -1,4 +1,24 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：CommonApi.Menu.cs
+    文件功能描述：自定义菜单API
+    
+    
+    创建标识：Senparc - 20150313
+    
+    修改标识：Senparc - 20150313
+    修改描述：整理接口
+ 
+    修改标识：Senparc - 20150313
+    修改描述：开放代理请求超时时间
+----------------------------------------------------------------*/
+
+/*
+    获取AccessToken API地址：http://qydev.weixin.qq.com/wiki/index.php?title=%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +39,9 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="accessToken"></param>
         /// <param name="agentId"></param>
         /// <param name="buttonData">菜单内容</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult CreateMenu(string accessToken, int agentId, ButtonGroup buttonData)
+        public static QyJsonResult CreateMenu(string accessToken, int agentId, ButtonGroup buttonData, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/create?access_token={0}&agentid={1}", accessToken, agentId);
             ////对特殊符号进行URL转义
@@ -36,7 +57,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
             //        }
             //    }
             //}
-            return CommonJsonSend.Send(null, urlFormat, buttonData);
+            return CommonJsonSend.Send(null, urlFormat, buttonData, CommonJsonSendType.POST, timeOut);
         }
 
         #region GetMenu
@@ -280,10 +301,10 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="agentId">企业应用的id，整型。可在应用的设置页面查看</param>
         /// <returns></returns>
-        public static WxJsonResult DeleteMenu(string accessToken, int agentId)
+        public static QyJsonResult DeleteMenu(string accessToken, int agentId)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken, agentId);
-            var result = Get.GetJson<WxJsonResult>(url);
+            var result = Get.GetJson<QyJsonResult>(url);
             return result;
         }
     }

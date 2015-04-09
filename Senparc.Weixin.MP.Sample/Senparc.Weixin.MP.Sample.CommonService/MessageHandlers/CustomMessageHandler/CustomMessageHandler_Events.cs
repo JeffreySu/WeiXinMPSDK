@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：CustomMessageHandler_Events.cs
+    文件功能描述：自定义MessageHandler
+    
+    
+    创建标识：Senparc - 20150312
+----------------------------------------------------------------*/
+
+using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -7,6 +17,7 @@ using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
@@ -25,6 +36,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 您可以发送【文字】【位置】【图片】【语音】等不同类型的信息，查看不同格式的回复。
 
 您也可以直接点击菜单查看各种类型的回复。
+还可以点击菜单体验微信支付。
 
 SDK官方地址：http://weixin.senparc.com
 源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK
@@ -86,16 +98,30 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
                     break;
                 case "SubClickRoot_Music":
                     {
+                        //上传缩略图
+                        var accessToken = CommonAPIs.AccessTokenContainer.TryGetToken(appId, appSecret);
+                        var uploadResult = AdvancedAPIs.Media.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.thumb,
+                                                                     Server.GetMapPath("~/Images/Logo.jpg"));
+                        //设置音乐信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageMusic>();
                         reponseMessage = strongResponseMessage;
+                        strongResponseMessage.Music.Title = "天籁之音";
+                        strongResponseMessage.Music.Description = "真的是天籁之音";
                         strongResponseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
+                        strongResponseMessage.Music.HQMusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
+                        strongResponseMessage.Music.ThumbMediaId = uploadResult.thumb_media_id;
                     }
                     break;
                 case "SubClickRoot_Image":
                     {
+                        //上传图片
+                        var accessToken = CommonAPIs.AccessTokenContainer.TryGetToken(appId, appSecret);
+                        var uploadResult = AdvancedAPIs.Media.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
+                                                                     Server.GetMapPath("~/Images/Logo.jpg"));
+                        //设置图片信息
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageImage>();
                         reponseMessage = strongResponseMessage;
-                        strongResponseMessage.Image.MediaId = "Mj0WUTZeeG9yuBKhGP7iR5n1xUJO9IpTjGNC4buMuswfEOmk6QSIRb_i98do5nwo";
+                        strongResponseMessage.Image.MediaId = uploadResult.media_id;
                     }
                     break;
                 case "SubClickRoot_Agent"://代理消息
@@ -139,6 +165,20 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
                         strongResponseMessage.Content = GetWelcomeInfo();
                         reponseMessage = strongResponseMessage;
+                    }
+                    break;
+                case "SubClickRoot_PicPhotoOrAlbum":
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
+                        reponseMessage = strongResponseMessage;
+                        strongResponseMessage.Content = "您点击了【微信拍照】按钮。系统将会弹出拍照或者相册发图。";
+                    }
+                    break;
+                case "SubClickRoot_ScancodePush":
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
+                        reponseMessage = strongResponseMessage;
+                        strongResponseMessage.Content = "您点击了【微信扫码】按钮。";
                     }
                     break;
                 default:

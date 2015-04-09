@@ -1,107 +1,154 @@
 ﻿@{
-    ViewBag.Title = "Senparc.Weixin.MP - 微信公众平台SDK";
+    ViewBag.Title = "Senparc.Weixin.MP";
 }
-<section class="content-wrapper main-content clear-fix">
 
-    <h3>关注官方公众平台微信，进行互动测试：</h3>
-    <p>
-        <img src="/Images/qrcode.jpg" width="259" />
-    </p>
-    <p>
-        目前Senparc.Weixin.MP已支持微信5.0 API中所有接口（包括自定义菜单）。<a href="http://mp.weixin.qq.com/wiki/index.php?title=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E6%8C%87%E5%8D%97" target="_blank">查看官方API</a>
-    </p>
-    <ol class="round">
-        <li class="one">
-            <h5>文本测试</h5>
-            随意输入文本信息，系统将自动回复一条包含原文的文本信息。<br />
-            如果连续发送多条信息，系统会自动记录通讯上的下文，直到超过规定时间，记录自动清空。
-        </li>
+@section scripts
+{
+    <script>
+        $(function () {
+            $(".test table td:not(:empty)").hover(function () {
+                $(this).addClass('currentTestItem');
+            }, function () {
+                $(this).removeClass('currentTestItem');
+            });
+        });
+    </script>
+}
 
-        <li class="two">
-            <h5>位置测试</h5>
-            发送一条位置信息，系统将自动回复详细的位置信息图片数据及一条图文链接。
-        </li>
-        <li class="three">
-            <h5>图片测试</h5>
-            发送一张图片，系统将自动回复一条带链接的图文信息。
-        </li>
-        <li class="four">
-            <h5>语音测试</h5>
-            发送一条语音信息，系统将自动回复一条音乐格式信息。
-        </li>
-        <li class="five">
-            <h5>视频测试</h5>
-            发送一条视频信息，系统将自动回复一条带有视频ID的信息。
-        </li>
-        <li class="six">
-            <h5>订阅测试</h5>
-            订阅（关注）账号的第一时间，系统将发送一条欢迎信息（等同于之前的Hello2BizUser）。
-        </li>
-        <li class="seven">
-            <h5>客户端约束测试</h5>
-            发送文字信息【约束】，进行测试。
-        </li>
-        <li class="eight">
-            <h5>自定义菜单测试</h5>
-            点击自定菜单进行测试。
-        </li>
-        <li class="nine">
-            <h5>代理+托管测试</h5>
-            <ol>
-                <li>发送文字信息【代理】或【托管】，或点击菜单【代理消息】&gt;【返回图文】，服务器将从其他微信平台获取“代理”或“托管”文字请求的结果。
-                </li>
-                <li>点击菜单【代理消息】&gt;【会员信息】，查看自己的会员信息（来自另外一台Souidea服务器的微信会员系统）
-                </li>
-            </ol>
-        </li>
-    </ol>
-</section>
+<div class="catalog">
+    <a href="@Url.Action("Index", "Menu")">自定义菜单设置工具</a>
+    <a href="@Url.Action("Index", "SimulateTool")">消息模拟工具</a>
+</div>
+<div class="wrapper">
 
-<section class="content-wrapper clear-fix" id="weiweihi">
-    <h3>微信营销生态圈——微微嗨：</h3>
-    <p>
-        <img src="/Images/WeiWeiHiQrCode.jpg" width="259" />
-    </p>
-    <p><strong><a href="http://www.weiweihi.com">http://www.weiweihi.com</a>，微微嗨是在Senparc.Weixin.MP及Senparc.Weixin.MP P2P核心基础上开发的微信服务平台，联合数万开发者和代理商，打造一流的微信营销生态圈。期待您的加入！</strong></p>
-    <p>
-        <strong>申请成为微微嗨代理：<a href="http://www.weiweihi.com/AgentApply">http://www.weiweihi.com/AgentApply</a></strong>
-    </p>
-</section>
+    <div class="weixin-bottom">
+        <p class="weixin-item-title">目前Senparc.Weixin.MP已支持微信6.x API中所有接口</p>
+        <a href="http://mp.weixin.qq.com/wiki/index.php?title=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E6%8C%87%E5%8D%97" class="application" target="_blank">查看官方API</a>
+    </div>
 
-<!--
-<section class="content-wrapper clear-fix" id="souidea">
-    <h3>关注Souidea公众平台微信，测试Senparc.Weixin.MP.P2P：</h3>
-    <p>
-        <img src="/Images/qrcode_for_souidea.jpg" width="259" />
-    </p>
-    <p><strong>现在Souidea平台已经开放：<a href="http://www.souidea.com">http://www.souidea.com</a>，可以自行注册并对接，甚至可以不需要编写一行代码，直接将微信账号对接到这个平台上，轻松整合关键字回复、菜单管理、会员管理，以及众多微信营销工具。</strong></p>
+    <div class="content-weixin">
+        <div class="weixin-item">
+            <p class="weixin-item-title">关注官方微信 进行互动测试</p>
+            <img src="/images/v2/ewm_01.png" />
+        </div>
+        <div class="clear"></div>
+    </div>
 
-    <p>
-        Souidea是用于全面测试<a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.P2P" target="_blank">Senparc.Weixin.MP和Senparc.Weixin.MP.P2P</a>的第一代机器人，由任务驱动，异步反馈。<br />
-        已经对接到微信公众账号。<br />
+    <div class="test">
+        <table>
+            <tr>
+                <td>
+                    <div class="test-item">
+                        <img src="/images/v2/icon_01.png" />
+                        <p class="item-title">文本测试</p>
+                        <p class="item-content">随意输入文本信息，系统将自动回复一条包含原文的文本信息。如果连续发送多条信息，系统会自动记录通讯上的下文，知道超过规定时间记录自动清空。</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="test-item">
+                        <img src="/images/v2/icon_02.png" />
+                        <p class="item-title">位置测试</p>
+                        <p class="item-content">发送一条位置信息，系统将自动回复详细的位置信息图片数据及一条图文链接。</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="test-item">
+                        <img src="/images/v2/icon_03.png" />
+                        <p class="item-title">图片测试</p>
+                        <p class="item-content">发送一张图片，系统将自动回复一天带链接的图文信息。</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="test-item">
+                        <img src="/images/v2/icon_04.png" />
+                        <p class="item-title">语音测试</p>
+                        <p class="item-content">发送一条语音信息，系统将自动回复一条音乐格式信息。</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="test-item">
+                        <img src="/images/v2/icon_05.png" />
+                        <p class="item-title">视频测试</p>
+                        <p class="item-content">发送一条视频信息，系统将自动回复一条带有视频ID的信息。</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="test-item">
+                        <img src="/images/v2/icon_06.png" />
+                        <p class="item-title">订阅测试</p>
+                        <p class="item-content">订阅（关注）账号的第一时间，系统将发送一条欢迎信息（等同于之前的Hello2BizUser）</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="test-item">
+                        <img src="/images/v2/icon_07.png" />
+                        <p class="item-title">客服端约束测试</p>
+                        <p class="item-content">发送文字信息【约束】，进行测试。</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="test-item">
+                        <img src="/images/v2/icon_08.png" />
+                        <p class="item-title">自定义菜单测试</p>
+                        <p class="item-content">点击自定菜单进行测试</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="test-item">
+                        <img src="/images/v2/icon_09.png" />
+                        <p class="item-title">代理+托管测试</p>
+                        <p class="item-content">1.发送文字信息【代理】或【托管】，或点击菜单【功能体验】【托管】，服务器将从其他微信平台获取“代理”或“托管”文字请求的结果。2.点击菜单【功能体验】>【会员消息】，查看自己的会员信息（来自另外一台Souidea服务器的微信会员系统）</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="test-item">
+                        <img src="/images/v2/icon_12.png" />
+                        <p class="item-title">微信支付测试</p>
+                        <p class="item-content">点击菜单【功能体验】 【微信支付】，体验微信支付整个过程。</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="test-item">
+                        <img src="/images/v2/icon_13.png" />
+                        <p class="item-title">微信弹出拍照或相册测试</p>
+                        <p class="item-content">点击菜单【二级菜单】 【拍照或相册】，弹出拍照或从相框选择对话框，发送图片。</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="test-item">
+                        <img src="/images/v2/icon_14.png" />
+                        <p class="item-title">微信扫码测试</p>
+                        <p class="item-content">点击菜单【二级菜单】 【微信扫码】，进入微信扫码界面。</p>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-        主要特点：1、异步任务驱动（异步推送信息） 2、微信公众账号身份信息识别 3、企业级并发任务处理（欢迎疯狂蹂躏）。可以发送IP、文字进行测试。<br />
-        <br />
-        可以发送如下内容进行测试（由于异步任务驱动，可以不必等待回复，连续发送内容，查看对应任务处理情况）：
-    </p>
-    <ol class="round">
-        <li class="one">
-            <h5>IPv4地址</h5>
-            对ip进行ping并异步返回结果。
-        </li>
+    <div class="line"></div>
 
-        <li class="two">
-            <h5>其他文字</h5>
-            对文字进行搜索并返回推荐结果。
-        </li>
-        <li class="three">
-            <h5>图片信息</h5>
-            搜索相近图片相关信息。
-        </li>
-        <li class="four">
-            <h5>人工客服</h5>
-            输入文字【0】进入人工客服呼叫中心。
-        </li>
-    </ol>
-</section>
--->
+    <div class="weixin-weiweihi">
+        <div class="weixin-item">
+            <p class="weixin-item-title">微信营销生态圈—— ——微微嗨</p>
+            <div class="weixin-item-content">
+                <p class="weixin-item-font">微微嗨是在Senparc.Weixin.MP及Senparc.Weixin.MP P2P核心基础上开发的微信服务平台，联合数万开发者和代理商，打造一流的微信营销生态圈。期待您的加入</p>
+                <a href="http://www.weiweihi.com/AgentApply" class="application">申请成为微微嗨代理</a>
+            </div>
+            <div class="weixin-item-img">
+                <img src="/images/v2/ewm_02.png" />
+            </div>
+            <a href="javascript:;"></a>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

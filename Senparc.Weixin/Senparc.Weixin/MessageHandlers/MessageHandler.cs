@@ -1,4 +1,17 @@
-﻿/*
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：MessageHandler.cs
+    文件功能描述：微信请求的集中处理方法
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+/*
  * V3.1
  */
 using System;
@@ -18,10 +31,10 @@ namespace Senparc.Weixin.MessageHandlers
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin的基础功能，只为简化代码而设。
     /// </summary>
-    public abstract class MessageHandler<TC, TRest, TResp> : IMessageHandler<TRest, TResp>
-        where TC : class, IMessageContext<TRest, TResp>, new()
-        where TRest : IRequestMessageBase
-        where TResp : IResponseMessageBase
+    public abstract class MessageHandler<TC, TRequest, TResponse> : IMessageHandler<TRequest, TResponse>
+        where TC : class, IMessageContext<TRequest, TResponse>, new()
+        where TRequest : IRequestMessageBase
+        where TResponse : IResponseMessageBase
     {
         ///// <summary>
         ///// 上下文
@@ -31,7 +44,7 @@ namespace Senparc.Weixin.MessageHandlers
         /// <summary>
         /// 全局消息上下文
         /// </summary>
-        public abstract WeixinContext<TC, TRest, TResp> WeixinContext { get; }
+        public abstract WeixinContext<TC, TRequest, TResponse> WeixinContext { get; }
 
         /// <summary>
         /// 当前用户消息上下文
@@ -98,13 +111,13 @@ namespace Senparc.Weixin.MessageHandlers
         /// <summary>
         /// 请求实体
         /// </summary>
-        public virtual TRest RequestMessage { get; set; }
+        public virtual TRequest RequestMessage { get; set; }
         /// <summary>
         /// 响应实体
         /// 正常情况下只有当执行Execute()方法后才可能有值。
         /// 也可以结合Cancel，提前给ResponseMessage赋值。
         /// </summary>
-        public virtual TResp ResponseMessage { get; set; }
+        public virtual TResponse ResponseMessage { get; set; }
 
         /// <summary>
         /// 是否使用了MessageAgent代理
@@ -116,6 +129,43 @@ namespace Senparc.Weixin.MessageHandlers
         /// </summary>
         public bool OmitRepeatedMessage { get; set; }
 
+        private string _textResponseMessage = null;
+
+        /// <summary>
+        /// 文字类型返回消息
+        /// </summary>
+        public string TextResponseMessage
+        {
+            get
+            {
+                if (_textResponseMessage == null)
+                {
+                    var reqponseMessageDocument = ResponseDocument;
+                    return reqponseMessageDocument == null ? null : reqponseMessageDocument.ToString();
+                }
+                else
+                {
+                    return _textResponseMessage;
+                }
+            }
+            set
+            {
+                _textResponseMessage = value;
+            }
+        }
+
+        /// <summary>
+        /// 构造函数公用的初始化方法
+        /// </summary>
+        /// <param name="postDataDocument"></param>
+        /// <param name="maxRecordCount"></param>
+        /// <param name="postData"></param>
+        public void CommonInitialize(XDocument postDataDocument, int maxRecordCount, object postData)
+        {
+            WeixinContext.MaxRecordCount = maxRecordCount;
+            RequestDocument = Init(postDataDocument, postData);
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -124,26 +174,39 @@ namespace Senparc.Weixin.MessageHandlers
         /// <param name="postData">需要传入到Init的参数</param>
         public MessageHandler(Stream inputStream, int maxRecordCount = 0, object postData = null)
         {
-            WeixinContext.MaxRecordCount = maxRecordCount;
-            inputStream.Seek(0, SeekOrigin.Begin);//强制调整指针位置
-            using (XmlReader xr = XmlReader.Create(inputStream))
-            {
-                var postDataDocument = XDocument.Load(xr);
-                RequestDocument = Init(postDataDocument, postData);
-            }
+            var postDataDocument = XmlUtility.XmlUtility.Convert(inputStream);
+
+            CommonInitialize(postDataDocument, maxRecordCount, postData);
         }
 
         /// <summary>
-        /// 
+        /// 使用postDataDocument的构造函数
         /// </summary>
         /// <param name="postDataDocument"></param>
         /// <param name="maxRecordCount"></param>
         /// <param name="postData">需要传入到Init的参数</param>
         public MessageHandler(XDocument postDataDocument, int maxRecordCount = 0, object postData = null)
         {
-            WeixinContext.MaxRecordCount = maxRecordCount;
-            RequestDocument = Init(postDataDocument, postData);
+            CommonInitialize(postDataDocument, maxRecordCount, postData);
         }
+
+        /// <summary>
+        /// 使用requestMessageBase的构造函数
+        /// </summary>
+        /// <param name="postDataDocument"></param>
+        /// <param name="maxRecordCount"></param>
+        /// <param name="postData">需要传入到Init的参数</param>
+        public MessageHandler(RequestMessageBase requestMessageBase, int maxRecordCount = 0, object postData = null)
+        {
+            ////将requestMessageBase生成XML格式。
+            //var xmlStr = XmlUtility.XmlUtility.Serializer(requestMessageBase);
+            //var postDataDocument = XDocument.Parse(xmlStr);
+
+            //CommonInitialize(postDataDocument, maxRecordCount, postData);
+
+            //此方法不执行任何方法，提供给具体的类库进行测试使用，例如Senparc.Weixin.MP
+        }
+
 
         /// <summary>
         /// 初始化，获取RequestDocument。
@@ -161,17 +224,6 @@ namespace Senparc.Weixin.MessageHandlers
 
         public virtual void OnExecuting()
         {
-            if (OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1)
-            {
-                var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 2];
-                if ((lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)//使用MsgId去重
-                    || 
-                    (lastMessage.CreateTime == RequestMessage.CreateTime)//使用CreateTime去重（OpenId对象已经是同一个）
-                    )
-                {
-                    CancelExcute = true;//重复消息，取消执行
-                }
-            }
         }
 
         public virtual void OnExecuted()

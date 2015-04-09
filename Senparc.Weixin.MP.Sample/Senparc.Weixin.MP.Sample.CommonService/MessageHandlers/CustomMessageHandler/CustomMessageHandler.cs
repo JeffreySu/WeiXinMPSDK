@@ -1,7 +1,18 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：CustomMessageHandler.cs
+    文件功能描述：自定义MessageHandler
+    
+    
+    创建标识：Senparc - 20150312
+----------------------------------------------------------------*/
+
+using System;
 using System.Configuration;
 using System.IO;
 using System.Text;
+using System.Web;
 using System.Web.Configuration;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.Context;
@@ -9,6 +20,7 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
@@ -35,6 +47,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         private string agentToken = WebConfigurationManager.AppSettings["WeixinAgentToken"];//Token
         private string wiweihiKey = WebConfigurationManager.AppSettings["WeixinAgentWeiweihiKey"];//WeiweihiKey专门用于对接www.Weiweihi.com平台，获取方式见：http://www.weiweihi.com/ApiDocuments/Item/25#51
 #endif
+
+        private string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
+        private string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
 
         public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)
@@ -83,18 +98,24 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //注意：下面泛型ResponseMessageText即返回给客户端的类型，可以根据自己的需要填写ResponseMessageNews等不同类型。
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
 
-            if (requestMessage.Content == "约束")
+            if (requestMessage.Content == null)
             {
-                responseMessage.Content = "<a href=\"http://weixin.senparc.com/FilterTest/\">点击这里</a>进行客户端约束测试（地址：http://weixin.senparc.com/FilterTest/）。";
+
             }
-            if (requestMessage.Content == "托管" || requestMessage.Content == "代理")
+            else if (requestMessage.Content == "约束")
+            {
+                responseMessage.Content =
+                    "<a href=\"http://weixin.senparc.com/FilterTest/\">点击这里</a>进行客户端约束测试（地址：http://weixin.senparc.com/FilterTest/）。";
+            }
+            else if (requestMessage.Content == "托管" || requestMessage.Content == "代理")
             {
                 //开始用代理托管，把请求转到其他服务器上去，然后拿回结果
                 //甚至也可以将所有请求在DefaultResponseMessage()中托管到外部。
 
-                DateTime dt1 = DateTime.Now;//计时开始
+                DateTime dt1 = DateTime.Now; //计时开始
 
-                var responseXml = MessageAgent.RequestXml(this, agentUrl, agentToken, RequestDocument.ToString());//获取返回的XML
+                var responseXml = MessageAgent.RequestXml(this, agentUrl, agentToken, RequestDocument.ToString());
+                //获取返回的XML
                 //上面的方法也可以使用扩展方法：this.RequestResponseMessage(this,agentUrl, agentToken, RequestDocument.ToString());
 
                 /* 如果有WeiweihiKey，可以直接使用下面的这个MessageAgent.RequestWeiweihiXml()方法。
@@ -102,7 +123,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                  */
                 //var responseXml = MessageAgent.RequestWeiweihiXml(weiweihiKey, RequestDocument.ToString());//获取Weiweihi返回的XML
 
-                DateTime dt2 = DateTime.Now;//计时结束
+                DateTime dt2 = DateTime.Now; //计时结束
 
                 //转成实体。
                 /* 如果要写成一行，可以直接用：
@@ -131,6 +152,24 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     responseMessage.Content = "您已经退出【盛派网络小助手】的测试程序。";
                 }
             }
+            else if (requestMessage.Content == "AsyncTest")
+            {
+                //异步并发测试（提供给单元测试使用）
+                DateTime begin = DateTime.Now;
+                int t1, t2, t3;
+                System.Threading.ThreadPool.GetAvailableThreads(out t1, out t3);
+                System.Threading.ThreadPool.GetMaxThreads(out t2, out t3);
+                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(4));
+                DateTime end = DateTime.Now;
+                var thread = System.Threading.Thread.CurrentThread;
+                responseMessage.Content = string.Format("TId:{0}\tApp:{1}\tBegin:{2:mm:ss,ffff}\tEnd:{3:mm:ss,ffff}\tTPool：{4}",
+                        thread.ManagedThreadId,
+                        HttpContext.Current != null ? HttpContext.Current.ApplicationInstance.GetHashCode() : -1,
+                        begin,
+                        end,
+                        t2 - t1
+                        );
+            }
             else
             {
                 var result = new StringBuilder();
@@ -138,24 +177,27 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                 if (CurrentMessageContext.RequestMessages.Count > 1)
                 {
-                    result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count, CurrentMessageContext.StorageData);
+                    result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count,
+                        CurrentMessageContext.StorageData);
                     for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
                     {
                         var historyMessage = CurrentMessageContext.RequestMessages[i];
                         result.AppendFormat("{0} 【{1}】{2}\r\n",
-                                            historyMessage.CreateTime.ToShortTimeString(),
-                                            historyMessage.MsgType.ToString(),
-                                            (historyMessage is RequestMessageText)
-                                                ? (historyMessage as RequestMessageText).Content
-                                                : "[非文字类型]"
+                            historyMessage.CreateTime.ToShortTimeString(),
+                            historyMessage.MsgType.ToString(),
+                            (historyMessage is RequestMessageText)
+                                ? (historyMessage as RequestMessageText).Content
+                                : "[非文字类型]"
                             );
                     }
                     result.AppendLine("\r\n");
                 }
 
-                result.AppendFormat("如果您在{0}分钟内连续发送消息，记录将被自动保留（当前设置：最多记录{1}条）。过期后记录将会自动清除。\r\n", WeixinContext.ExpireMinutes, WeixinContext.MaxRecordCount);
+                result.AppendFormat("如果您在{0}分钟内连续发送消息，记录将被自动保留（当前设置：最多记录{1}条）。过期后记录将会自动清除。\r\n",
+                    WeixinContext.ExpireMinutes, WeixinContext.MaxRecordCount);
                 result.AppendLine("\r\n");
-                result.AppendLine("您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com");
+                result.AppendLine(
+                    "您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com");
 
                 responseMessage.Content = result.ToString();
             }
@@ -171,6 +213,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             var locationService = new LocationService();
             var responseMessage = locationService.GetResponseMessage(requestMessage as RequestMessageLocation);
+            return responseMessage;
+        }
+
+        public override IResponseMessageBase OnShortVideoRequest(RequestMessageShortVideo requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "您刚才发送的是小视频";
             return responseMessage;
         }
 
@@ -196,6 +245,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 PicUrl = requestMessage.PicUrl,
                 Url = "http://weixin.senparc.com"
             });
+
             return responseMessage;
         }
 
@@ -207,13 +257,19 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         public override IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
         {
             var responseMessage = CreateResponseMessage<ResponseMessageMusic>();
-            responseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
-            responseMessage.Music.Title = "这里是一条音乐消息";
-            responseMessage.Music.Description = "来自Jeffrey Su的美妙歌声~~";
-            responseMessage.Music.ThumbMediaId = "mediaid";
+            //上传缩略图
+            var accessToken = CommonAPIs.AccessTokenContainer.TryGetToken(appId, appSecret);
+            var uploadResult = AdvancedAPIs.Media.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
+                                                         Server.GetMapPath("~/Images/Logo.jpg"));
+
+            //设置音乐信息
+            responseMessage.Music.Title = "天籁之音";
+            responseMessage.Music.Description = "播放您上传的语音";
+            responseMessage.Music.MusicUrl = "http://weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
+            responseMessage.Music.HQMusicUrl = "http://weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
+            responseMessage.Music.ThumbMediaId = uploadResult.media_id;
             return responseMessage;
         }
-
         /// <summary>
         /// 处理视频请求
         /// </summary>

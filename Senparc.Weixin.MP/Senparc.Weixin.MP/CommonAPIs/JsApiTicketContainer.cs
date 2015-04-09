@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：JsApiTicketContainer.cs
+    文件功能描述：通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +26,10 @@ namespace Senparc.Weixin.MP.CommonAPIs
         public string AppSecret { get; set; }
         public DateTime ExpireTime { get; set; }
         public JsApiTicketResult JsApiTicketResult { get; set; }
+        /// <summary>
+        /// 只针对这个AppId的锁
+        /// </summary>
+        public object Lock = new object();
     }
 
     /// <summary>
@@ -80,11 +97,14 @@ namespace Senparc.Weixin.MP.CommonAPIs
             }
 
             var accessTicketBag = JsApiTicketCollection[appId];
-            if (getNewTicket || accessTicketBag.ExpireTime <= DateTime.Now)
+            lock (accessTicketBag.Lock)
             {
-                //已过期，重新获取
-                accessTicketBag.JsApiTicketResult = CommonApi.GetTicket(accessTicketBag.AppId, accessTicketBag.AppSecret);
-                accessTicketBag.ExpireTime = DateTime.Now.AddSeconds(accessTicketBag.JsApiTicketResult.expires_in);
+                if (getNewTicket || accessTicketBag.ExpireTime <= DateTime.Now)
+                {
+                    //已过期，重新获取
+                    accessTicketBag.JsApiTicketResult = CommonApi.GetTicket(accessTicketBag.AppId, accessTicketBag.AppSecret);
+                    accessTicketBag.ExpireTime = DateTime.Now.AddSeconds(accessTicketBag.JsApiTicketResult.expires_in);
+                }
             }
             return accessTicketBag.JsApiTicketResult;
         }

@@ -1,4 +1,27 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：CommonApi.Menu.cs
+    文件功能描述：通用自定义菜单接口
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+ 
+    修改标识：Senparc - 20150312
+    修改描述：开放代理请求超时时间
+ 
+    修改标识：Senparc - 201503232
+    修改描述：修改字符串是否为空判断方式（感谢dusdong）
+----------------------------------------------------------------*/
+
+/*
+    API：http://mp.weixin.qq.com/wiki/13/43de8269be54a0a6f64413e4dfa94f39.html
+ */
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -32,7 +55,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="accessToken"></param>
         /// <param name="buttonData">菜单内容</param>
         /// <returns></returns>
-        public static WxJsonResult CreateMenu(string accessToken, ButtonGroup buttonData)
+        public static WxJsonResult CreateMenu(string accessToken, ButtonGroup buttonData, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
             ////对特殊符号进行URL转义
@@ -48,7 +71,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             //        }
             //    }
             //}
-            return CommonJsonSend.Send(accessToken, urlFormat, buttonData);
+            return CommonJsonSend.Send(accessToken, urlFormat, buttonData, timeOut: timeOut);
         }
 
         #region GetMenu
@@ -182,11 +205,11 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 ButtonGroup bg = new ButtonGroup();
                 foreach (var rootButton in resultFull.menu.button)
                 {
-                    if (rootButton.name == null)
+                    if (string.IsNullOrEmpty(rootButton.name))
                     {
                         continue;//没有设置一级菜单
                     }
-                    var availableSubButton = rootButton.sub_button.Count(z => !string.IsNullOrEmpty(z.name));//可用二级菜单按钮数量
+                    var availableSubButton = rootButton.sub_button == null ? 0 : rootButton.sub_button.Count(z => !string.IsNullOrEmpty(z.name));//可用二级菜单按钮数量
                     if (availableSubButton == 0)
                     {
                         //底部单击按钮
@@ -201,11 +224,11 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         {
                             //点击
                             bg.button.Add(new SingleClickButton()
-                                              {
-                                                  name = rootButton.name,
-                                                  key = rootButton.key,
-                                                  type = rootButton.type
-                                              });
+                            {
+                                name = rootButton.name,
+                                key = rootButton.key,
+                                type = rootButton.type
+                            });
                         }
                         else if (rootButton.type.Equals("VIEW", StringComparison.OrdinalIgnoreCase))
                         {
@@ -290,7 +313,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
                         foreach (var subSubButton in rootButton.sub_button)
                         {
-                            if (subSubButton.name == null)
+                            if (string.IsNullOrEmpty(subSubButton.name))
                             {
                                 continue; //没有设置菜单
                             }
@@ -387,9 +410,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 }
 
                 result = new GetMenuResult()
-                             {
-                                 menu = bg
-                             };
+                {
+                    menu = bg
+                };
             }
             catch (Exception ex)
             {

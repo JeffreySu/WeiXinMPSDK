@@ -1,7 +1,22 @@
+/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+ 
+    文件名：TenPayUtil.cs
+    文件功能描述：微信支付配置文件
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
+using Senparc.Weixin.MP.Helpers;
+
 namespace Senparc.Weixin.MP.TenPayLib
 {
     /// <summary>
@@ -17,7 +32,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         public static string GetNoncestr()
         {
             Random random = new Random();
-            return MD5Util.GetMD5(random.Next(1000).ToString(), "GBK");
+            return MD5UtilHelper.GetMD5(random.Next(1000).ToString(), "GBK");
         }
 
         public static string GetTimestamp()

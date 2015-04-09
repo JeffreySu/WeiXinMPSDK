@@ -38,10 +38,15 @@ namespace Senparc.Weixin.MP.MvcExtension
                 {
                     return base.Content;
                 }
+                else if (_messageHandlerDocument.TextResponseMessage != null)
+                {
+                    return _messageHandlerDocument.TextResponseMessage;
+                }
                 else if (_messageHandlerDocument != null && _messageHandlerDocument.FinalResponseDocument != null)
                 {
                     return _messageHandlerDocument.FinalResponseDocument.ToString(SaveOptions.OmitDuplicateNamespaces).Replace("\r\n", "\n");
                 }
+
                 else
                 {
                     return null;

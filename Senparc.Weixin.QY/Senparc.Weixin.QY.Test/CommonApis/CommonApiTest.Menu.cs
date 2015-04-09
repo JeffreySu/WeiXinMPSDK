@@ -56,6 +56,11 @@ namespace Senparc.Weixin.QY.Test.CommonApis
                 url = "http://weixin.senparc.com",
                 name = "Url跳转"
             });
+            subButton.sub_button.Add(new SinglePicPhotoOrAlbumButton()
+            {
+                key = "SubClickRoot_Pic_Photo_Or_Album",
+                name = "微信拍照"
+            });
             bg.button.Add(subButton);
 
 

@@ -37,13 +37,5 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Console.Write(result);
             Assert.IsNotNull(result);
         }
-
-        [TestMethod]
-        public void RefundTest()
-        {
-            var result = TenPayV3.Refund(data);
-            Console.Write(result);
-            Assert.IsNotNull(result);
-        }
     }
 }

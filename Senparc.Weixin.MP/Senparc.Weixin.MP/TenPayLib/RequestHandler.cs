@@ -1,3 +1,16 @@
+/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+ 
+    文件名：RequestHandler.cs
+    文件功能描述：微信支付 请求处理
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
 using System;
 using System.Collections;
 using System.Text;
@@ -6,6 +19,8 @@ using System.Xml;
 using System.Security.Cryptography;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Senparc.Weixin.MP.Helpers;
+
 namespace Senparc.Weixin.MP.TenPayLib
 {
     /**
@@ -151,7 +166,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5Util.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
 
             this.SetParameter("sign", sign);
 
@@ -179,7 +194,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                     sb.Append(k + "=" + v + "&");
                 }
             }
-            string sign = MD5Util.GetMD5(sb.ToString(), GetCharset()).ToLower();
+            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
 
             this.SetParameter("sign", sign);
             return sign;
@@ -212,7 +227,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                     }
                 }
             }
-            string paySign = SHA1Util.GetSha1(sb.ToString()).ToString().ToLower();
+            string paySign = SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
 
             //debug信息
             this.SetDebugInfo(sb.ToString() + " => sign:" + paySign);

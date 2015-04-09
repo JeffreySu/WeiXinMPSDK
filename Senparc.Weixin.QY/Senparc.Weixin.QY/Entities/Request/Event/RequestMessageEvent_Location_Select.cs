@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：RequestMessageEvent_LocationSelect.cs
+    文件功能描述：事件之弹出地理位置选择器（location_select）
+    
+    
+    创建标识：Senparc - 20150313
+    
+    修改标识：Senparc - 20150313
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

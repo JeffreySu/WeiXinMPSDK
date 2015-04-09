@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：TestUploadMediaFileController.cs
+    文件功能描述：这个Controller专为Senparc.Weixin.MP.Test/HttpUtility/RequestUtilityTest.cs/HttpPostTest 提供上传测试目标
+    
+    
+    创建标识：Senparc - 20150312
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

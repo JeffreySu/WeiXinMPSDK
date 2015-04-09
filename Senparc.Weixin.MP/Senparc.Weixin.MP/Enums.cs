@@ -1,4 +1,35 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+  
+    文件名：Enums.cs
+    文件功能描述：枚举类型
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+
+    修改标识：Senparc - 20150306
+    修改描述：添加多客服事件
+
+    修改标识：Senparc - 20150313
+    修改描述：添加语言类型
+
+    修改标识：Senparc - 20150323
+    修改描述：卡券新增会议门票类型
+
+    修改标识：Senparc - 20150327
+    修改描述：接收消息类型添加小视频类型
+
+    修改标识：马鑫 - 20150331
+    修改描述：修改返回错误码
+
+    修改标识：Senparc - 20150331
+    修改描述：应用授权作用域移至此处
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +47,7 @@ namespace Senparc.Weixin.MP
         Voice, //语音
         Video, //视频
         Link, //连接信息
+        ShortVideo,//小视频
         Event, //事件推送
     }
 
@@ -120,6 +152,20 @@ namespace Senparc.Weixin.MP
         /// </summary>
         user_del_card,
 
+        /// <summary>
+        /// 多客服接入会话
+        /// </summary>
+        kf_create_session,
+
+        /// <summary>
+        /// 多客服关闭会话
+        /// </summary>
+        kf_close_session,
+
+        /// <summary>
+        /// 多客服转接会话
+        /// </summary>
+        kf_switch_session,
     }
 
 
@@ -296,6 +342,10 @@ namespace Senparc.Weixin.MP
         /// 红包
         /// </summary>
         LUCKY_MONEY = 9,
+        /// <summary>
+        /// 会议门票
+        /// </summary>
+        MEETING_TICKET=10,
     }
     /// <summary>
     /// 卡券code码展示类型
@@ -344,5 +394,61 @@ namespace Senparc.Weixin.MP
         /// 车辆信息
         /// </summary>
         URL_NAME_TYPE_VEHICLE_INFORMATION = 5,
+    }
+
+    /// <summary>
+    /// 应用授权作用域
+    /// </summary>
+    public enum OAuthScope
+    {
+        /// <summary>
+        /// 不弹出授权页面，直接跳转，只能获取用户openid
+        /// </summary>
+        snsapi_base,
+        /// <summary>
+        /// 弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息
+        /// </summary>
+        snsapi_userinfo
+    }
+
+    /// <summary>
+    /// 选项设置信息选项名称
+    /// </summary>
+    public enum OptionName
+    {
+        /// <summary>
+        /// 地理位置上报选项
+        /// 0	无上报
+        /// 1	进入会话时上报
+        /// 2	每5s上报
+        /// </summary>
+        location_report,
+        /// <summary>
+        /// 语音识别开关选项
+        /// 0	关闭语音识别
+        /// 1	开启语音识别
+        /// </summary>
+        voice_recognize,
+        /// <summary>
+        /// 客服开关选项
+        /// 0	关闭多客服
+        /// 1	开启多客服
+        /// </summary>
+        customer_service
+    }
+
+    /// <summary>
+    /// 公众号第三方平台推送消息类型
+    /// </summary>
+    public enum ThirdPartyInfo
+    {
+        /// <summary>
+        /// 推送component_verify_ticket协议
+        /// </summary>
+        component_verify_ticket,
+        /// <summary>
+        /// 推送取消授权通知
+        /// </summary>
+        unauthorized
     }
 }

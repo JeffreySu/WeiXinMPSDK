@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：QyCustomMessageHandler.cs
+    文件功能描述：自定义QyMessageHandler
+    
+    
+    创建标识：Senparc - 20150312
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,6 +30,20 @@ namespace Senparc.Weixin.MP.Sample.CommonService.QyMessageHandlers
         {
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您发送了消息：" + requestMessage.Content;
+            return responseMessage;
+        }
+
+        public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
+        {
+            var responseMessage = CreateResponseMessage<ResponseMessageImage>();
+            responseMessage.Image.MediaId = requestMessage.MediaId;
+            return responseMessage;
+        }
+
+        public override IResponseMessageBase OnEvent_PicPhotoOrAlbumRequest(RequestMessageEvent_Pic_Photo_Or_Album requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "您刚发送的图片如下：";
             return responseMessage;
         }
 

@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+  
+    文件名：Enums.cs
+    文件功能描述：枚举类型
+    
+    
+    创建标识：Senparc - 20150313
+    
+    修改标识：Senparc - 20150313
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +21,9 @@ namespace Senparc.Weixin.QY
     /// <summary>
     /// 接收消息类型
     /// </summary>
-    public enum  RequestMsgType
+    public enum RequestMsgType
     {
+        DEFAULT,//默认
         Text, //文本
         Location, //地理位置
         Image, //图片
@@ -102,7 +116,25 @@ namespace Senparc.Weixin.QY
         /// <summary>
         /// 用户进入应用的事件推送
         /// </summary>
-        ENTER_AGENT
+        ENTER_AGENT,
+    }
+
+    public enum ThirdPartyInfo
+    {
+        /// <summary>
+        /// 推送suite_ticket协议
+        /// </summary>
+        SUITE_TICKET,
+
+        /// <summary>
+        /// 变更授权的通知
+        /// </summary>
+        CHANGE_AUTH,
+
+        /// <summary>
+        /// 取消授权的通知
+        /// </summary>
+        CANCEL_AUTH,
     }
 
 
@@ -296,4 +328,33 @@ namespace Senparc.Weixin.QY
         /// </summary>
         en
     }
+
+    public enum SetAgent_IsReportUser
+    {
+        不接受 = 0,
+        接收 = 1
+    }
+
+    ///// <summary>
+    ///// 异步任务类型
+    ///// </summary>
+    //public enum Asynchronous_Type
+    //{
+    //    /// <summary>
+    //    /// 增量更新成员
+    //    /// </summary>
+    //    sync_user = 0,
+    //    /// <summary>
+    //    /// 全量覆盖成员
+    //    /// </summary>
+    //    replace_user = 1,
+    //    /// <summary>
+    //    /// 邀请成员关注
+    //    /// </summary>
+    //    invite_user = 2,
+    //    /// <summary>
+    //    /// 全量覆盖部门
+    //    /// </summary>
+    //    replace_party = 3,
+    //}
 }

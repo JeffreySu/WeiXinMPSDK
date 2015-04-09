@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Text;
 using System.Web;
 using System.Xml;
+using Senparc.Weixin.MP.Helpers;
 
 /**
  * 后台应答类
@@ -139,7 +140,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5Util.GetMD5(sb.ToString(), getCharset()).ToLower();
+            string sign = MD5UtilHelper.GetMD5(sb.ToString(), getCharset()).ToLower();
 
             //debug信息
             this.SetDebugInfo(sb.ToString() + " => sign:" + sign);
@@ -190,7 +191,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             }
 
             sb.Append("key=" + this.GetKey());
-            string sign = MD5Util.GetMD5(sb.ToString(), getCharset()).ToLower();
+            string sign = MD5UtilHelper.GetMD5(sb.ToString(), getCharset()).ToLower();
 
             //debug信息
             this.SetDebugInfo(sb.ToString() + " => sign:" + sign);

@@ -65,6 +65,16 @@ namespace Senparc.Weixin.MP.Test
   <ThumbMediaId><![CDATA[thumbMediaId]]></ThumbMediaId>
 </xml>";
 
+        private string xmlShortVideo = @"<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>1357290913</CreateTime>
+<MsgType><![CDATA[shortvideo]]></MsgType>
+<MediaId><![CDATA[media_id]]></MediaId>
+<ThumbMediaId><![CDATA[thumb_media_id]]></ThumbMediaId>
+<MsgId>1234567890123456</MsgId>
+</xml>";
+
 //        @"<?xml version=""1.0"" encoding=""utf-8""?>
 //<xml>
 //  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
@@ -294,6 +304,34 @@ namespace Senparc.Weixin.MP.Test
 <UserCardCode><![CDATA[12312312]]></UserCardCode>
 </xml>";
 
+        private string xmlEvent_Kf_Create_Session = @"<xml>
+ <ToUserName><![CDATA[touser]]></ToUserName>
+ <FromUserName><![CDATA[fromuser]]></FromUserName>
+ <CreateTime>1399197672</CreateTime>
+ <MsgType><![CDATA[event]]></MsgType>
+ <Event><![CDATA[kf_create_session]]></Event>
+ <KfAccount><![CDATA[test1@test]]></KfAccount>
+ </xml>";
+
+        private string xmlEvent_Kf_Close_Session = @"<xml>
+ <ToUserName><![CDATA[touser]]></ToUserName>
+ <FromUserName><![CDATA[fromuser]]></FromUserName>
+ <CreateTime>1399197672</CreateTime>
+ <MsgType><![CDATA[event]]></MsgType>
+ <Event><![CDATA[kf_close_session]]></Event>
+ <KfAccount><![CDATA[test1@test]]></KfAccount>
+ </xml>";
+
+        private string xmlEvent_Kf_Switch_Session = @"<xml>
+ <ToUserName><![CDATA[touser]]></ToUserName>
+ <FromUserName><![CDATA[fromuser]]></FromUserName>
+ <CreateTime>1399197672</CreateTime>
+ <MsgType><![CDATA[event]]></MsgType>
+ <Event><![CDATA[kf_switch_session]]></Event>
+ <FromKfAccount><![CDATA[test1@test]]></FromKfAccount>
+ <ToKfAccount><![CDATA[test2@test]]></ToKfAccount>
+ </xml>";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -343,6 +381,16 @@ namespace Senparc.Weixin.MP.Test
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual("mediaId", result.MediaId);
                 Assert.AreEqual("thumbMediaId", result.ThumbMediaId);
+            }
+
+            {
+                //ShortVideo
+                var doc = XDocument.Parse(xmlShortVideo);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageShortVideo;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual("media_id", result.MediaId);
+                Assert.AreEqual("thumb_media_id", result.ThumbMediaId);
             }
 
             {
@@ -545,6 +593,37 @@ namespace Senparc.Weixin.MP.Test
                 Assert.AreEqual(Event.user_del_card, result.Event);
                 Assert.IsNotNull(result.CardId);
                 Assert.AreEqual("12312312", result.UserCardCode);
+            }
+
+            {
+                //Event-Kf_Create_Session
+                var doc = XDocument.Parse(xmlEvent_Kf_Create_Session);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Kf_Create_Session;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("touser", result.ToUserName);
+                Assert.AreEqual(Event.kf_create_session, result.Event);
+                Assert.AreEqual("test1@test", result.KfAccount);
+            }
+
+            {
+                //Event-Kf_Close_Session
+                var doc = XDocument.Parse(xmlEvent_Kf_Close_Session);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Kf_Close_Session;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("touser", result.ToUserName);
+                Assert.AreEqual(Event.kf_close_session, result.Event);
+                Assert.AreEqual("test1@test", result.KfAccount);
+            }
+
+            {
+                //Event-Kf_Switch_Session
+                var doc = XDocument.Parse(xmlEvent_Kf_Switch_Session);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Kf_Switch_Session;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("touser", result.ToUserName);
+                Assert.AreEqual(Event.kf_switch_session, result.Event);
+                Assert.AreEqual("test1@test", result.FromKfAccount);
+                Assert.AreEqual("test2@test", result.ToKfAccount);
             }
         }
     }

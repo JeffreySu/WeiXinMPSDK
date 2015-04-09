@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：RequestUtility.cs
+    文件功能描述：微信请求集中处理接口
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,9 +20,9 @@ using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MessageHandlers
 {
-    public interface IMessageHandler<TRest, TResp> : IMessageHandlerDocument
-        where TRest : IRequestMessageBase
-        where TResp : IResponseMessageBase
+    public interface IMessageHandler<TRequest, TResponse> : IMessageHandlerDocument
+        where TRequest : IRequestMessageBase
+        where TResponse : IResponseMessageBase
     {
         /// <summary>
         /// 发送者用户名（OpenId）
@@ -28,12 +41,12 @@ namespace Senparc.Weixin.MessageHandlers
         /// <summary>
         /// 请求实体
         /// </summary>
-        TRest RequestMessage { get; set; }
+        TRequest RequestMessage { get; set; }
         /// <summary>
         /// 响应实体
         /// 只有当执行Execute()方法后才可能有值
         /// </summary>
-        TResp ResponseMessage { get; set; }
+        TResponse ResponseMessage { get; set; }
 
         /// <summary>
         /// 是否使用了MessageAgent代理

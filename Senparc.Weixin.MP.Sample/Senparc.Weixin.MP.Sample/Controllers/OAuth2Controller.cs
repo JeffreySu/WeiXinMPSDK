@@ -1,24 +1,37 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：OAuth2Controller.cs
+    文件功能描述：提供OAuth2.0授权测试（关注微信公众号：盛派网络小助手，点击菜单【功能体验】 【OAuth2.0授权测试】即可体验）
+    
+    
+    创建标识：Senparc - 20150312
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
+using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
     public class OAuth2Controller : Controller
     {
         //下面换成账号对应的信息，也可以放入web.config等地方方便配置和更换
-        private string appId = "wxaa572be2f86423fc";
-        private string secret = "21a4cdca12444e5c79e4445cb184b38c";
+        private string appId = ConfigurationManager.AppSettings["TenPayV3_AppId"];
+        private string secret = ConfigurationManager.AppSettings["TenPayV3_AppSecret"];
 
         public ActionResult Index()
         {
+
             //此页面引导用户点击授权
-            ViewData["UrlUserInfo"] = OAuth.GetAuthorizeUrl(appId, "http://weixin.senparc.com/oauth2/UserInfoCallback", "JeffreySu", OAuthScope.snsapi_userinfo);
-            ViewData["UrlBase"] = OAuth.GetAuthorizeUrl(appId, "http://weixin.senparc.com/oauth2/BaseCallback", "JeffreySu", OAuthScope.snsapi_base);
+            ViewData["UrlUserInfo"] = OAuthApi.GetAuthorizeUrl(appId, "http://weixin.senparc.com/oauth2/UserInfoCallback", "JeffreySu", OAuthScope.snsapi_userinfo);
+            ViewData["UrlBase"] = OAuthApi.GetAuthorizeUrl(appId, "http://weixin.senparc.com/oauth2/BaseCallback", "JeffreySu", OAuthScope.snsapi_base);
             return View();
         }
 
@@ -36,13 +49,21 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("验证失败！请从正规途径进入！");
             }
 
+            OAuthAccessTokenResult result = null;
+
             //通过，用code换取access_token
-            var result = OAuth.GetAccessToken(appId, secret, code);
+            try
+            {
+                result = OAuthApi.GetAccessToken(appId, secret, code);
+            }
+            catch (Exception ex)
+            {
+                return Content(ex.Message);
+            }
             if (result.errcode != ReturnCode.请求成功)
             {
                 return Content("错误：" + result.errmsg);
             }
-
             //下面2个数据也可以自己封装成一个类，储存在数据库中（建议结合缓存）
             //如果可以确保安全，可以将access_token存入用户的cookie中，每一个人的access_token是不一样的
             Session["OAuthAccessTokenStartTime"] = DateTime.Now;
@@ -51,7 +72,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //因为第一步选择的是OAuthScope.snsapi_userinfo，这里可以进一步获取用户详细信息
             try
             {
-                var userInfo = OAuth.GetUserInfo(result.access_token, result.openid);
+                OAuthUserInfo userInfo = OAuthApi.GetUserInfo(result.access_token, result.openid);
                 return View(userInfo);
             }
             catch (ErrorJsonResultException ex)
@@ -75,7 +96,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             //通过，用code换取access_token
-            var result = OAuth.GetAccessToken(appId, secret, code);
+            var result = OAuthApi.GetAccessToken(appId, secret, code);
             if (result.errcode != ReturnCode.请求成功)
             {
                 return Content("错误：" + result.errmsg);
@@ -91,7 +112,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             try
             {
                 //已关注，可以得到详细信息
-                userInfo = OAuth.GetUserInfo(result.access_token, result.openid);
+                userInfo = OAuthApi.GetUserInfo(result.access_token, result.openid);
                 ViewData["ByBase"] = true;
                 return View("UserInfoCallback", userInfo);
             }

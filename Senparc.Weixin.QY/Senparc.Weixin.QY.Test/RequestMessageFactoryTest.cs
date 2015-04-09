@@ -205,6 +205,27 @@ namespace Senparc.Weixin.QY.Test
 <AgentID>1</AgentID>
 </xml>";
 
+        private string xml_Suite_Ticket = @"<xml>
+		<SuiteId><![CDATA[wxfc918a2d200c9a4c]]></SuiteId>
+		<InfoType> <![CDATA[suite_ticket]]></InfoType>
+		<TimeStamp>1403610513</TimeStamp>
+		<SuiteTicket><![CDATA[asdfasfdasdfasdf]]></SuiteTicket>
+	</xml>";
+
+        private string xml_Change_Auth = @"<xml>
+		<SuiteId><![CDATA[wxfc918a2d200c9a4c]]></SuiteId>
+		<InfoType><![CDATA[change_auth]]></InfoType>
+		<TimeStamp>1403610513</TimeStamp> 
+		<AuthCorpId><![CDATA[wxf8b4f85f3a794e77]]></AuthCorpId>
+	</xml>	";
+
+        private string xml_Cancel_Auth = @"<xml>
+		<SuiteId><![CDATA[wxfc918a2d200c9a4c]]></SuiteId>
+		<InfoType><![CDATA[cancel_auth]]></InfoType>
+		<TimeStamp>1403610513</TimeStamp>
+		<AuthCorpId><![CDATA[wxf8b4f85f3a794e77]]></AuthCorpId>
+	</xml>	";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -355,6 +376,33 @@ namespace Senparc.Weixin.QY.Test
                 Assert.IsNotNull(result);
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual(1, result.AgentID);
+            }
+
+            {
+                //Suite_Ticket
+                var doc = XDocument.Parse(xml_Suite_Ticket);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageInfo_Suite_Ticket;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("wxfc918a2d200c9a4c", result.SuiteId);
+                Assert.AreEqual("asdfasfdasdfasdf", result.SuiteTicket);
+            }
+
+            {
+                //Change_Auth
+                var doc = XDocument.Parse(xml_Change_Auth);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageInfo_Change_Auth;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("wxfc918a2d200c9a4c", result.SuiteId);
+                Assert.AreEqual("wxf8b4f85f3a794e77", result.AuthCorpId);
+            }
+
+            {
+                //Cancel_Auth
+                var doc = XDocument.Parse(xml_Cancel_Auth);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageInfo_Cancel_Auth;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("wxfc918a2d200c9a4c", result.SuiteId);
+                Assert.AreEqual("wxf8b4f85f3a794e77", result.AuthCorpId);
             }
         }
     }

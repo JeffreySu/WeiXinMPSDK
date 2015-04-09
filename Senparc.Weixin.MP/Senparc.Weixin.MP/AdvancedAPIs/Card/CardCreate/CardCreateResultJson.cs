@@ -1,10 +1,26 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：CardCreateResultJson.cs
+    文件功能描述：创建卡券返回结果
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+    
+    修改标识：Senparc - 20150323
+    修改描述：添加上传logo返回结果
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.MP.Entities;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs
+namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
     /// <summary>
     /// 创建卡券返回结果
@@ -76,5 +92,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public class CardDecryptResultJson : WxJsonResult
     {
         public string code { get; set; }
+    }
+
+    /// <summary>
+    /// 上传logo返回结果
+    /// </summary>
+    public class Card_UploadLogoResultJson : WxJsonResult
+    {
+        public string url { get; set; }
     }
 }

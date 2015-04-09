@@ -1,4 +1,21 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+ 
+    文件名：TenPayV3.cs
+    文件功能描述：微信支付V3接口
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+/*
+    官方API：https://mp.weixin.qq.com/paymch/readtemplate?t=mp/business/course2_tmpl&lang=zh_CN&token=25857919#4
+ */
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -81,21 +98,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
         }
 
-        /// <summary>
-        /// 退款申请接口
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public static string Refund(string data)
-        {
-            var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+        //退款申请请直接参考Senparc.Weixin.MP.Sample中的退款demo
+        ///// <summary>
+        ///// 退款申请接口
+        ///// </summary>
+        ///// <param name="data"></param>
+        ///// <returns></returns>
+        //public static string Refund(string data)
+        //{
+        //    var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
 
-            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            MemoryStream ms = new MemoryStream();
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
-        }
+        //    var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+        //    MemoryStream ms = new MemoryStream();
+        //    ms.Write(formDataBytes, 0, formDataBytes.Length);
+        //    ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+        //    return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+        //}
 
         /// <summary>
         /// 退款查询接口

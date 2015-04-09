@@ -3,8 +3,9 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.QY.AdvancedAPIs;
+using Senparc.Weixin.QY.AdvancedAPIs.MailList;
 using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.QY.Test.CommonApis;
 
 namespace Senparc.Weixin.QY.Test.AdvancedAPIs
 {
@@ -12,17 +13,8 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
     /// CommonApiTest 的摘要说明
     /// </summary>
     [TestClass]
-    public partial class MemberTest
+    public partial class MemberTest : CommonApiTest
     {
-        protected string _corpId = "wx7618c0a6d9358622"; //换成你的信息
-        protected string _corpSecret = "PKrd-r76fDCNjbUY5-9I1vhOkMqBly038Sc8zcODscmu202dqCtUWkxK7nrCGUaas"; //换成你的信息
-
-        public MemberTest()
-        {
-            //全局只需注册一次
-            AccessTokenContainer.Register(_corpId, _corpSecret);
-        }
-
         [TestMethod]
         public void CreateMemberTest(string userId)
         {
@@ -34,69 +26,78 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
                         }
             };
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.CreateMember(accessToken, userId, "ceshi", new[] { 2 }, null, "18913536683", null, null, null, 0, extattr);
+            var result = MailListApi.CreateMember(accessToken, userId, "ceshi", new[] { 2 }, null, "18913536683", null, null, extattr);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
 
         //[TestMethod]
         public void UpdateMemberTest(string userId)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.UpdateMember(accessToken, userId, null, new[] { 2 }, null, "18913536683");
+            var result = MailListApi.UpdateMember(accessToken, userId, null, new[] { 2 }, null, "18913536683", email: "xxx@qq.com");
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
 
         //[TestMethod]
         public void DeleteMemberTest(string userId)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.DeleteMember(accessToken, userId);
+            var result = MailListApi.DeleteMember(accessToken, userId);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
 
         //[TestMethod]
         public void BatchDeleteMemberTest(string[] userIds)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.BatchDeleteMember(accessToken, userIds);
+            var result = MailListApi.BatchDeleteMember(accessToken, userIds);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
 
         //[TestMethod]
         public void GetMember(string userId)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.GetMember(accessToken, userId);
+            var result = MailListApi.GetMember(accessToken, userId);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
 
         //[TestMethod]
         public void GetDepartmentMemberTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.GetDepartmentMember(accessToken, 2, 0, 0);
+            var result = MailListApi.GetDepartmentMember(accessToken, 2, 0, 0);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
 
         //[TestMethod]
         public void GetDepartmentMemberInfoTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = Member.GetDepartmentMemberInfo(accessToken, 2, 0, 0);
+            var result = MailListApi.GetDepartmentMemberInfo(accessToken, 2, 0, 0);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
+        }
+
+        //[TestMethod]
+        public void InviteMemberTest(string userId)
+        {
+            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var result = MailListApi.InviteMember(accessToken, userId, "欢迎");
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
 
         [TestMethod]
         public void MemberTestAllSet()
         {
-            string userId = "003";
+            string userId = "33";
 
             
             //var userIds = new string[] { "ceshi1", "ceshi2" };
@@ -104,6 +105,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
 
             CreateMemberTest(userId);
             UpdateMemberTest(userId);
+            InviteMemberTest(userId);
             GetMember(userId);
             GetDepartmentMemberTest();
             GetDepartmentMemberInfoTest();

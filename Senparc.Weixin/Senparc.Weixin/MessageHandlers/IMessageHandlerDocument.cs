@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：IMessageHandlerDocument.cs
+    文件功能描述：为IMessageHandler单独提供XDocument类型的属性接口（主要是ResponseDocument）。
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +23,7 @@ namespace Senparc.Weixin.MessageHandlers
     /// 为IMessageHandler单独提供XDocument类型的属性接口（主要是ResponseDocument）。
     /// 分离这个接口的目的是为了在MvcExtension中对IMessageHandler解耦，使用IMessageHandlerDocument接口直接操作XML。
     /// </summary>
-    public interface  IMessageHandlerDocument
+    public interface IMessageHandlerDocument
     {
         /// <summary>
         /// 在构造函数中转换得到原始XML数据
@@ -28,5 +41,10 @@ namespace Senparc.Weixin.MessageHandlers
         /// 如果是Senparc.Weixin.MP，则应当和ResponseDocument一致；如果是Senparc.Weixin.QY，则应当在ResponseDocument基础上进行加密
         /// </summary>
         XDocument FinalResponseDocument { get; }
+
+        /// <summary>
+        /// 文字返回信息。当TextResponseMessage不为null时，才获取ResponseDocument
+        /// </summary>
+        string TextResponseMessage { get; set; }
     }
 }

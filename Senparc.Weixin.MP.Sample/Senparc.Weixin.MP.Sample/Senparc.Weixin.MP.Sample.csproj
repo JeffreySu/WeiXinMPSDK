@@ -139,6 +139,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\OAuth2Controller.cs" />
     <Compile Include="Controllers\QY\QYController.cs" />
@@ -147,6 +148,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Controllers\TestUploadMediaFileController.cs" />
+    <Compile Include="Controllers\WeixinAsyncController.cs" />
     <Compile Include="Controllers\WeixinController.cs" />
     <Compile Include="Controllers\WeixinController_OldPost.cs" />
     <Compile Include="Controllers\TenPayController.cs" />
@@ -156,6 +158,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\darktooltip.min.css" />
+    <Content Include="Content\reset.css" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -280,12 +285,12 @@
     <Content Include="Views\TenPay\Delivernotify.cshtml" />
     <Content Include="Views\TenPay\SharedAddress.cshtml" />
     <Content Include="Views\TenPayV3\JsApi.cshtml" />
-    <Content Include="Views\TenPayV3\GetOpenId.cshtml" />
     <Content Include="Views\TenPayV3\Index.cshtml" />
     <Content Include="Views\TenPayV3\PayNotifyUrl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\AppStore\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

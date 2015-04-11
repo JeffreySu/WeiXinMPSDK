@@ -28,22 +28,17 @@ namespace Senparc.Weixin.MP.Util.Conf
         private readonly string _filePath;
         private string _key;
         private readonly SettingFile _file;
-        private static readonly Regex fileNameParttner = new Regex("/([^/]+).config");
+        private static readonly Regex FileNameParttner = new Regex("/([^/]+).config");
 
         /// <summary>
         /// 欢迎文字
         /// </summary>
         public string WxWelcomeMessage;
 
-        /// <summary>
-        /// 自定义请求处理类的全名(用于反射)
-        /// </summary>
-        public string CustomHandlerClassName;
-
         public ConfigItem(string filePath)
         {
             this._filePath = filePath.Replace("\\","/");
-            if (fileNameParttner.IsMatch(this._filePath))
+            if (FileNameParttner.IsMatch(this._filePath))
             {
                 bool isExists = File.Exists(this._filePath);
                 this._file = new SettingFile(this._filePath);
@@ -69,7 +64,6 @@ namespace Senparc.Weixin.MP.Util.Conf
             this.WxWelcomeMessage = this._file.Get("Weixin_WelcomeMessage") ?? "";
             this.WxEnterMessage = this._file.Get("Weixin_EnterMessage") ?? "";
             this.WxDefaultResponseMessage = this._file.Get("Weixin_DefaultResponseMessage")?? "";
-            this.CustomHandlerClassName = this._file.Get("Weixin_CustomHandlerClassName");
         }
 
         /// <summary>
@@ -85,7 +79,6 @@ namespace Senparc.Weixin.MP.Util.Conf
             this._file.Set("Weixin_WelcomeMessage",this.WxWelcomeMessage);
             this._file.Set("Weixin_EnterMessage",this.WxEnterMessage);
             this._file.Set("Weixin_DefaultResponseMessage",this.WxDefaultResponseMessage);
-            this._file.Set("Weixin_CustomHandlerClassName", this.CustomHandlerClassName);
             this._file.Set("Weixin_ApiDomain", this.ApiDomain);
             this._file.Set("Weixin_MenuButtons",this.MenuButtons??"[]");
         }
@@ -132,9 +125,14 @@ namespace Senparc.Weixin.MP.Util.Conf
         {
             if (this._key == null)
             {
-                this._key = fileNameParttner.Match(this._filePath).Groups[1].Value;
+                this._key = FileNameParttner.Match(this._filePath).Groups[1].Value;
             }
             return this._key;
         }
+
+        /// <summary>
+        /// 自定义处理
+        /// </summary>
+        public IAppCustomHandler CustomHandler { get; set; }
     }
 }

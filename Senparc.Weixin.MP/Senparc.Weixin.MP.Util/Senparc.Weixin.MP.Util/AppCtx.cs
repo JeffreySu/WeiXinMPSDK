@@ -76,12 +76,15 @@ namespace Senparc.Weixin.MP.Util
             if (this._handler == null)
             {
                 // this._handler = new IAppCustomerHandler();
-                String classFullName = this.GetConfig().CustomHandlerClassName;
-                Object obj = Assembly.GetCallingAssembly().CreateInstance(classFullName);
-                if (obj == null || (this._handler = obj as IAppCustomHandler) == null)
-                {
-                    throw new Exception("Can't convert " + classFullName + " as IAppCustomHandler");
-                }
+//                String classFullName = this.GetConfig().CustomHandlerClassName;
+//                Assembly ass = Assembly.GetExecutingAssembly();
+//                Object obj = ass.CreateInstance(classFullName);
+//                if (obj == null || (this._handler = obj as IAppCustomHandler) == null)
+//                {
+//                    throw new Exception("Can't convert " + classFullName + " as IAppCustomHandler in assembly "+ ass.FullName);
+//                }
+                this._handler = this.GetConfig().CustomHandler ??
+                                new DefaultAppCustomHandler();
             }
             return this._handler;
         }

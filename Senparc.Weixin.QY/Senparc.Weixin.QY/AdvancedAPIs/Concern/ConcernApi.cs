@@ -7,8 +7,8 @@
     
     创建标识：Senparc - 20150313
     
-    修改标识：Senparc - 20150313
-    修改描述：整理接口
+    修改标识：MysticBoy - 20150414
+    修改描述：TwoVerification接口没有参数
 ----------------------------------------------------------------*/
 
 /*
@@ -41,8 +41,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Concern
         /// <returns></returns>
         public static QyJsonResult TwoVerification(string accessToken, string userId)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}";
-
+            var url =string.Format ( "https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}",accessToken,userId);
             return Get.GetJson<QyJsonResult>(url);
         }
     }

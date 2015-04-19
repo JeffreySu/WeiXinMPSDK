@@ -368,10 +368,35 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         #region 产品展示
 
-        public ActionResult Products()
+        public ActionResult ProductList()
         {
             var products = ProductModel.GetFakeProductList();
             return View(products);
+        }
+
+        public ActionResult ProductItem(int productId)
+        {
+            var products = ProductModel.GetFakeProductList();
+            var product = products.FirstOrDefault(z => z.Id == productId);
+            if (product == null)
+            {
+                return Content("商品信息不存在！");
+            }
+
+            //判断是否正在微信端
+            var userAgent = Request.UserAgent;
+            if (string.IsNullOrEmpty(userAgent) || (!userAgent.Contains("MicroMessenger") && !userAgent.Contains("Windows Phone")))
+            {
+                //正在微信端，直接跳转到微信支付页面
+                return RedirectToAction("Index", new { productId = productId });
+            }
+            else
+            {
+                //在PC端打开，提供二维码扫描进行支付
+
+                return View();
+
+            }
         }
 
         #endregion

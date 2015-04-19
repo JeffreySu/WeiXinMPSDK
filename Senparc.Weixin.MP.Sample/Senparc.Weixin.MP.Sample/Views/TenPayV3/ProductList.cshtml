@@ -1,0 +1,40 @@
+﻿@model List<Senparc.Weixin.MP.Sample.Models.ProductModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>产品列表</title>
+    <style>
+        ul#productList, ul#productList li {
+            list-style: none;
+            display: inline;
+        }
+
+            ul#productList li {
+                border: 1px solid #008b8b;
+                background: #add8e6;
+            }
+    </style>
+</head>
+<body>
+    <div>
+        <ul id="productList">
+            @foreach (var item in Model)
+            {
+                <li>
+                    <a href="@Url.Action("ProductItem", "TenPayV3", new { productId = item.Id })">
+                    <h2>@item.Name</h2>
+                    <p>@item.Price.ToString("c")</p>
+                    <p>点击购买</p>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</body>
+</html>

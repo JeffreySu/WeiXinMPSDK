@@ -28,5 +28,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             return Content("访问正常。当前地址：" + Request.Url.PathAndQuery + "<br />请点击右上角转发按钮，使用【在浏览器中打开】功能进行测试！<br />或者也可以直接在外部浏览器打开http://weixin.senparc.com/FilterTest/进行测试。");
         }
+
+        [WeixinInternalRequest(null, "nofilter", RedirectUrl = "/FilterTest/Index?note=has been redirected url")]
+        public ContentResult Redirect()
+        {
+            return Content("访问正常。当前地址：" + Request.Url.PathAndQuery + "<br />请点击右上角转发按钮，使用【在浏览器中打开】功能进行测试！<br />或者也可以直接在外部浏览器打开http://weixin.senparc.com/FilterTest/Redirect进行测试。");
+        }
     }
 }

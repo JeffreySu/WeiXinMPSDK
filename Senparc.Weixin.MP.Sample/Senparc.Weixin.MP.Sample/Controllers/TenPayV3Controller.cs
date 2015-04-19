@@ -24,6 +24,7 @@ using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Sample.Models;
 using Senparc.Weixin.MP.TenPayLibV3;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
@@ -52,14 +53,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// 获取用户的OpenId
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index()
+        public ActionResult Index(int productId = 0)
         {
-            var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, "http://weixin.senparc.com/TenPayV3/JsApi", "JeffreySu", OAuthScope.snsapi_userinfo);
+            var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, "http://weixin.senparc.com/TenPayV3/JsApi?productId=" + productId, "JeffreySu", OAuthScope.snsapi_userinfo);
 
             return Redirect(url);
         }
 
-        public ActionResult JsApi(string code, string state)
+        public ActionResult JsApi(string code, string state, int productId = 0)
         {
             if (string.IsNullOrEmpty(code))
             {
@@ -141,6 +142,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             ViewData["nonceStr"] = nonceStr;
             ViewData["package"] = string.Format("prepay_id={0}", prepayId);
             ViewData["paySign"] = paySign;
+            ViewData["productId"] = productId;
 
             return View();
         }
@@ -362,5 +364,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             return Content(responseContent);
         }
+
+
+        #region 产品展示
+
+        public ActionResult Products()
+        {
+            var products = ProductModel.GetFakeProductList();
+            return View(products);
+        }
+
+        #endregion
     }
 }

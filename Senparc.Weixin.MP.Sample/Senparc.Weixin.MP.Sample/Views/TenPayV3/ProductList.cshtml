@@ -17,29 +17,36 @@
 
             ul#productList li {
                 border: 1px solid #008b8b;
-                background: #add8e6;
+                background: #7cfc00;
                 padding: 30px;
                 margin: 20px;
                 overflow: hidden;
                 float: left;
             }
-            ul#productList li a {
-                display: block;
-                overflow: hidden;
-                clear: both;
-            }
+
+                ul#productList li.br {
+                    clear: left;
+                }
+
+                ul#productList li a {
+                    text-decoration: none;
+                    display: block;
+                    overflow: hidden;
+                    clear: both;
+                }
     </style>
 </head>
 <body>
     <div>
         <ul id="productList">
-            @foreach (var item in Model)
+            @for (int i = 0; i <= Model.Count - 1; i++)
             {
-                <li>
-                    <a href="@Url.Action("ProductItem", "TenPayV3", new { productId = item.Id, hc = item.GetHashCode() })">
-                    <h2>@item.Name</h2>
-                    <p>@item.Price.ToString("c")</p>
-                    <p>点击购买</p>
+                var item = Model[i];
+                <li class="@(i > 0 && i % 4==0 ? "br" : null)">
+                    <a href="@Url.Action("ProductItem", "TenPayV3", new {productId = item.Id, hc = item.GetHashCode()})">
+                        <h2>@item.Name</h2>
+                        <p>@item.Price.ToString("c")</p>
+                        <p>点击购买</p>
                     </a>
                 </li>
             }

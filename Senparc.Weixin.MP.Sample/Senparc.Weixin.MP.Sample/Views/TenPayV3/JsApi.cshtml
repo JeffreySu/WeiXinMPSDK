@@ -31,6 +31,11 @@
             color: #385487;
         }
 
+        .product {
+            font-size: 200%;
+            color: #a5a5a5;
+        }
+
 
         .container {
         }
@@ -300,7 +305,10 @@
             @if (ViewData["product"] is ProductModel)
             {
                 var product = (ProductModel)ViewData["product"];
-                <h1 class="title">您已选中产品：@product.Name</h1>
+                <div class="product">
+                    您已选中产品：@product.Name<br />
+                    单价：@product.Price.ToString("c")
+                </div>
             }
             <h1 class="title">点击提交可体验微信支付</h1>
         </a>

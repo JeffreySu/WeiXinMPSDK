@@ -79,7 +79,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("验证失败！请从正规途径进入！");
             }
 
-            //这里可以对Product进行安全性检测
+            //获取产品信息
+            ProductModel product = null;
+            if (productId > 0)
+            {
+                var products = ProductModel.GetFakeProductList();
+                product = products.FirstOrDefault(z => z.Id == productId);
+                ViewData["product"] = product;
+            }
 
             //通过，用code换取access_token
             var openIdResult = OAuthApi.GetAccessToken(TenPayV3Info.AppId, TenPayV3Info.AppSecret, code);
@@ -120,7 +127,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             packageReqHandler.SetParameter("nonce_str", nonceStr);                    //随机字符串
             packageReqHandler.SetParameter("body", "test");
             packageReqHandler.SetParameter("out_trade_no", sp_billno);		//商家订单号
-            packageReqHandler.SetParameter("total_fee", "100");			        //商品金额,以分为单位(money * 100).ToString()
+            packageReqHandler.SetParameter("total_fee", product == null ? "100" : (product.Price * 100).ToString());			        //商品金额,以分为单位(money * 100).ToString()
             packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);   //用户的公网ip，不是商户服务器IP
             packageReqHandler.SetParameter("notify_url", TenPayV3Info.TenPayV3Notify);		    //接收财付通通知的URL
             packageReqHandler.SetParameter("trade_type", TenPayV3Type.JSAPI.ToString());	                    //交易类型
@@ -150,13 +157,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             ViewData["package"] = string.Format("prepay_id={0}", prepayId);
             ViewData["paySign"] = paySign;
 
-            //产品
-            if (productId>0)
-            {
-                var products = ProductModel.GetFakeProductList();
-                var product = products.FirstOrDefault(z => z.Id == productId);
-                ViewData["product"] = product;
-            }
+
 
             return View();
         }
@@ -387,11 +388,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return View(products);
         }
 
-        public ActionResult ProductItem(int productId,int hc)
+        public ActionResult ProductItem(int productId, int hc)
         {
             var products = ProductModel.GetFakeProductList();
             var product = products.FirstOrDefault(z => z.Id == productId);
-            if (product == null || product.GetHashCode()!= hc)
+            if (product == null || product.GetHashCode() != hc)
             {
                 return Content("商品信息不存在，或非法进入！");
             }
@@ -424,8 +425,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("商品信息不存在，或非法进入！");
             }
 
-            var url = string.Format("http://weixin.senparc.com/TenPayV3?productId={0}&hc={1}", productId,
-                product.GetHashCode());
+            var url = string.Format("http://weixin.senparc.com/TenPayV3?productId={0}&hc={1}&t={2}", productId,
+                product.GetHashCode(), DateTime.Now.Ticks);
 
             BitMatrix bitMatrix;
             bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 600, 600);

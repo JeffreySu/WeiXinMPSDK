@@ -33,9 +33,13 @@ namespace Senparc.Weixin.MP.Sample.Models
             var list = ProductList ?? new List<ProductModel>()
             {
                 new ProductModel(1,"产品1",(decimal)1.00),
-                new ProductModel(2,"产品2",(decimal)1.00),
-                new ProductModel(3,"产品3",(decimal)1.00),
-                new ProductModel(4,"产品4",(decimal)1.00),
+                new ProductModel(2,"产品2",(decimal)2.00),
+                new ProductModel(3,"产品3",(decimal)3.00),
+                new ProductModel(4,"产品4",(decimal)4.00),
+                new ProductModel(5,"捐赠1",(decimal)10.00),
+                new ProductModel(6,"捐赠2",(decimal)50.00),
+                new ProductModel(7,"捐赠3",(decimal)100.00),
+                new ProductModel(8,"捐赠4",(decimal)500.00),
             };
             ProductList = ProductList ?? list;
 

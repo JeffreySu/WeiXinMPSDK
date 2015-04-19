@@ -17,7 +17,7 @@
         <p>单价：@Model.Price.ToString("c")</p>
         <p>
             使用微信“扫一扫”下方二维码完成支付：<br />
-            <img src="@Url.Action("ProductPayCode",new{productId=Model.Id,hc=Model.GetHashCode())" width="600" />
+            <img src="@Url.Action("ProductPayCode",new{productId=Model.Id,hc=Model.GetHashCode()})" width="300" />
         </p>
     </div>
 </body>

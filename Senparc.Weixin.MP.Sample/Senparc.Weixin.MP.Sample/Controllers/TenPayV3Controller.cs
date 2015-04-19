@@ -21,6 +21,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Web.Mvc;
 using System.Xml.Linq;
+using Senparc.Weixin.BrowserUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.Sample.Models;
@@ -416,15 +417,15 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //判断是否正在微信端
             var userAgent = Request.UserAgent;
-            if (string.IsNullOrEmpty(userAgent) || (!userAgent.Contains("MicroMessenger") && !userAgent.Contains("Windows Phone")))
-            {
-                //在PC端打开，提供二维码扫描进行支付
-                return View(product);
-            }
-            else
+            if (BroswerUtility.SideInWeixinBroswer(HttpContext))
             {
                 //正在微信端，直接跳转到微信支付页面
                 return RedirectToAction("Index", new { productId = productId, hc = hc });
+            }
+            else
+            {
+                //在PC端打开，提供二维码扫描进行支付
+                return View(product);
             }
         }
 

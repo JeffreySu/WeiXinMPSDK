@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using Senparc.Weixin.BrowserUtility;
 
 namespace Senparc.Weixin.MP.MvcExtension
 {
@@ -29,8 +30,7 @@ namespace Senparc.Weixin.MP.MvcExtension
         {
             if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.RequestContext.HttpContext.Request.QueryString[_ignoreParameter]))
             {
-                var userAgent = filterContext.HttpContext.Request.UserAgent;
-                if (string.IsNullOrEmpty(userAgent) || (!userAgent.Contains("MicroMessenger") && !userAgent.Contains("Windows Phone")))
+                if (!BroswerUtility.SideInWeixinBroswer(filterContext.HttpContext))
                 {
                     //TODO:判断网页版登陆状态
                     filterContext.Result = new ContentResult()

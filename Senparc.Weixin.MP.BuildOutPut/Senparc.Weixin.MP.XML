@@ -2668,6 +2668,16 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsApi.BatchUpdate(System.String,System.Int32,System.Int32,System.String[])">
+            <summary>
+            批量移动用户分组
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="toGroupId">分组id</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <param name="openIds">用户唯一标识符openid的列表（size不能超过50）</param>
+            <returns></returns>
+        </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsJson_Group.count">
             <summary>
             此属性在CreateGroupResult的Json数据中，创建结果中始终为0
@@ -2688,6 +2698,15 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UploadTemporaryNews(System.String,System.Int32,Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.NewsModel[])">
+            <summary>
+            上传临时图文消息素材（原上传图文消息素材）
+            </summary>
+            <param name="accessToken">Token</param>
+            <param name="news">图文消息组</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.Get(System.String,System.String,System.IO.Stream)">
             <summary>
             获取临时素材（原下载媒体文件）
@@ -2698,7 +2717,7 @@
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UploadNews(System.String,System.Int32,Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.NewsModel[])">
             <summary>
-            新增永久图文素材（原上传图文消息素材）
+            新增永久图文素材
             </summary>
             <param name="accessToken">Token</param>
             <param name="news">图文消息组</param>
@@ -2710,7 +2729,18 @@
             新增其他类型永久素材(图片（image）、语音（voice）和缩略图（thumb）)
             </summary>
             <param name="accessToken"></param>
-            <param name="file"></param>
+            <param name="file">文件路径</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UploadForeverVideo(System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            新增永久视频素材
+            </summary>
+            <param name="accessToken"></param>
+            <param name="file">文件路径</param>
+            <param name="title"></param>
+            <param name="introduction"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
@@ -2873,22 +2903,32 @@
             如果错误，返回结果{"errcode":40029,"errmsg":"invalid code"}
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthScope">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAccessTokenResult.access_token">
             <summary>
-            应用授权作用域
+            接口调用凭证
             </summary>
         </member>
-        <member name="F:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthScope.snsapi_base">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAccessTokenResult.expires_in">
             <summary>
-            不弹出授权页面，直接跳转，只能获取用户openid
+            access_token接口调用凭证超时时间，单位（秒）
             </summary>
         </member>
-        <member name="F:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthScope.snsapi_userinfo">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAccessTokenResult.refresh_token">
             <summary>
-            弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息
+            用户刷新access_token
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.GetAuthorizeUrl(System.String,System.String,System.String,Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthScope,System.String)">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAccessTokenResult.openid">
+            <summary>
+            授权用户唯一标识
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthAccessTokenResult.scope">
+            <summary>
+            用户授权的作用域，使用逗号（,）分隔
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.GetAuthorizeUrl(System.String,System.String,System.String,Senparc.Weixin.MP.OAuthScope,System.String)">
             <summary>
             获取验证地址
             </summary>
@@ -4637,6 +4677,110 @@
             <param name="appId"></param>
             <returns></returns>
         </member>
+        <member name="F:Senparc.Weixin.MP.CommonAPIs.ComponentAccessTokenBag.Lock">
+            <summary>
+            只针对这个AppId的锁
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.CommonAPIs.ComponentAccessTokenContainer">
+            <summary>
+            通用接口ComponentAccessToken容器，用于自动管理ComponentAccessToken，如果过期会重新获取
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.ComponentAccessTokenContainer.Register(System.String,System.String)">
+            <summary>
+            注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="componentAppSecret"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.ComponentAccessTokenContainer.TryGetToken(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            使用完整的应用凭证获取Token，如果不存在将自动注册
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="componentAppSecret"></param>
+            <param name="componentVerifyTicket"></param>
+            <param name="getNewToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.ComponentAccessTokenContainer.GetToken(System.String,System.String,System.Boolean)">
+            <summary>
+            获取可用Token
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="componentVerifyTicket"></param>
+            <param name="getNewToken">是否强制重新获取新的Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.ComponentAccessTokenContainer.GetTokenResult(System.String,System.String,System.Boolean)">
+            <summary>
+            获取可用Token
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="componentVerifyTicket"></param>
+            <param name="getNewToken">是否强制重新获取新的Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.ComponentAccessTokenContainer.CheckRegistered(System.String)">
+            <summary>
+            检查是否已经注册
+            </summary>
+            <param name="componentAppId"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Senparc.Weixin.MP.CommonAPIs.PreAuthCodeBag.Lock">
+            <summary>
+            只针对这个AppId的锁
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.CommonAPIs.PreAuthCodeContainer">
+            <summary>
+            通用接口PreAuthCode容器，用于自动管理PreAuthCode，如果过期会重新获取
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.PreAuthCodeContainer.Register(System.String,System.String)">
+            <summary>
+            注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="componentAppSecret"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.PreAuthCodeContainer.TryGetToken(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            使用完整的应用凭证获取Token，如果不存在将自动注册
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="componentAppSecret"></param>
+            <param name="componentVerifyTicket"></param>
+            <param name="getNewToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.PreAuthCodeContainer.GetToken(System.String,System.String,System.Boolean)">
+            <summary>
+            获取可用Token
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="componentVerifyTicket"></param>
+            <param name="getNewToken">是否强制重新获取新的Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.PreAuthCodeContainer.GetTokenResult(System.String,System.String,System.Boolean)">
+            <summary>
+            获取可用Token
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="componentVerifyTicket"></param>
+            <param name="getNewToken">是否强制重新获取新的Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.PreAuthCodeContainer.CheckRegistered(System.String)">
+            <summary>
+            检查是否已经注册
+            </summary>
+            <param name="componentAppId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.JsApiTicketResult">
             <summary>
             jsapi_ticket请求后的JSON返回格式
@@ -4650,6 +4794,36 @@
         <member name="P:Senparc.Weixin.MP.Entities.JsApiTicketResult.expires_in">
             <summary>
             凭证有效时间，单位：秒
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.ComponentAccessTokenResult">
+            <summary>
+            获取第三方平台access_token
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.ComponentAccessTokenResult.component_access_token">
+            <summary>
+            第三方平台access_token
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.ComponentAccessTokenResult.expires_in">
+            <summary>
+            有效期
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.PreAuthCodeResult">
+            <summary>
+            获取预授权码返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.PreAuthCodeResult.pre_auth_code">
+            <summary>
+            预授权码
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.PreAuthCodeResult.expires_in">
+            <summary>
+            有效期，为20分钟
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleScancodePushButton">
@@ -4949,6 +5123,26 @@
             视频消息缩略图的媒体id，可以调用多媒体文件下载接口拉取数据。
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.Entities.ThirdPartyInfoBase.AppId">
+            <summary>
+            第三方平台appid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.ThirdPartyInfoBase.CreateTime">
+            <summary>
+            时间戳
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.ThirdPartyInfo_Component_Verify_Ticket.ComponentVerifyTicket">
+            <summary>
+            Ticket内容
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.ThirdPartyInfo_AuthorizerAppId.AuthorizerAppid">
+            <summary>
+            取消授权的公众号
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageBase">
             <summary>
             响应回复消息
@@ -5071,6 +5265,168 @@
             签名算法
             </summary>
             <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.OAuthJoinAPI.GetJoinAuthorizeUrl(System.String,System.String,System.String)">
+            <summary>
+            获取授权地址
+            </summary>
+            <param name="componentAppId">第三方平台方appid</param>
+            <param name="preAuthCode">预授权码</param>
+            <param name="redirectUrl">回调URL</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.OAuthJoinAPI.GetJoinAccessToken(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            使用授权码换取公众号的授权信息
+            </summary>
+            <param name="componentAppId">服务开发方的appid</param>
+            <param name="componentAccessToken">服务开发方的access_token</param>
+            <param name="authCode">授权code,会在授权成功时返回给第三方平台，详见第三方平台授权流程说明</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.OAuthJoinAPI.GetAuthorizerOption(System.String,System.String,System.String,Senparc.Weixin.MP.OptionName,System.Int32)">
+            <summary>
+            刷新access_token
+            由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权。
+            </summary>
+            <param name="componentAppId">服务开发商的appid</param>
+            <param name="componentAccessToken">服务开发方的access_token</param>
+            <param name="authorizerAppId">授权公众号appid</param>
+            <param name="optionName">选项名称</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.OAuthJoinAPI.SetAuthorizerOption(System.String,System.String,System.String,Senparc.Weixin.MP.OptionName,System.Int32,System.Int32)">
+            <summary>
+            设置授权方的选项信息
+            </summary>
+            <param name="componentAccessToken">服务开发方的access_token</param>
+            <param name="componentAppId">服务开发商的appid</param>
+            <param name="authorizerAppId">授权公众号appid</param>
+            <param name="optionName">选项名称</param>
+            <param name="optionValue">设置的选项值</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.OAuthJoinResult">
+            <summary>
+            使用授权码换取公众号的授权信息返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.OAuthJoinResult.authorization_info">
+            <summary>
+            授权信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.OAuthJoinResult.authorizer_appid">
+            <summary>
+            授权方appid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.OAuthJoinResult.authorizer_access_token">
+            <summary>
+            授权方令牌（在授权的公众号具备API权限时，才有此返回值）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.OAuthJoinResult.expires_in">
+            <summary>
+            有效期（在授权的公众号具备API权限时，才有此返回值）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.OAuthJoinResult.authorizer_refresh_token">
+            <summary>
+            刷新令牌（在授权的公众号具备API权限时，才有此返回值），刷新令牌主要用于公众号第三方平台获取和刷新已授权用户的access_token，只会在授权时刻提供，请妥善保存。 一旦丢失，只能让用户重新授权，才能再次拿到新的刷新令牌
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.OAuthJoinResult.func_info">
+             <summary>
+             公众号授权给开发者的权限集列表（请注意，当出现用户已经将消息与菜单权限集授权给了某个第三方，再授权给另一个第三方时，由于该权限集是互斥的，后一个第三方的授权将去除此权限集，开发者可以在返回的func_info信息中验证这一点，避免信息遗漏），
+             1到8分别代表：
+            消息与菜单权限集
+            用户管理权限集
+            帐号管理权限集
+            网页授权权限集
+            微信小店权限集
+            多客服权限集
+            业务通知权限集
+            微信卡券权限集
+             </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.AuthorizerOptionResult">
+            <summary>
+            获取授权方的选项设置信息返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.AuthorizerOptionResult.authorizer_appid">
+            <summary>
+            第三方平台appid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.AuthorizerOptionResult.option_name">
+            <summary>
+            授权公众号appid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.AuthorizerOptionResult.option_value">
+            <summary>
+            选项名称
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OAuthOpen.OAuthOpenAccessTokenResult">
+            <summary>
+            代公众号发起网页授权获取OAuth AccessToken的结果
+            如果错误，返回结果{"errcode":40029,"errmsg":"invalid code"}
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthOpen.OAuthOpenAccessTokenResult.access_token">
+            <summary>
+            接口调用凭证
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthOpen.OAuthOpenAccessTokenResult.expires_in">
+            <summary>
+            access_token接口调用凭证超时时间，单位（秒）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthOpen.OAuthOpenAccessTokenResult.refresh_token">
+            <summary>
+            用户刷新access_token
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthOpen.OAuthOpenAccessTokenResult.openid">
+            <summary>
+            授权用户唯一标识
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthOpen.OAuthOpenAccessTokenResult.scope">
+            <summary>
+            用户授权的作用域，使用逗号（,）分隔
+            </summary>
+        </member>
+        <!-- 对于成员“M:Senparc.Weixin.MP.AdvancedAPIs.OAuthOpen.OAuthOpenAPI.GetOpenAuthorizeUrl(System.String,System.String,System.String,Senparc.Weixin.MP.OAuthScope,System.String,System.String)”忽略有格式错误的 XML 注释 -->
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthOpen.OAuthOpenAPI.GetOpenAccessToken(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            通过code换取access_token
+            </summary>
+            <param name="appId">公众号的appid</param>
+            <param name="code">填写第一步获取的code参数</param>
+            <param name="componentAppId">服务开发方的appid</param>
+            <param name="componentAccessToken">服务开发方的access_token</param>
+            <param name="grantType">填authorization_code</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthOpen.OAuthOpenAPI.RefreshOpenToken(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            刷新access_token
+            由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权。
+            </summary>
+            <param name="appId">公众号的appid</param>
+            <param name="refreshToken">填写通过access_token获取到的refresh_token参数</param>
+            <param name="componentAppId">服务开发商的appid</param>
+            <param name="componentAccessToken">服务开发方的access_token</param>
+            <param name="grantType">填refresh_token</param>
             <returns></returns>
         </member>
         <member name="M:Tencent.Cryptography.AES_decrypt(System.String,System.String,System.String@)">
@@ -5197,11 +5553,6 @@
             原始内容
             </summary>
         </member>
-        <member name="F:Senparc.Weixin.MP.TenPayLibV3.ResponseHandler.SignField">
-            <summary>
-            参与签名的参数列表
-            </summary>
-        </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.ResponseHandler.Init">
             <summary>
             初始化函数
@@ -5300,7 +5651,7 @@
         </member>
         <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Info.TenPayV3Notify">
             <summary>
-            支付完成后的回调处理页面,*替换成notify_url.asp所在路径
+            支付完成后的回调处理页面
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util">
@@ -6372,6 +6723,26 @@
             <param name="type"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetComponentAccessToken(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            获取第三方平台access_token
+            </summary>
+            <param name="componentAppId">第三方平台appid</param>
+            <param name="componentAppSecret">第三方平台appsecret</param>
+            <param name="componentVerifyTicket">微信后台推送的ticket，此ticket会定时推送，具体请见本页末尾的推送说明</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetPreAuthCode(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            获取预授权码
+            </summary>
+            <param name="componentAppId">第三方平台方appid</param>
+            <param name="componentAppSecret"></param>
+            <param name="componentVerifyTicket"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.CreateMenu(System.String,Senparc.Weixin.MP.Entities.Menu.ButtonGroup,System.Int32)">
             <summary>
             创建菜单
@@ -7210,6 +7581,63 @@
         <member name="F:Senparc.Weixin.MP.Card_UrlNameType.URL_NAME_TYPE_VEHICLE_INFORMATION">
             <summary>
             车辆信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.OAuthScope">
+            <summary>
+            应用授权作用域
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.OAuthScope.snsapi_base">
+            <summary>
+            不弹出授权页面，直接跳转，只能获取用户openid
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.OAuthScope.snsapi_userinfo">
+            <summary>
+            弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.OptionName">
+            <summary>
+            选项设置信息选项名称
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.OptionName.location_report">
+            <summary>
+            地理位置上报选项
+            0	无上报
+            1	进入会话时上报
+            2	每5s上报
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.OptionName.voice_recognize">
+            <summary>
+            语音识别开关选项
+            0	关闭语音识别
+            1	开启语音识别
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.OptionName.customer_service">
+            <summary>
+            客服开关选项
+            0	关闭多客服
+            1	开启多客服
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.ThirdPartyInfo">
+            <summary>
+            公众号第三方平台推送消息类型
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.ThirdPartyInfo.component_verify_ticket">
+            <summary>
+            推送component_verify_ticket协议
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.ThirdPartyInfo.unauthorized">
+            <summary>
+            推送取消授权通知
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Helpers.BaiduMapHelper">

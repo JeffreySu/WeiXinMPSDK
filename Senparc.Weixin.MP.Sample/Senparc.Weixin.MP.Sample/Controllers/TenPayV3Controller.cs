@@ -6,10 +6,12 @@
     
     
     创建标识：Senparc - 20150312
+ 
+    修改标识：Senparc - 20150419
+    修改描述：添加产品相关
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -17,15 +19,10 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.UI;
 using System.Xml.Linq;
-using Microsoft.SqlServer.Server;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Sample.Models;
 using Senparc.Weixin.MP.TenPayLibV3;
 using ZXing;
@@ -39,6 +36,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     public class TenPayV3Controller : Controller
     {
         private static TenPayV3Info _tenPayV3Info;
+
+        private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
+        {
+            if (errors == SslPolicyErrors.None)
+                return true;
+            return false;
+        }
 
         public static TenPayV3Info TenPayV3Info
         {
@@ -65,6 +69,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             return Redirect(url);
         }
+
+        #region JsApi支付
 
         public ActionResult JsApi(string code, string state)
         {
@@ -209,6 +215,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return Content(xml, "text/xml");
         }
 
+        #endregion
+
+        #region 订单及退款
+
         /// <summary>
         /// 订单查询
         /// </summary>
@@ -317,13 +327,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             return Content(openid);
         }
+        #endregion
 
-        private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
-        {
-            if (errors == SslPolicyErrors.None)
-                return true;
-            return false;
-        }
+        #region 红包
 
         /// <summary>
         /// 目前支持向指定微信用户的openid发放指定金额红包
@@ -389,7 +395,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             return Content(responseContent);
         }
-
+        #endregion
 
         #region 产品展示
 

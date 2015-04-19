@@ -66,7 +66,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return Redirect(url);
         }
 
-        public ActionResult JsApi(string code, string state, int productId = 0, int hc = 0)
+        public ActionResult JsApi(string code, string state)
         {
             if (string.IsNullOrEmpty(code))
             {
@@ -77,17 +77,26 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 //这里的state其实是会暴露给客户端的，验证能力很弱，这里只是演示一下
                 //实际上可以存任何想传递的数据，比如用户ID，并且需要结合例如下面的Session["OAuthAccessToken"]进行验证
-                return Content("验证失败！请从正规途径进入！");
+                return Content("验证失败！请从正规途径进入！1001");
             }
 
             //获取产品信息
-            var stateData = state.Split()
+            var stateData = state.Split('|');
+            int productId = 0;
             ProductModel product = null;
-            if (productId > 0)
+            if (int.TryParse(stateData[0], out productId))
             {
-                var products = ProductModel.GetFakeProductList();
-                product = products.FirstOrDefault(z => z.Id == productId);
-                ViewData["product"] = product;
+                int hc = 0;
+                if (int.TryParse(stateData[1], out hc))
+                {
+                    var products = ProductModel.GetFakeProductList();
+                    product = products.FirstOrDefault(z => z.Id == productId);
+                    if (product == null || product.GetHashCode() != hc)
+                    {
+                        return Content("商品信息不存在，或非法进入！1002");
+                    }
+                    ViewData["product"] = product;
+                }
             }
 
             //通过，用code换取access_token
@@ -396,7 +405,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var product = products.FirstOrDefault(z => z.Id == productId);
             if (product == null || product.GetHashCode() != hc)
             {
-                return Content("商品信息不存在，或非法进入！");
+                return Content("商品信息不存在，或非法进入！2003");
             }
 
             //判断是否正在微信端
@@ -409,7 +418,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             else
             {
                 //正在微信端，直接跳转到微信支付页面
-                return RedirectToAction("Index", new { productId = productId });
+                return RedirectToAction("Index", new { productId = productId, hc = hc });
             }
         }
 
@@ -424,7 +433,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var product = products.FirstOrDefault(z => z.Id == productId);
             if (product == null || product.GetHashCode() != hc)
             {
-                return Content("商品信息不存在，或非法进入！");
+                return Content("商品信息不存在，或非法进入！2004");
             }
 
             var url = string.Format("http://weixin.senparc.com/TenPayV3?productId={0}&hc={1}&t={2}", productId,

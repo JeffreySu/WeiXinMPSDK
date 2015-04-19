@@ -59,8 +59,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult Index(int productId = 0, int hc = 0)
         {
-            var returnUrl = string.Format("http://weixin.senparc.com/TenPayV3/JsApi?productId={0}&hc={1}", productId, hc);
-            var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, "JeffreySu", OAuthScope.snsapi_userinfo);
+            var returnUrl = string.Format("http://weixin.senparc.com/TenPayV3/JsApi");
+            var state = string.Format("{0}|{1}", productId, hc);
+            var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);
 
             return Redirect(url);
         }
@@ -72,7 +73,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("您拒绝了授权！");
             }
 
-            if (state != "JeffreySu")
+            if (!state.Contains("|"))
             {
                 //这里的state其实是会暴露给客户端的，验证能力很弱，这里只是演示一下
                 //实际上可以存任何想传递的数据，比如用户ID，并且需要结合例如下面的Session["OAuthAccessToken"]进行验证
@@ -80,6 +81,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             //获取产品信息
+            var stateData = state.Split()
             ProductModel product = null;
             if (productId > 0)
             {
@@ -125,7 +127,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		  //公众账号ID
             packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
             packageReqHandler.SetParameter("nonce_str", nonceStr);                    //随机字符串
-            packageReqHandler.SetParameter("body", "test");
+            packageReqHandler.SetParameter("body", product == null ? "test" : product.Name);    //商品信息
             packageReqHandler.SetParameter("out_trade_no", sp_billno);		//商家订单号
             packageReqHandler.SetParameter("total_fee", product == null ? "100" : (product.Price * 100).ToString());			        //商品金额,以分为单位(money * 100).ToString()
             packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);   //用户的公网ip，不是商户服务器IP

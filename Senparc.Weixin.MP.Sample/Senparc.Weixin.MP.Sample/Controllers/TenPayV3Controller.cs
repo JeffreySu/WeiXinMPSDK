@@ -400,13 +400,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var userAgent = Request.UserAgent;
             if (string.IsNullOrEmpty(userAgent) || (!userAgent.Contains("MicroMessenger") && !userAgent.Contains("Windows Phone")))
             {
-                //正在微信端，直接跳转到微信支付页面
-                return RedirectToAction("Index", new { productId = productId });
+                //在PC端打开，提供二维码扫描进行支付
+                return View(product);
             }
             else
             {
-                //在PC端打开，提供二维码扫描进行支付
-                return View(product);
+                //正在微信端，直接跳转到微信支付页面
+                return RedirectToAction("Index", new { productId = productId });
             }
         }
 

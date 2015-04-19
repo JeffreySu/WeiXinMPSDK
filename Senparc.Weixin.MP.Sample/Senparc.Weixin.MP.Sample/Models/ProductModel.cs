@@ -34,6 +34,7 @@ namespace Senparc.Weixin.MP.Sample.Models
                 new ProductModel(3,"产品3",(decimal)1.00),
                 new ProductModel(4,"产品4",(decimal)1.00),
             };
+            return list;
         }
     }
 }

@@ -25,15 +25,20 @@ namespace Senparc.Weixin.MP.Sample.Models
             Price = price;
         }
 
+
+        private static List<ProductModel> ProductList { get; set; }
+
         public static List<ProductModel> GetFakeProductList()
         {
-            var list = new List<ProductModel>()
+            var list = ProductList ?? new List<ProductModel>()
             {
                 new ProductModel(1,"产品1",(decimal)1.00),
                 new ProductModel(2,"产品2",(decimal)1.00),
                 new ProductModel(3,"产品3",(decimal)1.00),
                 new ProductModel(4,"产品4",(decimal)1.00),
             };
+            ProductList = ProductList ?? list;
+
             return list;
         }
     }

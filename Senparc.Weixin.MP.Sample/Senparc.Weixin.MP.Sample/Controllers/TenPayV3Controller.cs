@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -20,12 +21,15 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using System.Xml.Linq;
+using Microsoft.SqlServer.Server;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Sample.Models;
 using Senparc.Weixin.MP.TenPayLibV3;
+using ZXing;
+using ZXing.Common;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -53,14 +57,15 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// 获取用户的OpenId
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(int productId = 0)
+        public ActionResult Index(int productId = 0, int hc = 0)
         {
-            var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, "http://weixin.senparc.com/TenPayV3/JsApi?productId=" + productId, "JeffreySu", OAuthScope.snsapi_userinfo);
+            var returnUrl = string.Format("http://weixin.senparc.com/TenPayV3/JsApi?productId={0}&hc={1}", productId, hc);
+            var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, "JeffreySu", OAuthScope.snsapi_userinfo);
 
             return Redirect(url);
         }
 
-        public ActionResult JsApi(string code, string state, int productId = 0)
+        public ActionResult JsApi(string code, string state, int productId = 0, int hc = 0)
         {
             if (string.IsNullOrEmpty(code))
             {
@@ -73,6 +78,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //实际上可以存任何想传递的数据，比如用户ID，并且需要结合例如下面的Session["OAuthAccessToken"]进行验证
                 return Content("验证失败！请从正规途径进入！");
             }
+
+            //这里可以对Product进行安全性检测
 
             //通过，用code换取access_token
             var openIdResult = OAuthApi.GetAccessToken(TenPayV3Info.AppId, TenPayV3Info.AppSecret, code);
@@ -142,7 +149,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             ViewData["nonceStr"] = nonceStr;
             ViewData["package"] = string.Format("prepay_id={0}", prepayId);
             ViewData["paySign"] = paySign;
-            ViewData["productId"] = productId;
+
+            //产品
+            if (productId>0)
+            {
+                var products = ProductModel.GetFakeProductList();
+                var product = products.FirstOrDefault(z => z.Id == productId);
+                ViewData["product"] = product;
+            }
 
             return View();
         }
@@ -153,7 +167,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             string return_code = resHandler.GetParameter("return_code");
             string return_msg = resHandler.GetParameter("return_msg");
-
 
             string res = null;
 
@@ -374,13 +387,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return View(products);
         }
 
-        public ActionResult ProductItem(int productId)
+        public ActionResult ProductItem(int productId,int hc)
         {
             var products = ProductModel.GetFakeProductList();
             var product = products.FirstOrDefault(z => z.Id == productId);
-            if (product == null)
+            if (product == null || product.GetHashCode()!= hc)
             {
-                return Content("商品信息不存在！");
+                return Content("商品信息不存在，或非法进入！");
             }
 
             //判断是否正在微信端
@@ -393,11 +406,40 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             else
             {
                 //在PC端打开，提供二维码扫描进行支付
-
-                return View();
-
+                return View(product);
             }
         }
+
+        /// <summary>
+        /// 显示二维码
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        public ActionResult ProductPayCode(int productId, int hc)
+        {
+            var products = ProductModel.GetFakeProductList();
+            var product = products.FirstOrDefault(z => z.Id == productId);
+            if (product == null || product.GetHashCode() != hc)
+            {
+                return Content("商品信息不存在，或非法进入！");
+            }
+
+            var url = string.Format("http://weixin.senparc.com/TenPayV3?productId={0}&hc={1}", productId,
+                product.GetHashCode());
+
+            BitMatrix bitMatrix;
+            bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 600, 600);
+            BarcodeWriter bw = new BarcodeWriter();
+
+            var ms = new MemoryStream();
+            var bitmap = bw.Write(bitMatrix);
+            bitmap.Save(ms, ImageFormat.Png);
+            //return File(ms, "image/png");
+            ms.WriteTo(Response.OutputStream);
+            Response.ContentType = "image/png";
+            return null;
+        }
+
 
         #endregion
     }

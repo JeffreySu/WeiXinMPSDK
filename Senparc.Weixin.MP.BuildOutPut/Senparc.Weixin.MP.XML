@@ -2816,6 +2816,11 @@
             获取图文类型永久素材返回结果
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Media.ForeverNewsItem.url">
+            <summary>
+            图文页的URL
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media.UpdateForeverNewsData">
             <summary>
             修改永久图文素材需要post的数据
@@ -5320,27 +5325,27 @@
             授权信息
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.OAuthJoinResult.authorizer_appid">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.AuthorizationInfo.authorizer_appid">
             <summary>
             授权方appid
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.OAuthJoinResult.authorizer_access_token">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.AuthorizationInfo.authorizer_access_token">
             <summary>
             授权方令牌（在授权的公众号具备API权限时，才有此返回值）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.OAuthJoinResult.expires_in">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.AuthorizationInfo.expires_in">
             <summary>
             有效期（在授权的公众号具备API权限时，才有此返回值）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.OAuthJoinResult.authorizer_refresh_token">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.AuthorizationInfo.authorizer_refresh_token">
             <summary>
             刷新令牌（在授权的公众号具备API权限时，才有此返回值），刷新令牌主要用于公众号第三方平台获取和刷新已授权用户的access_token，只会在授权时刻提供，请妥善保存。 一旦丢失，只能让用户重新授权，才能再次拿到新的刷新令牌
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.OAuthJoinResult.func_info">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin.AuthorizationInfo.func_info">
              <summary>
              公众号授权给开发者的权限集列表（请注意，当出现用户已经将消息与菜单权限集授权给了某个第三方，再授权给另一个第三方时，由于该权限集是互斥的，后一个第三方的授权将去除此权限集，开发者可以在返回的func_info信息中验证这一点，避免信息遗漏），
              1到8分别代表：

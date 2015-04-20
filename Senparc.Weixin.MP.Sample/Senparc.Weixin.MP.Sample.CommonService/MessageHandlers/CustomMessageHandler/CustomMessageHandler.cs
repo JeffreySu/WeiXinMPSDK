@@ -108,8 +108,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     @"您正在进行微信内置浏览器约束判断测试。您可以：
 <a href=""http://weixin.senparc.com/FilterTest/"">点击这里</a>进行客户端约束测试（地址：http://weixin.senparc.com/FilterTest/），如果在微信外打开将直接返回文字。
 或：
-<a href=""http://weixin.senparc.com/FilterTest/Redirect"">点击这里</a>进行客户端约束测试（地址：http://weixin.senparc.com/FilterTest/Redirect），如果在微信外打开将重定向一次URL。
-                ";
+<a href=""http://weixin.senparc.com/FilterTest/Redirect"">点击这里</a>进行客户端约束测试（地址：http://weixin.senparc.com/FilterTest/Redirect），如果在微信外打开将重定向一次URL。";
             }
             else if (requestMessage.Content == "托管" || requestMessage.Content == "代理")
             {

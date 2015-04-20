@@ -22,6 +22,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
     /// </summary>
     public class GetNewsResultJson : WxJsonResult
     {
-        public List<NewsModel> news_item { get; set; }
+        public List<ForeverNewsItem> news_item { get; set; }
+    }
+
+    public class ForeverNewsItem : NewsModel
+    {
+        /// <summary>
+        /// 图文页的URL
+        /// </summary>
+        public string url { get; set; }
     }
 }

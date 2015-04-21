@@ -39,6 +39,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         public string title { get; set; }
 
         /// <summary>
+        /// 图文页的URL
+        /// </summary>
+        public string url { get; set; }
+
+        /// <summary>
         /// 在图文消息页面点击“阅读原文”后的页面
         /// </summary>
         public string content_source_url { get; set; }

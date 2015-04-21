@@ -47,6 +47,9 @@
     <Reference Include="Senparc.Weixin.MP">
       <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.MP.dll</HintPath>
     </Reference>
+    <Reference Include="Senparc.Weixin.Open">
+      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.Open.dll</HintPath>
+    </Reference>
     <Reference Include="Senparc.Weixin.QY">
       <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.QY.dll</HintPath>
     </Reference>
@@ -148,6 +151,7 @@
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\OAuth2Controller.cs" />
+    <Compile Include="Controllers\OpenController.cs" />
     <Compile Include="Controllers\QY\QYController.cs" />
     <Compile Include="Controllers\SimulateToolController.cs" />
     <Compile Include="Controllers\TenPayV3Controller.cs">

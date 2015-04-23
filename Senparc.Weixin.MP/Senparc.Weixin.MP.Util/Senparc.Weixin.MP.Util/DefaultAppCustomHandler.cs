@@ -36,9 +36,6 @@ namespace Senparc.Weixin.MP.Util
             return responseMessage;
         }
 
-
-
-
         public IResponseMessageBase ScancodePushRequest(AppCtx ctx, RequestMessageEvent_Scancode_Push requestMessage)
         {
             throw new NotImplementedException();

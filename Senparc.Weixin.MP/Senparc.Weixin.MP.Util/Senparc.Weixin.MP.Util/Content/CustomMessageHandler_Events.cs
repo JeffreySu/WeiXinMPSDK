@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using AtNet.DevFw;
+using AtNet.DevFw.Framework;
+using AtNet.DevFw.PluginKernel;
 using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.Util.Content
@@ -9,19 +12,12 @@ namespace Senparc.Weixin.MP.Util.Content
     /// </summary>
     public partial class CustomMessageHandler
     {
-        public override IResponseMessageBase OnTextOrEventRequest(RequestMessageText requestMessage)
-        {
-            AppCtx ctx = AppCtx.Current;
-            ctx.SetContextHandler(this);
-            return ctx.GetHandler().TextOrEventRequest(ctx, requestMessage);
-           
-        }
 
+        
 
         public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
         {
             AppCtx ctx = AppCtx.Current;
-
             ctx.SetContextHandler(this);
             return ctx.GetHandler().ClickEventRequest(ctx,requestMessage.EventKey);
         }
@@ -76,6 +72,7 @@ namespace Senparc.Weixin.MP.Util.Content
         public override IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
         {
             AppCtx ctx = AppCtx.Current;
+            ctx.SetContextHandler(this);
             return ctx.GetHandler().SubscribeRequest(ctx,requestMessage); 
         }
 
@@ -88,6 +85,7 @@ namespace Senparc.Weixin.MP.Util.Content
         public override IResponseMessageBase OnEvent_UnsubscribeRequest(RequestMessageEvent_Unsubscribe requestMessage)
         {
             AppCtx ctx = AppCtx.Current;
+            ctx.SetContextHandler(this);
             return ctx.GetHandler().UnsubscribeRequest(ctx, requestMessage); 
         }
 

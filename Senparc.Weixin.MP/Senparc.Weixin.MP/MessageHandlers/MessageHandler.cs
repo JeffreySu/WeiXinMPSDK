@@ -305,7 +305,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.Text:
                         {
                             var requestMessage = RequestMessage as RequestMessageText;
-                            ResponseMessage = OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage);
+                            ResponseMessage = OnTextOrEventRequest(requestMessage) ?? 
+                                OnTextRequest(requestMessage);
                         }
                         break;
                     case RequestMsgType.Location:
@@ -325,8 +326,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
                         break;
                     case RequestMsgType.Event:
                         {
-                            var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                            ResponseMessage = OnTextOrEventRequest(requestMessageText) ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
+                            var requestMessageText = (RequestMessage as IRequestMessageEventBase)
+                                .ConvertToRequestMessageText();
+                            ResponseMessage = OnTextOrEventRequest(requestMessageText) 
+                                ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
                         }
                         break;
                     default:
@@ -404,7 +407,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual IResponseMessageBase OnTextOrEventRequest(RequestMessageText requestMessage)
         {
-            return null;
+            return DefaultResponseMessage(requestMessage);
         }
 
         /// <summary>

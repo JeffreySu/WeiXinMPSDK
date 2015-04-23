@@ -1,5 +1,4 @@
 ﻿using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Util.Content;
 
 namespace Senparc.Weixin.MP.Util
 {
@@ -29,5 +28,7 @@ namespace Senparc.Weixin.MP.Util
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         IResponseMessageBase RequestAgent(AppCtx ctx,  IRequestMessageBase requestMessage);
+
+        IResponseMessageBase TextRequest(AppCtx ctx, RequestMessageText requestMessage);
     }
 }

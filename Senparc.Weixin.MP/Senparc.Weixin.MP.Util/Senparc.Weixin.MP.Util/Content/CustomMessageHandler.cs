@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
-using System.Text.RegularExpressions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
@@ -45,18 +43,6 @@ namespace Senparc.Weixin.MP.Util.Content
         {
             base.OnExecuted();
             CurrentMessageContext.StorageData = ((int)CurrentMessageContext.StorageData) + 1;
-        }
-
-        /// <summary>
-        /// 处理文字请求
-        /// </summary>
-        /// <returns></returns>
-        public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
-        {
-            AppCtx ctx = AppCtx.Current;
-
-            ctx.SetContextHandler(this);
-            return ctx.GetHandler().TextOrEventRequest(ctx, requestMessage);
         }
 
         /// <summary>
@@ -145,6 +131,21 @@ Url:{2}", requestMessage.Title, requestMessage.Description, requestMessage.Url);
             return responseMessage;
         }
 
+        public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+        {
+            AppCtx ctx = AppCtx.Current;
+            ctx.SetContextHandler(this);
+            return ctx.GetHandler().TextRequest(ctx, requestMessage);
+        }
+
+        public override IResponseMessageBase OnTextOrEventRequest(RequestMessageText requestMessage)
+        {
+            AppCtx ctx = AppCtx.Current;
+            ctx.SetContextHandler(this);
+            return ctx.GetHandler().TextOrEventRequest(ctx, requestMessage);
+        }
+
+
         /// <summary>
         /// 处理事件请求（这个方法一般不用重写，这里仅作为示例出现。除非需要在判断具体Event类型以外对Event信息进行统一操作
         /// </summary>
@@ -152,16 +153,14 @@ Url:{2}", requestMessage.Title, requestMessage.Description, requestMessage.Url);
         /// <returns></returns>
         public override IResponseMessageBase OnEventRequest(IRequestMessageEventBase requestMessage)
         {
-            //对于Event下属分类的重写方法，见：CustomerMessageHandler_Events.cs
-            var eventResponseMessage = base.OnEventRequest(requestMessage);
             //TODO: 对Event信息进行统一操作
-            return eventResponseMessage;
+            //对于Event下属分类的重写方法，见：CustomerMessageHandler_Events.cs
+            return base.OnEventRequest(requestMessage);
         }
 
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
             AppCtx ctx = AppCtx.Current;
-
             ctx.SetContextHandler(this);
             return ctx.GetHandler().RequestAgent(ctx,  requestMessage);
         }

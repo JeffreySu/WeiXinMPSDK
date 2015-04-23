@@ -10,9 +10,12 @@ namespace Senparc.Weixin.MP.Util
 {
     public class DefaultAppCustomHandler:IAppCustomHandler
     {
-
-
-
+        /// <summary>
+        /// 关注欢迎
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
         public IResponseMessageBase SubscribeRequest(AppCtx ctx, RequestMessageEvent_Subscribe requestMessage)
         {
             String content = ctx.GetConfig().WxWelcomeMessage;
@@ -32,13 +35,13 @@ namespace Senparc.Weixin.MP.Util
         public IResponseMessageBase UnsubscribeRequest(AppCtx ctx, RequestMessageEvent_Unsubscribe requestMessage)
         {
             var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
-            responseMessage.Content = "有空再来";
+            responseMessage.Content = "感谢您的关注，欢迎有空再来";
             return responseMessage;
         }
 
         public IResponseMessageBase ScancodePushRequest(AppCtx ctx, RequestMessageEvent_Scancode_Push requestMessage)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public IResponseMessageBase ClickEventRequest(AppCtx ctx, string eventKey)
@@ -237,6 +240,16 @@ namespace Senparc.Weixin.MP.Util
                 responseMessage.Content = result.ToString();
             }
             return responseMessage;
+            
+            // 或返回默认回复
+            String defaultMsg = ctx.GetConfig().WxDefaultResponseMessage;
+            if (!String.IsNullOrEmpty(defaultMsg))
+            {
+                var strongResponseMessage = ctx.CreateResponseMessage<ResponseMessageText>();
+                strongResponseMessage.Content = defaultMsg;
+                return strongResponseMessage;
+            }
+            return null;
         }
 
 
@@ -250,14 +263,10 @@ namespace Senparc.Weixin.MP.Util
              * return responseMessage;
              */
 
-            String defaultMsg = ctx.GetConfig().WxDefaultResponseMessage;
-            if (!String.IsNullOrEmpty(defaultMsg))
-            {
-                var strongResponseMessage = ctx.CreateResponseMessage<ResponseMessageText>();
-                strongResponseMessage.Content =defaultMsg;
-                return strongResponseMessage;
-            }
-            return null;
+
+            var rsp = ctx.CreateResponseMessage<ResponseMessageText>();
+            rsp.Content = "未识的指令";
+            return rsp;
         }
     }
 }

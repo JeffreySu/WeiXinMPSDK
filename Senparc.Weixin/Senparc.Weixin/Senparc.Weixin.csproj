@@ -65,6 +65,7 @@
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\SerializerHelper.cs" />
+    <Compile Include="Utilities\BrowserUtility\BroswerUtility.cs" />
     <Compile Include="Utilities\XmlUtility\XmlUtility.cs" />
     <Compile Include="Utilities\HttpUtility\Get.cs" />
     <Compile Include="Utilities\HttpUtility\Post.cs" />

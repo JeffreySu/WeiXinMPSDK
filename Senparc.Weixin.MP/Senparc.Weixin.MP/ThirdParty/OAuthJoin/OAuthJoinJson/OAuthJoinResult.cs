@@ -24,7 +24,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin
         /// <summary>
         /// 授权信息
         /// </summary>
-        public string authorization_info { get; set; }
+        public AuthorizationInfo authorization_info { get; set; }
+    }
+
+    public class AuthorizationInfo
+    {
         /// <summary>
         /// 授权方appid
         /// </summary>

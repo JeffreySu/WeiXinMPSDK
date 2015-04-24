@@ -13,6 +13,13 @@ namespace Senparc.Weixin.MP.Sample
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+            routes.MapRoute(
+                name: "Open",
+                url: "Open/Callback/{appId}",
+                defaults: new { controller = "Open", action = "Callback", appId = UrlParameter.Optional }
+            );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

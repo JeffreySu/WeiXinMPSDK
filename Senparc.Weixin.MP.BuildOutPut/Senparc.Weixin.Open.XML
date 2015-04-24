@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Senparc.Weixin.Open</name>
+    </assembly>
+    <members>
+        <member name="F:Senparc.Weixin.Open.InfoType.component_verify_ticket">
+            <summary>
+            接收推送Ticket
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Open.InfoType.unauthorized">
+            <summary>
+              取消授权
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Open.Helpers.InfoTypeHelper.GetRequestInfoType(System.Xml.Linq.XDocument)">
+            <summary>
+            根据xml信息，返回InfoType
+            </summary>
+            <param name="doc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.Helpers.InfoTypeHelper.GetRequestInfoType(System.String)">
+            <summary>
+            根据xml信息，返回InfoType
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

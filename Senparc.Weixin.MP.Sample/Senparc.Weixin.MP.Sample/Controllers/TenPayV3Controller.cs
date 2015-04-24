@@ -6,25 +6,28 @@
     
     
     创建标识：Senparc - 20150312
+ 
+    修改标识：Senparc - 20150419
+    修改描述：添加产品相关
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.UI;
 using System.Xml.Linq;
+using Senparc.Weixin.BrowserUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Sample.Models;
 using Senparc.Weixin.MP.TenPayLibV3;
+using ZXing;
+using ZXing.Common;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -34,6 +37,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     public class TenPayV3Controller : Controller
     {
         private static TenPayV3Info _tenPayV3Info;
+
+        private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
+        {
+            if (errors == SslPolicyErrors.None)
+                return true;
+            return false;
+        }
 
         public static TenPayV3Info TenPayV3Info
         {
@@ -52,12 +62,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// 获取用户的OpenId
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index()
+        public ActionResult Index(int productId = 0, int hc = 0)
         {
-            var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, "http://weixin.senparc.com/TenPayV3/JsApi", "JeffreySu", OAuthScope.snsapi_userinfo);
+            var returnUrl = string.Format("http://weixin.senparc.com/TenPayV3/JsApi");
+            var state = string.Format("{0}|{1}", productId, hc);
+            var url = OAuthApi.GetAuthorizeUrl(TenPayV3Info.AppId, returnUrl, state, OAuthScope.snsapi_userinfo);
 
             return Redirect(url);
         }
+
+        #region JsApi支付
 
         public ActionResult JsApi(string code, string state)
         {
@@ -66,11 +80,30 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("您拒绝了授权！");
             }
 
-            if (state != "JeffreySu")
+            if (!state.Contains("|"))
             {
                 //这里的state其实是会暴露给客户端的，验证能力很弱，这里只是演示一下
                 //实际上可以存任何想传递的数据，比如用户ID，并且需要结合例如下面的Session["OAuthAccessToken"]进行验证
-                return Content("验证失败！请从正规途径进入！");
+                return Content("验证失败！请从正规途径进入！1001");
+            }
+
+            //获取产品信息
+            var stateData = state.Split('|');
+            int productId = 0;
+            ProductModel product = null;
+            if (int.TryParse(stateData[0], out productId))
+            {
+                int hc = 0;
+                if (int.TryParse(stateData[1], out hc))
+                {
+                    var products = ProductModel.GetFakeProductList();
+                    product = products.FirstOrDefault(z => z.Id == productId);
+                    if (product == null || product.GetHashCode() != hc)
+                    {
+                        return Content("商品信息不存在，或非法进入！1002");
+                    }
+                    ViewData["product"] = product;
+                }
             }
 
             //通过，用code换取access_token
@@ -110,9 +143,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		  //公众账号ID
             packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
             packageReqHandler.SetParameter("nonce_str", nonceStr);                    //随机字符串
-            packageReqHandler.SetParameter("body", "test");
+            packageReqHandler.SetParameter("body", product == null ? "test" : product.Name);    //商品信息
             packageReqHandler.SetParameter("out_trade_no", sp_billno);		//商家订单号
-            packageReqHandler.SetParameter("total_fee", "100");			        //商品金额,以分为单位(money * 100).ToString()
+            packageReqHandler.SetParameter("total_fee", product == null ? "100" : (product.Price * 100).ToString());			        //商品金额,以分为单位(money * 100).ToString()
             packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);   //用户的公网ip，不是商户服务器IP
             packageReqHandler.SetParameter("notify_url", TenPayV3Info.TenPayV3Notify);		    //接收财付通通知的URL
             packageReqHandler.SetParameter("trade_type", TenPayV3Type.JSAPI.ToString());	                    //交易类型
@@ -142,6 +175,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             ViewData["package"] = string.Format("prepay_id={0}", prepayId);
             ViewData["paySign"] = paySign;
 
+
+
             return View();
         }
 
@@ -151,7 +186,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             string return_code = resHandler.GetParameter("return_code");
             string return_msg = resHandler.GetParameter("return_msg");
-
 
             string res = null;
 
@@ -181,6 +215,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             return Content(xml, "text/xml");
         }
+
+        #endregion
+
+        #region 订单及退款
 
         /// <summary>
         /// 订单查询
@@ -290,13 +328,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             return Content(openid);
         }
+        #endregion
 
-        private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
-        {
-            if (errors == SslPolicyErrors.None)
-                return true;
-            return false;
-        }
+        #region 红包
 
         /// <summary>
         /// 目前支持向指定微信用户的openid发放指定金额红包
@@ -362,5 +396,70 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             return Content(responseContent);
         }
+        #endregion
+
+        #region 产品展示
+
+        public ActionResult ProductList()
+        {
+            var products = ProductModel.GetFakeProductList();
+            return View(products);
+        }
+
+        public ActionResult ProductItem(int productId, int hc)
+        {
+            var products = ProductModel.GetFakeProductList();
+            var product = products.FirstOrDefault(z => z.Id == productId);
+            if (product == null || product.GetHashCode() != hc)
+            {
+                return Content("商品信息不存在，或非法进入！2003");
+            }
+
+            //判断是否正在微信端
+            var userAgent = Request.UserAgent;
+            if (BroswerUtility.SideInWeixinBroswer(HttpContext))
+            {
+                //正在微信端，直接跳转到微信支付页面
+                return RedirectToAction("Index", new { productId = productId, hc = hc });
+            }
+            else
+            {
+                //在PC端打开，提供二维码扫描进行支付
+                return View(product);
+            }
+        }
+
+        /// <summary>
+        /// 显示二维码
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        public ActionResult ProductPayCode(int productId, int hc)
+        {
+            var products = ProductModel.GetFakeProductList();
+            var product = products.FirstOrDefault(z => z.Id == productId);
+            if (product == null || product.GetHashCode() != hc)
+            {
+                return Content("商品信息不存在，或非法进入！2004");
+            }
+
+            var url = string.Format("http://weixin.senparc.com/TenPayV3?productId={0}&hc={1}&t={2}", productId,
+                product.GetHashCode(), DateTime.Now.Ticks);
+
+            BitMatrix bitMatrix;
+            bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, 600, 600);
+            BarcodeWriter bw = new BarcodeWriter();
+
+            var ms = new MemoryStream();
+            var bitmap = bw.Write(bitMatrix);
+            bitmap.Save(ms, ImageFormat.Png);
+            //return File(ms, "image/png");
+            ms.WriteTo(Response.OutputStream);
+            Response.ContentType = "image/png";
+            return null;
+        }
+
+
+        #endregion
     }
 }

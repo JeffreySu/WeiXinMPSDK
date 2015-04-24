@@ -343,6 +343,13 @@
             <param name="match"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.BrowserUtility.BroswerUtility.SideInWeixinBroswer(System.Web.HttpContextBase)">
+            <summary>
+            判断是否在微信内置浏览器中
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.XmlUtility.XmlUtility.Deserialize``1(System.String)">
             <summary>
             反序列化

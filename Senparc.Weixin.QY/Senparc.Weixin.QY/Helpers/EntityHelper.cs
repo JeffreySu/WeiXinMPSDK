@@ -257,8 +257,16 @@ namespace Senparc.Weixin.QY.Helpers
 					switch (prop.PropertyType.Name)
 					{
 						case "String":
-							root.Add(new XElement(propName,
-												  new XCData(prop.GetValue(entity, null) as string ?? "")));
+							var value = prop.GetValue(entity, null) as string;
+                            if (value == null)
+                            {
+                                root.Add(new XElement(propName, ""));
+                            }
+                            else
+                            {
+                                root.Add(new XElement(propName,
+                                                 new XCData(prop.GetValue(entity, null) as string ?? "")));
+                            }
 							break;
 						case "DateTime":
 							root.Add(new XElement(propName, DateTimeHelper.GetWeixinDateTime((DateTime)prop.GetValue(entity, null))));

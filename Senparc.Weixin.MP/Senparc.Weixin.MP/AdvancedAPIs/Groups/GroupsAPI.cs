@@ -145,5 +145,27 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Groups
 
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
         }
+
+        /// <summary>
+        /// 删除分组
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="groupId">分组id</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static WxJsonResult Delete(string accessToken, int groupId, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/delete?access_token={0}";
+
+            var data = new
+            {
+                group = new
+                    {
+                        id = groupId
+                    }
+            };
+
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+        }
     }
 }

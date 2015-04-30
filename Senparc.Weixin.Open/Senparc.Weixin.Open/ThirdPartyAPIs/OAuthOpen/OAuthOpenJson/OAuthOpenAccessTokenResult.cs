@@ -5,14 +5,15 @@
     文件功能描述：代公众号发起网页授权获取OAuth AccessToken的结果
     
     
-    创建标识：Senparc - 20150331
+    创建标识：Senparc - 20150430
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.Open.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.OAuthOpen
 {

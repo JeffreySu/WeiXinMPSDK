@@ -1,11 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2015 Senparc
     
-    文件名：PreAuthCodeResult.cs
-    文件功能描述：获取预授权码返回结果
+    文件名：ComponentAccessTokenResult.cs
+    文件功能描述：获取第三方平台access_token
     
     
-    创建标识：Senparc - 20150331
+    创建标识：Senparc - 20150430
 ----------------------------------------------------------------*/
 
 using System;
@@ -13,19 +13,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Senparc.Weixin.MP.Entities
+namespace Senparc.Weixin.Open.Entities
 {
     /// <summary>
-    /// 获取预授权码返回结果
+    /// 获取第三方平台access_token
     /// </summary>
-    public class PreAuthCodeResult
+    public class ComponentAccessTokenResult
     {
         /// <summary>
-        /// 预授权码
+        /// 第三方平台access_token
         /// </summary>
-        public string pre_auth_code { get; set; }
+        public string component_access_token { get; set; }
         /// <summary>
-        /// 有效期，为20分钟
+        /// 有效期
         /// </summary>
         public int expires_in { get; set; }
     }

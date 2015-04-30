@@ -87,8 +87,6 @@ namespace Senparc.Weixin.QY.Test.CommonApis
         [TestMethod]
         public void DeleteMenuTest()
         {
-            return;//已经通过测试，删除之后，GetMenu将返回null
-
             var accessToken = AccessTokenContainer.GetToken(_corpId);
 
             var result = CommonApi.DeleteMenu(accessToken, _agentId);

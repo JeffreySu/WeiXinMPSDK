@@ -5,7 +5,7 @@
     文件功能描述：通用接口PreAuthCode容器，用于自动管理PreAuthCode，如果过期会重新获取
     
     
-    创建标识：Senparc - 20150331
+    创建标识：Senparc - 20150430
 ----------------------------------------------------------------*/
 
 using System;
@@ -13,9 +13,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.Open.Entities;
 
-namespace Senparc.Weixin.MP.CommonAPIs
+namespace Senparc.Weixin.Open.CommonAPIs
 {
     class PreAuthCodeBag
     {

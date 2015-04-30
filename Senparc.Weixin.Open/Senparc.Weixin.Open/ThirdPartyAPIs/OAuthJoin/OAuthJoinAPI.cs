@@ -5,7 +5,7 @@
     文件功能描述：公众号授权给第三方平台
     
     
-    创建标识：Senparc - 20150401
+    创建标识：Senparc - 20150430
 ----------------------------------------------------------------*/
 
 /*
@@ -16,11 +16,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.Open.CommonAPIs;
+using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin
+namespace Senparc.Weixin.Open.OAuthJoin
 {
     public static class OAuthJoinAPI
     {

@@ -38,9 +38,9 @@ namespace Senparc.Weixin.MP.MvcExtension
                 {
                     return base.Content;
                 }
-                else if (_messageHandlerDocument.TextResponseMessage != null)
+                else if (_messageHandlerDocument != null && _messageHandlerDocument.TextResponseMessage != null)
                 {
-                    if (_messageHandlerDocument != null && _messageHandlerDocument.FinalResponseDocument!=null)
+                    if (_messageHandlerDocument.ResponseDocument != null)
                     {
                         //返回XML响应信息
                         return _messageHandlerDocument.TextResponseMessage.Replace("\r\n", "\n");

@@ -4217,11 +4217,6 @@
             搜索引擎类型：google, baidu, sogou, 360, taobao,jingdong
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Shake.ShakeApi">
-            <summary>
-            摇一摇接口
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.TemplateApi">
             <summary>
             模板消息接口

@@ -80,6 +80,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //v4.2.2之后的版本，可以设置每个人上下文消息储存的最大数量，防止内存占用过多，如果该参数小于等于0，则不限制
             var maxRecordCount = 10;
 
+            var logPath = Server.MapPath(string.Format("~/App_Data/MP/{0}/",DateTime.Now.ToString("YYYY-MM-dd"))); 
 
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
             var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
@@ -87,10 +88,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
 
                 //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
-                messageHandler.RequestDocument.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Request_" + messageHandler.RequestMessage.FromUserName + ".txt"));
+                messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.FromUserName)));
                 if (messageHandler.UsingEcryptMessage)
                 {
-                    messageHandler.EcryptRequestDocument.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Request_Ecrypt_" + messageHandler.RequestMessage.FromUserName + ".txt"));
+                    messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath,
+                        string.Format("{0}_Request_Ecrypt_{1}.txt", DateTime.Now.Ticks,
+                            messageHandler.RequestMessage.FromUserName)));
                 }
                  
                 /* 如果需要添加消息去重功能，只需打开OmitRepeatedMessage功能，SDK会自动处理。
@@ -110,13 +113,17 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 if (messageHandler.ResponseDocument != null)
                 {
-                    messageHandler.ResponseDocument.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Response_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                    messageHandler.ResponseDocument.Save(Path.Combine(logPath,
+                        string.Format("{0}_Response_{1}.txt", DateTime.Now.Ticks,
+                            messageHandler.RequestMessage.FromUserName))); 
                 }
 
                 if (messageHandler.UsingEcryptMessage)
                 {
                     //记录加密后的响应信息
-                    messageHandler.FinalResponseDocument.Save(Server.MapPath("~/App_Data/" + DateTime.Now.Ticks + "_Response_Final_" + messageHandler.ResponseMessage.ToUserName + ".txt"));
+                    messageHandler.FinalResponseDocument.Save(Path.Combine(logPath,
+                        string.Format("{0}_Response_Final_{1}.txt", DateTime.Now.Ticks,
+                            messageHandler.RequestMessage.FromUserName))); 
                 }
 
                 //return Content(messageHandler.ResponseDocument.ToString());//v0.7-

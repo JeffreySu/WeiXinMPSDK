@@ -40,13 +40,18 @@ namespace Senparc.Weixin.MP.MvcExtension
                 }
                 else if (_messageHandlerDocument.TextResponseMessage != null)
                 {
-                    return _messageHandlerDocument.TextResponseMessage;
-                }
-                else if (_messageHandlerDocument != null && _messageHandlerDocument.FinalResponseDocument != null)
-                {
-                    return _messageHandlerDocument.FinalResponseDocument.ToString(SaveOptions.OmitDuplicateNamespaces).Replace("\r\n", "\n");
-                }
+                    if (_messageHandlerDocument != null && _messageHandlerDocument.FinalResponseDocument!=null)
+                    {
+                        //返回XML响应信息
+                        return _messageHandlerDocument.TextResponseMessage.Replace("\r\n", "\n");
+                    }
+                    else
+                    {
+                        //返回XML响应信息或用户指定的文本内容
+                        return _messageHandlerDocument.TextResponseMessage;
+                    }
 
+                }
                 else
                 {
                     return null;

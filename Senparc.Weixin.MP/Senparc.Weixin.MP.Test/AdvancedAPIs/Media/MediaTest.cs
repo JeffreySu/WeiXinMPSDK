@@ -103,7 +103,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var file = @"E:\1.jpg";
+            var file = @"..\AdvancedAPIs\Media\test.jpg";
+
             var result = MediaApi.UploadForeverMedia(accessToken, file);
 
             Assert.IsNotNull(result.media_id);
@@ -111,15 +112,16 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         }
 
         [TestMethod]
-        public void UploadForeverVideoTest()
+        public string UploadForeverVideoTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
             var file = @"E:\Test.mp4";
-            var result = MediaApi.UploadForeverVideo(accessToken,file,"test","test");
+            var result = MediaApi.UploadForeverVideo(accessToken, file, "test", "test");
 
             Assert.IsNotNull(result.media_id);
             mediaId = result.media_id;
+            return mediaId;
         }
 
         //[TestMethod]
@@ -163,13 +165,23 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             return result1.media_id;
         }
 
+        [TestMethod]
+        private void GetForeverMediaTest()
+        {
+            var mediaId = UploadForeverVideoTest();
+            var accessToken = AccessTokenContainer.GetToken(_appId);
+            MemoryStream stream = new MemoryStream();
+            MediaApi.GetForeverMedia(accessToken, mediaId, stream);
+            Assert.IsTrue(stream.Length > 0);
+        }
+
         //[TestMethod]
         private void GetForeverNewsTest(string accessToken, string mediaId)
         {
             var result = MediaApi.GetForeverNews(accessToken, mediaId);
 
             Assert.IsTrue(result.news_item.Count > 0);
-            Assert.AreEqual(result.news_item[0].content,"test");
+            Assert.AreEqual(result.news_item[0].content, "test");
         }
 
         //[TestMethod]

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.AdvancedAPIs.User;
@@ -13,8 +15,44 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
     //[TestClass]
     public partial class CommonApiTest
     {
-        protected string _appId = "wxbe855a981c34aa3f"; //换成你的信息
-        protected string _appSecret = ""; //换成你的信息
+        private dynamic _appConfig;
+        protected dynamic AppConfig
+        {
+            get
+            {
+                if (_appConfig == null)
+                {
+                    if (File.Exists("../test.config"))
+                    {
+                        var doc = XDocument.Load("../test.config");
+                        _appConfig = new
+                        {
+                            AppId = doc.Root.Element("AppId").Value,
+                            Secret = doc.Root.Element("Secret").Value
+                        };
+                    }
+                    else
+                    {
+                        _appConfig = new
+                        {
+                            AppId = "YourAppId", //换成你的信息
+                            Secret = "YourSecret"//换成你的信息
+                        };
+                    }
+                }
+                return _appConfig;
+            }
+        }
+
+        protected string _appId
+        {
+            get { return AppConfig.AppId; }
+        }
+
+        protected string _appSecret
+        {
+            get { return AppConfig.Secret; }
+        }
 
 
         /* 由于获取accessToken有次数限制，为了节约请求，

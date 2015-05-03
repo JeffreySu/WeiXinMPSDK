@@ -411,6 +411,14 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.HttpUtility.Post.Download(System.String,System.String,System.IO.Stream)">
+            <summary>
+            使用Post方法上传数据并下载文件或结果
+            </summary>
+            <param name="url"></param>
+            <param name="data"></param>
+            <param name="stream"></param>
+        </member>
         <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpGet(System.String,System.Text.Encoding)">
             <summary>
             使用Get方法获取字符串结果（没有加入Cookie）

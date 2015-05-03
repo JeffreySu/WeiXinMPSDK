@@ -135,7 +135,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
             //dataDictionary["type"] = UploadMediaFileType.image.ToString();
 
             var fileDictionary = new Dictionary<string, string>();
-            fileDictionary["type"] = UploadMediaFileType.image.ToString();
+            //fileDictionary["type"] = UploadMediaFileType.image.ToString();//不提供此参数也可以上传成功
             fileDictionary["media"] = file;
             return HttpUtility.Post.PostFileGetJson<UploadForeverMediaFileResult>(url, null, fileDictionary, null, timeOut: timeOut);
         }

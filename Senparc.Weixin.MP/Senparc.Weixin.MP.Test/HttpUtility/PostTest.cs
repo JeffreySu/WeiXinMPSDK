@@ -47,5 +47,11 @@ namespace Senparc.Weixin.MP.Test.HttpUtility
                 Assert.Fail();
             }
         }
+
+        [TestMethod]
+        public void DownLoadTest()
+        {
+
+        }
     }
 }

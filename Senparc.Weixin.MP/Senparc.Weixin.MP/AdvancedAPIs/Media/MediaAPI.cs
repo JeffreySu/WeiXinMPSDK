@@ -32,6 +32,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
@@ -178,8 +179,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         public static void GetForeverMedia(string accessToken, string mediaId, Stream stream)
         {
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/get_material?access_token={0}",
-                accessToken, mediaId);
-            HttpUtility.Get.Download(url, stream);
+                accessToken);
+            var data = new
+            {
+                media_id = mediaId
+            };
+            SerializerHelper serializerHelper = new SerializerHelper();
+            var jsonString = serializerHelper.GetJsonString(data);
+            HttpUtility.Post.Download(url, jsonString, stream);
         }
 
         /// <summary>

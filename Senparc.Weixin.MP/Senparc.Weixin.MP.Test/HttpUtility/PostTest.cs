@@ -19,7 +19,7 @@ namespace Senparc.Weixin.MP.Test.HttpUtility
             try
             {
                 //这里因为参数错误，系统会返回错误信息
-                UploadTemporaryMediaFileResult resultFail = Post.PostGetJson<UploadTemporaryMediaFileResult>(url, cookieContainer: null, formData: null, encoding: null);
+                UploadTemporaryMediaResult resultFail = Post.PostGetJson<UploadTemporaryMediaResult>(url, cookieContainer: null, formData: null, encoding: null);
                 Assert.Fail();//上一步就应该已经抛出异常
             }
             catch (ErrorJsonResultException ex)

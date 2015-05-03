@@ -54,12 +54,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// <param name="file"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static UploadTemporaryMediaFileResult UploadTemporaryMedia(string accessToken, UploadMediaFileType type, string file, int timeOut = Config.TIME_OUT)
+        public static UploadTemporaryMediaResult UploadTemporaryMedia(string accessToken, UploadMediaFileType type, string file, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("http://api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken, type.ToString());
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = file;
-            return HttpUtility.Post.PostFileGetJson<UploadTemporaryMediaFileResult>(url, null, fileDictionary, null, timeOut: timeOut);
+            return HttpUtility.Post.PostFileGetJson<UploadTemporaryMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// <param name="news">图文消息组</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static UploadTemporaryMediaFileResult UploadTemporaryNews(string accessToken, int timeOut = Config.TIME_OUT, params NewsModel[] news)
+        public static UploadTemporaryMediaResult UploadTemporaryNews(string accessToken, int timeOut = Config.TIME_OUT, params NewsModel[] news)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token={0}";
 
@@ -77,7 +77,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
             {
                 articles = news
             };
-            return CommonJsonSend.Send<UploadTemporaryMediaFileResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            return CommonJsonSend.Send<UploadTemporaryMediaResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// <param name="news">图文消息组</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static UploadForeverMediaFileResult UploadNews(string accessToken, int timeOut = Config.TIME_OUT, params NewsModel[] news)
+        public static UploadForeverMediaResult UploadNews(string accessToken, int timeOut = Config.TIME_OUT, params NewsModel[] news)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/material/add_news?access_token={0}";
 
@@ -116,7 +116,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
             {
                 articles = news
             };
-            return CommonJsonSend.Send<UploadForeverMediaFileResult>(accessToken, urlFormat, data, timeOut: timeOut);
+            return CommonJsonSend.Send<UploadForeverMediaResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// <param name="file">文件路径</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static UploadForeverMediaFileResult UploadForeverMedia(string accessToken, string file, int timeOut = Config.TIME_OUT)
+        public static UploadForeverMediaResult UploadForeverMedia(string accessToken, string file, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("http://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken);
 
@@ -137,7 +137,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
             var fileDictionary = new Dictionary<string, string>();
             //fileDictionary["type"] = UploadMediaFileType.image.ToString();//不提供此参数也可以上传成功
             fileDictionary["media"] = file;
-            return HttpUtility.Post.PostFileGetJson<UploadForeverMediaFileResult>(url, null, fileDictionary, null, timeOut: timeOut);
+            return HttpUtility.Post.PostFileGetJson<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
         }
 
         /// <summary>
@@ -149,14 +149,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// <param name="introduction"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static UploadForeverMediaFileResult UploadForeverVideo(string accessToken, string file, string title, string introduction, int timeOut = Config.TIME_OUT)
+        public static UploadForeverMediaResult UploadForeverVideo(string accessToken, string file, string title, string introduction, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("http://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken);
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = file;
             fileDictionary["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction);
 
-            return HttpUtility.Post.PostFileGetJson<UploadForeverMediaFileResult>(url, null, fileDictionary, null, timeOut: timeOut);
+            return HttpUtility.Post.PostFileGetJson<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
         }
 
         /// <summary>

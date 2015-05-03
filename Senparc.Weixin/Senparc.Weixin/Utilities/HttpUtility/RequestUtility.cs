@@ -131,7 +131,7 @@ namespace Senparc.Weixin.HttpUtility
                             if (fileStream != null)
                             {
                                 //存在文件
-                                formdata = string.Format(fileFormdataTemplate, file.Key, fileName /*Path.GetFileName(fileName)*/);
+                                formdata = string.Format(fileFormdataTemplate, file.Key, /*fileName*/ Path.GetFileName(fileName));
                             }
                             else
                             {

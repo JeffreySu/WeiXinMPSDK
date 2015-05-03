@@ -129,7 +129,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         public static UploadForeverMediaFileResult UploadForeverMedia(string accessToken, string file, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("http://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken);
+
+            //因为有文件上传，所以忽略dataDictionary，全部改用文件上传格式
+            //var dataDictionary = new Dictionary<string, string>();
+            //dataDictionary["type"] = UploadMediaFileType.image.ToString();
+
             var fileDictionary = new Dictionary<string, string>();
+            fileDictionary["type"] = UploadMediaFileType.image.ToString();
             fileDictionary["media"] = file;
             return HttpUtility.Post.PostFileGetJson<UploadForeverMediaFileResult>(url, null, fileDictionary, null, timeOut: timeOut);
         }

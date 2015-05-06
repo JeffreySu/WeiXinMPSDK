@@ -52,6 +52,7 @@ namespace Senparc.Weixin.MP.Test
 
                 Assert.AreEqual("新内容", responseDoc.Root.Element("Content").Value);
             }
+
             {
                 //News
                 var responseNews =

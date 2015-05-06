@@ -5,7 +5,7 @@
     文件功能描述：代公众号发起网页授权
     
     
-    创建标识：Senparc - 20150330
+    创建标识：Senparc - 20150430
 ----------------------------------------------------------------*/
 
 /*
@@ -16,8 +16,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.Open;
+using Senparc.Weixin.Open.CommonAPIs;
+using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.OAuthOpen

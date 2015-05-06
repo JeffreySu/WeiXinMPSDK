@@ -41,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonAPIs\CommonApi.cs" />
+    <Compile Include="CommonAPIs\CommonJsonSend.cs" />
+    <Compile Include="CommonAPIs\ComponentAccessTokenContainer.cs" />
+    <Compile Include="CommonAPIs\PreAuthCodeContainer.cs" />
+    <Compile Include="Entities\JsonResult\ComponentAccessTokenResult.cs" />
+    <Compile Include="Entities\JsonResult\PreAuthCodeResult.cs" />
     <Compile Include="Entities\Request\RequestMessageBase.cs" />
     <Compile Include="Entities\Request\RequestMessageUnauthorized.cs" />
     <Compile Include="Entities\Request\RequestMessageComponentVerifyTicket.cs" />
@@ -49,6 +55,11 @@
     <Compile Include="Helpers\InfoTypeHelper.cs" />
     <Compile Include="ThirdPartyMessageHandlers\ThirdPartyMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThirdPartyAPIs\OAuthJoin\OAuthJoinAPI.cs" />
+    <Compile Include="ThirdPartyAPIs\OAuthJoin\OAuthJoinJson\AuthorizerOptionResult.cs" />
+    <Compile Include="ThirdPartyAPIs\OAuthJoin\OAuthJoinJson\OAuthJoinResult.cs" />
+    <Compile Include="ThirdPartyAPIs\OAuthOpen\OAuthOpenAPI.cs" />
+    <Compile Include="ThirdPartyAPIs\OAuthOpen\OAuthOpenJson\OAuthOpenAccessTokenResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
@@ -56,6 +67,7 @@
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

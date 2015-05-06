@@ -109,6 +109,22 @@ namespace Senparc.Weixin.HttpUtility
             return result;
         }
 
+        /// <summary>
+        /// 使用Post方法上传数据并下载文件或结果
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <param name="stream"></param>
+        public static void Download(string url, string data, Stream stream)
+        {
+            WebClient wc = new WebClient();
+            var file = wc.UploadData(url, "POST", Encoding.UTF8.GetBytes(string.IsNullOrEmpty(data) ? "" : data));
+            foreach (var b in file)
+            {
+                stream.WriteByte(b);
+            }
+        }
+
         #endregion
 
         //#region 异步方法

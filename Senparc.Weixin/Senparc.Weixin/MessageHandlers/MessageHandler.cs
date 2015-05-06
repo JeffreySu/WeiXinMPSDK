@@ -140,8 +140,7 @@ namespace Senparc.Weixin.MessageHandlers
             {
                 if (_textResponseMessage == null)
                 {
-                    var reqponseMessageDocument = ResponseDocument;
-                    return reqponseMessageDocument == null ? null : reqponseMessageDocument.ToString();
+                    return ResponseDocument == null ? null : ResponseDocument.ToString();
                 }
                 else
                 {

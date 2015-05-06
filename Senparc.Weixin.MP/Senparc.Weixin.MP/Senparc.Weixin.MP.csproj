@@ -165,11 +165,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
-    <Compile Include="CommonAPIs\ComponentAccessTokenContainer.cs" />
-    <Compile Include="CommonAPIs\PreAuthCodeContainer.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
-    <Compile Include="Entities\JsonResult\ComponentAccessTokenResult.cs" />
-    <Compile Include="Entities\JsonResult\PreAuthCodeResult.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />
@@ -186,19 +182,11 @@
     <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
     <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
-    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfoBase.cs" />
-    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Component_Verify_Ticket.cs" />
-    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_AuthorizerAppId.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Helpers\EventHelper.cs" />
     <Compile Include="Helpers\MsgTypeHelper.cs" />
     <Compile Include="Helpers\JSSDKHelper.cs" />
     <Compile Include="Helpers\SHA1UtilHelper.cs" />
-    <Compile Include="ThirdParty\OAuthJoin\OAuthJoinAPI.cs" />
-    <Compile Include="ThirdParty\OAuthJoin\OAuthJoinJson\OAuthJoinResult.cs" />
-    <Compile Include="ThirdParty\OAuthJoin\OAuthJoinJson\AuthorizerOptionResult.cs" />
-    <Compile Include="ThirdParty\OAuthOpen\OAuthOpenJson\OAuthOpenAccessTokenResult.cs" />
-    <Compile Include="ThirdParty\OAuthOpen\OAuthOpenAPI.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
     <Compile Include="TenPayLibV3\RequestHandler.cs" />
@@ -371,7 +359,9 @@
   <ItemGroup>
     <Content Include="AdvancedAPIs\Card\readme.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="AdvancedAPIs\Shake\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

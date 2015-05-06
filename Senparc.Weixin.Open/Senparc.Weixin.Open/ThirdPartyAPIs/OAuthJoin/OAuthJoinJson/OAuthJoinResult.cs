@@ -5,16 +5,17 @@
     文件功能描述：使用授权码换取公众号的授权信息返回结果
     
     
-    创建标识：Senparc - 20150401
+    创建标识：Senparc - 20150430
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.Open.Entities;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.OAuthJoin
+namespace Senparc.Weixin.Open.OAuthJoin
 {
     /// <summary>
     /// 使用授权码换取公众号的授权信息返回结果

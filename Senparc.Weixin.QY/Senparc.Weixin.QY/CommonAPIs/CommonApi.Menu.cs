@@ -228,9 +228,65 @@ namespace Senparc.Weixin.QY.CommonAPIs
                                 type = rootButton.type
                             });
                         }
+                        else if (rootButton.type.Equals("LOCATION_SELECT", StringComparison.OrdinalIgnoreCase))
+                        {
+                            //弹出地理位置选择器
+                            bg.button.Add(new SingleLocationSelectButton()
+                            {
+                                name = rootButton.name,
+                                key = rootButton.key,
+                                type = rootButton.type
+                            });
+                        }
+                        else if (rootButton.type.Equals("PIC_PHOTO_OR_ALBUM", StringComparison.OrdinalIgnoreCase))
+                        {
+                            //弹出拍照或者相册发图
+                            bg.button.Add(new SinglePicPhotoOrAlbumButton()
+                            {
+                                name = rootButton.name,
+                                key = rootButton.key,
+                                type = rootButton.type
+                            });
+                        }
+                        else if (rootButton.type.Equals("PIC_SYSPHOTO", StringComparison.OrdinalIgnoreCase))
+                        {
+                            //弹出系统拍照发图
+                            bg.button.Add(new SinglePicSysphotoButton()
+                            {
+                                name = rootButton.name,
+                                key = rootButton.key,
+                                type = rootButton.type
+                            });
+                        }
+                        else if (rootButton.type.Equals("PIC_WEIXIN", StringComparison.OrdinalIgnoreCase))
+                        {
+                            //弹出微信相册发图器
+                            bg.button.Add(new SinglePicWeixinButton()
+                            {
+                                name = rootButton.name,
+                                key = rootButton.key,
+                                type = rootButton.type
+                            });
+                        }
+                        else if (rootButton.type.Equals("SCANCODE_PUSH", StringComparison.OrdinalIgnoreCase))
+                        {
+                            //扫码推事件
+                            bg.button.Add(new SingleScancodePushButton()
+                            {
+                                name = rootButton.name,
+                                key = rootButton.key,
+                                type = rootButton.type
+                            });
+                        }
                         else
                         {
-                            //未处理情况
+                            //扫码推事件且弹出“消息接收中”提示框
+                            bg.button.Add(new SingleScancodeWaitmsgButton()
+                            {
+                                name = rootButton.name,
+                                key = rootButton.key,
+                                type = rootButton.type
+                            });
                         }
                     }
                     else
@@ -273,9 +329,65 @@ namespace Senparc.Weixin.QY.CommonAPIs
                                     type = subSubButton.type
                                 });
                             }
+                            else if (subSubButton.type.Equals("LOCATION_SELECT", StringComparison.OrdinalIgnoreCase))
+                            {
+                                //弹出地理位置选择器
+                                subButton.sub_button.Add(new SingleLocationSelectButton()
+                                {
+                                    name = subSubButton.name,
+                                    key = subSubButton.key,
+                                    type = subSubButton.type
+                                });
+                            }
+                            else if (subSubButton.type.Equals("PIC_PHOTO_OR_ALBUM", StringComparison.OrdinalIgnoreCase))
+                            {
+                                //弹出拍照或者相册发图
+                                subButton.sub_button.Add(new SinglePicPhotoOrAlbumButton()
+                                {
+                                    name = subSubButton.name,
+                                    key = subSubButton.key,
+                                    type = subSubButton.type
+                                });
+                            }
+                            else if (subSubButton.type.Equals("PIC_SYSPHOTO", StringComparison.OrdinalIgnoreCase))
+                            {
+                                //弹出系统拍照发图
+                                subButton.sub_button.Add(new SinglePicSysphotoButton()
+                                {
+                                    name = subSubButton.name,
+                                    key = subSubButton.key,
+                                    type = subSubButton.type
+                                });
+                            }
+                            else if (subSubButton.type.Equals("PIC_WEIXIN", StringComparison.OrdinalIgnoreCase))
+                            {
+                                //弹出微信相册发图器
+                                subButton.sub_button.Add(new SinglePicWeixinButton()
+                                {
+                                    name = subSubButton.name,
+                                    key = subSubButton.key,
+                                    type = subSubButton.type
+                                });
+                            }
+                            else if (subSubButton.type.Equals("SCANCODE_PUSH", StringComparison.OrdinalIgnoreCase))
+                            {
+                                //扫码推事件
+                                subButton.sub_button.Add(new SingleScancodePushButton()
+                                {
+                                    name = subSubButton.name,
+                                    key = subSubButton.key,
+                                    type = subSubButton.type
+                                });
+                            }
                             else
                             {
-                                //未处理情况
+                                //扫码推事件且弹出“消息接收中”提示框
+                                subButton.sub_button.Add(new SingleScancodeWaitmsgButton()
+                                {
+                                    name = subSubButton.name,
+                                    key = subSubButton.key,
+                                    type = subSubButton.type
+                                });
                             }
                         }
                     }

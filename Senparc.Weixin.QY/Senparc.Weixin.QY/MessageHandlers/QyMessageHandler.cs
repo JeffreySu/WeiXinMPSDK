@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+    
+    修改标识：Senparc - 20150507
+    修改描述：添加 事件 异步任务完成事件推送
 ----------------------------------------------------------------*/
 
 using System;
@@ -436,6 +439,9 @@ namespace Senparc.Weixin.QY.MessageHandlers
                 case Event.ENTER_AGENT://用户进入应用的事件推送(enter_agent)
                     responseMessage = OnEvent_EnterAgentRequest(RequestMessage as RequestMessageEvent_Enter_Agent);
                     break;
+                case Event.BATCH_JOB_RESULT://异步任务完成事件推送(batch_job_result)
+                    responseMessage = OnEvent_BatchJobResultRequest(RequestMessage as RequestMessageEvent_Batch_Job_Result);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -548,6 +554,16 @@ namespace Senparc.Weixin.QY.MessageHandlers
         /// </summary>
         /// <returns></returns>
         public virtual IResponseMessageBase OnEvent_EnterAgentRequest(RequestMessageEvent_Enter_Agent requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 异步任务完成事件推送(batch_job_result)
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_BatchJobResultRequest(RequestMessageEvent_Batch_Job_Result requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

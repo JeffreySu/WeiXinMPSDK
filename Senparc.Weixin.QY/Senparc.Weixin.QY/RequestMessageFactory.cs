@@ -103,6 +103,9 @@ namespace Senparc.Weixin.QY
                                 case "ENTER_AGENT"://用户进入应用的事件推送（enter_agent）
                                     requestMessage = new RequestMessageEvent_Enter_Agent();
                                     break;
+                                case "BATCH_JOB_RESULT"://异步任务完成事件推送
+                                    requestMessage = new RequestMessageEvent_Batch_Job_Result();
+                                    break;
                                 default://其他意外类型（也可以选择抛出异常）
                                     requestMessage = new RequestMessageEventBase();
                                     break;

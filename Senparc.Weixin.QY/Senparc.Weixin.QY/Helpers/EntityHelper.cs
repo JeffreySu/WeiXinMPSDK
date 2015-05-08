@@ -85,6 +85,9 @@ namespace Senparc.Weixin.QY.Helpers
 							//已设为只读
 							//prop.SetValue(entity, EventHelper.GetEventType(root.Element(propName).Value), null);
 							break;
+                        case "JobType":
+                            prop.SetValue(entity, MsgTypeHelper.GetJobType(root.Element(propName).Value), null);
+                            break;
 						//以下为实体类型
 						case "List`1"://List<T>类型，ResponseMessageNews适用
 							var genericArguments = prop.PropertyType.GetGenericArguments();
@@ -154,6 +157,11 @@ namespace Senparc.Weixin.QY.Helpers
                             SendPicsInfo sendPicsInfo = new SendPicsInfo();
                             FillEntityWithXml(sendPicsInfo, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, sendPicsInfo, null);
+                            break;
+                        case "BatchJob"://异步任务完成事件推送
+                            BatchJob batchJob = new BatchJob();
+                            FillEntityWithXml(batchJob, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, batchJob, null);
                             break;
 						default:
 							prop.SetValue(entity, root.Element(propName).Value, null);

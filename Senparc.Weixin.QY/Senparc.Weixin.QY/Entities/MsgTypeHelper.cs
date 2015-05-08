@@ -39,6 +39,11 @@ namespace Senparc.Weixin.QY.Helpers
             return (RequestMsgType)Enum.Parse(typeof(RequestMsgType), str, true);
         }
 
+        public static JobType GetJobType(string str)
+        {
+            return (JobType)Enum.Parse(typeof(JobType), str, true);
+        }
+
         #endregion
 
         #region ThirdPartyInfo

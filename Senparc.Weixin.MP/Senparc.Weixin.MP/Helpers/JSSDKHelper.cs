@@ -13,53 +13,20 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Xml.Linq;
 using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.Helpers
 {
     public class JSSDKHelper
     {
-        public JSSDKHelper()
-        {
-            Parameters = new Hashtable();
-        }
-
-        protected Hashtable Parameters;
-
-        /// <summary>
-        /// 设置参数值
-        /// </summary>
-        /// <param name="parameter"></param>
-        /// <param name="parameterValue"></param>
-        private void SetParameter(string parameter, string parameterValue)
-        {
-            if (parameter != null && parameter != "")
-            {
-                if (Parameters.Contains(parameter))
-                {
-                    Parameters.Remove(parameter);
-                }
-
-                Parameters.Add(parameter, parameterValue);
-            }
-        }
-
-        private void ClearParameter()
-        {
-            Parameters.Clear();
-        }
-
         /// <summary>
         /// 获取随机字符串
         /// </summary>
         /// <returns></returns>
         public static string GetNoncestr()
         {
-            Random random = new Random();
+            var random = new Random();
             return MD5UtilHelper.GetMD5(random.Next(1000).ToString(), "GBK");
         }
 
@@ -69,7 +36,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <returns></returns>
         public static string GetTimestamp()
         {
-            TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            var ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return Convert.ToInt64(ts.TotalSeconds).ToString();
         }
 
@@ -77,23 +44,26 @@ namespace Senparc.Weixin.MP.Helpers
         /// sha1加密
         /// </summary>
         /// <returns></returns>
-        private string CreateSha1()
+        private static string CreateSha1(Hashtable parameters)
         {
-            StringBuilder sb = new StringBuilder();
-            ArrayList akeys = new ArrayList(Parameters.Keys);
+            var sb = new StringBuilder();
+            var akeys = new ArrayList(parameters.Keys);
             akeys.Sort();
 
-            foreach (string k in akeys)
+            foreach (var k in akeys)
             {
-                string v = (string)Parameters[k];
+                if (parameters[k] != null)
+                {
+                    var v = (string)parameters[k];
 
-                if (sb.Length == 0)
-                {
-                    sb.Append(k + "=" + v);
-                }
-                else
-                {
-                    sb.Append("&" + k + "=" + v);
+                    if (sb.Length == 0)
+                    {
+                        sb.Append(k + "=" + v);
+                    }
+                    else
+                    {
+                        sb.Append("&" + k + "=" + v);
+                    }
                 }
             }
             return SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
@@ -103,17 +73,19 @@ namespace Senparc.Weixin.MP.Helpers
         /// 生成cardSign的加密方法
         /// </summary>
         /// <returns></returns>
-        private string CreateCardSha1()
+        private static string CreateCardSha1(Hashtable parameters)
         {
-            StringBuilder sb = new StringBuilder();
-            ArrayList akeys = new ArrayList(Parameters.Keys);
+            var sb = new StringBuilder();
+            var akeys = new ArrayList(parameters.Keys);
             akeys.Sort();
 
-            foreach (string k in akeys)
+            foreach (var k in akeys)
             {
-                string v = (string)Parameters[k];
-
-                sb.Append(v);
+                if (parameters[k] != null)
+                {
+                    var v = (string)parameters[k];
+                    sb.Append(v);
+                }
             }
             return SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
         }
@@ -126,17 +98,14 @@ namespace Senparc.Weixin.MP.Helpers
         /// <param name="timestamp"></param>
         /// <param name="url"></param>
         /// <returns></returns>
-        public string GetSignature(string ticket, string noncestr, string timestamp, string url)
+        public static string GetSignature(string ticket, string noncestr, string timestamp, string url)
         {
-            //清空Parameters
-            ClearParameter();
-
-            SetParameter("jsapi_ticket", ticket);
-            SetParameter("noncestr", noncestr);
-            SetParameter("timestamp", timestamp);
-            SetParameter("url", url);
-
-            return CreateSha1();
+            var parameters = new Hashtable();
+            parameters.Add("jsapi_ticket", ticket);
+            parameters.Add("noncestr", noncestr);
+            parameters.Add("timestamp", timestamp);
+            parameters.Add("url", url);
+            return CreateSha1(parameters);
         }
 
         /// <summary>
@@ -150,17 +119,14 @@ namespace Senparc.Weixin.MP.Helpers
         /// <returns></returns>
         public string GetAddrSign(string appId, string appSecret, string noncestr, string timestamp, string url)
         {
-            //清空Parameters
-            ClearParameter();
-
             var accessToken = AccessTokenContainer.TryGetToken(appId, appSecret);
-            SetParameter("appId", appId);
-            SetParameter("noncestr", noncestr);
-            SetParameter("timestamp", timestamp);
-            SetParameter("url", url);
-            SetParameter("accesstoken", accessToken);
-
-            return CreateSha1();
+            var parameters = new Hashtable();
+            parameters.Add("appId", appId);
+            parameters.Add("noncestr", noncestr);
+            parameters.Add("timestamp", timestamp);
+            parameters.Add("url", url);
+            parameters.Add("accesstoken", accessToken);
+            return CreateSha1(parameters);
         }
 
         /// <summary>
@@ -176,18 +142,15 @@ namespace Senparc.Weixin.MP.Helpers
         /// <returns></returns>
         public string GetCardSign(string appId, string appSecret, string locationId, string noncestr, string timestamp, string cardId, string cardType)
         {
-            //清空Parameters
-            ClearParameter();
-
-            SetParameter("appId", appId);
-            SetParameter("appsecret", appSecret);
-            SetParameter("location_id", locationId);
-            SetParameter("nonce_str", noncestr);
-            SetParameter("times_tamp", timestamp);
-            SetParameter("card_id", cardId);
-            SetParameter("card_type", cardType);
-
-            return CreateCardSha1();
+            var parameters = new Hashtable();
+            parameters.Add("appId", appId);
+            parameters.Add("appsecret", appSecret);
+            parameters.Add("location_id", locationId);
+            parameters.Add("nonce_str", noncestr);
+            parameters.Add("times_tamp", timestamp);
+            parameters.Add("card_id", cardId);
+            parameters.Add("card_type", cardType);
+            return CreateCardSha1(parameters);
         }
     }
 }

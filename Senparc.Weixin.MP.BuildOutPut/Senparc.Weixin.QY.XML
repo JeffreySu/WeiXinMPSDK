@@ -1883,6 +1883,21 @@
             事件KEY值，与自定义菜单接口中KEY值对应
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_Batch_Job_Result">
+            <summary>
+            异步任务完成事件推送(batch_job_result)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Batch_Job_Result.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Batch_Job_Result.BatchJob">
+            <summary>
+            异步任务完成事件推送BatchJob
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_Location_Select">
             <summary>
             事件之弹出地理位置选择器（location_select）
@@ -2113,6 +2128,35 @@
             图片的MD5值，开发者若需要，可用于验证接收到图片
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.QY.Entities.BatchJobInfo">
+            <summary>
+            异步任务完成事件推送的BatchJob
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.BatchJobInfo.JobId">
+            <summary>
+            异步任务id，最大长度为64字符
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.BatchJobInfo.JobType">
+            <summary>
+            操作类型，字符串，目前分别有：
+            1. sync_user(增量更新成员)
+            2. replace_user(全量覆盖成员)
+            3. invite_user(邀请成员关注)
+            4. replace_party(全量覆盖部门)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.BatchJobInfo.ErrCode">
+            <summary>
+            返回码
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.BatchJobInfo.ErrMsg">
+            <summary>
+            对返回码的文本描述内容
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.QY.Entities.RequestMessageEvent_Enter_Agent">
             <summary>
             用户进入应用的事件推送(enter_agent)
@@ -2334,6 +2378,11 @@
         <member name="F:Senparc.Weixin.QY.Event.ENTER_AGENT">
             <summary>
             用户进入应用的事件推送
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.Event.BATCH_JOB_RESULT">
+            <summary>
+            异步任务完成事件推送
             </summary>
         </member>
         <member name="F:Senparc.Weixin.QY.ThirdPartyInfo.SUITE_TICKET">
@@ -2664,6 +2713,13 @@
             <summary>
             用户进入应用的事件推送(enter_agent)
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEvent_BatchJobResultRequest(Senparc.Weixin.QY.Entities.RequestMessageEvent_Batch_Job_Result)">
+            <summary>
+            异步任务完成事件推送(batch_job_result)
+            </summary>
+            <param name="requestMessage"></param>
             <returns></returns>
         </member>
         <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.WeixinContext">

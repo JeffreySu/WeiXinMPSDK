@@ -169,6 +169,11 @@ namespace Senparc.Weixin.MP
         /// 多客服转接会话
         /// </summary>
         kf_switch_session,
+
+        /// <summary>
+        /// 审核结果事件推送
+        /// </summary>
+        poi_check_notify,
     }
 
 

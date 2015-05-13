@@ -853,7 +853,7 @@
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.UpdateMeetingTicket(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
-            
+            更新会议门票接口
             </summary>
             <param name="accessToken"></param>
             <param name="code">用户的门票唯一序列号</param>
@@ -862,34 +862,6 @@
             <param name="entrance">入口</param>
             <param name="seatNumber">座位号</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.StoreBatchAdd(System.String,Senparc.Weixin.MP.AdvancedAPIs.Card.StoreLocationData,System.Int32)">
-            <summary>
-            批量导入门店信息
-            </summary>
-            <param name="accessToken"></param>
-            <param name="data">门店数据</param>
-            <param name="timeOut">代理请求超时时间（毫秒）</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.BatchGet(System.String,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            拉取门店列表
-            </summary>
-            <param name="accessToken"></param>
-            <param name="offset">偏移量，0 开始</param>
-            <param name="count">拉取数量</param>
-            <param name="timeOut">代理请求超时时间（毫秒）</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.UploadLogo(System.String,System.String,System.Int32)">
-            <summary>
-            上传LOGO
-            </summary>
-            <param name="accessToken"></param>
-            <param name="file">文件路径</param>
-            <param name="timeOut"></param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.CardCreateInfo">
@@ -1956,125 +1928,6 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfo_Sku.quantity">
             <summary>
             上架的数量。（不支持填写0或无限大）
-            必填
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.StoreResultJson">
-            <summary>
-            批量导入门店数据返回结果
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.StoreResultJson.location_id">
-            <summary>
-            门店ID。插入失败的门店返回数值“-1”，请核查必填字段后单独调用接口导入。
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.StoreGetResultJson">
-            <summary>
-            拉取门店列表返回结果
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.StoreGetResultJson.count">
-            <summary>
-            拉取门店数量
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.SingleStoreResult">
-            <summary>
-            单条门店返回结果
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SingleStoreResult.location_id">
-            <summary>
-            门店ID
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SingleStoreResult.name">
-            <summary>
-            门店名称
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SingleStoreResult.phone">
-            <summary>
-            联系电话
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SingleStoreResult.address">
-            <summary>
-            详细地址
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SingleStoreResult.longitude">
-            <summary>
-            经度
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SingleStoreResult.latitude">
-            <summary>
-            纬度
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.StoreLocationData.location_list">
-            <summary>
-            门店地址信息
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location">
-            <summary>
-            单条门店地址信息
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.business_name">
-            <summary>
-            门店名称
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.province">
-            <summary>
-            门店所在的省
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.city">
-            <summary>
-            门店所在的市
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.district">
-            <summary>
-            门店所在的区
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.address">
-            <summary>
-            门店所在的详细街道地址
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.telephone">
-            <summary>
-            门店的电话
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.category">
-            <summary>
-            门店的类型（酒店、餐饮、购物...）
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.longitude">
-            <summary>
-            门店所在地理位置的经度（建议使用腾讯地图定位经纬度）
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.latitude">
-            <summary>
-            门店所在地理位置的纬度
             必填
             </summary>
         </member>

@@ -120,7 +120,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <param name="timestamp"></param>
         /// <param name="url"></param>
         /// <returns></returns>
-        public string GetAddrSign(string appId, string appSecret, string noncestr, string timestamp, string url)
+        public static string GetAddrSign(string appId, string appSecret, string noncestr, string timestamp, string url)
         {
             var accessToken = AccessTokenContainer.TryGetToken(appId, appSecret);
             var parameters = new Hashtable();
@@ -143,7 +143,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <param name="cardId"></param>
         /// <param name="cardType"></param>
         /// <returns></returns>
-        public string GetCardSign(string appId, string appSecret, string locationId, string noncestr, string timestamp, string cardId, string cardType)
+        public static string GetCardSign(string appId, string appSecret, string locationId, string noncestr, string timestamp, string cardId, string cardType)
         {
             var parameters = new Hashtable();
             parameters.Add("appId", appId);

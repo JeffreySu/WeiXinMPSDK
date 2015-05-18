@@ -543,6 +543,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.kf_switch_session://多客服转接会话
                     responseMessage = OnEvent_Kf_Switch_SessionRequest(RequestMessage as RequestMessageEvent_Kf_Switch_Session);
                     break;
+                case Event.poi_check_notify://审核结果事件推送
+                    responseMessage = OnEvent_Poi_Check_NotifyRequest(RequestMessage as RequestMessageEvent_Poi_Check_Notify);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -740,6 +743,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <returns></returns>
         public virtual IResponseMessageBase OnEvent_Kf_Switch_SessionRequest(RequestMessageEvent_Kf_Switch_Session requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// Event事件类型请求之审核结果事件推送
+        /// </summary>
+        private IResponseMessageBase OnEvent_Poi_Check_NotifyRequest(RequestMessageEvent_Poi_Check_Notify requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

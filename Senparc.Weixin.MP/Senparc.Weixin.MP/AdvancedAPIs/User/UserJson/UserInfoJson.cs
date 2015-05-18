@@ -14,7 +14,10 @@
     修改描述：添加remark属性
 
     修改标识：Senparc - 20150321
-    修改描述：添加unionid属性
+    修改描述：添加unionid属性 
+
+    修改标识：jsionr - 20150513
+    修改描述：增加个人分组信息 
 ----------------------------------------------------------------*/
 
 using System;
@@ -41,5 +44,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
         public long subscribe_time { get; set; }
         public string unionid { get; set; }
         public string remark { get; set; }
+        public int groupid { get; set; }
     }
 }

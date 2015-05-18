@@ -18,6 +18,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.Web.Script.Serialization;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
@@ -26,7 +29,19 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// </summary>
     public class CardCreateInfo_Card
     {
-        public CardType card_type { get; set; }
+        //Modi by fastdevelop 2015.5.17
+        //WeiXin接口定义的是枚举的名称，而不是值，所以只好通过别名域来转换
+        [ScriptIgnore]
+        public CardType cardtype { get; set; }
+
+        [DataMember(Name = "card_type")]
+        public string card_type
+        {
+            get
+            {
+                return cardtype.ToString();
+            }
+        }
     }
 
 
@@ -131,6 +146,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 卡类型（不在Json数据中）
         /// </summary>
+        [ScriptIgnore]
         public CardType CardType { get; set; }
 
         public BaseCardInfo(CardType cardType)

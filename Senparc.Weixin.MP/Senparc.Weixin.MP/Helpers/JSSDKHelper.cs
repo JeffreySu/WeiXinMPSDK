@@ -118,6 +118,7 @@ namespace Senparc.Weixin.MP.Helpers
             return SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
         }
 
+
         /// <summary>
         /// 获取JS-SDK权限验证的签名Signature
         /// </summary>
@@ -188,6 +189,39 @@ namespace Senparc.Weixin.MP.Helpers
             SetParameter("card_type", cardType);
 
             return CreateCardSha1();
+        }
+
+        //add by fastdevelop,2015.5.18
+        //按值排序
+        private string CreateCardSha2()
+        {
+            StringBuilder sb = new StringBuilder();
+            ArrayList aValues = new ArrayList(Parameters.Values);
+            aValues.Sort();
+
+            foreach (string k in aValues)
+            {
+                string v = k;// (string)Parameters[k];
+
+                sb.Append(v);
+            }
+            return SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
+        }
+
+        //add by fastdevelop,2015.5.18
+        //add card签名
+        public string GetCardSign(string api_ticket, string timestamp, string card_id, string code, string openid, string balance)
+        {
+            ClearParameter();
+
+            SetParameter("api_ticket", api_ticket);
+            SetParameter("times_tamp", timestamp);
+            SetParameter("card_id", card_id);
+            SetParameter("code", code);
+            SetParameter("openid", openid);
+            SetParameter("balance", balance);
+
+            return CreateCardSha2();
         }
     }
 }

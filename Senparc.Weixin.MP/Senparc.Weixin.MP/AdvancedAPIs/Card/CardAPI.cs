@@ -59,7 +59,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                     {
                         card = new Card_GeneralCoupon()
                         {
-                            card_type = cardType,
+                            cardtype = cardType,
                             general_coupon = cardInfo as Card_GeneralCouponData
                         }
                     };
@@ -69,7 +69,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                     {
                         card = new Card_Groupon()
                         {
-                            card_type = cardType,
+                            cardtype = cardType,
                             groupon = cardInfo as Card_GrouponData
                         }
                     };
@@ -79,7 +79,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                     {
                         card = new Card_Gift()
                         {
-                            card_type = cardType,
+                            cardtype = cardType,
                             gift = cardInfo as Card_GiftData
                         }
                     };
@@ -89,7 +89,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                     {
                         card = new Card_Cash()
                         {
-                            card_type = cardType,
+                            cardtype = cardType,
                             cash = cardInfo as Card_CashData
                         }
                     };
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                     {
                         card = new Card_DisCount()
                         {
-                            card_type = cardType,
+                            cardtype = cardType,
                             discount = cardInfo as Card_DisCountData
                         }
                     };
@@ -109,7 +109,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                     {
                         card = new Card_MemberCard()
                         {
-                            card_type = cardType,
+                            cardtype = cardType,
                             member_card = cardInfo as Card_MemberCardData
                         }
                     };
@@ -119,7 +119,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                     {
                         card = new Card_ScenicTicket()
                         {
-                            card_type = cardType,
+                            cardtype = cardType,
                             scenic_ticket = cardInfo as Card_ScenicTicketData
                         }
                     };
@@ -129,7 +129,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                     {
                         card = new Card_MovieTicket()
                         {
-                            card_type = cardType,
+                            cardtype = cardType,
 
                             movie_ticket = cardInfo as Card_MovieTicketData
                         }
@@ -140,7 +140,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                     {
                         card = new Card_BoardingPass()
                         {
-                            card_type = cardType,
+                            cardtype = cardType,
                             boarding_pass = cardInfo as Card_BoardingPassData
                         }
                     };
@@ -150,7 +150,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                     {
                         card = new Card_LuckyMoney()
                         {
-                            card_type = cardType,
+                            cardtype = cardType,
                             lucky_money = cardInfo as Card_LuckyMoneyData
                         }
                     };
@@ -160,7 +160,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
                     {
                         card = new Card_MeetingTicket()
                         {
-                            card_type = cardType,
+                            cardtype = cardType,
                             meeting_ticket = cardInfo as Card_MeetingTicketData
                         }
                     };

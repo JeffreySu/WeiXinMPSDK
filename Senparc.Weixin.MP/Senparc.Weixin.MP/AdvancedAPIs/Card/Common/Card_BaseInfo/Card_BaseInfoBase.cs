@@ -15,6 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.Web.Script.Serialization;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
@@ -32,7 +35,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// code 码展示类型
         /// 必填
         /// </summary>
-        public Card_CodeType code_type { get; set; }
+        //Modi by fastdevelop 2015.5.17
+        //WeiXin接口定义的是枚举的名称，而不是值，所以只好通过别名域来转换
+        [ScriptIgnore]
+        public Card_CodeType codetype { get; set; }
+
+        [DataMember(Name = "code_type")]
+        public string code_type { get { return codetype.ToString(); } }
         /// <summary>
         /// 商户名字,字数上限为12 个汉字。（填写直接提供服务的商户名， 第三方商户名填写在source 字段）
         /// 必填

@@ -77,6 +77,7 @@
     <Compile Include="AdvancedAPIs\OAuth\OAuthTest.cs" />
     <Compile Include="AdvancedAPIs\Poi\PoiTest.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticTest.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundTest.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateTest.cs" />
     <Compile Include="CommonAPIs\JsApiTicketContainerTest.cs" />
     <Compile Include="Entities\Request\PostModelTest.cs" />

@@ -33,10 +33,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         /// <param name="quantity">申请的设备ID的数量，单次新增设备超过500个，需走人工审核流程</param>
         /// <param name="applyReason">申请理由，不超过100个字</param>
         /// <param name="comment">备注，不超过15个汉字或30个英文字母</param>
-        /// <param name="poiId"></param>
+        /// <param name="poiId">设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static DeviceApplyResultJson DeviceApply(string accessToken, int quantity, string applyReason, string comment, long poiId, int timeOut = Config.TIME_OUT)
+        public static DeviceApplyResultJson DeviceApply(string accessToken, int quantity, string applyReason, string comment = null, long? poiId = null, int timeOut = Config.TIME_OUT)
         {
             string url = string.Format("https://api.weixin.qq.com/shakearound/device/applyid?access_token={0}", accessToken);
 

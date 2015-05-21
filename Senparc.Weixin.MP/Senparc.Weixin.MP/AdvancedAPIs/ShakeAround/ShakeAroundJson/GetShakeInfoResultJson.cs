@@ -56,6 +56,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         public double distance { get; set; }
         public long major { get; set; }
         public long minor { get; set; }
-        public long uuid { get; set; }
+        public string uuid { get; set; }
     }
 }

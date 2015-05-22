@@ -109,7 +109,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
         /// <returns></returns>
         public static GetStoreListResultJson GetPoiList(string accessToken, int begin, int limit = 20, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi /getpoilist?access_token={0}", accessToken);
+            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getpoilist?access_token={0}", accessToken);
 
             var data = new
             {

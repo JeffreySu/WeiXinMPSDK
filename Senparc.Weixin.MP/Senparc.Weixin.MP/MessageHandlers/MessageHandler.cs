@@ -534,6 +534,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.user_del_card://删除卡券
                     responseMessage = OnEvent_User_Del_CardRequest(RequestMessage as RequestMessageEvent_User_Del_Card);
                     break;
+                case Event.user_consume_card://核销卡券
+                    responseMessage = OnEvent_User_Consume_CardRequest(RequestMessage as RequestMessageEvent_User_Consume_Card);
+                    break;
                 case Event.kf_create_session://多客服接入会话
                     responseMessage = OnEvent_Kf_Create_SessionRequest(RequestMessage as RequestMessageEvent_Kf_Create_Session);
                     break;
@@ -716,6 +719,15 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         /// <returns></returns>
         public virtual IResponseMessageBase OnEvent_User_Del_CardRequest(RequestMessageEvent_User_Del_Card requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 核销卡券
+        /// </summary>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_User_Consume_CardRequest(RequestMessageEvent_User_Consume_Card requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

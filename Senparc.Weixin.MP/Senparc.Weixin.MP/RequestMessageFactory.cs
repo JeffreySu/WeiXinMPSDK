@@ -140,6 +140,9 @@ namespace Senparc.Weixin.MP
                             case "USER_DEL_CARD"://删除卡券
                                 requestMessage = new RequestMessageEvent_User_Del_Card();
                                 break;
+                            case "USER_CONSUME_CARD"://核销卡券
+                                requestMessage = new RequestMessageEvent_User_Consume_Card();
+                                break;
                             case "KF_CREATE_SESSION"://多客服接入会话
                                 requestMessage = new RequestMessageEvent_Kf_Create_Session();
                                 break;

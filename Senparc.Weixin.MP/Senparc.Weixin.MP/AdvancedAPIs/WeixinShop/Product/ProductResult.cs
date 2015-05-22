@@ -19,6 +19,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class GetProductResult : WxJsonResult
     {
+        public Product_Info product_info { get; set; }
+
         public class Product_Info
         {
             public string product_id { get; set; }//商品id
@@ -103,6 +105,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class GetByStatusResult : WxJsonResult
     {
+        public Products_Info products_info { get; set; }
+
         public class Products_Info
         {
             public List<Product_Info> Products_InfoList { get; set; }
@@ -192,6 +196,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class GetSubResult : WxJsonResult
     {
+        public Cate_List cate_list { get; set; }
+
         public class Cate_List
         {
             public List<Cate> CateList { get; set; }//子分类列表
@@ -209,6 +215,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class GetSkuResult : WxJsonResult
     {
+        public Sku_List sku_table { get; set; }
+
         public class Sku_List
         {
             public List<Sku> SkuList { get; set; }//sku列表
@@ -233,6 +241,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class GetPropertyResult : WxJsonResult
     {
+        public Properties properties { get; set; }
+
         public class Properties
         {
             public List<Property> PropertyList { get; set; }//属性列表

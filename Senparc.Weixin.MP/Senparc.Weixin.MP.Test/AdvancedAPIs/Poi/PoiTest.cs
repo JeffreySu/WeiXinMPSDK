@@ -22,7 +22,18 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             var result = PoiApi.UploadImage(accessToken, file);
             Assert.IsNotNull(result);
-            Assert.AreEqual(result.errcode, (int)ReturnCode.请求成功);
+            Assert.AreEqual(result.errcode, ReturnCode.请求成功);
+        }
+
+        [TestMethod]
+        public void GetPoiListTest()
+        {
+            var accessToken = AccessTokenContainer.GetToken(_appId);
+
+            var result = PoiApi.GetPoiList(accessToken, 0);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
     }
 }

@@ -4075,7 +4075,7 @@
             摇一摇周边接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.DeviceApply(System.String,System.Int32,System.String,System.String,System.Int64,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.DeviceApply(System.String,System.Int32,System.String,System.String,System.Nullable{System.Int64},System.Int32)">
             <summary>
             申请设备ID
             </summary>
@@ -4083,7 +4083,7 @@
             <param name="quantity">申请的设备ID的数量，单次新增设备超过500个，需走人工审核流程</param>
             <param name="applyReason">申请理由，不超过100个字</param>
             <param name="comment">备注，不超过15个汉字或30个英文字母</param>
-            <param name="poiId"></param>
+            <param name="poiId">设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。</param>
             <param name="timeOut"></param>
             <returns></returns>
         </member>
@@ -4506,6 +4506,286 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceSearch_Data_Devices.poi_id">
             <summary>
             设备关联的门店ID
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi">
+            <summary>
+            门店管理接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.UploadImage(System.String,System.String,System.Int32)">
+            <summary>
+            上传图片
+            </summary>
+            <param name="accessToken"></param>
+            <param name="file">文件路径</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.AddPoi(System.String,Senparc.Weixin.MP.AdvancedAPIs.Poi.CreateStoreData,System.Int32)">
+            <summary>
+            创建门店
+            </summary>
+            <param name="accessToken"></param>
+            <param name="createStoreData"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.GetPoi(System.String,System.String,System.Int32)">
+            <summary>
+            查询门店信息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="poiId"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.GetPoiList(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            查询门店列表
+            </summary>
+            <param name="accessToken"></param>
+            <param name="begin">开始位置，0 即为从第一条开始查询</param>
+            <param name="limit">返回数据条数，最大允许50，默认为20</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.DeletePoi(System.String,System.String,System.Int32)">
+            <summary>
+            删除门店
+            </summary>
+            <param name="accessToken"></param>
+            <param name="poiId"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.UpdatePoi(System.String,Senparc.Weixin.MP.AdvancedAPIs.Poi.UpdateStoreData,System.Int32)">
+            <summary>
+            修改门店服务信息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="updateStoreData">修改门店服务信息需要Post的数据</param>
+            商户可以通过该接口，修改门店的服务信息，包括：图片列表、营业时间、推荐、特色服务、简介、人均价格、电话7 个字段。目前基础字段包括（名称、坐标、地址等不可修改）
+            若有填写内容则为覆盖更新，若无内容则视为不修改，维持原有内容。
+            photo_list 字段为全列表覆盖，若需要增加图片，需将之前图片同样放入list 中，在其后增加新增图片。如：已有A、B、C 三张图片，又要增加D、E 两张图，则需要调用该接口，photo_list 传入A、B、C、D、E 五张图片的链接。
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate">
+            <summary>
+            可以被修改的门店基础信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate.telephone">
+            <summary>
+            门店的电话
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate.photo_list">
+            <summary>
+            图片列表，url 形式，可以有多张图片，尺寸为640*340px。必须为上一接口生成的url
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate.recommend">
+            <summary>
+            推荐品，餐厅可为推荐菜；酒店为推荐套房；景点为推荐游玩景点等，针对自己行业的推荐内容
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate.special">
+            <summary>
+            特色服务，如免费wifi，免费停车，送货上门等商户能提供的特色功能或服务
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate.introduction">
+            <summary>
+            商户简介，主要介绍商户信息等
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate.open_time">
+            <summary>
+            营业时间，24 小时制表示，用“-”连接，如8:00-20:00
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate.avg_price">
+            <summary>
+            人均价格，大于0 的整
+            非必填
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo">
+            <summary>
+            门店基础信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.sid">
+            <summary>
+            商户自己的id，用于后续审核通过收到poi_id 的通知时，做对应关系。请商户自己保证唯一识别性
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.business_name">
+            <summary>
+            门店名称
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.branch_name">
+            <summary>
+            分店名称
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.province">
+            <summary>
+            门店所在的省
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.city">
+            <summary>
+            门店所在的市
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.district">
+            <summary>
+            门店所在的区
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.address">
+            <summary>
+            门店所在的详细街道地址
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.categories">
+            <summary>
+            门店的类型（酒店、餐饮、购物...）
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.offset_type">
+            <summary>
+            坐标类型，1 为火星坐标（目前只能选1）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.longitude">
+            <summary>
+            门店所在地理位置的经度（建议使用腾讯地图定位经纬度）
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.latitude">
+            <summary>
+            门店所在地理位置的纬度
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.Store_Photo.photo_url">
+            <summary>
+            图片Url
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.CreateStoreData">
+            <summary>
+            创建门店需要Post的数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.CreateStore_Business.base_info">
+            <summary>
+            门店信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.UpdateStoreData">
+            <summary>
+            修改门店服务信息需要Post的数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.UpdateStore_BaseInfo.poi_id">
+            <summary>
+            微信的门店ID，微信内门店唯一标示ID
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreResultJson">
+            <summary>
+            查询门店信息返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreResultJson.business">
+            <summary>
+            门店信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStore_Business.base_info">
+            <summary>
+            查询门店基础信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreBaseInfo">
+            <summary>
+            查询门店基础信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreBaseInfo.available_state">
+            <summary>
+            门店是否可用状态。1 表示系统错误、2 表示审核中、3 审核通过、4 审核驳回。当该字段为1、2、4 状态时，poi_id 为空
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreBaseInfo.update_status">
+            <summary>
+            扩展字段是否正在更新中。1 表示扩展字段正在更新中，尚未生效，不允许再次更新； 0 表示扩展字段没有在更新中或更新已生效，可以再次更新
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreListResultJson">
+            <summary>
+            查询门店列表返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreListResultJson.total_count">
+            <summary>
+            门店总数量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreList_BaseInfo.poi_id">
+            <summary>
+            审核通过才会返回此字段
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreList_BaseInfo.business_name">
+            <summary>
+            门店名称（仅为商户名，如：国美、麦当劳，不应包含地区、店号等信息，错误示例：北京国美）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreList_BaseInfo.branch_name">
+            <summary>
+            分店名称（不应包含地区信息、不应与门店名重复，错误示例：北京王府井店）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreList_BaseInfo.address">
+            <summary>
+            门店所在的详细街道地址（不要填写省市信息）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreList_BaseInfo.available_state">
+            <summary>
+            门店是否可用状态。1 表示系统错误、2 表示审核中、3 审核通过、4 审核驳回。当该字段为1、2、4 状态时，poi_id 为空
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.UploadImageResultJson">
+            <summary>
+            上传图片返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.UploadImageResultJson.url">
+            <summary>
+            上传成功后图片的链接
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.TemplateApi">
@@ -5029,11 +5309,9 @@
             仅支持微信iPhone5.4.1以上版本，和Android5.4以上版本的微信用户，旧版本微信用户点击后将没有回应，开发者也不能正常接收到事件推送。
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_TemplateSendJobFinish">
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify">
             <summary>
-            事件推送群发结果。
-            
-            由于群发任务提交后，群发任务可能在一定时间后才完成，因此，群发接口调用时，仅会给出群发任务是否提交成功的提示，若群发任务提交成功，则在群发任务结束时，会向开发者在公众平台填写的开发者URL（callback URL）推送事件。
+            事件之审核结果事件推送
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageBase">
@@ -5049,6 +5327,38 @@
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEventBase.Event">
             <summary>
             事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify.UniqId">
+            <summary>
+            商户自己内部ID，即字段中的sid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify.PoiId">
+            <summary>
+            微信的门店ID，微信内门店唯一标示ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify.Result">
+            <summary>
+            审核结果，成功succ 或失败fail
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify.Msg">
+            <summary>
+            成功的通知信息，或审核失败的驳回理由
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_TemplateSendJobFinish">
+            <summary>
+            事件推送群发结果。
+            
+            由于群发任务提交后，群发任务可能在一定时间后才完成，因此，群发接口调用时，仅会给出群发任务是否提交成功的提示，若群发任务提交成功，则在群发任务结束时，会向开发者在公众平台填写的开发者URL（callback URL）推送事件。
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_TemplateSendJobFinish.Status">
@@ -7332,6 +7642,11 @@
             多客服转接会话
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.MP.Event.poi_check_notify">
+            <summary>
+            审核结果事件推送
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.ResponseMsgType">
             <summary>
             发送消息类型
@@ -7897,6 +8212,11 @@
             多客服转接会话
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_Poi_Check_NotifyRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify)">
+            <summary>
+            Event事件类型请求之审核结果事件推送
+            </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.WeixinContext">
             <summary>

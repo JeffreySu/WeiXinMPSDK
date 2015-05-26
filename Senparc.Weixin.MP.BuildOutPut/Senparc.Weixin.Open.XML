@@ -254,6 +254,20 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.Open.MessageHandlers.ThirdPartyMessageHandler.OnComponentVerifyTicketRequest(Senparc.Weixin.Open.RequestMessageComponentVerifyTicket)">
+            <summary>
+            推送component_verify_ticket协议
+            </summary>
+            <param name="requestMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.MessageHandlers.ThirdPartyMessageHandler.OnUnauthorizedRequest(Senparc.Weixin.Open.RequestMessageUnauthorized)">
+            <summary>
+            推送取消授权通知
+            </summary>
+            <param name="requestMessage"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.Open.OAuthJoin.OAuthJoinAPI.GetJoinAuthorizeUrl(System.String,System.String,System.String)">
             <summary>
             获取授权地址

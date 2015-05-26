@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.MessageHandlers;
+using Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -28,7 +29,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult Notice()
         {
-            var messageHandler = new ThirdPartyMessageHandler(Request.InputStream);
+            var messageHandler = new CustomThirdPartyMessageHandler(Request.InputStream);
 
             return Content("success");
         }

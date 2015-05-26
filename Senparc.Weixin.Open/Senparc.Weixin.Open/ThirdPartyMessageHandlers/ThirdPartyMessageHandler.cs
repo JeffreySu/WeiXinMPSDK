@@ -10,7 +10,7 @@ using Senparc.Weixin.Open.Helpers;
 
 namespace Senparc.Weixin.Open.MessageHandlers
 {
-    public class ThirdPartyMessageHandler
+    public abstract class ThirdPartyMessageHandler
     {
         public XDocument RequestDocument { get; set; }
         public RequestMessageBase RequestMessage { get; set; }

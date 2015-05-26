@@ -18,6 +18,9 @@
 
     修改标识：jsionr - 20150513
     修改描述：增加个人分组信息 
+    
+    修改标识：Senparc - 20150526
+    修改描述：修改备注 
 ----------------------------------------------------------------*/
 
 using System;
@@ -32,6 +35,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
     /// </summary>
     public class UserInfoJson
     {
+        /// <summary>
+        /// 用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。
+        /// </summary>
         public int subscribe { get; set; }
         public string openid { get; set; }
         public string nickname { get; set; }

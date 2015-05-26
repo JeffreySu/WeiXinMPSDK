@@ -853,7 +853,7 @@
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.UpdateMeetingTicket(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
-            
+            更新会议门票接口
             </summary>
             <param name="accessToken"></param>
             <param name="code">用户的门票唯一序列号</param>
@@ -862,34 +862,6 @@
             <param name="entrance">入口</param>
             <param name="seatNumber">座位号</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.StoreBatchAdd(System.String,Senparc.Weixin.MP.AdvancedAPIs.Card.StoreLocationData,System.Int32)">
-            <summary>
-            批量导入门店信息
-            </summary>
-            <param name="accessToken"></param>
-            <param name="data">门店数据</param>
-            <param name="timeOut">代理请求超时时间（毫秒）</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.BatchGet(System.String,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            拉取门店列表
-            </summary>
-            <param name="accessToken"></param>
-            <param name="offset">偏移量，0 开始</param>
-            <param name="count">拉取数量</param>
-            <param name="timeOut">代理请求超时时间（毫秒）</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.UploadLogo(System.String,System.String,System.Int32)">
-            <summary>
-            上传LOGO
-            </summary>
-            <param name="accessToken"></param>
-            <param name="file">文件路径</param>
-            <param name="timeOut"></param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.CardCreateInfo">
@@ -1956,125 +1928,6 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfo_Sku.quantity">
             <summary>
             上架的数量。（不支持填写0或无限大）
-            必填
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.StoreResultJson">
-            <summary>
-            批量导入门店数据返回结果
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.StoreResultJson.location_id">
-            <summary>
-            门店ID。插入失败的门店返回数值“-1”，请核查必填字段后单独调用接口导入。
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.StoreGetResultJson">
-            <summary>
-            拉取门店列表返回结果
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.StoreGetResultJson.count">
-            <summary>
-            拉取门店数量
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.SingleStoreResult">
-            <summary>
-            单条门店返回结果
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SingleStoreResult.location_id">
-            <summary>
-            门店ID
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SingleStoreResult.name">
-            <summary>
-            门店名称
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SingleStoreResult.phone">
-            <summary>
-            联系电话
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SingleStoreResult.address">
-            <summary>
-            详细地址
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SingleStoreResult.longitude">
-            <summary>
-            经度
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SingleStoreResult.latitude">
-            <summary>
-            纬度
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.StoreLocationData.location_list">
-            <summary>
-            门店地址信息
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location">
-            <summary>
-            单条门店地址信息
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.business_name">
-            <summary>
-            门店名称
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.province">
-            <summary>
-            门店所在的省
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.city">
-            <summary>
-            门店所在的市
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.district">
-            <summary>
-            门店所在的区
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.address">
-            <summary>
-            门店所在的详细街道地址
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.telephone">
-            <summary>
-            门店的电话
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.category">
-            <summary>
-            门店的类型（酒店、餐饮、购物...）
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.longitude">
-            <summary>
-            门店所在地理位置的经度（建议使用腾讯地图定位经纬度）
-            必填
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Store_Location.latitude">
-            <summary>
-            门店所在地理位置的纬度
             必填
             </summary>
         </member>
@@ -4217,6 +4070,724 @@
             搜索引擎类型：google, baidu, sogou, 360, taobao,jingdong
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi">
+            <summary>
+            摇一摇周边接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.DeviceApply(System.String,System.Int32,System.String,System.String,System.Nullable{System.Int64},System.Int32)">
+            <summary>
+            申请设备ID
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="quantity">申请的设备ID的数量，单次新增设备超过500个，需走人工审核流程</param>
+            <param name="applyReason">申请理由，不超过100个字</param>
+            <param name="comment">备注，不超过15个汉字或30个英文字母</param>
+            <param name="poiId">设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.DeviceUpdate(System.String,System.Int64,System.Int64,System.String,System.Int64,System.String,System.Int32)">
+            <summary>
+            编辑设备信息
+            设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
+            UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息。
+            </summary>
+            <param name="accessToken"></param>
+            <param name="deviceId">设备编号</param>
+            <param name="uuId"></param>
+            <param name="major"></param>
+            <param name="minor"></param>
+            <param name="comment"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.DeviceBindLocatoin(System.String,System.Int64,System.Int64,System.String,System.Int64,System.Int64,System.Int32)">
+            <summary>
+            配置设备与门店的关联关系
+            设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
+            UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息。
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="deviceId">设备编号</param>
+            <param name="uuId"></param>
+            <param name="major"></param>
+            <param name="minor"></param>
+            <param name="poiId">Poi_id 的说明改为：设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.searchDeviceUrl">
+            <summary>
+            查询设备列表Api url
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.SearchDeviceById(System.String,System.Collections.Generic.List{Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data_Device_Identifiers},System.Int32)">
+            <summary>
+            根据指定的设备Id查询设备列表
+            </summary>
+            <param name="accessToken"></param>
+            <param name="deviceIdentifiers">设备Id列表</param>
+            设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
+            UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息。
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.SearchDeviceByRange(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            根据分页查询或者指定范围查询设备列表
+            </summary>
+            <param name="accessToken"></param>
+            <param name="begin"></param>
+            <param name="count"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.SearchDeviceByApplyId(System.String,System.Int64,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            根据批次ID查询设备列表
+            </summary>
+            <param name="accessToken"></param>
+            <param name="applyId"></param>
+            <param name="begin"></param>
+            <param name="count"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.UploadImage(System.String,System.String,System.Int32)">
+            <summary>
+            上传图片素材
+            上传在摇一摇页面展示的图片素材，素材保存在微信侧服务器上。 格式限定为：jpg,jpeg,png,gif，图片大小建议120px*120 px，限制不超过200 px *200 px，图片需为正方形。
+            </summary>
+            <param name="accessToken"></param>
+            <param name="file"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.AddPage(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            新增页面
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="title">在摇一摇页面展示的主标题，不超过6个字</param>
+            <param name="description">在摇一摇页面展示的副标题，不超过7个字</param>
+            <param name="pageUrl">点击页面跳转链接</param>
+            <param name="iconUrl">在摇一摇页面展示的图片。图片需先上传至微信侧服务器，用“素材管理-上传图片素材”接口上传图片，返回的图片URL再配置在此处</param>
+            <param name="comment">页面的备注信息，不超过15个字</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.UpdatePage(System.String,System.Int64,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            编辑页面信息
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="pageId">摇周边页面唯一ID</param>
+            <param name="title">在摇一摇页面展示的主标题，不超过6个字</param>
+            <param name="description">在摇一摇页面展示的副标题，不超过7个字</param>
+            <param name="pageUrl">点击页面跳转链接</param>
+            <param name="iconUrl">在摇一摇页面展示的图片。图片需先上传至微信侧服务器，用“素材管理-上传图片素材”接口上传图片，返回的图片URL再配置在此处</param>
+            <param name="comment">页面的备注信息，不超过15个字</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.SearchPagesByPageId(System.String,System.Int64[],System.Int32)">
+            <summary>
+            根据页面Id查询页面列表
+            </summary>
+            <param name="accessToken"></param>
+            <param name="pageIds">指定页面的Id数组</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.SearchPagesByRange(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            根据分页或者指定范围查询页面列表
+            </summary>
+            <param name="accessToken"></param>
+            <param name="begin"></param>
+            <param name="count"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.DeletePage(System.String,System.Int64[],System.Int32)">
+            <summary>
+            删除页面
+            </summary>
+            <param name="accessToken"></param>
+            <param name="pageIds">指定页面的Id数组</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.BindPage(System.String,Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data_Device_Identifiers,System.Int64[],Senparc.Weixin.MP.ShakeAroundBindType,Senparc.Weixin.MP.ShakeAroundAppendType,System.Int32)">
+            <summary>
+            配置设备与页面的关联关系
+            配置设备与页面的关联关系。支持建立或解除关联关系，也支持新增页面或覆盖页面等操作。配置完成后，在此设备的信号范围内，即可摇出关联的页面信息。若设备配置多个页面，则随机出现页面信息。一个设备最多可配置30个关联页面。
+            </summary>
+            <param name="accessToken"></param>
+            <param name="deviceIdentifier"></param>
+            设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
+            UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息
+            <param name="pageIds"></param>
+            <param name="bindType">关联操作标志位， 0为解除关联关系，1为建立关联关系</param>
+            <param name="appendType">新增操作标志位， 0为覆盖，1为新增</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.GetShakeInfo(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            获取摇周边的设备及用户信息
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="ticket">摇周边业务的ticket，可在摇到的URL中得到，ticket生效时间为30分钟，每一次摇都会重新生成新的ticket</param>
+            <param name="needPoi">是否需要返回门店poi_id，传1则返回，否则不返回</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.StatisticsByDevice(System.String,Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data_Device_Identifiers,System.Int64,System.Int64,System.Int32)">
+            <summary>
+            以设备为维度的数据统计接口
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="deviceIdentifier">指定页面的设备ID</param>
+            设备编号，若填了UUID、major、minor，即可不填设备编号，二者选其一
+            UUID、major、minor，三个信息需填写完成，若填了设备编辑，即可不填此信息，二者选其一
+            <param name="beginDate">起始日期时间戳，最长时间跨度为30天</param>
+            <param name="endDate">结束日期时间戳，最长时间跨度为30天</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.StatisticsByPage(System.String,System.Int64,System.Int64,System.Int64,System.Int32)">
+            <summary>
+            以页面为维度的数据统计接口
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="pageId">指定页面的设备ID</param>
+            <param name="beginDate">起始日期时间戳，最长时间跨度为30天</param>
+            <param name="endDate">结束日期时间戳，最长时间跨度为30天</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.BasePageResultJson">
+            <summary>
+            新增与编辑页面返回结果基类
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.BasePageResultJson.data">
+            <summary>
+            返回数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.BasePage_Data.page_id">
+            <summary>
+            页面id
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.AddPageResultJson">
+            <summary>
+            新增页面返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.UpdatePageResultJson">
+            <summary>
+            编辑页面返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.SearchPagesResultJson">
+            <summary>
+            查询页面列表返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.SearchPagesResultJson.data">
+            <summary>
+            查询页面列表返回数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.SearchPages_Data.pages">
+            <summary>
+            页面基本信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.SearchPages_Data.total_count">
+            <summary>
+            商户名下的页面总数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.SearchPages_Data_Page.comment">
+            <summary>
+            页面的备注信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.SearchPages_Data_Page.description">
+            <summary>
+            在摇一摇页面展示的副标题
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.SearchPages_Data_Page.icon_url">
+            <summary>
+            在摇一摇页面展示的图片
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.SearchPages_Data_Page.page_id">
+            <summary>
+            摇周边页面唯一ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.SearchPages_Data_Page.page_url">
+            <summary>
+            跳转链接
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.SearchPages_Data_Page.title">
+            <summary>
+            在摇一摇页面展示的主标题
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GetShakeInfoResultJson">
+            <summary>
+            获取摇周边的设备及用户信息返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GetShakeInfoResultJson.data">
+            <summary>
+            获取摇周边的设备及用户信息返回数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeInfo_Data.page_id">
+            <summary>
+            摇周边页面唯一ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeInfo_Data.beacon_info">
+            <summary>
+            设备信息，包括UUID、major、minor，以及距离
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeInfo_Data.openid">
+            <summary>
+            商户AppID下用户的唯一标识
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeInfo_Data.poi_id">
+            <summary>
+            门店ID，有的话则返回，反之不会在JSON格式内
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeInfo_Data_Beacon_Info.distance">
+            <summary>
+            Beacon信号与手机的距离，单位为米
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.StatisticsResultJson">
+            <summary>
+            数据统计返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.StatisticsResultJson.data">
+            <summary>
+            数据统计返回数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.Statistics_DataItem.click_pv">
+            <summary>
+            点击摇周边消息的次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.Statistics_DataItem.click_uv">
+            <summary>
+            点击摇周边消息的人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.Statistics_DataItem.ftime">
+            <summary>
+            当天0点对应的时间戳
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.Statistics_DataItem.shake_pv">
+            <summary>
+            摇周边的次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.Statistics_DataItem.shake_uv">
+            <summary>
+            摇周边的人数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.UploadImageResultJson">
+            <summary>
+            上传图片素材返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.UploadImageResultJson.data">
+            <summary>
+            申请设备ID返回数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.UploadImage_Data.pic_url">
+            <summary>
+            图片url地址，用在“新增页面”和“编辑页面”的“icon_url”字段
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApplyResultJson">
+            <summary>
+            申请设备ID返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApplyResultJson.data">
+            <summary>
+            申请设备ID返回数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data.apply_id">
+            <summary>
+            申请的批次ID，可用在“查询设备列表”接口按批次查询本次申请成功的设备ID。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data.device_identifiers">
+            <summary>
+            指定的设备ID列表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data.audit_status">
+            <summary>
+            审核状态。0：审核未通过、1：审核中、2：审核已通过；审核会在三个工作日内完成
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data.audit_comment">
+            <summary>
+            审核备注，包括审核不通过的原因
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data_Device_Identifiers.device_id">
+            <summary>
+            设备编号
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceSearchResultJson">
+            <summary>
+            查询设备列表返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceSearchResultJson.data">
+            <summary>
+            申请设备ID返回数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceSearch_Data.devices">
+            <summary>
+            指定的设备信息列表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceSearch_Data.total_count">
+            <summary>
+            商户名下的设备总量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceSearch_Data_Devices.comment">
+            <summary>
+            设备的备注信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceSearch_Data_Devices.device_id">
+            <summary>
+            设备编号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceSearch_Data_Devices.page_ids">
+            <summary>
+            与此设备关联的页面ID列表，用逗号隔开
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceSearch_Data_Devices.status">
+            <summary>
+            激活状态，0：未激活，1：已激活（但不活跃），2：活跃
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceSearch_Data_Devices.poi_id">
+            <summary>
+            设备关联的门店ID
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi">
+            <summary>
+            门店管理接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.UploadImage(System.String,System.String,System.Int32)">
+            <summary>
+            上传图片
+            </summary>
+            <param name="accessToken"></param>
+            <param name="file">文件路径</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.AddPoi(System.String,Senparc.Weixin.MP.AdvancedAPIs.Poi.CreateStoreData,System.Int32)">
+            <summary>
+            创建门店
+            </summary>
+            <param name="accessToken"></param>
+            <param name="createStoreData"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.GetPoi(System.String,System.String,System.Int32)">
+            <summary>
+            查询门店信息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="poiId"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.GetPoiList(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            查询门店列表
+            </summary>
+            <param name="accessToken"></param>
+            <param name="begin">开始位置，0 即为从第一条开始查询</param>
+            <param name="limit">返回数据条数，最大允许50，默认为20</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.DeletePoi(System.String,System.String,System.Int32)">
+            <summary>
+            删除门店
+            </summary>
+            <param name="accessToken"></param>
+            <param name="poiId"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.UpdatePoi(System.String,Senparc.Weixin.MP.AdvancedAPIs.Poi.UpdateStoreData,System.Int32)">
+            <summary>
+            修改门店服务信息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="updateStoreData">修改门店服务信息需要Post的数据</param>
+            商户可以通过该接口，修改门店的服务信息，包括：图片列表、营业时间、推荐、特色服务、简介、人均价格、电话7 个字段。目前基础字段包括（名称、坐标、地址等不可修改）
+            若有填写内容则为覆盖更新，若无内容则视为不修改，维持原有内容。
+            photo_list 字段为全列表覆盖，若需要增加图片，需将之前图片同样放入list 中，在其后增加新增图片。如：已有A、B、C 三张图片，又要增加D、E 两张图，则需要调用该接口，photo_list 传入A、B、C、D、E 五张图片的链接。
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate">
+            <summary>
+            可以被修改的门店基础信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate.telephone">
+            <summary>
+            门店的电话
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate.photo_list">
+            <summary>
+            图片列表，url 形式，可以有多张图片，尺寸为640*340px。必须为上一接口生成的url
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate.recommend">
+            <summary>
+            推荐品，餐厅可为推荐菜；酒店为推荐套房；景点为推荐游玩景点等，针对自己行业的推荐内容
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate.special">
+            <summary>
+            特色服务，如免费wifi，免费停车，送货上门等商户能提供的特色功能或服务
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate.introduction">
+            <summary>
+            商户简介，主要介绍商户信息等
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate.open_time">
+            <summary>
+            营业时间，24 小时制表示，用“-”连接，如8:00-20:00
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate.avg_price">
+            <summary>
+            人均价格，大于0 的整
+            非必填
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo">
+            <summary>
+            门店基础信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.sid">
+            <summary>
+            商户自己的id，用于后续审核通过收到poi_id 的通知时，做对应关系。请商户自己保证唯一识别性
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.business_name">
+            <summary>
+            门店名称
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.branch_name">
+            <summary>
+            分店名称
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.province">
+            <summary>
+            门店所在的省
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.city">
+            <summary>
+            门店所在的市
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.district">
+            <summary>
+            门店所在的区
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.address">
+            <summary>
+            门店所在的详细街道地址
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.categories">
+            <summary>
+            门店的类型（酒店、餐饮、购物...）
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.offset_type">
+            <summary>
+            坐标类型，1 为火星坐标（目前只能选1）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.longitude">
+            <summary>
+            门店所在地理位置的经度（建议使用腾讯地图定位经纬度）
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfo.latitude">
+            <summary>
+            门店所在地理位置的纬度
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.Store_Photo.photo_url">
+            <summary>
+            图片Url
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.CreateStoreData">
+            <summary>
+            创建门店需要Post的数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.CreateStore_Business.base_info">
+            <summary>
+            门店信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.UpdateStoreData">
+            <summary>
+            修改门店服务信息需要Post的数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.UpdateStore_BaseInfo.poi_id">
+            <summary>
+            微信的门店ID，微信内门店唯一标示ID
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreResultJson">
+            <summary>
+            查询门店信息返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreResultJson.business">
+            <summary>
+            门店信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStore_Business.base_info">
+            <summary>
+            查询门店基础信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreBaseInfo">
+            <summary>
+            查询门店基础信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreBaseInfo.available_state">
+            <summary>
+            门店是否可用状态。1 表示系统错误、2 表示审核中、3 审核通过、4 审核驳回。当该字段为1、2、4 状态时，poi_id 为空
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreBaseInfo.update_status">
+            <summary>
+            扩展字段是否正在更新中。1 表示扩展字段正在更新中，尚未生效，不允许再次更新； 0 表示扩展字段没有在更新中或更新已生效，可以再次更新
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreListResultJson">
+            <summary>
+            查询门店列表返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreListResultJson.total_count">
+            <summary>
+            门店总数量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreList_BaseInfo.poi_id">
+            <summary>
+            审核通过才会返回此字段
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreList_BaseInfo.business_name">
+            <summary>
+            门店名称（仅为商户名，如：国美、麦当劳，不应包含地区、店号等信息，错误示例：北京国美）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreList_BaseInfo.branch_name">
+            <summary>
+            分店名称（不应包含地区信息、不应与门店名重复，错误示例：北京王府井店）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreList_BaseInfo.address">
+            <summary>
+            门店所在的详细街道地址（不要填写省市信息）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreList_BaseInfo.available_state">
+            <summary>
+            门店是否可用状态。1 表示系统错误、2 表示审核中、3 审核通过、4 审核驳回。当该字段为1、2、4 状态时，poi_id 为空
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.UploadImageResultJson">
+            <summary>
+            上传图片返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.UploadImageResultJson.url">
+            <summary>
+            上传成功后图片的链接
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.TemplateApi">
             <summary>
             模板消息接口
@@ -4738,11 +5309,9 @@
             仅支持微信iPhone5.4.1以上版本，和Android5.4以上版本的微信用户，旧版本微信用户点击后将没有回应，开发者也不能正常接收到事件推送。
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_TemplateSendJobFinish">
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify">
             <summary>
-            事件推送群发结果。
-            
-            由于群发任务提交后，群发任务可能在一定时间后才完成，因此，群发接口调用时，仅会给出群发任务是否提交成功的提示，若群发任务提交成功，则在群发任务结束时，会向开发者在公众平台填写的开发者URL（callback URL）推送事件。
+            事件之审核结果事件推送
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageBase">
@@ -4758,6 +5327,38 @@
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEventBase.Event">
             <summary>
             事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify.UniqId">
+            <summary>
+            商户自己内部ID，即字段中的sid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify.PoiId">
+            <summary>
+            微信的门店ID，微信内门店唯一标示ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify.Result">
+            <summary>
+            审核结果，成功succ 或失败fail
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify.Msg">
+            <summary>
+            成功的通知信息，或审核失败的驳回理由
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_TemplateSendJobFinish">
+            <summary>
+            事件推送群发结果。
+            
+            由于群发任务提交后，群发任务可能在一定时间后才完成，因此，群发接口调用时，仅会给出群发任务是否提交成功的提示，若群发任务提交成功，则在群发任务结束时，会向开发者在公众平台填写的开发者URL（callback URL）推送事件。
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_TemplateSendJobFinish.Status">
@@ -7041,6 +7642,11 @@
             多客服转接会话
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.MP.Event.poi_check_notify">
+            <summary>
+            审核结果事件推送
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.ResponseMsgType">
             <summary>
             发送消息类型
@@ -7274,6 +7880,16 @@
         <member name="F:Senparc.Weixin.MP.OAuthScope.snsapi_userinfo">
             <summary>
             弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.ShakeAroundBindType">
+            <summary>
+            关联操作标志位， 0为解除关联关系，1为建立关联关系
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.ShakeAroundAppendType">
+            <summary>
+            新增操作标志位， 0为覆盖，1为新增
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Helpers.BaiduMapHelper">
@@ -7596,6 +8212,11 @@
             多客服转接会话
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_Poi_Check_NotifyRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify)">
+            <summary>
+            Event事件类型请求之审核结果事件推送
+            </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.WeixinContext">
             <summary>

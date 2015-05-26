@@ -27,6 +27,9 @@
 
     修改标识：Senparc - 20150331
     修改描述：应用授权作用域移至此处
+
+    修改标识：Senparc - 20150512
+    修改描述：添加摇一摇周边【关联操作标志位】、【新增操作标志位】枚举类型
 ----------------------------------------------------------------*/
 
 using System;
@@ -166,6 +169,11 @@ namespace Senparc.Weixin.MP
         /// 多客服转接会话
         /// </summary>
         kf_switch_session,
+
+        /// <summary>
+        /// 审核结果事件推送
+        /// </summary>
+        poi_check_notify,
     }
 
 
@@ -409,5 +417,23 @@ namespace Senparc.Weixin.MP
         /// 弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息
         /// </summary>
         snsapi_userinfo
+    }
+
+    /// <summary>
+    /// 关联操作标志位， 0为解除关联关系，1为建立关联关系
+    /// </summary>
+    public enum ShakeAroundBindType
+    {
+        解除关联关系 = 0,
+        建立关联关系 = 1
+    }
+
+    /// <summary>
+    /// 新增操作标志位， 0为覆盖，1为新增
+    /// </summary>
+    public enum ShakeAroundAppendType
+    {
+        覆盖 = 0,
+        新增 = 1
     }
 }

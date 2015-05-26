@@ -155,6 +155,11 @@ namespace Senparc.Weixin.QY.Helpers
                             FillEntityWithXml(sendPicsInfo, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, sendPicsInfo, null);
                             break;
+                        case "BatchJobInfo"://异步任务完成事件推送BatchJob
+                            BatchJobInfo batchJobInfo = new BatchJobInfo();
+                            FillEntityWithXml(batchJobInfo, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, batchJobInfo, null);
+                            break;
 						default:
 							prop.SetValue(entity, root.Element(propName).Value, null);
 							break;

@@ -1,7 +1,7 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2015 Senparc
     
-    文件名：CardAPI.cs
+    文件名：CardApi.cs
     文件功能描述：卡券高级功能API
     
     
@@ -14,6 +14,9 @@
  
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
+ 
+    修改标识：Senparc - 20150512
+    修改描述：门店接口过期处理
 ----------------------------------------------------------------*/
 
 /* 
@@ -629,7 +632,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         }
 
         /// <summary>
-        /// 
+        /// 更新会议门票接口
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="code">用户的门票唯一序列号</param>
@@ -654,55 +657,58 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 
             return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
         }
+        #region 门店接口已过期
 
-        /// <summary>
-        /// 批量导入门店信息
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="data">门店数据</param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <returns></returns>
-        public static StoreResultJson StoreBatchAdd(string accessToken, StoreLocationData data, int timeOut = Config.TIME_OUT)
-        {
-            var urlFormat = string.Format("https://api.weixin.qq.com/card/location/batchadd?access_token={0}", accessToken);
+        ///// <summary>
+        ///// 批量导入门店信息
+        ///// </summary>
+        ///// <param name="accessToken"></param>
+        ///// <param name="data">门店数据</param>
+        ///// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        ///// <returns></returns>
+        //public static StoreResultJson StoreBatchAdd(string accessToken, StoreLocationData data, int timeOut = Config.TIME_OUT)
+        //{
+        //    var urlFormat = string.Format("https://api.weixin.qq.com/card/location/batchadd?access_token={0}", accessToken);
 
-            return CommonJsonSend.Send<StoreResultJson>(null, urlFormat, data, timeOut: timeOut);
-        }
+        //    return CommonJsonSend.Send<StoreResultJson>(null, urlFormat, data, timeOut: timeOut);
+        //}
 
-        /// <summary>
-        /// 拉取门店列表
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="offset">偏移量，0 开始</param>
-        /// <param name="count">拉取数量</param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <returns></returns>
-        public static StoreGetResultJson BatchGet(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
-        {
-            var urlFormat = string.Format("https://api.weixin.qq.com/card/location/batchget?access_token={0}", accessToken);
+        ///// <summary>
+        ///// 拉取门店列表
+        ///// </summary>
+        ///// <param name="accessToken"></param>
+        ///// <param name="offset">偏移量，0 开始</param>
+        ///// <param name="count">拉取数量</param>
+        ///// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        ///// <returns></returns>
+        //public static StoreGetResultJson BatchGet(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
+        //{
+        //    var urlFormat = string.Format("https://api.weixin.qq.com/card/location/batchget?access_token={0}", accessToken);
 
-            var data = new
-            {
-                offset = offset,
-                count = count
-            };
+        //    var data = new
+        //    {
+        //        offset = offset,
+        //        count = count
+        //    };
 
-            return CommonJsonSend.Send<StoreGetResultJson>(null, urlFormat, data, timeOut: timeOut);
-        }
+        //    return CommonJsonSend.Send<StoreGetResultJson>(null, urlFormat, data, timeOut: timeOut);
+        //}
 
-        /// <summary>
-        /// 上传LOGO
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="file">文件路径</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static Card_UploadLogoResultJson UploadLogo(string accessToken, string file, int timeOut = Config.TIME_OUT)
-        {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}", accessToken);
-            var fileDictionary = new Dictionary<string, string>();
-            fileDictionary["media"] = file;
-            return HttpUtility.Post.PostFileGetJson<Card_UploadLogoResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
-        }
+        ///// <summary>
+        ///// 上传LOGO
+        ///// </summary>
+        ///// <param name="accessToken"></param>
+        ///// <param name="file">文件路径</param>
+        ///// <param name="timeOut"></param>
+        ///// <returns></returns>
+        //public static Card_UploadLogoResultJson UploadLogo(string accessToken, string file, int timeOut = Config.TIME_OUT)
+        //{
+        //    var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}", accessToken);
+        //    var fileDictionary = new Dictionary<string, string>();
+        //    fileDictionary["media"] = file;
+        //    return HttpUtility.Post.PostFileGetJson<Card_UploadLogoResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
+        //}
+
+        #endregion
     }
 }

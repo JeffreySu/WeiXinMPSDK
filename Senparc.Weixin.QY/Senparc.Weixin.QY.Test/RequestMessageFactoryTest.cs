@@ -226,6 +226,18 @@ namespace Senparc.Weixin.QY.Test
 		<AuthCorpId><![CDATA[wxf8b4f85f3a794e77]]></AuthCorpId>
 	</xml>	";
 
+        private string xml_Batch_Job_Result = @"<xml><ToUserName><![CDATA[wx28dbb14e37208abe]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>1425284517</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[batch_job_result]]></Event>
+<BatchJob><JobId><![CDATA[S0MrnndvRG5fadSlLwiBqiDDbM143UqTmKP3152FZk4]]></JobId>
+<JobType><![CDATA[sync_user]]></JobType>
+<ErrCode>0</ErrCode>
+<ErrMsg><![CDATA[ok]]></ErrMsg>
+</BatchJob>
+</xml>";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -403,6 +415,16 @@ namespace Senparc.Weixin.QY.Test
                 Assert.IsNotNull(result);
                 Assert.AreEqual("wxfc918a2d200c9a4c", result.SuiteId);
                 Assert.AreEqual("wxf8b4f85f3a794e77", result.AuthCorpId);
+            }
+
+            {
+                //Batch_Job_Result
+                var doc = XDocument.Parse(xml_Batch_Job_Result);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Batch_Job_Result;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("wx28dbb14e37208abe", result.ToUserName);
+                Assert.AreEqual("ok", result.BatchJob.ErrMsg);
+                Assert.AreEqual(0, result.BatchJob.ErrCode);
             }
         }
     }

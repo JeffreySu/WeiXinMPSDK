@@ -21,6 +21,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
 
         public ThirdPartyMessageHandler(Stream inputStream)
         {
+            //TODO:信息需要解密
+
             RequestDocument = XmlUtility.XmlUtility.Convert(inputStream);//转成XDocument
 
             //转成实体

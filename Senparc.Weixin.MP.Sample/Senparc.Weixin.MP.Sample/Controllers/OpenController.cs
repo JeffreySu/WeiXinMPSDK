@@ -34,12 +34,18 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return Content("success");
         }
 
+        /// <summary>
+        /// 微信服务器会不间断推送最新的Ticket，需要在此方法中更新缓存
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <returns></returns>
         public ActionResult Callback(string appId)
         {
             //处理微信普通消息，可以使用MessageHandler
 
             
 
+            
             return View();
         }
 

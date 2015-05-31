@@ -60,6 +60,7 @@
     <Compile Include="ThirdPartyAPIs\OAuthJoin\OAuthJoinJson\OAuthJoinResult.cs" />
     <Compile Include="ThirdPartyAPIs\OAuthOpen\OAuthOpenAPI.cs" />
     <Compile Include="ThirdPartyAPIs\OAuthOpen\OAuthOpenJson\OAuthOpenAccessTokenResult.cs" />
+    <Compile Include="TicketCache\TicketCache.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">

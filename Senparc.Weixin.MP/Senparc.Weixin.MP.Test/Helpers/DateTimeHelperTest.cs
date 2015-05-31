@@ -26,6 +26,10 @@ namespace Senparc.Weixin.MP.Test
         {
             var result = DateTimeHelper.GetDateTimeFromXml(timeStamp);
             Assert.AreEqual(expect, result);
+
+
+            var result2 = DateTimeHelper.GetDateTimeFromXml(1432094942);
+            Console.WriteLine(result2);
         }
 
          [TestMethod]

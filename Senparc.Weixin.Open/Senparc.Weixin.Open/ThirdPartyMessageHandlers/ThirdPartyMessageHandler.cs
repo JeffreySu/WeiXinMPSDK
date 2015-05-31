@@ -10,7 +10,7 @@ using Senparc.Weixin.Open.Helpers;
 
 namespace Senparc.Weixin.Open.MessageHandlers
 {
-    public class ThirdPartyMessageHandler
+    public abstract class ThirdPartyMessageHandler
     {
         public XDocument RequestDocument { get; set; }
         public RequestMessageBase RequestMessage { get; set; }
@@ -21,6 +21,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
 
         public ThirdPartyMessageHandler(Stream inputStream)
         {
+            //TODO:信息需要解密
+
             RequestDocument = XmlUtility.XmlUtility.Convert(inputStream);//转成XDocument
 
             //转成实体

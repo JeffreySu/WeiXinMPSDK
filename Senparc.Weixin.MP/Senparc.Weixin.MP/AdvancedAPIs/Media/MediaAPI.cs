@@ -221,7 +221,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="news">图文素材</param>
         /// <returns></returns>
-        public static WxJsonResult UpdateForeverNews(string accessToken, string mediaId, int? index, int timeOut = Config.TIME_OUT, params NewsModel[] news)
+        public static WxJsonResult UpdateForeverNews(string accessToken, string mediaId, int? index, NewsModel news, int timeOut = Config.TIME_OUT)
         {
             string url = "https://api.weixin.qq.com/cgi-bin/material/update_news?access_token={0}";
 

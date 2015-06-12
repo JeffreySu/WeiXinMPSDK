@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.AppStore
         public static string GetAuthorizeUrl(int weixinId, string clientId, string redirectUrl, string state, string responseType = "code")
         {
             var url = string.Format(Domain + "/OAuth2/Authorize?weixinId={0}&clientId={1}&RedirectUri={2}&response_type=code&state={3}",
-                        weixinId, clientId, redirectUrl.UrlEncode(), state);
+                        weixinId, clientId.EscapeUriData(), redirectUrl.EscapeUriData(), state.EscapeUriData());
 
             /* 这一步发送之后，客户会得到授权页面，无论同意或拒绝，都会返回redirectUrl页面。
              * 如果用户同意授权，页面将跳转至 redirect_uri/?code=CODE&state=STATE。这里的code用于换取access_token（和通用接口的access_token不通用）
@@ -60,7 +60,7 @@ namespace Senparc.Weixin.MP.AppStore
         public static OAuthAccessTokenResult GetAccessToken(string clientId, string clientSecret, string code, string grantType = "authorization_code")
         {
             var url = string.Format(Domain + "/OAuth2/AccessToken?clientId={0}&clientSecret={1}&code={2}&grantType={3}",
-                        clientId, clientSecret, code, grantType);
+                        clientId, clientSecret.EscapeUriData(), code.EscapeUriData(), grantType.EscapeUriData());
 
             return CommonJsonSend.Send<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
         }

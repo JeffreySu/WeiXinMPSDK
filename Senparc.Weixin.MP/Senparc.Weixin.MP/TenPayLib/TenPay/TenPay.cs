@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 
@@ -41,7 +42,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static string NativePay(string sign, string appId, string timesTamp, string nonceStr, string productId)
         {
             var urlFormat = "weixin://wxpay/bizpayurl?sign={0}&appid={1}&productid={2}&timestamp={3}&noncestr={4}";
-            var url = string.Format(urlFormat, sign, appId, productId, timesTamp, nonceStr);
+            var url = string.Format(urlFormat, sign.EscapeUriData(), appId.EscapeUriData(), productId.EscapeUriData(), timesTamp.EscapeUriData(), nonceStr.EscapeUriData());
 
             return url;
         }

@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
@@ -58,7 +59,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
         public static UploadImageResultJson UploadImage(string accessToken, string file, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://file.api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}",
-                accessToken);
+                accessToken.EscapeUriData());
 
             var fileDictionary = new Dictionary<string, string>();
             //fileDictionary["media"] = file;
@@ -75,7 +76,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
         public static WxJsonResult AddPoi(string accessToken, CreateStoreData createStoreData,
             int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token={0}", accessToken);
+            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token={0}", accessToken.EscapeUriData());
 
             return CommonJsonSend.Send<WxJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut);
         }
@@ -89,7 +90,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
         /// <returns></returns>
         public static GetStoreResultJson GetPoi(string accessToken, string poiId, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token={0}", accessToken);
+            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token={0}", accessToken.EscapeUriData());
 
             var data = new
             {
@@ -109,7 +110,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
         /// <returns></returns>
         public static GetStoreListResultJson GetPoiList(string accessToken, int begin, int limit = 20, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getpoilist?access_token={0}", accessToken);
+            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getpoilist?access_token={0}", accessToken.EscapeUriData());
 
             var data = new
             {
@@ -129,7 +130,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
         /// <returns></returns>
         public static WxJsonResult DeletePoi(string accessToken, string poiId, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/delpoi?access_token={0}", accessToken);
+            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/delpoi?access_token={0}", accessToken.EscapeUriData());
 
             var data = new
             {
@@ -151,7 +152,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
         /// <returns></returns>
         public static WxJsonResult UpdatePoi(string accessToken, UpdateStoreData updateStoreData, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/updatepoi?access_token={0}", accessToken);
+            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/updatepoi?access_token={0}", accessToken.EscapeUriData());
 
             return CommonJsonSend.Send<WxJsonResult>(null, url, updateStoreData, CommonJsonSendType.POST, timeOut);
         }

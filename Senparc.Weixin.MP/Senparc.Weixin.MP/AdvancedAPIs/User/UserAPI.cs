@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
         public static UserInfoJson Info(string accessToken, string openId, Language lang = Language.zh_CN)
         {
             string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}&lang={2}",
-                accessToken, openId, lang.ToString());
+                accessToken.EscapeUriData(), openId.EscapeUriData(), lang);
             return HttpUtility.Get.GetJson<UserInfoJson>(url);
 
             //错误时微信会返回错误码等信息，JSON数据包示例如下（该示例为AppID无效错误）:
@@ -62,10 +62,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
         public static OpenIdResultJson Get(string accessToken, string nextOpenId)
         {
             string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/get?access_token={0}",
-                accessToken);
+                accessToken.EscapeUriData());
             if (!string.IsNullOrEmpty(nextOpenId))
             {
-                url += "&next_openid=" + nextOpenId;
+                url += "&next_openid=" + nextOpenId.EscapeUriData();
             }
             return HttpUtility.Get.GetJson<OpenIdResultJson>(url);
         }
@@ -80,8 +80,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
         /// <returns></returns>
         public static WxJsonResult UpdateRemark(string accessToken, string openId, string remark, int timeOut = Config.TIME_OUT)
         {
-            string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token={0}", 
-                accessToken);
+            string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token={0}",
+                accessToken.EscapeUriData());
             var data = new
             {
             openid = openId,

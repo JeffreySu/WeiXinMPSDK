@@ -166,7 +166,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static GetMenuResult GetMenu(string accessToken)
         {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken);
+            var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken.EscapeUriData());
 
             var jsonString = HttpUtility.RequestUtility.HttpGet(url, Encoding.UTF8);
             //var finalResult = GetMenuFromJson(jsonString);
@@ -430,7 +430,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static WxJsonResult DeleteMenu(string accessToken)
         {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/delete?access_token={0}", accessToken);
+            var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/delete?access_token={0}", accessToken.EscapeUriData());
             var result = Get.GetJson<WxJsonResult>(url);
             return result;
         }

@@ -21,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
@@ -63,7 +64,7 @@ namespace Senparc.Weixin.MP.Agent
             string nonce = "GodBlessYou";
             string signature = CheckSignature.GetSignature(timestamp, nonce, token);
             url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}",
-                    url.Contains("?") ? "&" : "?", signature, timestamp, nonce);
+                    url.Contains("?") ? "&" : "?", signature.EscapeUriData(), timestamp.EscapeUriData(), nonce.EscapeUriData());
             var responseXml = HttpUtility.RequestUtility.HttpPost(url, null, stream, timeOut: timeOut);
             return responseXml;
         }
@@ -212,7 +213,7 @@ namespace Senparc.Weixin.MP.Agent
                 string echostr = Guid.NewGuid().ToString("n");
                 string signature = CheckSignature.GetSignature(timestamp, nonce, token);
                 url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}&echostr={4}",
-                        url.Contains("?") ? "&" : "?", signature, timestamp, nonce, echostr);
+                        url.Contains("?") ? "&" : "?", signature.EscapeUriData(), timestamp.EscapeUriData(), nonce.EscapeUriData(), echostr.EscapeUriData());
 
                 var responseStr = HttpUtility.RequestUtility.HttpGet(url, null, timeOut: timeOut);
                 return echostr == responseStr;

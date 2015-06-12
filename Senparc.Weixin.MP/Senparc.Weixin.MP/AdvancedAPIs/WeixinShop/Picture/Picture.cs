@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 
@@ -17,7 +18,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static PictureResult GetByIdOrder(string accessToken, string fileName)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/common/upload_img?access_token={0}&filename={1}";
-            var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken, fileName);
+            var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken.EscapeUriData(), fileName.EscapeUriData());
 
             var json=new PictureResult();
 

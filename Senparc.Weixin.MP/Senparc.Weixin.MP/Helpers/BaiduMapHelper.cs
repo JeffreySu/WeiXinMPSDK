@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities.BaiduMap;
 
 namespace Senparc.Weixin.MP.Helpers
@@ -55,8 +56,8 @@ namespace Senparc.Weixin.MP.Helpers
 
             if (markersList != null && markersList.Count > 0)
             {
-                url.AppendFormat("&markers={0}", string.Join("|", markersList.Select(z => string.Format("{0},{1}", z.Longitude, z.Latitude)).ToArray()));
-                url.AppendFormat("&markerStyles={0}", string.Join("|", markersList.Select(z => string.Format("{0},{1},{2}", z.Size.ToString(), z.Label, z.Color)).ToArray()));
+                url.AppendFormat("&markers={0}", string.Join("|", markersList.Select(z => string.Format("{0},{1}", z.Longitude, z.Latitude)).ToArray()).EscapeUriData());
+                url.AppendFormat("&markerStyles={0}", string.Join("|", markersList.Select(z => string.Format("{0},{1},{2}", z.Size.ToString(), z.Label, z.Color)).ToArray()).EscapeUriData());
             }
 
             return url.ToString();

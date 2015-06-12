@@ -432,5 +432,14 @@ namespace Senparc.Weixin.HttpUtility
         {
             return System.Web.HttpUtility.UrlDecode(url);
         }
+        /// <summary>
+        /// 转义作为URL参数名称或值的字符串
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string EscapeUriData(this string data)
+        {
+            return Uri.EscapeDataString(data);
+        }
     }
 }

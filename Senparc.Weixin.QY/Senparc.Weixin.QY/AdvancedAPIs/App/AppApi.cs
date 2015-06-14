@@ -58,7 +58,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.App
         /// <returns></returns>
         public static QyJsonResult SetApp(string accessToken, SetAppPostData data, int timeOut = Config.TIME_OUT)
         {
-            string url = "https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}";
+            string url =string.Format( "https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}",accessToken);
 
             return Get.GetJson<QyJsonResult>(url);
         }
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.App
         /// <returns></returns>
         public static GetAppListResult GetAppList(string accessToken, int timeOut = Config.TIME_OUT)
         {
-            string url = "https://qyapi.weixin.qq.com/cgi-bin/agent/list?access_token={0}";
+            string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/list?access_token={0}",accessToken);
 
             return Get.GetJson<GetAppListResult>(url);
         }

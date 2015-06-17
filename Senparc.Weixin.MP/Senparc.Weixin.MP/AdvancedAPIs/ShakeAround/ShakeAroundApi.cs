@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
@@ -38,7 +39,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         /// <returns></returns>
         public static DeviceApplyResultJson DeviceApply(string accessToken, int quantity, string applyReason, string comment = null, long? poiId = null, int timeOut = Config.TIME_OUT)
         {
-            string url = string.Format("https://api.weixin.qq.com/shakearound/device/applyid?access_token={0}", accessToken);
+            string url = string.Format("https://api.weixin.qq.com/shakearound/device/applyid?access_token={0}", accessToken.EscapeUriData());
 
             var data = new
             {
@@ -67,7 +68,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         public static WxJsonResult DeviceUpdate(string accessToken, long deviceId, long uuId, string major, long minor, string comment, int timeOut = Config.TIME_OUT)
         {
             string url = string.Format("https://api.weixin.qq.com/shakearound/device/update?access_token={0}",
-                accessToken);
+                accessToken.EscapeUriData());
 
             var data = new
             {
@@ -100,7 +101,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         public static WxJsonResult DeviceBindLocatoin(string accessToken, long deviceId, long uuId, string major, long minor, long poiId, int timeOut = Config.TIME_OUT)
         {
             string url = string.Format("https://api.weixin.qq.com/shakearound/device/bindlocation?access_token={0}",
-                accessToken);
+                accessToken.EscapeUriData());
 
             var data = new
             {
@@ -195,7 +196,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         /// <returns></returns>
         public static UploadImageResultJson UploadImage(string accessToken, string file, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/shakearound/material/add?access_token={0}", accessToken);
+            var url = string.Format("https://api.weixin.qq.com/shakearound/material/add?access_token={0}", accessToken.EscapeUriData());
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = file;
             return HttpUtility.Post.PostFileGetJson<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
@@ -215,7 +216,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         public static AddPageResultJson AddPage(string accessToken, string title, string description, string pageUrl,
             string iconUrl, string comment = null, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/shakearound/page/add?access_token={0}", accessToken);
+            var url = string.Format("https://api.weixin.qq.com/shakearound/page/add?access_token={0}", accessToken.EscapeUriData());
 
             var data = new
             {
@@ -244,7 +245,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         public static UpdatePageResultJson UpdatePage(string accessToken, long pageId, string title, string description, string pageUrl,
             string iconUrl, string comment = null, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/shakearound/page/update?access_token={0}", accessToken);
+            var url = string.Format("https://api.weixin.qq.com/shakearound/page/update?access_token={0}", accessToken.EscapeUriData());
 
             var data = new
             {
@@ -315,7 +316,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         /// <returns></returns>
         public static WxJsonResult DeletePage(string accessToken, long[] pageIds, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/shakearound/page/delete?access_token={0}", accessToken);
+            var url = string.Format("https://api.weixin.qq.com/shakearound/page/delete?access_token={0}", accessToken.EscapeUriData());
 
             var data = new
             {
@@ -340,7 +341,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         /// <returns></returns>
         public static WxJsonResult BindPage(string accessToken, DeviceApply_Data_Device_Identifiers deviceIdentifier, long[] pageIds, ShakeAroundBindType bindType, ShakeAroundAppendType appendType, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://api.weixin.qq.com/shakearound/device/bindpage?access_token={0}", accessToken);
+            var url = string.Format("https://api.weixin.qq.com/shakearound/device/bindpage?access_token={0}", accessToken.EscapeUriData());
 
             var data = new
             {
@@ -365,7 +366,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
             int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://api.weixin.qq.com/shakearound/user/getshakeinfo?access_token={0}",
-                accessToken);
+                accessToken.EscapeUriData());
 
             var data = new
             {
@@ -392,7 +393,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
             int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://api.weixin.qq.com/shakearound/statistics/device?access_token={0}",
-                accessToken);
+                accessToken.EscapeUriData());
 
             var data = new
             {
@@ -418,7 +419,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
            int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://api.weixin.qq.com/shakearound/statistics/page?access_token={0}",
-                accessToken);
+                accessToken.EscapeUriData());
 
             var data = new
             {

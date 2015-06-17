@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities.GoogleMap;
 
 namespace Senparc.Weixin.MP.Helpers
@@ -51,8 +52,8 @@ namespace Senparc.Weixin.MP.Helpers
                 }
                 markersStr.AppendFormat("{0},{1}", markers.X, markers.Y);
             }
-            string parameters = string.Format("center=&zoom=&size={0}&maptype=roadmap&format=jpg&sensor=false&language=zh&{1}", 
-                                             size,markersStr.ToString());
+            string parameters = string.Format("center=&zoom=&size={0}&maptype=roadmap&format=jpg&sensor=false&language=zh&{1}",
+                                             size.EscapeUriData(), markersStr);
             string url = "http://maps.googleapis.com/maps/api/staticmap?" + parameters;
             return url;
         }

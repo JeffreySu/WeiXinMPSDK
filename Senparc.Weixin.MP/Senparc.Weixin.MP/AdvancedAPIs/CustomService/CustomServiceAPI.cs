@@ -28,6 +28,7 @@ using System.Text;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.Helpers;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
@@ -83,7 +84,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <returns></returns>
         public static CustomInfoJson GetCustomBasicInfo(string accessToken, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = string.Format("https://api.weixin.qq.com/cgi-bin/customservice/getkflist?access_token={0}", accessToken);
+            var urlFormat = string.Format("https://api.weixin.qq.com/cgi-bin/customservice/getkflist?access_token={0}", accessToken.EscapeUriData());
             return CommonJsonSend.Send<CustomInfoJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
             //return GetCustomInfoResult<CustomInfoJson>(urlFormat);
         }
@@ -96,7 +97,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <returns></returns>
         public static CustomOnlineJson GetCustomOnlineInfo(string accessToken, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = string.Format("https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist?access_token={0}", accessToken);
+            var urlFormat = string.Format("https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist?access_token={0}", accessToken.EscapeUriData());
             return CommonJsonSend.Send<CustomOnlineJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
             //return GetCustomInfoResult<CustomOnlineJson>(urlFormat);
         }
@@ -119,7 +120,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <returns></returns>
         public static WxJsonResult AddCustom(string accessToken, string kfAccount, string nickName, string passWord, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfaccount/add?access_token={0}", accessToken);
+            var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfaccount/add?access_token={0}", accessToken.EscapeUriData());
 
             var data = new
             {
@@ -142,7 +143,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <returns></returns>
         public static WxJsonResult UpdateCustom(string accessToken, string kfAccount, string nickName, string passWord, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfaccount/update?access_token={0}", accessToken);
+            var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfaccount/update?access_token={0}", accessToken.EscapeUriData());
 
             var data = new
             {
@@ -164,7 +165,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <returns></returns>
         public static WxJsonResult UploadCustomHeadimg(string accessToken, string kfAccount, string file, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("http://api.weixin.qq.com/customservice/kfaccount/uploadheadimg?access_token={0}&kf_account={1}", accessToken, kfAccount);
+            var url = string.Format("http://api.weixin.qq.com/customservice/kfaccount/uploadheadimg?access_token={0}&kf_account={1}", accessToken.EscapeUriData(), kfAccount.EscapeUriData());
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = file;
             return HttpUtility.Post.PostFileGetJson<WxJsonResult>(url, null, fileDictionary, null, timeOut: timeOut);
@@ -179,7 +180,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <returns></returns>
         public static WxJsonResult DeleteCustom(string accessToken, string kfAccount, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfaccount/del?access_token={0}&kf_account={1}", accessToken, kfAccount);
+            var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfaccount/del?access_token={0}&kf_account={1}", accessToken.EscapeUriData(), kfAccount.EscapeUriData());
             return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
         }
 
@@ -194,7 +195,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <returns></returns>
         public static WxJsonResult CreateSession(string accessToken, string openId, string kfAccount, string text = null, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/create?access_token={0}", accessToken);
+            var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/create?access_token={0}", accessToken.EscapeUriData());
 
             var data = new
             {
@@ -217,7 +218,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <returns></returns>
         public static WxJsonResult CloseSession(string accessToken, string openId, string kfAccount, string text = null, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/close?access_token={0}", accessToken);
+            var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/close?access_token={0}", accessToken.EscapeUriData());
 
             var data = new
             {
@@ -238,7 +239,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <returns></returns>
         public static GetSessionStateResultJson GetSessionState(string accessToken, string openId, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/getsession?access_token={0}&openid={1}", accessToken, openId);
+            var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/getsession?access_token={0}&openid={1}", accessToken.EscapeUriData(), openId.EscapeUriData());
 
             return CommonJsonSend.Send<GetSessionStateResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
         }
@@ -252,7 +253,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <returns></returns>
         public static GetSessionListResultJson GetSessionList(string accessToken, string kfAccount, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/getsessionlist?access_token={0}&kf_account={1}", accessToken, kfAccount);
+            var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/getsessionlist?access_token={0}&kf_account={1}", accessToken.EscapeUriData(), kfAccount.EscapeUriData());
 
             return CommonJsonSend.Send<GetSessionListResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
         }
@@ -265,7 +266,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <returns></returns>
         public static GetWaitCaseResultJson GetWaitCase(string accessToken, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/getwaitcase?access_token={0}", accessToken);
+            var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/getwaitcase?access_token={0}", accessToken.EscapeUriData());
 
             return CommonJsonSend.Send<GetWaitCaseResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
         }

@@ -56,7 +56,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         public static AccessTokenResult GetToken(string appid, string secret, string grant_type = "client_credential")
         {
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/token?grant_type={0}&appid={1}&secret={2}",
-                                    grant_type, appid, secret);
+                                    grant_type.EscapeUriData(), appid.EscapeUriData(), secret.EscapeUriData());
 
             AccessTokenResult result = Get.GetJson<AccessTokenResult>(url);
             return result;
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         public static WeixinUserInfoResult GetUserInfo(string accessToken, string openId)
         {
             var url = string.Format("http://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}",
-                                    accessToken, openId);
+                                    accessToken.EscapeUriData(), openId.EscapeUriData());
             WeixinUserInfoResult result = Get.GetJson<WeixinUserInfoResult>(url);
             return result;
         }
@@ -98,7 +98,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         //    var fileStream = FileHelper.GetFileStream(fileName);
 
         //    var url = string.Format("http://api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}&filename={2}&filelength={3}",
-        //        accessToken, type.ToString(), Path.GetFileName(fileName), fileStream != null ? fileStream.Length : 0);
+        //        accessToken.EscapeUriData(), type, Path.GetFileName(fileName).EscapeUriData(), fileStream != null ? fileStream.Length : 0);
         //    UploadMediaFileResult result = Post.PostGetJson<UploadMediaFileResult>(url, cookieContainer, fileStream);
         //    return result;
         //}
@@ -115,7 +115,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             var accessToken = AccessTokenContainer.TryGetToken(appId, secret);
 
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type={1}",
-                                    accessToken, type);
+                                    accessToken.EscapeUriData(), type.EscapeUriData());
 
             JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
             return result;

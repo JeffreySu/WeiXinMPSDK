@@ -59,7 +59,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT)
         {
-            var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken);
+            var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken.EscapeUriData());
             switch (sendType)
             {
                 case CommonJsonSendType.GET:

@@ -56,7 +56,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// <returns></returns>
         public static UploadTemporaryMediaResult UploadTemporaryMedia(string accessToken, UploadMediaFileType type, string file, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken, type.ToString());
+            var url = string.Format("http://api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.EscapeUriData(), type);
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = file;
             return HttpUtility.Post.PostFileGetJson<UploadTemporaryMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
@@ -89,7 +89,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         public static void Get(string accessToken, string mediaId, Stream stream)
         {
             var url = string.Format("http://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}",
-                accessToken, mediaId);
+                accessToken.EscapeUriData(), mediaId.EscapeUriData());
             HttpUtility.Get.Download(url, stream);
         }
         #endregion
@@ -128,7 +128,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// <returns></returns>
         public static UploadForeverMediaResult UploadForeverMedia(string accessToken, string file, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken);
+            var url = string.Format("http://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken.EscapeUriData());
 
             //因为有文件上传，所以忽略dataDictionary，全部改用文件上传格式
             //var dataDictionary = new Dictionary<string, string>();
@@ -151,7 +151,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// <returns></returns>
         public static UploadForeverMediaResult UploadForeverVideo(string accessToken, string file, string title, string introduction, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken);
+            var url = string.Format("http://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken.EscapeUriData());
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = file;
             fileDictionary["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction);
@@ -185,7 +185,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         public static void GetForeverMedia(string accessToken, string mediaId, Stream stream)
         {
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/get_material?access_token={0}",
-                accessToken);
+                accessToken.EscapeUriData());
             var data = new
             {
                 media_id = mediaId
@@ -243,7 +243,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// <returns></returns>
         public static GetMediaCountResultJson GetMediaCount(string accessToken)
         {
-            string url = string.Format("https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token={0}", accessToken);
+            string url = string.Format("https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token={0}", accessToken.EscapeUriData());
 
             return HttpUtility.Get.GetJson<GetMediaCountResultJson>(url);
         }
@@ -259,7 +259,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         public static MediaList_NewsResult GetNewsMediaList(string accessToken, int offset, int count, int timeOut = Config.TIME_OUT)
         {
             string url = string.Format("https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token={0}",
-                                       accessToken);
+                                       accessToken.EscapeUriData());
 
             var date = new
                 {
@@ -285,7 +285,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
                                                            int count, int timeOut = Config.TIME_OUT)
         {
             string url = string.Format("https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token={0}",
-                                       accessToken);
+                                       accessToken.EscapeUriData());
 
             var date = new
             {

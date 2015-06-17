@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static WxJsonResult UpDateFeedBack(string accessToken, string openId, string feedBackId)
         {
             var urlFormat = "https://api.weixin.qq.com/payfeedback/update?access_token={0}&openid={1}&feedbackid={2}";
-            var url = string.Format(urlFormat, accessToken, openId, feedBackId);
+            var url = string.Format(urlFormat, accessToken.EscapeUriData(), openId.EscapeUriData(), feedBackId.EscapeUriData());
 
             return Get.GetJson<WxJsonResult>(url);
         }

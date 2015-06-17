@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
         {
             var url =
                 string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type={2}&scope={3}&state={4}#wechat_redirect",
-                                appId, redirectUrl.UrlEncode(), responseType, scope, state);
+                                appId.EscapeUriData(), redirectUrl.EscapeUriData(), responseType.EscapeUriData(), scope, state.EscapeUriData());
 
             /* 这一步发送之后，客户会得到授权页面，无论同意或拒绝，都会返回redirectUrl页面。
              * 如果用户同意授权，页面将跳转至 redirect_uri/?code=CODE&state=STATE。这里的code用于换取access_token（和通用接口的access_token不通用）
@@ -61,7 +61,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
         {
             var url =
                 string.Format("https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type={3}",
-                                appId, secret, code, grantType);
+                                appId.EscapeUriData(), secret.EscapeUriData(), code.EscapeUriData(), grantType.EscapeUriData());
 
             return CommonJsonSend.Send<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
         }
@@ -77,7 +77,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
         {
             var url =
                 string.Format("https://api.weixin.qq.com/sns/oauth2/refresh_token?appid={0}&grant_type={1}&refresh_token={2}",
-                                appId, grantType, refreshToken);
+                                appId.EscapeUriData(), grantType.EscapeUriData(), refreshToken.EscapeUriData());
 
             return CommonJsonSend.Send<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
         }
@@ -91,7 +91,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
         /// <returns></returns>
         public static OAuthUserInfo GetUserInfo(string accessToken, string openId, Language lang = Language.zh_CN)
         {
-            var url = string.Format("https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}&lang={2}", accessToken, openId, lang);
+            var url = string.Format("https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}&lang={2}", accessToken.EscapeUriData(), openId.EscapeUriData(), lang);
             return CommonJsonSend.Send<OAuthUserInfo>(null, url, null, CommonJsonSendType.GET);
         }
 
@@ -103,7 +103,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
 		/// <returns></returns>
 		public static WxJsonResult Auth(string accessToken, string openId)
 		{
-			var url = string.Format("https://api.weixin.qq.com/sns/auth?access_token={0}&openid={1}", accessToken, openId);
+            var url = string.Format("https://api.weixin.qq.com/sns/auth?access_token={0}&openid={1}", accessToken.EscapeUriData(), openId.EscapeUriData());
 			return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
 		}
     }

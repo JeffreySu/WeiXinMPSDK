@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.QrCode
@@ -83,7 +84,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.QrCode
         public static string GetShowQrCodeUrl(string ticket)
         {
             var urlFormat = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket={0}";
-            return string.Format(urlFormat, ticket);
+            return string.Format(urlFormat, ticket.EscapeUriData());
         }
 
         /// <summary>

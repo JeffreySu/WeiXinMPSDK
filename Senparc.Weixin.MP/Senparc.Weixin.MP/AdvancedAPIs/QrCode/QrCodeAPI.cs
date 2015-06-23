@@ -12,6 +12,9 @@
  
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
+ 
+    修改标识：Senparc - 20150623
+    修改描述：添加 用字符串类型创建二维码 接口
 ----------------------------------------------------------------*/
 
 /*
@@ -35,8 +38,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.QrCode
         /// <summary>
         /// 创建二维码
         /// </summary>
+        /// <param name="accessToken"></param>
         /// <param name="expireSeconds">该二维码有效时间，以秒为单位。 最大不超过1800。0时为永久二维码</param>
         /// <param name="sceneId">场景值ID，临时二维码时为32位整型，永久二维码时最大值为1000</param>
+        /// <param name="scene_str"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CreateQrCodeResult Create(string accessToken, int expireSeconds, int sceneId, int timeOut = Config.TIME_OUT)
@@ -72,6 +77,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.QrCode
                     }
                 };
             }
+            return CommonJsonSend.Send<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
+        }
+
+        /// <summary>
+        /// 用字符串类型创建二维码
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="sceneStr">场景值ID（字符串形式的ID），字符串类型，长度限制为1到64，仅永久二维码支持此字段</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static CreateQrCodeResult CreateByStr(string accessToken, string sceneStr, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
+            var data = new
+                {
+                    action_name = "QR_LIMIT_STR_SCENE",
+                    action_info = new
+                    {
+                        scene = new
+                        {
+                            scene_str = sceneStr
+                        }
+                    }
+                };
             return CommonJsonSend.Send<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
 

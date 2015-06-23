@@ -87,6 +87,7 @@
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataByGroupId.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataByOpenId.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataPreview.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\VideoMediaIdResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson\CreateGroupResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson\GetIdResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsApi.cs" />

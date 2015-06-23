@@ -81,5 +81,16 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Assert.IsTrue(result.msg_id.Length > 0);
             Assert.AreEqual(result.msg_status, "SEND_SUCCESS");
         }
+
+        [TestMethod]
+        public void GetVideoMediaIdResultTest()
+        {
+            string mediaId = "Qk7qR9oZGG1CyzJ8ik3j3nElgY5xETEFAiTLrMsZJs9iAKarM7DopvxbREE7fINU";
+
+            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var result = GroupMessageApi.GetVideoMediaIdResult(accessToken, mediaId, "test", "test");
+
+            Assert.IsTrue(result.media_id.Length > 0);
+        }
     }
 }

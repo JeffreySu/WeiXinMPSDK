@@ -409,5 +409,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
 
             return CommonJsonSend.Send<GetSendResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
+
+        /// <summary>
+        /// 获取视频群发用的MediaId
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="mediaId"></param>
+        /// <param name="title"></param>
+        /// <param name="description"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static VideoMediaIdResult GetVideoMediaIdResult(string accessToken, string mediaId, string title,
+            string description, int timeOut = Config.TIME_OUT)
+        {
+            string url = string.Format("https://file.api.weixin.qq.com/cgi-bin/media/uploadvideo?access_token={0}",
+                accessToken);
+
+            var data = new
+            {
+                media_id = mediaId,
+                title = title,
+                description = description
+            };
+
+            return CommonJsonSend.Send<VideoMediaIdResult>(null, url, data, CommonJsonSendType.POST, timeOut, true);
+        }
     }
 }

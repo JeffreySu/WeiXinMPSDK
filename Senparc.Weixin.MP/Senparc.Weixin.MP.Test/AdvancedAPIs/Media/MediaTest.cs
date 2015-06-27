@@ -113,16 +113,15 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         }
 
         [TestMethod]
-        public string UploadForeverVideoTest()
+        public void UploadForeverVideoTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
             var file = @"E:\Test.mp4";
-            var result = MediaApi.UploadForeverVideo(accessToken, file, "test", "test");
+            var result = MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.video, file);
 
             Assert.IsNotNull(result.media_id);
             mediaId = result.media_id;
-            return mediaId;
         }
 
         //[TestMethod]

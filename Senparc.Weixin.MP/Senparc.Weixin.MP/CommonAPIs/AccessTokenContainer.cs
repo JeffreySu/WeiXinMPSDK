@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20150702
+    修改描述：添加GetFirstOrDefaultAppId()方法
 ----------------------------------------------------------------*/
 
 using System;
@@ -117,6 +120,15 @@ namespace Senparc.Weixin.MP.CommonAPIs
         public static bool CheckRegistered(string appId)
         {
             return AccessTokenCollection.ContainsKey(appId);
+        }
+
+        /// <summary>
+        /// 返回已经注册的第一个AppId
+        /// </summary>
+        /// <returns></returns>
+        public static string GetFirstOrDefaultAppId()
+        {
+            return  AccessTokenCollection.Keys.FirstOrDefault();
         }
     }
 }

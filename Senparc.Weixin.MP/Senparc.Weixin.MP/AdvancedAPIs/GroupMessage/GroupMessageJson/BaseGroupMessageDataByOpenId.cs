@@ -41,6 +41,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         public string description { get; set; }
     }
 
+    public class GroupMessageByOpenId_WxCard
+    {
+        public string card_id { get; set; }
+    }
+
     public class GroupMessageByOpenId_VoiceData : BaseGroupMessageDataByOpenId
     {
         public GroupMessageByOpenId_MediaId voice { get; set; }  
@@ -64,5 +69,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
     public class GroupMessageByOpenId_MpVideoData : BaseGroupMessageDataByOpenId
     {
         public GroupMessageByOpenId_Video video { get; set; }
+    }
+
+    public class GroupMessageByOpenId_WxCardData : BaseGroupMessageDataByOpenId
+    {
+        public GroupMessageByOpenId_WxCard wxcard { get; set; }
     }
 }

@@ -303,7 +303,11 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 视频
         /// </summary>
-        video = 4
+        video = 4,
+        /// <summary>
+        /// 卡券
+        /// </summary>
+        wxcard = 5
     }
     /// <summary>
     /// 卡券类型

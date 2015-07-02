@@ -559,6 +559,8 @@ namespace Senparc.Weixin.MP.Test
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.MASSSENDJOBFINISH, result.Event);
+                Assert.AreEqual(result.SentCount, 75);
+                Assert.AreEqual(result.ErrorCount, 5);
                 Assert.IsNotNull(result.MsgID);
                 Assert.AreEqual(1988, result.MsgID);
             }

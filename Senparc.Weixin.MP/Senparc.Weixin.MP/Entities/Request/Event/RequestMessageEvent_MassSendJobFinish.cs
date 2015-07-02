@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.Entities
         /// <summary>
         /// 发送成功的粉丝数
         /// </summary>
-        public int SendCount { get; set; }
+        public int SentCount { get; set; }
 
         /// <summary>
         /// 发送失败的粉丝数

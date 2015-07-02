@@ -94,10 +94,11 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
         /// <param name="fileStream">文件流</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <returns></returns>
-        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
+        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
-            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileStream, null, null, encoding, timeOut: timeOut);
+            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileStream, null, null, encoding, timeOut: timeOut, checkValidationResult: checkValidationResult);
             var result = GetResult<T>(returnText);
             return result;
         }

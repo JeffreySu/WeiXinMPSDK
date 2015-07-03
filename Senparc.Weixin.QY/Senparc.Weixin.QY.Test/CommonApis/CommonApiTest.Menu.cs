@@ -12,12 +12,11 @@ namespace Senparc.Weixin.QY.Test.CommonApis
 {
     public partial class CommonApiTest
     {
-        private int _agentId = 2;
+        private int _agentId = 7;
 
         [TestMethod]
         public void CreateMenuTest()
         {
-            return;//已经通过测试
 
             var accessToken = AccessTokenContainer.GetToken(_corpId);
 

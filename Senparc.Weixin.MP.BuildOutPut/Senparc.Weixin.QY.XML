@@ -1438,17 +1438,22 @@
             权限说明：管理员须拥有agent的使用权限；agentid必须和跳转链接时所在的企业应用ID相同。
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetUserIdResult">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetUserInfoResult">
             <summary>
             获取成员信息返回结果
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetUserIdResult.UserId">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetUserInfoResult.UserId">
             <summary>
             员工UserID
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetUserIdResult.DeviceId">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetUserInfoResult.OpenId">
+            <summary>
+            非企业成员的OpenId
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetUserInfoResult.DeviceId">
             <summary>
             手机设备号(由微信在安装时随机生成)
             </summary>

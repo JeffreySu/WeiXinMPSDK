@@ -10,7 +10,7 @@
     修改标识：Senparc - 20150303
     修改描述：整理接口
     
-    修改标识：Senparc - 20150702
+    修改标识：Senparc - 20150703
     修改描述：添加TryCommonApi()方法
 ----------------------------------------------------------------*/
 
@@ -21,6 +21,7 @@ using System.Text;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.Utilities.WeixinUtility;
 
 namespace Senparc.Weixin.MP
 {
@@ -65,36 +66,56 @@ namespace Senparc.Weixin.MP
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="fun"></param>
-        /// <param name="appId">如果为null，则取已经注册的第一个appId、appSecret信息</param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId。如果为null，则自动取已经注册的第一个appId、appSecret信息获取AccessToken</param>
         /// <returns></returns>
-        public static T TryCommonApi<T>(Func<string, T> fun, string appId) where T : WxJsonResult
+        public static T TryCommonApi<T>(Func<string, T> fun, string accessTokenOrAppId) where T : WxJsonResult
         {
-            if (appId != null && !AccessTokenContainer.CheckRegistered(appId))
+            string appId = null;
+            string accessToken = null;
+
+            if (accessTokenOrAppId == null)
             {
-                throw new WeixinException("此appId尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
+                appId = AccessTokenContainer.GetFirstOrDefaultAppId();
+                if (appId == null)
+                {
+                    throw new WeixinException("尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
+                }
+            }
+            else if (ApiUtility.IsAppId(accessTokenOrAppId))
+            {
+                if (!AccessTokenContainer.CheckRegistered(accessTokenOrAppId))
+                {
+                    throw new WeixinException("此appId尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
+                }
+
+                appId = accessTokenOrAppId;
+            }
+            else
+            {
+                //accessToken
+                accessToken = accessTokenOrAppId;
             }
 
-            appId = appId ?? AccessTokenContainer.GetFirstOrDefaultAppId();
-            if (appId == null)
-            {
-                throw new WeixinException("尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
-            }
 
             T result = null;
 
             try
             {
-                var accessTokenResult = AccessTokenContainer.GetTokenResult(appId, false);
-                var accessToken = accessTokenResult.access_token;
+                if (accessToken == null)
+                {
+                    var accessTokenResult = AccessTokenContainer.GetTokenResult(appId, false);
+                    accessToken = accessTokenResult.access_token;
+                }
                 result = fun(accessToken);
             }
             catch (ErrorJsonResultException ex)
             {
-                if (ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
+                if (appId != null
+                    && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
                 {
                     //尝试重新验证
                     var accessTokenResult = AccessTokenContainer.GetTokenResult(appId, true);
-                    var accessToken = accessTokenResult.access_token;
+                    accessToken = accessTokenResult.access_token;
                     result = TryCommonApi(fun, appId);
                 }
             }

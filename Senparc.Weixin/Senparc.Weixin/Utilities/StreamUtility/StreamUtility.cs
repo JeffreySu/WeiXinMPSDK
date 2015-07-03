@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：StreamUtility.cs
+    文件功能描述：流处理公共类
+    
+    
+    创建标识：Senparc - 20150419
+    
+----------------------------------------------------------------*/
+using System;
 using System.IO;
 
 namespace Senparc.Weixin.StreamUtility

@@ -156,6 +156,11 @@ namespace Senparc.Weixin.MP
         user_del_card,
 
         /// <summary>
+        /// 核销卡券
+        /// </summary>
+        user_consume_card,
+
+        /// <summary>
         /// 多客服接入会话
         /// </summary>
         kf_create_session,

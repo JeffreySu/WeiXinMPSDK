@@ -1554,6 +1554,16 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.CommonApi.ConvertToOpenId(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            userid转换成openid接口
+            </summary>
+            <param name="accessToken"></param>
+            <param name="userId">企业号内的成员id</param>
+            <param name="agentId">需要发送红包的应用ID，若只是使用微信支付和企业转账，则无需该参数</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.QY.CommonAPIs.CommonApi.CreateMenu(System.String,System.Int32,Senparc.Weixin.QY.Entities.Menu.ButtonGroup,System.Int32)">
             <summary>
             创建菜单
@@ -1620,6 +1630,21 @@
             <param name="data">如果是Get方式，可以为null</param>
             <param name="timeOut"></param>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.QY.Entities.ConvertToOpenIdResult">
+            <summary>
+            userid转换成openid接口返回的Json结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.ConvertToOpenIdResult.openid">
+            <summary>
+            企业号成员userid对应的openid，若有传参agentid，则是针对该agentid的openid。否则是针对企业号corpid的openid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.ConvertToOpenIdResult.appid">
+            <summary>
+            应用的appid，若请求包中不包含agentid则不返回appid。该appid在使用微信红包时会用到
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.QY.Entities.GetMenuResult">
             <summary>

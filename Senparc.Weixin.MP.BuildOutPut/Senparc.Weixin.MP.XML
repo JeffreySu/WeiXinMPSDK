@@ -2338,7 +2338,7 @@
             删除群发消息
             </summary>
             <param name="accessToken"></param>
-            <param name="mediaId">发送出去的消息ID</param>
+            <param name="msgId">发送出去的消息ID</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
@@ -5257,6 +5257,12 @@
             <param name="appId"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetFirstOrDefaultAppId">
+            <summary>
+            返回已经注册的第一个AppId
+            </summary>
+            <returns></returns>
+        </member>
         <member name="F:Senparc.Weixin.MP.CommonAPIs.JsApiTicketBag.Lock">
             <summary>
             只针对这个AppId的锁
@@ -7023,7 +7029,12 @@
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenHandlerWapper.Do``1(System.String,System.String,System.Func{System.String,``0},System.Boolean)">
+        <member name="T:Senparc.Weixin.MP.AccessTokenHandlerWapper">
+            <summary>
+            针对AccessToken无效或过期的自动处理类
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AccessTokenHandlerWapper.Do``1(System.Func{System.String,``0},System.String,System.String,System.Boolean)">
             <summary>
             使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
             </summary>
@@ -7032,6 +7043,16 @@
             <param name="appSecret"></param>
             <param name="fun">第一个参数为accessToken</param>
             <param name="retryIfFaild"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AccessTokenHandlerWapper.TryCommonApi``1(System.Func{System.String,``0},System.String)">
+            <summary>
+            使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试。
+            使用此方法之前必须使用AccessTokenContainer.Register(_appId, _appSecret);或JsApiTicketContainer.Register(_appId, _appSecret);方法对账号信息进行过注册，否则会出错。
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fun"></param>
+            <param name="appId">如果为null，则取已经注册的第一个appId、appSecret信息</param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.MP.CommonAPIs.CommonApi">

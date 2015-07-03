@@ -269,17 +269,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// 删除群发消息
         /// </summary>
         /// <param name="accessToken"></param>
-        /// <param name="mediaId">发送出去的消息ID</param>
+        /// <param name="msgId">发送出去的消息ID</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult DeleteSendMessage(string accessToken, string mediaId, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult DeleteSendMessage(string accessToken, string msgId, int timeOut = Config.TIME_OUT)
         {
             //官方API地址为https://api.weixin.qq.com//cgi-bin/message/mass/delete?access_token={0}，应该是多了一个/
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/delete?access_token={0}";
 
             var data = new
             {
-                msgid = mediaId
+                msgid = msgId
             };
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
         }
@@ -295,7 +295,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// <param name="wxName">接收消息用户的微信号</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static SendResult SendGroupMessagePreview(string accessToken, GroupMessageType type, string value, string openId, string wxName, int timeOut = Config.TIME_OUT)
+        public static SendResult SendGroupMessagePreview(string accessToken, GroupMessageType type, string value, string openId, string wxName = null, int timeOut = Config.TIME_OUT)
         {
             const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
 

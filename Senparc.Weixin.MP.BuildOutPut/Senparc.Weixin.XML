@@ -400,7 +400,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJson``1(System.String,System.Net.CookieContainer,System.IO.Stream,System.Text.Encoding,System.Int32)">
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJson``1(System.String,System.Net.CookieContainer,System.IO.Stream,System.Text.Encoding,System.Int32,System.Boolean)">
             <summary>
             发起Post请求
             </summary>
@@ -409,6 +409,7 @@
             <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
             <param name="fileStream">文件流</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <param name="checkValidationResult">验证服务器证书回调自动验证</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.HttpUtility.Post.Download(System.String,System.String,System.IO.Stream)">
@@ -441,7 +442,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.IO.Stream,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Text.Encoding,System.Int32)">
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.IO.Stream,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Text.Encoding,System.Int32,System.Boolean)">
             <summary>
             使用Post方法获取字符串结果
             </summary>
@@ -450,6 +451,17 @@
             <param name="postStream"></param>
             <param name="fileDictionary">需要上传的文件，Key：对应要上传的Name，Value：本地文件名</param>
             <param name="timeOut"></param>
+            <param name="checkValidationResult">验证服务器证书回调自动验证</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.CheckValidationResult(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+            <summary>
+            验证服务器证书
+            </summary>
+            <param name="sender"></param>
+            <param name="certificate"></param>
+            <param name="chain"></param>
+            <param name="errors"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.IsWeixinClientRequest(System.Web.HttpContext)">

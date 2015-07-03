@@ -27,34 +27,6 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Assert.IsTrue(result.msg_id.Length > 0);
         }
 
-        [TestMethod]
-        public void SendTextByGroupIdTest()
-        {
-            string content = "文本内容";
-            string groupId = "102";//分组Id
-
-            var accessToken = AccessTokenContainer.GetToken(_appId);
-            //发送给指定分组
-            var result = GroupMessageApi.SendTextGroupMessageByGroupId(accessToken, groupId, content, false);
-            Assert.IsTrue(result.msg_id.Length > 0);
-
-            //发送给所有人
-            var result_All = GroupMessageApi.SendTextGroupMessageByGroupId(accessToken, null, content, true);
-            Assert.IsTrue(result.msg_id.Length > 0);
-        }
-
-        [TestMethod]
-        public void SendTextByOpenIdTest()
-        {
-            string content = "文本内容";
-            string[] openIds = new string[] { _testOpenId };
-
-            var accessToken = AccessTokenContainer.GetToken(_appId);
-            var result = GroupMessageApi.SendTextGroupMessageByOpenId(accessToken, content, Config.TIME_OUT, openIds);
-
-            Assert.IsTrue(result.msg_id.Length > 0);
-        }
-
         //[TestMethod]
         public string SendImageByOpenIdTest()
         {

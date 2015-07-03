@@ -235,7 +235,7 @@
     <Compile Include="TenPayLib\TenPayRights\TenPayRights.cs" />
     <Compile Include="Agents\MessageAgent.cs" />
     <Compile Include="CheckSignature.cs" />
-    <Compile Include="CommonAPIs\AccessTokenHandlerWapper.cs" />
+    <Compile Include="AccessTokenHandlerWapper.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Entities\BaiduMap\BaiduMapMarkers.cs" />

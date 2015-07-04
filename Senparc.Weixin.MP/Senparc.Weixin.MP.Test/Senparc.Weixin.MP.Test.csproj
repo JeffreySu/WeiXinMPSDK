@@ -110,6 +110,7 @@
     <Compile Include="Exceptions\WeixinExceptionTest.cs" />
     <Compile Include="ResponseMessageFactoryTest.cs" />
     <Compile Include="TenPayV3\TenPayV3Test.cs" />
+    <Compile Include="CommonAPIs\ApiHandlerWapperTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">

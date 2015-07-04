@@ -5257,6 +5257,12 @@
             <param name="appId"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetFirstOrDefaultAppId">
+            <summary>
+            返回已经注册的第一个AppId
+            </summary>
+            <returns></returns>
+        </member>
         <member name="F:Senparc.Weixin.MP.CommonAPIs.JsApiTicketBag.Lock">
             <summary>
             只针对这个AppId的锁
@@ -7023,7 +7029,22 @@
             <param name="token"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenHandlerWapper.Do``1(System.String,System.String,System.Func{System.String,``0},System.Boolean)">
+        <member name="T:Senparc.Weixin.MP.ApiHandlerWapper">
+            <summary>
+            针对AccessToken无效或过期的自动处理类
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.ApiHandlerWapper.TryCommonApi``1(System.Func{System.String,``0},System.String)">
+            <summary>
+            使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试。
+            使用此方法之前必须使用AccessTokenContainer.Register(_appId, _appSecret);或JsApiTicketContainer.Register(_appId, _appSecret);方法对账号信息进行过注册，否则会出错。
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="fun"></param>
+            <param name="accessTokenOrAppId">AccessToken或AppId。如果为null，则自动取已经注册的第一个appId/appSecret来信息获取AccessToken。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.ApiHandlerWapper.Do``1(System.Func{System.String,``0},System.String,System.String,System.Boolean)">
             <summary>
             使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
             </summary>
@@ -7070,7 +7091,7 @@
             <summary>
             创建菜单
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId">AccessToken或AppId。当为AppId时，如果AccessToken错误将自动获取一次。当为null时，获取当前注册的第一个AppId。</param>
             <param name="buttonData">菜单内容</param>
             <returns></returns>
         </member>

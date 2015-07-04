@@ -15,6 +15,9 @@
  
     修改标识：Senparc - 201503232
     修改描述：修改字符串是否为空判断方式（感谢dusdong）
+ 
+    修改标识：Senparc - 20150703
+    修改描述：改用accessTokenOrAppId参数
 ----------------------------------------------------------------*/
 
 /*
@@ -52,26 +55,30 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <summary>
         /// 创建菜单
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId。当为AppId时，如果AccessToken错误将自动获取一次。当为null时，获取当前注册的第一个AppId。</param>
         /// <param name="buttonData">菜单内容</param>
         /// <returns></returns>
-        public static WxJsonResult CreateMenu(string accessToken, ButtonGroup buttonData, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult CreateMenu(string accessTokenOrAppId, ButtonGroup buttonData, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
-            ////对特殊符号进行URL转义
-            //foreach (var button in buttonData.button)
-            //{
-            //    button.name = ButtonNameEncode(button.name);//button.name.UrlEncode();
-            //    if (button is SubButton)
-            //    {
-            //        var subButtonList = button as SubButton;
-            //        foreach (var subButton in subButtonList.sub_button)
-            //        {
-            //            subButton.name = ButtonNameEncode(button.name);//button.name.UrlEncode();
-            //        }
-            //    }
-            //}
-            return CommonJsonSend.Send(accessToken, urlFormat, buttonData, timeOut: timeOut);
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+             {
+                 var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
+                 ////对特殊符号进行URL转义
+                 //foreach (var button in buttonData.button)
+                 //{
+                 //    button.name = ButtonNameEncode(button.name);//button.name.UrlEncode();
+                 //    if (button is SubButton)
+                 //    {
+                 //        var subButtonList = button as SubButton;
+                 //        foreach (var subButton in subButtonList.sub_button)
+                 //        {
+                 //            subButton.name = ButtonNameEncode(button.name);//button.name.UrlEncode();
+                 //        }
+                 //    }
+                 //}
+                 return CommonJsonSend.Send(accessToken, urlFormat, buttonData, timeOut: timeOut);
+
+             }, accessTokenOrAppId);
         }
 
         #region GetMenu

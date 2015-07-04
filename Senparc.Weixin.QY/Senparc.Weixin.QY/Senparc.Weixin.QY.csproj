@@ -70,6 +70,7 @@
     <Compile Include="CommonAPIs\AccessTokenHandlerWapper.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
+    <Compile Include="Entities\JsonResult\ConvertToOpenIdResult.cs" />
     <Compile Include="Entities\JsonResult\GetMenuResult.cs" />
     <Compile Include="Entities\JsonResult\GetMenuResultFull.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />

@@ -35,8 +35,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
         /// <summary>
         /// 模板消息接口
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
         /// <param name="templateId"></param>
         /// <param name="topcolor"></param>
@@ -44,18 +43,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
         /// <param name="data"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static SendTemplateMessageResult SendTemplateMessage(string accessToken, string openId, string templateId, string topcolor, string url, object data, int timeOut = Config.TIME_OUT)
+        public static SendTemplateMessageResult SendTemplateMessage(string accessTokenOrAppId, string openId, string templateId, string topcolor, string url, object data, int timeOut = Config.TIME_OUT)
         {
-            const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}";
-            var msgData = new TempleteModel()
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                touser = openId,
-                template_id = templateId,
-                topcolor = topcolor,
-                url = url,
-                data = data
-            };
-            return CommonJsonSend.Send<SendTemplateMessageResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
+                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}";
+                var msgData = new TempleteModel()
+                {
+                    touser = openId,
+                    template_id = templateId,
+                    topcolor = topcolor,
+                    url = url,
+                    data = data
+                };
+                return CommonJsonSend.Send<SendTemplateMessageResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
         }
     }
 }

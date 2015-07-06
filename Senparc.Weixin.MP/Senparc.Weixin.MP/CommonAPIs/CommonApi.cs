@@ -65,15 +65,19 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <summary>
         /// 用户信息接口
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
         /// <returns></returns>
-        public static WeixinUserInfoResult GetUserInfo(string accessToken, string openId)
+        public static WeixinUserInfoResult GetUserInfo(string accessTokenOrAppId, string openId)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}",
-                                    accessToken, openId);
-            WeixinUserInfoResult result = Get.GetJson<WeixinUserInfoResult>(url);
-            return result;
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("http://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}",
+                                        accessToken, openId);
+                WeixinUserInfoResult result = Get.GetJson<WeixinUserInfoResult>(url);
+                return result;
+
+            }, accessTokenOrAppId);
         }
 
 

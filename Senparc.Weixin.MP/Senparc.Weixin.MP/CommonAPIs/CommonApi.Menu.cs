@@ -169,33 +169,36 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <summary>
         /// 获取当前菜单，如果菜单不存在，将返回null
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId。当为AppId时，如果AccessToken错误将自动获取一次。当为null时，获取当前注册的第一个AppId。</param>
         /// <returns></returns>
-        public static GetMenuResult GetMenu(string accessToken)
+        public static GetMenuResult GetMenu(string accessTokenOrAppId)
         {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken);
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+              {
+                  var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken);
 
-            var jsonString = HttpUtility.RequestUtility.HttpGet(url, Encoding.UTF8);
-            //var finalResult = GetMenuFromJson(jsonString);
+                  var jsonString = HttpUtility.RequestUtility.HttpGet(url, Encoding.UTF8);
+                  //var finalResult = GetMenuFromJson(jsonString);
 
-            GetMenuResult finalResult;
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            try
-            {
-                var jsonResult = js.Deserialize<GetMenuResultFull>(jsonString);
-                if (jsonResult.menu == null || jsonResult.menu.button.Count == 0)
-                {
-                    throw new WeixinException(jsonResult.errmsg);
-                }
+                  GetMenuResult finalResult;
+                  JavaScriptSerializer js = new JavaScriptSerializer();
+                  try
+                  {
+                      var jsonResult = js.Deserialize<GetMenuResultFull>(jsonString);
+                      if (jsonResult.menu == null || jsonResult.menu.button.Count == 0)
+                      {
+                          throw new WeixinException(jsonResult.errmsg);
+                      }
 
-                finalResult = GetMenuFromJsonResult(jsonResult);
-            }
-            catch (WeixinException ex)
-            {
-                finalResult = null;
-            }
+                      finalResult = GetMenuFromJsonResult(jsonResult);
+                  }
+                  catch (WeixinException ex)
+                  {
+                      finalResult = null;
+                  }
 
-            return finalResult;
+                  return finalResult;
+              }, accessTokenOrAppId);
         }
 
         /// <summary>

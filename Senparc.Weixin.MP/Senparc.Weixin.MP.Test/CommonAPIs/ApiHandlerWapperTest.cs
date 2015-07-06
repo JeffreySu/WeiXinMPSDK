@@ -28,10 +28,10 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             {
                 var appId = MP.CommonAPIs.AccessTokenContainer.GetFirstOrDefaultAppId();
                 var accessToken = MP.CommonAPIs.AccessTokenContainer.GetToken(appId);
-                Console.WriteLine("当前AccessToken：" + accessToken);
+                Console.WriteLine("当前缓存的ccessToken：" + accessToken);
 
                 var result = ApiHandlerWapper.TryCommonApi(Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenu, "12345678901234567890这是错误的AccessToken");
-                Console.WriteLine("当前AccessToken：" + accessToken);
+                Console.WriteLine("当前新的AccessToken（因为微信服务器端缓存，可能与上一个输出一致）：" + accessToken);
 
                 Assert.IsNull(result);//如果传的是AccessToken，并且AccessToken，不会重新自动获取（因为AppId未知）。
             }

@@ -46,11 +46,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             try
             {
-                if (!AccessTokenContainer.CheckRegistered(appId))
-                {
-                    AccessTokenContainer.Register(appId, appSecret);
-                }
-                var result = AccessTokenContainer.GetTokenResult(appId); //CommonAPIs.CommonApi.GetToken(appId, appSecret);
+                //if (!AccessTokenContainer.CheckRegistered(appId))
+                //{
+                //    AccessTokenContainer.Register(appId, appSecret);
+                //}
+                var result = CommonAPIs.CommonApi.GetToken(appId, appSecret);//AccessTokenContainer.GetTokenResult(appId);
 
                 //也可以直接一步到位：
                 //var result = AccessTokenContainer.TryGetToken(appId, appSecret);

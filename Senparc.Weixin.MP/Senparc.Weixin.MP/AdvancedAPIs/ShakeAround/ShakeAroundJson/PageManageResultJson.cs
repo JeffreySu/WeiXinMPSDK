@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         public int total_count { get; set; }
     }
 
-    public class SearchPages_Data_Page
+    public class SearchPages_Data_Page : WxJsonResult
     {
         /// <summary>
         /// 页面的备注信息

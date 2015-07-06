@@ -16,8 +16,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
 {
@@ -51,109 +51,133 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
         /// <summary>
         /// 上传图片
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="file">文件路径</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static UploadImageResultJson UploadImage(string accessToken, string file, int timeOut = Config.TIME_OUT)
+        public static UploadImageResultJson UploadImage(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://file.api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}",
-                accessToken);
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://file.api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}",
+                    accessToken);
 
-            var fileDictionary = new Dictionary<string, string>();
-            //fileDictionary["media"] = file;
-            return HttpUtility.Post.PostFileGetJson<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
+                var fileDictionary = new Dictionary<string, string>();
+                //fileDictionary["media"] = file;
+                return HttpUtility.Post.PostFileGetJson<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
         }
 
         /// <summary>
         /// 创建门店
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="createStoreData"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult AddPoi(string accessToken, CreateStoreData createStoreData,
+        public static WxJsonResult AddPoi(string accessTokenOrAppId, CreateStoreData createStoreData,
             int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token={0}", accessToken);
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token={0}", accessToken);
 
-            return CommonJsonSend.Send<WxJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<WxJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
         }
 
         /// <summary>
         /// 查询门店信息
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="poiId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetStoreResultJson GetPoi(string accessToken, string poiId, int timeOut = Config.TIME_OUT)
+        public static GetStoreResultJson GetPoi(string accessTokenOrAppId, string poiId, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token={0}", accessToken);
-
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                poi_id = poiId
-            };
+                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token={0}", accessToken);
 
-            return CommonJsonSend.Send<GetStoreResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    poi_id = poiId
+                };
+
+                return CommonJsonSend.Send<GetStoreResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
         }
 
         /// <summary>
         /// 查询门店列表
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="begin">开始位置，0 即为从第一条开始查询</param>
         /// <param name="limit">返回数据条数，最大允许50，默认为20</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetStoreListResultJson GetPoiList(string accessToken, int begin, int limit = 20, int timeOut = Config.TIME_OUT)
+        public static GetStoreListResultJson GetPoiList(string accessTokenOrAppId, int begin, int limit = 20, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getpoilist?access_token={0}", accessToken);
-
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                begin = begin,
-                limit = limit
-            };
+                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getpoilist?access_token={0}", accessToken);
 
-            return CommonJsonSend.Send<GetStoreListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    begin = begin,
+                    limit = limit
+                };
+
+                return CommonJsonSend.Send<GetStoreListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
         }
 
         /// <summary>
         /// 删除门店
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="poiId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult DeletePoi(string accessToken, string poiId, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult DeletePoi(string accessTokenOrAppId, string poiId, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/delpoi?access_token={0}", accessToken);
-
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                poi_id = poiId
-            };
+                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/delpoi?access_token={0}", accessToken);
 
-            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    poi_id = poiId
+                };
+
+                return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
         }
 
         /// <summary>
         /// 修改门店服务信息
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="updateStoreData">修改门店服务信息需要Post的数据</param>
         /// 商户可以通过该接口，修改门店的服务信息，包括：图片列表、营业时间、推荐、特色服务、简介、人均价格、电话7 个字段。目前基础字段包括（名称、坐标、地址等不可修改）
         /// 若有填写内容则为覆盖更新，若无内容则视为不修改，维持原有内容。
         /// photo_list 字段为全列表覆盖，若需要增加图片，需将之前图片同样放入list 中，在其后增加新增图片。如：已有A、B、C 三张图片，又要增加D、E 两张图，则需要调用该接口，photo_list 传入A、B、C、D、E 五张图片的链接。
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult UpdatePoi(string accessToken, UpdateStoreData updateStoreData, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult UpdatePoi(string accessTokenOrAppId, UpdateStoreData updateStoreData, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/updatepoi?access_token={0}", accessToken);
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/updatepoi?access_token={0}", accessToken);
 
-            return CommonJsonSend.Send<WxJsonResult>(null, url, updateStoreData, CommonJsonSendType.POST, timeOut);
+                return CommonJsonSend.Send<WxJsonResult>(null, url, updateStoreData, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
         }
     }
 }

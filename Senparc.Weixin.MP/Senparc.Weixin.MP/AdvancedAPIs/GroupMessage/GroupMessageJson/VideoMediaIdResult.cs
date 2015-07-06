@@ -12,10 +12,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
 {
-    public class VideoMediaIdResult
+    public class VideoMediaIdResult : WxJsonResult
     {
         /// <summary>
         /// mediaId

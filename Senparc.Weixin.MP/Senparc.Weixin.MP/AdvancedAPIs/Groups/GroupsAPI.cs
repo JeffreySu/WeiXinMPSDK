@@ -26,8 +26,8 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Script.Serialization;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Groups

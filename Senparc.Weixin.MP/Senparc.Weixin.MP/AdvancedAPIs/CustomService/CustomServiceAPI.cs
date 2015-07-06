@@ -26,9 +26,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Script.Serialization;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
 {

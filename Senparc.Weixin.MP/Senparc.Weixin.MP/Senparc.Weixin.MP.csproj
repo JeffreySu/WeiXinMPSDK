@@ -246,7 +246,6 @@
     <Compile Include="Entities\JsonResult\GetMenuResult.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaJson\UploadMediaFileResult.cs" />
     <Compile Include="Entities\JsonResult\WeixinUserInfoResult.cs" />
-    <Compile Include="Entities\JsonResult\WxJsonResult.cs" />
     <Compile Include="Entities\Menu\BaseButton.cs" />
     <Compile Include="Entities\Menu\ButtonGroup.cs" />
     <Compile Include="Entities\Menu\SingleButton.cs" />

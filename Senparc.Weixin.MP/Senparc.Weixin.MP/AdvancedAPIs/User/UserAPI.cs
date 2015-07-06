@@ -25,8 +25,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.User

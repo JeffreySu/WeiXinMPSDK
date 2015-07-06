@@ -32,10 +32,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Media

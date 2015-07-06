@@ -71,7 +71,7 @@
     <Compile Include="Utilities\HttpUtility\Get.cs" />
     <Compile Include="Utilities\HttpUtility\Post.cs" />
     <Compile Include="Utilities\HttpUtility\RequestUtility.cs" />
-    <Compile Include="JsonResult\WxJsonResult.cs" />
+    <Compile Include="Entities\JsonResult\WxJsonResult.cs" />
     <Compile Include="MessageHandlers\IMessageHandler.cs" />
     <Compile Include="MessageHandlers\IMessageHandlerDocument.cs" />
     <Compile Include="MessageHandlers\MessageHandler.cs" />

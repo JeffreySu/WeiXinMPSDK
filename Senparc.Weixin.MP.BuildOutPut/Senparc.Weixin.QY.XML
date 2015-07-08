@@ -488,6 +488,96 @@
             该管理员对应用的权限：1.管理权限，0.使用权限
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Media.GetForeverMpNewsResult">
+            <summary>
+            获取永久图文素材返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.GetForeverMpNewsResult.type">
+            <summary>
+            类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Media.GetCountResult">
+            <summary>
+            获取素材总数返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.GetCountResult.total_count">
+            <summary>
+            应用素材总数目
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.GetCountResult.image_count">
+            <summary>
+            图片素材总数目
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.GetCountResult.voice_count">
+            <summary>
+            音频素材总数目
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.GetCountResult.video_count">
+            <summary>
+            视频素材总数目
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.GetCountResult.file_count">
+            <summary>
+            文件素材总数目
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.GetCountResult.mpnews_count">
+            <summary>
+            图文素材总数目
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Media.BatchGetMaterialResult">
+            <summary>
+            获取素材列表返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.BatchGetMaterialResult.type">
+            <summary>
+            素材类型，可以为图文(mpnews)、图片（image）、音频（voice）、视频（video）、文件（file）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.BatchGetMaterialResult.total_count">
+            <summary>
+            应用该类型素材总数目
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.BatchGetMaterialResult.item_count">
+            <summary>
+            返回该类型素材数目
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.BatchGetMaterialResult.itemlist">
+            <summary>
+            素材列表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.BatchGetMaterial_Item.media_id">
+            <summary>
+            素材的媒体id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.BatchGetMaterial_Item.filename">
+            <summary>
+            文件名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.BatchGetMaterial_Item.update_time">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.BatchGetMaterial_Item.articles">
+            <summary>
+            图文消息，一个图文消息支持1到10个图文
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth.ThirdPartyAuthApi.GetSuiteToken(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取应用套件令牌
@@ -1406,7 +1496,7 @@
         </member>
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.Upload(System.String,Senparc.Weixin.QY.UploadMediaFileType,System.String,System.Int32)">
             <summary>
-            上传媒体文件
+            上传临时媒体文件
             </summary>
             <param name="accessToken">调用接口凭证</param>
             <param name="type">媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件(file)</param>
@@ -1416,15 +1506,99 @@
         </member>
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.Get(System.String,System.String,System.IO.Stream)">
             <summary>
-            获取媒体文件
+            获取临时媒体文件
             </summary>
             <param name="accessToken"></param>
             <param name="mediaId"></param>
             <param name="stream"></param>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Media.UploadResultJson">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.AddMpNews(System.String,System.Int32,System.Int32,Senparc.Weixin.QY.Entities.MpNewsArticle[])">
             <summary>
-            上传媒体文件返回结果
+            上传永久图文素材
+            </summary>
+            <param name="accessToken"></param>
+            <param name="agentId"></param>
+            <param name="timeOut"></param>
+            <param name="mpNewsArticles"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.AddMaterial(System.String,Senparc.Weixin.QY.UploadMediaFileType,System.Int32,System.String,System.Int32)">
+            <summary>
+            上传其他类型永久素材
+            </summary>
+            <param name="accessToken"></param>
+            <param name="type"></param>
+            <param name="agentId"></param>
+            <param name="media"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.GetForeverMpNews(System.String,System.Int32,System.String)">
+            <summary>
+            获取永久图文素材
+            </summary>
+            <param name="accessToken"></param>
+            <param name="agentId"></param>
+            <param name="mediaId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.GetForeverMaterial(System.String,System.Int32,System.String,System.IO.Stream)">
+            <summary>
+            获取临时媒体文件
+            </summary>
+            <param name="accessToken"></param>
+            <param name="agentId"></param>
+            <param name="mediaId"></param>
+            <param name="stream"></param>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.DeleteForeverMaterial(System.String,System.Int32,System.String)">
+            <summary>
+            删除永久素材
+            </summary>
+            <param name="accessToken"></param>
+            <param name="agentId"></param>
+            <param name="mediaId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.UpdateMpNews(System.String,System.String,System.Int32,System.Int32,Senparc.Weixin.QY.Entities.MpNewsArticle[])">
+            <summary>
+            修改永久图文素材
+            </summary>
+            <param name="accessToken"></param>
+            <param name="mediaId"></param>
+            <param name="agentId"></param>
+            <param name="timeOut"></param>
+            <param name="mpNewsArticles"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.GetCount(System.String,System.Int32)">
+            <summary>
+            获取素材总数
+            </summary>
+            <param name="accessToken"></param>
+            <param name="agentId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.BatchGetMaterial(System.String,Senparc.Weixin.QY.UploadMediaFileType,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            获取素材列表
+            </summary>
+            <param name="accessToken"></param>
+            <param name="type"></param>
+            <param name="agentId"></param>
+            <param name="offset"></param>
+            <param name="count"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Media.UploadTemporaryResultJson">
+            <summary>
+            上传临时媒体文件返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Media.UploadForeverResultJson">
+            <summary>
+            上传永久素材返回结果
             </summary>
         </member>
         <!-- 对于成员“M:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.OAuth2Api.GetCode(System.String,System.String,System.String,System.String,System.String)”忽略有格式错误的 XML 注释 -->
@@ -2267,6 +2441,26 @@
             语音格式：amr
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.QY.Entities.Article.title">
+            <summary>
+            标题
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.Article.description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.Article.url">
+            <summary>
+            点击后跳转的链接
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.Article.picurl">
+            <summary>
+            图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80。如不填，在客户端不显示图片
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.QY.Entities.Response.EncryptResponseMessage">
             <summary>
             返回给服务器的加密消息
@@ -2313,6 +2507,41 @@
         <member name="T:Senparc.Weixin.QY.Entities.ResponseMessageVoice">
             <summary>
             需要预先上传多媒体文件到微信服务器，只支持认证服务号。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.MpNewsArticle.title">
+            <summary>
+            图文消息的标题
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.MpNewsArticle.thumb_media_id">
+            <summary>
+            图文消息缩略图的media_id, 可以在上传多媒体文件接口中获得。此处thumb_media_id即上传接口返回的media_id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.MpNewsArticle.author">
+            <summary>
+            图文消息的作者
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.MpNewsArticle.content_source_url">
+            <summary>
+            图文消息点击“阅读原文”之后的页面链接
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.MpNewsArticle.content">
+            <summary>
+            图文消息的内容，支持html标签
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.MpNewsArticle.digest">
+            <summary>
+            图文消息的描述
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.MpNewsArticle.show_cover_pic">
+            <summary>
+            是否显示封面，1为显示，0为不显示
             </summary>
         </member>
         <member name="P:Senparc.Weixin.QY.Entities.ResponseMessageMpNews.MpNewsArticles">

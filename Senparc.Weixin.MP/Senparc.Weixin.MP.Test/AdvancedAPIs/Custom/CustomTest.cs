@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.AdvancedAPIs.Custom;
+using Senparc.Weixin.MP.AdvancedAPIs.User;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Test.CommonAPIs;
@@ -91,6 +92,47 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             });
 
             var result = CustomApi.SendNews(accessToken, openId, articles);
+            Assert.IsNotNull(result);
+            Assert.AreEqual("ok", result.errmsg);
+        }
+
+        [TestMethod]
+        public void Test()
+        {
+            var accessToken = AccessTokenContainer.TryGetToken("wx4cd1fb1b02e91111", "a0a5255206f3ecb2d42abf1e26ea53e5");
+
+            var openIdList = UserApi.Get(accessToken, null).data.openid;
+
+            string openId = null;
+
+            foreach (var item in openIdList)
+            {
+                var userInfo = UserApi.Info(accessToken, item);
+                if (userInfo.nickname == "TYS")
+                {
+                    openId = userInfo.openid;
+                    break;
+                }
+            }
+
+            Assert.IsTrue(openId != null);
+        }
+
+        [TestMethod]
+        public void SendTestMessageTest()
+        {
+            var accessToken = AccessTokenContainer.TryGetToken("wx669ef95216eef885", "c27e1cd2e6a5d697d767baaf5b91132f");
+
+            var articles = new List<Article>();
+            articles.Add(new Article()
+            {
+                Title = "测试标题",
+                Description = "测试描述",
+                Url = "http://weixin.senparc.com",
+                PicUrl = "http://weixin.senparc.com/Images/qrcode.jpg"
+            });
+
+            var result = CustomApi.SendNews(accessToken, "olPjZjnPxdjAFYhnFp7qYLsWcmjQ", articles);
             Assert.IsNotNull(result);
             Assert.AreEqual("ok", result.errmsg);
         }

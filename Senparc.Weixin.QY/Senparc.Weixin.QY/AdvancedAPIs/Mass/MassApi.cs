@@ -217,10 +217,10 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Mass
                 {
                     articles = articles.Select(z => new
                                 {
-                                    title = z.Title,
-                                    description = z.Description,
-                                    url = z.Url,
-                                    picurl = z.PicUrl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
+                                    title = z.title,
+                                    description = z.description,
+                                    url = z.url,
+                                    picurl = z.picurl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
                                 }).ToList()
                 }
             };
@@ -253,13 +253,13 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Mass
                 {
                     articles = articles.Select(z => new
                     {
-                        title = z.Title,
-                        thumb_media_id = z.ThumbMediaId,
-                        author = z.Author,
-                        content_source_url = z.ContentSourceUrl,
-                        content = z.Content,
-                        digest = z.Digest,
-                        show_cover_pic = z.ShowCoverPic
+                        title = z.title,
+                        thumb_media_id = z.thumb_media_id,
+                        author = z.author,
+                        content_source_url = z.content_source_url,
+                        content = z.content,
+                        digest = z.digest,
+                        show_cover_pic = z.show_cover_pic
                     }).ToList(),
                 },
                 safe = safe

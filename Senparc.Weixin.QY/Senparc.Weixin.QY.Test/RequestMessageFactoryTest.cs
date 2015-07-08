@@ -95,6 +95,17 @@ namespace Senparc.Weixin.QY.Test
    <AgentID>1</AgentID>
 </xml>";
 
+        private string xmlEvent_ShortVideo = @"<xml>
+   <ToUserName><![CDATA[toUser]]></ToUserName>
+   <FromUserName><![CDATA[fromUser]]></FromUserName>
+   <CreateTime>1357290913</CreateTime>
+   <MsgType><![CDATA[shortvideo]]></MsgType>
+   <MediaId><![CDATA[media_id]]></MediaId>
+   <ThumbMediaId><![CDATA[thumb_media_id]]></ThumbMediaId>
+   <MsgId>1234567890123456</MsgId>
+   <AgentID>1</AgentID>
+</xml>";
+
         private string xmlEvent_Click = @"<xml>
 <ToUserName><![CDATA[toUser]]></ToUserName>
 <FromUserName><![CDATA[FromUser]]></FromUserName>
@@ -291,6 +302,16 @@ namespace Senparc.Weixin.QY.Test
                 Assert.AreEqual(1, result.AgentID);
             }
 
+            {
+                //ShortVideo
+                var doc = XDocument.Parse(xmlEvent_ShortVideo);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageShortVideo;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual("media_id", result.MediaId);
+                Assert.AreEqual(1, result.AgentID);
+            }
+            
             {
                 //Event_Location
                 var doc = XDocument.Parse(xmlEvent_Location);

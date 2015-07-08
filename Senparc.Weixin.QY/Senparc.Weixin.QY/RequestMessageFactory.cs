@@ -66,6 +66,9 @@ namespace Senparc.Weixin.QY
                         case RequestMsgType.Video:
                             requestMessage = new RequestMessageVideo();
                             break;
+                        case RequestMsgType.ShortVideo:
+                            requestMessage = new RequestMessageShortVideo();
+                            break;
                         case RequestMsgType.Event:
                             //判断Event类型
                             switch (doc.Root.Element("Event").Value.ToUpper())

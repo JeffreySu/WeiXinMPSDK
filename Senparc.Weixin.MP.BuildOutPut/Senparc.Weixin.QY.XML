@@ -2898,6 +2898,11 @@
             视频类型请求
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnShortVideoRequest(Senparc.Weixin.QY.Entities.RequestMessageShortVideo)">
+            <summary>
+            小视频类型请求
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.OnEventRequest(Senparc.Weixin.QY.Entities.IRequestMessageEventBase)">
             <summary>
             Event事件类型请求

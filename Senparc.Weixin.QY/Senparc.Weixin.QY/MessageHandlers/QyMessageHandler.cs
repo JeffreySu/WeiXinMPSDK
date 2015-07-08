@@ -282,6 +282,9 @@ namespace Senparc.Weixin.QY.MessageHandlers
                     case RequestMsgType.Video:
                         ResponseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
                         break;
+                    case RequestMsgType.ShortVideo:
+                        ResponseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
+                        break;
                     case RequestMsgType.Event:
                         {
                             var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
@@ -389,6 +392,14 @@ namespace Senparc.Weixin.QY.MessageHandlers
         /// 视频类型请求
         /// </summary>
         public virtual IResponseMessageBase OnVideoRequest(RequestMessageVideo requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// 小视频类型请求
+        /// </summary>
+        public virtual IResponseMessageBase OnShortVideoRequest(RequestMessageShortVideo requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

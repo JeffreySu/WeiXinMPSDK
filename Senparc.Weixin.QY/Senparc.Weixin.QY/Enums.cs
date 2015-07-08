@@ -34,6 +34,7 @@ namespace Senparc.Weixin.QY
         Video, //视频
         Link, //连接信息
         Event, //事件推送
+        ShortVideo, //小视频
     }
 
     /// <summary>

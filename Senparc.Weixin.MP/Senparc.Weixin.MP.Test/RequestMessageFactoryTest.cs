@@ -344,6 +344,19 @@ namespace Senparc.Weixin.MP.Test
 <Msg><![CDATA[xxxxxx]]></Msg>
 </xml>";
 
+        private string xmlEvent_WifiConnected = @"<xml> 
+<ToUserName><![CDATA[toUser]]></ToUserName> 
+<FromUserName><![CDATA[FromUser]]></FromUserName> 
+<CreateTime>123456789</CreateTime> 
+<MsgType><![CDATA[event]]></MsgType> 
+<Event><![CDATA[WifiConnected]]></Event>
+<ConnectTime>0</ConnectTime>
+<ExpireTime>0</ExpireTime>
+<VendorId><![CDATA[3001224419]]></VendorId>
+<PlaceId><![CDATA[PlaceId]]></PlaceId>
+<DeviceNo><![CDATA[DeviceNo]]></DeviceNo>
+</xml>";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -649,6 +662,17 @@ namespace Senparc.Weixin.MP.Test
                 Assert.AreEqual(Event.poi_check_notify, result.Event);
                 Assert.AreEqual("123adb", result.UniqId);
                 Assert.AreEqual("fail", result.Result);
+            }
+
+            {
+                //Event-WifiConnected
+                var doc = XDocument.Parse(xmlEvent_WifiConnected);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_WifiConnected;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.WifiConnected, result.Event);
+                Assert.AreEqual("PlaceId", result.PlaceId);
+                Assert.AreEqual("3001224419", result.VendorId);
             }
         }
     }

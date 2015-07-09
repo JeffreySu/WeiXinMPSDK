@@ -546,6 +546,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.poi_check_notify://审核结果事件推送
                     responseMessage = OnEvent_Poi_Check_NotifyRequest(RequestMessage as RequestMessageEvent_Poi_Check_Notify);
                     break;
+                case Event.WifiConnected://Wi-Fi连网成功
+                    responseMessage = OnEvent_WifiConnected(RequestMessage as RequestMessageEvent_WifiConnected);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -751,6 +754,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// Event事件类型请求之审核结果事件推送
         /// </summary>
         private IResponseMessageBase OnEvent_Poi_Check_NotifyRequest(RequestMessageEvent_Poi_Check_Notify requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// Event事件类型请求之Wi-Fi连网成功
+        /// </summary>
+        private IResponseMessageBase OnEvent_WifiConnected(RequestMessageEvent_WifiConnected requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

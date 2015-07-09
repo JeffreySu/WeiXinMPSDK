@@ -174,6 +174,11 @@ namespace Senparc.Weixin.MP
         /// 审核结果事件推送
         /// </summary>
         poi_check_notify,
+
+        /// <summary>
+        /// Wi-Fi连网成功
+        /// </summary>
+        WifiConnected,
     }
 
 

@@ -16,7 +16,7 @@
             获取图文群发每日数据（getarticlesummary）
             最大时间跨度 1
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -28,7 +28,7 @@
             请注意，details中，每天对应的数值为该文章到该日为止的总量（而不是当日的量）
             最大时间跨度 1
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -39,7 +39,7 @@
             获取图文统计数据（getuserread）
             最大时间跨度 3
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -50,7 +50,7 @@
             获取图文统计分时数据（getuserreadhour）
             最大时间跨度 1
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -61,7 +61,7 @@
             获取图文分享转发数据（getusershare）
             最大时间跨度 7
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -72,7 +72,7 @@
             获取图文分享转发分时数据（getusersharehour）
             最大时间跨度 1
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -83,7 +83,7 @@
             获取接口分析数据（getinterfacesummary）
             最大时间跨度 30
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -94,7 +94,7 @@
             获取接口分析分时数据（getinterfacesummaryhour）
             最大时间跨度 1
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -105,7 +105,7 @@
             获取消息发送概况数据（getupstreammsg）
             最大时间跨度 7
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -116,7 +116,7 @@
             获取消息分送分时数据（getupstreammsghour）
             最大时间跨度 1
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -127,7 +127,7 @@
             获取消息发送周数据（getupstreammsgweek）
             最大时间跨度 30
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -138,7 +138,7 @@
             获取消息发送月数据（getupstreammsgmonth）
             最大时间跨度 30
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -149,7 +149,7 @@
             获取消息发送分布数据（getupstreammsgdist）
             最大时间跨度 15
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -160,7 +160,7 @@
             获取消息发送分布周数据（getupstreammsgdistweek）
             最大时间跨度 30
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -171,7 +171,7 @@
             获取消息发送分布月数据（getupstreammsgdistmonth）
             最大时间跨度 30
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -182,7 +182,7 @@
             获取用户增减数据
             最大时间跨度 7
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -193,7 +193,7 @@
             获取累计用户数据
             最大时间跨度 7
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="beginDate">获取数据的起始日期，begin_date和end_date的差值需小于“最大时间跨度”（比如最大时间跨度为1时，begin_date和end_date的差值只能为0，才能小于1），否则会报错</param>
             <param name="endDate">获取数据的结束日期，end_date允许设置的最大值为昨日</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -496,16 +496,6 @@
             分析数据接口返回结果
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.Entities.WxJsonResult">
-            <summary>
-            JSON返回结果（用于菜单接口等）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Entities.WxJsonResult.P2PData">
-            <summary>
-            为P2P返回结果做准备
-            </summary>
-        </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Analysis.BaseUpStreamMsgResult.ref_date">
             <summary>
             数据的日期，需在begin_date和end_date之间
@@ -630,7 +620,7 @@
             <summary>
             创建卡券
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="cardInfo">创建卡券需要的数据，格式可以看CardCreateData.cs</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -639,7 +629,7 @@
             <summary>
             获取颜色列表接口
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
@@ -648,7 +638,7 @@
             生成卡券二维码
             获取二维码ticket 后，开发者可用ticket 换取二维码图片。换取指引参考：http://mp.weixin.qq.com/wiki/index.php?title=生成带参数的二维码
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="cardId">卡券ID</param>
             <param name="code">指定卡券code 码，只能被领一次。use_custom_code 字段为true 的卡券必须填写，非自定义code 不必填写。</param>
             <param name="openId">指定领取者的openid，只有该用户能领取。bind_openid 字段为true 的卡券必须填写，非自定义openid 不必填写。</param>
@@ -662,7 +652,7 @@
             <summary>
             卡券消耗code
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="code">要消耗的序列号</param>
             <param name="cardId">要消耗序列号所述的card_id，创建卡券时use_custom_code 填写true 时必填。非自定义code不必填写。</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -675,7 +665,7 @@
             1.商家获取choos_card_info 后，将card_id 和encrypt_code 字段通过解码接口，获取真实code。
             2.卡券内跳转外链的签名中会对code 进行加密处理，通过调用解码接口获取真实code。
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="encryptCode">通过choose_card_info 获取的加密字符串</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -684,7 +674,7 @@
             <summary>
             删除卡券
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="cardId">卡券ID</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -693,7 +683,7 @@
             <summary>
             查询code接口
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="code"></param>
             <param name="cardId"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -703,7 +693,7 @@
             <summary>
             批量查询卡列表
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="offset">查询卡列表的起始偏移量，从0 开始，即offset: 5 是指从从列表里的第六个开始读取。</param>
             <param name="count">需要查询的卡片的数量（数量最大50）</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -713,7 +703,7 @@
             <summary>
             查询卡券详情
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="cardId"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -722,7 +712,7 @@
             <summary>
             更改code
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="code">卡券的code 编码</param>
             <param name="cardId">卡券ID</param>
             <param name="newCode">新的卡券code 编码</param>
@@ -733,7 +723,7 @@
             <summary>
             设置卡券失效接口
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="code">需要设置为失效的code</param>
             <param name="cardId">自定义code 的卡券必填。非自定义code 的卡券不填。</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -744,7 +734,7 @@
             更改卡券信息接口
             支持更新部分通用字段及特殊卡券（会员卡、飞机票、电影票、红包）中特定字段的信息。
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="cardType">卡券种类，会员卡、飞机票、电影票、红包中的一种</param>
             <param name="data">创建卡券需要的数据，格式可以看CardUpdateData.cs</param>
             <param name="cardId"></param>
@@ -757,7 +747,7 @@
              由于卡券有审核要求，为方便公众号调试，可以设置一些测试帐号，这些帐号可以领取未通过审核的卡券，体验整个流程。
             注：同时支持“openid”、“username”两种字段设置白名单，总数上限为10 个。
              </summary>
-             <param name="accessToken"></param>
+             <param name="accessTokenOrAppId"></param>
              <param name="openIds">测试的openid 列表</param>
              <param name="userNames">测试的微信号列表</param>
              <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -784,7 +774,7 @@
             "card_id": "xxxx_card_id"
             }
              </summary>
-             <param name="accessToken"></param>
+             <param name="accessTokenOrAppId"></param>
              <param name="membershipNumber">必填，会员卡编号，作为序列号显示在用户的卡包里。</param>
              <param name="code">创建会员卡时获取的code</param>
              <param name="cardId">卡券ID。自定义code 的会员卡必填card_id，非自定义code 的会员卡不必填</param>
@@ -799,7 +789,7 @@
             <summary>
             会员卡交易
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="code">要消耗的序列号</param>
             <param name="cardId">要消耗序列号所述的card_id。自定义code 的会员卡必填</param>
             <param name="recordBonus">商家自定义积分消耗记录，不超过14 个汉字</param>
@@ -813,7 +803,7 @@
             <summary>
             更新电影票
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="code">电影票的序列号</param>
             <param name="cardId">电影票card_id。自定义code 的电影票为必填，非自定义code 的电影票不必填。</param>
             <param name="ticketClass">电影票的类别，如2D、3D</param>
@@ -828,7 +818,7 @@
             <summary>
             飞机票在线选座
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="code">飞机票的序列</param>
             <param name="cardId">需办理值机的机票card_id。自定义code 的飞机票为必</param>
             <param name="passengerName">乘客姓名，上限为15 个汉字</param>
@@ -844,7 +834,7 @@
             <summary>
             更新红包金额
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="code">红包的序列号</param>
             <param name="cardId">自定义code 的卡券必填。非自定义code 可不填。</param>
             <param name="balance">红包余额</param>
@@ -855,7 +845,7 @@
             <summary>
             更新会议门票接口
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="code">用户的门票唯一序列号</param>
             <param name="cardId">要更新门票序列号所述的card_id ， 生成券时use_custom_code 填写true 时必填。</param>
             <param name="zone">区域</param>
@@ -1995,7 +1985,7 @@
             <summary>
             获取用户聊天记录
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="startTime">查询开始时间，会自动转为UNIX时间戳</param>
             <param name="endTime">查询结束时间，会自动转为UNIX时间戳，每次查询不能跨日查询</param>
             <param name="openId">（非必须）普通用户的标识，对当前公众号唯一</param>
@@ -2008,7 +1998,7 @@
             <summary>
             获取客服基本信息
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
@@ -2016,7 +2006,7 @@
             <summary>
             获取在线客服接待信息
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
@@ -2024,7 +2014,7 @@
             <summary>
             添加客服账号
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号，账号前缀最多10个字符，必须是英文或者数字字符。如果没有公众号微信号，请前往微信公众平台设置。</param>
             <param name="nickName">客服昵称，最长6个汉字或12个英文字符</param>
             <param name="passWord">客服账号登录密码，格式为密码明文的32位加密MD5值</param>
@@ -2035,7 +2025,7 @@
             <summary>
             设置客服信息
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号，账号前缀最多10个字符，必须是英文或者数字字符。如果没有公众号微信号，请前往微信公众平台设置。</param>
             <param name="nickName">客服昵称，最长6个汉字或12个英文字符</param>
             <param name="passWord">客服账号登录密码，格式为密码明文的32位加密MD5值</param>
@@ -2046,7 +2036,7 @@
             <summary>
             上传客服头像
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号</param>
             <param name="file">form-data中媒体文件标识，有filename、filelength、content-type等信息</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -2056,7 +2046,7 @@
             <summary>
             删除客服账号
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -2065,7 +2055,7 @@
             <summary>
             创建会话
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="openId">客户openid</param>
             <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号</param>
             <param name="text">附加信息，文本会展示在客服人员的多客服客户端(非必须)</param>
@@ -2076,7 +2066,7 @@
             <summary>
             关闭会话
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="openId">客户openid</param>
             <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号</param>
             <param name="text">附加信息，文本会展示在客服人员的多客服客户端(非必须)</param>
@@ -2087,7 +2077,7 @@
             <summary>
             获取客户的会话状态
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="openId">客户openid</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -2096,7 +2086,7 @@
             <summary>
             获取客服的会话列表
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号，账号前缀最多10个字符，必须是英文或者数字字符。</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -2105,7 +2095,7 @@
             <summary>
             获取未接入会话列表
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
@@ -2223,7 +2213,7 @@
             <summary>
             发送文本信息
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="openId"></param>
             <param name="content"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -2233,7 +2223,7 @@
             <summary>
             发送图片消息
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="openId"></param>
             <param name="mediaId"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -2243,7 +2233,7 @@
             <summary>
             发送语音消息
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="openId"></param>
             <param name="mediaId"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -2253,7 +2243,7 @@
             <summary>
             发送视频消息
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="openId"></param>
             <param name="mediaId"></param>
             <param name="title"></param>
@@ -2265,7 +2255,7 @@
             <summary>
             发送音乐消息
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="openId"></param>
             <param name="title">音乐标题（非必须）</param>
             <param name="description">音乐描述（非必须）</param>
@@ -2279,7 +2269,7 @@
             <summary>
             发送图文消息
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="openId"></param>
             <param name="articles"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -2301,7 +2291,7 @@
             4、群发视频时需要先调用GetVideoMediaIdResult接口获取专用的MediaId然后进行群发
             
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="groupId">群发到的分组的group_id，参加用户管理中用户分组接口，若is_to_all值为true，可不填写group_id</param>
             <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
             <param name="type"></param>
@@ -2313,7 +2303,7 @@
             <summary>
             根据OpenId进行群发
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
             <param name="type"></param>
             <param name="openIds">openId字符串数组</param>
@@ -2325,7 +2315,7 @@
             根据OpenID列表群发视频消息【订阅号不可用，服务号认证后可用】
             注意：群发视频时需要先调用GetVideoMediaIdResult接口获取专用的MediaId然后进行群发
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="title"></param>
             <param name="mediaId"></param>
             <param name="openIds">openId字符串数组</param>
@@ -2337,7 +2327,7 @@
             <summary>
             删除群发消息
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="msgId">发送出去的消息ID</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -2347,7 +2337,7 @@
             预览接口【订阅号与服务号认证后均可用】
             注意：openId与wxName两者任选其一，同时传入以wxName优先
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="value">群发媒体消息时为media_id，群发文本信息为content</param>
             <param name="type"></param>
             <param name="openId">接收消息用户对应该公众号的openid</param>
@@ -2359,7 +2349,7 @@
             <summary>
             预览卡券接口
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="cardId"></param>
             <param name="code"></param>
             <param name="openId"></param>
@@ -2373,7 +2363,7 @@
             <summary>
             查询群发消息发送状态【订阅号与服务号认证后均可用】
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="msgId">群发消息后返回的消息id</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -2382,7 +2372,7 @@
             <summary>
             获取视频群发用的MediaId
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="mediaId"></param>
             <param name="title"></param>
             <param name="description"></param>
@@ -2503,7 +2493,7 @@
             <summary>
             创建分组
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="name">分组名字（30个字符以内）</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -2512,14 +2502,14 @@
             <summary>
             发送文本信息
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsApi.GetId(System.String,System.String,System.Int32)">
             <summary>
             获取用户分组
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="openId"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -2528,7 +2518,7 @@
             <summary>
             修改分组名
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="id"></param>
             <param name="name">分组名字（30个字符以内）</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -2538,7 +2528,7 @@
             <summary>
             移动用户分组
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="openId"></param>
             <param name="toGroupId"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -2548,7 +2538,7 @@
             <summary>
             批量移动用户分组
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="toGroupId">分组id</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <param name="openIds">用户唯一标识符openid的列表（size不能超过50）</param>
@@ -2558,7 +2548,7 @@
             <summary>
             删除分组
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="groupId">分组id</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -2577,7 +2567,7 @@
             <summary>
             新增临时素材（原上传媒体文件）
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="type"></param>
             <param name="file"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -2587,7 +2577,7 @@
             <summary>
             上传临时图文消息素材（原上传图文消息素材）
             </summary>
-            <param name="accessToken">Token</param>
+            <param name="accessTokenOrAppId">Token</param>
             <param name="news">图文消息组</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -2604,7 +2594,7 @@
             <summary>
             新增永久图文素材
             </summary>
-            <param name="accessToken">Token</param>
+            <param name="accessTokenOrAppId">Token</param>
             <param name="news">图文消息组</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -2613,7 +2603,7 @@
             <summary>
             新增其他类型永久素材(图片（image）、语音（voice）和缩略图（thumb）)
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="file">文件路径</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -2622,7 +2612,7 @@
             <summary>
             新增永久视频素材
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="file">文件路径</param>
             <param name="title"></param>
             <param name="introduction"></param>
@@ -2633,7 +2623,7 @@
             <summary>
             获取永久图文素材
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="mediaId"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -2650,7 +2640,7 @@
             <summary>
             删除永久素材
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="mediaId"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -2659,7 +2649,7 @@
             <summary>
             修改永久图文素材
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="mediaId">要修改的图文消息的id</param>
             <param name="index">要更新的文章在图文消息中的位置（多图文消息时，此字段才有意义），第一篇为0</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -2672,14 +2662,14 @@
             永久素材的总数，也会计算公众平台官网素材管理中的素材
             图片和图文消息素材（包括单图文和多图文）的总数上限为5000，其他素材的总数上限为1000
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.GetNewsMediaList(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
             获取图文素材列表
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="offset">从全部素材的该偏移位置开始返回，0表示从第一个素材 返回</param>
             <param name="count">返回素材的数量，取值在1到20之间</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -2689,7 +2679,7 @@
             <summary>
             获取图片、视频、语音素材列表
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="type">素材的类型，图片（image）、视频（video）、语音 （voice）</param>
             <param name="offset"></param>
             <param name="count"></param>
@@ -2906,10 +2896,9 @@
             <summary>
             创建二维码
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="expireSeconds">该二维码有效时间，以秒为单位。 最大不超过1800。0时为永久二维码</param>
             <param name="sceneId">场景值ID，临时二维码时为32位整型，永久二维码时最大值为1000</param>
-            <param name="scene_str"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
@@ -2917,7 +2906,7 @@
             <summary>
             用字符串类型创建二维码
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="sceneStr">场景值ID（字符串形式的ID），字符串类型，长度限制为1到64，仅永久二维码支持此字段</param>
             <param name="timeOut"></param>
             <returns></returns>
@@ -2947,7 +2936,7 @@
             发送语义理解请求
             </summary>
             <typeparam name="T">语意理解返回的结果类型，在 AdvancedAPIs/Semantic/SemanticResult </typeparam>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="semanticPostData">语义理解请求需要post的数据</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
@@ -4118,7 +4107,7 @@
             <summary>
             申请设备ID
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="quantity">申请的设备ID的数量，单次新增设备超过500个，需走人工审核流程</param>
             <param name="applyReason">申请理由，不超过100个字</param>
             <param name="comment">备注，不超过15个汉字或30个英文字母</param>
@@ -4132,7 +4121,7 @@
             设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
             UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息。
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="deviceId">设备编号</param>
             <param name="uuId"></param>
             <param name="major"></param>
@@ -4147,7 +4136,7 @@
             设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
             UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息。
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="deviceId">设备编号</param>
             <param name="uuId"></param>
             <param name="major"></param>
@@ -4165,7 +4154,7 @@
             <summary>
             根据指定的设备Id查询设备列表
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="deviceIdentifiers">设备Id列表</param>
             设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
             UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息。
@@ -4176,7 +4165,7 @@
             <summary>
             根据分页查询或者指定范围查询设备列表
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="begin"></param>
             <param name="count"></param>
             <param name="timeOut"></param>
@@ -4186,7 +4175,7 @@
             <summary>
             根据批次ID查询设备列表
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="applyId"></param>
             <param name="begin"></param>
             <param name="count"></param>
@@ -4198,7 +4187,7 @@
             上传图片素材
             上传在摇一摇页面展示的图片素材，素材保存在微信侧服务器上。 格式限定为：jpg,jpeg,png,gif，图片大小建议120px*120 px，限制不超过200 px *200 px，图片需为正方形。
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="file"></param>
             <param name="timeOut"></param>
             <returns></returns>
@@ -4207,7 +4196,7 @@
             <summary>
             新增页面
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="title">在摇一摇页面展示的主标题，不超过6个字</param>
             <param name="description">在摇一摇页面展示的副标题，不超过7个字</param>
             <param name="pageUrl">点击页面跳转链接</param>
@@ -4220,7 +4209,7 @@
             <summary>
             编辑页面信息
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="pageId">摇周边页面唯一ID</param>
             <param name="title">在摇一摇页面展示的主标题，不超过6个字</param>
             <param name="description">在摇一摇页面展示的副标题，不超过7个字</param>
@@ -4234,7 +4223,7 @@
             <summary>
             根据页面Id查询页面列表
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="pageIds">指定页面的Id数组</param>
             <param name="timeOut"></param>
             <returns></returns>
@@ -4243,7 +4232,7 @@
             <summary>
             根据分页或者指定范围查询页面列表
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="begin"></param>
             <param name="count"></param>
             <param name="timeOut"></param>
@@ -4253,7 +4242,7 @@
             <summary>
             删除页面
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="pageIds">指定页面的Id数组</param>
             <param name="timeOut"></param>
             <returns></returns>
@@ -4263,7 +4252,7 @@
             配置设备与页面的关联关系
             配置设备与页面的关联关系。支持建立或解除关联关系，也支持新增页面或覆盖页面等操作。配置完成后，在此设备的信号范围内，即可摇出关联的页面信息。若设备配置多个页面，则随机出现页面信息。一个设备最多可配置30个关联页面。
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="deviceIdentifier"></param>
             设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
             UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息
@@ -4277,7 +4266,7 @@
             <summary>
             获取摇周边的设备及用户信息
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="ticket">摇周边业务的ticket，可在摇到的URL中得到，ticket生效时间为30分钟，每一次摇都会重新生成新的ticket</param>
             <param name="needPoi">是否需要返回门店poi_id，传1则返回，否则不返回</param>
             <param name="timeOut"></param>
@@ -4287,7 +4276,7 @@
             <summary>
             以设备为维度的数据统计接口
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="deviceIdentifier">指定页面的设备ID</param>
             设备编号，若填了UUID、major、minor，即可不填设备编号，二者选其一
             UUID、major、minor，三个信息需填写完成，若填了设备编辑，即可不填此信息，二者选其一
@@ -4300,7 +4289,7 @@
             <summary>
             以页面为维度的数据统计接口
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="pageId">指定页面的设备ID</param>
             <param name="beginDate">起始日期时间戳，最长时间跨度为30天</param>
             <param name="endDate">结束日期时间戳，最长时间跨度为30天</param>
@@ -4556,7 +4545,7 @@
             <summary>
             上传图片
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="file">文件路径</param>
             <param name="timeOut"></param>
             <returns></returns>
@@ -4565,7 +4554,7 @@
             <summary>
             创建门店
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="createStoreData"></param>
             <param name="timeOut"></param>
             <returns></returns>
@@ -4574,7 +4563,7 @@
             <summary>
             查询门店信息
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="poiId"></param>
             <param name="timeOut"></param>
             <returns></returns>
@@ -4583,7 +4572,7 @@
             <summary>
             查询门店列表
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="begin">开始位置，0 即为从第一条开始查询</param>
             <param name="limit">返回数据条数，最大允许50，默认为20</param>
             <param name="timeOut"></param>
@@ -4593,7 +4582,7 @@
             <summary>
             删除门店
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="poiId"></param>
             <param name="timeOut"></param>
             <returns></returns>
@@ -4602,7 +4591,7 @@
             <summary>
             修改门店服务信息
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="updateStoreData">修改门店服务信息需要Post的数据</param>
             商户可以通过该接口，修改门店的服务信息，包括：图片列表、营业时间、推荐、特色服务、简介、人均价格、电话7 个字段。目前基础字段包括（名称、坐标、地址等不可修改）
             若有填写内容则为覆盖更新，若无内容则视为不修改，维持原有内容。
@@ -4836,8 +4825,7 @@
             <summary>
             模板消息接口
             </summary>
-            <typeparam name="T"></typeparam>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="openId"></param>
             <param name="templateId"></param>
             <param name="topcolor"></param>
@@ -4948,7 +4936,7 @@
             <summary>
             获取用户信息
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="openId">普通用户的标识，对当前公众号唯一</param>
             <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
             <returns></returns>
@@ -4957,7 +4945,7 @@
             <summary>
             获取关注者OpenId信息
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="nextOpenId"></param>
             <returns></returns>
         </member>
@@ -4965,7 +4953,7 @@
             <summary>
             修改关注者备注信息
             </summary>
-            <param name="accessToken">调用接口凭证</param>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="openId">普通用户的标识，对当前公众号唯一</param>
             <param name="remark">新的备注名，长度必须小于30字符</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -4979,6 +4967,184 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.User.UserInfoJson.subscribe">
             <summary>
             用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiApi.AddDevice(System.String,System.Int64,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            添加设备
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="shopId">门店ID</param>
+            <param name="ssid">无线网络设备的ssid，不能包含中文字符，必需是“WX”开头(“WX”为大写字母)</param>
+            <param name="password">无线网络设备的密码，大于8个字符，不能包含中文字符</param>
+            <param name="bssid">无线网络设备无线mac地址，格式冒号分隔，字符长度17个，并且字母小写，例如：00:1f:7a:ad:5c:a8</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiApi.GetDeviceList(System.String,System.Int32,System.Int32,System.Nullable{System.Int64},System.Int32)">
+            <summary>
+            查询设备
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="pageIndex">分页下标，默认从1开始</param>
+            <param name="pageSize">每页的个数，默认10个，最大20个</param>
+            <param name="shopId">根据门店id查询</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiApi.DeleteDevice(System.String,System.String,System.Int32)">
+            <summary>
+            删除设备
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="bssid">需要删除的无线网络设备无线mac地址，格式冒号分隔，字符长度17个，并且字母小写，例如：00:1f:7a:ad:5c:a8</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiApi.GetQrcode(System.String,System.Int64,System.Int32,System.Int32)">
+            <summary>
+            获取物料二维码
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="shopId"></param>
+            <param name="imgId"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiApi.SetHomePage(System.String,System.Int64,System.String,System.Int32)">
+            <summary>
+            设置商家主页
+            传入自定义链接则是使用自定义链接，否则使用默认模板
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="shopId">门店ID</param>
+            <param name="url">自定义链接（选择传入）</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiApi.GetHomePage(System.String,System.Int64,System.Int32)">
+            <summary>
+            查询商家主页
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="shopId">查询的门店id</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiApi.GetStatistics(System.String,System.String,System.String,System.Int64,System.Int32)">
+            <summary>
+            数据统计
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="beginDate">起始日期时间，格式yyyy-mm-dd，最长时间跨度为30天</param>
+            <param name="endDate">结束日期时间戳，格式yyyy-mm-dd，最长时间跨度为30天</param>
+            <param name="shopId">按门店ID搜索，-1为总统计</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetHomePageResult">
+            <summary>
+            查询商家主页返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetHomePage_Data.shop_id">
+            <summary>
+            门店ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetHomePage_Data.template_id">
+            <summary>
+            模板类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetHomePage_Data.url">
+            <summary>
+            商家主页链接
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetStatisticsResult">
+            <summary>
+            数据统计返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetStatistics_Data.shop_id">
+            <summary>
+            门店ID，-1为总统计
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetStatistics_Data.statis_time">
+            <summary>
+            统计时间，单位为毫秒
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetStatistics_Data.total_user">
+            <summary>
+            微信连wifi成功人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetStatistics_Data.homepage_uv">
+            <summary>
+            商家主页访问人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetStatistics_Data.new_fans">
+            <summary>
+            新增公众号关注人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetStatistics_Data.total_fans">
+            <summary>
+            累计公众号关注人数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetQrcodeResult">
+            <summary>
+            获取物料二维码返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetQrcode_Data.qrcode_url">
+            <summary>
+            二维码图片url
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetDeviceListResult">
+            <summary>
+            查询设备返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.DeviceList_Data.recordcount">
+            <summary>
+            总数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.DeviceList_Data.pageindex">
+            <summary>
+            分页下标
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.DeviceList_Data.pagecount">
+            <summary>
+            分页页数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.DeviceList_Data.records">
+            <summary>
+            当前页列表数组
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.DeviceList_Data_Record.shop_id">
+            <summary>
+            门店ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.DeviceList_Data_Record.ssid">
+            <summary>
+            连网设备ssid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.DeviceList_Data_Record.bssid">
+            <summary>
+            无线MAC地址
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.AppStore.Api.ApiConnection.Connection``1(System.Func{Senparc.Weixin.MP.AppStore.IAppResult{``0}})">
@@ -5359,9 +5525,9 @@
             仅支持微信iPhone5.4.1以上版本，和Android5.4以上版本的微信用户，旧版本微信用户点击后将没有回应，开发者也不能正常接收到事件推送。
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify">
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_WifiConnected">
             <summary>
-            事件之审核结果事件推送
+            事件之Wi-Fi连网成功
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageBase">
@@ -5377,6 +5543,41 @@
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEventBase.Event">
             <summary>
             事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_WifiConnected.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_WifiConnected.ConnectTime">
+            <summary>
+            连网时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_WifiConnected.ExpireTime">
+            <summary>
+            系统保留字段，固定值
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_WifiConnected.VendorId">
+            <summary>
+            系统保留字段，固定值
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_WifiConnected.PlaceId">
+            <summary>
+            连网的门店id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_WifiConnected.DeviceNo">
+            <summary>
+            连网的设备无线mac地址，对应bssid
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify">
+            <summary>
+            事件之审核结果事件推送
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify.Event">
@@ -7075,7 +7276,7 @@
             <summary>
             用户信息接口
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <param name="openId"></param>
             <returns></returns>
         </member>
@@ -7714,6 +7915,11 @@
             审核结果事件推送
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.MP.Event.WifiConnected">
+            <summary>
+            Wi-Fi连网成功
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.ResponseMsgType">
             <summary>
             发送消息类型
@@ -8288,6 +8494,11 @@
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_Poi_Check_NotifyRequest(Senparc.Weixin.MP.Entities.RequestMessageEvent_Poi_Check_Notify)">
             <summary>
             Event事件类型请求之审核结果事件推送
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_WifiConnected(Senparc.Weixin.MP.Entities.RequestMessageEvent_WifiConnected)">
+            <summary>
+            Event事件类型请求之Wi-Fi连网成功
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.WeixinContext">

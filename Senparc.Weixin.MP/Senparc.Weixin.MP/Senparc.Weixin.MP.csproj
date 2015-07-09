@@ -151,6 +151,11 @@
     <Compile Include="AdvancedAPIs\User\UserJson\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\UserApi.cs" />
     <Compile Include="AdvancedAPIs\User\UserJson\UserInfoJson.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiApi.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiHomePageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiStatisticsResultJson.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiQrcodeResultJson.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiDeviceResultJson.cs" />
     <Compile Include="AppStore\Api.cs" />
     <Compile Include="AppStore\Api\ApiConnection.cs" />
     <Compile Include="AppStore\Api\ApiContainer.cs" />
@@ -178,6 +183,7 @@
     <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WifiConnected.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Poi_Check_Notify.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />

@@ -162,5 +162,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
         }
+
+        /// <summary>
+        /// 刷卡支付
+        /// 提交被扫支付
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string MicroPay(string data)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/pay/micropay";
+
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+        }
     }
 }

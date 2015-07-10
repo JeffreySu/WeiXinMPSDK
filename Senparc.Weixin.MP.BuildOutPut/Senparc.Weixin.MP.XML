@@ -6306,6 +6306,14 @@
             <param name="data"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.MicroPay(System.String)">
+            <summary>
+            刷卡支付
+            提交被扫支付
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3Result">
             <summary>
             基础返回结果

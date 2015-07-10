@@ -334,6 +334,37 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return null;
         }
 
+        /// <summary>
+        /// 刷卡支付
+        /// </summary>
+        /// <param name="authCode">扫码设备获取到的微信用户刷卡授权码</param>
+        /// <returns></returns>
+        public ActionResult MicroPay(string authCode)
+        {
+            RequestHandler payHandler = new RequestHandler(null);
+
+            var sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
+            var nonceStr = TenPayV3Util.GetNoncestr();
+
+            payHandler.SetParameter("auth_code", authCode);//授权码
+            payHandler.SetParameter("body", "test");//商品描述
+            payHandler.SetParameter("total_fee", "1");//总金额
+            payHandler.SetParameter("out_trade_no", sp_billno);//产生随机的商户订单号
+            payHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);//终端ip
+            payHandler.SetParameter("appid", TenPayV3Info.AppId);//公众账号ID
+            payHandler.SetParameter("mch_id", TenPayV3Info.MchId);//商户号
+            payHandler.SetParameter("nonce_str", nonceStr);//随机字符串
+
+            string sign = payHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+            payHandler.SetParameter("sign", sign);//签名
+
+            var result = TenPayV3.MicroPay(payHandler.ParseXML());
+
+            //此处只是完成最简单的支付功能，实际情况还需要考虑各种出错的情况，并处理错误，最后返回结果通知用户。
+
+            return Content(result);
+        }
+
         public ActionResult PayNotifyUrl()
         {
             ResponseHandler resHandler = new ResponseHandler(null);

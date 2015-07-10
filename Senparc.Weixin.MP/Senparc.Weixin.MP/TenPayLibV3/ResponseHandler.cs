@@ -15,6 +15,7 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml;
 using Senparc.Weixin.MP.Helpers;
@@ -214,6 +215,30 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 			
 		}
 
-		
+        /// <summary>
+        /// 输出XML
+        /// </summary>
+        /// <returns></returns>
+        public string ParseXML()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<xml>");
+            foreach (string k in Parameters.Keys)
+            {
+                string v = (string)Parameters[k];
+                if (Regex.IsMatch(v, @"^[0-9.]$"))
+                {
+
+                    sb.Append("<" + k + ">" + v + "</" + k + ">");
+                }
+                else
+                {
+                    sb.Append("<" + k + "><![CDATA[" + v + "]]></" + k + ">");
+                }
+
+            }
+            sb.Append("</xml>");
+            return sb.ToString();
+        }
 	}
 }

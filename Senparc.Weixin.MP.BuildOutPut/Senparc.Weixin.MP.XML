@@ -6158,6 +6158,12 @@
             </summary>
             <param name="debugInfo"></param>
         </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.ResponseHandler.ParseXML">
+            <summary>
+            输出XML
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3InfoCollection">
             <summary>
             微信支付信息集合，Key为商户号（MchId）

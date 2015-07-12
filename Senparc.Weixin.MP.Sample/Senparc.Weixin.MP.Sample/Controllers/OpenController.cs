@@ -23,6 +23,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult OAuth()
         {
+
             return View();
         }
 

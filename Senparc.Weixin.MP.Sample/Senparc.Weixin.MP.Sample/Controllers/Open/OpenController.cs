@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //记录RequestMessage日志（可选）
                 messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.AppId)));
 
-                messageHandler.Excute();//执行
+                messageHandler.Execute();//执行
 
                 //记录ResponseMessage日志（可选）
                 using (TextWriter tw = new StreamWriter(Path.Combine(logPath, string.Format("{0}_Response_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.AppId))))

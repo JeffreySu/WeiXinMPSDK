@@ -151,7 +151,8 @@
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\OAuth2Controller.cs" />
-    <Compile Include="Controllers\OpenController.cs" />
+    <Compile Include="Controllers\Open\OpenController.cs" />
+    <Compile Include="Controllers\Open\OpenOAuthController.cs" />
     <Compile Include="Controllers\QY\QYController.cs" />
     <Compile Include="Controllers\SimulateToolController.cs" />
     <Compile Include="Controllers\TenPayV3Controller.cs">

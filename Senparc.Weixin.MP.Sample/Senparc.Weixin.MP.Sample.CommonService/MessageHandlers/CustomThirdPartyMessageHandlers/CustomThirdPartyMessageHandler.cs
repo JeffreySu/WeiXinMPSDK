@@ -5,13 +5,14 @@ using System.Text;
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.MessageHandlers;
 using System.IO;
+using Senparc.Weixin.Open.Entities.Request;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers
 {
     public class CustomThirdPartyMessageHandler : ThirdPartyMessageHandler
     {
-        public CustomThirdPartyMessageHandler(Stream inputStream)
-            : base(inputStream)
+        public CustomThirdPartyMessageHandler(Stream inputStream,PostModel encryptPostModel)
+            : base(inputStream, encryptPostModel)
         { }
 
         public override string OnComponentVerifyTicketRequest(RequestMessageComponentVerifyTicket requestMessage)

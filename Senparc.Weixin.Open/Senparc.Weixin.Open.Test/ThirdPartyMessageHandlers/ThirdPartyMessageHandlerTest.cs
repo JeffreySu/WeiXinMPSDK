@@ -30,6 +30,7 @@ namespace Senparc.Weixin.Open.Test.ThirdPartyMessageHandlers
         string sReqMsgSig = "477715d11cdb4164915debcba66cb864d751f3e6";
         string sReqTimeStamp = "1409659813";
         string sReqNonce = "1372623149";
+
         [TestMethod]
         public void CustomerMessageHandlerTest()
         {

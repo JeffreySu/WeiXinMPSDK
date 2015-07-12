@@ -6,24 +6,54 @@ using System.Text;
 using System.Xml.Linq;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Open.Entities.Request;
 using Senparc.Weixin.Open.Helpers;
+using Tencent;
 
 namespace Senparc.Weixin.Open.MessageHandlers
 {
     public abstract class ThirdPartyMessageHandler
     {
+        private PostModel _postModel;
+        /// <summary>
+        /// 加密（原始）的XML
+        /// </summary>
+        public XDocument EcryptRequestDocument { get; set; }
+        /// <summary>
+        /// 解密之后的XML
+        /// </summary>
         public XDocument RequestDocument { get; set; }
-        public RequestMessageBase RequestMessage { get; set; }
+        /// <summary>
+        /// 请求消息，对应解密之之后的XML数据
+        /// </summary>
+        public IRequestMessageBase RequestMessage { get; set; }
 
         public string ResponseMessageText { get; set; }
 
         public bool CancelExcute { get; set; }
 
-        public ThirdPartyMessageHandler(Stream inputStream)
+        public ThirdPartyMessageHandler(Stream inputStream, PostModel postModel = null)
         {
-            //TODO:信息需要解密
+            _postModel = postModel;
+            EcryptRequestDocument = XmlUtility.XmlUtility.Convert(inputStream);//原始加密XML转成XDocument
 
-            RequestDocument = XmlUtility.XmlUtility.Convert(inputStream);//转成XDocument
+            //解密XML信息
+            var postDataStr = EcryptRequestDocument.ToString();
+
+            WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
+            string msgXml = null;
+            var result = msgCrype.DecryptMsg(_postModel.Msg_Signature, _postModel.Timestamp, _postModel.Nonce, postDataStr, ref msgXml);
+
+            //判断result类型
+            if (result != 0)
+            {
+                //验证没有通过，取消执行
+                CancelExcute = true;
+                return;
+            }
+
+            RequestDocument = XDocument.Parse(msgXml);//完成解密
+            RequestMessage = RequestMessageFactory.GetRequestEntity(RequestDocument);
 
             //转成实体
             RequestMessageBase requestMessage = null;

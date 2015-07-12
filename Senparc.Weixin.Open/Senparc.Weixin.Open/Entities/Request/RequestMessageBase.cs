@@ -15,10 +15,23 @@ using System.Text;
 
 namespace Senparc.Weixin.Open
 {
-    public class RequestMessageBase
+    /// <summary>
+    /// 请求消息接口
+    /// </summary>
+    public interface IRequestMessageBase// : Weixin.Entities.IRequestMessageBase
     {
-       public string AppId { get; set; }
-       public DateTime CreateTime { get; set; }
-       public InfoType InfoType { get; set; }
+        string AppId { get; set; }
+        DateTime CreateTime { get; set; }
+        InfoType InfoType { get; set; }
+    }
+
+    /// <summary>
+    /// 请求消息
+    /// </summary>
+    public class RequestMessageBase : IRequestMessageBase
+    {
+        public string AppId { get; set; }
+        public DateTime CreateTime { get; set; }
+        public InfoType InfoType { get; set; }
     }
 }

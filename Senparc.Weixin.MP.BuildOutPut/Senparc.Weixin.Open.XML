@@ -184,6 +184,29 @@
             有效期，为20分钟
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.Open.Entities.Request.PostModel">
+            <summary>
+            微信公众服务器Post过来的加密参数集合（不包括PostData）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Open.Entities.Request.PostModel.SetSecretInfo(System.String,System.String,System.String)">
+            <summary>
+            设置服务器内部保密信息
+            </summary>
+            <param name="token"></param>
+            <param name="encodingAESKey"></param>
+            <param name="appId"></param>
+        </member>
+        <member name="T:Senparc.Weixin.Open.IRequestMessageBase">
+            <summary>
+            请求消息接口
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Open.RequestMessageBase">
+            <summary>
+            请求消息
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.Open.OptionName">
             <summary>
             选项设置信息选项名称
@@ -254,6 +277,43 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.Open.RequestMessageFactory.GetRequestEntity(System.Xml.Linq.XDocument,Senparc.Weixin.Open.Entities.Request.PostModel)">
+            <summary>
+            获取XDocument转换后的IRequestMessageBase实例。
+            如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.RequestMessageFactory.GetRequestEntity(System.String)">
+            <summary>
+            获取XDocument转换后的IRequestMessageBase实例。
+            如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.RequestMessageFactory.GetRequestEntity(System.IO.Stream)">
+            <summary>
+            获取XDocument转换后的IRequestMessageBase实例。
+            如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+            </summary>
+            <param name="stream">如Request.InputStream</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tencent.Cryptography.AES_decrypt(System.String,System.String,System.String@)">
+            <summary>
+            解密方法
+            </summary>
+            <param name="Input">密文</param>
+            <param name="EncodingAESKey"></param>
+            <returns></returns>
+            
+        </member>
+        <member name="M:Tencent.Cryptography.chr(System.Int32)">
+            将数字转化成ASCII码对应的字符，用于对明文进行补码
+            
+            @param a 需要转化的数字
+            @return 转化得到的字符
+        </member>
         <member name="M:Senparc.Weixin.Open.MessageHandlers.ThirdPartyMessageHandler.OnComponentVerifyTicketRequest(Senparc.Weixin.Open.RequestMessageComponentVerifyTicket)">
             <summary>
             推送component_verify_ticket协议
@@ -267,6 +327,21 @@
             </summary>
             <param name="requestMessage"></param>
             <returns></returns>
+        </member>
+        <member name="P:Senparc.Weixin.Open.MessageHandlers.ThirdPartyMessageHandler.EcryptRequestDocument">
+            <summary>
+            加密（原始）的XML
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.MessageHandlers.ThirdPartyMessageHandler.RequestDocument">
+            <summary>
+            解密之后的XML
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.MessageHandlers.ThirdPartyMessageHandler.RequestMessage">
+            <summary>
+            请求消息，对应解密之之后的XML数据
+            </summary>
         </member>
         <member name="M:Senparc.Weixin.Open.OAuthJoin.OAuthJoinAPI.GetJoinAuthorizeUrl(System.String,System.String,System.String)">
             <summary>

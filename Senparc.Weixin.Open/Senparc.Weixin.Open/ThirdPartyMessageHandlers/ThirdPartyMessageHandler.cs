@@ -75,10 +75,9 @@ namespace Senparc.Weixin.Open.MessageHandlers
             }
             catch (Exception ex)
             {
-
+                //此处可以记录日志
                 throw;
             }
-
 
             requestMessage.FillEntityWithXml(RequestDocument);
 

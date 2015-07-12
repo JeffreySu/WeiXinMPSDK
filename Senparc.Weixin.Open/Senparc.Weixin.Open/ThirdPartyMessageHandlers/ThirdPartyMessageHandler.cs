@@ -37,6 +37,19 @@ namespace Senparc.Weixin.Open.MessageHandlers
             _postModel = postModel;
             EcryptRequestDocument = XmlUtility.XmlUtility.Convert(inputStream);//原始加密XML转成XDocument
 
+            Init();
+        }
+
+        public ThirdPartyMessageHandler(XDocument ecryptRequestDocument, PostModel postModel = null)
+        {
+            _postModel = postModel;
+            EcryptRequestDocument = ecryptRequestDocument;//原始加密XML转成XDocument
+
+            Init();
+        }
+
+        public XDocument Init()
+        {
             //解密XML信息
             var postDataStr = EcryptRequestDocument.ToString();
 
@@ -49,7 +62,7 @@ namespace Senparc.Weixin.Open.MessageHandlers
             {
                 //验证没有通过，取消执行
                 CancelExcute = true;
-                return;
+                return null;
             }
 
             RequestDocument = XDocument.Parse(msgXml);//完成解密
@@ -82,9 +95,10 @@ namespace Senparc.Weixin.Open.MessageHandlers
             requestMessage.FillEntityWithXml(RequestDocument);
 
             RequestMessage = requestMessage;
+            return RequestDocument;
         }
 
-        public void Excute()
+        public void Execute()
         {
             if (CancelExcute)
             {

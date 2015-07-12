@@ -17,7 +17,7 @@ namespace Senparc.Weixin.Open
 {
     public class RequestMessageUnauthorized : RequestMessageBase
     {
-        public virtual RequestInfoType MsgType
+        public virtual RequestInfoType InfoType
         {
             get { return RequestInfoType.unauthorized; }
         }

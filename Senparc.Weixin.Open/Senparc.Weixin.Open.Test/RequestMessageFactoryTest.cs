@@ -18,6 +18,13 @@ namespace Senparc.Weixin.Open.Test
 </xml>
 ";
 
+        private string unauthorizedText = @"<xml>
+<AppId>1</AppId>
+<CreateTime>1413192605</CreateTime>
+<InfoType>unauthorized</InfoType>
+<AuthorizerAppid>211</AuthorizerAppid>
+</xml>";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -30,6 +37,18 @@ namespace Senparc.Weixin.Open.Test
                 Assert.AreEqual("1", result.AppId);
                 Assert.AreEqual(dt, result.CreateTime);
                 Assert.AreEqual("Senparc", (result as RequestMessageComponentVerifyTicket).ComponentVerifyTicket);
+                Console.WriteLine(doc);
+            }
+
+            {
+                //unauthorized
+                var doc = XDocument.Parse(unauthorizedText);
+                var result = RequestMessageFactory.GetRequestEntity(doc);
+                Assert.IsInstanceOfType(result, typeof(RequestMessageUnauthorized));
+                Assert.AreEqual("1", result.AppId);
+                Assert.AreEqual(dt, result.CreateTime);
+                Assert.AreEqual("211", (result as RequestMessageUnauthorized).AuthorizerAppid);
+                Console.WriteLine(doc);
             }
         }
     }

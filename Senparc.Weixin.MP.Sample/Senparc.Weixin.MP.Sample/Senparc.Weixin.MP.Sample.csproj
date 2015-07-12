@@ -301,6 +301,8 @@
     <Content Include="Views\TenPayV3\PayNotifyUrl.cshtml" />
     <Content Include="Views\TenPayV3\ProductList.cshtml" />
     <Content Include="Views\TenPayV3\ProductItem.cshtml" />
+    <Content Include="Views\OpenOAuth\Index.cshtml" />
+    <Content Include="Views\OpenOAuth\UserInfoCallback.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

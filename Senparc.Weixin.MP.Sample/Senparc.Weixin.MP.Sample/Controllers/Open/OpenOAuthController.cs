@@ -13,7 +13,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     public class OpenOAuthController : Controller
     {
         private string componentAppId = ConfigurationManager.AppSettings["Component_Appid"];
-        private string componentAccessToken = null;//需要授权获取
+        private string componentAccessToken = null;//需要授权获取，腾讯服务器会主动推送
 
         //
         // GET: /OpenOAuth/

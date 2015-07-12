@@ -13,7 +13,7 @@ namespace Senparc.Weixin.Open.Helpers
         /// </summary>
         /// <param name="doc"></param>
         /// <returns></returns>
-        public static InfoType GetRequestInfoType(XDocument doc)
+        public static RequestInfoType GetRequestInfoType(XDocument doc)
         {
             return GetRequestInfoType(doc.Root.Element("InfoType").Value);
         }
@@ -22,9 +22,9 @@ namespace Senparc.Weixin.Open.Helpers
         /// 根据xml信息，返回InfoType
         /// </summary>
         /// <returns></returns>
-        public static InfoType GetRequestInfoType(string str)
+        public static RequestInfoType GetRequestInfoType(string str)
         {
-            return (InfoType)Enum.Parse(typeof(InfoType), str, true);
+            return (RequestInfoType)Enum.Parse(typeof(RequestInfoType), str, true);
         }
     }
 }

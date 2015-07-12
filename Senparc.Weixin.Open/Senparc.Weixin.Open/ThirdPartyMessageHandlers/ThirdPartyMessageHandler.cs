@@ -57,16 +57,16 @@ namespace Senparc.Weixin.Open.MessageHandlers
 
             //转成实体
             RequestMessageBase requestMessage = null;
-            InfoType infoType;
+            RequestInfoType infoType;
             try
             {
                 infoType = InfoTypeHelper.GetRequestInfoType(RequestDocument);
                 switch (infoType)
                 {
-                    case InfoType.component_verify_ticket:
+                    case RequestInfoType.component_verify_ticket:
                         requestMessage = new RequestMessageComponentVerifyTicket();
                         break;
-                    case InfoType.unauthorized:
+                    case RequestInfoType.unauthorized:
                         requestMessage = new RequestMessageUnauthorized();
                         break;
                     default:
@@ -107,13 +107,13 @@ namespace Senparc.Weixin.Open.MessageHandlers
 
                 switch (RequestMessage.InfoType)
                 {
-                    case InfoType.component_verify_ticket:
+                    case RequestInfoType.component_verify_ticket:
                         {
                             var requestMessage = RequestMessage as RequestMessageComponentVerifyTicket;
                             ResponseMessageText = OnComponentVerifyTicketRequest(requestMessage);
                         }
                         break;
-                    case InfoType.unauthorized:
+                    case RequestInfoType.unauthorized:
                         {
                             var requestMessage = RequestMessage as RequestMessageUnauthorized;
                             ResponseMessageText = OnUnauthorizedRequest(requestMessage);

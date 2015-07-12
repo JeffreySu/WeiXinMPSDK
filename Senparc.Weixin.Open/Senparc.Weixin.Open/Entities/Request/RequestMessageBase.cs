@@ -22,7 +22,7 @@ namespace Senparc.Weixin.Open
     {
         string AppId { get; set; }
         DateTime CreateTime { get; set; }
-        InfoType InfoType { get; set; }
+        RequestInfoType InfoType { get; set; }
     }
 
     /// <summary>
@@ -32,6 +32,6 @@ namespace Senparc.Weixin.Open
     {
         public string AppId { get; set; }
         public DateTime CreateTime { get; set; }
-        public InfoType InfoType { get; set; }
+        public RequestInfoType InfoType { get; set; }
     }
 }

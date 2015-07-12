@@ -47,6 +47,10 @@ namespace Senparc.Weixin.Open.Helpers
                         case "Double":
                             prop.SetValue(entity, double.Parse(root.Element(propName).Value), null);
                             break;
+                        //以下为枚举类型
+                        case "RequestInfoType":
+                            //已设为只读
+                            break;
                         default:
                             prop.SetValue(entity, root.Element(propName).Value, null);
                             break;

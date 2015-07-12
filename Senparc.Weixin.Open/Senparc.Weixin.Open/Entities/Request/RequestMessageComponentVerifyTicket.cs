@@ -17,6 +17,10 @@ namespace Senparc.Weixin.Open
 {
     public class RequestMessageComponentVerifyTicket : RequestMessageBase
     {
+        public virtual RequestInfoType MsgType
+        {
+            get { return RequestInfoType.component_verify_ticket; }
+        }
         public string ComponentVerifyTicket { get; set; }
     }
 }

@@ -53,17 +53,17 @@ namespace Senparc.Weixin.Open
         public static IRequestMessageBase GetRequestEntity(XDocument doc, PostModel postModel = null)
         {
             RequestMessageBase requestMessage = null;
-            InfoType infoType;
+            RequestInfoType infoType;
 
             try
             {
                 infoType = InfoTypeHelper.GetRequestInfoType(doc);
                 switch (infoType)
                 {
-                    case InfoType.component_verify_ticket:
+                    case RequestInfoType.component_verify_ticket:
                         requestMessage = new RequestMessageComponentVerifyTicket();
                         break;
-                    case InfoType.unauthorized:
+                    case RequestInfoType.unauthorized:
                         requestMessage = new RequestMessageUnauthorized();
                         break;
                     default:

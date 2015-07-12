@@ -44,7 +44,7 @@ namespace Senparc.Weixin.Open
     /// <summary>
     /// 公众号第三方平台推送消息类型
     /// </summary>
-    public enum InfoType
+    public enum RequestInfoType
     {
         /// <summary>
         /// 推送component_verify_ticket协议

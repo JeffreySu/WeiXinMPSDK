@@ -7,9 +7,9 @@ using Senparc.Weixin.Open.MessageHandlers;
 
 namespace Senparc.Weixin.Open.Test.ThirdPartyMessageHandlers
 {
-    public class CustomerMessageHandler : ThirdPartyMessageHandler
+    public class CustomMessageHandler : ThirdPartyMessageHandler
     {
-        public CustomerMessageHandler(XDocument ecryptRequestDocument, PostModel postModel = null)
+        public CustomMessageHandler(XDocument ecryptRequestDocument, PostModel postModel = null)
             : base(ecryptRequestDocument, postModel)
         {
         }
@@ -47,7 +47,7 @@ namespace Senparc.Weixin.Open.Test.ThirdPartyMessageHandlers
                 Token = sToken,
                 EncodingAESKey = sEncodingAESKey
             };
-            var messageHandler = new CustomerMessageHandler(XDocument.Parse(requestXML), postModel);
+            var messageHandler = new CustomMessageHandler(XDocument.Parse(requestXML), postModel);
             messageHandler.Execute();
 
             //TestMessageHandlers中没有处理坐标信息的重写方法，将返回默认消息

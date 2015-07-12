@@ -57,6 +57,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
             //比如MessageHandler<MessageContext>.GlobalWeixinContext.ExpireMinutes = 3。
             WeixinContext.ExpireMinutes = 3;
+
+            if (!string.IsNullOrEmpty(postModel.AppId))
+            {
+                appId = postModel.AppId;//通过第三方开放平台发送过来的请求
+            }
         }
 
         public override void OnExecuting()

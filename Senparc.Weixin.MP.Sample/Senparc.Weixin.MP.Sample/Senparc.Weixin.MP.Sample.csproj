@@ -148,6 +148,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\WeixinJSSDKController.cs" />
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\OAuth2Controller.cs" />
@@ -303,6 +304,7 @@
     <Content Include="Views\TenPayV3\ProductItem.cshtml" />
     <Content Include="Views\OpenOAuth\Index.cshtml" />
     <Content Include="Views\OpenOAuth\UserInfoCallback.cshtml" />
+    <Content Include="Views\WeixinJSSDK\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

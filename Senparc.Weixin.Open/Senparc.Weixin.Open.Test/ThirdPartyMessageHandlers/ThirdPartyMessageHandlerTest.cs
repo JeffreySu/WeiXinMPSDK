@@ -37,8 +37,10 @@ namespace Senparc.Weixin.Open.Test.ThirdPartyMessageHandlers
 
             var postModel = new PostModel()
             {
-                Signature = sReqMsgSig,
-                Timestamp=sReqTimeStamp,
+                AppId = sAppID,
+                Msg_Signature = sReqMsgSig,
+                //Signature = sReqMsgSig,
+                Timestamp = sReqTimeStamp,
                 Nonce = sReqNonce,
 
                 Token = sToken,
@@ -52,7 +54,7 @@ namespace Senparc.Weixin.Open.Test.ThirdPartyMessageHandlers
 
             Assert.IsInstanceOfType(messageHandler.ResponseMessageText, typeof(String));
             Assert.AreEqual("success。", messageHandler.ResponseMessageText);
- 
+
         }
     }
 }

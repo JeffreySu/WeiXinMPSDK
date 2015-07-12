@@ -69,11 +69,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <param name="appId"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Callback(string appId, Entities.Request.PostModel postModel)
+        public ActionResult Callback(Entities.Request.PostModel postModel)
         {
             //此处的URL格式类型为：http://weixin.senparc.com/Open/Callback/$APPID$， 在RouteConfig中进行了配置，你也可以用自己的格式，只要和开放平台设置的一致。
 
-            //处理微信普通消息，可以直接使用公众号的MessageHandler
+            //处理微信普通消息，可以直接使用公众号的MessageHandler。此处的URL也可以直接填写公众号普通的URL，如本Demo中的/Weixin访问地址。
 
             var messageHandler = new CommonService.CustomMessageHandler.CustomMessageHandler(Request.InputStream,
                 postModel, 10);

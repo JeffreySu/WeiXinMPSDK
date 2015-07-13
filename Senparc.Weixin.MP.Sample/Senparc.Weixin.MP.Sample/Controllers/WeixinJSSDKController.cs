@@ -31,11 +31,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //获取签名
             var signature = jsHelper.GetSignature(ticket, nonceStr, timestamp, Request.Url.AbsoluteUri);
 
+            ViewData["AppId"] = appId;
             ViewData["Timestamp"] = timestamp;
             ViewData["NonceStr"] = nonceStr;
             ViewData["Signature"] = signature;
             return View();
         }
-
     }
 }

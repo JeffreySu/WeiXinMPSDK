@@ -24,5 +24,20 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             return View();
         }
+
+        public ActionResult TestElmah()
+        {
+            try
+            {
+                throw new Exception("出错测试，使用Elmah保存错误结果(1)");
+            }
+            catch (Exception)
+            {
+                
+            }
+
+            throw new Exception("出错测试，使用Elmah保存错误结果(2)");
+            return View();
+        }
     }
 }

@@ -4,18 +4,23 @@
 
 <!DOCTYPE html>
 
+@*
+    使用JSSDK，首先要到微信公众平台【公众号设置】下的【功能设置】里面设置“JS接口安全域名”
+*@
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>公众号JSSDK演示</title>
     <script src="~/Scripts/jquery-1.7.1.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script>
         wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId: '@ViewData["AppId"]', // 必填，公众号的唯一标识
             timestamp: '@ViewData["Timestamp"]', // 必填，生成签名的时间戳
             nonceStr: '@ViewData["NonceStr"]', // 必填，生成签名的随机串
-            signature: '@ViewData["Signature"]',// 必填，签名，见附录1
+            signature: '@ViewData["Signature"]',// 必填，签名
             jsApiList: [
                   "checkJsApi",
                     'onMenuShareTimeline',

@@ -6252,12 +6252,13 @@
             <returns></returns>
         </member>
         <!-- 对于成员“T:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3”忽略有格式错误的 XML 注释 -->
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.Unifiedorder(System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.Unifiedorder(System.String,System.Int32)">
             <summary>
             统一支付接口
             统一支付接口，可接受JSAPI/NATIVE/APP 下预支付订单，返回预支付订单号。NATIVE 支付返回二维码code_url。
             </summary>
             <param name="data">微信支付需要post的xml数据</param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.NativePay(System.String,System.String,System.String,System.String,System.String,System.String)">

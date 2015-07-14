@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
+using System.Xml;
+using System.Xml.Linq;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.MessageHandlers;
@@ -17,6 +20,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     /// </summary>
     public class OpenController : Controller
     {
+        private string component_AppId = WebConfigurationManager.AppSettings["Component_Appid"];
+        private string component_Secret = WebConfigurationManager.AppSettings["Component_Secret"];
+        private string component_Token = WebConfigurationManager.AppSettings["Component_Token"];
+        private string component_EncodingAESKey = WebConfigurationManager.AppSettings["Component_EncodingAESKey"];
+
         /// <summary>
         /// 发起授权页的体验URL
         /// </summary>
@@ -31,6 +39,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// 授权事件接收URL
         /// </summary>
         /// <returns></returns>
+        [HttpPost]
         public ActionResult Notice(PostModel postModel)
         {
             var logPath = Server.MapPath(string.Format("~/App_Data/Open/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
@@ -39,11 +48,18 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 Directory.CreateDirectory(logPath);
             }
 
+
+
             try
             {
+                postModel.Token = component_Token;
+                postModel.EncodingAESKey = component_EncodingAESKey;//根据自己后台的设置保持一致
+                postModel.AppId = component_AppId;//根据自己后台的设置保持一致
+
                 var messageHandler = new CustomThirdPartyMessageHandler(Request.InputStream, postModel);//初始化
 
                 //记录RequestMessage日志（可选）
+                //messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request.txt", DateTime.Now.Ticks)));
                 messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.AppId)));
 
                 messageHandler.Execute();//执行
@@ -60,6 +76,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             catch (Exception ex)
             {
+                throw;
                 return Content("error：" + ex.Message);
             }
         }

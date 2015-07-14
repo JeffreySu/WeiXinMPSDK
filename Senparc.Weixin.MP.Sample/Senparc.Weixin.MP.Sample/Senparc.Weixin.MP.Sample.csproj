@@ -311,7 +311,7 @@
     <Content Include="Views\WeixinJSSDK\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\OpenTickets\" />
     <Folder Include="Controllers\AppStore\" />
   </ItemGroup>
   <ItemGroup>

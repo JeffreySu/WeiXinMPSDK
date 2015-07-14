@@ -32,6 +32,11 @@ namespace Senparc.Weixin.Open.Entities.Request
         public string AppId { get; set; }
 
         /// <summary>
+        /// 加密类型，通常为"aes"
+        /// </summary>
+        public string Encrypt_Type { get; set; }
+
+        /// <summary>
         /// 设置服务器内部保密信息
         /// </summary>
         /// <param name="token"></param>

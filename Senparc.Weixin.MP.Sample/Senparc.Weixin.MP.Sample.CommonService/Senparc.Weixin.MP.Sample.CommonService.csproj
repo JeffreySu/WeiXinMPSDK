@@ -57,6 +57,7 @@
     <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageHandler_Events.cs" />
     <Compile Include="EventService.cs" />
     <Compile Include="LocationService.cs" />
+    <Compile Include="MessageHandlers\OpenMessageHandler\OpenCheckMessageHandler.cs" />
     <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageContext.cs" />
     <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -149,7 +149,7 @@ namespace Senparc.Weixin.HttpUtility
                             }
 
                             //统一处理
-                            var formdataBytes = Encoding.ASCII.GetBytes(postStream.Length == 0 ? formdata.Substring(2, formdata.Length - 2) : formdata);//第一行不需要换行
+                            var formdataBytes = Encoding.UTF8.GetBytes(postStream.Length == 0 ? formdata.Substring(2, formdata.Length - 2) : formdata);//第一行不需要换行
                             postStream.Write(formdataBytes, 0, formdataBytes.Length);
 
                             //写入文件
@@ -170,7 +170,7 @@ namespace Senparc.Weixin.HttpUtility
                     }
                 }
                 //结尾
-                var footer = Encoding.ASCII.GetBytes("\r\n--" + boundary + "--\r\n");
+                var footer = Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
                 postStream.Write(footer, 0, footer.Length);
 
                 request.ContentType = string.Format("multipart/form-data; boundary={0}", boundary);

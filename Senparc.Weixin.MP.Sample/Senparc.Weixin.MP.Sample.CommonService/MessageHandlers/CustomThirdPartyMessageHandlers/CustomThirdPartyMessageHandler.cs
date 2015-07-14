@@ -39,6 +39,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers
 
         public override string OnUnauthorizedRequest(RequestMessageUnauthorized requestMessage)
         {
+            //取消授权
             return base.OnUnauthorizedRequest(requestMessage);
         }
     }

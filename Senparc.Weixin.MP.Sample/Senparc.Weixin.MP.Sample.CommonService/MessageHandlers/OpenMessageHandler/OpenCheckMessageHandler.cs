@@ -38,7 +38,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
             else if (requestMessage.Content.StartsWith("QUERY_AUTH_CODE:"))
             {
                 var openTicketPath = Server.GetMapPath("~/App_Data/OpenTicket");
-                using (TextWriter tw = new StreamWriter(Path.Combine(openTicketPath, string.Format("{0}.txt", DateTime.Now.Ticks))))
+                using (TextWriter tw = new StreamWriter(Path.Combine(openTicketPath, string.Format("{0}.txt", DateTime.Now.Ticks)), false))
                 {
                     string openTicket = null;
                     var filePath = Path.Combine(openTicketPath, string.Format("{0}.txt", componentAppId));
@@ -62,20 +62,28 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
                     tw.WriteLine("query_auth_code:" + query_auth_code);
                     tw.Flush();
 
-                    var component_access_token = Open.CommonAPIs.CommonApi.GetComponentAccessToken(componentAppId, componentSecret, openTicket).component_access_token;
-                    tw.WriteLine("component_access_token:" + component_access_token);
-                    tw.Flush();
+                    try
+                    {
+                        var component_access_token = Open.CommonAPIs.CommonApi.GetComponentAccessToken(componentAppId, componentSecret, openTicket).component_access_token;
+                        tw.WriteLine("component_access_token:" + component_access_token);
+                        tw.Flush();
 
-                    var oauthResult = Open.OAuthJoin.OAuthJoinAPI.GetJoinAccessToken(component_access_token, componentAppId, query_auth_code);
-                    tw.WriteLine("oauthResult:" + oauthResult);
-                    tw.Flush();
+                        var oauthResult = Open.OAuthJoin.OAuthJoinAPI.GetJoinAccessToken(component_access_token, componentAppId, query_auth_code);
+                        tw.WriteLine("oauthResult:" + oauthResult);
+                        tw.Flush();
 
-                    //调用客服接口
-                    var content = query_auth_code + "_from_api";
-                    var sendResult = AdvancedAPIs.Custom.CustomApi.SendText(oauthResult.authorization_info.authorizer_access_token,
-                          requestMessage.FromUserName, content);
-                    tw.WriteLine("sendResult:" + sendResult.errcode);
-                    tw.Flush();
+                        //调用客服接口
+                        var content = query_auth_code + "_from_api";
+                        var sendResult = AdvancedAPIs.Custom.CustomApi.SendText(oauthResult.authorization_info.authorizer_access_token,
+                              requestMessage.FromUserName, content);
+                        tw.WriteLine("sendResult:" + sendResult.errcode);
+                        tw.Flush();
+                    }
+                    catch (Exception ex)
+                    {
+                        tw.WriteLine("error:" + ex.Message);
+                        tw.WriteLine(ex.StackTrace);
+                    }
 
                     tw.Close();
                 }

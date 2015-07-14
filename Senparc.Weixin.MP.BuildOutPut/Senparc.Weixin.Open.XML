@@ -463,7 +463,7 @@
             </summary>
             <param name="componentAppId">服务开发方的appid</param>
             <param name="componentAccessToken">服务开发方的access_token</param>
-            <param name="authCode">授权code,会在授权成功时返回给第三方平台，详见第三方平台授权流程说明</param>
+            <param name="authorizationCode">授权code,会在授权成功时返回给第三方平台，详见第三方平台授权流程说明</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>

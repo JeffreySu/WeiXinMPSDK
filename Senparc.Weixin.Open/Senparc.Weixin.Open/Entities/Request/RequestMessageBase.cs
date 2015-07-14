@@ -22,7 +22,7 @@ namespace Senparc.Weixin.Open
     {
         string AppId { get; set; }
         DateTime CreateTime { get; set; }
-        RequestInfoType InfoType { get; set; }
+        RequestInfoType InfoType { get; }
     }
 
     /// <summary>
@@ -32,6 +32,9 @@ namespace Senparc.Weixin.Open
     {
         public string AppId { get; set; }
         public DateTime CreateTime { get; set; }
-        public RequestInfoType InfoType { get; set; }
+        public virtual RequestInfoType InfoType
+        {
+            get { return RequestInfoType.component_verify_ticket; }
+        }
     }
 }

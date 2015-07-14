@@ -35,7 +35,7 @@ namespace Senparc.Weixin.Open.Test.ThirdPartyMessageHandlers
         private string sReqSig = "6cd59ed9ca88d3993475bd4960052c5e5204391e";
 
         [TestMethod]
-        public void CustomerMessageHandlerTest()
+        public void UnAuthMessageHandlerTest()
         {
             var postModel = new PostModel()
             {
@@ -58,6 +58,36 @@ namespace Senparc.Weixin.Open.Test.ThirdPartyMessageHandlers
             Assert.IsInstanceOfType(messageHandler.RequestMessage, typeof(RequestMessageUnauthorized));
             Assert.AreEqual("success", messageHandler.ResponseMessageText);
             Console.WriteLine(messageHandler.RequestDocument.ToString());
+        }
+
+        [TestMethod]
+        public void TicketMessageHandlerTest()
+        {
+            string xml = @"<xml>
+    <AppId><![CDATA[wxbbd3f07e2945cf2a]]></AppId>
+    <Encrypt><![CDATA[/RWeOUN4J839ynYH960Duj2k0WwvSfwq2dBFQ1NG78v9CZKbiCk5F8Fq/RGV0oFALoy+2L7KDe+1EbitZK7T4KtHMxntcEeQDxhWGdbeyTYJStcl7pudKA/ltfPP2nDbMrvmdl6JAX/XY4El0XEaYMrxegU3B1aUMZJ1GDjz9pIFv5+DPWj2mf7mhwIKcJSfeMctifS5UyJHKmIM+gnPQjtcKsVdnjaLckEScUsKKTygeG9IOtWFfE720W6g5UfOg3yxPFCUrqjWKRTue7g0yT0vQyb0L5cODKh1bCjIRcgikJsRVo3tAX1QO/CrHzKEEDqaD3Rx1hRkvRl/2KQlFd/DkhOzWp1LmpsCZQiNj0Fdc41aVleaFrwUQ8svg9Wt2iJLDhdqlz1Us2Pb6Ayx3dJLhXtb4ynJGsPFq0N8RrCuLgU391BpAiga5JBcjzS50pfvBBEEPQDyAE7znPphrA==]]></Encrypt>
+</xml>";
+            var postModel = new PostModel()
+            {
+                AppId = sAppID,
+                Msg_Signature = "066523677e42a15c64a725ba0058cd7651174624",
+                Signature = "60d1ddec039f51cc8c7ee4ea9ae9a479dd7c7d01",
+                Timestamp = "1436881222",
+                Nonce = "296318614",
+
+                Token = sToken,
+                EncodingAESKey = sEncodingAESKey
+            };
+            var messageHandler = new CustomMessageHandler(XDocument.Parse(xml), postModel);
+            messageHandler.Execute();
+
+            //TestMessageHandlers中没有处理坐标信息的重写方法，将返回默认消息
+
+
+            Assert.IsInstanceOfType(messageHandler.ResponseMessageText, typeof(String));
+            Assert.AreEqual("success", messageHandler.ResponseMessageText);
+            Console.WriteLine(messageHandler.RequestDocument.ToString());
+            Assert.IsInstanceOfType(messageHandler.RequestMessage, typeof(RequestMessageComponentVerifyTicket));
         }
     }
 }

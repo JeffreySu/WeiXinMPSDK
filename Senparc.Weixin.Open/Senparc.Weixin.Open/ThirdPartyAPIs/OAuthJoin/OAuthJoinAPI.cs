@@ -51,10 +51,11 @@ namespace Senparc.Weixin.Open.OAuthJoin
         /// </summary>
         /// <param name="componentAppId">服务开发方的appid</param>
         /// <param name="componentAccessToken">服务开发方的access_token</param>
-        /// <param name="authCode">授权code,会在授权成功时返回给第三方平台，详见第三方平台授权流程说明</param>
+        /// <param name="authorizationCode">授权code,会在授权成功时返回给第三方平台，详见第三方平台授权流程说明</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static OAuthJoinResult GetJoinAccessToken(string componentAccessToken, string componentAppId, string authCode, int timeOut = Config.TIME_OUT)
+        public static OAuthJoinResult GetJoinAccessToken(string componentAccessToken, string componentAppId, string authorizationCode
+            , int timeOut = Config.TIME_OUT)
         {
             var url =
                 string.Format(
@@ -63,7 +64,7 @@ namespace Senparc.Weixin.Open.OAuthJoin
             var data = new
                 {
                     component_appid = componentAppId,
-                    authorization_code = authCode
+                    authorization_code = authorizationCode
                 };
 
             return CommonJsonSend.Send<OAuthJoinResult>(null, url, data, CommonJsonSendType.POST, timeOut);

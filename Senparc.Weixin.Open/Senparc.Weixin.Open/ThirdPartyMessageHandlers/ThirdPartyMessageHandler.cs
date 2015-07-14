@@ -68,33 +68,8 @@ namespace Senparc.Weixin.Open.MessageHandlers
             RequestDocument = XDocument.Parse(msgXml);//完成解密
             RequestMessage = RequestMessageFactory.GetRequestEntity(RequestDocument);
 
-            //转成实体
-            RequestMessageBase requestMessage = null;
-            RequestInfoType infoType;
-            try
-            {
-                infoType = InfoTypeHelper.GetRequestInfoType(RequestDocument);
-                switch (infoType)
-                {
-                    case RequestInfoType.component_verify_ticket:
-                        requestMessage = new RequestMessageComponentVerifyTicket();
-                        break;
-                    case RequestInfoType.unauthorized:
-                        requestMessage = new RequestMessageUnauthorized();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-            catch (Exception ex)
-            {
-                //此处可以记录日志
-                throw;
-            }
+            //((RequestMessageBase)RequestMessage).FillEntityWithXml(RequestDocument);
 
-            requestMessage.FillEntityWithXml(RequestDocument);
-
-            RequestMessage = requestMessage;
             return RequestDocument;
         }
 

@@ -33,35 +33,52 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
             var responseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
             if (requestMessage.Content == "TESTCOMPONENT_MSG_TYPE_TEXT")
             {
-                responseMessage.Content = requestMessage.Content + "from_callback";//固定为TESTCOMPONENT_MSG_TYPE_TEXT_callback
+                responseMessage.Content = requestMessage.Content + "_callback";//固定为TESTCOMPONENT_MSG_TYPE_TEXT_callback
             }
             else if (requestMessage.Content.StartsWith("QUERY_AUTH_CODE:"))
             {
-                string openTicket = null;
-            var openTicketPath = Server.GetMapPath("~/App_Data/OpenTicket");
-                var filePath = Path.Combine(openTicketPath, string.Format("{0}.txt", componentAppId));
-                if (File.Exists(filePath))
+                var openTicketPath = Server.GetMapPath("~/App_Data/OpenTicket");
+                using (TextWriter tw = new StreamWriter(Path.Combine(openTicketPath, string.Format("{0}.txt", DateTime.Now.Ticks))))
                 {
-                     using (TextReader tr = new StreamReader(filePath))
-                 {
-                     openTicket = tr.ReadToEnd();
-                 }
+                    string openTicket = null;
+                    var filePath = Path.Combine(openTicketPath, string.Format("{0}.txt", componentAppId));
+                    if (File.Exists(filePath))
+                    {
+                        using (TextReader tr = new StreamReader(filePath))
+                        {
+                            openTicket = tr.ReadToEnd();
+                            tw.WriteLine("openTicket:" + openTicket);
+                            tw.Flush();
+                        }
+                    }
+                    else
+                    {
+                        tw.WriteLine("openTicket缓存文件不存在！");
+                        tw.Flush();
+                    }
+
+
+                    var query_auth_code = requestMessage.Content.Replace("QUERY_AUTH_CODE:", "");
+                    tw.WriteLine("query_auth_code:" + query_auth_code);
+                    tw.Flush();
+
+                    var component_access_token = Open.CommonAPIs.CommonApi.GetComponentAccessToken(componentAppId, componentSecret, openTicket).component_access_token;
+                    tw.WriteLine("component_access_token:" + component_access_token);
+                    tw.Flush();
+
+                    var oauthResult = Open.OAuthJoin.OAuthJoinAPI.GetJoinAccessToken(component_access_token, componentAppId, query_auth_code);
+                    tw.WriteLine("oauthResult:" + oauthResult);
+                    tw.Flush();
+
+                    //调用客服接口
+                    var content = query_auth_code + "_from_api";
+                    var sendResult = AdvancedAPIs.Custom.CustomApi.SendText(oauthResult.authorization_info.authorizer_access_token,
+                          requestMessage.FromUserName, content);
+                    tw.WriteLine("sendResult:" + sendResult.errcode);
+                    tw.Flush();
+
+                    tw.Close();
                 }
-                else
-                {
-                    throw new Exception("OpenTicket不存在："+componentAppId);
-                }
-
-                var componentAccessTokenResult = Open.CommonAPIs.CommonApi.GetComponentAccessToken(componentAppId,componentSecret,openTicket);
-                var authorization_code = requestMessage.Content.Replace("QUERY_AUTH_CODE:","");
-                var query_auth_code = Open.AdvancedAPIs.OAuth.OAuthApi.GetAccessToken(testAppId, componentAppId,
-                    componentAccessTokenResult.component_access_token, authorization_code);
-
-                var content = query_auth_code + "_from_api";
-
-                //调用客服接口
-                AdvancedAPIs.Custom.CustomApi.SendText(authorization_code, requestMessage.FromUserName, content);
-
                 return null;
             }
             return responseMessage;

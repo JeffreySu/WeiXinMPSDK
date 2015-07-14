@@ -48,7 +48,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 Directory.CreateDirectory(logPath);
             }
 
+            //using (TextWriter tw = new StreamWriter(Path.Combine(logPath, string.Format("{0}_RequestStream.txt", DateTime.Now.Ticks))))
+            //{
+            //    using (var sr = new StreamReader(Request.InputStream))
+            //    {
+            //        tw.WriteLine(sr.ReadToEnd());
+            //        tw.Flush();
+            //    }
+            //}
 
+            //Request.InputStream.Seek(0, SeekOrigin.Begin);
 
             try
             {
@@ -93,10 +102,30 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //处理微信普通消息，可以直接使用公众号的MessageHandler。此处的URL也可以直接填写公众号普通的URL，如本Demo中的/Weixin访问地址。
 
-            var messageHandler = new CommonService.CustomMessageHandler.CustomMessageHandler(Request.InputStream,
+            //var messageHandler = new CommonService.CustomMessageHandler.CustomMessageHandler(Request.InputStream,
+            //    postModel, 10);
+
+            var logPath = Server.MapPath(string.Format("~/App_Data/Open/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
+            if (!Directory.Exists(logPath))
+            {
+                Directory.CreateDirectory(logPath);
+            }
+
+            postModel.Token = component_Token;
+            postModel.EncodingAESKey = component_EncodingAESKey;//根据自己后台的设置保持一致
+            postModel.AppId = component_AppId;//根据自己后台的设置保持一致
+
+            var messageHandler = new CommonService.MessageHandlers.OpenMessageHandler.OpenCheckMessageHandler(Request.InputStream,
                 postModel, 10);
 
-            messageHandler.Execute();
+            messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.FromUserName)));
+
+            messageHandler.Execute();//执行
+
+            if (messageHandler.ResponseDocument != null)
+            {
+                messageHandler.ResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.FromUserName)));
+            }
 
             return new FixWeixinBugWeixinResult(messageHandler);
         }

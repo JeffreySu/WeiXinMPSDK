@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.MvcExtension;
+using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler;
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.MessageHandlers;
 using Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers;
@@ -66,6 +67,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 postModel.AppId = component_AppId;//根据自己后台的设置保持一致
 
                 var messageHandler = new CustomThirdPartyMessageHandler(Request.InputStream, postModel);//初始化
+                //注意：再进行“全网发布”时使用上面的CustomThirdPartyMessageHandler，发布完成之后使用正常的自定义的MessageHandler，例如下面一行。
+                //var messageHandler = new CommonService.CustomMessageHandler.CustomMessageHandler(Request.InputStream,
+                //    postModel, 10);
 
                 //记录RequestMessage日志（可选）
                 //messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request.txt", DateTime.Now.Ticks)));
@@ -102,8 +106,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //处理微信普通消息，可以直接使用公众号的MessageHandler。此处的URL也可以直接填写公众号普通的URL，如本Demo中的/Weixin访问地址。
 
-            //var messageHandler = new CommonService.CustomMessageHandler.CustomMessageHandler(Request.InputStream,
-            //    postModel, 10);
+           
 
             var logPath = Server.MapPath(string.Format("~/App_Data/Open/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))
@@ -115,8 +118,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             postModel.EncodingAESKey = component_EncodingAESKey;//根据自己后台的设置保持一致
             postModel.AppId = component_AppId;//根据自己后台的设置保持一致
 
-            var messageHandler = new CommonService.MessageHandlers.OpenMessageHandler.OpenCheckMessageHandler(Request.InputStream,
+            var messageHandler = new OpenCheckMessageHandler(Request.InputStream,
                 postModel, 10);
+
+
 
             messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.FromUserName)));
 

@@ -32,7 +32,7 @@ namespace Senparc.Weixin.Open.OAuthJoin
         /// <param name="preAuthCode">预授权码</param>
         /// <param name="redirectUrl">回调URL</param>
         /// <returns></returns>
-        public static string GetJoinAuthorizeUrl(string componentAppId, string preAuthCode, string redirectUrl)
+        public static string GetComponentLoginPageUrl(string componentAppId, string preAuthCode, string redirectUrl)
         {
             /*
              * 授权流程完成后，会进入回调URI，并在URL参数中返回授权码和过期时间(redirect_url?auth_code=xxx&expires_in=600)
@@ -54,7 +54,7 @@ namespace Senparc.Weixin.Open.OAuthJoin
         /// <param name="authorizationCode">授权code,会在授权成功时返回给第三方平台，详见第三方平台授权流程说明</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static OAuthJoinResult GetJoinAccessToken(string componentAccessToken, string componentAppId, string authorizationCode
+        public static QueryAuthResult QueryAuth(string componentAccessToken, string componentAppId, string authorizationCode
             , int timeOut = Config.TIME_OUT)
         {
             var url =
@@ -67,7 +67,7 @@ namespace Senparc.Weixin.Open.OAuthJoin
                     authorization_code = authorizationCode
                 };
 
-            return CommonJsonSend.Send<OAuthJoinResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<QueryAuthResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>

@@ -42,9 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdvancedAPIs\OAuth\OAuthAPI.cs" />
-    <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
-    <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthUserInfo.cs" />
+    <Compile Include="ComponentAPIs\OAuth\OAuthAPI.cs" />
+    <Compile Include="ComponentAPIs\OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
+    <Compile Include="ComponentAPIs\OAuth\OAuthJson\OAuthUserInfo.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="CommonAPIs\ComponentAccessTokenContainer.cs" />
@@ -63,11 +63,9 @@
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
     <Compile Include="ThirdPartyMessageHandlers\ThirdPartyMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ThirdPartyAPIs\OAuthJoin\OAuthJoinAPI.cs" />
-    <Compile Include="ThirdPartyAPIs\OAuthJoin\OAuthJoinJson\AuthorizerOptionResult.cs" />
-    <Compile Include="ThirdPartyAPIs\OAuthJoin\OAuthJoinJson\OAuthJoinResult.cs" />
-    <Compile Include="ThirdPartyAPIs\OAuthOpen\OAuthOpenAPI.cs" />
-    <Compile Include="ThirdPartyAPIs\OAuthOpen\OAuthOpenJson\OAuthOpenAccessTokenResult.cs" />
+    <Compile Include="ComponentAPIs\ComponentLoginOAuth\OAuthJoinAPI.cs" />
+    <Compile Include="ComponentAPIs\ComponentLoginOAuth\ComponentLoginOAuthJson\AuthorizerOptionResult.cs" />
+    <Compile Include="ComponentAPIs\ComponentLoginOAuth\ComponentLoginOAuthJson\QueryAuthResult.cs" />
     <Compile Include="TicketCache\TicketCache.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +74,7 @@
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

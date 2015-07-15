@@ -1,7 +1,7 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2015 Senparc
     
-    文件名：OAuthJoinResult.cs
+    文件名：QueryAuthResult.cs
     文件功能描述：使用授权码换取公众号的授权信息返回结果
     
     
@@ -20,7 +20,7 @@ namespace Senparc.Weixin.Open.OAuthJoin
     /// <summary>
     /// 使用授权码换取公众号的授权信息返回结果
     /// </summary>
-    public class OAuthJoinResult : WxJsonResult
+    public class QueryAuthResult : WxJsonResult
     {
         /// <summary>
         /// 授权信息

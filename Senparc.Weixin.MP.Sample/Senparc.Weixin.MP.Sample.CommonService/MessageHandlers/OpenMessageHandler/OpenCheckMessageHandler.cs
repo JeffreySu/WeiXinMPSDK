@@ -9,6 +9,7 @@ using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.MP.Entities.Request;
+using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler
@@ -37,58 +38,25 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
             }
             else if (requestMessage.Content.StartsWith("QUERY_AUTH_CODE:"))
             {
-                var openTicketPath = Server.GetMapPath("~/App_Data/OpenTicket");
-                using (TextWriter tw = new StreamWriter(Path.Combine(openTicketPath, string.Format("{0}.txt", DateTime.Now.Ticks)), false))
+                string openTicket = OpenTicketHelper.GetOpenTicket(componentAppId);
+                var query_auth_code = requestMessage.Content.Replace("QUERY_AUTH_CODE:", "");
+                try
                 {
-                    string openTicket = null;
-                    var filePath = Path.Combine(openTicketPath, string.Format("{0}.txt", componentAppId));
-                    if (File.Exists(filePath))
-                    {
-                        using (TextReader tr = new StreamReader(filePath))
-                        {
-                            openTicket = tr.ReadToEnd();
-                            tw.WriteLine("openTicket:" + openTicket);
-                            tw.Flush();
-                        }
-                    }
-                    else
-                    {
-                        tw.WriteLine("openTicket缓存文件不存在！");
-                        tw.Flush();
-                    }
+                    var component_access_token = Open.CommonAPIs.CommonApi.GetComponentAccessToken(componentAppId, componentSecret, openTicket).component_access_token;
+                    var oauthResult = Open.OAuthJoin.OAuthJoinAPI.GetJoinAccessToken(component_access_token, componentAppId, query_auth_code);
 
-
-                    var query_auth_code = requestMessage.Content.Replace("QUERY_AUTH_CODE:", "");
-                    tw.WriteLine("query_auth_code:" + query_auth_code);
-                    tw.Flush();
-
-                    try
-                    {
-                        var component_access_token = Open.CommonAPIs.CommonApi.GetComponentAccessToken(componentAppId, componentSecret, openTicket).component_access_token;
-                        tw.WriteLine("component_access_token:" + component_access_token);
-                        tw.Flush();
-
-                        var oauthResult = Open.OAuthJoin.OAuthJoinAPI.GetJoinAccessToken(component_access_token, componentAppId, query_auth_code);
-                        tw.WriteLine("oauthResult:" + oauthResult);
-                        tw.Flush();
-
-                        //调用客服接口
-                        var content = query_auth_code + "_from_api";
-                        var sendResult = AdvancedAPIs.Custom.CustomApi.SendText(oauthResult.authorization_info.authorizer_access_token,
-                              requestMessage.FromUserName, content);
-                        tw.WriteLine("sendResult:" + sendResult.errcode);
-                        tw.Flush();
-                    }
-                    catch (Exception ex)
-                    {
-                        tw.WriteLine("error:" + ex.Message);
-                        tw.WriteLine(ex.StackTrace);
-                    }
-
-                    tw.Close();
+                    //调用客服接口
+                    var content = query_auth_code + "_from_api";
+                    var sendResult = AdvancedAPIs.Custom.CustomApi.SendText(oauthResult.authorization_info.authorizer_access_token,
+                          requestMessage.FromUserName, content);
                 }
-                return null;
+                catch (Exception ex)
+                {
+                    throw;
+                }
+
             }
+            return null;
             return responseMessage;
         }
 

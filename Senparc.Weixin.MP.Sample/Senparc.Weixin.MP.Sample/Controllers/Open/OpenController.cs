@@ -9,6 +9,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler;
+using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.MessageHandlers;
 using Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers;
@@ -33,7 +34,15 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public ActionResult OAuth()
         {
 
-            return View();
+            string openTicket = OpenTicketHelper.GetOpenTicket(component_AppId);
+
+            var component_access_token = Open.CommonAPIs.CommonApi.GetComponentAccessToken(component_AppId, component_Secret, openTicket).component_access_token;
+
+            //获取预授权码
+            var preAuthCode = Open.CommonAPIs.CommonApi.GetPreAuthCode(component_AppId, component_Secret, openTicket).pre_auth_code;
+
+            var url = Open.OAuthJoin.OAuthJoinAPI.GetJoinAuthorizeUrl(component_AppId, preAuthCode, "http://weixin.senparc.com/OpenOAuth/UserInfoCallback");
+            return Redirect(url);
         }
 
         /// <summary>

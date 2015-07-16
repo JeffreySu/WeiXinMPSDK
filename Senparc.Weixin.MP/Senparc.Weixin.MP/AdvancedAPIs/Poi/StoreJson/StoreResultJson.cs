@@ -91,4 +91,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
         /// </summary>
         public int available_state { get; set; }
     }
+
+    /// <summary>
+    /// 获取门店类目表返回结果
+    /// </summary>
+    public class GetCategoryResult : WxJsonResult
+    {
+        public List<string> category_list { get; set; } 
+    }
 }

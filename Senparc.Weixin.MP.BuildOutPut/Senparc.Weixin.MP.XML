@@ -4599,6 +4599,13 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.GetCategory(System.String)">
+            <summary>
+            获取门店类目表
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.StoreBaseInfoCanBeUpdate">
             <summary>
             可以被修改的门店基础信息
@@ -4804,6 +4811,11 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetStoreList_BaseInfo.available_state">
             <summary>
             门店是否可用状态。1 表示系统错误、2 表示审核中、3 审核通过、4 审核驳回。当该字段为1、2、4 状态时，poi_id 为空
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.GetCategoryResult">
+            <summary>
+            获取门店类目表返回结果
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.UploadImageResultJson">

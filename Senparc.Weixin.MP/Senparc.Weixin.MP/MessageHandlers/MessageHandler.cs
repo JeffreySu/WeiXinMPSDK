@@ -753,7 +753,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// Event事件类型请求之审核结果事件推送
         /// </summary>
-        public IResponseMessageBase OnEvent_Poi_Check_NotifyRequest(RequestMessageEvent_Poi_Check_Notify requestMessage)
+        public virtual IResponseMessageBase OnEvent_Poi_Check_NotifyRequest(RequestMessageEvent_Poi_Check_Notify requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }
@@ -761,7 +761,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <summary>
         /// Event事件类型请求之Wi-Fi连网成功
         /// </summary>
-        public IResponseMessageBase OnEvent_WifiConnected(RequestMessageEvent_WifiConnected requestMessage)
+        public virtual IResponseMessageBase OnEvent_WifiConnected(RequestMessageEvent_WifiConnected requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

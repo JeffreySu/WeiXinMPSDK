@@ -1727,6 +1727,36 @@
             非必填
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.custom_url_name">
+            <summary>
+            自定义跳转外链的入口名字
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.custom_url_sub_title">
+            <summary>
+            显示在入口右侧的提示语
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.promotion_url_name">
+            <summary>
+            营销场景的自定义入口名称
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.promotion_url">
+            <summary>
+            入口跳转外链的地址链接
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfoBase.promotion_url_sub_title">
+            <summary>
+            显示在营销入口右侧的提示语
+            非必填
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.BaseInfoResult.id">
             <summary>
             卡券Id
@@ -8384,7 +8414,7 @@
         </member>
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnShortVideoRequest(Senparc.Weixin.MP.Entities.RequestMessageShortVideo)">
             <summary>
-            链接消息类型请求
+            小视频类型请求
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEventRequest(Senparc.Weixin.MP.Entities.IRequestMessageEventBase)">

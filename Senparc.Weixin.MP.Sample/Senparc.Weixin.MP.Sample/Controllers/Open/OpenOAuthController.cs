@@ -126,6 +126,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("用户已授权，授权Token：" + result);
             }
         }
+
+        /// <summary>
+        /// 公众号授权页入口
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult JumpToMpOAuth()
+        {
+            return View();
+        }
+
     }
 }
 

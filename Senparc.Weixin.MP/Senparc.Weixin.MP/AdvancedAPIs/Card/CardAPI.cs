@@ -17,6 +17,9 @@
  
     修改标识：Senparc - 20150512
     修改描述：门店接口过期处理
+ 
+    修改标识：Senparc - 20150717
+    修改描述：增加获取用户已领取卡券、修改库存接口
 ----------------------------------------------------------------*/
 
 /* 
@@ -733,6 +736,59 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 获取用户已领取卡券
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId">需要查询的用户openid</param>
+        /// <param name="cardId">卡券ID。不填写时默认查询当前appid下的卡券。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetCardListResult GetCardList(string accessTokenOrAppId, string openId, string cardId = null, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format("https://api.weixin.qq.com/card/user/getcardlist?access_token={0}", accessToken);
+
+                var data = new
+                {
+                    openid = openId,
+                    card_id = cardId,
+                };
+
+                return CommonJsonSend.Send<GetCardListResult>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 修改库存接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="cardId">卡券ID</param>
+        /// <param name="increaseStockValue">增加多少库存，支持不填或填0</param>
+        /// <param name="reduceStockValue">减少多少库存，可以不填或填0</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult ModifyStock(string accessTokenOrAppId, string cardId, int increaseStockValue = 0, int reduceStockValue = 0, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format("https://api.weixin.qq.com/card/modifystock?access_token={0}", accessToken);
+
+                var data = new
+                {
+                    card_id = cardId,
+                    increase_stock_value = increaseStockValue,
+                    reduce_stock_value = reduceStockValue
+                };
+
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
         #region 门店接口已过期
 
         ///// <summary>

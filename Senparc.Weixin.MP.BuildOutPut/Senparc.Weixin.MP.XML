@@ -854,6 +854,27 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.GetCardList(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            获取用户已领取卡券
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="openId">需要查询的用户openid</param>
+            <param name="cardId">卡券ID。不填写时默认查询当前appid下的卡券。</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.ModifyStock(System.String,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            修改库存接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="cardId">卡券ID</param>
+            <param name="increaseStockValue">增加多少库存，支持不填或填0</param>
+            <param name="reduceStockValue">减少多少库存，可以不填或填0</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.CardCreateInfo">
             <summary>
             创建卡券数据
@@ -1825,6 +1846,16 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.MemberCardDeal.openid">
             <summary>
             用户openid
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardListResult">
+            <summary>
+            获取用户已领取卡券返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardListResult.card_list">
+            <summary>
+            卡券列表
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardUpdateData">

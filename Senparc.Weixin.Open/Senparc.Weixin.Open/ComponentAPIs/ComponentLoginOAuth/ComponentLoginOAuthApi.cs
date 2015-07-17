@@ -21,9 +21,9 @@ using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.Open.OAuthJoin
+namespace Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth
 {
-    public static class OAuthJoinAPI
+    public static class ComponentLoginOAuthApi
     {
         /// <summary>
         /// 获取授权地址

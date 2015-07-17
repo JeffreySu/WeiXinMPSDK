@@ -15,7 +15,7 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Open.AdvancedAPIs.OAuth
+namespace Senparc.Weixin.Open.ComponentAPIs.OAuth
 {
     /// <summary>
     /// 获取OAuth AccessToken的结果

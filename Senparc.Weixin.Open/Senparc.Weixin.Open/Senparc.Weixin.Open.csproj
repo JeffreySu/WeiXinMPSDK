@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComponentAPIs\OAuth\OAuthAPI.cs" />
+    <Compile Include="ComponentAPIs\OAuth\OAuthApi.cs" />
     <Compile Include="ComponentAPIs\OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
     <Compile Include="ComponentAPIs\OAuth\OAuthJson\OAuthUserInfo.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
@@ -63,7 +63,7 @@
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
     <Compile Include="ThirdPartyMessageHandlers\ThirdPartyMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ComponentAPIs\ComponentLoginOAuth\OAuthJoinAPI.cs" />
+    <Compile Include="ComponentAPIs\ComponentLoginOAuth\ComponentLoginOAuthApi.cs" />
     <Compile Include="ComponentAPIs\ComponentLoginOAuth\ComponentLoginOAuthJson\AuthorizerOptionResult.cs" />
     <Compile Include="ComponentAPIs\ComponentLoginOAuth\ComponentLoginOAuthJson\QueryAuthResult.cs" />
     <Compile Include="TicketCache\TicketCache.cs" />

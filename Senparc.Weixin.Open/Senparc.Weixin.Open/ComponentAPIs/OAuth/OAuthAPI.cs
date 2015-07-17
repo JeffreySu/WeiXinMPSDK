@@ -21,7 +21,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.Open.AdvancedAPIs.OAuth
+namespace Senparc.Weixin.Open.ComponentAPIs.OAuth
 {
     /// <summary>
     /// 代公众号发起网页授权

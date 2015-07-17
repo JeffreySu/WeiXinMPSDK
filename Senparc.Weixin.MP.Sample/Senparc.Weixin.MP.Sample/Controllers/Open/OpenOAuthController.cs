@@ -5,10 +5,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Open.ComponentAPIs;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
-    using Senparc.Weixin.Open.AdvancedAPIs.OAuth;
+    using Senparc.Weixin.Open.ComponentAPIs.OAuth;
 
     public class OpenOAuthController : Controller
     {

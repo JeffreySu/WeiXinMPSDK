@@ -43,11 +43,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
                 try
                 {
                     var component_access_token = Open.CommonAPIs.CommonApi.GetComponentAccessToken(componentAppId, componentSecret, openTicket).component_access_token;
-                    var oauthResult = Open.OAuthJoin.OAuthJoinAPI.GetJoinAccessToken(component_access_token, componentAppId, query_auth_code);
+                    var oauthResult = Open.ComponentAPIs.LoginOAuthApi.QueryAuth(component_access_token, componentAppId, query_auth_code);
 
                     //调用客服接口
                     var content = query_auth_code + "_from_api";
-                    var sendResult = AdvancedAPIs.Custom.CustomApi.SendText(oauthResult.authorization_info.authorizer_access_token,
+                    var sendResult = AdvancedAPIs.CustomApi.SendText(oauthResult.authorization_info.authorizer_access_token,
                           requestMessage.FromUserName, content);
                 }
                 catch (Exception ex)

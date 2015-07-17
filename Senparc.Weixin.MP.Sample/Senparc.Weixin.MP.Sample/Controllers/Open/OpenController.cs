@@ -41,7 +41,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //获取预授权码
             var preAuthCode = Open.CommonAPIs.CommonApi.GetPreAuthCode(component_AppId, component_Secret, openTicket).pre_auth_code;
 
-            var url = Open.OAuthJoin.OAuthJoinAPI.GetJoinAuthorizeUrl(component_AppId, preAuthCode, "http://weixin.senparc.com/OpenOAuth/UserInfoCallback");
+            var callbackUrl = "http://weixin.senparc.com/OpenOAuth/UserInfoCallback";//成功回调地址
+            var url = Open.OAuthJoin.OAuthJoinAPI.GetJoinAuthorizeUrl(component_AppId, preAuthCode, callbackUrl);
             return Redirect(url);
         }
 
@@ -115,7 +116,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //处理微信普通消息，可以直接使用公众号的MessageHandler。此处的URL也可以直接填写公众号普通的URL，如本Demo中的/Weixin访问地址。
 
-           
+
 
             var logPath = Server.MapPath(string.Format("~/App_Data/Open/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))

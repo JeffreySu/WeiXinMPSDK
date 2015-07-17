@@ -309,6 +309,7 @@
     <Content Include="Views\OpenOAuth\Index.cshtml" />
     <Content Include="Views\OpenOAuth\UserInfoCallback.cshtml" />
     <Content Include="Views\WeixinJSSDK\Index.cshtml" />
+    <Content Include="Views\OpenOAuth\JumpToMpOAuth.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\OpenTickets\" />

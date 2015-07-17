@@ -4,12 +4,12 @@
         <name>Senparc.Weixin.Open</name>
     </assembly>
     <members>
-        <member name="T:Senparc.Weixin.Open.ComponentAPIs.OAuth.OAuthApi">
+        <member name="T:Senparc.Weixin.Open.ComponentAPIs.OAuthApi">
             <summary>
             代公众号发起网页授权
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Open.ComponentAPIs.OAuth.OAuthApi.GetAuthorizeUrl(System.String,System.String,System.String,Senparc.Weixin.Open.OAuthScope,System.String)">
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.OAuthApi.GetAuthorizeUrl(System.String,System.String,System.String,Senparc.Weixin.Open.OAuthScope,System.String)">
             <summary>
             获取验证地址
             </summary>
@@ -20,7 +20,7 @@
             <param name="responseType">默认，填code</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.ComponentAPIs.OAuth.OAuthApi.GetAccessToken(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.OAuthApi.GetAccessToken(System.String,System.String,System.String,System.String,System.String)">
             <summary>
             获取AccessToken
             </summary>
@@ -31,7 +31,7 @@
             <param name="grantType"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.ComponentAPIs.OAuth.OAuthApi.RefreshToken(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.OAuthApi.RefreshToken(System.String,System.String,System.String,System.String,System.String)">
             <summary>
             刷新access_token（如果需要）
             </summary>
@@ -42,7 +42,7 @@
             <param name="componentAppid"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.ComponentAPIs.OAuth.OAuthApi.GetUserInfo(System.String,System.String,Senparc.Weixin.Language)">
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.OAuthApi.GetUserInfo(System.String,System.String,Senparc.Weixin.Language)">
             <summary>
             获取用户基本信息
             </summary>
@@ -448,7 +448,7 @@
             请求消息，对应解密之之后的XML数据
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth.ComponentLoginOAuthApi.GetComponentLoginPageUrl(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.LoginOAuthApi.GetComponentLoginPageUrl(System.String,System.String,System.String)">
             <summary>
             获取授权地址
             </summary>
@@ -457,7 +457,7 @@
             <param name="redirectUrl">回调URL</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth.ComponentLoginOAuthApi.QueryAuth(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.LoginOAuthApi.QueryAuth(System.String,System.String,System.String,System.Int32)">
             <summary>
             使用授权码换取公众号的授权信息
             </summary>
@@ -467,7 +467,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth.ComponentLoginOAuthApi.GetAuthorizerOption(System.String,System.String,System.String,Senparc.Weixin.Open.OptionName,System.Int32)">
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.LoginOAuthApi.GetAuthorizerOption(System.String,System.String,System.String,Senparc.Weixin.Open.OptionName,System.Int32)">
             <summary>
             刷新access_token
             由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权。
@@ -479,7 +479,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth.ComponentLoginOAuthApi.SetAuthorizerOption(System.String,System.String,System.String,Senparc.Weixin.Open.OptionName,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.LoginOAuthApi.SetAuthorizerOption(System.String,System.String,System.String,Senparc.Weixin.Open.OptionName,System.Int32,System.Int32)">
             <summary>
             设置授权方的选项信息
             </summary>
@@ -491,57 +491,57 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth.AuthorizerOptionResult">
+        <member name="T:Senparc.Weixin.Open.ComponentAPIs.LoginOAuth.AuthorizerOptionResult">
             <summary>
             获取授权方的选项设置信息返回结果
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth.AuthorizerOptionResult.authorizer_appid">
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.LoginOAuth.AuthorizerOptionResult.authorizer_appid">
             <summary>
             第三方平台appid
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth.AuthorizerOptionResult.option_name">
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.LoginOAuth.AuthorizerOptionResult.option_name">
             <summary>
             授权公众号appid
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth.AuthorizerOptionResult.option_value">
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.LoginOAuth.AuthorizerOptionResult.option_value">
             <summary>
             选项名称
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth.QueryAuthResult">
+        <member name="T:Senparc.Weixin.Open.ComponentAPIs.LoginOAuth.QueryAuthResult">
             <summary>
             使用授权码换取公众号的授权信息返回结果
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth.QueryAuthResult.authorization_info">
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.LoginOAuth.QueryAuthResult.authorization_info">
             <summary>
             授权信息
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth.AuthorizationInfo.authorizer_appid">
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.LoginOAuth.AuthorizationInfo.authorizer_appid">
             <summary>
             授权方appid
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth.AuthorizationInfo.authorizer_access_token">
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.LoginOAuth.AuthorizationInfo.authorizer_access_token">
             <summary>
             授权方令牌（在授权的公众号具备API权限时，才有此返回值）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth.AuthorizationInfo.expires_in">
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.LoginOAuth.AuthorizationInfo.expires_in">
             <summary>
             有效期（在授权的公众号具备API权限时，才有此返回值）
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth.AuthorizationInfo.authorizer_refresh_token">
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.LoginOAuth.AuthorizationInfo.authorizer_refresh_token">
             <summary>
             刷新令牌（在授权的公众号具备API权限时，才有此返回值），刷新令牌主要用于公众号第三方平台获取和刷新已授权用户的access_token，只会在授权时刻提供，请妥善保存。 一旦丢失，只能让用户重新授权，才能再次拿到新的刷新令牌
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth.AuthorizationInfo.func_info">
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.LoginOAuth.AuthorizationInfo.func_info">
              <summary>
              公众号授权给开发者的权限集列表（请注意，当出现用户已经将消息与菜单权限集授权给了某个第三方，再授权给另一个第三方时，由于该权限集是互斥的，后一个第三方的授权将去除此权限集，开发者可以在返回的func_info信息中验证这一点，避免信息遗漏），
              1到8分别代表：

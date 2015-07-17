@@ -15,7 +15,7 @@ using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Open.Entities;
 
-namespace Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth
+namespace Senparc.Weixin.Open.ComponentAPIs.LoginOAuth
 {
     /// <summary>
     /// 使用授权码换取公众号的授权信息返回结果

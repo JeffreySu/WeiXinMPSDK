@@ -18,12 +18,13 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Open.CommonAPIs;
+using Senparc.Weixin.Open.ComponentAPIs.LoginOAuth;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.Open.ComponentAPIs.ComponentLoginOAuth
+namespace Senparc.Weixin.Open.ComponentAPIs
 {
-    public static class ComponentLoginOAuthApi
+    public static class LoginOAuthApi
     {
         /// <summary>
         /// 获取授权地址

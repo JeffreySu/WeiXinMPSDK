@@ -17,9 +17,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.AdvancedAPIs.Poi;
 using Senparc.Weixin.MP.CommonAPIs;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     #region 商户在使用门店管理接口时需注意以下几个问题：
 

@@ -31,7 +31,7 @@ using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 客服接口

@@ -27,10 +27,11 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.AdvancedAPIs.Groups;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.Groups
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 用户组接口

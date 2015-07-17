@@ -27,10 +27,11 @@ using System.Linq;
 using System.Text;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.AdvancedAPIs.CustomService;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.Helpers;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 多客服接口

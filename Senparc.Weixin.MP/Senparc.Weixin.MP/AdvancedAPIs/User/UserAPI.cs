@@ -27,9 +27,10 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.MP.AdvancedAPIs.User;
 using Senparc.Weixin.MP.CommonAPIs;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.User
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 用户接口

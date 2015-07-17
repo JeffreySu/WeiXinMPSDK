@@ -23,9 +23,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 using Senparc.Weixin.MP.CommonAPIs;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 高级群发接口

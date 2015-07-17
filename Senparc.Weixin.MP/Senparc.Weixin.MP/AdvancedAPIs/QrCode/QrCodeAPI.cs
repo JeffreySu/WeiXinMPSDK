@@ -26,9 +26,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.MP.AdvancedAPIs.QrCode;
 using Senparc.Weixin.MP.CommonAPIs;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.QrCode
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 二维码接口

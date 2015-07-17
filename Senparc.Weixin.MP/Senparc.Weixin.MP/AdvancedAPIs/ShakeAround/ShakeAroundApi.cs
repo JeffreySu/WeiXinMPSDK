@@ -17,9 +17,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.AdvancedAPIs.ShakeAround;
 using Senparc.Weixin.MP.CommonAPIs;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 摇一摇周边接口

@@ -17,10 +17,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.AdvancedAPIs.WiFi;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.WiFi
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     public static class WiFiApi
     {

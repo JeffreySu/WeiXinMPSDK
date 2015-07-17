@@ -4,14 +4,14 @@
         <name>Senparc.Weixin.MP</name>
     </assembly>
     <members>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi">
             <summary>
             分析数据接口
             最大时间跨度是指一次接口调用时最大可获取数据的时间范围，如最大时间跨度为7是指最多一次性获取7天的数据。
             注意：所有的日期请使用【yyyy-MM-dd】的格式
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetArticleSummary(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetArticleSummary(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取图文群发每日数据（getarticlesummary）
             最大时间跨度 1
@@ -22,7 +22,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetArticleTotal(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetArticleTotal(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取图文群发总数据（getarticletotal）
             请注意，details中，每天对应的数值为该文章到该日为止的总量（而不是当日的量）
@@ -34,7 +34,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUserRead(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetUserRead(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取图文统计数据（getuserread）
             最大时间跨度 3
@@ -45,7 +45,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUserReadHour(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetUserReadHour(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取图文统计分时数据（getuserreadhour）
             最大时间跨度 1
@@ -56,7 +56,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUserShare(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetUserShare(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取图文分享转发数据（getusershare）
             最大时间跨度 7
@@ -67,7 +67,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUserShareHour(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetUserShareHour(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取图文分享转发分时数据（getusersharehour）
             最大时间跨度 1
@@ -78,7 +78,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetInterfaceSummary(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetInterfaceSummary(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取接口分析数据（getinterfacesummary）
             最大时间跨度 30
@@ -89,7 +89,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetInterfaceSummaryHour(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetInterfaceSummaryHour(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取接口分析分时数据（getinterfacesummaryhour）
             最大时间跨度 1
@@ -100,7 +100,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUpStreamMsg(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetUpStreamMsg(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取消息发送概况数据（getupstreammsg）
             最大时间跨度 7
@@ -111,7 +111,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUpStreamMsgHour(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetUpStreamMsgHour(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取消息分送分时数据（getupstreammsghour）
             最大时间跨度 1
@@ -122,7 +122,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUpStreamMsgWeek(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetUpStreamMsgWeek(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取消息发送周数据（getupstreammsgweek）
             最大时间跨度 30
@@ -133,7 +133,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUpStreamMsgMonth(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetUpStreamMsgMonth(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取消息发送月数据（getupstreammsgmonth）
             最大时间跨度 30
@@ -144,7 +144,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUpStreamMsgDist(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetUpStreamMsgDist(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取消息发送分布数据（getupstreammsgdist）
             最大时间跨度 15
@@ -155,7 +155,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUpStreamMsgDistWeek(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetUpStreamMsgDistWeek(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取消息发送分布周数据（getupstreammsgdistweek）
             最大时间跨度 30
@@ -166,7 +166,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUpStreamMsgDistMonth(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetUpStreamMsgDistMonth(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取消息发送分布月数据（getupstreammsgdistmonth）
             最大时间跨度 30
@@ -177,7 +177,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUserSummary(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetUserSummary(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取用户增减数据
             最大时间跨度 7
@@ -188,7 +188,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Analysis.AnalysisApi.GetUserCumulate(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.AnalysisApi.GetUserCumulate(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取累计用户数据
             最大时间跨度 7
@@ -611,12 +611,12 @@
             数据的小时
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CardApi">
             <summary>
             卡券接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CreateCard(System.String,Senparc.Weixin.MP.AdvancedAPIs.Card.BaseCardInfo,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CreateCard(System.String,Senparc.Weixin.MP.AdvancedAPIs.Card.BaseCardInfo,System.Int32)">
             <summary>
             创建卡券
             </summary>
@@ -625,7 +625,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.GetColors(System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.GetColors(System.String,System.Int32)">
             <summary>
             获取颜色列表接口
             </summary>
@@ -633,7 +633,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CreateQR(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CreateQR(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.Int32)">
             <summary>
             生成卡券二维码
             获取二维码ticket 后，开发者可用ticket 换取二维码图片。换取指引参考：http://mp.weixin.qq.com/wiki/index.php?title=生成带参数的二维码
@@ -648,7 +648,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardConsume(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CardConsume(System.String,System.String,System.String,System.Int32)">
             <summary>
             卡券消耗code
             </summary>
@@ -658,7 +658,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardDecrypt(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CardDecrypt(System.String,System.String,System.Int32)">
             <summary>
             code 解码接口
             code 解码接口支持两种场景：
@@ -670,7 +670,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardDelete(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CardDelete(System.String,System.String,System.Int32)">
             <summary>
             删除卡券
             </summary>
@@ -679,7 +679,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardGet(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CardGet(System.String,System.String,System.String,System.Int32)">
             <summary>
             查询code接口
             </summary>
@@ -689,7 +689,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardBatchGet(System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CardBatchGet(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
             批量查询卡列表
             </summary>
@@ -699,7 +699,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardDetailGet(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CardDetailGet(System.String,System.String,System.Int32)">
             <summary>
             查询卡券详情
             </summary>
@@ -708,7 +708,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardChangeCode(System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CardChangeCode(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             更改code
             </summary>
@@ -719,7 +719,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardUnavailable(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CardUnavailable(System.String,System.String,System.String,System.Int32)">
             <summary>
             设置卡券失效接口
             </summary>
@@ -729,7 +729,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.CardUpdate(System.String,Senparc.Weixin.MP.CardType,System.Object,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CardUpdate(System.String,Senparc.Weixin.MP.CardType,System.Object,System.String,System.Int32)">
             <summary>
             更改卡券信息接口
             支持更新部分通用字段及特殊卡券（会员卡、飞机票、电影票、红包）中特定字段的信息。
@@ -741,7 +741,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.AuthoritySet(System.String,System.String[],System.String[],System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.AuthoritySet(System.String,System.String[],System.String[],System.Int32)">
              <summary>
              设置测试用户白名单
              由于卡券有审核要求，为方便公众号调试，可以设置一些测试帐号，这些帐号可以领取未通过审核的卡券，体验整个流程。
@@ -753,7 +753,7 @@
              <param name="timeOut">代理请求超时时间（毫秒）</param>
              <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.MemberCardActivate(System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.MemberCardActivate(System.String,System.String,System.String,System.String,System.Int32,System.Int32,System.String,System.String,System.Int32)">
              <summary>
              激活/绑定会员卡
              参数【initBonus、initBalance】和【bonus、balance】取其一，不可同时传入
@@ -785,7 +785,7 @@
              <param name="timeOut">代理请求超时时间（毫秒）</param>
              <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.MemberCardDeal(System.String,System.String,System.String,System.String,System.Decimal,System.Decimal,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.MemberCardDeal(System.String,System.String,System.String,System.String,System.Decimal,System.Decimal,System.String,System.Int32)">
             <summary>
             会员卡交易
             </summary>
@@ -799,7 +799,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.MovieCardUpdate(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String[],System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.MovieCardUpdate(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String[],System.Int32)">
             <summary>
             更新电影票
             </summary>
@@ -814,7 +814,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.BoardingPassCheckIn(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.BoardingPassCheckIn(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Int32)">
             <summary>
             飞机票在线选座
             </summary>
@@ -830,7 +830,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.UpdateUserBalance(System.String,System.String,System.String,System.Decimal,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.UpdateUserBalance(System.String,System.String,System.String,System.Decimal,System.Int32)">
             <summary>
             更新红包金额
             </summary>
@@ -841,7 +841,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.UpdateMeetingTicket(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.UpdateMeetingTicket(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             更新会议门票接口
             </summary>
@@ -854,7 +854,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.GetCardList(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.GetCardList(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取用户已领取卡券
             </summary>
@@ -864,7 +864,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Card.CardApi.ModifyStock(System.String,System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.ModifyStock(System.String,System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
             修改库存接口
             </summary>
@@ -2037,12 +2037,12 @@
             客服当前正在接待的会话数
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CustomServiceApi">
             <summary>
             多客服接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.GetRecord(System.String,System.DateTime,System.DateTime,System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomServiceApi.GetRecord(System.String,System.DateTime,System.DateTime,System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
             获取用户聊天记录
             </summary>
@@ -2055,7 +2055,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.GetCustomBasicInfo(System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomServiceApi.GetCustomBasicInfo(System.String,System.Int32)">
             <summary>
             获取客服基本信息
             </summary>
@@ -2063,7 +2063,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.GetCustomOnlineInfo(System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomServiceApi.GetCustomOnlineInfo(System.String,System.Int32)">
             <summary>
             获取在线客服接待信息
             </summary>
@@ -2071,7 +2071,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.AddCustom(System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomServiceApi.AddCustom(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             添加客服账号
             </summary>
@@ -2082,7 +2082,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.UpdateCustom(System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomServiceApi.UpdateCustom(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             设置客服信息
             </summary>
@@ -2093,7 +2093,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.UploadCustomHeadimg(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomServiceApi.UploadCustomHeadimg(System.String,System.String,System.String,System.Int32)">
             <summary>
             上传客服头像
             </summary>
@@ -2103,7 +2103,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.DeleteCustom(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomServiceApi.DeleteCustom(System.String,System.String,System.Int32)">
             <summary>
             删除客服账号
             </summary>
@@ -2112,7 +2112,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.CreateSession(System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomServiceApi.CreateSession(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             创建会话
             </summary>
@@ -2123,7 +2123,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.CloseSession(System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomServiceApi.CloseSession(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             关闭会话
             </summary>
@@ -2134,7 +2134,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.GetSessionState(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomServiceApi.GetSessionState(System.String,System.String,System.Int32)">
             <summary>
             获取客户的会话状态
             </summary>
@@ -2143,7 +2143,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.GetSessionList(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomServiceApi.GetSessionList(System.String,System.String,System.Int32)">
             <summary>
             获取客服的会话列表
             </summary>
@@ -2152,7 +2152,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomService.CustomServiceApi.GetWaitCase(System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomServiceApi.GetWaitCase(System.String,System.Int32)">
             <summary>
             获取未接入会话列表
             </summary>
@@ -2265,12 +2265,12 @@
             用户来访时间，UNIX时间戳
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomApi">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CustomApi">
             <summary>
             客服接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomApi.SendText(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(System.String,System.String,System.String,System.Int32)">
             <summary>
             发送文本信息
             </summary>
@@ -2280,7 +2280,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomApi.SendImage(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImage(System.String,System.String,System.String,System.Int32)">
             <summary>
             发送图片消息
             </summary>
@@ -2290,7 +2290,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomApi.SendVoice(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendVoice(System.String,System.String,System.String,System.Int32)">
             <summary>
             发送语音消息
             </summary>
@@ -2300,7 +2300,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomApi.SendVideo(System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendVideo(System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             发送视频消息
             </summary>
@@ -2312,7 +2312,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomApi.SendMusic(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendMusic(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             发送音乐消息
             </summary>
@@ -2326,7 +2326,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Custom.CustomApi.SendNews(System.String,System.String,System.Collections.Generic.List{Senparc.Weixin.MP.Entities.Article},System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendNews(System.String,System.String,System.Collections.Generic.List{Senparc.Weixin.MP.Entities.Article},System.Int32)">
             <summary>
             发送图文消息
             </summary>
@@ -2336,12 +2336,12 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GroupMessageApi">
             <summary>
             高级群发接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.SendGroupMessageByGroupId(System.String,System.String,System.String,Senparc.Weixin.MP.GroupMessageType,System.Boolean,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessageApi.SendGroupMessageByGroupId(System.String,System.String,System.String,Senparc.Weixin.MP.GroupMessageType,System.Boolean,System.Int32)">
             <summary>
             根据分组进行群发【订阅号与服务号认证后均可用】
             
@@ -2360,7 +2360,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.SendGroupMessageByOpenId(System.String,Senparc.Weixin.MP.GroupMessageType,System.String,System.Int32,System.String[])">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessageApi.SendGroupMessageByOpenId(System.String,Senparc.Weixin.MP.GroupMessageType,System.String,System.Int32,System.String[])">
             <summary>
             根据OpenId进行群发
             </summary>
@@ -2371,7 +2371,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.SendVideoGroupMessageByOpenId(System.String,System.String,System.String,System.String,System.Int32,System.String[])">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessageApi.SendVideoGroupMessageByOpenId(System.String,System.String,System.String,System.String,System.Int32,System.String[])">
             <summary>
             根据OpenID列表群发视频消息【订阅号不可用，服务号认证后可用】
             注意：群发视频时需要先调用GetVideoMediaIdResult接口获取专用的MediaId然后进行群发
@@ -2384,7 +2384,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.DeleteSendMessage(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessageApi.DeleteSendMessage(System.String,System.String,System.Int32)">
             <summary>
             删除群发消息
             </summary>
@@ -2393,7 +2393,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.SendGroupMessagePreview(System.String,Senparc.Weixin.MP.GroupMessageType,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessageApi.SendGroupMessagePreview(System.String,Senparc.Weixin.MP.GroupMessageType,System.String,System.String,System.String,System.Int32)">
             <summary>
             预览接口【订阅号与服务号认证后均可用】
             注意：openId与wxName两者任选其一，同时传入以wxName优先
@@ -2406,7 +2406,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.WxCardGroupMessagePreview(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessageApi.WxCardGroupMessagePreview(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             预览卡券接口
             </summary>
@@ -2420,7 +2420,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.GetGroupMessageResult(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessageApi.GetGroupMessageResult(System.String,System.String,System.Int32)">
             <summary>
             查询群发消息发送状态【订阅号与服务号认证后均可用】
             </summary>
@@ -2429,7 +2429,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.GroupMessageApi.GetVideoMediaIdResult(System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupMessageApi.GetVideoMediaIdResult(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             获取视频群发用的MediaId
             </summary>
@@ -2545,12 +2545,12 @@
             获取用户分组ID返回结果
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsApi">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi">
             <summary>
             用户组接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsApi.Create(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.Create(System.String,System.String,System.Int32)">
             <summary>
             创建分组
             </summary>
@@ -2559,14 +2559,14 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsApi.Get(System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.Get(System.String)">
             <summary>
             发送文本信息
             </summary>
             <param name="accessTokenOrAppId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsApi.GetId(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.GetId(System.String,System.String,System.Int32)">
             <summary>
             获取用户分组
             </summary>
@@ -2575,7 +2575,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsApi.Update(System.String,System.Int32,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.Update(System.String,System.Int32,System.String,System.Int32)">
             <summary>
             修改分组名
             </summary>
@@ -2585,7 +2585,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsApi.MemberUpdate(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.MemberUpdate(System.String,System.String,System.Int32,System.Int32)">
             <summary>
             移动用户分组
             </summary>
@@ -2595,7 +2595,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsApi.BatchUpdate(System.String,System.Int32,System.Int32,System.String[])">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.BatchUpdate(System.String,System.Int32,System.Int32,System.String[])">
             <summary>
             批量移动用户分组
             </summary>
@@ -2605,7 +2605,7 @@
             <param name="openIds">用户唯一标识符openid的列表（size不能超过50）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Groups.GroupsApi.Delete(System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.Delete(System.String,System.Int32,System.Int32)">
             <summary>
             删除分组
             </summary>
@@ -2619,12 +2619,12 @@
             此属性在CreateGroupResult的Json数据中，创建结果中始终为0
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.MediaApi">
             <summary>
             素材管理接口（原多媒体文件接口）
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UploadTemporaryMedia(System.String,Senparc.Weixin.MP.UploadMediaFileType,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MediaApi.UploadTemporaryMedia(System.String,Senparc.Weixin.MP.UploadMediaFileType,System.String,System.Int32)">
             <summary>
             新增临时素材（原上传媒体文件）
             </summary>
@@ -2634,7 +2634,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UploadTemporaryNews(System.String,System.Int32,Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.NewsModel[])">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MediaApi.UploadTemporaryNews(System.String,System.Int32,Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.NewsModel[])">
             <summary>
             上传临时图文消息素材（原上传图文消息素材）
             </summary>
@@ -2643,7 +2643,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.Get(System.String,System.String,System.IO.Stream)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MediaApi.Get(System.String,System.String,System.IO.Stream)">
             <summary>
             获取临时素材（原下载媒体文件）
             </summary>
@@ -2651,7 +2651,7 @@
             <param name="mediaId"></param>
             <param name="stream"></param>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UploadNews(System.String,System.Int32,Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.NewsModel[])">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MediaApi.UploadNews(System.String,System.Int32,Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.NewsModel[])">
             <summary>
             新增永久图文素材
             </summary>
@@ -2660,7 +2660,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UploadForeverMedia(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MediaApi.UploadForeverMedia(System.String,System.String,System.Int32)">
             <summary>
             新增其他类型永久素材(图片（image）、语音（voice）和缩略图（thumb）)
             </summary>
@@ -2669,7 +2669,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UploadForeverVideo(System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MediaApi.UploadForeverVideo(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             新增永久视频素材
             </summary>
@@ -2680,7 +2680,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.GetForeverNews(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MediaApi.GetForeverNews(System.String,System.String,System.Int32)">
             <summary>
             获取永久图文素材
             </summary>
@@ -2689,7 +2689,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.GetForeverMedia(System.String,System.String,System.IO.Stream)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MediaApi.GetForeverMedia(System.String,System.String,System.IO.Stream)">
             <summary>
             获取永久素材(除了图文)
             </summary>
@@ -2697,7 +2697,7 @@
             <param name="mediaId"></param>
             <param name="stream"></param>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.DeleteForeverMedia(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MediaApi.DeleteForeverMedia(System.String,System.String,System.Int32)">
             <summary>
             删除永久素材
             </summary>
@@ -2706,7 +2706,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.UpdateForeverNews(System.String,System.String,System.Nullable{System.Int32},Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.NewsModel,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MediaApi.UpdateForeverNews(System.String,System.String,System.Nullable{System.Int32},Senparc.Weixin.MP.AdvancedAPIs.GroupMessage.NewsModel,System.Int32)">
             <summary>
             修改永久图文素材
             </summary>
@@ -2717,7 +2717,7 @@
             <param name="news">图文素材</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.GetMediaCount(System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MediaApi.GetMediaCount(System.String)">
             <summary>
             获取素材总数
             永久素材的总数，也会计算公众平台官网素材管理中的素材
@@ -2726,7 +2726,7 @@
             <param name="accessTokenOrAppId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.GetNewsMediaList(System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MediaApi.GetNewsMediaList(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
             获取图文素材列表
             </summary>
@@ -2736,7 +2736,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaApi.GetOthersMediaList(System.String,Senparc.Weixin.MP.UploadMediaFileType,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MediaApi.GetOthersMediaList(System.String,Senparc.Weixin.MP.UploadMediaFileType,System.Int32,System.Int32,System.Int32)">
             <summary>
             获取图片、视频、语音素材列表
             </summary>
@@ -2874,7 +2874,7 @@
             用户授权的作用域，使用逗号（,）分隔
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.GetAuthorizeUrl(System.String,System.String,System.String,Senparc.Weixin.MP.OAuthScope,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthApi.GetAuthorizeUrl(System.String,System.String,System.String,Senparc.Weixin.MP.OAuthScope,System.String)">
             <summary>
             获取验证地址
             </summary>
@@ -2885,7 +2885,7 @@
             <param name="responseType"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.GetAccessToken(System.String,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthApi.GetAccessToken(System.String,System.String,System.String,System.String)">
             <summary>
             获取AccessToken
             </summary>
@@ -2895,7 +2895,7 @@
             <param name="grantType"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.RefreshToken(System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthApi.RefreshToken(System.String,System.String,System.String)">
             <summary>
             刷新access_token（如果需要）
             </summary>
@@ -2904,7 +2904,7 @@
             <param name="grantType"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.GetUserInfo(System.String,System.String,Senparc.Weixin.Language)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthApi.GetUserInfo(System.String,System.String,Senparc.Weixin.Language)">
             <summary>
             获取用户基本信息
             </summary>
@@ -2913,7 +2913,7 @@
             <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthApi.Auth(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthApi.Auth(System.String,System.String)">
             <summary>
             检验授权凭证（access_token）是否有效
             </summary>
@@ -2948,12 +2948,12 @@
             二维码创建返回结果
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.QrCode.QrCodeApi">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.QrCodeApi">
             <summary>
             二维码接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCode.QrCodeApi.Create(System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCodeApi.Create(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
             创建二维码
             </summary>
@@ -2963,7 +2963,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCode.QrCodeApi.CreateByStr(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCodeApi.CreateByStr(System.String,System.String,System.Int32)">
             <summary>
             用字符串类型创建二维码
             </summary>
@@ -2972,14 +2972,14 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCode.QrCodeApi.GetShowQrCodeUrl(System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCodeApi.GetShowQrCodeUrl(System.String)">
             <summary>
             获取下载二维码的地址
             </summary>
             <param name="ticket"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCode.QrCodeApi.ShowQrCode(System.String,System.IO.Stream)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.QrCodeApi.ShowQrCode(System.String,System.IO.Stream)">
             <summary>
             获取二维码（不需要AccessToken）
             错误情况下（如ticket非法）返回HTTP错误码404。
@@ -2987,12 +2987,12 @@
             <param name="ticket"></param>
             <param name="stream"></param>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Semantic.SemanticApi">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.SemanticApi">
             <summary>
             语意理解接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Semantic.SemanticApi.SemanticSend``1(System.String,Senparc.Weixin.MP.AdvancedAPIs.Semantic.SemanticPostData,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.SemanticApi.SemanticSend``1(System.String,Senparc.Weixin.MP.AdvancedAPIs.Semantic.SemanticPostData,System.Int32)">
             <summary>
             发送语义理解请求
             </summary>
@@ -4159,12 +4159,12 @@
             搜索引擎类型：google, baidu, sogou, 360, taobao,jingdong
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi">
             <summary>
             摇一摇周边接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.DeviceApply(System.String,System.Int32,System.String,System.String,System.Nullable{System.Int64},System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.DeviceApply(System.String,System.Int32,System.String,System.String,System.Nullable{System.Int64},System.Int32)">
             <summary>
             申请设备ID
             </summary>
@@ -4176,7 +4176,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.DeviceUpdate(System.String,System.Int64,System.Int64,System.String,System.Int64,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.DeviceUpdate(System.String,System.Int64,System.Int64,System.String,System.Int64,System.String,System.Int32)">
             <summary>
             编辑设备信息
             设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
@@ -4191,7 +4191,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.DeviceBindLocatoin(System.String,System.Int64,System.Int64,System.String,System.Int64,System.Int64,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.DeviceBindLocatoin(System.String,System.Int64,System.Int64,System.String,System.Int64,System.Int64,System.Int32)">
             <summary>
             配置设备与门店的关联关系
             设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
@@ -4206,12 +4206,12 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="F:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.searchDeviceUrl">
+        <member name="F:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.searchDeviceUrl">
             <summary>
             查询设备列表Api url
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.SearchDeviceById(System.String,System.Collections.Generic.List{Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data_Device_Identifiers},System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.SearchDeviceById(System.String,System.Collections.Generic.List{Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data_Device_Identifiers},System.Int32)">
             <summary>
             根据指定的设备Id查询设备列表
             </summary>
@@ -4222,7 +4222,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.SearchDeviceByRange(System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.SearchDeviceByRange(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
             根据分页查询或者指定范围查询设备列表
             </summary>
@@ -4232,7 +4232,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.SearchDeviceByApplyId(System.String,System.Int64,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.SearchDeviceByApplyId(System.String,System.Int64,System.Int32,System.Int32,System.Int32)">
             <summary>
             根据批次ID查询设备列表
             </summary>
@@ -4243,7 +4243,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.UploadImage(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.UploadImage(System.String,System.String,System.Int32)">
             <summary>
             上传图片素材
             上传在摇一摇页面展示的图片素材，素材保存在微信侧服务器上。 格式限定为：jpg,jpeg,png,gif，图片大小建议120px*120 px，限制不超过200 px *200 px，图片需为正方形。
@@ -4253,7 +4253,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.AddPage(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.AddPage(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             新增页面
             </summary>
@@ -4266,7 +4266,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.UpdatePage(System.String,System.Int64,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.UpdatePage(System.String,System.Int64,System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             编辑页面信息
             </summary>
@@ -4280,7 +4280,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.SearchPagesByPageId(System.String,System.Int64[],System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.SearchPagesByPageId(System.String,System.Int64[],System.Int32)">
             <summary>
             根据页面Id查询页面列表
             </summary>
@@ -4289,7 +4289,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.SearchPagesByRange(System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.SearchPagesByRange(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
             根据分页或者指定范围查询页面列表
             </summary>
@@ -4299,7 +4299,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.DeletePage(System.String,System.Int64[],System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.DeletePage(System.String,System.Int64[],System.Int32)">
             <summary>
             删除页面
             </summary>
@@ -4308,7 +4308,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.BindPage(System.String,Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data_Device_Identifiers,System.Int64[],Senparc.Weixin.MP.ShakeAroundBindType,Senparc.Weixin.MP.ShakeAroundAppendType,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.BindPage(System.String,Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data_Device_Identifiers,System.Int64[],Senparc.Weixin.MP.ShakeAroundBindType,Senparc.Weixin.MP.ShakeAroundAppendType,System.Int32)">
             <summary>
             配置设备与页面的关联关系
             配置设备与页面的关联关系。支持建立或解除关联关系，也支持新增页面或覆盖页面等操作。配置完成后，在此设备的信号范围内，即可摇出关联的页面信息。若设备配置多个页面，则随机出现页面信息。一个设备最多可配置30个关联页面。
@@ -4323,7 +4323,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.GetShakeInfo(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.GetShakeInfo(System.String,System.String,System.Int32,System.Int32)">
             <summary>
             获取摇周边的设备及用户信息
             </summary>
@@ -4333,7 +4333,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.StatisticsByDevice(System.String,Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data_Device_Identifiers,System.Int64,System.Int64,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.StatisticsByDevice(System.String,Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data_Device_Identifiers,System.Int64,System.Int64,System.Int32)">
             <summary>
             以设备为维度的数据统计接口
             </summary>
@@ -4346,7 +4346,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.ShakeAroundApi.StatisticsByPage(System.String,System.Int64,System.Int64,System.Int64,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.StatisticsByPage(System.String,System.Int64,System.Int64,System.Int64,System.Int32)">
             <summary>
             以页面为维度的数据统计接口
             </summary>
@@ -4597,12 +4597,12 @@
             设备关联的门店ID
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.PoiApi">
             <summary>
             门店管理接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.UploadImage(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.PoiApi.UploadImage(System.String,System.String,System.Int32)">
             <summary>
             上传图片
             </summary>
@@ -4611,7 +4611,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.AddPoi(System.String,Senparc.Weixin.MP.AdvancedAPIs.Poi.CreateStoreData,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.PoiApi.AddPoi(System.String,Senparc.Weixin.MP.AdvancedAPIs.Poi.CreateStoreData,System.Int32)">
             <summary>
             创建门店
             </summary>
@@ -4620,7 +4620,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.GetPoi(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.PoiApi.GetPoi(System.String,System.String,System.Int32)">
             <summary>
             查询门店信息
             </summary>
@@ -4629,7 +4629,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.GetPoiList(System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.PoiApi.GetPoiList(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
             查询门店列表
             </summary>
@@ -4639,7 +4639,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.DeletePoi(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.PoiApi.DeletePoi(System.String,System.String,System.Int32)">
             <summary>
             删除门店
             </summary>
@@ -4648,7 +4648,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.UpdatePoi(System.String,Senparc.Weixin.MP.AdvancedAPIs.Poi.UpdateStoreData,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.PoiApi.UpdatePoi(System.String,Senparc.Weixin.MP.AdvancedAPIs.Poi.UpdateStoreData,System.Int32)">
             <summary>
             修改门店服务信息
             </summary>
@@ -4660,7 +4660,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.Poi.PoiApi.GetCategory(System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.PoiApi.GetCategory(System.String)">
             <summary>
             获取门店类目表
             </summary>
@@ -4889,12 +4889,12 @@
             上传成功后图片的链接
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.TemplateApi">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateApi">
             <summary>
             模板消息接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.TemplateApi.SendTemplateMessage(System.String,System.String,System.String,System.String,System.String,System.Object,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(System.String,System.String,System.String,System.String,System.String,System.Object,System.Int32)">
             <summary>
             模板消息接口
             </summary>
@@ -5000,12 +5000,12 @@
             总用户量
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User.UserApi">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UserApi">
             <summary>
             用户接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.User.UserApi.Info(System.String,System.String,Senparc.Weixin.Language)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.UserApi.Info(System.String,System.String,Senparc.Weixin.Language)">
             <summary>
             获取用户信息
             </summary>
@@ -5014,7 +5014,7 @@
             <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.User.UserApi.Get(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.UserApi.Get(System.String,System.String)">
             <summary>
             获取关注者OpenId信息
             </summary>
@@ -5022,7 +5022,7 @@
             <param name="nextOpenId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.User.UserApi.UpdateRemark(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.UserApi.UpdateRemark(System.String,System.String,System.String,System.Int32)">
             <summary>
             修改关注者备注信息
             </summary>
@@ -5042,7 +5042,7 @@
             用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiApi.AddDevice(System.String,System.Int64,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.AddDevice(System.String,System.Int64,System.String,System.String,System.String,System.Int32)">
             <summary>
             添加设备
             </summary>
@@ -5054,7 +5054,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiApi.GetDeviceList(System.String,System.Int32,System.Int32,System.Nullable{System.Int64},System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.GetDeviceList(System.String,System.Int32,System.Int32,System.Nullable{System.Int64},System.Int32)">
             <summary>
             查询设备
             </summary>
@@ -5065,7 +5065,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiApi.DeleteDevice(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.DeleteDevice(System.String,System.String,System.Int32)">
             <summary>
             删除设备
             </summary>
@@ -5074,7 +5074,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiApi.GetQrcode(System.String,System.Int64,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.GetQrcode(System.String,System.Int64,System.Int32,System.Int32)">
             <summary>
             获取物料二维码
             </summary>
@@ -5084,7 +5084,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiApi.SetHomePage(System.String,System.Int64,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.SetHomePage(System.String,System.Int64,System.String,System.Int32)">
             <summary>
             设置商家主页
             传入自定义链接则是使用自定义链接，否则使用默认模板
@@ -5095,7 +5095,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiApi.GetHomePage(System.String,System.Int64,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.GetHomePage(System.String,System.Int64,System.Int32)">
             <summary>
             查询商家主页
             </summary>
@@ -5104,7 +5104,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiApi.GetStatistics(System.String,System.String,System.String,System.Int64,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.GetStatistics(System.String,System.String,System.String,System.Int64,System.Int32)">
             <summary>
             数据统计
             </summary>

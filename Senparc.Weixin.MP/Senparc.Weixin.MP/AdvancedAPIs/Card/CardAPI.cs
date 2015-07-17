@@ -35,7 +35,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.Card;
 using Senparc.Weixin.MP.CommonAPIs;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.Card
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 卡券接口

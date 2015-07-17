@@ -26,9 +26,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.MP.AdvancedAPIs.Analysis;
 using Senparc.Weixin.MP.CommonAPIs;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 分析数据接口

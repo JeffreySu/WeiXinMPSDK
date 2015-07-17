@@ -28,10 +28,11 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.AdvancedAPIs.Semantic;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.Semantic
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 语意理解接口

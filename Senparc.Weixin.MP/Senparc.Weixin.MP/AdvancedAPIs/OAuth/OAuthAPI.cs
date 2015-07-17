@@ -20,10 +20,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     public static class OAuthApi
     {

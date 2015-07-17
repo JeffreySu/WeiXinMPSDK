@@ -35,10 +35,11 @@ using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
+using Senparc.Weixin.MP.AdvancedAPIs.Media;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.Media
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 素材管理接口（原多媒体文件接口）

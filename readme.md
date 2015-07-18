@@ -1,6 +1,12 @@
 
-微信公众平台及企业号C# SDK：Senparc.Weixin.MP.dll、Senparc.Weixin.QY.dll
+微信C# SDK
 =================
+微信公众号：Senparc.Weixin.MP.dll
+-----------------
+微信企业号：Senparc.Weixin.QY.dl
+-----------------
+微信开放平台：Senparc.Weixin.Open.dll
+-----------------
 
 
 已经支持所有微信6 API，包括自定义菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口等。
@@ -9,6 +15,8 @@
 
 
 已经支持用户会话上下文（解决服务器无法使用Session处理用户信息的问题）。
+
+已经全面支持微信公众号、企业号、开放平台的最新API。
 
 目前官方的API都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的[Senparc.Weixin.MP.dll](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut) 或 [Senparc.Weixin.dll](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut) 。
 
@@ -31,8 +39,8 @@
 
 
 技术交流QQ群：
-1群：300313885
-2群：293958349（已满）  3群：342319110（已满） 4群：372212092（已满） 5群：377815480（已满）6群：425898825（已满）
+1群：300313885（已满）
+2群：293958349（已满）  3群：342319110（已满） 4群：372212092（已满） 5群：377815480（已满）6群：425898825
 
 业务联系QQ：498977166
 
@@ -215,6 +223,11 @@ PM> Install-Package Senparc.Weixin.MP
 
 ###如何处理微信企业号请求？
 Senparc.Weixin.QY.dll对企业号相关功能进行了封装，操作过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致。
+
+Nuget对应地址为：https://www.nuget.org/packages/Senparc.Weixin.QY
+
+###如何处理微开放平台请求？
+Senparc.Weixin.Open.dll对目前所有的开放平台API进行了封装，消息处理过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致，其他一些特殊的消息流程请先阅读官方的文档，然后对照Senparc.Weixin.MP.Sample中有关Open的Demo进行开发。
 
 Nuget对应地址为：https://www.nuget.org/packages/Senparc.Weixin.QY
 

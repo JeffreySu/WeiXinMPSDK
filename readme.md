@@ -229,7 +229,7 @@ Nuget对应地址为：https://www.nuget.org/packages/Senparc.Weixin.QY
 ###如何处理微开放平台请求？
 Senparc.Weixin.Open.dll对目前所有的开放平台API进行了封装，消息处理过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致，其他一些特殊的消息流程请先阅读官方的文档，然后对照Senparc.Weixin.MP.Sample中有关Open的Demo进行开发。
 
-Nuget对应地址为：https://www.nuget.org/packages/Senparc.Weixin.QY
+Nuget对应地址为：https://www.nuget.org/packages/Senparc.Weixin.Open
 
 捐助
 --------------

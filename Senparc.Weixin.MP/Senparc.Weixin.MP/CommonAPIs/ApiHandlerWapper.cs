@@ -90,7 +90,12 @@ namespace Senparc.Weixin.MP
                     accessToken = accessTokenResult.access_token;
                     result = TryCommonApi(fun, appId, false);
                 }
+                else
+                {
+                    throw;
+                }
             }
+       
             return result;
         }
 

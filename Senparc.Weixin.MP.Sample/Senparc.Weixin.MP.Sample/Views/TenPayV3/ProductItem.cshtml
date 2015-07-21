@@ -1,0 +1,21 @@
+﻿@model Senparc.Weixin.MP.Sample.Models.ProductModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>商品详情</title>
+</head>
+<body>
+    <div>
+        <h1>商品名称：@Model.Name</h1>
+        <p>单价：@Model.Price.ToString("c")</p>
+        <p>
+            使用微信“扫一扫”下方二维码完成支付：<br />
+            <img src="@Url.Action("ProductPayCode",new{productId=Model.Id,hc=Model.GetHashCode()})" width="300" />
+        </p>
+    </div>
+</body>
+</html>

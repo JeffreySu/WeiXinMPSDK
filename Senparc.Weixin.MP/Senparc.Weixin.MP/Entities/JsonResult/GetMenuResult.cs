@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
 
 namespace Senparc.Weixin.MP.Entities
@@ -22,7 +23,7 @@ namespace Senparc.Weixin.MP.Entities
     /// <summary>
     /// GetMenu返回的Json结果
     /// </summary>
-    public class GetMenuResult
+    public class GetMenuResult : WxJsonResult
     {
         public ButtonGroup menu { get; set; }
 

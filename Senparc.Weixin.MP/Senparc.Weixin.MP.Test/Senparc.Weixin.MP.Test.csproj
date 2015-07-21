@@ -45,6 +45,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -74,7 +75,9 @@
     <Compile Include="AdvancedAPIs\Groups\GroupTest.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaTest.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthTest.cs" />
+    <Compile Include="AdvancedAPIs\Poi\PoiTest.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticTest.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundTest.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateTest.cs" />
     <Compile Include="CommonAPIs\JsApiTicketContainerTest.cs" />
     <Compile Include="Entities\Request\PostModelTest.cs" />
@@ -107,6 +110,7 @@
     <Compile Include="Exceptions\WeixinExceptionTest.cs" />
     <Compile Include="ResponseMessageFactoryTest.cs" />
     <Compile Include="TenPayV3\TenPayV3Test.cs" />
+    <Compile Include="CommonAPIs\ApiHandlerWapperTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
@@ -126,7 +130,9 @@
   <ItemGroup>
     <Compile Include="CommonAPIs\CommonApiTest.Menu.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="HttpUtility\Upload.html" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

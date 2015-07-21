@@ -27,6 +27,9 @@
 
     修改标识：Senparc - 20150331
     修改描述：应用授权作用域移至此处
+
+    修改标识：Senparc - 20150512
+    修改描述：添加摇一摇周边【关联操作标志位】、【新增操作标志位】枚举类型
 ----------------------------------------------------------------*/
 
 using System;
@@ -166,6 +169,16 @@ namespace Senparc.Weixin.MP
         /// 多客服转接会话
         /// </summary>
         kf_switch_session,
+
+        /// <summary>
+        /// 审核结果事件推送
+        /// </summary>
+        poi_check_notify,
+
+        /// <summary>
+        /// Wi-Fi连网成功
+        /// </summary>
+        WifiConnected,
     }
 
 
@@ -295,7 +308,11 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 视频
         /// </summary>
-        video = 4
+        video = 4,
+        /// <summary>
+        /// 卡券
+        /// </summary>
+        wxcard = 5
     }
     /// <summary>
     /// 卡券类型
@@ -412,43 +429,20 @@ namespace Senparc.Weixin.MP
     }
 
     /// <summary>
-    /// 选项设置信息选项名称
+    /// 关联操作标志位， 0为解除关联关系，1为建立关联关系
     /// </summary>
-    public enum OptionName
+    public enum ShakeAroundBindType
     {
-        /// <summary>
-        /// 地理位置上报选项
-        /// 0	无上报
-        /// 1	进入会话时上报
-        /// 2	每5s上报
-        /// </summary>
-        location_report,
-        /// <summary>
-        /// 语音识别开关选项
-        /// 0	关闭语音识别
-        /// 1	开启语音识别
-        /// </summary>
-        voice_recognize,
-        /// <summary>
-        /// 客服开关选项
-        /// 0	关闭多客服
-        /// 1	开启多客服
-        /// </summary>
-        customer_service
+        解除关联关系 = 0,
+        建立关联关系 = 1
     }
 
     /// <summary>
-    /// 公众号第三方平台推送消息类型
+    /// 新增操作标志位， 0为覆盖，1为新增
     /// </summary>
-    public enum ThirdPartyInfo
+    public enum ShakeAroundAppendType
     {
-        /// <summary>
-        /// 推送component_verify_ticket协议
-        /// </summary>
-        component_verify_ticket,
-        /// <summary>
-        /// 推送取消授权通知
-        /// </summary>
-        unauthorized
+        覆盖 = 0,
+        新增 = 1
     }
 }

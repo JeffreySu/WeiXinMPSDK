@@ -57,6 +57,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //这里设置仅用于测试，实际开发可以在外部更全局的地方设置，
             //比如MessageHandler<MessageContext>.GlobalWeixinContext.ExpireMinutes = 3。
             WeixinContext.ExpireMinutes = 3;
+
+            if (!string.IsNullOrEmpty(postModel.AppId))
+            {
+                appId = postModel.AppId;//通过第三方开放平台发送过来的请求
+            }
         }
 
         public override void OnExecuting()
@@ -105,7 +110,10 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             else if (requestMessage.Content == "约束")
             {
                 responseMessage.Content =
-                    "<a href=\"http://weixin.senparc.com/FilterTest/\">点击这里</a>进行客户端约束测试（地址：http://weixin.senparc.com/FilterTest/）。";
+                    @"您正在进行微信内置浏览器约束判断测试。您可以：
+<a href=""http://weixin.senparc.com/FilterTest/"">点击这里</a>进行客户端约束测试（地址：http://weixin.senparc.com/FilterTest/），如果在微信外打开将直接返回文字。
+或：
+<a href=""http://weixin.senparc.com/FilterTest/Redirect"">点击这里</a>进行客户端约束测试（地址：http://weixin.senparc.com/FilterTest/Redirect），如果在微信外打开将重定向一次URL。";
             }
             else if (requestMessage.Content == "托管" || requestMessage.Content == "代理")
             {
@@ -259,7 +267,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             var responseMessage = CreateResponseMessage<ResponseMessageMusic>();
             //上传缩略图
             var accessToken = CommonAPIs.AccessTokenContainer.TryGetToken(appId, appSecret);
-            var uploadResult = AdvancedAPIs.Media.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
+            var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
                                                          Server.GetMapPath("~/Images/Logo.jpg"));
 
             //设置音乐信息

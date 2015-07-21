@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
@@ -96,5 +96,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 用户openid
         /// </summary>
         public string openid { get; set; }
+    }
+
+    /// <summary>
+    /// 获取用户已领取卡券返回结果
+    /// </summary>
+    public class GetCardListResult : WxJsonResult
+    {
+        /// <summary>
+        /// 卡券列表
+        /// </summary>
+        public List<CardListItem> card_list { get; set; }
+    }
+
+    public class CardListItem
+    {
+        public string code { get; set; }
+        public string card_id { get; set; }
     }
 }

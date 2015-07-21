@@ -50,6 +50,7 @@
     <Compile Include="AdvancedAPIs\Concern\ConcernApi.cs" />
     <Compile Include="AdvancedAPIs\LoginAuth\LoginAuthApi.cs" />
     <Compile Include="AdvancedAPIs\LoginAuth\GetLoginInfoResult.cs" />
+    <Compile Include="AdvancedAPIs\Media\MediaResult.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthApi.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthResult.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthPostData.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="CommonAPIs\AccessTokenHandlerWapper.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
+    <Compile Include="Entities\JsonResult\ConvertToOpenIdResult.cs" />
     <Compile Include="Entities\JsonResult\GetMenuResult.cs" />
     <Compile Include="Entities\JsonResult\GetMenuResultFull.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="Entities\Request\Event\IRequestMessageEventKey.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEventBase.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Click.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Batch_Job_Result.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Pic_Photo_Or_Album.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Pic_Sysphoto.cs" />
@@ -106,7 +109,9 @@
     <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
     <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
     <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
+    <Compile Include="Entities\Request\Event\BatchJobInfo.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Enter_Agent.cs" />
+    <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfoBase.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Suite_Ticket.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Change_Auth.cs" />

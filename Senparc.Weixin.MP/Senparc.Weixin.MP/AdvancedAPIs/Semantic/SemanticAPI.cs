@@ -1,7 +1,7 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2015 Senparc
     
-    文件名：Semantic.cs
+    文件名：SemanticApi.cs
     文件功能描述：语意理解接口
     
     
@@ -27,11 +27,12 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Script.Serialization;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.AdvancedAPIs.Semantic;
 using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.Semantic
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 语意理解接口
@@ -42,21 +43,25 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Semantic
         /// 发送语义理解请求
         /// </summary>
         /// <typeparam name="T">语意理解返回的结果类型，在 AdvancedAPIs/Semantic/SemanticResult </typeparam>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="semanticPostData">语义理解请求需要post的数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static T SemanticSend<T>(string accessToken, SemanticPostData semanticPostData, int timeOut = Config.TIME_OUT)
+        public static T SemanticSend<T>(string accessTokenOrAppId, SemanticPostData semanticPostData, int timeOut = Config.TIME_OUT) where T : WxJsonResult
         {
-            var urlFormat = "https://api.weixin.qq.com/semantic/semproxy/search?access_token={0}";
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = "https://api.weixin.qq.com/semantic/semproxy/search?access_token={0}";
 
-            //switch (semanticPostData.category)
-            //{
-            //    case "restaurant":
-            //        BaseSemanticResultJson as Semantic_RestaurantResult;
-            //}
+                //switch (semanticPostData.category)
+                //{
+                //    case "restaurant":
+                //        BaseSemanticResultJson as Semantic_RestaurantResult;
+                //}
 
-            return CommonJsonSend.Send<T>(accessToken, urlFormat, semanticPostData, timeOut: timeOut);
+                return CommonJsonSend.Send<T>(accessToken, urlFormat, semanticPostData, timeOut: timeOut);
+
+             }, accessTokenOrAppId);
         }
     }
 }

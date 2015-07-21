@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 using Senparc.Weixin.MP.AdvancedAPIs.Media;
 using Senparc.Weixin.MP.CommonAPIs;
@@ -98,16 +99,18 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             }
         }
 
-        [TestMethod]
-        public void UploadForeverMediaTest()
+
+        private string UploadForeverMediaTest()
         {
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var file = @"E:\1.jpg";
+            var file = @"..\..\AdvancedAPIs\Media\test.jpg";
+
             var result = MediaApi.UploadForeverMedia(accessToken, file);
 
             Assert.IsNotNull(result.media_id);
             mediaId = result.media_id;
+            return mediaId;
         }
 
         [TestMethod]
@@ -116,7 +119,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
             var file = @"E:\Test.mp4";
-            var result = MediaApi.UploadForeverVideo(accessToken,file,"test","test");
+            var result = MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.video, file);
 
             Assert.IsNotNull(result.media_id);
             mediaId = result.media_id;
@@ -163,13 +166,33 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             return result1.media_id;
         }
 
+        [TestMethod]
+        public void GetForeverMediaTest()
+        {
+            var mediaId = UploadForeverMediaTest();
+            var accessToken = AccessTokenContainer.GetToken(_appId);
+            using (MemoryStream stream = new MemoryStream())
+            {
+                MediaApi.GetForeverMedia(accessToken, mediaId, stream);
+                Assert.IsTrue(stream.Length > 0);
+
+                var fileName = @"..\..\AdvancedAPIs\Media\test.download." + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".jpg";
+                using (var fs = new FileStream(fileName, FileMode.CreateNew))
+                {
+                    stream.Seek(0, SeekOrigin.Begin);
+                    stream.CopyTo(fs);
+                    fs.Flush();
+                }
+            }
+        }
+
         //[TestMethod]
         private void GetForeverNewsTest(string accessToken, string mediaId)
         {
             var result = MediaApi.GetForeverNews(accessToken, mediaId);
 
             Assert.IsTrue(result.news_item.Count > 0);
-            Assert.AreEqual(result.news_item[0].content,"test");
+            Assert.AreEqual(result.news_item[0].content, "test");
         }
 
         //[TestMethod]

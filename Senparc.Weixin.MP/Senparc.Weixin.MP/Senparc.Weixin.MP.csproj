@@ -72,8 +72,6 @@
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfoBase.cs" />
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfo_DataInfo.cs" />
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfo_Sku.cs" />
-    <Compile Include="AdvancedAPIs\Card\Store\StoreResultJson.cs" />
-    <Compile Include="AdvancedAPIs\Card\Store\StoreLocationData.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomInfoJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomOnlineJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomServiceApi.cs" />
@@ -89,6 +87,7 @@
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataByGroupId.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataByOpenId.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\BaseGroupMessageDataPreview.cs" />
+    <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\VideoMediaIdResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson\CreateGroupResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsJson\GetIdResult.cs" />
     <Compile Include="AdvancedAPIs\Groups\GroupsApi.cs" />
@@ -132,6 +131,18 @@
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_AppResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_WebsiteResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_SearchResult.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\DeviceApply_Data.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\PageManageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetShakeInfoResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\StatisticsResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\UploadImageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\DeviceManageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Poi\PoiApi.cs" />
+    <Compile Include="AdvancedAPIs\Poi\StoreJson\StoreBaseInfo.cs" />
+    <Compile Include="AdvancedAPIs\Poi\StoreJson\CreateStoreData.cs" />
+    <Compile Include="AdvancedAPIs\Poi\StoreJson\StoreResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Poi\StoreJson\UploadImageResultJson.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateApi.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\SendTemplateMessageResult.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\TemplateDataItem.cs" />
@@ -140,6 +151,11 @@
     <Compile Include="AdvancedAPIs\User\UserJson\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\UserApi.cs" />
     <Compile Include="AdvancedAPIs\User\UserJson\UserInfoJson.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiApi.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiHomePageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiStatisticsResultJson.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiQrcodeResultJson.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiDeviceResultJson.cs" />
     <Compile Include="AppStore\Api.cs" />
     <Compile Include="AppStore\Api\ApiConnection.cs" />
     <Compile Include="AppStore\Api\ApiContainer.cs" />
@@ -165,12 +181,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
-    <Compile Include="CommonAPIs\ComponentAccessTokenContainer.cs" />
-    <Compile Include="CommonAPIs\PreAuthCodeContainer.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
-    <Compile Include="Entities\JsonResult\ComponentAccessTokenResult.cs" />
-    <Compile Include="Entities\JsonResult\PreAuthCodeResult.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_WifiConnected.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Poi_Check_Notify.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Location_Select.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_PicWeixin.cs" />
@@ -186,19 +200,11 @@
     <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
     <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
-    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfoBase.cs" />
-    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Component_Verify_Ticket.cs" />
-    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_AuthorizerAppId.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Helpers\EventHelper.cs" />
     <Compile Include="Helpers\MsgTypeHelper.cs" />
     <Compile Include="Helpers\JSSDKHelper.cs" />
     <Compile Include="Helpers\SHA1UtilHelper.cs" />
-    <Compile Include="ThirdParty\OAuthJoin\OAuthJoinAPI.cs" />
-    <Compile Include="ThirdParty\OAuthJoin\OAuthJoinJson\OAuthJoinResult.cs" />
-    <Compile Include="ThirdParty\OAuthJoin\OAuthJoinJson\AuthorizerOptionResult.cs" />
-    <Compile Include="ThirdParty\OAuthOpen\OAuthOpenJson\OAuthOpenAccessTokenResult.cs" />
-    <Compile Include="ThirdParty\OAuthOpen\OAuthOpenAPI.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
     <Compile Include="TenPayLibV3\RequestHandler.cs" />
@@ -235,7 +241,7 @@
     <Compile Include="TenPayLib\TenPayRights\TenPayRights.cs" />
     <Compile Include="Agents\MessageAgent.cs" />
     <Compile Include="CheckSignature.cs" />
-    <Compile Include="CommonAPIs\AccessTokenHandlerWapper.cs" />
+    <Compile Include="CommonAPIs\ApiHandlerWapper.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Entities\BaiduMap\BaiduMapMarkers.cs" />
@@ -246,7 +252,6 @@
     <Compile Include="Entities\JsonResult\GetMenuResult.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaJson\UploadMediaFileResult.cs" />
     <Compile Include="Entities\JsonResult\WeixinUserInfoResult.cs" />
-    <Compile Include="Entities\JsonResult\WxJsonResult.cs" />
     <Compile Include="Entities\Menu\BaseButton.cs" />
     <Compile Include="Entities\Menu\ButtonGroup.cs" />
     <Compile Include="Entities\Menu\SingleButton.cs" />

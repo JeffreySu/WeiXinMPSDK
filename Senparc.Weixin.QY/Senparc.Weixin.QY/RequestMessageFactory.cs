@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+    
+    修改标识：Senparc - 20150507
+    修改描述：添加 事件 异步任务完成事件推送
 ----------------------------------------------------------------*/
 
 using System;
@@ -63,6 +66,9 @@ namespace Senparc.Weixin.QY
                         case RequestMsgType.Video:
                             requestMessage = new RequestMessageVideo();
                             break;
+                        case RequestMsgType.ShortVideo:
+                            requestMessage = new RequestMessageShortVideo();
+                            break;
                         case RequestMsgType.Event:
                             //判断Event类型
                             switch (doc.Root.Element("Event").Value.ToUpper())
@@ -102,6 +108,9 @@ namespace Senparc.Weixin.QY
                                     break;
                                 case "ENTER_AGENT"://用户进入应用的事件推送（enter_agent）
                                     requestMessage = new RequestMessageEvent_Enter_Agent();
+                                    break;
+                                case "BATCH_JOB_RESULT"://异步任务完成事件推送(batch_job_result)
+                                    requestMessage = new RequestMessageEvent_Batch_Job_Result();
                                     break;
                                 default://其他意外类型（也可以选择抛出异常）
                                     requestMessage = new RequestMessageEventBase();

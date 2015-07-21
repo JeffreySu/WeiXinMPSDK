@@ -37,8 +37,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 统一支付接口，可接受JSAPI/NATIVE/APP 下预支付订单，返回预支付订单号。NATIVE 支付返回二维码code_url。
         /// </summary>
         /// <param name="data">微信支付需要post的xml数据</param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static string Unifiedorder(string data)
+        public static string Unifiedorder(string data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 
@@ -46,7 +47,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
         }
 
         /// <summary>
@@ -155,6 +156,23 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static string ShortUrl(string data)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/tools/shorturl";
+
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+        }
+
+        /// <summary>
+        /// 刷卡支付
+        /// 提交被扫支付
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string MicroPay(string data)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/pay/micropay";
 
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();

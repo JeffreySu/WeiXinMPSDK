@@ -20,9 +20,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web.Script.Serialization;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.HttpUtility;
 
@@ -56,8 +56,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="urlFormat"></param>
         /// <param name="data">如果是Get方式，可以为null</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <returns></returns>
-        public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT)
+        public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
             var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken);
             switch (sendType)
@@ -73,7 +74,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         ms.Write(bytes, 0, bytes.Length);
                         ms.Seek(0, SeekOrigin.Begin);
 
-                        return Post.PostGetJson<T>(url, null, ms, timeOut: timeOut);
+                        return Post.PostGetJson<T>(url, null, ms, timeOut: timeOut, checkValidationResult: checkValidationResult);
                     }
                 default:
                     throw new ArgumentOutOfRangeException("sendType");

@@ -127,5 +127,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public string custom_url { get; set; }
+        /// <summary>
+        /// 自定义跳转外链的入口名字
+        /// 非必填
+        /// </summary>
+        public string custom_url_name { get; set; }
+        /// <summary>
+        /// 显示在入口右侧的提示语
+        /// 非必填
+        /// </summary>
+        public string custom_url_sub_title { get; set; }
+        /// <summary>
+        /// 营销场景的自定义入口名称
+        /// 非必填
+        /// </summary>
+        public string promotion_url_name { get; set; }
+        /// <summary>
+        /// 入口跳转外链的地址链接
+        /// 非必填
+        /// </summary>
+        public string promotion_url { get; set; }
+        /// <summary>
+        /// 显示在营销入口右侧的提示语
+        /// 非必填
+        /// </summary>
+        public string promotion_url_sub_title { get; set; }
     }
 }

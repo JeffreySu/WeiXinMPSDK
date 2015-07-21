@@ -26,11 +26,12 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Script.Serialization;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 客服接口
@@ -42,98 +43,114 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <summary>
         /// 发送文本信息
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
         /// <param name="content"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult SendText(string accessToken, string openId, string content, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SendText(string accessTokenOrAppId, string openId, string content, int timeOut = Config.TIME_OUT)
         {
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                touser = openId,
-                msgtype = "text",
-                text = new
+                var data = new
                 {
-                    content = content
-                }
-            };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                    touser = openId,
+                    msgtype = "text",
+                    text = new
+                    {
+                        content = content
+                    }
+                };
+                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
         }
 
         /// <summary>
         /// 发送图片消息
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult SendImage(string accessToken, string openId, string mediaId, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SendImage(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT)
         {
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                touser = openId,
-                msgtype = "image",
-                image = new
+                var data = new
                 {
-                    media_id = mediaId
-                }
-            };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                    touser = openId,
+                    msgtype = "image",
+                    image = new
+                    {
+                        media_id = mediaId
+                    }
+                };
+                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
         }
 
         /// <summary>
         /// 发送语音消息
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult SendVoice(string accessToken, string openId, string mediaId, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SendVoice(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT)
         {
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                touser = openId,
-                msgtype = "voice",
-                voice = new
+                var data = new
                 {
-                    media_id = mediaId
-                }
-            };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                    touser = openId,
+                    msgtype = "voice",
+                    voice = new
+                    {
+                        media_id = mediaId
+                    }
+                };
+                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
         }
 
         /// <summary>
         /// 发送视频消息
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="title"></param>
         /// <param name="description"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult SendVideo(string accessToken, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SendVideo(string accessTokenOrAppId, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT)
         {
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                touser = openId,
-                msgtype = "video",
-                video = new
+                var data = new
                 {
-                    media_id = mediaId,
-                    title = title,
-                    description = description
-                }
-            };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                    touser = openId,
+                    msgtype = "video",
+                    video = new
+                    {
+                        media_id = mediaId,
+                        title = title,
+                        description = description
+                    }
+                };
+                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
         }
         /// <summary>
         /// 发送音乐消息
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
         /// <param name="title">音乐标题（非必须）</param>
         /// <param name="description">音乐描述（非必须）</param>
@@ -142,51 +159,59 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Custom
         /// <param name="thumbMediaId">视频缩略图的媒体ID</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult SendMusic(string accessToken, string openId, string title, string description,
+        public static WxJsonResult SendMusic(string accessTokenOrAppId, string openId, string title, string description,
                                     string musicUrl, string hqMusicUrl, string thumbMediaId, int timeOut = Config.TIME_OUT)
         {
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                touser = openId,
-                msgtype = "music",
-                music = new
+                var data = new
                 {
-                    title = title,
-                    description = description,
-                    musicurl = musicUrl,
-                    hqmusicurl = hqMusicUrl,
-                    thumb_media_id = thumbMediaId
-                }
-            };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                    touser = openId,
+                    msgtype = "music",
+                    music = new
+                    {
+                        title = title,
+                        description = description,
+                        musicurl = musicUrl,
+                        hqmusicurl = hqMusicUrl,
+                        thumb_media_id = thumbMediaId
+                    }
+                };
+                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
         }
 
         /// <summary>
         /// 发送图文消息
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
         /// <param name="articles"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult SendNews(string accessToken, string openId, List<Article> articles, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SendNews(string accessTokenOrAppId, string openId, List<Article> articles, int timeOut = Config.TIME_OUT)
         {
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                touser = openId,
-                msgtype = "news",
-                news = new
+                var data = new
                 {
-                    articles = articles.Select(z => new
+                    touser = openId,
+                    msgtype = "news",
+                    news = new
                     {
-                        title = z.Title,
-                        description = z.Description,
-                        url = z.Url,
-                        picurl = z.PicUrl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
-                    }).ToList()
-                }
-            };
-            return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                        articles = articles.Select(z => new
+                        {
+                            title = z.Title,
+                            description = z.Description,
+                            url = z.Url,
+                            picurl = z.PicUrl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
+                        }).ToList()
+                    }
+                };
+                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
         }
     }
 }

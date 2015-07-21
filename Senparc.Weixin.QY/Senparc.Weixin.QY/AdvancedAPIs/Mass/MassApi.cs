@@ -253,13 +253,13 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Mass
                 {
                     articles = articles.Select(z => new
                     {
-                        title = z.Title,
-                        thumb_media_id = z.ThumbMediaId,
-                        author = z.Author,
-                        content_source_url = z.ContentSourceUrl,
-                        content = z.Content,
-                        digest = z.Digest,
-                        show_cover_pic = z.ShowCoverPic
+                        title = z.title,
+                        thumb_media_id = z.thumb_media_id,
+                        author = z.author,
+                        content_source_url = z.content_source_url,
+                        content = z.content,
+                        digest = z.digest,
+                        show_cover_pic = z.show_cover_pic
                     }).ToList(),
                 },
                 safe = safe

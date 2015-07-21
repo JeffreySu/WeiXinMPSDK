@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Senparc.Weixin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -46,6 +49,9 @@
     </Reference>
     <Reference Include="Senparc.Weixin.MP">
       <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.MP.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.Open">
+      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.Open.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin.QY">
       <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.QY.dll</HintPath>
@@ -130,6 +136,12 @@
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="zxing">
+      <HintPath>..\packages\ZXing.Net.0.14.0.1\lib\net40\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation">
+      <HintPath>..\packages\ZXing.Net.0.14.0.1\lib\net40\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -139,9 +151,12 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\WeixinJSSDKController.cs" />
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\OAuth2Controller.cs" />
+    <Compile Include="Controllers\Open\OpenController.cs" />
+    <Compile Include="Controllers\Open\OpenOAuthController.cs" />
     <Compile Include="Controllers\QY\QYController.cs" />
     <Compile Include="Controllers\SimulateToolController.cs" />
     <Compile Include="Controllers\TenPayV3Controller.cs">
@@ -155,9 +170,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\darktooltip.min.css" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\style.css" />
@@ -287,11 +304,16 @@
     <Content Include="Views\TenPayV3\JsApi.cshtml" />
     <Content Include="Views\TenPayV3\Index.cshtml" />
     <Content Include="Views\TenPayV3\PayNotifyUrl.cshtml" />
+    <Content Include="Views\TenPayV3\ProductList.cshtml" />
+    <Content Include="Views\TenPayV3\ProductItem.cshtml" />
+    <Content Include="Views\OpenOAuth\Index.cshtml" />
+    <Content Include="Views\OpenOAuth\UserInfoCallback.cshtml" />
+    <Content Include="Views\WeixinJSSDK\Index.cshtml" />
+    <Content Include="Views\OpenOAuth\JumpToMpOAuth.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\OpenTickets\" />
     <Folder Include="Controllers\AppStore\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

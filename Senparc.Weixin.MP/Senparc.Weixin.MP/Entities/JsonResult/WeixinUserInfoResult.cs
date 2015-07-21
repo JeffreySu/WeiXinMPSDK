@@ -15,13 +15,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
     /// 用户信息
     /// </summary>
-    public class WeixinUserInfoResult
+    public class WeixinUserInfoResult : WxJsonResult
     {
         /// <summary>
         /// 用户是否订阅该公众号标识，值为0时，拉取不到其余信息

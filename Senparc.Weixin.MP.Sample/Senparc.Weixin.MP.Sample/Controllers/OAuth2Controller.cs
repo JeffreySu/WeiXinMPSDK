@@ -15,6 +15,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.CommonAPIs;
 
@@ -28,13 +29,18 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         public ActionResult Index()
         {
-
             //此页面引导用户点击授权
             ViewData["UrlUserInfo"] = OAuthApi.GetAuthorizeUrl(appId, "http://weixin.senparc.com/oauth2/UserInfoCallback", "JeffreySu", OAuthScope.snsapi_userinfo);
             ViewData["UrlBase"] = OAuthApi.GetAuthorizeUrl(appId, "http://weixin.senparc.com/oauth2/BaseCallback", "JeffreySu", OAuthScope.snsapi_base);
             return View();
         }
 
+        /// <summary>
+        /// OAuthScope.snsapi_userinfo方式回调
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
         public ActionResult UserInfoCallback(string code, string state)
         {
             if (string.IsNullOrEmpty(code))
@@ -81,6 +87,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
         }
 
+        /// <summary>
+        /// OAuthScope.snsapi_base方式回调
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
         public ActionResult BaseCallback(string code, string state)
         {
             if (string.IsNullOrEmpty(code))

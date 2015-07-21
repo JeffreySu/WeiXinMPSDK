@@ -119,7 +119,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                     FromUserName = "mphelper",//系统指定
                                     ErrorCount = int.Parse(Request.Form["Event.ErrorCount"]),
                                     FilterCount = int.Parse(Request.Form["Event.FilterCount"]),
-                                    SendCount = int.Parse(Request.Form["Event.SendCount"]),
+                                    SentCount = int.Parse(Request.Form["Event.SentCount"]),
                                     Status = Request.Form["Event.Status"],
                                     TotalCount = int.Parse(Request.Form["Event.TotalCount"])
                                 }; break;

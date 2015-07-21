@@ -19,6 +19,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -100,13 +102,20 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="postStream"></param>
         /// <param name="fileDictionary">需要上传的文件，Key：对应要上传的Name，Value：本地文件名</param>
         /// <param name="timeOut"></param>
+        /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.Timeout = timeOut;
 
+            if (checkValidationResult)
+            {
+              ServicePointManager.ServerCertificateValidationCallback =
+                new System.Net.Security.RemoteCertificateValidationCallback(CheckValidationResult);  
+            }
+            
             #region 处理Form表单文件上传
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
@@ -131,7 +140,7 @@ namespace Senparc.Weixin.HttpUtility
                             if (fileStream != null)
                             {
                                 //存在文件
-                                formdata = string.Format(fileFormdataTemplate, file.Key, fileName /*Path.GetFileName(fileName)*/);
+                                formdata = string.Format(fileFormdataTemplate, file.Key, /*fileName*/ Path.GetFileName(fileName));
                             }
                             else
                             {
@@ -140,7 +149,7 @@ namespace Senparc.Weixin.HttpUtility
                             }
 
                             //统一处理
-                            var formdataBytes = Encoding.ASCII.GetBytes(postStream.Length == 0 ? formdata.Substring(2, formdata.Length - 2) : formdata);//第一行不需要换行
+                            var formdataBytes = Encoding.UTF8.GetBytes(postStream.Length == 0 ? formdata.Substring(2, formdata.Length - 2) : formdata);//第一行不需要换行
                             postStream.Write(formdataBytes, 0, formdataBytes.Length);
 
                             //写入文件
@@ -161,7 +170,7 @@ namespace Senparc.Weixin.HttpUtility
                     }
                 }
                 //结尾
-                var footer = Encoding.ASCII.GetBytes("\r\n--" + boundary + "--\r\n");
+                var footer = Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
                 postStream.Write(footer, 0, footer.Length);
 
                 request.ContentType = string.Format("multipart/form-data; boundary={0}", boundary);
@@ -230,6 +239,18 @@ namespace Senparc.Weixin.HttpUtility
             }
         }
 
+        /// <summary>
+        /// 验证服务器证书
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="certificate"></param>
+        /// <param name="chain"></param>
+        /// <param name="errors"></param>
+        /// <returns></returns>
+        private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
+        {
+            return true;
+        }
         #endregion
 
         //#region 异步方法

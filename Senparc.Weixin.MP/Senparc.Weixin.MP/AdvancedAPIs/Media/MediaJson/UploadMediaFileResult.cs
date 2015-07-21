@@ -18,14 +18,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Media
 {
     /// <summary>
     /// 上传临时媒体文件返回结果
     /// </summary>
-    public class UploadTemporaryMediaFileResult : WxJsonResult
+    public class UploadTemporaryMediaResult : WxJsonResult
     {
         public UploadMediaFileType type { get; set; }
         public string media_id { get; set; }
@@ -39,7 +39,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
     /// <summary>
     /// 上传永久媒体文件返回结果
     /// </summary>
-    public class UploadForeverMediaFileResult : WxJsonResult
+    public class UploadForeverMediaResult : WxJsonResult
     {
         public string media_id { get; set; }
     }

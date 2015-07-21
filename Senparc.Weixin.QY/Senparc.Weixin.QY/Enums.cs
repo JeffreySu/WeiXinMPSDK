@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+    
+    修改标识：Senparc - 20150507
+    修改描述：添加 事件 异步任务完成事件推送 枚举类型
 ----------------------------------------------------------------*/
 
 using System;
@@ -31,6 +34,7 @@ namespace Senparc.Weixin.QY
         Video, //视频
         Link, //连接信息
         Event, //事件推送
+        ShortVideo, //小视频
     }
 
     /// <summary>
@@ -117,6 +121,11 @@ namespace Senparc.Weixin.QY
         /// 用户进入应用的事件推送
         /// </summary>
         ENTER_AGENT,
+
+        /// <summary>
+        /// 异步任务完成事件推送
+        /// </summary>
+        BATCH_JOB_RESULT,
     }
 
     public enum ThirdPartyInfo

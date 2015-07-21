@@ -332,6 +332,31 @@ namespace Senparc.Weixin.MP.Test
  <ToKfAccount><![CDATA[test2@test]]></ToKfAccount>
  </xml>";
 
+        private string xmlEvent_Poi_Check_Notify = @"<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[fromUser]]></FromUserName>
+<CreateTime>1408622107</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[poi_check_notify]]></Event>
+<UniqId><![CDATA[123adb]]></UniqId>
+<PoiId><![CDATA[123123]]></PoiId>
+<Result><![CDATA[fail]]></Result>
+<Msg><![CDATA[xxxxxx]]></Msg>
+</xml>";
+
+        private string xmlEvent_WifiConnected = @"<xml> 
+<ToUserName><![CDATA[toUser]]></ToUserName> 
+<FromUserName><![CDATA[FromUser]]></FromUserName> 
+<CreateTime>123456789</CreateTime> 
+<MsgType><![CDATA[event]]></MsgType> 
+<Event><![CDATA[WifiConnected]]></Event>
+<ConnectTime>0</ConnectTime>
+<ExpireTime>0</ExpireTime>
+<VendorId><![CDATA[3001224419]]></VendorId>
+<PlaceId><![CDATA[PlaceId]]></PlaceId>
+<DeviceNo><![CDATA[DeviceNo]]></DeviceNo>
+</xml>";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -547,6 +572,8 @@ namespace Senparc.Weixin.MP.Test
                 Assert.IsNotNull(result);
                 Assert.AreEqual("gh_a96a4a619366", result.ToUserName);
                 Assert.AreEqual(Event.MASSSENDJOBFINISH, result.Event);
+                Assert.AreEqual(result.SentCount, 75);
+                Assert.AreEqual(result.ErrorCount, 5);
                 Assert.IsNotNull(result.MsgID);
                 Assert.AreEqual(1988, result.MsgID);
             }
@@ -624,6 +651,28 @@ namespace Senparc.Weixin.MP.Test
                 Assert.AreEqual(Event.kf_switch_session, result.Event);
                 Assert.AreEqual("test1@test", result.FromKfAccount);
                 Assert.AreEqual("test2@test", result.ToKfAccount);
+            }
+
+            {
+                //Event-Poi_Check_Notify
+                var doc = XDocument.Parse(xmlEvent_Poi_Check_Notify);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Poi_Check_Notify;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.poi_check_notify, result.Event);
+                Assert.AreEqual("123adb", result.UniqId);
+                Assert.AreEqual("fail", result.Result);
+            }
+
+            {
+                //Event-WifiConnected
+                var doc = XDocument.Parse(xmlEvent_WifiConnected);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_WifiConnected;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.WifiConnected, result.Event);
+                Assert.AreEqual("PlaceId", result.PlaceId);
+                Assert.AreEqual("3001224419", result.VendorId);
             }
         }
     }

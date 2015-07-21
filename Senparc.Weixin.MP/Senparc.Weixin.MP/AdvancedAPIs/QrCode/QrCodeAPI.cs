@@ -12,6 +12,9 @@
  
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
+ 
+    修改标识：Senparc - 20150623
+    修改描述：添加 用字符串类型创建二维码 接口
 ----------------------------------------------------------------*/
 
 /*
@@ -23,9 +26,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.MP.AdvancedAPIs.QrCode;
 using Senparc.Weixin.MP.CommonAPIs;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.QrCode
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 二维码接口
@@ -35,44 +39,77 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.QrCode
         /// <summary>
         /// 创建二维码
         /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="expireSeconds">该二维码有效时间，以秒为单位。 最大不超过1800。0时为永久二维码</param>
         /// <param name="sceneId">场景值ID，临时二维码时为32位整型，永久二维码时最大值为1000</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static CreateQrCodeResult Create(string accessToken, int expireSeconds, int sceneId, int timeOut = Config.TIME_OUT)
+        public static CreateQrCodeResult Create(string accessTokenOrAppId, int expireSeconds, int sceneId, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
-            object data = null;
-            if (expireSeconds > 0)
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                data = new
+                var urlFormat = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
+                object data = null;
+                if (expireSeconds > 0)
                 {
-                    expire_seconds = expireSeconds,
-                    action_name = "QR_SCENE",
+                    data = new
+                    {
+                        expire_seconds = expireSeconds,
+                        action_name = "QR_SCENE",
+                        action_info = new
+                        {
+                            scene = new
+                            {
+                                scene_id = sceneId
+                            }
+                        }
+                    };
+                }
+                else
+                {
+                    data = new
+                    {
+                        action_name = "QR_LIMIT_SCENE",
+                        action_info = new
+                        {
+                            scene = new
+                            {
+                                scene_id = sceneId
+                            }
+                        }
+                    };
+                }
+                return CommonJsonSend.Send<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 用字符串类型创建二维码
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="sceneStr">场景值ID（字符串形式的ID），字符串类型，长度限制为1到64，仅永久二维码支持此字段</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static CreateQrCodeResult CreateByStr(string accessTokenOrAppId, string sceneStr, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
+                var data = new
+                {
+                    action_name = "QR_LIMIT_STR_SCENE",
                     action_info = new
                     {
                         scene = new
                         {
-                            scene_id = sceneId
+                            scene_str = sceneStr
                         }
                     }
                 };
-            }
-            else
-            {
-                data = new
-                {
-                    action_name = "QR_LIMIT_SCENE",
-                    action_info = new
-                    {
-                        scene = new
-                        {
-                            scene_id = sceneId
-                        }
-                    }
-                };
-            }
-            return CommonJsonSend.Send<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
         }
 
         /// <summary>

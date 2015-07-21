@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+    
+    修改标识：Senparc - 20150703
+    修改描述：增加获取OpenId
 ----------------------------------------------------------------*/
 
 /*
@@ -52,11 +55,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.OAuth2
         /// <param name="agentId">跳转链接时所在的企业应用ID</param>
         /// 权限说明：管理员须拥有agent的使用权限；agentid必须和跳转链接时所在的企业应用ID相同。
         /// <returns></returns>
-        public static GetUserIdResult GetUserId(string accessToken, string code, int agentId)
+        public static GetUserInfoResult GetUserId(string accessToken, string code, int agentId)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken, code, agentId);
 
-            return Get.GetJson<GetUserIdResult>(url);
+            return Get.GetJson<GetUserInfoResult>(url);
         }
     }
 }

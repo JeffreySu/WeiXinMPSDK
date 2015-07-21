@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20150708
+    修改描述：完善备注
 ----------------------------------------------------------------*/
 
 using System;
@@ -140,6 +143,9 @@ namespace Senparc.Weixin.Context
             LastActiveTime = DateTime.Now;
         }
 
+        /// <summary>
+        /// 此上下文被清除的时候触发
+        /// </summary>
         public virtual void OnRemoved()
         {
             var onRemovedArg = new WeixinContextRemovedEventArgs<TRequest, TResponse>(this);

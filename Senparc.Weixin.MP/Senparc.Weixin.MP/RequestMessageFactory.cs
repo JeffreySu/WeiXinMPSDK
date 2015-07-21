@@ -149,6 +149,12 @@ namespace Senparc.Weixin.MP
                             case "KF_SWITCH_SESSION"://多客服转接会话
                                 requestMessage = new RequestMessageEvent_Kf_Switch_Session();
                                 break;
+                            case "POI_CHECK_NOTIFY"://审核结果事件推送
+                                requestMessage = new RequestMessageEvent_Poi_Check_Notify();
+                                break;
+                            case "WIFICONNECTED"://Wi-Fi连网成功事件
+                                requestMessage = new RequestMessageEvent_WifiConnected();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

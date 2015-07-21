@@ -47,7 +47,7 @@ namespace Senparc.Weixin.MP.Test.HttpUtility
             Console.WriteLine(actualResult);
 
             //比较强类型示例的结果
-            UploadTemporaryMediaFileResult resultEntity = Post.GetResult<UploadTemporaryMediaFileResult>(actualResult);
+            UploadTemporaryMediaResult resultEntity = Post.GetResult<UploadTemporaryMediaResult>(actualResult);
             Assert.IsNotNull(resultEntity);
             Assert.AreEqual(UploadMediaFileType.image, resultEntity.type);
             Assert.AreEqual("MEDIA_ID", resultEntity.media_id);

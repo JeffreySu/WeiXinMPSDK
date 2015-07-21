@@ -16,6 +16,11 @@
             <param name="message">错误提示信息</param>
             <param name="ignoreParameter">如果地址栏中提供改参数，则忽略浏览器判断，建议设置得复杂一些。如?abc=[任意字符]</param>
         </member>
+        <member name="P:Senparc.Weixin.MP.MvcExtension.WeixinInternalRequestAttribute.RedirectUrl">
+            <summary>
+            重定向地址，如果提供了redirectResult将忽略构造函数中的message
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.MvcExtension.WeixinResult">
             <summary>
             返回MessageHandler结果

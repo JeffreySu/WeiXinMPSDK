@@ -12,8 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
-using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Media
 {
@@ -70,5 +70,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// 这篇图文消息素材的最后更新时间
         /// </summary>
         public string update_time { get; set; }
+        /// <summary>
+        /// 图文页的URL，或者，当获取的列表是图片素材列表时，该字段是图片的URL
+        /// </summary>
+        public string url { get; set; }
     }
 }

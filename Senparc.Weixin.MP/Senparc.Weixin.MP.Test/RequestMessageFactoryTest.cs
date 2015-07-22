@@ -357,6 +357,34 @@ namespace Senparc.Weixin.MP.Test
 <DeviceNo><![CDATA[DeviceNo]]></DeviceNo>
 </xml>";
 
+        private string xmlEvent_User_Consume_Card = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName> 
+<FromUserName><![CDATA[FromUser]]></FromUserName> 
+<CreateTime>123456789</CreateTime> 
+<MsgType><![CDATA[event]]></MsgType> 
+<Event><![CDATA[user_consume_card]]></Event> 
+<CardId><![CDATA[cardid]]></CardId> 
+<UserCardCode><![CDATA[12312312]]></UserCardCode>
+<ConsumeSource><![CDATA[(FROM_API)]]></ConsumeSource>
+</xml>";
+
+        private string xmlEvent_User_Enter_Session_From_Card = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName> 
+<FromUserName><![CDATA[FromUser]]></FromUserName> 
+<CreateTime>123456789</CreateTime> 
+<MsgType><![CDATA[event]]></MsgType> 
+<Event><![CDATA[user_enter_session_from_card]]></Event> 
+<CardId><![CDATA[cardid]]></CardId> 
+<UserCardCode><![CDATA[12312312]]></UserCardCode>
+</xml>";
+
+        private string xmlEvent_User_View_Card = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName> 
+<FromUserName><![CDATA[FromUser]]></FromUserName> 
+<CreateTime>123456789</CreateTime> 
+<MsgType><![CDATA[event]]></MsgType> 
+<Event><![CDATA[user_view_card]]></Event> 
+<CardId><![CDATA[cardid]]></CardId> 
+<UserCardCode><![CDATA[12312312]]></UserCardCode>
+</xml>";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -673,6 +701,36 @@ namespace Senparc.Weixin.MP.Test
                 Assert.AreEqual(Event.WifiConnected, result.Event);
                 Assert.AreEqual("PlaceId", result.PlaceId);
                 Assert.AreEqual("3001224419", result.VendorId);
+            }
+
+            {
+                //Event-User_Consume_Card
+                var doc = XDocument.Parse(xmlEvent_User_Consume_Card);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_User_Consume_Card;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.user_consume_card, result.Event);
+                Assert.AreEqual("cardid", result.CardId);
+            }
+
+            {
+                //Event-User_Enter_Session_From_Card
+                var doc = XDocument.Parse(xmlEvent_User_Enter_Session_From_Card);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_User_Enter_Session_From_Card;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.user_enter_session_from_card, result.Event);
+                Assert.AreEqual("cardid", result.CardId);
+            }
+
+            {
+                //Event-User_View_Card
+                var doc = XDocument.Parse(xmlEvent_User_View_Card);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_User_View_Card;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("toUser", result.ToUserName);
+                Assert.AreEqual(Event.user_view_card, result.Event);
+                Assert.AreEqual("cardid", result.CardId);
             }
         }
     }

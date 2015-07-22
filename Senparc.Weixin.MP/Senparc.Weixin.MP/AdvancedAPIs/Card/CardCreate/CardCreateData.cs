@@ -158,11 +158,72 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 激活会员卡的url，与“bind_old_card_url”字段二选一必填。
         /// </summary>
         public string activate_url { get; set; }
+        /// <summary>
+        /// 设置跳转外链查看积分详情。仅适用于积分无法通过激活接口同步的情况下使用该字段。
+        /// 非必填
+        /// </summary>
+        public string bonus_url { get; set; }
+        /// <summary>
+        /// 设置跳转外链查看余额详情。仅适用于余额无法通过激活接口同步的情况下使用该字段。
+        /// 非必填
+        /// </summary>
+        public string balance_url { get; set; }
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示。
+        /// 非必填
+        /// </summary>
+        public CustomField custom_field1 { get; set; }
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示。
+        /// 非必填
+        /// </summary>
+        public CustomField custom_field2 { get; set; }
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示。
+        /// 非必填
+        /// </summary>
+        public CustomField custom_field3 { get; set; }
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示
+        /// 非必填
+        /// </summary>
+        public CustomCell custom_cell1 { get; set; }
 
         public Card_MemberCardData()
             : base(CardType.MEMBER_CARD)
         {
         }
+    }
+
+    public class CustomField
+    {
+        /// <summary>
+        /// 会员信息类目名称。FIELD_NAME_TYPE_LEVEL等级；FIELD_NAME_TYPE_COUPON优惠券；FIELD_NAME_TYPE_STAMP印花；FIELD_NAME_TYPE_DISCOUNT折扣；FIELD_NAME_TYPE_ACHIEVEMEN成就；FIELD_NAME_TYPE_MILEAGE里程。
+        /// </summary>
+        public MemberCard_CustomField_NameType name_type { get; set; }
+        /// <summary>
+        /// 点击类目跳转外链url
+        /// </summary>
+        public string url { get; set; }
+    }
+
+    public class CustomCell
+    {
+        /// <summary>
+        /// 入口名称
+        /// 必填
+        /// </summary>
+        public string name { get; set; }
+        /// <summary>
+        /// 入口右侧提示语，6个汉字内
+        /// 必填
+        /// </summary>
+        public string tips { get; set; }
+        /// <summary>
+        /// 入口跳转链接
+        /// 必填
+        /// </summary>
+        public string url { get; set; }
     }
 
     /// <summary>

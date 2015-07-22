@@ -1132,6 +1132,70 @@
             激活会员卡的url，与“bind_old_card_url”字段二选一必填。
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.bonus_url">
+            <summary>
+            设置跳转外链查看积分详情。仅适用于积分无法通过激活接口同步的情况下使用该字段。
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.balance_url">
+            <summary>
+            设置跳转外链查看余额详情。仅适用于余额无法通过激活接口同步的情况下使用该字段。
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.custom_field1">
+            <summary>
+            自定义会员信息类目，会员卡激活后显示。
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.custom_field2">
+            <summary>
+            自定义会员信息类目，会员卡激活后显示。
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.custom_field3">
+            <summary>
+            自定义会员信息类目，会员卡激活后显示。
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.custom_cell1">
+            <summary>
+            自定义会员信息类目，会员卡激活后显示
+            非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.CustomField.name_type">
+            <summary>
+            会员信息类目名称。FIELD_NAME_TYPE_LEVEL等级；FIELD_NAME_TYPE_COUPON优惠券；FIELD_NAME_TYPE_STAMP印花；FIELD_NAME_TYPE_DISCOUNT折扣；FIELD_NAME_TYPE_ACHIEVEMEN成就；FIELD_NAME_TYPE_MILEAGE里程。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.CustomField.url">
+            <summary>
+            点击类目跳转外链url
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.CustomCell.name">
+            <summary>
+            入口名称
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.CustomCell.tips">
+            <summary>
+            入口右侧提示语，6个汉字内
+            必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.CustomCell.url">
+            <summary>
+            入口跳转链接
+            必填
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_ScenicTicketData">
             <summary>
             门票数据
@@ -5598,11 +5662,6 @@
             仅支持微信iPhone5.4.1以上版本，和Android5.4以上版本的微信用户，旧版本微信用户点击后将没有回应，开发者也不能正常接收到事件推送。
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_WifiConnected">
-            <summary>
-            事件之Wi-Fi连网成功
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageBase">
             <summary>
             接收到请求的消息
@@ -5616,6 +5675,61 @@
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEventBase.Event">
             <summary>
             事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Enter_Session_From_Card.Event">
+            <summary>
+            从卡券进入公众号会话
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Enter_Session_From_Card.CardId">
+            <summary>
+            卡券ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Enter_Session_From_Card.UserCardCode">
+            <summary>
+            卡券Code码
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_View_Card.Event">
+            <summary>
+            进入会员卡
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_View_Card.CardId">
+            <summary>
+            卡券ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_View_Card.UserCardCode">
+            <summary>
+            商户自定义code值。非自定code推送为空串。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Consume_Card.Event">
+            <summary>
+            卡券核销
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Consume_Card.CardId">
+            <summary>
+            卡券ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Consume_Card.UserCardCode">
+            <summary>
+            卡券Code码
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Consume_Card.ConsumeSource">
+            <summary>
+            核销来源。支持开发者统计API核销（FROM_API）、公众平台核销（FROM_MP）、卡券商户助手核销（FROM_MOBILE_HELPER）（核销员微信号）
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEvent_WifiConnected">
+            <summary>
+            事件之Wi-Fi连网成功
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_WifiConnected.Event">
@@ -8008,6 +8122,21 @@
             Wi-Fi连网成功
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.MP.Event.user_consume_card">
+            <summary>
+            卡券核销
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.user_view_card">
+            <summary>
+            进入会员卡
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Event.user_enter_session_from_card">
+            <summary>
+            从卡券进入公众号会话
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.ResponseMsgType">
             <summary>
             发送消息类型
@@ -8231,6 +8360,36 @@
         <member name="F:Senparc.Weixin.MP.Card_UrlNameType.URL_NAME_TYPE_VEHICLE_INFORMATION">
             <summary>
             车辆信息
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.MemberCard_CustomField_NameType.FIELD_NAME_TYPE_LEVEL">
+            <summary>
+            等级
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.MemberCard_CustomField_NameType.FIELD_NAME_TYPE_COUPON">
+            <summary>
+            优惠券
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.MemberCard_CustomField_NameType.FIELD_NAME_TYPE_STAMP">
+            <summary>
+            印花
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.MemberCard_CustomField_NameType.FIELD_NAME_TYPE_DISCOUNT">
+            <summary>
+            折扣
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.MemberCard_CustomField_NameType.FIELD_NAME_TYPE_ACHIEVEMEN">
+            <summary>
+            成就
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.MemberCard_CustomField_NameType.FIELD_NAME_TYPE_MILEAGE">
+            <summary>
+            里程
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.OAuthScope">
@@ -8587,6 +8746,21 @@
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_WifiConnected(Senparc.Weixin.MP.Entities.RequestMessageEvent_WifiConnected)">
             <summary>
             Event事件类型请求之Wi-Fi连网成功
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_User_Consume_Card(Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Consume_Card)">
+            <summary>
+            Event事件类型请求之卡券核销
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_User_Enter_Session_From_Card(Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Enter_Session_From_Card)">
+            <summary>
+            Event事件类型请求之从卡券进入公众号会话
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_User_View_Card(Senparc.Weixin.MP.Entities.RequestMessageEvent_User_View_Card)">
+            <summary>
+            Event事件类型请求之进入会员卡
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.WeixinContext">

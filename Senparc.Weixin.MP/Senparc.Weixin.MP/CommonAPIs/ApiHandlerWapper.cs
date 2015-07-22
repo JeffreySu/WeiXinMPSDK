@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP
             }
             catch (ErrorJsonResultException ex)
             {
-                if (!retryIfFaild
+                if (retryIfFaild
                     && appId != null
                     && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
                 {

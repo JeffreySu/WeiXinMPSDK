@@ -179,6 +179,21 @@ namespace Senparc.Weixin.MP
         /// Wi-Fi连网成功
         /// </summary>
         WifiConnected,
+
+        /// <summary>
+        /// 卡券核销
+        /// </summary>
+        user_consume_card,
+
+        /// <summary>
+        /// 进入会员卡
+        /// </summary>
+        user_view_card,
+
+        /// <summary>
+        /// 从卡券进入公众号会话
+        /// </summary>
+        user_enter_session_from_card,
     }
 
 
@@ -411,6 +426,34 @@ namespace Senparc.Weixin.MP
         /// 车辆信息
         /// </summary>
         URL_NAME_TYPE_VEHICLE_INFORMATION = 5,
+    }
+
+    public enum MemberCard_CustomField_NameType
+    {
+        /// <summary>
+        /// 等级
+        /// </summary>
+        FIELD_NAME_TYPE_LEVEL = 0,
+        /// <summary>
+        /// 优惠券
+        /// </summary>
+        FIELD_NAME_TYPE_COUPON = 1,
+        /// <summary>
+        /// 印花
+        /// </summary>
+        FIELD_NAME_TYPE_STAMP = 2,
+        /// <summary>
+        /// 折扣
+        /// </summary>
+        FIELD_NAME_TYPE_DISCOUNT = 3,
+        /// <summary>
+        /// 成就
+        /// </summary>
+        FIELD_NAME_TYPE_ACHIEVEMEN = 4,
+        /// <summary>
+        /// 里程
+        /// </summary>
+        FIELD_NAME_TYPE_MILEAGE = 5,
     }
 
     /// <summary>

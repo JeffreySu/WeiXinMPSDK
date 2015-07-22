@@ -549,6 +549,15 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.WifiConnected://Wi-Fi连网成功
                     responseMessage = OnEvent_WifiConnected(RequestMessage as RequestMessageEvent_WifiConnected);
                     break;
+                case Event.user_consume_card://卡券核销
+                    responseMessage = OnEvent_User_Consume_Card(RequestMessage as RequestMessageEvent_User_Consume_Card);
+                    break;
+                case Event.user_enter_session_from_card://从卡券进入公众号会话
+                    responseMessage = OnEvent_User_Enter_Session_From_Card(RequestMessage as RequestMessageEvent_User_Enter_Session_From_Card);
+                    break;
+                case Event.user_view_card://进入会员卡
+                    responseMessage = OnEvent_User_View_Card(RequestMessage as RequestMessageEvent_User_View_Card);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -762,6 +771,30 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// Event事件类型请求之Wi-Fi连网成功
         /// </summary>
         public virtual IResponseMessageBase OnEvent_WifiConnected(RequestMessageEvent_WifiConnected requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// Event事件类型请求之卡券核销
+        /// </summary>
+        public virtual IResponseMessageBase OnEvent_User_Consume_Card(RequestMessageEvent_User_Consume_Card requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// Event事件类型请求之从卡券进入公众号会话
+        /// </summary>
+        public virtual IResponseMessageBase OnEvent_User_Enter_Session_From_Card(RequestMessageEvent_User_Enter_Session_From_Card requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// Event事件类型请求之进入会员卡
+        /// </summary>
+        public virtual IResponseMessageBase OnEvent_User_View_Card(RequestMessageEvent_User_View_Card requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

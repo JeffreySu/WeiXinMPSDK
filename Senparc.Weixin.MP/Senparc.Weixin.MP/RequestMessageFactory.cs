@@ -155,6 +155,15 @@ namespace Senparc.Weixin.MP
                             case "WIFICONNECTED"://Wi-Fi连网成功事件
                                 requestMessage = new RequestMessageEvent_WifiConnected();
                                 break;
+                            case "USER_CONSUME_CARD"://卡券核销
+                                requestMessage = new RequestMessageEvent_User_Consume_Card();
+                                break;
+                            case "USER_ENTER_SESSION_FROM_CARD"://从卡券进入公众号会话
+                                requestMessage = new RequestMessageEvent_User_Enter_Session_From_Card();
+                                break;
+                            case "USER_VIEW_CARD"://进入会员卡
+                                requestMessage = new RequestMessageEvent_User_View_Card();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

@@ -6,6 +6,9 @@
     
     
     创建标识：Senparc - 20150316
+  
+    增加功能：获取应用概况列表
+    修改标识：Bemguin - 20150614 
 ----------------------------------------------------------------*/
 
 /*
@@ -55,9 +58,23 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.App
         /// <returns></returns>
         public static QyJsonResult SetApp(string accessToken, SetAppPostData data, int timeOut = Config.TIME_OUT)
         {
-            string url = "https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}";
+            string url =string.Format( "https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}",accessToken);
 
             return Get.GetJson<QyJsonResult>(url);
         }
+
+        /// <summary>
+        /// 获取应用概况列表
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static GetAppListResult GetAppList(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/list?access_token={0}",accessToken);
+
+            return Get.GetJson<GetAppListResult>(url);
+        }
+
     }
 }

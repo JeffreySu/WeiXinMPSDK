@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AdvancedAPIs\App\AppApi.cs" />
     <Compile Include="AdvancedAPIs\App\AppJson\GetAppInfoResult.cs" />
+    <Compile Include="AdvancedAPIs\App\AppJson\GetAppListResult.cs" />
     <Compile Include="AdvancedAPIs\App\AppJson\SetAppPostData.cs" />
     <Compile Include="AdvancedAPIs\Asynchronous\AsynchronousApi.cs" />
     <Compile Include="AdvancedAPIs\Asynchronous\AsynchronousJson\AsynchronousPostData.cs" />

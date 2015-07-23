@@ -4,12 +4,12 @@
         <name>Senparc.Weixin.QY</name>
     </assembly>
     <members>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.App.AppApi">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.AppApi">
             <summary>
             管理企业号应用
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.App.AppApi.GetAppInfo(System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.AppApi.GetAppInfo(System.String,System.Int32,System.Int32)">
             <summary>
             获取企业号应用信息
             </summary>
@@ -18,13 +18,21 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.App.AppApi.SetApp(System.String,Senparc.Weixin.QY.AdvancedAPIs.App.SetAppPostData,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.AppApi.SetApp(System.String,Senparc.Weixin.QY.AdvancedAPIs.App.SetAppPostData,System.Int32)">
             <summary>
             设置企业号应用
             此App只能修改现有的并且有权限管理的应用，无法创建新应用（因为新应用没有权限）
             </summary>
             <param name="accessToken"></param>
             <param name="data">设置应用需要Post的数据</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.AppApi.GetAppList(System.String,System.Int32)">
+            <summary>
+            获取应用概况列表
+            </summary>
+            <param name="accessToken"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
@@ -98,6 +106,31 @@
             是否上报用户进入应用事件。0：不接收；1：接收
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppListResult">
+            <summary>
+            设置企业号应用需要Post的数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppList_AppInfo.agentid">
+            <summary>
+            企业应用id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppList_AppInfo.name">
+            <summary>
+            企业应用名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppList_AppInfo.square_logo_url">
+            <summary>
+            企业应用方形头像
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.App.GetAppList_AppInfo.round_logo_url">
+            <summary>
+            企业应用圆形头像
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.App.SetAppPostData">
             <summary>
             设置企业号应用需要Post的数据
@@ -143,12 +176,12 @@
             是否上报用户进入应用事件。0：不接收；1：接收
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousApi">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.AsynchronousApi">
             <summary>
             异步任务接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousApi.BatchInviteUser(System.String,System.String,System.String,System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.Asynchronous_CallBack,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.AsynchronousApi.BatchInviteUser(System.String,System.String,System.String,System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.Asynchronous_CallBack,System.Int32)">
             <summary>
             邀请成员关注
             </summary>
@@ -174,7 +207,7 @@
             }
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousApi.BatchSyncUser(System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.Asynchronous_CallBack,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.AsynchronousApi.BatchSyncUser(System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.Asynchronous_CallBack,System.Int32)">
             <summary>
             增量更新成员
             CSV模板下载地址：http://qydev.weixin.qq.com/batch_user_sample.csv
@@ -200,7 +233,7 @@
             }
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousApi.BatchReplaceUser(System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.Asynchronous_CallBack,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.AsynchronousApi.BatchReplaceUser(System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.Asynchronous_CallBack,System.Int32)">
             <summary>
             全量覆盖成员
             CSV模板下载地址：http://qydev.weixin.qq.com/batch_user_sample.csv
@@ -226,7 +259,7 @@
             }
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousApi.BatchReplaceParty(System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.Asynchronous_CallBack,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.AsynchronousApi.BatchReplaceParty(System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.Asynchronous_CallBack,System.Int32)">
             <summary>
             全量覆盖部门
             CSV模板下载地址：http://qydev.weixin.qq.com/batch_party_sample.csv
@@ -252,7 +285,7 @@
             }
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousApi.GetInviteUserResult(System.String,System.String)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.AsynchronousApi.GetInviteUserResult(System.String,System.String)">
             <summary>
             获取异步邀请成员关注结果
             </summary>
@@ -260,7 +293,7 @@
             <param name="jobId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousApi.GetReplaceUserResult(System.String,System.String)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.AsynchronousApi.GetReplaceUserResult(System.String,System.String)">
             <summary>
             获取异步更新或全面覆盖成员结果
             </summary>
@@ -268,7 +301,7 @@
             <param name="jobId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Asynchronous.AsynchronousApi.GetReplacePartyResult(System.String,System.String)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.AsynchronousApi.GetReplacePartyResult(System.String,System.String)">
             <summary>
             获取异步全面覆盖部门结果
             </summary>
@@ -360,12 +393,12 @@
             操作类型（按位或）：1 新建部门 ，2 更改部门名称， 4 移动部门， 8 修改部门排序
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Concern.ConcernApi">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.ConcernApi">
             <summary>
             关注与取消关注
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Concern.ConcernApi.TwoVerification(System.String,System.String)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ConcernApi.TwoVerification(System.String,System.String)">
             <summary>
             二次验证
             </summary>
@@ -373,8 +406,8 @@
             <param name="userId">员工UserID</param>
             <returns></returns>
         </member>
-        <!-- 对于成员“M:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginAuthApi.GetLoginAuthUrl(System.String,System.String,System.String)”忽略有格式错误的 XML 注释 -->
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.LoginAuthApi.GetLoginInfo(System.String,System.String,System.Int32)">
+        <!-- 对于成员“M:Senparc.Weixin.QY.AdvancedAPIs.LoginAuthApi.GetLoginAuthUrl(System.String,System.String,System.String)”忽略有格式错误的 XML 注释 -->
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.LoginAuthApi.GetLoginInfo(System.String,System.String,System.Int32)">
             <summary>
             获取企业号管理员登录信息
             </summary>
@@ -578,7 +611,7 @@
             图文消息，一个图文消息支持1到10个图文
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth.ThirdPartyAuthApi.GetSuiteToken(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuthApi.GetSuiteToken(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取应用套件令牌
             </summary>
@@ -588,7 +621,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth.ThirdPartyAuthApi.GetPreAuthCode(System.String,System.String,System.Int32[],System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuthApi.GetPreAuthCode(System.String,System.String,System.Int32[],System.Int32)">
             <summary>
             获取预授权码
             </summary>
@@ -598,7 +631,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth.ThirdPartyAuthApi.GetPermanentCode(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuthApi.GetPermanentCode(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取企业号的永久授权码
             </summary>
@@ -608,7 +641,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth.ThirdPartyAuthApi.GetAuthInfo(System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuthApi.GetAuthInfo(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             获取企业号的授权信息
             </summary>
@@ -619,7 +652,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth.ThirdPartyAuthApi.GetAgent(System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuthApi.GetAgent(System.String,System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             获取企业号应用
             </summary>
@@ -631,7 +664,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth.ThirdPartyAuthApi.SetAgent(System.String,System.String,System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth.ThirdParty_AgentData,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuthApi.SetAgent(System.String,System.String,System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth.ThirdParty_AgentData,System.Int32)">
             <summary>
             设置企业号应用
             </summary>
@@ -643,7 +676,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth.ThirdPartyAuthApi.GetCorpToken(System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuthApi.GetCorpToken(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             获取企业号access_token
             </summary>
@@ -1022,12 +1055,22 @@
             <param name="corpId"></param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Mass.MassApi">
+        <member name="T:Senparc.Weixin.QY.Entities.ConvertToUserIdResult">
+            <summary>
+            openid转换成userid接口返回的Json结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.ConvertToUserIdResult.userid">
+            <summary>
+            该openid在企业号中对应的成员userid
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.MassApi">
             <summary>
             发送消息
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Mass.MassApi.SendText(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MassApi.SendText(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
             <summary>
             发送文本信息
             </summary>
@@ -1041,7 +1084,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Mass.MassApi.SendImage(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MassApi.SendImage(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
             <summary>
             发送图片消息
             </summary>
@@ -1055,7 +1098,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Mass.MassApi.SendVoice(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MassApi.SendVoice(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
             <summary>
             发送语音消息
             </summary>
@@ -1069,7 +1112,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Mass.MassApi.SendVideo(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MassApi.SendVideo(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
             <summary>
             发送视频消息
             </summary>
@@ -1085,7 +1128,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Mass.MassApi.SendFile(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MassApi.SendFile(System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.Int32)">
             <summary>
             发送文件消息
             </summary>
@@ -1099,7 +1142,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Mass.MassApi.SendNews(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.List{Senparc.Weixin.QY.Entities.Article},System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MassApi.SendNews(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.List{Senparc.Weixin.QY.Entities.Article},System.Int32,System.Int32)">
             <summary>
             发送图文消息
             </summary>
@@ -1113,7 +1156,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Mass.MassApi.SendMpNews(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.List{Senparc.Weixin.QY.Entities.MpNewsArticle},System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MassApi.SendMpNews(System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.List{Senparc.Weixin.QY.Entities.MpNewsArticle},System.Int32,System.Int32)">
             <summary>
             发送mpnews消息
             注：mpnews消息与news消息类似，不同的是图文消息内容存储在微信后台，并且支持保密选项。
@@ -1134,7 +1177,7 @@
             如果对应用或收件人、部门、标签任何一个无权限，则本次发送失败；如果收件人、部门或标签不存在，发送仍然执行，但返回无效的部分。
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.CreateDepartment(System.String,System.String,System.Int32,System.Int32,System.Nullable{System.Int32},System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.CreateDepartment(System.String,System.String,System.Int32,System.Int32,System.Nullable{System.Int32},System.Int32)">
             <summary>
             创建部门
             </summary>
@@ -1146,7 +1189,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.UpdateDepartment(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.UpdateDepartment(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
             更新部门
             </summary>
@@ -1158,7 +1201,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.DeleteDepartment(System.String,System.String)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.DeleteDepartment(System.String,System.String)">
             <summary>
             删除部门
             </summary>
@@ -1166,7 +1209,7 @@
             <param name="id">部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.GetDepartmentList(System.String,System.Nullable{System.Int32})">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.GetDepartmentList(System.String,System.Nullable{System.Int32})">
             <summary>
             获取部门列表
             </summary>
@@ -1174,7 +1217,7 @@
             <param name="id">部门ID。获取指定部门ID下的子部门</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.CreateMember(System.String,System.String,System.String,System.Int32[],System.String,System.String,System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.MailList.Extattr,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.CreateMember(System.String,System.String,System.String,System.Int32[],System.String,System.String,System.String,System.String,Senparc.Weixin.QY.AdvancedAPIs.MailList.Extattr,System.Int32)">
             <summary>
             创建成员(mobile/weixinid/email三者不能同时为空)
             </summary>
@@ -1193,13 +1236,13 @@
             accessToken、userId和name为必须的参数，其余参数不是必须的，可以传入null
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.UpdateMember(System.String,System.String,System.String,System.Int32[],System.String,System.String,System.String,System.String,System.Int32,Senparc.Weixin.QY.AdvancedAPIs.MailList.Extattr,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.UpdateMember(System.String,System.String,System.String,System.Int32[],System.String,System.String,System.String,System.String,System.Int32,Senparc.Weixin.QY.AdvancedAPIs.MailList.Extattr,System.Int32)">
             <param name="extattr">扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             accessToken和userId为必须的参数，其余参数不是必须的，可以传入null
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.DeleteMember(System.String,System.String)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.DeleteMember(System.String,System.String)">
             <summary>
             删除成员
             </summary>
@@ -1207,7 +1250,7 @@
             <param name="userId">员工UserID</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.BatchDeleteMember(System.String,System.String[],System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.BatchDeleteMember(System.String,System.String[],System.Int32)">
             <summary>
             批量删除成员
             </summary>
@@ -1216,7 +1259,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.GetMember(System.String,System.String)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.GetMember(System.String,System.String)">
             <summary>
             获取成员
             </summary>
@@ -1224,7 +1267,7 @@
             <param name="userId">员工UserID</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.GetDepartmentMember(System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.GetDepartmentMember(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
             获取部门成员
             </summary>
@@ -1234,7 +1277,7 @@
             <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.GetDepartmentMemberInfo(System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.GetDepartmentMemberInfo(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
             获取部门成员(详情)
             </summary>
@@ -1244,7 +1287,7 @@
             <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.InviteMember(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.InviteMember(System.String,System.String,System.String,System.Int32)">
             <summary>
             邀请成员关注
             认证号优先使用微信推送邀请关注，如果没有weixinid字段则依次对手机号，邮箱绑定的微信进行推送，全部没有匹配则通过邮件邀请关注。 邮箱字段无效则邀请失败。 非认证号只通过邮件邀请关注。邮箱字段无效则邀请失败。 已关注以及被禁用用户不允许发起邀请关注请求。
@@ -1256,7 +1299,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.CreateTag(System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.CreateTag(System.String,System.String,System.Int32)">
             <summary>
             创建标签
             </summary>
@@ -1265,7 +1308,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.UpdateTag(System.String,System.Int32,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.UpdateTag(System.String,System.Int32,System.String,System.Int32)">
             <summary>
             更新标签名字
             </summary>
@@ -1275,7 +1318,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.DeleteTag(System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.DeleteTag(System.String,System.Int32)">
             <summary>
             删除标签
             </summary>
@@ -1283,7 +1326,7 @@
             <param name="tagId">标签ID</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.GetTagMember(System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.GetTagMember(System.String,System.Int32)">
             <summary>
             获取标签成员
             </summary>
@@ -1291,7 +1334,7 @@
             <param name="tagId">标签ID</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.AddTagMember(System.String,System.Int32,System.String[],System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.AddTagMember(System.String,System.Int32,System.String[],System.Int32)">
             <summary>
             增加标签成员
             </summary>
@@ -1301,7 +1344,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.DelTagMember(System.String,System.Int32,System.String[],System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.DelTagMember(System.String,System.Int32,System.String[],System.Int32)">
             <summary>
             删除标签成员
             </summary>
@@ -1311,7 +1354,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailList.MailListApi.GetTagList(System.String)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.GetTagList(System.String)">
             <summary>
             获取标签列表
             </summary>
@@ -1489,12 +1532,12 @@
             获取标签列表返回结果
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.MediaApi">
             <summary>
             多媒体文件接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.Upload(System.String,Senparc.Weixin.QY.UploadMediaFileType,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MediaApi.Upload(System.String,Senparc.Weixin.QY.UploadMediaFileType,System.String,System.Int32)">
             <summary>
             上传临时媒体文件
             </summary>
@@ -1504,7 +1547,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.Get(System.String,System.String,System.IO.Stream)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MediaApi.Get(System.String,System.String,System.IO.Stream)">
             <summary>
             获取临时媒体文件
             </summary>
@@ -1512,7 +1555,7 @@
             <param name="mediaId"></param>
             <param name="stream"></param>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.AddMpNews(System.String,System.Int32,System.Int32,Senparc.Weixin.QY.Entities.MpNewsArticle[])">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MediaApi.AddMpNews(System.String,System.Int32,System.Int32,Senparc.Weixin.QY.Entities.MpNewsArticle[])">
             <summary>
             上传永久图文素材
             </summary>
@@ -1522,7 +1565,7 @@
             <param name="mpNewsArticles"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.AddMaterial(System.String,Senparc.Weixin.QY.UploadMediaFileType,System.Int32,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MediaApi.AddMaterial(System.String,Senparc.Weixin.QY.UploadMediaFileType,System.Int32,System.String,System.Int32)">
             <summary>
             上传其他类型永久素材
             </summary>
@@ -1533,7 +1576,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.GetForeverMpNews(System.String,System.Int32,System.String)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MediaApi.GetForeverMpNews(System.String,System.Int32,System.String)">
             <summary>
             获取永久图文素材
             </summary>
@@ -1542,7 +1585,7 @@
             <param name="mediaId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.GetForeverMaterial(System.String,System.Int32,System.String,System.IO.Stream)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MediaApi.GetForeverMaterial(System.String,System.Int32,System.String,System.IO.Stream)">
             <summary>
             获取临时媒体文件
             </summary>
@@ -1551,7 +1594,7 @@
             <param name="mediaId"></param>
             <param name="stream"></param>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.DeleteForeverMaterial(System.String,System.Int32,System.String)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MediaApi.DeleteForeverMaterial(System.String,System.Int32,System.String)">
             <summary>
             删除永久素材
             </summary>
@@ -1560,7 +1603,7 @@
             <param name="mediaId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.UpdateMpNews(System.String,System.String,System.Int32,System.Int32,Senparc.Weixin.QY.Entities.MpNewsArticle[])">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MediaApi.UpdateMpNews(System.String,System.String,System.Int32,System.Int32,Senparc.Weixin.QY.Entities.MpNewsArticle[])">
             <summary>
             修改永久图文素材
             </summary>
@@ -1571,7 +1614,7 @@
             <param name="mpNewsArticles"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.GetCount(System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MediaApi.GetCount(System.String,System.Int32)">
             <summary>
             获取素材总数
             </summary>
@@ -1579,7 +1622,7 @@
             <param name="agentId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.Media.MediaApi.BatchGetMaterial(System.String,Senparc.Weixin.QY.UploadMediaFileType,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MediaApi.BatchGetMaterial(System.String,Senparc.Weixin.QY.UploadMediaFileType,System.Int32,System.Int32,System.Int32,System.Int32)">
             <summary>
             获取素材列表
             </summary>
@@ -1601,8 +1644,8 @@
             上传永久素材返回结果
             </summary>
         </member>
-        <!-- 对于成员“M:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.OAuth2Api.GetCode(System.String,System.String,System.String,System.String,System.String)”忽略有格式错误的 XML 注释 -->
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.OAuth2Api.GetUserId(System.String,System.String,System.Int32)">
+        <!-- 对于成员“M:Senparc.Weixin.QY.AdvancedAPIs.OAuth2Api.GetCode(System.String,System.String,System.String,System.String,System.String)”忽略有格式错误的 XML 注释 -->
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.OAuth2Api.GetUserId(System.String,System.String,System.Int32)">
             <summary>
             获取成员信息
             </summary>
@@ -1735,6 +1778,15 @@
             <param name="accessToken"></param>
             <param name="userId">企业号内的成员id</param>
             <param name="agentId">需要发送红包的应用ID，若只是使用微信支付和企业转账，则无需该参数</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.CommonApi.ConvertToUserId(System.String,System.String,System.Int32)">
+            <summary>
+            openid转换成userid接口
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId"></param>
             <param name="timeOut"></param>
             <returns></returns>
         </member>
@@ -2441,22 +2493,22 @@
             语音格式：amr
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.Article.title">
+        <member name="P:Senparc.Weixin.QY.Entities.Article.Title">
             <summary>
             标题
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.Article.description">
+        <member name="P:Senparc.Weixin.QY.Entities.Article.Description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.Article.url">
+        <member name="P:Senparc.Weixin.QY.Entities.Article.Url">
             <summary>
             点击后跳转的链接
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.Article.picurl">
+        <member name="P:Senparc.Weixin.QY.Entities.Article.PicUrl">
             <summary>
             图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80。如不填，在客户端不显示图片
             </summary>
@@ -3131,6 +3183,285 @@
             
             @param a 需要转化的数字
             @return 转化得到的字符
+        </member>
+        <!-- 对于成员“T:Senparc.Weixin.QY.TenPayLib.RequestHandler”忽略有格式错误的 XML 注释 -->
+        <member name="F:Senparc.Weixin.QY.TenPayLib.RequestHandler.Key">
+            <summary>
+            密钥
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.TenPayLib.RequestHandler.Parameters">
+            <summary>
+            请求的参数
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.TenPayLib.RequestHandler.DebugInfo">
+            <summary>
+            debug信息
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.Init">
+            <summary>
+            初始化函数
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.GetDebugInfo">
+            <summary>
+            获取debug信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.GetKey">
+            <summary>
+            获取密钥
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.SetKey(System.String)">
+            <summary>
+            设置密钥
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.SetParameter(System.String,System.String)">
+            <summary>
+            设置参数值
+            </summary>
+            <param name="parameter"></param>
+            <param name="parameterValue"></param>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.CreateMd5Sign(System.String,System.String)">
+            <summary>
+            创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
+            </summary>
+            <param name="key">参数名</param>
+            <param name="value">参数值</param>
+            key和value通常用于填充最后一组参数
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.ParseXML">
+            <summary>
+            输出XML
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.SetDebugInfo(System.String)">
+            <summary>
+            设置debug信息
+            </summary>
+            <param name="debugInfo"></param>
+        </member>
+        <member name="T:Senparc.Weixin.QY.TenPayLib.ResponseHandler">
+                '============================================================================
+                'Api说明：
+                'GetKey()/setKey(),获取/设置密钥
+                'GetParameter()/setParameter(),获取/设置参数值
+                'GetAllParameters(),获取所有参数
+                'IsTenpaySign(),是否正确的签名,true:是 false:否
+                'IsWXsign(),是否正确的签名,true:是 false:否
+                ' * IsWXsignfeedback判断微信维权签名
+                ' *GetDebugInfo(),获取debug信息 
+                '============================================================================
+        </member>
+        <member name="F:Senparc.Weixin.QY.TenPayLib.ResponseHandler.Key">
+            <summary>
+            密钥 
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.TenPayLib.ResponseHandler.Appkey">
+            <summary>
+            appkey
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.TenPayLib.ResponseHandler.XmlMap">
+            <summary>
+            xmlMap
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.TenPayLib.ResponseHandler.Parameters">
+            <summary>
+            应答的参数
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.TenPayLib.ResponseHandler.DebugInfo">
+            <summary>
+            debug信息
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.TenPayLib.ResponseHandler.Content">
+            <summary>
+            原始内容
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.ResponseHandler.Init">
+            <summary>
+            初始化函数
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.ResponseHandler.#ctor(System.Web.HttpContext)">
+            <summary>
+            获取页面提交的get和post参数
+            </summary>
+            <param name="httpContext"></param>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.ResponseHandler.GetKey">
+            <summary>
+            获取密钥
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.ResponseHandler.SetKey(System.String)">
+            <summary>
+            设置密钥
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.ResponseHandler.GetParameter(System.String)">
+            <summary>
+            获取参数值
+            </summary>
+            <param name="parameter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.ResponseHandler.SetParameter(System.String,System.String)">
+            <summary>
+            设置参数值
+            </summary>
+            <param name="parameter"></param>
+            <param name="parameterValue"></param>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.ResponseHandler.IsTenpaySign">
+            <summary>
+            是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名。return boolean
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.ResponseHandler.GetDebugInfo">
+            <summary>
+            获取debug信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.ResponseHandler.SetDebugInfo(System.String)">
+            <summary>
+            设置debug信息
+            </summary>
+            <param name="debugInfo"></param>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.ResponseHandler.ParseXML">
+            <summary>
+            输出XML
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.QY.TenPayLib.TenPayInfo">
+            <summary>
+            微信支付基础信息储存类
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.TenPayLib.TenPayInfo.AppId">
+            <summary>
+            第三方用户唯一凭证appid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.TenPayLib.TenPayInfo.AppSecret">
+            <summary>
+            第三方用户唯一凭证密钥，即appsecret
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.TenPayLib.TenPayInfo.MchId">
+            <summary>
+            商户ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.TenPayLib.TenPayInfo.Key">
+            <summary>
+            商户支付密钥Key。登录微信商户后台，进入栏目【账户设置】【密码安全】【API 安全】【API 密钥】
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.TenPayLib.TenPayInfo.TenPayNotify">
+            <summary>
+            支付完成后的回调处理页面
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.TenPayLib.TenPayInfoCollection">
+            <summary>
+            微信支付信息集合，Key为商户号（MchId）
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.TenPayLib.TenPayInfoCollection.Data">
+            <summary>
+            微信支付信息集合，Key为商户号（MchId）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.TenPayInfoCollection.Register(Senparc.Weixin.QY.TenPayLib.TenPayInfo)">
+            <summary>
+            注册TenPayInfo信息
+            </summary>
+            <param name="tenPayInfo"></param>
+        </member>
+        <member name="T:Senparc.Weixin.QY.TenPayLib.TenPayUtil">
+            <summary>
+            TenpayUtil 的摘要说明。
+            配置文件
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.TenPayUtil.GetNoncestr">
+            <summary>
+            随机生成Noncestr
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.TenPayUtil.UrlEncode(System.String,System.String)">
+            <summary>
+            对字符串进行URL编码
+            </summary>
+            <param name="instr"></param>
+            <param name="charset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.TenPayUtil.UrlDecode(System.String,System.String)">
+            <summary>
+            对字符串进行URL解码
+            </summary>
+            <param name="instr"></param>
+            <param name="charset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.TenPayUtil.UnixStamp">
+            <summary>
+            取时间戳生成随即数,替换交易单号中的后10位流水号
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.TenPayLib.TenPayUtil.BuildRandomStr(System.Int32)">
+            <summary>
+            取随机数
+            </summary>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.TenPay">
+            <summary>
+            企业号微信支付接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.TenPay.Transfers(System.String,System.Int32)">
+            <summary>
+            用于企业向微信用户个人付款 
+            目前支持向指定微信用户的openid付款
+            </summary>
+            <param name="data">微信支付需要post的xml数据</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.TenPay.GetTransferInfo(System.String,System.Int32)">
+            <summary>
+            用于商户的企业付款操作进行结果查询，返回付款操作详细结果。
+            </summary>
+            <param name="data"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
         </member>
     </members>
 </doc>

@@ -19,7 +19,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     /// <summary>
     /// 企业号微信支付接口

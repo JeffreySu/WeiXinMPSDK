@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.Exceptions;
 
-namespace Senparc.Weixin.MP.TenPayLib
+namespace Senparc.Weixin.QY.TenPayLib
 {
     /// <summary>
     /// 微信支付信息集合，Key为商户号（MchId）

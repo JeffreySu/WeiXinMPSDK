@@ -30,11 +30,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.QY.AdvancedAPIs.MailList;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     public static class MailListApi
     {

@@ -38,7 +38,7 @@ namespace Senparc.Weixin.MessageHandlers
 
         /// <summary>
         /// 最后返回的ResponseDocument。
-        /// 如果是Senparc.Weixin.MP，则应当和ResponseDocument一致；如果是Senparc.Weixin.QY，则应当在ResponseDocument基础上进行加密
+        /// 如果是Senparc.Weixin.QY，则应当和ResponseDocument一致；如果是Senparc.Weixin.QY，则应当在ResponseDocument基础上进行加密
         /// </summary>
         XDocument FinalResponseDocument { get; }
 

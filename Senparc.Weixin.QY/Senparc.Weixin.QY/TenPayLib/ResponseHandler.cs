@@ -17,7 +17,7 @@ using System.Web;
 using System.Xml;
 using Senparc.Weixin.QY.Helpers;
 
-namespace Senparc.Weixin.MP.TenPayLib
+namespace Senparc.Weixin.QY.TenPayLib
 {
 
     /** 

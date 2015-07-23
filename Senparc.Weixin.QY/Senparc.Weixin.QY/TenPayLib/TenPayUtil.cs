@@ -14,7 +14,7 @@ using System.Text;
 using System.Web;
 using Senparc.Weixin.QY.Helpers;
 
-namespace Senparc.Weixin.MP.TenPayLib
+namespace Senparc.Weixin.QY.TenPayLib
 {
     /// <summary>
     /// TenpayUtil 的摘要说明。

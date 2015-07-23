@@ -25,11 +25,12 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using Senparc.Weixin.QY.AdvancedAPIs.Mass;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.Mass
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     /// <summary>
     /// 发送消息

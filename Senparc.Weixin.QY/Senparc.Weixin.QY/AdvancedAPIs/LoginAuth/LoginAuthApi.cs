@@ -16,11 +16,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.QY.AdvancedAPIs.LoginAuth;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.LoginAuth
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     public static class LoginAuthApi
     {

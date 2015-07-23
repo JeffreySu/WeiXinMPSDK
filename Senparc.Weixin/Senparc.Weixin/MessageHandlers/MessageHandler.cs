@@ -103,7 +103,7 @@ namespace Senparc.Weixin.MessageHandlers
 
         /// <summary>
         /// 最后返回的ResponseDocument。
-        /// 如果是Senparc.Weixin.MP，则应当和ResponseDocument一致；如果是Senparc.Weixin.QY，则应当在ResponseDocument基础上进行加密
+        /// 如果是Senparc.Weixin.QY，则应当和ResponseDocument一致；如果是Senparc.Weixin.QY，则应当在ResponseDocument基础上进行加密
         /// </summary>
         public abstract XDocument FinalResponseDocument { get; }
 
@@ -203,7 +203,7 @@ namespace Senparc.Weixin.MessageHandlers
 
             //CommonInitialize(postDataDocument, maxRecordCount, postData);
 
-            //此方法不执行任何方法，提供给具体的类库进行测试使用，例如Senparc.Weixin.MP
+            //此方法不执行任何方法，提供给具体的类库进行测试使用，例如Senparc.Weixin.QY
         }
 
 

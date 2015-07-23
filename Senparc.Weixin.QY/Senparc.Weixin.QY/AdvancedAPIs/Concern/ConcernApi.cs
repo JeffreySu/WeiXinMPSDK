@@ -26,7 +26,7 @@ using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.Concern
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     /// <summary>
     /// 关注与取消关注

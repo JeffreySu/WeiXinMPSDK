@@ -23,8 +23,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.QY.AdvancedAPIs.OAuth2;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.OAuth2
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
 
     public static class OAuth2Api

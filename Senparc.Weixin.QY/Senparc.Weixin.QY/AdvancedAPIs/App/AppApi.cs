@@ -23,11 +23,12 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.QY.AdvancedAPIs.App;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.App
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     /// <summary>
     /// 管理企业号应用

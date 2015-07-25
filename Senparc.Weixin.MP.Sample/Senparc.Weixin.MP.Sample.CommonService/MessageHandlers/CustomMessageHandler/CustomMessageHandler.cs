@@ -188,6 +188,21 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                         t2 - t1
                         );
             }
+            else if(requestMessage.Content=="open")
+            {
+                var openResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageNews>();
+                openResponseMessage.Articles.Add(new Article()
+                {
+                    Title = "开放平台微信授权测试",
+                    Description = @"点击进入Open授权页面。
+
+授权之后，您的微信所收到的消息将转发到第三方（盛派网络小助手）的服务器上，并获得对应的回复。
+
+测试完成后，您可以登陆公众号后台取消授权。",
+                    Url = "http://weixin.senparc.com/OpenOAuth/JumpToMpOAuth"
+                });
+                return openResponseMessage;
+            }
             else
             {
                 var result = new StringBuilder();

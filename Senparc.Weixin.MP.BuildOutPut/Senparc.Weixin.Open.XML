@@ -289,14 +289,6 @@
             微信公众服务器Post过来的加密参数集合（不包括PostData）
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Open.Entities.Request.PostModel.SetSecretInfo(System.String,System.String,System.String)">
-            <summary>
-            设置服务器内部保密信息
-            </summary>
-            <param name="token"></param>
-            <param name="encodingAESKey"></param>
-            <param name="appId"></param>
-        </member>
         <member name="P:Senparc.Weixin.Open.Entities.Request.PostModel.Encrypt_Type">
             <summary>
             加密类型，通常为"aes"

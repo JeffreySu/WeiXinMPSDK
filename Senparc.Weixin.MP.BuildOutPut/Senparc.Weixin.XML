@@ -227,6 +227,14 @@
             接收加密信息统一基类
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.EncryptPostModel.SetSecretInfo(System.String,System.String)">
+            <summary>
+            设置服务器内部保密信息
+            </summary>
+            <param name="token"></param>
+            <param name="encodingAESKey"></param>
+            <param name="appId"></param>
+        </member>
         <member name="T:Senparc.Weixin.QyRequestMsgType">
             <summary>
             企业接收消息类型

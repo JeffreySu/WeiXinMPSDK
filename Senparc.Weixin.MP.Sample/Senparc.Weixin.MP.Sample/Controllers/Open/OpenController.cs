@@ -128,21 +128,21 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             postModel.EncodingAESKey = component_EncodingAESKey; //根据自己后台的设置保持一致
             postModel.AppId = component_AppId; //根据自己后台的设置保持一致
 
-            var checkPublish = false; //是否在“全网发布”阶段
-
-
             var maxRecordCount = 10;
             MessageHandler<CustomMessageContext> messageHandler = null;
-            if (checkPublish)
-            {
-                messageHandler = new OpenCheckMessageHandler(Request.InputStream, postModel, 10);
-            }
-            else
-            {
-                messageHandler = new CustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
-            }
+        
             try
             {
+                var checkPublish = false; //是否在“全网发布”阶段
+                if (checkPublish)
+                {
+                    messageHandler = new OpenCheckMessageHandler(Request.InputStream, postModel, 10);
+                }
+                else
+                {
+                    messageHandler = new CustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
+                }
+
                 messageHandler.RequestDocument.Save(Path.Combine(logPath,
                     string.Format("{0}_Request_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.FromUserName)));
 

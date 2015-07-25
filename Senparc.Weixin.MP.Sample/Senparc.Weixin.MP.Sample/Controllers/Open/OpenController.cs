@@ -118,8 +118,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //处理微信普通消息，可以直接使用公众号的MessageHandler。此处的URL也可以直接填写公众号普通的URL，如本Demo中的/Weixin访问地址。
 
-
-
             var logPath = Server.MapPath(string.Format("~/App_Data/Open/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))
             {
@@ -127,10 +125,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             postModel.Token = component_Token;
-            postModel.EncodingAESKey = component_EncodingAESKey;//根据自己后台的设置保持一致
-            postModel.AppId = component_AppId;//根据自己后台的设置保持一致
+            postModel.EncodingAESKey = component_EncodingAESKey; //根据自己后台的设置保持一致
+            postModel.AppId = component_AppId; //根据自己后台的设置保持一致
 
-            var checkPublish = false;//是否在“全网发布”阶段
+            var checkPublish = false; //是否在“全网发布”阶段
 
 
             var maxRecordCount = 10;
@@ -143,18 +141,50 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 messageHandler = new CustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
             }
-
-            messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.FromUserName)));
-
-            messageHandler.Execute();//执行
-
-            if (messageHandler.ResponseDocument != null)
+            try
             {
-                messageHandler.ResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.FromUserName)));
+                messageHandler.RequestDocument.Save(Path.Combine(logPath,
+                    string.Format("{0}_Request_{1}.txt", DateTime.Now.Ticks, messageHandler.RequestMessage.FromUserName)));
+
+                messageHandler.Execute(); //执行
+
+                if (messageHandler.ResponseDocument != null)
+                {
+                    messageHandler.ResponseDocument.Save(Path.Combine(logPath,
+                        string.Format("{0}_Response_{1}.txt", DateTime.Now.Ticks,
+                            messageHandler.RequestMessage.FromUserName)));
+                }
+                return new FixWeixinBugWeixinResult(messageHandler);
             }
+            catch (Exception ex)
+            {
+                using (
+                    TextWriter tw =
+                        new StreamWriter(Server.MapPath("~/App_Data/Open/Error_" + DateTime.Now.Ticks + ".txt")))
+                {
+                    tw.WriteLine("ExecptionMessage:" + ex.Message);
+                    tw.WriteLine(ex.Source);
+                    tw.WriteLine(ex.StackTrace);
+                    //tw.WriteLine("InnerExecptionMessage:" + ex.InnerException.Message);
 
-            return new FixWeixinBugWeixinResult(messageHandler);
+                    if (messageHandler.ResponseDocument != null)
+                    {
+                        tw.WriteLine(messageHandler.ResponseDocument.ToString());
+                    }
+
+                    if (ex.InnerException != null)
+                    {
+                        tw.WriteLine("========= InnerException =========");
+                        tw.WriteLine(ex.InnerException.Message);
+                        tw.WriteLine(ex.InnerException.Source);
+                        tw.WriteLine(ex.InnerException.StackTrace);
+                    }
+
+                    tw.Flush();
+                    tw.Close();
+                    return Content("");
+                }
+            }
         }
-
     }
 }

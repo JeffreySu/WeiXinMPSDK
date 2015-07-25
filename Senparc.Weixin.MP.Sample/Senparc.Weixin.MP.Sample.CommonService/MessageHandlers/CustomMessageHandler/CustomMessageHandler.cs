@@ -139,9 +139,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                  * 或
                  * 
                  */
-                responseMessage = responseXml.CreateResponseMessage() as ResponseMessageText;
 
-                responseMessage.Content += string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
+                if (responseMessage is ResponseMessageText)
+                {
+                    responseMessage = responseXml.CreateResponseMessage() as ResponseMessageText;
+                    responseMessage.Content += string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
+                }
             }
             else if (requestMessage.Content == "测试" || requestMessage.Content == "退出")
             {

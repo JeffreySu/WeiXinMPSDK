@@ -21,6 +21,9 @@ namespace Senparc.Weixin.Open.Entities.Request
     /// </summary>
     public class PostModel : EncryptPostModel
     {
+        /// <summary>
+        /// 开发平台“公众号第三方平台”的AppId
+        /// </summary>
         public string AppId { get; set; }
 
         /// <summary>

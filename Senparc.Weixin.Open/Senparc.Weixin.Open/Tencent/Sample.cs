@@ -42,7 +42,6 @@ namespace MsgCryptTest
             }
             System.Console.WriteLine(sMsg);
 
-
             /*
              * 2. 企业回复用户消息也需要加密和拼接xml字符串。
              * 假设企业需要回复用户的消息为：

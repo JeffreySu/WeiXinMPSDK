@@ -108,6 +108,9 @@ namespace Senparc.Weixin.Context
         /// </summary>
         public AppStoreState AppStoreState { get; set; }
 
+        /// <summary>
+        /// 当MessageContext被删除时触发的事件
+        /// </summary>
         public virtual event EventHandler<WeixinContextRemovedEventArgs<TRequest, TResponse>> MessageContextRemoved = null;
 
         /// <summary>

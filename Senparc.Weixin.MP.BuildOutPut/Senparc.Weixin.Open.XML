@@ -164,11 +164,6 @@
             授权方信息
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.Open.ComponentAPIs.GetAuthorizerInfoResult.qrcode_url">
-            <summary>
-            二维码图片的URL，开发者最好自行也进行保存
-            </summary>
-        </member>
         <member name="P:Senparc.Weixin.Open.ComponentAPIs.GetAuthorizerInfoResult.authorization_info">
             <summary>
             授权信息
@@ -204,7 +199,12 @@
             授权方公众号所设置的微信号，可能为空
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.Open.ComponentAPIs.AuthorizerInfo_AuthorizationInfo.appid">
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.AuthorizerInfo.qrcode_url">
+            <summary>
+            二维码图片的URL，开发者最好自行也进行保存
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.AuthorizerInfo_AuthorizationInfo.authorizer_appid">
             <summary>
             授权方appid
             </summary>

@@ -18,7 +18,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.HttpUtility;
@@ -119,18 +118,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 component_appid = componentAppId,
                 authorizer_appid = authorizerAppId,
             };
-
-            SerializerHelper serializerHelper = new SerializerHelper();
-            var jsonString = serializerHelper.GetJsonString(data);
-            using (MemoryStream ms = new MemoryStream())
-            {
-                var bytes = Encoding.UTF8.GetBytes(jsonString);
-                ms.Write(bytes, 0, bytes.Length);
-                ms.Seek(0, SeekOrigin.Begin);
-
-                string returnText = HttpUtility.RequestUtility.HttpPost(url, null, ms, null, null, null, timeOut, false);
-                throw new Exception(returnText);
-            }
 
             return CommonJsonSend.Send<GetAuthorizerInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }

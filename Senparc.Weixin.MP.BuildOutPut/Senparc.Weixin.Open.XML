@@ -356,6 +356,21 @@
             弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.Open.ServiceType">
+            <summary>
+            授权方公众号类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Open.VerifyType">
+            <summary>
+            授权方认证类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Open.FuncscopeCategory">
+            <summary>
+            公众号授权给开发者的权限集列表
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.Open.Helpers.InfoTypeHelper.GetRequestInfoType(System.Xml.Linq.XDocument)">
             <summary>
             根据xml信息，返回InfoType
@@ -563,6 +578,16 @@
             <param name="componentAppId"></param>
             <param name="authorizerAppId"></param>
             <param name="authorizerRefreshToken"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.GetAuthorizerInfo(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            获取授权方信息
+            </summary>
+            <param name="componentAccessToken"></param>
+            <param name="componentAppId"></param>
+            <param name="authorizerAppId"></param>
             <param name="timeOut"></param>
             <returns></returns>
         </member>

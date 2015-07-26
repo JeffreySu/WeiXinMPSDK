@@ -63,11 +63,11 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
     public class FuncscopeCategoryItem
     {
-        public FuncscopeCategory funcscope_category { get; set; }
+        public AuthorizationInfo_FuncscopeCategory funcscope_category { get; set; }
     }
 
-    public class FuncscopeCategory
+    public class AuthorizationInfo_FuncscopeCategory
     {
-        public int id { get; set; }
+        public FuncscopeCategory id { get; set; }
     }
 }

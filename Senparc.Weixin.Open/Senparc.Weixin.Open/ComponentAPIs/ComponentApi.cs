@@ -97,7 +97,15 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             return CommonJsonSend.Send<RefreshAuthorizerTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
-        public static RefreshAuthorizerTokenResult GetAuthorizerInfo(string componentAccessToken, string componentAppId, string authorizerAppId, int timeOut = Config.TIME_OUT)
+        /// <summary>
+        /// 获取授权方信息
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="componentAppId"></param>
+        /// <param name="authorizerAppId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetAuthorizerInfoResult GetAuthorizerInfo(string componentAccessToken, string componentAppId, string authorizerAppId, int timeOut = Config.TIME_OUT)
         {
             var url =
                 string.Format(
@@ -110,7 +118,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 authorizer_appid = authorizerAppId,
             };
 
-            return CommonJsonSend.Send<RefreshAuthorizerTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<GetAuthorizerInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>

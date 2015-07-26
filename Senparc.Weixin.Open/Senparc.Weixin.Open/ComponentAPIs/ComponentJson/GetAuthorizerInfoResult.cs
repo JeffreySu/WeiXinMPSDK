@@ -66,12 +66,12 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
     public class ServiceTypeInfo
     {
-        public int id { get; set; }
+        public ServiceType id { get; set; }
     }
 
     public class VerifyTypeInfo
     {
-        public int id { get; set; }
+        public VerifyType id { get; set; }
     }
 
     public class AuthorizerInfo_AuthorizationInfo
@@ -103,6 +103,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
     public class AuthorizerInfo_FuncscopeCategory
     {
-        public int id { get; set; }
+        public FuncscopeCategory id { get; set; }
     }
 }

@@ -389,7 +389,7 @@
             代公众号发起网页授权
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Open.OAuth.OAuthApi.GetAuthorizeUrl(System.String,System.String,System.String,System.String,Senparc.Weixin.Open.OAuthScope,System.String)">
+        <member name="M:Senparc.Weixin.Open.OAuth.OAuthApi.GetAuthorizeUrl(System.String,System.String,System.String,System.String,Senparc.Weixin.Open.OAuthScope[],System.String)">
             <summary>
             获取验证地址
             </summary>

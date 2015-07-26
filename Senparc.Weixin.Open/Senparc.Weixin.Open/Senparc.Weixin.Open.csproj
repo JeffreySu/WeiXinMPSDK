@@ -46,6 +46,8 @@
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="CommonAPIs\ComponentAccessTokenContainer.cs" />
     <Compile Include="CommonAPIs\PreAuthCodeContainer.cs" />
+    <Compile Include="ComponentAPIs\ComponentJson\GetAuthorizerInfoResult.cs" />
+    <Compile Include="ComponentAPIs\ComponentJson\RefreshAuthorizerTokenResult.cs" />
     <Compile Include="Entities\JsonResult\ComponentAccessTokenResult.cs" />
     <Compile Include="Entities\JsonResult\PreAuthCodeResult.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />

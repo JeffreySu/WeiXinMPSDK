@@ -154,6 +154,96 @@
             <param name="componentAppId"></param>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.Open.ComponentAPIs.GetAuthorizerInfoResult">
+            <summary>
+            获取授权方的账户信息返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.GetAuthorizerInfoResult.authorizer_info">
+            <summary>
+            授权方信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.GetAuthorizerInfoResult.qrcode_url">
+            <summary>
+            二维码图片的URL，开发者最好自行也进行保存
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.GetAuthorizerInfoResult.authorization_info">
+            <summary>
+            授权信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.AuthorizerInfo.nick_name">
+            <summary>
+            授权方昵称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.AuthorizerInfo.head_img">
+            <summary>
+            授权方头像
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.AuthorizerInfo.service_type_info">
+            <summary>
+            授权方公众号类型，0代表订阅号，1代表由历史老帐号升级后的订阅号，2代表服务号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.AuthorizerInfo.verify_type_info">
+            <summary>
+            授权方认证类型，-1代表未认证，0代表微信认证，1代表新浪微博认证，2代表腾讯微博认证，3代表已资质认证通过但还未通过名称认证，4代表已资质认证通过、还未通过名称认证，但通过了新浪微博认证，5代表已资质认证通过、还未通过名称认证，但通过了腾讯微博认证
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.AuthorizerInfo.user_name">
+            <summary>
+            授权方公众号的原始ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.AuthorizerInfo.alias">
+            <summary>
+            授权方公众号所设置的微信号，可能为空
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.AuthorizerInfo_AuthorizationInfo.appid">
+            <summary>
+            授权方appid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.AuthorizerInfo_AuthorizationInfo.func_info">
+            <summary>
+            公众号授权给开发者的权限集列表（请注意，当出现用户已经将消息与菜单权限集授权给了某个第三方，再授权给另一个第三方时，由于该权限集是互斥的，后一个第三方的授权将去除此权限集，开发者可以在返回的func_info信息中验证这一点，避免信息遗漏），
+            1到9分别代表：
+            消息与菜单权限集
+            用户管理权限集
+            帐号管理权限集
+            网页授权权限集
+            微信小店权限集
+            多客服权限集
+            业务通知权限集
+            微信卡券权限集
+            微信扫一扫权限集
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Open.ComponentAPIs.RefreshAuthorizerTokenResult">
+            <summary>
+            获取（刷新）授权公众号的令牌返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.RefreshAuthorizerTokenResult.authorizer_access_token">
+            <summary>
+            授权方令牌
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.RefreshAuthorizerTokenResult.expires_in">
+            <summary>
+            有效期，为2小时
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.RefreshAuthorizerTokenResult.authorizer_refresh_token">
+            <summary>
+            刷新令牌
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.Open.Entities.ComponentAccessTokenResult">
             <summary>
             获取第三方平台access_token
@@ -464,10 +554,21 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.RefreshAuthorizerToken(System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            获取（刷新）授权公众号的令牌
+            由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权。
+            </summary>
+            <param name="componentAccessToken"></param>
+            <param name="componentAppId"></param>
+            <param name="authorizerAppId"></param>
+            <param name="authorizerRefreshToken"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.GetAuthorizerOption(System.String,System.String,System.String,Senparc.Weixin.Open.OptionName,System.Int32)">
             <summary>
-            刷新access_token
-            由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权。
+            获取授权方的选项设置信息
             </summary>
             <param name="componentAppId">服务开发商的appid</param>
             <param name="componentAccessToken">服务开发方的access_token</param>

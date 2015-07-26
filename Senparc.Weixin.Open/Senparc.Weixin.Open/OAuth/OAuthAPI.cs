@@ -20,9 +20,8 @@ using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.Open.ComponentAPIs.OAuth;
 
-namespace Senparc.Weixin.Open.ComponentAPIs
+namespace Senparc.Weixin.Open.OAuth
 {
     /// <summary>
     /// 代公众号发起网页授权

@@ -18,13 +18,12 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Open.CommonAPIs;
-using Senparc.Weixin.Open.ComponentAPIs.LoginOAuth;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.Open.ComponentAPIs
 {
-    public static class LoginOAuthApi
+    public static class ComponentApi
     {
         /// <summary>
         /// 获取授权地址
@@ -85,7 +84,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             var url =
                 string.Format(
-                    "https://api.weixin.qq.com/cgi-bin/component/ api_get_authorizer_option?component_access_token={0}",
+                    "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_option?component_access_token={0}",
                     componentAccessToken);
 
             var data = new
@@ -112,7 +111,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             var url =
                 string.Format(
-                    "https://api.weixin.qq.com/cgi-bin/component/ api_set_authorizer_option?component_access_token={0}",
+                    "https://api.weixin.qq.com/cgi-bin/component/api_set_authorizer_option?component_access_token={0}",
                     componentAccessToken);
 
             var data = new

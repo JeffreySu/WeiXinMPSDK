@@ -112,5 +112,6 @@ namespace Senparc.Weixin.Open
         摇一摇周边权限集 = 10,
         线下门店权限集 = 11,
         微信连WIFI权限集 = 12,
+        未知类型 = 13
     }
 }

@@ -41,12 +41,12 @@ namespace Senparc.Weixin.Open.OAuth
         /// <param name="scope">授权作用域，拥有多个作用域用逗号（,）分隔。此处暂时只放一作用域。</param>
         /// <param name="responseType">默认，填code</param>
         /// <returns></returns>
-        public static string GetAuthorizeUrl(string appId,string componentAppId, string redirectUrl, string state, OAuthScope scope, string responseType = "code")
+        public static string GetAuthorizeUrl(string appId, string componentAppId, string redirectUrl, string state, OAuthScope[] scopes, string responseType = "code")
         {
             //此URL比MP中的对应接口多了&component_appid=component_appid参数
             var url =
                 string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type={2}&scope={3}&state={4}&component_appid={5}#wechat_redirect",
-                                appId, redirectUrl.UrlEncode(), responseType, scope, state, componentAppId);
+                                appId, redirectUrl.UrlEncode(), responseType, string.Join(",", scopes.Select(z => z.ToString())), state, componentAppId);
 
             /* 这一步发送之后，客户会得到授权页面，无论同意或拒绝，都会返回redirectUrl页面。
              * 如果用户同意授权，页面将跳转至 redirect_uri?code=CODE&state=STATE&appid=APPID。这里的code用于换取access_token（和通用接口的access_token不通用）

@@ -18,13 +18,12 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Open.CommonAPIs;
-using Senparc.Weixin.Open.ComponentAPIs.LoginOAuth;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.Open.ComponentAPIs
 {
-    public static class LoginOAuthApi
+    public static class ComponentApi
     {
         /// <summary>
         /// 获取授权地址
@@ -72,8 +71,50 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         }
 
         /// <summary>
-        /// 刷新access_token
+        /// 获取（刷新）授权公众号的令牌
         /// 由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权。
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="componentAppId"></param>
+        /// <param name="authorizerAppId"></param>
+        /// <param name="authorizerRefreshToken"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static RefreshAuthorizerTokenResult RefreshAuthorizerToken(string componentAccessToken, string componentAppId, string authorizerAppId, string authorizerRefreshToken, int timeOut = Config.TIME_OUT)
+        {
+            var url =
+                string.Format(
+                    "https://api.weixin.qq.com/cgi-bin/component/api_authorizer_token?component_access_token={0}",
+                    componentAccessToken);
+
+            var data = new
+            {
+                component_appid = componentAppId,
+                authorizer_appid = authorizerAppId,
+                authorizer_refresh_token = authorizerRefreshToken
+            };
+
+            return CommonJsonSend.Send<RefreshAuthorizerTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        public static RefreshAuthorizerTokenResult GetAuthorizerInfo(string componentAccessToken, string componentAppId, string authorizerAppId, int timeOut = Config.TIME_OUT)
+        {
+            var url =
+                string.Format(
+                    "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token={0}",
+                    componentAccessToken);
+
+            var data = new
+            {
+                component_appid = componentAppId,
+                authorizer_appid = authorizerAppId,
+            };
+
+            return CommonJsonSend.Send<RefreshAuthorizerTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 获取授权方的选项设置信息
         /// </summary>
         /// <param name="componentAppId">服务开发商的appid</param>
         /// <param name="componentAccessToken">服务开发方的access_token</param>
@@ -85,7 +126,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             var url =
                 string.Format(
-                    "https://api.weixin.qq.com/cgi-bin/component/ api_get_authorizer_option?component_access_token={0}",
+                    "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_option?component_access_token={0}",
                     componentAccessToken);
 
             var data = new
@@ -112,7 +153,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             var url =
                 string.Format(
-                    "https://api.weixin.qq.com/cgi-bin/component/ api_set_authorizer_option?component_access_token={0}",
+                    "https://api.weixin.qq.com/cgi-bin/component/api_set_authorizer_option?component_access_token={0}",
                     componentAccessToken);
 
             var data = new

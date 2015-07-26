@@ -7,11 +7,9 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
-using Senparc.Weixin.Open.ComponentAPIs;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
-    using Senparc.Weixin.Open.ComponentAPIs.OAuth;
 
     public class OpenOAuthController : Controller
     {
@@ -34,10 +32,17 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 string openTicket = OpenTicketHelper.GetOpenTicket(component_AppId);
 
                 var component_access_token = Open.CommonAPIs.CommonApi.GetComponentAccessToken(component_AppId, component_Secret, openTicket).component_access_token;
-                var oauthResult = Open.ComponentAPIs.LoginOAuthApi.QueryAuth(component_access_token, component_AppId, auth_code);
+                var oauthResult = Open.ComponentAPIs.ComponentApi.QueryAuth(component_access_token, component_AppId, auth_code);
 
                 //TODO:储存oauthResult.authorization_info
-                return View(oauthResult.authorization_info);
+                var authInfoResult = Open.ComponentAPIs.ComponentApi.GetAuthorizerInfo(component_access_token, component_AppId,
+                     oauthResult.authorization_info.authorizer_appid);
+
+                ViewData["QueryAuthInfo"] = oauthResult.authorization_info;
+                ViewData["AuthorizerInfoResult"] = authInfoResult;
+
+
+                return View();
             }
             catch (ErrorJsonResultException ex)
             {

@@ -44,7 +44,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var preAuthCode = Open.CommonAPIs.CommonApi.GetPreAuthCode(component_AppId, component_Secret, openTicket).pre_auth_code;
 
             var callbackUrl = "http://weixin.senparc.com/OpenOAuth/OpenOAuthCallback";//成功回调地址
-            var url = Open.ComponentAPIs.LoginOAuthApi.GetComponentLoginPageUrl(component_AppId, preAuthCode, callbackUrl);
+            var url = Open.ComponentAPIs.ComponentApi.GetComponentLoginPageUrl(component_AppId, preAuthCode, callbackUrl);
             return Redirect(url);
         }
 

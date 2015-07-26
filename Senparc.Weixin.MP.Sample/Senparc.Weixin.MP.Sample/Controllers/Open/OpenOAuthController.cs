@@ -22,8 +22,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public ActionResult Index(string appId)
         {
             //此页面引导用户点击授权
-            ViewData["UrlUserInfo"] = Open.OAuth.OAuthApi.GetAuthorizeUrl(appId, "http://weixin.senparc.com/OpenOAuth/UserInfoCallback?appId=" + appId, component_AppId, "JeffreySu", Open.OAuthScope.snsapi_userinfo);
-            ViewData["UrlBase"] = Open.OAuth.OAuthApi.GetAuthorizeUrl(appId, "http://weixin.senparc.com/OpenOAuth/BaseCallback?appId=" + appId, component_AppId, "JeffreySu", Open.OAuthScope.snsapi_base);
+            ViewData["UrlUserInfo"] = Open.OAuth.OAuthApi.GetAuthorizeUrl(appId, component_AppId, "http://weixin.senparc.com/OpenOAuth/UserInfoCallback?appId=" + appId, "JeffreySu", Open.OAuthScope.snsapi_userinfo);
+            ViewData["UrlBase"] = Open.OAuth.OAuthApi.GetAuthorizeUrl(appId, component_AppId, "http://weixin.senparc.com/OpenOAuth/BaseCallback?appId=" + appId, "JeffreySu", Open.OAuthScope.snsapi_base);
             return View();
         }
 

@@ -28,6 +28,47 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     }
 
     /// <summary>
+    /// 通用券
+    /// </summary>
+    public class CardUpdate_GeneralCoupon : BaseCardUpdateInfo
+    {
+        public Card_GeneralCouponUpdateData general_coupon { get; set; }
+    }
+
+    /// <summary>
+    /// 团购券
+    /// </summary>
+    public class CardUpdate_Groupon : BaseCardUpdateInfo
+    {
+        public Card_GrouponUpdateData groupon { get; set; }
+    }
+
+    /// <summary>
+    /// 礼品券
+    /// </summary>
+    public class CardUpdate_Gift : BaseCardUpdateInfo
+    {
+        public Card_GiftUpdateData gift { get; set; }
+    }
+
+    /// <summary>
+    /// 代金券
+    /// </summary>
+    public class CardUpdate_Cash : BaseCardUpdateInfo
+    {
+        public Card_CashUpdateData cash { get; set; }
+    }
+
+    /// <summary>
+    /// 折扣券
+    /// </summary>
+    public class CardUpdate_DisCount : BaseCardUpdateInfo
+    {
+        public Card_DisCountUpdateData discount { get; set; }
+    }
+
+
+    /// <summary>
     /// 会员卡
     /// </summary>
     public class CardUpdate_MemberCard : BaseCardUpdateInfo
@@ -61,6 +102,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 
     public class BaseUpdateInfo
     {
+        public BaseUpdateInfo()
+        {
+            base_info = new Update_BaseCardInfo();
+        }
         /// <summary>
         /// 基本的卡券数据
         /// </summary>
@@ -73,6 +118,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// </summary>
     public class Update_BaseCardInfo
     {
+        public Update_BaseCardInfo()
+        {
+            date_info = new Card_UpdateDateInfo();
+        }
         /// <summary>
         /// 卡券的商户logo，尺寸为300*300。
         /// 必填
@@ -143,6 +192,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public string custom_url { get; set; }
+        /// <summary>
+        /// 显示在入口右侧的提示语。
+        /// </summary>
+        public string custom_url_name { get; set; }
+
+        /// <summary>
+        /// 自定义跳转外链的入口名字。详情见活用自定义入口
+        /// </summary>
+        public string custom_url_sub_title { get; set; }
+
+        /// <summary>
+        /// 入口跳转外链的地址链接
+        /// </summary>
+        public string promotion_url { get; set; }
+
+        /// <summary>
+        /// 营销场景的自定义入口名称
+        /// </summary>
+        public string promotion_url_name { get; set; }
+
+        /// <summary>
+        /// 显示在营销入口右侧的提示语。
+        /// </summary>
+        public string promotion_url_sub_title { get; set; }
     }
     /// <summary>
     /// 使用日期，有效期的信息

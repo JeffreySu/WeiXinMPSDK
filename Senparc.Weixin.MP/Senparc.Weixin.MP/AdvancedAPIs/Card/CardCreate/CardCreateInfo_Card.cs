@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Script.Serialization;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
@@ -131,6 +132,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 卡类型（不在Json数据中）
         /// </summary>
+        [ScriptIgnore]
         public CardType CardType { get; set; }
 
         public BaseCardInfo(CardType cardType)

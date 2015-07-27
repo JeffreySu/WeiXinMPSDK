@@ -19,11 +19,12 @@ using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using Senparc.Weixin.QY.AdvancedAPIs.Asynchronous;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.Asynchronous
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     /// <summary>
     /// 异步任务接口

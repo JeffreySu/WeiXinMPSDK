@@ -150,6 +150,7 @@
     <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\UserAnalysisItemJson.cs" />
     <Compile Include="AdvancedAPIs\User\UserJson\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\UserApi.cs" />
+    <Compile Include="AdvancedAPIs\User\UserJson\BatchGetUserInfoData.cs" />
     <Compile Include="AdvancedAPIs\User\UserJson\UserInfoJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiApi.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiHomePageResultJson.cs" />
@@ -183,6 +184,9 @@
     <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Enter_Session_From_Card.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_View_Card.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Consume_Card.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_WifiConnected.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Poi_Check_Notify.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_TemplateSendJobFinish.cs" />

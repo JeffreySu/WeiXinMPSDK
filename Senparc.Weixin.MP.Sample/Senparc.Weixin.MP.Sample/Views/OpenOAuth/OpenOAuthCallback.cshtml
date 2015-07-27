@@ -1,0 +1,60 @@
+﻿@using Senparc.Weixin.Open.ComponentAPIs
+@{
+    Layout = null;
+
+    var authInfo = ViewData["QueryAuthInfo"] as AuthorizationInfo;
+    var autherInfo = ViewData["AuthorizerInfoResult"] as GetAuthorizerInfoResult;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>成功授权</title>
+</head>
+<body>
+    <h1>账号已成功授权</h1>
+    <section>
+        <h2>授权信息</h2>
+        <p>authorizer_access_token：@authInfo.authorizer_access_token</p>
+        <p>authorizer_appid：@authInfo.authorizer_appid</p>
+        <p>authorizer_refresh_token：@authInfo.authorizer_refresh_token</p>
+        <p>expires_in：@authInfo.expires_in</p>
+        <p>
+            func_info：<br />
+            @foreach (var item in authInfo.func_info)
+            {
+                <span>&nbsp; &nbsp; @item.funcscope_category.id</span><br />
+            }
+    </section>
+    <section>
+        <h2>授权公众号信息</h2>
+        <p>
+            <img src="@autherInfo.authorizer_info.head_img" style="width: 100px;" />
+            <img src="@autherInfo.authorizer_info.qrcode_url" style="width: 100px;" />
+        </p>
+        <p>alias：@autherInfo.authorizer_info.alias</p>
+        <p>nick_name：@autherInfo.authorizer_info.nick_name</p>
+        <p>user_name：@autherInfo.authorizer_info.user_name</p>
+        <p>service_type_info：@autherInfo.authorizer_info.service_type_info.id</p>
+        <p>verify_type_info：@autherInfo.authorizer_info.verify_type_info.id</p>
+        <h2>授权信息</h2>
+        <p>appid：@autherInfo.authorization_info.authorizer_appid</p>
+        <p>
+            func_info：<br />
+            @foreach (var item in autherInfo.authorization_info.func_info)
+            {
+                <span>&nbsp; &nbsp; @item.funcscope_category.id</span><br />
+            }
+        </p>
+    </section>
+    <section>
+        <h2>用户授权测试</h2>
+        <p>
+            
+         @Html.ActionLink("点击开始用户授权测试", "Index", "OpenOAuth", new {appId = authInfo.authorizer_appid}, null)<br/>
+            注意：测试之前请先确认您的公众号有OAuth的权限，否则可能会返回错误：Scope 参数错误或没有 Scope 权限。</p>
+    </section>
+</body>
+</html>

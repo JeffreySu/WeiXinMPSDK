@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Senparc.Weixin.Open.ComponentAPIs.OAuth
+namespace Senparc.Weixin.Open.OAuth
 {
     /// <summary>
     /// 通过OAuth的获取到的用户信息（snsapi_userinfo=scope）

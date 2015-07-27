@@ -24,10 +24,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.QY.AdvancedAPIs.Media;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.Media
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     /// <summary>
     /// 多媒体文件接口

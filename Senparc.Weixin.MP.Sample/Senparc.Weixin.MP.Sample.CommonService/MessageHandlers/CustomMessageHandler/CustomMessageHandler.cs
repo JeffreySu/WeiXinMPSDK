@@ -11,6 +11,7 @@
 using System;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.Configuration;
@@ -101,6 +102,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
             //方法四（v0.6+），仅适合在HandlerMessage内部使用，本质上是对方法三的封装
             //注意：下面泛型ResponseMessageText即返回给客户端的类型，可以根据自己的需要填写ResponseMessageNews等不同类型。
+
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
 
             if (requestMessage.Content == null)
@@ -139,9 +141,17 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                  * 或
                  * 
                  */
-                responseMessage = responseXml.CreateResponseMessage() as ResponseMessageText;
-
-                responseMessage.Content += string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
+                var msg = string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
+                var agentResponseMessage = responseXml.CreateResponseMessage();
+                if (agentResponseMessage is ResponseMessageText)
+                {
+                    (agentResponseMessage as ResponseMessageText).Content += msg;
+                }
+                else if (agentResponseMessage is ResponseMessageNews)
+                {
+                    (agentResponseMessage as ResponseMessageNews).Articles[0].Description += msg;
+                }
+                return agentResponseMessage;//可能出现多种类型，直接在这里返回
             }
             else if (requestMessage.Content == "测试" || requestMessage.Content == "退出")
             {
@@ -177,6 +187,21 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                         end,
                         t2 - t1
                         );
+            }
+            else if(requestMessage.Content=="open")
+            {
+                var openResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageNews>();
+                openResponseMessage.Articles.Add(new Article()
+                {
+                    Title = "开放平台微信授权测试",
+                    Description = @"点击进入Open授权页面。
+
+授权之后，您的微信所收到的消息将转发到第三方（盛派网络小助手）的服务器上，并获得对应的回复。
+
+测试完成后，您可以登陆公众号后台取消授权。",
+                    Url = "http://weixin.senparc.com/OpenOAuth/JumpToMpOAuth"
+                });
+                return openResponseMessage;
             }
             else
             {

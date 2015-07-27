@@ -15,7 +15,7 @@ using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Open.Entities;
 
-namespace Senparc.Weixin.Open.ComponentAPIs.LoginOAuth
+namespace Senparc.Weixin.Open.ComponentAPIs
 {
     /// <summary>
     /// 使用授权码换取公众号的授权信息返回结果
@@ -63,11 +63,11 @@ namespace Senparc.Weixin.Open.ComponentAPIs.LoginOAuth
 
     public class FuncscopeCategoryItem
     {
-        public FuncscopeCategory funcscope_category { get; set; }
+        public AuthorizationInfo_FuncscopeCategory funcscope_category { get; set; }
     }
 
-    public class FuncscopeCategory
+    public class AuthorizationInfo_FuncscopeCategory
     {
-        public int id { get; set; }
+        public FuncscopeCategory id { get; set; }
     }
 }

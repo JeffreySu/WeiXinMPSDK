@@ -24,9 +24,10 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth;
 using Senparc.Weixin.QY.CommonAPIs;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     public static class ThirdPartyAuthApi
     {

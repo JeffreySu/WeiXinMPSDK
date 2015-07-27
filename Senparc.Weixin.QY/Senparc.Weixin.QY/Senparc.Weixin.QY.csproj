@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AdvancedAPIs\App\AppApi.cs" />
     <Compile Include="AdvancedAPIs\App\AppJson\GetAppInfoResult.cs" />
+    <Compile Include="AdvancedAPIs\App\AppJson\GetAppListResult.cs" />
     <Compile Include="AdvancedAPIs\App\AppJson\SetAppPostData.cs" />
     <Compile Include="AdvancedAPIs\Asynchronous\AsynchronousApi.cs" />
     <Compile Include="AdvancedAPIs\Asynchronous\AsynchronousJson\AsynchronousPostData.cs" />
@@ -56,6 +58,7 @@
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthPostData.cs" />
     <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
     <Compile Include="CommonAPIs\ProviderTokenContainer.cs" />
+    <Compile Include="Entities\JsonResult\ConvertToUserIdResult.cs" />
     <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
     <Compile Include="AdvancedAPIs\Mass\MassApi.cs" />
     <Compile Include="AdvancedAPIs\Mass\MassResult.cs" />
@@ -148,6 +151,24 @@
     <Compile Include="Signature.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
+    <Compile Include="TenPayLib\RequestHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TenPayLib\ResponseHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TenPayLib\TenPayInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TenPayLib\TenPayInfoCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TenPayLib\TenPayUtil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TenPayLib\TenPay\TenPay.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">

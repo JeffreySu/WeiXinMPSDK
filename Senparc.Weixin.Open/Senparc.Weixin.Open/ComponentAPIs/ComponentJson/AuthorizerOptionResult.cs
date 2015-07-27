@@ -15,7 +15,7 @@ using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Open.Entities;
 
-namespace Senparc.Weixin.Open.ComponentAPIs.LoginOAuth
+namespace Senparc.Weixin.Open.ComponentAPIs
 {
     /// <summary>
     /// 获取授权方的选项设置信息返回结果

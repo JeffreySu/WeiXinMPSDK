@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP
             }
             catch (ErrorJsonResultException ex)
             {
-                if (!retryIfFaild
+                if (retryIfFaild
                     && appId != null
                     && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
                 {
@@ -90,7 +90,12 @@ namespace Senparc.Weixin.MP
                     accessToken = accessTokenResult.access_token;
                     result = TryCommonApi(fun, appId, false);
                 }
+                else
+                {
+                    throw;
+                }
             }
+       
             return result;
         }
 

@@ -144,5 +144,25 @@ namespace Senparc.Weixin.QY.CommonAPIs
 
             return CommonJsonSend.Send<ConvertToOpenIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
+
+        /// <summary>
+        /// openid转换成userid接口
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="openId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static ConvertToUserIdResult ConvertToUserId(string accessToken, string openId, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_userid?access_token={0}",
+                accessToken);
+
+            var data = new
+            {
+                openid = openId
+            };
+
+            return CommonJsonSend.Send<ConvertToUserIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
     }
 }

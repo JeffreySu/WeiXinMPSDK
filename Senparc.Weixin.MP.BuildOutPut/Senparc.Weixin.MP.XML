@@ -5096,6 +5096,30 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.UserApi.BatchGetUserInfo(System.String,System.Collections.Generic.List{Senparc.Weixin.MP.AdvancedAPIs.User.BatchGetUserInfoData},System.Int32)">
+            <summary>
+            批量获取用户基本信息
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="userList"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User.BatchGetUserInfoData">
+            <summary>
+            批量获取用户基本信息数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.User.BatchGetUserInfoData.openid">
+            <summary>
+            用户的标识，对当前公众号唯一
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.User.BatchGetUserInfoData.lang">
+            <summary>
+            国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语，默认为zh-CN
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User.UserInfoJson">
             <summary>
             高级接口获取的用户信息
@@ -5104,6 +5128,11 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.User.UserInfoJson.subscribe">
             <summary>
             用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User.BatchGetUserInfoJson">
+            <summary>
+            批量获取用户基本信息返回结果
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.AddDevice(System.String,System.Int64,System.String,System.String,System.String,System.Int32)">

@@ -77,5 +77,22 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 }
             }
         }
+
+        [TestMethod]
+        public void BatchGetUserInfoTest()
+        {
+            List<BatchGetUserInfoData> data = new List<BatchGetUserInfoData>();
+
+            data.Add(new BatchGetUserInfoData()
+            {
+                openid = "",
+                lang = Language.zh_CN
+            });
+
+            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var result = UserApi.BatchGetUserInfo(accessToken, data);
+
+            Assert.AreEqual(result.errcode, ReturnCode.请求成功);
+        }
     }
 }

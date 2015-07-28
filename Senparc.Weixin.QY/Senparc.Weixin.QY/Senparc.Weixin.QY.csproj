@@ -49,6 +49,10 @@
     <Compile Include="AdvancedAPIs\Asynchronous\AsynchronousApi.cs" />
     <Compile Include="AdvancedAPIs\Asynchronous\AsynchronousJson\AsynchronousPostData.cs" />
     <Compile Include="AdvancedAPIs\Asynchronous\AsynchronousJson\AsynchronousResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Chat\ChatApi.cs" />
+    <Compile Include="AdvancedAPIs\Chat\ChatJson\SetMuteData.cs" />
+    <Compile Include="AdvancedAPIs\Chat\ChatJson\SendChatMessageData.cs" />
+    <Compile Include="AdvancedAPIs\Chat\ChatJson\ChatResult.cs" />
     <Compile Include="AdvancedAPIs\Concern\ConcernApi.cs" />
     <Compile Include="AdvancedAPIs\LoginAuth\LoginAuthApi.cs" />
     <Compile Include="AdvancedAPIs\LoginAuth\GetLoginInfoResult.cs" />

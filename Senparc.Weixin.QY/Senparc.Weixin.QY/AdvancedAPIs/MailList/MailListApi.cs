@@ -133,13 +133,14 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
         /// <param name="weixinId">微信号。必须企业内唯一</param>
         /// <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0</param>
+        /// <param name="avatarMediaid"></param>
         /// <param name="extattr">扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// accessToken、userId和name为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
         public static QyJsonResult CreateMember(string accessToken, string userId, string name, int[] department = null,
             string position = null, string mobile = null, string email = null, string weixinId = null, /*string tel = null,
-            int gender = 0,*/ Extattr extattr = null, int timeOut = Config.TIME_OUT)
+            int gender = 0,*/string avatarMediaid = null, Extattr extattr = null, int timeOut = Config.TIME_OUT)
         {
             var url = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token={0}";
 
@@ -157,12 +158,15 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
                 email = email,
                 weixinid = weixinId,
+                avatar_mediaid = avatarMediaid,
                 extattr = extattr
             };
 
             return CommonJsonSend.Send<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
         }
 
+        ///// <param name="tel">办公电话。长度为0~64个字符</param>
+        ///// <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0</param>
         /// <summary>
         /// 更新成员(mobile/weixinid/email三者不能同时为空)
         /// </summary>
@@ -172,18 +176,17 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="department">成员所属部门id列表。注意，每个部门的直属员工上限为1000个</param>
         /// <param name="position">职位信息。长度为0~64个字符</param>
         /// <param name="mobile">手机号码。必须企业内唯一</param>
-        ///// <param name="tel">办公电话。长度为0~64个字符</param>
         /// <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
         /// <param name="weixinId">微信号。必须企业内唯一</param>
         /// <param name="enable">启用/禁用成员。1表示启用成员，0表示禁用成员</param>
-        ///// <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0</param>
+        /// <param name="avatarMediaid"></param>
         /// <param name="extattr">扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// accessToken和userId为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
         public static QyJsonResult UpdateMember(string accessToken, string userId, string name = null, int[] department = null, string position = null,
             string mobile = null, string email = null, string weixinId = null, int enable = 1, /*string tel = null,
-            int gender = 0,*/ Extattr extattr = null, int timeOut = Config.TIME_OUT)
+            int gender = 0,*/string avatarMediaid = null, Extattr extattr = null, int timeOut = Config.TIME_OUT)
         {
             var url = "https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token={0}";
 
@@ -202,6 +205,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 email = email,
                 weixinid = weixinId,
                 enable = enable,
+                avatar_mediaid = avatarMediaid,
                 extattr = extattr
             };
 
@@ -312,15 +316,17 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="tagName">标签名称。长度为1~64个字符，标签不可与其他同组的标签重名，也不可与全局标签重名</param>
+        /// <param name="tagId">标签id，整型，指定此参数时新增的标签会生成对应的标签id，不指定时则以目前最大的id自增。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static CreateTagResult CreateTag(string accessToken, string tagName, int timeOut = Config.TIME_OUT)
+        public static CreateTagResult CreateTag(string accessToken, string tagName, int? tagId = null, int timeOut = Config.TIME_OUT)
         {
             var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token={0}";
 
             var data = new
             {
-                tagname = tagName
+                tagname = tagName,
+                tagid = tagId
             };
 
             return CommonJsonSend.Send<CreateTagResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);

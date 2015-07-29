@@ -99,6 +99,7 @@
     <Compile Include="Entities\Menu\SingleViewButton.cs" />
     <Compile Include="Entities\Menu\SubButton.cs" />
     <Compile Include="Entities\MsgTypeHelper.cs" />
+    <Compile Include="Entities\Request\Event\Receiver.cs" />
     <Compile Include="Entities\Request\Event\IRequestMessageEventKey.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEventBase.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Click.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Subscribe.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_UnSubscribe.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Location.cs" />
+    <Compile Include="Entities\Request\Event\ChatInfo.cs" />
     <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
     <Compile Include="Entities\Request\Event\SendLocationInfo.cs" />
     <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />

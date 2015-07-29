@@ -1541,13 +1541,14 @@
             <param name="tagId">标签ID</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.AddTagMember(System.String,System.Int32,System.String[],System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.AddTagMember(System.String,System.Int32,System.String[],System.Int32[],System.Int32)">
             <summary>
             增加标签成员
             </summary>
             <param name="accessToken">调用接口凭证</param>
             <param name="tagId">标签ID</param>
-            <param name="userList">企业员工ID列表</param>
+            <param name="userList">企业成员ID列表，注意：userlist、partylist不能同时为空</param>
+            <param name="partyList">企业部门ID列表，注意：userlist、partylist不能同时为空</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
@@ -2306,6 +2307,21 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.QY.Entities.Receiver">
+            <summary>
+            接收人
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.Receiver.Type">
+            <summary>
+            接收人类型：single|group，分别表示：群聊|单聊
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.Receiver.Id">
+            <summary>
+            接收人的值，为userid|chatid，分别表示：成员id|会话id
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.QY.Entities.IRequestMessageEventKey">
             <summary>
             具有EventKey属性的RequestMessage接口
@@ -2534,6 +2550,31 @@
         <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEvent_Location.Precision">
             <summary>
             地理位置精度
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.Entities.ChatInfo">
+            <summary>
+            会话信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.ChatInfo.ChatId">
+            <summary>
+            会话id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.ChatInfo.Name">
+            <summary>
+            会话标题
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.ChatInfo.Owner">
+            <summary>
+            管理员userid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.ChatInfo.UserList">
+            <summary>
+            会话成员列表，成员用userid标识，成员间以竖线“|”分隔
             </summary>
         </member>
         <member name="T:Senparc.Weixin.QY.Entities.ScanCodeInfo">

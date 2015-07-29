@@ -384,17 +384,19 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="tagId">标签ID</param>
-        /// <param name="userList">企业员工ID列表</param>
+        /// <param name="userList">企业成员ID列表，注意：userlist、partylist不能同时为空</param>
+        /// <param name="partyList">企业部门ID列表，注意：userlist、partylist不能同时为空</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static AddTagMemberResult AddTagMember(string accessToken, int tagId, string[] userList, int timeOut = Config.TIME_OUT)
+        public static AddTagMemberResult AddTagMember(string accessToken, int tagId, string[] userList = null, int[] partyList = null, int timeOut = Config.TIME_OUT)
         {
             var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token={0}";
 
             var data = new
             {
                 tagid = tagId,
-                userlist = userList
+                userlist = userList,
+                partylist = partyList
             };
 
             return CommonJsonSend.Send<AddTagMemberResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);

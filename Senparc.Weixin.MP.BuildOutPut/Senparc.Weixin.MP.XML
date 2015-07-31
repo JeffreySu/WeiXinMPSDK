@@ -4255,7 +4255,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.DeviceBindLocatoin(System.String,System.Int64,System.Int64,System.String,System.Int64,System.Int64,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.DeviceBindLocatoin(System.String,System.Int64,System.String,System.Int64,System.Int64,System.Int64,System.Int32)">
             <summary>
             配置设备与门店的关联关系
             设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
@@ -5113,11 +5113,13 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.User.BatchGetUserInfoData.openid">
             <summary>
             用户的标识，对当前公众号唯一
+            必填
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.User.BatchGetUserInfoData.lang">
             <summary>
             国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语，默认为zh-CN
+            非必填
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User.UserInfoJson">
@@ -8444,6 +8446,26 @@
         <member name="T:Senparc.Weixin.MP.ShakeAroundAppendType">
             <summary>
             新增操作标志位， 0为覆盖，1为新增
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Card_DateInfo_Type">
+            <summary>
+            卡券使用时间的类型
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Card_DateInfo_Type.DATE_TYPE_FIX_TIME_RANGE">
+            <summary>
+            固定日期区间
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Card_DateInfo_Type.DATE_TYPE_FIX_TERM">
+            <summary>
+            固定时长（自领取后按天算）
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.Card_DateInfo_Type.DATE_TYPE_PERMANENT">
+            <summary>
+            永久有效
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Helpers.BaiduMapHelper">

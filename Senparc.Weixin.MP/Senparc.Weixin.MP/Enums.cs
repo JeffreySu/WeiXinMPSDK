@@ -488,4 +488,23 @@ namespace Senparc.Weixin.MP
         覆盖 = 0,
         新增 = 1
     }
+
+    /// <summary>
+    /// 卡券使用时间的类型
+    /// </summary>
+    public enum Card_DateInfo_Type
+    {
+        /// <summary>
+        /// 固定日期区间
+        /// </summary>
+        DATE_TYPE_FIX_TIME_RANGE = 0,
+        /// <summary>
+        /// 固定时长（自领取后按天算）
+        /// </summary>
+        DATE_TYPE_FIX_TERM = 1,
+        /// <summary>
+        /// 永久有效
+        /// </summary>
+        DATE_TYPE_PERMANENT = 2
+    }
 }

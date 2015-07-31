@@ -56,7 +56,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var urlFormat = string.Format("https://api.weixin.qq.com/card/create?access_token={0}", accessToken);
 
                 CardCreateInfo cardData = null;
-                CardType cardType = cardInfo.CardType;
+                CardType cardType = cardInfo.GetCardType();
+         
                 switch (cardType)
                 {
                     case CardType.GENERAL_COUPON:
@@ -64,7 +65,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_GeneralCoupon()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 general_coupon = cardInfo as Card_GeneralCouponData
                             }
                         };
@@ -74,7 +75,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_Groupon()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 groupon = cardInfo as Card_GrouponData
                             }
                         };
@@ -84,7 +85,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_Gift()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 gift = cardInfo as Card_GiftData
                             }
                         };
@@ -94,7 +95,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_Cash()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 cash = cardInfo as Card_CashData
                             }
                         };
@@ -104,7 +105,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_DisCount()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 discount = cardInfo as Card_DisCountData
                             }
                         };
@@ -114,7 +115,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_MemberCard()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 member_card = cardInfo as Card_MemberCardData
                             }
                         };
@@ -124,7 +125,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_ScenicTicket()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 scenic_ticket = cardInfo as Card_ScenicTicketData
                             }
                         };
@@ -134,7 +135,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_MovieTicket()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
 
                                 movie_ticket = cardInfo as Card_MovieTicketData
                             }
@@ -145,7 +146,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_BoardingPass()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 boarding_pass = cardInfo as Card_BoardingPassData
                             }
                         };
@@ -155,7 +156,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_LuckyMoney()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 lucky_money = cardInfo as Card_LuckyMoneyData
                             }
                         };
@@ -165,7 +166,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_MeetingTicket()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 meeting_ticket = cardInfo as Card_MeetingTicketData
                             }
                         };

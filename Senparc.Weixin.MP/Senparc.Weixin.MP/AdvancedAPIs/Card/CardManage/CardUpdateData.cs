@@ -20,6 +20,47 @@ using Senparc.Weixin.MP.Entities;
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
     /// <summary>
+    /// 通用券数据
+    /// </summary>
+    public class Card_GeneralCouponUpdateData : BaseUpdateInfo
+    {
+
+    }
+
+    /// <summary>
+    /// 团购券数据
+    /// </summary>
+    public class Card_GrouponUpdateData : BaseUpdateInfo
+    {
+
+    }
+
+    /// <summary>
+    /// 礼品券数据
+    /// </summary>
+    public class Card_GiftUpdateData : BaseUpdateInfo
+    {
+
+    }
+
+    /// <summary>
+    /// 代金券数据
+    /// </summary>
+    public class Card_CashUpdateData : BaseUpdateInfo
+    {
+
+    }
+
+    /// <summary>
+    /// 折扣券数据
+    /// </summary>
+    public class Card_DisCountUpdateData : BaseUpdateInfo
+    {
+
+    }
+
+
+    /// <summary>
     /// 会员卡数据
     /// </summary>
     public class Card_MemberCardUpdateData : BaseUpdateInfo

@@ -459,6 +459,40 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 switch (cardType)
                 {
+                    case CardType.GENERAL_COUPON:
+                        cardData = new CardUpdate_GeneralCoupon()
+                        {
+                            card_id = cardId,
+                            general_coupon = data as Card_GeneralCouponUpdateData
+                        };
+                        break;
+                    case CardType.GROUPON:
+                        cardData = new CardUpdate_Groupon()
+                        {
+                            groupon = data as Card_GrouponUpdateData
+                        };
+                        break;
+                    case CardType.GIFT:
+                        cardData = new CardUpdate_Gift()
+                        {
+                            card_id = cardId,
+                            gift = data as Card_GiftUpdateData
+                        };
+                        break;
+                    case CardType.CASH:
+                        cardData = new CardUpdate_Cash()
+                        {
+                            card_id = cardId,
+                            cash = data as Card_CashUpdateData
+                        };
+                        break;
+                    case CardType.DISCOUNT:
+                        cardData = new CardUpdate_DisCount()
+                        {
+                            card_id = cardId,
+                            discount = data as Card_DisCountUpdateData
+                        };
+                        break;
                     case CardType.MEMBER_CARD:
                         cardData = new CardUpdate_MemberCard()
                         {

@@ -161,7 +161,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                 if (null != v && "".CompareTo(v) != 0
                     && "sign".CompareTo(k) != 0 && "key".CompareTo(k) != 0)
                 {
-                    sb.Append(k + "=" + v + "&");
+                    sb.Append(k.ToLower() + "=" + v + "&");
                 }
             }
 
@@ -191,7 +191,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                 if (null != v && "".CompareTo(v) != 0
                     && "sign".CompareTo(k) != 0 && "".CompareTo(v) != 0)
                 {
-                    sb.Append(k + "=" + v + "&");
+                    sb.Append(k.ToLower() + "=" + v + "&");
                 }
             }
             string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
@@ -219,11 +219,11 @@ namespace Senparc.Weixin.MP.TenPayLib
                 {
                     if (sb.Length == 0)
                     {
-                        sb.Append(k + "=" + v);
+                        sb.Append(k.ToLower() + "=" + v);
                     }
                     else
                     {
-                        sb.Append("&" + k + "=" + v);
+                        sb.Append("&" + k.ToLower() + "=" + v);
                     }
                 }
             }

@@ -249,7 +249,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                 ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(CheckValidationResult);
                 if (this.CertFile != "")
                 {
-                    hp.ClientCertificates.Add(new X509Certificate2(this.CertFile, this.CertPasswd));
+                    hp.ClientCertificates.Add(new X509Certificate2(this.CertFile, this.CertPasswd, X509KeyStorageFlags.MachineKeySet));
                 }
                 hp.Timeout = this.TimeOut * 1000;
 

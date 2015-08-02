@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\bin\framework\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -25,11 +25,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\bin\framework\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.MP.XML</DocumentationFile>
+    <DocumentationFile>..\..\..\..\..\..\bin\framework\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.MP.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -42,6 +42,10 @@
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.MP.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -67,8 +71,10 @@
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateData.cs" />
     <Compile Include="AdvancedAPIs\Card\CardManage\BaseCardUpdateInfo.cs" />
     <Compile Include="AdvancedAPIs\Card\CardManage\BaseCardDetails.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\CardActivateData.cs" />
     <Compile Include="AdvancedAPIs\Card\CardManage\CardManageResultJson.cs" />
     <Compile Include="AdvancedAPIs\Card\CardManage\CardUpdateData.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\UpdateUser.cs" />
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfoBase.cs" />
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfo_DataInfo.cs" />
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfo_Sku.cs" />
@@ -153,6 +159,7 @@
     <Compile Include="AdvancedAPIs\User\UserJson\UserInfoJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiApi.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiHomePageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WifiOutletResultJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiStatisticsResultJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiQrcodeResultJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiDeviceResultJson.cs" />
@@ -205,6 +212,7 @@
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Entities\Response\WXCard.cs" />
+    <Compile Include="Entities\Response\ResponseMessageCard.cs" />
     <Compile Include="Helpers\EventHelper.cs" />
     <Compile Include="Helpers\MsgTypeHelper.cs" />
     <Compile Include="Helpers\JSSDKHelper.cs" />
@@ -380,7 +388,9 @@
   <ItemGroup>
     <Content Include="AdvancedAPIs\Card\readme.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

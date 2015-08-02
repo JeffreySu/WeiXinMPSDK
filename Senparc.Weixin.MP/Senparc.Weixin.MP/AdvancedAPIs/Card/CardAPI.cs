@@ -34,6 +34,7 @@ using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.Card;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.AdvancedAPIs.Card.CardManage;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -210,8 +211,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CreateQRResultJson CreateQR(string accessTokenOrAppId, string cardId, string code = null,
-                                                  string openId = null, string expireSeconds = null,
-                                                  bool isUniqueCode = false, string balance = null, int timeOut = Config.TIME_OUT)
+                                                  string openId = null, int? expireSeconds = null,
+                                                  bool isUniqueCode = false, int? outerId = null, string balance = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -229,7 +230,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             openid = openId,
                             expire_seconds = expireSeconds,
                             is_unique_code = false,
-                            balance = balance
+                            balance = balance,
+                            outer_id = outerId,
                         }
                     }
                 };
@@ -559,22 +561,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 激活/绑定会员卡
         /// 参数【initBonus、initBalance】和【bonus、balance】取其一，不可同时传入
-        /// post数据：
-        /// {
-        ///"init_bonus": 100,
-        ///"init_balance": 200,
-        ///"membership_number": "AAA00000001",
-        ///"code": "12312313",
-        ///"card_id": "xxxx_card_id"
-        ///}
-        ///或
-        ///{
-        ///"bonus": “www.xxxx.com”,
-        ///"balance": “www.xxxx.com”,
-        ///"membership_number": "AAA00000001",
-        ///"code": "12312313",
-        ///"card_id": "xxxx_card_id"
-        ///}
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="membershipNumber">必填，会员卡编号，作为序列号显示在用户的卡包里。</param>
@@ -586,22 +572,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="balance">余额查询，仅用于init_balance 无法同步的情况填写，调转外链查询积分</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult MemberCardActivate(string accessTokenOrAppId, string membershipNumber, string code, string cardId, int initBonus, int initBalance, string bonus = null, string balance = null, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult MemberCardActivate(string accessTokenOrAppId, CardActivateData data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/card/testwhitelist/set?access_token={0}", accessToken);
-
-                var data = new
-                {
-                    init_bonus = initBonus,
-                    init_balance = initBalance,
-                    bonus = bonus,
-                    balance = balance,
-                    membership_number = membershipNumber,
-                    code = code,
-                    card_id = cardId
-                };
+                var urlFormat = string.Format("https://api.weixin.qq.com/card/membercard/activate?access_token={0}", accessToken);
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
 
@@ -609,32 +584,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 会员卡交易
+        /// 更新会员信息
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="code">要消耗的序列号</param>
-        /// <param name="cardId">要消耗序列号所述的card_id。自定义code 的会员卡必填</param>
-        /// <param name="recordBonus">商家自定义积分消耗记录，不超过14 个汉字</param>
-        /// <param name="addBonus">需要变更的积分，扣除积分用“-“表</param>
-        /// <param name="addBalance">需要变更的余额，扣除金额用“-”表示。单位为分</param>
-        /// <param name="recordBalance">商家自定义金额消耗记录，不超过14 个汉字</param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static MemberCardDeal MemberCardDeal(string accessTokenOrAppId, string code, string cardId, string recordBonus, decimal addBonus, decimal addBalance, string recordBalance, int timeOut = Config.TIME_OUT)
+        public static MemberCardDeal MemberCardDeal(string accessTokenOrAppId, UpdateUser data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var urlFormat = string.Format("https://api.weixin.qq.com/card/membercard/updateuser?access_token={0}", accessToken);
-
-                var data = new
-                {
-                    code = code,
-                    card_id = cardId,
-                    record_bonus = recordBonus,
-                    add_bonus = addBonus,
-                    add_balance = addBalance,
-                    record_balance = recordBalance,
-                };
 
                 return CommonJsonSend.Send<MemberCardDeal>(null, urlFormat, data, timeOut: timeOut);
 

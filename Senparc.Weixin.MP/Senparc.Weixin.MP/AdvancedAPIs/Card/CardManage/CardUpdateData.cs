@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// </summary>
     public class Card_GiftUpdateData : BaseUpdateInfo
     {
-
+  
     }
 
     /// <summary>
@@ -85,6 +85,27 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public string prerogative { get; set; }
+
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示。
+        /// 非必填
+        /// </summary>
+        public CustomField custom_field1 { get; set; }
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示。
+        /// 非必填
+        /// </summary>
+        public CustomField custom_field2 { get; set; }
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示。
+        /// 非必填
+        /// </summary>
+        public CustomField custom_field3 { get; set; }
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示
+        /// 非必填
+        /// </summary>
+        public CustomCell custom_cell1 { get; set; }
     }
 
     /// <summary>

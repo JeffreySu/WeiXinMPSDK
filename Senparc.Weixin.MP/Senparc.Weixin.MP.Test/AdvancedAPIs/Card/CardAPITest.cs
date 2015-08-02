@@ -47,7 +47,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 bind_openid = false,
                 can_share = true,
                 can_give_friend = true,
-                url_name_type = Card_UrlNameType.URL_NAME_TYPE_RESERVATION,
+                //url_name_type = Card_UrlNameType.URL_NAME_TYPE_RESERVATION,
                 custom_url = "http://www.weiweihi.com",
                 source = "大众点评"
             };

@@ -209,6 +209,7 @@ namespace Senparc.Weixin.MP
         Voice,
         Video,
         Transfer_Customer_Service,
+        WXCard,
         //transfer_customer_service
     }
 
@@ -307,27 +308,27 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 图文消息
         /// </summary>
-        mpnews = 0,
+        mpnews,
         /// <summary>
         /// 文本
         /// </summary>
-        text = 1,
+        text,
         /// <summary>
         /// 语音
         /// </summary>
-        voice = 2,
+        voice,
         /// <summary>
         /// 图片
         /// </summary>
-        image = 3,
+        image,
         /// <summary>
         /// 视频
         /// </summary>
-        video = 4,
+        video,
         /// <summary>
         /// 卡券
         /// </summary>
-        wxcard = 5
+        wxcard
     }
     /// <summary>
     /// 卡券类型
@@ -337,47 +338,47 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 通用券
         /// </summary>
-        GENERAL_COUPON = 0,
+        GENERAL_COUPON ,
         /// <summary>
         /// 团购券
         /// </summary>
-        GROUPON = 1,
+        GROUPON ,
         /// <summary>
         /// 折扣券
         /// </summary>
-        DISCOUNT = 2,
+        DISCOUNT ,
         /// <summary>
         /// 礼品券
         /// </summary>
-        GIFT = 3,
+        GIFT ,
         /// <summary>
         /// 代金券
         /// </summary>
-        CASH = 4,
+        CASH ,
         /// <summary>
         /// 会员卡
         /// </summary>
-        MEMBER_CARD = 5,
+        MEMBER_CARD,
         /// <summary>
         /// 门票
         /// </summary>
-        SCENIC_TICKET = 6,
+        SCENIC_TICKET,
         /// <summary>
         /// 电影票
         /// </summary>
-        MOVIE_TICKET = 7,
+        MOVIE_TICKET,
         /// <summary>
         /// 飞机票
         /// </summary>
-        BOARDING_PASS = 8,
+        BOARDING_PASS,
         /// <summary>
         /// 红包
         /// </summary>
-        LUCKY_MONEY = 9,
+        LUCKY_MONEY,
         /// <summary>
         /// 会议门票
         /// </summary>
-        MEETING_TICKET=10,
+        MEETING_TICKET,
     }
     /// <summary>
     /// 卡券code码展示类型
@@ -387,15 +388,25 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 文本
         /// </summary>
-        CODE_TYPE_TEXT = 0,
+        CODE_TYPE_TEXT,
         /// <summary>
         /// 一维码
         /// </summary>
-        CODE_TYPE_BARCODE = 1,
+        CODE_TYPE_BARCODE,
         /// <summary>
         /// 二维码
         /// </summary>
-        CODE_TYPE_QRCODE = 2,
+        CODE_TYPE_QRCODE,
+
+        /// <summary>
+        /// 二维码无code显
+        /// </summary>
+        CODE_TYPE_ONLY_QRCODE,
+
+        /// <summary>
+        /// 一维码无code显示
+        /// </summary>
+        CODE_TYPE_ONLY_BARCODE,
     }
     /// <summary>
     /// 卡券 商户自定义cell 名称
@@ -405,27 +416,27 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 外卖
         /// </summary>
-        URL_NAME_TYPE_TAKE_AWAY = 0,
+        URL_NAME_TYPE_TAKE_AWAY ,
         /// <summary>
         /// 在线预订
         /// </summary>
-        URL_NAME_TYPE_RESERVATION = 1,
+        URL_NAME_TYPE_RESERVATION ,
         /// <summary>
         /// 立即使用
         /// </summary>
-        URL_NAME_TYPE_USE_IMMEDIATELY = 2,
+        URL_NAME_TYPE_USE_IMMEDIATELY,
         /// <summary>
         /// 在线预约
         /// </summary>
-        URL_NAME_TYPE_APPOINTMENT = 3,
+        URL_NAME_TYPE_APPOINTMENT,
         /// <summary>
         /// 在线兑换
         /// </summary>
-        URL_NAME_TYPE_EXCHANGE = 4,
+        URL_NAME_TYPE_EXCHANGE,
         /// <summary>
         /// 车辆信息
         /// </summary>
-        URL_NAME_TYPE_VEHICLE_INFORMATION = 5,
+        URL_NAME_TYPE_VEHICLE_INFORMATION,
     }
 
     public enum MemberCard_CustomField_NameType
@@ -433,27 +444,27 @@ namespace Senparc.Weixin.MP
         /// <summary>
         /// 等级
         /// </summary>
-        FIELD_NAME_TYPE_LEVEL = 0,
+        FIELD_NAME_TYPE_LEVEL,
         /// <summary>
         /// 优惠券
         /// </summary>
-        FIELD_NAME_TYPE_COUPON = 1,
+        FIELD_NAME_TYPE_COUPON,
         /// <summary>
         /// 印花
         /// </summary>
-        FIELD_NAME_TYPE_STAMP = 2,
+        FIELD_NAME_TYPE_STAMP,
         /// <summary>
         /// 折扣
         /// </summary>
-        FIELD_NAME_TYPE_DISCOUNT = 3,
+        FIELD_NAME_TYPE_DISCOUNT ,
         /// <summary>
         /// 成就
         /// </summary>
-        FIELD_NAME_TYPE_ACHIEVEMEN = 4,
+        FIELD_NAME_TYPE_ACHIEVEMEN,
         /// <summary>
         /// 里程
         /// </summary>
-        FIELD_NAME_TYPE_MILEAGE = 5,
+        FIELD_NAME_TYPE_MILEAGE,
     }
 
     /// <summary>

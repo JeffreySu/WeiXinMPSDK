@@ -236,33 +236,5 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
-
-        //由于签名的方法有两种，所以请在调用前生成签名，这里只做参考
-        //public static string GetSha1Sign(string[] para)
-        //{
-        //    string paraString = string.Join("", para.OrderBy(z => z).ToArray());
-
-        //    return GetSha1(paraString);
-        //}
-
-
-        ///// <summary>
-        ///// 签名算法
-        ///// </summary>
-        ///// <param name="str"></param>
-        ///// <returns></returns>
-        //public static string GetSha1(string str)
-        //{
-        //    //建立SHA1对象
-        //    SHA1 sha = new SHA1CryptoServiceProvider();
-        //    //将mystr转换成byte[] 
-        //    ASCIIEncoding enc = new ASCIIEncoding();
-        //    byte[] dataToHash = enc.GetBytes(str);
-        //    //Hash运算
-        //    byte[] dataHashed = sha.ComputeHash(dataToHash);
-        //    //将运算结果转换成string
-        //    string hash = BitConverter.ToString(dataHashed).Replace("-", "");
-        //    return hash;
-        //}
     }
 }

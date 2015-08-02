@@ -14,10 +14,13 @@
     修改描述：添加会议门票
 ----------------------------------------------------------------*/
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web.Script.Serialization;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
@@ -26,6 +29,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// </summary>
     public class CardCreateInfo_Card
     {
+        [JsonConverter(typeof(StringEnumConverter))]
         public CardType card_type { get; set; }
     }
 
@@ -128,14 +132,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 基本的卡券数据
         /// </summary>
         public Card_BaseInfoBase base_info { get; set; }
+    
         /// <summary>
         /// 卡类型（不在Json数据中）
         /// </summary>
+         [JsonIgnore]
         public CardType CardType { get; set; }
 
         public BaseCardInfo(CardType cardType)
         {
             CardType = cardType;
+            base_info = new Card_BaseInfoBase();
         }
     }
 }

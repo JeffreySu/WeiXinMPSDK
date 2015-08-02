@@ -42,5 +42,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
     public class UploadForeverMediaResult : WxJsonResult
     {
         public string media_id { get; set; }
+
+        public string url { get; set; }
     }
 }

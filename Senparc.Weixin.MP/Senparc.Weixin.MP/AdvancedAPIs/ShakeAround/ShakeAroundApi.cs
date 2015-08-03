@@ -106,7 +106,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="poiId">Poi_id 的说明改为：设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult DeviceBindLocatoin(string accessTokenOrAppId, long deviceId, long uuId, string major, long minor, long poiId, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult DeviceBindLocatoin(string accessTokenOrAppId, long deviceId, string uuId, long major, long minor, long poiId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {

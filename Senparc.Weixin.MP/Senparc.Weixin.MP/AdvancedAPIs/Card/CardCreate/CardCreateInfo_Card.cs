@@ -26,7 +26,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// </summary>
     public class CardCreateInfo_Card
     {
-        public CardType card_type { get; set; }
+        public string card_type { get; set; }
     }
 
 
@@ -131,7 +131,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 卡类型（不在Json数据中）
         /// </summary>
-        public CardType CardType { get; set; }
+        protected CardType CardType { get; set; }
+
+        public CardType GetCardType()
+        {
+            return CardType;
+        }
 
         public BaseCardInfo(CardType cardType)
         {

@@ -99,7 +99,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         /// <summary>
         /// 申请设备ID返回数据
         /// </summary>
-        public DeviceApply_Data data { get; set; }
+        public DeviceSearch_Data data { get; set; }
     }
 
     public class DeviceSearch_Data

@@ -31,9 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="atnet.devfw, Version=0.1.5573.40897, Culture=neutral, PublicKeyToken=4c8227bc503db3c5, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\dll\atnet.devfw.dll</HintPath>
+    <Reference Include="j6.devfw">
+      <HintPath>..\..\..\dll\j6.devfw.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

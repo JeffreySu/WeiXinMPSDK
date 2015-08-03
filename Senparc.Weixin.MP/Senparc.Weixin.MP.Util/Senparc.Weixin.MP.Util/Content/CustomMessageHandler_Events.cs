@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using AtNet.DevFw;
-using AtNet.DevFw.Framework;
-using AtNet.DevFw.PluginKernel;
+using J6.DevFw;
+using J6.DevFw.Framework;
+using J6.DevFw.PluginKernel;
 using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.Util.Content

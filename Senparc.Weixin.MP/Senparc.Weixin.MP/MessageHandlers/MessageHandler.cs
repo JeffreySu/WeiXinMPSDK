@@ -360,7 +360,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 2];
                 if ((lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)//使用MsgId去重
                     ||
-                    ((lastMessage.CreateTime == RequestMessage.CreateTime) && lastMessage.MsgType != RequestMessage.MsgType)//使用CreateTime去重（OpenId对象已经是同一个）
+                    ((lastMessage.CreateTime == RequestMessage.CreateTime && lastMessage.MsgType == RequestMessage.MsgType))//使用CreateTime去重（OpenId对象已经是同一个）
                     )
                 {
                     CancelExcute = true;//重复消息，取消执行

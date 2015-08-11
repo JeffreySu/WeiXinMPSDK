@@ -166,7 +166,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="introduction"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static UploadForeverMediaResult UploadForeverVideo(string accessTokenOrAppId, string file, string title, string introduction, int timeOut = Config.TIME_OUT)
+        public static UploadForeverMediaResult UploadForeverVideo(string accessTokenOrAppId, string file, string title, string introduction, int timeOut = 40000)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -338,6 +338,26 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<MediaList_OthersResult>(null, url, date, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 上传图文消息内的图片获取URL
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="file"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static UploadImgResult UploadImg(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}", accessToken);
+
+                var fileDictionary = new Dictionary<string, string>();
+                fileDictionary["media"] = file;
+                return HttpUtility.Post.PostFileGetJson<UploadImgResult>(url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

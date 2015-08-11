@@ -143,7 +143,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("http://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken);
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken);
 
                 //因为有文件上传，所以忽略dataDictionary，全部改用文件上传格式
                 //var dataDictionary = new Dictionary<string, string>();
@@ -170,7 +170,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("http://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken);
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken);
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
                 fileDictionary["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction);

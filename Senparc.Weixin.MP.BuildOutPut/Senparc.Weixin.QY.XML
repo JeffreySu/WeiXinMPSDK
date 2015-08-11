@@ -1493,7 +1493,7 @@
             <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.InviteMember(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.InviteMember(System.String,System.String,System.Int32)">
             <summary>
             邀请成员关注
             认证号优先使用微信推送邀请关注，如果没有weixinid字段则依次对手机号，邮箱绑定的微信进行推送，全部没有匹配则通过邮件邀请关注。 邮箱字段无效则邀请失败。 非认证号只通过邮件邀请关注。邮箱字段无效则邀请失败。 已关注以及被禁用用户不允许发起邀请关注请求。

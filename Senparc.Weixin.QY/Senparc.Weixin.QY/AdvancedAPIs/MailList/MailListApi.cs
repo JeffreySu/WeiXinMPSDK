@@ -297,17 +297,16 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="inviteTips">推送到微信上的提示语（只有认证号可以使用）。当使用微信推送时，该字段默认为“请关注XXX企业号”，邮件邀请时，该字段无效。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static GetDepartmentMemberInfoResult InviteMember(string accessToken, string userId, string inviteTips = null, int timeOut = Config.TIME_OUT)
+        public static InviteMemberResult InviteMember(string accessToken, string userId, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/invite/send?access_token={0}", accessToken);
 
             var data = new
             {
                 userid = userId,
-                invite_tips = inviteTips
             };
 
-            return CommonJsonSend.Send<GetDepartmentMemberInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<InviteMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
 

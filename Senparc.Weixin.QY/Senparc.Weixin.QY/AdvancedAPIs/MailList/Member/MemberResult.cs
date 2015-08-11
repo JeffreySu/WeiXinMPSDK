@@ -119,7 +119,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         public List<GetMemberResult> userlist { get; set; }
     }
 
-    public class InviteMemberResult:QyJsonResult
+    public class InviteMemberResult : QyJsonResult
     {
         /// <summary>
         /// 1:微信邀请 2.邮件邀请

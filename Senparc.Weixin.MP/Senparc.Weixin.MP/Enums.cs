@@ -215,7 +215,7 @@ namespace Senparc.Weixin.MP
         Voice = 4,
         [Description("视频")]
         Video = 5,
-        [Description("")]
+        [Description("多客服")]
         Transfer_Customer_Service,
         //transfer_customer_service
 

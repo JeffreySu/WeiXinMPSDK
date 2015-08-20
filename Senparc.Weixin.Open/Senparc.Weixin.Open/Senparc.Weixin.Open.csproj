@@ -62,6 +62,9 @@
     <Compile Include="OAuth\OAuthAPI.cs" />
     <Compile Include="OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
     <Compile Include="OAuth\OAuthJson\OAuthUserInfo.cs" />
+    <Compile Include="QRConnect\QRConnectAPI.cs" />
+    <Compile Include="QRConnect\QRConnectJson\QRConnectAccessTokenResult.cs" />
+    <Compile Include="QRConnect\QRConnectJson\QRConnectUserInfo.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />

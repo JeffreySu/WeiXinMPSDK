@@ -356,6 +356,11 @@
             弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.Open.OAuthScope.snsapi_login">
+            <summary>
+            网站应用授权登录
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.Open.ServiceType">
             <summary>
             授权方公众号类型
@@ -485,6 +490,145 @@
             </summary>
         </member>
         <!-- 对于成员“P:Senparc.Weixin.Open.OAuth.OAuthUserInfo.unionid”忽略有格式错误的 XML 注释 -->
+        <member name="T:Senparc.Weixin.Open.QRConnect.QRConnectAPI">
+            <summary>
+            代公众号发起网页授权
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Open.QRConnect.QRConnectAPI.GetQRConnectUrl(System.String,System.String,System.String,Senparc.Weixin.Open.OAuthScope[],System.String)">
+            <summary>
+            微信扫码登录网页授权
+            </summary>
+            <param name="appId">第三方应用唯一标识</param>
+            <param name="redirectUrl">重定向地址，需要进行UrlEncode</param>
+            <param name="state">用于保持请求和回调的状态，授权请求后原样带回给第三方。该参数可用于防止csrf攻击（跨站请求伪造攻击），建议第三方带上该参数，可设置为简单的随机数加session进行校验</param>
+            <param name="scopes">应用授权作用域，拥有多个作用域用逗号（,）分隔，网页应用目前仅填写snsapi_login即可</param>
+            <param name="responseType">填code</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.QRConnect.QRConnectAPI.GetAccessToken(System.String,System.String,System.String,System.String)">
+            <summary>
+            获取AccessToken
+            </summary>
+            <param name="appId">应用唯一标识，在微信开放平台提交应用审核通过后获得</param>
+            <param name="appSecret">应用密钥AppSecret，在微信开放平台提交应用审核通过后获得</param>
+            <param name="code">GetQRConnectUrl()接口返回的code</param>
+            <param name="grantType">填authorization_code</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.QRConnect.QRConnectAPI.RefreshToken(System.String,System.String,System.String)">
+            <summary>
+            刷新access_token（如果需要）
+            </summary>
+            <param name="appId">第三方应用唯一标识</param>
+            <param name="refreshToken">填写通过access_token获取到的refresh_token参数</param>
+            <param name="grantType">填refresh_token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.QRConnect.QRConnectAPI.GetUserInfo(System.String,System.String)">
+            <summary>
+            获取用户基本信息
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="openId">普通用户的标识，对当前公众号唯一</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.QRConnect.QRConnectAPI.Auth(System.String,System.String)">
+            <summary>
+            检验授权凭证（access_token）是否有效
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId">用户的唯一标识</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.Open.QRConnect.RefreshAccessTokenResult">
+            <summary>
+            刷新access_token有效期返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.QRConnect.RefreshAccessTokenResult.access_token">
+            <summary>
+            接口调用凭证
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.QRConnect.RefreshAccessTokenResult.expires_in">
+            <summary>
+            access_token接口调用凭证超时时间，单位（秒）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.QRConnect.RefreshAccessTokenResult.refresh_token">
+            <summary>
+            用户刷新access_token
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.QRConnect.RefreshAccessTokenResult.openid">
+            <summary>
+            授权用户唯一标识
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.QRConnect.RefreshAccessTokenResult.scope">
+            <summary>
+            用户授权的作用域，使用逗号（,）分隔
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Open.QRConnect.QRConnectAccessTokenResult">
+            <summary>
+            获取OAuth AccessToken的结果
+            如果错误，返回结果{"errcode":40029,"errmsg":"invalid code"}
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.QRConnect.QRConnectAccessTokenResult.unionid">
+            <summary>
+            只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Open.QRConnect.QRConnectUserInfo">
+            <summary>
+            通过OAuth的获取到的用户信息（snsapi_userinfo=scope）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.QRConnect.QRConnectUserInfo.openid">
+            <summary>
+            普通用户的标识，对当前开发者帐号唯一
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.QRConnect.QRConnectUserInfo.nickname">
+            <summary>
+            普通用户昵称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.QRConnect.QRConnectUserInfo.sex">
+            <summary>
+            用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.QRConnect.QRConnectUserInfo.province">
+            <summary>
+            普通用户个人资料填写的省份
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.QRConnect.QRConnectUserInfo.city">
+            <summary>
+            普通用户个人资料填写的城市
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.QRConnect.QRConnectUserInfo.country">
+            <summary>
+            国家，如中国为CN
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.QRConnect.QRConnectUserInfo.headimgurl">
+            <summary>
+            用户头像，最后一个数值代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像），用户没有头像时该项为空
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.QRConnect.QRConnectUserInfo.privilege">
+            <summary>
+            用户特权信息，json 数组，如微信沃卡用户为（chinaunicom）
+            作者注：其实这个格式称不上JSON，只是个单纯数组。
+            </summary>
+        </member>
+        <!-- 对于成员“P:Senparc.Weixin.Open.QRConnect.QRConnectUserInfo.unionid”忽略有格式错误的 XML 注释 -->
         <member name="M:Senparc.Weixin.Open.RequestMessageFactory.GetRequestEntity(System.Xml.Linq.XDocument,Senparc.Weixin.Open.Entities.Request.PostModel)">
             <summary>
             获取XDocument转换后的IRequestMessageBase实例。

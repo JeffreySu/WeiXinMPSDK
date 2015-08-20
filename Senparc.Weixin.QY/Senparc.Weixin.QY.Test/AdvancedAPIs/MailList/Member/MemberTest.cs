@@ -90,7 +90,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public void InviteMemberTest(string userId)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = MailListApi.InviteMember(accessToken, userId, "欢迎");
+            var result = MailListApi.InviteMember(accessToken, userId);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }

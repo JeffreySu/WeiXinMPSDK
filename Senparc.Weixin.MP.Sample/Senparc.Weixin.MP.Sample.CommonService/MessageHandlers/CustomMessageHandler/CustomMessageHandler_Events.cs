@@ -243,6 +243,10 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
         {
             var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
             responseMessage.Content = GetWelcomeInfo();
+            if (!string.IsNullOrEmpty(requestMessage.EventKey))
+            {
+                responseMessage.Content += "\r\n============\r\n场景值："+ requestMessage.EventKey;
+            }
             return responseMessage;
         }
 

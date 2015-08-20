@@ -53,12 +53,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="code">通过员工授权获取到的code，每次员工授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期</param>
-        /// <param name="agentId">跳转链接时所在的企业应用ID</param>
         /// 权限说明：管理员须拥有agent的使用权限；agentid必须和跳转链接时所在的企业应用ID相同。
         /// <returns></returns>
-        public static GetUserInfoResult GetUserId(string accessToken, string code, int agentId)
+        public static GetUserInfoResult GetUserId(string accessToken, string code)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken, code, agentId);
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken, code);
 
             return Get.GetJson<GetUserInfoResult>(url);
         }

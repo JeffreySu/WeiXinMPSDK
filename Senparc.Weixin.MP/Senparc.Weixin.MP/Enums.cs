@@ -34,6 +34,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
@@ -202,14 +203,29 @@ namespace Senparc.Weixin.MP
     /// </summary>
     public enum ResponseMsgType
     {
-        Text,
-        News,
-        Music,
-        Image,
-        Voice,
-        Video,
+        [Description("文本")]
+        Text = 0,
+        [Description("单图文")]
+        News = 1,
+        [Description("音乐")]
+        Music = 2,
+        [Description("图片")]
+        Image = 3,
+        [Description("语音")]
+        Voice = 4,
+        [Description("视频")]
+        Video = 5,
+        [Description("多客服")]
         Transfer_Customer_Service,
         //transfer_customer_service
+
+        //以下为延伸类型，微信官方并未提供具体的回复类型
+        [Description("多图文")]
+        MultipleNews = 106,
+        [Description("位置")]
+        LocationMessage = 107,//
+        [Description("无回复")]
+        NoResponse = 110,
     }
 
     /// <summary>

@@ -32,6 +32,11 @@ namespace Senparc.Weixin.MP.Entities
         }
 
         /// <summary>
+        /// 赠送方账号（一个OpenID），"IsGiveByFriend”为1时填写该参数
+        /// </summary>
+        public string FriendUserName { get; set; }
+
+        /// <summary>
         /// 卡券ID
         /// </summary>
         public string CardId { get; set; }

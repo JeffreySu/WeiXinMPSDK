@@ -57,6 +57,9 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\InfoTypeHelper.cs" />
+    <Compile Include="QRConnect\QRConnectAPI.cs" />
+    <Compile Include="QRConnect\QRConnectJson\QRConnectAccessTokenResult.cs" />
+    <Compile Include="QRConnect\QRConnectJson\QRConnectUserInfo.cs" />
     <Compile Include="OAuth\OAuthAPI.cs" />
     <Compile Include="OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
     <Compile Include="OAuth\OAuthJson\OAuthUserInfo.cs" />

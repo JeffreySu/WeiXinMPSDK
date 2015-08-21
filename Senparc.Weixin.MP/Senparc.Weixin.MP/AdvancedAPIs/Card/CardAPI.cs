@@ -523,54 +523,109 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
-        /// <summary>
-        /// 激活/绑定会员卡
-        /// 参数【initBonus、initBalance】和【bonus、balance】取其一，不可同时传入
-        /// post数据：
-        /// {
-        ///"init_bonus": 100,
-        ///"init_balance": 200,
-        ///"membership_number": "AAA00000001",
-        ///"code": "12312313",
-        ///"card_id": "xxxx_card_id"
-        ///}
-        ///或
-        ///{
-        ///"bonus": “www.xxxx.com”,
-        ///"balance": “www.xxxx.com”,
-        ///"membership_number": "AAA00000001",
-        ///"code": "12312313",
-        ///"card_id": "xxxx_card_id"
-        ///}
-        /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
-        /// <param name="membershipNumber">必填，会员卡编号，作为序列号显示在用户的卡包里。</param>
-        /// <param name="code">创建会员卡时获取的code</param>
-        /// <param name="cardId">卡券ID。自定义code 的会员卡必填card_id，非自定义code 的会员卡不必填</param>
-        /// <param name="initBonus">初始积分，不填为0</param>
-        /// <param name="initBalance">初始余额，不填为0</param>
-        /// <param name="bonus">积分查询，仅用于init_bonus 无法同步的情况填写，调转外链查询积分</param>
-        /// <param name="balance">余额查询，仅用于init_balance 无法同步的情况填写，调转外链查询积分</param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <returns></returns>
-        public static WxJsonResult MemberCardActivate(string accessTokenOrAppId, string membershipNumber, string code, string cardId, int initBonus, int initBalance, string bonus = null, string balance = null, int timeOut = Config.TIME_OUT)
+        ///  <summary>
+        ///  激活/绑定会员卡
+        ///  </summary>
+        ///  <param name="accessTokenOrAppId"></param>
+        ///  <param name="membershipNumber">必填，会员卡编号，作为序列号显示在用户的卡包里。</param>
+        ///  <param name="code">创建会员卡时获取的code</param>
+        ///  <param name="activateEndTime">激活后的有效截至时间。若不填写默认以创建时的 data_info 为准。Unix时间戳格式。</param>
+        ///  <param name="initBonus">初始积分，不填为0</param>
+        ///  <param name="initBalance">初始余额，不填为0</param>
+        ///  <param name="initCustomFieldValue1">创建时字段custom_field1定义类型的初始值，限制为4个汉字，12字节。</param>
+        ///  <param name="initCustomFieldValue2">创建时字段custom_field2定义类型的初始值，限制为4个汉字，12字节。</param>
+        ///  <param name="initCustomFieldValue3">创建时字段custom_field3定义类型的初始值，限制为4个汉字，12字节。</param>
+        ///  <param name="timeOut">代理请求超时时间（毫秒）</param>
+        ///  <param name="activateBeginTime">激活后的有效起始时间。若不填写默认以创建时的 data_info 为准。Unix时间戳格式。</param>
+        ///  <returns></returns>
+        public static WxJsonResult MemberCardActivate(string accessTokenOrAppId, string membershipNumber, string code, string activateBeginTime = null, string activateEndTime = null, string initBonus = null,
+            string initBalance = null, string initCustomFieldValue1 = null, string initCustomFieldValue2 = null, string initCustomFieldValue3 = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = string.Format("https://api.weixin.qq.com/card/testwhitelist/set?access_token={0}", accessToken);
+                var urlFormat = string.Format("https://api.weixin.qq.com/card/membercard/activate?access_token={0}", accessToken);
 
                 var data = new
                 {
                     init_bonus = initBonus,
                     init_balance = initBalance,
-                    bonus = bonus,
-                    balance = balance,
                     membership_number = membershipNumber,
                     code = code,
-                    card_id = cardId
+                    activate_begin_time = activateBeginTime,
+                    activate_end_time = activateEndTime,
+                    init_custom_field_value1 = initCustomFieldValue1,
+                    init_custom_field_value2 = initCustomFieldValue2,
+                    init_custom_field_value3 = initCustomFieldValue3,
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 更新会员信息
+        /// </summary>
+        ///  post数据：
+        /// 可以传入积分、余额的差值
+        /// {
+        ///  "code": "12312313",
+        ///  "card_id":"p1Pj9jr90_SQRaVqYI239Ka1erkI",
+        ///  "record_bonus": "消费30元，获得3积分",
+        ///  "add_bonus": 3,//可以传入积分增减的差值
+        ///  "add_balance": -3000,//可以传入余额本次增减的差值
+        ///  "record_balance": "购买焦糖玛琪朵一杯，扣除金额30元。",
+        ///  "custom_field_value1": "xxxxx",
+        /// }
+        /// 或者直接传入积分、余额的全量值
+        /// 
+        /// {
+        ///  "code": "12312313",
+        ///  "card_id":"p1Pj9jr90_SQRaVqYI239Ka1erkI",
+        ///  "record_bonus": "消费30元，获得3积分",
+        ///  "bonus": 3000,//可以传入第三方系统记录的积分全量值
+        ///  "balance": 3000,//可以传入第三方系统记录的余额全量值
+        ///  "record_balance": "购买焦糖玛琪朵一杯，扣除金额30元。",
+        ///  "custom_field_value1": "xxxxx",
+        /// }
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="code">卡券Code码。</param>
+        /// <param name="cardId">卡券ID。</param>
+        /// <param name="addBonus">需要变更的积分，扣除积分用“-“表示。</param>
+        /// <param name="addBalance">需要变更的余额，扣除金额用“-”表示。单位为分。</param>
+        /// <param name="bonus">需要设置的积分全量值，传入的数值会直接显示，如果同时传入add_bonus和bonus,则前者无效。</param>
+        /// <param name="balance">需要设置的余额全量值，传入的数值会直接显示，如果同时传入add_balance和balance,则前者无效。</param>
+        /// <param name="recordBonus">商家自定义积分消耗记录，不超过14个汉字。</param>
+        /// <param name="recordBalance">商家自定义金额消耗记录，不超过14个汉字。</param>
+        /// <param name="customFieldValue1">创建时字段custom_field1定义类型的最新数值，限制为4个汉字，12字节。</param>
+        /// <param name="customFieldValue2">创建时字段custom_field2定义类型的最新数值，限制为4个汉字，12字节。</param>
+        /// <param name="customFieldValue3">创建时字段custom_field3定义类型的最新数值，限制为4个汉字，12字节。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static UpdateUserResult UpdateUser(string accessTokenOrAppId, string code, string cardId, int addBonus, int addBalance,
+            int? bonus = null, int? balance = null, string recordBonus = null, string recordBalance = null, string customFieldValue1 = null,
+            string customFieldValue2 = null, string customFieldValue3 = null, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format("https://api.weixin.qq.com/card/membercard/updateuser?access_token={0}", accessToken);
+
+                var data = new
+                {
+                    code = code,
+                    card_id = cardId,
+                    add_bonus = addBonus,
+                    bonus = bonus,
+                    record_bonus = recordBonus,
+                    add_balance = addBalance,
+                    balance = balance,
+                    record_balance = recordBalance,
+                    custom_field_value1 = customFieldValue1,
+                    custom_field_value2 = customFieldValue2,
+                    custom_field_value3 = customFieldValue3,
+                };
+
+                return CommonJsonSend.Send<UpdateUserResult>(null, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

@@ -114,4 +114,23 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         public string code { get; set; }
         public string card_id { get; set; }
     }
+
+    /// <summary>
+    /// 更新会员信息返回结果
+    /// </summary>
+    public class UpdateUserResult : WxJsonResult
+    {
+        /// <summary>
+        /// 当前用户积分总额。
+        /// </summary>
+        public int result_bonus { get; set; }
+        /// <summary>
+        /// 当前用户预存总金额。
+        /// </summary>
+        public int result_balance { get; set; }
+        /// <summary>
+        /// 用户openid。
+        /// </summary>
+        public string openid { get; set; }
+    }
 }

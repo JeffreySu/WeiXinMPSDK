@@ -55,8 +55,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 
     public class CateItem
     {
-        public int id { get; set; }//子分类ID
-        public string name { get; set; }//子分类名称
+        /// <summary>
+        /// 子分类ID
+        /// </summary>
+        public int id { get; set; }
+        /// <summary>
+        /// 子分类名称
+        /// </summary>
+        public string name { get; set; }
     }
 
     /// <summary>
@@ -69,15 +75,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 
     public class Sku
     {
-        public int id { get; set; }//sku id
-        public string name { get; set; }//sku 名称
-        public List<Value> value_list { get; set; }//sku vid列表
+        /// <summary>
+        /// sku id
+        /// </summary>
+        public int id { get; set; }
+        /// <summary>
+        /// sku 名称
+        /// </summary>
+        public string name { get; set; }
+        /// <summary>
+        /// sku vid列表
+        /// </summary>
+        public List<Value> value_list { get; set; }
     }
 
     public class Value
     {
-        public int id { get; set; }//vid
-        public string name { get; set; }//vid名称
+        /// <summary>
+        /// vid
+        /// </summary>
+        public int id { get; set; }
+        /// <summary>
+        /// vid名称
+        /// </summary>
+        public string name { get; set; }
     }
 
     /// <summary>
@@ -90,14 +111,29 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 
     public class PropertyItem
     {
-        public int id { get; set; }//属性id
-        public string name { get; set; }//属性名称
-        public List<PropertyValue> property_value { get; set; }//属性值
+        /// <summary>
+        /// 属性id
+        /// </summary>
+        public int id { get; set; }
+        /// <summary>
+        /// 属性名称
+        /// </summary>
+        public string name { get; set; }
+        /// <summary>
+        /// 属性值
+        /// </summary>
+        public List<PropertyValue> property_value { get; set; }
     }
 
     public class PropertyValue
     {
-        public int id { get; set; }//属性值id
-        public string name { get; set; }//属性值名称
+        /// <summary>
+        /// 属性值id
+        /// </summary>
+        public int id { get; set; }
+        /// <summary>
+        /// 属性值名称
+        /// </summary>
+        public string name { get; set; }
     }
 }

@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.MP.Entities;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs
+namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 {
     /// <summary>
     /// 商品信息
     /// </summary>
-    public class ProductData
+    public class BaseProductData
     {
         public Product_base product_base { get; set; }//基本属性
         public List<Sku_list> sku_list { get; set; }//sku信息列表(可为多个)，每个sku信息串即为一个确定的商品，比如白色的37码的鞋子
@@ -95,14 +95,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 添加商品信息
     /// </summary>
-    public class AddProductData : ProductData
+    public class AddProductData : BaseProductData
     {
     }
 
     /// <summary>
     /// 修改商品信息
     /// </summary>
-    public class UpdateProductData : ProductData
+    public class UpdateProductData : BaseProductData
     {
         public string product_id { get; set; }
     }

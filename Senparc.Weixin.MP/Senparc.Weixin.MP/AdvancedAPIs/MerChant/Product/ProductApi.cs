@@ -1,17 +1,32 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：ProductApi.cs
+    文件功能描述：微小店商品接口
+    
+    
+    创建标识：Senparc - 20150827
+----------------------------------------------------------------*/
+
+/* 
+   微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.AdvancedAPIs.MerChant;
 using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
-    /// 微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
+    /// 微小店接口
     /// </summary>
-    public static class WeixinShopProduct
+    public static class ProductApi
     {
         /// <summary>
         /// 增加商品
@@ -36,7 +51,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/del?access_token={0}";
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, productId);
+            var data = new
+            {
+                product_id = productId
+            };
+
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
         }
 
         /// <summary>
@@ -64,20 +84,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/get?access_token={0}";
 
-            return CommonJsonSend.Send<GetProductResult>(accessToken, urlFormat, productId);
+            var data = new
+            {
+                product_id = productId
+            };
+
+            return CommonJsonSend.Send<GetProductResult>(accessToken, urlFormat, data);
         }
 
         /// <summary>
         /// 获取指定状态的所有商品
         /// </summary>
         /// <param name="accessToken"></param>
-        /// <param name="state">商品状态(0-全部, 1-上架, 2-下架)</param>
+        /// <param name="status">商品状态(0-全部, 1-上架, 2-下架)</param>
         /// <returns></returns>
-        public static GetByStatusResult Getbystatus(string accessToken, int state)
+        public static GetByStatusResult GetByStatus(string accessToken, int status)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/getbystatus?access_token={0}";
 
-            return CommonJsonSend.Send<GetByStatusResult>(accessToken, urlFormat, state);
+            var data = new
+            {
+                status = status
+            };
+
+            return CommonJsonSend.Send<GetByStatusResult>(accessToken, urlFormat, data);
         }
 
         /// <summary>
@@ -85,12 +115,19 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="status">商品上下架标识(0-下架, 1-上架)</param>
+        /// <param name="productId">商品ID</param>
         /// <returns></returns>
-        public static WxJsonResult ModProductStatus(string accessToken, int status)
+        public static WxJsonResult ModProductStatus(string accessToken, int status,string productId)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/modproductstatus?access_token={0}";
 
-            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, status);
+            var data = new
+            {
+                product_id = productId,
+                status = status
+            };
+
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
         }
 
         /// <summary>
@@ -99,11 +136,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="cateId">大分类ID(根节点分类id为1)</param>
         /// <returns></returns>
-        public static GetSubResult GetSub(string accessToken, int cateId)
+        public static GetSubResult GetSub(string accessToken, long cateId)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/category/getsub?access_token={0}";
 
-            return CommonJsonSend.Send<GetSubResult>(accessToken, urlFormat, cateId);
+            var date = new
+            {
+                cate_id = cateId
+            };
+
+            return CommonJsonSend.Send<GetSubResult>(accessToken, urlFormat, date);
         }
 
         /// <summary>
@@ -112,11 +154,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="cateId">商品子分类ID</param>
         /// <returns></returns>
-        public static GetSkuResult GetSku(string accessToken, int cateId)
+        public static GetSkuResult GetSku(string accessToken, long cateId)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/category/getsku?access_token={0}";
 
-            return CommonJsonSend.Send<GetSkuResult>(accessToken, urlFormat, cateId);
+            var data = new
+            {
+                cate_id = cateId
+            };
+
+            return CommonJsonSend.Send<GetSkuResult>(accessToken, urlFormat, data);
         }
 
         /// <summary>
@@ -125,11 +172,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="cateId">分类ID</param>
         /// <returns></returns>
-        public static GetPropertyResult GetProperty(string accessToken, int cateId)
+        public static GetPropertyResult GetProperty(string accessToken, long cateId)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/category/getproperty?access_token={0}";
 
-            return CommonJsonSend.Send<GetPropertyResult>(accessToken, urlFormat, cateId);
+            var data = new
+            {
+                cate_id = cateId
+            };
+
+            return CommonJsonSend.Send<GetPropertyResult>(accessToken, urlFormat, data);
         }
     }
 }

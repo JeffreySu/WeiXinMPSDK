@@ -4,17 +4,23 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.MP.Entities;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs
+namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 {
-    public class GroupData
+    public class BaseGroupData
    {
        public GroupDetail group_detail { get; set; }
    }
 
     public class GroupDetail
     {
-        public string group_name { get; set; }//分组名称
-        public string[] product_list { get; set; }//商品ID集合
+        /// <summary>
+        /// 分组名称
+        /// </summary>
+        public string group_name { get; set; }
+        /// <summary>
+        /// 商品ID集合
+        /// </summary>
+        public string[] product_list { get; set; }
     }
 
     /// <summary>
@@ -22,8 +28,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class PropertyModGroup
     {
-        public int group_id { get; set; }//分组Id
-        public string group_name { get; set; }//分组名称
+        /// <summary>
+        /// 分组Id
+        /// </summary>
+        public int group_id { get; set; }
+        /// <summary>
+        /// 分组名称
+        /// </summary>
+        public string group_name { get; set; }
     }
 
     /// <summary>
@@ -31,20 +43,32 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public class ProductModGroup
     {
-        public int group_id { get; set; }//分组ID
-        public List<Product> product { get; set; }//分组的商品集合
+        /// <summary>
+        /// 分组ID
+        /// </summary>
+        public int group_id { get; set; }
+        /// <summary>
+        /// 分组的商品集合
+        /// </summary>
+        public List<Product> product { get; set; }
     }
 
     public class Product
     {
-        public string product_id { get; set; }//商品ID
-        public int mod_action { get; set; }//修改操作(0-删除, 1-增加)
+        /// <summary>
+        /// 商品ID
+        /// </summary>
+        public string product_id { get; set; }
+        /// <summary>
+        /// 修改操作(0-删除, 1-增加)
+        /// </summary>
+        public int mod_action { get; set; }
     }
 
     /// <summary>
     /// 增加分组
     /// </summary>
-    public class AddGroupData : GroupData
+    public class AddGroupData : BaseGroupData
     {
     }
 }

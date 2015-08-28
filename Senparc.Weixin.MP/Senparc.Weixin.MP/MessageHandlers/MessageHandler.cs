@@ -558,6 +558,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.user_view_card://进入会员卡
                     responseMessage = OnEvent_User_View_Card(RequestMessage as RequestMessageEvent_User_View_Card);
                     break;
+                case Event.merchant_order://微小店订单付款通知
+                    responseMessage = OnEvent_Merchant_Order(RequestMessage as RequestMessageEvent_Merchant_Order);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -798,6 +801,15 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
+
+        /// <summary>
+        /// Event事件类型请求之微小店订单付款通知
+        /// </summary>
+        public virtual IResponseMessageBase OnEvent_Merchant_Order(RequestMessageEvent_Merchant_Order requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
         #endregion
 
         #endregion

@@ -385,6 +385,19 @@ namespace Senparc.Weixin.MP.Test
 <UserCardCode><![CDATA[12312312]]></UserCardCode>
 </xml>";
 
+        private string xmlEvent_Merchant_Order = @"<xml>
+<ToUserName><![CDATA[weixin_media1]]></ToUserName>
+<FromUserName><![CDATA[oDF3iYyVlek46AyTBbMRVV8VZVlI]]></FromUserName>
+<CreateTime>1398144192</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[merchant_order]]></Event>
+<OrderId><![CDATA[test_order_id]]></OrderId>
+<OrderStatus>2</OrderStatus>
+<ProductId><![CDATA[test_product_id]]></ProductId>
+<SkuInfo><![CDATA[10001:1000012;10002:100021]]></SkuInfo>
+</xml>
+";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -731,6 +744,16 @@ namespace Senparc.Weixin.MP.Test
                 Assert.AreEqual("toUser", result.ToUserName);
                 Assert.AreEqual(Event.user_view_card, result.Event);
                 Assert.AreEqual("cardid", result.CardId);
+            }
+
+            {
+                //Event-Merchant_Order
+                var doc = XDocument.Parse(xmlEvent_Merchant_Order);
+                var result = RequestMessageFactory.GetRequestEntity(doc) as RequestMessageEvent_Merchant_Order;
+                Assert.IsNotNull(result);
+                Assert.AreEqual("weixin_media1", result.ToUserName);
+                Assert.AreEqual(Event.merchant_order, result.Event);
+                Assert.AreEqual("test_product_id", result.ProductId);
             }
         }
     }

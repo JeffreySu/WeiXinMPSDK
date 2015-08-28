@@ -195,6 +195,11 @@ namespace Senparc.Weixin.MP
         /// 从卡券进入公众号会话
         /// </summary>
         user_enter_session_from_card,
+
+        /// <summary>
+        /// 微小店订单付款通知
+        /// </summary>
+        merchant_order,
     }
 
 

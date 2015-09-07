@@ -131,6 +131,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public bool supply_balance { get; set; }
         /// <summary>
+        /// 设置为true时用户领取会员卡后系统自动将其激活，无需调用激活接口。
+        /// 非必填
+        /// </summary>
+        public bool auto_activate { get; set; }
+        /// <summary>
         /// 积分清零规则
         /// 非必填
         /// </summary>

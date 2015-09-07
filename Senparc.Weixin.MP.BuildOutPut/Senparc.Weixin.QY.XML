@@ -1624,6 +1624,11 @@
             手机号码
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.MailList.GetMemberResult.gender">
+            <summary>
+            性别。gender=0表示男，=1表示女 
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.QY.AdvancedAPIs.MailList.GetMemberResult.email">
             <summary>
             邮箱

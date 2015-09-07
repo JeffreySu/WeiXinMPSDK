@@ -53,6 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\AutoReply\AutoReplyApi.cs" />
+    <Compile Include="AdvancedAPIs\AutoReply\AutoReplyJson\AutoReplyResultJson.cs" />
     <Compile Include="AdvancedAPIs\Analysis\AnalysisApi.cs" />
     <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\ArticleAnalysisItemJson.cs" />
     <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\AnalysisResultJson.cs" />

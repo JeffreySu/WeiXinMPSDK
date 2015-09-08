@@ -134,4 +134,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         public string openid { get; set; }
     }
 
+    /// <summary>
+    /// 图文消息群发卡券返回结果
+    /// </summary>
+    public class GetHtmlResult : WxJsonResult
+    {
+        /// <summary>
+        /// 返回一段html代码，可以直接嵌入到图文消息的正文里。即可以把这段代码嵌入到上传图文消息素材接口中的content字段里。
+        /// </summary>
+        public string content { get; set; }
+    }
 }

@@ -63,6 +63,8 @@
     <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\MessageAnalysisItemJson.cs" />
     <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\InterfaceAnalysisItemJson.cs" />
     <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\BaseAnalysisObject.cs" />
+    <Compile Include="AdvancedAPIs\AutoReply\AutoReplyApi.cs" />
+    <Compile Include="AdvancedAPIs\AutoReply\AutoReplyJson\AutoReplyResultJson.cs" />
     <Compile Include="AdvancedAPIs\Card\CardApi.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateInfo.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateInfo_Card.cs" />
@@ -72,9 +74,12 @@
     <Compile Include="AdvancedAPIs\Card\CardManage\BaseCardDetails.cs" />
     <Compile Include="AdvancedAPIs\Card\CardManage\CardManageResultJson.cs" />
     <Compile Include="AdvancedAPIs\Card\CardManage\CardUpdateData.cs" />
+    <Compile Include="AdvancedAPIs\Card\Code\CodeResultJson.cs" />
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfoBase.cs" />
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfo_DataInfo.cs" />
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfo_Sku.cs" />
+    <Compile Include="AdvancedAPIs\Card\Shelf\ShelfCreateData.cs" />
+    <Compile Include="AdvancedAPIs\Card\Shelf\ShelfResultJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomInfoJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomOnlineJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomServiceApi.cs" />

@@ -523,4 +523,96 @@ namespace Senparc.Weixin.MP
         /// </summary>
         DATE_TYPE_PERMANENT = 2
     }
+
+    /// <summary>
+    /// 自动回复规则类型
+    /// </summary>
+    public enum AutoReplyType
+    {
+        /// <summary>
+        /// 文本
+        /// </summary>
+        text = 0,
+        /// <summary>
+        /// 图片
+        /// </summary>
+        img = 1,
+        /// <summary>
+        /// 语音
+        /// </summary>
+        voice = 2,
+        /// <summary>
+        /// 视频
+        /// </summary>
+        video = 3,
+        /// <summary>
+        /// 图文消息
+        /// </summary>
+        news = 4,
+    }
+
+    /// <summary>
+    /// 自动回复模式
+    /// </summary>
+    public enum AutoReplyMode
+    {
+        /// <summary>
+        /// 全部回复
+        /// </summary>
+        reply_all = 0,
+        /// <summary>
+        /// 随机回复其中一条
+        /// </summary>
+        random_one = 1,
+    }
+
+    /// <summary>
+    /// 自动回复匹配模式
+    /// </summary>
+    public enum AutoReplyMatchMode
+    {
+        /// <summary>
+        /// 消息中含有该关键词即可
+        /// </summary>
+        contain = 0,
+        /// <summary>
+        /// 消息内容必须和关键词严格相同
+        /// </summary>
+        equal = 1,
+    }
+
+    /// <summary>
+    /// 卡券创建货架 投放页面的场景值
+    /// </summary>
+    public enum CardShelfCreate_Scene
+    {
+        /// <summary>
+        /// 附近
+        /// </summary>
+        SCENE_NEAR_BY = 0,
+        /// <summary>
+        /// 自定义菜单
+        /// </summary>
+        SCENE_MENU = 1,
+        /// <summary>
+        /// 二维码
+        /// </summary>
+        SCENE_QRCODE = 2,
+        /// <summary>
+        /// 公众号文章
+        /// </summary>
+        SCENE_ARTICLE = 3,
+        /// <summary>
+        /// h5页面
+        /// </summary>
+        SCENE_H5 = 4,
+        /// <summary>
+        /// 自动回复
+        /// </summary>
+        SCENE_IVR = 5,
+        /// <summary>
+        /// 卡券自定义cell
+        /// </summary>
+        SCENE_CARD_CUSTOM_CELL = 6
+    }
 }

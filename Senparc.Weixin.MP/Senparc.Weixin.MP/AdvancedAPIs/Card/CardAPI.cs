@@ -240,6 +240,132 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+
+        /// <summary>
+        /// 创建货架
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static ShelfCreateResultJson ShelfCreate(string accessTokenOrAppId, ShelfCreateData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format("https://api.weixin.qq.com/card/landingpage/create?access_token={0}", accessToken);
+
+                return CommonJsonSend.Send<ShelfCreateResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 导入code
+        /// 
+        /// 新创建卡券情况
+        /// 如果开发者打算新创建一张支持导入code模式的卡券，不同于以往的创建方式，建议开发者采用以下流程创建预存code模式卡券，否则会报错。
+        /// 步骤一：创建预存模式卡券，将库存quantity初始值设置为0，并填入Deposit_Mode字段；
+        /// 步骤二：待卡券通过审核后，调用导入code接口并核查code；
+        /// 步骤三：调用修改库存接口，须令卡券库存小于或等于导入code的数目。（为了避免混乱建议设置为相等）
+        /// 
+        /// 注： 1）单次调用接口传入code的数量上限为100个。
+        /// 2）每一个 code 均不能为空串。
+        /// 3）导入结束后系统会自动判断提供方设置库存与实际导入code的量是否一致。
+        /// 4）导入失败支持重复导入，提示成功为止。
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="cardId">需要进行导入code的卡券ID</param>
+        /// <param name="codeList">需导入微信卡券后台的自定义code，上限为100个。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult CodeDeposit(string accessTokenOrAppId, string cardId, string[] codeList, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format("http://api.weixin.qq.com/card/code/deposit?access_token={0}", accessToken);
+
+                var data = new
+                {
+                    card_id = cardId,
+                    code = codeList
+                };
+
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 查询导入code数目
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="cardId">进行导入code的卡券ID。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetDepositCountResultJson GetDepositCount(string accessTokenOrAppId, string cardId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format("http://api.weixin.qq.com/card/code/getdepositcount?access_token={0}", accessToken);
+
+                var data = new
+                {
+                    card_id = cardId,
+                };
+
+                return CommonJsonSend.Send<GetDepositCountResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 核查code
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="cardId">进行导入code的卡券ID。</param>
+        /// <param name="codeList">已经微信卡券后台的自定义code，上限为100个。</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static CheckCodeResultJson CheckCode(string accessTokenOrAppId, string cardId, string[] codeList, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format("http://api.weixin.qq.com/card/code/checkcode?access_token={0}", accessToken);
+
+                var data = new
+                {
+                    card_id = cardId,
+                    code = codeList
+                };
+
+                return CommonJsonSend.Send<CheckCodeResultJson>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 图文消息群发卡券
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="cardId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetHtmlResult GetHtml(string accessTokenOrAppId, string cardId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format("https://api.weixin.qq.com/card/mpnews/gethtml?access_token={0}", accessToken);
+
+                var data = new
+                {
+                    card_id = cardId,
+                };
+
+                return CommonJsonSend.Send<GetHtmlResult>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
         /// <summary>
         /// 卡券消耗code
         /// </summary>

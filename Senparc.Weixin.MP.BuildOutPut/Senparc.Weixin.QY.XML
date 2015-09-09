@@ -487,7 +487,7 @@
         </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.BaseSendChatMessageData">
             <summary>
-            获取会话返回结果
+            发送消息基础数据
             </summary>
         </member>
         <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.BaseSendChatMessageData.receiver">

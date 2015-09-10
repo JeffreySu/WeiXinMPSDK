@@ -167,6 +167,9 @@ namespace Senparc.Weixin.MP
                             case "MERCHANT_ORDER"://微小店订单付款通知
                                 requestMessage = new RequestMessageEvent_Merchant_Order();
                                 break;
+                            case "SUBMIT_MEMBERCARD_USER_INFO"://接收会员信息事件通知
+                                requestMessage = new RequestMessageEvent_Submit_Membercard_User_Info();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

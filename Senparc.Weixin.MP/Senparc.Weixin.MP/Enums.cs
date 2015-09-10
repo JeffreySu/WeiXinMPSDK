@@ -200,6 +200,11 @@ namespace Senparc.Weixin.MP
         /// 微小店订单付款通知
         /// </summary>
         merchant_order,
+
+        /// <summary>
+        /// 接收会员信息事件通知
+        /// </summary>
+        submit_membercard_user_info,
     }
 
 

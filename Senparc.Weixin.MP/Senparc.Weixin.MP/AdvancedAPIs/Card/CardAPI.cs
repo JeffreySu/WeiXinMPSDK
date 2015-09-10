@@ -181,21 +181,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
+        /// 此接口已取消，微信直接提供了十四种色值供选择，详见：http://mp.weixin.qq.com/wiki/8/b7e310e7943f7763450eced91fa793b0.html#.E5.8D.A1.E5.88.B8.E5.9F.BA.E7.A1.80.E4.BF.A1.E6.81.AF.E5.AD.97.E6.AE.B5.EF.BC.88.E9.87.8D.E8.A6.81.EF.BC.89
         /// 获取颜色列表接口
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static GetColorsResultJson GetColors(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
-        {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/card/getcolors?access_token={0}", accessToken);
+        //public static GetColorsResultJson GetColors(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        //{
+        //    return ApiHandlerWapper.TryCommonApi(accessToken =>
+        //    {
+        //        var urlFormat = string.Format("https://api.weixin.qq.com/card/getcolors?access_token={0}", accessToken);
 
-                return CommonJsonSend.Send<GetColorsResultJson>(null, urlFormat, null, timeOut: timeOut);
+        //        return CommonJsonSend.Send<GetColorsResultJson>(null, urlFormat, null, timeOut: timeOut);
 
-            }, accessTokenOrAppId);
-        }
+        //    }, accessTokenOrAppId);
+        //}
 
         /// <summary>
         /// 生成卡券二维码
@@ -700,6 +701,71 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var urlFormat = string.Format("https://api.weixin.qq.com/card/membercard/activateuserform/set?access_token={0}", accessToken);
+
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 设置跟随推荐接口
+        /// 有 使用消息配置卡券（cardCellData） 和 使用消息配置URL（urlCellData） 两种方式
+        /// 注意：cardCellData和urlCellData必须也只能选择一个，不可同时为空
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="cardId">卡券ID</param>
+        /// <param name="cardCellData">使用消息配置卡券数据</param>
+        /// <param name="urlCellData">使用消息配置URL数据</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult RecommendSet(string accessTokenOrAppId, string cardId, CardCell cardCellData = null, UrlCell urlCellData = null, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format("https://api.weixin.qq.com/card/update?access_token={0}", accessToken);
+
+                var data = new
+                {
+                    card_id = cardId,
+                    member_card = new
+                    {
+                        base_info = new
+                        {
+                            modify_msg_operation = new
+                            {
+                                card_cell = cardCellData,
+                                url_cell = urlCellData
+                            }
+                        }
+                    }
+                };
+
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 设置微信买单接口
+        /// 注意：在调用买单接口之前，请开发者务必确认是否已经开通了微信支付以及对相应的cardid设置了门店，否则会报错
+        /// 错误码，0为正常；43008为商户没有开通微信支付权限
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="cardId">卡券ID</param>
+        /// <param name="isOpen">是否开启买单功能，填true/false</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult PayCellSet(string accessTokenOrAppId, string cardId,  bool isOpen, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format("https://api.weixin.qq.com/card/paycell/set?access_token={0}", accessToken);
+
+                var data = new
+                {
+                    card_id = cardId,
+                    is_open = isOpen
+                };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
 

@@ -662,9 +662,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///  <param name="initCustomFieldValue2">创建时字段custom_field2定义类型的初始值，限制为4个汉字，12字节。</param>
         ///  <param name="initCustomFieldValue3">创建时字段custom_field3定义类型的初始值，限制为4个汉字，12字节。</param>
         ///  <param name="timeOut">代理请求超时时间（毫秒）</param>
-        ///  <param name="activateBeginTime">激活后的有效起始时间。若不填写默认以创建时的 data_info 为准。Unix时间戳格式。</param>
+        /// <param name="cardId"></param>
+        /// <param name="activateBeginTime">激活后的有效起始时间。若不填写默认以创建时的 data_info 为准。Unix时间戳格式。</param>
         ///  <returns></returns>
-        public static WxJsonResult MemberCardActivate(string accessTokenOrAppId, string membershipNumber, string code, string activateBeginTime = null, string activateEndTime = null, string initBonus = null,
+        public static WxJsonResult MemberCardActivate(string accessTokenOrAppId, string membershipNumber, string code, string cardId, string activateBeginTime = null, string activateEndTime = null, string initBonus = null,
             string initBalance = null, string initCustomFieldValue1 = null, string initCustomFieldValue2 = null, string initCustomFieldValue3 = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -677,6 +678,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     init_balance = initBalance,
                     membership_number = membershipNumber,
                     code = code,
+                    card_id = cardId,
                     activate_begin_time=activateBeginTime,
                     activate_end_time = activateEndTime,
                     init_custom_field_value1 = initCustomFieldValue1,

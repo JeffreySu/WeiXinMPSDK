@@ -115,15 +115,15 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
-        public void GetColorsTest()
-        {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+        //[TestMethod]
+        //public void GetColorsTest()
+        //{
+        //    var accessToken = AccessTokenContainer.GetToken(_appId);
 
-            var result = CardApi.GetColors(accessToken);
-            Console.Write(result);
-            Assert.IsNotNull(result);
-        }
+        //    var result = CardApi.GetColors(accessToken);
+        //    Console.Write(result);
+        //    Assert.IsNotNull(result);
+        //}
 
         [TestMethod]
         public void CardDetailGet()

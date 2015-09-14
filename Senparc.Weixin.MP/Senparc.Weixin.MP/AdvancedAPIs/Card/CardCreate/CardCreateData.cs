@@ -136,6 +136,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public bool auto_activate { get; set; }
         /// <summary>
+        /// 设置为true时会员卡支持一键激活，不允许同时传入activate_url字段，否则设置wx_activate失效。
+        /// 非必填
+        /// </summary>
+        public bool wx_activate { get; set; }
+        /// <summary>
         /// 积分清零规则
         /// 非必填
         /// </summary>

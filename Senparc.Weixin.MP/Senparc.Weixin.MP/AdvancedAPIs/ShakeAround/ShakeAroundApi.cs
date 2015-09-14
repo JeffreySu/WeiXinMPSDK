@@ -69,7 +69,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="comment"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult DeviceUpdate(string accessTokenOrAppId, long deviceId, long uuId, string major, long minor, string comment, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult DeviceUpdate(string accessTokenOrAppId, long deviceId, string uuId, long major, long minor, string comment, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {

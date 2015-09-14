@@ -191,6 +191,7 @@
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Merchant_Order.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_ShakearoundUserShake.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Submit_Membercard_User_Info.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Enter_Session_From_Card.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_View_Card.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Kf_Create_Session.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Kf_Close_Session.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Kf_Switch_Session.cs" />
+    <Compile Include="Entities\Request\Event\ShakearoundUserShake.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
     <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />

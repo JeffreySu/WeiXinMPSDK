@@ -170,6 +170,9 @@ namespace Senparc.Weixin.MP
                             case "SUBMIT_MEMBERCARD_USER_INFO"://接收会员信息事件通知
                                 requestMessage = new RequestMessageEvent_Submit_Membercard_User_Info();
                                 break;
+                            case "SHAKEAROUNDUSERSHAKE"://摇一摇事件通知
+                                requestMessage = new RequestMessageEvent_ShakearoundUserShake();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

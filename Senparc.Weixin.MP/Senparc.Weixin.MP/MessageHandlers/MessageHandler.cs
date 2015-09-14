@@ -564,6 +564,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.submit_membercard_user_info://接收会员信息事件通知
                     responseMessage = OnEvent_Submit_Membercard_User_Info(RequestMessage as RequestMessageEvent_Submit_Membercard_User_Info);
                     break;
+                case Event.ShakearoundUserShake://摇一摇事件通知
+                    responseMessage = OnEvent_ShakearoundUserShake(RequestMessage as RequestMessageEvent_ShakearoundUserShake);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -817,6 +820,14 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// Event事件类型请求之接收会员信息事件通知
         /// </summary>
         public virtual IResponseMessageBase OnEvent_Submit_Membercard_User_Info(RequestMessageEvent_Submit_Membercard_User_Info requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// Event事件类型请求之摇一摇事件通知
+        /// </summary>
+        public virtual IResponseMessageBase OnEvent_ShakearoundUserShake(RequestMessageEvent_ShakearoundUserShake requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

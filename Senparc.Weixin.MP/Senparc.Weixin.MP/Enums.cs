@@ -205,6 +205,11 @@ namespace Senparc.Weixin.MP
         /// 接收会员信息事件通知
         /// </summary>
         submit_membercard_user_info,
+
+        /// <summary>
+        /// 摇一摇事件通知
+        /// </summary>
+        ShakearoundUserShake,
     }
 
 

@@ -138,10 +138,11 @@
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_WebsiteResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_SearchResult.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
-    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\DeviceApply_Data.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\RegisterData.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\PageManageResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetShakeInfoResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\StatisticsResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetAuditStatusResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\UploadImageResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\DeviceManageResultJson.cs" />
     <Compile Include="AdvancedAPIs\Poi\PoiApi.cs" />

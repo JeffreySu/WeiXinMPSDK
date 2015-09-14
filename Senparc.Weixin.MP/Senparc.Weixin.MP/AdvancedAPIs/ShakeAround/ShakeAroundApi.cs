@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.ShakeAround;
 using Senparc.Weixin.MP.CommonAPIs;
 
@@ -27,6 +28,40 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class ShakeAroundApi
     {
+        /// <summary>
+        /// 申请开通功能
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult Register(string accessTokenOrAppId, RegisterData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string url = string.Format("https://api.weixin.qq.com/shakearound/account/register?access_token={0}", accessToken);
+
+                return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 查询审核状态
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <returns></returns>
+        public static GetAuditStatusResultJson GetAuditStatus(string accessTokenOrAppId)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string url = string.Format("https://api.weixin.qq.com/shakearound/account/auditstatus?access_token={0}", accessToken);
+
+                return Get.GetJson<GetAuditStatusResultJson>(url);
+
+            }, accessTokenOrAppId);
+        }
+
         /// <summary>
         /// 申请设备ID
         /// </summary>

@@ -53,7 +53,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/customservice/getrecord?access_token={0}";
+                var urlFormat = " https://api.weixin.qq.com/customservice/msgrecord/getrecord?access_token={0}";
 
                 //规范页码
                 if (pageSize <= 0)

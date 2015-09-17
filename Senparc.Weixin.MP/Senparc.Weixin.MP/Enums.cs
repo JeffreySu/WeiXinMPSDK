@@ -195,6 +195,21 @@ namespace Senparc.Weixin.MP
         /// 从卡券进入公众号会话
         /// </summary>
         user_enter_session_from_card,
+
+        /// <summary>
+        /// 微小店订单付款通知
+        /// </summary>
+        merchant_order,
+
+        /// <summary>
+        /// 接收会员信息事件通知
+        /// </summary>
+        submit_membercard_user_info,
+
+        /// <summary>
+        /// 摇一摇事件通知
+        /// </summary>
+        ShakearoundUserShake,
     }
 
 

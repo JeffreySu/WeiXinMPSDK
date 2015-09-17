@@ -470,24 +470,9 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.UserMute">
-            <summary>
-            成员新消息免打扰参数
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.UserMute.userid">
-            <summary>
-            成员UserID
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.UserMute.status">
-            <summary>
-            免打扰状态
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.BaseSendChatMessageData">
             <summary>
-            获取会话返回结果
+            发送消息基础数据
             </summary>
         </member>
         <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.BaseSendChatMessageData.receiver">
@@ -543,6 +528,21 @@
         <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.Chat_File.media_id">
             <summary>
             图片媒体文件id，可以调用上传素材文件接口获取
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.UserMute">
+            <summary>
+            成员新消息免打扰参数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.UserMute.userid">
+            <summary>
+            成员UserID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.UserMute.status">
+            <summary>
+            免打扰状态
             </summary>
         </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetChatResult">

@@ -807,7 +807,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
-
         /// <summary>
         /// Event事件类型请求之微小店订单付款通知
         /// </summary>
@@ -831,7 +830,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
-
         #endregion
 
         #endregion

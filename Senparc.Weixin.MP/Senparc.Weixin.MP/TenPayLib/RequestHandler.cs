@@ -161,7 +161,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                 if (null != v && "".CompareTo(v) != 0
                     && "sign".CompareTo(k) != 0 && "key".CompareTo(k) != 0)
                 {
-                    sb.Append(k + "=" + v + "&");
+                    sb.Append(k.ToLower() + "=" + v + "&");
                 }
             }
 
@@ -191,7 +191,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                 if (null != v && "".CompareTo(v) != 0
                     && "sign".CompareTo(k) != 0 && "".CompareTo(v) != 0)
                 {
-                    sb.Append(k + "=" + v + "&");
+                    sb.Append(k.ToLower() + "=" + v + "&");
                 }
             }
             string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
@@ -219,11 +219,11 @@ namespace Senparc.Weixin.MP.TenPayLib
                 {
                     if (sb.Length == 0)
                     {
-                        sb.Append(k + "=" + v);
+                        sb.Append(k.ToLower() + "=" + v);
                     }
                     else
                     {
-                        sb.Append("&" + k + "=" + v);
+                        sb.Append("&" + k.ToLower() + "=" + v);
                     }
                 }
             }
@@ -231,6 +231,35 @@ namespace Senparc.Weixin.MP.TenPayLib
 
             //debug信息
             this.SetDebugInfo(sb.ToString() + " => sign:" + paySign);
+            return paySign;
+        }
+
+        /// <summary>
+        /// 创建sha1签名
+        /// </summary>
+        /// <returns></returns>
+        public string CreateSHA1SignWithNoSign()
+        {
+            StringBuilder sb = new StringBuilder();
+            ArrayList akeys = new ArrayList(Parameters.Keys);
+            akeys.Sort();
+
+            foreach (string k in akeys)
+            {
+                string v = (string)Parameters[k];
+                if (null != v && "".CompareTo(v) != 0)
+                {
+                    if (sb.Length == 0)
+                    {
+                        sb.Append(k.ToLower() + "=" + v);
+                    }
+                    else
+                    {
+                        sb.Append("&" + k.ToLower() + "=" + v);
+                    }
+                }
+            }
+            string paySign = SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
             return paySign;
         }
 

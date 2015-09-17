@@ -419,7 +419,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     wxcard = new GroupMessagePreview_WxCard()
                     {
                         card_id = cardId,
-                        card_ext = string.Format("\"code\":\"{0}\",\"openid\":\"{1}\",\"timestamp\":\"{2}\",\"signature\":\"{3}\"", code, openId, timestamp, signature)
+                        card_ext = string.Format("{\"code\":\"{0}\",\"openid\":\"{1}\",\"timestamp\":\"{2}\",\"signature\":\"{3}}\"", code, openId, timestamp, signature)
                     },
                     msgtype = "wxcard"
                 };

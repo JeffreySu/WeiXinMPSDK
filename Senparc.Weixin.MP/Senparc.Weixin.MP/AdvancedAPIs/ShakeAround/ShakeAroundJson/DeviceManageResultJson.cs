@@ -97,7 +97,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
     public class DeviceSearchResultJson : WxJsonResult
     {
         /// <summary>
-        /// 申请设备ID返回数据
+        /// 查询设备列表返回数据
         /// </summary>
         public DeviceSearch_Data data { get; set; }
     }

@@ -61,5 +61,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+
+
+        /// <summary>
+        /// 获取模板消息Id
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="shortId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetTemplateMessageIdResultcs GetTempalteMessgaeId(string accessTokenOrAppId, string shortId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/api_add_template?access_token={0}";
+                var data = new
+                {
+                    code = shortId,
+                };
+
+                return CommonJsonSend.Send<GetTemplateMessageIdResultcs>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+
+
+        }
     }
 }

@@ -213,5 +213,28 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 发送卡券消息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId"></param>
+        /// <param name="card"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult SendCard(string accessTokenOrAppId, string openId, WXCard card, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var data = new
+                {
+                    touser = openId,
+                    msgtype = "wxcard",
+                    wxcard = card,
+                };
+                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
     }
 }

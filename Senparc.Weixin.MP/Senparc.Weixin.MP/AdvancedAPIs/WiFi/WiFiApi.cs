@@ -20,6 +20,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.WiFi;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiJson;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -125,7 +126,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="imgId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult GetQrcode(string accessTokenOrAppId, long shopId, int imgId, int timeOut = Config.TIME_OUT)
+        public static GetQrcodeResult GetQrcode(string accessTokenOrAppId, long shopId, int imgId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -137,7 +138,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     img_id = imgId
                 };
 
-                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<GetQrcodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -181,6 +182,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 }
 
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 查询商家主页
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="shopId">查询的门店id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetWifiOutletResult GetWifiOutlet(string accessTokenOrAppId, int pageIndex = 1, int pageSize = 20, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                const string urlFormat = "https://api.weixin.qq.com/bizwifi/shop/list?access_token={0}";
+
+                var data = new
+                {
+                    pageindex = pageIndex,
+                    pagesize = pageSize,
+                };
+
+                return CommonJsonSend.Send<GetWifiOutletResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

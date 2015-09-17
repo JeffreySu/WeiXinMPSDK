@@ -102,7 +102,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
-
         /// <summary>
         /// 批量获取用户基本信息
         /// </summary>

@@ -22,7 +22,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.WiFi
     /// </summary>
     public class GetQrcodeResult : WxJsonResult
     {
-        public GetQrcode_Data date { get; set; }
+        public GetQrcode_Data data { get; set; }
     }
 
     public class GetQrcode_Data

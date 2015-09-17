@@ -42,13 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComponentAPIs\OAuth\OAuthApi.cs" />
-    <Compile Include="ComponentAPIs\OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
-    <Compile Include="ComponentAPIs\OAuth\OAuthJson\OAuthUserInfo.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="CommonAPIs\ComponentAccessTokenContainer.cs" />
     <Compile Include="CommonAPIs\PreAuthCodeContainer.cs" />
+    <Compile Include="ComponentAPIs\ComponentJson\GetAuthorizerInfoResult.cs" />
+    <Compile Include="ComponentAPIs\ComponentJson\RefreshAuthorizerTokenResult.cs" />
     <Compile Include="Entities\JsonResult\ComponentAccessTokenResult.cs" />
     <Compile Include="Entities\JsonResult\PreAuthCodeResult.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
@@ -58,14 +57,20 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\InfoTypeHelper.cs" />
+    <Compile Include="QRConnect\QRConnectAPI.cs" />
+    <Compile Include="QRConnect\QRConnectJson\QRConnectAccessTokenResult.cs" />
+    <Compile Include="QRConnect\QRConnectJson\QRConnectUserInfo.cs" />
+    <Compile Include="OAuth\OAuthAPI.cs" />
+    <Compile Include="OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
+    <Compile Include="OAuth\OAuthJson\OAuthUserInfo.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
     <Compile Include="ThirdPartyMessageHandlers\ThirdPartyMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ComponentAPIs\ComponentLoginOAuth\LoginOAuthApi.cs" />
-    <Compile Include="ComponentAPIs\ComponentLoginOAuth\ComponentLoginOAuthJson\AuthorizerOptionResult.cs" />
-    <Compile Include="ComponentAPIs\ComponentLoginOAuth\ComponentLoginOAuthJson\QueryAuthResult.cs" />
+    <Compile Include="ComponentAPIs\ComponentApi.cs" />
+    <Compile Include="ComponentAPIs\ComponentJson\AuthorizerOptionResult.cs" />
+    <Compile Include="ComponentAPIs\ComponentJson\QueryAuthResult.cs" />
     <Compile Include="TicketCache\TicketCache.cs" />
   </ItemGroup>
   <ItemGroup>

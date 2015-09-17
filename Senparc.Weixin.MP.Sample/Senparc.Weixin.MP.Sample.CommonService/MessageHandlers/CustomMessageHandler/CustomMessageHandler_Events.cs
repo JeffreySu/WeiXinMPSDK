@@ -40,7 +40,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
 SDK官方地址：http://weixin.senparc.com
 源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK
-Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
+Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
+
+===============
+更多有关第三方开放平台（Senparc.Weixin.Open）的内容，请回复文字：open
+",
                 version);
         }
 
@@ -239,6 +243,10 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP",
         {
             var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
             responseMessage.Content = GetWelcomeInfo();
+            if (!string.IsNullOrEmpty(requestMessage.EventKey))
+            {
+                responseMessage.Content += "\r\n============\r\n场景值："+ requestMessage.EventKey;
+            }
             return responseMessage;
         }
 

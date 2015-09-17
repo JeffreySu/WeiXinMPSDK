@@ -3,35 +3,36 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Open.ComponentAPIs;
+using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
-    using Senparc.Weixin.Open.ComponentAPIs.OAuth;
 
     public class OpenOAuthController : Controller
     {
-        private string componentAppId = ConfigurationManager.AppSettings["Component_Appid"];
-        private string componentAccessToken = null;//需要授权获取，腾讯服务器会主动推送
+        private string component_AppId = WebConfigurationManager.AppSettings["Component_Appid"];
+        private string component_Secret = WebConfigurationManager.AppSettings["Component_Secret"];
+        private static string ComponentAccessToken = null;//需要授权获取，腾讯服务器会主动推送
 
-        //
-        // GET: /OpenOAuth/
+        #region 微信用户授权相关
 
         public ActionResult Index(string appId)
         {
-            ViewData["UrlUserInfo"] = OAuthApi.GetAuthorizeUrl(appId, "http://weixin.senparc.com/oauth2/UserInfoCallback", "JeffreySu", Open.OAuthScope.snsapi_userinfo);
-            ViewData["UrlBase"] = OAuthApi.GetAuthorizeUrl(appId, "http://weixin.senparc.com/oauth2/BaseCallback", "JeffreySu", Open.OAuthScope.snsapi_base);
+            //此页面引导用户点击授权
+            ViewData["UrlUserInfo"] = Open.OAuth.OAuthApi.GetAuthorizeUrl(appId, component_AppId, "http://weixin.senparc.com/OpenOAuth/UserInfoCallback", "JeffreySu", new[] { Open.OAuthScope.snsapi_userinfo, Open.OAuthScope.snsapi_base });
+            ViewData["UrlBase"] = Open.OAuth.OAuthApi.GetAuthorizeUrl(appId, component_AppId, "http://weixin.senparc.com/OpenOAuth/BaseCallback", "JeffreySu", new[] { Open.OAuthScope.snsapi_userinfo, Open.OAuthScope.snsapi_base });
             return View();
         }
-
 
         /// <summary>
         /// OAuthScope.snsapi_userinfo方式回调
         /// </summary>
         /// <param name="code"></param>
         /// <param name="state"></param>
+        /// <param name="appId"></param>
         /// <returns></returns>
         public ActionResult UserInfoCallback(string code, string state, string appId)
         {
@@ -47,12 +48,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("验证失败！请从正规途径进入！");
             }
 
-            OAuthAccessTokenResult result = null;
+            Open.OAuth.OAuthAccessTokenResult result = null;
 
             //通过，用code换取access_token
             try
             {
-                result = OAuthApi.GetAccessToken(appId, componentAppId, componentAccessToken, code);
+                result = Open.OAuth.OAuthApi.GetAccessToken(appId, component_AppId, ComponentAccessToken, code);
             }
             catch (Exception ex)
             {
@@ -70,7 +71,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //因为第一步选择的是OAuthScope.snsapi_userinfo，这里可以进一步获取用户详细信息
             try
             {
-                OAuthUserInfo userInfo = OAuthApi.GetUserInfo(result.access_token, result.openid);
+                Open.OAuth.OAuthUserInfo userInfo = Open.OAuth.OAuthApi.GetUserInfo(result.access_token, result.openid);
                 return View(userInfo);
             }
             catch (ErrorJsonResultException ex)
@@ -100,7 +101,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             //通过，用code换取access_token
-            var result = OAuthApi.GetAccessToken(appId, componentAppId, componentAccessToken, code);
+            var result = Open.OAuth.OAuthApi.GetAccessToken(appId, component_AppId, ComponentAccessToken, code);
             if (result.errcode != ReturnCode.请求成功)
             {
                 return Content("错误：" + result.errmsg);
@@ -112,11 +113,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             Session["OAuthAccessToken"] = result;
 
             //因为这里还不确定用户是否关注本微信，所以只能试探性地获取一下
-            OAuthUserInfo userInfo = null;
+            Open.OAuth.OAuthUserInfo userInfo = null;
             try
             {
                 //已关注，可以得到详细信息
-                userInfo = OAuthApi.GetUserInfo(result.access_token, result.openid);
+                userInfo = Open.OAuth.OAuthApi.GetUserInfo(result.access_token, result.openid);
                 ViewData["ByBase"] = true;
                 return View("UserInfoCallback", userInfo);
             }
@@ -127,6 +128,42 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("用户已授权，授权Token：" + result);
             }
         }
+
+        #endregion
+
+        /// <summary>
+        /// OAuthScope.snsapi_userinfo方式回调
+        /// </summary>
+        /// <param name="auth_code"></param>
+        /// <param name="expires_in"></param>
+        /// <param name="appId"></param>
+        /// <returns></returns>
+        public ActionResult OpenOAuthCallback(string auth_code, int expires_in, string appId)
+        {
+            try
+            {
+                string openTicket = OpenTicketHelper.GetOpenTicket(component_AppId);
+
+                var component_access_token = Open.CommonAPIs.CommonApi.GetComponentAccessToken(component_AppId, component_Secret, openTicket).component_access_token;
+                ComponentAccessToken = component_access_token;
+                var oauthResult = Open.ComponentAPIs.ComponentApi.QueryAuth(component_access_token, component_AppId, auth_code);
+
+                //TODO:储存oauthResult.authorization_info
+                var authInfoResult = Open.ComponentAPIs.ComponentApi.GetAuthorizerInfo(component_access_token, component_AppId,
+                     oauthResult.authorization_info.authorizer_appid);
+
+                ViewData["QueryAuthInfo"] = oauthResult.authorization_info;
+                ViewData["AuthorizerInfoResult"] = authInfoResult;
+
+
+                return View();
+            }
+            catch (ErrorJsonResultException ex)
+            {
+                return Content(ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// 公众号授权页入口

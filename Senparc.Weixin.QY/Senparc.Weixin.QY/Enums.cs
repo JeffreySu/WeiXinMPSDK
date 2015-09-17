@@ -366,4 +366,32 @@ namespace Senparc.Weixin.QY
     //    /// </summary>
     //    replace_party = 3,
     //}
+
+    /// <summary>
+    /// 群聊类型
+    /// </summary>
+    public enum Chat_Type
+    {
+        single = 0,
+        group = 1,
+    }
+
+    /// <summary>
+    /// 群聊发送消息类型
+    /// </summary>
+    public enum ChatMsgType
+    {
+        text = 0,
+        image = 1,
+        file = 2
+    }
+
+    /// <summary>
+    /// 免打扰状态
+    /// </summary>
+    public enum Mute_Status
+    {
+        关闭 = 0,
+        打开 = 1
+    }
 }

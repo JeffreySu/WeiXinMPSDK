@@ -49,7 +49,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="pageIndex">查询第几页，从1开始</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static GetRecordResult GetRecord(string accessTokenOrAppId, DateTime startTime, DateTime endTime, string openId = null, int pageSize = 10, int pageIndex = 1, int timeOut = Config.TIME_OUT)
+        public static GetRecordResult GetRecord(string accessTokenOrAppId, DateTime startTime, DateTime endTime,  int pageSize = 10, int pageIndex = 1, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -60,9 +60,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     pageSize = 1;
                 }
-                else if (pageSize > 1000)
+                else if (pageSize > 50)
                 {
-                    pageSize = 1000;
+                    pageSize = 50;
                 }
 
                 //组装发送消息
@@ -70,7 +70,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     starttime = DateTimeHelper.GetWeixinDateTime(startTime),
                     endtime = DateTimeHelper.GetWeixinDateTime(endTime),
-                    openId = openId,
                     pagesize = pageSize,
                     pageIndex = pageIndex
                 };

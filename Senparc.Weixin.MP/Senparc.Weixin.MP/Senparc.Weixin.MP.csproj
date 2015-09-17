@@ -83,9 +83,9 @@
     <Compile Include="AdvancedAPIs\Card\Shelf\ShelfResultJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomInfoJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomOnlineJson.cs" />
-    <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\RecordJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\GetRecordResult.cs" />
-    <Compile Include="AdvancedAPIs\CustomService\CustomServiceAPI.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\RecordJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomServiceApi.cs" />
     <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetSessionStateResultJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetSessionListResultJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetWaitCaseResultJson.cs" />

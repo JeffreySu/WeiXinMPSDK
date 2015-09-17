@@ -233,6 +233,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     public class Card_UpdateDateInfo
     {
         /// <summary>
+        /// 有效期类型，仅支持更改type为DATE_TYPE_FIX_TIME_RANGE 的时间戳，不支持填入DATE_TYPE_FIX_TERM。
+        /// </summary>
+        public string type { get; set; }
+
+        /// <summary>
         /// 固定日期区间专用，表示起用时间。从1970 年1 月1 日00:00:00 至起用时间的秒数，最终需转换为字符串形态传入，下同。（单位为秒）
         /// 非必填
         /// </summary>

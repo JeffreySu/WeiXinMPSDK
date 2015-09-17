@@ -102,5 +102,26 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+        /// <summary>
+        /// 批量获取用户基本信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="userList"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static BatchGetUserInfoJson BatchGetUserInfo(string accessTokenOrAppId, List<BatchGetUserInfoData> userList, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token={0}",
+                    accessToken);
+                var data = new
+                {
+                    user_list = userList,
+                };
+                return CommonJsonSend.Send<BatchGetUserInfoJson>(accessToken, url, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
     }
 }

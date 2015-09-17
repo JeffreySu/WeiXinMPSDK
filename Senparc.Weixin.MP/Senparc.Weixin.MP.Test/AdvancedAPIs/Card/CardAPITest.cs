@@ -33,7 +33,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 数须另收酱料费5 元/位\n 本单谢绝自带酒水饮料",
                 date_info = new Card_BaseInfo_DateInfo()
                 {
-                    type = 1,
+                    type = "DATE_TYPE_FIX_TIME_RANGE",
                     begin_timestamp = DateTimeHelper.GetWeixinDateTime(DateTime.Now),
                     end_timestamp = DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddDays(10)),
                 },

@@ -27,7 +27,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 使用时间的类型 1：固定日期区间，2：固定时长（自领取后按天算）
         /// 必填
         /// </summary>
-        public int type { get; set; }
+        public string type { get; set; }
         /// <summary>
         /// 固定日期区间专用，表示起用时间。从1970 年1 月1 日00:00:00 至起用时间的秒数，最终需转换为字符串形态传入，下同。（单位为秒）
         /// 必填

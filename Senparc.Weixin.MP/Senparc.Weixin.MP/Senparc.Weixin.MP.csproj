@@ -195,6 +195,7 @@
     <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Merchant_Order.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_ShakearoundUserShake.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Submit_Membercard_User_Info.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Enter_Session_From_Card.cs" />

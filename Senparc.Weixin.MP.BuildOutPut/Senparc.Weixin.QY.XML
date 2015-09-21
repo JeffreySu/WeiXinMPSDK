@@ -803,6 +803,50 @@
             图文消息，一个图文消息支持1到10个图文
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ShakeAroundApi.GetSuiteToken(System.String,System.String,System.Int32)">
+            <summary>
+            获取设备及用户信息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="ticket"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.ShakeAround.GetShakeInfoResult">
+            <summary>
+            获取设备及用户信息返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.ShakeAround.ShakeInfo_Data.page_id">
+            <summary>
+            摇周边页面唯一ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.ShakeAround.ShakeInfo_Data.beacon_info">
+            <summary>
+            设备信息，包括UUID、major、minor，以及距离
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.ShakeAround.ShakeInfo_Data.userid">
+            <summary>
+            企业号成员的userid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.ShakeAround.ShakeInfo_Data.openid">
+            <summary>
+            企业号父号下用户的openid，非企业关注成员的标识，对当前企业号唯一
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.ShakeAround.BeaconInfo.distance">
+            <summary>
+            Beacon信号与手机的距离，单位为米
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.ShakeAround.BeaconInfo.uuid">
+            <summary>
+            UUID
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuthApi.GetSuiteToken(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取应用套件令牌

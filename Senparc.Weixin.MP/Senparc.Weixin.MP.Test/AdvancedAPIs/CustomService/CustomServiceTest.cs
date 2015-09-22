@@ -21,7 +21,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var openId = "o3IHxjkke04__4n1kFeXpfMjjRBc";
             var accessToken = AccessTokenContainer.GetToken(_appId);
-            var result = CustomServiceApi.GetRecord(accessToken, DateTime.Today, DateTime.Now, null, 10, 1);
+			var result = CustomServiceApi.GetRecord(accessToken, DateTime.Today, DateTime.Now, 10, 1);
             Assert.IsTrue(result.recordlist.Count > 0);
         }
 

@@ -1,2 +1,5 @@
 # git ignore file
 *.[pdb]
+System.*
+Microsoft.*
+zh-Hans/

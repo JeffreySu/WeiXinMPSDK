@@ -120,6 +120,18 @@ namespace Senparc.Weixin.MP.Helpers
                                 }
                                 prop.SetValue(entity, picItems, null);
                             }
+                            else if (genericArguments[0].Name == "AroundBeacon")
+                            {
+                                List<AroundBeacon> aroundBeacons = new List<AroundBeacon>();
+                                foreach (var item in root.Elements(propName).Elements("AroundBeacon"))
+                                {
+                                    var aroundBeaconItem = new AroundBeacon();
+                                    FillEntityWithXml(aroundBeaconItem, new XDocument(item));
+                                    aroundBeacons.Add(aroundBeaconItem);
+                                }
+                                prop.SetValue(entity, aroundBeacons, null);
+                            }
+                            break;
                             break;
                         case "Music"://ResponseMessageMusic适用
                             Music music = new Music();
@@ -155,6 +167,16 @@ namespace Senparc.Weixin.MP.Helpers
                             SendPicsInfo sendPicsInfo = new SendPicsInfo();
                             FillEntityWithXml(sendPicsInfo, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, sendPicsInfo, null);
+                            break;
+                        case "ChosenBeacon"://摇一摇事件通知
+                            ChosenBeacon chosenBeacon = new ChosenBeacon();
+                            FillEntityWithXml(chosenBeacon, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, chosenBeacon, null);
+                            break;
+                        case "AroundBeacon"://摇一摇事件通知
+                            AroundBeacon aroundBeacon = new AroundBeacon();
+                            FillEntityWithXml(aroundBeacon, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, aroundBeacon, null);
                             break;
                         default:
                             prop.SetValue(entity, root.Element(propName).Value, null);

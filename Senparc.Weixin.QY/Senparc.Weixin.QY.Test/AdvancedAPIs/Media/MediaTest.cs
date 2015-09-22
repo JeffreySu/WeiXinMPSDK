@@ -27,7 +27,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }
 
-        //[TestMethod]
+        [TestMethod]
         public string UploadImageTest()
         {
             string _media = "E:\\1.jpg";

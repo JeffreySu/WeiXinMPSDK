@@ -59,6 +59,8 @@
     <Compile Include="AdvancedAPIs\LoginAuth\LoginAuthApi.cs" />
     <Compile Include="AdvancedAPIs\LoginAuth\GetLoginInfoResult.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaResult.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\ShakeAroundResultJson.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthApi.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthResult.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthPostData.cs" />

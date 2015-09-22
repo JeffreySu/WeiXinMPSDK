@@ -70,6 +70,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\AutoReply\AutoReplyTest.cs" />
     <Compile Include="AdvancedAPIs\Analysis\AnalysisTest.cs" />
     <Compile Include="AdvancedAPIs\AutoReply\AutoReplyTest.cs" />
     <Compile Include="AdvancedAPIs\Card\CardAPITest.cs" />

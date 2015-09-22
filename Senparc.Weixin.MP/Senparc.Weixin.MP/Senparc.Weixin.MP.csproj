@@ -65,11 +65,12 @@
     <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\BaseAnalysisObject.cs" />
     <Compile Include="AdvancedAPIs\AutoReply\AutoReplyApi.cs" />
     <Compile Include="AdvancedAPIs\AutoReply\AutoReplyJson\AutoReplyResultJson.cs" />
-    <Compile Include="AdvancedAPIs\Card\CardApi.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardAPI.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateData.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateInfo.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateInfo_Card.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateResultJson.cs" />
-    <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateData.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardManage\ActivateUserFormSetData.cs" />
     <Compile Include="AdvancedAPIs\Card\CardManage\BaseCardUpdateInfo.cs" />
     <Compile Include="AdvancedAPIs\Card\CardManage\BaseCardDetails.cs" />
     <Compile Include="AdvancedAPIs\Card\CardManage\CardManageResultJson.cs" />
@@ -82,9 +83,9 @@
     <Compile Include="AdvancedAPIs\Card\Shelf\ShelfResultJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomInfoJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomOnlineJson.cs" />
-    <Compile Include="AdvancedAPIs\CustomService\CustomServiceApi.cs" />
-    <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\RecordJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\GetRecordResult.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\RecordJson.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\CustomServiceApi.cs" />
     <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetSessionStateResultJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetSessionListResultJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetWaitCaseResultJson.cs" />
@@ -105,6 +106,24 @@
     <Compile Include="AdvancedAPIs\Media\MediaJson\UpdateForeverNewsData.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaJson\GetMediaCountResultJson.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaJson\GetMediaListResultJson.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Express\ExpressApi.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Express\ExpressPostData.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Express\ExpressResult.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Group\GroupApi.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Group\GroupPostData.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Group\GroupResult.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Order\OrderApi.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Order\OrderResult.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Picture\PictureApi.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Picture\PictureResult.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Product\ProductApi.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Product\ProductPostData.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Product\ProductResult.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Shelf\ShelfApi.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Shelf\ShelfPostData.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Shelf\ShelfResult.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Stock\StockApi.cs" />
+    <Compile Include="AdvancedAPIs\MerChant\Stock\StockPostData.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthApi.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthUserInfo.cs" />
@@ -140,9 +159,10 @@
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_WebsiteResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_SearchResult.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
-    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\DeviceApply_Data.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetAuditStatusResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\PageManageResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetShakeInfoResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\RegisterData.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\StatisticsResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\UploadImageResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\DeviceManageResultJson.cs" />
@@ -189,9 +209,13 @@
     <Compile Include="CommonAPIs\AccessTokenContainer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CommonAPIs\CommonApi.Menu.cs" />
     <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Merchant_Order.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_ShakearoundUserShake.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Submit_Membercard_User_Info.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Enter_Session_From_Card.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_View_Card.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Consume_Card.cs" />
@@ -208,15 +232,21 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Kf_Create_Session.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Kf_Close_Session.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Kf_Switch_Session.cs" />
+    <Compile Include="Entities\Request\Event\ShakearoundUserShake.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\Event\ScanCodeInfo.cs" />
     <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\EventHelper.cs" />
     <Compile Include="Helpers\MsgTypeHelper.cs" />
     <Compile Include="Helpers\JSSDKHelper.cs" />
     <Compile Include="Helpers\SHA1UtilHelper.cs" />
+    <Compile Include="MessageHandlers\MessageHandler.cs" />
+    <Compile Include="RequestMessageFactory.cs" />
+    <Compile Include="ResponseMessageFactory.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
     <Compile Include="TenPayLibV3\RequestHandler.cs" />
@@ -232,24 +262,6 @@
     <Compile Include="TenPayLib\ClientResponseHandler.cs" />
     <Compile Include="TenPayLib\TenPay\TenPay.cs" />
     <Compile Include="TenPayLib\TenPay\TenPayResult.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\Group\Group.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\Group\GroupPostData.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\Group\GroupResult.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\Picture\Picture.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\Picture\PictureResult.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\PostageTemplate\PostageTemplate.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\PostageTemplate\PostageTemplatePostData.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\PostageTemplate\PostageTemplateResult.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\Product\Product.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\Product\ProductPostData.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\Product\ProductResult.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\Shelves\Shelves.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\Shelves\ShelvesPostData.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\Shelves\ShelvesResult.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\Stock\Stock.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\Stock\StockPostData.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\Order\Order.cs" />
-    <Compile Include="AdvancedAPIs\WeixinShop\Order\OrderResult.cs" />
     <Compile Include="TenPayLib\TenPayRights\TenPayRights.cs" />
     <Compile Include="Agents\MessageAgent.cs" />
     <Compile Include="CheckSignature.cs" />
@@ -325,15 +337,10 @@
     <Compile Include="Entities\Response\Video.cs" />
     <Compile Include="Entities\Response\Voice.cs" />
     <Compile Include="Entities\Response\ResponseMessageVideo.cs" />
-    <Compile Include="Enums.cs" />
     <Compile Include="Helpers\BaiduMapHelper.cs" />
-    <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\GoogleMapHelper.cs" />
     <Compile Include="Helpers\GpsHelper.cs" />
-    <Compile Include="MessageHandlers\MessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestMessageFactory.cs" />
-    <Compile Include="ResponseMessageFactory.cs" />
     <Compile Include="Helpers\MD5UtilHelper.cs" />
     <Compile Include="TenPayLib\QRCode.cs" />
     <Compile Include="TenPayLib\RequestHandler.cs" />
@@ -342,9 +349,6 @@
     <Compile Include="TenPayLib\TenPayInfo.cs" />
     <Compile Include="TenPayLib\TenPayInfoCollection.cs" />
     <Compile Include="TenPayLib\RefundRequestHandler.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="CommonAPIs\CommonApi.Menu.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TenPayLib\RefundResponseHandler.cs" />

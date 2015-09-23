@@ -11,13 +11,16 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using System;
 namespace Senparc.Weixin.Entities
 {
-	public interface IResponseMessageBase : IMessageBase
+    public interface IResponseMessageBase : IMessageBase 
 	{
 		//ResponseMsgType MsgType { get; }
 		//string Content { get; set; }
 		//bool FuncFlag { get; set; }
+
+        object Clone();
 	}
 
 	/// <summary>
@@ -29,5 +32,10 @@ namespace Senparc.Weixin.Entities
         //{
         //    get { return ResponseMsgType.Text; }
         //}
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
 	}
 }

@@ -11,6 +11,8 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// </summary>
     public class Card_BaseInfoBase
     {
+        public Card_BaseInfoBase() {
+            this.sku = new Card_BaseInfo_Sku();
+            this.date_info = new Card_BaseInfo_DateInfo();
+        }
         /// <summary>
         /// 卡券的商户logo，尺寸为300*300。
         /// 必填
@@ -32,6 +38,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// code 码展示类型
         /// 必填
         /// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
         public Card_CodeType code_type { get; set; }
         /// <summary>
         /// 商户名字,字数上限为12 个汉字。（填写直接提供服务的商户名， 第三方商户名填写在source 字段）
@@ -121,7 +128,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 商户自定义cell 名称
         /// 非必填
         /// </summary>
-        public Card_UrlNameType url_name_type { get; set; }
+        //public Card_UrlNameType url_name_type { get; set; }
+
         /// <summary>
         /// 商户自定义url 地址，支持卡券页内跳转,跳转页面内容需与自定义cell 名称保持一致。
         /// 非必填
@@ -157,7 +165,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public Modify_Msg_Operation modify_msg_operation { get; set; }
     }
-
     public class Modify_Msg_Operation
     {
         /// <summary>
@@ -169,7 +176,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public UrlCell url_cell { get; set; }
     }
-
     public class CardCell
     {
         /// <summary>
@@ -181,7 +187,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public string card_id { get; set; }
     }
-
     public class UrlCell
     {
         /// <summary>

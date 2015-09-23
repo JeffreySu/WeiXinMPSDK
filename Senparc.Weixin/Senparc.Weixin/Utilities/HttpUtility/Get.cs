@@ -53,9 +53,6 @@ namespace Senparc.Weixin.HttpUtility
 
         public static void Download(string url, Stream stream)
         {
-            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3
-            //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);  
-            
             WebClient wc = new WebClient();
             var data = wc.DownloadData(url);
             foreach (var b in data)

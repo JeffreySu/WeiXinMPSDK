@@ -20,6 +20,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.MP.Entities.BaiduMap;
+using System.Net;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Senparc.Weixin.MP.Helpers
 {
@@ -61,5 +64,40 @@ namespace Senparc.Weixin.MP.Helpers
 
             return url.ToString();
         }
+
+        /// <summary>
+        /// google坐标转换成百度坐标
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        //public static MapConvert getBaiDuLocationXY(double x, double y)
+        //{
+        //    //百度坐标转换API
+        //    string path = "http://api.map.baidu.com/ag/coord/convert?from=2&to=4&x=" + x + "&y=" + y + "";
+        //    UriBuilder userInfoUriBuilder = new UriBuilder(path);
+        //    WebRequest webRequestUserInfo = WebRequest.Create(userInfoUriBuilder.Uri);
+
+        //    using (WebResponse response = webRequestUserInfo.GetResponse())
+        //    {
+        //        Stream responseStream = response.GetResponseStream();
+        //        StreamReader reader = new StreamReader(responseStream);
+        //        //Read the content.
+        //        string responseFromServer = reader.ReadToEnd();
+
+        //        var result = JsonConvert.DeserializeObject<MapConvert>(responseFromServer);
+
+        //        //进行Base64解码
+        //        byte[] xBuffer = Convert.FromBase64String(result.X);
+        //        string strX = Encoding.UTF8.GetString(xBuffer, 0, xBuffer.Length);
+
+        //        byte[] yBuffer = Convert.FromBase64String(result.Y);
+        //        string strY = Encoding.UTF8.GetString(yBuffer, 0, xBuffer.Length);
+
+        //        result.X = strX;
+        //        result.Y = strY;
+        //        return result;
+        //    }
+        //}
     }
 }

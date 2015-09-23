@@ -5,7 +5,6 @@ using System.Text;
 using System.Web.Script.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.AdvancedAPIs.MerChant;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Test.CommonAPIs;
@@ -21,7 +20,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         public void AddProdectTest()
         {
             var addProductData = new AddProductData();
-            var result = ProductApi.AddProduct("[appid]", addProductData);
+            var result = WeixinShopProduct.AddProduct("[appid]", addProductData);
             Console.Write(result);
             Assert.IsNotNull(result);
         }

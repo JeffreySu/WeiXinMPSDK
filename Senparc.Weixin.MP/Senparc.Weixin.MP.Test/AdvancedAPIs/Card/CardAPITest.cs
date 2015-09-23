@@ -24,7 +24,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 brand_name = "海底捞",
                 code_type = Card_CodeType.CODE_TYPE_TEXT,
                 title = "132 元双人火锅套餐",
-                sub_title = "周末狂欢必备",
+                sub_title = "",
                 color = "Color010",
                 notice = "使用时向服务员出示此券",
                 service_phone = "020-88888888",
@@ -33,7 +33,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 数须另收酱料费5 元/位\n 本单谢绝自带酒水饮料",
                 date_info = new Card_BaseInfo_DateInfo()
                 {
-                    type = Card_DateInfo_Type.DATE_TYPE_FIX_TIME_RANGE.ToString(),
+                    type = "DATE_TYPE_FIX_TIME_RANGE",
                     begin_timestamp = DateTimeHelper.GetWeixinDateTime(DateTime.Now),
                     end_timestamp = DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddDays(10)),
                 },
@@ -47,13 +47,9 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 bind_openid = false,
                 can_share = true,
                 can_give_friend = true,
-                url_name_type = Card_UrlNameType.URL_NAME_TYPE_RESERVATION,
+                //url_name_type = Card_UrlNameType.URL_NAME_TYPE_RESERVATION,
                 custom_url = "http://www.weiweihi.com",
-                source = "大众点评",
-                custom_url_name = "立即使用",
-                custom_url_sub_title = "6个汉字tips",
-                promotion_url_name = "更多优惠",
-                promotion_url = "http://www.qq.com",
+                source = "大众点评"
             };
 
         [TestMethod]
@@ -115,15 +111,15 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Assert.IsNotNull(result);
         }
 
-        //[TestMethod]
-        //public void GetColorsTest()
-        //{
-        //    var accessToken = AccessTokenContainer.GetToken(_appId);
+        [TestMethod]
+        public void GetColorsTest()
+        {
+            var accessToken = AccessTokenContainer.GetToken(_appId);
 
-        //    var result = CardApi.GetColors(accessToken);
-        //    Console.Write(result);
-        //    Assert.IsNotNull(result);
-        //}
+            var result = CardApi.GetColors(accessToken);
+            Console.Write(result);
+            Assert.IsNotNull(result);
+        }
 
         [TestMethod]
         public void CardDetailGet()

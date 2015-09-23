@@ -232,6 +232,7 @@ namespace Senparc.Weixin.MP
         Video = 5,
         [Description("多客服")]
         Transfer_Customer_Service,
+        WXCard,
         //transfer_customer_service
 
         //以下为延伸类型，微信官方并未提供具体的回复类型
@@ -427,6 +428,16 @@ namespace Senparc.Weixin.MP
         /// 二维码
         /// </summary>
         CODE_TYPE_QRCODE = 2,
+
+        /// <summary>
+        /// 二维码无code显
+        /// </summary>
+        CODE_TYPE_ONLY_QRCODE,
+
+        /// <summary>
+        /// 一维码无code显示
+        /// </summary>
+        CODE_TYPE_ONLY_BARCODE,
     }
     /// <summary>
     /// 卡券 商户自定义cell 名称
@@ -629,5 +640,36 @@ namespace Senparc.Weixin.MP
         /// 卡券自定义cell
         /// </summary>
         SCENE_CARD_CUSTOM_CELL = 6
+    }
+
+    /// <summary>
+    /// 审核类型
+    /// </summary>
+    public enum Card_Audit_Status
+    {
+        /// <summary>
+        /// 待审核
+        /// </summary>
+        CARD_STATUS_NOT_VERIFY,
+
+        /// <summary>
+        /// 审核失败
+        /// </summary>
+        CARD_STATUS_VERIFY_FALL,
+
+        /// <summary>
+        /// 通过审核
+        /// </summary>
+        CARD_STATUS_VERIFY_OK,
+
+        /// <summary>
+        /// 卡券被用户删除
+        /// </summary>
+        CARD_STATUS_USER_DELETE,
+
+        /// <summary>
+        /// 在公众平台投放过的卡券
+        /// </summary>
+        CARD_STATUS_USER_DISPATCH,
     }
 }

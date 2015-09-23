@@ -22,7 +22,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.WiFi
     /// </summary>
     public class GetHomePageResult : WxJsonResult
     {
-        public GetHomePage_Data date { get; set; }
+        public GetHomePage_Data data { get; set; }
     }
 
     public class GetHomePage_Data

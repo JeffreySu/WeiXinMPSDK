@@ -64,7 +64,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     accessToken);
 
                 var fileDictionary = new Dictionary<string, string>();
-                //fileDictionary["media"] = file;
+                fileDictionary["media"] = file;
                 return HttpUtility.Post.PostFileGetJson<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);

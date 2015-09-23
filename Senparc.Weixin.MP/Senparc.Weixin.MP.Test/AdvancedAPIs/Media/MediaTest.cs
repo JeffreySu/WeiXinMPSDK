@@ -119,7 +119,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_appId);
 
             var file = @"E:\Test.mp4";
-            var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试");
+            var result = MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.video, file);
 
             Assert.IsNotNull(result.media_id);
             mediaId = result.media_id;
@@ -243,79 +243,6 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
             Assert.AreEqual(result.item_count, 3);
-        }
-
-        [TestMethod]
-        public void AfterDeleteImgTest()
-        {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
-
-            var file = @"..\..\AdvancedAPIs\Media\test.jpg";
-
-            var result = MediaApi.UploadForeverMedia(accessToken, file);
-
-            Assert.IsNotNull(result.media_id);
-
-            CustomApi.SendImage(accessToken, "o3IHxjrPzMVZIJOgYMH1PyoTW_Tg", result.media_id);
-
-            MediaApi.DeleteForeverMedia(accessToken, result.media_id);
-        }
-
-        [TestMethod]
-        public void AfterDeleteNewsTest()
-        {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
-
-            var file = @"E:\1.jpg";
-            var result = MediaApi.UploadForeverMedia(accessToken, file);
-
-            Assert.IsNotNull(result.media_id);
-
-            var new1 = new NewsModel()
-            {
-                author = "test",
-                content = "test",
-                content_source_url = "http://qy.weiweihi.com/Content/Images/app/qyhelper.png",
-                digest = "test",
-                show_cover_pic = "1",
-                thumb_media_id = result.media_id,
-                title = "test"
-            };
-
-            var new2 = new NewsModel()
-            {
-                author = "test",
-                content = "test111",
-                content_source_url = "http://qy.weiweihi.com/Content/Images/app/qyhelper.png",
-                digest = "test",
-                show_cover_pic = "1",
-                thumb_media_id = result.media_id,
-                title = "test"
-            };
-
-            var result1 = MediaApi.UploadNews(accessToken, 10000, new1, new2);
-
-            Assert.IsNotNull(result1.media_id);
-
-            GroupMessageApi.SendGroupMessageByOpenId(accessToken, GroupMessageType.mpnews, result1.media_id, 10000, "o3IHxjrPzMVZIJOgYMH1PyoTW_Tg", "o3IHxjrPzMVZIJOgYMH1PyoTW_Tg");
-            //var result2 = MediaApi.UpdateForeverNews(accessToken, result1.media_id, 0, 10000, new2);
-
-            MediaApi.DeleteForeverMedia(accessToken, result1.media_id);
-            //Assert.AreEqual(result2.errcode, ReturnCode.请求成功);
-        }
-
-        [TestMethod]
-        public void AfterDeleteVideoTest()
-        {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
-
-            var file = @"E:\Test.mp4";
-            var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试",100000);
-
-            Assert.IsNotNull(result.media_id);
-
-            CustomApi.SendVideo(accessToken, "o3IHxjrPzMVZIJOgYMH1PyoTW_Tg", result.media_id, "测试", "测试");
-            MediaApi.DeleteForeverMedia(accessToken, result.media_id);
         }
     }
 }

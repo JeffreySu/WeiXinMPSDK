@@ -25,6 +25,7 @@ using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.HttpUtility;
+using Newtonsoft.Json;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
@@ -66,8 +67,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 case CommonJsonSendType.GET:
                     return Get.GetJson<T>(url);
                 case CommonJsonSendType.POST:
-                    SerializerHelper serializerHelper = new SerializerHelper();
-                    var jsonString = serializerHelper.GetJsonString(data);
+
+                    var jsonString = JsonConvert.SerializeObject(data);
                     using (MemoryStream ms = new MemoryStream())
                     {
                         var bytes = Encoding.UTF8.GetBytes(jsonString);

@@ -11,6 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using System;
 namespace Senparc.Weixin.Entities
 {
     public interface IRequestMessageBase : IMessageBase
@@ -18,6 +19,8 @@ namespace Senparc.Weixin.Entities
         //删除MsgType因为企业号和公众号的MsgType为两个独立的枚举类型
         //RequestMsgType MsgType { get; }
         long MsgId { get; set; }
+
+        object Clone();
     }
 
     /// <summary>
@@ -36,5 +39,10 @@ namespace Senparc.Weixin.Entities
         //}
 
         public long MsgId { get; set; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

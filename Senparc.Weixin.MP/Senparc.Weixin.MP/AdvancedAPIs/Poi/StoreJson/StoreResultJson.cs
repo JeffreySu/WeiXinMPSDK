@@ -59,7 +59,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
         /// <summary>
         /// 门店总数量
         /// </summary>
-        public string total_count { get; set; }
+        public int total_count { get; set; }
     }
 
     public class GetStoreList_Business
@@ -90,6 +90,64 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
         /// 门店是否可用状态。1 表示系统错误、2 表示审核中、3 审核通过、4 审核驳回。当该字段为1、2、4 状态时，poi_id 为空
         /// </summary>
         public int available_state { get; set; }
+		
+		/// <summary>
+        /// 门店所在的省
+        /// </summary>
+        public string province { get; set; }
+        /// <summary>
+        /// 门店所在的市
+        /// </summary>
+        public string city { get; set; }
+        /// <summary>
+        /// 门店所在的区
+        /// </summary>
+        public string district { get; set; }
+        /// <summary>
+        /// 门店的类型（酒店、餐饮、购物...）
+        /// </summary>
+        public string[] categories { get; set; }
+        /// <summary>
+        /// 坐标类型，1 为火星坐标（目前只能选1）
+        /// </summary>
+        public int offset_type { get; set; }
+        /// <summary>
+        /// 门店所在地理位置的经度（建议使用腾讯地图定位经纬度）
+        /// </summary>
+        public string longitude { get; set; }
+        /// <summary>
+        /// 门店所在地理位置的纬度
+        /// </summary>
+        public string latitude { get; set; }
+        /// <summary>
+        /// 门店的电话
+        /// </summary>
+        public string telephone { get; set; }
+        /// <summary>
+        /// 图片列表，url 形式，可以有多张图片，尺寸为640*340px。必须为上一接口生成的url
+        /// </summary>
+        public List<Store_Photo> photo_list { get; set; }
+        /// <summary>
+        /// 推荐品，餐厅可为推荐菜；酒店为推荐套房；景点为推荐游玩景点等，针对自己行业的推荐内容
+        /// </summary>
+        public string recommend { get; set; }
+        /// <summary>
+        /// 特色服务，如免费wifi，免费停车，送货上门等商户能提供的特色功能或服务
+        /// </summary>
+        public string special { get; set; }
+        /// <summary>
+        /// 商户简介，主要介绍商户信息等
+        /// </summary>
+        public string introduction { get; set; }
+        /// <summary>
+        /// 营业时间，24 小时制表示，用“-”连接，如8:00-20:00
+        /// </summary>
+        public string open_time { get; set; }
+        /// <summary>
+        /// 人均价格，大于0 的整
+        /// </summary>
+        public int avg_price { get; set; }
+		
     }
 
     /// <summary>

@@ -536,12 +536,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             packageReqHandler.SetParameter("wxappid", TenPayV3Info.AppId);		  //公众账号ID
             packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
             packageReqHandler.SetParameter("mch_billno", mchbillno);                 //填入商家订单号
-            packageReqHandler.SetParameter("nick_name", "提供方名称");                 //提供方名称
             packageReqHandler.SetParameter("send_name", "红包发送者名称");                 //红包发送者名称
             packageReqHandler.SetParameter("re_openid", "接受收红包的用户的openId");                 //接受收红包的用户的openId
             packageReqHandler.SetParameter("total_amount", "100");                //付款金额，单位分
-            packageReqHandler.SetParameter("min_value", "100");                //最小红包金额，单位分
-            packageReqHandler.SetParameter("max_value", "100");                //最大红包金额，单位分
             packageReqHandler.SetParameter("total_num", "1");               //红包发放总人数
             packageReqHandler.SetParameter("wishing", "红包祝福语");               //红包祝福语
             packageReqHandler.SetParameter("client_ip", Request.UserHostAddress);               //调用接口的机器Ip地址
@@ -549,6 +546,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             packageReqHandler.SetParameter("remark", "备注信息");   //备注信息
             string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
             packageReqHandler.SetParameter("sign", sign);	                    //签名
+
+            //最新的官方文档中将以下三个字段去除了
+            //packageReqHandler.SetParameter("nick_name", "提供方名称");                 //提供方名称
+            //packageReqHandler.SetParameter("max_value", "100");                //最大红包金额，单位分
+            //packageReqHandler.SetParameter("min_value", "100");                //最小红包金额，单位分
+
+
             //发红包需要post的数据
             string data = packageReqHandler.ParseXML();
 

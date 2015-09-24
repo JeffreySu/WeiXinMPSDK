@@ -42,11 +42,12 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         /// </summary>
         public string mobile { get; set; }
 
-        //最新接口去除了以下两个属性
         /// <summary>
         /// 性别。gender=0表示男，=1表示女 
         /// </summary>
-        //public int gender { get; set; }
+        public int gender { get; set; }
+
+        //最新接口去除了以下属性
         /// <summary>
         /// 办公电话 
         /// </summary>

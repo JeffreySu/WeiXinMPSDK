@@ -9571,56 +9571,6 @@
             执行微信请求
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.DefaultResponseMessage(Senparc.Weixin.MP.Entities.IRequestMessageBase)">
-            <summary>
-            默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnTextOrEventRequest(Senparc.Weixin.MP.Entities.RequestMessageText)">
-            <summary>
-            预处理文字或事件类型请求。
-            这个请求是一个比较特殊的请求，通常用于统一处理来自文字或菜单按钮的同一个执行逻辑，
-            会在执行OnTextRequest或OnEventRequest之前触发，具有以下一些特征：
-            1、如果返回null，则继续执行OnTextRequest或OnEventRequest
-            2、如果返回不为null，则终止执行OnTextRequest或OnEventRequest，返回最终ResponseMessage
-            3、如果是事件，则会将RequestMessageEvent自动转为RequestMessageText类型，其中RequestMessageText.Content就是RequestMessageEvent.EventKey
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnTextRequest(Senparc.Weixin.MP.Entities.RequestMessageText)">
-            <summary>
-            文字类型请求
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnLocationRequest(Senparc.Weixin.MP.Entities.RequestMessageLocation)">
-            <summary>
-            位置类型请求
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnImageRequest(Senparc.Weixin.MP.Entities.RequestMessageImage)">
-            <summary>
-            图片类型请求
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnVoiceRequest(Senparc.Weixin.MP.Entities.RequestMessageVoice)">
-            <summary>
-            语音类型请求
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnVideoRequest(Senparc.Weixin.MP.Entities.RequestMessageVideo)">
-            <summary>
-            视频类型请求
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnLinkRequest(Senparc.Weixin.MP.Entities.RequestMessageLink)">
-            <summary>
-            链接消息类型请求
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnShortVideoRequest(Senparc.Weixin.MP.Entities.RequestMessageShortVideo)">
-            <summary>
-            小视频类型请求
-            </summary>
-        </member>
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEventRequest(Senparc.Weixin.MP.Entities.IRequestMessageEventBase)">
             <summary>
             Event事件类型请求
@@ -9790,6 +9740,56 @@
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnEvent_ShakearoundUserShake(Senparc.Weixin.MP.Entities.RequestMessageEvent_ShakearoundUserShake)">
             <summary>
             Event事件类型请求之摇一摇事件通知
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.DefaultResponseMessage(Senparc.Weixin.MP.Entities.IRequestMessageBase)">
+            <summary>
+            默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnTextOrEventRequest(Senparc.Weixin.MP.Entities.RequestMessageText)">
+            <summary>
+            预处理文字或事件类型请求。
+            这个请求是一个比较特殊的请求，通常用于统一处理来自文字或菜单按钮的同一个执行逻辑，
+            会在执行OnTextRequest或OnEventRequest之前触发，具有以下一些特征：
+            1、如果返回null，则继续执行OnTextRequest或OnEventRequest
+            2、如果返回不为null，则终止执行OnTextRequest或OnEventRequest，返回最终ResponseMessage
+            3、如果是事件，则会将RequestMessageEvent自动转为RequestMessageText类型，其中RequestMessageText.Content就是RequestMessageEvent.EventKey
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnTextRequest(Senparc.Weixin.MP.Entities.RequestMessageText)">
+            <summary>
+            文字类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnLocationRequest(Senparc.Weixin.MP.Entities.RequestMessageLocation)">
+            <summary>
+            位置类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnImageRequest(Senparc.Weixin.MP.Entities.RequestMessageImage)">
+            <summary>
+            图片类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnVoiceRequest(Senparc.Weixin.MP.Entities.RequestMessageVoice)">
+            <summary>
+            语音类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnVideoRequest(Senparc.Weixin.MP.Entities.RequestMessageVideo)">
+            <summary>
+            视频类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnLinkRequest(Senparc.Weixin.MP.Entities.RequestMessageLink)">
+            <summary>
+            链接消息类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OnShortVideoRequest(Senparc.Weixin.MP.Entities.RequestMessageShortVideo)">
+            <summary>
+            小视频类型请求
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.RequestMessageFactory.GetRequestEntity(System.Xml.Linq.XDocument,Senparc.Weixin.MP.Entities.Request.PostModel)">

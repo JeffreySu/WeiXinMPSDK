@@ -18,7 +18,7 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.QY.AdvancedAPIs.Chat;
+using Senparc.Weixin.QY.AdvancedAPIs.OAuth2;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Helpers;
 

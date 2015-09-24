@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.Chat
+namespace Senparc.Weixin.QY.AdvancedAPIs.OAuth2
 {
     /// <summary>
     /// 发送消息基础数据

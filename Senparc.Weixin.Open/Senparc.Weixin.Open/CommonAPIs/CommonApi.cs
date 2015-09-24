@@ -80,5 +80,25 @@ namespace Senparc.Weixin.Open.CommonAPIs
              
             return CommonJsonSend.Send<PreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
+
+        //////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1421823488&token=&lang=zh_CN
+        /// 获取调用微信JS接口的临时票据 OPEN
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="secret"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static JsApiTicketResult GetTicket(string authorizer_access_token, string type = "jsapi")
+        {
+            //获取第三方平台的授权公众号token（公众号授权给第三方平台后，第三方平台通过“接口说明”中的api_authorizer_token接口得到的token）
+            var url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type={1}",
+                                    authorizer_access_token, type);
+
+            JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
+            return result;
+        }
+        //////////////////////////////////////////////////////////////////////////////////
     }
 }

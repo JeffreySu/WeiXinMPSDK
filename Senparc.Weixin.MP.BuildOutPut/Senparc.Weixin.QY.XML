@@ -461,7 +461,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ChatApi.SetMute(System.String,System.Collections.Generic.List{Senparc.Weixin.QY.AdvancedAPIs.OAuth2.UserMute},System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ChatApi.SetMute(System.String,System.Collections.Generic.List{Senparc.Weixin.QY.AdvancedAPIs.Chat.UserMute},System.Int32)">
             <summary>
             设置成员新消息免打扰
             </summary>
@@ -470,117 +470,117 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.UserMute">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Chat.UserMute">
             <summary>
             成员新消息免打扰参数
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.UserMute.userid">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.UserMute.userid">
             <summary>
             成员UserID
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.UserMute.status">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.UserMute.status">
             <summary>
             免打扰状态
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.BaseSendChatMessageData">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Chat.BaseSendChatMessageData">
             <summary>
             发送消息基础数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.BaseSendChatMessageData.receiver">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.BaseSendChatMessageData.receiver">
             <summary>
             接收人
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.BaseSendChatMessageData.sender">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.BaseSendChatMessageData.sender">
             <summary>
             发送人
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.BaseSendChatMessageData.msgtype">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.BaseSendChatMessageData.msgtype">
             <summary>
             消息类型
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.Receiver.type">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.Receiver.type">
             <summary>
             接收人类型：single|group，分别表示：群聊|单聊
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.Receiver.id">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.Receiver.id">
             <summary>
             接收人的值，为userid|chatid，分别表示：成员id|会话id
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.SendTextMessageData">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Chat.SendTextMessageData">
             <summary>
             发送text消息数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.Chat_Content.content">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.Chat_Content.content">
             <summary>
             消息内容
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.SendImageMessageData">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Chat.SendImageMessageData">
             <summary>
             发送image消息数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.Chat_Image.media_id">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.Chat_Image.media_id">
             <summary>
             图片媒体文件id，可以调用上传素材文件接口获取
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.SendFileMessageData">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Chat.SendFileMessageData">
             <summary>
             发送file消息数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.Chat_File.media_id">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.Chat_File.media_id">
             <summary>
             图片媒体文件id，可以调用上传素材文件接口获取
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetChatResult">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Chat.GetChatResult">
             <summary>
             获取会话返回结果
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetChatResult.chat_info">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.GetChatResult.chat_info">
             <summary>
             会话信息
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.ChatInfo.chatid">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.ChatInfo.chatid">
             <summary>
             会话id
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.ChatInfo.name">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.ChatInfo.name">
             <summary>
             会话标题
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.ChatInfo.owner">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.ChatInfo.owner">
             <summary>
             管理员userid
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.ChatInfo.userlist">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.ChatInfo.userlist">
             <summary>
             会话成员列表，成员用userid来标识
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.SetMuteResult">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Chat.SetMuteResult">
             <summary>
             设置成员新消息免打扰返回结果
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.SetMuteResult.invaliduser">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.SetMuteResult.invaliduser">
             <summary>
             列表中不存在的成员会返回在invaliduser里，剩余合法成员会继续执行
             </summary>
@@ -808,7 +808,7 @@
             获取设备及用户信息
             </summary>
             <param name="accessToken"></param>
-            <param name="ticket"></param>
+            <param name="ticket">摇周边业务的ticket，可在摇到的URL中得到，ticket生效时间为30分钟，每一次摇都会重新生成新的ticket</param>
             <param name="timeOut"></param>
             <returns></returns>
         </member>

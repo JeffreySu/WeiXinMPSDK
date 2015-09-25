@@ -44,7 +44,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <param name="startTime">查询开始时间，会自动转为UNIX时间戳</param>
         /// <param name="endTime">查询结束时间，会自动转为UNIX时间戳，每次查询不能跨日查询</param>
-        /// <param name="openId">（非必须）普通用户的标识，对当前公众号唯一</param>
         /// <param name="pageSize">每页大小，每页最多拉取1000条</param>
         /// <param name="pageIndex">查询第几页，从1开始</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>

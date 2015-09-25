@@ -44,6 +44,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
     {
         public string media_id { get; set; }
         public Media_News_Content content { get; set; }
+        /// <summary>
+        /// 这个素材的最后更新时间
+        /// </summary>
+        public long update_time { get; set; }
     }
 
     public class Media_News_Content
@@ -67,9 +71,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// </summary>
         public string name { get; set; }
         /// <summary>
-        /// 这篇图文消息素材的最后更新时间
+        /// 这个素材的最后更新时间
         /// </summary>
-        public string update_time { get; set; }
+        public long update_time { get; set; }
         /// <summary>
         /// 图文页的URL，或者，当获取的列表是图片素材列表时，该字段是图片的URL
         /// </summary>

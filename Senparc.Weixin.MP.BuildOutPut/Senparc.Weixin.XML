@@ -475,6 +475,39 @@
             <param name="data"></param>
             <param name="stream"></param>
         </member>
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostFileGetJsonAsync``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding)">
+            <summary>
+            PostFileGetJson的异步版本
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="url"></param>
+            <param name="cookieContainer"></param>
+            <param name="fileDictionary"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJsonAsync``1(System.String,System.Net.CookieContainer,System.IO.Stream,System.Text.Encoding)">
+            <summary>
+            PostGetJson的异步版本
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="url"></param>
+            <param name="cookieContainer"></param>
+            <param name="fileStream"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJsonAsync``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding)">
+            <summary>
+            PostGetJson的异步版本
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="url"></param>
+            <param name="cookieContainer"></param>
+            <param name="formData"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpGet(System.String,System.Text.Encoding)">
             <summary>
             使用Get方法获取字符串结果（没有加入Cookie）
@@ -810,6 +843,28 @@
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.StreamUtility.StreamUtility.SaveFileFromStream(System.IO.MemoryStream,System.String)">
+            <summary>
+            将memoryStream保存到文件
+            </summary>
+            <param name="memoryStream"></param>
+            <param name="savePath"></param>
+        </member>
+        <member name="M:Senparc.Weixin.StreamUtility.StreamUtility.GetBase64StringAsync(System.IO.Stream)">
+            <summary>
+            获取Stream的Base64字符串
+            </summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.StreamUtility.StreamUtility.GetStreamFromBase64StringAsync(System.String,System.String)">
+            <summary>
+            将base64String反序列化到流，或保存成文件
+            </summary>
+            <param name="base64String"></param>
+            <param name="savePath">如果为null则不保存</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.StreamUtility.StreamUtility.SaveFileFromStreamAsync(System.IO.MemoryStream,System.String)">
             <summary>
             将memoryStream保存到文件
             </summary>

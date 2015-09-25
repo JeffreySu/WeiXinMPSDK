@@ -311,7 +311,7 @@ namespace Senparc.Weixin.HttpUtility
         public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
         {
             MemoryStream ms = new MemoryStream();
-            formData.FillFormDataStreamAsync(ms);//填充formData
+            await formData.FillFormDataStreamAsync(ms);//填充formData
             return await HttpPostAsync(url, cookieContainer, ms, null, null, encoding, timeOut);
         }
 
@@ -466,7 +466,7 @@ namespace Senparc.Weixin.HttpUtility
         /// </summary>
         /// <param name="formData"></param>
         /// <param name="stream"></param>
-        public static async void FillFormDataStreamAsync(this Dictionary<string, string> formData, Stream stream)
+        public static async Task FillFormDataStreamAsync(this Dictionary<string, string> formData, Stream stream)
         {
             string dataString = GetQueryString(formData);
             var formDataBytes = formData == null ? new byte[0] : Encoding.UTF8.GetBytes(dataString);

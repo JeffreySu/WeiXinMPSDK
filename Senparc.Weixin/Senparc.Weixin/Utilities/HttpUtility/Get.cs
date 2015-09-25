@@ -97,7 +97,7 @@ namespace Senparc.Weixin.HttpUtility
             return result;
         }
 
-        public static async void DownloadAsync(string url, Stream stream)
+        public static async Task DownloadAsync(string url, Stream stream)
         {
             //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3
             //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);  

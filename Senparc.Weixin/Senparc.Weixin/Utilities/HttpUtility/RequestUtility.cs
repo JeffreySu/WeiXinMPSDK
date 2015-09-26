@@ -490,7 +490,7 @@ namespace Senparc.Weixin.HttpUtility
 
         /// <summary>
         /// 组装QueryString的方法
-        /// 参数之间用&连接，首位没有符号，如：a=1&b=2&c=3
+        /// 参数之间用&amp;连接，首位没有符号，如：a=1&amp;b=2&amp;c=3
         /// </summary>
         /// <param name="formData"></param>
         /// <returns></returns>

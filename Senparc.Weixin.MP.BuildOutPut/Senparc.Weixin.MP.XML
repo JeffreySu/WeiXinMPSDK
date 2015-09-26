@@ -9301,7 +9301,14 @@
             <param name="entity">实体</param>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.MP.Helpers.EntityHelper.CreateResponseMessage``1(Senparc.Weixin.MP.Entities.IRequestMessageBase)" -->
+        <member name="M:Senparc.Weixin.MP.Helpers.EntityHelper.CreateResponseMessage``1(Senparc.Weixin.MP.Entities.IRequestMessageBase)">
+            <summary>
+            ResponseMessageBase.CreateFromRequestMessage&lt;T&gt;(requestMessage)的扩展方法
+            </summary>
+            <typeparam name="T">需要生成的ResponseMessage类型</typeparam>
+            <param name="requestMessage">IRequestMessageBase接口下的接收信息类型</param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.MP.Helpers.EntityHelper.CreateResponseMessage(System.String)">
             <summary>
             ResponseMessageBase.CreateFromResponseXml(xml)的扩展方法

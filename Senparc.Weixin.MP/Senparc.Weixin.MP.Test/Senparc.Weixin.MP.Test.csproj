@@ -87,6 +87,7 @@
     <Compile Include="Entities\Request\PostModelTest.cs" />
     <Compile Include="MessageHandlers\MessageHandlers_OmitRepeatMessageTest.cs" />
     <Compile Include="RequestMessageFactoryTest.cs" />
+    <Compile Include="Senparc.Weixin.Utilites\HttpUtility\RequestUtilityTests.cs" />
     <Compile Include="TenPay\TenPayRightsTest.cs" />
     <Compile Include="AdvancedAPIs\User\CustomTest.cs" />
     <Compile Include="TenPay\TenPayTest.cs" />
@@ -101,9 +102,6 @@
     <Compile Include="Entities\Response\ResponseMessageBaseTest.cs" />
     <Compile Include="Helpers\BaiduMapHelperTest.cs" />
     <Compile Include="Helpers\GpsHelperTest.cs" />
-    <Compile Include="HttpUtility\RequestUtilityTest.cs" />
-    <Compile Include="HttpUtility\GetTest.cs" />
-    <Compile Include="HttpUtility\PostTest.cs" />
     <Compile Include="MessageHandlers\MessageHandlersTest.cs" />
     <Compile Include="MessageHandlers\MessageHandlers_CancelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -123,9 +121,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonAPIs\CommonApiTest.Menu.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="HttpUtility\Upload.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">

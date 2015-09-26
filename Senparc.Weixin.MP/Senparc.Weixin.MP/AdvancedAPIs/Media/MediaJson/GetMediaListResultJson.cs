@@ -52,7 +52,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
 
     public class Media_News_Content
     {
-        public List<NewsModel> news_item { get; set; } 
+        public List<Media_News_Content_Item> news_item { get; set; } 
+    }
+
+    public class Media_News_Content_Item : NewsModel
+    {
+        public string url { get; set; }
     }
 
     /// <summary>

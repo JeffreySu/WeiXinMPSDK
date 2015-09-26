@@ -17,7 +17,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
-using Newtonsoft.Json;
 
 namespace Senparc.Weixin.Helpers
 {
@@ -41,7 +40,8 @@ namespace Senparc.Weixin.Helpers
 
         public string GetJsonString(object data)
         {
-            var jsonString = JsonConvert.SerializeObject(data);
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            var jsonString = js.Serialize(data);
 
             //解码Unicode，也可以通过设置App.Config（Web.Config）设置来做，这里只是暂时弥补一下，用到的地方不多
             MatchEvaluator evaluator = new MatchEvaluator(DecodeUnicode);

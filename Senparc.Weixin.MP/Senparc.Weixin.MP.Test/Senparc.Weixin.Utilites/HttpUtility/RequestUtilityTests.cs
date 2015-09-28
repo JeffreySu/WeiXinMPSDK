@@ -2,14 +2,14 @@
 using System.IO;
 using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.MP.AdvancedAPIs.Media;
-using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.MP;
+using Senparc.Weixin.MP.AdvancedAPIs.Media;
 
-namespace Senparc.Weixin.MP.Test.HttpUtility
+namespace Senparc.Weixin.HttpUtility.Tests
 {
     [TestClass]
-    public class RequestUtilityTest
+    public class RequestUtilityTests
     {
         [TestMethod]
         public void HttpGetTest()

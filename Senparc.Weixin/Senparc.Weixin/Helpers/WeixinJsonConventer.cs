@@ -24,20 +24,19 @@ namespace Senparc.Weixin.Helpers
         {
             //这里为了尽量“避免”使用JSON.NET，我们自己加一个过滤null值的转换器（当然JSON.NET也是不错的选择，只不过这里我们尽可能将SDK保持得更加“轻”一些，并且降低对外部的依赖，提高兼容性）
 
+            //throw new InvalidOperationException("object must be of the EntityBase type");
+
+
             //方案一
             var jsonExample = new Dictionary<string, object>();
-            if (obj == null)
-            {
-                return null;
-            }
-
+       
             foreach (var prop in obj.GetType().GetProperties())
             {
                 //check if decorated with ScriptIgnore attribute
                 bool ignoreProp = prop.IsDefined(typeof(ScriptIgnoreAttribute), true);
 
                 var value = prop.GetValue(obj, BindingFlags.Public, null, null, null);
-                throw new Exception("STOP");
+
                 if (value != null && !ignoreProp)
                 {
                     jsonExample.Add(prop.Name, value);

@@ -50,6 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Helpers\SerializerHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\HttpUtility\GetTests.cs" />
     <Compile Include="Utilities\HttpUtility\PostTests.cs" />

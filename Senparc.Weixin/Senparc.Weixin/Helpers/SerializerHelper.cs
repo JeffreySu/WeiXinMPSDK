@@ -38,10 +38,17 @@ namespace Senparc.Weixin.Helpers
             return new string(outStr, 1);
         }
 
+        /// <summary>
+        /// 将对象转为JSON字符串
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public string GetJsonString(object data)
         {
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            var jsonString = js.Serialize(data);
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            jsSerializer.RegisterConverters(new JavaScriptConverter[] { new WeixinJsonConventer() });
+
+            var jsonString = jsSerializer.Serialize(data);
 
             //解码Unicode，也可以通过设置App.Config（Web.Config）设置来做，这里只是暂时弥补一下，用到的地方不多
             MatchEvaluator evaluator = new MatchEvaluator(DecodeUnicode);

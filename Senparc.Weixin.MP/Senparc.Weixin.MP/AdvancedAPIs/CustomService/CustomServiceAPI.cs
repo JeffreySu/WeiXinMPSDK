@@ -70,7 +70,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     starttime = DateTimeHelper.GetWeixinDateTime(startTime),
                     endtime = DateTimeHelper.GetWeixinDateTime(endTime),
                     pagesize = pageSize,
-                    pageIndex = pageIndex
+                    pageindex = pageIndex
                 };
 
                 return CommonJsonSend.Send<GetRecordResult>(accessToken, urlFormat, data, timeOut: timeOut);

@@ -39,18 +39,34 @@ namespace Senparc.Weixin.Helpers.Tests
                 A = "Jeffrey",
                 B = 31,
                 C = null,
-                ElementClassA = new ElementClass() {A = "Jeffrey", B = null},
+                ElementClassA = new ElementClass() { A = "Jeffrey", B = null },
                 ElementClassB = null
+            };
+
+            var obj3 = new RootClass()
+            {
+                A = "Jeffrey",
+                B = 31,
+                C = null,
+                ElementClassA = new ElementClass() { A = "Jeffrey", B = null },
+                ElementClassB = null,
+                ElementClass2 = new ElementClass2()
+                {
+                    A = "A"
+                }
             };
 
             DateTime dt1 = DateTime.Now;
             SerializerHelper js = new SerializerHelper();
 
-            var json = js.GetJsonString(obj, true,new List<string>(new[] {"Z","C"}));
+            var json = js.GetJsonString(obj, true, new List<string>(new[] { "Z", "C" }));
             Console.WriteLine(json);
 
-            var json2 = js.GetJsonString(obj2,true, new List<string>(new[] { "B"}));
+            var json2 = js.GetJsonString(obj2, true, new List<string>(new[] { "B" }));
             Console.WriteLine(json2);
+
+            var json3 = js.GetJsonString(obj3, true, null, new List<Type>(new[] { typeof(ElementClass2) }));
+            Console.WriteLine(json3);
 
             Console.WriteLine((DateTime.Now - dt1).TotalMilliseconds);
         }
@@ -64,6 +80,7 @@ namespace Senparc.Weixin.Helpers.Tests
         public int? C { get; set; }
         public ElementClass ElementClassA { get; set; }
         public ElementClass ElementClassB { get; set; }
+        public ElementClass2 ElementClass2 { get; set; }
 
         public RootClass()
         {
@@ -72,6 +89,13 @@ namespace Senparc.Weixin.Helpers.Tests
     }
 
     public class ElementClass : JsonIgnoreNull, IJsonIgnoreNull
+    {
+        public string A { get; set; }
+        public string B { get; set; }
+        public RootClass RootClass { get; set; }
+    }
+
+    public class ElementClass2
     {
         public string A { get; set; }
         public string B { get; set; }

@@ -60,4 +60,5 @@ namespace Senparc.Weixin.Helpers
             return json;
         }
     }
+
 }

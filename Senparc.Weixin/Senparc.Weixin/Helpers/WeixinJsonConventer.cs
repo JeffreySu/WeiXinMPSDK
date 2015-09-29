@@ -11,19 +11,37 @@ using Senparc.Weixin.Entities;
 namespace Senparc.Weixin.Helpers
 {
     /// <summary>
+    /// JSON输出设置
+    /// </summary>
+    public class JsonSetting
+    {
+        private readonly List<string> _propertiesToIgnore;
+        private readonly List<Type> _typesToIgnore;
+        private readonly bool _ignoreNulls;
+
+        public JsonSetting(bool ignoreNulls = false, List<string> propertiesToIgnore = null,
+            List<Type> typesToIgnore = null)
+        {
+            this._ignoreNulls = ignoreNulls;
+            this._propertiesToIgnore = propertiesToIgnore ?? new List<string>();
+            this._typesToIgnore = typesToIgnore ?? new List<Type>();
+        }
+    }
+
+    /// <summary>
     /// 微信JSON转换器
     /// </summary>
     public class WeixinJsonConventer : JavaScriptConverter
     {
         private readonly List<string> _propertiesToIgnore;
         private readonly List<Type> _typesToIgnore;
-        private readonly Type type;
-        private readonly bool ignoreNulls;
+        private readonly Type _type;
+        private readonly bool _ignoreNulls;
 
         public WeixinJsonConventer(Type type, List<string> propertiesToIgnore, List<Type> typesToIgnore, bool ignoreNulls)
         {
-            this.ignoreNulls = ignoreNulls;
-            this.type = type;
+            this._ignoreNulls = ignoreNulls;
+            this._type = type;
             this._propertiesToIgnore = propertiesToIgnore ?? new List<string>();
             this._typesToIgnore = typesToIgnore ?? new List<Type>();
         }
@@ -43,9 +61,9 @@ namespace Senparc.Weixin.Helpers
                     typeList.AddRange(_typesToIgnore);
                 }
 
-                if (ignoreNulls)
+                if (_ignoreNulls)
                 {
-                    typeList.Add(type);
+                    typeList.Add(_type);
                 }
 
                 return new ReadOnlyCollection<Type>(typeList);
@@ -67,7 +85,7 @@ namespace Senparc.Weixin.Helpers
                 {
                     bool ignoreProp = propertyInfo.IsDefined(typeof(ScriptIgnoreAttribute), true);
 
-                    if ((this.ignoreNulls || ignoreProp) && propertyInfo.GetValue(obj, null) == null)
+                    if ((this._ignoreNulls || ignoreProp) && propertyInfo.GetValue(obj, null) == null)
                     {
                         continue;
                     }

@@ -59,13 +59,13 @@ namespace Senparc.Weixin.Helpers.Tests
             DateTime dt1 = DateTime.Now;
             SerializerHelper js = new SerializerHelper();
 
-            var json = js.GetJsonString(obj, true, new List<string>(new[] { "Z", "C" }));
+            var json = js.GetJsonString(obj, new JsonSetting(true, new List<string>(new[] { "Z", "C" })));
             Console.WriteLine(json);
 
-            var json2 = js.GetJsonString(obj2, true, new List<string>(new[] { "B" }));
+            var json2 = js.GetJsonString(obj2, new JsonSetting(true, new List<string>(new[] { "B" })));
             Console.WriteLine(json2);
 
-            var json3 = js.GetJsonString(obj3, true, null, new List<Type>(new[] { typeof(ElementClass2) }));
+            var json3 = js.GetJsonString(obj3, new JsonSetting(true, null, new List<Type>(new[] { typeof(ElementClass2) })));
             Console.WriteLine(json3);
 
             Console.WriteLine((DateTime.Now - dt1).TotalMilliseconds);

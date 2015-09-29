@@ -47,10 +47,10 @@ namespace Senparc.Weixin.Helpers
         /// <param name="propertiesToIgnore">需要特殊忽略null值的属性名称</param>
         /// <param name="typesToIgnore">指定类型（Class，非Interface）下的为null属性不生成到Json中</param>
         /// <returns></returns>
-        public string GetJsonString(object data, bool ignoreNulls = false, List<string> propertiesToIgnore = null, List<Type> typesToIgnore = null)
+        public string GetJsonString(object data, JsonSetting jsonSetting = null)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            jsSerializer.RegisterConverters(new[] { new WeixinJsonConventer(data.GetType(), propertiesToIgnore, typesToIgnore, ignoreNulls) });
+            jsSerializer.RegisterConverters(new[] { new WeixinJsonConventer(data.GetType(), jsonSetting) });
 
             var jsonString = jsSerializer.Serialize(data);
 

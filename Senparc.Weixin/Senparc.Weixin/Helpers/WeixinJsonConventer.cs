@@ -15,16 +15,25 @@ namespace Senparc.Weixin.Helpers
     /// </summary>
     public class JsonSetting
     {
-        private readonly List<string> _propertiesToIgnore;
-        private readonly List<Type> _typesToIgnore;
-        private readonly bool _ignoreNulls;
+        /// <summary>
+        /// 是否忽略Null值的属性
+        /// </summary>
+        public bool IgnoreNulls { get; set; }
+        /// <summary>
+        /// 需要忽略的属性名称
+        /// </summary>
+        public List<string> PropertiesToIgnore { get; set; }
+        /// <summary>
+        /// 需要忽略的属性类型
+        /// </summary>
+        public List<Type> TypesToIgnore { get; set; }
 
-        public JsonSetting(bool ignoreNulls = false, List<string> propertiesToIgnore = null,
-            List<Type> typesToIgnore = null)
+
+        public JsonSetting(bool ignoreNulls = false, List<string> propertiesToIgnore = null, List<Type> typesToIgnore = null)
         {
-            this._ignoreNulls = ignoreNulls;
-            this._propertiesToIgnore = propertiesToIgnore ?? new List<string>();
-            this._typesToIgnore = typesToIgnore ?? new List<Type>();
+            IgnoreNulls = ignoreNulls;
+            PropertiesToIgnore = propertiesToIgnore ?? new List<string>();
+            TypesToIgnore = typesToIgnore ?? new List<Type>();
         }
     }
 
@@ -33,22 +42,16 @@ namespace Senparc.Weixin.Helpers
     /// </summary>
     public class WeixinJsonConventer : JavaScriptConverter
     {
-        private readonly List<string> _propertiesToIgnore;
+        private readonly JsonSetting _jsonSetting;
         private readonly List<Type> _typesToIgnore;
         private readonly Type _type;
         private readonly bool _ignoreNulls;
 
-        public WeixinJsonConventer(Type type, List<string> propertiesToIgnore, List<Type> typesToIgnore, bool ignoreNulls)
+        public WeixinJsonConventer(Type type, JsonSetting jsonSetting = null)
         {
-            this._ignoreNulls = ignoreNulls;
+            this._jsonSetting = jsonSetting ?? new JsonSetting();
             this._type = type;
-            this._propertiesToIgnore = propertiesToIgnore ?? new List<string>();
-            this._typesToIgnore = typesToIgnore ?? new List<Type>();
         }
-
-        public WeixinJsonConventer(Type type, bool ignoreNulls)
-            : this(type, null, null, ignoreNulls)
-        { }
 
         public override IEnumerable<Type> SupportedTypes
         {
@@ -81,7 +84,7 @@ namespace Senparc.Weixin.Helpers
             var properties = obj.GetType().GetProperties();
             foreach (var propertyInfo in properties)
             {
-                if (!this._propertiesToIgnore.Contains(propertyInfo.Name))
+                if (!this._jsonSetting.PropertiesToIgnore.Contains(propertyInfo.Name))
                 {
                     bool ignoreProp = propertyInfo.IsDefined(typeof(ScriptIgnoreAttribute), true);
 

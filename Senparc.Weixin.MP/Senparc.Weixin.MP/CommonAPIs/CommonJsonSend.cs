@@ -57,9 +57,10 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="data">如果是Get方式，可以为null。在POST方式中将被转为JSON字符串提交</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
+        /// <param name="jsonSetting">JSON字符串生成设置</param>
         /// <returns></returns>
         public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false,
-            bool ignoreNulls = false, List<string> propertiesToIgnore = null, List<Type> typesToIgnore = null
+            JsonSetting jsonSetting = null
             )
         {
             var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken);
@@ -69,7 +70,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     return Get.GetJson<T>(url);
                 case CommonJsonSendType.POST:
                     SerializerHelper serializerHelper = new SerializerHelper();
-                    var jsonString = serializerHelper.GetJsonString(data);
+                    var jsonString = serializerHelper.GetJsonString(data,jsonSetting);
                     using (MemoryStream ms = new MemoryStream())
                     {
                         var bytes = Encoding.UTF8.GetBytes(jsonString);

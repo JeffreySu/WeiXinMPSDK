@@ -401,7 +401,7 @@
             <param name="match"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Helpers.SerializerHelper.GetJsonString(System.Object,System.Boolean,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Type})">
+        <member name="M:Senparc.Weixin.Helpers.SerializerHelper.GetJsonString(System.Object,Senparc.Weixin.Helpers.JsonSetting)">
             <summary>
             将对象转为JSON字符串
             </summary>
@@ -410,6 +410,26 @@
             <param name="propertiesToIgnore">需要特殊忽略null值的属性名称</param>
             <param name="typesToIgnore">指定类型（Class，非Interface）下的为null属性不生成到Json中</param>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.Helpers.JsonSetting">
+            <summary>
+            JSON输出设置
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Helpers.JsonSetting.IgnoreNulls">
+            <summary>
+            是否忽略Null值的属性
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Helpers.JsonSetting.PropertiesToIgnore">
+            <summary>
+            需要忽略的属性名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Helpers.JsonSetting.TypesToIgnore">
+            <summary>
+            需要忽略的属性类型
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.Helpers.WeixinJsonConventer">
             <summary>

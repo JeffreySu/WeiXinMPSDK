@@ -25,4 +25,9 @@ namespace Senparc.Weixin.Entities
     {
 
     }
+
+    public class JsonIgnoreNull : IJsonIgnoreNull
+    {
+
+    }
 }

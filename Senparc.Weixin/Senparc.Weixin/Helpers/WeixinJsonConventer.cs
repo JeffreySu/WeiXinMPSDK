@@ -15,66 +15,72 @@ namespace Senparc.Weixin.Helpers
     /// </summary>
     public class WeixinJsonConventer : JavaScriptConverter
     {
-        public override object Deserialize(IDictionary<string, object> dictionary, Type type, JavaScriptSerializer serializer)
+        private readonly List<string> _propertiesToIgnore;
+        private readonly List<Type> _typesToIgnore;
+        private readonly Type type;
+        private readonly bool ignoreNulls;
+
+        public WeixinJsonConventer(Type type, List<string> propertiesToIgnore, List<Type> typesToIgnore, bool ignoreNulls)
         {
-            throw new NotImplementedException();
+            this.ignoreNulls = ignoreNulls;
+            this.type = type;
+            this._propertiesToIgnore = propertiesToIgnore ?? new List<string>();
+            this._typesToIgnore = typesToIgnore ?? new List<Type>();
+        }
+
+        public WeixinJsonConventer(Type type, bool ignoreNulls)
+            : this(type, null, null, ignoreNulls)
+        { }
+
+        public override IEnumerable<Type> SupportedTypes
+        {
+            get
+            {
+                var typeList = new List<Type>(new[] { typeof(IJsonIgnoreNull)/*,typeof(JsonIgnoreNull)*/ });
+
+                if (_typesToIgnore.Count > 0)
+                {
+                    typeList.AddRange(_typesToIgnore);
+                }
+
+                if (ignoreNulls)
+                {
+                    typeList.Add(type);
+                }
+
+                return new ReadOnlyCollection<Type>(typeList);
+            }
         }
 
         public override IDictionary<string, object> Serialize(object obj, JavaScriptSerializer serializer)
         {
-            //这里为了尽量“避免”使用JSON.NET，我们自己加一个过滤null值的转换器（当然JSON.NET也是不错的选择，只不过这里我们尽可能将SDK保持得更加“轻”一些，并且降低对外部的依赖，提高兼容性）
-
-            //throw new InvalidOperationException("object must be of the EntityBase type");
-
-
-            //方案一
-            var jsonExample = new Dictionary<string, object>();
-       
-            foreach (var prop in obj.GetType().GetProperties())
+            var result = new Dictionary<string, object>();
+            if (obj == null)
             {
-                //check if decorated with ScriptIgnore attribute
-                bool ignoreProp = prop.IsDefined(typeof(ScriptIgnoreAttribute), true);
-
-                var value = prop.GetValue(obj, BindingFlags.Public, null, null, null);
-
-                if (value != null && !ignoreProp)
-                {
-                    jsonExample.Add(prop.Name, value);
-                }
-                else
-                {
-                    jsonExample.Add(prop.Name, "[]");
-                    //return null;
-                }
+                return result;
             }
 
-            return jsonExample;
+            var properties = obj.GetType().GetProperties();
+            foreach (var propertyInfo in properties)
+            {
+                if (!this._propertiesToIgnore.Contains(propertyInfo.Name))
+                {
+                    bool ignoreProp = propertyInfo.IsDefined(typeof(ScriptIgnoreAttribute), true);
 
-            //方案二
-            //var toSerialize = new Dictionary<string, object>();
+                    if ((this.ignoreNulls || ignoreProp) && propertyInfo.GetValue(obj, null) == null)
+                    {
+                        continue;
+                    }
 
-            //foreach (var prop in obj.GetType()
-            //                        .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-            //                        .Select(p => new
-            //                        {
-            //                            Name = p.Name,
-            //                            Value = p.GetValue(obj)
-            //                        })
-            //                        .Where(p => p.Value != null))
-            //{
-            //    toSerialize.Add(prop.Name, prop.Value);
-            //}
-
-            //return toSerialize;
+                    result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null));
+                }
+            }
+            return result;
         }
 
-        public override IEnumerable<Type> SupportedTypes
+        public override object Deserialize(IDictionary<string, object> dictionary, Type type, JavaScriptSerializer serializer)
         {
-            get { return GetType().Assembly.GetTypes(); }
-            //get
-            //{
-            //    return new ReadOnlyCollection<Type>(new Type[] { typeof(EntityBase) });
-            //}
+            throw new NotImplementedException(); //Converter is currently only used for ignoring properties on serialization
         }
     }
 }

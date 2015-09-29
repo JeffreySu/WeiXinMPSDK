@@ -15,27 +15,48 @@ namespace Senparc.Weixin.Helpers.Tests
         [TestMethod()]
         public void GetJsonStringTest()
         {
-            var obj = new
-            {
-                X = new RootClass()
+            var obj =
+                new
                 {
-                    A = "Jeffrey",
-                    B = 31,
-                    C = null,
-                    ElementClassA = new ElementClass() { A = "Jeffrey", B = null },
-                    ElementClassB = null
-                }
+                    X =
+                        new RootClass()
+                        {
+                            A = "Jeffrey",
+                            B = 31,
+                            C = null,
+                            ElementClassA = new ElementClass() { A = "Jeffrey", B = null },
+                            ElementClassB = null
+                        },
+                    Y = new
+                    {
+                        O = "0",
+                        Z = (string)null
+                    }
+                };
+
+            var obj2 = new RootClass()
+            {
+                A = "Jeffrey",
+                B = 31,
+                C = null,
+                ElementClassA = new ElementClass() {A = "Jeffrey", B = null},
+                ElementClassB = null
             };
 
             DateTime dt1 = DateTime.Now;
             SerializerHelper js = new SerializerHelper();
-            var json = js.GetJsonString(obj,true);
+
+            var json = js.GetJsonString(obj, true,new List<string>(new[] {"Z","C"}));
             Console.WriteLine(json);
+
+            var json2 = js.GetJsonString(obj2,true, new List<string>(new[] { "B"}));
+            Console.WriteLine(json2);
+
             Console.WriteLine((DateTime.Now - dt1).TotalMilliseconds);
         }
     }
 
-    public class RootClass : IJsonIgnoreNull
+    public class RootClass : JsonIgnoreNull, IJsonIgnoreNull
     {
         private string _private { get; set; }
         public string A { get; set; }
@@ -50,9 +71,10 @@ namespace Senparc.Weixin.Helpers.Tests
         }
     }
 
-    public class ElementClass : IJsonIgnoreNull
+    public class ElementClass : JsonIgnoreNull, IJsonIgnoreNull
     {
         public string A { get; set; }
         public string B { get; set; }
+        public RootClass RootClass { get; set; }
     }
 }

@@ -520,7 +520,7 @@
             <param name="data"></param>
             <param name="stream"></param>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Post.PostFileGetJsonAsync``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding)">
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostFileGetJsonAsync``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Int32)">
             <summary>
             PostFileGetJson的异步版本
             </summary>
@@ -531,7 +531,7 @@
             <param name="encoding"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJsonAsync``1(System.String,System.Net.CookieContainer,System.IO.Stream,System.Text.Encoding)">
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJsonAsync``1(System.String,System.Net.CookieContainer,System.IO.Stream,System.Text.Encoding,System.Int32,System.Boolean)">
             <summary>
             PostGetJson的异步版本
             </summary>
@@ -542,7 +542,7 @@
             <param name="encoding"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJsonAsync``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding)">
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJsonAsync``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Int32)">
             <summary>
             PostGetJson的异步版本
             </summary>
@@ -552,6 +552,14 @@
             <param name="formData"></param>
             <param name="encoding"></param>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.Post.DownloadAsync(System.String,System.String,System.IO.Stream)">
+            <summary>
+            使用Post方法上传数据并下载文件或结果
+            </summary>
+            <param name="url"></param>
+            <param name="data"></param>
+            <param name="stream"></param>
         </member>
         <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpGet(System.String,System.Text.Encoding)">
             <summary>

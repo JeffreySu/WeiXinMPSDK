@@ -176,7 +176,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                 }
 
-                return CommonJsonSend.Send<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut,
+                 return CommonJsonSend.Send<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut,
                     //针对特殊字段的null值进行过滤
                     jsonSetting: new JsonSetting(true, null, new List<Type>() { typeof(Modify_Msg_Operation) }));
 

@@ -86,9 +86,10 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                     //map_url = "http://localhost:18666/images/v2/logo%20.png",
                     meeting_detail = "测试asdsasdsasdsa"
                 };
+
             var result2 = CardApi.CreateCard(accessToken, data2);
-            Console.Write(result2);
             Assert.IsNotNull(result2);
+            Console.Write(result2.errmsg);
         }
 
         //[TestMethod]

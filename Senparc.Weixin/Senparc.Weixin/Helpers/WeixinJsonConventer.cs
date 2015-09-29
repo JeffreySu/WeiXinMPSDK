@@ -24,7 +24,7 @@ namespace Senparc.Weixin.Helpers
         /// </summary>
         public List<string> PropertiesToIgnore { get; set; }
         /// <summary>
-        /// 需要忽略的属性类型
+        /// 包含需要忽略的属性的类的类型
         /// </summary>
         public List<Type> TypesToIgnore { get; set; }
 

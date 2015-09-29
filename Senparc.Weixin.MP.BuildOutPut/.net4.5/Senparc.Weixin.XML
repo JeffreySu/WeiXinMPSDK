@@ -428,7 +428,7 @@
         </member>
         <member name="P:Senparc.Weixin.Helpers.JsonSetting.TypesToIgnore">
             <summary>
-            需要忽略的属性类型
+            包含需要忽略的属性的类的类型
             </summary>
         </member>
         <member name="T:Senparc.Weixin.Helpers.WeixinJsonConventer">

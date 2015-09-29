@@ -54,6 +54,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
+      <Project>{814092CD-9CD0-4FB7-91E8-D147F476F1FB}</Project>
+      <Name>Senparc.Weixin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
       <Project>{1D815FBF-451C-4E23-939C-CB80172F445C}</Project>
       <Name>Senparc.Weixin.MP</Name>

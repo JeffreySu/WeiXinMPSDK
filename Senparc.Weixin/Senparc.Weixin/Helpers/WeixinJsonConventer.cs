@@ -43,9 +43,7 @@ namespace Senparc.Weixin.Helpers
     public class WeixinJsonConventer : JavaScriptConverter
     {
         private readonly JsonSetting _jsonSetting;
-        private readonly List<Type> _typesToIgnore;
         private readonly Type _type;
-        private readonly bool _ignoreNulls;
 
         public WeixinJsonConventer(Type type, JsonSetting jsonSetting = null)
         {
@@ -59,12 +57,12 @@ namespace Senparc.Weixin.Helpers
             {
                 var typeList = new List<Type>(new[] { typeof(IJsonIgnoreNull)/*,typeof(JsonIgnoreNull)*/ });
 
-                if (_typesToIgnore.Count > 0)
+                if (_jsonSetting.TypesToIgnore.Count > 0)
                 {
-                    typeList.AddRange(_typesToIgnore);
+                    typeList.AddRange(_jsonSetting.TypesToIgnore);
                 }
 
-                if (_ignoreNulls)
+                if (_jsonSetting.IgnoreNulls)
                 {
                     typeList.Add(_type);
                 }
@@ -88,7 +86,7 @@ namespace Senparc.Weixin.Helpers
                 {
                     bool ignoreProp = propertyInfo.IsDefined(typeof(ScriptIgnoreAttribute), true);
 
-                    if ((this._ignoreNulls || ignoreProp) && propertyInfo.GetValue(obj, null) == null)
+                    if ((this._jsonSetting.IgnoreNulls || ignoreProp) && propertyInfo.GetValue(obj, null) == null)
                     {
                         continue;
                     }

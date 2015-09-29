@@ -14,7 +14,7 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.OAuth2
+namespace Senparc.Weixin.QY.AdvancedAPIs.Chat
 {
     /// <summary>
     /// 成员新消息免打扰参数

@@ -461,7 +461,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ChatApi.SetMute(System.String,System.Collections.Generic.List{Senparc.Weixin.QY.AdvancedAPIs.OAuth2.UserMute},System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ChatApi.SetMute(System.String,System.Collections.Generic.List{Senparc.Weixin.QY.AdvancedAPIs.Chat.UserMute},System.Int32)">
             <summary>
             设置成员新消息免打扰
             </summary>
@@ -470,117 +470,117 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.UserMute">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Chat.BaseSendChatMessageData">
             <summary>
-            成员新消息免打扰参数
+            发送消息基础数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.UserMute.userid">
-            <summary>
-            成员UserID
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.UserMute.status">
-            <summary>
-            免打扰状态
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.BaseSendChatMessageData">
-            <summary>
-            获取会话返回结果
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.BaseSendChatMessageData.receiver">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.BaseSendChatMessageData.receiver">
             <summary>
             接收人
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.BaseSendChatMessageData.sender">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.BaseSendChatMessageData.sender">
             <summary>
             发送人
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.BaseSendChatMessageData.msgtype">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.BaseSendChatMessageData.msgtype">
             <summary>
             消息类型
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.Receiver.type">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.Receiver.type">
             <summary>
             接收人类型：single|group，分别表示：群聊|单聊
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.Receiver.id">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.Receiver.id">
             <summary>
             接收人的值，为userid|chatid，分别表示：成员id|会话id
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.SendTextMessageData">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Chat.SendTextMessageData">
             <summary>
             发送text消息数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.Chat_Content.content">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.Chat_Content.content">
             <summary>
             消息内容
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.SendImageMessageData">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Chat.SendImageMessageData">
             <summary>
             发送image消息数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.Chat_Image.media_id">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.Chat_Image.media_id">
             <summary>
             图片媒体文件id，可以调用上传素材文件接口获取
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.SendFileMessageData">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Chat.SendFileMessageData">
             <summary>
             发送file消息数据
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.Chat_File.media_id">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.Chat_File.media_id">
             <summary>
             图片媒体文件id，可以调用上传素材文件接口获取
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetChatResult">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Chat.UserMute">
+            <summary>
+            成员新消息免打扰参数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.UserMute.userid">
+            <summary>
+            成员UserID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.UserMute.status">
+            <summary>
+            免打扰状态
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Chat.GetChatResult">
             <summary>
             获取会话返回结果
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetChatResult.chat_info">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.GetChatResult.chat_info">
             <summary>
             会话信息
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.ChatInfo.chatid">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.ChatInfo.chatid">
             <summary>
             会话id
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.ChatInfo.name">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.ChatInfo.name">
             <summary>
             会话标题
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.ChatInfo.owner">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.ChatInfo.owner">
             <summary>
             管理员userid
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.ChatInfo.userlist">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.ChatInfo.userlist">
             <summary>
             会话成员列表，成员用userid来标识
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.SetMuteResult">
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Chat.SetMuteResult">
             <summary>
             设置成员新消息免打扰返回结果
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.SetMuteResult.invaliduser">
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Chat.SetMuteResult.invaliduser">
             <summary>
             列表中不存在的成员会返回在invaliduser里，剩余合法成员会继续执行
             </summary>
@@ -598,7 +598,7 @@
             <param name="userId">员工UserID</param>
             <returns></returns>
         </member>
-        <!-- 对于成员“M:Senparc.Weixin.QY.AdvancedAPIs.LoginAuthApi.GetLoginAuthUrl(System.String,System.String,System.String)”忽略有格式错误的 XML 注释 -->
+        <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.QY.AdvancedAPIs.LoginAuthApi.GetLoginAuthUrl(System.String,System.String,System.String)" -->
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.LoginAuthApi.GetLoginInfo(System.String,System.String,System.Int32)">
             <summary>
             获取企业号管理员登录信息
@@ -801,6 +801,60 @@
         <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.BatchGetMaterial_Item.articles">
             <summary>
             图文消息，一个图文消息支持1到10个图文
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Media.UploadTemporaryResultJson">
+            <summary>
+            上传临时媒体文件返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Media.UploadForeverResultJson">
+            <summary>
+            上传永久素材返回结果
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ShakeAroundApi.GetSuiteToken(System.String,System.String,System.Int32)">
+            <summary>
+            获取设备及用户信息
+            </summary>
+            <param name="accessToken"></param>
+            <param name="ticket">摇周边业务的ticket，可在摇到的URL中得到，ticket生效时间为30分钟，每一次摇都会重新生成新的ticket</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.ShakeAround.GetShakeInfoResult">
+            <summary>
+            获取设备及用户信息返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.ShakeAround.ShakeInfo_Data.page_id">
+            <summary>
+            摇周边页面唯一ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.ShakeAround.ShakeInfo_Data.beacon_info">
+            <summary>
+            设备信息，包括UUID、major、minor，以及距离
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.ShakeAround.ShakeInfo_Data.userid">
+            <summary>
+            企业号成员的userid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.ShakeAround.ShakeInfo_Data.openid">
+            <summary>
+            企业号父号下用户的openid，非企业关注成员的标识，对当前企业号唯一
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.ShakeAround.BeaconInfo.distance">
+            <summary>
+            Beacon信号与手机的距离，单位为米
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.ShakeAround.BeaconInfo.uuid">
+            <summary>
+            UUID
             </summary>
         </member>
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuthApi.GetSuiteToken(System.String,System.String,System.String,System.Int32)">
@@ -1152,109 +1206,6 @@
         <member name="P:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth.ThirdParty_AgentData.isreportuser">
             <summary>
             是否接收用户变更通知。0：不接收；1：接收
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.CommonAPIs.JsApiTicketContainer">
-            <summary>
-            通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.QY.CommonAPIs.JsApiTicketContainer.Register(System.String,System.String)">
-            <summary>
-            注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
-            </summary>
-            <param name="appId"></param>
-            <param name="appSecret"></param>
-        </member>
-        <member name="M:Senparc.Weixin.QY.CommonAPIs.JsApiTicketContainer.TryGetTicket(System.String,System.String,System.Boolean)">
-            <summary>
-            使用完整的应用凭证获取Ticket，如果不存在将自动注册
-            </summary>
-            <param name="appId"></param>
-            <param name="appSecret"></param>
-            <param name="getNewTicket"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.CommonAPIs.JsApiTicketContainer.GetTicket(System.String,System.Boolean)">
-            <summary>
-            获取可用Ticket
-            </summary>
-            <param name="appId"></param>
-            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.CommonAPIs.JsApiTicketContainer.GetTicketResult(System.String,System.Boolean)">
-            <summary>
-            获取可用Ticket
-            </summary>
-            <param name="appId"></param>
-            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.CommonAPIs.JsApiTicketContainer.CheckRegistered(System.String)">
-            <summary>
-            检查是否已经注册
-            </summary>
-            <param name="appId"></param>
-            <returns></returns>
-        </member>
-        <member name="F:Senparc.Weixin.QY.CommonAPIs.ProviderTokenBag.Lock">
-            <summary>
-            只针对这个CorpId的锁
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer">
-            <summary>
-            通用接口ProviderToken容器，用于自动管理ProviderToken，如果过期会重新获取
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer.Register(System.String,System.String)">
-            <summary>
-            注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
-            </summary>
-            <param name="corpId"></param>
-            <param name="corpSecret"></param>
-        </member>
-        <member name="M:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer.TryGetToken(System.String,System.String,System.Boolean)">
-            <summary>
-            使用完整的应用凭证获取Token，如果不存在将自动注册
-            </summary>
-            <param name="corpId"></param>
-            <param name="corpSecret"></param>
-            <param name="getNewToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer.GetToken(System.String,System.Boolean)">
-            <summary>
-            获取可用Token
-            </summary>
-            <param name="corpId"></param>
-            <param name="getNewToken">是否强制重新获取新的Token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer.GetTokenResult(System.String,System.Boolean)">
-            <summary>
-            获取可用Token
-            </summary>
-            <param name="corpId"></param>
-            <param name="getNewToken">是否强制重新获取新的Token</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer.CheckRegistered(System.String)">
-            <summary>
-            检查是否已经注册
-            </summary>
-            <param name="corpId"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Senparc.Weixin.QY.Entities.ConvertToUserIdResult">
-            <summary>
-            openid转换成userid接口返回的Json结果
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.ConvertToUserIdResult.userid">
-            <summary>
-            该openid在企业号中对应的成员userid
             </summary>
         </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.MassApi">
@@ -1624,6 +1575,11 @@
             手机号码
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.MailList.GetMemberResult.gender">
+            <summary>
+            性别。gender=0表示男，=1表示女 
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.QY.AdvancedAPIs.MailList.GetMemberResult.email">
             <summary>
             邮箱
@@ -1842,17 +1798,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Media.UploadTemporaryResultJson">
-            <summary>
-            上传临时媒体文件返回结果
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Media.UploadForeverResultJson">
-            <summary>
-            上传永久素材返回结果
-            </summary>
-        </member>
-        <!-- 对于成员“M:Senparc.Weixin.QY.AdvancedAPIs.OAuth2Api.GetCode(System.String,System.String,System.String,System.String,System.String)”忽略有格式错误的 XML 注释 -->
+        <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.QY.AdvancedAPIs.OAuth2Api.GetCode(System.String,System.String,System.String,System.String,System.String)" -->
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.OAuth2Api.GetUserId(System.String,System.String)">
             <summary>
             获取成员信息
@@ -1881,6 +1827,121 @@
             <summary>
             手机设备号(由微信在安装时随机生成)
             </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.TenPay">
+            <summary>
+            企业号微信支付接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.TenPay.Transfers(System.String,System.Int32)">
+            <summary>
+            用于企业向微信用户个人付款 
+            目前支持向指定微信用户的openid付款
+            </summary>
+            <param name="data">微信支付需要post的xml数据</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.TenPay.GetTransferInfo(System.String,System.Int32)">
+            <summary>
+            用于商户的企业付款操作进行结果查询，返回付款操作详细结果。
+            </summary>
+            <param name="data"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.QY.CommonAPIs.JsApiTicketContainer">
+            <summary>
+            通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.JsApiTicketContainer.Register(System.String,System.String)">
+            <summary>
+            注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
+            </summary>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.JsApiTicketContainer.TryGetTicket(System.String,System.String,System.Boolean)">
+            <summary>
+            使用完整的应用凭证获取Ticket，如果不存在将自动注册
+            </summary>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+            <param name="getNewTicket"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.JsApiTicketContainer.GetTicket(System.String,System.Boolean)">
+            <summary>
+            获取可用Ticket
+            </summary>
+            <param name="appId"></param>
+            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.JsApiTicketContainer.GetTicketResult(System.String,System.Boolean)">
+            <summary>
+            获取可用Ticket
+            </summary>
+            <param name="appId"></param>
+            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.JsApiTicketContainer.CheckRegistered(System.String)">
+            <summary>
+            检查是否已经注册
+            </summary>
+            <param name="appId"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Senparc.Weixin.QY.CommonAPIs.ProviderTokenBag.Lock">
+            <summary>
+            只针对这个CorpId的锁
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer">
+            <summary>
+            通用接口ProviderToken容器，用于自动管理ProviderToken，如果过期会重新获取
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer.Register(System.String,System.String)">
+            <summary>
+            注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
+            </summary>
+            <param name="corpId"></param>
+            <param name="corpSecret"></param>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer.TryGetToken(System.String,System.String,System.Boolean)">
+            <summary>
+            使用完整的应用凭证获取Token，如果不存在将自动注册
+            </summary>
+            <param name="corpId"></param>
+            <param name="corpSecret"></param>
+            <param name="getNewToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer.GetToken(System.String,System.Boolean)">
+            <summary>
+            获取可用Token
+            </summary>
+            <param name="corpId"></param>
+            <param name="getNewToken">是否强制重新获取新的Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer.GetTokenResult(System.String,System.Boolean)">
+            <summary>
+            获取可用Token
+            </summary>
+            <param name="corpId"></param>
+            <param name="getNewToken">是否强制重新获取新的Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer.CheckRegistered(System.String)">
+            <summary>
+            检查是否已经注册
+            </summary>
+            <param name="corpId"></param>
+            <returns></returns>
         </member>
         <member name="F:Senparc.Weixin.QY.CommonAPIs.AccessTokenBag.Lock">
             <summary>
@@ -2064,6 +2125,16 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.QY.Entities.ConvertToUserIdResult">
+            <summary>
+            openid转换成userid接口返回的Json结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.ConvertToUserIdResult.userid">
+            <summary>
+            该openid在企业号中对应的成员userid
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.QY.Entities.ConvertToOpenIdResult">
             <summary>
             userid转换成openid接口返回的Json结果
@@ -2082,11 +2153,6 @@
         <member name="T:Senparc.Weixin.QY.Entities.GetMenuResult">
             <summary>
             GetMenu返回的Json结果
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.GetMenuResultFull">
-            <summary>
-            获取菜单时候的完整结构，用于接收微信服务器返回的Json信息
             </summary>
         </member>
         <member name="T:Senparc.Weixin.QY.Entities.JsApiTicketResult">
@@ -2122,26 +2188,6 @@
         <member name="T:Senparc.Weixin.QY.Entities.Menu.SingleLocationSelectButton">
             <summary>
             单个按键
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.Entities.Menu.SingleButton">
-            <summary>
-            所有单击按钮的基类（view，click等）
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.Entities.Menu.BaseButton">
-            <summary>
-            所有按钮基类
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.Menu.BaseButton.name">
-            <summary>
-            按钮描述，既按钮名字，不超过16个字节，子菜单不超过40个字节
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.Menu.SingleButton.type">
-            <summary>
-            按钮类型（click或view）
             </summary>
         </member>
         <member name="P:Senparc.Weixin.QY.Entities.Menu.SingleLocationSelectButton.key">
@@ -2211,21 +2257,14 @@
             仅支持微信iPhone5.4.1以上版本，和Android5.4以上版本的微信用户，旧版本微信用户点击后将没有回应，开发者也不能正常接收到事件推送。
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.QY.Entities.Extensions.ConvertToRequestMessageText(Senparc.Weixin.QY.Entities.IRequestMessageEventBase)">
+        <member name="T:Senparc.Weixin.QY.Entities.Menu.BaseButton">
             <summary>
-            将RequestMessageEventBase转换成RequestMessageText类型，其中Content = requestMessage.EventKey
-            </summary>
-            <param name="requestMessageEvent"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Senparc.Weixin.QY.Entities.AccessTokenResult">
-            <summary>
-            GetToken请求后的JSON返回格式
+            所有按钮基类
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.QY.Entities.AccessTokenResult.access_token">
+        <member name="P:Senparc.Weixin.QY.Entities.Menu.BaseButton.name">
             <summary>
-            获取到的凭证
+            按钮描述，既按钮名字，不超过16个字节，子菜单不超过40个字节
             </summary>
         </member>
         <member name="T:Senparc.Weixin.QY.Entities.Menu.ButtonGroup">
@@ -2236,6 +2275,16 @@
         <member name="P:Senparc.Weixin.QY.Entities.Menu.ButtonGroup.button">
             <summary>
             按钮数组，按钮个数应为2~3个
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.Entities.Menu.SingleButton">
+            <summary>
+            所有单击按钮的基类（view，click等）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.Menu.SingleButton.type">
+            <summary>
+            按钮类型（click或view）
             </summary>
         </member>
         <member name="T:Senparc.Weixin.QY.Entities.Menu.SingleClickButton">
@@ -2270,41 +2319,22 @@
             子按钮数组，按钮个数应为2~5个
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.MsgTypeHelper.GetRequestMsgType(System.Xml.Linq.XDocument)">
+        <member name="M:Senparc.Weixin.QY.Entities.Extensions.ConvertToRequestMessageText(Senparc.Weixin.QY.Entities.IRequestMessageEventBase)">
             <summary>
-            根据xml信息，返回RequestMsgType
+            将RequestMessageEventBase转换成RequestMessageText类型，其中Content = requestMessage.EventKey
             </summary>
+            <param name="requestMessageEvent"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.MsgTypeHelper.GetRequestMsgType(System.String)">
+        <member name="T:Senparc.Weixin.QY.Entities.AccessTokenResult">
             <summary>
-            根据xml信息，返回RequestMsgType
+            GetToken请求后的JSON返回格式
             </summary>
-            <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.MsgTypeHelper.GetThirdPartyInfo(System.Xml.Linq.XDocument)">
+        <member name="P:Senparc.Weixin.QY.Entities.AccessTokenResult.access_token">
             <summary>
-            根据xml信息，返回ThirdPartyInfo
+            获取到的凭证
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.MsgTypeHelper.GetThirdPartyInfo(System.String)">
-            <summary>
-            根据xml信息，返回RequestInfoType
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.MsgTypeHelper.GetResponseMsgType(System.Xml.Linq.XDocument)">
-            <summary>
-            根据xml信息，返回ResponseMsgType
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.MsgTypeHelper.GetResponseMsgType(System.String)">
-            <summary>
-            根据xml信息，返回ResponseMsgType
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.QY.Entities.Receiver">
             <summary>
@@ -2329,16 +2359,6 @@
         <member name="P:Senparc.Weixin.QY.Entities.IRequestMessageEventBase.Event">
             <summary>
             事件类型
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageBase">
-            <summary>
-            接收到请求的消息
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageBase.AgentID">
-            <summary>
-            企业应用的id，整型。可在应用的设置页面查看
             </summary>
         </member>
         <member name="P:Senparc.Weixin.QY.Entities.RequestMessageEventBase.Event">
@@ -2720,6 +2740,16 @@
             微信企业号服务器Post过来的参数集合（不包括PostData）
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.QY.Entities.RequestMessageBase">
+            <summary>
+            接收到请求的消息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.RequestMessageBase.AgentID">
+            <summary>
+            企业应用的id，整型。可在应用的设置页面查看
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.QY.Entities.RequestMessageLocation.Location_X">
             <summary>
             地理位置纬度
@@ -2847,6 +2877,134 @@
             <summary>
             文章列表，微信客户端只能输出前10条（可能未来数字会有变化，出于视觉效果考虑，建议控制在8条以内）
             </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.GetMenuResultFull">
+            <summary>
+            获取菜单时候的完整结构，用于接收微信服务器返回的Json信息
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Helpers.MsgTypeHelper.GetRequestMsgType(System.Xml.Linq.XDocument)">
+            <summary>
+            根据xml信息，返回RequestMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Helpers.MsgTypeHelper.GetRequestMsgType(System.String)">
+            <summary>
+            根据xml信息，返回RequestMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Helpers.MsgTypeHelper.GetThirdPartyInfo(System.Xml.Linq.XDocument)">
+            <summary>
+            根据xml信息，返回ThirdPartyInfo
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Helpers.MsgTypeHelper.GetThirdPartyInfo(System.String)">
+            <summary>
+            根据xml信息，返回RequestInfoType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Helpers.MsgTypeHelper.GetResponseMsgType(System.Xml.Linq.XDocument)">
+            <summary>
+            根据xml信息，返回ResponseMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Helpers.MsgTypeHelper.GetResponseMsgType(System.String)">
+            <summary>
+            根据xml信息，返回ResponseMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Helpers.EntityHelper.FillEntityWithXml``1(``0,System.Xml.Linq.XDocument)">
+            <summary>
+            根据XML信息填充实实体
+            </summary>
+            <typeparam name="T">MessageBase为基类的类型，Response和Request都可以</typeparam>
+            <param name="entity">实体</param>
+            <param name="doc">XML</param>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Helpers.EntityHelper.ConvertEntityToXml``1(``0)">
+            <summary>
+            将实体转为XML
+            </summary>
+            <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
+            <param name="entity">实体</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Helpers.EntityHelper.ConvertEntityToXmlString``1(``0)">
+            <summary>
+            将实体转为XML字符串
+            </summary>
+            <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
+            <param name="entity">实体</param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.QY.Helpers.EntityHelper.CreateResponseMessage``1(Senparc.Weixin.QY.Entities.IRequestMessageBase)" -->
+        <member name="M:Senparc.Weixin.QY.Helpers.EntityHelper.CreateResponseMessage(System.String)">
+            <summary>
+            ResponseMessageBase.CreateFromResponseXml(xml)的扩展方法
+            </summary>
+            <param name="xml">返回给服务器的Response Xml</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.SetParameter(System.String,System.String)">
+            <summary>
+            设置参数值
+            </summary>
+            <param name="parameter"></param>
+            <param name="parameterValue"></param>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.GetNoncestr">
+            <summary>
+            获取随机字符串
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.GetTimestamp">
+            <summary>
+            获取时间戳
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.CreateSha1">
+            <summary>
+            sha1加密
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.GetSignature(System.String,System.String,System.String,System.String)">
+            <summary>
+            获取JS-SDK权限验证的签名Signature
+            </summary>
+            <param name="ticket"></param>
+            <param name="noncestr"></param>
+            <param name="timestamp"></param>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.QY.Helpers.MD5UtilHelper">
+            <summary>
+            MD5UtilHelper µÄÕªÒªËµÃ÷¡£
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Helpers.MD5UtilHelper.GetMD5(System.String,System.String)">
+            <summary>
+            »ñÈ¡´óÐ´µÄMD5Ç©Ãû½á¹û
+            </summary>
+            <param name="encypStr"></param>
+            <param name="charset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.Helpers.SHA1UtilHelper.GetSha1(System.String)">
+            <summary>
+            签名算法
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.QY.RequestMsgType">
             <summary>
@@ -3068,93 +3226,6 @@
             免打扰状态
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.EntityHelper.FillEntityWithXml``1(``0,System.Xml.Linq.XDocument)">
-            <summary>
-            根据XML信息填充实实体
-            </summary>
-            <typeparam name="T">MessageBase为基类的类型，Response和Request都可以</typeparam>
-            <param name="entity">实体</param>
-            <param name="doc">XML</param>
-        </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.EntityHelper.ConvertEntityToXml``1(``0)">
-            <summary>
-            将实体转为XML
-            </summary>
-            <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
-            <param name="entity">实体</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.EntityHelper.ConvertEntityToXmlString``1(``0)">
-            <summary>
-            将实体转为XML字符串
-            </summary>
-            <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
-            <param name="entity">实体</param>
-            <returns></returns>
-        </member>
-        <!-- 对于成员“M:Senparc.Weixin.QY.Helpers.EntityHelper.CreateResponseMessage``1(Senparc.Weixin.QY.Entities.IRequestMessageBase)”忽略有格式错误的 XML 注释 -->
-        <member name="M:Senparc.Weixin.QY.Helpers.EntityHelper.CreateResponseMessage(System.String)">
-            <summary>
-            ResponseMessageBase.CreateFromResponseXml(xml)的扩展方法
-            </summary>
-            <param name="xml">返回给服务器的Response Xml</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.SetParameter(System.String,System.String)">
-            <summary>
-            设置参数值
-            </summary>
-            <param name="parameter"></param>
-            <param name="parameterValue"></param>
-        </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.GetNoncestr">
-            <summary>
-            获取随机字符串
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.GetTimestamp">
-            <summary>
-            获取时间戳
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.CreateSha1">
-            <summary>
-            sha1加密
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.GetSignature(System.String,System.String,System.String,System.String)">
-            <summary>
-            获取JS-SDK权限验证的签名Signature
-            </summary>
-            <param name="ticket"></param>
-            <param name="noncestr"></param>
-            <param name="timestamp"></param>
-            <param name="url"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Senparc.Weixin.QY.Helpers.MD5UtilHelper">
-            <summary>
-            MD5UtilHelper 的摘要说明。
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.MD5UtilHelper.GetMD5(System.String,System.String)">
-            <summary>
-            获取大写的MD5签名结果
-            </summary>
-            <param name="encypStr"></param>
-            <param name="charset"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.SHA1UtilHelper.GetSha1(System.String)">
-            <summary>
-            签名算法
-            </summary>
-            <param name="str"></param>
-            <returns></returns>
-        </member>
         <member name="P:Senparc.Weixin.QY.MessageHandlers.IQyMessageHandler.EncryptPostData">
             <summary>
             原始加密信息
@@ -3163,6 +3234,45 @@
         <member name="F:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.GlobalWeixinContext">
             <summary>
             上下文（仅限于当前MessageHandler基类内）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.WeixinContext">
+            <summary>
+            全局消息上下文
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.ResponseDocument">
+            <summary>
+            根据ResponseMessageBase获得转换后的ResponseDocument
+            注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.FinalResponseDocument">
+            <summary>
+            最后返回的ResponseDocument。
+            这里是Senparc.Weixin.QY，应当在ResponseDocument基础上进行加密（每次获取重新加密，所以结果会不同）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.AgentId">
+            <summary>
+            应用ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.EncryptPostData">
+            <summary>
+            原始加密信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.RequestMessage">
+            <summary>
+            请求实体
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.ResponseMessage">
+            <summary>
+            响应实体
+            正常情况下只有当执行Execute()方法后才可能有值。
+            也可以结合Cancel，提前给ResponseMessage赋值。
             </summary>
         </member>
         <member name="M:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.CreateResponseMessage``1">
@@ -3300,45 +3410,6 @@
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
-        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.WeixinContext">
-            <summary>
-            全局消息上下文
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.ResponseDocument">
-            <summary>
-            根据ResponseMessageBase获得转换后的ResponseDocument
-            注意：这里每次请求都会根据当前的ResponseMessageBase生成一次，如需重用此数据，建议使用缓存或局部变量
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.FinalResponseDocument">
-            <summary>
-            最后返回的ResponseDocument。
-            这里是Senparc.Weixin.QY，应当在ResponseDocument基础上进行加密（每次获取重新加密，所以结果会不同）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.AgentId">
-            <summary>
-            应用ID
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.EncryptPostData">
-            <summary>
-            原始加密信息
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.RequestMessage">
-            <summary>
-            请求实体
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.QY.MessageHandlers.QyMessageHandler`1.ResponseMessage">
-            <summary>
-            响应实体
-            正常情况下只有当执行Execute()方法后才可能有值。
-            也可以结合Cancel，提前给ResponseMessage赋值。
-            </summary>
-        </member>
         <member name="M:Senparc.Weixin.QY.RequestMessageFactory.GetRequestEntity(System.Xml.Linq.XDocument)">
             <summary>
             获取XDocument转换后的IRequestMessageBase实例。
@@ -3431,85 +3502,70 @@
             <param name="nonce"></param>
             <returns></returns>
         </member>
-        <member name="M:Tencent.Cryptography.AES_decrypt(System.String,System.String,System.String@)">
-            <summary>
-            解密方法
-            </summary>
-            <param name="Input">密文</param>
-            <param name="EncodingAESKey"></param>
-            <returns></returns>
-            
-        </member>
-        <member name="M:Tencent.Cryptography.chr(System.Int32)">
-            将数字转化成ASCII码对应的字符，用于对明文进行补码
-            
-            @param a 需要转化的数字
-            @return 转化得到的字符
-        </member>
-        <!-- 对于成员“T:Senparc.Weixin.QY.TenPayLib.RequestHandler”忽略有格式错误的 XML 注释 -->
+        <!-- Badly formed XML comment ignored for member "T:Senparc.Weixin.QY.TenPayLib.RequestHandler" -->
         <member name="F:Senparc.Weixin.QY.TenPayLib.RequestHandler.Key">
             <summary>
-            密钥
+            ÃÜÔ¿
             </summary>
         </member>
         <member name="F:Senparc.Weixin.QY.TenPayLib.RequestHandler.Parameters">
             <summary>
-            请求的参数
+            ÇëÇóµÄ²ÎÊý
             </summary>
         </member>
         <member name="F:Senparc.Weixin.QY.TenPayLib.RequestHandler.DebugInfo">
             <summary>
-            debug信息
+            debugÐÅÏ¢
             </summary>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.Init">
             <summary>
-            初始化函数
+            ³õÊ¼»¯º¯Êý
             </summary>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.GetDebugInfo">
             <summary>
-            获取debug信息
+            »ñÈ¡debugÐÅÏ¢
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.GetKey">
             <summary>
-            获取密钥
+            »ñÈ¡ÃÜÔ¿
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.SetKey(System.String)">
             <summary>
-            设置密钥
+            ÉèÖÃÃÜÔ¿
             </summary>
             <param name="key"></param>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.SetParameter(System.String,System.String)">
             <summary>
-            设置参数值
+            ÉèÖÃ²ÎÊýÖµ
             </summary>
             <param name="parameter"></param>
             <param name="parameterValue"></param>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.CreateMd5Sign(System.String,System.String)">
             <summary>
-            创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
+            ´´½¨md5ÕªÒª,¹æÔòÊÇ:°´²ÎÊýÃû³Æa-zÅÅÐò,Óöµ½¿ÕÖµµÄ²ÎÊý²»²Î¼ÓÇ©Ãû
             </summary>
-            <param name="key">参数名</param>
-            <param name="value">参数值</param>
-            key和value通常用于填充最后一组参数
+            <param name="key">²ÎÊýÃû</param>
+            <param name="value">²ÎÊýÖµ</param>
+            keyºÍvalueÍ¨³£ÓÃÓÚÌî³ä×îºóÒ»×é²ÎÊý
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.ParseXML">
             <summary>
-            输出XML
+            Êä³öXML
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.SetDebugInfo(System.String)">
             <summary>
-            设置debug信息
+            ÉèÖÃdebugÐÅÏ¢
             </summary>
             <param name="debugInfo"></param>
         </member>
@@ -3664,19 +3720,19 @@
         </member>
         <member name="T:Senparc.Weixin.QY.TenPayLib.TenPayUtil">
             <summary>
-            TenpayUtil 的摘要说明。
-            配置文件
+            TenpayUtil µÄÕªÒªËµÃ÷¡£
+            ÅäÖÃÎÄ¼þ
             </summary>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.TenPayUtil.GetNoncestr">
             <summary>
-            随机生成Noncestr
+            Ëæ»úÉú³ÉNoncestr
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.TenPayUtil.UrlEncode(System.String,System.String)">
             <summary>
-            对字符串进行URL编码
+            ¶Ô×Ö·û´®½øÐÐURL±àÂë
             </summary>
             <param name="instr"></param>
             <param name="charset"></param>
@@ -3684,7 +3740,7 @@
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.TenPayUtil.UrlDecode(System.String,System.String)">
             <summary>
-            对字符串进行URL解码
+            ¶Ô×Ö·û´®½øÐÐURL½âÂë
             </summary>
             <param name="instr"></param>
             <param name="charset"></param>
@@ -3692,38 +3748,31 @@
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.TenPayUtil.UnixStamp">
             <summary>
-            取时间戳生成随即数,替换交易单号中的后10位流水号
+            È¡Ê±¼ä´ÁÉú³ÉËæ¼´Êý,Ìæ»»½»Ò×µ¥ºÅÖÐµÄºó10Î»Á÷Ë®ºÅ
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.TenPayUtil.BuildRandomStr(System.Int32)">
             <summary>
-            取随机数
+            È¡Ëæ»úÊý
             </summary>
             <param name="length"></param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.TenPay">
+        <member name="M:Tencent.Cryptography.AES_decrypt(System.String,System.String,System.String@)">
             <summary>
-            企业号微信支付接口
+            解密方法
             </summary>
-        </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.TenPay.Transfers(System.String,System.Int32)">
-            <summary>
-            用于企业向微信用户个人付款 
-            目前支持向指定微信用户的openid付款
-            </summary>
-            <param name="data">微信支付需要post的xml数据</param>
-            <param name="timeOut"></param>
+            <param name="Input">密文</param>
+            <param name="EncodingAESKey"></param>
             <returns></returns>
+            
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.TenPay.GetTransferInfo(System.String,System.Int32)">
-            <summary>
-            用于商户的企业付款操作进行结果查询，返回付款操作详细结果。
-            </summary>
-            <param name="data"></param>
-            <param name="timeOut"></param>
-            <returns></returns>
+        <member name="M:Tencent.Cryptography.chr(System.Int32)">
+            将数字转化成ASCII码对应的字符，用于对明文进行补码
+            
+            @param a 需要转化的数字
+            @return 转化得到的字符
         </member>
     </members>
 </doc>

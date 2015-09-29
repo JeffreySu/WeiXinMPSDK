@@ -82,27 +82,44 @@
                     <p>资金捐助（支付宝钱包扫一扫）</p>
                 </div>
             </div>
+            <div class="segregate"></div>
+            <div class="wrapper">
+                <div class="feedback-info">
+                    <p>《微信公众平台快速开发》图书众筹</p>
+                    <div class="crowdfunding-note">
+                        <p class="crowdfunding-note">
+                            &nbsp; &nbsp;  &nbsp; 为了将我们积累的经验更多、更系统地与开发者分享，我们已和电子工业出版社签订了约稿协议，书名为《微信公众平台快速开发》（暂定）。全书内容从案例出发，涵盖从微信的基础接口介绍、Senparc.Weixin.MP（微信公众平台SDK）的深入剖析，以及我们在研究过程中发现的许多微信开发“坑”，都一一向读者介绍。<br />
+                            &nbsp; &nbsp;  &nbsp; 这是一本饱含诚意的书，由Senparc.Weixin作者苏震巍及核心团队倾情编写，为的是向开发者们分享最原汁原味的Senparc.Weixin架构及微信开发的精髓。<br />
+                            &nbsp; &nbsp;  &nbsp; 感谢您对Senparc的支持！<br />
+                        </p>
+                    </div>
+                </div>
+                <div class="feedback-action">
+                    <img src="/images/crowdfunding-qrcode.png" />
+                    <p>参与众筹（微信扫一扫）</p>
+                </div>
+            </div>
         </div>
         <div class="footer">
             <p class="footer-contact">
                 新浪微博：
                 <a href="http://weibo.com/jeffreysu1984" target="_blank">@@苏震巍</a>
-                QQ:<a href="javascript:;">498977166</a>
+                @*QQ:<a href="javascript:;">498977166</a>*@
             </p>
-            <p class="footer-icon">2006-2015 Senparc</p>
+            <p class="footer-icon">copyright &copy; 2006-@DateTime.Now.Year Senparc，苏州盛派网络科技有限公司</p>
         </div>
         @RenderSection("scripts", required: false)
         <div style="display: none;">
             <script>
                 var _hmt = _hmt || [];
-                (function() {
+                (function () {
                     var hm = document.createElement("script");
                     hm.src = "//hm.baidu.com/hm.js?a8ad9ff7b9dd4cbb5510f6a929ba085f";
                     var s = document.getElementsByTagName("script")[0];
                     s.parentNode.insertBefore(hm, s);
                 })();
 
-                $(function() {
+                $(function () {
                     loadQQGroups();
                 });
 

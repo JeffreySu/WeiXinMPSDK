@@ -44,25 +44,24 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <param name="startTime">查询开始时间，会自动转为UNIX时间戳</param>
         /// <param name="endTime">查询结束时间，会自动转为UNIX时间戳，每次查询不能跨日查询</param>
-        /// <param name="openId">（非必须）普通用户的标识，对当前公众号唯一</param>
         /// <param name="pageSize">每页大小，每页最多拉取1000条</param>
         /// <param name="pageIndex">查询第几页，从1开始</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static GetRecordResult GetRecord(string accessTokenOrAppId, DateTime startTime, DateTime endTime, string openId = null, int pageSize = 10, int pageIndex = 1, int timeOut = Config.TIME_OUT)
+        public static GetRecordResult GetRecord(string accessTokenOrAppId, DateTime startTime, DateTime endTime,  int pageSize = 10, int pageIndex = 1, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/customservice/getrecord?access_token={0}";
+                var urlFormat = "https://api.weixin.qq.com/customservice/msgrecord/getrecord?access_token={0}";
 
                 //规范页码
                 if (pageSize <= 0)
                 {
                     pageSize = 1;
                 }
-                else if (pageSize > 1000)
+                else if (pageSize > 50)
                 {
-                    pageSize = 1000;
+                    pageSize = 50;
                 }
 
                 //组装发送消息
@@ -70,7 +69,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     starttime = DateTimeHelper.GetWeixinDateTime(startTime),
                     endtime = DateTimeHelper.GetWeixinDateTime(endTime),
-                    openId = openId,
                     pagesize = pageSize,
                     pageIndex = pageIndex
                 };

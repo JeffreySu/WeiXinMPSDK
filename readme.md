@@ -8,6 +8,7 @@
 微信开放平台：Senparc.Weixin.Open.dll
 -----------------
 
+本库为.NET4.5，其他.NET版本请看各自分支。
 
 已经支持所有微信6 API，包括自定义菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口等。
 
@@ -40,7 +41,9 @@
 
 技术交流QQ群：
 1群：300313885（已满）
-2群：293958349（已满）  3群：342319110（已满） 4群：372212092（已满） 5群：377815480（已满）6群：425898825
+2群：293958349（已满）  3群：342319110（已满） 4群：372212092（已满） 5群：377815480（已满）6群：425898825（已满）
+7群：482942254
+
 
 业务联系QQ：498977166
 
@@ -67,9 +70,9 @@
 
 > Senparc.Weixin.MP.MvcExtension：Senparc.Weixin.MP.MvcExtension.dll源码，为MVC4.0项目提供的扩展包。
 
-> Senparc.Weixin.MP.Sample：可以直接发布使用的Demo（ASP.NET MVC 4.0，需要.NET 4.0）
+> Senparc.Weixin.MP.Sample：可以直接发布使用的Demo（ASP.NET MVC 4.0）
 
-> Senparc.Weixin.MP.Sample.WebForms：可以直接发布使用的Demo（ASP.NET WebForms，需要.NET 3.5）
+> Senparc.Weixin.MP.Sample.WebForms：可以直接发布使用的Demo（ASP.NET WebForms）
 
 > Senparc.Weixin.MP：Senparc.Weixin.MP.dll 微信公众账号SDK源代码
 

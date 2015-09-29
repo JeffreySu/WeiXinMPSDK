@@ -23,7 +23,7 @@ namespace Senparc.Weixin.BrowserUtility
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
-        public static bool SideInWeixinBroswer(HttpContextBase httpContext)
+        public static bool SideInWeixinBroswer(this HttpContextBase httpContext)
         {
             var userAgent = httpContext.Request.UserAgent;
             if (string.IsNullOrEmpty(userAgent) || (!userAgent.Contains("MicroMessenger") && !userAgent.Contains("Windows Phone")))

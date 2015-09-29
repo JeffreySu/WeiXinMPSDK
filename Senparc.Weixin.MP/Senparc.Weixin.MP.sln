@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin", "..\Senpar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.WeixinTests", "Senparc.WeixinTests\Senparc.WeixinTests.csproj", "{232A67F2-CD89-4A20-8DA9-DAED76412B33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MPTests", "Senparc.Weixin.MPTests\Senparc.Weixin.MPTests.csproj", "{B1150C0D-1813-4879-9E8D-5FFA9BD9B343}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,12 +41,6 @@ Global
 		{232A67F2-CD89-4A20-8DA9-DAED76412B33}.Release|Any CPU.Build.0 = Release|Any CPU
 		{232A67F2-CD89-4A20-8DA9-DAED76412B33}.Test|Any CPU.ActiveCfg = Release|Any CPU
 		{232A67F2-CD89-4A20-8DA9-DAED76412B33}.Test|Any CPU.Build.0 = Release|Any CPU
-		{B1150C0D-1813-4879-9E8D-5FFA9BD9B343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B1150C0D-1813-4879-9E8D-5FFA9BD9B343}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B1150C0D-1813-4879-9E8D-5FFA9BD9B343}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B1150C0D-1813-4879-9E8D-5FFA9BD9B343}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B1150C0D-1813-4879-9E8D-5FFA9BD9B343}.Test|Any CPU.ActiveCfg = Release|Any CPU
-		{B1150C0D-1813-4879-9E8D-5FFA9BD9B343}.Test|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -19,6 +19,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Helpers
 {
@@ -44,8 +45,10 @@ namespace Senparc.Weixin.Helpers
         /// 将对象转为JSON字符串
         /// </summary>
         /// <param name="data"></param>
+        /// <param name="ignoreNulls">是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中</param>
+        /// <param name="propertiesToIgnore">需要特殊忽略null值的属性类型</param>
         /// <returns></returns>
-        public string GetJsonString(object data)
+        public string GetJsonString(object data, bool ignoreNulls = false, List<Type> propertiesToIgnore = null)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
             jsSerializer.RegisterConverters(new[] { new PropertyExclusionConverter(data.GetType(), true) });
@@ -108,7 +111,16 @@ namespace Senparc.Weixin.Helpers
 
         public override IEnumerable<Type> SupportedTypes
         {
-            get { return new ReadOnlyCollection<Type>(new List<Type>(new[] { this.type })); }
+            get
+            {
+                var typeList = new List<Type>(new[] { typeof(IJsonIgnoreNull) });
+                if (ignoreNulls)
+                {
+                    typeList.Add(type);
+                }
+
+                return new ReadOnlyCollection<Type>(typeList);
+            }
         }
 
         public override IDictionary<string, object> Serialize(object obj, JavaScriptSerializer serializer)
@@ -127,6 +139,7 @@ namespace Senparc.Weixin.Helpers
                     {
                         continue;
                     }
+
                     result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null));
                 }
             }
@@ -138,5 +151,4 @@ namespace Senparc.Weixin.Helpers
             throw new NotImplementedException(); //Converter is currently only used for ignoring properties on serialization
         }
     }
-
 }

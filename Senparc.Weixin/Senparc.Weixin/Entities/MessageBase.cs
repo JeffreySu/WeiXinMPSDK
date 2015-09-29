@@ -28,7 +28,7 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// 所有Request和Response消息的基类
     /// </summary>
-    public class MessageBase : EntityBase, IMessageBase
+    public class MessageBase : /*EntityBase, */IMessageBase
     {
         public string ToUserName { get; set; }
         public string FromUserName { get; set; }

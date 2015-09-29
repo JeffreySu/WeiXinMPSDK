@@ -13,7 +13,15 @@ namespace Senparc.Weixin.Entities
     {
     }
 
-    public class EntityBase : IEntityBase
+    //public class EntityBase : IEntityBase
+    //{
+
+    //}
+
+    /// <summary>
+    /// 生成JSON时忽略NULL对象
+    /// </summary>
+    public interface IJsonIgnoreNull : IEntityBase
     {
 
     }

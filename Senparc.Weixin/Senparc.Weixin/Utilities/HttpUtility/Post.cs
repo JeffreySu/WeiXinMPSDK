@@ -20,10 +20,8 @@
     修改描述：发起Post请求方法修改，为了上传永久视频素材
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,7 +78,7 @@ namespace Senparc.Weixin.HttpUtility
             using (MemoryStream ms = new MemoryStream())
             {
                 postDataDictionary.FillFormDataStream(ms); //填充formData
-                string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, ms, fileDictionary, null, encoding, timeOut: timeOut);
+                string returnText = RequestUtility.HttpPost(url, cookieContainer, ms, fileDictionary, null, encoding, timeOut: timeOut);
                 var result = GetResult<T>(returnText);
                 return result;
             }
@@ -99,14 +97,14 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
-            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, fileStream, null, null, encoding, timeOut: timeOut, checkValidationResult: checkValidationResult);
+            string returnText = RequestUtility.HttpPost(url, cookieContainer, fileStream, null, null, encoding, timeOut: timeOut, checkValidationResult: checkValidationResult);
             var result = GetResult<T>(returnText);
             return result;
         }
 
         public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
         {
-            string returnText = HttpUtility.RequestUtility.HttpPost(url, cookieContainer, formData, encoding, timeOut: timeOut);
+            string returnText = RequestUtility.HttpPost(url, cookieContainer, formData, encoding, timeOut: timeOut);
             var result = GetResult<T>(returnText);
             return result;
         }
@@ -142,7 +140,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
         {
-            string returnText = await HttpUtility.RequestUtility.HttpPostAsync(url, cookieContainer, null, fileDictionary, null, encoding, timeOut);
+            string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, null, fileDictionary, null, encoding, timeOut);
             var result = GetResult<T>(returnText);
             return result;
         }
@@ -158,7 +156,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
-            string returnText = await HttpUtility.RequestUtility.HttpPostAsync(url, cookieContainer, fileStream, null, null, encoding, timeOut,checkValidationResult:checkValidationResult);
+            string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, fileStream, null, null, encoding, timeOut,checkValidationResult:checkValidationResult);
             var result = GetResult<T>(returnText);
             return result;
         }
@@ -174,7 +172,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
         {
-            string returnText = await HttpUtility.RequestUtility.HttpPostAsync(url, cookieContainer, formData, encoding, timeOut);
+            string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, formData, encoding, timeOut);
             var result = GetResult<T>(returnText);
             return result;
         }

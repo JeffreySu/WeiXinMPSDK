@@ -11,8 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 
@@ -35,7 +34,7 @@ namespace Senparc.Weixin.Helpers
                 return null;
             }
 
-            char outStr = (char)int.Parse(match.Value.Remove(0, 2), System.Globalization.NumberStyles.HexNumber);
+            char outStr = (char)int.Parse(match.Value.Remove(0, 2), NumberStyles.HexNumber);
             return new string(outStr, 1);
         }
 

@@ -18,18 +18,9 @@
    API地址：http://mp.weixin.qq.com/wiki/0/56d992c605a97245eb7e617854b169fc.html
 */
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
-using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.Groups;
 using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {

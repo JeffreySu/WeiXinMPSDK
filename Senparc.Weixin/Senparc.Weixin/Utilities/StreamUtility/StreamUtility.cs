@@ -8,9 +8,9 @@
     创建标识：Senparc - 20150419
     
 ----------------------------------------------------------------*/
+
 using System;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Senparc.Weixin.StreamUtility
@@ -42,7 +42,7 @@ namespace Senparc.Weixin.StreamUtility
         {
             byte[] bytes = Convert.FromBase64String(base64String);
 
-            var memoryStream = new System.IO.MemoryStream(bytes, 0, bytes.Length);
+            var memoryStream = new MemoryStream(bytes, 0, bytes.Length);
             memoryStream.Write(bytes, 0, bytes.Length);
 
             if (!string.IsNullOrEmpty(savePath))
@@ -62,7 +62,7 @@ namespace Senparc.Weixin.StreamUtility
         public static void SaveFileFromStream(MemoryStream memoryStream, string savePath)
         {
             memoryStream.Seek(0, SeekOrigin.Begin);
-            using (var localFile = new System.IO.FileStream(savePath, System.IO.FileMode.OpenOrCreate))
+            using (var localFile = new FileStream(savePath, FileMode.OpenOrCreate))
             {
                 localFile.Write(memoryStream.ToArray(), 0, (int)memoryStream.Length);
             }
@@ -96,7 +96,7 @@ namespace Senparc.Weixin.StreamUtility
         {
             byte[] bytes = Convert.FromBase64String(base64String);
 
-            var memoryStream = new System.IO.MemoryStream(bytes, 0, bytes.Length);
+            var memoryStream = new MemoryStream(bytes, 0, bytes.Length);
             await memoryStream.WriteAsync(bytes, 0, bytes.Length);
 
             if (!string.IsNullOrEmpty(savePath))
@@ -116,7 +116,7 @@ namespace Senparc.Weixin.StreamUtility
         public static async Task SaveFileFromStreamAsync(MemoryStream memoryStream, string savePath)
         {
             memoryStream.Seek(0, SeekOrigin.Begin);
-            using (var localFile = new System.IO.FileStream(savePath, System.IO.FileMode.OpenOrCreate))
+            using (var localFile = new FileStream(savePath, FileMode.OpenOrCreate))
             {
                 await localFile.WriteAsync(memoryStream.ToArray(), 0, (int)memoryStream.Length);
             }

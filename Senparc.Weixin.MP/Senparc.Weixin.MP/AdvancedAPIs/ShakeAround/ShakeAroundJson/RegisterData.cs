@@ -8,13 +8,6 @@
     创建标识：Senparc - 20150914
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
-
 namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
 {
     /// <summary>

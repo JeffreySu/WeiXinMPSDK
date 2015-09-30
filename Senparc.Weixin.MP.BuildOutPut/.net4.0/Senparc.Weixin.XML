@@ -227,6 +227,16 @@
             生成JSON时忽略NULL对象
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.Entities.QyJsonResult">
+            <summary>
+            企业号JSON返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Entities.QyJsonResult.P2PData">
+            <summary>
+            为P2P返回结果做准备
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.Entities.MessageBase">
             <summary>
             所有Request和Response消息的基类

@@ -26,14 +26,10 @@
     标签接口：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E6%A0%87%E7%AD%BE
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Senparc.Weixin.QY.AdvancedAPIs.MailList;
-using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.QY.AdvancedAPIs.MailList;
+using Senparc.Weixin.QY.CommonAPIs;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {

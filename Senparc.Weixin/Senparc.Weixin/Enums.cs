@@ -21,22 +21,6 @@ using System.Text;
 
 namespace Senparc.Weixin
 {
-
-
-    /// <summary>
-    /// 企业接收消息类型
-    /// </summary>
-    public enum QyRequestMsgType
-    {
-        Text, //文本
-        Location, //地理位置
-        Image, //图片
-        Voice, //语音
-        Video, //视频
-        Link, //连接信息
-        Event, //事件推送
-    }
-
     /// <summary>
     /// 公众号返回码（JSON）
     /// 应该更名为ReturnCode_MP，但为减少项目中的修改，此处依旧用ReturnCode命名

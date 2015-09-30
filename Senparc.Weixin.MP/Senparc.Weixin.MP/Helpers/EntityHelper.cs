@@ -354,7 +354,7 @@ namespace Senparc.Weixin.MP.Helpers
         }
 
         /// <summary>
-        /// ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage)的扩展方法
+        /// ResponseMessageBase.CreateFromRequestMessage&lt;T&gt;(requestMessage)的扩展方法
         /// </summary>
         /// <typeparam name="T">需要生成的ResponseMessage类型</typeparam>
         /// <param name="requestMessage">IRequestMessageBase接口下的接收信息类型</param>

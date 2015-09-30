@@ -30,6 +30,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.Open.CommonAPIs.CommonApi.GetTicket(System.String,System.String)" -->
         <member name="M:Senparc.Weixin.Open.CommonAPIs.CommonJsonSend.Send(System.String,System.String,System.Object,Senparc.Weixin.Open.CommonAPIs.CommonJsonSendType,System.Int32)">
             <summary>
             向需要AccessToken的API发送消息的公共方法
@@ -385,6 +386,21 @@
         <member name="P:Senparc.Weixin.Open.Entities.ComponentAccessTokenResult.expires_in">
             <summary>
             有效期
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Open.Entities.JsApiTicketResult">
+            <summary>
+            jsapi_ticket请求后的JSON返回格式
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.Entities.JsApiTicketResult.ticket">
+            <summary>
+            获取到的凭证
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.Entities.JsApiTicketResult.expires_in">
+            <summary>
+            凭证有效时间，单位：秒
             </summary>
         </member>
         <member name="T:Senparc.Weixin.Open.Entities.PreAuthCodeResult">

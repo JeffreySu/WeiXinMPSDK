@@ -77,7 +77,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 reduce_cost = 11
             };
             var result3 = CardApi.CreateCard(accessToken, data3);
-            Console.Write(result3);
+            Console.WriteLine(result3);
             Assert.IsNotNull(result3);
 
             var data2 = new Card_MeetingTicketData()
@@ -86,9 +86,10 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                     //map_url = "http://localhost:18666/images/v2/logo%20.png",
                     meeting_detail = "测试asdsasdsasdsa"
                 };
+
             var result2 = CardApi.CreateCard(accessToken, data2);
-            Console.Write(result2);
             Assert.IsNotNull(result2);
+            Console.WriteLine(result2.errmsg);
         }
 
         //[TestMethod]

@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
@@ -156,9 +157,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 积分余额变动消息类型
         /// </summary>
         public Modify_Msg_Operation modify_msg_operation { get; set; }
+
+        //public Card_BaseInfoBase()
+        //{
+        //    modify_msg_operation = new Modify_Msg_Operation();//为了解决提交时候modify_msg_operation=null，导致47001的错误
+        //}
     }
 
-    public class Modify_Msg_Operation
+    public class Modify_Msg_Operation /*: JsonIgnoreNull//为了解决提交时候modify_msg_operation=null，导致47001的错误*/
     {
         /// <summary>
         /// 卡券类型的推荐位
@@ -168,6 +174,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 链接类型的推荐位
         /// </summary>
         public UrlCell url_cell { get; set; }
+
+        public Modify_Msg_Operation()
+        {
+
+        }
     }
 
     public class CardCell

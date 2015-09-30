@@ -13,13 +13,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 
 namespace Senparc.Weixin.Helpers
 {
+    /// <summary>
+    /// 序列化帮助类
+    /// </summary>
     public class SerializerHelper
     {
         /// <summary>
@@ -38,10 +39,20 @@ namespace Senparc.Weixin.Helpers
             return new string(outStr, 1);
         }
 
-        public string GetJsonString(object data)
+        /// <summary>
+        /// 将对象转为JSON字符串
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="ignoreNulls">是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中</param>
+        /// <param name="propertiesToIgnore">需要特殊忽略null值的属性名称</param>
+        /// <param name="typesToIgnore">指定类型（Class，非Interface）下的为null属性不生成到Json中</param>
+        /// <returns></returns>
+        public string GetJsonString(object data, JsonSetting jsonSetting = null)
         {
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            var jsonString = js.Serialize(data);
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            jsSerializer.RegisterConverters(new[] { new WeixinJsonConventer(data.GetType(), jsonSetting) });
+
+            var jsonString = jsSerializer.Serialize(data);
 
             //解码Unicode，也可以通过设置App.Config（Web.Config）设置来做，这里只是暂时弥补一下，用到的地方不多
             MatchEvaluator evaluator = new MatchEvaluator(DecodeUnicode);
@@ -49,4 +60,5 @@ namespace Senparc.Weixin.Helpers
             return json;
         }
     }
+
 }

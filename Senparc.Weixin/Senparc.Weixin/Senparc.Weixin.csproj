@@ -51,6 +51,7 @@
     <Compile Include="Context\MessageQueue.cs" />
     <Compile Include="Context\WeixinContext.cs" />
     <Compile Include="Context\WeixinContextRemovedEventArgs.cs" />
+    <Compile Include="Entities\EntityBase.cs" />
     <Compile Include="Entities\MessageBase.cs">
       <SubType>
       </SubType>
@@ -65,6 +66,7 @@
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\SerializerHelper.cs" />
+    <Compile Include="Helpers\WeixinJsonConventer.cs" />
     <Compile Include="Utilities\BrowserUtility\BroswerUtility.cs" />
     <Compile Include="Utilities\WeixinUtility\ApiUtility.cs" />
     <Compile Include="Utilities\XmlUtility\XmlUtility.cs" />

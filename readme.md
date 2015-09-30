@@ -146,16 +146,14 @@ public ActionResult Post(PostModel postModel)
     postModel.EncodingAESKey = EncodingAESKey;//根据自己后台的设置保持一致
     postModel.AppId = AppId;//根据自己后台的设置保持一致
 
-    var messageHandler = new CustomMessageHandler(Request.InputStream, postModel);//接收消息
+    var messageHandler = new CustomMessageHandler(Request.InputStream, postModel);//接收消息（第一步）
     
-    messageHandler.Execute();//执行微信处理过程
+    messageHandler.Execute();//执行微信处理过程（第二步）
     
-    //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
-    //return new WeixinResult(messageHandler);//v0.8+ with MvcExtension
-    return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0以后软件换行bug暂时添加的方法，平时用上面一个方法即可
+    return new FixWeixinBugWeixinResult(messageHandler);//返回（第三步）
 }
 ```
-整个消息除了postModel的赋值以外，接收、处理、返回分别只需要一行代码。
+整个消息除了postModel的赋值以外，接收（第一步）、处理（第二步）、返回（第三步）分别只需要一行代码。
 
 上述代码中的CustomMessageHandler是一个自定义的类，继承自Senparc.Weixin.MP.MessageHandler.cs。MessageHandler是一个抽象类，包含了执行各种不同请求类型的抽象方法（如文字，语音，位置、图片等等），我们只需要在自己创建的CustomMessageHandler中逐个实现这些方法就可以了。刚建好的CustomMessageHandler.cs如下：
 ```C#

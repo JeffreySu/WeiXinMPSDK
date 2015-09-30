@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
-using Senparc.Weixin.Context;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.Entities.Request;
-using Senparc.Weixin.Open.Helpers;
 using Tencent;
 
 namespace Senparc.Weixin.Open.MessageHandlers

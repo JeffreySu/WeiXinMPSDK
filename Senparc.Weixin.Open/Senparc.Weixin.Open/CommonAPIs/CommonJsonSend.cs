@@ -9,15 +9,10 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Open.CommonAPIs;
-using Senparc.Weixin.Open.Entities;
-using Senparc.Weixin.Open.Helpers;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.Open.CommonAPIs

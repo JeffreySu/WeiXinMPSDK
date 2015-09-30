@@ -8,12 +8,8 @@
     创建标识：Senparc - 20150726
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Open.Entities;
 
 namespace Senparc.Weixin.Open.ComponentAPIs
 {

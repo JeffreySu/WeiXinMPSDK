@@ -13,16 +13,8 @@
     
  */
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Open.Entities;
-using Senparc.Weixin.Open.Helpers;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.Open.Entities;
 
 namespace Senparc.Weixin.Open.CommonAPIs
 {

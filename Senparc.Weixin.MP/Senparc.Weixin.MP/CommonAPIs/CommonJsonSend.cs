@@ -15,16 +15,11 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.CommonAPIs

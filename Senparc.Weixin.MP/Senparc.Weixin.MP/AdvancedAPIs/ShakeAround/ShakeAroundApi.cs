@@ -12,10 +12,7 @@
     API：http://mp.weixin.qq.com/wiki/15/b9e012f917e3484b7ed02771156411f3.html
  */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.ShakeAround;
@@ -260,7 +257,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var url = string.Format("https://api.weixin.qq.com/shakearound/material/add?access_token={0}", accessToken);
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
-                return HttpUtility.Post.PostFileGetJson<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
+                return Post.PostFileGetJson<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

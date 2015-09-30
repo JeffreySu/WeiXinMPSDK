@@ -14,12 +14,6 @@
     修改描述：添加会议门票类型
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Senparc.Weixin.MP.Entities;
-
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
     /* 所有类型的卡券数据 */

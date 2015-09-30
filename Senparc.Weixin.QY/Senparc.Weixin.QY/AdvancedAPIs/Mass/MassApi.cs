@@ -18,17 +18,11 @@
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF
  */
 
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
 using Senparc.Weixin.QY.AdvancedAPIs.Mass;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Entities;
-using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {

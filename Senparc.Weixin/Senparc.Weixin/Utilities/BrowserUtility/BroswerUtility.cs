@@ -8,10 +8,7 @@
     创建标识：Senparc - 20150419
     
 ----------------------------------------------------------------*/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using System.Web;
 
 namespace Senparc.Weixin.BrowserUtility

@@ -11,10 +11,10 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
+
 //using System.Web.Security;
 
 namespace Senparc.Weixin.MP
@@ -52,7 +52,7 @@ namespace Senparc.Weixin.MP
             var arr = new[] { token, timestamp, nonce }.OrderBy(z => z).ToArray();
             var arrString = string.Join("", arr);
             //var enText = FormsAuthentication.HashPasswordForStoringInConfigFile(arrString, "SHA1");//使用System.Web.Security程序集
-            var sha1 = System.Security.Cryptography.SHA1.Create();
+            var sha1 = SHA1.Create();
             var sha1Arr = sha1.ComputeHash(Encoding.UTF8.GetBytes(arrString));
             StringBuilder enText = new StringBuilder();
             foreach (var b in sha1Arr)

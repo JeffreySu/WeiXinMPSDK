@@ -14,11 +14,6 @@
     修改描述：增加注释
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Senparc.Weixin.QY.Entities
 {
     public class Article

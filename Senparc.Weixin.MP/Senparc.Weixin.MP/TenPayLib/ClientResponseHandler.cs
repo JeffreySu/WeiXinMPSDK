@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Specialized;
 using System.Text;
-using System.Web;
 using System.Xml;
 using Senparc.Weixin.MP.Helpers;
 

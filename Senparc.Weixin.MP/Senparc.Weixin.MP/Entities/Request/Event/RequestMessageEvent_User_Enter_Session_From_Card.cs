@@ -8,11 +8,6 @@
     创建标识：Senparc - 20150722
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Senparc.Weixin.MP.Entities
 {
     public class RequestMessageEvent_User_Enter_Session_From_Card : RequestMessageEventBase, IRequestMessageEventBase

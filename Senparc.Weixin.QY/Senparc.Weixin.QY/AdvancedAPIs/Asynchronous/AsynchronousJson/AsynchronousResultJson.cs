@@ -8,10 +8,7 @@
     创建标识：Senparc - 20150408
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs.Asynchronous

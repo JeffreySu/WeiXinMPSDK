@@ -11,13 +11,9 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
@@ -30,7 +26,7 @@ namespace Senparc.Weixin.HttpUtility
 
         public static T GetJson<T>(string url, Encoding encoding = null)
         {
-            string returnText = HttpUtility.RequestUtility.HttpGet(url, encoding);
+            string returnText = RequestUtility.HttpGet(url, encoding);
 
             JavaScriptSerializer js = new JavaScriptSerializer();
 

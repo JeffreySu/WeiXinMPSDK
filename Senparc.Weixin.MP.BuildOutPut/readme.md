@@ -3,6 +3,7 @@ DLL说明
 
 dll包含在此目录中的.NET版本文件夹内（如.net4.5或.net4.0），对应不同.NET版本的类库，如果需要下载其他版本的，只需要切换到其他对应分支即可。
 
+Senparc.Weixin.dll：所有Senparc.Weixin.[xx].dll的基础库
 
 Senparc.Weixin.MP.dll：Senparc.Weixin.MP 微信SDK核心库
 

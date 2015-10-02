@@ -2,6 +2,7 @@
 using Senparc.Weixin.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,9 @@ namespace Senparc.Weixin.Helpers.Tests
     [TestClass()]
     public class SerializerHelperTests
     {
+        #region 微信JSON的忽略null值测试
         [TestMethod()]
-        public void GetJsonStringTest()
+        public void GetJsonStringTest_Null()
         {
             var obj =
                 new
@@ -70,35 +72,59 @@ namespace Senparc.Weixin.Helpers.Tests
 
             Console.WriteLine((DateTime.Now - dt1).TotalMilliseconds);
         }
-    }
 
-    public class RootClass : JsonIgnoreNull, IJsonIgnoreNull
-    {
-        private string _private { get; set; }
-        public string A { get; set; }
-        public int B { get; set; }
-        public int? C { get; set; }
-        public ElementClass ElementClassA { get; set; }
-        public ElementClass ElementClassB { get; set; }
-        public ElementClass2 ElementClass2 { get; set; }
-
-        public RootClass()
+        public class RootClass : JsonIgnoreNull, IJsonIgnoreNull
         {
-            _private = "Private";
+            private string _private { get; set; }
+            public string A { get; set; }
+            public int B { get; set; }
+            public int? C { get; set; }
+            public ElementClass ElementClassA { get; set; }
+            public ElementClass ElementClassB { get; set; }
+            public ElementClass2 ElementClass2 { get; set; }
+
+            public RootClass()
+            {
+                _private = "Private";
+            }
         }
+
+        public class ElementClass : JsonIgnoreNull, IJsonIgnoreNull
+        {
+            public string A { get; set; }
+            public string B { get; set; }
+            public RootClass RootClass { get; set; }
+        }
+
+        public class ElementClass2
+        {
+            public string A { get; set; }
+            public string B { get; set; }
+            public RootClass RootClass { get; set; }
+        }
+        #endregion
+
+
+        #region ExpandoObject类型转换测试
+
+        [TestMethod()]
+        public void GetJsonStringTest_Expando()
+        {
+            dynamic test = new ExpandoObject();
+            test.x = "Senparc.Weixin SDK";
+            test.y = DateTime.Now;
+
+            DateTime dt1 = DateTime.Now;
+            SerializerHelper js = new SerializerHelper();
+
+            var json = js.GetJsonString(test);
+            Console.WriteLine(json);
+
+            Console.WriteLine((DateTime.Now - dt1).TotalMilliseconds);
+
+        }
+
+        #endregion
     }
 
-    public class ElementClass : JsonIgnoreNull, IJsonIgnoreNull
-    {
-        public string A { get; set; }
-        public string B { get; set; }
-        public RootClass RootClass { get; set; }
-    }
-
-    public class ElementClass2
-    {
-        public string A { get; set; }
-        public string B { get; set; }
-        public RootClass RootClass { get; set; }
-    }
 }

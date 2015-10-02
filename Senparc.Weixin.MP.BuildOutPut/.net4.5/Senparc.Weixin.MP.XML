@@ -9371,13 +9371,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.SetParameter(System.String,System.String)">
-            <summary>
-            设置参数值
-            </summary>
-            <param name="parameter"></param>
-            <param name="parameterValue"></param>
-        </member>
         <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetNoncestr">
             <summary>
             获取随机字符串
@@ -9390,13 +9383,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.CreateSha1">
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.CreateSha1(System.Collections.Hashtable)">
             <summary>
             sha1加密
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.CreateCardSha1">
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.CreateCardSha1(System.Collections.Hashtable)">
             <summary>
             生成cardSign的加密方法
             </summary>

@@ -1,8 +1,18 @@
 DLL说明
 ----------
+
+dll包含在此目录中的.NET版本文件夹内（如.net4.5或.net4.0），对应不同.NET版本的类库，如果需要下载其他版本的，只需要切换到其他对应分支即可。
+
+Senparc.Weixin.dll：所有Senparc.Weixin.[xx].dll的基础库
+
 Senparc.Weixin.MP.dll：Senparc.Weixin.MP 微信SDK核心库
 
 Senparc.Weixin.MP.MvcExtension.dll：在Senparc.Weixin.MP.dll基础上，为MVC4.0项目提供的扩展库，简化判断和输出。如果使用Webforms或Wcf等方式与维新服务器通讯，可以忽略这个dll。
+
+Senparc.Weixin.QY.dll：微信企业号SDK
+
+Senparc.Weixin.Open.dll：微信开放平台SDK
+
 
 Senparc.Weixin.MP.MvcExtension更新日志见：https://github.com/JeffreySu/WeiXinMPSDK/blob/master/Senparc.Weixin.MP.MvcExtension/readme.md
 

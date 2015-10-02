@@ -97,15 +97,9 @@
       <DependentUpon>Qy.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Qy.aspx.designer.cs">
-      <DependentUpon>Qy.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Weixin.aspx.cs">
       <DependentUpon>Weixin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Weixin.aspx.designer.cs">
-      <DependentUpon>Weixin.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

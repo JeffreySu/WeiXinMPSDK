@@ -1,2 +1,3 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Weixin.aspx.cs" Inherits="Senparc.Weixin.MP.Sample.WebForms.Weixin" %>
-<% //代码请看Weixin.aspx.cs文件 %>
+﻿<%@ Page Language="C#" CodeBehind="Weixin.aspx.cs" %>
+
+<% // 公众号消息接口。代码请看Weixin.aspx.cs文件。更多示例请看MVC项目（推荐）。 %>

@@ -41,15 +41,17 @@ namespace Senparc.Weixin.Helpers
         /// <summary>
         /// 将对象转为JSON字符串
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="ignoreNulls">是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中</param>
-        /// <param name="propertiesToIgnore">需要特殊忽略null值的属性名称</param>
-        /// <param name="typesToIgnore">指定类型（Class，非Interface）下的为null属性不生成到Json中</param>
+        /// <param name="data">需要生成JSON字符串的数据</param>
+        /// <param name="jsonSetting">JSON输出设置</param>
         /// <returns></returns>
         public string GetJsonString(object data, JsonSetting jsonSetting = null)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            jsSerializer.RegisterConverters(new[] { new WeixinJsonConventer(data.GetType(), jsonSetting) });
+            jsSerializer.RegisterConverters(new JavaScriptConverter[]
+            {
+                new WeixinJsonConventer(data.GetType(), jsonSetting),
+                new ExpandoJsonConverter()
+            });
 
             var jsonString = jsSerializer.Serialize(data);
 

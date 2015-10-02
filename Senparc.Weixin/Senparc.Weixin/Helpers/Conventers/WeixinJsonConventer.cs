@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2015 Senparc
+    
+    文件名：WeixinJsonConventer.cs
+    文件功能描述：微信JSON字符串转换
+    
+    
+    创建标识：Senparc - 20150930
+    
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Web.Script.Serialization;
@@ -12,19 +23,25 @@ namespace Senparc.Weixin.Helpers
     public class JsonSetting
     {
         /// <summary>
-        /// 是否忽略Null值的属性
+        /// 是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中
         /// </summary>
         public bool IgnoreNulls { get; set; }
         /// <summary>
-        /// 需要忽略的属性名称
+        /// 需要特殊忽略null值的属性名称
         /// </summary>
         public List<string> PropertiesToIgnore { get; set; }
         /// <summary>
-        /// 包含需要忽略的属性的类的类型
+        /// 指定类型（Class，非Interface）下的为null属性不生成到Json中
         /// </summary>
         public List<Type> TypesToIgnore { get; set; }
 
 
+        /// <summary>
+        /// JSON输出设置 构造函数
+        /// </summary>
+        /// <param name="ignoreNulls">是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中</param>
+        /// <param name="propertiesToIgnore">需要特殊忽略null值的属性名称</param>
+        /// <param name="typesToIgnore">指定类型（Class，非Interface）下的为null属性不生成到Json中</param>
         public JsonSetting(bool ignoreNulls = false, List<string> propertiesToIgnore = null, List<Type> typesToIgnore = null)
         {
             IgnoreNulls = ignoreNulls;

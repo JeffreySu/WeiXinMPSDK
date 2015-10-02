@@ -361,6 +361,11 @@
             微信自定义异常基类
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.Helpers.ExpandoJsonConverter">
+            <summary>
+            Allows JSON serialization of Expando objects into expected results (e.g., "x: 1, y: 2") instead of the default dictionary serialization.
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.Helpers.DateTimeHelper.GetDateTimeFromXml(System.Int64)">
             <summary>
             转换微信DateTime时间到C#时间
@@ -389,6 +394,17 @@
             <param name="fileName"></param>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.Helpers.IDictionaryExtensions">
+            <summary>
+            IDictionary扩展方法
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.IDictionaryExtensions.ToExpando(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Extension method that turns a dictionary of string and object to an ExpandoObject
+            Snagged from http://theburningmonk.com/2011/05/idictionarystring-object-to-expandoobject-extension-method/
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.Helpers.SerializerHelper">
             <summary>
             序列化帮助类
@@ -405,10 +421,8 @@
             <summary>
             将对象转为JSON字符串
             </summary>
-            <param name="data"></param>
-            <param name="ignoreNulls">是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中</param>
-            <param name="propertiesToIgnore">需要特殊忽略null值的属性名称</param>
-            <param name="typesToIgnore">指定类型（Class，非Interface）下的为null属性不生成到Json中</param>
+            <param name="data">需要生成JSON字符串的数据</param>
+            <param name="jsonSetting">JSON输出设置</param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.Helpers.JsonSetting">
@@ -418,18 +432,26 @@
         </member>
         <member name="P:Senparc.Weixin.Helpers.JsonSetting.IgnoreNulls">
             <summary>
-            是否忽略Null值的属性
+            是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中
             </summary>
         </member>
         <member name="P:Senparc.Weixin.Helpers.JsonSetting.PropertiesToIgnore">
             <summary>
-            需要忽略的属性名称
+            需要特殊忽略null值的属性名称
             </summary>
         </member>
         <member name="P:Senparc.Weixin.Helpers.JsonSetting.TypesToIgnore">
             <summary>
-            包含需要忽略的属性的类的类型
+            指定类型（Class，非Interface）下的为null属性不生成到Json中
             </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.JsonSetting.#ctor(System.Boolean,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Type})">
+            <summary>
+            JSON输出设置 构造函数
+            </summary>
+            <param name="ignoreNulls">是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中</param>
+            <param name="propertiesToIgnore">需要特殊忽略null值的属性名称</param>
+            <param name="typesToIgnore">指定类型（Class，非Interface）下的为null属性不生成到Json中</param>
         </member>
         <member name="T:Senparc.Weixin.Helpers.WeixinJsonConventer">
             <summary>

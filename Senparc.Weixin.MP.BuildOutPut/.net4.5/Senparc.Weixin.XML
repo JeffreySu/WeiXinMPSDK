@@ -15,16 +15,6 @@
             说明：此处常量专为提供给方法的参数的默认值，不是方法内所有请求的默认超时时间。
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.Containers.BaseContainerBag">
-            <summary>
-            BaseContainer容器中的Value类型
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.Containers.BaseContainerBag.Key">
-            <summary>
-            通常为AppId
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.Containers.BaseContainer`1">
             <summary>
             微信容器接口（如Ticket、AccessToken）
@@ -83,6 +73,21 @@
             </summary>
             <param name="key"></param>
             <param name="partialUpdate">为null时删除该项</param>
+        </member>
+        <member name="T:Senparc.Weixin.Containers.IBaseContainerBag">
+            <summary>
+            IBaseContainerBag
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Containers.BaseContainerBag">
+            <summary>
+            BaseContainer容器中的Value类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Containers.BaseContainerBag.Key">
+            <summary>
+            通常为AppId
+            </summary>
         </member>
         <member name="P:Senparc.Weixin.Context.MessageContainer`1.MaxRecordCount">
             <summary>

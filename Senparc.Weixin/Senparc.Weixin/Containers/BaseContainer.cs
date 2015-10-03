@@ -2,7 +2,7 @@
     Copyright (C) 2015 Senparc
     
     文件名：WeixinContainer.cs
-    文件功能描述：微信容器接口（如Ticket、AccessToken）
+    文件功能描述：微信容器（如Ticket、AccessToken）
     
     
     创建标识：Senparc - 20151003
@@ -12,27 +12,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Containers
 {
-    public interface IBaseContainerBag
-    {
-        string Key { get; set; }
-    }
-
-    /// <summary>
-    /// BaseContainer容器中的Value类型
-    /// </summary>
-    public class BaseContainerBag : IBaseContainerBag
-    {
-        /// <summary>
-        /// 通常为AppId
-        /// </summary>
-        public string Key { get; set; }
-    }
-
     /// <summary>
     /// 微信容器接口（如Ticket、AccessToken）
     /// </summary>

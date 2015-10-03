@@ -204,6 +204,35 @@
             <param name="componentAppId"></param>
             <returns></returns>
         </member>
+        <member name="P:Senparc.Weixin.Open.CommonAPIs.ComponentTicketBag.ComponentAppId">
+            <summary>
+            AppId
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.CommonAPIs.ComponentTicketBag.ComponentVerifyTicket">
+            <summary>
+            ComponentVerifyTicket
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Open.CommonAPIs.ComponentTicketContainer">
+            <summary>
+            ComponentTicket容器
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentTicketContainer.TryGetComponentVerifyTicket(System.String)">
+            <summary>
+            获取ComponentVerifyTicket
+            </summary>
+            <param name="componentAppId"></param>
+            <returns>如果不存在，则返回null</returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentTicketContainer.Update(System.String,System.String)">
+            <summary>
+            更新ComponentVerifyTicket信息
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="componentVerifyTicket"></param>
+        </member>
         <member name="T:Senparc.Weixin.Open.ComponentAPIs.GetAuthorizerInfoResult">
             <summary>
             获取授权方的账户信息返回结果

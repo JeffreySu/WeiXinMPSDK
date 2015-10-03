@@ -394,11 +394,7 @@
             <param name="fileName"></param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.Helpers.IDictionaryExtensions">
-            <summary>
-            IDictionary扩展方法
-            </summary>
-        </member>
+        <!-- Badly formed XML comment ignored for member "T:Senparc.Weixin.Helpers.IDictionaryExtensions" -->
         <member name="M:Senparc.Weixin.Helpers.IDictionaryExtensions.ToExpando(System.Collections.Generic.IDictionary{System.String,System.Object})">
             <summary>
             Extension method that turns a dictionary of string and object to an ExpandoObject

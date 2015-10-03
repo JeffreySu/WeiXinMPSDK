@@ -16,7 +16,10 @@ using Senparc.Weixin.Open.Entities;
 
 namespace Senparc.Weixin.Open.CommonAPIs
 {
-  public  class ComponentAccessTokenBag : BaseContainerBag
+    /// <summary>
+    /// ComponentAccessTokenBag
+    /// </summary>
+    public class ComponentAccessTokenBag : BaseContainerBag
     {
         public string ComponentAppId { get; set; }
         public string ComponentAppSecret { get; set; }
@@ -33,9 +36,6 @@ namespace Senparc.Weixin.Open.CommonAPIs
     /// </summary>
     public class ComponentAccessTokenContainer : BaseContainer<ComponentAccessTokenBag>
     {
-        static Dictionary<string, ComponentAccessTokenBag> ComponentAccessTokenCollection =
-           new Dictionary<string, ComponentAccessTokenBag>(StringComparer.OrdinalIgnoreCase);
-
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
         /// </summary>
@@ -43,13 +43,13 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <param name="componentAppSecret"></param>
         public static void Register(string componentAppId, string componentAppSecret)
         {
-            ComponentAccessTokenCollection[componentAppId] = new ComponentAccessTokenBag()
+            Update(componentAppId, new ComponentAccessTokenBag()
             {
                 ComponentAppId = componentAppId,
                 ComponentAppSecret = componentAppSecret,
                 ExpireTime = DateTime.MinValue,
                 ComponentAccessTokenResult = new ComponentAccessTokenResult()
-            };
+            });
         }
 
         /// <summary>
@@ -90,12 +90,12 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <returns></returns>
         public static ComponentAccessTokenResult GetTokenResult(string componentAppId, string componentVerifyTicket, bool getNewToken = false)
         {
-            if (!ComponentAccessTokenCollection.ContainsKey(componentAppId))
+            if (!ItemCollection.ContainsKey(componentAppId))
             {
                 throw new WeixinException("此appId尚未注册，请先使用ComponentAccessTokenContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var accessTokenBag = ComponentAccessTokenCollection[componentAppId];
+            var accessTokenBag = ItemCollection[componentAppId];
             lock (accessTokenBag.Lock)
             {
                 if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
@@ -115,7 +115,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <returns></returns>
         public static bool CheckRegistered(string componentAppId)
         {
-            return ComponentAccessTokenCollection.ContainsKey(componentAppId);
+            return ItemCollection.ContainsKey(componentAppId);
         }
     }
 }

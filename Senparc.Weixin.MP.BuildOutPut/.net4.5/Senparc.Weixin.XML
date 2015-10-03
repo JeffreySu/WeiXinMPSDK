@@ -15,6 +15,11 @@
             说明：此处常量专为提供给方法的参数的默认值，不是方法内所有请求的默认超时时间。
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.Containers.BaseContainerBag">
+            <summary>
+            BaseContainer容器中的Value类型
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.Containers.BaseContainerBag.Key">
             <summary>
             通常为AppId
@@ -25,6 +30,23 @@
             微信容器接口（如Ticket、AccessToken）
             </summary>
             <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:Senparc.Weixin.Containers.BaseContainer`1._collectionList">
+            <summary>
+            所有数据集合的列表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Containers.BaseContainer`1.ItemCollection">
+            <summary>
+            获取当前容器的数据项集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.GetCollectionList">
+            <summary>
+            获取完整的数据集合的列表（建议不要进行任何修改操作）
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Containers.BaseContainer`1.GetAllItems">
             <summary>

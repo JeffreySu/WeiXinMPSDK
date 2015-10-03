@@ -48,13 +48,16 @@ namespace Senparc.Weixin.Containers
         /// 获取当前容器的数据项集合
         /// </summary>
         /// <returns></returns>
-        private static Dictionary<string, T> GetItemCollection()
+        protected static Dictionary<string, T> ItemCollection
         {
-            if (!_collectionList.ContainsKey(typeof(T)))
+            get
             {
-                _collectionList[typeof(T)] = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
+                if (!_collectionList.ContainsKey(typeof(T)))
+                {
+                    _collectionList[typeof(T)] = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
+                }
+                return _collectionList[typeof(T)];
             }
-            return _collectionList[typeof(T)];
         }
 
         /// <summary>
@@ -73,24 +76,38 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static List<T> GetAllItems()
         {
-            var _itemCollection = GetItemCollection();
-            return _itemCollection.Select(z => z.Value).ToList();
+            return ItemCollection.Select(z => z.Value).ToList();
         }
 
         /// <summary>
-        /// 尝试获取某一项
+        /// 尝试获取某一项Bag
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
         public static T TryGetItem(string key)
         {
-            var _itemCollection = GetItemCollection();
-            if (_itemCollection.ContainsKey(key))
+            if (ItemCollection.ContainsKey(key))
             {
-                return _itemCollection[key];
+                return ItemCollection[key];
             }
 
             return default(T);
+        }
+
+        /// <summary>
+        /// 尝试获取某一项Bag中的具体某个属性
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="property">具体某个属性</param>
+        /// <returns></returns>
+        public static K TryGetItem<K>(string key, Func<T, K> property)
+        {
+            if (ItemCollection.ContainsKey(key))
+            {
+                var item = ItemCollection[key];
+                return property(item);
+            }
+            return default(K);
         }
 
         /// <summary>
@@ -100,14 +117,13 @@ namespace Senparc.Weixin.Containers
         /// <param name="value">为null时删除该项</param>
         public static void Update(string key, T value)
         {
-            var _itemCollection = GetItemCollection();
             if (value == null)
             {
-                _itemCollection.Remove(key);
+                ItemCollection.Remove(key);
             }
             else
             {
-                _itemCollection[key] = value;
+                ItemCollection[key] = value;
             }
         }
 
@@ -116,16 +132,22 @@ namespace Senparc.Weixin.Containers
         /// </summary>
         /// <param name="key"></param>
         /// <param name="partialUpdate">为null时删除该项</param>
-        public static void Update(string key, Func<T, object> partialUpdate)
+        public static void Update(string key, Action<T> partialUpdate)
         {
-            var _itemCollection = GetItemCollection();
             if (partialUpdate == null)
             {
-                _itemCollection.Remove(key);
+                ItemCollection.Remove(key);
             }
             else
             {
-                partialUpdate(_itemCollection[key]);
+                if (!ItemCollection.ContainsKey(key))
+                {
+                    ItemCollection[key] = new T()
+                    {
+                        Key = key//确保这一项Key已经被记录
+                    };
+                }
+                partialUpdate(ItemCollection[key]);
             }
         }
     }

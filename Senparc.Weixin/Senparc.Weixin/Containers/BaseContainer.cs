@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Containers
 {
-    public interface IWeixinContainerBag
+    public interface IBaseContainerBag
     {
         string Key { get; set; }
     }
@@ -25,7 +25,7 @@ namespace Senparc.Weixin.Containers
     /// <summary>
     /// BaseContainer容器中的Value类型
     /// </summary>
-    public class BaseContainerBag : IWeixinContainerBag
+    public class BaseContainerBag : IBaseContainerBag
     {
         /// <summary>
         /// 通常为AppId
@@ -37,14 +37,34 @@ namespace Senparc.Weixin.Containers
     /// 微信容器接口（如Ticket、AccessToken）
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class BaseContainer<T> where T : IWeixinContainerBag, new()
+    public abstract class BaseContainer<T> where T : IBaseContainerBag, new()
     {
         /// <summary>
-        /// 数据集合
+        /// 所有数据集合的列表
         /// </summary>
-        static Dictionary<string, T> _itemCollection = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
+        private static readonly Dictionary<Type, Dictionary<string, T>> _collectionList = new Dictionary<Type, Dictionary<string, T>>();
 
+        /// <summary>
+        /// 获取当前容器的数据项集合
+        /// </summary>
+        /// <returns></returns>
+        private static Dictionary<string, T> GetItemCollection()
+        {
+            if (!_collectionList.ContainsKey(typeof(T)))
+            {
+                _collectionList[typeof(T)] = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
+            }
+            return _collectionList[typeof(T)];
+        }
 
+        /// <summary>
+        /// 获取完整的数据集合的列表（建议不要进行任何修改操作）
+        /// </summary>
+        /// <returns></returns>
+        public static Dictionary<Type, Dictionary<string, T>> GetCollectionList()
+        {
+            return _collectionList;
+        }
 
         /// <summary>
         /// 获取所有容器内已经注册的项目
@@ -53,6 +73,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static List<T> GetAllItems()
         {
+            var _itemCollection = GetItemCollection();
             return _itemCollection.Select(z => z.Value).ToList();
         }
 
@@ -63,6 +84,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static T TryGetItem(string key)
         {
+            var _itemCollection = GetItemCollection();
             if (_itemCollection.ContainsKey(key))
             {
                 return _itemCollection[key];
@@ -78,6 +100,7 @@ namespace Senparc.Weixin.Containers
         /// <param name="value">为null时删除该项</param>
         public static void Update(string key, T value)
         {
+            var _itemCollection = GetItemCollection();
             if (value == null)
             {
                 _itemCollection.Remove(key);
@@ -95,6 +118,7 @@ namespace Senparc.Weixin.Containers
         /// <param name="partialUpdate">为null时删除该项</param>
         public static void Update(string key, Func<T, object> partialUpdate)
         {
+            var _itemCollection = GetItemCollection();
             if (partialUpdate == null)
             {
                 _itemCollection.Remove(key);

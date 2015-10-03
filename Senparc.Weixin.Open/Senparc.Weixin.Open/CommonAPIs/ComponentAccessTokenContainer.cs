@@ -10,12 +10,13 @@
 
 using System;
 using System.Collections.Generic;
+using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.Entities;
 
 namespace Senparc.Weixin.Open.CommonAPIs
 {
-    class ComponentAccessTokenBag
+  public  class ComponentAccessTokenBag : BaseContainerBag
     {
         public string ComponentAppId { get; set; }
         public string ComponentAppSecret { get; set; }
@@ -30,7 +31,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
     /// <summary>
     /// 通用接口ComponentAccessToken容器，用于自动管理ComponentAccessToken，如果过期会重新获取
     /// </summary>
-    public class ComponentAccessTokenContainer
+    public class ComponentAccessTokenContainer : BaseContainer<ComponentAccessTokenBag>
     {
         static Dictionary<string, ComponentAccessTokenBag> ComponentAccessTokenCollection =
            new Dictionary<string, ComponentAccessTokenBag>(StringComparer.OrdinalIgnoreCase);
@@ -75,7 +76,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <param name="componentVerifyTicket"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static string GetToken(string componentAppId,string componentVerifyTicket, bool getNewToken = false)
+        public static string GetToken(string componentAppId, string componentVerifyTicket, bool getNewToken = false)
         {
             return GetTokenResult(componentAppId, componentVerifyTicket, getNewToken).component_access_token;
         }

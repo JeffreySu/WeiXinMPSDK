@@ -19,7 +19,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
     /// </summary>
     public class OpenCheckMessageHandler : MessageHandler<CustomMessageContext>
     {
-        private string testAppId = "wx570bc396a51b8ff8";
+        //private string testAppId = "wx570bc396a51b8ff8";
         private string componentAppId = WebConfigurationManager.AppSettings["Component_Appid"];
         private string componentSecret = WebConfigurationManager.AppSettings["Component_Secret"];
 

@@ -17,12 +17,15 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Containers
 {
-    //public interface IWeixinContainerBag
-    //{
-    //    string Key { get; set; }
-    //}
+    public interface IWeixinContainerBag
+    {
+        string Key { get; set; }
+    }
 
-    public class BaseContainerBag //: IWeixinContainerBag
+    /// <summary>
+    /// BaseContainer容器中的Value类型
+    /// </summary>
+    public class BaseContainerBag : IWeixinContainerBag
     {
         /// <summary>
         /// 通常为AppId
@@ -34,8 +37,11 @@ namespace Senparc.Weixin.Containers
     /// 微信容器接口（如Ticket、AccessToken）
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class BaseContainer<T> where T : BaseContainerBag, new()
+    public class BaseContainer<T> where T : IWeixinContainerBag, new()
     {
+        /// <summary>
+        /// 数据集合
+        /// </summary>
         static Dictionary<string, T> _itemCollection = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
 
 
@@ -62,7 +68,7 @@ namespace Senparc.Weixin.Containers
                 return _itemCollection[key];
             }
 
-            return null;
+            return default(T);
         }
 
         /// <summary>

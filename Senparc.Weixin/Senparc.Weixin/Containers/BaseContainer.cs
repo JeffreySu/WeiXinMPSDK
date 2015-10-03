@@ -136,7 +136,7 @@ namespace Senparc.Weixin.Containers
         {
             if (partialUpdate == null)
             {
-                ItemCollection.Remove(key);
+                ItemCollection.Remove(key);//移除对象
             }
             else
             {
@@ -147,7 +147,7 @@ namespace Senparc.Weixin.Containers
                         Key = key//确保这一项Key已经被记录
                     };
                 }
-                partialUpdate(ItemCollection[key]);
+                partialUpdate(ItemCollection[key]);//更新对象
             }
         }
     }

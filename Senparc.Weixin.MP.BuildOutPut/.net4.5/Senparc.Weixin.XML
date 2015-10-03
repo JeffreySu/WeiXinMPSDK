@@ -57,9 +57,17 @@
         </member>
         <member name="M:Senparc.Weixin.Containers.BaseContainer`1.TryGetItem(System.String)">
             <summary>
-            尝试获取某一项
+            尝试获取某一项Bag
             </summary>
             <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.TryGetItem``1(System.String,System.Func{`0,``0})">
+            <summary>
+            尝试获取某一项Bag中的具体某个属性
+            </summary>
+            <param name="key"></param>
+            <param name="property">具体某个属性</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Containers.BaseContainer`1.Update(System.String,`0)">
@@ -69,7 +77,7 @@
             <param name="key"></param>
             <param name="value">为null时删除该项</param>
         </member>
-        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.Update(System.String,System.Func{`0,System.Object})">
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.Update(System.String,System.Action{`0})">
             <summary>
             更新数据项
             </summary>

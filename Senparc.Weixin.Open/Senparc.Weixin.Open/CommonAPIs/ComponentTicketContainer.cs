@@ -28,6 +28,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// ComponentVerifyTicket
         /// </summary>
         public string ComponentVerifyTicket { get; set; }
+
         ///// <summary>
         ///// 只针对这个AppId的锁
         ///// </summary>

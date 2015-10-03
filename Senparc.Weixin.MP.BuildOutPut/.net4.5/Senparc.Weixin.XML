@@ -15,6 +15,45 @@
             说明：此处常量专为提供给方法的参数的默认值，不是方法内所有请求的默认超时时间。
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.Containers.BaseContainerBag.Key">
+            <summary>
+            通常为AppId
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Containers.BaseContainer`1">
+            <summary>
+            微信容器接口（如Ticket、AccessToken）
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.GetAllItems">
+            <summary>
+            获取所有容器内已经注册的项目
+            （此方法将会遍历Dictionary，当数据项很多的时候效率会明显降低）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.TryGetItem(System.String)">
+            <summary>
+            尝试获取某一项
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.Update(System.String,`0)">
+            <summary>
+            更新数据项
+            </summary>
+            <param name="key"></param>
+            <param name="value">为null时删除该项</param>
+        </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.Update(System.String,System.Func{`0,System.Object})">
+            <summary>
+            更新数据项
+            </summary>
+            <param name="key"></param>
+            <param name="partialUpdate">为null时删除该项</param>
+        </member>
         <member name="P:Senparc.Weixin.Context.MessageContainer`1.MaxRecordCount">
             <summary>
             最大记录条数（保留尾部），如果小于等于0则不限制

@@ -42,7 +42,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// 获取ComponentVerifyTicket
         /// </summary>
         /// <param name="componentAppId"></param>
-        /// <returns></returns>
+        /// <returns>如果不存在，则返回null</returns>
         public static string TryGetComponentVerifyTicket(string componentAppId)
         {
             if (ComponentTicketCollection.ContainsKey(componentAppId))

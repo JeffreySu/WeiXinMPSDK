@@ -75,7 +75,7 @@
     <Compile Include="ComponentAPIs\ComponentApi.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\AuthorizerOptionResult.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\QueryAuthResult.cs" />
-    <Compile Include="TicketCache\TicketCache.cs" />
+    <Compile Include="CommonAPIs\ComponentTicketContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
@@ -83,7 +83,9 @@
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="TicketCache\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

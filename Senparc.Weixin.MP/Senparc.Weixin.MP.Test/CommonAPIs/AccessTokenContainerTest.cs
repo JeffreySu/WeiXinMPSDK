@@ -29,10 +29,10 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
             //getNewToken
             {
-                token = AccessTokenContainer.TryGetToken(base._appId, base._appSecret, false);
+                token = AccessTokenContainer.TryGetAccessToken(base._appId, base._appSecret, false);
                 Assert.AreEqual(tokenResult.access_token, token);
 
-                token = AccessTokenContainer.TryGetToken(base._appId, base._appSecret, true);
+                token = AccessTokenContainer.TryGetAccessToken(base._appId, base._appSecret, true);
                 Assert.AreNotEqual(tokenResult.access_token, token);
             }
         }

@@ -17,17 +17,24 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
-    class AccessTokenBag
+    public class AccessTokenBag : BaseContainerBag
     {
         public string AppId { get; set; }
         public string AppSecret { get; set; }
-        public DateTime ExpireTime { get; set; }
+
+        public DateTime AccessTokenExpireTime { get; set; }
         public AccessTokenResult AccessTokenResult { get; set; }
+
+
+        public JsApiTicketResult JsApiTicketResult { get; set; }
+        public DateTime JsApiTicketExpireTime { get; set; }
+
         /// <summary>
         /// 只针对这个AppId的锁
         /// </summary>
@@ -37,11 +44,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// <summary>
     /// 通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
     /// </summary>
-    public class AccessTokenContainer
+    public class AccessTokenContainer : BaseContainer<AccessTokenBag>
     {
-        static Dictionary<string, AccessTokenBag> AccessTokenCollection =
-           new Dictionary<string, AccessTokenBag>(StringComparer.OrdinalIgnoreCase);
-
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
         /// </summary>
@@ -49,76 +53,13 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appSecret"></param>
         public static void Register(string appId, string appSecret)
         {
-            AccessTokenCollection[appId] = new AccessTokenBag()
+            Update(appId, new AccessTokenBag()
             {
                 AppId = appId,
                 AppSecret = appSecret,
-                ExpireTime = DateTime.MinValue,
+                AccessTokenExpireTime = DateTime.MinValue,
                 AccessTokenResult = new AccessTokenResult()
-            };
-        }
-
-        /// <summary>
-        /// 使用完整的应用凭证获取Token，如果不存在将自动注册
-        /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="appSecret"></param>
-        /// <param name="getNewToken"></param>
-        /// <returns></returns>
-        public static string TryGetToken(string appId, string appSecret, bool getNewToken = false)
-        {
-            if (!CheckRegistered(appId) || getNewToken)
-            {
-                Register(appId, appSecret);
-            }
-            return GetToken(appId);
-        }
-
-        /// <summary>
-        /// 获取可用Token
-        /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="getNewToken">是否强制重新获取新的Token</param>
-        /// <returns></returns>
-        public static string GetToken(string appId, bool getNewToken = false)
-        {
-            return GetTokenResult(appId, getNewToken).access_token;
-        }
-
-        /// <summary>
-        /// 获取可用Token
-        /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="getNewToken">是否强制重新获取新的Token</param>
-        /// <returns></returns>
-        public static AccessTokenResult GetTokenResult(string appId, bool getNewToken = false)
-        {
-            if (!AccessTokenCollection.ContainsKey(appId))
-            {
-                throw new WeixinException("此appId尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
-            }
-
-            var accessTokenBag = AccessTokenCollection[appId];
-            lock (accessTokenBag.Lock)
-            {
-                if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
-                {
-                    //已过期，重新获取
-                    accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.AppId, accessTokenBag.AppSecret);
-                    accessTokenBag.ExpireTime = DateTime.Now.AddSeconds(accessTokenBag.AccessTokenResult.expires_in);
-                }
-            }
-            return accessTokenBag.AccessTokenResult;
-        }
-
-        /// <summary>
-        /// 检查是否已经注册
-        /// </summary>
-        /// <param name="appId"></param>
-        /// <returns></returns>
-        public static bool CheckRegistered(string appId)
-        {
-            return AccessTokenCollection.ContainsKey(appId);
+            });
         }
 
         /// <summary>
@@ -127,7 +68,123 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static string GetFirstOrDefaultAppId()
         {
-            return  AccessTokenCollection.Keys.FirstOrDefault();
+            return ItemCollection.Keys.FirstOrDefault();
         }
+
+        #region AccessToken
+
+        /// <summary>
+        /// 使用完整的应用凭证获取Token，如果不存在将自动注册
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="appSecret"></param>
+        /// <param name="getNewToken"></param>
+        /// <returns></returns>
+        public static string TryGetAccessToken(string appId, string appSecret, bool getNewToken = false)
+        {
+            if (!CheckRegistered(appId) || getNewToken)
+            {
+                Register(appId, appSecret);
+            }
+            return GetAccessToken(appId);
+        }
+
+        /// <summary>
+        /// 获取可用Token
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="getNewToken">是否强制重新获取新的Token</param>
+        /// <returns></returns>
+        public static string GetAccessToken(string appId, bool getNewToken = false)
+        {
+            return GetAccessTokenResult(appId, getNewToken).access_token;
+        }
+
+        /// <summary>
+        /// 获取可用Token
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="getNewToken">是否强制重新获取新的Token</param>
+        /// <returns></returns>
+        public static AccessTokenResult GetAccessTokenResult(string appId, bool getNewToken = false)
+        {
+            if (!CheckRegistered(appId))
+            {
+                throw new WeixinException("此appId尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
+            }
+
+            var accessTokenBag = ItemCollection[appId];
+            lock (accessTokenBag.Lock)
+            {
+                if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
+                {
+                    //已过期，重新获取
+                    accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.AppId, accessTokenBag.AppSecret);
+                    accessTokenBag.AccessTokenExpireTime = DateTime.Now.AddSeconds(accessTokenBag.AccessTokenResult.expires_in);
+                }
+            }
+            return accessTokenBag.AccessTokenResult;
+        }
+
+
+        #endregion
+
+        #region JsApiTicket
+
+        /// <summary>
+        /// 使用完整的应用凭证获取Ticket，如果不存在将自动注册
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="appSecret"></param>
+        /// <param name="getNewTicket"></param>
+        /// <returns></returns>
+        public static string TryGetJsApiTicket(string appId, string appSecret, bool getNewTicket = false)
+        {
+            if (!CheckRegistered(appId) || getNewTicket)
+            {
+                Register(appId, appSecret);
+            }
+            return GetJsApiTicket(appId);
+        }
+
+        /// <summary>
+        /// 获取可用Ticket
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+        /// <returns></returns>
+        public static string GetJsApiTicket(string appId, bool getNewTicket = false)
+        {
+            return GetJsApiTicketResult(appId, getNewTicket).ticket;
+        }
+
+        /// <summary>
+        /// 获取可用Ticket
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+        /// <returns></returns>
+        public static JsApiTicketResult GetJsApiTicketResult(string appId, bool getNewTicket = false)
+        {
+            if (!CheckRegistered(appId))
+            {
+                throw new WeixinException("此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
+            }
+
+            var accessTicketBag = ItemCollection[appId];
+            lock (accessTicketBag.Lock)
+            {
+                if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= DateTime.Now)
+                {
+                    //已过期，重新获取
+                    accessTicketBag.JsApiTicketResult = CommonApi.GetTicket(accessTicketBag.AppId, accessTicketBag.AppSecret);
+                    accessTicketBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(accessTicketBag.JsApiTicketResult.expires_in);
+                }
+            }
+            return accessTicketBag.JsApiTicketResult;
+        }
+
+        #endregion
+
     }
 }

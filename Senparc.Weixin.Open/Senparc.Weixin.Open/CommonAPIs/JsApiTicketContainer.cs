@@ -15,17 +15,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.Entities;
+using Senparc.Weixin.Open.Exceptions;
 
 namespace Senparc.Weixin.Open.CommonAPIs
 {
-    class JsApiTicketBag
+    /// <summary>
+    /// JsApiTicketBag
+    /// </summary>
+    public class JsApiTicketBag : BaseContainerBag
     {
-        public string componentAppId { get; set; }
-        public string componentAppSecret { get; set; }
-        public string componentVerifyTicket { get; set; }
-        public string componentAccessToken { get; set; }
+        public string ComponentAppId { get; set; }
+
+        public ComponentBag ComponentBag { get; set; }
 
         public string authorizer_access_token { get; set; }
         public string authorizer_refresh_token { get; set; }
@@ -42,37 +46,32 @@ namespace Senparc.Weixin.Open.CommonAPIs
     /// <summary>
     /// 通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
     /// </summary>
-    public class JsApiTicketContainer
+    public class JsApiTicketContainer : BaseContainer<JsApiTicketBag>
     {
-        static Dictionary<string, JsApiTicketBag> JsApiTicketCollection =
-           new Dictionary<string, JsApiTicketBag>(StringComparer.OrdinalIgnoreCase);
-
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
         /// </summary>
-        public static void Register(string _componentAppId, string _componentAppSecret, string _componentVerifyTicket, string _authorizer_appid, string _authorizer_refresh_token)
+        public static void Register(string componentAppId, string _authorizer_appid)
         {
-            //获取component_access_token
-            string _componentAccessToken = Senparc.Weixin.Open.CommonAPIs.ComponentContainer.TryGetComponentAccessToken(_componentAppId, _componentAppSecret);
-            //获取authorizer_access_token
-            string _authorizer_access_token = Senparc.Weixin.Open.ComponentAPIs.ComponentApi.RefreshAuthorizerToken(_componentAccessToken, _componentAppId, _authorizer_appid, _authorizer_refresh_token).authorizer_access_token;
-            //string _authorizer_refresh_token_new = Senparc.Weixin.Open.ComponentAPIs.ComponentApi.RefreshAuthorizerToken(_componentAccessToken, _componentAppId, _authorizer_appid, _authorizer_refresh_token).authorizer_refresh_token;
-            //
-            JsApiTicketCollection[_authorizer_appid] = new JsApiTicketBag()
+            var componentBag = ComponentContainer.TryGetItem(componentAppId);
+            if (componentBag == null)
             {
-                componentAppId = _componentAppId,
-                componentAppSecret = _componentAppSecret,
-                componentVerifyTicket = _componentVerifyTicket,
-                componentAccessToken = _componentAccessToken,
+                throw new WeixinOpenException("注册JsApiTicketContainer之前，必须先注册对应的ComponentContainer！当前ComponentAppId：" + componentAppId);
+            }
 
-                authorizer_access_token = _authorizer_access_token,
-                authorizer_refresh_token = _authorizer_refresh_token,
+            Update(componentAppId, new JsApiTicketBag()
+            {
+                ComponentBag = componentBag,
                 authorizer_appid = _authorizer_appid,
+
+                //authorizer_access_token = _authorizer_access_token,
+                //authorizer_refresh_token = _authorizer_refresh_token,
 
                 ExpireTime = DateTime.MinValue,
                 JsApiTicketResult = new JsApiTicketResult()
-            };
+            });
         }
+
 
         /// <summary>
         /// 使用完整的应用凭证获取Ticket，如果不存在将自动注册
@@ -83,11 +82,11 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// /// <param name="_authorizer_appid"></param>
         /// <param name="getNewTicket"></param>
         /// <returns></returns>
-        public static string TryGetTicket(string _componentAppId, string _componentAppSecret, string _componentVerifyTicket, string _authorizer_appid, string _authorizer_refresh_token, bool getNewTicket = false)
+        public static string TryGetTicket(string _componentAppId, string _authorizer_appid, bool getNewTicket = false)
         {
             if (!CheckRegistered(_authorizer_appid) || getNewTicket)
             {
-                Register(_componentAppId, _componentAppSecret, _componentVerifyTicket, _authorizer_appid, _authorizer_refresh_token);
+                Register(_componentAppId, _authorizer_appid);
             }
             return GetTicket(_authorizer_appid);
         }
@@ -111,32 +110,24 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <returns></returns>
         public static JsApiTicketResult GetTicketResult(string _authorizer_appid, bool getNewTicket = false)
         {
-            if (!JsApiTicketCollection.ContainsKey(_authorizer_appid))
+            if (!CheckRegistered(_authorizer_appid))
             {
-                throw new WeixinException("此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
+                throw new WeixinException("此authorizer_appid尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var accessTicketBag = JsApiTicketCollection[_authorizer_appid];
+            var accessTicketBag = ItemCollection[_authorizer_appid];
             lock (accessTicketBag.Lock)
             {
                 if (getNewTicket || accessTicketBag.ExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
                     accessTicketBag.JsApiTicketResult = CommonApi.GetTicket(accessTicketBag.authorizer_access_token);
+
                     accessTicketBag.ExpireTime = DateTime.Now.AddSeconds(accessTicketBag.JsApiTicketResult.expires_in);
                 }
             }
             return accessTicketBag.JsApiTicketResult;
         }
 
-        /// <summary>
-        /// 检查是否已经注册
-        /// </summary>
-        /// <param name="_authorizer_appid"></param>
-        /// <returns></returns>
-        public static bool CheckRegistered(string _authorizer_appid)
-        {
-            return JsApiTicketCollection.ContainsKey(_authorizer_appid);
-        }
     }
 }

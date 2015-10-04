@@ -199,6 +199,11 @@
             <param name="getNewToken">是否强制重新获取新的Token</param>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.Open.CommonAPIs.JsApiTicketBag">
+            <summary>
+            JsApiTicketBag
+            </summary>
+        </member>
         <member name="F:Senparc.Weixin.Open.CommonAPIs.JsApiTicketBag.Lock">
             <summary>
             只针对这个AppId的锁

@@ -132,5 +132,15 @@ namespace Senparc.Weixin.Containers
                 partialUpdate(ItemCollection[key]);//更新对象
             }
         }
+
+        /// <summary>
+        /// 检查Key是否已经注册
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static bool CheckRegistered(string key)
+        {
+            return ItemCollection.ContainsKey(key);
+        }
     }
 }

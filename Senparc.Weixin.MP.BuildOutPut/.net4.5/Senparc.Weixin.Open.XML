@@ -98,7 +98,7 @@
         </member>
         <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentBag.#ctor">
             <summary>
-            
+            ComponentBag
             </summary>
         </member>
         <member name="T:Senparc.Weixin.Open.CommonAPIs.ComponentContainer">
@@ -106,12 +106,26 @@
             通用接口ComponentAccessToken容器，用于自动管理ComponentAccessToken，如果过期会重新获取
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.Register(System.String,System.String)">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.TryRegister(System.String,System.String,System.Boolean)">
+            <summary>
+            检查AppId是否已经注册，如果没有，则创建
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="componentAppSecret"></param>
+            <param name="getNewToken"></param>
+        </member>
+        <member name="F:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.GetComponentVerifyTicketFunc">
+            <summary>
+            获取ComponentVerifyTicket的方法
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.Register(System.String,System.String,System.Func{System.String})">
             <summary>
             注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
             </summary>
             <param name="componentAppId"></param>
             <param name="componentAppSecret"></param>
+            <param name="getComponentVerifyTicketFunc">获取ComponentVerifyTicket的方法</param>
         </member>
         <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.CheckRegistered(System.String)">
             <summary>
@@ -127,7 +141,14 @@
             <param name="componentAppId"></param>
             <returns>如果不存在，则返回null</returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.TryGetAccessToken(System.String,System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.UpdateComponentVerifyTicket(System.String,System.String)">
+            <summary>
+            更新ComponentVerifyTicket信息
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="componentVerifyTicket"></param>
+        </member>
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.TryGetComponentAccessToken(System.String,System.String,System.Boolean)">
             <summary>
             使用完整的应用凭证获取Token，如果不存在将自动注册
             </summary>
@@ -136,7 +157,7 @@
             <param name="getNewToken"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.GetAccessToken(System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.GetComponentAccessToken(System.String,System.Boolean)">
             <summary>
             获取可用AccessToken
             </summary>
@@ -144,7 +165,7 @@
             <param name="getNewToken">是否强制重新获取新的Token</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.GetAccessTokenResult(System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.GetComponentAccessTokenResult(System.String,System.Boolean)">
             <summary>
             获取可用AccessToken
             </summary>
@@ -167,7 +188,6 @@
             获取可用Token
             </summary>
             <param name="componentAppId"></param>
-            <param name="componentVerifyTicket"></param>
             <param name="getNewToken">是否强制重新获取新的Token</param>
             <returns></returns>
         </member>
@@ -176,7 +196,6 @@
             获取可用Token
             </summary>
             <param name="componentAppId"></param>
-            <param name="componentVerifyTicket"></param>
             <param name="getNewToken">是否强制重新获取新的Token</param>
             <returns></returns>
         </member>

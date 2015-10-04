@@ -53,7 +53,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         public static void Register(string _componentAppId, string _componentAppSecret, string _componentVerifyTicket, string _authorizer_appid, string _authorizer_refresh_token)
         {
             //获取component_access_token
-            string _componentAccessToken = Senparc.Weixin.Open.CommonAPIs.ComponentContainer.TryGetAccessToken(_componentAppId, _componentAppSecret);
+            string _componentAccessToken = Senparc.Weixin.Open.CommonAPIs.ComponentContainer.TryGetComponentAccessToken(_componentAppId, _componentAppSecret);
             //获取authorizer_access_token
             string _authorizer_access_token = Senparc.Weixin.Open.ComponentAPIs.ComponentApi.RefreshAuthorizerToken(_componentAccessToken, _componentAppId, _authorizer_appid, _authorizer_refresh_token).authorizer_access_token;
             //string _authorizer_refresh_token_new = Senparc.Weixin.Open.ComponentAPIs.ComponentApi.RefreshAuthorizerToken(_componentAccessToken, _componentAppId, _authorizer_appid, _authorizer_refresh_token).authorizer_refresh_token;

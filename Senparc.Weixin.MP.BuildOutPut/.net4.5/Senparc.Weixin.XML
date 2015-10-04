@@ -74,6 +74,13 @@
             <param name="key"></param>
             <param name="partialUpdate">为null时删除该项</param>
         </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.CheckRegistered(System.String)">
+            <summary>
+            检查Key是否已经注册
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.Containers.IBaseContainerBag">
             <summary>
             IBaseContainerBag

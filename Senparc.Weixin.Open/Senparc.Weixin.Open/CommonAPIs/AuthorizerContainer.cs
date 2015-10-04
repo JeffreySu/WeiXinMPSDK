@@ -16,6 +16,7 @@
     ----------------------------------------------------------------*/
 
 using System;
+using System.Data;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.ComponentAPIs;
@@ -39,13 +40,17 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// </summary>
         public string ComponentAppId { get; set; }
 
-
-        public ComponentBag ComponentBag { get; set; }
+        ///// <summary>
+        ///// 从ComponentContainer取过来的对应ComponentAppId的ComponentBag
+        ///// </summary>
+        //public ComponentBag ComponentBag { get; set; }
 
         /// <summary>
         /// 授权信息
         /// </summary>
         public GetAuthorizerInfoResult AuthorizerInfoResult { get; set; }
+        public DateTime AuthorizerInfoExpireTime { get; set; }
+
 
         public JsApiTicketResult JsApiTicketResult { get; set; }
         public DateTime JsApiTicketExpireTime { get; set; }
@@ -65,21 +70,21 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
         /// </summary>
-        public static void Register(string componentAppId, string authorizerAppId)
+        private static void Register(string componentAppId, string authorizerAppId)
         {
             var componentBag = ComponentContainer.TryGetItem(componentAppId);
             if (componentBag == null)
             {
-                throw new WeixinOpenException(string.Format("注册JsApiTicketContainer之前，必须先注册对应的ComponentContainer！ComponentAppId：{0},AuthorizerAppId:{1}", componentAppId, authorizerAppId));
+                throw new WeixinOpenException(string.Format("注册AuthorizerContainer之前，必须先注册对应的ComponentContainer！ComponentAppId：{0},AuthorizerAppId:{1}", componentAppId, authorizerAppId));
             }
 
             Update(componentAppId, new AuthorizerBag()
             {
                 AuthorizerAppId = authorizerAppId,
                 ComponentAppId = componentAppId,
-                ComponentBag = componentBag,
 
                 AuthorizerInfoResult = new GetAuthorizerInfoResult(),//可以进一步初始化
+                AuthorizerInfoExpireTime = DateTime.MaxValue,
 
                 JsApiTicketResult = new JsApiTicketResult(),
                 JsApiTicketExpireTime = DateTime.MinValue,
@@ -89,14 +94,60 @@ namespace Senparc.Weixin.Open.CommonAPIs
         #region 授权信息
 
         /// <summary>
-        /// 获取可用Ticket
+        /// 获取可用AuthorizerAccessToken
         /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="authorizerAppid"></param>
+        /// <param name="getNewTicket"></param>
+        /// <returns></returns>
+        public static string TryGetAuthorizerAccessToken(string componentAppId, string authorizerAppid, bool getNewTicket = false)
+        {
+            if (!CheckRegistered(authorizerAppid))
+            {
+                Register(componentAppId, authorizerAppid);
+            }
+
+            return GetAuthorizerInfoResult(componentAppId, authorizerAppid).authorization_info.authorizer_access_token;
+        }
+
+        /// <summary>
+        /// 获取可用的GetAuthorizerInfoResult
+        /// </summary>
+        /// <param name="componentAppId"></param>
         /// <param name="authorizerAppid"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        public static string GetAuthorizerInfoResult(string authorizerAppid, bool getNewTicket = false)
+        /// <exception cref="WeixinOpenException">此公众号没有高级权限</exception>
+        public static GetAuthorizerInfoResult GetAuthorizerInfoResult(string componentAppId, string authorizerAppid, bool getNewTicket = false)
         {
+            if (!CheckRegistered(authorizerAppid))
+            {
+                throw new WeixinException("此authorizer_appid尚未注册，请先使用AuthorizerContainer.Register完成注册（全局执行一次即可）！");
+            }
 
+            var authorizerBag = ItemCollection[authorizerAppid];
+            lock (authorizerBag.Lock)
+            {
+                if (getNewTicket || authorizerBag.AuthorizerInfoExpireTime <= DateTime.Now)
+                {
+                    var componentAccessToken = ComponentContainer.GetComponentAccessToken(componentAppId);
+
+                    //已过期，重新获取
+                    authorizerBag.AuthorizerInfoResult = ComponentApi.GetAuthorizerInfo(componentAccessToken, componentAppId, authorizerAppid);
+
+                    var componentBag = ComponentContainer.TryGetItem(componentAppId);
+
+                    if (string.IsNullOrEmpty(authorizerBag.AuthorizerInfoResult.authorization_info.authorizer_access_token))
+                    {
+                        //账号没有此权限
+                        throw new WeixinOpenException("此公众号没有高级权限", componentBag);
+                    }
+
+                    authorizerBag.AuthorizerInfoExpireTime =
+                        DateTime.Now.AddSeconds(authorizerBag.AuthorizerInfoResult.authorization_info.expires_in);
+                }
+            }
+            return authorizerBag.AuthorizerInfoResult;
         }
 
         #endregion
@@ -107,43 +158,43 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <summary>
         /// 使用完整的应用凭证获取Ticket，如果不存在将自动注册
         /// </summary>
-        /// <param name="_componentAppId"></param>
-        /// <param name="_componentAppSecret"></param>
-        /// /// <param name="_componentVerifyTicket"></param>
+        /// <param name="componentAppId"></param>
         /// /// <param name="authorizerAppid"></param>
         /// <param name="getNewTicket"></param>
         /// <returns></returns>
-        public static string TryGetJsApiTicket(string _componentAppId, string authorizerAppid, bool getNewTicket = false)
-        {
-            if (!CheckRegistered(authorizerAppid) || getNewTicket)
-            {
-                Register(_componentAppId, authorizerAppid);
-            }
-            return GetJsApiTicket(authorizerAppid);
-        }
-
-        /// <summary>
-        /// 获取可用Ticket
-        /// </summary>
-        /// <param name="authorizerAppid"></param>
-        /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
-        /// <returns></returns>
-        public static string GetJsApiTicket(string authorizerAppid, bool getNewTicket = false)
-        {
-            return GetJsApiTicketResult(authorizerAppid, getNewTicket).ticket;
-        }
-
-        /// <summary>
-        /// 获取可用Ticket
-        /// </summary>
-        /// <param name="authorizerAppid"></param>
-        /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
-        /// <returns></returns>
-        public static JsApiTicketResult GetJsApiTicketResult(string authorizerAppid, bool getNewTicket = false)
+        public static string TryGetJsApiTicket(string componentAppId, string authorizerAppid, bool getNewTicket = false)
         {
             if (!CheckRegistered(authorizerAppid))
             {
-                throw new WeixinException("此authorizer_appid尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
+                Register(componentAppId, authorizerAppid);
+            }
+            return GetJsApiTicket(componentAppId, authorizerAppid);
+        }
+
+        /// <summary>
+        /// 获取可用Ticket
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="authorizerAppid"></param>
+        /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+        /// <returns></returns>
+        public static string GetJsApiTicket(string componentAppId, string authorizerAppid, bool getNewTicket = false)
+        {
+            return GetJsApiTicketResult(componentAppId, authorizerAppid, getNewTicket).ticket;
+        }
+
+        /// <summary>
+        /// 获取可用Ticket
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="authorizerAppid"></param>
+        /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+        /// <returns></returns>
+        public static JsApiTicketResult GetJsApiTicketResult(string componentAppId, string authorizerAppid, bool getNewTicket = false)
+        {
+            if (!CheckRegistered(authorizerAppid))
+            {
+                Register(componentAppId, authorizerAppid);
             }
 
             var accessTicketBag = ItemCollection[authorizerAppid];
@@ -151,11 +202,10 @@ namespace Senparc.Weixin.Open.CommonAPIs
             {
                 if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= DateTime.Now)
                 {
-                    
-
-
                     //已过期，重新获取
-                    accessTicketBag.JsApiTicketResult = CommonApi.GetJsApiTicket(accessTicketBag.authorizer_access_token);
+                    var authorizerAccessToken = TryGetAuthorizerAccessToken(componentAppId, authorizerAppid);
+
+                    accessTicketBag.JsApiTicketResult = CommonApi.GetJsApiTicket(authorizerAccessToken);
 
                     accessTicketBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(accessTicketBag.JsApiTicketResult.expires_in);
                 }

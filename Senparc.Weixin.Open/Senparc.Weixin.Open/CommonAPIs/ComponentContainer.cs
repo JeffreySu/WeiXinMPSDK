@@ -59,6 +59,8 @@ namespace Senparc.Weixin.Open.CommonAPIs
         public DateTime PreAuthCodeExpireTime { get; set; }
 
 
+        public string AuthorizerAccessToken { get; set; }
+
         /// <summary>
         /// 只针对这个AppId的锁
         /// </summary>

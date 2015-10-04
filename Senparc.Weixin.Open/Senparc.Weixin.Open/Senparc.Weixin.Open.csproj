@@ -47,7 +47,7 @@
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="CommonAPIs\ComponentContainer.cs" />
-    <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
+    <Compile Include="CommonAPIs\AuthorizerContainer.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\GetAuthorizerInfoResult.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\RefreshAuthorizerTokenResult.cs" />
     <Compile Include="Entities\JsonResult\ComponentAccessTokenResult.cs" />

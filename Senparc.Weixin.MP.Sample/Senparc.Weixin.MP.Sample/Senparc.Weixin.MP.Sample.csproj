@@ -53,13 +53,13 @@
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Senparc.Weixin, Version=4.2.1.30719, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Senparc.Weixin, Version=4.3.2.32356, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.dll</HintPath>
+      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.0\Senparc.Weixin.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.Weixin.MP, Version=13.1.0.37130, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Senparc.Weixin.MP, Version=13.3.0.32356, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.MP.dll</HintPath>
+      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.0\Senparc.Weixin.MP.dll</HintPath>
     </Reference>
     <Reference Include="Senparc.Weixin.Open">
       <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.Open.dll</HintPath>

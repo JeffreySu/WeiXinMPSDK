@@ -33,19 +33,21 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Senparc.Weixin, Version=4.0.1.17332, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Senparc.Weixin, Version=4.3.2.31987, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.dll</HintPath>
+      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.0\Senparc.Weixin.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.Weixin.MP, Version=13.0.3.17268, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Senparc.Weixin.MP, Version=13.3.0.31987, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.MP.dll</HintPath>
+      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.0\Senparc.Weixin.MP.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.Weixin.Open">
-      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.Open.dll</HintPath>
+    <Reference Include="Senparc.Weixin.Open, Version=1.2.0.32121, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.0\Senparc.Weixin.Open.dll</HintPath>
     </Reference>
-    <Reference Include="Senparc.Weixin.QY">
-      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.QY.dll</HintPath>
+    <Reference Include="Senparc.Weixin.QY, Version=3.0.2.21111, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.0\Senparc.Weixin.QY.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

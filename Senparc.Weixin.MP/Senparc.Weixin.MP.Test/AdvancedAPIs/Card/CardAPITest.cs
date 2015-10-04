@@ -59,7 +59,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void CreateCardTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var data = new Card_GrouponData()
                 {
                     base_info = _BaseInfo,
@@ -95,7 +95,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         //[TestMethod]
         public List<string> CardBatchGetTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = CardApi.CardBatchGet(accessToken, 0, 5);
             Console.Write(result);
@@ -106,7 +106,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void CreateQRTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var cardIdList = CardBatchGetTest();
             var cardId = cardIdList.FirstOrDefault();
@@ -119,7 +119,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         //[TestMethod]
         //public void GetColorsTest()
         //{
-        //    var accessToken = AccessTokenContainer.GetToken(_appId);
+        //    var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
         //    var result = CardApi.GetColors(accessToken);
         //    Console.Write(result);
@@ -131,7 +131,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             string cardId = "p3IHxjt-CLCTd_r3eZ9cQqM7jrZE";    //换成你的卡券Id
 
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = CardApi.CardDetailGet(accessToken, cardId);
             Console.Write(result);
@@ -154,7 +154,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         //[TestMethod]
         //public void StoreBatchAddTest()
         //{
-        //    var accessToken = AccessTokenContainer.GetToken(_appId);
+        //    var accessToken = AccessTokenContainer.GetAccessToken(_appId);
         //    var data = new StoreLocationData()
         //    {
         //        location_list = new List<Store_Location>()
@@ -171,7 +171,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         //[TestMethod]
         //public void BatchGetTest()
         //{
-        //    var accessToken = AccessTokenContainer.GetToken(_appId);
+        //    var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
         //    var result = CardApi.BatchGet(accessToken, 0, 5);
         //    Assert.IsNotNull(result);
@@ -183,7 +183,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         //{
         //    string file = @"E:\1.jpg";
 
-        //    var accessToken = AccessTokenContainer.GetToken(_appId);
+        //    var accessToken = AccessTokenContainer.GetAccessToken(_appId);
         //    var result = CardApi.UploadLogo(accessToken, file);
         //    Assert.IsNotNull(result);
         //    Assert.AreEqual(result.errcode, ReturnCode.请求成功);

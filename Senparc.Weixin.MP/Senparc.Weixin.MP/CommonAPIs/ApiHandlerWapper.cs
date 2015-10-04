@@ -71,7 +71,7 @@ namespace Senparc.Weixin.MP
             {
                 if (accessToken == null)
                 {
-                    var accessTokenResult = AccessTokenContainer.GetTokenResult(appId, false);
+                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(appId, false);
                     accessToken = accessTokenResult.access_token;
                 }
                 result = fun(accessToken);
@@ -83,7 +83,7 @@ namespace Senparc.Weixin.MP
                     && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
                 {
                     //尝试重新验证
-                    var accessTokenResult = AccessTokenContainer.GetTokenResult(appId, true);
+                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(appId, true);
                     accessToken = accessTokenResult.access_token;
                     result = TryCommonApi(fun, appId, false);
                 }

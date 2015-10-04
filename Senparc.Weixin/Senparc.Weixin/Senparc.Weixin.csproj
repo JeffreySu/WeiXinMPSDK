@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Config.cs" />
     <Compile Include="Containers\BaseContainer.cs" />
-    <Compile Include="Containers\BaseContanerBag.cs" />
+    <Compile Include="Containers\BaseContainerBag.cs" />
     <Compile Include="Context\MessageContainer.cs" />
     <Compile Include="Context\MessageContext.cs" />
     <Compile Include="Context\MessageQueue.cs" />

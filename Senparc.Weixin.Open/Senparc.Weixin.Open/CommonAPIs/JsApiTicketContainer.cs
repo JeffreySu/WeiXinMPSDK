@@ -50,10 +50,10 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
         /// </summary>
-        public static void Register(string _componentAppId, string _componentAppSecret, string _componentVerifyTicket, string _authorizer_appid,string _authorizer_refresh_token)
+        public static void Register(string _componentAppId, string _componentAppSecret, string _componentVerifyTicket, string _authorizer_appid, string _authorizer_refresh_token)
         {
             //获取component_access_token
-            string _componentAccessToken = Senparc.Weixin.Open.CommonAPIs.ComponentAccessTokenContainer.TryGetToken(_componentAppId, _componentAppSecret, _componentVerifyTicket);
+            string _componentAccessToken = Senparc.Weixin.Open.CommonAPIs.ComponentContainer.TryGetAccessToken(_componentAppId, _componentAppSecret);
             //获取authorizer_access_token
             string _authorizer_access_token = Senparc.Weixin.Open.ComponentAPIs.ComponentApi.RefreshAuthorizerToken(_componentAccessToken, _componentAppId, _authorizer_appid, _authorizer_refresh_token).authorizer_access_token;
             //string _authorizer_refresh_token_new = Senparc.Weixin.Open.ComponentAPIs.ComponentApi.RefreshAuthorizerToken(_componentAccessToken, _componentAppId, _authorizer_appid, _authorizer_refresh_token).authorizer_refresh_token;

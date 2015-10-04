@@ -37,11 +37,11 @@ namespace Senparc.Weixin.Open.CommonAPIs
             var url = "https://api.weixin.qq.com/cgi-bin/component/api_component_token";
 
             var data = new
-                {
-                    component_appid = componentAppId,
-                    component_appsecret = componentAppSecret,
-                    component_verify_ticket = componentVerifyTicket
-                };
+            {
+                component_appid = componentAppId,
+                component_appsecret = componentAppSecret,
+                component_verify_ticket = componentVerifyTicket
+            };
 
             return CommonJsonSend.Send<ComponentAccessTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
@@ -54,11 +54,10 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <param name="componentVerifyTicket"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static PreAuthCodeResult GetPreAuthCode(string componentAppId, string componentAppSecret,string componentVerifyTicket, int timeOut = Config.TIME_OUT)
+        public static PreAuthCodeResult GetPreAuthCode(string componentAppId, string componentAppSecret, string componentVerifyTicket, int timeOut = Config.TIME_OUT)
         {
             //获取componentAccessToken
-            var componentAccessToken = ComponentAccessTokenContainer.TryGetToken(componentAppId, componentAppSecret,
-                                                                                 componentVerifyTicket);
+            var componentAccessToken = ComponentContainer.TryGetPreAuthCode(componentAppId, componentAppSecret, componentVerifyTicket);
 
             var url =
                 string.Format(
@@ -66,10 +65,10 @@ namespace Senparc.Weixin.Open.CommonAPIs
                     componentAccessToken);
 
             var data = new
-                {
-                    component_appid = componentAppId
-                };
-             
+            {
+                component_appid = componentAppId
+            };
+
             return CommonJsonSend.Send<PreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 

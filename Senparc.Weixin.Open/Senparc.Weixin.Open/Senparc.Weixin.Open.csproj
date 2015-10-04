@@ -46,9 +46,8 @@
   <ItemGroup>
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
-    <Compile Include="CommonAPIs\ComponentAccessTokenContainer.cs" />
+    <Compile Include="CommonAPIs\ComponentContainer.cs" />
     <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
-    <Compile Include="CommonAPIs\PreAuthCodeContainer.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\GetAuthorizerInfoResult.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\RefreshAuthorizerTokenResult.cs" />
     <Compile Include="Entities\JsonResult\ComponentAccessTokenResult.cs" />
@@ -75,7 +74,6 @@
     <Compile Include="ComponentAPIs\ComponentApi.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\AuthorizerOptionResult.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\QueryAuthResult.cs" />
-    <Compile Include="CommonAPIs\ComponentTicketContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">

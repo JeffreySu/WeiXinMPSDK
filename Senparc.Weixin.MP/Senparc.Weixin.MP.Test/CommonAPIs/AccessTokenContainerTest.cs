@@ -20,19 +20,19 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             AccessTokenContainer.Register(base._appId, base._appSecret);
 
             //获取Token完整结果（包括当前过期秒数）
-            var tokenResult = AccessTokenContainer.GetTokenResult(base._appId);
+            var tokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId);
             Assert.IsNotNull(tokenResult);
 
             //只获取Token字符串
-            var token = AccessTokenContainer.GetToken(base._appId);
+            var token = AccessTokenContainer.GetAccessToken(base._appId);
             Assert.AreEqual(tokenResult.access_token, token);
 
             //getNewToken
             {
-                token = AccessTokenContainer.TryGetToken(base._appId, base._appSecret, false);
+                token = AccessTokenContainer.TryGetAccessToken(base._appId, base._appSecret, false);
                 Assert.AreEqual(tokenResult.access_token, token);
 
-                token = AccessTokenContainer.TryGetToken(base._appId, base._appSecret, true);
+                token = AccessTokenContainer.TryGetAccessToken(base._appId, base._appSecret, true);
                 Assert.AreNotEqual(tokenResult.access_token, token);
             }
         }
@@ -48,7 +48,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             int[] treads = new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             Parallel.For(0, treads.Length, (i) =>
             {
-               var accessTokenResult =  AccessTokenContainer.GetTokenResult(base._appId, false);
+               var accessTokenResult =  AccessTokenContainer.GetAccessTokenResult(base._appId, false);
                accessTokenList.Add(accessTokenResult.access_token);//同时多次获取
             });
 

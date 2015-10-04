@@ -60,6 +60,8 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public string qrcode_url { get; set; }
 
         public BusinessInfo business_info { get; set; }
+
+
     }
 
     public class ServiceTypeInfo
@@ -87,6 +89,21 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// 授权方appid
         /// </summary>
         public string authorizer_appid { get; set; }
+
+
+        /// <summary>
+        /// 授权方令牌（在授权的公众号具备API权限时，才有此返回值）
+        /// </summary>
+        public string authorizer_access_token { get; set; }
+        /// <summary>
+        /// 有效期（在授权的公众号具备API权限时，才有此返回值）
+        /// </summary>
+        public int expires_in { get; set; }
+        /// <summary>
+        /// 刷新令牌（在授权的公众号具备API权限时，才有此返回值），刷新令牌主要用于公众号第三方平台获取和刷新已授权用户的access_token，只会在授权时刻提供，请妥善保存。 一旦丢失，只能让用户重新授权，才能再次拿到新的刷新令牌
+        /// </summary>
+        public string authorizer_refresh_token { get; set; }
+
         /// <summary>
         /// 公众号授权给开发者的权限集列表（请注意，当出现用户已经将消息与菜单权限集授权给了某个第三方，再授权给另一个第三方时，由于该权限集是互斥的，后一个第三方的授权将去除此权限集，开发者可以在返回的func_info信息中验证这一点，避免信息遗漏），
         /// 1到9分别代表：
@@ -116,27 +133,29 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
 #region 实际返回json，文档中的json结构是错误的
 //{"authorizer_info":
-//{"nick_name":"微微嗨测试二",
-//"head_img":"http:\/\/wx.qlogo.cn\/mmopen\/BUORmFJiapJ3LBJ6HnD0wnKMsVaP1W9jEOEZRzBSn8ZXs9aicxBxibaIdibxItbtqgj0sU4QfIRCAt8nxReDHRKjbVbUGPNq7w1B\/0",
-//"service_type_info":{"id":2},
-//"verify_type_info":{"id":-1},
-//"user_name":"gh_df67ac2cc491",
-//"alias":"WeiWeiHiTest2",
-//"qrcode_url":"http:\/\/mmbiz.qpic.cn\/mmbiz\/FVYUzJtc8bscHJYzg6Re85MP3VyCmibYe9Nes2npCiacqDbygnmSoODRktkV6BId92tvsapE83EELHwu06uNrIAA\/0",
-//"business_info":{"open_pay":0,"open_shake":0,"open_scan":0,"open_card":0,"open_store":0}},
+    //{"nick_name":"微微嗨测试二",
+    //"head_img":"http:\/\/wx.qlogo.cn\/mmopen\/BUORmFJiapJ3LBJ6HnD0wnKMsVaP1W9jEOEZRzBSn8ZXs9aicxBxibaIdibxItbtqgj0sU4QfIRCAt8nxReDHRKjbVbUGPNq7w1B\/0",
+    //"service_type_info":{"id":2},
+    //"verify_type_info":{"id":-1},
+    //"user_name":"gh_df67ac2cc491",
+    //"alias":"WeiWeiHiTest2",
+    //"qrcode_url":"http:\/\/mmbiz.qpic.cn\/mmbiz\/FVYUzJtc8bscHJYzg6Re85MP3VyCmibYe9Nes2npCiacqDbygnmSoODRktkV6BId92tvsapE83EELHwu06uNrIAA\/0",
+    //"business_info":{"open_pay":0,"open_shake":0,"open_scan":0,"open_card":0,"open_store":0}
+//},
 //"authorization_info":
-//{"authorizer_appid":"wx7cfd56c9f047bf51",
-//"func_info":[{"funcscope_category":{"id":1}},
-//{"funcscope_category":{"id":2}},
-//{"funcscope_category":{"id":3}},
-//{"funcscope_category":{"id":4}},
-//{"funcscope_category":{"id":5}},
-//{"funcscope_category":{"id":6}},
-//{"funcscope_category":{"id":7}},
-//{"funcscope_category":{"id":8}},
-//{"funcscope_category":{"id":11}},
-//{"funcscope_category":{"id":12}},
-//{"funcscope_category":{"id":13}},
-//{"funcscope_category":{"id":10}}]
-//}}
+    //{"authorizer_appid":"wx7cfd56c9f047bf51",
+        //"func_info":[{"funcscope_category":{"id":1}},
+        //{"funcscope_category":{"id":2}},
+        //{"funcscope_category":{"id":3}},
+        //{"funcscope_category":{"id":4}},
+        //{"funcscope_category":{"id":5}},
+        //{"funcscope_category":{"id":6}},
+        //{"funcscope_category":{"id":7}},
+        //{"funcscope_category":{"id":8}},
+        //{"funcscope_category":{"id":11}},
+        //{"funcscope_category":{"id":12}},
+        //{"funcscope_category":{"id":13}},
+        //{"funcscope_category":{"id":10}}]
+    //}
+//}
 #endregion

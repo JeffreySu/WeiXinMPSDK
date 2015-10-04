@@ -16,7 +16,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         {
             return;//已经通过测试
 
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             ButtonGroup bg = new ButtonGroup();
 
@@ -67,7 +67,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         public void GetMenuTest()
         {
             return;//已经通过测试
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = CommonApi.GetMenu(accessToken);
 
@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         {
             return;//已经通过测试，删除之后，GetMenu将返回null
 
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = CommonApi.DeleteMenu(accessToken);
             Assert.IsNotNull(result);

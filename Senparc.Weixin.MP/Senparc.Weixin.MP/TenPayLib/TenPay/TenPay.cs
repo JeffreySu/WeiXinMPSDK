@@ -55,7 +55,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="sign_Method">签名方法</param>
         public static WxJsonResult Delivernotify(string appId, string openId, string transId, string out_Trade_No, string deliver_TimesTamp, string deliver_Status, string deliver_Msg, string app_Signature, string sign_Method = "sha1")
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(appId);
 
             var urlFormat = "https://api.weixin.qq.com/pay/delivernotify?access_token={0}";
 
@@ -86,7 +86,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="sign_Method">签名方法</param>
         public static OrderqueryResult Orderquery(string appId, string package, string timesTamp, string app_Signature, string sign_Method)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(appId);
 
             var urlFormat = "https://api.weixin.qq.com/pay/orderquery?access_token={0}";
 

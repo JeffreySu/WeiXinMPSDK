@@ -46,9 +46,8 @@
   <ItemGroup>
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
-    <Compile Include="CommonAPIs\ComponentAccessTokenContainer.cs" />
-    <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
-    <Compile Include="CommonAPIs\PreAuthCodeContainer.cs" />
+    <Compile Include="CommonAPIs\ComponentContainer.cs" />
+    <Compile Include="CommonAPIs\AuthorizerContainer.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\GetAuthorizerInfoResult.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\RefreshAuthorizerTokenResult.cs" />
     <Compile Include="Entities\JsonResult\ComponentAccessTokenResult.cs" />
@@ -59,6 +58,7 @@
     <Compile Include="Entities\Request\RequestMessageUnauthorized.cs" />
     <Compile Include="Entities\Request\RequestMessageComponentVerifyTicket.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Exceptions\WeixinOpenException.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\InfoTypeHelper.cs" />
     <Compile Include="QRConnect\QRConnectAPI.cs" />
@@ -75,7 +75,6 @@
     <Compile Include="ComponentAPIs\ComponentApi.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\AuthorizerOptionResult.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\QueryAuthResult.cs" />
-    <Compile Include="CommonAPIs\ComponentTicketContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
@@ -83,9 +82,7 @@
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TicketCache\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

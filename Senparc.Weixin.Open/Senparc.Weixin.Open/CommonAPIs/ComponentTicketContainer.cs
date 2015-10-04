@@ -11,10 +11,14 @@
 
 using System;
 using System.Collections.Generic;
+using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Open.CommonAPIs
 {
-    class ComponentTicketBag
+    /// <summary>
+    /// ComponentTicketBag
+    /// </summary>
+    public class ComponentTicketBag : BaseContainerBag
     {
         /// <summary>
         /// AppId
@@ -24,6 +28,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// ComponentVerifyTicket
         /// </summary>
         public string ComponentVerifyTicket { get; set; }
+
         ///// <summary>
         ///// 只针对这个AppId的锁
         ///// </summary>
@@ -33,11 +38,8 @@ namespace Senparc.Weixin.Open.CommonAPIs
     /// <summary>
     /// ComponentTicket容器
     /// </summary>
-    public class ComponentTicketContainer
+    public class ComponentTicketContainer : BaseContainer<ComponentTicketBag>
     {
-        static Dictionary<string, ComponentTicketBag> ComponentTicketCollection =
-                 new Dictionary<string, ComponentTicketBag>(StringComparer.OrdinalIgnoreCase);
-
         /// <summary>
         /// 获取ComponentVerifyTicket
         /// </summary>
@@ -45,12 +47,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <returns>如果不存在，则返回null</returns>
         public static string TryGetComponentVerifyTicket(string componentAppId)
         {
-            if (ComponentTicketCollection.ContainsKey(componentAppId))
-            {
-                return ComponentTicketCollection[componentAppId].ComponentVerifyTicket;
-            }
-
-            return null;
+            return TryGetItem(componentAppId, bag => bag.ComponentVerifyTicket);
         }
 
         /// <summary>
@@ -60,18 +57,10 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <param name="componentVerifyTicket"></param>
         public static void Update(string componentAppId, string componentVerifyTicket)
         {
-            ComponentTicketBag bag = null;
-            if (ComponentTicketCollection.ContainsKey(componentAppId))
+            Update(componentAppId, bag =>
             {
-                bag = ComponentTicketCollection[componentAppId];
-            }
-
-            bag = bag ?? new ComponentTicketBag()
-            {
-                ComponentAppId = componentAppId
-            };
-
-            bag.ComponentVerifyTicket = componentVerifyTicket;
+                bag.ComponentVerifyTicket = componentVerifyTicket;
+            });
         }
     }
 }

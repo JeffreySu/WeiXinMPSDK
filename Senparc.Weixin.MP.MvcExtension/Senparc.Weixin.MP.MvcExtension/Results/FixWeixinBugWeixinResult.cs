@@ -79,7 +79,11 @@ namespace Senparc.Weixin.MP.MvcExtension
                     context.HttpContext.Response.ClearContent();
                     context.HttpContext.Response.ContentType = "text/xml";
 
-                    var xml = _messageHandlerDocument.FinalResponseDocument.ToString().Replace("\r\n", "\n"); //腾
+                    var xml = _messageHandlerDocument.FinalResponseDocument == null 
+                                ? "" 
+                                : _messageHandlerDocument.FinalResponseDocument
+                                                         .ToString().Replace("\r\n", "\n"); //腾
+
                     using (MemoryStream ms = new MemoryStream())//迅
                     {//真
                         var bytes = Encoding.UTF8.GetBytes(xml);//的

@@ -12,6 +12,10 @@
     
     修改标识：Senparc - 20150702
     修改描述：添加GetFirstOrDefaultAppId()方法
+    
+    修改标识：Senparc - 20151004
+    修改描述：v13.3.0 将JsApiTicketContainer整合到AccessTokenContainer
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -23,6 +27,9 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
+    /// <summary>
+    /// AccessToken及JsApiTicket包
+    /// </summary>
     public class AccessTokenBag : BaseContainerBag
     {
         public string AppId { get; set; }
@@ -171,17 +178,17 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 throw new WeixinException("此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var accessTicketBag = ItemCollection[appId];
-            lock (accessTicketBag.Lock)
+            var accessTokenBag = ItemCollection[appId];
+            lock (accessTokenBag.Lock)
             {
-                if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= DateTime.Now)
+                if (getNewTicket || accessTokenBag.JsApiTicketExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
-                    accessTicketBag.JsApiTicketResult = CommonApi.GetTicket(accessTicketBag.AppId, accessTicketBag.AppSecret);
-                    accessTicketBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(accessTicketBag.JsApiTicketResult.expires_in);
+                    accessTokenBag.JsApiTicketResult = CommonApi.GetTicket(accessTokenBag.AppId, accessTokenBag.AppSecret);
+                    accessTokenBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(accessTokenBag.JsApiTicketResult.expires_in);
                 }
             }
-            return accessTicketBag.JsApiTicketResult;
+            return accessTokenBag.JsApiTicketResult;
         }
 
         #endregion

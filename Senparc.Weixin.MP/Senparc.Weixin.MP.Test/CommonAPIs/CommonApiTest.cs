@@ -85,8 +85,9 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             //全局只需注册一次
             AccessTokenContainer.Register(_appId, _appSecret);
 
-            //全局只需注册一次
-            JsApiTicketContainer.Register(_appId, _appSecret);
+            //v13.3.0之后，JsApiTicketContainer已经合并入AccessTokenContainer，已经不需要单独注册
+            ////全局只需注册一次
+            //JsApiTicketContainer.Register(_appId, _appSecret);
         }
 
         [TestMethod]

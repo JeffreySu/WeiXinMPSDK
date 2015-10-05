@@ -31,6 +31,8 @@ namespace Senparc.Weixin.Open.CommonAPIs.Tests
             Assert.IsTrue(container.Values.Count==1);
             Assert.AreEqual(componentAppId, bag.ComponentAppId);
             Assert.AreEqual("ComponentAppSecret", bag.ComponentAppSecret);
+            Assert.IsNotNull(bag.Key);
+            Assert.AreEqual(componentAppId, bag.Key);
 
             var ticket = ComponentContainer.TryGetComponentVerifyTicket(componentAppId);
             Assert.AreEqual("tiket", ticket);

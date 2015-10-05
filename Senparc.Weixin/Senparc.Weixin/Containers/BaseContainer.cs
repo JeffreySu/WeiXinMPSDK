@@ -105,6 +105,7 @@ namespace Senparc.Weixin.Containers
             }
             else
             {
+                value.Key = key;//确保Key有值
                 ItemCollection[key] = value;
             }
         }

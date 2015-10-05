@@ -10860,10 +10860,23 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.MP.CheckSignature">
+            <summary>
+            签名验证类
+            </summary>
+        </member>
         <member name="F:Senparc.Weixin.MP.CheckSignature.Token">
             <summary>
             在网站没有提供Token（或传入为null）的情况下的默认Token，建议在网站中进行配置。
             </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CheckSignature.Check(System.String,Senparc.Weixin.MP.Entities.Request.PostModel)">
+            <summary>
+            检查签名是否正确
+            </summary>
+            <param name="signature"></param>
+            <param name="postModel">需要提供：Timestamp、Nonce、Token</param>
+            <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.CheckSignature.Check(System.String,System.String,System.String,System.String)">
             <summary>
@@ -10873,6 +10886,13 @@
             <param name="timestamp"></param>
             <param name="nonce"></param>
             <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CheckSignature.GetSignature(Senparc.Weixin.MP.Entities.Request.PostModel)">
+            <summary>
+            返回正确的签名
+            </summary>
+            <param name="postModel">需要提供：Timestamp、Nonce、Token</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.CheckSignature.GetSignature(System.String,System.String,System.String)">

@@ -103,7 +103,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <summary>
         /// 获取ComponentVerifyTicket的方法
         /// </summary>
-        public static Func<string> GetComponentVerifyTicketFunc = null;
+        public static Func<string, string> GetComponentVerifyTicketFunc = null;
 
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
@@ -111,7 +111,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <param name="componentAppId"></param>
         /// <param name="componentAppSecret"></param>
         /// <param name="getComponentVerifyTicketFunc">获取ComponentVerifyTicket的方法</param>
-        public static void Register(string componentAppId, string componentAppSecret, Func<string> getComponentVerifyTicketFunc)
+        public static void Register(string componentAppId, string componentAppSecret, Func<string, string> getComponentVerifyTicketFunc)
         {
             if (GetComponentVerifyTicketFunc == null)
             {
@@ -157,7 +157,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
                 {
                     throw new WeixinOpenException("GetComponentVerifyTicketFunc必须在注册时提供！", TryGetItem(componentAppId));
                 }
-                componentVerifyTicket = GetComponentVerifyTicketFunc(); //获取最新的componentVerifyTicket
+                componentVerifyTicket = GetComponentVerifyTicketFunc(componentAppId); //获取最新的componentVerifyTicket
             }
             return componentVerifyTicket;
         }

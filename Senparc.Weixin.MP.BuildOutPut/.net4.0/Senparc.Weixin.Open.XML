@@ -119,7 +119,7 @@
             获取ComponentVerifyTicket的方法
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.Register(System.String,System.String,System.Func{System.String})">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.Register(System.String,System.String,System.Func{System.String,System.String})">
             <summary>
             注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
             </summary>

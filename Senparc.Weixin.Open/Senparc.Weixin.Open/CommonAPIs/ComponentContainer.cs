@@ -10,6 +10,9 @@
     修改标识：Senparc - 20151004
     修改描述：v1.4.1 改名为ComponentContainer.cs，合并多个ComponentApp相关容器
 
+    修改标识：Senparc - 20151005
+    修改描述：v1.4.3 添加ComponentVerifyTicketExpireTime及自动更新机制
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -39,9 +42,9 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// </summary>
         public string ComponentVerifyTicket { get; set; }
         /// <summary>
-        /// 第三方平台ComponentVerifyTicket上次更新时间（每10分钟更新一次）
+        /// 第三方平台ComponentVerifyTicket过期时间（实际上过期之后仍然可以使用一段时间）
         /// </summary>
-        public DateTime ComponentVerifyTicketUpdateTime { get; set; }
+        public DateTime ComponentVerifyTicketExpireTime { get; set; }
 
         /// <summary>
         /// ComponentAccessTokenResult
@@ -75,8 +78,6 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// </summary>
         public ComponentBag()
         {
-            ComponentVerifyTicketUpdateTime = DateTime.MinValue;
-
             ComponentAccessTokenResult = new ComponentAccessTokenResult();
             ComponentAccessTokenExpireTime = DateTime.MinValue;
 
@@ -91,6 +92,10 @@ namespace Senparc.Weixin.Open.CommonAPIs
     public class ComponentContainer : BaseContainer<ComponentBag>
     {
         private const string UN_REGISTER_ALERT = "此appId尚未注册，ComponentContainer.Register完成注册（全局执行一次即可）！";
+        /// <summary>
+        /// ComponentVerifyTicket服务器推送更新时间（分钟）
+        /// </summary>
+        private const int COMPONENT_VERIFY_TICKET_UPDATE_MINUTES = 10;
 
         /// <summary>
         /// 检查AppId是否已经注册，如果没有，则创建
@@ -158,14 +163,14 @@ namespace Senparc.Weixin.Open.CommonAPIs
 
             var bag = TryGetItem(componentAppId);
             var componentVerifyTicket = bag.ComponentVerifyTicket;
-            if (componentVerifyTicket == default(string) || bag.ComponentVerifyTicketUpdateTime.AddMinutes(10) <= DateTime.Now)
+            if (componentVerifyTicket == default(string) || bag.ComponentVerifyTicketExpireTime < DateTime.Now)
             {
                 if (GetComponentVerifyTicketFunc == null)
                 {
                     throw new WeixinOpenException("GetComponentVerifyTicketFunc必须在注册时提供！", TryGetItem(componentAppId));
                 }
                 componentVerifyTicket = GetComponentVerifyTicketFunc(componentAppId); //获取最新的componentVerifyTicket
-                bag.ComponentVerifyTicketUpdateTime = DateTime.Now;
+                bag.ComponentVerifyTicketExpireTime = DateTime.Now.AddMinutes(COMPONENT_VERIFY_TICKET_UPDATE_MINUTES);
             }
             return componentVerifyTicket;
         }

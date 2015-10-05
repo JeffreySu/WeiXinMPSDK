@@ -133,7 +133,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
                     var componentAccessToken = ComponentContainer.GetComponentAccessToken(componentAppId);
 
                     //已过期，重新获取
-                    authorizerBag.AuthorizerInfoResult = ComponentApi.GetAuthorizerInfo(componentAccessToken, componentAppId, authorizerAppid);
+                    authorizerBag.AuthorizerInfoResult = ComponentApi.GetAuthorizerInfo(componentAccessToken, componentAppId, authorizerAppid);//TODO:如果是过期，可以通过刷新的方式重新获取
 
                     var componentBag = ComponentContainer.TryGetItem(componentAppId);
 

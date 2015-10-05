@@ -38,6 +38,10 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// 第三方平台ComponentVerifyTicket（每隔10分钟微信会主动推送到服务器，IP必须在白名单内）
         /// </summary>
         public string ComponentVerifyTicket { get; set; }
+        /// <summary>
+        /// 第三方平台ComponentVerifyTicket上次更新时间（每10分钟更新一次）
+        /// </summary>
+        public DateTime ComponentVerifyTicketUpdateTime { get; set; }
 
         /// <summary>
         /// ComponentAccessTokenResult
@@ -71,6 +75,8 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// </summary>
         public ComponentBag()
         {
+            ComponentVerifyTicketUpdateTime = DateTime.MinValue;
+
             ComponentAccessTokenResult = new ComponentAccessTokenResult();
             ComponentAccessTokenExpireTime = DateTime.MinValue;
 
@@ -150,14 +156,16 @@ namespace Senparc.Weixin.Open.CommonAPIs
                 throw new WeixinOpenException(UN_REGISTER_ALERT);
             }
 
-            var componentVerifyTicket = TryGetItem(componentAppId, bag => bag.ComponentVerifyTicket);
-            if (componentVerifyTicket == default(string))
+            var bag = TryGetItem(componentAppId);
+            var componentVerifyTicket = bag.ComponentVerifyTicket;
+            if (componentVerifyTicket == default(string) || bag.ComponentVerifyTicketUpdateTime.AddMinutes(10) <= DateTime.Now)
             {
                 if (GetComponentVerifyTicketFunc == null)
                 {
                     throw new WeixinOpenException("GetComponentVerifyTicketFunc必须在注册时提供！", TryGetItem(componentAppId));
                 }
                 componentVerifyTicket = GetComponentVerifyTicketFunc(componentAppId); //获取最新的componentVerifyTicket
+                bag.ComponentVerifyTicketUpdateTime = DateTime.Now;
             }
             return componentVerifyTicket;
         }

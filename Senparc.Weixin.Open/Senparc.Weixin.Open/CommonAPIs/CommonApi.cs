@@ -57,7 +57,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         public static PreAuthCodeResult GetPreAuthCode(string componentAppId, string componentAppSecret, string componentVerifyTicket, int timeOut = Config.TIME_OUT)
         {
             //获取componentAccessToken
-            var componentAccessToken = ComponentContainer.TryGetPreAuthCode(componentAppId, componentAppSecret, componentVerifyTicket);
+            var componentAccessToken = GetComponentAccessToken(componentAppId, componentAppSecret, componentVerifyTicket);
 
             var url =
                 string.Format(

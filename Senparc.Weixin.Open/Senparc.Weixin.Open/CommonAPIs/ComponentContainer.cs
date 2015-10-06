@@ -82,7 +82,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
             ComponentAccessTokenExpireTime = DateTime.MinValue;
 
             PreAuthCodeResult = new PreAuthCodeResult();
-            PreAuthCodeExpireTime = DateTime.MaxValue;
+            PreAuthCodeExpireTime = DateTime.MinValue;
         }
     }
 
@@ -170,6 +170,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
                     throw new WeixinOpenException("GetComponentVerifyTicketFunc必须在注册时提供！", TryGetItem(componentAppId));
                 }
                 componentVerifyTicket = GetComponentVerifyTicketFunc(componentAppId); //获取最新的componentVerifyTicket
+                bag.ComponentVerifyTicket = componentVerifyTicket;
                 bag.ComponentVerifyTicketExpireTime = DateTime.Now.AddMinutes(COMPONENT_VERIFY_TICKET_UPDATE_MINUTES);
             }
             return componentVerifyTicket;
@@ -294,9 +295,21 @@ namespace Senparc.Weixin.Open.CommonAPIs
                     //已过期，重新获取
                     var componentVerifyTicket = TryGetComponentVerifyTicket(componentAppId);
 
-                    accessTokenBag.PreAuthCodeResult = CommonApi.GetPreAuthCode(accessTokenBag.ComponentAppId, accessTokenBag.ComponentAppSecret, componentVerifyTicket);
+                    var preAuthCodeResult = CommonApi.GetPreAuthCode(accessTokenBag.ComponentAppId, accessTokenBag.ComponentAppSecret, componentVerifyTicket);
 
-                    accessTokenBag.PreAuthCodeExpireTime = DateTime.Now.AddSeconds(accessTokenBag.PreAuthCodeResult.expires_in);
+                    //if (preAuthCodeResult)
+                    //{
+
+                    //}
+
+                    accessTokenBag.PreAuthCodeResult = preAuthCodeResult;
+
+                    //TODO:这里有出现expires_in=0的情况，导致始终处于过期状态（也可能是因为参数过期等原因没有返回正确的数据，待观察）
+                    var expiresIn = accessTokenBag.PreAuthCodeResult.expires_in > 0
+                        ? accessTokenBag.PreAuthCodeResult.expires_in
+                        : 60 * 20;//默认为20分钟
+                    accessTokenBag.PreAuthCodeExpireTime = DateTime.Now.AddSeconds(expiresIn);
+                  
                 }
             }
             return accessTokenBag.PreAuthCodeResult;

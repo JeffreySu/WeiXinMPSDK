@@ -55,6 +55,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="BaseTest.cs" />
     <Compile Include="CommonAPIs\ComponentContainerTests.cs" />
     <Compile Include="CommonApi\CommonApi.cs" />
     <Compile Include="ComponentAPIs\ComponentApi.cs" />

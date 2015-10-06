@@ -50,15 +50,11 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// 获取预授权码
         /// </summary>
         /// <param name="componentAppId">第三方平台方appid</param>
-        /// <param name="componentAppSecret"></param>
-        /// <param name="componentVerifyTicket"></param>
+        /// <param name="componentAccessToken"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static PreAuthCodeResult GetPreAuthCode(string componentAppId, string componentAppSecret, string componentVerifyTicket, int timeOut = Config.TIME_OUT)
+        public static PreAuthCodeResult GetPreAuthCode(string componentAppId, string componentAccessToken, int timeOut = Config.TIME_OUT)
         {
-            //获取componentAccessToken
-            var componentAccessToken = GetComponentAccessToken(componentAppId, componentAppSecret, componentVerifyTicket);
-
             var url =
                 string.Format(
                     "https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token={0}",

@@ -201,30 +201,32 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <param name="componentAppSecret"></param>
         /// <param name="getNewToken"></param>
         /// <returns></returns>
-        public static string TryGetComponentAccessToken(string componentAppId, string componentAppSecret, bool getNewToken = false)
+        public static string TryGetComponentAccessToken(string componentAppId, string componentAppSecret, string componentVerifyTicket, bool getNewToken = false)
         {
             TryRegister(componentAppId, componentAppSecret, getNewToken);
-            return GetComponentAccessToken(componentAppId);
+            return GetComponentAccessToken(componentAppId, componentVerifyTicket);
         }
 
         /// <summary>
         /// 获取可用AccessToken
         /// </summary>
         /// <param name="componentAppId"></param>
+        /// <param name="componentVerifyTicket"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static string GetComponentAccessToken(string componentAppId, bool getNewToken = false)
+        public static string GetComponentAccessToken(string componentAppId, string componentVerifyTicket, bool getNewToken = false)
         {
-            return GetComponentAccessTokenResult(componentAppId, getNewToken).component_access_token;
+            return GetComponentAccessTokenResult(componentAppId, componentVerifyTicket, getNewToken).component_access_token;
         }
 
         /// <summary>
         /// 获取可用AccessToken
         /// </summary>
         /// <param name="componentAppId"></param>
+        /// <param name="componentVerifyTicket"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static ComponentAccessTokenResult GetComponentAccessTokenResult(string componentAppId, bool getNewToken = false)
+        public static ComponentAccessTokenResult GetComponentAccessTokenResult(string componentAppId, string componentVerifyTicket, bool getNewToken = false)
         {
             if (!CheckRegistered(componentAppId))
             {
@@ -237,7 +239,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
                 if (getNewToken || accessTokenBag.ComponentAccessTokenExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
-                    var componentVerifyTicket = TryGetComponentVerifyTicket(componentAppId);
+                    //var componentVerifyTicket = TryGetComponentVerifyTicket(componentAppId);
 
                     accessTokenBag.ComponentAccessTokenResult = CommonApi.GetComponentAccessToken(accessTokenBag.ComponentAppId, accessTokenBag.ComponentAppSecret, componentVerifyTicket);
 
@@ -260,7 +262,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         public static string TryGetPreAuthCode(string componentAppId, string componentAppSecret, bool getNewToken = false)
         {
             TryRegister(componentAppId, componentAppSecret, getNewToken);
-            return GetGetPreAuthCode(componentAppId);
+            return GetPreAuthCode(componentAppId);
         }
 
         /// <summary>
@@ -269,7 +271,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <param name="componentAppId"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static string GetGetPreAuthCode(string componentAppId, bool getNewToken = false)
+        public static string GetPreAuthCode(string componentAppId, bool getNewToken = false)
         {
             return GetPreAuthCodeResult(componentAppId, getNewToken).pre_auth_code;
         }
@@ -287,32 +289,34 @@ namespace Senparc.Weixin.Open.CommonAPIs
                 throw new WeixinOpenException(UN_REGISTER_ALERT);
             }
 
-            var accessTokenBag = ItemCollection[componentAppId];
-            lock (accessTokenBag.Lock)
+            var componentBag = ItemCollection[componentAppId];
+            lock (componentBag.Lock)
             {
-                if (getNewToken || accessTokenBag.PreAuthCodeExpireTime <= DateTime.Now)
+                if (getNewToken || componentBag.PreAuthCodeExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
                     var componentVerifyTicket = TryGetComponentVerifyTicket(componentAppId);
 
-                    var preAuthCodeResult = CommonApi.GetPreAuthCode(accessTokenBag.ComponentAppId, accessTokenBag.ComponentAppSecret, componentVerifyTicket);
+                    var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret, componentVerifyTicket);
+
+                    var preAuthCodeResult = CommonApi.GetPreAuthCode(componentBag.ComponentAppId, accessToken);
 
                     //if (preAuthCodeResult)
                     //{
 
                     //}
 
-                    accessTokenBag.PreAuthCodeResult = preAuthCodeResult;
+                    componentBag.PreAuthCodeResult = preAuthCodeResult;
 
                     //TODO:这里有出现expires_in=0的情况，导致始终处于过期状态（也可能是因为参数过期等原因没有返回正确的数据，待观察）
-                    var expiresIn = accessTokenBag.PreAuthCodeResult.expires_in > 0
-                        ? accessTokenBag.PreAuthCodeResult.expires_in
+                    var expiresIn = componentBag.PreAuthCodeResult.expires_in > 0
+                        ? componentBag.PreAuthCodeResult.expires_in
                         : 60 * 20;//默认为20分钟
-                    accessTokenBag.PreAuthCodeExpireTime = DateTime.Now.AddSeconds(expiresIn);
+                    componentBag.PreAuthCodeExpireTime = DateTime.Now.AddSeconds(expiresIn);
 
                 }
             }
-            return accessTokenBag.PreAuthCodeResult;
+            return componentBag.PreAuthCodeResult;
         }
         #endregion
 

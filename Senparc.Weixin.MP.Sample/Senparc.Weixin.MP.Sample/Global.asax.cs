@@ -57,12 +57,6 @@ namespace Senparc.Weixin.MP.Sample
         {
             Func<string, string> getComponentVerifyTicketFunc = componentAppId =>
             {
-                var accessToken =
-                    ComponentContainer.TryGetComponentAccessToken(ConfigurationManager.AppSettings["Component_Appid"],
-                        ConfigurationManager.AppSettings["Component_Secret"]);
-
-                System.Diagnostics.Debug.WriteLine("ComponentAccessToken：{0}",accessToken);
-
                 var file = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\OpenTicket", string.Format("{0}.txt", componentAppId));
                 using (var fs = new FileStream(file, FileMode.Open))
                 {

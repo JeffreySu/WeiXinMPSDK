@@ -20,13 +20,12 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.CommonApi.GetPreAuthCode(System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.CommonApi.GetPreAuthCode(System.String,System.String,System.Int32)">
             <summary>
             获取预授权码
             </summary>
             <param name="componentAppId">第三方平台方appid</param>
-            <param name="componentAppSecret"></param>
-            <param name="componentVerifyTicket"></param>
+            <param name="componentAccessToken"></param>
             <param name="timeOut"></param>
             <returns></returns>
         </member>
@@ -159,7 +158,7 @@
             <param name="componentAppId"></param>
             <param name="componentVerifyTicket"></param>
         </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.TryGetComponentAccessToken(System.String,System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.TryGetComponentAccessToken(System.String,System.String,System.String,System.Boolean)">
             <summary>
             使用完整的应用凭证获取Token，如果不存在将自动注册
             </summary>
@@ -168,19 +167,21 @@
             <param name="getNewToken"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.GetComponentAccessToken(System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.GetComponentAccessToken(System.String,System.String,System.Boolean)">
             <summary>
             获取可用AccessToken
             </summary>
             <param name="componentAppId"></param>
+            <param name="componentVerifyTicket"></param>
             <param name="getNewToken">是否强制重新获取新的Token</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.GetComponentAccessTokenResult(System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.GetComponentAccessTokenResult(System.String,System.String,System.Boolean)">
             <summary>
             获取可用AccessToken
             </summary>
             <param name="componentAppId"></param>
+            <param name="componentVerifyTicket"></param>
             <param name="getNewToken">是否强制重新获取新的Token</param>
             <returns></returns>
         </member>
@@ -193,7 +194,7 @@
             <param name="getNewToken"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.GetGetPreAuthCode(System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.GetPreAuthCode(System.String,System.Boolean)">
             <summary>
             获取可用Token
             </summary>

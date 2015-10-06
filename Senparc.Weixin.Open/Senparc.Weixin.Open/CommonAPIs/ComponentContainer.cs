@@ -304,10 +304,12 @@ namespace Senparc.Weixin.Open.CommonAPIs
 
                     accessTokenBag.PreAuthCodeResult = preAuthCodeResult;
 
-                    var expires_in = accessTokenBag.PreAuthCodeResult.expires_in > 0
+                    //TODO:这里有出现expires_in=0的情况，导致始终处于过期状态（也可能是因为参数过期等原因没有返回正确的数据，待观察）
+                    var expiresIn = accessTokenBag.PreAuthCodeResult.expires_in > 0
                         ? accessTokenBag.PreAuthCodeResult.expires_in
                         : 60 * 20;//默认为20分钟
-                    accessTokenBag.PreAuthCodeExpireTime = DateTime.Now.AddSeconds(expires_in);//这里有出现expires_in=0的情况，导致始终处于过期状态
+                    accessTokenBag.PreAuthCodeExpireTime = DateTime.Now.AddSeconds(expiresIn);
+                  
                 }
             }
             return accessTokenBag.PreAuthCodeResult;

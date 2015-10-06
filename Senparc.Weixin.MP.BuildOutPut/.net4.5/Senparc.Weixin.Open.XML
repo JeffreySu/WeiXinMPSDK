@@ -144,11 +144,12 @@
             <param name="componentAppId"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.TryGetComponentVerifyTicket(System.String)">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.TryGetComponentVerifyTicket(System.String,System.Boolean)">
             <summary>
             获取ComponentVerifyTicket
             </summary>
             <param name="componentAppId"></param>
+            <param name="getNewToken"></param>
             <returns>如果不存在，则返回null</returns>
         </member>
         <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.UpdateComponentVerifyTicket(System.String,System.String)">
@@ -183,13 +184,12 @@
             <param name="getNewToken">是否强制重新获取新的Token</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.TryGetPreAuthCode(System.String,System.String,System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.ComponentContainer.TryGetPreAuthCode(System.String,System.String,System.Boolean)">
             <summary>
             使用完整的应用凭证获取Token，如果不存在将自动注册
             </summary>
             <param name="componentAppId"></param>
             <param name="componentAppSecret"></param>
-            <param name="componentVerifyTicket"></param>
             <param name="getNewToken"></param>
             <returns></returns>
         </member>

@@ -153,8 +153,9 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// 获取ComponentVerifyTicket
         /// </summary>
         /// <param name="componentAppId"></param>
+        /// <param name="getNewToken"></param>
         /// <returns>如果不存在，则返回null</returns>
-        public static string TryGetComponentVerifyTicket(string componentAppId)
+        public static string TryGetComponentVerifyTicket(string componentAppId, bool getNewToken = false)
         {
             if (!CheckRegistered(componentAppId))
             {
@@ -163,7 +164,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
 
             var bag = TryGetItem(componentAppId);
             var componentVerifyTicket = bag.ComponentVerifyTicket;
-            if (componentVerifyTicket == default(string) || bag.ComponentVerifyTicketExpireTime < DateTime.Now)
+            if (getNewToken || componentVerifyTicket == default(string) || bag.ComponentVerifyTicketExpireTime < DateTime.Now)
             {
                 if (GetComponentVerifyTicketFunc == null)
                 {
@@ -254,10 +255,9 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// </summary>
         /// <param name="componentAppId"></param>
         /// <param name="componentAppSecret"></param>
-        /// <param name="componentVerifyTicket"></param>
         /// <param name="getNewToken"></param>
         /// <returns></returns>
-        public static string TryGetPreAuthCode(string componentAppId, string componentAppSecret, string componentVerifyTicket, bool getNewToken = false)
+        public static string TryGetPreAuthCode(string componentAppId, string componentAppSecret, bool getNewToken = false)
         {
             TryRegister(componentAppId, componentAppSecret, getNewToken);
             return GetGetPreAuthCode(componentAppId);
@@ -309,7 +309,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
                         ? accessTokenBag.PreAuthCodeResult.expires_in
                         : 60 * 20;//默认为20分钟
                     accessTokenBag.PreAuthCodeExpireTime = DateTime.Now.AddSeconds(expiresIn);
-                  
+
                 }
             }
             return accessTokenBag.PreAuthCodeResult;

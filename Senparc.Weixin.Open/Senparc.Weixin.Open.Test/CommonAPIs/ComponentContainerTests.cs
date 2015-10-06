@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Open.Test;
 
 namespace Senparc.Weixin.Open.CommonAPIs.Tests
 {
     [TestClass()]
-    public class ComponentContainerTests: BaseTest
+    public class ComponentContainerTests : BaseTest
     {
 
 
@@ -20,10 +21,10 @@ namespace Senparc.Weixin.Open.CommonAPIs.Tests
             Func<string, string> getComponentVerifyTicketFunc = s =>
             {
                 //do something
-                return "tiket";
+                return base._ticket;
             };
 
-            ComponentContainer.Register(base._appId,base._appSecret, getComponentVerifyTicketFunc);
+            ComponentContainer.Register(base._appId, base._appSecret, getComponentVerifyTicketFunc);
 
             var fullCollections = ComponentContainer.GetCollectionList();
             Assert.IsTrue(fullCollections.Count == 1);
@@ -31,13 +32,13 @@ namespace Senparc.Weixin.Open.CommonAPIs.Tests
             var container = fullCollections.Values.First();
             var bag = container.Values.First();
             Assert.IsTrue(container.Values.Count == 1);
-            Assert.AreEqual(base.AppConfig, bag.ComponentAppId);
+            Assert.AreEqual(base._appId, bag.ComponentAppId);
             Assert.AreEqual(base._appSecret, bag.ComponentAppSecret);
             Assert.IsNotNull(bag.Key);
             Assert.AreEqual(base._appId, bag.Key);
 
             var ticket = ComponentContainer.TryGetComponentVerifyTicket(base._appId);
-            Assert.AreEqual("tiket", ticket);
+            Assert.AreEqual(base._ticket, ticket);
         }
 
         [TestMethod()]
@@ -45,7 +46,11 @@ namespace Senparc.Weixin.Open.CommonAPIs.Tests
         {
             RegisterTest();//注册
 
+            var preAuthCodeResult = ComponentContainer.GetPreAuthCodeResult(base._appId);
+            Assert.IsTrue(preAuthCodeResult.expires_in > 0);
 
+            SerializerHelper serializerHelper=new SerializerHelper();
+            Console.Write(serializerHelper.GetJsonString(preAuthCodeResult));
         }
     }
 }

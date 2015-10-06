@@ -170,6 +170,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
                     throw new WeixinOpenException("GetComponentVerifyTicketFunc必须在注册时提供！", TryGetItem(componentAppId));
                 }
                 componentVerifyTicket = GetComponentVerifyTicketFunc(componentAppId); //获取最新的componentVerifyTicket
+                bag.ComponentVerifyTicket = componentVerifyTicket;
                 bag.ComponentVerifyTicketExpireTime = DateTime.Now.AddMinutes(COMPONENT_VERIFY_TICKET_UPDATE_MINUTES);
             }
             return componentVerifyTicket;
@@ -298,14 +299,14 @@ namespace Senparc.Weixin.Open.CommonAPIs
 
                     //if (preAuthCodeResult)
                     //{
-                        
+
                     //}
 
                     accessTokenBag.PreAuthCodeResult = preAuthCodeResult;
 
                     var expires_in = accessTokenBag.PreAuthCodeResult.expires_in > 0
                         ? accessTokenBag.PreAuthCodeResult.expires_in
-                        : 60*20;//默认为20分钟
+                        : 60 * 20;//默认为20分钟
                     accessTokenBag.PreAuthCodeExpireTime = DateTime.Now.AddSeconds(expires_in);//这里有出现expires_in=0的情况，导致始终处于过期状态
                 }
             }

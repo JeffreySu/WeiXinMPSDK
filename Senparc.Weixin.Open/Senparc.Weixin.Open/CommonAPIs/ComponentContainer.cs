@@ -82,7 +82,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
             ComponentAccessTokenExpireTime = DateTime.MinValue;
 
             PreAuthCodeResult = new PreAuthCodeResult();
-            PreAuthCodeExpireTime = DateTime.MaxValue;
+            PreAuthCodeExpireTime = DateTime.MinValue;
         }
     }
 

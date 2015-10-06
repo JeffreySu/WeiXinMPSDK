@@ -141,7 +141,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// </summary>
         /// <param name="componentAppId"></param>
         /// <returns></returns>
-        public static bool CheckRegistered(string componentAppId)
+        public new static bool CheckRegistered(string componentAppId)
         {
             return ItemCollection.ContainsKey(componentAppId);
         }

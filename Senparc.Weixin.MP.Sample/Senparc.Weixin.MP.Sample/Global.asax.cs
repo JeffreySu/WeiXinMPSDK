@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -8,6 +10,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
+using Senparc.Weixin.Open.CommonAPIs;
 
 namespace Senparc.Weixin.MP.Sample
 {
@@ -38,11 +41,43 @@ namespace Senparc.Weixin.MP.Sample
             var tenPayV3_AppSecret = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppSecret"];
             var tenPayV3_TenpayNotify = System.Configuration.ConfigurationManager.AppSettings["TenPayV3_TenpayNotify"];
 
-            var weixinPayInfo = new TenPayInfo(weixinPay_PartnerId, weixinPay_Key, weixinPay_AppId,weixinPay_AppKey, weixinPay_TenpayNotify);
+            var weixinPayInfo = new TenPayInfo(weixinPay_PartnerId, weixinPay_Key, weixinPay_AppId, weixinPay_AppKey, weixinPay_TenpayNotify);
             TenPayInfoCollection.Register(weixinPayInfo);
             var tenPayV3Info = new TenPayV3Info(tenPayV3_AppId, tenPayV3_AppSecret, tenPayV3_MchId, tenPayV3_Key,
                                                 tenPayV3_TenpayNotify);
             TenPayV3InfoCollection.Register(tenPayV3Info);
+
+            RegisterWeixinThirdParty(); //注册微信第三方平台
+        }
+
+        /// <summary>
+        /// 注册微信第三方平台
+        /// </summary>
+        private void RegisterWeixinThirdParty()
+        {
+            Func<string, string> getComponentVerifyTicketFunc = componentAppId =>
+            {
+                var accessToken =
+                    ComponentContainer.TryGetComponentAccessToken(ConfigurationManager.AppSettings["Component_Appid"],
+                        ConfigurationManager.AppSettings["Component_Secret"]);
+
+                System.Diagnostics.Debug.WriteLine("ComponentAccessToken：{0}",accessToken);
+
+                var file = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\OpenTicket", string.Format("{0}.txt", componentAppId));
+                using (var fs = new FileStream(file, FileMode.Open))
+                {
+                    using (var sr = new StreamReader(fs))
+                    {
+                        var ticket = sr.ReadToEnd();
+                        return ticket;
+                    }
+                }
+            };
+
+            //执行注册
+            ComponentContainer.Register(
+                ConfigurationManager.AppSettings["Component_Appid"],
+                ConfigurationManager.AppSettings["Component_Secret"], getComponentVerifyTicketFunc);
         }
     }
 }

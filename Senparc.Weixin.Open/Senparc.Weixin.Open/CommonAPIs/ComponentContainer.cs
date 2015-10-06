@@ -294,9 +294,19 @@ namespace Senparc.Weixin.Open.CommonAPIs
                     //已过期，重新获取
                     var componentVerifyTicket = TryGetComponentVerifyTicket(componentAppId);
 
-                    accessTokenBag.PreAuthCodeResult = CommonApi.GetPreAuthCode(accessTokenBag.ComponentAppId, accessTokenBag.ComponentAppSecret, componentVerifyTicket);
+                    var preAuthCodeResult = CommonApi.GetPreAuthCode(accessTokenBag.ComponentAppId, accessTokenBag.ComponentAppSecret, componentVerifyTicket);
 
-                    accessTokenBag.PreAuthCodeExpireTime = DateTime.Now.AddSeconds(accessTokenBag.PreAuthCodeResult.expires_in);
+                    //if (preAuthCodeResult)
+                    //{
+                        
+                    //}
+
+                    accessTokenBag.PreAuthCodeResult = preAuthCodeResult;
+
+                    var expires_in = accessTokenBag.PreAuthCodeResult.expires_in > 0
+                        ? accessTokenBag.PreAuthCodeResult.expires_in
+                        : 60*20;//默认为20分钟
+                    accessTokenBag.PreAuthCodeExpireTime = DateTime.Now.AddSeconds(expires_in);//这里有出现expires_in=0的情况，导致始终处于过期状态
                 }
             }
             return accessTokenBag.PreAuthCodeResult;

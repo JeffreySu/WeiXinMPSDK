@@ -55,7 +55,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 发送文本信息
+        /// 获取所有分组
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <returns></returns>

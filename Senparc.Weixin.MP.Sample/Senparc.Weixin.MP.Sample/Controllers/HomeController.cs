@@ -24,18 +24,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     {
         public ActionResult Index()
         {
-            var verifyTicket =
-                ComponentContainer.TryGetComponentVerifyTicket(ConfigurationManager.AppSettings["Component_Appid"], true);
+            //var verifyTicket =
+            //    ComponentContainer.TryGetComponentVerifyTicket(ConfigurationManager.AppSettings["Component_Appid"]);
 
-            var accessToken =
-    ComponentContainer.TryGetComponentAccessToken(ConfigurationManager.AppSettings["Component_Appid"],
-        ConfigurationManager.AppSettings["Component_Secret"], verifyTicket);
+            //var accessToken = ComponentContainer.TryGetComponentAccessToken(ConfigurationManager.AppSettings          ["Component_Appid"], ConfigurationManager.AppSettings["Component_Secret"], verifyTicket);
 
-            var ticket =
-                ComponentContainer.TryGetComponentVerifyTicket(ConfigurationManager.AppSettings["Component_Appid"]);
+            //var ticket =
+            //    ComponentContainer.TryGetComponentVerifyTicket(ConfigurationManager.AppSettings["Component_Appid"]);
 
-            var precode = ComponentContainer.GetPreAuthCode(ConfigurationManager.AppSettings["Component_Appid"]);
-            throw new Exception("At：" + accessToken + "\r\n" + ticket + "\r\n" + precode);
+            //var precode = ComponentContainer.GetPreAuthCode(ConfigurationManager.AppSettings["Component_Appid"]);
+            //throw new Exception("At：" + accessToken + "\r\n\r\n" + ticket + "\r\n\r\n" + precode);
 
             return View();
         }

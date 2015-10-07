@@ -130,7 +130,8 @@ namespace Senparc.Weixin.Open.CommonAPIs
             {
                 if (getNewTicket || authorizerBag.AuthorizerInfoExpireTime <= DateTime.Now)
                 {
-                    var componentAccessToken = ComponentContainer.GetComponentAccessToken(componentAppId);
+                    var componentVerifyTicket = ComponentContainer.TryGetComponentVerifyTicket(componentAppId);
+                    var componentAccessToken = ComponentContainer.GetComponentAccessToken(componentAppId, componentVerifyTicket);
 
                     //已过期，重新获取
                     authorizerBag.AuthorizerInfoResult = ComponentApi.GetAuthorizerInfo(componentAccessToken, componentAppId, authorizerAppid);//TODO:如果是过期，可以通过刷新的方式重新获取

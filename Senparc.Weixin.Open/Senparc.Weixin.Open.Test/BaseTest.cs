@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Senparc.Weixin.Open.CommonAPIs;
 
 namespace Senparc.Weixin.Open.Test
 {
@@ -54,6 +55,17 @@ namespace Senparc.Weixin.Open.Test
         protected string _ticket
         {
             get { return AppConfig.Ticket; }
+        }
+
+        public BaseTest()
+        {
+            Func<string, string> getComponentVerifyTicketFunc = s =>
+            {
+                //do something
+                return _ticket;
+            };
+
+            ComponentContainer.Register(_appId, _appSecret, getComponentVerifyTicketFunc);
         }
     }
 }

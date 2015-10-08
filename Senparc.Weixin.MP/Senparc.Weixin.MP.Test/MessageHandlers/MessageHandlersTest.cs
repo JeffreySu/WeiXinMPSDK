@@ -145,6 +145,32 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         [TestMethod]
         public void Event_LocationSelectTest()
         {
+            var requestXML = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+<ToUserName>ToUserName</ToUserName>
+<FromUserName>FromUserName</FromUserName>
+<CreateTime>1444293582</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[location_select]]></Event>
+<EventKey><![CDATA[ZBZXC]]></EventKey>
+<SendLocationInfo><Location_X><![CDATA[31]]></Location_X>
+<Location_Y><![CDATA[121]]></Location_Y>
+<Scale><![CDATA[15]]></Scale>
+<Label><![CDATA[嘉兴市南湖区政府东栅街道办事处(中环南路南)]]></Label>
+<Poiname><![CDATA[南湖区富润路/中环南路(路口)旁]]></Poiname>
+</SendLocationInfo>
+</xml>
+";
+            var messageHandlers = new CustomerMessageHandlers(XDocument.Parse(requestXML));
+            Assert.IsNotNull(messageHandlers.RequestDocument);
+            messageHandlers.Execute();
+            Assert.IsNotNull(messageHandlers.ResponseMessage);
+            Assert.IsNotNull(messageHandlers.ResponseDocument);
+            Assert.IsFalse(messageHandlers.UsingEcryptMessage);//没有使用加密模式
+            Assert.IsFalse(messageHandlers.UsingCompatibilityModelEcryptMessage);//没有加密模式，所以也没有兼容模式
+
+            Console.WriteLine(messageHandlers.ResponseDocument.ToString());
+            Assert.AreEqual("ToUserName", messageHandlers.ResponseMessage.FromUserName);
 
         }
 
@@ -187,7 +213,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
     <Encrypt><![CDATA[2gUBUpAeuPFKBS+gkcvrR1cBq1VjTOQluB7+FQF00VnybRpYR3xko4S4wh0qD+64cWmJfF93ZNLm+HLZBexjHLAdJBs5RBG2rP1AJnU0/1vQU/Ac9Q1Nq7vfC4l3ciF8YwhQW0o/GE4MYWWakgdwnp0hQ7aVVwqMLd67A5bsURQHJiFY/cH0fVlsKe6J3aazGhRXFCxceOq2VTJ2Eulc8aBDVSM5/lAIUA/JPq5Z2RzomM0+aoa5XIfGyAtAdlBXD0ADTemxgfYAKI5EMfKtH5za3dKV2UWbGAlJQZ0fwrwPx6Rs8MsoEtyxeQ52gO94gafA+/kIVjamKTVLSgudLLz5rAdGneKkBVhXyfyfousm1DoDRjQdAdqMWpwbeG5hanoJyJiH+humW/1q8PAAiaEfA+BOuvBk/a5xL0Q2l2k=]]></Encrypt>
 </xml>";
-             messageHandlers = new CustomerMessageHandlers(XDocument.Parse(ecryptXml), postModel);
+            messageHandlers = new CustomerMessageHandlers(XDocument.Parse(ecryptXml), postModel);
             Assert.IsNotNull(messageHandlers.RequestDocument);
             Assert.IsNotNull(messageHandlers.RequestMessage);
             Assert.IsNotNull(messageHandlers.RequestMessage.Encrypt);
@@ -356,11 +382,11 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
             var requestMessage = new RequestMessageText()
             {
-                Content="Hi",
+                Content = "Hi",
                 CreateTime = DateTime.Now,
-                FromUserName="FromeUserName",
+                FromUserName = "FromeUserName",
                 ToUserName = "ToUserName",
-                MsgId=123,
+                MsgId = 123,
             };
             var messageHandler = new CustomerMessageHandlers(requestMessage);
             messageHandler.Execute();

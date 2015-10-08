@@ -143,6 +143,12 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         }
 
         [TestMethod]
+        public void Event_LocationSelectTest()
+        {
+
+        }
+
+        [TestMethod]
         public void EcryptMessageRequestTest()
         {
             //兼容模式测试

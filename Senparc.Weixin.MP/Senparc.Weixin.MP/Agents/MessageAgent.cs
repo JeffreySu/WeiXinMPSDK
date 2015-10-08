@@ -155,7 +155,7 @@ namespace Senparc.Weixin.MP.Agent
         }
 
         /// <summary>
-        /// 获取Souidea开放平台的ResponseMessge结果
+        /// 获取微微嗨（前Souidea）开放平台的ResponseMessge结果
         /// </summary>
         /// <param name="messageHandler"></param>
         /// <param name="weiweihiKey"></param>

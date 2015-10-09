@@ -66,6 +66,8 @@ namespace Senparc.Weixin.Open.CommonAPIs
 
                         return Post.PostGetJson<T>(url, null, ms, timeOut: timeOut);
                     }
+
+                //TODO:对于特定的错误类型自动进行一次重试，如40001（目前的问题是同样40001会出现在不同的情况下面）
                 default:
                     throw new ArgumentOutOfRangeException("sendType");
             }

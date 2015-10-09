@@ -78,7 +78,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
                 throw new WeixinOpenException(string.Format("注册AuthorizerContainer之前，必须先注册对应的ComponentContainer！ComponentAppId：{0},AuthorizerAppId:{1}", componentAppId, authorizerAppId));
             }
 
-            Update(componentAppId, new AuthorizerBag()
+            Update(authorizerAppId, new AuthorizerBag()
             {
                 AuthorizerAppId = authorizerAppId,
                 ComponentAppId = componentAppId,
@@ -89,6 +89,8 @@ namespace Senparc.Weixin.Open.CommonAPIs
                 JsApiTicketResult = new JsApiTicketResult(),
                 JsApiTicketExpireTime = DateTime.MinValue,
             });
+
+            //TODO：这里也可以考虑尝试进行授权（会影响速度）
         }
 
         /// <summary>

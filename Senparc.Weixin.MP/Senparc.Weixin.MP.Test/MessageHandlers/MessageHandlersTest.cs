@@ -170,6 +170,9 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 ";
             var messageHandlers = new CustomerMessageHandlers(XDocument.Parse(requestXML));
             Assert.IsNotNull(messageHandlers.RequestDocument);
+            Assert.IsInstanceOfType(messageHandlers.RequestMessage,typeof(RequestMessageEvent_Location_Select));
+            Assert.AreEqual("ZBZXC",((RequestMessageEvent_Location_Select)messageHandlers.RequestMessage).EventKey);
+
             messageHandlers.Execute();
             Assert.IsNotNull(messageHandlers.ResponseMessage);
             Assert.IsNotNull(messageHandlers.ResponseDocument);

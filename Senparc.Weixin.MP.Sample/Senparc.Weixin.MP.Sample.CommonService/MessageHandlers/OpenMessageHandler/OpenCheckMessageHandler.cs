@@ -19,7 +19,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
     /// </summary>
     public class OpenCheckMessageHandler : MessageHandler<CustomMessageContext>
     {
-        private string testAppId = "wx570bc396a51b8ff8";
+        //private string testAppId = "wx570bc396a51b8ff8";
         private string componentAppId = WebConfigurationManager.AppSettings["Component_Appid"];
         private string componentSecret = WebConfigurationManager.AppSettings["Component_Secret"];
 
@@ -31,12 +31,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
 
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
-            var responseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
             if (requestMessage.Content == "TESTCOMPONENT_MSG_TYPE_TEXT")
             {
+                var responseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
                 responseMessage.Content = requestMessage.Content + "_callback";//固定为TESTCOMPONENT_MSG_TYPE_TEXT_callback
+                return responseMessage;
             }
-            else if (requestMessage.Content.StartsWith("QUERY_AUTH_CODE:"))
+
+            if (requestMessage.Content.StartsWith("QUERY_AUTH_CODE:"))
             {
                 string openTicket = OpenTicketHelper.GetOpenTicket(componentAppId);
                 var query_auth_code = requestMessage.Content.Replace("QUERY_AUTH_CODE:", "");
@@ -57,7 +59,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
 
             }
             return null;
-            return responseMessage;
         }
 
         public override IResponseMessageBase OnEventRequest(IRequestMessageEventBase requestMessage)

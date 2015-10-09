@@ -12,18 +12,13 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Helpers;
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP
 {
-    using Senparc.Weixin.MP.Entities;
-    using Senparc.Weixin.MP.Helpers;
-
     public static class ResponseMessageFactory
     {
         //<?xml version="1.0" encoding="utf-8"?>

@@ -8,10 +8,7 @@
     创建标识：Senparc - 20150324
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 
@@ -52,7 +49,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
 
     public class Media_News_Content
     {
-        public List<NewsModel> news_item { get; set; } 
+        public List<Media_News_Content_Item> news_item { get; set; } 
+    }
+
+    public class Media_News_Content_Item : NewsModel
+    {
+        public string url { get; set; }
     }
 
     /// <summary>

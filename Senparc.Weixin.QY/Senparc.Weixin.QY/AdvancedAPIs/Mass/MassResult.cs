@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.HttpUtility;
+﻿using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs.Mass
 {

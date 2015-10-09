@@ -10,11 +10,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 //using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using Senparc.Weixin.Open.CommonAPIs;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -22,6 +24,17 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     {
         public ActionResult Index()
         {
+            //var verifyTicket =
+            //    ComponentContainer.TryGetComponentVerifyTicket(ConfigurationManager.AppSettings["Component_Appid"]);
+
+            //var accessToken = ComponentContainer.TryGetComponentAccessToken(ConfigurationManager.AppSettings          ["Component_Appid"], ConfigurationManager.AppSettings["Component_Secret"], verifyTicket);
+
+            //var ticket =
+            //    ComponentContainer.TryGetComponentVerifyTicket(ConfigurationManager.AppSettings["Component_Appid"]);
+
+            //var precode = ComponentContainer.GetPreAuthCode(ConfigurationManager.AppSettings["Component_Appid"]);
+            //throw new Exception("At：" + accessToken + "\r\n\r\n" + ticket + "\r\n\r\n" + precode);
+
             return View();
         }
 
@@ -33,7 +46,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             catch (Exception)
             {
-                
+
             }
 
             throw new Exception("出错测试，使用Elmah保存错误结果(2)");

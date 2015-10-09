@@ -12,15 +12,9 @@
     官方文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318587&lang=zh_CN
  */
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Open.CommonAPIs;
-using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.Open.CommonAPIs;
 
 namespace Senparc.Weixin.Open.ComponentAPIs
 {
@@ -55,18 +49,17 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="authorizationCode">授权code,会在授权成功时返回给第三方平台，详见第三方平台授权流程说明</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static QueryAuthResult QueryAuth(string componentAccessToken, string componentAppId, string authorizationCode
-            , int timeOut = Config.TIME_OUT)
+        public static QueryAuthResult QueryAuth(string componentAccessToken, string componentAppId, string authorizationCode, int timeOut = Config.TIME_OUT)
         {
             var url =
                 string.Format(
                     "https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token={0}", componentAccessToken);
 
             var data = new
-                {
-                    component_appid = componentAppId,
-                    authorization_code = authorizationCode
-                };
+            {
+                component_appid = componentAppId,
+                authorization_code = authorizationCode
+            };
 
             return CommonJsonSend.Send<QueryAuthResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
@@ -139,11 +132,11 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                     componentAccessToken);
 
             var data = new
-                {
-                    component_appid = componentAppId,
-                    authorizer_appid = authorizerAppId,
-                    option_name = optionName
-                };
+            {
+                component_appid = componentAppId,
+                authorizer_appid = authorizerAppId,
+                option_name = optionName
+            };
 
             return CommonJsonSend.Send<AuthorizerOptionResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
@@ -166,12 +159,12 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                     componentAccessToken);
 
             var data = new
-                {
-                    component_appid = componentAppId,
-                    authorizer_appid = authorizerAppId,
-                    option_name = optionName,
-                    option_value = optionValue
-                };
+            {
+                component_appid = componentAppId,
+                authorizer_appid = authorizerAppId,
+                option_name = optionName,
+                option_value = optionValue
+            };
 
             return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }

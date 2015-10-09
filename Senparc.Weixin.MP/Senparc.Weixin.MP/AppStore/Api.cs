@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Senparc.Weixin.MP.Agent;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.MessageHandlers;
-
-namespace Senparc.Weixin.MP.AppStore
+﻿namespace Senparc.Weixin.MP.AppStore
 {
     //public static class Api
     //{

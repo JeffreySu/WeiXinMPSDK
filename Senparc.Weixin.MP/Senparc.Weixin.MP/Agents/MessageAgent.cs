@@ -15,12 +15,9 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
@@ -64,7 +61,7 @@ namespace Senparc.Weixin.MP.Agent
             string signature = CheckSignature.GetSignature(timestamp, nonce, token);
             url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}",
                     url.Contains("?") ? "&" : "?", signature, timestamp, nonce);
-            var responseXml = HttpUtility.RequestUtility.HttpPost(url, null, stream, timeOut: timeOut);
+            var responseXml = RequestUtility.HttpPost(url, null, stream, timeOut: timeOut);
             return responseXml;
         }
 
@@ -155,7 +152,7 @@ namespace Senparc.Weixin.MP.Agent
         }
 
         /// <summary>
-        /// 获取Souidea开放平台的ResponseMessge结果
+        /// 获取微微嗨（前Souidea）开放平台的ResponseMessge结果
         /// </summary>
         /// <param name="messageHandler"></param>
         /// <param name="weiweihiKey"></param>
@@ -214,7 +211,7 @@ namespace Senparc.Weixin.MP.Agent
                 url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}&echostr={4}",
                         url.Contains("?") ? "&" : "?", signature, timestamp, nonce, echostr);
 
-                var responseStr = HttpUtility.RequestUtility.HttpGet(url, null, timeOut: timeOut);
+                var responseStr = RequestUtility.HttpGet(url, null, timeOut: timeOut);
                 return echostr == responseStr;
             }
             catch

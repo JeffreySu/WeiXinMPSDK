@@ -29,9 +29,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs.Card;
 using Senparc.Weixin.MP.CommonAPIs;
 
@@ -57,7 +56,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 CardCreateInfo cardData = null;
                 CardType cardType = cardInfo.GetCardType();
-         
+
                 switch (cardType)
                 {
                     case CardType.GENERAL_COUPON:
@@ -175,7 +174,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                 }
 
-                return CommonJsonSend.Send<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut);
+                var jsonSetting = new JsonSetting(true, null,
+                    new List<Type>()
+                    {
+                        //typeof (Modify_Msg_Operation),
+                        //typeof (CardCreateInfo),
+                        typeof (Card_BaseInfoBase)//过滤Modify_Msg_Operation主要起作用的是这个
+                    });
+
+                var result = CommonJsonSend.Send<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut,
+                   //针对特殊字段的null值进行过滤
+                   jsonSetting: jsonSetting);
+                return result;
 
             }, accessTokenOrAppId);
         }
@@ -385,7 +395,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     code = code,
                     card_id = cardId
                 };
-                
+
                 return CommonJsonSend.Send<CardConsumeResultJson>(null, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -679,7 +689,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     membership_number = membershipNumber,
                     code = code,
                     card_id = cardId,
-                    activate_begin_time=activateBeginTime,
+                    activate_begin_time = activateBeginTime,
                     activate_end_time = activateEndTime,
                     init_custom_field_value1 = initCustomFieldValue1,
                     init_custom_field_value2 = initCustomFieldValue2,
@@ -757,7 +767,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="isOpen">是否开启买单功能，填true/false</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult PayCellSet(string accessTokenOrAppId, string cardId,  bool isOpen, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult PayCellSet(string accessTokenOrAppId, string cardId, bool isOpen, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -814,7 +824,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static UpdateUserResult UpdateUser(string accessTokenOrAppId, string code, string cardId, int addBonus, int addBalance,
-            int? bonus = null, int? balance = null, string recordBonus = null, string recordBalance = null, string customFieldValue1 = null, 
+            int? bonus = null, int? balance = null, string recordBonus = null, string recordBalance = null, string customFieldValue1 = null,
             string customFieldValue2 = null, string customFieldValue3 = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>

@@ -15,21 +15,16 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Context;
-using Senparc.Weixin.MP.Agent;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MessageHandlers;
 using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
 using Tencent;
-
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -38,7 +33,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
     /// 此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
     /// </summary>
     public abstract partial class MessageHandler<TC> :
-        Weixin.MessageHandlers.MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IMessageHandler
+        MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IMessageHandler
         where TC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         /// <summary>
@@ -269,6 +264,18 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
             return RequestMessage.CreateResponseMessage<TR>();
         }
+
+        //public ResponseMessageText CreateResponseMessageText(string content)
+        //{
+        //    if (RequestMessage == null)
+        //    {
+        //        return null;
+        //    }
+
+        //    var responseMessage = RequestMessage.CreateResponseMessage<ResponseMessageText>();
+        //    responseMessage.Content = content;
+        //    return responseMessage;
+        //}
 
         /// <summary>
         /// 执行微信请求

@@ -13,13 +13,10 @@
     官方文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419316505&token=&lang=zh_CN
  */
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.Open.CommonAPIs;
 
 namespace Senparc.Weixin.Open.QRConnect
 {

@@ -27,7 +27,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
         {
             var openId = "oUzG0jopq4-CpPiOMjFFw7pfYhlQ";//换成已经关注用户的openId
             var templateId = "7y88eQNY_231KgUhPum-_9BiuiMTd_1kBOsNHL_I5bA";//换成已经在微信后台添加的模板Id
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var testData = new TestTemplateData()
             {
                 first = new TemplateDataItem("【测试】您好，我们发现您在微微嗨上的应用存在安全问题。"),

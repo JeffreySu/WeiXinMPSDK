@@ -11,16 +11,15 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
-using Newtonsoft.Json;
 
 namespace Senparc.Weixin.Helpers
 {
+    /// <summary>
+    /// 序列化帮助类
+    /// </summary>
     public class SerializerHelper
     {
         /// <summary>
@@ -35,13 +34,26 @@ namespace Senparc.Weixin.Helpers
                 return null;
             }
 
-            char outStr = (char)int.Parse(match.Value.Remove(0, 2), System.Globalization.NumberStyles.HexNumber);
+            char outStr = (char)int.Parse(match.Value.Remove(0, 2), NumberStyles.HexNumber);
             return new string(outStr, 1);
         }
 
-        public string GetJsonString(object data)
+        /// <summary>
+        /// 将对象转为JSON字符串
+        /// </summary>
+        /// <param name="data">需要生成JSON字符串的数据</param>
+        /// <param name="jsonSetting">JSON输出设置</param>
+        /// <returns></returns>
+        public string GetJsonString(object data, JsonSetting jsonSetting = null)
         {
-            var jsonString = JsonConvert.SerializeObject(data);
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            jsSerializer.RegisterConverters(new JavaScriptConverter[]
+            {
+                new WeixinJsonConventer(data.GetType(), jsonSetting),
+                new ExpandoJsonConverter()
+            });
+
+            var jsonString = jsSerializer.Serialize(data);
 
             //解码Unicode，也可以通过设置App.Config（Web.Config）设置来做，这里只是暂时弥补一下，用到的地方不多
             MatchEvaluator evaluator = new MatchEvaluator(DecodeUnicode);
@@ -49,4 +61,5 @@ namespace Senparc.Weixin.Helpers
             return json;
         }
     }
+
 }

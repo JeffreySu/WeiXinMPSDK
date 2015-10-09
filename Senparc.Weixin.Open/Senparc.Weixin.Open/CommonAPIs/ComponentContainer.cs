@@ -199,6 +199,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// </summary>
         /// <param name="componentAppId"></param>
         /// <param name="componentAppSecret"></param>
+        /// <param name="componentVerifyTicket"></param>
         /// <param name="getNewToken"></param>
         /// <returns></returns>
         public static string TryGetComponentAccessToken(string componentAppId, string componentAppSecret, string componentVerifyTicket, bool getNewToken = false)
@@ -241,9 +242,10 @@ namespace Senparc.Weixin.Open.CommonAPIs
                     //已过期，重新获取
                     //var componentVerifyTicket = TryGetComponentVerifyTicket(componentAppId);
 
-                    accessTokenBag.ComponentAccessTokenResult = CommonApi.GetComponentAccessToken(accessTokenBag.ComponentAppId, accessTokenBag.ComponentAppSecret, componentVerifyTicket);
+                    var componentAccessTokenResult = CommonApi.GetComponentAccessToken(accessTokenBag.ComponentAppId, accessTokenBag.ComponentAppSecret, componentVerifyTicket);
 
-                    accessTokenBag.ComponentAccessTokenExpireTime = DateTime.Now.AddSeconds(accessTokenBag.ComponentAccessTokenResult.expires_in);
+                    accessTokenBag.ComponentAccessTokenResult = componentAccessTokenResult;
+                    accessTokenBag.ComponentAccessTokenExpireTime = DateTime.Now.AddSeconds(componentAccessTokenResult.expires_in);
                 }
             }
             return accessTokenBag.ComponentAccessTokenResult;

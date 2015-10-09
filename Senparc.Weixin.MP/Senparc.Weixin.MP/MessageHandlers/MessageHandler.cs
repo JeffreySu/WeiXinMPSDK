@@ -265,6 +265,18 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return RequestMessage.CreateResponseMessage<TR>();
         }
 
+        //public ResponseMessageText CreateResponseMessageText(string content)
+        //{
+        //    if (RequestMessage == null)
+        //    {
+        //        return null;
+        //    }
+
+        //    var responseMessage = RequestMessage.CreateResponseMessage<ResponseMessageText>();
+        //    responseMessage.Content = content;
+        //    return responseMessage;
+        //}
+
         /// <summary>
         /// 执行微信请求
         /// </summary>

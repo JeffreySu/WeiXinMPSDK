@@ -33,6 +33,13 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             return responseMessage;
         }
 
+        public override IResponseMessageBase OnEvent_LocationSelectRequest(RequestMessageEvent_Location_Select requestMessage)
+        {
+            var responeMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responeMessage.Content = "OnEvent_LocationSelectRequest";
+            return base.OnEvent_LocationSelectRequest(requestMessage);
+        }
+
         #region v1.5之后，所有的OnXX方法均从抽象方法变为虚方法，并都有默认返回消息操作，不需要处理的消息类型无需重写。
 
         //public override IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)
@@ -171,7 +178,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
             Console.WriteLine(messageHandlers.ResponseDocument.ToString());
             Assert.AreEqual("ToUserName", messageHandlers.ResponseMessage.FromUserName);
-
+            Assert.IsInstanceOfType(messageHandlers.ResponseMessage,typeof(ResponseMessageText));
+            Assert.AreEqual("OnEvent_LocationSelectRequest",((ResponseMessageText)messageHandlers.ResponseMessage).Content);
         }
 
         [TestMethod]

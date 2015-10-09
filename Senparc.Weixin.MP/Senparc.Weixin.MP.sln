@@ -40,6 +40,7 @@ Global
 		{232A67F2-CD89-4A20-8DA9-DAED76412B33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{232A67F2-CD89-4A20-8DA9-DAED76412B33}.Test|Any CPU.ActiveCfg = Debug|Any CPU
 		{232A67F2-CD89-4A20-8DA9-DAED76412B33}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{232A67F2-CD89-4A20-8DA9-DAED76412B33}.Test|Any CPU.Deploy.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -37,7 +37,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
             var responeMessage = this.CreateResponseMessage<ResponseMessageText>();
             responeMessage.Content = "OnEvent_LocationSelectRequest";
-            return base.OnEvent_LocationSelectRequest(requestMessage);
+            return responeMessage;
         }
 
         #region v1.5之后，所有的OnXX方法均从抽象方法变为虚方法，并都有默认返回消息操作，不需要处理的消息类型无需重写。

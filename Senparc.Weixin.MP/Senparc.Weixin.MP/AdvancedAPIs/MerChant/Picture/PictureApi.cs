@@ -12,13 +12,8 @@
    微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.Helpers;
+using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 {
@@ -35,10 +30,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 
             var json=new PictureResult();
 
-            using (var fs = Senparc.Weixin.Helpers.FileHelper.GetFileStream(fileName))
+            using (var fs = FileHelper.GetFileStream(fileName))
             {
-                var jsonText = Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(url, null, fs);
-                json = Senparc.Weixin.HttpUtility.Post.GetResult<PictureResult>(jsonText);
+                var jsonText = RequestUtility.HttpPost(url, null, fs);
+                json = Post.GetResult<PictureResult>(jsonText);
             }
             return json;
         }

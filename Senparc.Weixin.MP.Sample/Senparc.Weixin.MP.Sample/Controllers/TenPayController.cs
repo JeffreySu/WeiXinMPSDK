@@ -457,7 +457,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         public ActionResult SharedAddress()
         {
-            var accessToken = AccessTokenContainer.TryGetToken(TenPayInfo.AppId, "49b71198b776e18521659a32a97501a6");
+            var accessToken = AccessTokenContainer.TryGetAccessToken(TenPayInfo.AppId, "49b71198b776e18521659a32a97501a6");
 
             string timeStamp = TenPayUtil.GetTimestamp();
             string nonceStr = TenPayUtil.GetNoncestr();

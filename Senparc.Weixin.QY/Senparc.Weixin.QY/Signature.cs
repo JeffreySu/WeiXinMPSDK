@@ -11,10 +11,6 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Tencent;
 
 namespace Senparc.Weixin.QY
@@ -45,7 +41,7 @@ namespace Senparc.Weixin.QY
         public static string GenarateSinature(string token, string timeStamp, string nonce, string msgEncrypt)
         {
             string msgSignature = null;
-            var result = Tencent.WXBizMsgCrypt.GenarateSinature(token, timeStamp, nonce, msgEncrypt, ref msgSignature);
+            var result = WXBizMsgCrypt.GenarateSinature(token, timeStamp, nonce, msgEncrypt, ref msgSignature);
             return result == 0 ? msgSignature : result.ToString();
         }
 

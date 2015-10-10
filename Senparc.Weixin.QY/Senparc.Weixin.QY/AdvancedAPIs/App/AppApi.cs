@@ -15,18 +15,9 @@
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E4%BC%81%E4%B8%9A%E5%8F%B7%E5%BA%94%E7%94%A8
  */
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.QY.AdvancedAPIs.App;
-using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.QY.AdvancedAPIs.App;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {

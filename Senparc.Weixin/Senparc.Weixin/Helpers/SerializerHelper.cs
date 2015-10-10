@@ -11,8 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 
@@ -35,22 +34,24 @@ namespace Senparc.Weixin.Helpers
                 return null;
             }
 
-            char outStr = (char)int.Parse(match.Value.Remove(0, 2), System.Globalization.NumberStyles.HexNumber);
+            char outStr = (char)int.Parse(match.Value.Remove(0, 2), NumberStyles.HexNumber);
             return new string(outStr, 1);
         }
 
         /// <summary>
         /// 将对象转为JSON字符串
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="ignoreNulls">是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中</param>
-        /// <param name="propertiesToIgnore">需要特殊忽略null值的属性名称</param>
-        /// <param name="typesToIgnore">指定类型（Class，非Interface）下的为null属性不生成到Json中</param>
+        /// <param name="data">需要生成JSON字符串的数据</param>
+        /// <param name="jsonSetting">JSON输出设置</param>
         /// <returns></returns>
-        public string GetJsonString(object data, bool ignoreNulls = false, List<string> propertiesToIgnore = null, List<Type> typesToIgnore = null)
+        public string GetJsonString(object data, JsonSetting jsonSetting = null)
         {
             JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            jsSerializer.RegisterConverters(new[] { new WeixinJsonConventer(data.GetType(), propertiesToIgnore, typesToIgnore, ignoreNulls) });
+            jsSerializer.RegisterConverters(new JavaScriptConverter[]
+            {
+                new WeixinJsonConventer(data.GetType(), jsonSetting),
+                new ExpandoJsonConverter()
+            });
 
             var jsonString = jsSerializer.Serialize(data);
 
@@ -60,4 +61,5 @@ namespace Senparc.Weixin.Helpers
             return json;
         }
     }
+
 }

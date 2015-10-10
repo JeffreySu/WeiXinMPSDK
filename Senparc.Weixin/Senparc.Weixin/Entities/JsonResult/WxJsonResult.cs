@@ -17,11 +17,6 @@
     修改描述：调整位置，去除MP下的WxJsonResult
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Senparc.Weixin.Entities
 {
     public interface IJsonResult

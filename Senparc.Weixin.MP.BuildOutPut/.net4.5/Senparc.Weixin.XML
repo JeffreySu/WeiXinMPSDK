@@ -15,6 +15,87 @@
             说明：此处常量专为提供给方法的参数的默认值，不是方法内所有请求的默认超时时间。
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.Containers.BaseContainer`1">
+            <summary>
+            微信容器接口（如Ticket、AccessToken）
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:Senparc.Weixin.Containers.BaseContainer`1._collectionList">
+            <summary>
+            所有数据集合的列表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Containers.BaseContainer`1.ItemCollection">
+            <summary>
+            获取当前容器的数据项集合
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.GetCollectionList">
+            <summary>
+            获取完整的数据集合的列表，包括所有的Container数据在内（建议不要进行任何修改操作）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.GetAllItems">
+            <summary>
+            获取所有容器内已经注册的项目
+            （此方法将会遍历Dictionary，当数据项很多的时候效率会明显降低）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.TryGetItem(System.String)">
+            <summary>
+            尝试获取某一项Bag
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.TryGetItem``1(System.String,System.Func{`0,``0})">
+            <summary>
+            尝试获取某一项Bag中的具体某个属性
+            </summary>
+            <param name="key"></param>
+            <param name="property">具体某个属性</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.Update(System.String,`0)">
+            <summary>
+            更新数据项
+            </summary>
+            <param name="key"></param>
+            <param name="value">为null时删除该项</param>
+        </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.Update(System.String,System.Action{`0})">
+            <summary>
+            更新数据项
+            </summary>
+            <param name="key"></param>
+            <param name="partialUpdate">为null时删除该项</param>
+        </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.CheckRegistered(System.String)">
+            <summary>
+            检查Key是否已经注册
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.Containers.IBaseContainerBag">
+            <summary>
+            IBaseContainerBag
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Containers.BaseContainerBag">
+            <summary>
+            BaseContainer容器中的Value类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Containers.BaseContainerBag.Key">
+            <summary>
+            通常为AppId
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.Context.MessageContainer`1.MaxRecordCount">
             <summary>
             最大记录条数（保留尾部），如果小于等于0则不限制
@@ -361,6 +442,11 @@
             微信自定义异常基类
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.Helpers.ExpandoJsonConverter">
+            <summary>
+            Allows JSON serialization of Expando objects into expected results (e.g., "x: 1, y: 2") instead of the default dictionary serialization.
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.Helpers.DateTimeHelper.GetDateTimeFromXml(System.Int64)">
             <summary>
             转换微信DateTime时间到C#时间
@@ -389,6 +475,13 @@
             <param name="fileName"></param>
             <returns></returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "T:Senparc.Weixin.Helpers.IDictionaryExtensions" -->
+        <member name="M:Senparc.Weixin.Helpers.IDictionaryExtensions.ToExpando(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Extension method that turns a dictionary of string and object to an ExpandoObject
+            Snagged from http://theburningmonk.com/2011/05/idictionarystring-object-to-expandoobject-extension-method/
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.Helpers.SerializerHelper">
             <summary>
             序列化帮助类
@@ -401,15 +494,41 @@
             <param name="match"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Helpers.SerializerHelper.GetJsonString(System.Object,System.Boolean,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Type})">
+        <member name="M:Senparc.Weixin.Helpers.SerializerHelper.GetJsonString(System.Object,Senparc.Weixin.Helpers.JsonSetting)">
             <summary>
             将对象转为JSON字符串
             </summary>
-            <param name="data"></param>
+            <param name="data">需要生成JSON字符串的数据</param>
+            <param name="jsonSetting">JSON输出设置</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.Helpers.JsonSetting">
+            <summary>
+            JSON输出设置
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Helpers.JsonSetting.IgnoreNulls">
+            <summary>
+            是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Helpers.JsonSetting.PropertiesToIgnore">
+            <summary>
+            需要特殊忽略null值的属性名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Helpers.JsonSetting.TypesToIgnore">
+            <summary>
+            指定类型（Class，非Interface）下的为null属性不生成到Json中
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.JsonSetting.#ctor(System.Boolean,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Type})">
+            <summary>
+            JSON输出设置 构造函数
+            </summary>
             <param name="ignoreNulls">是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中</param>
             <param name="propertiesToIgnore">需要特殊忽略null值的属性名称</param>
             <param name="typesToIgnore">指定类型（Class，非Interface）下的为null属性不生成到Json中</param>
-            <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.Helpers.WeixinJsonConventer">
             <summary>
@@ -500,7 +619,7 @@
             <param name="data"></param>
             <param name="stream"></param>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Post.PostFileGetJsonAsync``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding)">
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostFileGetJsonAsync``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Int32)">
             <summary>
             PostFileGetJson的异步版本
             </summary>
@@ -511,7 +630,7 @@
             <param name="encoding"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJsonAsync``1(System.String,System.Net.CookieContainer,System.IO.Stream,System.Text.Encoding)">
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJsonAsync``1(System.String,System.Net.CookieContainer,System.IO.Stream,System.Text.Encoding,System.Int32,System.Boolean)">
             <summary>
             PostGetJson的异步版本
             </summary>
@@ -522,7 +641,7 @@
             <param name="encoding"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJsonAsync``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding)">
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJsonAsync``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Int32)">
             <summary>
             PostGetJson的异步版本
             </summary>
@@ -532,6 +651,14 @@
             <param name="formData"></param>
             <param name="encoding"></param>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.Post.DownloadAsync(System.String,System.String,System.IO.Stream)">
+            <summary>
+            使用Post方法上传数据并下载文件或结果
+            </summary>
+            <param name="url"></param>
+            <param name="data"></param>
+            <param name="stream"></param>
         </member>
         <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpGet(System.String,System.Text.Encoding)">
             <summary>

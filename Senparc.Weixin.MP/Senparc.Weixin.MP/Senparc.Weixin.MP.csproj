@@ -210,7 +210,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CommonAPIs\CommonApi.Menu.cs" />
-    <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Merchant_Order.cs" />

@@ -9,10 +9,6 @@
 
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Open.QRConnect

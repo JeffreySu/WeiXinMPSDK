@@ -19,7 +19,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void ArticleSummaryTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var result = AutoReplyApi.GetCurrentAutoreplyInfo(accessToken);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);

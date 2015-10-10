@@ -32,6 +32,7 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.XML</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -46,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+    <Compile Include="Containers\BaseContainer.cs" />
+    <Compile Include="Containers\BaseContainerBag.cs" />
     <Compile Include="Context\MessageContainer.cs" />
     <Compile Include="Context\MessageContext.cs" />
     <Compile Include="Context\MessageQueue.cs" />
@@ -64,10 +67,12 @@
     <Compile Include="Exceptions\UnknownRequestMsgTypeException.cs" />
     <Compile Include="Exceptions\WeixinException.cs" />
     <Compile Include="Exceptions\WeixinMenuException.cs" />
+    <Compile Include="Helpers\Conventers\ExpandoJsonConverter.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Helpers\Extensions\IDictionaryExtensions.cs" />
     <Compile Include="Helpers\SerializerHelper.cs" />
-    <Compile Include="Helpers\WeixinJsonConventer.cs" />
+    <Compile Include="Helpers\Conventers\WeixinJsonConventer.cs" />
     <Compile Include="Utilities\BrowserUtility\BroswerUtility.cs" />
     <Compile Include="Utilities\WeixinUtility\ApiUtility.cs" />
     <Compile Include="Utilities\XmlUtility\XmlUtility.cs" />

@@ -8,15 +8,8 @@
     创建标识：Bemguin - 20150614
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs.App
 {

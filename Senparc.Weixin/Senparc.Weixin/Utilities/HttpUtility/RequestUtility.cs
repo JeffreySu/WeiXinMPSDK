@@ -17,7 +17,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
@@ -113,7 +112,7 @@ namespace Senparc.Weixin.HttpUtility
             if (checkValidationResult)
             {
                 ServicePointManager.ServerCertificateValidationCallback =
-                  new System.Net.Security.RemoteCertificateValidationCallback(CheckValidationResult);
+                  new RemoteCertificateValidationCallback(CheckValidationResult);
             }
 
             #region 处理Form表单文件上传
@@ -335,7 +334,7 @@ namespace Senparc.Weixin.HttpUtility
             if (checkValidationResult)
             {
                 ServicePointManager.ServerCertificateValidationCallback =
-                  new System.Net.Security.RemoteCertificateValidationCallback(CheckValidationResult);
+                  new RemoteCertificateValidationCallback(CheckValidationResult);
             }
 
             #region 处理Form表单文件上传

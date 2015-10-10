@@ -3136,7 +3136,7 @@
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.Get(System.String)">
             <summary>
-            发送文本信息
+            获取所有分组
             </summary>
             <param name="accessTokenOrAppId"></param>
             <returns></returns>
@@ -7419,6 +7419,11 @@
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.MP.CommonAPIs.AccessTokenBag">
+            <summary>
+            AccessToken及JsApiTicket包
+            </summary>
+        </member>
         <member name="F:Senparc.Weixin.MP.CommonAPIs.AccessTokenBag.Lock">
             <summary>
             只针对这个AppId的锁
@@ -7436,7 +7441,13 @@
             <param name="appId"></param>
             <param name="appSecret"></param>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.TryGetToken(System.String,System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetFirstOrDefaultAppId">
+            <summary>
+            返回已经注册的第一个AppId
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.TryGetAccessToken(System.String,System.String,System.Boolean)">
             <summary>
             使用完整的应用凭证获取Token，如果不存在将自动注册
             </summary>
@@ -7445,7 +7456,7 @@
             <param name="getNewToken"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetToken(System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetAccessToken(System.String,System.Boolean)">
             <summary>
             获取可用Token
             </summary>
@@ -7453,7 +7464,7 @@
             <param name="getNewToken">是否强制重新获取新的Token</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetTokenResult(System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetAccessTokenResult(System.String,System.Boolean)">
             <summary>
             获取可用Token
             </summary>
@@ -7461,17 +7472,29 @@
             <param name="getNewToken">是否强制重新获取新的Token</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.CheckRegistered(System.String)">
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.TryGetJsApiTicket(System.String,System.String,System.Boolean)">
             <summary>
-            检查是否已经注册
+            使用完整的应用凭证获取Ticket，如果不存在将自动注册
             </summary>
             <param name="appId"></param>
+            <param name="appSecret"></param>
+            <param name="getNewTicket"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetFirstOrDefaultAppId">
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetJsApiTicket(System.String,System.Boolean)">
             <summary>
-            返回已经注册的第一个AppId
+            获取可用Ticket
             </summary>
+            <param name="appId"></param>
+            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetJsApiTicketResult(System.String,System.Boolean)">
+            <summary>
+            获取可用Ticket
+            </summary>
+            <param name="appId"></param>
+            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.MP.CommonAPIs.CommonApi">
@@ -7549,55 +7572,6 @@
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="F:Senparc.Weixin.MP.CommonAPIs.JsApiTicketBag.Lock">
-            <summary>
-            只针对这个AppId的锁
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer">
-            <summary>
-            通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.Register(System.String,System.String)">
-            <summary>
-            注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
-            </summary>
-            <param name="appId"></param>
-            <param name="appSecret"></param>
-        </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.TryGetTicket(System.String,System.String,System.Boolean)">
-            <summary>
-            使用完整的应用凭证获取Ticket，如果不存在将自动注册
-            </summary>
-            <param name="appId"></param>
-            <param name="appSecret"></param>
-            <param name="getNewTicket"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.GetTicket(System.String,System.Boolean)">
-            <summary>
-            获取可用Ticket
-            </summary>
-            <param name="appId"></param>
-            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.GetTicketResult(System.String,System.Boolean)">
-            <summary>
-            获取可用Ticket
-            </summary>
-            <param name="appId"></param>
-            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.CheckRegistered(System.String)">
-            <summary>
-            检查是否已经注册
-            </summary>
-            <param name="appId"></param>
-            <returns></returns>
-        </member>
         <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.Send(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType,System.Int32)">
             <summary>
             向需要AccessToken的API发送消息的公共方法
@@ -7608,7 +7582,19 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.Send``1(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType,System.Int32,System.Boolean)">
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.Send``1(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType,System.Int32,System.Boolean,Senparc.Weixin.Helpers.JsonSetting)">
+            <summary>
+            向需要AccessToken的API发送消息的公共方法
+            </summary>
+            <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
+            <param name="urlFormat"></param>
+            <param name="data">如果是Get方式，可以为null。在POST方式中将被转为JSON字符串提交</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <param name="checkValidationResult">验证服务器证书回调自动验证</param>
+            <param name="jsonSetting">JSON字符串生成设置</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.SendAsync(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType,System.Int32)">
             <summary>
             向需要AccessToken的API发送消息的公共方法
             </summary>
@@ -7616,7 +7602,19 @@
             <param name="urlFormat"></param>
             <param name="data">如果是Get方式，可以为null</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.SendAsync``1(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType,System.Int32,System.Boolean,Senparc.Weixin.Helpers.JsonSetting)">
+            <summary>
+            向需要AccessToken的API发送消息的公共方法
+            </summary>
+            <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
+            <param name="urlFormat"></param>
+            <param name="data">如果是Get方式，可以为null。在POST方式中将被转为JSON字符串提交</param>
+            <param name="sendType">发送类型，POST或GET，默认为POST</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
             <param name="checkValidationResult">验证服务器证书回调自动验证</param>
+            <param name="jsonSetting">JSON字符串生成设置</param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.JsApiTicketResult">
@@ -9347,13 +9345,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.SetParameter(System.String,System.String)">
-            <summary>
-            设置参数值
-            </summary>
-            <param name="parameter"></param>
-            <param name="parameterValue"></param>
-        </member>
         <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetNoncestr">
             <summary>
             获取随机字符串
@@ -9366,13 +9357,13 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.CreateSha1">
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.CreateSha1(System.Collections.Hashtable)">
             <summary>
             sha1加密
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.CreateCardSha1">
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.CreateCardSha1(System.Collections.Hashtable)">
             <summary>
             生成cardSign的加密方法
             </summary>
@@ -10892,10 +10883,23 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.MP.CheckSignature">
+            <summary>
+            签名验证类
+            </summary>
+        </member>
         <member name="F:Senparc.Weixin.MP.CheckSignature.Token">
             <summary>
             在网站没有提供Token（或传入为null）的情况下的默认Token，建议在网站中进行配置。
             </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CheckSignature.Check(System.String,Senparc.Weixin.MP.Entities.Request.PostModel)">
+            <summary>
+            检查签名是否正确
+            </summary>
+            <param name="signature"></param>
+            <param name="postModel">需要提供：Timestamp、Nonce、Token</param>
+            <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.CheckSignature.Check(System.String,System.String,System.String,System.String)">
             <summary>
@@ -10905,6 +10909,13 @@
             <param name="timestamp"></param>
             <param name="nonce"></param>
             <param name="token"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CheckSignature.GetSignature(Senparc.Weixin.MP.Entities.Request.PostModel)">
+            <summary>
+            返回正确的签名
+            </summary>
+            <param name="postModel">需要提供：Timestamp、Nonce、Token</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.CheckSignature.GetSignature(System.String,System.String,System.String)">

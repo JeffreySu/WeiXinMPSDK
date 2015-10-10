@@ -18,10 +18,6 @@
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=OAuth2%E9%AA%8C%E8%AF%81%E6%8E%A5%E5%8F%A3
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.OAuth2;
 

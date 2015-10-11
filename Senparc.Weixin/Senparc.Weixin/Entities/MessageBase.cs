@@ -30,5 +30,13 @@ namespace Senparc.Weixin.Entities
         public string ToUserName { get; set; }
         public string FromUserName { get; set; }
         public DateTime CreateTime { get; set; }
+
+        public override string ToString()
+        {
+            //TODO:直接输出XML
+
+
+            return base.ToString();
+        }
     }
 }

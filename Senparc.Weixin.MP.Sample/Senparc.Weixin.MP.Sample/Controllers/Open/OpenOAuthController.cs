@@ -56,11 +56,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 var componentAccessToken = ComponentContainer.GetComponentAccessToken(component_AppId);
                 result = Open.OAuthAPIs.OAuthApi.GetAccessToken(appId, component_AppId, componentAccessToken, code);
-
             }
             catch (Exception ex)
             {
-                return Content(ex.Message);
+                return Content("Open.OAuthAPIs.OAuthApi.GetAccessToken错误：" + ex.Message);
             }
             if (result.errcode != ReturnCode.请求成功)
             {

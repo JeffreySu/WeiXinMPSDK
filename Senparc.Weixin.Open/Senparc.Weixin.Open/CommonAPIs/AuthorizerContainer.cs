@@ -84,7 +84,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
                 ComponentAppId = componentAppId,
 
                 AuthorizerInfoResult = new GetAuthorizerInfoResult(),//可以进一步初始化
-                AuthorizerInfoExpireTime = DateTime.MaxValue,
+                AuthorizerInfoExpireTime = DateTime.MinValue,
 
                 JsApiTicketResult = new JsApiTicketResult(),
                 JsApiTicketExpireTime = DateTime.MinValue,

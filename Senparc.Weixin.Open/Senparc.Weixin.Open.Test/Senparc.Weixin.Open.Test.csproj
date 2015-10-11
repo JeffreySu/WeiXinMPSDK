@@ -59,6 +59,7 @@
     <Compile Include="CommonAPIs\ComponentContainerTests.cs" />
     <Compile Include="CommonApi\CommonApi.cs" />
     <Compile Include="ComponentAPIs\ComponentApi.cs" />
+    <Compile Include="ComponentAPIs\ComponentApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestMessageFactoryTest.cs" />
     <Compile Include="ThirdPartyMessageHandlers\ThirdPartyMessageHandlerTest.cs" />

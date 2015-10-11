@@ -164,6 +164,7 @@
             </summary>
             <param name="componentAppId"></param>
             <param name="componentAppSecret"></param>
+            <param name="componentVerifyTicket"></param>
             <param name="getNewToken"></param>
             <returns></returns>
         </member>
@@ -245,6 +246,14 @@
             <summary>
             注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
             </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.AuthorizerContainer.TryRegister(System.String,System.String)">
+            <summary>
+            尝试注册
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="authorizerAppid"></param>
+            <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Open.CommonAPIs.AuthorizerContainer.TryGetAuthorizerAccessToken(System.String,System.String,System.Boolean)">
             <summary>

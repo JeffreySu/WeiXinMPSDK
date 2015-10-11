@@ -11,6 +11,7 @@ using System.Web.Routing;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.Open.CommonAPIs;
+using Senparc.Weixin.Open.ComponentAPIs;
 
 namespace Senparc.Weixin.MP.Sample
 {

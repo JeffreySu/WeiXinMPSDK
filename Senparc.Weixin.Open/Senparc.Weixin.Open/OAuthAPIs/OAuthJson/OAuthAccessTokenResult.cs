@@ -11,7 +11,7 @@
 
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Open.OAuth
+namespace Senparc.Weixin.Open.OAuthAPIs
 {
     /// <summary>
     /// 获取OAuth AccessToken的结果

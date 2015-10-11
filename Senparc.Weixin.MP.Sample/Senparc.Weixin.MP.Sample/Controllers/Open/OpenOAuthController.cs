@@ -7,6 +7,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
+using Senparc.Weixin.Open.ComponentAPIs;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -15,7 +16,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     {
         private string component_AppId = WebConfigurationManager.AppSettings["Component_Appid"];
         private string component_Secret = WebConfigurationManager.AppSettings["Component_Secret"];
-        private static string ComponentAccessToken = null;//需要授权获取，腾讯服务器会主动推送
+        //private static string ComponentAccessToken = null;//需要授权获取，腾讯服务器会主动推送
 
         #region 微信用户授权相关
 
@@ -53,7 +54,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //通过，用code换取access_token
             try
             {
-                result = Open.OAuth.OAuthApi.GetAccessToken(appId, component_AppId, ComponentAccessToken, code);
+                var componentAccessToken = ComponentContainer.GetComponentAccessToken(component_AppId);
+                result = Open.OAuth.OAuthApi.GetAccessToken(appId, component_AppId, componentAccessToken, code);
+
             }
             catch (Exception ex)
             {
@@ -142,15 +145,35 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             try
             {
-                string openTicket = OpenTicketHelper.GetOpenTicket(component_AppId);
 
-                var component_access_token = Open.CommonAPIs.CommonApi.GetComponentAccessToken(component_AppId, component_Secret, openTicket).component_access_token;
-                ComponentAccessToken = component_access_token;
-                var oauthResult = Open.ComponentAPIs.ComponentApi.QueryAuth(component_access_token, component_AppId, auth_code);
+                #region 直接调用API
+
+                //string openTicket = OpenTicketHelper.GetOpenTicket(component_AppId);
+                //var component_access_token = Open.CommonAPIs.CommonApi.GetComponentAccessToken(component_AppId, component_Secret, openTicket).component_access_token;
+                //ComponentAccessToken = component_access_token;
+                //var oauthResult = Open.ComponentAPIs.ComponentApi.QueryAuth(component_access_token, component_AppId, auth_code);
+
+                ////TODO:储存oauthResult.authorization_info
+                //var authInfoResult = Open.ComponentAPIs.ComponentApi.GetAuthorizerInfo(component_access_token, component_AppId,
+                //     oauthResult.authorization_info.authorizer_appid);
+
+                #endregion
+
+                #region 使用ComponentContainer
+
+                //获取ComponentTicket
+                string componentTicket = ComponentContainer.TryGetComponentVerifyTicket(component_AppId);
+                //获取ComponentAccessToken
+                var component_access_token = ComponentContainer.TryGetComponentAccessToken(component_AppId, component_Secret,
+                        componentTicket);
+                //获取OAuth授权结果
+                var oauthResult = ComponentContainer.GetPreAuthCodeResult(component_AppId);
 
                 //TODO:储存oauthResult.authorization_info
-                var authInfoResult = Open.ComponentAPIs.ComponentApi.GetAuthorizerInfo(component_access_token, component_AppId,
-                     oauthResult.authorization_info.authorizer_appid);
+                var authInfoResult = Open.CommonAPIs.AuthorizerContainer.GetAuthorizerInfoResult(component_AppId, oauthResult.authorization_info.authorizer_appid);
+
+                #endregion
+
 
                 ViewData["QueryAuthInfo"] = oauthResult.authorization_info;
                 ViewData["AuthorizerInfoResult"] = authInfoResult;

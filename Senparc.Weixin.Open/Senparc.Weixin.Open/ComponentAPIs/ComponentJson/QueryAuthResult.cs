@@ -24,6 +24,9 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public AuthorizationInfo authorization_info { get; set; }
     }
 
+    /// <summary>
+    /// 授权信息
+    /// </summary>
     public class AuthorizationInfo
     {
         /// <summary>

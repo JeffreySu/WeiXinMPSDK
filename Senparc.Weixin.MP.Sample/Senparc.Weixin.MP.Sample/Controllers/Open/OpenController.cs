@@ -15,6 +15,7 @@ using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.MessageHandlers;
 using Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers;
+using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Entities.Request;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
@@ -41,7 +42,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //var component_access_token = Open.CommonAPIs.CommonApi.GetComponentAccessToken(component_AppId, component_Secret, openTicket).component_access_token;
 
             //获取预授权码
-            var preAuthCode = Senparc.Weixin.Open.CommonAPIs.ComponentContainer.TryGetPreAuthCode(component_AppId,
+            var preAuthCode = ComponentContainer.TryGetPreAuthCode(component_AppId,
                 component_Secret);
 
             //Open.CommonAPIs.CommonApi.GetPreAuthCode(component_AppId, component_Secret, openTicket).pre_auth_code;

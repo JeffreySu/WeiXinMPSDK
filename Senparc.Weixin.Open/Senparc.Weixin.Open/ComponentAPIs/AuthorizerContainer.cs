@@ -48,12 +48,35 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <summary>
         /// 授权信息
         /// </summary>
-        public GetAuthorizerInfoResult AuthorizerInfoResult { get; set; }
-        public DateTime AuthorizerInfoExpireTime { get; set; }
+        public GetAuthorizerInfoResult AuthorizerInfoResult
+        {
+            get
+            {
+                var result = new GetAuthorizerInfoResult()
+                {
+                    authorizer_info = AuthorizerInfo,
+                    authorization_info = AuthorizationInfo
+                };
+                return result;
+            }
+        }
 
 
         public JsApiTicketResult JsApiTicketResult { get; set; }
         public DateTime JsApiTicketExpireTime { get; set; }
+
+        /// <summary>
+        /// 授权信息
+        /// </summary>
+        public AuthorizationInfo AuthorizationInfo { get; set; }
+        public DateTime AuthorizationInfoExpireTime { get; set; }
+
+        /// <summary>
+        /// 授权方资料信息
+        /// </summary>
+        public AuthorizerInfo AuthorizerInfo { get; set; }
+        //public DateTime AuthorizerInfoExpireTime { get; set; }
+
 
         /// <summary>
         /// 只针对这个AppId的锁
@@ -83,8 +106,11 @@ namespace Senparc.Weixin.Open.CommonAPIs
                 AuthorizerAppId = authorizerAppId,
                 ComponentAppId = componentAppId,
 
-                AuthorizerInfoResult = new GetAuthorizerInfoResult(),//可以进一步初始化
-                AuthorizerInfoExpireTime = DateTime.MinValue,
+                AuthorizationInfo = new AuthorizationInfo(),
+                AuthorizationInfoExpireTime = DateTime.MinValue,
+
+                AuthorizerInfo = new AuthorizerInfo(),
+                //AuthorizerInfoExpireTime = DateTime.MinValue,
 
                 JsApiTicketResult = new JsApiTicketResult(),
                 JsApiTicketExpireTime = DateTime.MinValue,
@@ -130,7 +156,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <param name="authorizerAppid"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        /// <exception cref="WeixinOpenException">此公众号没有高级权限</exception>
+        ///// <exception cref="WeixinOpenException">此公众号没有高级权限</exception>
         public static GetAuthorizerInfoResult GetAuthorizerInfoResult(string componentAppId, string authorizerAppid, bool getNewTicket = false)
         {
             TryRegister(componentAppId, authorizerAppid);
@@ -138,24 +164,31 @@ namespace Senparc.Weixin.Open.CommonAPIs
             var authorizerBag = ItemCollection[authorizerAppid];
             lock (authorizerBag.Lock)
             {
-                if (getNewTicket || authorizerBag.AuthorizerInfoExpireTime <= DateTime.Now)
+                if (getNewTicket || authorizerBag.AuthorizationInfoExpireTime <= DateTime.Now)
                 {
                     var componentVerifyTicket = ComponentContainer.TryGetComponentVerifyTicket(componentAppId);
                     var componentAccessToken = ComponentContainer.GetComponentAccessToken(componentAppId, componentVerifyTicket);
 
                     //已过期，重新获取
-                    authorizerBag.AuthorizerInfoResult = ComponentApi.GetAuthorizerInfo(componentAccessToken, componentAppId, authorizerAppid);//TODO:如果是过期，可以通过刷新的方式重新获取
+                    var getAuthorizerInfoResult = ComponentApi.GetAuthorizerInfo(componentAccessToken, componentAppId, authorizerAppid);//TODO:如果是过期，可以通过刷新的方式重新获取
 
-                    var componentBag = ComponentContainer.TryGetItem(componentAppId);
-
-                    if (string.IsNullOrEmpty(authorizerBag.AuthorizerInfoResult.authorization_info.authorizer_access_token))
+                    var authorization_info = getAuthorizerInfoResult.authorization_info;
+                    if (authorization_info.expires_in > 0)
                     {
-                        //账号没有此权限
-                        throw new WeixinOpenException("此公众号没有高级权限", componentBag);
+                        //没有高级接口权限（没有拿到AccessToken）
+                        authorizerBag.AuthorizationInfo = authorization_info;
+                        authorizerBag.AuthorizationInfoExpireTime = DateTime.Now.AddSeconds(authorization_info.expires_in);
                     }
 
-                    authorizerBag.AuthorizerInfoExpireTime =
-                        DateTime.Now.AddSeconds(authorizerBag.AuthorizerInfoResult.authorization_info.expires_in);
+                    var authorizer_info = getAuthorizerInfoResult.authorizer_info;
+                    authorizerBag.AuthorizerInfo = authorizer_info;
+
+                    //var componentBag = ComponentContainer.TryGetItem(componentAppId);
+                    //if (string.IsNullOrEmpty(authorizerBag.AuthorizerInfoResult.authorization_info.authorizer_access_token))
+                    //{
+                    //    //账号没有此权限
+                    //    throw new WeixinOpenException("此公众号没有高级权限", componentBag);
+                    //}
                 }
             }
             return authorizerBag.AuthorizerInfoResult;
@@ -211,7 +244,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
                     //已过期，重新获取
                     var authorizerAccessToken = TryGetAuthorizerAccessToken(componentAppId, authorizerAppid);
 
-                    accessTicketBag.JsApiTicketResult = CommonApi.GetJsApiTicket(authorizerAccessToken);
+                    accessTicketBag.JsApiTicketResult = ComponentApi.GetJsApiTicket(authorizerAccessToken);
 
                     accessTicketBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(accessTicketBag.JsApiTicketResult.expires_in);
                 }

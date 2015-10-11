@@ -44,7 +44,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
                 var query_auth_code = requestMessage.Content.Replace("QUERY_AUTH_CODE:", "");
                 try
                 {
-                    var component_access_token = Open.CommonAPIs.CommonApi.GetComponentAccessToken(componentAppId, componentSecret, openTicket).component_access_token;
+                    var component_access_token = Open.ComponentAPIs.ComponentApi.GetComponentAccessToken(componentAppId, componentSecret, openTicket).component_access_token;
                     var oauthResult = Open.ComponentAPIs.ComponentApi.QueryAuth(component_access_token, componentAppId, query_auth_code);
 
                     //调用客服接口

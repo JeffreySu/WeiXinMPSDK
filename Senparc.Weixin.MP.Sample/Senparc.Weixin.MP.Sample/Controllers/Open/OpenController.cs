@@ -39,13 +39,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             string openTicket = OpenTicketHelper.GetOpenTicket(component_AppId);
 
-            //var component_access_token = Open.CommonAPIs.CommonApi.GetComponentAccessToken(component_AppId, component_Secret, openTicket).component_access_token;
+            //var component_access_token = Open.ComponentAPIs.ComponentApi.GetComponentAccessToken(component_AppId, component_Secret, openTicket).component_access_token;
 
             //获取预授权码
             var preAuthCode = ComponentContainer.TryGetPreAuthCode(component_AppId,
                 component_Secret);
 
-            //Open.CommonAPIs.CommonApi.GetPreAuthCode(component_AppId, component_Secret, openTicket).pre_auth_code;
+            //Open.ComponentAPIs.ComponentApi.GetPreAuthCode(component_AppId, component_Secret, openTicket).pre_auth_code;
 
             var callbackUrl = "http://weixin.senparc.com/OpenOAuth/OpenOAuthCallback";//成功回调地址
             var url = Open.ComponentAPIs.ComponentApi.GetComponentLoginPageUrl(component_AppId, preAuthCode, callbackUrl);

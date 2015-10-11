@@ -23,8 +23,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public ActionResult Index(string appId)
         {
             //此页面引导用户点击授权
-            ViewData["UrlUserInfo"] = Open.OAuth.OAuthApi.GetAuthorizeUrl(appId, component_AppId, "http://weixin.senparc.com/OpenOAuth/UserInfoCallback", "JeffreySu", new[] { Open.OAuthScope.snsapi_userinfo, Open.OAuthScope.snsapi_base });
-            ViewData["UrlBase"] = Open.OAuth.OAuthApi.GetAuthorizeUrl(appId, component_AppId, "http://weixin.senparc.com/OpenOAuth/BaseCallback", "JeffreySu", new[] { Open.OAuthScope.snsapi_userinfo, Open.OAuthScope.snsapi_base });
+            ViewData["UrlUserInfo"] = Open.OAuthAPIs.OAuthApi.GetAuthorizeUrl(appId, component_AppId, "http://weixin.senparc.com/OpenOAuth/UserInfoCallback", "JeffreySu", new[] { Open.OAuthScope.snsapi_userinfo, Open.OAuthScope.snsapi_base });
+            ViewData["UrlBase"] = Open.OAuthAPIs.OAuthApi.GetAuthorizeUrl(appId, component_AppId, "http://weixin.senparc.com/OpenOAuth/BaseCallback", "JeffreySu", new[] { Open.OAuthScope.snsapi_userinfo, Open.OAuthScope.snsapi_base });
             return View();
         }
 
@@ -49,13 +49,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("验证失败！请从正规途径进入！");
             }
 
-            Open.OAuth.OAuthAccessTokenResult result = null;
+            Open.OAuthAPIs.OAuthAccessTokenResult result = null;
 
             //通过，用code换取access_token
             try
             {
                 var componentAccessToken = ComponentContainer.GetComponentAccessToken(component_AppId);
-                result = Open.OAuth.OAuthApi.GetAccessToken(appId, component_AppId, componentAccessToken, code);
+                result = Open.OAuthAPIs.OAuthApi.GetAccessToken(appId, component_AppId, componentAccessToken, code);
 
             }
             catch (Exception ex)
@@ -74,7 +74,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //因为第一步选择的是OAuthScope.snsapi_userinfo，这里可以进一步获取用户详细信息
             try
             {
-                Open.OAuth.OAuthUserInfo userInfo = Open.OAuth.OAuthApi.GetUserInfo(result.access_token, result.openid);
+                Open.OAuthAPIs.OAuthUserInfo userInfo = Open.OAuthAPIs.OAuthApi.GetUserInfo(result.access_token, result.openid);
                 return View(userInfo);
             }
             catch (ErrorJsonResultException ex)
@@ -104,7 +104,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             //通过，用code换取access_token
-            var result = Open.OAuth.OAuthApi.GetAccessToken(appId, component_AppId, ComponentAccessToken, code);
+            var result = Open.OAuthAPIs.OAuthApi.GetAccessToken(appId, component_AppId, ComponentAccessToken, code);
             if (result.errcode != ReturnCode.请求成功)
             {
                 return Content("错误：" + result.errmsg);
@@ -116,11 +116,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             Session["OAuthAccessToken"] = result;
 
             //因为这里还不确定用户是否关注本微信，所以只能试探性地获取一下
-            Open.OAuth.OAuthUserInfo userInfo = null;
+            Open.OAuthAPIs.OAuthUserInfo userInfo = null;
             try
             {
                 //已关注，可以得到详细信息
-                userInfo = Open.OAuth.OAuthApi.GetUserInfo(result.access_token, result.openid);
+                userInfo = Open.OAuthAPIs.OAuthApi.GetUserInfo(result.access_token, result.openid);
                 ViewData["ByBase"] = true;
                 return View("UserInfoCallback", userInfo);
             }
@@ -149,7 +149,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 #region 直接调用API
 
                 //string openTicket = OpenTicketHelper.GetOpenTicket(component_AppId);
-                //var component_access_token = Open.CommonAPIs.CommonApi.GetComponentAccessToken(component_AppId, component_Secret, openTicket).component_access_token;
+                //var component_access_token = Open.ComponentAPIs.ComponentApi.GetComponentAccessToken(component_AppId, component_Secret, openTicket).component_access_token;
                 //ComponentAccessToken = component_access_token;
                 //var oauthResult = Open.ComponentAPIs.ComponentApi.QueryAuth(component_access_token, component_AppId, auth_code);
 

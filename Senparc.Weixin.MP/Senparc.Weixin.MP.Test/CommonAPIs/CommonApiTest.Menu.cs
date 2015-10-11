@@ -56,7 +56,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             subButton.sub_button.Add(new SingleLocationSelectButton()
             {
                 key = "SingleLocationSelectButton",
-                name = "位置按钮",
+                name = "位置",
             });
             bg.button.Add(subButton);
 

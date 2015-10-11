@@ -12,6 +12,7 @@ using System;
 using System.IO;
 using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 
@@ -50,26 +51,34 @@ namespace Senparc.Weixin.Open.CommonAPIs
         {
             //TODO:此方法可以设定一个日志记录开关
 
-            var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken);
-            switch (sendType)
+            try
             {
-                case CommonJsonSendType.GET:
-                    return Get.GetJson<T>(url);
-                case CommonJsonSendType.POST:
-                    SerializerHelper serializerHelper = new SerializerHelper();
-                    var jsonString = serializerHelper.GetJsonString(data);
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        var bytes = Encoding.UTF8.GetBytes(jsonString);
-                        ms.Write(bytes, 0, bytes.Length);
-                        ms.Seek(0, SeekOrigin.Begin);
+                var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken);
+                switch (sendType)
+                {
+                    case CommonJsonSendType.GET:
+                        return Get.GetJson<T>(url);
+                    case CommonJsonSendType.POST:
+                        SerializerHelper serializerHelper = new SerializerHelper();
+                        var jsonString = serializerHelper.GetJsonString(data);
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            var bytes = Encoding.UTF8.GetBytes(jsonString);
+                            ms.Write(bytes, 0, bytes.Length);
+                            ms.Seek(0, SeekOrigin.Begin);
 
-                        return Post.PostGetJson<T>(url, null, ms, timeOut: timeOut);
-                    }
+                            return Post.PostGetJson<T>(url, null, ms, timeOut: timeOut);
+                        }
 
-                //TODO:对于特定的错误类型自动进行一次重试，如40001（目前的问题是同样40001会出现在不同的情况下面）
-                default:
-                    throw new ArgumentOutOfRangeException("sendType");
+                    //TODO:对于特定的错误类型自动进行一次重试，如40001（目前的问题是同样40001会出现在不同的情况下面）
+                    default:
+                        throw new ArgumentOutOfRangeException("sendType");
+                }
+            }
+            catch (ErrorJsonResultException ex)
+            {
+                ex.ApiUrl = urlFormat;
+                throw;
             }
         }
     }

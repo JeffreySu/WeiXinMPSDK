@@ -542,45 +542,6 @@
             <param name="httpContext"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Utilities.WeixinUtility.ApiUtility.IsAppId(System.String)">
-            <summary>
-            判断accessTokenOrAppId参数是否是AppId
-            </summary>
-            <param name="accessTokenOrAppId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.XmlUtility.XmlUtility.Deserialize``1(System.String)">
-            <summary>
-            反序列化
-            </summary>
-            <param name="type">类型</param>
-            <param name="xml">XML字符串</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.XmlUtility.XmlUtility.Deserialize``1(System.IO.Stream)">
-            <summary>
-            反序列化
-            </summary>
-            <param name="type"></param>
-            <param name="xml"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.XmlUtility.XmlUtility.Serializer``1(``0)">
-            <summary>
-            序列化
-            说明：此方法序列化复杂类，如果没有声明XmlInclude等特性，可能会引发“使用 XmlInclude 或 SoapInclude 特性静态指定非已知的类型。”的错误。
-            </summary>
-            <param name="type">类型</param>
-            <param name="obj">对象</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.XmlUtility.XmlUtility.Convert(System.IO.Stream)">
-            <summary>
-            序列化将流转成XML字符串
-            </summary>
-            <param name="stream"></param>
-            <returns></returns>
-        </member>
         <member name="M:Senparc.Weixin.HttpUtility.Post.GetResult``1(System.String)">
             <summary>
             获取Post结果
@@ -793,6 +754,45 @@
             封装System.Web.HttpUtility.UrlDecode
             </summary>
             <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Utilities.WeixinUtility.ApiUtility.IsAppId(System.String)">
+            <summary>
+            判断accessTokenOrAppId参数是否是AppId
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.XmlUtility.XmlUtility.Deserialize``1(System.String)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="type">类型</param>
+            <param name="xml">XML字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.XmlUtility.XmlUtility.Deserialize``1(System.IO.Stream)">
+            <summary>
+            反序列化
+            </summary>
+            <param name="type"></param>
+            <param name="xml"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.XmlUtility.XmlUtility.Serializer``1(``0)">
+            <summary>
+            序列化
+            说明：此方法序列化复杂类，如果没有声明XmlInclude等特性，可能会引发“使用 XmlInclude 或 SoapInclude 特性静态指定非已知的类型。”的错误。
+            </summary>
+            <param name="type">类型</param>
+            <param name="obj">对象</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.XmlUtility.XmlUtility.Convert(System.IO.Stream)">
+            <summary>
+            序列化将流转成XML字符串
+            </summary>
+            <param name="stream"></param>
             <returns></returns>
         </member>
         <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandler`2.WeixinOpenId">

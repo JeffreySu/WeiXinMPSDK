@@ -164,7 +164,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
             var authorizerBag = ItemCollection[authorizerAppid];
             lock (authorizerBag.Lock)
             {
-                if (getNewTicket || authorizerBag.AuthorizationInfoExpireTime <= DateTime.Now)
+                if (getNewTicket || authorizerBag.AuthorizationInfoExpireTime <= DateTime.Now || authorizerBag.AuthorizerInfo.user_name == null)
                 {
                     var componentVerifyTicket = ComponentContainer.TryGetComponentVerifyTicket(componentAppId);
                     var componentAccessToken = ComponentContainer.GetComponentAccessToken(componentAppId, componentVerifyTicket);
@@ -172,10 +172,11 @@ namespace Senparc.Weixin.Open.CommonAPIs
                     //已过期，重新获取
                     var getAuthorizerInfoResult = ComponentApi.GetAuthorizerInfo(componentAccessToken, componentAppId, authorizerAppid);//TODO:如果是过期，可以通过刷新的方式重新获取
 
+                    //AuthorizationInfo
                     TryUpdateAuthorizationInfo(authorizerAppid, getAuthorizerInfoResult.authorization_info);
 
-                    var authorizer_info = getAuthorizerInfoResult.authorizer_info;
-                    authorizerBag.AuthorizerInfo = authorizer_info;
+                    //AuthorizerInfo
+                    authorizerBag.AuthorizerInfo = getAuthorizerInfoResult.authorizer_info;
 
                     //var componentBag = ComponentContainer.TryGetItem(componentAppId);
                     //if (string.IsNullOrEmpty(authorizerBag.AuthorizerInfoResult.authorization_info.authorizer_access_token))

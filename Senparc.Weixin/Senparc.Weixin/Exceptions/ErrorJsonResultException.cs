@@ -22,6 +22,7 @@ namespace Senparc.Weixin.Exceptions
     public class ErrorJsonResultException : WeixinException
     {
         public WxJsonResult JsonResult { get; set; }
+        public string ApiUrl { get; set; }
         public ErrorJsonResultException(string message, Exception inner, WxJsonResult jsonResult)
             : base(message, inner)
         {

@@ -7,6 +7,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
+using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
@@ -59,8 +60,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             catch (Exception ex)
             {
-                return Content("Open.OAuthAPIs.OAuthApi.GetAccessToken错误：" + ex.Message);
+                return Content(ex.Message);
             }
+
             if (result.errcode != ReturnCode.请求成功)
             {
                 return Content("错误：" + result.errmsg);
@@ -163,23 +165,23 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 #region 使用ComponentContainer
 
-                //获取ComponentTicket
-                string componentTicket = ComponentContainer.TryGetComponentVerifyTicket(component_AppId);
-                //获取ComponentAccessToken
-                var component_access_token = ComponentContainer.TryGetComponentAccessToken(component_AppId, component_Secret,
-                        componentTicket);
                 //获取OAuth授权结果
-                var oauthResult = ComponentContainer.GetPreAuthCodeResult(component_AppId);
-
-                //TODO:储存oauthResult.authorization_info
-                var authInfoResult = ComponentContainer.GetQueryAuthResult(component_AppId, oauthResult.pre_auth_code);
-
+                QueryAuthResult queryAuthResult;
+                try
+                {
+                    queryAuthResult = ComponentContainer.GetQueryAuthResult(component_AppId, auth_code);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("QueryAuthResult：" + ex.Message);
+                }
                 #endregion
 
+                var authorizerInfoResult = AuthorizerContainer.GetAuthorizerInfoResult(component_AppId,
+                    queryAuthResult.authorization_info.authorizer_appid);
 
-                ViewData["QueryAuthInfo"] = authInfoResult.authorization_info;
-                ViewData["AuthorizerInfoResult"] = authInfoResult;
-
+                ViewData["QueryAuthorizationInfo"] = queryAuthResult.authorization_info;
+                ViewData["GetAuthorizerInfoResult"] = authorizerInfoResult;
 
                 return View();
             }

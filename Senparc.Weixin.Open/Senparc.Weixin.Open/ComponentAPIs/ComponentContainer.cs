@@ -199,10 +199,10 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// </summary>
         /// <param name="componentAppId"></param>
         /// <param name="componentAppSecret"></param>
-        /// <param name="componentVerifyTicket"></param>
+        /// <param name="componentVerifyTicket">如果为null则自动获取</param>
         /// <param name="getNewToken"></param>
         /// <returns></returns>
-        public static string TryGetComponentAccessToken(string componentAppId, string componentAppSecret, string componentVerifyTicket, bool getNewToken = false)
+        public static string TryGetComponentAccessToken(string componentAppId, string componentAppSecret, string componentVerifyTicket = null, bool getNewToken = false)
         {
             TryRegister(componentAppId, componentAppSecret, getNewToken);
             return GetComponentAccessToken(componentAppId, componentVerifyTicket);
@@ -302,19 +302,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                     var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret, componentVerifyTicket);
 
                     var preAuthCodeResult = ComponentApi.GetPreAuthCode(componentBag.ComponentAppId, accessToken);
-
-                    //if (preAuthCodeResult)
-                    //{
-
-                    //}
-
-                    componentBag.PreAuthCodeResult = preAuthCodeResult;
-
-                    //TODO:这里有出现expires_in=0的情况，导致始终处于过期状态（也可能是因为参数过期等原因没有返回正确的数据，待观察）
-                    var expiresIn = componentBag.PreAuthCodeResult.expires_in > 0
-                        ? componentBag.PreAuthCodeResult.expires_in
-                        : 60 * 20;//默认为20分钟
-                    componentBag.PreAuthCodeExpireTime = DateTime.Now.AddSeconds(expiresIn);
+                    componentBag.PreAuthCodeExpireTime = DateTime.Now.AddSeconds(preAuthCodeResult.expires_in);
 
                 }
             }
@@ -322,5 +310,41 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         }
         #endregion
 
+        #region api_query_auth
+
+        /// <summary>
+        /// 获取QueryAuthResult（此方法每次都会发出请求，不缓存）
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="authorizationCode"></param>
+        /// <param name="updateToAuthorizerContanier">是否将Authorization更新到AuthorizerContanier</param>
+        /// <param name="getNewToken"></param>
+        /// <returns></returns>
+        /// <exception cref="WeixinOpenException"></exception>
+        public static QueryAuthResult QueryAuthResult(string componentAppId, string authorizationCode, bool updateToAuthorizerContanier = true, bool getNewToken = false)
+        {
+            if (!CheckRegistered(componentAppId))
+            {
+                throw new WeixinOpenException(UN_REGISTER_ALERT);
+            }
+
+            var componentBag = ItemCollection[componentAppId];
+            lock (componentBag.Lock)
+            {
+                var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret);
+                var queryAuthResult = ComponentAPIs.ComponentApi.QueryAuth(accessToken, componentAppId, authorizationCode);
+
+                if (updateToAuthorizerContanier)
+                {
+                    //更新到AuthorizerContainer
+                    var authorizerBag = AuthorizerContainer.TryGetItem(queryAuthResult.authorization_info.authorizer_appid);
+                    authorizerBag.AuthorizationInfo = queryAuthResult.authorization_info;
+                }
+
+                return queryAuthResult;
+            }
+        }
+
+        #endregion
     }
 }

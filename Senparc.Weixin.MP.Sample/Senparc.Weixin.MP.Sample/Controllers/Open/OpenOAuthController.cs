@@ -104,7 +104,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             //通过，用code换取access_token
-            var result = Open.OAuthAPIs.OAuthApi.GetAccessToken(appId, component_AppId, ComponentAccessToken, code);
+            var componentAccessToken = ComponentContainer.TryGetComponentAccessToken(component_AppId, component_Secret);
+
+            var result = Open.OAuthAPIs.OAuthApi.GetAccessToken(appId, component_AppId, componentAccessToken, code);//TODO:使用Container
+
             if (result.errcode != ReturnCode.请求成功)
             {
                 return Content("错误：" + result.errmsg);
@@ -170,7 +173,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var oauthResult = ComponentContainer.GetPreAuthCodeResult(component_AppId);
 
                 //TODO:储存oauthResult.authorization_info
-                var authInfoResult = Open.CommonAPIs.AuthorizerContainer.GetAuthorizerInfoResult(component_AppId, oauthResult.authorization_info.authorizer_appid);
+                var authInfoResult = Open.CommonAPIs.AuthorizerContainer.GetAuthorizerInfoResult(component_AppId, oauthResult..authorization_info.authorizer_appid);
 
                 #endregion
 

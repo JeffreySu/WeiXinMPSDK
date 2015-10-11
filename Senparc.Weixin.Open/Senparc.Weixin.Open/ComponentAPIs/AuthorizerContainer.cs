@@ -66,7 +66,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         public DateTime JsApiTicketExpireTime { get; set; }
 
         /// <summary>
-        /// 授权信息
+        /// 授权信息（请使用TryUpdateAuthorizationInfo()方法进行更新）
         /// </summary>
         public AuthorizationInfo AuthorizationInfo { get; set; }
         public DateTime AuthorizationInfoExpireTime { get; set; }
@@ -172,13 +172,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
                     //已过期，重新获取
                     var getAuthorizerInfoResult = ComponentApi.GetAuthorizerInfo(componentAccessToken, componentAppId, authorizerAppid);//TODO:如果是过期，可以通过刷新的方式重新获取
 
-                    var authorization_info = getAuthorizerInfoResult.authorization_info;
-                    if (authorization_info.expires_in > 0)
-                    {
-                        //没有高级接口权限（没有拿到AccessToken）
-                        authorizerBag.AuthorizationInfo = authorization_info;
-                        authorizerBag.AuthorizationInfoExpireTime = DateTime.Now.AddSeconds(authorization_info.expires_in);
-                    }
+                    TryUpdateAuthorizationInfo(authorizerAppid, getAuthorizerInfoResult.authorization_info);
 
                     var authorizer_info = getAuthorizerInfoResult.authorizer_info;
                     authorizerBag.AuthorizerInfo = authorizer_info;
@@ -192,6 +186,22 @@ namespace Senparc.Weixin.Open.CommonAPIs
                 }
             }
             return authorizerBag.AuthorizerInfoResult;
+        }
+
+        /// <summary>
+        /// 尝试更新AuthorizationInfo（如果没有AccessToken则不更新）
+        /// </summary>
+        /// <param name="authorizerAppid"></param>
+        /// <param name="authorizationInfo"></param>
+        public static void TryUpdateAuthorizationInfo(string authorizerAppid, AuthorizationInfo authorizationInfo)
+        {
+            if (authorizationInfo.expires_in > 0)
+            {
+                var authorizerBag = ItemCollection[authorizerAppid];
+                //没有高级接口权限（没有拿到AccessToken）
+                authorizerBag.AuthorizationInfo = authorizationInfo;
+                authorizerBag.AuthorizationInfoExpireTime = DateTime.Now.AddSeconds(authorizationInfo.expires_in);
+            }
         }
 
         #endregion

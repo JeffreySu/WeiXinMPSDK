@@ -173,12 +173,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var oauthResult = ComponentContainer.GetPreAuthCodeResult(component_AppId);
 
                 //TODO:储存oauthResult.authorization_info
-                var authInfoResult = Open.CommonAPIs.AuthorizerContainer.GetAuthorizerInfoResult(component_AppId, oauthResult..authorization_info.authorizer_appid);
+                var authInfoResult = ComponentContainer.GetQueryAuthResult(component_AppId, oauthResult.pre_auth_code);
 
                 #endregion
 
 
-                ViewData["QueryAuthInfo"] = oauthResult.authorization_info;
+                ViewData["QueryAuthInfo"] = authInfoResult.authorization_info;
                 ViewData["AuthorizerInfoResult"] = authInfoResult;
 
 

@@ -46,7 +46,7 @@
         </member>
         <member name="P:Senparc.Weixin.Open.CommonAPIs.AuthorizerBag.AuthorizationInfo">
             <summary>
-            授权信息
+            授权信息（请使用TryUpdateAuthorizationInfo()方法进行更新）
             </summary>
         </member>
         <member name="P:Senparc.Weixin.Open.CommonAPIs.AuthorizerBag.AuthorizerInfo">
@@ -95,6 +95,13 @@
             <param name="authorizerAppid"></param>
             <param name="getNewTicket">是否强制重新获取新的Ticket</param>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.AuthorizerContainer.TryUpdateAuthorizationInfo(System.String,Senparc.Weixin.Open.ComponentAPIs.AuthorizationInfo)">
+            <summary>
+            尝试更新AuthorizationInfo（如果没有AccessToken则不更新）
+            </summary>
+            <param name="authorizerAppid"></param>
+            <param name="authorizationInfo"></param>
         </member>
         <member name="M:Senparc.Weixin.Open.CommonAPIs.AuthorizerContainer.TryGetJsApiTicket(System.String,System.String,System.Boolean)">
             <summary>
@@ -338,7 +345,7 @@
             </summary>
             <param name="componentAppId"></param>
             <param name="componentAppSecret"></param>
-            <param name="componentVerifyTicket"></param>
+            <param name="componentVerifyTicket">如果为null则自动获取</param>
             <param name="getNewToken"></param>
             <returns></returns>
         </member>
@@ -384,6 +391,17 @@
             <param name="componentAppId"></param>
             <param name="getNewToken">是否强制重新获取新的Token</param>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentContainer.GetQueryAuthResult(System.String,System.String,System.Boolean,System.Boolean)">
+            <summary>
+            获取QueryAuthResult（此方法每次都会发出请求，不缓存）
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="authorizationCode"></param>
+            <param name="updateToAuthorizerContanier">是否将Authorization更新到AuthorizerContanier</param>
+            <param name="getNewToken"></param>
+            <returns></returns>
+            <exception cref="T:Senparc.Weixin.Open.Exceptions.WeixinOpenException"></exception>
         </member>
         <member name="T:Senparc.Weixin.Open.ComponentAPIs.GetAuthorizerInfoResult">
             <summary>

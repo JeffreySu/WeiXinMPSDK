@@ -321,7 +321,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="getNewToken"></param>
         /// <returns></returns>
         /// <exception cref="WeixinOpenException"></exception>
-        public static QueryAuthResult QueryAuthResult(string componentAppId, string authorizationCode, bool updateToAuthorizerContanier = true, bool getNewToken = false)
+        public static QueryAuthResult GetQueryAuthResult(string componentAppId, string authorizationCode, bool updateToAuthorizerContanier = true, bool getNewToken = false)
         {
             if (!CheckRegistered(componentAppId))
             {
@@ -337,8 +337,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 if (updateToAuthorizerContanier)
                 {
                     //更新到AuthorizerContainer
-                    var authorizerBag = AuthorizerContainer.TryGetItem(queryAuthResult.authorization_info.authorizer_appid);
-                    authorizerBag.AuthorizationInfo = queryAuthResult.authorization_info;
+                    AuthorizerContainer.TryUpdateAuthorizationInfo(queryAuthResult.authorization_info.authorizer_appid, queryAuthResult.authorization_info);
                 }
 
                 return queryAuthResult;

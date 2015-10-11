@@ -8,12 +8,14 @@
     创建标识：Senparc - 20150430
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Entities;
+
 namespace Senparc.Weixin.Open.Entities
 {
     /// <summary>
     /// 获取预授权码返回结果
     /// </summary>
-    public class PreAuthCodeResult
+    public class PreAuthCodeResult: WxJsonResult
     {
         /// <summary>
         /// 预授权码

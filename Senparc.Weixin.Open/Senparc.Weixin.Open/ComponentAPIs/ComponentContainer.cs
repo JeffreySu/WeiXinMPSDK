@@ -304,6 +304,14 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                     var preAuthCodeResult = ComponentApi.GetPreAuthCode(componentBag.ComponentAppId, accessToken);
                     componentBag.PreAuthCodeExpireTime = DateTime.Now.AddSeconds(preAuthCodeResult.expires_in);
 
+
+                    componentBag.PreAuthCodeResult = preAuthCodeResult;
+
+                    ////TODO:这里有出现expires_in=0的情况，导致始终处于过期状态（也可能是因为参数过期等原因没有返回正确的数据，待观察）
+                    //var expiresIn = componentBag.PreAuthCodeResult.expires_in > 0
+                    //    ? componentBag.PreAuthCodeResult.expires_in
+                    //    : 60 * 20;//默认为20分钟
+                    //componentBag.PreAuthCodeExpireTime = DateTime.Now.AddSeconds(expiresIn);
                 }
             }
             return componentBag.PreAuthCodeResult;

@@ -42,13 +42,18 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //var component_access_token = Open.ComponentAPIs.ComponentApi.GetComponentAccessToken(component_AppId, component_Secret, openTicket).component_access_token;
 
             //获取预授权码
+
+            var preAuthResult = ComponentContainer.GetPreAuthCodeResult(component_AppId);
+            
             var preAuthCode = ComponentContainer.TryGetPreAuthCode(component_AppId,
                 component_Secret);
+
+            throw new Exception(preAuthResult.expires_in + "||" + preAuthResult +"|||" +component_AppId + "||" + preAuthCode + "||" + component_Secret+"||||"+preAuthResult.errmsg);
 
             //Open.ComponentAPIs.ComponentApi.GetPreAuthCode(component_AppId, component_Secret, openTicket).pre_auth_code;
 
             var callbackUrl = "http://weixin.senparc.com/OpenOAuth/OpenOAuthCallback";//成功回调地址
-            var url = Open.ComponentAPIs.ComponentApi.GetComponentLoginPageUrl(component_AppId, preAuthCode, callbackUrl);
+            var url = ComponentApi.GetComponentLoginPageUrl(component_AppId, preAuthCode, callbackUrl);
             return Redirect(url);
         }
 

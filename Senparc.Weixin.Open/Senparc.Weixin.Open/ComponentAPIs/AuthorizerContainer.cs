@@ -173,7 +173,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
                     var getAuthorizerInfoResult = ComponentApi.GetAuthorizerInfo(componentAccessToken, componentAppId, authorizerAppid);//TODO:如果是过期，可以通过刷新的方式重新获取
 
                     //AuthorizationInfo
-                    TryUpdateAuthorizationInfo(authorizerAppid, getAuthorizerInfoResult.authorization_info);
+                    TryUpdateAuthorizationInfo(componentAppId, authorizerAppid, getAuthorizerInfoResult.authorization_info);
 
                     //AuthorizerInfo
                     authorizerBag.AuthorizerInfo = getAuthorizerInfoResult.authorizer_info;
@@ -192,10 +192,13 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <summary>
         /// 尝试更新AuthorizationInfo（如果没有AccessToken则不更新）
         /// </summary>
+        /// <param name="componentAppId"></param>
         /// <param name="authorizerAppid"></param>
         /// <param name="authorizationInfo"></param>
-        public static void TryUpdateAuthorizationInfo(string authorizerAppid, AuthorizationInfo authorizationInfo)
+        public static void TryUpdateAuthorizationInfo(string componentAppId,string authorizerAppid, AuthorizationInfo authorizationInfo)
         {
+            TryRegister(componentAppId, authorizerAppid);
+
             if (authorizationInfo.expires_in > 0)
             {
                 var authorizerBag = ItemCollection[authorizerAppid];

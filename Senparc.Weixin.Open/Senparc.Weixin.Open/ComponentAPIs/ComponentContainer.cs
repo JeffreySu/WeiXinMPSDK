@@ -342,17 +342,12 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret);
                 var queryAuthResult = ComponentApi.QueryAuth(accessToken, componentAppId, authorizationCode);
 
-                if (queryAuthResult.authorization_info == null)
-                {
-                    throw new Exception(queryAuthResult.authorization_info == null?"NULL": queryAuthResult.authorization_info.authorizer_appid);
-                }
-
                 if (updateToAuthorizerContanier)
                 {
                     //更新到AuthorizerContainer
                     try
                     {
-                        AuthorizerContainer.TryUpdateAuthorizationInfo(queryAuthResult.authorization_info.authorizer_appid, queryAuthResult.authorization_info);
+                        AuthorizerContainer.TryUpdateAuthorizationInfo(componentAppId, queryAuthResult.authorization_info.authorizer_appid, queryAuthResult.authorization_info);
                     }
                     catch
                     {

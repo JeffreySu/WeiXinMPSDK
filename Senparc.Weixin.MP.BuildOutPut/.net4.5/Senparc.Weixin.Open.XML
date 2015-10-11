@@ -96,10 +96,11 @@
             <param name="getNewTicket">是否强制重新获取新的Ticket</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.AuthorizerContainer.TryUpdateAuthorizationInfo(System.String,Senparc.Weixin.Open.ComponentAPIs.AuthorizationInfo)">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.AuthorizerContainer.TryUpdateAuthorizationInfo(System.String,System.String,Senparc.Weixin.Open.ComponentAPIs.AuthorizationInfo)">
             <summary>
             尝试更新AuthorizationInfo（如果没有AccessToken则不更新）
             </summary>
+            <param name="componentAppId"></param>
             <param name="authorizerAppid"></param>
             <param name="authorizationInfo"></param>
         </member>

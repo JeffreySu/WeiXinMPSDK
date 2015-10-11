@@ -345,14 +345,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 if (updateToAuthorizerContanier)
                 {
                     //更新到AuthorizerContainer
-                    try
-                    {
-                        AuthorizerContainer.TryUpdateAuthorizationInfo(componentAppId, queryAuthResult.authorization_info.authorizer_appid, queryAuthResult.authorization_info);
-                    }
-                    catch
-                    {
-                    }
-
+                    AuthorizerContainer.TryUpdateAuthorizationInfo(componentAppId, queryAuthResult.authorization_info.authorizer_appid, queryAuthResult.authorization_info);
                 }
 
                 return queryAuthResult;

@@ -20,6 +20,7 @@
     修改描述：发起Post请求方法修改，为了上传永久视频素材
 ----------------------------------------------------------------*/
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -101,6 +102,9 @@ namespace Senparc.Weixin.HttpUtility
         public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
             string returnText = RequestUtility.HttpPost(url, cookieContainer, fileStream, null, null, encoding, timeOut: timeOut, checkValidationResult: checkValidationResult);
+
+            WeixinTrace.SendLog(url, returnText);
+
             var result = GetResult<T>(returnText);
             return result;
         }

@@ -1158,5 +1158,23 @@
             <param name="memoryStream"></param>
             <param name="savePath"></param>
         </member>
+        <member name="T:Senparc.Weixin.WeixinTrace">
+            <summary>
+            微信日志跟踪
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WeixinTrace.Log(System.String)">
+            <summary>
+            记录日志
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Senparc.Weixin.WeixinTrace.SendLog(System.String,System.String)">
+            <summary>
+            API请求日志
+            </summary>
+            <param name="url"></param>
+            <param name="returnText"></param>
+        </member>
     </members>
 </doc>

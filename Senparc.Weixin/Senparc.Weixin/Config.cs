@@ -27,11 +27,7 @@ namespace Senparc.Weixin
         /// </summary>
         public const int TIME_OUT = 10000;
 
-
         private static bool _isDebug = false;
-
-        private static TraceListener _traceListener = null;
-        private static TextWriter _logWriter = TextWriter.Null;
 
         /// <summary>
         /// 指定是否是Debug状态，如果是，系统会自动输出日志
@@ -48,21 +44,11 @@ namespace Senparc.Weixin
 
                 if (_isDebug)
                 {
-                    if (_traceListener == null || !System.Diagnostics.Trace.Listeners.Contains(_traceListener))
-                    {
-                        var logDir = System.AppDomain.CurrentDomain.BaseDirectory + "App_Data";
-                        string logFile = Path.Combine(logDir, "SenparcWeixinTrace.log");
-                        System.IO.TextWriter logWriter = new System.IO.StreamWriter(logFile, true);
-                        _traceListener = _traceListener ?? new TextWriterTraceListener(logWriter);
-                        System.Diagnostics.Trace.Listeners.Add(_traceListener);
-                    }
+                    WeixinTrace.Open();
                 }
                 else
                 {
-                    if (_traceListener != null && System.Diagnostics.Trace.Listeners.Contains(_traceListener))
-                    {
-                        System.Diagnostics.Trace.Listeners.Remove(_traceListener);
-                    }
+                    WeixinTrace.Close();
                 }
             }
         }

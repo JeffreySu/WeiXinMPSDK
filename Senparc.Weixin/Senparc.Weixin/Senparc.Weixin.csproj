@@ -88,6 +88,7 @@
     <Compile Include="Entities\Request\RequestMessageBase.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Utilities\StreamUtility\StreamUtility.cs" />
+    <Compile Include="WeixinTrace.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

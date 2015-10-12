@@ -37,17 +37,7 @@ namespace Senparc.Weixin.HttpUtility
         {
             string returnText = RequestUtility.HttpGet(url, encoding);
 
-            if (Config.IsDebug)
-            {
-                System.Diagnostics.Trace.WriteLine("");
-                System.Diagnostics.Trace.WriteLine(string.Format("[{0}]", DateTime.Now));
-                System.Diagnostics.Trace.WriteLine(string.Format("URL：{0}", url));
-                System.Diagnostics.Trace.WriteLine(string.Format("Result：{0}", returnText));
-            }
-
-            System.Diagnostics.Trace.WriteLineIf(Config.IsDebug, string.Format("[{0}]", DateTime.Now));
-            System.Diagnostics.Trace.WriteLineIf(Config.IsDebug, string.Format("[{0}]", DateTime.Now));
-            System.Diagnostics.Trace.WriteLineIf(Config.IsDebug, string.Format("[{0}]", DateTime.Now));
+            WeixinTrace.SendLog(url, returnText);
 
             JavaScriptSerializer js = new JavaScriptSerializer();
 

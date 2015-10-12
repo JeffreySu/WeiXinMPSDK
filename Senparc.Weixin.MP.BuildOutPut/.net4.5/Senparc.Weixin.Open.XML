@@ -4,23 +4,25 @@
         <name>Senparc.Weixin.Open</name>
     </assembly>
     <members>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.CommonJsonSend.Send(System.String,System.String,System.Object,Senparc.Weixin.Open.CommonAPIs.CommonJsonSendType,System.Int32)">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.CommonJsonSend.Send(System.String,System.String,System.Object,Senparc.Weixin.CommonJsonSendType,System.Int32)">
             <summary>
             向需要AccessToken的API发送消息的公共方法
             </summary>
             <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
             <param name="urlFormat"></param>
             <param name="data">如果是Get方式，可以为null</param>
+            <param name="sendType"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.CommonJsonSend.Send``1(System.String,System.String,System.Object,Senparc.Weixin.Open.CommonAPIs.CommonJsonSendType,System.Int32)">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.CommonJsonSend.Send``1(System.String,System.String,System.Object,Senparc.Weixin.CommonJsonSendType,System.Int32)">
             <summary>
             向需要AccessToken的API发送消息的公共方法
             </summary>
             <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
             <param name="urlFormat">用accessToken参数填充{0}</param>
             <param name="data">如果是Get方式，可以为null</param>
+            <param name="sendType"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>

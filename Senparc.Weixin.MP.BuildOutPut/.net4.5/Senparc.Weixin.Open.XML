@@ -4,7 +4,7 @@
         <name>Senparc.Weixin.Open</name>
     </assembly>
     <members>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.CommonJsonSend.Send(System.String,System.String,System.Object,Senparc.Weixin.CommonJsonSendType,System.Int32)">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.CommonJsonSend.Send(System.String,System.String,System.Object,Senparc.Weixin.CommonJsonSendType,System.Int32,System.Boolean,Senparc.Weixin.Helpers.JsonSetting)">
             <summary>
             向需要AccessToken的API发送消息的公共方法
             </summary>
@@ -13,9 +13,11 @@
             <param name="data">如果是Get方式，可以为null</param>
             <param name="sendType"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <param name="checkValidationResult"></param>
+            <param name="jsonSetting"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.CommonJsonSend.Send``1(System.String,System.String,System.Object,Senparc.Weixin.CommonJsonSendType,System.Int32)">
+        <member name="M:Senparc.Weixin.Open.CommonAPIs.CommonJsonSend.Send``1(System.String,System.String,System.Object,Senparc.Weixin.CommonJsonSendType,System.Int32,System.Boolean,Senparc.Weixin.Helpers.JsonSetting)">
             <summary>
             向需要AccessToken的API发送消息的公共方法
             </summary>
@@ -24,6 +26,8 @@
             <param name="data">如果是Get方式，可以为null</param>
             <param name="sendType"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <param name="checkValidationResult"></param>
+            <param name="jsonSetting"></param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.Open.CommonAPIs.AuthorizerBag">

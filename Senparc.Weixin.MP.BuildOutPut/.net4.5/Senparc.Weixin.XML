@@ -15,6 +15,11 @@
             说明：此处常量专为提供给方法的参数的默认值，不是方法内所有请求的默认超时时间。
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.Config.IsDebug">
+            <summary>
+            指定是否是Debug状态，如果是，系统会自动输出日志
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.Containers.BaseContainer`1">
             <summary>
             微信容器接口（如Ticket、AccessToken）
@@ -437,6 +442,15 @@
             JSON返回错误代码（比如token_access相关操作中使用）。
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.Exceptions.ErrorJsonResultException.#ctor(System.String,System.Exception,Senparc.Weixin.Entities.WxJsonResult,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+            <param name="inner"></param>
+            <param name="jsonResult"></param>
+            <param name="url"></param>
+        </member>
         <member name="T:Senparc.Weixin.Exceptions.UnknownRequestMsgTypeException">
             <summary>
             未知请求类型。
@@ -639,6 +653,40 @@
             <param name="stream"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.HttpUtility.Get.GetJson``1(System.String,System.Text.Encoding)">
+            <summary>
+            GET方式请求URL，并返回T类型
+            </summary>
+            <typeparam name="T">接收JSON的数据类型</typeparam>
+            <param name="url"></param>
+            <param name="encoding"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.Get.Download(System.String,System.IO.Stream)">
+            <summary>
+            从Url下载
+            </summary>
+            <param name="url"></param>
+            <param name="stream"></param>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.Get.GetJsonAsync``1(System.String,System.Text.Encoding)">
+            <summary>
+            异步GetJsonA
+            </summary>
+            <param name="url"></param>
+            <param name="encoding"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+            <exception cref="T:Senparc.Weixin.Exceptions.ErrorJsonResultException"></exception>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.Get.DownloadAsync(System.String,System.IO.Stream)">
+            <summary>
+            异步从Url下载
+            </summary>
+            <param name="url"></param>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.HttpUtility.Post.GetResult``1(System.String)">
             <summary>
             获取Post结果
@@ -654,7 +702,10 @@
             <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
             <param name="url">请求Url</param>
             <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
+            <param name="encoding"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <param name="fileDictionary"></param>
+            <param name="postDataDictionary"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJson``1(System.String,System.Net.CookieContainer,System.IO.Stream,System.Text.Encoding,System.Int32,System.Boolean)">
@@ -665,8 +716,21 @@
             <param name="url">请求Url</param>
             <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
             <param name="fileStream">文件流</param>
+            <param name="encoding"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <param name="checkValidationResult">验证服务器证书回调自动验证</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJson``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Int32)">
+            <summary>
+            PostGetJson
+            </summary>
+            <param name="url"></param>
+            <param name="cookieContainer"></param>
+            <param name="formData"></param>
+            <param name="encoding"></param>
+            <param name="timeOut"></param>
+            <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.HttpUtility.Post.Download(System.String,System.String,System.IO.Stream)">
@@ -686,6 +750,7 @@
             <param name="cookieContainer"></param>
             <param name="fileDictionary"></param>
             <param name="encoding"></param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJsonAsync``1(System.String,System.Net.CookieContainer,System.IO.Stream,System.Text.Encoding,System.Int32,System.Boolean)">
@@ -697,6 +762,8 @@
             <param name="cookieContainer"></param>
             <param name="fileStream"></param>
             <param name="encoding"></param>
+            <param name="timeOut"></param>
+            <param name="checkValidationResult"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJsonAsync``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Int32)">
@@ -708,6 +775,7 @@
             <param name="cookieContainer"></param>
             <param name="formData"></param>
             <param name="encoding"></param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.HttpUtility.Post.DownloadAsync(System.String,System.String,System.IO.Stream)">
@@ -748,8 +816,10 @@
             <param name="cookieContainer"></param>
             <param name="postStream"></param>
             <param name="fileDictionary">需要上传的文件，Key：对应要上传的Name，Value：本地文件名</param>
+            <param name="encoding"></param>
             <param name="timeOut"></param>
             <param name="checkValidationResult">验证服务器证书回调自动验证</param>
+            <param name="refererUrl"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.CheckValidationResult(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">

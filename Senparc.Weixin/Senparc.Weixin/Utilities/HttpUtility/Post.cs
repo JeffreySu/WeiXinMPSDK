@@ -71,7 +71,10 @@ namespace Senparc.Weixin.HttpUtility
         /// <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
         /// <param name="url">请求Url</param>
         /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
+        /// <param name="encoding"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="fileDictionary"></param>
+        /// <param name="postDataDictionary"></param>
         /// <returns></returns>
         public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
         {
@@ -82,7 +85,6 @@ namespace Senparc.Weixin.HttpUtility
                 var result = GetResult<T>(returnText);
                 return result;
             }
-
         }
 
         /// <summary>
@@ -92,6 +94,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="url">请求Url</param>
         /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
         /// <param name="fileStream">文件流</param>
+        /// <param name="encoding"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <returns></returns>
@@ -102,6 +105,16 @@ namespace Senparc.Weixin.HttpUtility
             return result;
         }
 
+        /// <summary>
+        /// PostGetJson
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="cookieContainer"></param>
+        /// <param name="formData"></param>
+        /// <param name="encoding"></param>
+        /// <param name="timeOut"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
         {
             string returnText = RequestUtility.HttpPost(url, cookieContainer, formData, encoding, timeOut: timeOut);
@@ -137,6 +150,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cookieContainer"></param>
         /// <param name="fileDictionary"></param>
         /// <param name="encoding"></param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
         public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
         {
@@ -153,10 +167,12 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cookieContainer"></param>
         /// <param name="fileStream"></param>
         /// <param name="encoding"></param>
+        /// <param name="timeOut"></param>
+        /// <param name="checkValidationResult"></param>
         /// <returns></returns>
         public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
-            string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, fileStream, null, null, encoding, timeOut,checkValidationResult:checkValidationResult);
+            string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, fileStream, null, null, encoding, timeOut, checkValidationResult: checkValidationResult);
             var result = GetResult<T>(returnText);
             return result;
         }
@@ -169,6 +185,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cookieContainer"></param>
         /// <param name="formData"></param>
         /// <param name="encoding"></param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
         public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
         {

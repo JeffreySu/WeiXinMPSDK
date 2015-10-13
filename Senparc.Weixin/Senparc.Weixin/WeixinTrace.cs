@@ -64,6 +64,31 @@ namespace Senparc.Weixin
             Log(string.Format("[{0}]", DateTime.Now));
         }
 
+        private static void Unindent()
+        {
+            lock (TraceLock)
+            {
+                System.Diagnostics.Trace.Unindent();
+            }
+        }
+
+        private static void Indent()
+        {
+            lock (TraceLock)
+            {
+                System.Diagnostics.Trace.Indent();
+            }
+        }
+
+        private static void Flush()
+        {
+            lock (TraceLock)
+            {
+                System.Diagnostics.Trace.Flush();
+            }
+        }
+
+
         /// <summary>
         /// 记录日志
         /// </summary>
@@ -73,7 +98,6 @@ namespace Senparc.Weixin
             lock (TraceLock)
             {
                 System.Diagnostics.Trace.WriteLine(message);
-                System.Diagnostics.Trace.Flush();
             }
         }
 
@@ -90,9 +114,12 @@ namespace Senparc.Weixin
             }
 
             Log("");
+            Indent();
             TimeLog();
             Log(string.Format("URL：{0}", url));
             Log(string.Format("Result：\r\n{0}", returnText));
+            Unindent();
+            Flush();
         }
 
         public static void ErrorJsonResultExceptionLog(ErrorJsonResultException ex)
@@ -104,10 +131,13 @@ namespace Senparc.Weixin
 
             Log("");
             TimeLog();
+            Indent();
             Log("[ErrorJsonResultException]");
             Log(string.Format("URL：{0}", ex.Url));
             Log(string.Format("errcode：{0}", ex.JsonResult.errcode));
             Log(string.Format("errmsg：{0}", ex.JsonResult.errmsg));
+            Unindent();
+            Flush();
         }
     }
 }

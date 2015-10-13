@@ -88,9 +88,10 @@ namespace Senparc.Weixin
             }
         }
 
-        private static void LogBegin()
+        private static void LogBegin(string title = null)
         {
-            Log("");
+            Open();
+            Log(title == null ? "" : String.Format("[{0}]", title));
             TimeLog();
             Indent();
         }
@@ -109,12 +110,9 @@ namespace Senparc.Weixin
 
         private static void LogOver()
         {
-            lock (TraceLock)
-            {
-                Unindent();
-                System.Diagnostics.Trace.Flush();
-                _traceListener.Close();
-            }
+            Unindent();
+            Flush();
+            Close();
         }
 
         /// <summary>
@@ -129,7 +127,7 @@ namespace Senparc.Weixin
                 return;
             }
 
-            LogBegin();
+            LogBegin("接口调用");
             Log(string.Format("URL：{0}", url));
             Log(string.Format("Result：\r\n{0}", returnText));
             LogOver();
@@ -146,8 +144,7 @@ namespace Senparc.Weixin
                 return;
             }
 
-            LogBegin();
-            Log("[ErrorJsonResultException]");
+            LogBegin("ErrorJsonResultException");
             Log(string.Format("URL：{0}", ex.Url));
             Log(string.Format("errcode：{0}", ex.JsonResult.errcode));
             Log(string.Format("errmsg：{0}", ex.JsonResult.errmsg));

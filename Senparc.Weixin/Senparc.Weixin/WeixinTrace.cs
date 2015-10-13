@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin
 {
@@ -56,11 +57,18 @@ namespace Senparc.Weixin
         }
 
         /// <summary>
+        /// 统一时间格式
+        /// </summary>
+        private static void TimeLog()
+        {
+            Log(string.Format("[{0}]", DateTime.Now));
+        }
+
+        /// <summary>
         /// 记录日志
         /// </summary>
         /// <param name="message"></param>
-        public static
-            void Log(string message)
+        public static void Log(string message)
         {
             lock (TraceLock)
             {
@@ -82,10 +90,24 @@ namespace Senparc.Weixin
             }
 
             Log("");
-            Log(string.Format("[{0}]", DateTime.Now));
+            TimeLog();
             Log(string.Format("URL：{0}", url));
             Log(string.Format("Result：\r\n{0}", returnText));
         }
 
+        public static void ErrorJsonResultExceptionLog(ErrorJsonResultException ex)
+        {
+            if (!Config.IsDebug)
+            {
+                return;
+            }
+
+            Log("");
+            TimeLog();
+            Log("[ErrorJsonResultException]");
+            Log(string.Format("URL：{0}", ex.Url));
+            Log(string.Format("errcode：{0}", ex.JsonResult.errcode));
+            Log(string.Format("errmsg：{0}", ex.JsonResult.errmsg));
+        }
     }
 }

@@ -1163,6 +1163,11 @@
             微信日志跟踪
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.WeixinTrace.TimeLog">
+            <summary>
+            统一时间格式
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.WeixinTrace.Log(System.String)">
             <summary>
             记录日志

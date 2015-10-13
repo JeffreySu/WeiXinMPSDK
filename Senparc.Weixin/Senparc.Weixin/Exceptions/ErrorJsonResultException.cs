@@ -35,6 +35,8 @@ namespace Senparc.Weixin.Exceptions
         {
             JsonResult = jsonResult;
             Url = url;
+
+            WeixinTrace.ErrorJsonResultExceptionLog(this);
         }
     }
 }

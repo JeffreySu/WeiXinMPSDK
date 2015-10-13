@@ -25,11 +25,11 @@ namespace Senparc.Weixin
     public static class WeixinTrace
     {
         private static TraceListener _traceListener = null;
-        private static object _traceLock = new object();
+        private static readonly object TraceLock = new object();
 
         internal static void Open()
         {
-            lock (_traceLock)
+            lock (TraceLock)
             {
                 if (_traceListener == null || !System.Diagnostics.Trace.Listeners.Contains(_traceListener))
                 {
@@ -45,7 +45,7 @@ namespace Senparc.Weixin
 
         internal static void Close()
         {
-            lock (_traceLock)
+            lock (TraceLock)
             {
                 if (_traceListener != null && System.Diagnostics.Trace.Listeners.Contains(_traceListener))
                 {
@@ -61,7 +61,7 @@ namespace Senparc.Weixin
         public static
             void Log(string message)
         {
-            lock (_traceLock)
+            lock (TraceLock)
             {
                 System.Diagnostics.Trace.WriteLine(message);
                 //System.Diagnostics.Trace.Flush();

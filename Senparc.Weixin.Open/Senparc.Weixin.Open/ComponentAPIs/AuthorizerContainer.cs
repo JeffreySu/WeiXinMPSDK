@@ -16,14 +16,11 @@
     ----------------------------------------------------------------*/
 
 using System;
-using System.Data;
 using Senparc.Weixin.Containers;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.Open.Exceptions;
 
-namespace Senparc.Weixin.Open.CommonAPIs
+namespace Senparc.Weixin.Open.ComponentAPIs
 {
     /// <summary>
     /// 之前的JsApiTicketBag

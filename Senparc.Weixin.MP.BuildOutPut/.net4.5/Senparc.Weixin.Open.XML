@@ -30,113 +30,6 @@
             <param name="jsonSetting"></param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.Open.CommonAPIs.AuthorizerBag">
-            <summary>
-            之前的JsApiTicketBag
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.Open.CommonAPIs.AuthorizerBag.AuthorizerAppId">
-            <summary>
-            授权方AppId，缓存中实际的Key
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.Open.CommonAPIs.AuthorizerBag.ComponentAppId">
-            <summary>
-            第三方平台AppId
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.Open.CommonAPIs.AuthorizerBag.FullAuthorizerInfoResult">
-            <summary>
-            授权信息
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.Open.CommonAPIs.AuthorizerBag.AuthorizationInfo">
-            <summary>
-            授权信息（请使用TryUpdateAuthorizationInfo()方法进行更新）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.Open.CommonAPIs.AuthorizerBag.AuthorizerInfo">
-            <summary>
-            授权方资料信息
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.Open.CommonAPIs.AuthorizerBag.Lock">
-            <summary>
-            只针对这个AppId的锁
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.Open.CommonAPIs.AuthorizerContainer">
-            <summary>
-            授权方信息（用户的微信公众号）
-            包括通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.AuthorizerContainer.Register(System.String,System.String)">
-            <summary>
-            注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.AuthorizerContainer.TryRegister(System.String,System.String)">
-            <summary>
-            尝试注册
-            </summary>
-            <param name="componentAppId"></param>
-            <param name="authorizerAppid"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.AuthorizerContainer.TryGetAuthorizerAccessToken(System.String,System.String,System.Boolean)">
-            <summary>
-            获取可用AuthorizerAccessToken
-            </summary>
-            <param name="componentAppId"></param>
-            <param name="authorizerAppid"></param>
-            <param name="getNewTicket"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.AuthorizerContainer.GetAuthorizerInfoResult(System.String,System.String,System.Boolean)">
-            <summary>
-            获取可用的GetAuthorizerInfoResult
-            </summary>
-            <param name="componentAppId"></param>
-            <param name="authorizerAppid"></param>
-            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.AuthorizerContainer.TryUpdateAuthorizationInfo(System.String,System.String,Senparc.Weixin.Open.ComponentAPIs.AuthorizationInfo)">
-            <summary>
-            尝试更新AuthorizationInfo（如果没有AccessToken则不更新）
-            </summary>
-            <param name="componentAppId"></param>
-            <param name="authorizerAppid"></param>
-            <param name="authorizationInfo"></param>
-        </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.AuthorizerContainer.TryGetJsApiTicket(System.String,System.String,System.Boolean)">
-            <summary>
-            使用完整的应用凭证获取Ticket，如果不存在将自动注册
-            </summary>
-            <param name="componentAppId"></param>
-            /// <param name="authorizerAppid"></param>
-            <param name="getNewTicket"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.AuthorizerContainer.GetJsApiTicket(System.String,System.String,System.Boolean)">
-            <summary>
-            获取可用Ticket
-            </summary>
-            <param name="componentAppId"></param>
-            <param name="authorizerAppid"></param>
-            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.Open.CommonAPIs.AuthorizerContainer.GetJsApiTicketResult(System.String,System.String,System.Boolean)">
-            <summary>
-            获取可用Ticket
-            </summary>
-            <param name="componentAppId"></param>
-            <param name="authorizerAppid"></param>
-            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
-            <returns></returns>
-        </member>
         <member name="T:Senparc.Weixin.Open.OAuthAPIs.OAuthApi">
             <summary>
             代公众号发起网页授权
@@ -409,6 +302,113 @@
             <param name="getNewToken"></param>
             <returns></returns>
             <exception cref="T:Senparc.Weixin.Open.Exceptions.WeixinOpenException"></exception>
+        </member>
+        <member name="T:Senparc.Weixin.Open.ComponentAPIs.AuthorizerBag">
+            <summary>
+            之前的JsApiTicketBag
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.AuthorizerBag.AuthorizerAppId">
+            <summary>
+            授权方AppId，缓存中实际的Key
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.AuthorizerBag.ComponentAppId">
+            <summary>
+            第三方平台AppId
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.AuthorizerBag.FullAuthorizerInfoResult">
+            <summary>
+            授权信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.AuthorizerBag.AuthorizationInfo">
+            <summary>
+            授权信息（请使用TryUpdateAuthorizationInfo()方法进行更新）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.AuthorizerBag.AuthorizerInfo">
+            <summary>
+            授权方资料信息
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Open.ComponentAPIs.AuthorizerBag.Lock">
+            <summary>
+            只针对这个AppId的锁
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer">
+            <summary>
+            授权方信息（用户的微信公众号）
+            包括通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.Register(System.String,System.String)">
+            <summary>
+            注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.TryRegister(System.String,System.String)">
+            <summary>
+            尝试注册
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="authorizerAppid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.TryGetAuthorizerAccessToken(System.String,System.String,System.Boolean)">
+            <summary>
+            获取可用AuthorizerAccessToken
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="authorizerAppid"></param>
+            <param name="getNewTicket"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.GetAuthorizerInfoResult(System.String,System.String,System.Boolean)">
+            <summary>
+            获取可用的GetAuthorizerInfoResult
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="authorizerAppid"></param>
+            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.TryUpdateAuthorizationInfo(System.String,System.String,Senparc.Weixin.Open.ComponentAPIs.AuthorizationInfo)">
+            <summary>
+            尝试更新AuthorizationInfo（如果没有AccessToken则不更新）
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="authorizerAppid"></param>
+            <param name="authorizationInfo"></param>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.TryGetJsApiTicket(System.String,System.String,System.Boolean)">
+            <summary>
+            使用完整的应用凭证获取Ticket，如果不存在将自动注册
+            </summary>
+            <param name="componentAppId"></param>
+            /// <param name="authorizerAppid"></param>
+            <param name="getNewTicket"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.GetJsApiTicket(System.String,System.String,System.Boolean)">
+            <summary>
+            获取可用Ticket
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="authorizerAppid"></param>
+            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.GetJsApiTicketResult(System.String,System.String,System.Boolean)">
+            <summary>
+            获取可用Ticket
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="authorizerAppid"></param>
+            <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+            <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.Open.ComponentAPIs.GetAuthorizerInfoResult">
             <summary>

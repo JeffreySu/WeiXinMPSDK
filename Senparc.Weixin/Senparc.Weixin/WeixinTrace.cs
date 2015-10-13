@@ -88,6 +88,12 @@ namespace Senparc.Weixin
             }
         }
 
+        private static void LogBegin()
+        {
+            Log("");
+            TimeLog();
+            Indent();
+        }
 
         /// <summary>
         /// 记录日志
@@ -98,6 +104,16 @@ namespace Senparc.Weixin
             lock (TraceLock)
             {
                 System.Diagnostics.Trace.WriteLine(message);
+            }
+        }
+
+        private static void LogOver()
+        {
+            lock (TraceLock)
+            {
+                Unindent();
+                System.Diagnostics.Trace.Flush();
+                _traceListener.Close();
             }
         }
 
@@ -113,15 +129,16 @@ namespace Senparc.Weixin
                 return;
             }
 
-            Log("");
-            Indent();
-            TimeLog();
+            LogBegin();
             Log(string.Format("URL：{0}", url));
             Log(string.Format("Result：\r\n{0}", returnText));
-            Unindent();
-            Flush();
+            LogOver();
         }
 
+        /// <summary>
+        /// ErrorJsonResultException 日志
+        /// </summary>
+        /// <param name="ex"></param>
         public static void ErrorJsonResultExceptionLog(ErrorJsonResultException ex)
         {
             if (!Config.IsDebug)
@@ -129,15 +146,12 @@ namespace Senparc.Weixin
                 return;
             }
 
-            Log("");
-            TimeLog();
-            Indent();
+            LogBegin();
             Log("[ErrorJsonResultException]");
             Log(string.Format("URL：{0}", ex.Url));
             Log(string.Format("errcode：{0}", ex.JsonResult.errcode));
             Log(string.Format("errmsg：{0}", ex.JsonResult.errmsg));
-            Unindent();
-            Flush();
+            LogOver();
         }
     }
 }

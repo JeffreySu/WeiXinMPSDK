@@ -1181,5 +1181,11 @@
             <param name="url"></param>
             <param name="returnText"></param>
         </member>
+        <member name="M:Senparc.Weixin.WeixinTrace.ErrorJsonResultExceptionLog(Senparc.Weixin.Exceptions.ErrorJsonResultException)">
+            <summary>
+            ErrorJsonResultException 日志
+            </summary>
+            <param name="ex"></param>
+        </member>
     </members>
 </doc>

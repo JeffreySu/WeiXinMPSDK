@@ -29,6 +29,18 @@ namespace Senparc.Weixin.MP.Sample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+
+            RegisterWeixinPay();//注册微信支付
+            RegisterWeixinThirdParty(); //注册微信第三方平台
+
+            Senparc.Weixin.Config.IsDebug = true;//这里设为Debug状态时，/App_Data/目录下会生成日志文件记录所有的API请求日志，正式发布版本建议关闭
+        }
+
+        /// <summary>
+        /// 注册微信支付
+        /// </summary>
+        private void RegisterWeixinPay()
+        {
             //提供微信支付信息
             var weixinPay_PartnerId = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_PartnerId"];
             var weixinPay_Key = System.Configuration.ConfigurationManager.AppSettings["WeixinPay_Key"];
@@ -47,8 +59,6 @@ namespace Senparc.Weixin.MP.Sample
             var tenPayV3Info = new TenPayV3Info(tenPayV3_AppId, tenPayV3_AppSecret, tenPayV3_MchId, tenPayV3_Key,
                                                 tenPayV3_TenpayNotify);
             TenPayV3InfoCollection.Register(tenPayV3Info);
-
-            RegisterWeixinThirdParty(); //注册微信第三方平台
         }
 
         /// <summary>

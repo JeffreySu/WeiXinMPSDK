@@ -49,6 +49,7 @@ namespace Senparc.Weixin
             {
                 if (_traceListener != null && System.Diagnostics.Trace.Listeners.Contains(_traceListener))
                 {
+                    _traceListener.Close();
                     System.Diagnostics.Trace.Listeners.Remove(_traceListener);
                 }
             }
@@ -64,7 +65,7 @@ namespace Senparc.Weixin
             lock (TraceLock)
             {
                 System.Diagnostics.Trace.WriteLine(message);
-                //System.Diagnostics.Trace.Flush();
+                System.Diagnostics.Trace.Flush();
             }
         }
 

@@ -95,10 +95,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             try
             {
                 //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
-                messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}.txt", _getRandomFileName, messageHandler.RequestMessage.FromUserName)));
+                messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
                 if (messageHandler.UsingEcryptMessage)
                 {
-                    messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_Ecrypt_{1}.txt", _getRandomFileName, messageHandler.RequestMessage.FromUserName)));
+                    messageHandler.EcryptRequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_Ecrypt_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
                 }
 
                 /* 如果需要添加消息去重功能，只需打开OmitRepeatedMessage功能，SDK会自动处理。
@@ -118,13 +118,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 if (messageHandler.ResponseDocument != null)
                 {
-                    messageHandler.ResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_{1}.txt", _getRandomFileName, messageHandler.RequestMessage.FromUserName)));
+                    messageHandler.ResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
                 }
 
                 if (messageHandler.UsingEcryptMessage)
                 {
                     //记录加密后的响应信息
-                    messageHandler.FinalResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_Final_{1}.txt", _getRandomFileName, messageHandler.RequestMessage.FromUserName)));
+                    messageHandler.FinalResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_Final_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
                 }
 
                 //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
@@ -133,7 +133,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             catch (Exception ex)
             {
-                using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_" + _getRandomFileName + ".txt")))
+                using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_" + _getRandomFileName() + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);

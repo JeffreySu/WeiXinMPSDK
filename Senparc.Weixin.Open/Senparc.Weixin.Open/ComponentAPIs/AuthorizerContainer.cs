@@ -16,14 +16,11 @@
     ----------------------------------------------------------------*/
 
 using System;
-using System.Data;
 using Senparc.Weixin.Containers;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.Open.Exceptions;
 
-namespace Senparc.Weixin.Open.CommonAPIs
+namespace Senparc.Weixin.Open.ComponentAPIs
 {
     /// <summary>
     /// 之前的JsApiTicketBag
@@ -48,12 +45,35 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <summary>
         /// 授权信息
         /// </summary>
-        public GetAuthorizerInfoResult AuthorizerInfoResult { get; set; }
-        public DateTime AuthorizerInfoExpireTime { get; set; }
+        public GetAuthorizerInfoResult FullAuthorizerInfoResult
+        {
+            get
+            {
+                var result = new GetAuthorizerInfoResult()
+                {
+                    authorizer_info = AuthorizerInfo,
+                    authorization_info = AuthorizationInfo
+                };
+                return result;
+            }
+        }
 
 
         public JsApiTicketResult JsApiTicketResult { get; set; }
         public DateTime JsApiTicketExpireTime { get; set; }
+
+        /// <summary>
+        /// 授权信息（请使用TryUpdateAuthorizationInfo()方法进行更新）
+        /// </summary>
+        public AuthorizationInfo AuthorizationInfo { get; set; }
+        public DateTime AuthorizationInfoExpireTime { get; set; }
+
+        /// <summary>
+        /// 授权方资料信息
+        /// </summary>
+        public AuthorizerInfo AuthorizerInfo { get; set; }
+        //public DateTime AuthorizerInfoExpireTime { get; set; }
+
 
         /// <summary>
         /// 只针对这个AppId的锁
@@ -83,8 +103,11 @@ namespace Senparc.Weixin.Open.CommonAPIs
                 AuthorizerAppId = authorizerAppId,
                 ComponentAppId = componentAppId,
 
-                AuthorizerInfoResult = new GetAuthorizerInfoResult(),//可以进一步初始化
-                AuthorizerInfoExpireTime = DateTime.MinValue,
+                AuthorizationInfo = new AuthorizationInfo(),
+                AuthorizationInfoExpireTime = DateTime.MinValue,
+
+                AuthorizerInfo = new AuthorizerInfo(),
+                //AuthorizerInfoExpireTime = DateTime.MinValue,
 
                 JsApiTicketResult = new JsApiTicketResult(),
                 JsApiTicketExpireTime = DateTime.MinValue,
@@ -130,7 +153,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <param name="authorizerAppid"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        /// <exception cref="WeixinOpenException">此公众号没有高级权限</exception>
+        ///// <exception cref="WeixinOpenException">此公众号没有高级权限</exception>
         public static GetAuthorizerInfoResult GetAuthorizerInfoResult(string componentAppId, string authorizerAppid, bool getNewTicket = false)
         {
             TryRegister(componentAppId, authorizerAppid);
@@ -138,27 +161,48 @@ namespace Senparc.Weixin.Open.CommonAPIs
             var authorizerBag = ItemCollection[authorizerAppid];
             lock (authorizerBag.Lock)
             {
-                if (getNewTicket || authorizerBag.AuthorizerInfoExpireTime <= DateTime.Now)
+                if (getNewTicket || authorizerBag.AuthorizationInfoExpireTime <= DateTime.Now || authorizerBag.AuthorizerInfo.user_name == null)
                 {
                     var componentVerifyTicket = ComponentContainer.TryGetComponentVerifyTicket(componentAppId);
                     var componentAccessToken = ComponentContainer.GetComponentAccessToken(componentAppId, componentVerifyTicket);
 
                     //已过期，重新获取
-                    authorizerBag.AuthorizerInfoResult = ComponentApi.GetAuthorizerInfo(componentAccessToken, componentAppId, authorizerAppid);//TODO:如果是过期，可以通过刷新的方式重新获取
+                    var getAuthorizerInfoResult = ComponentApi.GetAuthorizerInfo(componentAccessToken, componentAppId, authorizerAppid);//TODO:如果是过期，可以通过刷新的方式重新获取
 
-                    var componentBag = ComponentContainer.TryGetItem(componentAppId);
+                    //AuthorizationInfo
+                    TryUpdateAuthorizationInfo(componentAppId, authorizerAppid, getAuthorizerInfoResult.authorization_info);
 
-                    if (string.IsNullOrEmpty(authorizerBag.AuthorizerInfoResult.authorization_info.authorizer_access_token))
-                    {
-                        //账号没有此权限
-                        throw new WeixinOpenException("此公众号没有高级权限", componentBag);
-                    }
+                    //AuthorizerInfo
+                    authorizerBag.AuthorizerInfo = getAuthorizerInfoResult.authorizer_info;
 
-                    authorizerBag.AuthorizerInfoExpireTime =
-                        DateTime.Now.AddSeconds(authorizerBag.AuthorizerInfoResult.authorization_info.expires_in);
+                    //var componentBag = ComponentContainer.TryGetItem(componentAppId);
+                    //if (string.IsNullOrEmpty(authorizerBag.AuthorizerInfoResult.authorization_info.authorizer_access_token))
+                    //{
+                    //    //账号没有此权限
+                    //    throw new WeixinOpenException("此公众号没有高级权限", componentBag);
+                    //}
                 }
             }
-            return authorizerBag.AuthorizerInfoResult;
+            return authorizerBag.FullAuthorizerInfoResult;
+        }
+
+        /// <summary>
+        /// 尝试更新AuthorizationInfo（如果没有AccessToken则不更新）
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="authorizerAppid"></param>
+        /// <param name="authorizationInfo"></param>
+        public static void TryUpdateAuthorizationInfo(string componentAppId,string authorizerAppid, AuthorizationInfo authorizationInfo)
+        {
+            TryRegister(componentAppId, authorizerAppid);
+
+            if (authorizationInfo.expires_in > 0)
+            {
+                var authorizerBag = ItemCollection[authorizerAppid];
+                //没有高级接口权限（没有拿到AccessToken）
+                authorizerBag.AuthorizationInfo = authorizationInfo;
+                authorizerBag.AuthorizationInfoExpireTime = DateTime.Now.AddSeconds(authorizationInfo.expires_in);
+            }
         }
 
         #endregion
@@ -211,7 +255,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
                     //已过期，重新获取
                     var authorizerAccessToken = TryGetAuthorizerAccessToken(componentAppId, authorizerAppid);
 
-                    accessTicketBag.JsApiTicketResult = CommonApi.GetJsApiTicket(authorizerAccessToken);
+                    accessTicketBag.JsApiTicketResult = ComponentApi.GetJsApiTicket(authorizerAccessToken);
 
                     accessTicketBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(accessTicketBag.JsApiTicketResult.expires_in);
                 }

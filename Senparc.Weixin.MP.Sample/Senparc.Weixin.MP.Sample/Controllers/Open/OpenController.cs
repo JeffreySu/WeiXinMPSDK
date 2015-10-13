@@ -15,6 +15,7 @@ using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.MessageHandlers;
 using Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers;
+using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Entities.Request;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
@@ -35,19 +36,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult OAuth()
         {
-
-            string openTicket = OpenTicketHelper.GetOpenTicket(component_AppId);
-
-            //var component_access_token = Open.CommonAPIs.CommonApi.GetComponentAccessToken(component_AppId, component_Secret, openTicket).component_access_token;
-
             //获取预授权码
-            var preAuthCode = Senparc.Weixin.Open.CommonAPIs.ComponentContainer.TryGetPreAuthCode(component_AppId,
-                component_Secret);
-
-            //Open.CommonAPIs.CommonApi.GetPreAuthCode(component_AppId, component_Secret, openTicket).pre_auth_code;
+            var preAuthCode = ComponentContainer.TryGetPreAuthCode(component_AppId, component_Secret);
 
             var callbackUrl = "http://weixin.senparc.com/OpenOAuth/OpenOAuthCallback";//成功回调地址
-            var url = Open.ComponentAPIs.ComponentApi.GetComponentLoginPageUrl(component_AppId, preAuthCode, callbackUrl);
+            var url = ComponentApi.GetComponentLoginPageUrl(component_AppId, preAuthCode, callbackUrl);
             return Redirect(url);
         }
 

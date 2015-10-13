@@ -24,9 +24,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     {
         public ActionResult Index()
         {
-            Senparc.Weixin.Config.IsDebug = true;
-            System.Diagnostics.Trace.WriteLine("test");
-
             return View();
         }
 
@@ -43,6 +40,19 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             throw new Exception("出错测试，使用Elmah保存错误结果(2)");
             return View();
+        }
+
+
+        public ActionResult DebugOpen()
+        {
+            Senparc.Weixin.Config.IsDebug = true;
+            return Content("Debug状态已打开。");
+        }
+
+        public ActionResult DebugClose()
+        {
+            Senparc.Weixin.Config.IsDebug = false;
+            return Content("Debug状态已关闭。");
         }
     }
 }

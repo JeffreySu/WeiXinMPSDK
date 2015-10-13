@@ -48,7 +48,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
         /// <summary>
         /// 授权信息
         /// </summary>
-        public GetAuthorizerInfoResult AuthorizerInfoResult
+        public GetAuthorizerInfoResult FullAuthorizerInfoResult
         {
             get
             {
@@ -186,7 +186,7 @@ namespace Senparc.Weixin.Open.CommonAPIs
                     //}
                 }
             }
-            return authorizerBag.AuthorizerInfoResult;
+            return authorizerBag.FullAuthorizerInfoResult;
         }
 
         /// <summary>

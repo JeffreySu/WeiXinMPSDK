@@ -45,7 +45,7 @@
             第三方平台AppId
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.Open.CommonAPIs.AuthorizerBag.AuthorizerInfoResult">
+        <member name="P:Senparc.Weixin.Open.CommonAPIs.AuthorizerBag.FullAuthorizerInfoResult">
             <summary>
             授权信息
             </summary>

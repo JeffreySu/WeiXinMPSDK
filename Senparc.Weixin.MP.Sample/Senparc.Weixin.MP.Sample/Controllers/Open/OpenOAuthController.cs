@@ -19,6 +19,73 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         private string component_Secret = WebConfigurationManager.AppSettings["Component_Secret"];
         //private static string ComponentAccessToken = null;//需要授权获取，腾讯服务器会主动推送
 
+        #region 开放平台入口及回调
+
+        /// <summary>
+        /// OAuthScope.snsapi_userinfo方式回调
+        /// </summary>
+        /// <param name="auth_code"></param>
+        /// <param name="expires_in"></param>
+        /// <param name="appId"></param>
+        /// <returns></returns>
+        public ActionResult OpenOAuthCallback(string auth_code, int expires_in, string appId)
+        {
+            try
+            {
+
+                #region 直接调用API
+
+                //string openTicket = OpenTicketHelper.GetOpenTicket(component_AppId);
+                //var component_access_token = Open.ComponentAPIs.ComponentApi.GetComponentAccessToken(component_AppId, component_Secret, openTicket).component_access_token;
+                //ComponentAccessToken = component_access_token;
+                //var oauthResult = Open.ComponentAPIs.ComponentApi.QueryAuth(component_access_token, component_AppId, auth_code);
+
+                ////TODO:储存oauthResult.authorization_info
+                //var authInfoResult = Open.ComponentAPIs.ComponentApi.GetAuthorizerInfo(component_access_token, component_AppId,
+                //     oauthResult.authorization_info.authorizer_appid);
+
+                #endregion
+
+                #region 使用ComponentContainer
+
+                //获取OAuth授权结果
+                QueryAuthResult queryAuthResult;
+                try
+                {
+                    queryAuthResult = ComponentContainer.GetQueryAuthResult(component_AppId, auth_code);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("QueryAuthResult：" + ex.Message);
+                }
+                #endregion
+
+                var authorizerInfoResult = AuthorizerContainer.GetAuthorizerInfoResult(component_AppId,
+                    queryAuthResult.authorization_info.authorizer_appid);
+
+                ViewData["QueryAuthorizationInfo"] = queryAuthResult.authorization_info;
+                ViewData["GetAuthorizerInfoResult"] = authorizerInfoResult.authorizer_info;
+
+                return View();
+            }
+            catch (ErrorJsonResultException ex)
+            {
+                return Content(ex.Message);
+            }
+        }
+
+
+        /// <summary>
+        /// 公众号授权页入口
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult JumpToMpOAuth()
+        {
+            return View();
+        }
+
+        #endregion
+
         #region 微信用户授权相关
 
         public ActionResult Index(string appId)
@@ -138,68 +205,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         #endregion
 
-        /// <summary>
-        /// OAuthScope.snsapi_userinfo方式回调
-        /// </summary>
-        /// <param name="auth_code"></param>
-        /// <param name="expires_in"></param>
-        /// <param name="appId"></param>
-        /// <returns></returns>
-        public ActionResult OpenOAuthCallback(string auth_code, int expires_in, string appId)
-        {
-            try
-            {
-
-                #region 直接调用API
-
-                //string openTicket = OpenTicketHelper.GetOpenTicket(component_AppId);
-                //var component_access_token = Open.ComponentAPIs.ComponentApi.GetComponentAccessToken(component_AppId, component_Secret, openTicket).component_access_token;
-                //ComponentAccessToken = component_access_token;
-                //var oauthResult = Open.ComponentAPIs.ComponentApi.QueryAuth(component_access_token, component_AppId, auth_code);
-
-                ////TODO:储存oauthResult.authorization_info
-                //var authInfoResult = Open.ComponentAPIs.ComponentApi.GetAuthorizerInfo(component_access_token, component_AppId,
-                //     oauthResult.authorization_info.authorizer_appid);
-
-                #endregion
-
-                #region 使用ComponentContainer
-
-                //获取OAuth授权结果
-                QueryAuthResult queryAuthResult;
-                try
-                {
-                    queryAuthResult = ComponentContainer.GetQueryAuthResult(component_AppId, auth_code);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("QueryAuthResult：" + ex.Message);
-                }
-                #endregion
-
-                var authorizerInfoResult = AuthorizerContainer.GetAuthorizerInfoResult(component_AppId,
-                    queryAuthResult.authorization_info.authorizer_appid);
-
-                ViewData["QueryAuthorizationInfo"] = queryAuthResult.authorization_info;
-                ViewData["GetAuthorizerInfoResult"] = authorizerInfoResult;
-
-                return View();
-            }
-            catch (ErrorJsonResultException ex)
-            {
-                return Content(ex.Message);
-            }
-        }
-
-
-        /// <summary>
-        /// 公众号授权页入口
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult JumpToMpOAuth()
-        {
-            return View();
-        }
 
     }
 }

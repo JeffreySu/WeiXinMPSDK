@@ -4,6 +4,11 @@
 
     var authInfo = ViewData["QueryAuthorizationInfo"] as AuthorizationInfo;
     var autherInfo = ViewData["GetAuthorizerInfoResult"] as AuthorizerInfo;
+
+    if (autherInfo==null)
+    {
+  throw new Exception("SS");
+    }
 }
 <!DOCTYPE html>
 <html>
@@ -47,6 +52,7 @@
         <p>verify_type_info：@autherInfo.verify_type_info.id</p>
         <h2>授权信息</h2>
         <p>appid：@authInfo.authorizer_appid</p>
+
     </section>
     <section>
         <h2>用户授权测试</h2>

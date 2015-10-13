@@ -29,22 +29,28 @@ namespace Senparc.Weixin
 
         internal static void Open()
         {
-            if (_traceListener == null || !System.Diagnostics.Trace.Listeners.Contains(_traceListener))
+            lock (_traceLock)
             {
-                var logDir = System.AppDomain.CurrentDomain.BaseDirectory + "App_Data";
-                string logFile = Path.Combine(logDir, "SenparcWeixinTrace.log");
-                System.IO.TextWriter logWriter = new System.IO.StreamWriter(logFile, true);
-                _traceListener = _traceListener ?? new TextWriterTraceListener(logWriter);
-                System.Diagnostics.Trace.Listeners.Add(_traceListener);
-                System.Diagnostics.Trace.AutoFlush = true;
+                if (_traceListener == null || !System.Diagnostics.Trace.Listeners.Contains(_traceListener))
+                {
+                    var logDir = System.AppDomain.CurrentDomain.BaseDirectory + "App_Data";
+                    string logFile = Path.Combine(logDir, "SenparcWeixinTrace.log");
+                    System.IO.TextWriter logWriter = new System.IO.StreamWriter(logFile, true);
+                    _traceListener = _traceListener ?? new TextWriterTraceListener(logWriter);
+                    System.Diagnostics.Trace.Listeners.Add(_traceListener);
+                    System.Diagnostics.Trace.AutoFlush = true;
+                }
             }
         }
 
         internal static void Close()
         {
-            if (_traceListener != null && System.Diagnostics.Trace.Listeners.Contains(_traceListener))
+            lock (_traceLock)
             {
-                System.Diagnostics.Trace.Listeners.Remove(_traceListener);
+                if (_traceListener != null && System.Diagnostics.Trace.Listeners.Contains(_traceListener))
+                {
+                    System.Diagnostics.Trace.Listeners.Remove(_traceListener);
+                }
             }
         }
 
@@ -52,7 +58,8 @@ namespace Senparc.Weixin
         /// 记录日志
         /// </summary>
         /// <param name="message"></param>
-        public static void Log(string message)
+        public static
+            void Log(string message)
         {
             lock (_traceLock)
             {

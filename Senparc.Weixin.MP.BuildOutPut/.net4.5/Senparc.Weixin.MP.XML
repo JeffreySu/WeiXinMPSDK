@@ -3136,7 +3136,7 @@
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.GroupsApi.Get(System.String)">
             <summary>
-            发送文本信息
+            获取所有分组
             </summary>
             <param name="accessTokenOrAppId"></param>
             <returns></returns>
@@ -7572,7 +7572,41 @@
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.Send(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetTicket(System.String,System.String)">
+            <summary>
+            获取调用微信JS接口的临时票据
+            </summary>
+            <param name="accessToken"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.Send(System.String,System.String,System.Object,Senparc.Weixin.CommonJsonSendType,System.Int32,System.Boolean,Senparc.Weixin.Helpers.JsonSetting)">
+            <summary>
+            向需要AccessToken的API发送消息的公共方法
+            </summary>
+            <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
+            <param name="urlFormat"></param>
+            <param name="data">如果是Get方式，可以为null</param>
+            <param name="sendType"></param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <param name="checkValidationResult"></param>
+            <param name="jsonSetting"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.Send``1(System.String,System.String,System.Object,Senparc.Weixin.CommonJsonSendType,System.Int32,System.Boolean,Senparc.Weixin.Helpers.JsonSetting)">
+            <summary>
+            向需要AccessToken的API发送消息的公共方法
+            </summary>
+            <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
+            <param name="urlFormat">用accessToken参数填充{0}</param>
+            <param name="data">如果是Get方式，可以为null</param>
+            <param name="sendType"></param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <param name="checkValidationResult"></param>
+            <param name="jsonSetting"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.SendAsync(System.String,System.String,System.Object,Senparc.Weixin.CommonJsonSendType,System.Int32)">
             <summary>
             向需要AccessToken的API发送消息的公共方法
             </summary>
@@ -7582,29 +7616,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.Send``1(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType,System.Int32,System.Boolean,Senparc.Weixin.Helpers.JsonSetting)">
-            <summary>
-            向需要AccessToken的API发送消息的公共方法
-            </summary>
-            <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
-            <param name="urlFormat"></param>
-            <param name="data">如果是Get方式，可以为null。在POST方式中将被转为JSON字符串提交</param>
-            <param name="timeOut">代理请求超时时间（毫秒）</param>
-            <param name="checkValidationResult">验证服务器证书回调自动验证</param>
-            <param name="jsonSetting">JSON字符串生成设置</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.SendAsync(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType,System.Int32)">
-            <summary>
-            向需要AccessToken的API发送消息的公共方法
-            </summary>
-            <param name="accessToken">这里的AccessToken是通用接口的AccessToken，非OAuth的。如果不需要，可以为null，此时urlFormat不要提供{0}参数</param>
-            <param name="urlFormat"></param>
-            <param name="data">如果是Get方式，可以为null</param>
-            <param name="timeOut">代理请求超时时间（毫秒）</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.SendAsync``1(System.String,System.String,System.Object,Senparc.Weixin.MP.CommonAPIs.CommonJsonSendType,System.Int32,System.Boolean,Senparc.Weixin.Helpers.JsonSetting)">
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonJsonSend.SendAsync``1(System.String,System.String,System.Object,Senparc.Weixin.CommonJsonSendType,System.Int32,System.Boolean,Senparc.Weixin.Helpers.JsonSetting)">
             <summary>
             向需要AccessToken的API发送消息的公共方法
             </summary>
@@ -9369,6 +9381,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.CreateNonekeySha1(System.Collections.Hashtable)">
+            <summary>
+            添加卡券Ext参数的签名加密方法
+            </summary>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetSignature(System.String,System.String,System.String,System.String)">
             <summary>
             获取JS-SDK权限验证的签名Signature
@@ -9402,6 +9421,18 @@
             <param name="cardId"></param>
             <param name="cardType"></param>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetcardExtSign(System.String,System.String,System.String,System.String,System.String,System.String)">
+             <summary>
+            获取添加卡券时Ext参数内的签名 
+             </summary>
+             <param name="api_ticket"></param>
+             <param name="timestamp"></param>
+             <param name="card_id"></param>
+             <param name="nonce_str"></param>
+             <param name="code"></param>
+             <param name="openid"></param>
+             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.Helpers.SHA1UtilHelper.GetSha1(System.String)">
             <summary>

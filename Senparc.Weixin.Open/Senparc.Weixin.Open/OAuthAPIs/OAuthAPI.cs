@@ -20,7 +20,7 @@ using System.Linq;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Open.CommonAPIs;
 
-namespace Senparc.Weixin.Open.OAuth
+namespace Senparc.Weixin.Open.OAuthAPIs
 {
     /// <summary>
     /// 代公众号发起网页授权

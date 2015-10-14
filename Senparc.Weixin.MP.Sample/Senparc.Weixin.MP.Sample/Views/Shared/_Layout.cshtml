@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title - 微信公众平台SDK</title>
-    <meta name="keywords" content="微信SDK,微信公众账号,SDK,微信公众平台,企业号,服务号,订阅号,开放平台,Senparc.Weixin,开发者,第三方工具,AppStore,微微嗨,盛派网络,Senparc" />
-    <meta name="description" content="Senparc.Weixin SDK，是目前使用率最高的微信C# SDK，包含完整的公众账号、企业号、开放平台API，帮助第三方开发者轻松实现微信公众账号和企业号开发。" />
+    <title>@ViewBag.Title - 微信公众平台 企业号 开放平台 微信支付 SDK JSSDK Senparc.Weixin.MP</title>
+    <meta name="keywords" content="微信SDK,微信公众账号,SDK,微信公众平台,企业号,服务号,订阅号,微信支付,开放平台,Senparc.Weixin,,Senparc.Weixin.MP,JSSDK,开发者,第三方工具,说明,文档,AppStore,微微嗨,盛派网络,Senparc" />
+    <meta name="description" content="Senparc.Weixin SDK，是目前使用率最高的微信C# SDK，包含完整的公众账号、企业号、开放平台API，帮助第三方开发者轻松实现微信公众账号和企业号开发。目前包含了Senparc.Weixin.MP（微信公众号SDK）、Senparc.Weixin.QY（微信企业号SDK）、Senparc.Weixin.Open（微信开放平台SDK），以及微信支付、微信JSSDK的完整SDK和案例。" />
     @Styles.Render("~/Content/css")
     <link href="~/Content/darktooltip.min.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
@@ -25,9 +25,11 @@
                 <div class="header-title"><a href="@Url.Action("Index", "Home")">微信公众平台SDK</a></div>
                 <div class="navbar-collapse">
                     <ul class="nav-catalog">
-                        <li><a href="@Url.Action("Index", "Home")">首页</a></li>
-                        <li><a href="@Url.Action("Index", "Menu")">自定义菜单设置工具</a></li>
-                        <li><a href="@Url.Action("Index", "SimulateTool")">消息模拟工具</a></li>
+                        @*<li><a href="@Url.Action("Index", "Home")">首页</a></li>*@
+                        <li><a href="@Url.Action("Index", "Menu")">菜单</a></li>
+                        <li><a href="@Url.Action("Index", "SimulateTool")">消息模拟</a></li>
+                        <li><a href="@Url.Action("JumpToMpOAuth", "OpenOAuth")">开放平台</a></li>
+                        <li><a href="http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html" target="_blank">教程</a></li>
                     </ul>
                     <div class="clear"></div>
                 </div>
@@ -47,10 +49,18 @@
                 </div>
                 <div class="container-right">
                     <span class="container-span">微信公众平台SDK </span>
-                    <span class="container-span">Senparc.Weixin.MP.dll &amp; Senparc.Weixin.QY.dll</span>
+                    <span class="container-span">全面支持微信公众号、微信支付、企业号、开放平台</span>
+                    @*<span class="container-span">公众号+微信支付 SDK：Senparc.Weixin.MP.dll</span>
+                        <span class="container-span">企业号 SDK：Senparc.Weixin.QY.dll</span>
+                        <span class="container-span">开放平台 SDK：Senparc.Weixin.Open.dll</span>*@
+
+                    <span class="container-p">公众号+微信支付 SDK：Senparc.Weixin.MP.dll</span>
+                    <span class="container-p">企业号 SDK：Senparc.Weixin.QY.dll</span>
+                    <span class="container-p">开放平台 SDK：Senparc.Weixin.Open.dll</span>
+
                     <span class="container-p">使用Senparc.Weixin整合网站与微信公众账号及企业号的自动交流回复。</span>
                     <span class="container-p version">
-                        当前版本：<br />
+                        当前运行版本：<br />
                         Senparc.Weixin.dll <a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["WeixinVersion"])</a><br />
                         Senparc.Weixin.MP.dll <a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["MpVersion"])</a><br />
                         MvcExtentsion.dll <a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["ExtensionVersion"])</a>

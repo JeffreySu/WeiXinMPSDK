@@ -11,6 +11,9 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using System.Diagnostics;
+using System.IO;
+
 namespace Senparc.Weixin
 {
     /// <summary>
@@ -23,5 +26,31 @@ namespace Senparc.Weixin
         /// 说明：此处常量专为提供给方法的参数的默认值，不是方法内所有请求的默认超时时间。
         /// </summary>
         public const int TIME_OUT = 10000;
+
+        private static bool _isDebug = false;
+
+        /// <summary>
+        /// 指定是否是Debug状态，如果是，系统会自动输出日志
+        /// </summary>
+        public static bool IsDebug
+        {
+            get
+            {
+                return _isDebug;
+            }
+            set
+            {
+                _isDebug = value;
+
+                //if (_isDebug)
+                //{
+                //    WeixinTrace.Open();
+                //}
+                //else
+                //{
+                //    WeixinTrace.Close();
+                //}
+            }
+        }
     }
 }

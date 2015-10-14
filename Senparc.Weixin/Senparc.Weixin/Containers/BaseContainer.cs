@@ -43,7 +43,7 @@ namespace Senparc.Weixin.Containers
         }
 
         /// <summary>
-        /// 获取完整的数据集合的列表（建议不要进行任何修改操作）
+        /// 获取完整的数据集合的列表，包括所有的Container数据在内（建议不要进行任何修改操作）
         /// </summary>
         /// <returns></returns>
         public static Dictionary<Type, Dictionary<string, T>> GetCollectionList()
@@ -105,6 +105,7 @@ namespace Senparc.Weixin.Containers
             }
             else
             {
+                value.Key = key;//确保Key有值
                 ItemCollection[key] = value;
             }
         }

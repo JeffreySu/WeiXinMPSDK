@@ -89,7 +89,11 @@ namespace Senparc.Weixin
         private static void LogBegin(string title = null)
         {
             Open();
-            Log(title == null ? "" : String.Format("[{0}]", title));
+            Log("");
+            if (title != null)
+            {
+                Log(String.Format("[{0}]", title));
+            }
             TimeLog();
             Indent();
         }

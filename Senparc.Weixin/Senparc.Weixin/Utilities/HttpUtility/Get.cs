@@ -104,9 +104,7 @@ namespace Senparc.Weixin.HttpUtility
                     //发生错误
                     throw new ErrorJsonResultException(
                         string.Format("微信请求发生错误！错误代码：{0}，说明：{1}",
-                                        (int)errorResult.errcode,
-                                        errorResult.errmsg),
-                                      null, errorResult);
+                                        (int)errorResult.errcode, errorResult.errmsg), null, errorResult, url);
                 }
             }
 

@@ -30,17 +30,15 @@ namespace Senparc.Weixin
 
         internal static void Open()
         {
+            Close();
             lock (TraceLock)
             {
-                if (_traceListener == null || !System.Diagnostics.Trace.Listeners.Contains(_traceListener))
-                {
-                    var logDir = System.AppDomain.CurrentDomain.BaseDirectory + "App_Data";
-                    string logFile = Path.Combine(logDir, "SenparcWeixinTrace.log");
-                    System.IO.TextWriter logWriter = new System.IO.StreamWriter(logFile, true);
-                    _traceListener = _traceListener ?? new TextWriterTraceListener(logWriter);
-                    System.Diagnostics.Trace.Listeners.Add(_traceListener);
-                    System.Diagnostics.Trace.AutoFlush = true;
-                }
+                var logDir = System.AppDomain.CurrentDomain.BaseDirectory + "App_Data";
+                string logFile = Path.Combine(logDir, "SenparcWeixinTrace.log");
+                System.IO.TextWriter logWriter = new System.IO.StreamWriter(logFile, true);
+                _traceListener = new TextWriterTraceListener(logWriter);
+                System.Diagnostics.Trace.Listeners.Add(_traceListener);
+                System.Diagnostics.Trace.AutoFlush = true;
             }
         }
 
@@ -108,7 +106,7 @@ namespace Senparc.Weixin
             }
         }
 
-        private static void LogOver()
+        private static void LogEnd()
         {
             Unindent();
             Flush();
@@ -130,7 +128,7 @@ namespace Senparc.Weixin
             LogBegin("接口调用");
             Log(string.Format("URL：{0}", url));
             Log(string.Format("Result：\r\n{0}", returnText));
-            LogOver();
+            LogEnd();
         }
 
         /// <summary>
@@ -148,7 +146,7 @@ namespace Senparc.Weixin
             Log(string.Format("URL：{0}", ex.Url));
             Log(string.Format("errcode：{0}", ex.JsonResult.errcode));
             Log(string.Format("errmsg：{0}", ex.JsonResult.errmsg));
-            LogOver();
+            LogEnd();
         }
     }
 }

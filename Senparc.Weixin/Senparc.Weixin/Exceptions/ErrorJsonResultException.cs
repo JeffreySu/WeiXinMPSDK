@@ -23,6 +23,7 @@ namespace Senparc.Weixin.Exceptions
     {
         public WxJsonResult JsonResult { get; set; }
         public string Url { get; set; }
+        
         /// <summary>
         /// 
         /// </summary>
@@ -35,6 +36,8 @@ namespace Senparc.Weixin.Exceptions
         {
             JsonResult = jsonResult;
             Url = url;
+
+            WeixinTrace.ErrorJsonResultExceptionLog(this);
         }
     }
 }

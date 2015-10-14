@@ -42,14 +42,14 @@ namespace Senparc.Weixin
             {
                 _isDebug = value;
 
-                if (_isDebug)
-                {
-                    WeixinTrace.Open();
-                }
-                else
-                {
-                    WeixinTrace.Close();
-                }
+                //if (_isDebug)
+                //{
+                //    WeixinTrace.Open();
+                //}
+                //else
+                //{
+                //    WeixinTrace.Close();
+                //}
             }
         }
     }

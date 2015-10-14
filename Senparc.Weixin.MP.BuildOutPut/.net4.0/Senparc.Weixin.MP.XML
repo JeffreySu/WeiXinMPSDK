@@ -7572,7 +7572,7 @@
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetTicket(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetTicketByAccessToken(System.String,System.String)">
             <summary>
             获取调用微信JS接口的临时票据
             </summary>
@@ -9358,6 +9358,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.CreateNonekeySha1(System.Collections.Hashtable)">
+            <summary>
+            添加卡券Ext参数的签名加密方法
+            </summary>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetSignature(System.String,System.String,System.String,System.String)">
             <summary>
             获取JS-SDK权限验证的签名Signature
@@ -9391,6 +9398,18 @@
             <param name="cardId"></param>
             <param name="cardType"></param>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetcardExtSign(System.String,System.String,System.String,System.String,System.String,System.String)">
+             <summary>
+            获取添加卡券时Ext参数内的签名 
+             </summary>
+             <param name="api_ticket"></param>
+             <param name="timestamp"></param>
+             <param name="card_id"></param>
+             <param name="nonce_str"></param>
+             <param name="code"></param>
+             <param name="openid"></param>
+             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.Helpers.SHA1UtilHelper.GetSha1(System.String)">
             <summary>

@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin
 {
@@ -29,17 +30,15 @@ namespace Senparc.Weixin
 
         internal static void Open()
         {
+            Close();
             lock (TraceLock)
             {
-                if (_traceListener == null || !System.Diagnostics.Trace.Listeners.Contains(_traceListener))
-                {
-                    var logDir = System.AppDomain.CurrentDomain.BaseDirectory + "App_Data";
-                    string logFile = Path.Combine(logDir, "SenparcWeixinTrace.log");
-                    System.IO.TextWriter logWriter = new System.IO.StreamWriter(logFile, true);
-                    _traceListener = _traceListener ?? new TextWriterTraceListener(logWriter);
-                    System.Diagnostics.Trace.Listeners.Add(_traceListener);
-                    System.Diagnostics.Trace.AutoFlush = true;
-                }
+                var logDir = System.AppDomain.CurrentDomain.BaseDirectory + "App_Data";
+                string logFile = Path.Combine(logDir, "SenparcWeixinTrace.log");
+                System.IO.TextWriter logWriter = new System.IO.StreamWriter(logFile, true);
+                _traceListener = new TextWriterTraceListener(logWriter);
+                System.Diagnostics.Trace.Listeners.Add(_traceListener);
+                System.Diagnostics.Trace.AutoFlush = true;
             }
         }
 
@@ -49,23 +48,73 @@ namespace Senparc.Weixin
             {
                 if (_traceListener != null && System.Diagnostics.Trace.Listeners.Contains(_traceListener))
                 {
+                    _traceListener.Close();
                     System.Diagnostics.Trace.Listeners.Remove(_traceListener);
                 }
             }
         }
 
         /// <summary>
+        /// 统一时间格式
+        /// </summary>
+        private static void TimeLog()
+        {
+            Log(string.Format("[{0}]", DateTime.Now));
+        }
+
+        private static void Unindent()
+        {
+            lock (TraceLock)
+            {
+                System.Diagnostics.Trace.Unindent();
+            }
+        }
+
+        private static void Indent()
+        {
+            lock (TraceLock)
+            {
+                System.Diagnostics.Trace.Indent();
+            }
+        }
+
+        private static void Flush()
+        {
+            lock (TraceLock)
+            {
+                System.Diagnostics.Trace.Flush();
+            }
+        }
+
+        private static void LogBegin(string title = null)
+        {
+            Open();
+            Log("");
+            if (title != null)
+            {
+                Log(String.Format("[{0}]", title));
+            }
+            TimeLog();
+            Indent();
+        }
+
+        /// <summary>
         /// 记录日志
         /// </summary>
         /// <param name="message"></param>
-        public static
-            void Log(string message)
+        public static void Log(string message)
         {
             lock (TraceLock)
             {
                 System.Diagnostics.Trace.WriteLine(message);
-                //System.Diagnostics.Trace.Flush();
             }
+        }
+
+        private static void LogEnd()
+        {
+            Unindent();
+            Flush();
+            Close();
         }
 
         /// <summary>
@@ -80,11 +129,28 @@ namespace Senparc.Weixin
                 return;
             }
 
-            Log("");
-            Log(string.Format("[{0}]", DateTime.Now));
+            LogBegin("接口调用");
             Log(string.Format("URL：{0}", url));
             Log(string.Format("Result：\r\n{0}", returnText));
+            LogEnd();
         }
 
+        /// <summary>
+        /// ErrorJsonResultException 日志
+        /// </summary>
+        /// <param name="ex"></param>
+        public static void ErrorJsonResultExceptionLog(ErrorJsonResultException ex)
+        {
+            if (!Config.IsDebug)
+            {
+                return;
+            }
+
+            LogBegin("ErrorJsonResultException");
+            Log(string.Format("URL：{0}", ex.Url));
+            Log(string.Format("errcode：{0}", ex.JsonResult.errcode));
+            Log(string.Format("errmsg：{0}", ex.JsonResult.errmsg));
+            LogEnd();
+        }
     }
 }

@@ -2,15 +2,9 @@
 
 *.pdb
 *.[pdb]
-
 Senparc.Weixin.pdb
-
 Senparc.Weixin.QY.pdb
-
 System.*
-
 Microsoft.*
-
 zh-Hans/
-
 .net4.5/

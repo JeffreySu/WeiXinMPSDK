@@ -107,7 +107,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             if (!CheckRegistered(componentAppId) || getNewToken)
             {
-                Register(componentAppId, componentAppSecret, null);
+                Register(componentAppId, componentAppSecret, null, null, null);
             }
         }
 
@@ -117,16 +117,31 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public static Func<string, string> GetComponentVerifyTicketFunc = null;
 
         /// <summary>
+        /// 从数据库中获取已存的AuthorizerAccessToken的方法
+        /// </summary>
+        public static Func<string, string> GetAuthorizerAccessTokenFunc = null;
+
+        /// <summary>
+        /// AuthorizerAccessToken更新后的回调
+        /// </summary>
+        public static Func<string, string> AuthorizerAccessTokenRefreshedFunc = null;
+
+
+        /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
         /// </summary>
         /// <param name="componentAppId"></param>
         /// <param name="componentAppSecret"></param>
         /// <param name="getComponentVerifyTicketFunc">获取ComponentVerifyTicket的方法</param>
-        public static void Register(string componentAppId, string componentAppSecret, Func<string, string> getComponentVerifyTicketFunc)
+        /// <param name="getAuthorizerAccessTokenFunc">从数据库中获取已存的AuthorizerAccessToken的方法</param>
+        /// <param name="authorizerAccessTokenRefreshedFunc">AuthorizerAccessToken更新后的回调</param>
+        public static void Register(string componentAppId, string componentAppSecret, Func<string, string> getComponentVerifyTicketFunc, Func<string, string> getAuthorizerAccessTokenFunc, Func<string, string> authorizerAccessTokenRefreshedFunc)
         {
             if (GetComponentVerifyTicketFunc == null)
             {
                 GetComponentVerifyTicketFunc = getComponentVerifyTicketFunc;
+                GetAuthorizerAccessTokenFunc = getAuthorizerAccessTokenFunc;
+                AuthorizerAccessTokenRefreshedFunc = authorizerAccessTokenRefreshedFunc;
             }
 
             Update(componentAppId, new ComponentBag()

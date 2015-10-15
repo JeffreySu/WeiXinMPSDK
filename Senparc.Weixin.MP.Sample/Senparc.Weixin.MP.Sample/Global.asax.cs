@@ -82,12 +82,11 @@ namespace Senparc.Weixin.MP.Sample
 
             Func<string, string> getAuthorizerRefreshTokenFunc = auhtorizerId =>
             {
-                var filePath = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo");
-                if (!Directory.Exists(filePath))
+                var file = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo", string.Format("{0}.bin", auhtorizerId));
+                if (!File.Exists(file))
                 {
-                    Directory.CreateDirectory(filePath);
+                    return null;
                 }
-                var file = Path.Combine(filePath, string.Format("{0}.bin", auhtorizerId));
 
                 using (Stream fs = new FileStream(file, FileMode.Open))
                 {
@@ -97,13 +96,21 @@ namespace Senparc.Weixin.MP.Sample
                 }
             };
 
-            Action<string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc = (authorizerAppid, refreshResult) =>
+            Action<string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc = (auhtorizerId, refreshResult) =>
              {
-                 var file = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo", string.Format("{0}.txt", authorizerAppid));
+                 var filePath = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo");
+                 if (!Directory.Exists(filePath))
+                 {
+                     Directory.CreateDirectory(filePath);
+                 }
+
+                 var file = Path.Combine(filePath, string.Format("{0}.bin", auhtorizerId));
                  using (Stream fs = new FileStream(file, FileMode.Create))
                  {
+                     //这里存了整个对象，实际上只存RefreshToken也可以，有了RefreshToken就能刷新到最新的AccessToken
                      BinaryFormatter binFormat = new BinaryFormatter();
                      binFormat.Serialize(fs, refreshResult);
+                     fs.Flush();
                  }
              };
 

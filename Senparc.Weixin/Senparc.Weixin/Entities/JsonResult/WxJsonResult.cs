@@ -17,6 +17,8 @@
     修改描述：调整位置，去除MP下的WxJsonResult
 ----------------------------------------------------------------*/
 
+using System;
+
 namespace Senparc.Weixin.Entities
 {
     public interface IJsonResult
@@ -33,6 +35,7 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// 公众号JSON返回结果（用于菜单接口等）
     /// </summary>
+    [Serializable]
     public class WxJsonResult : IWxJsonResult
     {
         public ReturnCode errcode { get; set; }

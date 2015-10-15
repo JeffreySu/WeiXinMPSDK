@@ -5,9 +5,9 @@
     var authInfo = ViewData["QueryAuthorizationInfo"] as AuthorizationInfo;
     var autherInfo = ViewData["GetAuthorizerInfoResult"] as AuthorizerInfo;
 
-    if (autherInfo==null)
+    if (autherInfo == null)
     {
-  throw new Exception("SS");
+        throw new Exception("SS");
     }
 }
 <!DOCTYPE html>
@@ -52,7 +52,15 @@
         <p>verify_type_info：@autherInfo.verify_type_info.id</p>
         <h2>授权信息</h2>
         <p>appid：@authInfo.authorizer_appid</p>
-
+    </section>
+    <section>
+        <h2>查看授权缓存信息</h2>
+        <p>
+            @Html.ActionLink("点击查看", "GetAuthorizerInfoResult", "OpenOAuth", new {authorizerId = authInfo.authorizer_appid}, new {target = "_blank"})<br/>
+        </p>
+        <p>
+            @Html.ActionLink("刷新AuthorizerAccessToken", "RefreshAuthorizerAccessToken", "OpenOAuth", new { authorizerId = authInfo.authorizer_appid }, new { target = "_blank" })<br />
+        </p>
     </section>
     <section>
         <h2>用户授权测试</h2>
@@ -62,5 +70,6 @@
             注意：测试之前请先确认您的公众号有OAuth的权限，否则可能会返回错误：Scope 参数错误或没有 Scope 权限。
         </p>
     </section>
+
 </body>
 </html>

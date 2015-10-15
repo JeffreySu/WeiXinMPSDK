@@ -133,7 +133,8 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         #region 授权信息
 
         /// <summary>
-        /// 获取或更新AuthorizationInfo
+        /// 获取或更新AuthorizationInfo。
+        /// 如果读取refreshToken失败，则返回null。
         /// </summary>
         /// <param name="componentAppId"></param>
         /// <param name="authorizerAppid"></param>
@@ -155,15 +156,18 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
                     //获取新的AuthorizerAccessToken
                     var refreshToken = ComponentContainer.GetAuthorizerRefreshTokenFunc(authorizerAppid);
-                    var refreshResult = ComponentApi.RefreshAuthorizerToken(componentAccessToken, componentAppId, authorizerAppid,
+
+                    if (refreshToken == null)
+                    {
+                        return null;
+                    }
+
+                    var refreshResult = RefreshAuthorizerToken(componentAccessToken, componentAppId, authorizerAppid,
                         refreshToken);
 
                     //更新数据
                     TryUpdateAuthorizationInfo(componentAppId, authorizerAppid,
                         refreshResult.authorizer_access_token, refreshResult.authorizer_refresh_token, refreshResult.expires_in);
-
-                    //通知变更
-                    ComponentContainer.AuthorizerTokenRefreshedFunc(authorizerAppid, refreshResult);
                 }
             }
             return authorizerBag.AuthorizationInfo;
@@ -236,9 +240,22 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             if (authorizationInfo.expires_in > 0 && authorizationInfo.authorizer_access_token != null)
             {
                 var authorizerBag = ItemCollection[authorizerAppid];
-                //没有高级接口权限（没有拿到AccessToken）
+
+                var refreshTokenChanged = authorizerBag.AuthorizationInfo.authorizer_access_token !=
+                                         authorizationInfo.authorizer_access_token
+                                           || authorizerBag.AuthorizationInfo.authorizer_refresh_token !=
+                                              authorizationInfo.authorizer_refresh_token;
+
                 authorizerBag.AuthorizationInfo = authorizationInfo;
                 authorizerBag.AuthorizationInfoExpireTime = DateTime.Now.AddSeconds(authorizationInfo.expires_in);
+
+                //通知变更
+                if (refreshTokenChanged)
+                {
+                    ComponentContainer.AuthorizerTokenRefreshedFunc(authorizerAppid,
+                        new RefreshAuthorizerTokenResult(authorizationInfo.authorizer_access_token, 
+                            authorizationInfo.authorizer_refresh_token, authorizationInfo.expires_in));
+                }
             }
         }
 
@@ -258,11 +275,42 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             {
                 var authorizerBag = ItemCollection[authorizerAppid];
 
+                var refreshTokenChanged = authorizerBag.AuthorizationInfo.authorizer_access_token !=
+                                          authorizerAccessToken
+                                            || authorizerBag.AuthorizationInfo.authorizer_refresh_token !=
+                                               authorizerRefreshToken;
+
                 authorizerBag.AuthorizationInfo.authorizer_access_token = authorizerAccessToken;
                 authorizerBag.AuthorizationInfo.authorizer_refresh_token = authorizerRefreshToken;
                 authorizerBag.AuthorizationInfo.expires_in = expiresIn;
                 authorizerBag.AuthorizationInfoExpireTime = DateTime.Now.AddSeconds(expiresIn);
+
+                //通知变更
+                if (refreshTokenChanged)
+                {
+                    ComponentContainer.AuthorizerTokenRefreshedFunc(authorizerAppid,
+                        new RefreshAuthorizerTokenResult(authorizerAccessToken, authorizerRefreshToken, expiresIn));
+                }
             }
+        }
+
+        /// <summary>
+        /// 刷新AuthorizerToken
+        /// 
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="componentAppId"></param>
+        /// <param name="authorizerAppid"></param>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
+        public static RefreshAuthorizerTokenResult RefreshAuthorizerToken(string componentAccessToken, string componentAppId, string authorizerAppid,
+                      string refreshToken)
+        {
+            var refreshResult = ComponentApi.RefreshAuthorizerToken(componentAccessToken, componentAppId, authorizerAppid,
+                         refreshToken);
+            //更新到存储
+            ComponentContainer.AuthorizerTokenRefreshedFunc(authorizerAppid, refreshResult);
+            return refreshResult;
         }
 
         #endregion

@@ -8,6 +8,7 @@
     创建标识：Senparc - 20150726
 ----------------------------------------------------------------*/
 
+using System;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Open.ComponentAPIs
@@ -15,6 +16,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     /// <summary>
     /// 获取（刷新）授权公众号的令牌返回结果
     /// </summary>
+    [Serializable]
     public class RefreshAuthorizerTokenResult : WxJsonResult
     {
         /// <summary>
@@ -29,5 +31,16 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// 刷新令牌
         /// </summary>
         public string authorizer_refresh_token { get; set; }
+
+        public RefreshAuthorizerTokenResult()
+        {
+        }
+
+        public RefreshAuthorizerTokenResult(string accessToken, string refreshToken, int expiresIn)
+        {
+            authorizer_access_token = accessToken;
+            authorizer_refresh_token = refreshToken;
+            expires_in = expires_in;
+        }
     }
 }

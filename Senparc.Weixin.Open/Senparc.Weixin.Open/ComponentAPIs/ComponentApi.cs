@@ -142,6 +142,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
         /// <summary>
         /// 获取授权方信息
+        /// 注意：此方法返回的JSON中，authorization_info.authorizer_appid等几个参数通常为空（哪怕公众号有权限）
         /// </summary>
         /// <param name="componentAccessToken"></param>
         /// <param name="componentAppId"></param>

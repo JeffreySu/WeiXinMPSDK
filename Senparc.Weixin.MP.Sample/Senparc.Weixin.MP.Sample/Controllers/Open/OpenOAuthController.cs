@@ -205,7 +205,30 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         #endregion
 
+        #region 授权信息
 
+        public ActionResult GetAuthorizerInfoResult(string authorizerId)
+        {
+            var getAuthorizerInfoResult = AuthorizerContainer.GetAuthorizerInfoResult(component_AppId, authorizerId);
+            return Json(getAuthorizerInfoResult, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult RefreshAuthorizerAccessToken(string authorizerId)
+        {
+            var componentAccessToken = ComponentContainer.GetComponentAccessToken(component_AppId);
+            var authorizationInfo = AuthorizerContainer.GetAuthorizationInfo(component_AppId, authorizerId);
+            if (authorizationInfo == null)
+            {
+                return Content("授权信息读取失败！");
+            }
+
+            var refreshToken = authorizationInfo.authorizer_refresh_token;
+            var result = AuthorizerContainer.RefreshAuthorizerToken(componentAccessToken, component_AppId, authorizerId,
+                refreshToken);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
     }
 }
 

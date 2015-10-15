@@ -65,7 +65,9 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// </summary>
         public DateTime PreAuthCodeExpireTime { get; set; }
 
-
+        /// <summary>
+        /// AuthorizerAccessToken
+        /// </summary>
         public string AuthorizerAccessToken { get; set; }
 
         /// <summary>
@@ -107,7 +109,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             if (!CheckRegistered(componentAppId) || getNewToken)
             {
-                Register(componentAppId, componentAppSecret, null);
+                Register(componentAppId, componentAppSecret, null, null, null);
             }
         }
 
@@ -117,16 +119,31 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public static Func<string, string> GetComponentVerifyTicketFunc = null;
 
         /// <summary>
+        /// 从数据库中获取已存的AuthorizerAccessToken的方法
+        /// </summary>
+        public static Func<string, string> GetAuthorizerRefreshTokenFunc = null;
+
+        /// <summary>
+        /// AuthorizerAccessToken更新后的回调
+        /// </summary>
+        public static Action<string,RefreshAuthorizerTokenResult> AuthorizerTokenRefreshedFunc = null;
+
+
+        /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
         /// </summary>
         /// <param name="componentAppId"></param>
         /// <param name="componentAppSecret"></param>
         /// <param name="getComponentVerifyTicketFunc">获取ComponentVerifyTicket的方法</param>
-        public static void Register(string componentAppId, string componentAppSecret, Func<string, string> getComponentVerifyTicketFunc)
+        /// <param name="getAuthorizerRefreshTokenFunc">从数据库中获取已存的AuthorizerAccessToken的方法</param>
+        /// <param name="authorizerTokenRefreshedFunc">AuthorizerAccessToken更新后的回调</param>
+        public static void Register(string componentAppId, string componentAppSecret, Func<string, string> getComponentVerifyTicketFunc, Func<string, string> getAuthorizerRefreshTokenFunc, Action<string,RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc)
         {
             if (GetComponentVerifyTicketFunc == null)
             {
                 GetComponentVerifyTicketFunc = getComponentVerifyTicketFunc;
+                GetAuthorizerRefreshTokenFunc = getAuthorizerRefreshTokenFunc;
+                AuthorizerTokenRefreshedFunc = authorizerTokenRefreshedFunc;
             }
 
             Update(componentAppId, new ComponentBag()

@@ -2613,6 +2613,11 @@
             聊天记录结果
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.CustomService.GetRecordResult.retcode">
+            <summary>
+            官方文档暂没有说明
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.CustomService.RecordJson">
             <summary>
             客服记录消息

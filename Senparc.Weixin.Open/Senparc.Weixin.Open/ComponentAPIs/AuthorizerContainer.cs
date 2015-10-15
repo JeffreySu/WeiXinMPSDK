@@ -163,7 +163,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                         refreshResult.authorizer_access_token, refreshResult.authorizer_refresh_token, refreshResult.expires_in);
 
                     //通知变更
-                    ComponentContainer.AuthorizerTokenRefreshedFunc(refreshResult);
+                    ComponentContainer.AuthorizerTokenRefreshedFunc(authorizerAppid, refreshResult);
                 }
             }
             return authorizerBag.AuthorizationInfo;

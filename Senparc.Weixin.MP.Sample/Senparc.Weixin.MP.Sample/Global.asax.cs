@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -79,10 +80,59 @@ namespace Senparc.Weixin.MP.Sample
                 }
             };
 
+            Func<string, string> getAuthorizerRefreshTokenFunc = auhtorizerId =>
+            {
+                var filePath = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo");
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+                var file = Path.Combine(filePath, string.Format("{0}.bin", auhtorizerId));
+
+                Stream fStream = new FileStream(file, FileMode.Create);
+                BinaryFormatter binFormat = new BinaryFormatter();
+                binFormat.Serialize(fStream, p);//序列化对象
+
+
+
+
+                using (var fs = new FileStream(file, FileMode.Open))
+                {
+                    using (var sr = new StreamReader(fs))
+                    {
+                        var refreshToken = sr.ReadToEnd();
+                        return refreshToken;
+                    }
+                }
+            };
+
+            Action<string,RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc = (authorizerAppid, refreshResult) =>
+            {
+                var file = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo", string.Format("{0}.txt", authorizerAppid));
+
+                Stream fStream = new FileStream(file, FileMode.Create);
+                BinaryFormatter binFormat = new BinaryFormatter();
+                binFormat.Serialize(fStream, refreshResult);//序列化对象
+
+                using (var fs = new FileStream(file, FileMode.OpenOrCreate))
+                {
+                    using (var sr = new StreamWriter(fs))
+                    {
+                        sr.WriteLine(refreshResult.authorizer_access_token);
+                        sr.WriteLine(refreshResult.authorizer_refresh_token);
+                        sr.WriteLine(refreshResult.expires_in.ToString());
+                    }
+                }
+            };
+
+
             //执行注册
             ComponentContainer.Register(
                 ConfigurationManager.AppSettings["Component_Appid"],
-                ConfigurationManager.AppSettings["Component_Secret"], getComponentVerifyTicketFunc);
+                ConfigurationManager.AppSettings["Component_Secret"], 
+                getComponentVerifyTicketFunc, 
+                getAuthorizerRefreshTokenFunc,
+                authorizerTokenRefreshedFunc);
         }
     }
 }

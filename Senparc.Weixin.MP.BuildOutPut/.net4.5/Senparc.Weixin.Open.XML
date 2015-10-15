@@ -224,7 +224,7 @@
             AuthorizerAccessToken更新后的回调
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentContainer.Register(System.String,System.String,System.Func{System.String,System.String},System.Func{System.String,System.String},System.Action{Senparc.Weixin.Open.ComponentAPIs.RefreshAuthorizerTokenResult})">
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentContainer.Register(System.String,System.String,System.Func{System.String,System.String},System.Func{System.String,System.String},System.Action{System.String,Senparc.Weixin.Open.ComponentAPIs.RefreshAuthorizerTokenResult})">
             <summary>
             注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
             </summary>

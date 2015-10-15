@@ -176,6 +176,11 @@
             预授权码过期时间
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.Open.ComponentAPIs.ComponentBag.AuthorizerAccessToken">
+            <summary>
+            AuthorizerAccessToken
+            </summary>
+        </member>
         <member name="F:Senparc.Weixin.Open.ComponentAPIs.ComponentBag.Lock">
             <summary>
             只针对这个AppId的锁
@@ -209,13 +214,25 @@
             获取ComponentVerifyTicket的方法
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentContainer.Register(System.String,System.String,System.Func{System.String,System.String})">
+        <member name="F:Senparc.Weixin.Open.ComponentAPIs.ComponentContainer.GetAuthorizerRefreshTokenFunc">
+            <summary>
+            从数据库中获取已存的AuthorizerAccessToken的方法
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Open.ComponentAPIs.ComponentContainer.AuthorizerTokenRefreshedFunc">
+            <summary>
+            AuthorizerAccessToken更新后的回调
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentContainer.Register(System.String,System.String,System.Func{System.String,System.String},System.Func{System.String,System.String},System.Action{Senparc.Weixin.Open.ComponentAPIs.RefreshAuthorizerTokenResult})">
             <summary>
             注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
             </summary>
             <param name="componentAppId"></param>
             <param name="componentAppSecret"></param>
             <param name="getComponentVerifyTicketFunc">获取ComponentVerifyTicket的方法</param>
+            <param name="getAuthorizerRefreshTokenFunc">从数据库中获取已存的AuthorizerAccessToken的方法</param>
+            <param name="authorizerTokenRefreshedFunc">AuthorizerAccessToken更新后的回调</param>
         </member>
         <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentContainer.CheckRegistered(System.String)">
             <summary>
@@ -357,6 +374,15 @@
             <param name="authorizerAppid"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.GetAuthorizationInfo(System.String,System.String,System.Boolean)">
+            <summary>
+            获取或更新AuthorizationInfo
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="authorizerAppid"></param>
+            <param name="getNewTicket"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.TryGetAuthorizerAccessToken(System.String,System.String,System.Boolean)">
             <summary>
             获取可用AuthorizerAccessToken
@@ -382,6 +408,16 @@
             <param name="componentAppId"></param>
             <param name="authorizerAppid"></param>
             <param name="authorizationInfo"></param>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.TryUpdateAuthorizationInfo(System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            尝试更新AuthorizationInfo（如果没有AccessToken则不更新）
+            </summary>
+            <param name="componentAppId"></param>
+            <param name="authorizerAppid"></param>
+            <param name="authorizerAccessToken"></param>
+            <param name="authorizerRefreshToken"></param>
+            <param name="expiresIn"></param>
         </member>
         <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.TryGetJsApiTicket(System.String,System.String,System.Boolean)">
             <summary>
@@ -538,6 +574,7 @@
         <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.GetAuthorizerInfo(System.String,System.String,System.String,System.Int32)">
             <summary>
             获取授权方信息
+            注意：此方法返回的JSON中，authorization_info.authorizer_appid等几个参数通常为空（哪怕公众号有权限）
             </summary>
             <param name="componentAccessToken"></param>
             <param name="componentAppId"></param>

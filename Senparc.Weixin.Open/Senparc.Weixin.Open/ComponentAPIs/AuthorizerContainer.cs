@@ -133,6 +133,44 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         #region 授权信息
 
         /// <summary>
+        /// 获取或更新AuthorizationInfo
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="authorizerAppid"></param>
+        /// <param name="getNewTicket"></param>
+        /// <returns></returns>
+        public static AuthorizationInfo GetAuthorizationInfo(string componentAppId, string authorizerAppid,
+            bool getNewTicket = false)
+        {
+            TryRegister(componentAppId, authorizerAppid);
+
+            var authorizerBag = ItemCollection[authorizerAppid];
+            lock (authorizerBag.Lock)
+            {
+                //更新Authorization
+                if (getNewTicket || authorizerBag.AuthorizationInfoExpireTime <= DateTime.Now)
+                {
+                    var componentVerifyTicket = ComponentContainer.TryGetComponentVerifyTicket(componentAppId);
+                    var componentAccessToken = ComponentContainer.GetComponentAccessToken(componentAppId, componentVerifyTicket);
+
+                    //获取新的AuthorizerAccessToken
+                    var refreshToken = ComponentContainer.GetAuthorizerRefreshTokenFunc(authorizerAppid);
+                    var refreshResult = ComponentApi.RefreshAuthorizerToken(componentAccessToken, componentAppId, authorizerAppid,
+                        refreshToken);
+
+                    //更新数据
+                    TryUpdateAuthorizationInfo(componentAppId, authorizerAppid,
+                        refreshResult.authorizer_access_token, refreshResult.authorizer_refresh_token, refreshResult.expires_in);
+
+                    //通知变更
+                    ComponentContainer.AuthorizerTokenRefreshedFunc(refreshResult);
+                }
+            }
+            return authorizerBag.AuthorizationInfo;
+        }
+
+
+        /// <summary>
         /// 获取可用AuthorizerAccessToken
         /// </summary>
         /// <param name="componentAppId"></param>
@@ -162,26 +200,14 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             lock (authorizerBag.Lock)
             {
 
-                if (getNewTicket || authorizerBag.AuthorizationInfoExpireTime <= DateTime.Now)
-                {
-                    //获取新的AuthorizerAccessToken
-                    var 
-                }
-
-
-                if (getNewTicket || authorizerBag.AuthorizationInfoExpireTime <= DateTime.Now || authorizerBag.AuthorizerInfo.user_name == null)
+                //更新AuthorizerInfo
+                if (getNewTicket || authorizerBag.AuthorizerInfo.user_name == null)
                 {
                     var componentVerifyTicket = ComponentContainer.TryGetComponentVerifyTicket(componentAppId);
                     var componentAccessToken = ComponentContainer.GetComponentAccessToken(componentAppId, componentVerifyTicket);
 
-
-
-
                     //已过期，重新获取
                     var getAuthorizerInfoResult = ComponentApi.GetAuthorizerInfo(componentAccessToken, componentAppId, authorizerAppid);//TODO:如果是过期，可以通过刷新的方式重新获取
-
-                    //AuthorizationInfo
-                    TryUpdateAuthorizationInfo(componentAppId, authorizerAppid, getAuthorizerInfoResult.authorization_info);
 
                     //AuthorizerInfo
                     authorizerBag.AuthorizerInfo = getAuthorizerInfoResult.authorizer_info;
@@ -207,12 +233,35 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             TryRegister(componentAppId, authorizerAppid);
 
-            if (authorizationInfo.expires_in > 0)
+            if (authorizationInfo.expires_in > 0 && authorizationInfo.authorizer_access_token != null)
             {
                 var authorizerBag = ItemCollection[authorizerAppid];
                 //没有高级接口权限（没有拿到AccessToken）
                 authorizerBag.AuthorizationInfo = authorizationInfo;
                 authorizerBag.AuthorizationInfoExpireTime = DateTime.Now.AddSeconds(authorizationInfo.expires_in);
+            }
+        }
+
+        /// <summary>
+        /// 尝试更新AuthorizationInfo（如果没有AccessToken则不更新）
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="authorizerAppid"></param>
+        /// <param name="authorizerAccessToken"></param>
+        /// <param name="authorizerRefreshToken"></param>
+        /// <param name="expiresIn"></param>
+        public static void TryUpdateAuthorizationInfo(string componentAppId, string authorizerAppid, string authorizerAccessToken, string authorizerRefreshToken, int expiresIn)
+        {
+            TryRegister(componentAppId, authorizerAppid);
+
+            if (expiresIn > 0 && authorizerAccessToken != null)
+            {
+                var authorizerBag = ItemCollection[authorizerAppid];
+
+                authorizerBag.AuthorizationInfo.authorizer_access_token = authorizerAccessToken;
+                authorizerBag.AuthorizationInfo.authorizer_refresh_token = authorizerRefreshToken;
+                authorizerBag.AuthorizationInfo.expires_in = expiresIn;
+                authorizerBag.AuthorizationInfoExpireTime = DateTime.Now.AddSeconds(expiresIn);
             }
         }
 

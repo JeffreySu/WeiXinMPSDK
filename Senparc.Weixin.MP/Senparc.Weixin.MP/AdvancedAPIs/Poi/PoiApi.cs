@@ -6,6 +6,10 @@
     
     
     创建标识：Senparc - 20150513
+    
+    修改标识：Senparc - 201501018
+    修改描述：修改UploadImage()方法bug
+
 ----------------------------------------------------------------*/
 
 /* 
@@ -62,7 +66,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     accessToken);
 
                 var fileDictionary = new Dictionary<string, string>();
-                //fileDictionary["media"] = file;
+                fileDictionary["media"] = file;
                 return Post.PostFileGetJson<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);

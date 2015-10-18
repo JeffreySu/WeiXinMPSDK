@@ -1799,7 +1799,7 @@
             <returns></returns>
         </member>
         <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.QY.AdvancedAPIs.OAuth2Api.GetCode(System.String,System.String,System.String,System.String,System.String)" -->
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.OAuth2Api.GetUserId(System.String,System.String)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.OAuth2Api.GetUserId(System.String,System.String,System.String)">
             <summary>
             获取成员信息
             </summary>

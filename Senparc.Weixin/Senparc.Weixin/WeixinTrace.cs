@@ -28,6 +28,16 @@ namespace Senparc.Weixin
         private static TraceListener _traceListener = null;
         private static readonly object TraceLock = new object();
 
+        /// <summary>
+        /// 记录ErrorJsonResultException日志时需要执行的任务
+        /// </summary>
+        public static Action<ErrorJsonResultException> OnErrorJsonResultExceptionFunc;
+
+        /// <summary>
+        /// 执行所有日志记录操作时执行的任务（发生在Senparc.Weixin记录日志之后）
+        /// </summary>
+        public static Action OnLogFunc;
+
         internal static void Open()
         {
             Close();
@@ -115,6 +125,11 @@ namespace Senparc.Weixin
             Unindent();
             Flush();
             Close();
+
+            if (OnLogFunc != null)
+            {
+                OnLogFunc();
+            }
         }
 
         /// <summary>
@@ -151,6 +166,11 @@ namespace Senparc.Weixin
             Log(string.Format("errcode：{0}", ex.JsonResult.errcode));
             Log(string.Format("errmsg：{0}", ex.JsonResult.errmsg));
             LogEnd();
+
+            if (OnErrorJsonResultExceptionFunc != null)
+            {
+                OnErrorJsonResultExceptionFunc(ex);
+            }
         }
     }
 }

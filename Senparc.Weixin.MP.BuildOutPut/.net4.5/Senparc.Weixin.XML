@@ -1163,6 +1163,16 @@
             微信日志跟踪
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.WeixinTrace.OnErrorJsonResultExceptionFunc">
+            <summary>
+            记录ErrorJsonResultException日志时需要执行的任务
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.WeixinTrace.OnLogFunc">
+            <summary>
+            执行所有日志记录操作时执行的任务（发生在Senparc.Weixin记录日志之后）
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.WeixinTrace.TimeLog">
             <summary>
             统一时间格式

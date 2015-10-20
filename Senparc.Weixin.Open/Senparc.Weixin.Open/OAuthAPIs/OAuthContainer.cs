@@ -17,5 +17,5 @@ using Senparc.Weixin.Open.Exceptions;
 
 namespace Senparc.Weixin.Open.OAuthAPIs
 {
-    //TODO:将在1.5.9中发布
+    //TODO:将在1.7.9中发布
 }

@@ -45,6 +45,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static AccessTokenResult GetToken(string appid, string secret, string grant_type = "client_credential")
         {
+            //注意：此方法不能再使用ApiHandlerWapper.TryCommonApi()，否则会循环
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/token?grant_type={0}&appid={1}&secret={2}",
                                     grant_type, appid, secret);
 
@@ -93,12 +94,12 @@ namespace Senparc.Weixin.MP.CommonAPIs
         public static JsApiTicketResult GetTicketByAccessToken(string accessTokenOrAppId, string type = "jsapi")
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type={1}",
-                                        accessToken, type);
+        {
+            var url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type={1}",
+                                    accessToken, type);
 
-                JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
-                return result;
+            JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
+            return result;
 
             }, accessTokenOrAppId);
         }

@@ -15,12 +15,20 @@ using System.Linq;
 
 namespace Senparc.Weixin.Containers
 {
+    public interface IBaseContainer<T> where T : IBaseContainerBag, new()
+    {
+    }
+
     /// <summary>
     /// 微信容器接口（如Ticket、AccessToken）
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class BaseContainer<T> where T : IBaseContainerBag, new()
+    public abstract class BaseContainer<T> : IBaseContainer<T> where T : IBaseContainerBag, new()
     {
+        public BaseContainer()
+        {
+        }
+
         /// <summary>
         /// 所有数据集合的列表
         /// </summary>

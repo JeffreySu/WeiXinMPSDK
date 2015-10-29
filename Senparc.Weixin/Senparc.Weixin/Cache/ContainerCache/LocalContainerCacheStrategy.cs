@@ -4,17 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Caching;
+using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache
 {
-    public class LocalCacheStrategy<T> : IBaseCacheStrategy<T> where T : class
+    /// <summary>
+    /// 本地容器缓存策略
+    /// </summary>
+    /// <typeparam name="TContainerBag">容器内</typeparam>
+    public class LocalContainerCacheStrategy<TContainerType, TContainerBag> : IBaseCacheStrategy<Type, Dictionary<string, TContainerBag>> where TContainerBag : IBaseContainerBag
     {
         #region 数据源
 
         /// <summary>
         /// 所有数据集合的列表
         /// </summary>
-        private static readonly Dictionary<object, object> _collectionList = new Dictionary<object, object>();
+        private static readonly Dictionary<object, object> _cache = new Dictionary<object, object>();
+
+        //TODO:2选1
+        private static readonly Dictionary<Type, Dictionary<string, TContainerBag>> _collectionList = new Dictionary<Type, Dictionary<string, TContainerBag>>();
 
         #endregion
 
@@ -23,12 +31,12 @@ namespace Senparc.Weixin.Cache
         /// <summary>
         /// LocalCacheStrategy的构造函数
         /// </summary>
-        LocalCacheStrategy()
+        LocalContainerCacheStrategy()
         {
         }
 
         //静态LocalCacheStrategy
-        public static IBaseCacheStrategy<T> Instance
+        public static IBaseCacheStrategy<Type, Dictionary<string, TContainerBag>> Instance
         {
             get
             {
@@ -42,7 +50,7 @@ namespace Senparc.Weixin.Cache
             {
             }
             //将instance设为一个初始化的LocalCacheStrategy新实例
-            internal static readonly LocalCacheStrategy<T> instance = new LocalCacheStrategy<T>();
+            internal static readonly LocalContainerCacheStrategy<TContainerBag> instance = new LocalContainerCacheStrategy<TContainerBag>();
         }
 
         #endregion
@@ -51,14 +59,14 @@ namespace Senparc.Weixin.Cache
 
 
         public string CacheSetKey { get; set; }
-        public void InsertToCache(string key, T value)
+        public void InsertToCache(string key, TContainerBag containerBag)
         {
-            if (string.IsNullOrEmpty(key) || value == null)
+            if (key == null || containerBag == null)
             {
                 return;
             }
 
-            _collectionList[key] = value;
+            _collectionList[key] = containerBag;
         }
 
         public void RemoveFromCache(string key)
@@ -66,18 +74,18 @@ namespace Senparc.Weixin.Cache
             _collectionList.Remove(key);
         }
 
-        public T Get(string key)
+        public TContainerBag Get(string key)
         {
             if (_collectionList.ContainsKey(key))
             {
-                return _collectionList[key] as T;
+                return _collectionList[key] as TContainerBag;
             }
             return null;
         }
 
-        public IList<T> GetAll()
+        public IList<TContainerBag> GetAll()
         {
-            var list = _collectionList.Values.Select(z => z as T).ToList();
+            var list = _collectionList.Values.Select(z => z as TContainerBag).ToList();
             return list;
         }
 

@@ -36,8 +36,10 @@ namespace Senparc.Weixin.Containers
         {
             get
             {
+
+
                 //TODO:使用工厂模式或者配置进行动态加载
-                return LocalCacheStrategy<Dictionary<Type, Dictionary<string, T>>>.Instance;
+                return LocalContainerCacheStrategy<Dictionary<Type, Dictionary<string, T>>>.Instance;
             }
         }
 

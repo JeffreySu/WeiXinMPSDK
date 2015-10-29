@@ -45,6 +45,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static AccessTokenResult GetToken(string appid, string secret, string grant_type = "client_credential")
         {
+            //注意：此方法不能再使用ApiHandlerWapper.TryCommonApi()，否则会循环
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/token?grant_type={0}&appid={1}&secret={2}",
                                     grant_type, appid, secret);
 

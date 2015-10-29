@@ -83,7 +83,7 @@ namespace Senparc.Weixin.MP
                     && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
                 {
                     //尝试重新验证
-                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(appId, true);
+                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(appId, true);//强制获取并刷新最新的AccessToken
                     accessToken = accessTokenResult.access_token;
                     result = TryCommonApi(fun, appId, false);
                 }

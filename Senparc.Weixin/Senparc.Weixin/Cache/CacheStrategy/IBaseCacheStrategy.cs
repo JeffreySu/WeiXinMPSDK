@@ -23,24 +23,7 @@ namespace Senparc.Weixin.Cache
         /// <param name="key">缓存键</param>
         /// <param name="value">缓存值</param>
         void InsertToCache(string key, T value);
-      
-        /// <summary>
-        /// 添加指定ID的对象
-        /// </summary>
-        /// <param name="key">缓存键</param>
-        /// <param name="value">缓存值</param>
-        /// <param name="timeout">单位：分</param>
-        void InsertToCache(string key, T value, int timeout);
-      
-        /// <summary>
-        /// 添加指定ID的对象，使用依赖项
-        /// </summary>
-        /// <param name="key">缓存键</param>
-        /// <param name="value">缓存值</param>
-        /// <param name="timeout">单位：分</param>
-        /// <param name="dependencies">依赖项</param>
-        void InsertToCache(string key, T value, int timeout, CacheDependency dependencies);
-
+  
         /// <summary>
         /// 移除指定缓存键的对象
         /// </summary>

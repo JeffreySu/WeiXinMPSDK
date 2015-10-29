@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Senparc.Weixin.Cache;
 
 namespace Senparc.Weixin.Containers
 {
@@ -23,16 +24,34 @@ namespace Senparc.Weixin.Containers
     /// 微信容器接口（如Ticket、AccessToken）
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class BaseContainer<T> : IBaseContainer<T> where T : IBaseContainerBag, new()
+    public abstract class BaseContainer<T> : IBaseContainer<T> where T : class, IBaseContainerBag, new()
     {
-        public BaseContainer()
+
+        private static string GetCacheKey<T>()
         {
+            return string.Format("Container:{0}", typeof(T));
+        }
+
+        private static IBaseCacheStrategy<Dictionary<Type, Dictionary<string, T>>> Cache
+        {
+            get
+            {
+                //TODO:使用工厂模式或者配置进行动态加载
+                return LocalCacheStrategy<Dictionary<Type, Dictionary<string, T>>>.Instance;
+            }
         }
 
         /// <summary>
         /// 所有数据集合的列表
         /// </summary>
-        private static readonly Dictionary<Type, Dictionary<string, T>> _collectionList = new Dictionary<Type, Dictionary<string, T>>();
+        private static Dictionary<Type, Dictionary<string, T>> CollectionList
+        {
+            get
+            {
+                var cacheKey = GetCacheKey<T>();
+                return Cache.Get(cacheKey);
+            }
+        }
 
         /// <summary>
         /// 获取当前容器的数据项集合
@@ -42,11 +61,11 @@ namespace Senparc.Weixin.Containers
         {
             get
             {
-                if (!_collectionList.ContainsKey(typeof(T)))
+                if (!CollectionList.ContainsKey(typeof(T)))
                 {
-                    _collectionList[typeof(T)] = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
+                    CollectionList[typeof(T)] = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
                 }
-                return _collectionList[typeof(T)];
+                return CollectionList[typeof(T)];
             }
         }
 
@@ -56,7 +75,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static Dictionary<Type, Dictionary<string, T>> GetCollectionList()
         {
-            return _collectionList;
+            return CollectionList;
         }
 
         /// <summary>

@@ -4,6 +4,59 @@
         <name>Senparc.Weixin</name>
     </assembly>
     <members>
+        <member name="F:Senparc.Weixin.Cache.LocalCacheStrategy`1._collectionList">
+            <summary>
+            所有数据集合的列表
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.LocalCacheStrategy`1.#ctor">
+            <summary>
+            LocalCacheStrategy的构造函数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Cache.IBaseCacheStrategy`1">
+            <summary>
+            公共缓存策略接口
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Cache.IBaseCacheStrategy`1.CacheSetKey">
+            <summary>
+            整个Cache集合的Key
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`1.InsertToCache(System.String,`0)">
+            <summary>
+            添加指定ID的对象
+            </summary>
+            <param name="key">缓存键</param>
+            <param name="value">缓存值</param>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`1.RemoveFromCache(System.String)">
+            <summary>
+            移除指定缓存键的对象
+            </summary>
+            <param name="key">缓存键</param>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`1.Get(System.String)">
+            <summary>
+            返回指定缓存键的对象
+            </summary>
+            <param name="key">缓存键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`1.GetAll">
+            <summary>
+            获取所有细信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`1.CheckExisted(System.String)">
+            <summary>
+            检查是否存在Key及对象
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.Config">
             <summary>
             全局设置
@@ -26,7 +79,7 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="F:Senparc.Weixin.Containers.BaseContainer`1._collectionList">
+        <member name="P:Senparc.Weixin.Containers.BaseContainer`1.CollectionList">
             <summary>
             所有数据集合的列表
             </summary>

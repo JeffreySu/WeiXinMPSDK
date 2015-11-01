@@ -37,23 +37,20 @@ namespace Senparc.Weixin.Containers
             return string.Format("Container:{0}", typeof(T));
         }
 
-        private static IBaseCacheStrategy<string,Dictionary<string, TBag>> Cache
+        private static IContainerCacheStragegy /*IBaseCacheStrategy<string,Dictionary<string, TBag>>*/ Cache
         {
             get
             {
 
-                //TODO:使用工厂模式或者配置进行动态加载
-
-                //Type typeShow = typeof(LocalContainerCacheStrategy<>).MakeGenericType(typeof(TBag));
-
-                return CacheStrategyFactory.ContainerCacheStrageFunc;// LocalContainerCacheStrategy<TBag>.Instance;
+                //使用工厂模式或者配置进行动态加载
+                return CacheStrategyFactory.GetContainerCacheStragegyInstance();
             }
         }
 
         /// <summary>
         /// 所有数据集合的列表
         /// </summary>
-        private static Dictionary<string,Dictionary<string, TBag>> CollectionList
+        private static IDictionary<string,IDictionary<string, TBag>> CollectionList
         {
             get
             {
@@ -83,7 +80,7 @@ namespace Senparc.Weixin.Containers
         /// 获取完整的数据集合的列表，包括所有的Container数据在内（建议不要进行任何修改操作）
         /// </summary>
         /// <returns></returns>
-        public static Dictionary<string, Dictionary<string, TBag>> GetCollectionList()
+        public static IDictionary<string, IDictionary<string, TBag>> GetCollectionList()
         {
             return CollectionList;
         }

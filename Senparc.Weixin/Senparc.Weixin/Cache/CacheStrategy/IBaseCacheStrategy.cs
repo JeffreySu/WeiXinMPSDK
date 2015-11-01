@@ -45,7 +45,7 @@ namespace Senparc.Weixin.Cache
         /// 获取所有细信息
         /// </summary>
         /// <returns></returns>
-        Dictionary<TKey, TValue> GetAll();
+        IDictionary<TKey, TValue> GetAll();
 
         /// <summary>
         /// 检查是否存在Key及对象

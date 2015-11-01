@@ -7,12 +7,12 @@ using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache
 {
-    public interface IContainerCacheStragegy
-    {
-    }
+    //public interface IContainerCacheStragegy : IBaseCacheStrategy
+    //{
+    //}
 
-    public interface IContainerCacheStragegy<TContainerBag> : IContainerCacheStragegy, IBaseCacheStrategy<string, Dictionary<string, TContainerBag>>
-     where TContainerBag : class, IBaseContainerBag
+    public interface IContainerCacheStragegy : /*IContainerCacheStragegy,*/ IBaseCacheStrategy<string, IDictionary<string, IBaseContainerBag>>
+    //where TContainerBag : class, IBaseContainerBag
     {
     }
 }

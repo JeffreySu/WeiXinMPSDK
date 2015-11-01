@@ -51,6 +51,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Cache\CacheStrategyFactoryTests.cs" />
     <Compile Include="Containers\BaseContainerTests.cs" />
     <Compile Include="Helpers\SerializerHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

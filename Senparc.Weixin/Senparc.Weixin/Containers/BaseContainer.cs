@@ -43,7 +43,10 @@ namespace Senparc.Weixin.Containers
             {
 
                 //TODO:使用工厂模式或者配置进行动态加载
-                return LocalContainerCacheStrategy<TBag>.Instance;
+
+                //Type typeShow = typeof(LocalContainerCacheStrategy<>).MakeGenericType(typeof(TBag));
+
+                return CacheStrategyFactory.ContainerCacheStrageFunc;// LocalContainerCacheStrategy<TBag>.Instance;
             }
         }
 

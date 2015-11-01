@@ -13,7 +13,7 @@ namespace Senparc.Weixin.Cache
     /// 本地容器缓存策略
     /// </summary>
     /// <typeparam name="TContainerBag">容器内</typeparam>
-    public class LocalContainerCacheStrategy<TContainerBag> : IBaseCacheStrategy<string, Dictionary<string, TContainerBag>>
+    public class LocalContainerCacheStrategy<TContainerBag> : IContainerCacheStragegy<TContainerBag>
         where TContainerBag : class, IBaseContainerBag, new()
     {
         #region 数据源
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.Cache
             return null;
         }
 
-        public Dictionary<string,Dictionary<string, TContainerBag>> GetAll()
+        public Dictionary<string, Dictionary<string, TContainerBag>> GetAll()
         {
             //var list = _collectionList.Values.ToList();
             return _collectionList;

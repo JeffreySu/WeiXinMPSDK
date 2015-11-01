@@ -12,7 +12,8 @@ namespace Senparc.Weixin.Cache
     /// 本地容器缓存策略
     /// </summary>
     /// <typeparam name="TContainerBag">容器内</typeparam>
-    public class LocalContainerCacheStrategy<TContainerType, TContainerBag> : IBaseCacheStrategy<Type, Dictionary<string, TContainerBag>> where TContainerBag : IBaseContainerBag
+    public class LocalContainerCacheStrategy<Type, TContainerBag> : IBaseCacheStrategy<Type, Dictionary<string, TContainerBag>>
+        where TContainerBag : IBaseContainerBag
     {
         #region 数据源
 
@@ -50,7 +51,7 @@ namespace Senparc.Weixin.Cache
             {
             }
             //将instance设为一个初始化的LocalCacheStrategy新实例
-            internal static readonly LocalContainerCacheStrategy<TContainerBag> instance = new LocalContainerCacheStrategy<TContainerBag>();
+            internal static readonly LocalContainerCacheStrategy<Type, TContainerBag> instance = new LocalContainerCacheStrategy<Type, TContainerBag>();
         }
 
         #endregion
@@ -59,37 +60,39 @@ namespace Senparc.Weixin.Cache
 
 
         public string CacheSetKey { get; set; }
-        public void InsertToCache(string key, TContainerBag containerBag)
+
+   
+        public void InsertToCache(Type key, Dictionary<string, TContainerBag> value)
         {
-            if (key == null || containerBag == null)
+            if (key == null || value == null)
             {
                 return;
             }
 
-            _collectionList[key] = containerBag;
+            _collectionList[key] = value;
         }
 
-        public void RemoveFromCache(string key)
+        public void RemoveFromCache(Type key)
         {
             _collectionList.Remove(key);
         }
 
-        public TContainerBag Get(string key)
+        public Dictionary<string, TContainerBag> Get(Type key)
         {
             if (_collectionList.ContainsKey(key))
             {
-                return _collectionList[key] as TContainerBag;
+                return _collectionList[key];
             }
             return null;
         }
 
-        public IList<TContainerBag> GetAll()
+        public IList<Dictionary<string, TContainerBag>> GetAll()
         {
-            var list = _collectionList.Values.Select(z => z as TContainerBag).ToList();
+            var list = _collectionList.Values.ToList();
             return list;
         }
 
-        public bool CheckExisted(string key)
+        public bool CheckExisted(Type key)
         {
             return _collectionList.ContainsKey(key);
         }

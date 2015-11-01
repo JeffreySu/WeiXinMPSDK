@@ -21,7 +21,7 @@ namespace Senparc.Weixin.Containers
 
     }
 
-    public interface IBaseContainer<T> : IBaseContainer where T : IBaseContainerBag, new()
+    public interface IBaseContainer<TBag> : IBaseContainer where TBag : IBaseContainerBag, new()
     {
     }
 
@@ -37,26 +37,25 @@ namespace Senparc.Weixin.Containers
             return string.Format("Container:{0}", typeof(T));
         }
 
-        private static IBaseCacheStrategy<Type, Dictionary<string, TBag>> Cache
+        private static IBaseCacheStrategy<string,Dictionary<string, TBag>> Cache
         {
             get
             {
 
-
                 //TODO:使用工厂模式或者配置进行动态加载
-                return LocalContainerCacheStrategy<Type, Dictionary<string, TBag>>.Instance;
+                return LocalContainerCacheStrategy<TBag>.Instance;
             }
         }
 
         /// <summary>
         /// 所有数据集合的列表
         /// </summary>
-        private static Dictionary<Type, Dictionary<string, TBag>> CollectionList
+        private static Dictionary<string,Dictionary<string, TBag>> CollectionList
         {
             get
             {
-                var cacheKey = GetCacheKey<TBag>();
-                return Cache.Get(cacheKey);
+                //var cacheKey = GetCacheKey<TBag>();
+                return Cache.GetAll();
             }
         }
 
@@ -68,11 +67,12 @@ namespace Senparc.Weixin.Containers
         {
             get
             {
-                if (!CollectionList.ContainsKey(typeof(TBag)))
+                var cacheKey = GetCacheKey<TBag>();
+                if (!CollectionList.ContainsKey(cacheKey))
                 {
-                    CollectionList[typeof(TBag)] = new Dictionary<string, TBag>(StringComparer.OrdinalIgnoreCase);
+                    CollectionList[cacheKey] = new Dictionary<string, TBag>(StringComparer.OrdinalIgnoreCase);
                 }
-                return CollectionList[typeof(TBag)];
+                return CollectionList[cacheKey];
             }
         }
 
@@ -80,7 +80,7 @@ namespace Senparc.Weixin.Containers
         /// 获取完整的数据集合的列表，包括所有的Container数据在内（建议不要进行任何修改操作）
         /// </summary>
         /// <returns></returns>
-        public static Dictionary<Type, Dictionary<string, TBag>> GetCollectionList()
+        public static Dictionary<string, Dictionary<string, TBag>> GetCollectionList()
         {
             return CollectionList;
         }

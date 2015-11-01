@@ -44,7 +44,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                 Assert.AreEqual(tokenResult.access_token, token);
                 Console.WriteLine(tokenResult.access_token);
 
-                Console.WriteLine("强制重新获取");
+                Console.WriteLine("强制重新获取AccessToken");
                 dt1 = DateTime.Now;
                 token = AccessTokenContainer.TryGetAccessToken(base._appId, base._appSecret, true);
                 dt2 = DateTime.Now;
@@ -54,11 +54,15 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             }
 
             {
+                tokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId);
+                Console.WriteLine("HashCode：{0}", tokenResult.GetHashCode());
                 dt1 = DateTime.Now;
                 var allItems = AccessTokenContainer.GetAllItems();
                 dt2 = DateTime.Now;
                 Assert.IsTrue(allItems.Count > 0);
+                Assert.AreSame(tokenResult, allItems[0].AccessTokenResult);//证明缓存成功
                 Console.WriteLine("All Items:{0}", allItems.Count);
+                Console.WriteLine("HashCode：{0}", allItems[0].AccessTokenResult.GetHashCode());
                 Console.WriteLine("耗时：{0}毫秒", (dt2 - dt1).TotalMilliseconds);
             }
         }

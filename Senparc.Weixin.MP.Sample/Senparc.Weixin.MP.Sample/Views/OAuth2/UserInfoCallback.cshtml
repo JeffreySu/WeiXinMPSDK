@@ -20,11 +20,16 @@
         <p><strong>您看到的这个页面来自于snsapi_userinfo授权，可以直接获取到用户详细信息。</strong></p>
     }
     <p>下面是通过授权得到的您的部分个人信息：</p>
+    <p>openid:@Model.openid</p>
     <p>nickname:@Model.nickname</p>
     <p>country:@Model.country</p>
     <p>province:@Model.province</p>
     <p>city:@Model.city</p>
     <p>sex:@Model.sex</p>
+    @if (Model.unionid != null)
+    {
+        <p>unionid:@Model.unionid</p>
+    }
     <p>
         头像：<br />
         <img src="@Model.headimgurl"/>（直接调用可能看不到，需要抓取）

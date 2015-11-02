@@ -11,7 +11,16 @@ namespace Senparc.Weixin.Cache
     //{
     //}
 
-    public interface IContainerCacheStragegy : /*IContainerCacheStragegy,*/ IBaseCacheStrategy<string, IDictionary<string, IBaseContainerBag>>
+    public interface IContainerItemCollection : IDictionary<string, IBaseContainerBag>
+    {
+    }
+
+    public class ContainerItemCollection : Dictionary<string, IBaseContainerBag>, IContainerItemCollection
+    {
+    }
+
+
+    public interface IContainerCacheStragegy : /*IContainerCacheStragegy,*/ IBaseCacheStrategy<string, IContainerItemCollection>
     //where TContainerBag : class, IBaseContainerBag
     {
     }

@@ -9,7 +9,7 @@ namespace Senparc.Weixin.Cache
 {
     public class CacheStrategyFactory
     {
-        public static Func<IContainerCacheStragegy> ContainerCacheStrageFunc;
+        internal static Func<IContainerCacheStragegy> ContainerCacheStrageFunc;
 
         //internal static IBaseCacheStrategy<TKey, TValue> GetContainerCacheStrategy<TKey, TValue>()
         //    where TKey : class
@@ -34,7 +34,7 @@ namespace Senparc.Weixin.Cache
             {
                 //自定义类型
                 var instance = ContainerCacheStrageFunc();
-                return instance;
+                return instance as IContainerCacheStragegy;
             }
         }
     }

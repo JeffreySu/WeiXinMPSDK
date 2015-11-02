@@ -22,20 +22,37 @@ namespace Senparc.Weixin.Cache.Tests
                 var c1Strategy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
                 Assert.IsNotNull(c1Strategy);
 
-
                 var data = c1Strategy.Get(typeof(TestContainer1).ToString());
                 Console.WriteLine(data.Count);
 
-                var collectionList = TestContainer1.GetCollectionList()[typeof (TestContainer1).ToString()];
-                collectionList.Add("ABC",new TestContainerBag1());
+                var collectionList = TestContainer1.GetCollectionList()[typeof(TestContainer1).ToString()];
+                collectionList.Add("ABC", new TestContainerBag1());
                 data = c1Strategy.Get(typeof(TestContainer1).ToString());
-                Assert.AreEqual(1,data.Count);
+                Assert.AreEqual(1, data.Count);
                 Console.WriteLine(data.Count);
-
             }
 
             {
                 //进行注册
+                CacheStrategyFactory.RegisterContainerCacheStrategy(() =>
+                {
+                    return LocalContainerCacheStrategy.Instance as IContainerCacheStragegy;
+                });
+
+                var c2 = TestContainer2.GetCollectionList();
+                Console.WriteLine(c2.Count);
+                var c2Strategy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
+                Assert.IsNotNull(c2Strategy);
+
+
+                var data = c2Strategy.Get(typeof(TestContainer2).ToString());
+                Console.WriteLine(data.Count);
+
+                var collectionList = TestContainer2.GetCollectionList()[typeof(TestContainer2).ToString()];
+                collectionList.Add("DEF", new TestContainerBag2());
+                data = c2Strategy.Get(typeof(TestContainer2).ToString());
+                Assert.AreEqual(1, data.Count);
+                Console.WriteLine(data.Count);
             }
         }
     }

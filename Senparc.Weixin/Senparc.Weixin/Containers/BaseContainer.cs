@@ -31,7 +31,6 @@ namespace Senparc.Weixin.Containers
     /// <typeparam name="TBag"></typeparam>
     public abstract class BaseContainer<TBag> : IBaseContainer<TBag> where TBag : class, IBaseContainerBag, new()
     {
-
         private static string GetCacheKey<T>()
         {
             return string.Format("Container:{0}", typeof(T));
@@ -41,7 +40,6 @@ namespace Senparc.Weixin.Containers
         {
             get
             {
-
                 //使用工厂模式或者配置进行动态加载
                 return CacheStrategyFactory.GetContainerCacheStragegyInstance();
             }
@@ -50,12 +48,13 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 所有数据集合的列表
         /// </summary>
-        private static IDictionary<string,IDictionary<string, TBag>> CollectionList
+        private static IDictionary<string, IContainerItemCollection> CollectionList
         {
             get
             {
                 //var cacheKey = GetCacheKey<TBag>();
-                return Cache.GetAll() as IDictionary<string, IDictionary<string, TBag>>;
+                var list = Cache.GetAll();
+                return list as IDictionary<string, IContainerItemCollection>;
             }
         }
 
@@ -63,14 +62,14 @@ namespace Senparc.Weixin.Containers
         /// 获取当前容器的数据项集合
         /// </summary>
         /// <returns></returns>
-        protected static IDictionary<string, TBag> ItemCollection
+        protected static IContainerItemCollection ItemCollection
         {
             get
             {
                 var cacheKey = GetCacheKey<TBag>();
                 if (!CollectionList.ContainsKey(cacheKey))
                 {
-                    CollectionList[cacheKey] = new Dictionary<string, TBag>(StringComparer.OrdinalIgnoreCase);
+                    CollectionList[cacheKey] = new ContainerItemCollection();
                 }
                 return CollectionList[cacheKey];
             }
@@ -80,7 +79,7 @@ namespace Senparc.Weixin.Containers
         /// 获取完整的数据集合的列表，包括所有的Container数据在内（建议不要进行任何修改操作）
         /// </summary>
         /// <returns></returns>
-        public static IDictionary<string, IDictionary<string, TBag>> GetCollectionList()
+        public static IDictionary<string, IContainerItemCollection> GetCollectionList()
         {
             return CollectionList;
         }
@@ -92,7 +91,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static List<TBag> GetAllItems()
         {
-            return ItemCollection.Select(z => z.Value).ToList();
+            return ItemCollection.Select(z => z.Value as TBag).ToList();
         }
 
         /// <summary>
@@ -104,7 +103,7 @@ namespace Senparc.Weixin.Containers
         {
             if (ItemCollection.ContainsKey(key))
             {
-                return ItemCollection[key];
+                return ItemCollection[key] as TBag;
             }
 
             return default(TBag);
@@ -120,7 +119,7 @@ namespace Senparc.Weixin.Containers
         {
             if (ItemCollection.ContainsKey(key))
             {
-                var item = ItemCollection[key];
+                var item = ItemCollection[key] as TBag;
                 return property(item);
             }
             return default(K);
@@ -164,7 +163,7 @@ namespace Senparc.Weixin.Containers
                         Key = key//确保这一项Key已经被记录
                     };
                 }
-                partialUpdate(ItemCollection[key]);//更新对象
+                partialUpdate(ItemCollection[key] as TBag);//更新对象
             }
         }
 

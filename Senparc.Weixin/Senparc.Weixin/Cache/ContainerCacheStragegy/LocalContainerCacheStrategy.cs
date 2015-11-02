@@ -15,11 +15,11 @@ namespace Senparc.Weixin.Cache
         /// <summary>
         /// 所有数据集合的列表
         /// </summary>
-        public static IDictionary<string, IDictionary<string,IBaseContainerBag>> LocalCache { get; set; }
+        public static IDictionary<string, IContainerItemCollection> LocalCache { get; set; }
 
         static LocalCacheHelper()
         {
-            LocalCache = new Dictionary<string, IDictionary<string, IBaseContainerBag>>(StringComparer.OrdinalIgnoreCase);
+            LocalCache = new Dictionary<string, IContainerItemCollection>(StringComparer.OrdinalIgnoreCase);
         }
 
     }
@@ -33,7 +33,7 @@ namespace Senparc.Weixin.Cache
     {
         #region 数据源
 
-        private IDictionary<string, IDictionary<string, IBaseContainerBag>> _cache = LocalCacheHelper.LocalCache;
+        private IDictionary<string, IContainerItemCollection> _cache = LocalCacheHelper.LocalCache;
 
         #endregion
 
@@ -47,7 +47,7 @@ namespace Senparc.Weixin.Cache
         }
 
         //静态LocalCacheStrategy
-        public static IBaseCacheStrategy<string, IDictionary<string, IBaseContainerBag>> Instance
+        public static IContainerCacheStragegy Instance
         {
             get
             {
@@ -72,7 +72,7 @@ namespace Senparc.Weixin.Cache
         public string CacheSetKey { get; set; }
 
 
-        public void InsertToCache(string key, IDictionary<string, IBaseContainerBag> value)
+        public void InsertToCache(string key, IContainerItemCollection value)
         {
             if (key == null || value == null)
             {
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.Cache
             LocalCacheHelper.LocalCache.Remove(key);
         }
 
-        public IDictionary<string, IBaseContainerBag> Get(string key)
+        public IContainerItemCollection Get(string key)
         {
             if (_cache.ContainsKey(key))
             {
@@ -96,7 +96,7 @@ namespace Senparc.Weixin.Cache
             return null;
         }
 
-        public IDictionary<string, IDictionary<string, IBaseContainerBag>> GetAll()
+        public IDictionary<string, IContainerItemCollection> GetAll()
         {
             //var list = _collectionList.Values.ToList();
             return _cache;

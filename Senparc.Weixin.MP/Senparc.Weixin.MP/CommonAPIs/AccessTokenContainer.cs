@@ -120,7 +120,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 throw new WeixinException("此appId尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var accessTokenBag = ItemCollection[appId];
+            var accessTokenBag = (AccessTokenBag)ItemCollection[appId];
             lock (accessTokenBag.Lock)
             {
                 if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
@@ -178,7 +178,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 throw new WeixinException("此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var accessTokenBag = ItemCollection[appId];
+            var accessTokenBag = (AccessTokenBag)ItemCollection[appId];
             lock (accessTokenBag.Lock)
             {
                 if (getNewTicket || accessTokenBag.JsApiTicketExpireTime <= DateTime.Now)

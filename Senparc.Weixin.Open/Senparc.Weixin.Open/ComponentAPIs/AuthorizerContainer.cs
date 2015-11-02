@@ -306,7 +306,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public static RefreshAuthorizerTokenResult RefreshAuthorizerToken(string componentAccessToken, string componentAppId, string authorizerAppid,
                       string refreshToken)
         {
-            var refreshResult = ComponentApi.RefreshAuthorizerToken(componentAccessToken, componentAppId, authorizerAppid,
+            var refreshResult = ComponentApi.ApiAuthorizerToken(componentAccessToken, componentAppId, authorizerAppid,
                          refreshToken);
             //更新到存储
             ComponentContainer.AuthorizerTokenRefreshedFunc(authorizerAppid, refreshResult);

@@ -40,7 +40,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             authorizer_access_token = accessToken;
             authorizer_refresh_token = refreshToken;
-            expires_in = expires_in;
+            expires_in = expiresIn;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs.Tests
             Console.WriteLine("authorizer_access_token：" + authorizer_access_token);
             Console.WriteLine("authorizer_refresh_token：" + authorizer_refresh_token);
 
-            var result = ComponentApi.RefreshAuthorizerToken(componentAccessTokenResult.component_access_token,
+            var result = ComponentApi.ApiAuthorizerToken(componentAccessTokenResult.component_access_token,
                 base._appId, authorizerId, authorizerInfo.authorization_info.authorizer_refresh_token);
 
             Console.WriteLine("authorizer_access_token：" + result.authorizer_access_token);

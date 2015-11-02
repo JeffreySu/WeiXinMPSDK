@@ -55,7 +55,7 @@ namespace Senparc.Weixin.Containers
             get
             {
                 //var cacheKey = GetCacheKey<TBag>();
-                return Cache.GetAll();
+                return Cache.GetAll() as IDictionary<string, IDictionary<string, TBag>>;
             }
         }
 

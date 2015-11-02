@@ -29,7 +29,7 @@ namespace Senparc.Weixin.Cache
     /// </summary>
     /// <typeparam name="TContainerBag">容器内</typeparam>
     public class LocalContainerCacheStrategy : IContainerCacheStragegy
-        //where TContainerBag : class, IBaseContainerBag, new()
+    //where TContainerBag : class, IBaseContainerBag, new()
     {
         #region 数据源
 
@@ -89,11 +89,12 @@ namespace Senparc.Weixin.Cache
 
         public IContainerItemCollection Get(string key)
         {
-            if (_cache.ContainsKey(key))
+            if (!_cache.ContainsKey(key))
             {
-                return _cache[key];
+                _cache[key] = new ContainerItemCollection();
             }
-            return null;
+
+            return _cache[key];
         }
 
         public IDictionary<string, IContainerItemCollection> GetAll()

@@ -571,7 +571,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.RefreshAuthorizerToken(System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.ApiAuthorizerToken(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             获取（刷新）授权公众号的令牌
             由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权。

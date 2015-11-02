@@ -15,23 +15,33 @@ namespace Senparc.Weixin.Cache.Tests
         [TestMethod()]
         public void RegisterContainerCacheStrategyTest()
         {
-            {
+            Console.WriteLine("不注册");
+
+             {
                 //不注册，使用默认
                 var c1 = TestContainer1.GetCollectionList();
-                Console.WriteLine(c1.Count);
+                Console.WriteLine(c1.Count);//0
                 var c1Strategy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
                 Assert.IsNotNull(c1Strategy);
 
-                var data = c1Strategy.Get(typeof(TestContainer1).ToString());
-                Console.WriteLine(data.Count);
+                var key = typeof(TestContainer1).ToString();
+                var data = c1Strategy.Get(key);
+                Assert.IsNotNull(data);
 
-                var collectionList = TestContainer1.GetCollectionList()[typeof(TestContainer1).ToString()];
-                collectionList.Add("ABC", new TestContainerBag1());
-                data = c1Strategy.Get(typeof(TestContainer1).ToString());
+                var newData = new ContainerItemCollection();
+                newData["A"] = new TestContainerBag1();
+                c1Strategy.InsertToCache(key, newData);
+                data = c1Strategy.Get(key);
                 Assert.AreEqual(1, data.Count);
-                Console.WriteLine(data.Count);
-            }
+                Console.WriteLine(data.Count);//1
 
+                var collectionList = TestContainer1.GetCollectionList()[key];
+                collectionList.Add("ABC", new TestContainerBag1());
+                data = c1Strategy.Get(key);
+                Assert.AreEqual(2, data.Count);
+                Console.WriteLine(data.Count);//2
+            }
+            Console.WriteLine("使用注册");
             {
                 //进行注册
                 CacheStrategyFactory.RegisterContainerCacheStrategy(() =>
@@ -39,20 +49,29 @@ namespace Senparc.Weixin.Cache.Tests
                     return LocalContainerCacheStrategy.Instance as IContainerCacheStragegy;
                 });
 
+                var key = typeof(TestContainer2).ToString();
+
                 var c2 = TestContainer2.GetCollectionList();
-                Console.WriteLine(c2.Count);
+                Console.WriteLine(c2.Count);//1（位注册的时候已经注册过一个TestContainer1）
                 var c2Strategy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
                 Assert.IsNotNull(c2Strategy);
 
 
-                var data = c2Strategy.Get(typeof(TestContainer2).ToString());
-                Console.WriteLine(data.Count);
+                var data = c2Strategy.Get(key);
+                Assert.IsNotNull(data);
+
+                var newData = new ContainerItemCollection();
+                newData["A"] = new TestContainerBag1();
+                c2Strategy.InsertToCache(key, newData);
+                data = c2Strategy.Get(key);
+                Assert.AreEqual(1, data.Count);
+                Console.WriteLine(data.Count);//1
 
                 var collectionList = TestContainer2.GetCollectionList()[typeof(TestContainer2).ToString()];
                 collectionList.Add("DEF", new TestContainerBag2());
-                data = c2Strategy.Get(typeof(TestContainer2).ToString());
-                Assert.AreEqual(1, data.Count);
-                Console.WriteLine(data.Count);
+                data = c2Strategy.Get(key);
+                Assert.AreEqual(2, data.Count);
+                Console.WriteLine(data.Count);//1
             }
         }
     }

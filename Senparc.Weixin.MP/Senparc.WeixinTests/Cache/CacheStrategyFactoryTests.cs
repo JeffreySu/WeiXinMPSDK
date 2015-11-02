@@ -19,7 +19,7 @@ namespace Senparc.Weixin.Cache.Tests
                 //不注册，使用默认
                 var c1 = TestContainer1.GetCollectionList();
                 Console.WriteLine(c1.Count);
-                var c1Strategy = CacheStrategyFactory.GetContainerCacheStragegyInstance<TestContainerBag1>();
+                var c1Strategy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
                 Assert.IsNotNull(c1Strategy);
 
 

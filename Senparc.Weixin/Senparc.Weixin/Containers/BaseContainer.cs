@@ -63,7 +63,7 @@ namespace Senparc.Weixin.Containers
         /// 获取当前容器的数据项集合
         /// </summary>
         /// <returns></returns>
-        protected static Dictionary<string, TBag> ItemCollection
+        protected static IDictionary<string, TBag> ItemCollection
         {
             get
             {

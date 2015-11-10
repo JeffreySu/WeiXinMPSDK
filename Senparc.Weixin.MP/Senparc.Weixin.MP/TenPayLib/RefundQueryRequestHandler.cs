@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Web;
-using System.Collections;
+﻿using System.Web;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {

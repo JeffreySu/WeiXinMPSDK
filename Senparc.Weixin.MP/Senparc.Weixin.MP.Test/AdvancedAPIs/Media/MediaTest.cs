@@ -21,7 +21,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void UploadTemporaryMediaTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var type = UploadMediaFileType.image;
             var file = @"E:\1.jpg";
@@ -35,7 +35,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void UploadTemporaryNewsTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var file = @"E:\1.jpg";
             var mediaId = MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.thumb, file).thumb_media_id;
@@ -72,7 +72,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             UploadTemporaryMediaTest();//上传
 
@@ -102,7 +102,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 
         private string UploadForeverMediaTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var file = @"..\..\AdvancedAPIs\Media\test.jpg";
 
@@ -116,7 +116,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void UploadForeverVideoTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var file = @"E:\Test.mp4";
             var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试");
@@ -170,7 +170,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         public void GetForeverMediaTest()
         {
             var mediaId = UploadForeverMediaTest();
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             using (MemoryStream stream = new MemoryStream())
             {
                 MediaApi.GetForeverMedia(accessToken, mediaId, stream);
@@ -206,7 +206,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void ForeverNewsTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             string mediaId = UploadAndUpdateNewsTest(accessToken);
             GetForeverNewsTest(accessToken, mediaId);
@@ -216,7 +216,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetMediaListTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = MediaApi.GetNewsMediaList(accessToken, 0, 5);
 
@@ -226,7 +226,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetNewsMediaListTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = MediaApi.GetNewsMediaList(accessToken, 0, 3);
 
@@ -237,7 +237,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetOthersMediaListTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = MediaApi.GetOthersMediaList(accessToken, UploadMediaFileType.image, 0, 3);
 
@@ -248,7 +248,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void AfterDeleteImgTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var file = @"..\..\AdvancedAPIs\Media\test.jpg";
 
@@ -264,7 +264,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void AfterDeleteNewsTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var file = @"E:\1.jpg";
             var result = MediaApi.UploadForeverMedia(accessToken, file);
@@ -307,7 +307,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void AfterDeleteVideoTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var file = @"E:\Test.mp4";
             var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试",100000);

@@ -26,7 +26,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void SemanticUnderStandTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var result = SemanticApi.SemanticSend<Semantic_RestaurantResult>(accessToken, SemanticPostData);
             
             Assert.IsNotNull(result.query);

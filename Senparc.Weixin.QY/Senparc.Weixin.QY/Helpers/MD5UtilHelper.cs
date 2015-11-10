@@ -55,7 +55,7 @@ namespace Senparc.Weixin.QY.Helpers
 			}
 			outputBye = m5.ComputeHash(inputBye);
 
-			retStr = System.BitConverter.ToString(outputBye);
+			retStr = BitConverter.ToString(outputBye);
 			retStr = retStr.Replace("-", "").ToUpper();
 			return retStr;
 		}

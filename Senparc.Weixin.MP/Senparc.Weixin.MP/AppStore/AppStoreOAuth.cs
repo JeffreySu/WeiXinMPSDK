@@ -8,11 +8,6 @@
     创建标识：Senparc - 20150319
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.CommonAPIs;
 

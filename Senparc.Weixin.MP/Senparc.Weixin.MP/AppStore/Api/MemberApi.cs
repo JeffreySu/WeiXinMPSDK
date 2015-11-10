@@ -8,10 +8,8 @@
     创建标识：Senparc - 20150319
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.AppStore.Api
 {
@@ -30,7 +28,7 @@ namespace Senparc.Weixin.MP.AppStore.Api
             formData["openid"] = openId;
             formData["weixinId"] = weixinId.ToString();
 
-            var result = HttpUtility.Post.PostGetJson<GetMemberResult>(url, formData: formData);
+            var result = Post.PostGetJson<GetMemberResult>(url, formData: formData);
             return result;
         }
 

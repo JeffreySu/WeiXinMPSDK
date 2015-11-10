@@ -11,11 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Web;
-using System.Collections;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {

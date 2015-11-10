@@ -15,11 +15,6 @@
     官方API：https://mp.weixin.qq.com/paymch/readtemplate?t=mp/business/course2_tmpl&lang=zh_CN&token=25857919#4
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 
@@ -60,7 +55,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="sign_Method">签名方法</param>
         public static WxJsonResult Delivernotify(string appId, string openId, string transId, string out_Trade_No, string deliver_TimesTamp, string deliver_Status, string deliver_Msg, string app_Signature, string sign_Method = "sha1")
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(appId);
 
             var urlFormat = "https://api.weixin.qq.com/pay/delivernotify?access_token={0}";
 
@@ -91,7 +86,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="sign_Method">签名方法</param>
         public static OrderqueryResult Orderquery(string appId, string package, string timesTamp, string app_Signature, string sign_Method)
         {
-            var accessToken = AccessTokenContainer.GetToken(appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(appId);
 
             var urlFormat = "https://api.weixin.qq.com/pay/orderquery?access_token={0}";
 

@@ -15,22 +15,16 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml;
+using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Helpers;
+using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
-using Tencent;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP
 {
-    using System.Xml.Linq;
-    using Senparc.Weixin.MP.Entities;
-    using Senparc.Weixin.MP.Helpers;
-
     public static class RequestMessageFactory
     {
         //<?xml version="1.0" encoding="utf-8"?>

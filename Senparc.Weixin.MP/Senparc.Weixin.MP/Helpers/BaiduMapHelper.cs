@@ -15,7 +15,6 @@
      文档：http://api.map.baidu.com/lbsapi/cloud/staticimg.htm
  */
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

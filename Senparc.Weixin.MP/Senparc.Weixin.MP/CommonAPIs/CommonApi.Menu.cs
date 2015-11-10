@@ -25,18 +25,15 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Entities.Menu;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Entities.Menu;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
@@ -178,7 +175,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken);
 
-                var jsonString = HttpUtility.RequestUtility.HttpGet(url, Encoding.UTF8);
+                var jsonString = RequestUtility.HttpGet(url, Encoding.UTF8);
                 //var finalResult = GetMenuFromJson(jsonString);
 
                 GetMenuResult finalResult;

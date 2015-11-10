@@ -1,17 +1,2 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Qy.aspx.cs" Inherits="Senparc.Weixin.MP.Sample.WebForms.Qy" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-    <div>
-    
-    </div>
-    </form>
-</body>
-</html>
+﻿<%@ Page Language="C#" CodeBehind="Qy.aspx.cs" Inherits="Senparc.Weixin.MP.Sample.WebForms.Qy" %>
+<% // 企业号消息接口。代码请看Qy.aspx.cs文件。更多示例请看MVC项目（推荐）。 %>

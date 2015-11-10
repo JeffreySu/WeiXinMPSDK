@@ -12,13 +12,10 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Senparc.Weixin.Entities
 {
-    public interface IMessageBase
+    public interface IMessageBase : IEntityBase
     {
         string ToUserName { get; set; }
         string FromUserName { get; set; }
@@ -28,10 +25,18 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// 所有Request和Response消息的基类
     /// </summary>
-    public class MessageBase : IMessageBase
+    public class MessageBase : /*EntityBase, */IMessageBase
     {
         public string ToUserName { get; set; }
         public string FromUserName { get; set; }
         public DateTime CreateTime { get; set; }
+
+        public override string ToString()
+        {
+            //TODO:直接输出XML
+
+
+            return base.ToString();
+        }
     }
 }

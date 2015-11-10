@@ -17,10 +17,6 @@
     修改描述：GetUserIdResult变更为GetUserInfoResult，增加OpenId字段
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs.OAuth2

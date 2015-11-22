@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Containers.Tests
 {
-    internal class TestContainerBag1:BaseContainerBag
+    internal class TestContainerBag1 : BaseContainerBag
     {
-        
+
     }
 
     internal class TestContainerBag2 : BaseContainerBag
@@ -18,7 +18,7 @@ namespace Senparc.Weixin.Containers.Tests
 
     }
 
-    internal class TestContainer1:BaseContainer<TestContainerBag1>
+    internal class TestContainer1 : BaseContainer<TestContainerBag1>
     {
     }
     internal class TestContainer2 : BaseContainer<TestContainerBag2>
@@ -37,8 +37,12 @@ namespace Senparc.Weixin.Containers.Tests
             Assert.IsNotNull(c2);
             var h1 = c1.GetHashCode();
             var h2 = c2.GetHashCode();
-            Assert.AreNotEqual(h2,h1);
-            Console.WriteLine("H1:{0}，H2{1}",h1,h2);
+
+            //如果为本地缓存策略，通常是一致的，如果是分布式缓存策略，通常不一样
+            Assert.AreEqual(h2, h1);
+
+
+            Console.WriteLine("H1:{0}，H2{1}", h1, h2);
         }
     }
 }

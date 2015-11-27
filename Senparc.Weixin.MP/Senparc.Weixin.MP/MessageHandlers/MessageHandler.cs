@@ -15,36 +15,25 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Context;
-using Senparc.Weixin.MP.Agent;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MessageHandlers;
 using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
 using Tencent;
 
-
 namespace Senparc.Weixin.MP.MessageHandlers
 {
-    public interface IMessageHandler : Weixin.MessageHandlers.IMessageHandler<IRequestMessageBase, IResponseMessageBase>
-    {
-        new IRequestMessageBase RequestMessage { get; set; }
-        new IResponseMessageBase ResponseMessage { get; set; }
-    }
-
     /// <summary>
     /// 微信请求的集中处理方法
     /// 此方法中所有过程，都基于Senparc.Weixin.MP的基础功能，只为简化代码而设。
     /// </summary>
-    public abstract class MessageHandler<TC> :
-        Weixin.MessageHandlers.MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IMessageHandler
+    public abstract partial class MessageHandler<TC> :
+        MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IMessageHandler
         where TC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         /// <summary>
@@ -109,7 +98,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
                 WXBizMsgCrypt msgCrype = new WXBizMsgCrypt(_postModel.Token, _postModel.EncodingAESKey, _postModel.AppId);
                 string finalResponseXml = null;
-                msgCrype.EncryptMsg(ResponseDocument.ToString().Replace("\r\n","\n")/* 替换\r\n是为了处理iphone设备上换行bug */, timeStamp, nonce, ref finalResponseXml);//TODO:这里官方的方法已经把EncryptResponseMessage对应的XML输出出来了
+                msgCrype.EncryptMsg(ResponseDocument.ToString().Replace("\r\n", "\n")/* 替换\r\n是为了处理iphone设备上换行bug */, timeStamp, nonce, ref finalResponseXml);//TODO:这里官方的方法已经把EncryptResponseMessage对应的XML输出出来了
 
                 return XDocument.Parse(finalResponseXml);
             }
@@ -206,7 +195,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
             DeveloperInfo = developerInfo;
 
             var postDataDocument = requestMessageBase.ConvertEntityToXml();
-            base.CommonInitialize(postDataDocument,maxRecordCount,postModel);
+            base.CommonInitialize(postDataDocument, maxRecordCount, postModel);
         }
 
 
@@ -275,6 +264,18 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
             return RequestMessage.CreateResponseMessage<TR>();
         }
+
+        //public ResponseMessageText CreateResponseMessageText(string content)
+        //{
+        //    if (RequestMessage == null)
+        //    {
+        //        return null;
+        //    }
+
+        //    var responseMessage = RequestMessage.CreateResponseMessage<ResponseMessageText>();
+        //    responseMessage.Content = content;
+        //    return responseMessage;
+        //}
 
         /// <summary>
         /// 执行微信请求
@@ -382,459 +383,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             base.OnExecuted();
         }
-
-        #region 接收消息方法
-
-        /// <summary>
-        /// 默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
-        /// </summary>
-        public abstract IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage);
-
-        //{
-        //    例如可以这样实现：
-        //    var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
-        //    responseMessage.Content = "您发送的消息类型暂未被识别。";
-        //    return responseMessage;
-        //}
-
-        /// <summary>
-        /// 预处理文字或事件类型请求。
-        /// 这个请求是一个比较特殊的请求，通常用于统一处理来自文字或菜单按钮的同一个执行逻辑，
-        /// 会在执行OnTextRequest或OnEventRequest之前触发，具有以下一些特征：
-        /// 1、如果返回null，则继续执行OnTextRequest或OnEventRequest
-        /// 2、如果返回不为null，则终止执行OnTextRequest或OnEventRequest，返回最终ResponseMessage
-        /// 3、如果是事件，则会将RequestMessageEvent自动转为RequestMessageText类型，其中RequestMessageText.Content就是RequestMessageEvent.EventKey
-        /// </summary>
-        public virtual IResponseMessageBase OnTextOrEventRequest(RequestMessageText requestMessage)
-        {
-            return null;
-        }
-
-        /// <summary>
-        /// 文字类型请求
-        /// </summary>
-        public virtual IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 位置类型请求
-        /// </summary>
-        public virtual IResponseMessageBase OnLocationRequest(RequestMessageLocation requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 图片类型请求
-        /// </summary>
-        public virtual IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 语音类型请求
-        /// </summary>
-        public virtual IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-
-        /// <summary>
-        /// 视频类型请求
-        /// </summary>
-        public virtual IResponseMessageBase OnVideoRequest(RequestMessageVideo requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-
-        /// <summary>
-        /// 链接消息类型请求
-        /// </summary>
-        public virtual IResponseMessageBase OnLinkRequest(RequestMessageLink requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 小视频类型请求
-        /// </summary>
-        public virtual IResponseMessageBase OnShortVideoRequest(RequestMessageShortVideo requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// Event事件类型请求
-        /// </summary>
-        public virtual IResponseMessageBase OnEventRequest(IRequestMessageEventBase requestMessage)
-        {
-            var strongRequestMessage = RequestMessage as IRequestMessageEventBase;
-            IResponseMessageBase responseMessage = null;
-            switch (strongRequestMessage.Event)
-            {
-                case Event.ENTER:
-                    responseMessage = OnEvent_EnterRequest(RequestMessage as RequestMessageEvent_Enter);
-                    break;
-                case Event.LOCATION://自动发送的用户当前位置
-                    responseMessage = OnEvent_LocationRequest(RequestMessage as RequestMessageEvent_Location);
-                    break;
-                case Event.subscribe://订阅
-                    responseMessage = OnEvent_SubscribeRequest(RequestMessage as RequestMessageEvent_Subscribe);
-                    break;
-                case Event.unsubscribe://退订
-                    responseMessage = OnEvent_UnsubscribeRequest(RequestMessage as RequestMessageEvent_Unsubscribe);
-                    break;
-                case Event.CLICK://菜单点击
-                    responseMessage = OnEvent_ClickRequest(RequestMessage as RequestMessageEvent_Click);
-                    break;
-                case Event.scan://二维码
-                    responseMessage = OnEvent_ScanRequest(RequestMessage as RequestMessageEvent_Scan);
-                    break;
-                case Event.VIEW://URL跳转（view视图）
-                    responseMessage = OnEvent_ViewRequest(RequestMessage as RequestMessageEvent_View);
-                    break;
-                case Event.MASSSENDJOBFINISH://群发消息成功
-                    responseMessage = OnEvent_MassSendJobFinishRequest(RequestMessage as RequestMessageEvent_MassSendJobFinish);
-                    break;
-                case Event.TEMPLATESENDJOBFINISH://推送模板消息成功
-                    responseMessage = OnEvent_TemplateSendJobFinishRequest(RequestMessage as RequestMessageEvent_TemplateSendJobFinish);
-                    break;
-                case Event.pic_photo_or_album://弹出拍照或者相册发图
-                    responseMessage = OnEvent_PicPhotoOrAlbumRequest(RequestMessage as RequestMessageEvent_Pic_Photo_Or_Album);
-                    break;
-                case Event.scancode_push://扫码推事件
-                    responseMessage = OnEvent_ScancodePushRequest(RequestMessage as RequestMessageEvent_Scancode_Push);
-                    break;
-                case Event.scancode_waitmsg://扫码推事件且弹出“消息接收中”提示框
-                    responseMessage = OnEvent_ScancodeWaitmsgRequest(RequestMessage as RequestMessageEvent_Scancode_Waitmsg);
-                    break;
-                case Event.location_select://弹出地理位置选择器
-                    responseMessage = OnEvent_LocationSelectRequest(RequestMessage as RequestMessageEvent_Location_Select);
-                    break;
-                case Event.pic_weixin://弹出微信相册发图器
-                    responseMessage = OnEvent_PicWeixinRequest(RequestMessage as RequestMessageEvent_Pic_Weixin);
-                    break;
-                case Event.pic_sysphoto://弹出系统拍照发图
-                    responseMessage = OnEvent_PicSysphotoRequest(RequestMessage as RequestMessageEvent_Pic_Sysphoto);
-                    break;
-                case Event.card_pass_check://卡券通过审核
-                    responseMessage = OnEvent_Card_Pass_CheckRequest(RequestMessage as RequestMessageEvent_Card_Pass_Check);
-                    break;
-                case Event.card_not_pass_check://卡券未通过审核
-                    responseMessage = OnEvent_Card_Not_Pass_CheckRequest(RequestMessage as RequestMessageEvent_Card_Not_Pass_Check);
-                    break;
-                case Event.user_get_card://领取卡券
-                    responseMessage = OnEvent_User_Get_CardRequest(RequestMessage as RequestMessageEvent_User_Get_Card);
-                    break;
-                case Event.user_del_card://删除卡券
-                    responseMessage = OnEvent_User_Del_CardRequest(RequestMessage as RequestMessageEvent_User_Del_Card);
-                    break;
-                case Event.kf_create_session://多客服接入会话
-                    responseMessage = OnEvent_Kf_Create_SessionRequest(RequestMessage as RequestMessageEvent_Kf_Create_Session);
-                    break;
-                case Event.kf_close_session://多客服关闭会话
-                    responseMessage = OnEvent_Kf_Close_SessionRequest(RequestMessage as RequestMessageEvent_Kf_Close_Session);
-                    break;
-                case Event.kf_switch_session://多客服转接会话
-                    responseMessage = OnEvent_Kf_Switch_SessionRequest(RequestMessage as RequestMessageEvent_Kf_Switch_Session);
-                    break;
-                case Event.poi_check_notify://审核结果事件推送
-                    responseMessage = OnEvent_Poi_Check_NotifyRequest(RequestMessage as RequestMessageEvent_Poi_Check_Notify);
-                    break;
-                case Event.WifiConnected://Wi-Fi连网成功
-                    responseMessage = OnEvent_WifiConnected(RequestMessage as RequestMessageEvent_WifiConnected);
-                    break;
-                case Event.user_consume_card://卡券核销
-                    responseMessage = OnEvent_User_Consume_Card(RequestMessage as RequestMessageEvent_User_Consume_Card);
-                    break;
-                case Event.user_enter_session_from_card://从卡券进入公众号会话
-                    responseMessage = OnEvent_User_Enter_Session_From_Card(RequestMessage as RequestMessageEvent_User_Enter_Session_From_Card);
-                    break;
-                case Event.user_view_card://进入会员卡
-                    responseMessage = OnEvent_User_View_Card(RequestMessage as RequestMessageEvent_User_View_Card);
-                    break;
-                case Event.merchant_order://微小店订单付款通知
-                    responseMessage = OnEvent_Merchant_Order(RequestMessage as RequestMessageEvent_Merchant_Order);
-                    break;
-                case Event.submit_membercard_user_info://接收会员信息事件通知
-                    responseMessage = OnEvent_Submit_Membercard_User_Info(RequestMessage as RequestMessageEvent_Submit_Membercard_User_Info);
-                    break;
-                case Event.ShakearoundUserShake://摇一摇事件通知
-                    responseMessage = OnEvent_ShakearoundUserShake(RequestMessage as RequestMessageEvent_ShakearoundUserShake);
-                    break;
-                default:
-                    throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
-            }
-            return responseMessage;
-        }
-
-        #region Event 下属分类
-
-        /// <summary>
-        /// Event事件类型请求之ENTER
-        /// </summary>
-        public virtual IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// Event事件类型请求之LOCATION
-        /// </summary>
-        public virtual IResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// Event事件类型请求之subscribe
-        /// </summary>
-        public virtual IResponseMessageBase OnEvent_SubscribeRequest(RequestMessageEvent_Subscribe requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// Event事件类型请求之unsubscribe
-        /// </summary>
-        public virtual IResponseMessageBase OnEvent_UnsubscribeRequest(RequestMessageEvent_Unsubscribe requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// Event事件类型请求之CLICK
-        /// </summary>
-        public virtual IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// Event事件类型请求之scan
-        /// </summary>
-        public virtual IResponseMessageBase OnEvent_ScanRequest(RequestMessageEvent_Scan requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 事件之URL跳转视图（View）
-        /// </summary>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_ViewRequest(RequestMessageEvent_View requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 事件推送群发结果
-        /// </summary>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_MassSendJobFinishRequest(RequestMessageEvent_MassSendJobFinish requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-
-        /// <summary>
-        /// 发送模板消息返回结果
-        /// </summary>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_TemplateSendJobFinishRequest(RequestMessageEvent_TemplateSendJobFinish requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 弹出拍照或者相册发图
-        /// </summary>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_PicPhotoOrAlbumRequest(RequestMessageEvent_Pic_Photo_Or_Album requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 扫码推事件
-        /// </summary>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_ScancodePushRequest(RequestMessageEvent_Scancode_Push requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 扫码推事件且弹出“消息接收中”提示框
-        /// </summary>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_ScancodeWaitmsgRequest(RequestMessageEvent_Scancode_Waitmsg requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 弹出地理位置选择器
-        /// </summary>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_LocationSelectRequest(RequestMessageEvent_Location_Select requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 弹出微信相册发图器
-        /// </summary>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_PicWeixinRequest(RequestMessageEvent_Pic_Weixin requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 弹出系统拍照发图
-        /// </summary>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_PicSysphotoRequest(RequestMessageEvent_Pic_Sysphoto requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 卡券通过审核
-        /// </summary>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_Card_Pass_CheckRequest(RequestMessageEvent_Card_Pass_Check requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 卡券未通过审核
-        /// </summary>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_Card_Not_Pass_CheckRequest(RequestMessageEvent_Card_Not_Pass_Check requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 领取卡券
-        /// </summary>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_User_Get_CardRequest(RequestMessageEvent_User_Get_Card requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 删除卡券
-        /// </summary>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_User_Del_CardRequest(RequestMessageEvent_User_Del_Card requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 多客服接入会话
-        /// </summary>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_Kf_Create_SessionRequest(RequestMessageEvent_Kf_Create_Session requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 多客服关闭会话
-        /// </summary>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_Kf_Close_SessionRequest(RequestMessageEvent_Kf_Close_Session requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// 多客服转接会话
-        /// </summary>
-        /// <returns></returns>
-        public virtual IResponseMessageBase OnEvent_Kf_Switch_SessionRequest(RequestMessageEvent_Kf_Switch_Session requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// Event事件类型请求之审核结果事件推送
-        /// </summary>
-        public virtual IResponseMessageBase OnEvent_Poi_Check_NotifyRequest(RequestMessageEvent_Poi_Check_Notify requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// Event事件类型请求之Wi-Fi连网成功
-        /// </summary>
-        public virtual IResponseMessageBase OnEvent_WifiConnected(RequestMessageEvent_WifiConnected requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// Event事件类型请求之卡券核销
-        /// </summary>
-        public virtual IResponseMessageBase OnEvent_User_Consume_Card(RequestMessageEvent_User_Consume_Card requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// Event事件类型请求之从卡券进入公众号会话
-        /// </summary>
-        public virtual IResponseMessageBase OnEvent_User_Enter_Session_From_Card(RequestMessageEvent_User_Enter_Session_From_Card requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// Event事件类型请求之进入会员卡
-        /// </summary>
-        public virtual IResponseMessageBase OnEvent_User_View_Card(RequestMessageEvent_User_View_Card requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// Event事件类型请求之微小店订单付款通知
-        /// </summary>
-        public virtual IResponseMessageBase OnEvent_Merchant_Order(RequestMessageEvent_Merchant_Order requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// Event事件类型请求之接收会员信息事件通知
-        /// </summary>
-        public virtual IResponseMessageBase OnEvent_Submit_Membercard_User_Info(RequestMessageEvent_Submit_Membercard_User_Info requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        /// <summary>
-        /// Event事件类型请求之摇一摇事件通知
-        /// </summary>
-        public virtual IResponseMessageBase OnEvent_ShakearoundUserShake(RequestMessageEvent_ShakearoundUserShake requestMessage)
-        {
-            return DefaultResponseMessage(requestMessage);
-        }
-
-        #endregion
-
-        #endregion
 
     }
 }

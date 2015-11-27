@@ -12,14 +12,8 @@
     接口文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%99%BB%E5%BD%95%E6%8E%88%E6%9D%83%E6%B5%81%E7%A8%8B%E8%AF%B4%E6%98%8E
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.QY.AdvancedAPIs.LoginAuth;
 using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {

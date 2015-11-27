@@ -10,13 +10,12 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections;
+using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
-using System.Collections;
 //using System.Web;
-using System.Security.Cryptography;
+
 //-40001 ： 签名验证错误
 //-40002 :  xml解析失败
 //-40003 :  sha加密生成签名失败
@@ -195,7 +194,7 @@ namespace Tencent
             return 0;
         }
 
-        public class DictionarySort : System.Collections.IComparer
+        public class DictionarySort : IComparer
         {
             public int Compare(object oLeft, object oRight)
             {

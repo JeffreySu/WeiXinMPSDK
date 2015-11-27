@@ -10,7 +10,6 @@
 
 using System;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP;
 
 namespace Senparc.Weixin.MP.AppStore.Api
 {

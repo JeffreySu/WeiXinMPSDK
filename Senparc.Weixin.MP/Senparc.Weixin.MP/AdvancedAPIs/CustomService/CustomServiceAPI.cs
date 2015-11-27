@@ -23,13 +23,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.CustomService;
 using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -44,7 +42,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <param name="startTime">查询开始时间，会自动转为UNIX时间戳</param>
         /// <param name="endTime">查询结束时间，会自动转为UNIX时间戳，每次查询不能跨日查询</param>
-        /// <param name="openId">（非必须）普通用户的标识，对当前公众号唯一</param>
         /// <param name="pageSize">每页大小，每页最多拉取1000条</param>
         /// <param name="pageIndex">查询第几页，从1开始</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -71,7 +68,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     starttime = DateTimeHelper.GetWeixinDateTime(startTime),
                     endtime = DateTimeHelper.GetWeixinDateTime(endTime),
                     pagesize = pageSize,
-                    pageIndex = pageIndex
+                    pageindex = pageIndex
                 };
 
                 return CommonJsonSend.Send<GetRecordResult>(accessToken, urlFormat, data, timeOut: timeOut);
@@ -189,7 +186,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var url = string.Format("http://api.weixin.qq.com/customservice/kfaccount/uploadheadimg?access_token={0}&kf_account={1}", accessToken, kfAccount);
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
-                return HttpUtility.Post.PostFileGetJson<WxJsonResult>(url, null, fileDictionary, null, timeOut: timeOut);
+                return Post.PostFileGetJson<WxJsonResult>(url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

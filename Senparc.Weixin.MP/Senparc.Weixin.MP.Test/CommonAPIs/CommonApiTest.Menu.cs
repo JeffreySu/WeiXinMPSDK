@@ -16,43 +16,48 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         {
             return;//已经通过测试
 
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             ButtonGroup bg = new ButtonGroup();
 
             //单击
             bg.button.Add(new SingleClickButton()
-                                {
-                                    name = "单击测试",
-                                    key = "OneClick",
-                                    type = ButtonType.click.ToString(),//默认已经设为此类型，这里只作为演示
-                                });
+            {
+                name = "单击测试",
+                key = "OneClick",
+                type = ButtonType.click.ToString(),//默认已经设为此类型，这里只作为演示
+            });
 
             //二级菜单
             var subButton = new SubButton()
-                                {
-                                    name = "二级菜单"
-                                };
+            {
+                name = "二级菜单"
+            };
             subButton.sub_button.Add(new SingleClickButton()
-                                        {
-                                            key = "SubClickRoot_Text",
-                                            name = "返回文本"
-                                        });
+            {
+                key = "SubClickRoot_Text",
+                name = "返回文本"
+            });
             subButton.sub_button.Add(new SingleClickButton()
-                                        {
-                                            key = "SubClickRoot_News",
-                                            name = "返回图文"
-                                        });
+            {
+                key = "SubClickRoot_News",
+                name = "返回图文"
+            });
             subButton.sub_button.Add(new SingleClickButton()
-                                        {
-                                            key = "SubClickRoot_Music",
-                                            name = "返回音乐"
-                                        });
+            {
+                key = "SubClickRoot_Music",
+                name = "返回音乐"
+            });
             subButton.sub_button.Add(new SingleViewButton()
-                                        {
-                                            url = "http://weixin.senparc.com",
-                                            name = "Url跳转"
-                                        });
+            {
+                url = "http://weixin.senparc.com",
+                name = "Url跳转"
+            });
+            subButton.sub_button.Add(new SingleLocationSelectButton()
+            {
+                key = "SingleLocationSelectButton",
+                name = "位置",
+            });
             bg.button.Add(subButton);
 
 
@@ -66,8 +71,8 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         [TestMethod]
         public void GetMenuTest()
         {
-            return;//已经通过测试
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            //return;//已经通过测试
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = CommonApi.GetMenu(accessToken);
 
@@ -81,7 +86,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         {
             return;//已经通过测试，删除之后，GetMenu将返回null
 
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = CommonApi.DeleteMenu(accessToken);
             Assert.IsNotNull(result);

@@ -125,6 +125,7 @@
 .wrapper {
 	width:1000px;
 	margin:0 auto;
+    overflow: hidden;
 }
 .weixin-item {
 	/*float:left;
@@ -210,9 +211,11 @@
 	padding-bottom:20px;
 }
 .feedback {
-	height:290px;
+	/*height:290px;*/
 	background:#EDF0F0;
 	padding-top:40px;
+    padding-bottom: 40px;
+    overflow:hidden;
 }
 .feedback-info {
 	width:60%;
@@ -235,6 +238,9 @@
 	line-height:30px;
 	font-size:16px;
 	letter-spacing:1px;
+}
+.feedback-action img {
+    width: 184px;
 }
 .footer {
 	background:#0A9CD2;
@@ -374,3 +380,6 @@ line-height: 22px;}
 
 .line { width: 96%;margin: 0 auto;height: 0px;overflow: hidden;border-bottom: 1px solid #ddd;}
 .currentTestItem{ background: #ddd;}
+
+.segregate{ height: 0px;width: 90%;margin: 40px auto;     border-bottom: 1px solid #ddd;overflow: hidden;clear: both;}
+.crowdfunding-note p{ font-size: 16px; }

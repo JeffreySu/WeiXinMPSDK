@@ -18,7 +18,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void CreateTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = GroupsApi.Create(accessToken, "测试组");
             Assert.IsNotNull(result);
@@ -28,7 +28,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = GroupsApi.Get(accessToken);
             Assert.IsNotNull(result);
@@ -38,7 +38,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetIdTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = GroupsApi.GetId(accessToken, _testOpenId);
             Assert.IsNotNull(result);
@@ -48,7 +48,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void UpdateTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = GroupsApi.Update(accessToken, 100, "测试组更新");
             Assert.IsNotNull(result);
@@ -58,7 +58,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void MemberUpdateTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var idArr = new[] { 0, 1, 2, 100, 0 };
             foreach (var id in idArr)

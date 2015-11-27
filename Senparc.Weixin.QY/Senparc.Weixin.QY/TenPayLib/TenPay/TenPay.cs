@@ -12,12 +12,9 @@
     官方API：https://pay.weixin.qq.com/wiki/doc/api/mch_pay.php?chapter=14_2
  */
 
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
+using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
@@ -41,7 +38,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
         }
 
         /// <summary>
@@ -58,7 +55,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
         }
     }
 }

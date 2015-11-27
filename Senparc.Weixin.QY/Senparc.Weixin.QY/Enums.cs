@@ -14,11 +14,6 @@
     修改描述：添加 事件 异步任务完成事件推送 枚举类型
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Senparc.Weixin.QY
 {
     /// <summary>

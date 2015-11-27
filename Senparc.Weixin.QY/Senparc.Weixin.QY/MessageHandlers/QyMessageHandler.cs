@@ -15,21 +15,18 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MessageHandlers;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Helpers;
 using Tencent;
 
 namespace Senparc.Weixin.QY.MessageHandlers
 {
-    public interface IQyMessageHandler : Weixin.MessageHandlers.IMessageHandler<IRequestMessageBase, IResponseMessageBase>
+    public interface IQyMessageHandler : IMessageHandler<IRequestMessageBase, IResponseMessageBase>
     {
         /// <summary>
         /// 原始加密信息
@@ -39,13 +36,13 @@ namespace Senparc.Weixin.QY.MessageHandlers
         new IResponseMessageBase ResponseMessage { get; set; }
     }
 
-    public abstract class QyMessageHandler<TC> : Weixin.MessageHandlers.MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IQyMessageHandler
+    public abstract class QyMessageHandler<TC> : MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IQyMessageHandler
         where TC : class ,IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         /// <summary>
         /// 上下文（仅限于当前MessageHandler基类内）
         /// </summary>
-        public static WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new Context.WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>();
+        public static WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>();
 
         /// <summary>
         /// 全局消息上下文

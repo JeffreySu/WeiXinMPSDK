@@ -38,7 +38,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return RequestUtility.HttpPost(urlFormat, null, ms,null,null,null , timeOut);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return RequestUtility.HttpPost(urlFormat, null, ms, null ,null ,  null ,timeOut);
         }
     }
 }

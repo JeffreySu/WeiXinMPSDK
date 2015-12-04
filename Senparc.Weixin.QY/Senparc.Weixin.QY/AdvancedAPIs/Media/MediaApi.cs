@@ -48,6 +48,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             fileDictionary["media"] = media;
             return Post.PostFileGetJson<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, timeOut);
         }
+        public static UploadTemporaryResultJson Upload(string accessToken, UploadMediaFileType type, byte[] media, string filename, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken, type.ToString());
+            return Post.PostFileGetJson<UploadTemporaryResultJson>(url, null,media ,filename , null, null, timeOut);
+        }
 
         /// <summary>
         /// 获取临时媒体文件

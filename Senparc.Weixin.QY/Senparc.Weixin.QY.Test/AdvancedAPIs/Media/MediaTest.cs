@@ -37,16 +37,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
             return result.media_id;
         }
-        [TestMethod]
-        public void  UploadBinaryTest()
-        {
-        
-            var accessToken = AccessTokenContainer.GetToken(_corpId);
-            var result = MediaApi.Upload(accessToken, UploadMediaFileType.image,Properties.Resources.thT6TD9ZSR_jpg, "thT6TD9ZSR.jpg");
-            Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
-            
-        }
+
         [TestMethod]
         public void GetImageTest()
         {

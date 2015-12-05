@@ -63,8 +63,6 @@ namespace Senparc.Weixin.HttpUtility
             return result;
         }
 
- 
-
 
         #region 同步方法
 
@@ -85,17 +83,6 @@ namespace Senparc.Weixin.HttpUtility
             {
                 postDataDictionary.FillFormDataStream(ms); //填充formData
                 string returnText = RequestUtility.HttpPost(url, cookieContainer, ms, fileDictionary, null, encoding, timeOut: timeOut);
-                var result = GetResult<T>(returnText);
-                return result;
-            }
-        }
-        public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null,  byte[] media = null, string filename=null ,Dictionary < string, string> postDataDictionary = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
-        {
-        
-            using (MemoryStream ms = new MemoryStream())
-            {
-                postDataDictionary.FillFormDataStream(ms);
-                string returnText = RequestUtility.HttpPost(url, cookieContainer, ms,media , filename, null, encoding, timeOut: timeOut);
                 var result = GetResult<T>(returnText);
                 return result;
             }

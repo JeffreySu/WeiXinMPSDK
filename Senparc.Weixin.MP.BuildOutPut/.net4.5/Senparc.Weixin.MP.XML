@@ -8410,6 +8410,11 @@
             事件类型
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.Entities.RequestMessageEventBase">
+            <summary>
+            请求消息的事件推送消息基类
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEventBase.Event">
             <summary>
             事件类型

@@ -2955,13 +2955,6 @@
             <param name="xml">返回给服务器的Response Xml</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.SetParameter(System.String,System.String)">
-            <summary>
-            设置参数值
-            </summary>
-            <param name="parameter"></param>
-            <param name="parameterValue"></param>
-        </member>
         <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.GetNoncestr">
             <summary>
             获取随机字符串
@@ -2974,20 +2967,14 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.CreateSha1">
-            <summary>
-            sha1加密
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.GetSignature(System.String,System.String,System.String,System.String)">
+        <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.GetSignature(System.String,System.String,System.Int64,System.String)">
             <summary>
             获取JS-SDK权限验证的签名Signature
             </summary>
-            <param name="ticket"></param>
-            <param name="noncestr"></param>
-            <param name="timestamp"></param>
-            <param name="url"></param>
+            <param name="jsapi_ticket">jsapi_ticket</param>
+            <param name="noncestr">随机字符串(必须与wx.config中的nonceStr相同)</param>
+            <param name="timestamp">时间戳(必须与wx.config中的timestamp相同)</param>
+            <param name="url">当前网页的URL，不包含#及其后面部分(必须是调用JS接口页面的完整URL)</param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.QY.Helpers.MD5UtilHelper">

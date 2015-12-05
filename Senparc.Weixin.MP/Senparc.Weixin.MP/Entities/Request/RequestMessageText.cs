@@ -13,7 +13,7 @@
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public class RequestMessageText : RequestMessageBase,IRequestMessageBase
+    public class RequestMessageText : RequestMessageBase, IRequestMessageBase
     {
         public override RequestMsgType MsgType
         {

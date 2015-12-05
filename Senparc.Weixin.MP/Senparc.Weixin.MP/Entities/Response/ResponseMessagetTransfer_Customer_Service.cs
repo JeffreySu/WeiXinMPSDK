@@ -15,6 +15,9 @@ using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.Entities
 {
+    /// <summary>
+    /// 响应回复多客服消息
+    /// </summary>
 	public class ResponseMessageTransfer_Customer_Service : ResponseMessageBase, IResponseMessageBase
 	{
 		public ResponseMessageTransfer_Customer_Service()

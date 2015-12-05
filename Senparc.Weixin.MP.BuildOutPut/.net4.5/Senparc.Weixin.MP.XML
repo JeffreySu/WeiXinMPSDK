@@ -9575,6 +9575,11 @@
             微微嗨开发者信息
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.OmitRepeatedMessageFunc">
+            <summary>
+            动态去重判断委托，仅当返回值为false时，不使用消息去重功能
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MP.MessageHandlers.MessageHandler`1.#ctor(System.IO.Stream,Senparc.Weixin.MP.Entities.Request.PostModel,System.Int32,Senparc.Weixin.MP.AppStore.DeveloperInfo)">
             <summary>
             构造MessageHandler

@@ -64,6 +64,17 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             {
                 appId = postModel.AppId;//通过第三方开放平台发送过来的请求
             }
+
+            //在制定条件下，不使用消息去重
+            this.OmitRepeatedMessageFunc = requestMessage =>
+            {
+                var textRequestMessage = requestMessage as RequestMessageText;
+                if (textRequestMessage != null && textRequestMessage.Content=="容错")
+                {
+                    return false;
+                }
+                return true;
+            };
         }
 
         public override void OnExecuting()

@@ -12,6 +12,9 @@
     
     修改标识：Senparc - 20150327
     修改描述：添加接收小视频消息方法
+
+    修改标识：Senparc - 20151205
+    修改描述：v13.4.5 提供OmitRepeatedMessageFunc方法增强消息去重灵活性
 ----------------------------------------------------------------*/
 
 using System;
@@ -153,6 +156,12 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 微微嗨开发者信息
         /// </summary>
         public DeveloperInfo DeveloperInfo { get; set; }
+
+
+        /// <summary>
+        /// 动态去重判断委托，仅当返回值为false时，不使用消息去重功能
+        /// </summary>
+        public Func<IRequestMessageBase, bool> OmitRepeatedMessageFunc = null;
 
         /// <summary>
         /// 构造MessageHandler
@@ -356,7 +365,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public virtual void OnExecuting()
         {
             //消息去重
-            if (OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1)
+            if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true) && OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1)
             {
                 var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 2];
                 if ((lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)//使用MsgId去重

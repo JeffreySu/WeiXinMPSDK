@@ -13,6 +13,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.Configuration;
 using Senparc.Weixin.MP.Agent;
@@ -202,6 +203,19 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     Url = "http://weixin.senparc.com/OpenOAuth/JumpToMpOAuth"
                 });
                 return openResponseMessage;
+            }else if (requestMessage.Content == "错误")
+            {
+                var errorResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
+                //因为没有设置errorResponseMessage.Content，所以这小消息将无法正确返回。
+                return errorResponseMessage;
+            }
+            else if (requestMessage.Content == "容错")
+            {
+                Thread.Sleep(1500);//故意延时1.5秒，让微信多次发送消息过来，观察返回结果
+                var faultTolerantResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
+                faultTolerantResponseMessage.Content = string.Format("测试容错，MsgId：{0}，Ticks：{1}", requestMessage.MsgId,
+                    DateTime.Now.Ticks);
+                return faultTolerantResponseMessage;
             }
             else
             {

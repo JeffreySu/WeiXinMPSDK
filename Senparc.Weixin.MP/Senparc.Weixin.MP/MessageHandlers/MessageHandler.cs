@@ -365,7 +365,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public virtual void OnExecuting()
         {
             //消息去重
-            if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true) && OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1)
+            if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true) 
+                && OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1
+                //&& !(RequestMessage is RequestMessageEvent_Merchant_Order)批量订单的MsgId可能会相同
+                )
             {
                 var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 2];
                 if ((lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)//使用MsgId去重

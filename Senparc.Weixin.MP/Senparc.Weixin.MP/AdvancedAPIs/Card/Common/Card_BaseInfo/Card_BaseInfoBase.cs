@@ -160,11 +160,58 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public string promotion_url_sub_title { get; set; }
-        /// <summary>
-        /// 积分余额变动消息类型
-        /// </summary>
-        public Modify_Msg_Operation modify_msg_operation { get; set; }
+     
     }
+
+    /// <summary>
+    /// 朋友的券数据
+    /// </summary>
+    public class Card_AdvanceInfoBase 
+    {
+        public Card_AdvanceInfoBase() 
+        {
+            @abstract = new AbstractData();
+            text_image_list = new List<TextImageData>();
+            time_limit = new List<TimeLimitData>();
+            consume_share_card_list = new List<ShareCardListData>();
+        }
+
+        /// <summary>
+        /// 优惠详情摘要
+        /// </summary>
+        public AbstractData @abstract { get; set; }
+
+        /// <summary>
+        /// 图文列表
+        /// </summary>
+        public List<TextImageData> text_image_list { get; set; }
+
+        /// <summary>
+        /// 使用时段限制
+        /// </summary>
+        public List<TimeLimitData> time_limit { get; set; }
+
+        /// <summary>
+        /// 商家服务类型
+        /// </summary>
+        public string[] business_service { get; set; }
+
+        /// <summary>
+        /// 核销后送券的数量，可设置核销后送本卡券的数量，限制传入1张，与consume_share_card_list字段互斥
+        /// </summary>
+        public int consume_share_self_num { get; set; }
+
+        /// <summary>
+        /// 核销后赠送其他卡券的列表，与consume_share_self_num字段互斥
+        /// </summary>
+        public List<ShareCardListData> consume_share_card_list { get; set; }
+
+        /// <summary>
+        /// 是否支持分享给朋友使用，填写true优惠券才可被共享
+        /// </summary>
+        public bool share_friends { get; set; }
+    }
+
     public class Modify_Msg_Operation
     {
         /// <summary>
@@ -201,5 +248,52 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 跳转链接
         /// </summary>
         public string url { get; set; }
+    }
+
+    public class AbstractData
+    {
+        /// <summary>
+        /// 简介
+        /// </summary>
+        public string @abstract { get; set; }
+
+        /// <summary>
+        /// 封面图片列表
+        /// </summary>
+        public string[] icon_url_list { get; set; }
+    }
+
+    public class TextImageData 
+    {
+        /// <summary>
+        /// 图片链接
+        /// </summary>
+        public string image_url { get; set; }
+
+        /// <summary>
+        /// 图文描述
+        /// </summary>
+        public string text { get; set; }
+    }
+
+    public class TimeLimitData 
+    {
+        /// <summary>
+        /// 限制类型
+        /// </summary>
+        public string type { get; set; }
+    }
+
+    public class ShareCardListData 
+    {
+        /// <summary>
+        /// 核销后赠送的其他卡券cardid，目前仅支持填入一个共享券cardid，此处必须填入共享券
+        /// </summary>
+        public string cardid { get; set; }
+
+        /// <summary>
+        /// 核销后赠送的该cardid数目，目前仅支持填1
+        /// </summary>
+        public int num { get; set; }
     }
 }

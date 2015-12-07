@@ -24,7 +24,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 brand_name = "海底捞",
                 code_type = Card_CodeType.CODE_TYPE_TEXT,
                 title = "132 元双人火锅套餐",
-                sub_title = "",
+                sub_title = "周末狂欢必备",
                 color = "Color010",
                 notice = "使用时向服务员出示此券",
                 service_phone = "020-88888888",
@@ -33,7 +33,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 数须另收酱料费5 元/位\n 本单谢绝自带酒水饮料",
                 date_info = new Card_BaseInfo_DateInfo()
                 {
-                    type = "DATE_TYPE_FIX_TIME_RANGE",
+                    type = Card_DateInfo_Type.DATE_TYPE_FIX_TIME_RANGE.ToString(),
                     begin_timestamp = DateTimeHelper.GetWeixinDateTime(DateTime.Now),
                     end_timestamp = DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddDays(10)),
                 },
@@ -49,13 +49,17 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 can_give_friend = true,
                 //url_name_type = Card_UrlNameType.URL_NAME_TYPE_RESERVATION,
                 custom_url = "http://www.weiweihi.com",
-                source = "大众点评"
+                source = "大众点评",
+                custom_url_name = "立即使用",
+                custom_url_sub_title = "6个汉字tips",
+                promotion_url_name = "更多优惠",
+                promotion_url = "http://www.qq.com",
             };
 
         [TestMethod]
         public void CreateCardTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var data = new Card_GrouponData()
                 {
                     base_info = _BaseInfo,
@@ -73,7 +77,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 reduce_cost = 11
             };
             var result3 = CardApi.CreateCard(accessToken, data3);
-            Console.Write(result3);
+            Console.WriteLine(result3);
             Assert.IsNotNull(result3);
 
             var data2 = new Card_MeetingTicketData()
@@ -82,15 +86,16 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                     //map_url = "http://localhost:18666/images/v2/logo%20.png",
                     meeting_detail = "测试asdsasdsasdsa"
                 };
+
             var result2 = CardApi.CreateCard(accessToken, data2);
-            Console.Write(result2);
             Assert.IsNotNull(result2);
+            Console.WriteLine(result2.errmsg);
         }
 
         //[TestMethod]
         public List<string> CardBatchGetTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = CardApi.CardBatchGet(accessToken, 0, 5);
             Console.Write(result);
@@ -101,7 +106,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void CreateQRTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var cardIdList = CardBatchGetTest();
             var cardId = cardIdList.FirstOrDefault();
@@ -111,22 +116,22 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Assert.IsNotNull(result);
         }
 
-        [TestMethod]
-        public void GetColorsTest()
-        {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+        //[TestMethod]
+        //public void GetColorsTest()
+        //{
+        //    var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
-            var result = CardApi.GetColors(accessToken);
-            Console.Write(result);
-            Assert.IsNotNull(result);
-        }
+        //    var result = CardApi.GetColors(accessToken);
+        //    Console.Write(result);
+        //    Assert.IsNotNull(result);
+        //}
 
         [TestMethod]
         public void CardDetailGet()
         {
             string cardId = "p3IHxjt-CLCTd_r3eZ9cQqM7jrZE";    //换成你的卡券Id
 
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = CardApi.CardDetailGet(accessToken, cardId);
             Console.Write(result);
@@ -149,7 +154,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         //[TestMethod]
         //public void StoreBatchAddTest()
         //{
-        //    var accessToken = AccessTokenContainer.GetToken(_appId);
+        //    var accessToken = AccessTokenContainer.GetAccessToken(_appId);
         //    var data = new StoreLocationData()
         //    {
         //        location_list = new List<Store_Location>()
@@ -166,7 +171,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         //[TestMethod]
         //public void BatchGetTest()
         //{
-        //    var accessToken = AccessTokenContainer.GetToken(_appId);
+        //    var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
         //    var result = CardApi.BatchGet(accessToken, 0, 5);
         //    Assert.IsNotNull(result);
@@ -178,7 +183,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         //{
         //    string file = @"E:\1.jpg";
 
-        //    var accessToken = AccessTokenContainer.GetToken(_appId);
+        //    var accessToken = AccessTokenContainer.GetAccessToken(_appId);
         //    var result = CardApi.UploadLogo(accessToken, file);
         //    Assert.IsNotNull(result);
         //    Assert.AreEqual(result.errcode, ReturnCode.请求成功);

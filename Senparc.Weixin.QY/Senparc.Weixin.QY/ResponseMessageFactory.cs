@@ -12,18 +12,14 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Helpers;
 
 namespace Senparc.Weixin.QY
 {
-    using Senparc.Weixin.QY.Entities;
-
-   public static class ResponseMessageFactory
+    public static class ResponseMessageFactory
     {
 
         /// <summary>

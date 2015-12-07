@@ -12,9 +12,6 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
@@ -22,7 +19,7 @@ using Senparc.Weixin.QY.Helpers;
 
 namespace Senparc.Weixin.QY.Entities
 {
-	public interface IResponseMessageBase : Senparc.Weixin.Entities.IResponseMessageBase, IMessageBase
+	public interface IResponseMessageBase : Weixin.Entities.IResponseMessageBase, IMessageBase
 	{
 		ResponseMsgType MsgType { get; }
 		//string Content { get; set; }
@@ -158,5 +155,10 @@ namespace Senparc.Weixin.QY.Entities
 				throw new WeixinException("ResponseMessageBase.CreateFromResponseXml<T>过程发生异常！" + ex.Message, ex);
 			}
 		}
-	}
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
+    }
 }

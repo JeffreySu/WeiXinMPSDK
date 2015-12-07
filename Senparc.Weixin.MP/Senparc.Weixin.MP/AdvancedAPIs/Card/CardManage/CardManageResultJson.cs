@@ -11,10 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
@@ -114,6 +111,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         public string code { get; set; }
         public string card_id { get; set; }
     }
+
     /// <summary>
     /// 更新会员信息返回结果
     /// </summary>
@@ -132,6 +130,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public string openid { get; set; }
     }
+
     /// <summary>
     /// 图文消息群发卡券返回结果
     /// </summary>

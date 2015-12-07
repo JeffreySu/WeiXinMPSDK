@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <AssemblyName>Senparc.Weixin</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -49,12 +49,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache\CacheStrategyFactory.cs" />
+    <Compile Include="Cache\CacheStrategy\IBaseCacheStrategy.cs" />
+    <Compile Include="Cache\ContainerCacheStragegy\IContainerCacheStragegy.cs" />
+    <Compile Include="Cache\ContainerCacheStragegy\LocalContainerCacheStrategy.cs" />
+    <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Containers\BaseContainer.cs" />
+    <Compile Include="Containers\BaseContainerBag.cs" />
     <Compile Include="Context\MessageContainer.cs" />
     <Compile Include="Context\MessageContext.cs" />
     <Compile Include="Context\MessageQueue.cs" />
     <Compile Include="Context\WeixinContext.cs" />
     <Compile Include="Context\WeixinContextRemovedEventArgs.cs" />
+    <Compile Include="Entities\EntityBase.cs" />
+    <Compile Include="Entities\JsonResult\QyJsonResult.cs" />
     <Compile Include="Entities\MessageBase.cs">
       <SubType>
       </SubType>
@@ -66,7 +75,10 @@
     <Compile Include="Exceptions\UnknownRequestMsgTypeException.cs" />
     <Compile Include="Exceptions\WeixinException.cs" />
     <Compile Include="Exceptions\WeixinMenuException.cs" />
+    <Compile Include="Helpers\Conventers\ExpandoJsonConverter.cs" />
+    <Compile Include="Helpers\Conventers\WeixinJsonConventer.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
+    <Compile Include="Helpers\Extensions\IDictionaryExtensions.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\SerializerHelper.cs" />
     <Compile Include="Utilities\BrowserUtility\BroswerUtility.cs" />
@@ -83,9 +95,7 @@
     <Compile Include="Entities\Request\RequestMessageBase.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Utilities\StreamUtility\StreamUtility.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="WeixinTrace.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

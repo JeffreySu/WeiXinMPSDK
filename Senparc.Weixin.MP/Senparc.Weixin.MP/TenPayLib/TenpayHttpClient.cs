@@ -12,23 +12,12 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using System.Net;
-using System.Security.Cryptography.X509Certificates;
 using System.Net.Security;
-
-
-using System.Collections;
-using System.Configuration;
-using System.Data;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Text.RegularExpressions;
 
 /**
  * http、https通信类
@@ -230,7 +219,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                 string postData = null;
                 if (this.Method.ToUpper() == "POST")
                 {
-                    string[] sArray = System.Text.RegularExpressions.Regex.Split(this.ReqContent, "\\?");
+                    string[] sArray = Regex.Split(this.ReqContent, "\\?");
 
                     hp = (HttpWebRequest)WebRequest.Create(sArray[0]);
 
@@ -246,14 +235,14 @@ namespace Senparc.Weixin.MP.TenPayLib
                 }
 
 
-                ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(CheckValidationResult);
+                ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
                 if (this.CertFile != "")
                 {
-                    hp.ClientCertificates.Add(new X509Certificate2(this.CertFile, this.CertPasswd, X509KeyStorageFlags.MachineKeySet));
+                    hp.ClientCertificates.Add(new X509Certificate2(this.CertFile, this.CertPasswd));
                 }
                 hp.Timeout = this.TimeOut * 1000;
 
-                System.Text.Encoding encoding = System.Text.Encoding.GetEncoding(this.Charset);
+                Encoding encoding = Encoding.GetEncoding(this.Charset);
                 if (postData != null)
                 {
                     byte[] data = encoding.GetBytes(postData);

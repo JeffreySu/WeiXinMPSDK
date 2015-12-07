@@ -11,12 +11,8 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.Entities.Menu;
 
 namespace Senparc.Weixin.MP
 {

@@ -20,6 +20,7 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
@@ -40,6 +41,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// </summary>
     public class AccessTokenContainer
     {
+        static string accessTokenCollection = "AccessTokenCollection-{0}";
         static Dictionary<string, AccessTokenBag> AccessTokenCollection =
            new Dictionary<string, AccessTokenBag>(StringComparer.OrdinalIgnoreCase);
 
@@ -48,8 +50,11 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
-        public static void Register(string appId, string appSecret)
+        public static void Register(string appId, string appSecret, string connectString = "")
         {
+            if (AccessTokenCollection == null)
+                AccessTokenCollection = new Dictionary<string, AccessTokenBag>(StringComparer.OrdinalIgnoreCase);
+
             AccessTokenCollection[appId] = new AccessTokenBag()
             {
                 AppId = appId,
@@ -57,6 +62,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 ExpireTime = DateTime.MinValue,
                 AccessTokenResult = new AccessTokenResult()
             };
+
+            if (!string.IsNullOrEmpty(connectString))
+                RedisCacheManager.RedisCacheManagerInint(connectString);
         }
 
         /// <summary>
@@ -66,13 +74,13 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appSecret"></param>
         /// <param name="getNewToken"></param>
         /// <returns></returns>
-        public static string TryGetToken(string appId, string appSecret, bool getNewToken = false)
+        public static string TryGetAccessToken(string appId, string appSecret, bool getNewToken = false)
         {
             if (!CheckRegistered(appId) || getNewToken)
             {
                 Register(appId, appSecret);
             }
-            return GetToken(appId);
+            return GetAccessToken(appId);
         }
 
         /// <summary>
@@ -81,7 +89,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appId"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static string GetToken(string appId, bool getNewToken = false)
+        public static string GetAccessToken(string appId, bool getNewToken = false)
         {
             return GetTokenResult(appId, getNewToken).access_token;
         }
@@ -91,6 +99,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
+        /// <param name="connectionString"></param>
         /// <returns></returns>
         public static AccessTokenResult GetTokenResult(string appId, bool getNewToken = false)
         {
@@ -99,7 +108,13 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 throw new WeixinException("此appId尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var accessTokenBag = AccessTokenCollection[appId];
+            RedisCacheManager.RedisCacheOpenConnect();
+            string key = string.Format(accessTokenCollection, appId);
+            var accessTokenBag = RedisCacheManager.Get(key, () =>
+            {
+                return AccessTokenCollection[appId];
+            });
+
             lock (accessTokenBag.Lock)
             {
                 if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
@@ -107,8 +122,11 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     //已过期，重新获取
                     accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.AppId, accessTokenBag.AppSecret);
                     accessTokenBag.ExpireTime = DateTime.Now.AddSeconds(accessTokenBag.AccessTokenResult.expires_in);
+                    RedisCacheManager.Set(key, accessTokenBag, 120);
                 }
             }
+
+            //RedisCacheManager.Dispose();
             return accessTokenBag.AccessTokenResult;
         }
 
@@ -128,7 +146,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static string GetFirstOrDefaultAppId()
         {
-            return  AccessTokenCollection.Keys.FirstOrDefault();
+            return AccessTokenCollection.Keys.FirstOrDefault();
         }
     }
 }

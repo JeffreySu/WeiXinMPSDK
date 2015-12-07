@@ -14,11 +14,6 @@
     修改描述：添加会议门票类型
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Senparc.Weixin.MP.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -72,9 +67,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public string gift { get; set; }
 
+        public Card_AdvanceInfoBase advanced_info { get; set; }
+
         public Card_GiftData()
             : base(CardType.GIFT)
         {
+            advanced_info = new Card_AdvanceInfoBase();
         }
     }
 
@@ -93,10 +91,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 必填
         /// </summary>
         public decimal reduce_cost { get; set; }
+        public Card_AdvanceInfoBase advanced_info { get; set; }
 
         public Card_CashData()
             : base(CardType.CASH)
         {
+            advanced_info = new Card_AdvanceInfoBase();
         }
     }
 
@@ -200,6 +200,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public CustomCell custom_cell1 { get; set; }
+
+        /// <summary>
+        /// 积分余额变动消息类型
+        /// </summary>
+        public Modify_Msg_Operation modify_msg_operation { get; set; }
 
         public Card_MemberCardData()
             : base(CardType.MEMBER_CARD)

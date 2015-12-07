@@ -367,7 +367,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="count"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static SearchPages_Data_Page SearchPagesByRange(string accessTokenOrAppId, int begin, int count,
+        public static SearchPagesResultJson SearchPagesByRange(string accessTokenOrAppId, int begin, int count,
             int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -378,7 +378,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     count = count
                 };
 
-                return CommonJsonSend.Send<SearchPages_Data_Page>(accessToken, searchPageUrl, data, CommonJsonSendType.POST,
+                return CommonJsonSend.Send<SearchPagesResultJson>(accessToken, searchPageUrl, data, CommonJsonSendType.POST,
                     timeOut);
 
             }, accessTokenOrAppId);

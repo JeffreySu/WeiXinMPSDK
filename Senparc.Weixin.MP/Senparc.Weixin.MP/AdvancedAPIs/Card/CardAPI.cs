@@ -35,6 +35,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.Card;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.Card.CardManage;
+using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -57,7 +58,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var urlFormat = string.Format("https://api.weixin.qq.com/card/create?access_token={0}", accessToken);
 
                 CardCreateInfo cardData = null;
-                CardType cardType = cardInfo.CardType;
+                CardType cardType = cardInfo.GetCardType();
                 switch (cardType)
                 {
                     case CardType.GENERAL_COUPON:
@@ -65,7 +66,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_GeneralCoupon()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 general_coupon = cardInfo as Card_GeneralCouponData
                             }
                         };
@@ -75,7 +76,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_Groupon()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 groupon = cardInfo as Card_GrouponData
                             }
                         };
@@ -85,7 +86,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_Gift()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 gift = cardInfo as Card_GiftData
                             }
                         };
@@ -95,7 +96,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_Cash()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 cash = cardInfo as Card_CashData
                             }
                         };
@@ -105,7 +106,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_DisCount()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 discount = cardInfo as Card_DisCountData
                             }
                         };
@@ -115,7 +116,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_MemberCard()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 member_card = cardInfo as Card_MemberCardData
                             }
                         };
@@ -125,7 +126,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_ScenicTicket()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 scenic_ticket = cardInfo as Card_ScenicTicketData
                             }
                         };
@@ -135,7 +136,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_MovieTicket()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
 
                                 movie_ticket = cardInfo as Card_MovieTicketData
                             }
@@ -146,7 +147,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_BoardingPass()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 boarding_pass = cardInfo as Card_BoardingPassData
                             }
                         };
@@ -156,7 +157,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_LuckyMoney()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 lucky_money = cardInfo as Card_LuckyMoneyData
                             }
                         };
@@ -166,7 +167,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         {
                             card = new Card_MeetingTicket()
                             {
-                                card_type = cardType,
+                                card_type = cardType.ToString(),
                                 meeting_ticket = cardInfo as Card_MeetingTicketData
                             }
                         };
@@ -175,7 +176,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                 }
 
-                return CommonJsonSend.Send<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut);
+
+                var jsonSetting = new JsonSetting(true, null,
+                new List<Type>()
+                {
+                        //typeof (Modify_Msg_Operation),
+                        typeof (CardType),
+                        typeof (Card_BaseInfoBase),//过滤Modify_Msg_Operation主要起作用的是这个
+                        typeof(Card_AdvanceInfoBase)
+                });
+
+                return CommonJsonSend.Send<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut,//针对特殊字段的null值进行过滤
+                   jsonSetting: jsonSetting);
 
             }, accessTokenOrAppId);
         }
@@ -211,8 +223,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CreateQRResultJson CreateQR(string accessTokenOrAppId, string cardId, string code = null,
-                                                  string openId = null, string expireSeconds = null,
-                                                  bool isUniqueCode = false, string balance = null, int timeOut = Config.TIME_OUT)
+                                                  string openId = null, int? expireSeconds = null,
+                                                  bool isUniqueCode = false, int? outerId = null, string balance = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -221,6 +233,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     action_name = "QR_CARD",
+                    expire_seconds = expireSeconds,
                     action_info = new
                     {
                         card = new
@@ -228,138 +241,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             card_id = cardId,
                             code = code,
                             openid = openId,
-                            expire_seconds = expireSeconds,
                             is_unique_code = false,
+                            outer_id = outerId,
                             balance = balance
                         }
                     }
                 };
 
                 return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut);
-            }, accessTokenOrAppId);
-        }
-
-        /// <summary>
-        /// 创建货架
-        /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
-        /// <param name="data"></param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static ShelfCreateResultJson ShelfCreate(string accessTokenOrAppId, ShelfCreateData data, int timeOut = Config.TIME_OUT)
-        {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/card/landingpage/create?access_token={0}", accessToken);
-
-                return CommonJsonSend.Send<ShelfCreateResultJson>(null, urlFormat, data, timeOut: timeOut);
-
-            }, accessTokenOrAppId);
-        }
-
-        /// <summary>
-        /// 导入code
-        /// 
-        /// 新创建卡券情况
-        /// 如果开发者打算新创建一张支持导入code模式的卡券，不同于以往的创建方式，建议开发者采用以下流程创建预存code模式卡券，否则会报错。
-        /// 步骤一：创建预存模式卡券，将库存quantity初始值设置为0，并填入Deposit_Mode字段；
-        /// 步骤二：待卡券通过审核后，调用导入code接口并核查code；
-        /// 步骤三：调用修改库存接口，须令卡券库存小于或等于导入code的数目。（为了避免混乱建议设置为相等）
-        /// 
-        /// 注： 1）单次调用接口传入code的数量上限为100个。
-        /// 2）每一个 code 均不能为空串。
-        /// 3）导入结束后系统会自动判断提供方设置库存与实际导入code的量是否一致。
-        /// 4）导入失败支持重复导入，提示成功为止。
-        /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
-        /// <param name="cardId">需要进行导入code的卡券ID</param>
-        /// <param name="codeList">需导入微信卡券后台的自定义code，上限为100个。</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static WxJsonResult CodeDeposit(string accessTokenOrAppId, string cardId, string[] codeList, int timeOut = Config.TIME_OUT)
-        {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var urlFormat = string.Format("http://api.weixin.qq.com/card/code/deposit?access_token={0}", accessToken);
-
-                var data = new
-                {
-                    card_id = cardId,
-                    code = codeList
-                };
-
-                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
-            }, accessTokenOrAppId);
-        }
-
-        /// <summary>
-        /// 查询导入code数目
-        /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
-        /// <param name="cardId">进行导入code的卡券ID。</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static GetDepositCountResultJson GetDepositCount(string accessTokenOrAppId, string cardId, int timeOut = Config.TIME_OUT)
-        {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var urlFormat = string.Format("http://api.weixin.qq.com/card/code/getdepositcount?access_token={0}", accessToken);
-
-                var data = new
-                {
-                    card_id = cardId,
-                };
-
-                return CommonJsonSend.Send<GetDepositCountResultJson>(null, urlFormat, data, timeOut: timeOut);
-
-            }, accessTokenOrAppId);
-        }
-
-        /// <summary>
-        /// 核查code
-        /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
-        /// <param name="cardId">进行导入code的卡券ID。</param>
-        /// <param name="codeList">已经微信卡券后台的自定义code，上限为100个。</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static CheckCodeResultJson CheckCode(string accessTokenOrAppId, string cardId, string[] codeList, int timeOut = Config.TIME_OUT)
-        {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var urlFormat = string.Format("http://api.weixin.qq.com/card/code/checkcode?access_token={0}", accessToken);
-
-                var data = new
-                {
-                    card_id = cardId,
-                    code = codeList
-                };
-
-                return CommonJsonSend.Send<CheckCodeResultJson>(null, urlFormat, data, timeOut: timeOut);
-
-            }, accessTokenOrAppId);
-        }
-
-        /// <summary>
-        /// 图文消息群发卡券
-        /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
-        /// <param name="cardId"></param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static GetHtmlResult GetHtml(string accessTokenOrAppId, string cardId, int timeOut = Config.TIME_OUT)
-        {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/card/mpnews/gethtml?access_token={0}", accessToken);
-
-                var data = new
-                {
-                    card_id = cardId,
-                };
-
-                return CommonJsonSend.Send<GetHtmlResult>(null, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -707,90 +596,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 设置开卡字段接口
-        /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
-        /// <param name="data"></param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static WxJsonResult ActivateUserFormSet(string accessTokenOrAppId, ActivateUserFormSetData data, int timeOut = Config.TIME_OUT)
-        {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/card/membercard/activateuserform/set?access_token={0}", accessToken);
-
-                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
-            }, accessTokenOrAppId);
-        }
-
-        /// <summary>
-        /// 设置跟随推荐接口
-        /// 有 使用消息配置卡券（cardCellData） 和 使用消息配置URL（urlCellData） 两种方式
-        /// 注意：cardCellData和urlCellData必须也只能选择一个，不可同时为空
-        /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
-        /// <param name="cardId">卡券ID</param>
-        /// <param name="cardCellData">使用消息配置卡券数据</param>
-        /// <param name="urlCellData">使用消息配置URL数据</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static WxJsonResult RecommendSet(string accessTokenOrAppId, string cardId, CardCell cardCellData = null, UrlCell urlCellData = null, int timeOut = Config.TIME_OUT)
-        {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/card/update?access_token={0}", accessToken);
-
-                var data = new
-                {
-                    card_id = cardId,
-                    member_card = new
-                    {
-                        base_info = new
-                        {
-                            modify_msg_operation = new
-                            {
-                                card_cell = cardCellData,
-                                url_cell = urlCellData
-                            }
-                        }
-                    }
-                };
-
-                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
-            }, accessTokenOrAppId);
-        }
-
-        /// <summary>
-        /// 设置微信买单接口
-        /// 注意：在调用买单接口之前，请开发者务必确认是否已经开通了微信支付以及对相应的cardid设置了门店，否则会报错
-        /// 错误码，0为正常；43008为商户没有开通微信支付权限
-        /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
-        /// <param name="cardId">卡券ID</param>
-        /// <param name="isOpen">是否开启买单功能，填true/false</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static WxJsonResult PayCellSet(string accessTokenOrAppId, string cardId, bool isOpen, int timeOut = Config.TIME_OUT)
-        {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/card/paycell/set?access_token={0}", accessToken);
-
-                var data = new
-                {
-                    card_id = cardId,
-                    is_open = isOpen
-                };
-
-                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
-            }, accessTokenOrAppId);
-        }
-
-        /// <summary>
-        /// 会员卡交易
+        /// 更新会员信息
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="data"></param>
@@ -1129,5 +935,33 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 拉取会员卡数据接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="beginDate">查询数据的起始时间</param>
+        /// <param name="endDate">查询数据的截至时间</param>
+        /// 查询时间区间需<=62天   格式需严格参照示例填写”2015-06-15”
+        /// <param name="cond_source">卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static MemberCardUserInfo GetMemberCardInfo(string accessTokenOrAppId, string cardid, string code, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string urlFormat = "https://api.weixin.qq.com/card/membercard/userinfo/get?access_token={0}";
+
+                var data = new
+                {
+                    card_id = cardid,
+                    code = code,
+                };
+
+                return CommonJsonSend.Send<MemberCardUserInfo>(accessToken, urlFormat, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
     }
 }

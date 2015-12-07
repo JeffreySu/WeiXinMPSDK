@@ -12,20 +12,63 @@
     官方文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318587&lang=zh_CN
  */
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.Entities;
-using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.Open.ComponentAPIs
 {
+    /// <summary>
+    /// ComponentApi
+    /// </summary>
     public static class ComponentApi
     {
+        /// <summary>
+        /// 获取第三方平台access_token
+        /// </summary>
+        /// <param name="componentAppId">第三方平台appid</param>
+        /// <param name="componentAppSecret">第三方平台appsecret</param>
+        /// <param name="componentVerifyTicket">微信后台推送的ticket，此ticket会定时推送，具体请见本页末尾的推送说明</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static ComponentAccessTokenResult GetComponentAccessToken(string componentAppId, string componentAppSecret, string componentVerifyTicket, int timeOut = Config.TIME_OUT)
+        {
+            var url = "https://api.weixin.qq.com/cgi-bin/component/api_component_token";
+
+            var data = new
+            {
+                component_appid = componentAppId,
+                component_appsecret = componentAppSecret,
+                component_verify_ticket = componentVerifyTicket
+            };
+
+            return CommonJsonSend.Send<ComponentAccessTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 获取预授权码
+        /// </summary>
+        /// <param name="componentAppId">第三方平台方appid</param>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static PreAuthCodeResult GetPreAuthCode(string componentAppId, string componentAccessToken, int timeOut = Config.TIME_OUT)
+        {
+            var url =
+                string.Format(
+                    "https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token={0}",
+                    componentAccessToken);
+
+            var data = new
+            {
+                component_appid = componentAppId
+            };
+
+            return CommonJsonSend.Send<PreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+
         /// <summary>
         /// 获取授权地址
         /// </summary>
@@ -55,18 +98,17 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="authorizationCode">授权code,会在授权成功时返回给第三方平台，详见第三方平台授权流程说明</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static QueryAuthResult QueryAuth(string componentAccessToken, string componentAppId, string authorizationCode
-            , int timeOut = Config.TIME_OUT)
+        public static QueryAuthResult QueryAuth(string componentAccessToken, string componentAppId, string authorizationCode, int timeOut = Config.TIME_OUT)
         {
             var url =
                 string.Format(
                     "https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token={0}", componentAccessToken);
 
             var data = new
-                {
-                    component_appid = componentAppId,
-                    authorization_code = authorizationCode
-                };
+            {
+                component_appid = componentAppId,
+                authorization_code = authorizationCode
+            };
 
             return CommonJsonSend.Send<QueryAuthResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
@@ -81,7 +123,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="authorizerRefreshToken"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static RefreshAuthorizerTokenResult RefreshAuthorizerToken(string componentAccessToken, string componentAppId, string authorizerAppId, string authorizerRefreshToken, int timeOut = Config.TIME_OUT)
+        public static RefreshAuthorizerTokenResult ApiAuthorizerToken(string componentAccessToken, string componentAppId, string authorizerAppId, string authorizerRefreshToken = null, int timeOut = Config.TIME_OUT)
         {
             var url =
                 string.Format(
@@ -100,6 +142,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
         /// <summary>
         /// 获取授权方信息
+        /// 注意：此方法返回的JSON中，authorization_info.authorizer_appid等几个参数通常为空（哪怕公众号有权限）
         /// </summary>
         /// <param name="componentAccessToken"></param>
         /// <param name="componentAppId"></param>
@@ -139,11 +182,11 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                     componentAccessToken);
 
             var data = new
-                {
-                    component_appid = componentAppId,
-                    authorizer_appid = authorizerAppId,
-                    option_name = optionName
-                };
+            {
+                component_appid = componentAppId,
+                authorizer_appid = authorizerAppId,
+                option_name = optionName
+            };
 
             return CommonJsonSend.Send<AuthorizerOptionResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
@@ -166,14 +209,33 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                     componentAccessToken);
 
             var data = new
-                {
-                    component_appid = componentAppId,
-                    authorizer_appid = authorizerAppId,
-                    option_name = optionName,
-                    option_value = optionValue
-                };
+            {
+                component_appid = componentAppId,
+                authorizer_appid = authorizerAppId,
+                option_name = optionName,
+                option_value = optionValue
+            };
 
             return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
+
+        //////////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// 文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1421823488&token=&lang=zh_CN
+        /// 获取调用微信JS接口的临时票据 OPEN
+        /// </summary>
+        /// <param name="authorizerAccessToken">authorizer_access_token</param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static JsApiTicketResult GetJsApiTicket(string authorizerAccessToken, string type = "jsapi")
+        {
+            //获取第三方平台的授权公众号token（公众号授权给第三方平台后，第三方平台通过“接口说明”中的api_authorizer_token接口得到的token）
+            var url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type={1}",
+                                    authorizerAccessToken, type);
+
+            JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
+            return result;
+        }
+        //////////////////////////////////////////////////////////////////////////////////
     }
 }

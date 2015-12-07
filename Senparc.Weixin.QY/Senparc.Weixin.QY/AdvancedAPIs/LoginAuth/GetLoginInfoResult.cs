@@ -8,10 +8,7 @@
     创建标识：Senparc - 20150325
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs.LoginAuth

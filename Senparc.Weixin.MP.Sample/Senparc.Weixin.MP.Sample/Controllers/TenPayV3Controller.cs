@@ -236,20 +236,20 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var nonceStr = TenPayV3Util.GetNoncestr();
 
             //创建请求统一订单接口参数
-            packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);	
-            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);	
-            packageReqHandler.SetParameter("nonce_str", nonceStr);          
-            packageReqHandler.SetParameter("body", "test");    
-            packageReqHandler.SetParameter("out_trade_no", sp_billno);		
-            packageReqHandler.SetParameter("total_fee", "1");			    
+            packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);
+            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);
+            packageReqHandler.SetParameter("nonce_str", nonceStr);
+            packageReqHandler.SetParameter("body", "test");
+            packageReqHandler.SetParameter("out_trade_no", sp_billno);
+            packageReqHandler.SetParameter("total_fee", "1");
             packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);
             packageReqHandler.SetParameter("notify_url", TenPayV3Info.TenPayV3Notify);
             packageReqHandler.SetParameter("trade_type", TenPayV3Type.NATIVE.ToString());
-            packageReqHandler.SetParameter("openid", openId);	                    
+            packageReqHandler.SetParameter("openid", openId);
             packageReqHandler.SetParameter("product_id", productId);
 
             string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
-            packageReqHandler.SetParameter("sign", sign);	                    
+            packageReqHandler.SetParameter("sign", sign);
 
             string data = packageReqHandler.ParseXML();
 
@@ -720,16 +720,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //判断是否正在微信端
             var userAgent = Request.UserAgent;
-            if (BroswerUtility.SideInWeixinBroswer(HttpContext))
-            {
-                //正在微信端，直接跳转到微信支付页面
-                return RedirectToAction("Index", new { productId = productId, hc = hc });
-            }
-            else
-            {
-                //在PC端打开，提供二维码扫描进行支付
-                return View(product);
-            }
+            //if (BroswerUtility.SideInWeixinBroswer(HttpContext))
+            //{
+            //    //正在微信端，直接跳转到微信支付页面
+            //    return RedirectToAction("Index", new { productId = productId, hc = hc });
+            //}
+            //else
+            //{
+            //    //在PC端打开，提供二维码扫描进行支付
+            return View(product);
+            //}
         }
 
         /// <summary>

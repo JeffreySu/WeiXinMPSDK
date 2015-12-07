@@ -671,5 +671,10 @@ namespace Senparc.Weixin.MP
         /// 在公众平台投放过的卡券
         /// </summary>
         CARD_STATUS_USER_DISPATCH,
+
+        /// <summary>
+        /// 卡券被删除
+        /// </summary>
+        CARD_STATUS_DELETE
     }
 }

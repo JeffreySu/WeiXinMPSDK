@@ -14,12 +14,6 @@
     修改描述：添加新卡券类型：会议门票
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Senparc.Weixin.MP.Entities;
-
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
     /// <summary>

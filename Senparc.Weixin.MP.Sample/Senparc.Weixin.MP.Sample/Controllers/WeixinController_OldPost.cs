@@ -36,8 +36,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         [ActionName("OldIndex")]
         public ActionResult OldPost(string signature, string timestamp, string nonce, string echostr)
         {
-            LocationService locationService=new LocationService();
-            EventService eventService= new EventService();
+            LocationService locationService = new LocationService();
+            EventService eventService = new EventService();
 
             if (!CheckSignature.Check(signature, timestamp, nonce, Token))
             {
@@ -83,19 +83,19 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                 ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.News) as
                                 ResponseMessageNews;
                             strongresponseMessage.Articles.Add(new Article()
-                                                                   {
-                                                                       Title = "您刚才发送了图片信息",
-                                                                       Description = "您发送的图片将会显示在边上",
-                                                                       PicUrl = strongRequestMessage.PicUrl,
-                                                                       Url = "http://weixin.senparc.com"
-                                                                   });
+                            {
+                                Title = "您刚才发送了图片信息",
+                                Description = "您发送的图片将会显示在边上",
+                                PicUrl = strongRequestMessage.PicUrl,
+                                Url = "http://weixin.senparc.com"
+                            });
                             strongresponseMessage.Articles.Add(new Article()
-                                                                   {
-                                                                       Title = "第二条",
-                                                                       Description = "第二条带连接的内容",
-                                                                       PicUrl = strongRequestMessage.PicUrl,
-                                                                       Url = "http://weixin.senparc.com"
-                                                                   });
+                            {
+                                Title = "第二条",
+                                Description = "第二条带连接的内容",
+                                PicUrl = strongRequestMessage.PicUrl,
+                                Url = "http://weixin.senparc.com"
+                            });
                             responseMessage = strongresponseMessage;
                             break;
                         }
@@ -141,6 +141,103 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 }
                 return Content("");
             }
+        }
+
+        [HttpPost]
+        public ActionResult OriginalPost(string signature, string timestamp, string nonce, string echostr)
+        {
+            //消息安全验证代码开始
+            //...
+            //消息安全验证代码结束
+
+            string requestXmlString = null;//请求XML字符串
+            using (var sr = new StreamReader(HttpContext.Request.InputStream))
+            {
+                requestXmlString = sr.ReadToEnd();
+            }
+
+            //XML消息格式正确性验证代码开始
+            //...
+            //XML消息格式正确性验证代码结束
+
+            /* XML消息范例
+            <xml>
+                <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+                <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+                <CreateTime>{{0}}</CreateTime>
+                <MsgType><![CDATA[text]]></MsgType>
+                <Content><![CDATA[{0}]]></Content>
+                <MsgId>5832509444155992350</MsgId>
+            </xml>
+            */
+
+            XDocument xmlDocument = XDocument.Parse(requestXmlString);//XML消息对象
+            var xmlRoot = xmlDocument.Root;
+            var msgType = xmlRoot.Element("MsgType").Value;//消息类型
+            var toUserName = xmlRoot.Element("ToUserName").Value;
+            var fromUserName = xmlRoot.Element("FromUserName").Value;
+            var createTime = xmlRoot.Element("CreateTime").Value;
+            var msgId = xmlRoot.Element("MsgId").Value;
+
+            //根据MsgId去重开始
+            //...
+            //根据MsgId去重结束
+
+            string responseXml = null;//响应消息XML
+            var responseTime = (DateTime.Now.Ticks - new DateTime(1970, 1, 1).Ticks) / 10000000 - 8 * 60 * 60;
+
+            switch (msgType)
+            {
+                case "text":
+                    //处理文本消息
+                    var content = xmlRoot.Element("Content").Value;//文本内容
+                    if (content == "你好")
+                    {
+                        var title = "Title";
+                        var description = "Description";
+                        var picUrl = "PicUrl";
+                        var url = "Url";
+                        var articleCount = 1;
+                        responseXml = @"<xml>
+                        <ToUserName><![CDATA[" + fromUserName + @"]]></ToUserName>
+                        <FromUserName><![CDATA[" + toUserName + @"]]></FromUserName>
+                        <CreateTime>" + responseTime + @"</CreateTime>
+                        <MsgType><![CDATA[news]]></MsgType>
+                        <ArticleCount>" + articleCount + @"</ArticleCount>
+                        <Articles>
+                        <item>
+                        <Title><![CDATA[" + title + @"]]></Title> 
+                        <Description><![CDATA[" + description + @"]]></Description>
+                        <PicUrl><![CDATA[" + picUrl + @"]]></PicUrl>
+                        <Url><![CDATA[" + url + @"]]></Url>
+                        </item>
+                        </Articles>
+                        </xml> ";
+                    }
+                    else if (content == "Senparc")
+                    {
+                        //相似处理逻辑
+                    }
+                    else
+                    {
+                        //...
+                    }
+                    break;
+                case "image":
+                    //处理图片消息
+                    //...
+                    break;
+                case "event":
+                    //这里会有更加复杂的事件类型处理
+                    //...
+                    break;
+                //更多其他请求消息类型的判断...
+                default:
+                    //其他未知类型
+                    break;
+            }
+
+            return Content(responseXml, "text/xml");//返回结果
         }
     }
 }

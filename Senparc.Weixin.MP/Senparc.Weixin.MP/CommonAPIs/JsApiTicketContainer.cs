@@ -17,15 +17,20 @@ using System.Linq;
 using System.Text;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
     class JsApiTicketBag
     {
         public string AppId { get; set; }
+
         public string AppSecret { get; set; }
+
         public DateTime ExpireTime { get; set; }
+
         public JsApiTicketResult JsApiTicketResult { get; set; }
+
         /// <summary>
         /// 只针对这个AppId的锁
         /// </summary>
@@ -37,6 +42,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// </summary>
     public class JsApiTicketContainer
     {
+        static string jsTicketTokenCollection = "AccessTokenCollection-{0}-{1}";
+
         static Dictionary<string, JsApiTicketBag> JsApiTicketCollection =
            new Dictionary<string, JsApiTicketBag>(StringComparer.OrdinalIgnoreCase);
 
@@ -45,8 +52,14 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
-        public static void Register(string appId, string appSecret)
+        public static void Register(string appId, string appSecret, string connectString = "")
         {
+            if (!string.IsNullOrEmpty(connectString))
+                RedisCacheManager.RedisCacheManagerInint(connectString);
+
+            if (JsApiTicketCollection == null)
+                JsApiTicketCollection = new Dictionary<string, JsApiTicketBag>(StringComparer.OrdinalIgnoreCase);
+
             JsApiTicketCollection[appId] = new JsApiTicketBag()
             {
                 AppId = appId,
@@ -63,7 +76,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appSecret"></param>
         /// <param name="getNewTicket"></param>
         /// <returns></returns>
-        public static string TryGetTicket(string appId, string appSecret, bool getNewTicket = false)
+        public static string TryGetTicket(string appId, string appSecret, string type = "jsapi", bool getNewTicket = false)
         {
             if (!CheckRegistered(appId) || getNewTicket)
             {
@@ -78,9 +91,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appId"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        public static string GetTicket(string appId, bool getNewTicket = false)
+        public static string GetTicket(string appId, string type = "jsapi", bool getNewTicket = false)
         {
-            return GetTicketResult(appId, getNewTicket).ticket;
+            return GetTicketResult(appId, type, getNewTicket).ticket;
         }
 
         /// <summary>
@@ -89,23 +102,32 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appId"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        public static JsApiTicketResult GetTicketResult(string appId, bool getNewTicket = false)
+        public static JsApiTicketResult GetTicketResult(string appId, string type = "jsapi", bool getNewTicket = false)
         {
             if (!JsApiTicketCollection.ContainsKey(appId))
             {
                 throw new WeixinException("此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var accessTicketBag = JsApiTicketCollection[appId];
+            RedisCacheManager.RedisCacheOpenConnect();
+            string key = string.Format(jsTicketTokenCollection, appId, type);
+            var accessTicketBag = RedisCacheManager.Get(key, () =>
+            {
+                return JsApiTicketCollection[appId];
+            });
+
             lock (accessTicketBag.Lock)
             {
                 if (getNewTicket || accessTicketBag.ExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
-                    accessTicketBag.JsApiTicketResult = CommonApi.GetTicket(accessTicketBag.AppId, accessTicketBag.AppSecret);
+                    accessTicketBag.JsApiTicketResult = CommonApi.GetTicket(accessTicketBag.AppId, accessTicketBag.AppSecret, type);
                     accessTicketBag.ExpireTime = DateTime.Now.AddSeconds(accessTicketBag.JsApiTicketResult.expires_in);
+
+                    RedisCacheManager.Set(key, accessTicketBag, 120);
                 }
             }
+            //RedisCacheManager.Dispose();
             return accessTicketBag.JsApiTicketResult;
         }
 

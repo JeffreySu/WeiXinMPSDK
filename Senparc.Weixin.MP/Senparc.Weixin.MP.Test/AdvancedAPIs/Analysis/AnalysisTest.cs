@@ -22,7 +22,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void ArticleSummaryTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var result = AnalysisApi.GetArticleSummary(accessToken, beginData, endData);
             Assert.IsNotNull(result);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
@@ -31,7 +31,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void ArticleTotalTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = AnalysisApi.GetArticleTotal(accessToken, beginData, endData);
             Assert.IsNotNull(result);
@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void UserReadTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = AnalysisApi.GetUserRead(accessToken, beginData, endData);
             Assert.IsNotNull(result);
@@ -51,7 +51,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void UserReadHourTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = AnalysisApi.GetUserReadHour(accessToken, beginData, endData);
             Assert.IsNotNull(result);
@@ -61,7 +61,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void UserShareTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = AnalysisApi.GetUserShare(accessToken, beginData, endData);
             Assert.IsNotNull(result);
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void UserShareHourTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = AnalysisApi.GetUserShareHour(accessToken, beginData, endData);
             Assert.IsNotNull(result);
@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetInterfaceSummaryTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = AnalysisApi.GetInterfaceSummary(accessToken, beginData, endData);
             Assert.IsNotNull(result);
@@ -91,7 +91,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetInterfaceSummaryHourTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = AnalysisApi.GetInterfaceSummaryHour(accessToken, beginData, endData);
             Assert.IsNotNull(result);
@@ -101,7 +101,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetUpStreamMsgTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = AnalysisApi.GetUpStreamMsg(accessToken, beginData, endData);
             Assert.IsNotNull(result);
@@ -111,7 +111,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetUpStreamMsgHourTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = AnalysisApi.GetUpStreamMsgHour(accessToken, beginData, endData);
             Assert.IsNotNull(result);
@@ -121,7 +121,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetUpStreamMsgWeekTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = AnalysisApi.GetUpStreamMsgWeek(accessToken, beginData, endData);
             Assert.IsNotNull(result);
@@ -131,7 +131,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetUpStreamMsgMonthTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = AnalysisApi.GetUpStreamMsgMonth(accessToken, beginData, endData);
             Assert.IsNotNull(result);
@@ -141,7 +141,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetUpStreamMsgDistTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = AnalysisApi.GetUpStreamMsgDist(accessToken, beginData, endData);
             Assert.IsNotNull(result);
@@ -151,7 +151,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetUpStreamMsgDistWeekTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = AnalysisApi.GetUpStreamMsgDistWeek(accessToken, beginData, endData);
             Assert.IsNotNull(result);
@@ -161,7 +161,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetUpStreamMsgDistMonthTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = AnalysisApi.GetUpStreamMsgDistMonth(accessToken, beginData, endData);
             Assert.IsNotNull(result);
@@ -171,7 +171,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetUserSummaryTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = AnalysisApi.GetUserSummary(accessToken, beginData, endData);
             Assert.IsNotNull(result);
@@ -181,7 +181,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         [TestMethod]
         public void GetUserCumulateTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_appId);
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = AnalysisApi.GetUserCumulate(accessToken, beginData, endData);
             Assert.IsNotNull(result);

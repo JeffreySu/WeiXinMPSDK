@@ -8,10 +8,7 @@
     创建标识：Senparc - 20150419
     
 ----------------------------------------------------------------*/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using System.Web;
 
 namespace Senparc.Weixin.BrowserUtility
@@ -23,7 +20,7 @@ namespace Senparc.Weixin.BrowserUtility
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
-        public static bool SideInWeixinBroswer(HttpContextBase httpContext)
+        public static bool SideInWeixinBroswer(HttpContext httpContext)
         {
             var userAgent = httpContext.Request.UserAgent;
             if (string.IsNullOrEmpty(userAgent) || (!userAgent.Contains("MicroMessenger") && !userAgent.Contains("Windows Phone")))

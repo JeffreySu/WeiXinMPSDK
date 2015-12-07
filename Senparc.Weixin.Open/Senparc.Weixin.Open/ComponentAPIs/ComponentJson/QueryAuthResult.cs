@@ -8,12 +8,8 @@
     创建标识：Senparc - 20150430
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Open.Entities;
 
 namespace Senparc.Weixin.Open.ComponentAPIs
 {
@@ -28,6 +24,9 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public AuthorizationInfo authorization_info { get; set; }
     }
 
+    /// <summary>
+    /// 授权信息
+    /// </summary>
     public class AuthorizationInfo
     {
         /// <summary>

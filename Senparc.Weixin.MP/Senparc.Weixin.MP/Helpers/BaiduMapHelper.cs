@@ -15,14 +15,10 @@
      文档：http://api.map.baidu.com/lbsapi/cloud/staticimg.htm
  */
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Senparc.Weixin.MP.Entities.BaiduMap;
-using System.Net;
-using Newtonsoft.Json;
-using System.IO;
 
 namespace Senparc.Weixin.MP.Helpers
 {

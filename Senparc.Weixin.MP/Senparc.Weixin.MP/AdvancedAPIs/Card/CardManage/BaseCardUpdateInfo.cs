@@ -11,11 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
@@ -102,7 +98,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 
     public class BaseUpdateInfo
     {
-        public BaseUpdateInfo() {
+        public BaseUpdateInfo()
+        {
             base_info = new Update_BaseCardInfo();
         }
         /// <summary>
@@ -118,7 +115,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// </summary>
     public class Update_BaseCardInfo
     {
-        public Update_BaseCardInfo() {
+        public Update_BaseCardInfo()
+        {
             date_info = new Card_UpdateDateInfo();
         }
 
@@ -250,4 +248,45 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     }
 
     #endregion
+
+    public class Update_AdvancedCardInfo
+    {
+        public Update_AdvancedCardInfo()
+        {
+            @abstract = new AbstractData();
+            text_image_list = new List<TextImageData>();
+            time_limit = new List<TimeLimitData>();
+            consume_share_card_list = new List<ShareCardListData>();
+        }
+
+        /// <summary>
+        /// 优惠详情摘要
+        /// </summary>
+        public AbstractData @abstract { get; set; }
+
+        /// <summary>
+        /// 图文列表
+        /// </summary>
+        public List<TextImageData> text_image_list { get; set; }
+
+        /// <summary>
+        /// 使用时段限制
+        /// </summary>
+        public List<TimeLimitData> time_limit { get; set; }
+
+        /// <summary>
+        /// 商家服务类型
+        /// </summary>
+        public string[] business_service { get; set; }
+
+        /// <summary>
+        /// 核销后送券的数量，可设置核销后送本卡券的数量，限制传入1张，与consume_share_card_list字段互斥
+        /// </summary>
+        public int consume_share_self_num { get; set; }
+
+        /// <summary>
+        /// 核销后赠送其他卡券的列表，与consume_share_self_num字段互斥
+        /// </summary>
+        public List<ShareCardListData> consume_share_card_list { get; set; }
+    }
 }

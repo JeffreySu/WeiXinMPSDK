@@ -57,7 +57,7 @@ namespace Senparc.Weixin.Open.Test.CommonApi
         [TestMethod]
         public void GetComponentAccessTokenTest()
         {
-            var component_access_tokenResult = Open.CommonAPIs.CommonApi.GetComponentAccessToken(_appId, _appSecret, _ticket);
+            var component_access_tokenResult = Open.ComponentAPIs.ComponentApi.GetComponentAccessToken(_appId, _appSecret, _ticket);
             //运行此测试务必将本地IP加入到白名单，否则可能发生错误：错误代码：61004，说明：access clientip is not registered tips: requestIP: 49.73.28.245
             Assert.IsNotNull(component_access_tokenResult);
         }

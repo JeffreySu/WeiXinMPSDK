@@ -12,21 +12,19 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.QY.CommonAPIs
 {
-    public enum CommonJsonSendType
-    {
-        GET,
-        POST
-    }
+    //public enum CommonJsonSendType
+    //{
+    //    GET,
+    //    POST
+    //}
 
     public static class CommonJsonSend
     {
@@ -37,10 +35,12 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="urlFormat"></param>
         /// <param name="data">如果是Get方式，可以为null</param>
         /// <param name="timeOut"></param>
+        /// <param name="checkValidationResult"></param>
+        /// <param name="jsonSetting"></param>
         /// <returns></returns>
-        public static QyJsonResult Send(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT)
+        public static QyJsonResult Send(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
         {
-            return Send<QyJsonResult>(accessToken, urlFormat, data, sendType, timeOut);
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<QyJsonResult>(accessToken, urlFormat, data, sendType, timeOut,checkValidationResult,jsonSetting);
         }
 
         /// <summary>
@@ -50,28 +50,13 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="urlFormat"></param>
         /// <param name="data">如果是Get方式，可以为null</param>
         /// <param name="timeOut"></param>
+        /// <param name="checkValidationResult"></param>
+        /// <param name="jsonSetting"></param>
         /// <returns></returns>
-        public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT)
+        [Obsolete("此方法已过期，请使用Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<T>()方法")]
+        public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
         {
-            var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken);
-            switch (sendType)
-            {
-                case CommonJsonSendType.GET:
-                    return Get.GetJson<T>(url);
-                case CommonJsonSendType.POST:
-                    SerializerHelper serializerHelper = new SerializerHelper();
-                    var jsonString = serializerHelper.GetJsonString(data);
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        var bytes = Encoding.UTF8.GetBytes(jsonString);
-                        ms.Write(bytes, 0, bytes.Length);
-                        ms.Seek(0, SeekOrigin.Begin);
-
-                        return Post.PostGetJson<T>(url, null, ms, timeOut: timeOut);
-                    }
-                default:
-                    throw new ArgumentOutOfRangeException("sendType");
-            }
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<T>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult, jsonSetting);
         }
     }
 }

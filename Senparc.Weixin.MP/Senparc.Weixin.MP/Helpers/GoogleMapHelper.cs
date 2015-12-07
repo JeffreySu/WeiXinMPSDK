@@ -15,9 +15,7 @@
      API介绍：https://developers.google.com/maps/documentation/staticmaps/?hl=zh-CN
  */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using Senparc.Weixin.MP.Entities.GoogleMap;
 

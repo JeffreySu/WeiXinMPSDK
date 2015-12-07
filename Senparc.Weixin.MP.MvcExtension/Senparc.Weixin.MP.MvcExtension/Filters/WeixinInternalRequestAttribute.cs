@@ -37,24 +37,24 @@ namespace Senparc.Weixin.MP.MvcExtension
         {
             if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.RequestContext.HttpContext.Request.QueryString[_ignoreParameter]))
             {
-                if (!BroswerUtility.SideInWeixinBroswer(filterContext.HttpContext))
-                {
-                    //TODO:判断网页版登陆状态
-                    ActionResult actionResult = null;
-                    if (!string.IsNullOrEmpty(RedirectUrl))
-                    {
-                        actionResult = new RedirectResult(RedirectUrl);
-                    }
-                    else
-                    {
-                        actionResult = new ContentResult()
-                        {
-                            Content = _message
-                        };
-                    }
+                //if (!BroswerUtility.SideInWeixinBroswer(filterContext.HttpContext))
+                //{
+                //    //TODO:判断网页版登陆状态
+                //    ActionResult actionResult = null;
+                //    if (!string.IsNullOrEmpty(RedirectUrl))
+                //    {
+                //        actionResult = new RedirectResult(RedirectUrl);
+                //    }
+                //    else
+                //    {
+                //        actionResult = new ContentResult()
+                //        {
+                //            Content = _message
+                //        };
+                //    }
 
-                    filterContext.Result = actionResult;
-                }
+                //    filterContext.Result = actionResult;
+                //}
             }
 
             base.OnActionExecuting(filterContext);

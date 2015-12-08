@@ -82,6 +82,23 @@ namespace Senparc.Weixin.MP.CommonAPIs
              }, accessTokenOrAppId);
         }
 
+
+        /// <summary>
+        /// 创建菜单
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId。当为AppId时，如果AccessToken错误将自动获取一次。当为null时，获取当前注册的第一个AppId。</param>
+        /// <param name="buttonData">菜单内容</param>
+        /// <returns></returns>
+        public static WxJsonResult CreateMenu(string accessTokenOrAppId, object buttonData, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
+                return CommonJsonSend.Send(accessToken, urlFormat, buttonData, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
         #region GetMenu
         /// <summary>
         /// 获取单击按钮

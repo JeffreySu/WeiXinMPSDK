@@ -212,14 +212,15 @@ namespace Senparc.Weixin.MessageHandlers
 
         //public abstract TR CreateResponseMessage<TR>() where TR : ResponseMessageBase;
 
-        /// <summary>
-        /// 执行微信请求
-        /// </summary>
-        public abstract void Execute();
 
         public virtual void OnExecuting()
         {
         }
+
+        /// <summary>
+        /// 执行微信请求
+        /// </summary>
+        public abstract void Execute();
 
         public virtual void OnExecuted()
         {

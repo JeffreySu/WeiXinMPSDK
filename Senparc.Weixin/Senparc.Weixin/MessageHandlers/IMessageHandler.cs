@@ -53,9 +53,20 @@ namespace Senparc.Weixin.MessageHandlers
         /// </summary>
         bool OmitRepeatedMessage { get; set; }
 
+
+        /// <summary>
+        /// 执行微信请求前触发
+        /// </summary>
+        void OnExecuting();
+
         /// <summary>
         /// 执行微信请求
         /// </summary>
         void Execute();
+
+        /// <summary>
+        /// 执行微信请求后触发
+        /// </summary>
+        void OnExecuted();
     }
 }

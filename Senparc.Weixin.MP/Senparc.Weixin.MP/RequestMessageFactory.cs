@@ -26,7 +26,7 @@ using Senparc.Weixin.MP.Helpers;
 namespace Senparc.Weixin.MP
 {
     /// <summary>
-    /// RequestMessage消息处理方法工厂
+    /// RequestMessage消息处理方法工厂类
     /// </summary>
     public static class RequestMessageFactory
     {

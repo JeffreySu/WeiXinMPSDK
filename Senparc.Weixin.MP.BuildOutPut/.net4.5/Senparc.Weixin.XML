@@ -1017,9 +1017,19 @@
             忽略重复发送的同一条消息（通常因为微信服务器没有收到及时的响应）
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.MessageHandlers.IMessageHandler`2.OnExecuting">
+            <summary>
+            执行微信请求前触发
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MessageHandlers.IMessageHandler`2.Execute">
             <summary>
             执行微信请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MessageHandlers.IMessageHandler`2.OnExecuted">
+            <summary>
+            执行微信请求后触发
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MessageHandlers.IMessageHandlerDocument">

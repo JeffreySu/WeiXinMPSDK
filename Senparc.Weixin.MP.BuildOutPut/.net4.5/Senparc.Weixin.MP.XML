@@ -8231,7 +8231,7 @@
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageBase">
             <summary>
-            响应回复消息
+            微信公众号响应回复消息
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.Entities.ResponseMessageBase.CreateFromRequestMessage(Senparc.Weixin.MP.Entities.IRequestMessageBase,Senparc.Weixin.MP.ResponseMsgType)">
@@ -8642,9 +8642,19 @@
             事件KEY值，设置的跳转URL
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageNews">
+            <summary>
+            图文消息
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.Entities.ResponseMessageNews.Articles">
             <summary>
             文章列表，微信客户端只能输出前10条（可能未来数字会有变化，出于视觉效果考虑，建议控制在8条以内）
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageTransfer_Customer_Service">
+            <summary>
+            响应回复多客服消息
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageVoice">
@@ -9840,6 +9850,11 @@
             小视频类型请求
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.RequestMessageFactory">
+            <summary>
+            RequestMessage消息处理方法工厂类
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MP.RequestMessageFactory.GetRequestEntity(System.Xml.Linq.XDocument,Senparc.Weixin.MP.Entities.Request.PostModel)">
             <summary>
             获取XDocument转换后的IRequestMessageBase实例。
@@ -9849,18 +9864,23 @@
         </member>
         <member name="M:Senparc.Weixin.MP.RequestMessageFactory.GetRequestEntity(System.String)">
             <summary>
-            获取XDocument转换后的IRequestMessageBase实例。
+            获取XML转换后的IRequestMessageBase实例。
             如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.RequestMessageFactory.GetRequestEntity(System.IO.Stream)">
             <summary>
-            获取XDocument转换后的IRequestMessageBase实例。
+            获取内容为XML的Stream转换后的IRequestMessageBase实例。
             如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
             </summary>
             <param name="stream">如Request.InputStream</param>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.ResponseMessageFactory">
+            <summary>
+            ResponseMessageFactory消息处理方法工厂类
+            </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.ResponseMessageFactory.GetResponseEntity(System.Xml.Linq.XDocument)">
             <summary>
@@ -9874,6 +9894,13 @@
             获取XDocument转换后的IRequestMessageBase实例。
             如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.ResponseMessageFactory.ConvertEntityToXml(Senparc.Weixin.MP.Entities.ResponseMessageBase)">
+            <summary>
+            将ResponseMessage实体转为XML
+            </summary>
+            <param name="entity">ResponseMessage实体</param>
             <returns></returns>
         </member>
         <!-- Badly formed XML comment ignored for member "T:Senparc.Weixin.MP.TenPayLibV3.RequestHandler" -->

@@ -4,6 +4,65 @@
         <name>Senparc.Weixin</name>
     </assembly>
     <members>
+        <member name="P:Senparc.Weixin.Cache.LocalCacheHelper.LocalCache">
+            <summary>
+            所有数据集合的列表
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Cache.LocalContainerCacheStrategy">
+            <summary>
+            本地容器缓存策略
+            </summary>
+            <typeparam name="TContainerBag">容器内</typeparam>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.LocalContainerCacheStrategy.#ctor">
+            <summary>
+            LocalCacheStrategy的构造函数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Cache.IBaseCacheStrategy.CacheSetKey">
+            <summary>
+            整个Cache集合的Key
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Cache.IBaseCacheStrategy`2">
+            <summary>
+            公共缓存策略接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.InsertToCache(`0,`1)">
+            <summary>
+            添加指定ID的对象
+            </summary>
+            <param name="key">缓存键</param>
+            <param name="value">缓存值</param>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.RemoveFromCache(`0)">
+            <summary>
+            移除指定缓存键的对象
+            </summary>
+            <param name="key">缓存键</param>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.Get(`0)">
+            <summary>
+            返回指定缓存键的对象
+            </summary>
+            <param name="key">缓存键</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.GetAll">
+            <summary>
+            获取所有细信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.CheckExisted(`0)">
+            <summary>
+            检查是否存在Key及对象
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.Config">
             <summary>
             全局设置
@@ -24,9 +83,9 @@
             <summary>
             微信容器接口（如Ticket、AccessToken）
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="TBag"></typeparam>
         </member>
-        <member name="F:Senparc.Weixin.Containers.BaseContainer`1._collectionList">
+        <member name="P:Senparc.Weixin.Containers.BaseContainer`1.CollectionList">
             <summary>
             所有数据集合的列表
             </summary>
@@ -958,9 +1017,19 @@
             忽略重复发送的同一条消息（通常因为微信服务器没有收到及时的响应）
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.MessageHandlers.IMessageHandler`2.OnExecuting">
+            <summary>
+            执行微信请求前触发
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MessageHandlers.IMessageHandler`2.Execute">
             <summary>
             执行微信请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MessageHandlers.IMessageHandler`2.OnExecuted">
+            <summary>
+            执行微信请求后触发
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MessageHandlers.IMessageHandlerDocument">
@@ -1161,6 +1230,16 @@
         <member name="T:Senparc.Weixin.WeixinTrace">
             <summary>
             微信日志跟踪
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.WeixinTrace.OnErrorJsonResultExceptionFunc">
+            <summary>
+            记录ErrorJsonResultException日志时需要执行的任务
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.WeixinTrace.OnLogFunc">
+            <summary>
+            执行所有日志记录操作时执行的任务（发生在Senparc.Weixin记录日志之后）
             </summary>
         </member>
         <member name="M:Senparc.Weixin.WeixinTrace.TimeLog">

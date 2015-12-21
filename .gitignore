@@ -73,3 +73,5 @@ Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/Web.config
 /Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.MP.dll
 /Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.dll
 /Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/App_Data/SenparcWeixinTrace.log
+
+/Tools/*

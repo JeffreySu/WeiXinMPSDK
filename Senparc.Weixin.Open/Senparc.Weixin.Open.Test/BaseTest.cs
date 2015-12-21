@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Senparc.Weixin.Open.CommonAPIs;
+using Senparc.Weixin.Open.ComponentAPIs;
 
 namespace Senparc.Weixin.Open.Test
 {
@@ -65,7 +66,7 @@ namespace Senparc.Weixin.Open.Test
                 return _ticket;
             };
 
-            ComponentContainer.Register(_appId, _appSecret, getComponentVerifyTicketFunc);
+            //ComponentContainer.Register(_appId, _appSecret, getComponentVerifyTicketFunc);
         }
     }
 }

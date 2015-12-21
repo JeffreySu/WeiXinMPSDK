@@ -66,7 +66,7 @@ namespace Senparc.Weixin.CommonAPIs
                         return Get.GetJson<T>(url);
                     case CommonJsonSendType.POST:
                         SerializerHelper serializerHelper = new SerializerHelper();
-                        var jsonString = serializerHelper.GetJsonString(data);
+                        var jsonString = serializerHelper.GetJsonString(data, jsonSetting);
                         using (MemoryStream ms = new MemoryStream())
                         {
                             var bytes = Encoding.UTF8.GetBytes(jsonString);
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.CommonAPIs
                 throw;
             }
         }
-        
+
         #endregion
     }
 }

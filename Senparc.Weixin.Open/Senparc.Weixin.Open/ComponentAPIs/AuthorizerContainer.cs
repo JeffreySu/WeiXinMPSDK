@@ -145,7 +145,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             TryRegister(componentAppId, authorizerAppid);
 
-            var authorizerBag = ItemCollection[authorizerAppid];
+            var authorizerBag = (AuthorizerBag)ItemCollection[authorizerAppid];
             lock (authorizerBag.Lock)
             {
                 //更新Authorization
@@ -200,7 +200,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             TryRegister(componentAppId, authorizerAppid);
 
-            var authorizerBag = ItemCollection[authorizerAppid];
+            var authorizerBag = (AuthorizerBag)ItemCollection[authorizerAppid];
             lock (authorizerBag.Lock)
             {
 
@@ -239,7 +239,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
             if (authorizationInfo.expires_in > 0 && authorizationInfo.authorizer_access_token != null)
             {
-                var authorizerBag = ItemCollection[authorizerAppid];
+                var authorizerBag = (AuthorizerBag)ItemCollection[authorizerAppid];
 
                 var refreshTokenChanged = authorizerBag.AuthorizationInfo.authorizer_access_token !=
                                          authorizationInfo.authorizer_access_token
@@ -273,7 +273,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
             if (expiresIn > 0 && authorizerAccessToken != null)
             {
-                var authorizerBag = ItemCollection[authorizerAppid];
+                var authorizerBag = (AuthorizerBag)ItemCollection[authorizerAppid];
 
                 var refreshTokenChanged = authorizerBag.AuthorizationInfo.authorizer_access_token !=
                                           authorizerAccessToken
@@ -306,7 +306,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public static RefreshAuthorizerTokenResult RefreshAuthorizerToken(string componentAccessToken, string componentAppId, string authorizerAppid,
                       string refreshToken)
         {
-            var refreshResult = ComponentApi.RefreshAuthorizerToken(componentAccessToken, componentAppId, authorizerAppid,
+            var refreshResult = ComponentApi.ApiAuthorizerToken(componentAccessToken, componentAppId, authorizerAppid,
                          refreshToken);
             //更新到存储
             ComponentContainer.AuthorizerTokenRefreshedFunc(authorizerAppid, refreshResult);
@@ -355,7 +355,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             TryRegister(componentAppId, authorizerAppid);
 
-            var accessTicketBag = ItemCollection[authorizerAppid];
+            var accessTicketBag = (AuthorizerBag)ItemCollection[authorizerAppid];
             lock (accessTicketBag.Lock)
             {
                 if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= DateTime.Now)

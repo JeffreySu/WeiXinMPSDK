@@ -12,6 +12,9 @@
     
     修改标识：Senparc - 20150327
     修改描述：添加接收小视频消息方法
+
+    修改标识：Senparc - 20151205
+    修改描述：v13.4.5 提供OmitRepeatedMessageFunc方法增强消息去重灵活性
 ----------------------------------------------------------------*/
 
 using System;
@@ -154,6 +157,12 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public DeveloperInfo DeveloperInfo { get; set; }
 
+
+        /// <summary>
+        /// 动态去重判断委托，仅当返回值为false时，不使用消息去重功能
+        /// </summary>
+        public Func<IRequestMessageBase, bool> OmitRepeatedMessageFunc = null;
+
         /// <summary>
         /// 构造MessageHandler
         /// </summary>
@@ -265,18 +274,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return RequestMessage.CreateResponseMessage<TR>();
         }
 
-        //public ResponseMessageText CreateResponseMessageText(string content)
-        //{
-        //    if (RequestMessage == null)
-        //    {
-        //        return null;
-        //    }
-
-        //    var responseMessage = RequestMessage.CreateResponseMessage<ResponseMessageText>();
-        //    responseMessage.Content = content;
-        //    return responseMessage;
-        //}
-
         /// <summary>
         /// 执行微信请求
         /// </summary>
@@ -330,7 +327,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.Event:
                         {
                             var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                            ResponseMessage = OnTextOrEventRequest(requestMessageText) ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
+                            ResponseMessage = OnTextOrEventRequest(requestMessageText) 
+                                                ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
                         }
                         break;
                     default:
@@ -356,7 +354,10 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public virtual void OnExecuting()
         {
             //消息去重
-            if (OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1)
+            if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true) 
+                && OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1
+                //&& !(RequestMessage is RequestMessageEvent_Merchant_Order)批量订单的MsgId可能会相同
+                )
             {
                 var lastMessage = CurrentMessageContext.RequestMessages[CurrentMessageContext.RequestMessages.Count - 2];
                 if ((lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)//使用MsgId去重

@@ -15,6 +15,9 @@ using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.Entities
 {
+    /// <summary>
+    /// 图文消息
+    /// </summary>
     public class ResponseMessageNews : ResponseMessageBase, IResponseMessageBase
     {
         new public virtual ResponseMsgType MsgType

@@ -19,36 +19,6 @@ namespace Senparc.Weixin.QY.Helpers
 {
     public class JSSDKHelper
     {
-        public JSSDKHelper()
-        {
-            Parameters = new Hashtable();
-        }
-
-        protected Hashtable Parameters;
-
-        /// <summary>
-        /// 设置参数值
-        /// </summary>
-        /// <param name="parameter"></param>
-        /// <param name="parameterValue"></param>
-        private void SetParameter(string parameter, string parameterValue)
-        {
-            if (parameter != null && parameter != "")
-            {
-                if (Parameters.Contains(parameter))
-                {
-                    Parameters.Remove(parameter);
-                }
-
-                Parameters.Add(parameter, parameterValue);
-            }
-        }
-
-        private void ClearParameter()
-        {
-            Parameters.Clear();
-        }
-
         /// <summary>
         /// 获取随机字符串
         /// </summary>
@@ -70,50 +40,21 @@ namespace Senparc.Weixin.QY.Helpers
         }
 
         /// <summary>
-        /// sha1加密
-        /// </summary>
-        /// <returns></returns>
-        private string CreateSha1()
-        {
-            StringBuilder sb = new StringBuilder();
-            ArrayList akeys = new ArrayList(Parameters.Keys);
-            akeys.Sort();
-
-            foreach (string k in akeys)
-            {
-                string v = (string)Parameters[k];
-
-                if (sb.Length == 0)
-                {
-                    sb.Append(k + "=" + v);
-                }
-                else
-                {
-                    sb.Append("&" + k + "=" + v);
-                }
-            }
-            return SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
-        }
-
-        /// <summary>
         /// 获取JS-SDK权限验证的签名Signature
         /// </summary>
-        /// <param name="ticket"></param>
-        /// <param name="noncestr"></param>
-        /// <param name="timestamp"></param>
-        /// <param name="url"></param>
+        /// <param name="jsapi_ticket">jsapi_ticket</param>
+        /// <param name="noncestr">随机字符串(必须与wx.config中的nonceStr相同)</param>
+        /// <param name="timestamp">时间戳(必须与wx.config中的timestamp相同)</param>
+        /// <param name="url">当前网页的URL，不包含#及其后面部分(必须是调用JS接口页面的完整URL)</param>
         /// <returns></returns>
-        public string GetSignature(string ticket, string noncestr, string timestamp, string url)
+        public static string GetSignature(string jsapi_ticket, string noncestr, long timestamp, string url)
         {
-            //清空Parameters
-            ClearParameter();
-
-            SetParameter("jsapi_ticket", ticket);
-            SetParameter("noncestr", noncestr);
-            SetParameter("timestamp", timestamp);
-            SetParameter("url", url);
-
-            return CreateSha1();
+            StringBuilder sb = new StringBuilder();
+            sb.Append("jsapi_ticket=").Append(jsapi_ticket).Append("&")
+             .Append("noncestr=").Append(noncestr).Append("&")
+             .Append("timestamp=").Append(timestamp).Append("&")
+             .Append("url=").Append(url.IndexOf("#") >= 0 ? url.Substring(0, url.IndexOf("#")) : url);
+            return SHA1UtilHelper.GetSha1(sb.ToString());
         }
     }
 }

@@ -25,6 +25,9 @@ using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP
 {
+    /// <summary>
+    /// RequestMessage消息处理方法工厂类
+    /// </summary>
     public static class RequestMessageFactory
     {
         //<?xml version="1.0" encoding="utf-8"?>
@@ -186,7 +189,7 @@ namespace Senparc.Weixin.MP
 
 
         /// <summary>
-        /// 获取XDocument转换后的IRequestMessageBase实例。
+        /// 获取XML转换后的IRequestMessageBase实例。
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>
@@ -197,7 +200,7 @@ namespace Senparc.Weixin.MP
 
 
         /// <summary>
-        /// 获取XDocument转换后的IRequestMessageBase实例。
+        /// 获取内容为XML的Stream转换后的IRequestMessageBase实例。
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <param name="stream">如Request.InputStream</param>

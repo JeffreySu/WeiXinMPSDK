@@ -14,7 +14,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         [TestMethod]
         public void CreateMenuTest()
         {
-            //return;//已经通过测试
+            return;//已经通过测试
 
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         [TestMethod]
         public void GetMenuTest()
         {
-            return;//已经通过测试
+            //return;//已经通过测试
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var result = CommonApi.GetMenu(accessToken);

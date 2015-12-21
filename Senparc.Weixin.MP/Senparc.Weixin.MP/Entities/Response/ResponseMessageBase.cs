@@ -26,7 +26,7 @@ namespace Senparc.Weixin.MP.Entities
 	}
 
 	/// <summary>
-	/// 响应回复消息
+	/// 微信公众号响应回复消息
 	/// </summary>
     public class ResponseMessageBase : Weixin.Entities.ResponseMessageBase, IResponseMessageBase
 	{
@@ -151,7 +151,7 @@ namespace Senparc.Weixin.MP.Entities
                         responseMessage = new ResponseMessageTransfer_Customer_Service();
 						break;
 				}
-
+                
 				responseMessage.FillEntityWithXml(doc);
 				return responseMessage;
 			}

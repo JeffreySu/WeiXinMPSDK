@@ -13,6 +13,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.Configuration;
 using Senparc.Weixin.MP.Agent;
@@ -63,6 +64,17 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             {
                 appId = postModel.AppId;//通过第三方开放平台发送过来的请求
             }
+
+            //在指定条件下，不使用消息去重
+            base.OmitRepeatedMessageFunc = requestMessage =>
+            {
+                var textRequestMessage = requestMessage as RequestMessageText;
+                if (textRequestMessage != null && textRequestMessage.Content == "容错")
+                {
+                    return false;
+                }
+                return true;
+            };
         }
 
         public override void OnExecuting()
@@ -88,6 +100,34 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
             //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
+
+            //书中例子
+            //if (requestMessage.Content == "你好")
+            //{
+            //    var responseMessage = base.CreateResponseMessage<ResponseMessageNews>();
+            //    var title = "Title";
+            //    var description = "Description";
+            //    var picUrl = "PicUrl";
+            //    var url = "Url";
+            //    responseMessage.Articles.Add(new Article()
+            //    {
+            //        Title = title,
+            //        Description = description,
+            //        PicUrl = picUrl,
+            //        Url = url
+            //    });
+            //    return responseMessage;
+            //}
+            //else if (requestMessage.Content == "Senparc")
+            //{
+            //    //相似处理逻辑
+            //}
+            //else
+            //{
+            //    //...
+            //}
+
+
 
             //方法一（v0.1），此方法调用太过繁琐，已过时（但仍是所有方法的核心基础），建议使用方法二到四
             //var responseMessage =
@@ -188,7 +228,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                         t2 - t1
                         );
             }
-            else if(requestMessage.Content=="open")
+            else if (requestMessage.Content == "open")
             {
                 var openResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageNews>();
                 openResponseMessage.Articles.Add(new Article()
@@ -202,6 +242,20 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     Url = "http://weixin.senparc.com/OpenOAuth/JumpToMpOAuth"
                 });
                 return openResponseMessage;
+            }
+            else if (requestMessage.Content == "错误")
+            {
+                var errorResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
+                //因为没有设置errorResponseMessage.Content，所以这小消息将无法正确返回。
+                return errorResponseMessage;
+            }
+            else if (requestMessage.Content == "容错")
+            {
+                Thread.Sleep(1500);//故意延时1.5秒，让微信多次发送消息过来，观察返回结果
+                var faultTolerantResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
+                faultTolerantResponseMessage.Content = string.Format("测试容错，MsgId：{0}，Ticks：{1}", requestMessage.MsgId,
+                    DateTime.Now.Ticks);
+                return faultTolerantResponseMessage;
             }
             else
             {
@@ -345,11 +399,11 @@ Url:{2}", requestMessage.Title, requestMessage.Description, requestMessage.Url);
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
             /* 所有没有被处理的消息会默认返回这里的结果，
-             * 因此，如果想把整个微信请求委托出去（例如需要使用分布式或从其他服务器获取请求），
-             * 只需要在这里统一发出委托请求，如：
-             * var responseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
-             * return responseMessage;
-             */
+            * 因此，如果想把整个微信请求委托出去（例如需要使用分布式或从其他服务器获取请求），
+            * 只需要在这里统一发出委托请求，如：
+            * var responseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
+            * return responseMessage;
+            */
 
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "这条消息来自DefaultResponseMessage。";

@@ -274,18 +274,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return RequestMessage.CreateResponseMessage<TR>();
         }
 
-        //public ResponseMessageText CreateResponseMessageText(string content)
-        //{
-        //    if (RequestMessage == null)
-        //    {
-        //        return null;
-        //    }
-
-        //    var responseMessage = RequestMessage.CreateResponseMessage<ResponseMessageText>();
-        //    responseMessage.Content = content;
-        //    return responseMessage;
-        //}
-
         /// <summary>
         /// 执行微信请求
         /// </summary>
@@ -339,7 +327,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.Event:
                         {
                             var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                            ResponseMessage = OnTextOrEventRequest(requestMessageText) ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
+                            ResponseMessage = OnTextOrEventRequest(requestMessageText) 
+                                                ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
                         }
                         break;
                     default:

@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("参数错误！");
             }
 
-            postModel.Token = Token;
+            postModel.Token = Token;//根据自己后台的设置保持一致
             postModel.EncodingAESKey = EncodingAESKey;//根据自己后台的设置保持一致
             postModel.AppId = AppId;//根据自己后台的设置保持一致
 

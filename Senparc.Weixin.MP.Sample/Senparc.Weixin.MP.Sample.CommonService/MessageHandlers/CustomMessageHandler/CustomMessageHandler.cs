@@ -399,11 +399,11 @@ Url:{2}", requestMessage.Title, requestMessage.Description, requestMessage.Url);
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
             /* 所有没有被处理的消息会默认返回这里的结果，
-             * 因此，如果想把整个微信请求委托出去（例如需要使用分布式或从其他服务器获取请求），
-             * 只需要在这里统一发出委托请求，如：
-             * var responseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
-             * return responseMessage;
-             */
+            * 因此，如果想把整个微信请求委托出去（例如需要使用分布式或从其他服务器获取请求），
+            * 只需要在这里统一发出委托请求，如：
+            * var responseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
+            * return responseMessage;
+            */
 
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "这条消息来自DefaultResponseMessage。";

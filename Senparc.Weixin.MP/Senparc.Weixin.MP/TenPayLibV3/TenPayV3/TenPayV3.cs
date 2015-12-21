@@ -15,15 +15,9 @@
     官方API：https://mp.weixin.qq.com/paymch/readtemplate?t=mp/business/course2_tmpl&lang=zh_CN&token=25857919#4
  */
 
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -47,7 +41,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
         }
 
         /// <summary>
@@ -80,7 +74,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+            return RequestUtility.HttpPost(urlFormat, null, ms);
         }
 
         /// <summary>
@@ -96,7 +90,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+            return RequestUtility.HttpPost(urlFormat, null, ms);
         }
 
         //退款申请请直接参考Senparc.Weixin.MP.Sample中的退款demo
@@ -129,7 +123,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+            return RequestUtility.HttpPost(urlFormat, null, ms);
         }
 
         /// <summary>
@@ -145,7 +139,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+            return RequestUtility.HttpPost(urlFormat, null, ms);
         }
 
         /// <summary>
@@ -161,7 +155,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+            return RequestUtility.HttpPost(urlFormat, null, ms);
         }
 
         /// <summary>
@@ -178,7 +172,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+            return RequestUtility.HttpPost(urlFormat, null, ms);
         }
     }
 }

@@ -11,11 +11,6 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Senparc.Weixin.MP.Entities
 {
     public interface IRequestMessageEventBase : IRequestMessageBase
@@ -30,6 +25,9 @@ namespace Senparc.Weixin.MP.Entities
         //string EventKey { get; set; }
     }
 
+    /// <summary>
+    /// 请求消息的事件推送消息基类
+    /// </summary>
     public class RequestMessageEventBase : RequestMessageBase, IRequestMessageEventBase
     {
         public override RequestMsgType MsgType
@@ -44,10 +42,5 @@ namespace Senparc.Weixin.MP.Entities
         {
             get { return Event.ENTER; }
         }
-
-        ///// <summary>
-        ///// 事件KEY值，与自定义菜单接口中KEY值对应，如果是View，则是跳转到的URL地址
-        ///// </summary>
-        //public string EventKey { get; set; }
     }
 }

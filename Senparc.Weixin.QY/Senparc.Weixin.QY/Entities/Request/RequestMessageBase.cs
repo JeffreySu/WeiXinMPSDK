@@ -11,14 +11,9 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Senparc.Weixin.QY.Entities
 {
-    public interface IRequestMessageBase : Senparc.Weixin.Entities.IRequestMessageBase
+    public interface IRequestMessageBase : Weixin.Entities.IRequestMessageBase
     {
         RequestMsgType MsgType { get; }
         int AgentID { get; set; }

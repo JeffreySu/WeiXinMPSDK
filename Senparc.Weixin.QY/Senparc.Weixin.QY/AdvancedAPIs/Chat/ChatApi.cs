@@ -14,13 +14,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.QY.AdvancedAPIs.OAuth2;
+using Senparc.Weixin.QY.AdvancedAPIs.Chat;
 using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.QY.Helpers;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
@@ -49,7 +46,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 userlist = userlist
             };
 
-            return CommonAPIs.CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -91,7 +88,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 del_user_list = delUserList
             };
 
-            return CommonAPIs.CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -112,7 +109,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 op_user = opUser,
             };
 
-            return CommonAPIs.CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -138,7 +135,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 }
             };
 
-            return CommonAPIs.CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -154,7 +151,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static QyJsonResult SendChatMessage(string accessToken, string sender, Chat_Type type, ChatMsgType msgType, string chatIdOrUserId, string contentOrMediaId, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/clearnotify?access_token={0}", accessToken);
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/send?access_token={0}", accessToken);
 
             BaseSendChatMessageData data;
 
@@ -165,11 +162,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                     {
                         receiver = new Receiver()
                         {
-                            type = type,
+                            type = type.ToString(),
                             id = chatIdOrUserId
                         },
                         sender = sender,
-                        msgtype = msgType,
+                        msgtype = msgType.ToString(),
                         text = new Chat_Content()
                         {
                             content = contentOrMediaId
@@ -181,11 +178,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                     {
                         receiver = new Receiver()
                         {
-                            type = type,
+                            type = type.ToString(),
                             id = chatIdOrUserId
                         },
                         sender = sender,
-                        msgtype = msgType,
+                        msgtype = msgType.ToString(),
                         image = new Chat_Image()
                         {
                             media_id = contentOrMediaId
@@ -197,11 +194,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                     {
                         receiver = new Receiver()
                         {
-                            type = type,
+                            type = type.ToString(),
                             id = chatIdOrUserId
                         },
                         sender = sender,
-                        msgtype = msgType,
+                        msgtype = msgType.ToString(),
                         file = new Chat_File()
                         {
                             media_id = contentOrMediaId
@@ -212,8 +209,22 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                     throw new ArgumentOutOfRangeException("msgType");
             }
 
-            return CommonAPIs.CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
+
+//{
+//    "text":
+//        {
+//            "content":"111"
+//        },
+//    "receiver":
+//        {
+//            "type":"group",
+//            "id":"1"
+//        },
+//    "sender":"005",
+//    "msgtype":"text"
+//}
 
         /// <summary>
         /// 设置成员新消息免打扰
@@ -231,7 +242,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 user_mute_list = userMuteList
             };
 
-            return CommonAPIs.CommonJsonSend.Send<SetMuteResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<SetMuteResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
     }
 }

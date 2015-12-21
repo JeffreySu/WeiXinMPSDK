@@ -11,7 +11,7 @@ namespace Senparc.Weixin.Open.Test.CommonApi
         [TestMethod]
         public void GetAuthorizerInfoTest()
         {
-            var component_access_tokenResult = Open.CommonAPIs.CommonApi.GetComponentAccessToken(_appId, _appSecret, _ticket);
+            var component_access_tokenResult = Open.ComponentAPIs.ComponentApi.GetComponentAccessToken(_appId, _appSecret, _ticket);
 
             var result = Open.ComponentAPIs.ComponentApi.GetAuthorizerInfo(component_access_tokenResult.component_access_token,
                 _appId, "wx7cfd56c9f047bf51");

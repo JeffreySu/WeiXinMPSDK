@@ -5,10 +5,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Senparc.Weixin.MP.Entities.Request;
 
 namespace Senparc.Weixin.MP.Sample.WebForms
 {
+    using Senparc.Weixin.MP.Entities.Request;
     using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 
     public partial class Weixin : System.Web.UI.Page

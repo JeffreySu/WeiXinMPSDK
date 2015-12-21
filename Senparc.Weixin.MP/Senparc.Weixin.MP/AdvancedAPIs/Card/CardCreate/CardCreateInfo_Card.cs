@@ -14,11 +14,6 @@
     修改描述：添加会议门票
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
     /// <summary>

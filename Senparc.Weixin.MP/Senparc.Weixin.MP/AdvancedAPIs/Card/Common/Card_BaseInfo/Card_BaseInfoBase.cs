@@ -11,10 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
@@ -152,5 +149,59 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public string promotion_url_sub_title { get; set; }
+        /// <summary>
+        /// 积分余额变动消息类型
+        /// </summary>
+        public Modify_Msg_Operation modify_msg_operation { get; set; }
+
+        //public Card_BaseInfoBase()
+        //{
+        //    modify_msg_operation = new Modify_Msg_Operation();//为了解决提交时候modify_msg_operation=null，导致47001的错误
+        //}
+    }
+
+    public class Modify_Msg_Operation /*: JsonIgnoreNull//为了解决提交时候modify_msg_operation=null，导致47001的错误*/
+    {
+        /// <summary>
+        /// 卡券类型的推荐位
+        /// </summary>
+        public CardCell card_cell { get; set; }
+        /// <summary>
+        /// 链接类型的推荐位
+        /// </summary>
+        public UrlCell url_cell { get; set; }
+
+        public Modify_Msg_Operation()
+        {
+
+        }
+    }
+
+    public class CardCell
+    {
+        /// <summary>
+        /// 推荐位展示的截止时间
+        /// </summary>
+        public long end_time { get; set; }
+        /// <summary>
+        /// 需要在运营位投放的卡券id
+        /// </summary>
+        public string card_id { get; set; }
+    }
+
+    public class UrlCell
+    {
+        /// <summary>
+        /// 推荐位展示的截止时间
+        /// </summary>
+        public long end_time { get; set; }
+        /// <summary>
+        /// 文本内容
+        /// </summary>
+        public string text { get; set; }
+        /// <summary>
+        /// 跳转链接
+        /// </summary>
+        public string url { get; set; }
     }
 }

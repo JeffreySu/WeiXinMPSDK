@@ -14,12 +14,6 @@
     修改描述：添加会议门票类型
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Senparc.Weixin.MP.Entities;
-
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
     /* 所有类型的卡券数据 */
@@ -130,6 +124,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 必填
         /// </summary>
         public bool supply_balance { get; set; }
+        /// <summary>
+        /// 设置为true时用户领取会员卡后系统自动将其激活，无需调用激活接口。
+        /// 非必填
+        /// </summary>
+        public bool auto_activate { get; set; }
+        /// <summary>
+        /// 设置为true时会员卡支持一键激活，不允许同时传入activate_url字段，否则设置wx_activate失效。
+        /// 非必填
+        /// </summary>
+        public bool wx_activate { get; set; }
         /// <summary>
         /// 积分清零规则
         /// 非必填

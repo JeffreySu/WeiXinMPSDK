@@ -8,6 +8,9 @@ using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.OpenTicket
 {
+    /// <summary>
+    /// OpenTicket即ComponentVerifyTicket
+    /// </summary>
     public class OpenTicketHelper
     {
         public static string GetOpenTicket(string componentAppId)

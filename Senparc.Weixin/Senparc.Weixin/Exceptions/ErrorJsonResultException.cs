@@ -12,9 +12,6 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Exceptions
@@ -25,10 +22,22 @@ namespace Senparc.Weixin.Exceptions
     public class ErrorJsonResultException : WeixinException
     {
         public WxJsonResult JsonResult { get; set; }
-        public ErrorJsonResultException(string message, Exception inner, WxJsonResult jsonResult)
+        public string Url { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="inner"></param>
+        /// <param name="jsonResult"></param>
+        /// <param name="url"></param>
+        public ErrorJsonResultException(string message, Exception inner, WxJsonResult jsonResult, string url = null)
             : base(message, inner)
         {
             JsonResult = jsonResult;
+            Url = url;
+
+            WeixinTrace.ErrorJsonResultExceptionLog(this);
         }
     }
 }

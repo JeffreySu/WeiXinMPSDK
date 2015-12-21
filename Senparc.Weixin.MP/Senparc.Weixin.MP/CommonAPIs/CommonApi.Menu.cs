@@ -25,18 +25,15 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Entities.Menu;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Entities.Menu;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
@@ -172,31 +169,35 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        public static GetMenuResult GetMenu(string accessToken)
+        public static GetMenuResult GetMenu(string accessTokenOrAppId)
         {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken);
-
-            var jsonString = HttpUtility.RequestUtility.HttpGet(url, Encoding.UTF8);
-            //var finalResult = GetMenuFromJson(jsonString);
-
-            GetMenuResult finalResult;
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            try
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var jsonResult = js.Deserialize<GetMenuResultFull>(jsonString);
-                if (jsonResult.menu == null || jsonResult.menu.button.Count == 0)
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/get?access_token={0}", accessToken);
+
+                var jsonString = RequestUtility.HttpGet(url, Encoding.UTF8);
+                //var finalResult = GetMenuFromJson(jsonString);
+
+                GetMenuResult finalResult;
+                JavaScriptSerializer js = new JavaScriptSerializer();
+                try
                 {
-                    throw new WeixinException(jsonResult.errmsg);
+                    var jsonResult = js.Deserialize<GetMenuResultFull>(jsonString);
+                    if (jsonResult.menu == null || jsonResult.menu.button.Count == 0)
+                    {
+                        throw new WeixinException(jsonResult.errmsg);
+                    }
+
+                    finalResult = GetMenuFromJsonResult(jsonResult);
+                }
+                catch (WeixinException ex)
+                {
+                    finalResult = null;
                 }
 
-                finalResult = GetMenuFromJsonResult(jsonResult);
-            }
-            catch (WeixinException ex)
-            {
-                finalResult = null;
-            }
+                return finalResult;
 
-            return finalResult;
+            }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -436,11 +437,16 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        public static WxJsonResult DeleteMenu(string accessToken)
+        public static WxJsonResult DeleteMenu(string accessTokenOrAppId)
         {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/delete?access_token={0}", accessToken);
-            var result = Get.GetJson<WxJsonResult>(url);
-            return result;
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/delete?access_token={0}", accessToken);
+
+                return Get.GetJson<WxJsonResult>(url);
+
+            }, accessTokenOrAppId);
+            
         }
     }
 }

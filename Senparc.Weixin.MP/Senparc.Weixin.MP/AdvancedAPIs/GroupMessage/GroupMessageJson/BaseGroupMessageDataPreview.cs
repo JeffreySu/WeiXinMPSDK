@@ -14,11 +14,6 @@
     修改描述：修改结构，可根据微信号预览群发消息
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
 {
     public class BaseGroupMessageDataPreview

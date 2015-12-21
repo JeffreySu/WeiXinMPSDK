@@ -8,6 +8,7 @@
 微信开放平台：Senparc.Weixin.Open.dll
 -----------------
 
+本库为.NET4.5，其他.NET版本请看各自分支。
 
 已经支持所有微信6 API，包括自定义菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口等。
 
@@ -38,9 +39,13 @@
 
 
 
-技术交流QQ群：
-1群：300313885（已满）
-2群：293958349（已满）  3群：342319110（已满） 4群：372212092（已满） 5群：377815480（已满）6群：425898825
+技术交流QQ群（目前未满可加：3群、8群，其他群均已满）：
+
+
+1群：300313885，2群：293958349，3群：342319110，4群：372212092
+
+5群：377815480，6群：425898825，7群：482942254，8群：106230270
+
 
 业务联系QQ：498977166
 
@@ -67,9 +72,9 @@
 
 > Senparc.Weixin.MP.MvcExtension：Senparc.Weixin.MP.MvcExtension.dll源码，为MVC4.0项目提供的扩展包。
 
-> Senparc.Weixin.MP.Sample：可以直接发布使用的Demo（ASP.NET MVC 4.0，需要.NET 4.0）
+> Senparc.Weixin.MP.Sample：可以直接发布使用的Demo（ASP.NET MVC 4.0）
 
-> Senparc.Weixin.MP.Sample.WebForms：可以直接发布使用的Demo（ASP.NET WebForms，需要.NET 3.5）
+> Senparc.Weixin.MP.Sample.WebForms：可以直接发布使用的Demo（ASP.NET WebForms）
 
 > Senparc.Weixin.MP：Senparc.Weixin.MP.dll 微信公众账号SDK源代码
 
@@ -143,16 +148,14 @@ public ActionResult Post(PostModel postModel)
     postModel.EncodingAESKey = EncodingAESKey;//根据自己后台的设置保持一致
     postModel.AppId = AppId;//根据自己后台的设置保持一致
 
-    var messageHandler = new CustomMessageHandler(Request.InputStream, postModel);//接收消息
+    var messageHandler = new CustomMessageHandler(Request.InputStream, postModel);//接收消息（第一步）
     
-    messageHandler.Execute();//执行微信处理过程
+    messageHandler.Execute();//执行微信处理过程（第二步）
     
-    //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
-    //return new WeixinResult(messageHandler);//v0.8+ with MvcExtension
-    return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0以后软件换行bug暂时添加的方法，平时用上面一个方法即可
+    return new FixWeixinBugWeixinResult(messageHandler);//返回（第三步）
 }
 ```
-整个消息除了postModel的赋值以外，接收、处理、返回分别只需要一行代码。
+整个消息除了postModel的赋值以外，接收（第一步）、处理（第二步）、返回（第三步）分别只需要一行代码。
 
 上述代码中的CustomMessageHandler是一个自定义的类，继承自Senparc.Weixin.MP.MessageHandler.cs。MessageHandler是一个抽象类，包含了执行各种不同请求类型的抽象方法（如文字，语音，位置、图片等等），我们只需要在自己创建的CustomMessageHandler中逐个实现这些方法就可以了。刚建好的CustomMessageHandler.cs如下：
 ```C#

@@ -11,11 +11,6 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
 {
     /// <summary>
@@ -42,7 +37,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
         /// </summary>
         public string[] privilege { get; set; }
         /// <summary>
-        /// 只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。详见：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&lang=zh_CN
+        /// 只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。详见：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&amp;t=resource/res_list&verify=1&amp;lang=zh_CN
         /// </summary>
         public string unionid { get; set; }
     }

@@ -14,16 +14,12 @@
 /*
  * V3.1
  */
+
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.MessageHandlers
 {
@@ -216,14 +212,15 @@ namespace Senparc.Weixin.MessageHandlers
 
         //public abstract TR CreateResponseMessage<TR>() where TR : ResponseMessageBase;
 
-        /// <summary>
-        /// 执行微信请求
-        /// </summary>
-        public abstract void Execute();
 
         public virtual void OnExecuting()
         {
         }
+
+        /// <summary>
+        /// 执行微信请求
+        /// </summary>
+        public abstract void Execute();
 
         public virtual void OnExecuted()
         {

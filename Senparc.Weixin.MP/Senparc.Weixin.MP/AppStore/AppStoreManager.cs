@@ -8,11 +8,9 @@
     创建标识：Senparc - 20150319
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AppStore.Api;
 
 namespace Senparc.Weixin.MP.AppStore
@@ -89,7 +87,7 @@ namespace Senparc.Weixin.MP.AppStore
             var formData = new Dictionary<string, string>();
             formData["appKey"] = passportBag.AppKey;
             formData["secret"] = passportBag.AppSecret;
-            var result = Senparc.Weixin.HttpUtility.Post.PostGetJson<PassportResult>(getPassportUrl, formData: formData);
+            var result = Post.PostGetJson<PassportResult>(getPassportUrl, formData: formData);
             if (result.Result != AppResultKind.成功)
             {
                 throw new WeixinException("获取Passort失败！错误信息：" + result.Result, null);

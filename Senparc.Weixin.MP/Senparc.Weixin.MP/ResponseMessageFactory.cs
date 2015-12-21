@@ -9,21 +9,22 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20151208
+    修改描述：v13.4.6 添加ConvertEntityToXml()方法
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Helpers;
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP
 {
-    using Senparc.Weixin.MP.Entities;
-    using Senparc.Weixin.MP.Helpers;
-
+    /// <summary>
+    /// ResponseMessageFactory消息处理方法工厂类
+    /// </summary>
     public static class ResponseMessageFactory
     {
         //<?xml version="1.0" encoding="utf-8"?>
@@ -94,6 +95,16 @@ namespace Senparc.Weixin.MP
         public static IResponseMessageBase GetResponseEntity(string xml)
         {
             return GetResponseEntity(XDocument.Parse(xml));
+        }
+
+        /// <summary>
+        /// 将ResponseMessage实体转为XML
+        /// </summary>
+        /// <param name="entity">ResponseMessage实体</param>
+        /// <returns></returns>
+        public static XDocument ConvertEntityToXml(ResponseMessageBase entity)
+        {
+            return EntityHelper.ConvertEntityToXml(entity);
         }
     }
 }

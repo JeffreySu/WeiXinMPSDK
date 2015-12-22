@@ -68,19 +68,22 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         [HttpPost]
         public ActionResult CreateMenu(string token, GetMenuResultFull resultFull, MenuMatchRule menuMatchRule)
         {
+                var useAddCondidionalApi = menuMatchRule != null && !menuMatchRule.CheckAllNull();
+            var apiName = string.Format("使用接口：{0}。" , (useAddCondidionalApi ? "个性化菜单接口" : "普通自定义菜单接口"));
             try
             {
                 //重新整理按钮信息
-                var useAddCondidionalApi = menuMatchRule != null && !menuMatchRule.CheckAllNull();
                 WxJsonResult result = null;
                 IButtonGroupBase buttonGroup = null;
                 if (useAddCondidionalApi)
                 {
                     //个性化接口
                     buttonGroup = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull, new AddConditionalButtonGroup()).menu;
+
                     var addConditionalButtonGroup = buttonGroup as AddConditionalButtonGroup;
                     addConditionalButtonGroup.matchrule = menuMatchRule;
                     result = CommonAPIs.CommonApi.CreateMenuAddConditional(token, addConditionalButtonGroup);
+                    apiName += string.Format("menuid：{0}。", (result as CreateMenuAddConditionalResult).menuid);
                 }
                 else
                 {
@@ -88,16 +91,17 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     buttonGroup = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull,new ButtonGroup()).menu;
                     result = CommonAPIs.CommonApi.CreateMenu(token, buttonGroup);
                 }
+
                 var json = new
                 {
                     Success = result.errmsg == "ok",
-                    Message = "菜单更新成功。使用接口：" + (useAddCondidionalApi ? "个性化菜单接口" : "普通自定义菜单接口")
+                    Message = "菜单更新成功。"+ apiName
                 };
                 return Json(json);
             }
             catch (Exception ex)
             {
-                var json = new { Success = false, Message = ex.Message };
+                var json = new { Success = false, Message =string.Format("更新失败：{0}。{1}",ex.Message, apiName) };
                 return Json(json);
             }
         }

@@ -16,6 +16,7 @@ using System.Web.Mvc;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
+using Senparc.Weixin.MP.Entities.Menu.AddConditional;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -64,17 +65,18 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateMenu(string token, GetMenuResultFull resultFull)
+        public ActionResult CreateMenu(string token, GetMenuResultFull resultFull, MenuMatchRule menuMatchRule)
         {
             try
             {
                 //重新整理按钮信息
                 var bg = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull).menu;
                 var result = CommonAPIs.CommonApi.CreateMenu(token, bg);
+                var useAddCondidionalApi = menuMatchRule != null && !menuMatchRule.CheckAllNull();
                 var json = new
                 {
                     Success = result.errmsg == "ok",
-                    Message = result.errmsg
+                    Message = "菜单更新成功。使用接口：" + (useAddCondidionalApi ? "个性化菜单接口" : "普通自定义菜单接口")
                 };
                 return Json(json);
             }
@@ -101,10 +103,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 var result = CommonAPIs.CommonApi.DeleteMenu(token);
                 var json = new
-                               {
-                                   Success = result.errmsg == "ok",
-                                   Message = result.errmsg
-                               };
+                {
+                    Success = result.errmsg == "ok",
+                    Message = result.errmsg
+                };
                 return Json(json, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

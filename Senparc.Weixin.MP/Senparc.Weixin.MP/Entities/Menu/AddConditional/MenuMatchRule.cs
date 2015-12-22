@@ -41,5 +41,19 @@ namespace Senparc.Weixin.MP.Entities.Menu.AddConditional
         /// 客户端版本，当前只具体到系统型号：IOS(1), Android(2),Others(3)，不填则不做匹配
         /// </summary>
         public string client_platform_type { get; set; }
+
+        /// <summary>
+        /// 判断是否所有属性都为null
+        /// </summary>
+        /// <returns></returns>
+        public bool CheckAllNull()
+        {
+            return string.IsNullOrEmpty(group_id)
+                   && string.IsNullOrEmpty(sex)
+                   && string.IsNullOrEmpty(country)
+                   && string.IsNullOrEmpty(province)
+                   && string.IsNullOrEmpty(city)
+                   && string.IsNullOrEmpty(client_platform_type);
+        }
     }
 }

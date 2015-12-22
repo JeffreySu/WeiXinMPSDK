@@ -7722,6 +7722,12 @@
             客户端版本，当前只具体到系统型号：IOS(1), Android(2),Others(3)，不填则不做匹配
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.MP.Entities.Menu.AddConditional.MenuMatchRule.CheckAllNull">
+            <summary>
+            判断是否所有属性都为null
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleScancodePushButton">
             <summary>
             单个按键

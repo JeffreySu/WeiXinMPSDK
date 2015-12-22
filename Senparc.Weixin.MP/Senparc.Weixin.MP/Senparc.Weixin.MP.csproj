@@ -214,8 +214,8 @@
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Custom.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\JsonResult\Menu\CreateMenuConditionalResult.cs" />
-    <Compile Include="Entities\Menu\AddConditional\ConditionalButtonGroup.cs" />
-    <Compile Include="Entities\Menu\AddConditional\MenuMatchRule.cs" />
+    <Compile Include="Entities\Menu\Conditional\ConditionalButtonGroup.cs" />
+    <Compile Include="Entities\Menu\Conditional\MenuMatchRule.cs" />
     <Compile Include="Entities\Menu\ButtonGroupBase.cs" />
     <Compile Include="Entities\Menu\Buttons\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Menu\IButtonGroupBase.cs" />

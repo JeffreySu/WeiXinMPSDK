@@ -277,8 +277,8 @@
     <Compile Include="Entities\Extensions.cs" />
     <Compile Include="Entities\GoogleMap\GoogleMapMarkers.cs" />
     <Compile Include="Entities\JsonResult\AccessTokenResult.cs" />
-    <Compile Include="Entities\JsonResult\GetMenuResultFull.cs" />
-    <Compile Include="Entities\JsonResult\GetMenuResult.cs" />
+    <Compile Include="Entities\JsonResult\Menu\GetMenuResultFull.cs" />
+    <Compile Include="Entities\JsonResult\Menu\GetMenuResult.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaJson\UploadMediaFileResult.cs" />
     <Compile Include="Entities\JsonResult\WeixinUserInfoResult.cs" />
     <Compile Include="Entities\Menu\Buttons\BaseButton.cs" />

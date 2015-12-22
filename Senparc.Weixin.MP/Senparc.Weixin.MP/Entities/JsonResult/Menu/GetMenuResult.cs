@@ -23,6 +23,8 @@ namespace Senparc.Weixin.MP.Entities
     {
         public ButtonGroup menu { get; set; }
 
+
+
         public GetMenuResult()
         {
             menu = new ButtonGroup();

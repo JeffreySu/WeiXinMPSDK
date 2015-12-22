@@ -77,7 +77,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                  //        }
                  //    }
                  //}
-                 return CommonJsonSend.Send(accessToken, urlFormat, buttonData, timeOut: timeOut);
+                 return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, buttonData, timeOut: timeOut);
 
              }, accessTokenOrAppId);
         }
@@ -94,7 +94,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
-                return CommonJsonSend.Send(accessToken, urlFormat, buttonData, timeOut: timeOut);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, buttonData, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -466,7 +466,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 return Get.GetJson<WxJsonResult>(url);
 
             }, accessTokenOrAppId);
-            
+
         }
     }
 }

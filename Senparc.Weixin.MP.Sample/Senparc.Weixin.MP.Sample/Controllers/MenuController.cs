@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
@@ -70,9 +71,25 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             try
             {
                 //重新整理按钮信息
-                var bg = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull).menu;
-                var result = CommonAPIs.CommonApi.CreateMenu(token, bg);
                 var useAddCondidionalApi = menuMatchRule != null && !menuMatchRule.CheckAllNull();
+                WxJsonResult result = null;
+
+                var bg = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull).menu;
+                if (useAddCondidionalApi)
+                {
+                    //个性化接口
+                    var addConditionalBg = new AddConditionalButtonGroup()
+                    {
+                        button = bg,
+
+                    };
+                    result = CommonAPIs.CommonApi.CreateMenuAddConditional(token,)
+                }
+                else
+                {
+                    //普通接口
+                    result = CommonAPIs.CommonApi.CreateMenu(token, bg);
+                }
                 var json = new
                 {
                     Success = result.errmsg == "ok",

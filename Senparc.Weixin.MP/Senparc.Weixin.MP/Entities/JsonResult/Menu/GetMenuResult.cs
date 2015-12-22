@@ -21,13 +21,13 @@ namespace Senparc.Weixin.MP.Entities
     /// </summary>
     public class GetMenuResult : WxJsonResult
     {
-        public ButtonGroup menu { get; set; }
+        //TODO：这里如果有更加复杂的情况，可以换成ButtonGroupBase类型，并提供泛型
+        public ButtonGroupBase menu { get; set; }
 
 
-
-        public GetMenuResult()
+        public GetMenuResult(ButtonGroupBase buttonGroupBase)
         {
-            menu = new ButtonGroup();
+            menu = buttonGroupBase;
         }
     }
 }

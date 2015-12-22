@@ -126,7 +126,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         [Obsolete("此方法通过判断GetMenuResult并结合object类型转换得到结果。结果准确。但更推荐使用GetMenuFromJsonResult方法。")]
         public static GetMenuResult GetMenuFromJson(string jsonString)
         {
-            var finalResult = new GetMenuResult();
+            var finalResult = new GetMenuResult(new ButtonGroup());
 
             try
             {
@@ -208,7 +208,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         throw new WeixinException(jsonResult.errmsg);
                     }
 
-                    finalResult = GetMenuFromJsonResult(jsonResult);
+                    finalResult = GetMenuFromJsonResult(jsonResult,new ButtonGroup());
                 }
                 catch (WeixinException ex)
                 {
@@ -225,7 +225,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="resultFull"></param>
         /// <returns></returns>
-        public static GetMenuResult GetMenuFromJsonResult(GetMenuResultFull resultFull)
+        public static GetMenuResult GetMenuFromJsonResult(GetMenuResultFull resultFull,ButtonGroupBase buttonGroupBase)
         {
             GetMenuResult result = null;
             try
@@ -438,7 +438,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     }
                 }
 
-                result = new GetMenuResult()
+                result = new GetMenuResult(buttonGroupBase)
                 {
                     menu = bg
                 };

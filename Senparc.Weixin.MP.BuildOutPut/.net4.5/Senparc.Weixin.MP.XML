@@ -7569,7 +7569,7 @@
             <param name="accessToken"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenuFromJsonResult(Senparc.Weixin.MP.GetMenuResultFull)">
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenuFromJsonResult(Senparc.Weixin.MP.GetMenuResultFull,Senparc.Weixin.MP.Entities.Menu.ButtonGroupBase)">
             <summary>
             根据微信返回的Json数据得到可用的GetMenuResult结果
             </summary>
@@ -7681,6 +7681,11 @@
             凭证有效时间，单位：秒
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.AddConditionalButtonGroup">
+            <summary>
+            个性化菜单按钮集合
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.Entities.Menu.AddConditionalButtonGroup.menuid">
             <summary>
             菜单Id，只在获取的时候自动填充，提交“菜单创建”请求时不需要设置
@@ -7728,6 +7733,16 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.ButtonGroupBase">
+            <summary>
+            整个按钮设置（可以直接用ButtonGroup实例返回JSON对象）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.ButtonGroupBase.button">
+            <summary>
+            按钮数组，按钮个数应为1-3个
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleScancodePushButton">
             <summary>
             单个按键
@@ -7752,12 +7767,7 @@
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.ButtonGroup">
             <summary>
-            整个按钮设置（可以直接用ButtonGroup实例返回JSON对象）
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.Entities.Menu.ButtonGroup.button">
-            <summary>
-            按钮数组，按钮个数应为2~3个
+            （普通自定义菜单）整个按钮设置（可以直接用ButtonGroup实例返回JSON对象）
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.Menu.SingleButton">

@@ -9,11 +9,15 @@
 
 ----------------------------------------------------------------*/
 
+using System.Collections.Generic;
 using Senparc.Weixin.MP.Entities.Menu.AddConditional;
 
 namespace Senparc.Weixin.MP.Entities.Menu
 {
-    public class AddConditionalButtonGroup : ButtonGroup
+    /// <summary>
+    /// 个性化菜单按钮集合
+    /// </summary>
+    public class AddConditionalButtonGroup :ButtonGroupBase, IButtonGroupBase
     {
         public MenuMatchRule matchrule { get; set; }
         /// <summary>

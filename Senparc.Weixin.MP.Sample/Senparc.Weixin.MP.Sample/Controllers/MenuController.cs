@@ -28,7 +28,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         public ActionResult Index()
         {
-            GetMenuResult result = new GetMenuResult();
+            GetMenuResult result = new GetMenuResult(new ButtonGroup());
 
             //初始化
             for (int i = 0; i < 3; i++)
@@ -73,21 +73,19 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //重新整理按钮信息
                 var useAddCondidionalApi = menuMatchRule != null && !menuMatchRule.CheckAllNull();
                 WxJsonResult result = null;
-
-                var bg = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull).menu;
+                IButtonGroupBase bg = null;
                 if (useAddCondidionalApi)
                 {
                     //个性化接口
-                    var addConditionalBg = new AddConditionalButtonGroup()
-                    {
-                        button = bg,
-
-                    };
-                    result = CommonAPIs.CommonApi.CreateMenuAddConditional(token,)
+                    bg = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull, new AddConditionalButtonGroup()).menu;
+                    var addConditionalBg = bg as AddConditionalButtonGroup;
+                    addConditionalBg.matchrule = menuMatchRule;
+                    result = CommonAPIs.CommonApi.CreateMenuAddConditional(token, addConditionalBg);
                 }
                 else
                 {
                     //普通接口
+                    bg = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull,new ButtonGroup()).menu;
                     result = CommonAPIs.CommonApi.CreateMenu(token, bg);
                 }
                 var json = new

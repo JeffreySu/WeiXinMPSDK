@@ -208,7 +208,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         throw new WeixinException(jsonResult.errmsg);
                     }
 
-                    finalResult = GetMenuFromJsonResult(jsonResult,new ButtonGroup());
+                    finalResult = GetMenuFromJsonResult(jsonResult, new ButtonGroup());
                 }
                 catch (WeixinException ex)
                 {
@@ -224,14 +224,20 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// 根据微信返回的Json数据得到可用的GetMenuResult结果
         /// </summary>
         /// <param name="resultFull"></param>
+        /// <param name="buttonGroupBase">ButtonGroupBase的衍生类型，可以为ButtonGroup或AddConditionalButtonGroup。返回的GetMenuResult中的menu属性即为此示例。</param>
         /// <returns></returns>
-        public static GetMenuResult GetMenuFromJsonResult(GetMenuResultFull resultFull,ButtonGroupBase buttonGroupBase)
+        public static GetMenuResult GetMenuFromJsonResult(GetMenuResultFull resultFull, ButtonGroupBase buttonGroupBase)
         {
             GetMenuResult result = null;
+            if (buttonGroupBase == null)
+            {
+                throw new ArgumentNullException("buttonGroupBase不可以为空！");
+            }
+
             try
             {
                 //重新整理按钮信息
-                ButtonGroup bg = new ButtonGroup();
+                ButtonGroupBase buttonGroup = buttonGroupBase;// ?? new ButtonGroup();
                 foreach (var rootButton in resultFull.menu.button)
                 {
                     if (string.IsNullOrEmpty(rootButton.name))
@@ -252,7 +258,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         if (rootButton.type.Equals("CLICK", StringComparison.OrdinalIgnoreCase))
                         {
                             //点击
-                            bg.button.Add(new SingleClickButton()
+                            buttonGroup.button.Add(new SingleClickButton()
                             {
                                 name = rootButton.name,
                                 key = rootButton.key,
@@ -262,7 +268,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         else if (rootButton.type.Equals("VIEW", StringComparison.OrdinalIgnoreCase))
                         {
                             //URL
-                            bg.button.Add(new SingleViewButton()
+                            buttonGroup.button.Add(new SingleViewButton()
                             {
                                 name = rootButton.name,
                                 url = rootButton.url,
@@ -272,7 +278,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         else if (rootButton.type.Equals("LOCATION_SELECT", StringComparison.OrdinalIgnoreCase))
                         {
                             //弹出地理位置选择器
-                            bg.button.Add(new SingleLocationSelectButton()
+                            buttonGroup.button.Add(new SingleLocationSelectButton()
                             {
                                 name = rootButton.name,
                                 key = rootButton.key,
@@ -282,7 +288,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         else if (rootButton.type.Equals("PIC_PHOTO_OR_ALBUM", StringComparison.OrdinalIgnoreCase))
                         {
                             //弹出拍照或者相册发图
-                            bg.button.Add(new SinglePicPhotoOrAlbumButton()
+                            buttonGroup.button.Add(new SinglePicPhotoOrAlbumButton()
                             {
                                 name = rootButton.name,
                                 key = rootButton.key,
@@ -292,7 +298,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         else if (rootButton.type.Equals("PIC_SYSPHOTO", StringComparison.OrdinalIgnoreCase))
                         {
                             //弹出系统拍照发图
-                            bg.button.Add(new SinglePicSysphotoButton()
+                            buttonGroup.button.Add(new SinglePicSysphotoButton()
                             {
                                 name = rootButton.name,
                                 key = rootButton.key,
@@ -302,7 +308,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         else if (rootButton.type.Equals("PIC_WEIXIN", StringComparison.OrdinalIgnoreCase))
                         {
                             //弹出微信相册发图器
-                            bg.button.Add(new SinglePicWeixinButton()
+                            buttonGroup.button.Add(new SinglePicWeixinButton()
                             {
                                 name = rootButton.name,
                                 key = rootButton.key,
@@ -312,7 +318,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         else if (rootButton.type.Equals("SCANCODE_PUSH", StringComparison.OrdinalIgnoreCase))
                         {
                             //扫码推事件
-                            bg.button.Add(new SingleScancodePushButton()
+                            buttonGroup.button.Add(new SingleScancodePushButton()
                             {
                                 name = rootButton.name,
                                 key = rootButton.key,
@@ -322,7 +328,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                         else
                         {
                             //扫码推事件且弹出“消息接收中”提示框
-                            bg.button.Add(new SingleScancodeWaitmsgButton()
+                            buttonGroup.button.Add(new SingleScancodeWaitmsgButton()
                             {
                                 name = rootButton.name,
                                 key = rootButton.key,
@@ -338,7 +344,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     {
                         //底部二级菜单
                         var subButton = new SubButton(rootButton.name);
-                        bg.button.Add(subButton);
+                        buttonGroup.button.Add(subButton);
 
                         foreach (var subSubButton in rootButton.sub_button)
                         {
@@ -440,7 +446,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
                 result = new GetMenuResult(buttonGroupBase)
                 {
-                    menu = bg
+                    menu = buttonGroup
                 };
             }
             catch (Exception ex)

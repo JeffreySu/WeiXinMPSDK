@@ -14,9 +14,9 @@
             padding: 5px;
         }
 
-            select.dllButtonDetails option {
-                padding: 5px;
-            }
+        select.dllButtonDetails option {
+            padding: 5px;
+        }
 
         .txtButtonDetails {
             width: 200px;
@@ -32,6 +32,15 @@
 
         .leftArea {
             width: 450px;
+        }
+
+        #reveiveJSON {
+            margin: 30px 40px;
+        }
+
+        #reveiveJSON textarea {
+            width: 90%;
+            height: 150px;
         }
     </style>
 }
@@ -134,22 +143,22 @@
                         @for (int i = 0; i < 6; i++)
                         {
                             var isRootMenu = i == 5;
-                            <tr id="@(isRootMenu ? "subMenuRow_" + i : "rootMenuRow")">
-                                <td>
-                                    @(isRootMenu ? "一级菜单按钮" : ("二级菜单No." + (i + 1)))
-                                </td>
-                                @for (int j = 0; j < 3; j++)
+                        <tr id="@(isRootMenu ? "subMenuRow_" + i : "rootMenuRow")">
+                            <td>
+                                @(isRootMenu ? "一级菜单按钮" : ("二级菜单No." + (i + 1)))
+                            </td>
+                            @for (int j = 0; j < 3; j++)
                                 {
                                     var namePrefix = isRootMenu ? string.Format("menu.button[{0}]", j) : string.Format("menu.button[{0}].sub_button[{1}]", j, i);
                                     var idPrefix = isRootMenu ? string.Format("menu_button{0}", j) : string.Format("menu_button{0}_sub_button{1}", j, i);
-                                    <td>
-                                        <input type="hidden" class="control-input" name="@(namePrefix).key" id="@(idPrefix)_key"/>
-                                        <input type="hidden"  class="control-input"name="@(namePrefix).type" id="@(idPrefix)_type" value="click"/>
-                                        <input type="hidden" class="control-input" name="@(namePrefix).url" id="@(idPrefix)_url" />
-                                        <input type="text" class="control-input" name="@(namePrefix).name" id="@(idPrefix)_name" class="txtButton" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
-                                    </td>
+                                <td>
+                                    <input type="hidden" class="control-input" name="@(namePrefix).key" id="@(idPrefix)_key" />
+                                    <input type="hidden" class="control-input" name="@(namePrefix).type" id="@(idPrefix)_type" value="click" />
+                                    <input type="hidden" class="control-input" name="@(namePrefix).url" id="@(idPrefix)_url" />
+                                    <input type="text" class="control-input" name="@(namePrefix).name" id="@(idPrefix)_name" class="txtButton" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
+                                </td>
                                 }
-                            </tr>
+                        </tr>
                         }
                     </tbody>
                 </table>
@@ -185,9 +194,17 @@
                 <input type="button" class="control-btn" value="更新到服务器" id="submitMenu" />
             </div>
         }
+
+        <div id="reveiveJSON">
+            <p>接收JSON：</p>
+            <div><textarea></textarea></div>
+
+        </div>
+        <div class="clear"></div>
+    </div>
     </div>
     <div class="clear"></div>
-</div>
+
 <script src="@Url.Content("~/Scripts/senparc.menu.js")"></script>
 <script>
     $(function () {

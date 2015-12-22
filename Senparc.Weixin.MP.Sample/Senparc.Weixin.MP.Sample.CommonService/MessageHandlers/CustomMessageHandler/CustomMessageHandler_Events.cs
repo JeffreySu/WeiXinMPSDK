@@ -185,6 +185,20 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         strongResponseMessage.Content = "您点击了【微信扫码】按钮。";
                     }
                     break;
+                case "ConditionalMenu_Male":
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
+                        reponseMessage = strongResponseMessage;
+                        strongResponseMessage.Content = "您点击了个性化菜单按钮，您的微信性别设置为：男。";
+                    }
+                    break;
+                case "ConditionalMenu_Femle":
+                    {
+                        var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
+                        reponseMessage = strongResponseMessage;
+                        strongResponseMessage.Content = "您点击了个性化菜单按钮，您的微信性别设置为：女。";
+                    }
+                    break;
                 default:
                     {
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
@@ -245,7 +259,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
             responseMessage.Content = GetWelcomeInfo();
             if (!string.IsNullOrEmpty(requestMessage.EventKey))
             {
-                responseMessage.Content += "\r\n============\r\n场景值："+ requestMessage.EventKey;
+                responseMessage.Content += "\r\n============\r\n场景值：" + requestMessage.EventKey;
             }
             return responseMessage;
         }

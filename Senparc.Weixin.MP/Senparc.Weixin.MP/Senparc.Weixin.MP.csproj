@@ -209,9 +209,12 @@
     <Compile Include="CommonAPIs\AccessTokenContainer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CommonAPIs\CommonApi.Menu.AddConditional.cs" />
     <Compile Include="CommonAPIs\CommonApi.Menu.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
-    <Compile Include="Entities\Menu\SingleScancodePushButton.cs" />
+    <Compile Include="Entities\Menu\AddConditional\AddConditionalButtonGroup.cs" />
+    <Compile Include="Entities\Menu\AddConditional\MenuMatchRule.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Merchant_Order.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_ShakearoundUserShake.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Submit_Membercard_User_Info.cs" />
@@ -278,12 +281,12 @@
     <Compile Include="Entities\JsonResult\GetMenuResult.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaJson\UploadMediaFileResult.cs" />
     <Compile Include="Entities\JsonResult\WeixinUserInfoResult.cs" />
-    <Compile Include="Entities\Menu\BaseButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\BaseButton.cs" />
     <Compile Include="Entities\Menu\ButtonGroup.cs" />
-    <Compile Include="Entities\Menu\SingleButton.cs" />
-    <Compile Include="Entities\Menu\SingleClickButton.cs" />
-    <Compile Include="Entities\Menu\SubButton.cs" />
-    <Compile Include="Entities\Menu\SingleViewButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleClickButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\SubButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleViewButton.cs" />
     <Compile Include="Entities\Request\Event\IRequestMessageEventKey.cs" />
     <Compile Include="Entities\Request\RequestMessageBase.cs">
       <SubType>Code</SubType>
@@ -365,19 +368,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Menu\SingleScancodeWaitmsgButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleScancodeWaitmsgButton.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Menu\SinglePicSysphotoButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\SinglePicSysphotoButton.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Menu\SinglePicPhotoOrAlbumButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\SinglePicPhotoOrAlbumButton.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Menu\SinglePicWeixinButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\SinglePicWeixinButton.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Menu\SingleLocationSelectButton.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleLocationSelectButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Request\Event\RequestMessageEvent_PicPhotoOrAlbum.cs" />

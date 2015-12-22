@@ -7508,7 +7508,22 @@
             通用接口用于和微信服务器通讯，一般不涉及自有网站服务器的通讯
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.CreateMenuAddConditional(System.String,Senparc.Weixin.MP.Entities.Menu.AddConditionalButtonGroup,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetButtonGroup(System.Collections.Generic.List{Senparc.Weixin.MP.MenuFull_RootButton},Senparc.Weixin.MP.Entities.Menu.ButtonGroupBase)">
+            <summary>
+            从rootButtonList获取buttonGroup
+            </summary>
+            <param name="rootButtonList"></param>
+            <param name="buttonGroup"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenuFromJsonResult(Senparc.Weixin.MP.GetMenuResultFull,Senparc.Weixin.MP.Entities.Menu.ButtonGroupBase)">
+            <summary>
+            根据微信返回的Json数据得到可用的GetMenuResult结果
+            </summary>
+            <param name="resultFull"></param>
+            <param name="buttonGroupBase">ButtonGroupBase的衍生类型，可以为ButtonGroup或ConditionalButtonGroup。返回的GetMenuResult中的menu属性即为此示例。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.CreateMenuConditional(System.String,Senparc.Weixin.MP.Entities.Menu.ConditionalButtonGroup,System.Int32)">
             <summary>
             创建个新华菜单
             </summary>
@@ -7524,7 +7539,7 @@
             <param name="userId">可以是粉丝的OpenID，也可以是粉丝的微信号。</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.DeleteMenuAddConditional(System.String,System.String)">
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.DeleteMenuConditional(System.String,System.String)">
             <summary>
             删除菜单
             </summary>
@@ -7567,14 +7582,6 @@
             获取当前菜单，如果菜单不存在，将返回null
             </summary>
             <param name="accessToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenuFromJsonResult(Senparc.Weixin.MP.GetMenuResultFull,Senparc.Weixin.MP.Entities.Menu.ButtonGroupBase)">
-            <summary>
-            根据微信返回的Json数据得到可用的GetMenuResult结果
-            </summary>
-            <param name="resultFull"></param>
-            <param name="buttonGroupBase">ButtonGroupBase的衍生类型，可以为ButtonGroup或AddConditionalButtonGroup。返回的GetMenuResult中的menu属性即为此示例。</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.DeleteMenu(System.String)">
@@ -7682,53 +7689,63 @@
             凭证有效时间，单位：秒
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.Entities.Menu.AddConditionalButtonGroup">
+        <member name="T:Senparc.Weixin.MP.Entities.CreateMenuConditionalResult">
+            <summary>
+            CreateMenuConditional返回的Json结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.CreateMenuConditionalResult.menuid">
+            <summary>
+            menuid
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.ConditionalButtonGroup">
             <summary>
             个性化菜单按钮集合
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Entities.Menu.AddConditionalButtonGroup.menuid">
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.ConditionalButtonGroup.menuid">
             <summary>
             菜单Id，只在获取的时候自动填充，提交“菜单创建”请求时不需要设置
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.Entities.Menu.AddConditional.MenuMatchRule">
+        <member name="T:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule">
             <summary>
             个性化菜单匹配规则
             matchrule共六个字段，均可为空，但不能全部为空，至少要有一个匹配信息是不为空的。 country、province、city组成地区信息，将按照country、province、city的顺序进行验证，要符合地区信息表的内容。地区信息从大到小验证，小的可以不填，即若填写了省份信息，则国家信息也必填并且匹配，城市信息可以不填。 例如 “中国 广东省 广州市”、“中国 广东省”都是合法的地域信息，而“中国 广州市”则不合法，因为填写了城市信息但没有填写省份信息。 地区信息表请点击下载。
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Entities.Menu.AddConditional.MenuMatchRule.group_id">
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.group_id">
             <summary>
             用户分组id，可通过用户分组管理接口获取
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Entities.Menu.AddConditional.MenuMatchRule.sex">
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.sex">
             <summary>
             性别：男（1）女（2），不填则不做匹配
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Entities.Menu.AddConditional.MenuMatchRule.country">
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.country">
             <summary>
             国家信息，是用户在微信中设置的地区，具体请参考地区信息表
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Entities.Menu.AddConditional.MenuMatchRule.province">
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.province">
             <summary>
             省份信息，是用户在微信中设置的地区，具体请参考地区信息表
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Entities.Menu.AddConditional.MenuMatchRule.city">
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.city">
             <summary>
             城市信息，是用户在微信中设置的地区，具体请参考地区信息表
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.Entities.Menu.AddConditional.MenuMatchRule.client_platform_type">
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.client_platform_type">
             <summary>
             客户端版本，当前只具体到系统型号：IOS(1), Android(2),Others(3)，不填则不做匹配
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.Entities.Menu.AddConditional.MenuMatchRule.CheckAllNull">
+        <member name="M:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.CheckAllNull">
             <summary>
             判断是否所有属性都为null
             </summary>
@@ -8453,6 +8470,11 @@
         <member name="T:Senparc.Weixin.MP.Entities.GetMenuResult">
             <summary>
             GetMenu返回的Json结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.GetMenuResult.conditionalmenu">
+            <summary>
+            有个性化菜单时显示。最新的在最前。
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.WeixinUserInfoResult">
@@ -11123,14 +11145,19 @@
             注：menu为默认菜单，conditionalmenu为个性化菜单列表。字段说明请见个性化菜单接口页的说明。
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.GetMenuResultFull.menuid">
-            <summary>
-            有个性化菜单时显示
-            </summary>
-        </member>
         <member name="P:Senparc.Weixin.MP.GetMenuResultFull.conditionalmenu">
             <summary>
-            有个性化菜单时显示
+            有个性化菜单时显示。最新的在最前。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.MenuFull_ConditionalButtonGroup">
+            <summary>
+            接收菜单信息时用的“最大可能性”类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.MenuFull_ConditionalButtonGroup.menuid">
+            <summary>
+            菜单Id，只在获取的时候自动填充，提交“菜单创建”请求时不需要设置
             </summary>
         </member>
         <member name="M:Tencent.Cryptography.AES_decrypt(System.String,System.String,System.String@)">

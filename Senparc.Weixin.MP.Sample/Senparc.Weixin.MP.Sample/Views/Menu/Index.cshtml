@@ -14,9 +14,9 @@
             padding: 5px;
         }
 
-        select.dllButtonDetails option {
-            padding: 5px;
-        }
+            select.dllButtonDetails option {
+                padding: 5px;
+            }
 
         .txtButtonDetails {
             width: 200px;
@@ -34,14 +34,26 @@
             width: 450px;
         }
 
+        #addConditionalArea {
+            padding: 0px 0px 30px 20px;
+        }
+
+            #addConditionalArea input {
+                width: 450px;
+            }
+
+            #addConditionalArea h3 {
+                font-size: 60%;
+            }
+
         #reveiveJSON {
             margin: 30px 40px;
         }
 
-        #reveiveJSON textarea {
-            width: 90%;
-            height: 150px;
-        }
+            #reveiveJSON textarea {
+                width: 90%;
+                height: 150px;
+            }
     </style>
 }
 <div class="catalog">
@@ -143,22 +155,22 @@
                         @for (int i = 0; i < 6; i++)
                         {
                             var isRootMenu = i == 5;
-                        <tr id="@(isRootMenu ? "subMenuRow_" + i : "rootMenuRow")">
-                            <td>
-                                @(isRootMenu ? "一级菜单按钮" : ("二级菜单No." + (i + 1)))
-                            </td>
-                            @for (int j = 0; j < 3; j++)
+                            <tr id="@(isRootMenu ? "subMenuRow_" + i : "rootMenuRow")">
+                                <td>
+                                    @(isRootMenu ? "一级菜单按钮" : ("二级菜单No." + (i + 1)))
+                                </td>
+                                @for (int j = 0; j < 3; j++)
                                 {
                                     var namePrefix = isRootMenu ? string.Format("menu.button[{0}]", j) : string.Format("menu.button[{0}].sub_button[{1}]", j, i);
                                     var idPrefix = isRootMenu ? string.Format("menu_button{0}", j) : string.Format("menu_button{0}_sub_button{1}", j, i);
-                                <td>
-                                    <input type="hidden" class="control-input" name="@(namePrefix).key" id="@(idPrefix)_key" />
-                                    <input type="hidden" class="control-input" name="@(namePrefix).type" id="@(idPrefix)_type" value="click" />
-                                    <input type="hidden" class="control-input" name="@(namePrefix).url" id="@(idPrefix)_url" />
-                                    <input type="text" class="control-input" name="@(namePrefix).name" id="@(idPrefix)_name" class="txtButton" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
-                                </td>
+                                    <td>
+                                        <input type="hidden" class="control-input" name="@(namePrefix).key" id="@(idPrefix)_key" />
+                                        <input type="hidden" class="control-input" name="@(namePrefix).type" id="@(idPrefix)_type" value="click" />
+                                        <input type="hidden" class="control-input" name="@(namePrefix).url" id="@(idPrefix)_url" />
+                                        <input type="text" class="control-input" name="@(namePrefix).name" id="@(idPrefix)_name" class="txtButton" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
+                                    </td>
                                 }
-                        </tr>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -190,6 +202,28 @@
                 </p>
             </div>
             <div class="clear"></div>
+            <div id="addConditionalArea">
+                <p><h3>个性化菜单设置</h3></p>
+                <p>
+                    <table>
+                        <tr>
+                            <td>group_id</td>
+                            <td>
+                                <input type="text" name="matchrule.group_id" placeholder="用户分组id，可通过用户分组管理接口获取
+" class="control-input" />
+                            </td>
+                        </tr>
+                        <tr><td>sex</td><td><input type="text" name="matchrule.sex" placeholder="性别：男（1）女（2），不填则不做匹配" class="control-input" /></td></tr>
+                        <tr><td>country</td><td><input type="text" name="matchrule.country" placeholder="国家信息，是用户在微信中设置的地区，具体请参考地区信息表" class="control-input" /></td></tr>
+                        <tr><td>province</td><td><input type="text" name="matchrule.province" placeholder="省份信息，是用户在微信中设置的地区，具体请参考地区信息表" class="control-input" /></td></tr>
+                        <tr><td>city</td><td><input type="text" name="matchrule.city" placeholder="城市信息，是用户在微信中设置的地区，具体请参考地区信息表" class="control-input" /></td></tr>
+                        <tr><td>client_platform_type</td><td><input type="text" name="matchrule.client_platform_type" placeholder="客户端版本，当前只具体到系统型号：IOS(1), Android(2),Others(3)，不填则不做匹配" class="control-input" /></td></tr>
+                    </table>
+                </p>
+                <p>如果所有字段都留空，则使用普通自定义菜单，如果任何一个条件有值，则使用个性化菜单接口</p>
+            </div>
+
+            <div class="clear"></div>
             <div id="submitArea">
                 <input type="button" class="control-btn" value="更新到服务器" id="submitMenu" />
             </div>
@@ -202,8 +236,8 @@
         </div>
         <div class="clear"></div>
     </div>
-    </div>
-    <div class="clear"></div>
+</div>
+<div class="clear"></div>
 
 <script src="@Url.Content("~/Scripts/senparc.menu.js")"></script>
 <script>

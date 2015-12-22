@@ -95,7 +95,11 @@ senparc.menu = {
                             //...
                         }
                     }
-                    menuState.html('已完成');
+
+                    //显示JSON
+                    $('#txtReveiceJSON').html(JSON.stringify(json));
+
+                    menuState.html('菜单获取已完成');
                 } else {
                     menuState.html(json.error || '执行过程有错误，请检查！');
                 }

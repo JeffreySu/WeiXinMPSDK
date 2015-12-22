@@ -278,13 +278,25 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 ButtonGroupBase buttonGroup = buttonGroupBase; // ?? new ButtonGroup();
                 var rootButtonList = resultFull.menu.button;
 
-                GetButtonGroup(rootButtonList, buttonGroup);
-
+                GetButtonGroup(rootButtonList, buttonGroup);//设置默认菜单
                 result = new GetMenuResult(buttonGroupBase)
                 {
                     menu = buttonGroup,
-                    conditionalmenu = resultFull.conditionalmenu
+                    //conditionalmenu = resultFull.conditionalmenu
                 };
+
+                //设置个性化菜单列表
+                if (resultFull.conditionalmenu!=null)
+                {
+                    var conditionalMenuList = new List<ConditionalButtonGroup>();
+                    foreach (var conditionalMenu in resultFull.conditionalmenu)
+                    {
+                        var conditionalButtonGroup = new ConditionalButtonGroup();
+                        GetButtonGroup(conditionalMenu.button, conditionalButtonGroup);//设置默认菜单
+                        conditionalMenuList.Add(conditionalButtonGroup);
+                    }
+                    result.conditionalmenu = conditionalMenuList;
+                }
             }
             catch (Exception ex)
             {

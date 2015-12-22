@@ -9,7 +9,7 @@
 
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.MP.Entities.Menu.AddConditional
+namespace Senparc.Weixin.MP.Entities.Menu
 {
     /// <summary>
     /// 个性化菜单匹配规则

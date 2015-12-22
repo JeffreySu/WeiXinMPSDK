@@ -1,7 +1,7 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2015 Senparc
     
-    文件名：CreateMenuAddConditionalResult.cs.cs
+    文件名：CreateMenuConditionalResult.cs.cs
     文件功能描述：创建个性化菜单结果
     
     
@@ -17,9 +17,9 @@ using Senparc.Weixin.MP.Entities.Menu;
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
-    /// CreateMenuAddConditional返回的Json结果
+    /// CreateMenuConditional返回的Json结果
     /// </summary>
-    public class CreateMenuAddConditionalResult : WxJsonResult
+    public class CreateMenuConditionalResult : WxJsonResult
     {
         /* JSON:
         {"menuid":401654628}

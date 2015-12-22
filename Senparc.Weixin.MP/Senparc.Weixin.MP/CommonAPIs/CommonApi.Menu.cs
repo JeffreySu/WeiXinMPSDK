@@ -224,7 +224,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// 根据微信返回的Json数据得到可用的GetMenuResult结果
         /// </summary>
         /// <param name="resultFull"></param>
-        /// <param name="buttonGroupBase">ButtonGroupBase的衍生类型，可以为ButtonGroup或AddConditionalButtonGroup。返回的GetMenuResult中的menu属性即为此示例。</param>
+        /// <param name="buttonGroupBase">ButtonGroupBase的衍生类型，可以为ButtonGroup或ConditionalButtonGroup。返回的GetMenuResult中的menu属性即为此示例。</param>
         /// <returns></returns>
         public static GetMenuResult GetMenuFromJsonResult(GetMenuResultFull resultFull, ButtonGroupBase buttonGroupBase)
         {
@@ -446,7 +446,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
                 result = new GetMenuResult(buttonGroupBase)
                 {
-                    menu = buttonGroup
+                    menu = buttonGroup,
+                    conditionalmenu = resultFull.conditionalmenu
                 };
             }
             catch (Exception ex)

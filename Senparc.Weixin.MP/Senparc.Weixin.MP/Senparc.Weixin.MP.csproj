@@ -212,8 +212,8 @@
     <Compile Include="CommonAPIs\CommonApi.Menu.AddConditional.cs" />
     <Compile Include="CommonAPIs\CommonApi.Menu.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
-    <Compile Include="Entities\JsonResult\Menu\CreateMenuAddConditionalResult.cs" />
-    <Compile Include="Entities\Menu\AddConditional\AddConditionalButtonGroup.cs" />
+    <Compile Include="Entities\JsonResult\Menu\CreateMenuConditionalResult.cs" />
+    <Compile Include="Entities\Menu\AddConditional\ConditionalButtonGroup.cs" />
     <Compile Include="Entities\Menu\AddConditional\MenuMatchRule.cs" />
     <Compile Include="Entities\Menu\ButtonGroupBase.cs" />
     <Compile Include="Entities\Menu\Buttons\SingleScancodePushButton.cs" />
@@ -285,7 +285,7 @@
     <Compile Include="AdvancedAPIs\Media\MediaJson\UploadMediaFileResult.cs" />
     <Compile Include="Entities\JsonResult\WeixinUserInfoResult.cs" />
     <Compile Include="Entities\Menu\Buttons\BaseButton.cs" />
-    <Compile Include="Entities\Menu\ButtonGroup.cs" />
+    <Compile Include="Entities\Menu\Custom\ButtonGroup.cs" />
     <Compile Include="Entities\Menu\Buttons\SingleButton.cs" />
     <Compile Include="Entities\Menu\Buttons\SingleClickButton.cs" />
     <Compile Include="Entities\Menu\Buttons\SubButton.cs" />

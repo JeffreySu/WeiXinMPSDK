@@ -25,15 +25,11 @@ namespace Senparc.Weixin.MP
     public class GetMenuResultFull : WxJsonResult
     {
         public MenuFull_ButtonGroup menu { get; set; }
-        /// <summary>
-        /// 有个性化菜单时显示
-        /// </summary>
-        public int menuid { get; set; }
 
         /// <summary>
         /// 有个性化菜单时显示
         /// </summary>
-        public List<AddConditionalButtonGroup> conditionalmenu { get; set; }
+        public List<ConditionalButtonGroup> conditionalmenu { get; set; }
     }
 
     public class MenuFull_ButtonGroup
@@ -51,7 +47,7 @@ namespace Senparc.Weixin.MP
     }
     #endregion
 
-    #region AddConditional（个性化菜单）相关
+    #region Conditional（个性化菜单）相关
     public class MenuTryMatchResult : WxJsonResult
     {
         public List<MenuFull_RootButton> button { get; set; }

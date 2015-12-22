@@ -78,12 +78,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 if (useAddCondidionalApi)
                 {
                     //个性化接口
-                    buttonGroup = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull, new AddConditionalButtonGroup()).menu;
+                    buttonGroup = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull, new ConditionalButtonGroup()).menu;
 
-                    var addConditionalButtonGroup = buttonGroup as AddConditionalButtonGroup;
+                    var addConditionalButtonGroup = buttonGroup as ConditionalButtonGroup;
                     addConditionalButtonGroup.matchrule = menuMatchRule;
-                    result = CommonAPIs.CommonApi.CreateMenuAddConditional(token, addConditionalButtonGroup);
-                    apiName += string.Format("menuid：{0}。", (result as CreateMenuAddConditionalResult).menuid);
+                    result = CommonAPIs.CommonApi.CreateMenuConditional(token, addConditionalButtonGroup);
+                    apiName += string.Format("menuid：{0}。", (result as CreateMenuConditionalResult).menuid);
                 }
                 else
                 {

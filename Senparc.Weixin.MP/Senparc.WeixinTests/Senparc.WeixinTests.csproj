@@ -55,6 +55,8 @@
     <Compile Include="Containers\BaseContainerTests.cs" />
     <Compile Include="Helpers\SerializerHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\HttpUtility\GetTests.cs" />
+    <Compile Include="Utilities\HttpUtility\PostTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">

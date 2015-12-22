@@ -26,7 +26,7 @@ namespace Senparc.Weixin.MP.Entities
         public ButtonGroupBase menu { get; set; }
 
         /// <summary>
-        /// 有个性化菜单时显示
+        /// 有个性化菜单时显示。最新的在最前。
         /// </summary>
         public List<ConditionalButtonGroup> conditionalmenu { get; set; }
 

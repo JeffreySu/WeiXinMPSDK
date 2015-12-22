@@ -17,7 +17,6 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
-using Senparc.Weixin.MP.Entities.Menu.AddConditional;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {

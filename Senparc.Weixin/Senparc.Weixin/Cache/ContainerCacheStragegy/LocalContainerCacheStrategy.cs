@@ -113,6 +113,11 @@ namespace Senparc.Weixin.Cache
             return _cache.Count;
         }
 
+        public void Update(string key, IContainerItemCollection value)
+        {
+            _cache[key] = value;
+        }
+
         #endregion
     }
 }

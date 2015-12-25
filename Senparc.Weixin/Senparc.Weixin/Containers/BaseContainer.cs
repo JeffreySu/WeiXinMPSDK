@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Senparc.Weixin.Cache;
+using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.Containers
 {
@@ -46,7 +47,7 @@ namespace Senparc.Weixin.Containers
         }
 
         /// <summary>
-        /// 所有数据集合的列表
+        /// 所有数据集合的列表   TODO：改为单个Container输出
         /// </summary>
         private static IDictionary<string, IContainerItemCollection> CollectionList
         {
@@ -138,8 +139,23 @@ namespace Senparc.Weixin.Containers
             }
             else
             {
-                value.Key = key;//确保Key有值
+                if (string.IsNullOrEmpty(value.Key))
+                {
+                    value.Key = key;//确保Key有值
+                }
+                else
+                {
+                    key = value.Key;//统一key
+                }
+
+                if (string.IsNullOrEmpty(key))
+                {
+                    throw new WeixinException("key和value,Key不可以同时为null或空字符串！");
+                }
+
                 ItemCollection[key] = value;
+
+                Cache.Update(key, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
             }
         }
 
@@ -164,6 +180,7 @@ namespace Senparc.Weixin.Containers
                     };
                 }
                 partialUpdate(ItemCollection[key] as TBag);//更新对象
+                Cache.Update(key, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
             }
         }
 

@@ -63,6 +63,21 @@
             <param name="key"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.GetCount">
+            <summary>
+            获取缓存集合总数（注意：每个缓存框架的计数对象不一定一致！）
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.Update(`0,`1)">
+            <summary>
+            更新缓存
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
         <member name="T:Senparc.Weixin.Config">
             <summary>
             全局设置
@@ -87,7 +102,7 @@
         </member>
         <member name="P:Senparc.Weixin.Containers.BaseContainer`1.CollectionList">
             <summary>
-            所有数据集合的列表
+            所有数据集合的列表   TODO：改为单个Container输出
             </summary>
         </member>
         <member name="P:Senparc.Weixin.Containers.BaseContainer`1.ItemCollection">

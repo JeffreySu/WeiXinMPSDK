@@ -32,20 +32,53 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// </summary>
     public class AccessTokenBag : BaseContainerBag
     {
-        public string AppId { get; set; }
-        public string AppSecret { get; set; }
+        public string AppId
+        {
+            get { return _appId; }
+            set { base.SetProperty(ref _appId, value); }
+        }
 
-        public DateTime AccessTokenExpireTime { get; set; }
-        public AccessTokenResult AccessTokenResult { get; set; }
+        public string AppSecret
+        {
+            get { return _appSecret; }
+            set { base.SetProperty(ref _appSecret, value); }
+        }
 
+        public DateTime AccessTokenExpireTime
+        {
+            get { return _accessTokenExpireTime; }
+            set { base.SetProperty(ref _accessTokenExpireTime, value); }
+        }
 
-        public JsApiTicketResult JsApiTicketResult { get; set; }
-        public DateTime JsApiTicketExpireTime { get; set; }
+        public AccessTokenResult AccessTokenResult
+        {
+            get { return _accessTokenResult; }
+            set { base.SetProperty(ref _accessTokenResult, value); }
+        }
+
+        public JsApiTicketResult JsApiTicketResult
+        {
+            get { return _jsApiTicketResult; }
+            set { base.SetProperty(ref _jsApiTicketResult, value); }
+        }
+
+        public DateTime JsApiTicketExpireTime
+        {
+            get { return _jsApiTicketExpireTime; }
+            set { base.SetProperty(ref _jsApiTicketExpireTime, value); }
+        }
 
         /// <summary>
         /// 只针对这个AppId的锁
         /// </summary>
         public object Lock = new object();
+
+        private DateTime _jsApiTicketExpireTime;
+        private JsApiTicketResult _jsApiTicketResult;
+        private AccessTokenResult _accessTokenResult;
+        private DateTime _accessTokenExpireTime;
+        private string _appSecret;
+        private string _appId;
     }
 
     /// <summary>

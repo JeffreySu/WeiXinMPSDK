@@ -9,6 +9,9 @@
     
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Annotations;
+using Senparc.Weixin.Entities;
+
 namespace Senparc.Weixin.Containers
 {
     /// <summary>
@@ -22,12 +25,18 @@ namespace Senparc.Weixin.Containers
     /// <summary>
     /// BaseContainer容器中的Value类型
     /// </summary>
-    public class BaseContainerBag : IBaseContainerBag
+    public class BaseContainerBag : BindableBase, IBaseContainerBag
     {
+        private string _key;
+
         /// <summary>
         /// 通常为AppId
         /// </summary>
-        public string Key { get; set; }
+        public string Key
+        {
+            get { return _key; }
+            set { base.SetProperty(ref _key, value); }
+        }
     }
 
 }

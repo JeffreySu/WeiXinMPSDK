@@ -30,10 +30,10 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
             //getNewTicket
             {
-                ticket = AccessTokenContainer.TryGetJsApiTicket(base._appId, base._appSecret, false);
+                ticket = AccessTokenContainer.TryGetJsApiTicket(base._appId, base._appSecret,getNewTicket: false);
                 Assert.AreEqual(ticketResult.ticket, ticket);
 
-                ticket = AccessTokenContainer.TryGetJsApiTicket(base._appId, base._appSecret, true);
+                ticket = AccessTokenContainer.TryGetJsApiTicket(base._appId, base._appSecret,getNewTicket: true);
                 //Assert.AreNotEqual(ticketResult.ticket, ticket);//如果微信服务器缓存，此处会相同
 
                 Console.WriteLine(ticket);

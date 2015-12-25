@@ -174,6 +174,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                 }
 
+                /*
                 var jsonSetting = new JsonSetting(true, null,
                     new List<Type>()
                     {
@@ -181,10 +182,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         //typeof (CardCreateInfo),
                         typeof (Card_BaseInfoBase)//过滤Modify_Msg_Operation主要起作用的是这个
                     });
-
+                    */
                 var result = CommonJsonSend.Send<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut,
                    //针对特殊字段的null值进行过滤
-                   jsonSetting: jsonSetting);
+                   jsonSetting: new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling= Newtonsoft.Json.NullValueHandling.Ignore});
                 return result;
 
             }, accessTokenOrAppId);
@@ -245,8 +246,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         }
                     }
                 };
-
-                return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut);
+                // 忽略null的值序列化成Json
+                //var jsonSetting = new JsonSetting(ignoreNulls:true);
+                return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut,jsonSetting:new Newtonsoft.Json.JsonSerializerSettings { NullValueHandling= Newtonsoft.Json.NullValueHandling.Ignore});
 
             }, accessTokenOrAppId);
         }

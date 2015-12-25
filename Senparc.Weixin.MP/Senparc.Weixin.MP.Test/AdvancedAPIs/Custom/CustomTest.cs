@@ -16,8 +16,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
     [TestClass]
     public class CustomTest : CommonApiTest
     {
-        private string openId = "od16Wjj1-jMmbemHKgFFQzd7I43Q";
-
+        //private string openId = "od16Wjj1-jMmbemHKgFFQzd7I43Q";
+        private string openId = "o3b-7jqXZaCj7385wYBH5vTfG-gA";
         [TestMethod]
         public void SendTextTest()
         {
@@ -94,6 +94,24 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var result = CustomApi.SendNews(accessToken, openId, articles);
             Assert.IsNotNull(result);
             Assert.AreEqual("ok", result.errmsg);
+        }
+        [TestMethod]
+        public void SendCardTest()
+        {
+            var cardIdList = CardBatchGetTest();
+            var cardId = cardIdList.LastOrDefault();
+
+            var result = CustomApi.SendCard(_appId, _appSecret, _appId, "o3b-7jqXZaCj7385wYBH5vTfG-gA", "p3b-7jsGOEJOkD52iFdoZHcLCNV0");
+            Assert.IsNotNull(result);
+        }
+        public List<string> CardBatchGetTest()
+        {
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
+
+            var result = CardApi.CardBatchGet(accessToken, 0, 5);
+            Console.Write(result);
+            Assert.IsNotNull(result);
+            return result.card_id_list;
         }
     }
 }

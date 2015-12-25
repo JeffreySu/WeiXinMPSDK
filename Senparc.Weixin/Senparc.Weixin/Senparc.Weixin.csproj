@@ -58,6 +58,7 @@
     <Compile Include="Context\MessageQueue.cs" />
     <Compile Include="Context\WeixinContext.cs" />
     <Compile Include="Context\WeixinContextRemovedEventArgs.cs" />
+    <Compile Include="Entities\BindableBase.cs" />
     <Compile Include="Entities\EntityBase.cs" />
     <Compile Include="Entities\JsonResult\QyJsonResult.cs" />
     <Compile Include="Entities\MessageBase.cs">
@@ -77,6 +78,7 @@
     <Compile Include="Helpers\Extensions\IDictionaryExtensions.cs" />
     <Compile Include="Helpers\SerializerHelper.cs" />
     <Compile Include="Helpers\Conventers\WeixinJsonConventer.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utilities\BrowserUtility\BroswerUtility.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Utilities\WeixinUtility\ApiUtility.cs" />

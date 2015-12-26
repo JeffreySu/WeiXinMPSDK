@@ -41,7 +41,10 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
         public JsApiTicketResult JsApiTicketResult { get; set; }
         public DateTime JsApiTicketExpireTime { get; set; }
-
+        // 1.此用于卡券接口签名的api_ticket与步骤三中通过config接口注入权限验证配置使用的jsapi_ticket不同。
+        // http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html#.E9.99.84.E5.BD.954-.E5.8D.A1.E5.88.B8.E6.89.A9.E5.B1.95.E5.AD.97.E6.AE.B5.E5.8F.8A.E7.AD.BE.E5.90.8D.E7.94.9F.E6.88.90.E7.AE.97.E6.B3.95
+        public JsApiTicketResult Wx_CardTicketResult { get; set; }
+        public DateTime Wx_CardExpireTime { get; set; }
         /// <summary>
         /// 只针对这个AppId的锁
         /// </summary>
@@ -143,15 +146,16 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
+        /// <param name="ticketType">jsapi和wx_card两种api_ticket是不同的</param>
         /// <param name="getNewTicket"></param>
         /// <returns></returns>
-        public static string TryGetJsApiTicket(string appId, string appSecret, bool getNewTicket = false)
+        public static string TryGetJsApiTicket(string appId, string appSecret, string ticketType = "jsapi", bool getNewTicket = false)
         {
             if (!CheckRegistered(appId) || getNewTicket)
             {
                 Register(appId, appSecret);
             }
-            return GetJsApiTicket(appId);
+            return GetJsApiTicket(appId, ticketType);
         }
 
         /// <summary>
@@ -159,10 +163,11 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+        /// /// <param name="ticketType">jsapi和wx_card两种api_ticket是不同的</param>
         /// <returns></returns>
-        public static string GetJsApiTicket(string appId, bool getNewTicket = false)
+        public static string GetJsApiTicket(string appId, string ticketType = "jsapi", bool getNewTicket = false)
         {
-            return GetJsApiTicketResult(appId, getNewTicket).ticket;
+            return GetJsApiTicketResult(appId, ticketType, getNewTicket).ticket;
         }
 
         /// <summary>
@@ -171,7 +176,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appId"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        public static JsApiTicketResult GetJsApiTicketResult(string appId, bool getNewTicket = false)
+        public static JsApiTicketResult GetJsApiTicketResult(string appId, string ticketType = "jsapi", bool getNewTicket = false)
         {
             if (!CheckRegistered(appId))
             {
@@ -181,17 +186,28 @@ namespace Senparc.Weixin.MP.CommonAPIs
             var accessTokenBag = (AccessTokenBag)ItemCollection[appId];
             lock (accessTokenBag.Lock)
             {
-                if (getNewTicket || accessTokenBag.JsApiTicketExpireTime <= DateTime.Now)
+                switch (ticketType)
                 {
-                    //已过期，重新获取
-                    accessTokenBag.JsApiTicketResult = CommonApi.GetTicket(accessTokenBag.AppId, accessTokenBag.AppSecret);
-                    accessTokenBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(accessTokenBag.JsApiTicketResult.expires_in);
+                    case "wx_card":
+                        if (getNewTicket || accessTokenBag.Wx_CardExpireTime <= DateTime.Now)
+                        {
+                            accessTokenBag.Wx_CardTicketResult = CommonApi.GetTicket(accessTokenBag.AppId, accessTokenBag.AppSecret, ticketType);
+                            accessTokenBag.Wx_CardExpireTime = DateTime.Now.AddSeconds(accessTokenBag.Wx_CardTicketResult.expires_in);
+                        }
+                        return accessTokenBag.Wx_CardTicketResult;
+                    default:
+                        if (getNewTicket || accessTokenBag.JsApiTicketExpireTime <= DateTime.Now)
+                        {
+                            //已过期，重新获取
+                            accessTokenBag.JsApiTicketResult = CommonApi.GetTicket(accessTokenBag.AppId, accessTokenBag.AppSecret);
+                            accessTokenBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(accessTokenBag.JsApiTicketResult.expires_in);
+                        }
+                        return accessTokenBag.JsApiTicketResult;
                 }
+
             }
-            return accessTokenBag.JsApiTicketResult;
         }
 
         #endregion
-
     }
 }

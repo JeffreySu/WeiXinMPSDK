@@ -35,6 +35,7 @@ using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 using Senparc.Weixin.MP.AdvancedAPIs.Media;
 using Senparc.Weixin.MP.CommonAPIs;
+using Newtonsoft.Json;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -212,8 +213,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 media_id = mediaId
             };
-            SerializerHelper serializerHelper = new SerializerHelper();
-            var jsonString = serializerHelper.GetJsonString(data);
+            var jsonString = JsonConvert.SerializeObject(data);
             Post.Download(url, jsonString, stream);
         }
 

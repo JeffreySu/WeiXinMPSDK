@@ -91,7 +91,36 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Assert.IsNotNull(result2);
             Console.WriteLine(result2.errmsg);
         }
-
+        [TestMethod]
+        public void CreateCardTest2()
+        {
+            var card = new Card_CashData();
+            card.least_cost = 1000;
+            card.reduce_cost = 20;
+            card.base_info = new Card_BaseInfoBase
+            {
+                logo_url = "http://mmbiz.qpic.cn/mmbiz/iaL1LJM1mF9aRKPZJkmG8xXhiaHqkKSVMMWeN3hLut7X7hicFNjakmxibMLGWpXrEXB33367o7zHN0CwngnQY7zb7g/0",
+                brand_name = "特航航空",
+                code_type = Senparc.Weixin.MP.Card_CodeType.CODE_TYPE_TEXT,
+                title = "满1000减20",
+                //sub_title = "满1000减20",
+                color = "Color030",
+                notice = "请出示文本核销卡券",
+                description = "不可与其他优惠同享，请向店员提出要求。",
+                sku = new Card_BaseInfo_Sku { quantity = 2 },
+                date_info = new Card_BaseInfo_DateInfo
+                {
+                    begin_timestamp = DateTimeHelper.GetWeixinDateTime(DateTime.Now),
+                    end_timestamp = DateTimeHelper.GetWeixinDateTime(DateTime.Now.AddDays(2)),
+                    type = "DATE_TYPE_FIX_TIME_RANGE"
+                },
+                location_id_list = new List<string> { "279037940" },
+                can_share = true,
+                can_give_friend = true
+            };
+            var result = CardApi.CreateCard(_appId, card);
+            Assert.IsNotNull(result);
+        }
         //[TestMethod]
         public List<string> CardBatchGetTest()
         {
@@ -137,7 +166,33 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Console.Write(result);
             Assert.IsNotNull(result);
         }
-
+        [TestMethod]
+        public void ShelfCreateTest()
+        {
+            var cardIdList = CardBatchGetTest();
+            var cardId = cardIdList[1];
+            var shelf = new ShelfCreateData
+            {
+                banner = "http://p0.qhimg.com/t014418dcaa1eb0eff9.jpg",
+                page_title = "卡券货架测试",
+                scene = Senparc.Weixin.MP.CardShelfCreate_Scene.SCENE_NEAR_BY.ToString(),
+                can_share = true,
+                card_list = new List<ShelfCreateData_CardList>{
+                    new ShelfCreateData_CardList{
+                        card_id = "p3b-7jsGOEJOkD52iFdoZHcLCNV0",
+                        thumb_url="http://pic32.nipic.com/20130811/13421077_154617881000_2.jpg"
+                    }
+                }
+            };
+            var result = CardApi.ShelfCreate(_appId, shelf);
+            Assert.IsNotNull(result);
+        }
+        [TestMethod]
+        public void CardConsumeTest()
+        {
+            var result = CardApi.CardConsume(_appId, "489085305449");
+            Assert.IsNotNull(result);
+        }
         //protected Store_Location _StoreLocation = new Store_Location()
         //{
         //    business_name = "TIT 创意园1 号店",

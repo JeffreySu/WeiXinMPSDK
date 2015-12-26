@@ -22,6 +22,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
+using Newtonsoft.Json;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
@@ -41,7 +42,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="jsonSetting"></param>
         /// <returns></returns>
         //[Obsolete("此方法已过期，请使用Senparc.Weixin.CommonAPIs.CommonJsonSend.Send()方法")]
-        public static WxJsonResult Send(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null/*, int retry40001ErrorTimes = 0*/)
+        public static WxJsonResult Send(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false, JsonSerializerSettings jsonSetting = null/*, int retry40001ErrorTimes = 0*/)
         {
             WxJsonResult result = null;
             try
@@ -84,7 +85,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="jsonSetting"></param>
         /// <returns></returns>
         //[Obsolete("此方法已过期，请使用Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<T>()方法")]
-        public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
+        public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false, JsonSerializerSettings jsonSetting = null)
         {
             return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<T>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult, jsonSetting);
         }
@@ -120,7 +121,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         [Obsolete("此方法已过期，请使用Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<T>()方法")]
         public static async Task<T> SendAsync<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false,
-            JsonSetting jsonSetting = null
+            JsonSerializerSettings jsonSetting = null
             )
         {
             var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken);
@@ -130,8 +131,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 case CommonJsonSendType.GET:
                     return await Get.GetJsonAsync<T>(url);
                 case CommonJsonSendType.POST:
-                    SerializerHelper serializerHelper = new SerializerHelper();
-                    var jsonString = serializerHelper.GetJsonString(data, jsonSetting);
+                    var jsonString = JsonConvert.SerializeObject(data, jsonSetting);
                     using (MemoryStream ms = new MemoryStream())
                     {
                         var bytes = Encoding.UTF8.GetBytes(jsonString);

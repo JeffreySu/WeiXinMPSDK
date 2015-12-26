@@ -23,6 +23,7 @@ using System.Linq;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -200,6 +201,43 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             url = z.Url,
                             picurl = z.PicUrl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
                         }).ToList()
+                    }
+                };
+                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 发送卡券
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="appSecret"></param>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId"></param>
+        /// <param name="card_id"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult SendCard(string appId,string appSecret,string accessTokenOrAppId, string openId, string card_id, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var api_ticket = AccessTokenContainer.TryGetJsApiTicket(appId, appSecret,"wx_card");
+                var timestamp = JSSDKHelper.GetTimestamp();
+                var sign = JSSDKHelper.GetcardExtSign(api_ticket, timestamp, card_id, "");
+                var data = new
+                {
+                    touser = openId,
+                    msgtype = "wxcard",
+                    wxcard = new
+                    {
+                        card_id = card_id,
+                        card_ext = new
+                        {
+                            //code = code,  // 特别注意客服消息接口投放卡券仅支持非自定义Code码的卡券。
+                            openid = openId,
+                            timestamp = timestamp,
+                            signature = sign
+                        }
                     }
                 };
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);

@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MessageQueue;
 
 namespace Senparc.Weixin.Containers
 {
@@ -32,11 +33,6 @@ namespace Senparc.Weixin.Containers
     /// <typeparam name="TBag"></typeparam>
     public abstract class BaseContainer<TBag> : IBaseContainer<TBag> where TBag : class, IBaseContainerBag, new()
     {
-        private static string GetCacheKey<T>()
-        {
-            return string.Format("Container:{0}", typeof(T));
-        }
-
         private static IContainerCacheStragegy /*IBaseCacheStrategy<string,Dictionary<string, TBag>>*/ Cache
         {
             get
@@ -67,13 +63,32 @@ namespace Senparc.Weixin.Containers
         {
             get
             {
-                var cacheKey = GetCacheKey<TBag>();
+                var cacheKey = GetCacheKey();
                 if (!CollectionList.ContainsKey(cacheKey))
                 {
-                    CollectionList[cacheKey] = new ContainerItemCollection();
+                    var newItemCollection = new ContainerItemCollection();
+                    CollectionList[cacheKey] = newItemCollection;
+
+                    //保存到缓存列队，等待执行
+                    SenparcMessageQueue mq = new SenparcMessageQueue();
+                    var mqKey = SenparcMessageQueue.GenerateKey("ContainerItemCollection", typeof(BaseContainer<TBag>), cacheKey, "InsertItemCollection");
+                    mq.Add(mqKey, () =>
+                    {
+                        var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
+                        containerCacheStragegy.InsertToCache(cacheKey, newItemCollection);//插入到缓存
+                    });
                 }
                 return CollectionList[cacheKey];
             }
+        }
+
+        /// <summary>
+        /// 获取缓存Key
+        /// </summary>
+        /// <returns></returns>
+        public static string GetCacheKey()
+        {
+            return string.Format("Container:{0}", typeof(TBag));
         }
 
         /// <summary>

@@ -25,6 +25,22 @@ namespace Senparc.Weixin.MessageQueue
         /// </summary>
         public static object MessageQueueSyncLock = new object();
 
+
+        /// <summary>
+        /// 生成Key
+        /// </summary>
+        /// <param name="name">列队应用名称，如“ContainerBag”</param>
+        /// <param name="senderType">操作对象类型</param>
+        /// <param name="identityKey">对象唯一标识Key</param>
+        /// <param name="actionName">操作名称，如“UpdateContainerBag”</param>
+        /// <returns></returns>
+        public static string GenerateKey(string name, Type senderType, string identityKey, string actionName)
+        {
+            var key = string.Format("Name@{0}||Type@{1}||Key@{2}||ActionName@{3}",
+                name, senderType, identityKey, actionName);
+            return key;
+        }
+
         /// <summary>
         /// 获取当前等待执行的Key
         /// </summary>

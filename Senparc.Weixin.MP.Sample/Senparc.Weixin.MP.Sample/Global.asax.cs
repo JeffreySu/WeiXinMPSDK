@@ -43,7 +43,7 @@ namespace Senparc.Weixin.MP.Sample
         /// </summary>
         private void RegisterWeixinThreads()
         {
-            ThreadUtility.RegisterThreads();
+            ThreadUtility.Register();
         }
 
         /// <summary>

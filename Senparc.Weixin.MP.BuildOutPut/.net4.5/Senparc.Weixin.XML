@@ -111,6 +111,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.GetCacheKey">
+            <summary>
+            获取缓存Key
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.Containers.BaseContainer`1.GetCollectionList">
             <summary>
             获取完整的数据集合的列表，包括所有的Container数据在内（建议不要进行任何修改操作）
@@ -175,13 +181,10 @@
             通常为AppId
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Containers.BaseContainerBag.GenerateKey(System.Type,Senparc.Weixin.Containers.IBaseContainerBag)">
+        <member name="P:Senparc.Weixin.Containers.BaseContainerBag.CacheTime">
             <summary>
-            生成Key
+            缓存时间，不使用属性变化监听
             </summary>
-            <param name="senderType"></param>
-            <param name="containerBag"></param>
-            <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Containers.BaseContainerBag.SetContainerProperty``1(``0@,``0,System.String)">
             <summary>
@@ -671,6 +674,16 @@
             同步执行锁
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.GenerateKey(System.String,System.Type,System.String,System.String)">
+            <summary>
+            生成Key
+            </summary>
+            <param name="name">列队应用名称，如“ContainerBag”</param>
+            <param name="senderType">操作对象类型</param>
+            <param name="identityKey">对象唯一标识Key</param>
+            <param name="actionName">操作名称，如“UpdateContainerBag”</param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.GetCurrentKey">
             <summary>
             获取当前等待执行的Key
@@ -721,6 +734,11 @@
         <member name="F:Senparc.Weixin.Threads.ThreadUtility.AsynThreadCollection">
             <summary>
             异步线程容器
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Threads.ThreadUtility.Register">
+            <summary>
+            注册线程
             </summary>
         </member>
         <member name="T:Senparc.Weixin.Annotations.CanBeNullAttribute">

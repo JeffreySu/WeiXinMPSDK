@@ -24,6 +24,7 @@ namespace Senparc.Weixin.Containers
     public interface IBaseContainerBag
     {
         string Key { get; set; }
+        DateTime CacheTime { get; set; }
     }
 
     /// <summary>
@@ -42,24 +43,16 @@ namespace Senparc.Weixin.Containers
             set { this.SetContainerProperty(ref _key, value); }
         }
 
-
         /// <summary>
-        /// 生成Key
+        /// 缓存时间，不使用属性变化监听
         /// </summary>
-        /// <param name="senderType"></param>
-        /// <param name="containerBag"></param>
-        /// <returns></returns>
-        public static string GenerateKey(Type senderType, IBaseContainerBag containerBag)
-        {
-            var key = string.Format("Name@{0}_Type@{1}_Key@{2}_ActionName@{3}",
-                "ContainerBag", senderType, containerBag.Key, "UpdateContainerBag");
-            return key;
-        }
+        public DateTime CacheTime { get; set; }
+
 
         private void BaseContainerBag_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             var containerBag = (IBaseContainerBag)sender;
-            var key = GenerateKey(sender.GetType(), containerBag);
+            var key = SenparcMessageQueue.GenerateKey("ContainerBag", sender.GetType(), containerBag.Key, "UpdateContainerBag");
 
             //获取对应Container的缓存相关
 
@@ -69,6 +62,7 @@ namespace Senparc.Weixin.Containers
             {
                 var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
                 containerCacheStragegy.UpdateContainerBag(key, containerBag);
+                containerBag.CacheTime = DateTime.Now;//记录缓存时间
             });
         }
 
@@ -91,7 +85,5 @@ namespace Senparc.Weixin.Containers
         {
             base.PropertyChanged += BaseContainerBag_PropertyChanged;
         }
-
-
     }
 }

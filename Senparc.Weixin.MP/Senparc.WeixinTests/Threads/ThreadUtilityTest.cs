@@ -27,7 +27,7 @@ namespace Senparc.WeixinTests.Threads
 
             //读取列队
             var mq = new SenparcMessageQueue();
-            var mqKey = BaseContainerBag.GenerateKey(typeof(TestContainerBag1), bag);
+            var mqKey = SenparcMessageQueue.GenerateKey("A",typeof(TestContainerBag1), bag.Key,"B");
             var mqItem = mq.GetItem(mqKey);
             Assert.IsNotNull(mqItem);
 

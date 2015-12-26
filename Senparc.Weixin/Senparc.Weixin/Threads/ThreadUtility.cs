@@ -25,7 +25,7 @@ namespace Senparc.Weixin.Threads
         /// <summary>
         /// 注册线程
         /// </summary>
-        public static void RegisterThreads()
+        public static void Register()
         {
             if (AsynThreadCollection.Count==0)
             {

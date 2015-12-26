@@ -126,7 +126,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <summary>
         /// AuthorizerAccessToken更新后的回调
         /// </summary>
-        public static Action<string,RefreshAuthorizerTokenResult> AuthorizerTokenRefreshedFunc = null;
+        public static Action<string, RefreshAuthorizerTokenResult> AuthorizerTokenRefreshedFunc = null;
 
 
         /// <summary>
@@ -137,8 +137,11 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="getComponentVerifyTicketFunc">获取ComponentVerifyTicket的方法</param>
         /// <param name="getAuthorizerRefreshTokenFunc">从数据库中获取已存的AuthorizerAccessToken的方法</param>
         /// <param name="authorizerTokenRefreshedFunc">AuthorizerAccessToken更新后的回调</param>
-        public static void Register(string componentAppId, string componentAppSecret, Func<string, string> getComponentVerifyTicketFunc, Func<string, string> getAuthorizerRefreshTokenFunc, Action<string,RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc)
+        public static void Register(string componentAppId, string componentAppSecret, Func<string, string> getComponentVerifyTicketFunc, Func<string, string> getAuthorizerRefreshTokenFunc, Action<string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc)
         {
+            //激活消息列队线程
+
+
             if (GetComponentVerifyTicketFunc == null)
             {
                 GetComponentVerifyTicketFunc = getComponentVerifyTicketFunc;

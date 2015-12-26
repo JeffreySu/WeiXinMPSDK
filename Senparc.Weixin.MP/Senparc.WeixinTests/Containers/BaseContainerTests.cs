@@ -10,12 +10,25 @@ namespace Senparc.Weixin.Containers.Tests
 {
     internal class TestContainerBag1 : BaseContainerBag
     {
-        public DateTime DateTime { get; set; }
+        private DateTime _dateTime;
+
+        public DateTime DateTime
+        {
+            get { return _dateTime; }
+            set { this.SetContainerProperty(ref _dateTime, value); }
+        }
     }
 
     internal class TestContainerBag2 : BaseContainerBag
     {
-        public DateTime DateTime { get; set; }
+        private DateTime _dateTime;
+
+        public DateTime DateTime
+        {
+            get { return _dateTime; }
+            set { this.SetContainerProperty(ref _dateTime, value); }
+
+        }
     }
 
     internal class TestContainer1 : BaseContainer<TestContainerBag1>

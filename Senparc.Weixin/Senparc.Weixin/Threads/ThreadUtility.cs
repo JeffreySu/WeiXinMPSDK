@@ -17,19 +17,31 @@ namespace Senparc.Weixin.Threads
         /// </summary>
         public static Dictionary<string, Thread> AsynThreadCollection = new Dictionary<string, Thread>();//后台运行线程
 
-        static ThreadUtility()
-        {
-            {
-                SenparcMessageQueueThreadUtility senparcMessageQueue = new SenparcMessageQueueThreadUtility();
-                Thread senparcMessageQueueThread = new Thread(senparcMessageQueue.Run) { Name = "SenparcMessageQueue" };
-                AsynThreadCollection.Add(senparcMessageQueueThread.Name, senparcMessageQueueThread);
-            }
+        //static ThreadUtility()
+        //{
+           
+        //}
 
-            AsynThreadCollection.Values.ToList().ForEach(z =>
+        /// <summary>
+        /// 注册线程
+        /// </summary>
+        public static void RegisterThreads()
+        {
+            if (AsynThreadCollection.Count==0)
             {
-                z.IsBackground = true;
-                z.Start();
-            });//全部运行
+                {
+                    SenparcMessageQueueThreadUtility senparcMessageQueue = new SenparcMessageQueueThreadUtility();
+                    Thread senparcMessageQueueThread = new Thread(senparcMessageQueue.Run) { Name = "SenparcMessageQueue" };
+                    AsynThreadCollection.Add(senparcMessageQueueThread.Name, senparcMessageQueueThread);
+                }
+
+                AsynThreadCollection.Values.ToList().ForEach(z =>
+                {
+                    z.IsBackground = true;
+                    z.Start();
+                });//全部运行
+
+            }
         }
     }
 }

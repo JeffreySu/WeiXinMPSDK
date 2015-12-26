@@ -13,7 +13,7 @@ using Senparc.Weixin.Open.ComponentAPIs;
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
 
-    public class OpenOAuthController : Controller
+    public class OpenOAuthController : BaseController
     {
         private string component_AppId = WebConfigurationManager.AppSettings["Component_Appid"];
         private string component_Secret = WebConfigurationManager.AppSettings["Component_Secret"];

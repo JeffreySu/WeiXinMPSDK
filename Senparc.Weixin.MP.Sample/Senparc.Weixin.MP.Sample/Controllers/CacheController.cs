@@ -44,18 +44,25 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     /// <summary>
     /// 测试缓存
     /// </summary>
-    public class CacheController : Controller
+    public class CacheController : BaseController
     {
+
         public ActionResult Test()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RunTest()
         {
             var sb = new StringBuilder();
             var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
-            sb.AppendFormat("{0}：{1}<br /><br />", "当前缓存策略", containerCacheStragegy.GetType().Name);
+            sb.AppendFormat("{0}：{1}<br />", "当前缓存策略", containerCacheStragegy.GetType().Name);
 
 
             for (int i = 0; i < 3; i++)
             {
-                sb.AppendFormat("{0}：{1}<br /><br />", "开始一轮测试", i + 1);
+                sb.AppendFormat("<br />====== {0}：{1} ======<br /><br />", "开始一轮测试", i + 1);
                 var bagKey = DateTime.Now.Ticks.ToString();
                 var bag = new TestContainerBag1()
                 {
@@ -63,7 +70,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     DateTime = DateTime.Now
                 };
                 TestContainer1.Update(bagKey, bag);
-                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime, bag.DateTime.Ticks);
+                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime.ToLongTimeString(), bag.DateTime.Ticks);
+
+                Thread.Sleep(1);
 
                 bag.DateTime = DateTime.Now;//进行修改
 
@@ -71,14 +80,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var mq = new SenparcMessageQueue();
                 var mqKey = SenparcMessageQueue.GenerateKey("ContainerBag", bag.GetType(), bag.Key, "UpdateContainerBag");
                 var mqItem = mq.GetItem(mqKey);
-                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime, bag.DateTime.Ticks);
+                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime.ToLongTimeString(), bag.DateTime.Ticks);
                 sb.AppendFormat("{0}：{1}<br />", "已经加入列队", mqItem != null);
                 sb.AppendFormat("{0}：{1}<br />", "当前消息列队数量（未更新缓存）", mq.GetCount());
 
                 var cacheKey = TestContainer1.GetCacheKey();
                 var itemCollection = containerCacheStragegy.Get(cacheKey);
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", itemCollection.ContainsKey(bagKey));
-                sb.AppendFormat("{0}：{1}<br />", "当前缓存时间", itemCollection[bagKey].CacheTime.Ticks);//应为0
+                sb.AppendFormat("{0}：{1}<br />", "插入缓存时间", itemCollection[bagKey].CacheTime.Ticks);//应为0
 
                 var waitSeconds = i;
                 sb.AppendFormat("{0}：{1}<br />", "操作", "等待" + waitSeconds + "秒");
@@ -87,12 +96,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 itemCollection = containerCacheStragegy.Get(cacheKey);
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", itemCollection.ContainsKey(bagKey));
-                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "插入缓存时间", itemCollection[bagKey].CacheTime, itemCollection[bagKey].CacheTime.Ticks);//应为当前加入到缓存的最新时间
-                sb.AppendLine("=============<br /><br />");
+                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "插入缓存时间", itemCollection[bagKey].CacheTime.ToLongTimeString(), itemCollection[bagKey].CacheTime.Ticks);//应为当前加入到缓存的最新时间
             }
 
-
             return Content(sb.ToString());
+            //ViewData["Result"] = sb.ToString();
+            //return View();
         }
     }
 }

@@ -42,10 +42,24 @@ namespace Senparc.Weixin.Containers
             set { this.SetContainerProperty(ref _key, value); }
         }
 
+
+        /// <summary>
+        /// 生成Key
+        /// </summary>
+        /// <param name="senderType"></param>
+        /// <param name="containerBag"></param>
+        /// <returns></returns>
+        public static string GenerateKey(Type senderType, IBaseContainerBag containerBag)
+        {
+            var key = string.Format("Name@{0}_Type@{1}_Key@{2}_ActionName@{3}",
+                "ContainerBag", senderType, containerBag.Key, "UpdateContainerBag");
+            return key;
+        }
+
         private void BaseContainerBag_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             var containerBag = (IBaseContainerBag)sender;
-            var key = string.Format("{0}_{1}_{2}", "ContainerBag", sender.GetType().ToString(), containerBag.Key);
+            var key = GenerateKey(sender.GetType(), containerBag);
 
             //获取对应Container的缓存相关
 
@@ -57,6 +71,7 @@ namespace Senparc.Weixin.Containers
                 containerCacheStragegy.UpdateContainerBag(key, containerBag);
             });
         }
+
 
         /// <summary>
         /// 设置Container属性
@@ -76,5 +91,7 @@ namespace Senparc.Weixin.Containers
         {
             base.PropertyChanged += BaseContainerBag_PropertyChanged;
         }
+
+
     }
 }

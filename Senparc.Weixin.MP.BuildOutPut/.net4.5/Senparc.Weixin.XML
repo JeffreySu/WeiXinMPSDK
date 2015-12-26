@@ -175,6 +175,14 @@
             通常为AppId
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainerBag.GenerateKey(System.Type,Senparc.Weixin.Containers.IBaseContainerBag)">
+            <summary>
+            生成Key
+            </summary>
+            <param name="senderType"></param>
+            <param name="containerBag"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.Containers.BaseContainerBag.SetContainerProperty``1(``0@,``0,System.String)">
             <summary>
             设置Container属性

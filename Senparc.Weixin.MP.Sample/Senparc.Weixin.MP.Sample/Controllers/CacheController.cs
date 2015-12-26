@@ -73,7 +73,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var mqItem = mq.GetItem(mqKey);
                 sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime, bag.DateTime.Ticks);
                 sb.AppendFormat("{0}：{1}<br />", "已经加入列队", mqItem != null);
-                sb.AppendFormat("{0}：{1}<br />", "当前列队数量", mq.GetCount());
+                sb.AppendFormat("{0}：{1}<br />", "当前消息列队数量（未更新缓存）", mq.GetCount());
 
                 var cacheKey = TestContainer1.GetCacheKey();
                 var itemCollection = containerCacheStragegy.Get(cacheKey);
@@ -83,11 +83,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var waitSeconds = i;
                 sb.AppendFormat("{0}：{1}<br />", "操作", "等待" + waitSeconds + "秒");
                 Thread.Sleep(waitSeconds * 1000);//线程默认轮询等待时间为2秒
-                sb.AppendFormat("{0}：{1}<br />", "当前列队数量", mq.GetCount());
+                sb.AppendFormat("{0}：{1}<br />", "当前消息列队数量（未更新缓存）", mq.GetCount());
 
                 itemCollection = containerCacheStragegy.Get(cacheKey);
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", itemCollection.ContainsKey(bagKey));
-                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "当前缓存时间", itemCollection[bagKey].CacheTime, itemCollection[bagKey].CacheTime.Ticks);//应为当前加入到缓存的最新时间
+                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "插入缓存时间", itemCollection[bagKey].CacheTime, itemCollection[bagKey].CacheTime.Ticks);//应为当前加入到缓存的最新时间
                 sb.AppendLine("=============<br /><br />");
             }
 

@@ -246,7 +246,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
                 };
 
-                return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut);
+                var jsonSettingne=new JsonSetting(true);
+                return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut,jsonSetting: jsonSettingne);
 
             }, accessTokenOrAppId);
         }

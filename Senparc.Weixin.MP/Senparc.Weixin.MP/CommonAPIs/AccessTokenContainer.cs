@@ -35,37 +35,37 @@ namespace Senparc.Weixin.MP.CommonAPIs
         public string AppId
         {
             get { return _appId; }
-            set { base.SetProperty(ref _appId, value); }
+            set { base.SetContainerProperty(ref _appId, value); }
         }
 
         public string AppSecret
         {
             get { return _appSecret; }
-            set { base.SetProperty(ref _appSecret, value); }
+            set { base.SetContainerProperty(ref _appSecret, value); }
         }
 
         public DateTime AccessTokenExpireTime
         {
             get { return _accessTokenExpireTime; }
-            set { base.SetProperty(ref _accessTokenExpireTime, value); }
+            set { base.SetContainerProperty(ref _accessTokenExpireTime, value); }
         }
 
         public AccessTokenResult AccessTokenResult
         {
             get { return _accessTokenResult; }
-            set { base.SetProperty(ref _accessTokenResult, value); }
+            set { base.SetContainerProperty(ref _accessTokenResult, value); }
         }
 
         public JsApiTicketResult JsApiTicketResult
         {
             get { return _jsApiTicketResult; }
-            set { base.SetProperty(ref _jsApiTicketResult, value); }
+            set { base.SetContainerProperty(ref _jsApiTicketResult, value); }
         }
 
         public DateTime JsApiTicketExpireTime
         {
             get { return _jsApiTicketExpireTime; }
-            set { base.SetProperty(ref _jsApiTicketExpireTime, value); }
+            set { base.SetContainerProperty(ref _jsApiTicketExpireTime, value); }
         }
 
         /// <summary>

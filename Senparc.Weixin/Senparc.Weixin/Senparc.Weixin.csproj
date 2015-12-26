@@ -78,6 +78,7 @@
     <Compile Include="Helpers\Extensions\IDictionaryExtensions.cs" />
     <Compile Include="Helpers\SerializerHelper.cs" />
     <Compile Include="Helpers\Conventers\WeixinJsonConventer.cs" />
+    <Compile Include="MessageQueue\SenparcMessageQueue.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utilities\BrowserUtility\BroswerUtility.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
@@ -99,6 +100,7 @@
   <ItemGroup>
     <None Include="ClassDiagrams\MessageHandler.cd" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

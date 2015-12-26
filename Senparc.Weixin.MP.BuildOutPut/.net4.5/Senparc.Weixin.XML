@@ -175,6 +175,16 @@
             通常为AppId
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainerBag.SetContainerProperty``1(``0@,``0,System.String)">
+            <summary>
+            设置Container属性
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="storage"></param>
+            <param name="value"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
         <member name="P:Senparc.Weixin.Context.MessageContainer`1.MaxRecordCount">
             <summary>
             最大记录条数（保留尾部），如果小于等于0则不限制

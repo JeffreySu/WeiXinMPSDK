@@ -10,14 +10,12 @@
 
 本库为.NET4.5，其他.NET版本请看各自分支。
 
-已经支持所有微信6 API，包括自定义菜单/个性化菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口等等。
+* 已经支持所有微信6 API，包括自定义菜单/个性化菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口等等。
 
-（同时由于易信的API目前与微信保持一致，此SDK也可以直接用于易信，如需使用易信的自定义菜单，通用接口改成易信的通讯地址即可）
-
-
-已经支持用户会话上下文（解决服务器无法使用Session处理用户信息的问题）。
-
-已经全面支持微信公众号、企业号、开放平台的最新API。
+* * （同时由于易信的API目前与微信保持一致，此SDK也可以直接用于易信，如需使用易信的自定义菜单，通用接口改成易信的通讯地址即可）
+* 已经支持用户会话上下文（解决服务器无法使用Session处理用户信息的问题）。
+* 已经全面支持微信公众号、企业号、开放平台的最新API。
+* 已经支持分布式缓存及缓存策略扩展。
 
 目前官方的API都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的[Senparc.Weixin.MP.dll](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut)、[Senparc.Weixin.QY.dll](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut) 、[Senparc.Weixin.Open.dll](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut)  或 [Senparc.Weixin.dll](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut) 。
 
@@ -25,22 +23,15 @@
 
 资源
 ----------------
-官网地址：http://weixin.senparc.com/
-
-系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
-
-微信技术交流社区：http://www.weiweihi.com/QA
-
-自定义菜单在线编辑工具：http://weixin.senparc.com/Menu
-
-在线消息测试工具：http://weixin.senparc.com/SimulateTool
-
-源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
-
-
+1. 官网地址：http://weixin.senparc.com/
+2. 系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
+3. 微信技术交流社区：http://www.weiweihi.com/QA
+4. 自定义菜单在线编辑工具：http://weixin.senparc.com/Menu
+5. 在线消息测试工具：http://weixin.senparc.com/SimulateTool
+6. 缓存测试工具：http://weixin.senparc.com/Cache/Test
+7. 源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
 
 技术交流QQ群（目前未满可加：3群、8群，其他群均已满）：
-
 
 1群：300313885，2群：293958349，3群：342319110，4群：372212092
 
@@ -55,8 +46,6 @@
 
 
 资金捐助： [进入主页](http://weixin.senparc.com)
-
-
 
 ###关注测试账号（SenparcRobot）：
 [![qrcode]](http://weixin.senparc.com/)  

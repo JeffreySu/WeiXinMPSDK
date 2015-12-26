@@ -59,7 +59,7 @@ namespace Senparc.Weixin.MessageQueue
         /// </summary>
         /// <param name="key"></param>
         /// <param name="action"></param>
-        public void Add(string key, Action action)
+        public SenparcMessageQueueItem Add(string key, Action action)
         {
             lock (MessageQueueSyncLock)
             {
@@ -75,6 +75,7 @@ namespace Senparc.Weixin.MessageQueue
 
                 var mqItem =new  SenparcMessageQueueItem(key,action);
                 MessageQueueDictionary[key] = mqItem;
+                return mqItem;
             }
         }
 
@@ -91,6 +92,18 @@ namespace Senparc.Weixin.MessageQueue
                     MessageQueueDictionary.Remove(key);
                     MessageQueueList.Remove(key);
                 }
+            }
+        }
+
+        /// <summary>
+        /// 获得当前列队数量
+        /// </summary>
+        /// <returns></returns>
+        public int GetCount()
+        {
+            lock (MessageQueueSyncLock)
+            {
+                return MessageQueueList.Count;
             }
         }
     }

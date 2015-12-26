@@ -689,9 +689,20 @@
             </summary>
             <param name="key"></param>
         </member>
+        <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.GetCount">
+            <summary>
+            获得当前列队数量
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem">
             <summary>
             SenparcMessageQueueItem
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility">
+            <summary>
+            SenparcMessageQueue线程自动处理
             </summary>
         </member>
         <member name="T:Senparc.Weixin.Threads.ThreadUtility">

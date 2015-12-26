@@ -12,7 +12,9 @@
 using System;
 using System.Runtime.CompilerServices;
 using Senparc.Weixin.Annotations;
+using Senparc.Weixin.Cache;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.MessageQueue;
 
 namespace Senparc.Weixin.Containers
 {
@@ -40,21 +42,20 @@ namespace Senparc.Weixin.Containers
             set { this.SetContainerProperty(ref _key, value); }
         }
 
-        public BaseContainerBag()
-        {
-            base.PropertyChanged += BaseContainerBag_PropertyChanged;
-        }
-
         private void BaseContainerBag_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            var containerBag = (BaseContainerBag) sender;
-            var key = containerBag.Key;
+            var containerBag = (IBaseContainerBag)sender;
+            var key = string.Format("{0}_{1}_{2}", "ContainerBag", sender.GetType().ToString(), containerBag.Key);
 
             //获取对应Container的缓存相关
 
-            //TODO:做消息列队，每过一段时间进行自动更新，防止属性连续被编辑，短时间内反复更新缓存。
-
-
+            //加入消息列队，每过一段时间进行自动更新，防止属性连续被编辑，短时间内反复更新缓存。
+            SenparcMessageQueue mq = new SenparcMessageQueue();
+            mq.Add(Key, () =>
+            {
+                var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
+                containerCacheStragegy.UpdateContainerBag(key, containerBag);
+            });
         }
 
         /// <summary>
@@ -70,6 +71,10 @@ namespace Senparc.Weixin.Containers
             var result = base.SetProperty(ref storage, value, propertyName);
             return result;
         }
-    }
 
+        public BaseContainerBag()
+        {
+            base.PropertyChanged += BaseContainerBag_PropertyChanged;
+        }
+    }
 }

@@ -14,11 +14,13 @@ namespace Senparc.Weixin.MessageQueue
         public string Key { get; set; }
         public Action Action { get; set; }
         public DateTime AddTime { get; set; }
+        public string Description { get; set; }
 
-        public SenparcMessageQueueItem(string key, Action action)
+        public SenparcMessageQueueItem(string key, Action action, string description = null)
         {
             Key = key;
             Action = action;
+            Description = description;
             AddTime = DateTime.Now;
         }
     }

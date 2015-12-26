@@ -79,12 +79,12 @@ namespace Senparc.Weixin.Cache
                 return;
             }
 
-            LocalCacheHelper.LocalCache[key] = value;
+            _cache[key] = value;
         }
 
         public void RemoveFromCache(string key)
         {
-            LocalCacheHelper.LocalCache.Remove(key);
+            _cache.Remove(key);
         }
 
         public IContainerItemCollection Get(string key)
@@ -116,6 +116,15 @@ namespace Senparc.Weixin.Cache
         public void Update(string key, IContainerItemCollection value)
         {
             _cache[key] = value;
+        }
+
+        public void UpdateContainerBag(string key, IBaseContainerBag bag)
+        {
+            if (_cache.ContainsKey(key))
+            {
+                var containerItemCollection = _cache[key];
+                containerItemCollection[bag.Key] = bag;
+            }
         }
 
         #endregion

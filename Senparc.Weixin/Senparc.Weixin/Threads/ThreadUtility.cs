@@ -12,7 +12,6 @@ namespace Senparc.Weixin.Threads
     /// </summary>
     public static class ThreadUtility
     {
-
         /// <summary>
         /// 异步线程容器
         /// </summary>

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.MessageQueue
+namespace Senparc.Weixin.Threads
 {
     public class SenparcMessageQueueThreadUtility
     {

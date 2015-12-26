@@ -80,8 +80,9 @@
     <Compile Include="Helpers\Conventers\WeixinJsonConventer.cs" />
     <Compile Include="MessageQueue\SenparcMessageQueue.cs" />
     <Compile Include="MessageQueue\SenparcMessageQueueItem.cs" />
-    <Compile Include="MessageQueue\SenparcMessageQueueThreadUtility.cs" />
+    <Compile Include="Threads\SenparcMessageQueueThreadUtility.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Threads\ThreadUtility.cs" />
     <Compile Include="Utilities\BrowserUtility\BroswerUtility.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Utilities\WeixinUtility\ApiUtility.cs" />

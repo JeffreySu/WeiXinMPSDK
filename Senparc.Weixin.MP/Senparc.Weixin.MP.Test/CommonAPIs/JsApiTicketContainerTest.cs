@@ -20,7 +20,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             AccessTokenContainer.Register(base._appId, base._appSecret);
 
             //获取Ticket完整结果（包括当前过期秒数）
-            var ticketResult = AccessTokenContainer.GetJsApiTicketResult(base._appId);
+            var ticketResult = AccessTokenContainer.GetApiTicketResult(base._appId);
             Assert.IsNotNull(ticketResult);
 
             //只获取Ticket字符串
@@ -30,10 +30,10 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
             //getNewTicket
             {
-                ticket = AccessTokenContainer.TryGetJsApiTicket(base._appId, base._appSecret, false);
+                ticket = AccessTokenContainer.TryGetApiTicket(base._appId, base._appSecret,getNewTicket: false);
                 Assert.AreEqual(ticketResult.ticket, ticket);
 
-                ticket = AccessTokenContainer.TryGetJsApiTicket(base._appId, base._appSecret, true);
+                ticket = AccessTokenContainer.TryGetApiTicket(base._appId, base._appSecret,getNewTicket: true);
                 //Assert.AreNotEqual(ticketResult.ticket, ticket);//如果微信服务器缓存，此处会相同
 
                 Console.WriteLine(ticket);

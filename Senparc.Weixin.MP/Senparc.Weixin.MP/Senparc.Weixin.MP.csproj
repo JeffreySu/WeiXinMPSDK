@@ -212,7 +212,7 @@
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Common.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Conditional.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Custom.cs" />
-    <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
+    <Compile Include="Entities\JsonResult\ApiTicketResult.cs" />
     <Compile Include="Entities\JsonResult\Menu\CreateMenuConditionalResult.cs" />
     <Compile Include="Entities\Menu\Conditional\ConditionalButtonGroup.cs" />
     <Compile Include="Entities\Menu\Conditional\MenuMatchRule.cs" />

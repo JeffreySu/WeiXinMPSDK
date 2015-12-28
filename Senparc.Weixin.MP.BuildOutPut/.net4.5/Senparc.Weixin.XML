@@ -171,6 +171,11 @@
             IBaseContainerBag
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.Containers.IBaseContainerBag.CacheTime">
+            <summary>
+            缓存时间，不使用属性变化监听
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.Containers.BaseContainerBag">
             <summary>
             BaseContainer容器中的Value类型

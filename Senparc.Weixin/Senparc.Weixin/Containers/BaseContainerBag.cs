@@ -24,6 +24,9 @@ namespace Senparc.Weixin.Containers
     public interface IBaseContainerBag
     {
         string Key { get; set; }
+        /// <summary>
+        /// 缓存时间，不使用属性变化监听
+        /// </summary>
         DateTime CacheTime { get; set; }
     }
 
@@ -40,7 +43,7 @@ namespace Senparc.Weixin.Containers
         public string Key
         {
             get { return _key; }
-            set { this.SetContainerProperty(ref _key, value); }
+            set { this.SetContainerProperty(ref _key, value, "Key"); }
         }
 
         /// <summary>
@@ -75,7 +78,7 @@ namespace Senparc.Weixin.Containers
         /// <param name="value"></param>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        protected bool SetContainerProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
+        protected bool SetContainerProperty<T>(ref T storage, T value, String propertyName)
         {
             var result = base.SetProperty(ref storage, value, propertyName);
             return result;

@@ -18,7 +18,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public DateTime DateTime
         {
             get { return _dateTime; }
-            set { this.SetContainerProperty(ref _dateTime, value); }
+            set { this.SetContainerProperty(ref _dateTime, value, "DateTime"); }
         }
     }
 
@@ -29,7 +29,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public DateTime DateTime
         {
             get { return _dateTime; }
-            set { this.SetContainerProperty(ref _dateTime, value); }
+            set { this.SetContainerProperty(ref _dateTime, value, "DateTime"); }
 
         }
     }

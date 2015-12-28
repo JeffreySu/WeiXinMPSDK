@@ -35,37 +35,37 @@ namespace Senparc.Weixin.MP.CommonAPIs
         public string AppId
         {
             get { return _appId; }
-            set { base.SetContainerProperty(ref _appId, value); }
+            set { base.SetContainerProperty(ref _appId, value, "AppId"); }
         }
 
         public string AppSecret
         {
             get { return _appSecret; }
-            set { base.SetContainerProperty(ref _appSecret, value); }
+            set { base.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
         }
 
         public DateTime AccessTokenExpireTime
         {
             get { return _accessTokenExpireTime; }
-            set { base.SetContainerProperty(ref _accessTokenExpireTime, value); }
+            set { base.SetContainerProperty(ref _accessTokenExpireTime, value, "AccessTokenExpireTime"); }
         }
 
         public AccessTokenResult AccessTokenResult
         {
             get { return _accessTokenResult; }
-            set { base.SetContainerProperty(ref _accessTokenResult, value); }
+            set { base.SetContainerProperty(ref _accessTokenResult, value, "AccessTokenResult"); }
         }
 
         public JsApiTicketResult JsApiTicketResult
         {
             get { return _jsApiTicketResult; }
-            set { base.SetContainerProperty(ref _jsApiTicketResult, value); }
+            set { base.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
         }
 
         public DateTime JsApiTicketExpireTime
         {
             get { return _jsApiTicketExpireTime; }
-            set { base.SetContainerProperty(ref _jsApiTicketExpireTime, value); }
+            set { base.SetContainerProperty(ref _jsApiTicketExpireTime, value, "JsApiTicketExpireTime"); }
         }
 
         /// <summary>

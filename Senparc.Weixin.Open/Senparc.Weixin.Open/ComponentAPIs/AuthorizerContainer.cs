@@ -33,7 +33,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public string AuthorizerAppId
         {
             get { return _authorizerAppId; }
-            set { base.SetContainerProperty(ref _authorizerAppId, value); }
+            set { base.SetContainerProperty(ref _authorizerAppId, value, "AuthorizerAppId"); }
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public string ComponentAppId
         {
             get { return _componentAppId; }
-            set { base.SetContainerProperty(ref _componentAppId, value); }
+            set { base.SetContainerProperty(ref _componentAppId, value, "ComponentAppId"); }
         }
 
         ///// <summary>
@@ -70,13 +70,13 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public JsApiTicketResult JsApiTicketResult
         {
             get { return _jsApiTicketResult; }
-            set { base.SetContainerProperty(ref _jsApiTicketResult, value); }
+            set { base.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
         }
 
         public DateTime JsApiTicketExpireTime
         {
             get { return _jsApiTicketExpireTime; }
-            set { base.SetContainerProperty(ref _jsApiTicketExpireTime, value); }
+            set { base.SetContainerProperty(ref _jsApiTicketExpireTime, value, "JsApiTicketExpireTime"); }
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             get { return _authorizationInfo; }
             set
             {
-                base.SetContainerProperty(ref _authorizationInfo, value);
+                base.SetContainerProperty(ref _authorizationInfo, value, "AuthorizationInfo");
                 //base.SetContainerProperty(ref _authorizationInfo, value, nameof(FullAuthorizerInfoResult));
             }
         }
@@ -95,7 +95,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public DateTime AuthorizationInfoExpireTime
         {
             get { return _authorizationInfoExpireTime; }
-            set { base.SetContainerProperty(ref _authorizationInfoExpireTime, value); }
+            set { base.SetContainerProperty(ref _authorizationInfoExpireTime, value, "AuthorizationInfoExpireTime"); }
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public AuthorizerInfo AuthorizerInfo
         {
             get { return _authorizerInfo; }
-            set { base.SetContainerProperty(ref _authorizerInfo, value); }
+            set { base.SetContainerProperty(ref _authorizerInfo, value, "AuthorizerInfo"); }
         }
 
         //public DateTime AuthorizerInfoExpireTime { get; set; }

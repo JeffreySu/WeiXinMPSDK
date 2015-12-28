@@ -13,6 +13,7 @@ using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
+using Senparc.Weixin.Threads;
 
 namespace Senparc.Weixin.MP.Sample
 {
@@ -30,11 +31,19 @@ namespace Senparc.Weixin.MP.Sample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-
+            RegisterWeixinThreads();//激活微信缓存（必须）
             RegisterWeixinPay();//注册微信支付
             RegisterWeixinThirdParty(); //注册微信第三方平台
 
             Senparc.Weixin.Config.IsDebug = true;//这里设为Debug状态时，/App_Data/目录下会生成日志文件记录所有的API请求日志，正式发布版本建议关闭
+        }
+
+        /// <summary>
+        /// 激活微信缓存
+        /// </summary>
+        private void RegisterWeixinThreads()
+        {
+            ThreadUtility.Register();
         }
 
         /// <summary>

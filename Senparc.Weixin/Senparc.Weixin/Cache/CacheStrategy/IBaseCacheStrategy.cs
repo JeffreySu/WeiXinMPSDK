@@ -54,6 +54,19 @@ namespace Senparc.Weixin.Cache
         /// <returns></returns>
         bool CheckExisted(TKey key);
 
+        /// <summary>
+        /// 获取缓存集合总数（注意：每个缓存框架的计数对象不一定一致！）
+        /// </summary>
+        /// <returns></returns>
         long GetCount();
+
+        /// <summary>
+        /// 更新缓存
+        /// </summary>
+        /// <typeparam name="TKey"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        void Update(TKey key, TValue value);
     }
 }

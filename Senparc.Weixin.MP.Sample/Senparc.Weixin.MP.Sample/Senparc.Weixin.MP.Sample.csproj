@@ -147,6 +147,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\WeixinJSSDKController.cs" />
@@ -310,6 +311,7 @@
     <Content Include="Views\OpenOAuth\OpenOAuthCallback.cshtml" />
     <Content Include="Views\OpenOAuth\Index.cshtml" />
     <Content Include="Views\OpenOAuth\UserInfoCallback.cshtml" />
+    <Content Include="Views\Cache\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\OpenTickets\" />

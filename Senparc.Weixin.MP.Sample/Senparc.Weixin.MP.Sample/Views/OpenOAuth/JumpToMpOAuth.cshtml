@@ -1,16 +1,27 @@
 ﻿@{
-    Layout = null;
+    ViewBag.Title = "跳转到公众号授权页";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>跳转到公众号授权页</title>
-</head>
-<body>
+@section HeaderContent{
+    <style>
+        h1 {
+            margin: 30px;
+        }
+
+        .enter {
+            font-size: 200%;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+}
+<div class="wrapper">
     <h1>跳转到公众号授权页</h1>
     <div>
-        @Html.ActionLink("点击这里进入公众号授权页", "OAuth", "Open")
+        <p class="enter">
+            【@Html.ActionLink("点击这里进入公众号授权页", "OAuth", "Open")】
+        </p>
+        <p>&nbsp;</p>
     </div>
     <div>
         <p>
@@ -19,5 +30,4 @@
             因此测试的时候必须有这样一个Referer页面存在。
         </p>
     </div>
-</body>
-</html>
+</div>

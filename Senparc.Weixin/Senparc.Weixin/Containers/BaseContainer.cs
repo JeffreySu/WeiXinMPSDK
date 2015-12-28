@@ -13,6 +13,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Senparc.Weixin.Cache;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MessageQueue;
 
 namespace Senparc.Weixin.Containers
 {
@@ -31,11 +33,6 @@ namespace Senparc.Weixin.Containers
     /// <typeparam name="TBag"></typeparam>
     public abstract class BaseContainer<TBag> : IBaseContainer<TBag> where TBag : class, IBaseContainerBag, new()
     {
-        private static string GetCacheKey<T>()
-        {
-            return string.Format("Container:{0}", typeof(T));
-        }
-
         private static IContainerCacheStragegy /*IBaseCacheStrategy<string,Dictionary<string, TBag>>*/ Cache
         {
             get
@@ -46,7 +43,7 @@ namespace Senparc.Weixin.Containers
         }
 
         /// <summary>
-        /// 所有数据集合的列表
+        /// 所有数据集合的列表   TODO：改为单个Container输出
         /// </summary>
         private static IDictionary<string, IContainerItemCollection> CollectionList
         {
@@ -66,13 +63,32 @@ namespace Senparc.Weixin.Containers
         {
             get
             {
-                var cacheKey = GetCacheKey<TBag>();
+                var cacheKey = GetCacheKey();
                 if (!CollectionList.ContainsKey(cacheKey))
                 {
-                    CollectionList[cacheKey] = new ContainerItemCollection();
+                    var newItemCollection = new ContainerItemCollection();
+                    CollectionList[cacheKey] = newItemCollection;
+
+                    //保存到缓存列队，等待执行
+                    SenparcMessageQueue mq = new SenparcMessageQueue();
+                    var mqKey = SenparcMessageQueue.GenerateKey("ContainerItemCollection", typeof(BaseContainer<TBag>), cacheKey, "InsertItemCollection");
+                    mq.Add(mqKey, () =>
+                    {
+                        var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
+                        containerCacheStragegy.InsertToCache(cacheKey, newItemCollection);//插入到缓存
+                    });
                 }
                 return CollectionList[cacheKey];
             }
+        }
+
+        /// <summary>
+        /// 获取缓存Key
+        /// </summary>
+        /// <returns></returns>
+        public static string GetCacheKey()
+        {
+            return string.Format("Container:{0}", typeof(TBag));
         }
 
         /// <summary>
@@ -138,8 +154,23 @@ namespace Senparc.Weixin.Containers
             }
             else
             {
-                value.Key = key;//确保Key有值
+                if (string.IsNullOrEmpty(value.Key))
+                {
+                    value.Key = key;//确保Key有值
+                }
+                else
+                {
+                    key = value.Key;//统一key
+                }
+
+                if (string.IsNullOrEmpty(key))
+                {
+                    throw new WeixinException("key和value,Key不可以同时为null或空字符串！");
+                }
+
                 ItemCollection[key] = value;
+
+                Cache.Update(key, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
             }
         }
 
@@ -164,6 +195,7 @@ namespace Senparc.Weixin.Containers
                     };
                 }
                 partialUpdate(ItemCollection[key] as TBag);//更新对象
+                Cache.Update(key, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
             }
         }
 

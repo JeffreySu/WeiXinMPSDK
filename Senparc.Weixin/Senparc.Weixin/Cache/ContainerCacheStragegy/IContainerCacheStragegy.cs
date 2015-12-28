@@ -23,5 +23,6 @@ namespace Senparc.Weixin.Cache
     public interface IContainerCacheStragegy : /*IContainerCacheStragegy,*/ IBaseCacheStrategy<string, IContainerItemCollection>
     //where TContainerBag : class, IBaseContainerBag
     {
+        void UpdateContainerBag(string key, IBaseContainerBag containerBag);
     }
 }

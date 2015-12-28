@@ -75,3 +75,4 @@ Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/Web.config
 /Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/App_Data/SenparcWeixinTrace.log
 
 /Tools/*
+*.DotSettings

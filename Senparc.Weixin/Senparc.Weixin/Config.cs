@@ -11,8 +11,10 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 
 namespace Senparc.Weixin
 {

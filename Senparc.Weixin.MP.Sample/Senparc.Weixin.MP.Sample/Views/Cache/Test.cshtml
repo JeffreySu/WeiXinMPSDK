@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "微信分布式缓存策略测试";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section HeaderContent
+{
+    <style>
+        .result {
+            padding: 0px 0px 0px 30px;
+            font-size: 110%;
+            float: right;
+            width: 50%;
+        }
+
+        .result h1 {
+            margin: 30px;
+            font-weight: bold;
+            font-size: 120%;
+        }
+
+        #resultText { border: 1px solid #66cdaa; padding:10px;}
+
+        .description {
+            float: left;
+            width: 50%;
+            padding: 40px 0;
+        }
+
+        .description h1 {
+            font-weight: bold;
+            font-size: 120%;
+            padding-bottom: 30px;
+        }
+
+        .description ol, .description li { list-style: decimal; }
+
+        .description ol { padding-left: 25px; }
+        .description li {
+            line-height: 200%;
+            font-size: 120%;
+        }
+    </style>
+    <script>
+        $(function() {
+            $.post('@Url.Action("RunTest")', function(html) {
+                $('#resultText').html(html);
+            });
+        });
+    </script>
+}
+<div class="wrapper">
+    <div class="description">
+        <h1>Senparc.Weixin缓存列队原理</h1>
+        <p>
+            <ol>
+                <li>微信的AccessToken等数据都使用各类Container进行管理；</li>
+                <li>每个Container都有一个强制约束的ContainerBag，本地缓存信息；</li>
+                <li>ContainerBag中的属性被修改时，会将需要对当前对象操作的过程放入消息列队（SenparcMessageQueue）；</li>
+                <li>每个消息列队中的对象都带有一个委托类型属性，其动作通常是通过缓存策略（实现自IContainerCacheStragegy，可以是本地缓存或分布式缓存）更新缓存；</li>
+                <li>一个独立的线程会对消息列队进行读取，依次执行列队成员的委托，直到完成当前所有列队的缓存更新操作；</li>
+                <li>上一个步骤重复进行，每次执行完默认等待2秒。此方案可以有效避免同一个ContainerBag对象属性被连续更新的情况下，每次都和缓存服务通讯而产生消耗。</li>
+            </ol>
+        </p>
+    </div>
+    <div class="result">
+        <h1>测试结果：</h1>
+        <p id="resultText">运行中……@*@Html.Raw(ViewData["Result"])*@</p>
+    </div>
+</div>
+<div class="clear"></div>

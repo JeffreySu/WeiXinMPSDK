@@ -79,7 +79,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="secret"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static JsApiTicketResult GetTicket(string appId, string secret, string type = "jsapi")
+        public static ApiTicketResult GetTicket(string appId, string secret, string type = "jsapi")
         {
             var accessToken = AccessTokenContainer.TryGetAccessToken(appId, secret);
             return GetTicketByAccessToken(accessToken,type);
@@ -91,14 +91,14 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static JsApiTicketResult GetTicketByAccessToken(string accessTokenOrAppId, string type = "jsapi")
+        public static ApiTicketResult GetTicketByAccessToken(string accessTokenOrAppId, string type = "jsapi")
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
         {
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type={1}",
                                     accessToken, type);
 
-            JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
+            ApiTicketResult result = Get.GetJson<ApiTicketResult>(url);
             return result;
 
             }, accessTokenOrAppId);

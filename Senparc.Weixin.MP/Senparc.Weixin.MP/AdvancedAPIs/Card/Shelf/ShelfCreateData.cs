@@ -34,8 +34,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         public bool can_share { get; set; }
         /// <summary>
         /// 投放页面的场景值；SCENE_NEAR_BY 附近 SCENE_MENU	自定义菜单 SCENE_QRCODE	二维码 SCENE_ARTICLE	公众号文章 SCENE_H5	h5页面 SCENE_IVR	自动回复 SCENE_CARD_CUSTOM_CELL	卡券自定义cell
+        /// 使用枚举类型序列化会是int类型，提交上去会报错
+        /// 现在使用的时候填入CardShelfCreate_Scene.SCENE_NEAR_BY.ToString()
         /// </summary>
-        public CardShelfCreate_Scene scene { get; set; }
+        public string scene { get; set; }
         /// <summary>
         /// 卡券列表
         /// </summary>

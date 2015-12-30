@@ -50,6 +50,14 @@ namespace Senparc.Weixin.HttpUtility
             }
         }
 
+        /// <summary>
+        /// 清除Web代理状态
+        /// </summary>
+        public static void RemoveHttpProxy()
+        {
+            _webproxy = null;
+        }
+
         #endregion
 
 

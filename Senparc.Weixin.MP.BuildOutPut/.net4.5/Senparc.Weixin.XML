@@ -1522,6 +1522,11 @@
             <param name="username"></param>
             <param name="password"></param>
         </member>
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.RemoveHttpProxy">
+            <summary>
+            清除Web代理状态
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpGet(System.String,System.Text.Encoding)">
             <summary>
             使用Get方法获取字符串结果（没有加入Cookie）

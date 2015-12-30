@@ -61,6 +61,7 @@
     <Compile Include="Threads\ThreadUtilityTest.cs" />
     <Compile Include="Utilities\HttpUtility\GetTests.cs" />
     <Compile Include="Utilities\HttpUtility\PostTests.cs" />
+    <Compile Include="Utilities\HttpUtility\RequestUtilityTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">

@@ -29,6 +29,30 @@ namespace Senparc.Weixin.HttpUtility
 {
     public static class RequestUtility
     {
+        #region 代理
+
+        private static WebProxy _webproxy = null;
+
+        /// <summary>
+        /// 设置Web代理
+        /// </summary>
+        /// <param name="host"></param>
+        /// <param name="port"></param>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        public static void SetHttpProxy(string host, string port, string username, string password)
+        {
+            ICredentials cred;
+            cred = new NetworkCredential(username, password);
+            if (!string.IsNullOrEmpty(host))
+            {
+                _webproxy = new WebProxy(host + ":" + port ?? "80", true, null, cred);
+            }
+        }
+
+        #endregion
+
+
         #region 同步方法
 
         /// <summary>
@@ -39,6 +63,7 @@ namespace Senparc.Weixin.HttpUtility
         public static string HttpGet(string url, Encoding encoding = null)
         {
             WebClient wc = new WebClient();
+            wc.Proxy = _webproxy;
             wc.Encoding = encoding ?? Encoding.UTF8;
             //if (encoding != null)
             //{
@@ -59,6 +84,7 @@ namespace Senparc.Weixin.HttpUtility
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             request.Timeout = timeOut;
+            request.Proxy = _webproxy;
 
             if (cookieContainer != null)
             {
@@ -110,6 +136,7 @@ namespace Senparc.Weixin.HttpUtility
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.Timeout = timeOut;
+            request.Proxy = _webproxy;
 
             if (checkValidationResult)
             {
@@ -262,6 +289,7 @@ namespace Senparc.Weixin.HttpUtility
         public static async Task<string> HttpGetAsync(string url, Encoding encoding = null)
         {
             WebClient wc = new WebClient();
+            wc.Proxy = _webproxy;
             wc.Encoding = encoding ?? Encoding.UTF8;
             //if (encoding != null)
             //{
@@ -282,6 +310,7 @@ namespace Senparc.Weixin.HttpUtility
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             request.Timeout = timeOut;
+            request.Proxy = _webproxy;
 
             if (cookieContainer != null)
             {
@@ -332,6 +361,7 @@ namespace Senparc.Weixin.HttpUtility
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.Timeout = timeOut;
+            request.Proxy = _webproxy;
 
             if (checkValidationResult)
             {

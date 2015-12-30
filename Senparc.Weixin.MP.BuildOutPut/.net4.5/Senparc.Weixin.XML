@@ -1513,6 +1513,15 @@
             <param name="data"></param>
             <param name="stream"></param>
         </member>
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.SetHttpProxy(System.String,System.String,System.String,System.String)">
+            <summary>
+            设置Web代理
+            </summary>
+            <param name="host"></param>
+            <param name="port"></param>
+            <param name="username"></param>
+            <param name="password"></param>
+        </member>
         <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpGet(System.String,System.Text.Encoding)">
             <summary>
             使用Get方法获取字符串结果（没有加入Cookie）

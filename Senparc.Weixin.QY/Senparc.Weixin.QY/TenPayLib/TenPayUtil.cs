@@ -9,9 +9,7 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.Text;
-using System.Web;
 using Senparc.Weixin.QY.Helpers;
 
 namespace Senparc.Weixin.QY.TenPayLib

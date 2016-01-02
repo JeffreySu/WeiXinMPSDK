@@ -14,27 +14,15 @@
     修改描述：添加企业号返回码
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Senparc.Weixin
 {
-
-
     /// <summary>
-    /// 企业接收消息类型
+    /// CommonJsonSend中的http提交类型
     /// </summary>
-    public enum QyRequestMsgType
+    public enum CommonJsonSendType
     {
-        Text, //文本
-        Location, //地理位置
-        Image, //图片
-        Voice, //语音
-        Video, //视频
-        Link, //连接信息
-        Event, //事件推送
+        GET,
+        POST
     }
 
     /// <summary>

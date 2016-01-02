@@ -15,9 +15,6 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.CommonAPIs;
@@ -74,7 +71,7 @@ namespace Senparc.Weixin.MP
             {
                 if (accessToken == null)
                 {
-                    var accessTokenResult = AccessTokenContainer.GetTokenResult(appId, false);
+                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(appId, false);
                     accessToken = accessTokenResult.access_token;
                 }
                 result = fun(accessToken);
@@ -86,7 +83,7 @@ namespace Senparc.Weixin.MP
                     && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
                 {
                     //尝试重新验证
-                    var accessTokenResult = AccessTokenContainer.GetTokenResult(appId, true);
+                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(appId, true);//强制获取并刷新最新的AccessToken
                     accessToken = accessTokenResult.access_token;
                     result = TryCommonApi(fun, appId, false);
                 }
@@ -115,7 +112,7 @@ namespace Senparc.Weixin.MP
             T result = null;
             try
             {
-                var accessToken = AccessTokenContainer.TryGetToken(appId, appSecret, false);
+                var accessToken = AccessTokenContainer.TryGetAccessToken(appId, appSecret, false);
                 result = fun(accessToken);
             }
             catch (ErrorJsonResultException ex)
@@ -123,7 +120,7 @@ namespace Senparc.Weixin.MP
                 if (retryIfFaild && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
                 {
                     //尝试重新验证
-                    var accessToken = AccessTokenContainer.TryGetToken(appId, appSecret, true);
+                    var accessToken = AccessTokenContainer.TryGetAccessToken(appId, appSecret, true);
                     result = Do(fun, appId, appSecret, false);
                 }
             }

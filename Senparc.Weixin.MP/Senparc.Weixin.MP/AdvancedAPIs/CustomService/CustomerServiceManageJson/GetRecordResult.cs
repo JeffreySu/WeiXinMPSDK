@@ -11,10 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
@@ -24,6 +21,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
     /// </summary>
     public class GetRecordResult : WxJsonResult
     {
+        /// <summary>
+        /// 官方文档暂没有说明
+        /// </summary>
+        public int retcode { get; set; }
         public List<RecordJson> recordlist { get; set; }
     }
 }

@@ -12,9 +12,7 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.Text;
-using System.Web;
 using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLibV3

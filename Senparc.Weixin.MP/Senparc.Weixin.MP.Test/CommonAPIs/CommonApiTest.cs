@@ -73,7 +73,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         {
             if (getNew || string.IsNullOrEmpty(_testOpenId))
             {
-                var accessToken = AccessTokenContainer.GetToken(_appId);
+                var accessToken = AccessTokenContainer.GetAccessToken(_appId);
                 var openIdResult = UserApi.Get(accessToken, null);
                 _testOpenId = openIdResult.data.openid.First();
             }
@@ -85,8 +85,9 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             //全局只需注册一次
             AccessTokenContainer.Register(_appId, _appSecret);
 
-            //全局只需注册一次
-            JsApiTicketContainer.Register(_appId, _appSecret);
+            //v13.3.0之后，JsApiTicketContainer已经合并入AccessTokenContainer，已经不需要单独注册
+            ////全局只需注册一次
+            //JsApiTicketContainer.Register(_appId, _appSecret);
         }
 
         [TestMethod]
@@ -118,7 +119,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         {
             try
             {
-                var accessToken = AccessTokenContainer.GetToken(_appId);
+                var accessToken = AccessTokenContainer.GetAccessToken(_appId);
                 var result = CommonApi.GetUserInfo(accessToken, _testOpenId);
                 Assert.IsNotNull(result);
             }

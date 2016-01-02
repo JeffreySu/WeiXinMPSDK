@@ -12,11 +12,9 @@
     API：http://mp.weixin.qq.com/wiki/15/b9e012f917e3484b7ed02771156411f3.html
  */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.ShakeAround;
 using Senparc.Weixin.MP.CommonAPIs;
 
@@ -27,6 +25,40 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class ShakeAroundApi
     {
+        /// <summary>
+        /// 申请开通功能
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult Register(string accessTokenOrAppId, RegisterData data, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string url = string.Format("https://api.weixin.qq.com/shakearound/account/register?access_token={0}", accessToken);
+
+                return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 查询审核状态
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <returns></returns>
+        public static GetAuditStatusResultJson GetAuditStatus(string accessTokenOrAppId)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string url = string.Format("https://api.weixin.qq.com/shakearound/account/auditstatus?access_token={0}", accessToken);
+
+                return Get.GetJson<GetAuditStatusResultJson>(url);
+
+            }, accessTokenOrAppId);
+        }
+
         /// <summary>
         /// 申请设备ID
         /// </summary>
@@ -69,7 +101,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="comment"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult DeviceUpdate(string accessTokenOrAppId, long deviceId, long uuId, string major, long minor, string comment, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult DeviceUpdate(string accessTokenOrAppId, long deviceId, string uuId, long major, long minor, string comment, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -225,7 +257,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var url = string.Format("https://api.weixin.qq.com/shakearound/material/add?access_token={0}", accessToken);
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
-                return HttpUtility.Post.PostFileGetJson<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
+                return Post.PostFileGetJson<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

@@ -12,11 +12,8 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Xml.Linq;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
@@ -120,6 +117,18 @@ namespace Senparc.Weixin.MP.Helpers
                                 }
                                 prop.SetValue(entity, picItems, null);
                             }
+                            else if (genericArguments[0].Name == "AroundBeacon")
+                            {
+                                List<AroundBeacon> aroundBeacons = new List<AroundBeacon>();
+                                foreach (var item in root.Elements(propName).Elements("AroundBeacon"))
+                                {
+                                    var aroundBeaconItem = new AroundBeacon();
+                                    FillEntityWithXml(aroundBeaconItem, new XDocument(item));
+                                    aroundBeacons.Add(aroundBeaconItem);
+                                }
+                                prop.SetValue(entity, aroundBeacons, null);
+                            }
+                            break;
                             break;
                         case "Music"://ResponseMessageMusic适用
                             Music music = new Music();
@@ -155,6 +164,16 @@ namespace Senparc.Weixin.MP.Helpers
                             SendPicsInfo sendPicsInfo = new SendPicsInfo();
                             FillEntityWithXml(sendPicsInfo, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, sendPicsInfo, null);
+                            break;
+                        case "ChosenBeacon"://摇一摇事件通知
+                            ChosenBeacon chosenBeacon = new ChosenBeacon();
+                            FillEntityWithXml(chosenBeacon, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, chosenBeacon, null);
+                            break;
+                        case "AroundBeacon"://摇一摇事件通知
+                            AroundBeacon aroundBeacon = new AroundBeacon();
+                            FillEntityWithXml(aroundBeacon, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, aroundBeacon, null);
                             break;
                         default:
                             prop.SetValue(entity, root.Element(propName).Value, null);
@@ -332,7 +351,7 @@ namespace Senparc.Weixin.MP.Helpers
         }
 
         /// <summary>
-        /// ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage)的扩展方法
+        /// ResponseMessageBase.CreateFromRequestMessage&lt;T&gt;(requestMessage)的扩展方法
         /// </summary>
         /// <typeparam name="T">需要生成的ResponseMessage类型</typeparam>
         /// <param name="requestMessage">IRequestMessageBase接口下的接收信息类型</param>

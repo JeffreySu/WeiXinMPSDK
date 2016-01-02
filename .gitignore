@@ -64,3 +64,14 @@ Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/Web.config
 /Senparc.Weixin.Open/Senparc.Weixin.Open.Test/test.bak.config
 /Senparc.Weixin.Open/Senparc.Weixin.Open.Test/test.config
 /Senparc.Weixin.MP.Sample/UpgradeLog.htm
+*.tmp
+/Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.xml
+/Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.Open.XML
+/Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.Open.dll
+/Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.MP.xml
+/Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.MP.MvcExtension.dll
+/Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.MP.dll
+/Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.dll
+/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/App_Data/SenparcWeixinTrace.log
+
+/Tools/*

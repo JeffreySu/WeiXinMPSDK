@@ -8,18 +8,12 @@
     创建标识：Senparc - 20150728
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Senparc.Weixin.Entities;
-
-namespace Senparc.Weixin.QY.AdvancedAPIs.OAuth2
+namespace Senparc.Weixin.QY.AdvancedAPIs.Chat
 {
     /// <summary>
-    /// 获取会话返回结果
+    /// 发送消息基础数据
     /// </summary>
-    public class BaseSendChatMessageData : QyJsonResult
+    public class BaseSendChatMessageData 
     {
         /// <summary>
         /// 接收人
@@ -32,7 +26,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.OAuth2
         /// <summary>
         /// 消息类型
         /// </summary>
-        public ChatMsgType msgtype { get; set; }
+        public string msgtype { get; set; }
     }
 
     public class Receiver
@@ -40,7 +34,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.OAuth2
         /// <summary>
         /// 接收人类型：single|group，分别表示：群聊|单聊
         /// </summary>
-        public Chat_Type type { get; set; }
+        public string type { get; set; }
         /// <summary>
         /// 接收人的值，为userid|chatid，分别表示：成员id|会话id
         /// </summary>

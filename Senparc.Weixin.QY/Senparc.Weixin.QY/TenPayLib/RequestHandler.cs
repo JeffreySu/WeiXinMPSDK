@@ -11,11 +11,8 @@
 using System;
 using System.Collections;
 using System.Text;
-using System.Web;
-using System.Xml;
-using System.Security.Cryptography;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Web;
 using Senparc.Weixin.QY.Helpers;
 
 namespace Senparc.Weixin.QY.TenPayLib

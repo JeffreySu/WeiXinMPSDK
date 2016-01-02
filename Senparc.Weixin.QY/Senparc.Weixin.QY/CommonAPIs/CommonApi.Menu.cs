@@ -156,7 +156,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/get?access_token={0}&agentid={1}", accessToken, agentId);
 
-            var jsonString = HttpUtility.RequestUtility.HttpGet(url, Encoding.UTF8);
+            var jsonString = RequestUtility.HttpGet(url, Encoding.UTF8);
             //var finalResult = GetMenuFromJson(jsonString);
 
             GetMenuResult finalResult;

@@ -8,11 +8,6 @@
     创建标识：Senparc - 20150430
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Senparc.Weixin.Open
 {
     public class RequestMessageUnauthorized : RequestMessageBase

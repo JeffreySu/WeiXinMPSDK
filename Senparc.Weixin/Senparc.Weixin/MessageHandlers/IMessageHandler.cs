@@ -11,11 +11,6 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MessageHandlers
@@ -58,9 +53,20 @@ namespace Senparc.Weixin.MessageHandlers
         /// </summary>
         bool OmitRepeatedMessage { get; set; }
 
+
+        /// <summary>
+        /// 执行微信请求前触发
+        /// </summary>
+        void OnExecuting();
+
         /// <summary>
         /// 执行微信请求
         /// </summary>
         void Execute();
+
+        /// <summary>
+        /// 执行微信请求后触发
+        /// </summary>
+        void OnExecuted();
     }
 }

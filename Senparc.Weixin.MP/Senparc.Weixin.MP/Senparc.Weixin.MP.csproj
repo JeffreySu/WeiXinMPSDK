@@ -258,6 +258,9 @@
     <Compile Include="ResponseMessageFactory.cs" />
     <Compile Include="Tencent\Cryptography.cs" />
     <Compile Include="Tencent\WXBizMsgCrypt.cs" />
+    <Compile Include="TenPayLibV3\Entities\NormalRedPackResult.cs" />
+    <Compile Include="TenPayLibV3\Entities\SearchRedPackResult.cs" />
+    <Compile Include="TenPayLibV3\RedPackApi.cs" />
     <Compile Include="TenPayLibV3\RequestHandler.cs" />
     <Compile Include="TenPayLibV3\ResponseHandler.cs" />
     <Compile Include="TenPayLibV3\TenPayV3InfoCollection.cs" />

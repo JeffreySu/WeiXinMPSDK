@@ -50,6 +50,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //{
                 //    AccessTokenContainer.Register(appId, appSecret);
                 //}
+
                 var result = CommonAPIs.CommonApi.GetToken(appId, appSecret);//AccessTokenContainer.GetTokenResult(appId);
 
                 //也可以直接一步到位：

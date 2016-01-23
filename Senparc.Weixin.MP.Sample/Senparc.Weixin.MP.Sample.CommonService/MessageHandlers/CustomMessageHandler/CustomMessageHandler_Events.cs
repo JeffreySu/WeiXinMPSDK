@@ -32,18 +32,16 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             var fileVersionInfo = FileVersionInfo.GetVersionInfo(HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll"));
             var version = string.Format("{0}.{1}", fileVersionInfo.FileMajorPart, fileVersionInfo.FileMinorPart);
             return string.Format(
-@"欢迎关注【Senparc.Weixin.MP 微信公众平台SDK】，当前运行版本：v{0}。
+@"欢迎关注顺利时代物流微信公众平台，当前运行版本：v{0}。
 您可以发送【文字】【位置】【图片】【语音】等不同类型的信息，查看不同格式的回复。
 
 您也可以直接点击菜单查看各种类型的回复。
 还可以点击菜单体验微信支付。
 
-SDK官方地址：http://weixin.senparc.com
-源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK
-Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
+顺利时代物流官方网址：http://www.slsd56.com
+微信公众号：Slsd56
 
 ===============
-更多有关第三方开放平台（Senparc.Weixin.Open）的内容，请回复文字：open
 ",
                 version);
         }

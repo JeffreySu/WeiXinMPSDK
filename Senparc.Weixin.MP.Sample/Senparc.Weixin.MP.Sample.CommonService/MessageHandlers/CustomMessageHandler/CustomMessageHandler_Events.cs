@@ -33,6 +33,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             var version = string.Format("{0}.{1}", fileVersionInfo.FileMajorPart, fileVersionInfo.FileMinorPart);
             return string.Format(
 @"欢迎关注顺利时代物流微信公众平台，当前运行版本：v{0}。
+您可以点击底部的菜单栏，来选择不同的功能来为您服务。
 您可以发送【文字】【位置】【图片】【语音】等不同类型的信息，查看不同格式的回复。
 
 您也可以直接点击菜单查看各种类型的回复。

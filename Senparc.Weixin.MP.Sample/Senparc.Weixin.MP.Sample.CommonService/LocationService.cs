@@ -44,10 +44,10 @@ namespace Senparc.Weixin.MP.Sample.CommonService
             });
             responseMessage.Articles.Add(new Article()
             {
-                Title = "微信公众平台SDK 官网链接",
-                Description = "Senparc.Weixin.MK SDK地址",
+                Title = "填写发货信息",
+                Description = "请您填写详细的发货信息，包括地址，品名，件数等详细信息",
                 PicUrl = "http://weixin.senparc.com/images/logo.jpg",
-                Url = "http://weixin.senparc.com"
+                Url = "http://lims.chinacloudsites.cn/send/add"
             });
 
             return responseMessage;

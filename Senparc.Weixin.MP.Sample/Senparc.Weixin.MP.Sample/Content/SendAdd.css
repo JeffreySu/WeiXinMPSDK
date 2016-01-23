@@ -1,0 +1,25 @@
+﻿.container{
+    /*width:97%;
+    margin:0 auto;*/
+    padding:5px;
+}
+
+#form_Send{
+    /*border:solid 1px #4cff00;*/
+    border-radius:4px;
+    /*padding:5px;*/
+}
+/*
+#form_Send div{
+    width:100%;
+    border:solid 1px #0094ff;
+    margin:5px;
+    padding:5px;
+}
+#form_Send label{
+    width:30%;
+}
+
+#form_Send input{
+    width:70%;
+}*/

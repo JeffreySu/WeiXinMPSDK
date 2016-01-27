@@ -1,4 +1,18 @@
-﻿using System.Collections.Generic;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：OrderResult.cs
+    文件功能描述：根据订单ID获取订单详情返回结果
+    
+    
+    创建标识：Senparc - 2015828
+
+    修改标识：Senparc - 20160127
+    修改描述：v13.5.6 添加receiver_zone属性。感谢@nsoff
+----------------------------------------------------------------*/
+
+
+using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
@@ -104,6 +118,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// 交易ID
         /// </summary>
         public string trans_id { get; set; }
+
+        /// <summary>
+        /// 收货人区
+        /// </summary>
+        public string receiver_zone { get; set; }
     }
 
     /// <summary>
@@ -111,7 +130,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     /// </summary>
     public class GetByFilterResult : WxJsonResult
     {
-        public List<Order> order_list { get; set; } 
+        public List<Order> order_list { get; set; }
     }
 }
 

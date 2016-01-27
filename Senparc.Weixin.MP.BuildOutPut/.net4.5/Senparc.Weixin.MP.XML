@@ -3947,6 +3947,11 @@
             交易ID
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.MerChant.Order.receiver_zone">
+            <summary>
+            收货人区
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.MerChant.GetByFilterResult">
             <summary>
             根据订单状态/创建时间获取订单详情返回结果

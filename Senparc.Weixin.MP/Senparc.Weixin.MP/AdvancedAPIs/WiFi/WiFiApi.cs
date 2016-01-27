@@ -150,7 +150,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/bizwifi/homepage/get?access_token={0}";
+                const string urlFormat = "https://api.weixin.qq.com/bizwifi/homepage/set?access_token={0}";
 
                 var data = new object();
 

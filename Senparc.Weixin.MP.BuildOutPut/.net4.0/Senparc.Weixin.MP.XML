@@ -3947,6 +3947,11 @@
             交易ID
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.MerChant.Order.receiver_zone">
+            <summary>
+            收货人区
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.MerChant.GetByFilterResult">
             <summary>
             根据订单状态/创建时间获取订单详情返回结果
@@ -9992,70 +9997,306 @@
             <param name="entity">ResponseMessage实体</param>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.NormalRedPackResult">
+            <summary>
+            获取普通现金红包发送接口的结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.NormalRedPackResult.return_code">
+            <summary>
+            返回状态码
+            SUCCESS/FAIL，此字段是通信标识，非交易标识，交易是否成功需要查看result_code来判断
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.NormalRedPackResult.return_msg">
+            <summary>
+            返回信息，返回信息，如非空，为错误原因，签名失败，参数格式校验错误
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.NormalRedPackResult.result_code">
+            <summary>
+            业务结果,SUCCESS/FAIL
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.NormalRedPackResult.err_code">
+            <summary>
+            错误代码
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.NormalRedPackResult.err_code_des">
+            <summary>
+            错误代码描述
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.NormalRedPackResult.mch_billno">
+            <summary>
+            商户订单号（每个订单号必须唯一） 组成：mch_id+yyyymmdd+10位一天内不能重复的数字
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.NormalRedPackResult.mch_id">
+            <summary>
+            商户号，微信支付分配的商户号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.NormalRedPackResult.wxappid">
+            <summary>
+            公众账号appid。商户appid，接口传入的所有appid应该为公众号的appid（在mp.weixin.qq.com申请的），不能为APP的appid（在open.weixin.qq.com申请的）。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.NormalRedPackResult.re_openid">
+            <summary>
+            用户openid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.NormalRedPackResult.total_amount">
+            <summary>
+            付款金额，单位分
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.NormalRedPackResult.send_time">
+            <summary>
+            发放成功时间,格式20150520102602
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.NormalRedPackResult.send_listid">
+            <summary>
+            红包订单的微信单号
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult">
+            <summary>
+            获取查询红包接口的结果，既可以查询普通红包，也可以查询裂变红包
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.return_code">
+            <summary>
+            返回状态码,SUCCESS/FAIL,此字段是通信标识，非交易标识，交易是否成功需要查看result_code来判断 
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.return_msg">
+            <summary>
+            返回信息，如非空，为错误原因,签名失败,参数格式校验错误 
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.result_code">
+            <summary>
+            业务结果,SUCCESS/FAIL
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.err_code">
+            <summary>
+            错误代码
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.err_code_des">
+            <summary>
+            错误代码描述
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.mch_billno">
+            <summary>
+            商户订单号（每个订单号必须唯一） 组成：mch_id+yyyymmdd+10位一天内不能重复的数字
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.mch_id">
+            <summary>
+            商户号，微信支付分配的商户号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.detail_id">
+            <summary>
+            红包单号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.status">
+            <summary>
+            红包状态，SENDING:发放中，SENT:已发放待领取，FAILED：发放失败，RECEIVED:已领取，REFUND:已退款 
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.send_type">
+            <summary>
+            发放类型,API:通过API接口发放,UPLOAD:通过上传文件方式发放,ACTIVITY:通过活动方式发放 
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.hb_type">
+            <summary>
+            红包类型,GROUP:裂变红包,NORMAL:普通红包 
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.total_num">
+            <summary>
+            红包个数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.total_amount">
+            <summary>
+            红包总金额（单位分） 
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.send_time">
+            <summary>
+            红包发送时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.wishing">
+            <summary>
+            祝福语
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.remark">
+            <summary>
+            活动描述，低版本微信可见
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.act_name">
+            <summary>
+            活动名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.reason">
+            <summary>
+            发送失败原因
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.refund_time">
+            <summary>
+            红包的退款时间（如果其未领取的退款）  
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.refund_amount">
+            <summary>
+            红包退款金额
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.SearchRedPackResult.hblist">
+            <summary>
+            红包领取列表,普通红包只有一项，列表红包可以有很多项
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.RedPackHBInfo">
+            <summary>
+            单个OpenID红包领取信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.RedPackHBInfo.openid">
+            <summary>
+            领取红包的Openid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.RedPackHBInfo.status">
+            <summary>
+            红包状态，SENDING:发放中，SENT:已发放待领取，FAILED：发放失败，RECEIVED:已领取，REFUND:已退款 
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.RedPackHBInfo.amount">
+            <summary>
+            领取金额
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.RedPackHBInfo.rcv_time">
+            <summary>
+            领取时间
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.RedPackApi">
+            <summary>
+            红包发送和查询Api（暂缺裂变红包发送）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.RedPackApi.SendNormalRedPack(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String,System.String,System.String@,System.String@)">
+            <summary>
+            普通红包发送
+            </summary>
+            <param name="appId">公众账号AppID</param>
+            <param name="mchId">商户MchID</param>
+            <param name="tenPayKey">支付密钥，微信商户平台(pay.weixin.qq.com)-->账户设置-->API安全-->密钥设置</param>
+            <param name="tenPayCertPath">证书地址（硬盘地址，形如E://cert//apiclient_cert.p12）</param>
+            <param name="openId">要发红包的用户的OpenID</param>
+            <param name="senderName">红包发送者名称，会显示给接收红包的用户</param>
+            <param name="iP">发送红包的服务器地址</param>
+            <param name="redPackAmount">红包金额（单位分）</param>
+            <param name="wishingWord">祝福语</param>
+            <param name="actionName">活动名称</param>
+            <param name="remark">活动描述，用于低版本微信显示</param>
+            <param name="nonceStr">将nonceStr随机字符串返回，开发者可以存到数据库用于校验</param>
+            <param name="paySign">将支付签名返回，开发者可以存到数据库用于校验</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.RedPackApi.SearchRedPack(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            查询红包(包括普通红包和裂变红包)
+            </summary>
+            <param name="appId">公众账号AppID</param>
+            <param name="mchId">商户MchID</param>
+            <param name="tenPayKey">支付密钥，微信商户平台(pay.weixin.qq.com)-->账户设置-->API安全-->密钥设置</param>
+            <param name="tenPayCertPath">证书地址（硬盘地址，形如E://cert//apiclient_cert.p12）</param>
+            <param name="MchBillNo">商家订单号</param>
+            <returns></returns>
+        </member>
         <!-- Badly formed XML comment ignored for member "T:Senparc.Weixin.MP.TenPayLibV3.RequestHandler" -->
         <member name="F:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.Key">
             <summary>
-            ÃÜÔ¿
+            密钥
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.Parameters">
             <summary>
-            ÇëÇóµÄ²ÎÊý
+            请求的参数
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.DebugInfo">
             <summary>
-            debugÐÅÏ¢
+            debug信息
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.Init">
             <summary>
-            ³õÊ¼»¯º¯Êý
+            初始化函数
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.GetDebugInfo">
             <summary>
-            »ñÈ¡debugÐÅÏ¢
+            获取debug信息
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.GetKey">
             <summary>
-            »ñÈ¡ÃÜÔ¿
+            获取密钥
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.SetKey(System.String)">
             <summary>
-            ÉèÖÃÃÜÔ¿
+            设置密钥
             </summary>
             <param name="key"></param>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.SetParameter(System.String,System.String)">
             <summary>
-            ÉèÖÃ²ÎÊýÖµ
+            设置参数值
             </summary>
             <param name="parameter"></param>
             <param name="parameterValue"></param>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.CreateMd5Sign(System.String,System.String)">
             <summary>
-            ´´½¨md5ÕªÒª,¹æÔòÊÇ:°´²ÎÊýÃû³Æa-zÅÅÐò,Óöµ½¿ÕÖµµÄ²ÎÊý²»²Î¼ÓÇ©Ãû
+            创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
             </summary>
-            <param name="key">²ÎÊýÃû</param>
-            <param name="value">²ÎÊýÖµ</param>
-            keyºÍvalueÍ¨³£ÓÃÓÚÌî³ä×îºóÒ»×é²ÎÊý
+            <param name="key">参数名</param>
+            <param name="value">参数值</param>
+            key和value通常用于填充最后一组参数
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.ParseXML">
             <summary>
-            Êä³öXML
+            输出XML
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.RequestHandler.SetDebugInfo(System.String)">
             <summary>
-            ÉèÖÃdebugÐÅÏ¢
+            设置debug信息
             </summary>
             <param name="debugInfo"></param>
         </member>

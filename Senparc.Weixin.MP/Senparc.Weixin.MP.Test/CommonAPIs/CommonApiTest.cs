@@ -29,7 +29,10 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                         _appConfig = new
                         {
                             AppId = doc.Root.Element("AppId").Value,
-                            Secret = doc.Root.Element("Secret").Value
+                            Secret = doc.Root.Element("Secret").Value,
+                            MchId = doc.Root.Element("MchId").Value,
+                            TenPayKey = doc.Root.Element("TenPayKey").Value,
+                            TenPayCertPath = doc.Root.Element("TenPayCertPath").Value,
                         };
                     }
                     else
@@ -37,7 +40,10 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                         _appConfig = new
                         {
                             AppId = "YourAppId", //换成你的信息
-                            Secret = "YourSecret"//换成你的信息
+                            Secret = "YourSecret",//换成你的信息
+                            MchId = "YourMchId",//换成你的信息
+                            TenPayKey = "YourTenPayKey",//换成你的信息
+                            TenPayCertPath = "YourTenPayCertPath",//换成你的信息
                         };
                     }
                 }
@@ -53,6 +59,21 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         protected string _appSecret
         {
             get { return AppConfig.Secret; }
+        }
+
+        protected string _mchId
+        {
+            get { return AppConfig.MchId; }
+        }
+
+        protected string _tenPayKey
+        {
+            get { return AppConfig.TenPayKey; }
+        }
+
+        protected string _tenPayCertPath
+        {
+            get { return AppConfig.TenPayCertPath; }
         }
 
 

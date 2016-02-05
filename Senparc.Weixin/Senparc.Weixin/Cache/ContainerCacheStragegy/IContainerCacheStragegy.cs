@@ -11,14 +11,19 @@ namespace Senparc.Weixin.Cache
     //{
     //}
 
+    /// <summary>
+    /// IContainerItemCollection
+    /// </summary>
     public interface IContainerItemCollection : IDictionary<string, IBaseContainerBag>
     {
     }
 
+    /// <summary>
+    /// 储存某个Container下所有ContainerBag的字典集合
+    /// </summary>
     public class ContainerItemCollection : Dictionary<string, IBaseContainerBag>, IContainerItemCollection
     {
     }
-
 
     public interface IContainerCacheStragegy : /*IContainerCacheStragegy,*/ IBaseCacheStrategy<string, IContainerItemCollection>
     //where TContainerBag : class, IBaseContainerBag

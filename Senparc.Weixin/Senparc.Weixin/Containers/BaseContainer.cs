@@ -116,7 +116,7 @@ public static IDictionary<string, IContainerItemCollection> GetCollectionList()
 /// <returns></returns>
 public static List<TBag> GetAllItems()
 {
-    return ItemCollection.Select(z => z.Value as TBag).ToList();
+    return ItemCollection.Values.Select(z => z as TBag).ToList();
 }
 
 /// <summary>

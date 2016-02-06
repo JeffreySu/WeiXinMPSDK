@@ -27,46 +27,46 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
-/// <summary>
-/// AccessToken包
-/// </summary>
-public class AccessTokenBag : BaseContainerBag
-{
-    public string AppId
-    {
-        get { return _appId; }
-        set { base.SetContainerProperty(ref _appId, value); }
-    }
-
-    public string AppSecret
-    {
-        get { return _appSecret; }
-        set { base.SetContainerProperty(ref _appSecret, value); }
-    }
-
-    public DateTime AccessTokenExpireTime
-    {
-        get { return _accessTokenExpireTime; }
-        set { base.SetContainerProperty(ref _accessTokenExpireTime, value); }
-    }
-
-    public AccessTokenResult AccessTokenResult
-    {
-        get { return _accessTokenResult; }
-        set { base.SetContainerProperty(ref _accessTokenResult, value); }
-    }
-
-
     /// <summary>
-    /// 只针对这个AppId的锁
+    /// AccessToken包
     /// </summary>
-    internal object Lock = new object();
+    public class AccessTokenBag : BaseContainerBag
+    {
+        public string AppId
+        {
+            get { return _appId; }
+            set { base.SetContainerProperty(ref _appId, value); }
+        }
 
-    private AccessTokenResult _accessTokenResult;
-    private DateTime _accessTokenExpireTime;
-    private string _appSecret;
-    private string _appId;
-}
+        public string AppSecret
+        {
+            get { return _appSecret; }
+            set { base.SetContainerProperty(ref _appSecret, value); }
+        }
+
+        public DateTime AccessTokenExpireTime
+        {
+            get { return _accessTokenExpireTime; }
+            set { base.SetContainerProperty(ref _accessTokenExpireTime, value); }
+        }
+
+        public AccessTokenResult AccessTokenResult
+        {
+            get { return _accessTokenResult; }
+            set { base.SetContainerProperty(ref _accessTokenResult, value); }
+        }
+
+
+        /// <summary>
+        /// 只针对这个AppId的锁
+        /// </summary>
+        internal object Lock = new object();
+
+        private AccessTokenResult _accessTokenResult;
+        private DateTime _accessTokenExpireTime;
+        private string _appSecret;
+        private string _appId;
+    }
 
     /// <summary>
     /// 通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
@@ -74,7 +74,7 @@ public class AccessTokenBag : BaseContainerBag
     public class AccessTokenContainer : BaseContainer<AccessTokenBag>
     {
         /// <summary>
-        /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
+        /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
@@ -128,7 +128,7 @@ public class AccessTokenBag : BaseContainerBag
         }
 
         /// <summary>
-        /// 获取可用Token
+        /// 获取可用AccessTokenResult对象
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>

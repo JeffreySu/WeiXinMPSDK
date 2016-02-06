@@ -76,8 +76,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token
         /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="appSecret"></param>
+        /// <param name="appId">微信公众号后台的【开发】>【基本配置】中的“AppID(应用ID)”</param>
+        /// <param name="appSecret">微信公众号后台的【开发】>【基本配置】中的“AppSecret(应用密钥)”</param>
         public static void Register(string appId, string appSecret)
         {
             Update(appId, new AccessTokenBag()
@@ -87,6 +87,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 AccessTokenExpireTime = DateTime.MinValue,
                 AccessTokenResult = new AccessTokenResult()
             });
+
+            //为JsApiTicketContainer进行自动注册
+            JsApiTicketContainer.Register(appId, appSecret);
         }
 
         /// <summary>

@@ -73,91 +73,91 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// </summary>
     public class AccessTokenContainer : BaseContainer<AccessTokenBag>
     {
-        /// <summary>
-        /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token
-        /// </summary>
-        /// <param name="appId">微信公众号后台的【开发】>【基本配置】中的“AppID(应用ID)”</param>
-        /// <param name="appSecret">微信公众号后台的【开发】>【基本配置】中的“AppSecret(应用密钥)”</param>
-        public static void Register(string appId, string appSecret)
+/// <summary>
+/// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token
+/// </summary>
+/// <param name="appId">微信公众号后台的【开发】>【基本配置】中的“AppID(应用ID)”</param>
+/// <param name="appSecret">微信公众号后台的【开发】>【基本配置】中的“AppSecret(应用密钥)”</param>
+public static void Register(string appId, string appSecret)
+{
+    Update(appId, new AccessTokenBag()
+    {
+        AppId = appId,
+        AppSecret = appSecret,
+        AccessTokenExpireTime = DateTime.MinValue,
+        AccessTokenResult = new AccessTokenResult()
+    });
+
+    //为JsApiTicketContainer进行自动注册
+    JsApiTicketContainer.Register(appId, appSecret);
+}
+
+/// <summary>
+/// 返回已经注册的第一个AppId
+/// </summary>
+/// <returns></returns>
+public static string GetFirstOrDefaultAppId()
+{
+    return ItemCollection.Keys.FirstOrDefault();
+}
+
+#region AccessToken
+
+/// <summary>
+/// 使用完整的应用凭证获取Token，如果不存在将自动注册
+/// </summary>
+/// <param name="appId"></param>
+/// <param name="appSecret"></param>
+/// <param name="getNewToken"></param>
+/// <returns></returns>
+public static string TryGetAccessToken(string appId, string appSecret, bool getNewToken = false)
+{
+    if (!CheckRegistered(appId) || getNewToken)
+    {
+        Register(appId, appSecret);
+    }
+    return GetAccessToken(appId);
+}
+
+/// <summary>
+/// 获取可用Token
+/// </summary>
+/// <param name="appId"></param>
+/// <param name="getNewToken">是否强制重新获取新的Token</param>
+/// <returns></returns>
+public static string GetAccessToken(string appId, bool getNewToken = false)
+{
+    return GetAccessTokenResult(appId, getNewToken).access_token;
+}
+
+/// <summary>
+/// 获取可用AccessTokenResult对象
+/// </summary>
+/// <param name="appId"></param>
+/// <param name="getNewToken">是否强制重新获取新的Token</param>
+/// <returns></returns>
+public static AccessTokenResult GetAccessTokenResult(string appId, bool getNewToken = false)
+{
+    if (!CheckRegistered(appId))
+    {
+        throw new WeixinException("此appId尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
+    }
+
+    var accessTokenBag = (AccessTokenBag)ItemCollection[appId];
+    lock (accessTokenBag.Lock)
+    {
+        if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
         {
-            Update(appId, new AccessTokenBag()
-            {
-                AppId = appId,
-                AppSecret = appSecret,
-                AccessTokenExpireTime = DateTime.MinValue,
-                AccessTokenResult = new AccessTokenResult()
-            });
-
-            //为JsApiTicketContainer进行自动注册
-            JsApiTicketContainer.Register(appId, appSecret);
+            //已过期，重新获取
+            accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.AppId, accessTokenBag.AppSecret);
+            accessTokenBag.AccessTokenExpireTime = DateTime.Now.AddSeconds(accessTokenBag.AccessTokenResult.expires_in);
         }
-
-        /// <summary>
-        /// 返回已经注册的第一个AppId
-        /// </summary>
-        /// <returns></returns>
-        public static string GetFirstOrDefaultAppId()
-        {
-            return ItemCollection.Keys.FirstOrDefault();
-        }
-
-        #region AccessToken
-
-        /// <summary>
-        /// 使用完整的应用凭证获取Token，如果不存在将自动注册
-        /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="appSecret"></param>
-        /// <param name="getNewToken"></param>
-        /// <returns></returns>
-        public static string TryGetAccessToken(string appId, string appSecret, bool getNewToken = false)
-        {
-            if (!CheckRegistered(appId) || getNewToken)
-            {
-                Register(appId, appSecret);
-            }
-            return GetAccessToken(appId);
-        }
-
-        /// <summary>
-        /// 获取可用Token
-        /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="getNewToken">是否强制重新获取新的Token</param>
-        /// <returns></returns>
-        public static string GetAccessToken(string appId, bool getNewToken = false)
-        {
-            return GetAccessTokenResult(appId, getNewToken).access_token;
-        }
-
-        /// <summary>
-        /// 获取可用AccessTokenResult对象
-        /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="getNewToken">是否强制重新获取新的Token</param>
-        /// <returns></returns>
-        public static AccessTokenResult GetAccessTokenResult(string appId, bool getNewToken = false)
-        {
-            if (!CheckRegistered(appId))
-            {
-                throw new WeixinException("此appId尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
-            }
-
-            var accessTokenBag = (AccessTokenBag)ItemCollection[appId];
-            lock (accessTokenBag.Lock)
-            {
-                if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
-                {
-                    //已过期，重新获取
-                    accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.AppId, accessTokenBag.AppSecret);
-                    accessTokenBag.AccessTokenExpireTime = DateTime.Now.AddSeconds(accessTokenBag.AccessTokenResult.expires_in);
-                }
-            }
-            return accessTokenBag.AccessTokenResult;
-        }
+    }
+    return accessTokenBag.AccessTokenResult;
+}
 
 
-        #endregion
+#endregion
 
     }
 }

@@ -13,6 +13,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
     public class JsApiTicketContainerTest : CommonApiTest
     {
         //v13.3.0之后，JsApiTicketContainer已经合并入AccessTokenContainer
+        //v13.6.0之后，JsApiTicketContainer重新从AccessTokenContainer分离
         [TestMethod]
         public void ContainerTest()
         {

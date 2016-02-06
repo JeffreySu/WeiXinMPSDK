@@ -14,6 +14,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
@@ -76,6 +77,14 @@ namespace Senparc.Weixin.MP.CommonAPIs
             };
         }
 
+        /// <summary>
+        /// 返回已经注册的第一个AppId
+        /// </summary>
+        /// <returns></returns>
+        public static string GetFirstOrDefaultAppId()
+        {
+            return ItemCollection.Keys.FirstOrDefault();
+        }
 
         #region JsApiTicket
 

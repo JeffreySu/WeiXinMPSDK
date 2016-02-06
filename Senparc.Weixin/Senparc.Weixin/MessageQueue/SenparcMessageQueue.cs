@@ -15,16 +15,10 @@ namespace Senparc.Weixin.MessageQueue
         private static Dictionary<string, SenparcMessageQueueItem> MessageQueueDictionary = new Dictionary<string, SenparcMessageQueueItem>(StringComparer.OrdinalIgnoreCase);
         private static List<string> MessageQueueList = new List<string>();
 
-        //static SenparcMessageQueue()
-        //{
-
-        //}
-
         /// <summary>
         /// 同步执行锁
         /// </summary>
-        public static object MessageQueueSyncLock = new object();
-
+       private static object MessageQueueSyncLock = new object();
 
         /// <summary>
         /// 生成Key

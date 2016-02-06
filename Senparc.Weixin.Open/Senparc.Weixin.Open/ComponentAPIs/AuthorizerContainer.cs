@@ -12,6 +12,9 @@
     
     修改标识：senparc - 20151004
     修改描述：文件名从JsApiTicketContainer.cs变为AuthorizerContainer.cs，用于集成所有授权方信息
+        
+    修改标识：Senparc - 20160206
+    修改描述：将public object Lock更改为internal object Lock
 
     ----------------------------------------------------------------*/
 
@@ -113,7 +116,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <summary>
         /// 只针对这个AppId的锁
         /// </summary>
-        public object Lock = new object();
+        internal object Lock = new object();
 
         private string _authorizerAppId;
         private string _componentAppId;

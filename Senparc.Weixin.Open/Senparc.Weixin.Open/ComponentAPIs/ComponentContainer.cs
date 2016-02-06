@@ -12,6 +12,9 @@
 
     修改标识：Senparc - 20151005
     修改描述：v1.4.3 添加ComponentVerifyTicketExpireTime及自动更新机制
+        
+    修改标识：Senparc - 20160206
+    修改描述：将public object Lock更改为internal object Lock
 
 ----------------------------------------------------------------*/
 
@@ -122,7 +125,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <summary>
         /// 只针对这个AppId的锁
         /// </summary>
-        public object Lock = new object();
+        internal object Lock = new object();
 
         private string _componentAppId;
         private string _componentAppSecret;

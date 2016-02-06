@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+        
+    修改标识：Senparc - 20160206
+    修改描述：将public object Lock更改为internal object Lock
 ----------------------------------------------------------------*/
 
 using System;
@@ -27,7 +30,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <summary>
         /// 只针对这个CorpId的锁
         /// </summary>
-        public object Lock = new object();
+        internal object Lock = new object();
     }
 
     /// <summary>

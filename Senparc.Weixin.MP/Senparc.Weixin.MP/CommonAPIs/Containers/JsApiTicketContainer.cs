@@ -6,6 +6,9 @@
     
     
     创建标识：Senparc - 20160206
+
+    修改标识：Senparc - 20160206
+    修改描述：将public object Lock更改为internal object Lock
  
 ----------------------------------------------------------------*/
 
@@ -41,7 +44,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <summary>
         /// 只针对这个AppId的锁
         /// </summary>
-        public object Lock = new object();
+        internal object Lock = new object();
 
         private DateTime _jsApiTicketExpireTime;
         private JsApiTicketResult _jsApiTicketResult;

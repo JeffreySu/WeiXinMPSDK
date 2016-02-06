@@ -17,7 +17,10 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
-   public class JsApiTicketBag: BaseContainerBag
+    /// <summary>
+    /// JsApiTicket包
+    /// </summary>
+    public class JsApiTicketBag : BaseContainerBag
     {
         public string AppId { get; set; }
         public string AppSecret { get; set; }
@@ -49,7 +52,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// <summary>
     /// 通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
     /// </summary>
-    public class JsApiTicketContainer:BaseContainer<JsApiTicketBag>
+    public class JsApiTicketContainer : BaseContainer<JsApiTicketBag>
     {
         static Dictionary<string, JsApiTicketBag> JsApiTicketCollection =
            new Dictionary<string, JsApiTicketBag>(StringComparer.OrdinalIgnoreCase);

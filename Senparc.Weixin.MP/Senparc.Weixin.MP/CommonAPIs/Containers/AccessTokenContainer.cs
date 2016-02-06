@@ -28,7 +28,7 @@ using Senparc.Weixin.MP.Entities;
 namespace Senparc.Weixin.MP.CommonAPIs
 {
 /// <summary>
-/// AccessToken及JsApiTicket包
+/// AccessToken包
 /// </summary>
 public class AccessTokenBag : BaseContainerBag
 {

@@ -140,7 +140,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             if (!CheckRegistered(appId))
             {
-                throw new UnRegisterAppIdException(string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！", appId));
+                throw new UnRegisterAppIdException(appId, string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！", appId));
             }
 
             var accessTokenBag = (AccessTokenBag)ItemCollection[appId];

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：RequestMessageEvent_ShakearoundUserShake.cs
     文件功能描述：事件之弹出微信相册发图器(ShakearoundUserShake)

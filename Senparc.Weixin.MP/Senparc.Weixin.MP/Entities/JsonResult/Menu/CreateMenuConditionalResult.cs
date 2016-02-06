@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：CreateMenuConditionalResult.cs.cs
     文件功能描述：创建个性化菜单结果

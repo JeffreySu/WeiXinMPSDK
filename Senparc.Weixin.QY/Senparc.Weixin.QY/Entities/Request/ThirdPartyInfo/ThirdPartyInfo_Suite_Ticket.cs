@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：ThirdPartyInfo_Suite_Ticket.cs
     文件功能描述：推送suite_ticket协议

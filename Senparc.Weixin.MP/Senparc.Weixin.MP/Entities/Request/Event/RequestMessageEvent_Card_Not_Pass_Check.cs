@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：RequestMessageEvent_Card_Not_Pass_Check.cs
     文件功能描述：事件之卡券未通过审核

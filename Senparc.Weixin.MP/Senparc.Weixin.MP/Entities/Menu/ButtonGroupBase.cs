@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：ButtonGroup.cs
     文件功能描述：整个按钮设置（可以直接用ButtonGroup实例返回JSON对象）

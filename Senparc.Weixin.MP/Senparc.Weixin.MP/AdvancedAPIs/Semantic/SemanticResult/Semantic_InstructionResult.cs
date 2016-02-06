@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：Semantic_InstructionResult.cs
     文件功能描述：语意理解接口通用指令（instruction）[beta]返回信息

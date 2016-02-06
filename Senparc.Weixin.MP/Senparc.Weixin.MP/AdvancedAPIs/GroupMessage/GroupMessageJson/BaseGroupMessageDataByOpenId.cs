@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：BaseGroupMessageDataByOpenId.cs
     文件功能描述：根据OpenId群发所需的数据

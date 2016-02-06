@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
   
     文件名：GetMemberResult.cs
     文件功能描述：获取微信会员信息结果

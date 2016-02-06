@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：Semantic_WebsiteResult.cs
     文件功能描述：语意理解接口网址服务（website）返回信息

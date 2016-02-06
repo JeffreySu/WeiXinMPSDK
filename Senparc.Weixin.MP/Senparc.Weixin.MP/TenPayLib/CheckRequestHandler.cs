@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
  
     文件名：CheckRequestHandler.cs
     文件功能描述：对账单下载接口

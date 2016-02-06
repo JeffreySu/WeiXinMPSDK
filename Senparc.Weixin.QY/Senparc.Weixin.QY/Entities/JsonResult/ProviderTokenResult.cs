@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：ProviderTokenResult.cs
     文件功能描述：获取应用提供商凭证返回格式

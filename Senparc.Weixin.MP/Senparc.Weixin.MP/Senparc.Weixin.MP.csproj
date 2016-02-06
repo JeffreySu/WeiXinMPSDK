@@ -209,6 +209,7 @@
     <Compile Include="CommonAPIs\AccessTokenContainer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Common.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Conditional.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Custom.cs" />

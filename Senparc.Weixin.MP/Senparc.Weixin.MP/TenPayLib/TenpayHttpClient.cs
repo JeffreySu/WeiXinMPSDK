@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
  
     文件名：TenPayHttpClient.cs
     文件功能描述：微信支付http、https通信类

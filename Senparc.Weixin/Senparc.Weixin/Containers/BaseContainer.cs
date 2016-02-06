@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：WeixinContainer.cs
     文件功能描述：微信容器（如Ticket、AccessToken）

@@ -7482,7 +7482,24 @@
             <param name="getNewToken">是否强制重新获取新的Token</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.TryGetJsApiTicket(System.String,System.String,System.Boolean)">
+        <member name="F:Senparc.Weixin.MP.CommonAPIs.JsApiTicketBag.Lock">
+            <summary>
+            只针对这个AppId的锁
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer">
+            <summary>
+            通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.Register(System.String,System.String)">
+            <summary>
+            注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
+            </summary>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.TryGetJsApiTicket(System.String,System.String,System.Boolean)">
             <summary>
             使用完整的应用凭证获取Ticket，如果不存在将自动注册
             </summary>
@@ -7491,7 +7508,7 @@
             <param name="getNewTicket"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetJsApiTicket(System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.GetJsApiTicket(System.String,System.Boolean)">
             <summary>
             获取可用Ticket
             </summary>
@@ -7499,7 +7516,7 @@
             <param name="getNewTicket">是否强制重新获取新的Ticket</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.CommonAPIs.AccessTokenContainer.GetJsApiTicketResult(System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.MP.CommonAPIs.JsApiTicketContainer.GetJsApiTicketResult(System.String,System.Boolean)">
             <summary>
             获取可用Ticket
             </summary>

@@ -71,6 +71,7 @@
     <Compile Include="Exceptions\MessageHandlerException.cs" />
     <Compile Include="Exceptions\UnknownRequestMsgTypeException.cs" />
     <Compile Include="Exceptions\WeixinException.cs" />
+    <Compile Include="Exceptions\UnRegisterAppIdException.cs" />
     <Compile Include="Exceptions\WeixinMenuException.cs" />
     <Compile Include="Helpers\Conventers\ExpandoJsonConverter.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />

@@ -46,14 +46,15 @@ namespace Senparc.Weixin.MP
                 appId = AccessTokenContainer.GetFirstOrDefaultAppId();
                 if (appId == null)
                 {
-                    throw new WeixinException("尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
+                    throw new UnRegisterAppIdException(null,
+                        "尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
                 }
             }
             else if (ApiUtility.IsAppId(accessTokenOrAppId))
             {
                 if (!AccessTokenContainer.CheckRegistered(accessTokenOrAppId))
                 {
-                    throw new WeixinException("此appId尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
+                    throw new UnRegisterAppIdException(accessTokenOrAppId, string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！", accessTokenOrAppId));
                 }
 
                 appId = accessTokenOrAppId;
@@ -92,7 +93,7 @@ namespace Senparc.Weixin.MP
                     throw;
                 }
             }
-       
+
             return result;
         }
 

@@ -116,7 +116,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             if (!CheckRegistered(appId))
             {
-                throw new WeixinException("此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
+                throw new UnRegisterAppIdException(null,"此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
             }
 
             var accessTokenBag = (JsApiTicketBag)ItemCollection[appId];

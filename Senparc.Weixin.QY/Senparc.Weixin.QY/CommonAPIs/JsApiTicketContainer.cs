@@ -87,7 +87,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         {
             if (!JsApiTicketCollection.ContainsKey(appId))
             {
-                throw new WeixinException("此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
+                throw new UnRegisterAppIdException(appId,string.Format("此appId（{0}）尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！", appId));
             }
 
             var accessTicketBag = JsApiTicketCollection[appId];

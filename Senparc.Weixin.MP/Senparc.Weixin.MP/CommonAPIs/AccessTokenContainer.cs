@@ -62,8 +62,6 @@ public class AccessTokenBag : BaseContainerBag
     /// </summary>
     public object Lock = new object();
 
-    private DateTime _jsApiTicketExpireTime;
-    private JsApiTicketResult _jsApiTicketResult;
     private AccessTokenResult _accessTokenResult;
     private DateTime _accessTokenExpireTime;
     private string _appSecret;

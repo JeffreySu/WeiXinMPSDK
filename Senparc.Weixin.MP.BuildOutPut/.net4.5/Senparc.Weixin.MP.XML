@@ -7431,7 +7431,7 @@
         </member>
         <member name="T:Senparc.Weixin.MP.CommonAPIs.AccessTokenBag">
             <summary>
-            AccessToken及JsApiTicket包
+            AccessToken包
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.CommonAPIs.AccessTokenBag.Lock">
@@ -7481,6 +7481,11 @@
             <param name="appId"></param>
             <param name="getNewToken">是否强制重新获取新的Token</param>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.CommonAPIs.JsApiTicketBag">
+            <summary>
+            JsApiTicket包
+            </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.CommonAPIs.JsApiTicketBag.Lock">
             <summary>

@@ -60,7 +60,7 @@ public class AccessTokenBag : BaseContainerBag
     /// <summary>
     /// 只针对这个AppId的锁
     /// </summary>
-    public object Lock = new object();
+    internal object Lock = new object();
 
     private AccessTokenResult _accessTokenResult;
     private DateTime _accessTokenExpireTime;

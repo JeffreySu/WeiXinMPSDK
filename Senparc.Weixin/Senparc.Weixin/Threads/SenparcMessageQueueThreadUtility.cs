@@ -13,32 +13,6 @@ namespace Senparc.Weixin.Threads
     /// </summary>
     public class SenparcMessageQueueThreadUtility
     {
-
-        ///// <summary>
-        ///// 同步执行锁
-        ///// </summary>
-        //private object syncLock = new object();//锁
-
-        //private Semaphore _semaphorePool;
-        //private int _semaphorePoolPreviousCount;
-        //private int semaphorePoolPreviousCount
-        //{
-        //    get
-        //    {
-        //        lock (syncLock)
-        //        {
-        //            return _semaphorePoolPreviousCount;
-        //        }
-        //    }
-        //    set
-        //    {
-        //        lock (syncLock)
-        //        {
-        //            _semaphorePoolPreviousCount = value;
-        //        }
-        //    }
-        //}
-
         private readonly int _sleepMilliSeconds;
 
         public SenparcMessageQueueThreadUtility(int sleepMilliSeconds = 2000)

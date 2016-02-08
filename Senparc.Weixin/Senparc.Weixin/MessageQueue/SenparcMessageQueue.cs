@@ -18,7 +18,7 @@ namespace Senparc.Weixin.MessageQueue
         /// <summary>
         /// 同步执行锁
         /// </summary>
-       private static object MessageQueueSyncLock = new object();
+        private static object MessageQueueSyncLock = new object();
 
         /// <summary>
         /// 生成Key
@@ -65,7 +65,7 @@ namespace Senparc.Weixin.MessageQueue
         }
 
         /// <summary>
-        /// 添加
+        /// 添加列队成员
         /// </summary>
         /// <param name="key"></param>
         /// <param name="action"></param>
@@ -83,14 +83,14 @@ namespace Senparc.Weixin.MessageQueue
                 //    MessageQueueList.Add(key);//移动到末尾
                 //}
 
-                var mqItem =new  SenparcMessageQueueItem(key,action);
+                var mqItem = new SenparcMessageQueueItem(key, action);
                 MessageQueueDictionary[key] = mqItem;
                 return mqItem;
             }
         }
 
         /// <summary>
-        /// 移除对象
+        /// 移除列队成员
         /// </summary>
         /// <param name="key"></param>
         public void Remove(string key)

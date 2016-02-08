@@ -735,14 +735,14 @@
         </member>
         <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.Add(System.String,System.Action)">
             <summary>
-            添加
+            添加列队成员
             </summary>
             <param name="key"></param>
             <param name="action"></param>
         </member>
         <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.Remove(System.String)">
             <summary>
-            移除对象
+            移除列队成员
             </summary>
             <param name="key"></param>
         </member>

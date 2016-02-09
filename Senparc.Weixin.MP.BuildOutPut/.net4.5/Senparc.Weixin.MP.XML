@@ -9659,12 +9659,12 @@
         </member>
         <member name="T:Senparc.Weixin.MP.Helpers.MD5UtilHelper">
             <summary>
-            MD5UtilHelper µÄÕªÒªËµÃ÷¡£
+            MD5UtilHelper 的摘要说明。
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.Helpers.MD5UtilHelper.GetMD5(System.String,System.String)">
             <summary>
-            »ñÈ¡´óÐ´µÄMD5Ç©Ãû½á¹û
+            获取大写的MD5签名结果
             </summary>
             <param name="encypStr"></param>
             <param name="charset"></param>
@@ -10502,19 +10502,19 @@
         </member>
         <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util">
             <summary>
-            TenpayUtil µÄÕªÒªËµÃ÷¡£
-            ÅäÖÃÎÄ¼þ
+            TenpayUtil 的摘要说明。
+            配置文件
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.GetNoncestr">
             <summary>
-            Ëæ»úÉú³ÉNoncestr
+            随机生成Noncestr
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.UrlEncode(System.String,System.String)">
             <summary>
-            ¶Ô×Ö·û´®½øÐÐURL±àÂë
+            对字符串进行URL编码
             </summary>
             <param name="instr"></param>
             <param name="charset"></param>
@@ -10522,7 +10522,7 @@
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.UrlDecode(System.String,System.String)">
             <summary>
-            ¶Ô×Ö·û´®½øÐÐURL½âÂë
+            对字符串进行URL解码
             </summary>
             <param name="instr"></param>
             <param name="charset"></param>
@@ -10530,13 +10530,13 @@
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.UnixStamp">
             <summary>
-            È¡Ê±¼ä´ÁÉú³ÉËæ¼´Êý,Ìæ»»½»Ò×µ¥ºÅÖÐµÄºó10Î»Á÷Ë®ºÅ
+            取时间戳生成随即数,替换交易单号中的后10位流水号
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.BuildRandomStr(System.Int32)">
             <summary>
-            È¡Ëæ»úÊý
+            取随机数
             </summary>
             <param name="length"></param>
             <returns></returns>
@@ -10730,99 +10730,99 @@
         <!-- Badly formed XML comment ignored for member "T:Senparc.Weixin.MP.TenPayLib.RequestHandler" -->
         <member name="F:Senparc.Weixin.MP.TenPayLib.RequestHandler.Key">
             <summary>
-            ÃÜÔ¿
+            密钥
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.RequestHandler.Parameters">
             <summary>
-            ÇëÇóµÄ²ÎÊý
+            请求的参数
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.RequestHandler.DebugInfo">
             <summary>
-            debugÐÅÏ¢
+            debug信息
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.Init">
             <summary>
-            ³õÊ¼»¯º¯Êý
+            初始化函数
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.GetDebugInfo">
             <summary>
-            »ñÈ¡debugÐÅÏ¢
+            获取debug信息
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.GetKey">
             <summary>
-            »ñÈ¡ÃÜÔ¿
+            获取密钥
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.SetKey(System.String)">
             <summary>
-            ÉèÖÃÃÜÔ¿
+            设置密钥
             </summary>
             <param name="key"></param>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.SetParameter(System.String,System.String)">
             <summary>
-            ÉèÖÃ²ÎÊýÖµ
+            设置参数值
             </summary>
             <param name="parameter"></param>
             <param name="parameterValue"></param>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.GetRequestURL">
             <summary>
-            »ñÈ¡package´ø²ÎÊýµÄÇ©Ãû°ü
+            获取package带参数的签名包
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.CreateSign">
             <summary>
-            ´´½¨md5ÕªÒª,¹æÔòÊÇ:°´²ÎÊýÃû³Æa-zÅÅÐò,Óöµ½¿ÕÖµµÄ²ÎÊý²»²Î¼ÓÇ©Ãû
+            创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.CreateMd5Sign">
             <summary>
-            ´´½¨packageÇ©Ãû
+            创建package签名
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.CreateSHA1Sign">
             <summary>
-            ´´½¨sha1Ç©Ãû
+            创建sha1签名
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.ParseXML">
             <summary>
-            Êä³öXML
+            输出XML
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.SetDebugInfo(System.String)">
             <summary>
-            ÉèÖÃdebugÐÅÏ¢
+            设置debug信息
             </summary>
             <param name="debugInfo"></param>
         </member>
         <member name="T:Senparc.Weixin.MP.TenPayLib.ResponseHandler">
                 '============================================================================
-                'ApiËµÃ÷£º
-                'GetKey()/setKey(),»ñÈ¡/ÉèÖÃÃÜÔ¿
-                'GetParameter()/setParameter(),»ñÈ¡/ÉèÖÃ²ÎÊýÖµ
-                'GetAllParameters(),»ñÈ¡ËùÓÐ²ÎÊý
-                'IsTenpaySign(),ÊÇ·ñÕýÈ·µÄÇ©Ãû,true:ÊÇ false:·ñ
-                'IsWXsign(),ÊÇ·ñÕýÈ·µÄÇ©Ãû,true:ÊÇ false:·ñ
-                ' * IsWXsignfeedbackÅÐ¶ÏÎ¢ÐÅÎ¬È¨Ç©Ãû
-                ' *GetDebugInfo(),»ñÈ¡debugÐÅÏ¢ 
+                'Api说明：
+                'GetKey()/setKey(),获取/设置密钥
+                'GetParameter()/setParameter(),获取/设置参数值
+                'GetAllParameters(),获取所有参数
+                'IsTenpaySign(),是否正确的签名,true:是 false:否
+                'IsWXsign(),是否正确的签名,true:是 false:否
+                ' * IsWXsignfeedback判断微信维权签名
+                ' *GetDebugInfo(),获取debug信息 
                 '============================================================================
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.Key">
             <summary>
-            ÃÜÔ¿ 
+            密钥 
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.Appkey">
@@ -10837,107 +10837,107 @@
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.Parameters">
             <summary>
-            Ó¦´ðµÄ²ÎÊý
+            应答的参数
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.DebugInfo">
             <summary>
-            debugÐÅÏ¢
+            debug信息
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.Content">
             <summary>
-            Ô­Ê¼ÄÚÈÝ
+            原始内容
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.SignField">
             <summary>
-            ²ÎÓëÇ©ÃûµÄ²ÎÊýÁÐ±í
+            参与签名的参数列表
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.Init">
             <summary>
-            ³õÊ¼»¯º¯Êý
+            初始化函数
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.#ctor(System.Web.HttpContext)">
             <summary>
-            »ñÈ¡Ò³ÃæÌá½»µÄgetºÍpost²ÎÊý
+            获取页面提交的get和post参数
             </summary>
             <param name="httpContext"></param>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.GetKey">
             <summary>
-            »ñÈ¡ÃÜÔ¿
+            获取密钥
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.SetKey(System.String,System.String)">
             <summary>
-            ÉèÖÃÃÜÔ¿
+            设置密钥
             </summary>
             <param name="key"></param>
             <param name="appkey"></param>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.GetParameter(System.String)">
             <summary>
-            »ñÈ¡²ÎÊýÖµ
+            获取参数值
             </summary>
             <param name="parameter"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.SetParameter(System.String,System.String)">
             <summary>
-            ÉèÖÃ²ÎÊýÖµ
+            设置参数值
             </summary>
             <param name="parameter"></param>
             <param name="parameterValue"></param>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.IsTenpaySign">
             <summary>
-            ÊÇ·ñ²Æ¸¶Í¨Ç©Ãû,¹æÔòÊÇ:°´²ÎÊýÃû³Æa-zÅÅÐò,Óöµ½¿ÕÖµµÄ²ÎÊý²»²Î¼ÓÇ©Ãû¡£return boolean
+            是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名。return boolean
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.IsWXsign">
             <summary>
-            ÅÐ¶ÏÎ¢ÐÅÇ©Ãû
+            判断微信签名
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.IsWXsignfeedback">
             <summary>
-            ÅÐ¶ÏÎ¢ÐÅÎ¬È¨Ç©Ãû
+            判断微信维权签名
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.GetDebugInfo">
             <summary>
-            »ñÈ¡debugÐÅÏ¢
+            获取debug信息
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.SetDebugInfo(System.String)">
             <summary>
-            ÉèÖÃdebugÐÅÏ¢
+            设置debug信息
             </summary>
             <param name="debugInfo"></param>
         </member>
         <member name="T:Senparc.Weixin.MP.TenPayLib.TenPayUtil">
             <summary>
-            TenpayUtil µÄÕªÒªËµÃ÷¡£
-            ÅäÖÃÎÄ¼þ
+            TenpayUtil 的摘要说明。
+            配置文件
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayUtil.GetNoncestr">
             <summary>
-            Ëæ»úÉú³ÉNoncestr
+            随机生成Noncestr
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayUtil.UrlEncode(System.String,System.String)">
             <summary>
-            ¶Ô×Ö·û´®½øÐÐURL±àÂë
+            对字符串进行URL编码
             </summary>
             <param name="instr"></param>
             <param name="charset"></param>
@@ -10945,7 +10945,7 @@
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayUtil.UrlDecode(System.String,System.String)">
             <summary>
-            ¶Ô×Ö·û´®½øÐÐURL½âÂë
+            对字符串进行URL解码
             </summary>
             <param name="instr"></param>
             <param name="charset"></param>
@@ -10953,13 +10953,13 @@
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayUtil.UnixStamp">
             <summary>
-            È¡Ê±¼ä´ÁÉú³ÉËæ¼´Êý,Ìæ»»½»Ò×µ¥ºÅÖÐµÄºó10Î»Á÷Ë®ºÅ
+            取时间戳生成随即数,替换交易单号中的后10位流水号
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayUtil.BuildRandomStr(System.Int32)">
             <summary>
-            È¡Ëæ»úÊý
+            取随机数
             </summary>
             <param name="length"></param>
             <returns></returns>

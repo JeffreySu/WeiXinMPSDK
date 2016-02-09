@@ -1,0 +1,1959 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>EntityFramework.SqlServer</name>
+  </assembly>
+  <members>
+    <member name="T:System.Data.Entity.SqlServer.SqlAzureExecutionStrategy">
+      <summary>一个 <see cref="T:System.Data.Entity.Infrastructure.IDbExecutionStrategy" />，它重试引发 SQL Azure 瞬态错误导致的异常的操作。</summary>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlAzureExecutionStrategy.#ctor">
+      <summary>创建 <see cref="T:System.Data.Entity.SqlServer.SqlAzureExecutionStrategy" /> 的新实例。</summary>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlAzureExecutionStrategy.#ctor(System.Int32,System.TimeSpan)">
+      <summary>使用指定的重试次数限制值和两次重试之间的延迟时间创建 <see cref="T:System.Data.Entity.SqlServer.SqlAzureExecutionStrategy" /> 类的新实例。</summary>
+      <param name="maxRetryCount">最大重试次数。</param>
+      <param name="maxDelay">两次重试之间的最大延迟时间（毫秒）。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlAzureExecutionStrategy.ShouldRetryOn(System.Exception)">
+      <summary>确定在出现指定的异常时是否应重试。</summary>
+      <returns>如果在出现指定的异常时应重试，则为 true；否则为 false。</returns>
+      <param name="exception">要重试的异常。</param>
+    </member>
+    <member name="T:System.Data.Entity.SqlServer.SqlFunctions">
+      <summary>包含在 Linq to Entities 中公开 SqlServer 方法的函数存根。</summary>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Acos(System.Nullable{System.Decimal})">
+      <summary>一个数学函数，该函数返回其余弦为指定数值的角（以弧度表示）。此角称作反余弦。</summary>
+      <returns>以弧度计量的角度。</returns>
+      <param name="arg1">角的余弦。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Acos(System.Nullable{System.Double})">
+      <summary>一个数学函数，该函数返回其余弦为指定数值的角（以弧度表示）。此角称作反余弦。</summary>
+      <returns>由输入余弦值定义的角，以弧度表示。</returns>
+      <param name="arg1">角的余弦。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Ascii(System.String)">
+      <summary>返回字符表达式中最左侧字符的 ASCII 代码值。</summary>
+      <returns>输入字符串中第一个字符的 ASCII 代码。</returns>
+      <param name="arg">一个有效的字符串。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Asin(System.Nullable{System.Decimal})">
+      <summary>一个数学函数，该函数返回其正弦为指定数值的角（以弧度表示）。此角称作反正弦。</summary>
+      <returns>以弧度计量的角度。</returns>
+      <param name="arg">角的正弦。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Asin(System.Nullable{System.Double})">
+      <summary>一个数学函数，该函数返回其正弦为指定数值的角（以弧度表示）。此角称作反正弦。</summary>
+      <returns>以弧度计量的角度。</returns>
+      <param name="arg">角的正弦。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Atan(System.Nullable{System.Decimal})">
+      <summary>一个数学函数，该函数返回其正切为指定数值的角（以弧度表示）。此角称作反正切。</summary>
+      <returns>以弧度计量的角度。</returns>
+      <param name="arg">角的正切。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Atan(System.Nullable{System.Double})">
+      <summary>一个数学函数，该函数返回其正切为指定数值的角（以弧度表示）。此角称作反正切。</summary>
+      <returns>以弧度计量的角度。</returns>
+      <param name="arg">角的正切。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Atan2(System.Nullable{System.Decimal},System.Nullable{System.Decimal})">
+      <summary>返回以弧度表示的正角，该角由正 x 轴和从原点到点 (x, y) 的射线构成，其中 x 和 y 是两个指定的数值。传递给函数的第一个参数和第二参数分别为 y 值和 x 值。</summary>
+      <returns>以弧度计量的角度。</returns>
+      <param name="arg1">点的 y 坐标。</param>
+      <param name="arg2">点的 x 坐标。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Atan2(System.Nullable{System.Double},System.Nullable{System.Double})">
+      <summary>返回以弧度表示的正角，该角由正 x 轴和从原点到点 (x, y) 的射线构成，其中 x 和 y 是两个指定的数值。传递给函数的第一个参数和第二参数分别为 y 值和 x 值。</summary>
+      <returns>以弧度计量的角度。</returns>
+      <param name="arg1">点的 y 坐标。</param>
+      <param name="arg2">点的 x 坐标。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Char(System.Nullable{System.Int32})">
+      <summary>返回与指定的整数 ASCII 值相对应的字符。</summary>
+      <returns>与指定的 ASCII 值相对应的字符。</returns>
+      <param name="arg">ASCII 代码。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.CharIndex(System.Byte[],System.Byte[])">
+      <summary>返回在一个表达式中找到的另一个表达式的起始位置。</summary>
+      <returns>目标的起始位置（如果在 toSearch 中找到）。</returns>
+      <param name="toSearch">要在其中搜索的字符串表达式。</param>
+      <param name="target">要查找的字符串表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.CharIndex(System.Byte[],System.Byte[],System.Nullable{System.Int32})">
+      <summary>返回在一个表达式中找到的另一个表达式的起始位置。</summary>
+      <returns>目标的起始位置（如果在 toSearch 中找到）。</returns>
+      <param name="toSearch">要在其中搜索的字符串表达式。</param>
+      <param name="target">要查找的字符串表达式。</param>
+      <param name="startLocation">搜索开始的 toSearch 中的字符位置。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.CharIndex(System.Byte[],System.Byte[],System.Nullable{System.Int64})">
+      <summary>返回在一个表达式中找到的另一个表达式的起始位置。</summary>
+      <returns>目标的起始位置（如果在 toSearch 中找到）。</returns>
+      <param name="toSearch">要在其中搜索的字符串表达式。</param>
+      <param name="target">要查找的字符串表达式。</param>
+      <param name="startLocation">toSearch 中在其开始搜索的字符位置。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.CharIndex(System.String,System.String)">
+      <summary>返回在一个表达式中找到的另一个表达式的起始位置。</summary>
+      <returns>目标的起始位置（如果在 toSearch 中找到）。</returns>
+      <param name="toSearch">要在其中搜索的字符串表达式。</param>
+      <param name="target">要查找的字符串表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.CharIndex(System.String,System.String,System.Nullable{System.Int32})">
+      <summary>返回在一个表达式中找到的另一个表达式的起始位置。</summary>
+      <returns>目标的起始位置（如果在 toSearch 中找到）。</returns>
+      <param name="toSearch">要在其中搜索的字符串表达式。</param>
+      <param name="target">要查找的字符串表达式。</param>
+      <param name="startLocation">搜索开始的 toSearch 中的字符位置。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.CharIndex(System.String,System.String,System.Nullable{System.Int64})">
+      <summary>返回在一个表达式中找到的另一个表达式的起始位置。</summary>
+      <returns>
+        <see cref="T:System.Int64" /> 值的 <see cref="T:System.Nullable`1" />，该值是目标的起始位置（如果在 toSearch 中找到）。</returns>
+      <param name="toSearch">要在其中搜索的字符串表达式。</param>
+      <param name="target">要查找的字符串表达式。</param>
+      <param name="startLocation">搜索开始的 toSearch 中的字符位置。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Byte[])">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">为其计算校验和的字符数组。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Byte[],System.Byte[])">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">为其计算校验和的字符数组。</param>
+      <param name="arg2">为其计算校验和的字符数组。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Byte[],System.Byte[],System.Byte[])">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">为其计算校验和的字符数组。</param>
+      <param name="arg2">为其计算校验和的字符数组。</param>
+      <param name="arg3">为其计算校验和的字符数组。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.Boolean})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+      <param name="arg2">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.Boolean},System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+      <param name="arg2">要为其计算校验和的值。</param>
+      <param name="arg3">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.DateTime})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+      <param name="arg2">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+      <param name="arg2">要为其计算校验和的值。</param>
+      <param name="arg3">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.DateTimeOffset})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.DateTimeOffset},System.Nullable{System.DateTimeOffset})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+      <param name="arg2">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.DateTimeOffset},System.Nullable{System.DateTimeOffset},System.Nullable{System.DateTimeOffset})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+      <param name="arg2">要为其计算校验和的值。</param>
+      <param name="arg3">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.Decimal})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.Decimal},System.Nullable{System.Decimal})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+      <param name="arg2">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.Nullable{System.Decimal})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+      <param name="arg2">要为其计算校验和的值。</param>
+      <param name="arg3">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.Double})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.Double},System.Nullable{System.Double})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+      <param name="arg2">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Double})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+      <param name="arg2">要为其计算校验和的值。</param>
+      <param name="arg3">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.Guid})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.Guid},System.Nullable{System.Guid})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+      <param name="arg2">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.Guid},System.Nullable{System.Guid},System.Nullable{System.Guid})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+      <param name="arg2">要为其计算校验和的值。</param>
+      <param name="arg3">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.TimeSpan})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.TimeSpan},System.Nullable{System.TimeSpan})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+      <param name="arg2">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.Nullable{System.TimeSpan},System.Nullable{System.TimeSpan},System.Nullable{System.TimeSpan})">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+      <param name="arg2">要为其计算校验和的值。</param>
+      <param name="arg3">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.String)">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.String,System.String)">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+      <param name="arg2">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Checksum(System.String,System.String,System.String)">
+      <summary>返回基于输入参数计算出的校验和值。</summary>
+      <returns>基于输入值计算出的校验和。</returns>
+      <param name="arg1">要为其计算校验和的值。</param>
+      <param name="arg2">要为其计算校验和的值。</param>
+      <param name="arg3">要为其计算校验和的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.ChecksumAggregate(System.Collections.Generic.IEnumerable{System.Int32})">
+      <summary>返回集合中各值的校验和。Null 值将被忽略。</summary>
+      <returns>基于输入集合计算出的校验和。</returns>
+      <param name="arg">对其计算校验和的各值的集合。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.ChecksumAggregate(System.Collections.Generic.IEnumerable{System.Nullable{System.Int32}})">
+      <summary>返回集合中各值的校验和。Null 值将被忽略。</summary>
+      <returns>基于输入集合计算出的校验和。</returns>
+      <param name="arg">对其计算校验和的各值的集合。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Cos(System.Nullable{System.Decimal})">
+      <summary>返回指定表达式中指定角（以弧度表示）的三角余弦。</summary>
+      <returns>指定角的三角余弦。</returns>
+      <param name="arg">以弧度计量的角度。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Cos(System.Nullable{System.Double})">
+      <summary>返回指定表达式中指定角（以弧度表示）的三角余弦。</summary>
+      <returns>指定角的三角余弦。</returns>
+      <param name="arg">以弧度计量的角度。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Cot(System.Nullable{System.Decimal})">
+      <summary>一个数学函数，该函数返回指定角（以弧度表示）的三角余切。</summary>
+      <returns>指定角的三角余切。</returns>
+      <param name="arg">以弧度计量的角度。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Cot(System.Nullable{System.Double})">
+      <summary>一个数学函数，该函数返回指定角（以弧度表示）的三角余切。</summary>
+      <returns>指定角的三角余切。</returns>
+      <param name="arg">以弧度计量的角度。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.CurrentTimestamp">
+      <summary>返回当前日期和时间。</summary>
+      <returns>当前日期和时间。</returns>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.CurrentUser">
+      <summary>返回当前用户的名称。</summary>
+      <returns>当前用户的名称。</returns>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DataLength(System.Byte[])">
+      <summary>返回用于表示任何表达式的字节数。</summary>
+      <returns>输入值中的字节数。</returns>
+      <param name="arg">要检查其长度的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DataLength(System.Nullable{System.Boolean})">
+      <summary>返回用于表示任何表达式的字节数。</summary>
+      <returns>输入值中的字节数。</returns>
+      <param name="arg">要检查其数据长度的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DataLength(System.Nullable{System.DateTime})">
+      <summary>返回用于表示任何表达式的字节数。</summary>
+      <returns>输入值中的字节数。</returns>
+      <param name="arg">要检查其数据长度的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DataLength(System.Nullable{System.DateTimeOffset})">
+      <summary>返回用于表示任何表达式的字节数。</summary>
+      <returns>输入值中的字节数。</returns>
+      <param name="arg">要检查其数据长度的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DataLength(System.Nullable{System.Decimal})">
+      <summary>返回用于表示任何表达式的字节数。</summary>
+      <returns>输入值中的字节数。</returns>
+      <param name="arg">要检查其数据长度的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DataLength(System.Nullable{System.Double})">
+      <summary>返回用于表示任何表达式的字节数。</summary>
+      <returns>输入值中的字节数。</returns>
+      <param name="arg">要检查其数据长度的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DataLength(System.Nullable{System.Guid})">
+      <summary>返回用于表示任何表达式的字节数。</summary>
+      <returns>输入值中的字节数。</returns>
+      <param name="arg">要检查其数据长度的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DataLength(System.Nullable{System.TimeSpan})">
+      <summary>返回用于表示任何表达式的字节数。</summary>
+      <returns>输入值中的字节数。</returns>
+      <param name="arg">要检查其数据长度的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DataLength(System.String)">
+      <summary>返回用于表示任何表达式的字节数。</summary>
+      <returns>输入值中的字节数。</returns>
+      <param name="arg">要检查其数据长度的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateAdd(System.String,System.Nullable{System.Double},System.Nullable{System.DateTime})">
+      <summary>向指定的日期添加间隔，以此返回新的日期时间值。</summary>
+      <returns>新的日期。</returns>
+      <param name="datePartArg">要递增的日期部分。</param>
+      <param name="number">用于按指定量递增日期的值。</param>
+      <param name="date">要递增的日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateAdd(System.String,System.Nullable{System.Double},System.Nullable{System.DateTimeOffset})">
+      <summary>向指定的日期添加间隔，以此返回新的日期值。</summary>
+      <returns>相对于协调世界时 (UTC) 的新时间点，以日期和时间来表示。</returns>
+      <param name="datePartArg">要递增的日期部分。</param>
+      <param name="number">用于按指定量递增日期的值。</param>
+      <param name="dateTimeOffsetArg">要递增的日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateAdd(System.String,System.Nullable{System.Double},System.Nullable{System.TimeSpan})">
+      <summary>向指定的时间跨度添加间隔，以此返回新的时间跨度值。</summary>
+      <returns>新的时间跨度。</returns>
+      <param name="datePartArg">要递增的日期部分。</param>
+      <param name="number">用于按指定量递增日期的值。</param>
+      <param name="time">要递增的时间跨度。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateAdd(System.String,System.Nullable{System.Double},System.String)">
+      <summary>向指定的日期添加间隔，以此返回新的日期时间值。</summary>
+      <returns>表示新日期的 <see cref="T:System.DateTime" /> 值的 <see cref="T:System.Nullable`1" />。</returns>
+      <param name="datePartArg">要递增的日期部分。</param>
+      <param name="number">用于按指定量递增日期的值。</param>
+      <param name="date">要递增的日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateDiff(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+      <summary>返回所指定开始日期和结束日期之间的指定日期部分边界的计数。</summary>
+      <returns>两个日期之间的时间间隔数。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="startDate">第一个日期。</param>
+      <param name="endDate">第二个日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateDiff(System.String,System.Nullable{System.DateTime},System.Nullable{System.DateTimeOffset})">
+      <summary>返回所指定开始日期和结束日期之间的指定日期部分边界的计数。</summary>
+      <returns>两个日期之间的时间间隔数。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="startDate">第一个日期。</param>
+      <param name="endDate">第二个日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateDiff(System.String,System.Nullable{System.DateTime},System.Nullable{System.TimeSpan})">
+      <summary>返回所指定开始日期和结束日期之间的指定日期部分边界的计数。</summary>
+      <returns>两个日期之间的时间间隔数。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="startDate">第一个日期。</param>
+      <param name="endDate">第二个日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateDiff(System.String,System.Nullable{System.DateTime},System.String)">
+      <summary>返回所指定开始日期和结束日期之间的指定日期部分边界的计数。</summary>
+      <returns>两个日期之间的时间间隔数。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="startDate">第一个日期。</param>
+      <param name="endDate">第二个日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateDiff(System.String,System.Nullable{System.DateTimeOffset},System.Nullable{System.DateTime})">
+      <summary>返回所指定开始日期和结束日期之间的指定日期部分边界的计数。</summary>
+      <returns>两个日期之间的时间间隔数。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="startDate">第一个日期。</param>
+      <param name="endDate">第二个日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateDiff(System.String,System.Nullable{System.DateTimeOffset},System.Nullable{System.DateTimeOffset})">
+      <summary>返回所指定开始日期和结束日期之间的指定日期部分边界的计数。</summary>
+      <returns>两个日期之间的时间间隔数。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="startDate">第一个日期。</param>
+      <param name="endDate">第二个日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateDiff(System.String,System.Nullable{System.DateTimeOffset},System.Nullable{System.TimeSpan})">
+      <summary>返回所指定开始日期和结束日期之间的指定日期部分边界的计数。</summary>
+      <returns>两个日期之间的时间间隔数。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="startDate">第一个日期。</param>
+      <param name="endDate">第二个日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateDiff(System.String,System.Nullable{System.DateTimeOffset},System.String)">
+      <summary>返回所指定开始日期和结束日期之间的指定日期部分边界的计数。</summary>
+      <returns>两个日期之间的时间间隔数。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="startDate">第一个日期。</param>
+      <param name="endDate">第二个日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateDiff(System.String,System.Nullable{System.TimeSpan},System.Nullable{System.DateTime})">
+      <summary>返回所指定开始日期和结束日期之间的指定日期部分边界的计数。</summary>
+      <returns>两个日期之间的时间间隔数。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="startDate">第一个日期。</param>
+      <param name="endDate">第二个日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateDiff(System.String,System.Nullable{System.TimeSpan},System.Nullable{System.DateTimeOffset})">
+      <summary>返回所指定开始日期和结束日期之间的指定日期部分边界的计数。</summary>
+      <returns>两个日期之间的时间间隔数。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="startDate">第一个日期。</param>
+      <param name="endDate">第二个日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateDiff(System.String,System.Nullable{System.TimeSpan},System.Nullable{System.TimeSpan})">
+      <summary>返回所指定开始日期和结束日期之间的指定日期部分边界的计数。</summary>
+      <returns>两个日期之间的时间间隔数。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="startDate">第一个日期。</param>
+      <param name="endDate">第二个日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateDiff(System.String,System.Nullable{System.TimeSpan},System.String)">
+      <summary>返回所指定开始日期和结束日期之间的指定日期部分边界的计数。</summary>
+      <returns>两个日期之间的时间间隔数。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="startDate">第一个日期。</param>
+      <param name="endDate">第二个日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateDiff(System.String,System.String,System.Nullable{System.DateTime})">
+      <summary>返回所指定开始日期和结束日期之间的指定日期部分边界的计数。</summary>
+      <returns>两个日期之间的时间间隔数。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="startDate">第一个日期。</param>
+      <param name="endDate">第二个日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateDiff(System.String,System.String,System.Nullable{System.DateTimeOffset})">
+      <summary>返回所指定开始日期和结束日期之间的指定日期部分边界的计数。</summary>
+      <returns>两个日期之间的时间间隔数。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="startDate">第一个日期。</param>
+      <param name="endDate">第二个日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateDiff(System.String,System.String,System.Nullable{System.TimeSpan})">
+      <summary>返回所指定开始日期和结束日期之间的指定日期部分边界的计数。</summary>
+      <returns>指定两个日期之间的时间间隔数的值。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="startDate">第一个日期。</param>
+      <param name="endDate">第二个日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateDiff(System.String,System.String,System.String)">
+      <summary>返回所指定开始日期和结束日期之间的指定日期部分边界的计数。</summary>
+      <returns>两个日期之间的时间间隔数。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="startDate">第一个日期。</param>
+      <param name="endDate">第二个日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateName(System.String,System.Nullable{System.DateTime})">
+      <summary>返回一个字符串，该字符串表示指定日期的指定日期部分。</summary>
+      <returns>指定日期的指定部分。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="date">日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateName(System.String,System.Nullable{System.DateTimeOffset})">
+      <summary>返回一个字符串，该字符串表示指定日期的指定日期部分。</summary>
+      <returns>指定日期的指定部分。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="date">日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateName(System.String,System.Nullable{System.TimeSpan})">
+      <summary>返回一个字符串，该字符串表示指定日期的指定日期部分。</summary>
+      <returns>指定日期的指定部分。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="date">日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DateName(System.String,System.String)">
+      <summary>返回一个字符串，该字符串表示指定日期的指定日期部分。</summary>
+      <returns>指定日期的指定部分。</returns>
+      <param name="datePartArg">要计算时间间隔差值的日期部分。</param>
+      <param name="date">日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DatePart(System.String,System.Nullable{System.DateTime})">
+      <summary>返回表示指定日期的指定日期部分的整数。</summary>
+      <returns>指定日期的指定日期部分。</returns>
+      <param name="datePartArg">要返回值的日期部分。</param>
+      <param name="date">日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DatePart(System.String,System.Nullable{System.DateTimeOffset})">
+      <summary>返回表示指定日期的指定日期部分的整数。</summary>
+      <returns>指定日期的指定日期部分。</returns>
+      <param name="datePartArg">要返回值的日期部分。</param>
+      <param name="date">日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DatePart(System.String,System.Nullable{System.TimeSpan})">
+      <summary>返回表示指定日期的指定日期部分的整数。</summary>
+      <returns>指定日期的指定日期部分。</returns>
+      <param name="datePartArg">要返回值的日期部分。</param>
+      <param name="date">日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.DatePart(System.String,System.String)">
+      <summary>返回表示指定日期的指定日期部分的整数。</summary>
+      <returns>指定日期的指定日期部分。</returns>
+      <param name="datePartArg">要返回值的日期部分。</param>
+      <param name="date">日期。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Degrees(System.Nullable{System.Decimal})">
+      <summary>为以弧度指定的角返回对应的以度数表示的角。</summary>
+      <returns>转换为度数的指定角。</returns>
+      <param name="arg1">以弧度计量的角度。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Degrees(System.Nullable{System.Double})">
+      <summary>为以弧度指定的角返回对应的以度数表示的角。</summary>
+      <returns>转换为度数的指定角。</returns>
+      <param name="arg1">以弧度计量的角度。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Degrees(System.Nullable{System.Int32})">
+      <summary>为以弧度指定的角返回对应的以度数表示的角。</summary>
+      <returns>转换为度数的指定角。</returns>
+      <param name="arg1">以弧度计量的角度。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Degrees(System.Nullable{System.Int64})">
+      <summary>为以弧度指定的角返回对应的以度数表示的角。</summary>
+      <returns>转换为度数的指定角。</returns>
+      <param name="arg1">以弧度计量的角度。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Difference(System.String,System.String)">
+      <summary>返回指示两个字符表达式的 SOUNDEX 值之差的整数值。</summary>
+      <returns>两个字符串之间的 SOUNDEX 差值。</returns>
+      <param name="string1">第一个字符串。</param>
+      <param name="string2">第二个字符串。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Exp(System.Nullable{System.Decimal})">
+      <summary>返回所指定浮点表达式的指数值。</summary>
+      <returns>以常数 e 为底、以输入值为指数的幂。</returns>
+      <param name="arg">输入值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Exp(System.Nullable{System.Double})">
+      <summary>返回所指定浮点表达式的指数值。</summary>
+      <returns>以常数 e 为底、以输入值为指数的幂。</returns>
+      <param name="arg">输入值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.GetDate">
+      <summary>将当前数据库系统时间戳作为日期时间值返回，不含数据库时区偏移量。此值派生自运行 SQL Server 实例的计算机上使用的操作系统。</summary>
+      <returns>当前的数据库时间戳。</returns>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.GetUtcDate">
+      <summary>将当前数据库系统时间戳作为日期时间值返回。不包含数据库时区偏移量。此值表示当前 UTC 时间（协调世界时）。此值派生自运行 SQL Server 实例的计算机上使用的操作系统。</summary>
+      <returns>当前的数据库 UTC 时间戳。</returns>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.HostName">
+      <summary>返回工作站名称。</summary>
+      <returns>工作站的名称。</returns>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.IsDate(System.String)">
+      <summary>指示输入值是否为有效的日期或时间。</summary>
+      <returns>如果输入表达式是 datetime 或 smalldatetime 数据类型的有效日期或时间值，则为 1；否则为 0。</returns>
+      <param name="arg">所测试的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.IsNumeric(System.String)">
+      <summary>指示输入值是否为有效的数值类型。</summary>
+      <returns>如果输入表达式是有效的数值类型，则为 1；否则为 0。</returns>
+      <param name="arg">字符串表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Log(System.Nullable{System.Decimal})">
+      <summary>返回所指定输入值的自然对数。</summary>
+      <returns>输入值的自然对数。</returns>
+      <param name="arg">数值表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Log(System.Nullable{System.Double})">
+      <summary>返回所指定输入值的自然对数。</summary>
+      <returns>输入值的自然对数。</returns>
+      <param name="arg">数值表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Log10(System.Nullable{System.Decimal})">
+      <summary>返回所指定输入值以 10 为底的对数。</summary>
+      <returns>输入值的以 10 为底的对数。</returns>
+      <param name="arg">数值表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Log10(System.Nullable{System.Double})">
+      <summary>返回所指定输入值以 10 为底的对数。</summary>
+      <returns>输入值的以 10 为底的对数。</returns>
+      <param name="arg">数值表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.NChar(System.Nullable{System.Int32})">
+      <summary>根据 Unicode 标准的定义，返回具有所指定整数代码的 Unicode 字符。</summary>
+      <returns>与输入字符代码相对应的字符。</returns>
+      <param name="arg">字符代码。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.PatIndex(System.String,System.String)">
+      <summary>返回模式在指定表达式中首次出现的起始位置；如果在所有有效的文本和字符数据类型上未找到模式，则为零。</summary>
+      <returns>找到字符串模式的起始字符位置。</returns>
+      <param name="stringPattern">要搜索的字符串模式。</param>
+      <param name="target">要搜索的字符串。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Pi">
+      <summary>返回 pi 的常量值。</summary>
+      <returns>pi 的数值。</returns>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.QuoteName(System.String)">
+      <summary>返回一个 Unicode 字符串，其中添加有分隔符，以使输入字符串成为有效的 Microsoft SQL Server 分隔标识符。</summary>
+      <returns>添加有方括号的原始字符串。</returns>
+      <param name="stringArg">要将引号字符添加到其中的表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.QuoteName(System.String,System.String)">
+      <summary>返回一个 Unicode 字符串，其中添加有分隔符，以使输入字符串成为有效的 Microsoft SQL Server 分隔标识符。</summary>
+      <returns>添加有指定引号字符的原始字符串。</returns>
+      <param name="stringArg">要将引号字符添加到其中的表达式。</param>
+      <param name="quoteCharacter">将用作分隔符的单字符字符串。它可以是单引号 (')、左方括号或右方括号 ([ ]) 或者英文双引号 (")。如果未指定 quote_character，则使用方括号。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Radians(System.Nullable{System.Decimal})">
+      <summary>为以度数指定的角返回对应的弧度度量值。</summary>
+      <returns>所指定角的弧度度量值。</returns>
+      <param name="arg">以度数为单位的角。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Radians(System.Nullable{System.Double})">
+      <summary>为以度数指定的角返回对应的弧度度量值。</summary>
+      <returns>所指定角的弧度度量值。</returns>
+      <param name="arg">以度数为单位的角。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Radians(System.Nullable{System.Int32})">
+      <summary>为以度数指定的角返回对应的弧度度量值。</summary>
+      <returns>所指定角的弧度度量值。</returns>
+      <param name="arg">以度数为单位的角</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Radians(System.Nullable{System.Int64})">
+      <summary>为以度数指定的角返回对应的弧度度量值。</summary>
+      <returns>所指定角的弧度度量值。</returns>
+      <param name="arg">以度数为单位的角</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Rand">
+      <summary>返回一个 0 到 1（均不含）之间的伪随机浮点值。</summary>
+      <returns>伪随机值。</returns>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Rand(System.Nullable{System.Int32})">
+      <summary>返回一个 0 到 1（均不含）之间的伪随机浮点值。</summary>
+      <returns>伪随机值。</returns>
+      <param name="seed">种子值。如果未指定种子，则 SQL Server 数据库引擎将随机分配种子值。对于指定的种子值，返回的结果始终相同。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Replicate(System.String,System.Nullable{System.Int32})">
+      <summary>将一个字符串值重复指定的次数。</summary>
+      <returns>重复了由计数所指定的次数的目标字符串。</returns>
+      <param name="target">一个有效的字符串。</param>
+      <param name="count">指定目标重复多少次的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Sign(System.Nullable{System.Decimal})">
+      <summary>返回指定表达式的正号 (+1)、零 (0) 或负号 (-1)。</summary>
+      <returns>输入表达式的符号。</returns>
+      <param name="arg">数值表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Sign(System.Nullable{System.Double})">
+      <summary>返回指定表达式的正号 (+1)、零 (0) 或负号 (-1)。</summary>
+      <returns>输入表达式的符号。</returns>
+      <param name="arg">数值表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Sign(System.Nullable{System.Int32})">
+      <summary>返回指定表达式的正号 (+1)、零 (0) 或负号 (-1)。</summary>
+      <returns>输入表达式的符号。</returns>
+      <param name="arg">数值表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Sign(System.Nullable{System.Int64})">
+      <summary>返回指定表达式的正号 (+1)、零 (0) 或负号 (-1)。</summary>
+      <returns>输入表达式的符号。</returns>
+      <param name="arg">数值表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Sin(System.Nullable{System.Decimal})">
+      <summary>返回所指定角的三角正弦。</summary>
+      <returns>输入表达式的三角正弦。</returns>
+      <param name="arg">以弧度计量的角度。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Sin(System.Nullable{System.Double})">
+      <summary>返回所指定角的三角正弦。</summary>
+      <returns>输入表达式的三角正弦。</returns>
+      <param name="arg">以弧度计量的角度。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.SoundCode(System.String)">
+      <summary>将字母数字字符串转换为由四个字符组成的 (SOUNDEX) 代码，以便查找发音相似的字词或名称。</summary>
+      <returns>输入字符串的 SOUNDEX 代码。</returns>
+      <param name="arg">一个有效的字符串。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Space(System.Nullable{System.Int32})">
+      <summary>返回由重复空格组成的字符串。</summary>
+      <returns>由指定数量的空格组成的字符串。</returns>
+      <param name="arg1">空格数。如果为负，则返回 null 字符串。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Square(System.Nullable{System.Decimal})">
+      <summary>返回所指定数字的平方。</summary>
+      <returns>输入值的平方。</returns>
+      <param name="arg1">数值表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Square(System.Nullable{System.Double})">
+      <summary>返回所指定数字的平方。</summary>
+      <returns>输入值的平方。</returns>
+      <param name="arg1">数值表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.SquareRoot(System.Nullable{System.Decimal})">
+      <summary>返回指定数字的平方根。</summary>
+      <returns>输入值的平方根。</returns>
+      <param name="arg">数值表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.SquareRoot(System.Nullable{System.Double})">
+      <summary>返回指定数字的平方根。</summary>
+      <returns>输入值的平方根。</returns>
+      <param name="arg">数值表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.StringConvert(System.Nullable{System.Decimal})">
+      <summary>返回从数值数据转换的字符数据。</summary>
+      <returns>转换为字符串的输入表达式。</returns>
+      <param name="number">数值表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.StringConvert(System.Nullable{System.Decimal},System.Nullable{System.Int32})">
+      <summary>返回从数值数据转换的字符数据。</summary>
+      <returns>转换为字符串的输入表达式。</returns>
+      <param name="number">数值表达式。</param>
+      <param name="length">字符串的总长度。它包括小数点、符号、数字以及空格。默认值为 10。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.StringConvert(System.Nullable{System.Decimal},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+      <summary>返回从数值数据转换的字符数据。</summary>
+      <returns>转换为字符串的输入表达式。</returns>
+      <param name="number">数值表达式。</param>
+      <param name="length">字符串的总长度。它包括小数点、符号、数字以及空格。默认值为 10。</param>
+      <param name="decimalArg">小数点右侧的位数。小数必须小于或等于 16 位。如果小数超过 16 位，则会将结果截断至小数点右侧 16 位。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.StringConvert(System.Nullable{System.Double})">
+      <summary>返回从数值数据转换的字符数据。</summary>
+      <returns>转换为字符串的数字输入表达式。</returns>
+      <param name="number">数值表达式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.StringConvert(System.Nullable{System.Double},System.Nullable{System.Int32})">
+      <summary>返回从数值数据转换的字符数据。</summary>
+      <returns>转换为字符串的数字输入表达式。</returns>
+      <param name="number">数值表达式。</param>
+      <param name="length">字符串的总长度。它包括小数点、符号、数字以及空格。默认值为 10。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.StringConvert(System.Nullable{System.Double},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+      <summary>返回从数值数据转换的字符数据。</summary>
+      <returns>转换为字符串的数字输入表达式。</returns>
+      <param name="number">数值表达式。</param>
+      <param name="length">字符串的总长度。它包括小数点、符号、数字以及空格。默认值为 10。</param>
+      <param name="decimalArg">小数点右侧的位数。小数必须小于或等于 16 位。如果小数超过 16 位，则会将结果截断至小数点右侧 16 位。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Stuff(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
+      <summary>将一个字符串插入另一个字符串。这会从目标字符串中的起始位置开始，删除指定长度的字符，然后在目标字符串中的起始位置处，插入第二个字符串。</summary>
+      <returns>由两个字符串组成的字符串。</returns>
+      <param name="stringInput">目标字符串。</param>
+      <param name="start">stringinput 中要插入替换字符串的字符位置。</param>
+      <param name="length">要从 stringInput 删除的字符数。如果长度比 stringInput 长，则最多删除到 stringReplacement 中的最后一个字符。</param>
+      <param name="stringReplacement">要插入 stringInput 中的子字符串。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Tan(System.Nullable{System.Decimal})">
+      <summary>返回输入表达式的三角正切。</summary>
+      <returns>输入角的正切。</returns>
+      <param name="arg">以弧度计量的角度。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Tan(System.Nullable{System.Double})">
+      <summary>返回输入表达式的三角正切。</summary>
+      <returns>输入角的正切。</returns>
+      <param name="arg">以弧度计量的角度。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.Unicode(System.String)">
+      <summary>根据 Unicode 标准的定义，返回输入表达式中第一个字符的整数值。</summary>
+      <returns>输入字符串中第一个字符的字符代码。</returns>
+      <param name="arg">一个有效的字符串。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.UserName">
+      <summary>返回与所指定标识号相对应的数据库用户名。</summary>
+      <returns>用户名。</returns>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlFunctions.UserName(System.Nullable{System.Int32})">
+      <summary>返回与所指定标识号相对应的数据库用户名。</summary>
+      <returns>用户名。</returns>
+      <param name="arg">用户 ID。</param>
+    </member>
+    <member name="T:System.Data.Entity.SqlServer.SqlProviderServices">
+      <summary>SQL Server 的 SqlClient 提供程序的 DbProviderServices 实现。</summary>
+    </member>
+    <member name="P:System.Data.Entity.SqlServer.SqlProviderServices.Instance">
+      <summary>SqlProviderServices 类型的单一实例。</summary>
+      <returns>
+        <see cref="T:System.Data.Entity.SqlServer.SqlProviderServices" />.</returns>
+    </member>
+    <member name="F:System.Data.Entity.SqlServer.SqlProviderServices.ProviderInvariantName">
+      <summary>这是已知的字符串，在配置文件和基于代码的配置中用作“提供程序固定名称”，用于指定 Microsoft SQL Server for ADO.NET 和实体框架提供程序服务。</summary>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlProviderServices.RegisterInfoMessageHandler(System.Data.Common.DbConnection,System.Action{System.String})">
+      <summary>注册一个处理程序，以处理来自数据库提供程序的非错误消息。</summary>
+      <param name="connection">用来接收信息的连接。</param>
+      <param name="handler">用于处理消息的处理程序。</param>
+    </member>
+    <member name="P:System.Data.Entity.SqlServer.SqlProviderServices.SqlServerTypesAssemblyName">
+      <summary>设置为 Microsoft.SqlServer.Types 程序集的全名来重写默认选择</summary>
+    </member>
+    <member name="P:System.Data.Entity.SqlServer.SqlProviderServices.TruncateDecimalsToScale">
+      <summary>将该标志设置为 false 可防止 <see cref="T:System.Decimal" /> 值被截断到为列定义的小数位数。默认值为 true，指示将截断小数值，以便避免中断依赖于此行为的现有应用程序。</summary>
+      <returns>返回 <see cref="T:System.Boolean" />。</returns>
+    </member>
+    <member name="T:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator">
+      <summary>表示可将提供程序不可知的迁移操作转换为可对 Microsoft SQL Server 数据库运行的 SQL 命令的提供程序。</summary>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.#ctor">
+      <summary>初始化 <see cref="T:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator" /> 类的新实例。</summary>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.BuildColumnType(System.Data.Entity.Migrations.Model.ColumnModel)">
+      <summary>生成 SQL 以指定列的数据类型。此方法只生成实际类型，而不生成 SQL 创建列。</summary>
+      <returns>表示数据类型的 SQL。</returns>
+      <param name="columnModel">列的定义。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.CreateConnection">
+      <summary>为当前提供程序创建空连接。允许派生提供程序使用 <see cref="T:System.Data.SqlClient.SqlConnection" /> 之外的连接。</summary>
+      <returns>当前提供程序的空连接。</returns>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.DropDefaultConstraint(System.String,System.String,System.Data.Entity.Migrations.Utilities.IndentedTextWriter)">
+      <summary>调用此方法以生成将尝试删除创建列时所创建的默认约束的 SQL。此方法通常由重写列的创建或更改的代码调用。</summary>
+      <param name="table">应用约束的表。</param>
+      <param name="column">应用约束的列。</param>
+      <param name="writer">生成的 SQL 应写入的编写器。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Boolean)">
+      <summary>生成 SQL 以指定将在列上设置的常量 bool 默认值。此方法只生成实际值，而不生成 SQL 设置默认值。</summary>
+      <returns>表示默认值的 SQL。</returns>
+      <param name="defaultValue">要设置的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Byte[])">
+      <summary>生成 SQL 以指定将在列上设置的常量 byte[] 默认值。此方法只生成实际值，而不生成 SQL 设置默认值。</summary>
+      <returns>表示默认值的 SQL。</returns>
+      <param name="defaultValue">要设置的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Collections.Generic.IEnumerable{System.Data.Entity.Migrations.Model.MigrationOperation},System.String)">
+      <summary>将一组迁移操作转换为 Microsoft SQL Server 特定 SQL。</summary>
+      <returns>为执行迁移操作而要执行的 SQL 语句的列表。</returns>
+      <param name="migrationOperations">要转换的操作。</param>
+      <param name="providerManifestToken">表示将面向的 SQL Server 版本的标记（即“2005", "2008").</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.AddColumnOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.AddColumnOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="addColumnOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.AddForeignKeyOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.AddForeignKeyOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="addForeignKeyOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.AddPrimaryKeyOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.AddPrimaryKeyOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="addPrimaryKeyOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.AlterColumnOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.AlterColumnOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="alterColumnOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.AlterProcedureOperation)">
+      <summary>生成指定的更改过程操作。</summary>
+      <param name="alterProcedureOperation">更改过程操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.AlterTableOperation)">
+      <summary>重写此方法以在表的定义或其属性发生更改时生成 SQL。此方法的默认实现不执行任何操作。</summary>
+      <param name="alterTableOperation">描述对表的更改的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.ColumnModel,System.Data.Entity.Migrations.Utilities.IndentedTextWriter)">
+      <summary>为给定列模型生成 SQL。此方法由处理列的其他方法调用，并且可重写此方法以更改生成的 SQL。</summary>
+      <param name="column">要为其生成 SQL 的列。</param>
+      <param name="writer">生成的 SQL 应写入的编写器。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.CreateIndexOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.CreateIndexOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="createIndexOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.CreateProcedureOperation)">
+      <summary>生成指定的创建过程操作。</summary>
+      <param name="createProcedureOperation">创建过程操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.CreateTableOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.CreateTableOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="createTableOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.DropColumnOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.DropColumnOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="dropColumnOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.DropForeignKeyOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.DropForeignKeyOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="dropForeignKeyOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.DropIndexOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.DropIndexOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="dropIndexOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.DropPrimaryKeyOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.DropPrimaryKeyOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="dropPrimaryKeyOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.DropProcedureOperation)">
+      <summary>生成指定的删除过程操作。</summary>
+      <param name="dropProcedureOperation">删除过程操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.DropTableOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.DropTableOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="dropTableOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.HistoryOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.HistoryOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="historyOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.MigrationOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.MigrationOperation" /> 生成 SQL。允许派生提供程序处理其他操作类型。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="migrationOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.MoveProcedureOperation)">
+      <summary>生成指定的移动过程操作。</summary>
+      <param name="moveProcedureOperation">移动过程操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.MoveTableOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.MoveTableOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="moveTableOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.RenameColumnOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.RenameColumnOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="renameColumnOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.RenameIndexOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.RenameIndexOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="renameIndexOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.RenameProcedureOperation)">
+      <summary>生成指定的重命名过程操作。</summary>
+      <param name="renameProcedureOperation">重命名过程操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.RenameTableOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.RenameTableOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="renameTableOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.SqlOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.SqlOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="sqlOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Migrations.Model.UpdateDatabaseOperation)">
+      <summary>生成表示应用一系列迁移的指定更新数据库操作。生成的脚本是幂等的，这意味着其中包含检查是否已应用各迁移以及仅应用挂起迁移的条件逻辑。</summary>
+      <param name="updateDatabaseOperation">更新数据库操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Spatial.DbGeography)">
+      <summary>生成 SQL 以指定将在列上设置的常量 geogrpahy 默认值。此方法只生成实际值，而不生成 SQL 设置默认值。</summary>
+      <returns>表示默认值的 SQL。</returns>
+      <param name="defaultValue">要设置的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>生成 SQL 以指定将在列上设置的常量 geometry 默认值。此方法只生成实际值，而不生成 SQL 设置默认值。</summary>
+      <returns>表示默认值的 SQL。</returns>
+      <param name="defaultValue">要设置的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.DateTime)">
+      <summary>生成 SQL 以指定将在列上设置的常量 DateTime 默认值。此方法只生成实际值，而不生成 SQL 设置默认值。</summary>
+      <returns>表示默认值的 SQL。</returns>
+      <param name="defaultValue">要设置的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.DateTimeOffset)">
+      <summary>生成 SQL 以指定将在列上设置的常量 DateTimeOffset 默认值。此方法只生成实际值，而不生成 SQL 设置默认值。</summary>
+      <returns>表示默认值的 SQL。</returns>
+      <param name="defaultValue">要设置的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Guid)">
+      <summary>生成 SQL 以指定将在列上设置的常量 Guid 默认值。此方法只生成实际值，而不生成 SQL 设置默认值。</summary>
+      <returns>表示默认值的 SQL。</returns>
+      <param name="defaultValue">要设置的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.Object)">
+      <summary>生成 SQL 以指定将在列上设置的常量默认值。此方法只生成实际值，而不生成 SQL 设置默认值。</summary>
+      <returns>表示默认值的 SQL。</returns>
+      <param name="defaultValue">要设置的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.String)">
+      <summary>生成 SQL 以指定将在列上设置的常量字符串默认值。此方法只生成实际值，而不生成 SQL 设置默认值。</summary>
+      <returns>表示默认值的 SQL。</returns>
+      <param name="defaultValue">要设置的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Generate(System.TimeSpan)">
+      <summary>生成 SQL 以指定将在列上设置的常量 TimeSpan 默认值。此方法只生成实际值，而不生成 SQL 设置默认值。</summary>
+      <returns>表示默认值的 SQL。</returns>
+      <param name="defaultValue">要设置的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.GenerateCreateSchema(System.String)">
+      <summary>生成 SQL 以创建数据库架构。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="schema">要创建的架构的名称。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.GenerateMakeSystemTable(System.Data.Entity.Migrations.Model.CreateTableOperation,System.Data.Entity.Migrations.Utilities.IndentedTextWriter)">
+      <summary>生成 SQL 以将表标记为系统表。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="createTableOperation">要标记为系统表的表。</param>
+      <param name="writer">向其中写入生成的 SQL 的 <see cref="T:System.Data.Entity.Migrations.Utilities.IndentedTextWriter" />。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.GenerateProcedureBody(System.Collections.Generic.ICollection{System.Data.Entity.Core.Common.CommandTrees.DbModificationCommandTree},System.String,System.String)">
+      <summary>为存储过程生成 SQL 主体。</summary>
+      <returns>存储过程的 SQL 主体。</returns>
+      <param name="commandTrees">表示针对插入、更新或删除操作的命令的命令目录树。</param>
+      <param name="rowsAffectedParameter">影响了参数名称的行。</param>
+      <param name="providerManifestToken">提供程序清单标记。</param>
+    </member>
+    <member name="P:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.GuidColumnDefault">
+      <summary>返回要在迁移中没有显式指定默认值时用于存储生成的 GUID 列的列默认值。为本地 SQL Server 2005 和更高版本返回 newsequentialid()。为 SQL Azure 返回 newid()。</summary>
+      <returns>如上所述的 newsequentialid() 或 newid()。</returns>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Name(System.String)">
+      <summary>生成带引号的名称。提供的名称可能包含或不包含架构。</summary>
+      <returns>带引号的名称。</returns>
+      <param name="name">要用引号引起来的名称。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Quote(System.String)">
+      <summary>将 SQL Server 的标识符用引号引起来。</summary>
+      <returns>保存的标识符。</returns>
+      <param name="identifier">要用引号引起来的标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Statement(System.Data.Entity.Migrations.Utilities.IndentedTextWriter,System.String)">
+      <summary>添加新的要针对数据库执行的 Statement。</summary>
+      <param name="writer">包含要执行的 SQL 的编写器。</param>
+      <param name="batchTerminator">数据库提供程序的批处理终止符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Statement(System.String,System.Boolean,System.String)">
+      <summary>添加新的要针对数据库执行的 Statement。</summary>
+      <param name="sql">要执行的语句。</param>
+      <param name="suppressTransaction">指示是否应在用于进行迁移过程事务的事务范围外执行此语句。如果设置为 true，则在迁移过程失败时，不会回滚此操作。</param>
+      <param name="batchTerminator">数据库提供程序的批处理终止符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.StatementBatch(System.String,System.Boolean)">
+      <summary>将 sql 字符串拆分为一个或多个语句，必要时处理 T-SQL 实用工具语句。</summary>
+      <param name="sqlBatch">要拆分为一个或多个语句来执行的 SQL。</param>
+      <param name="suppressTransaction">获取或设置指示是否应在用于进行迁移过程事务的事务范围外执行此语句的值。如果设置为 true，则在迁移过程失败时，不会回滚此操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.WriteCreateTable(System.Data.Entity.Migrations.Model.CreateTableOperation)">
+      <summary>为 <see cref="T:System.Data.Entity.Migrations.Model.CreateTableOperation" /> 生成 SQL。应使用 Statement 方法添加生成的 SQL。</summary>
+      <param name="createTableOperation">为之生成 SQL 的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.WriteCreateTable(System.Data.Entity.Migrations.Model.CreateTableOperation,System.Data.Entity.Migrations.Utilities.IndentedTextWriter)">
+      <summary>将 CREATE TABLE SQL 写入目标编写器。</summary>
+      <param name="createTableOperation">为之生成 SQL 的操作。</param>
+      <param name="writer">目标编写器。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlServerMigrationSqlGenerator.Writer">
+      <summary>获取新的可用于生成 SQL 的 <see cref="T:System.Data.Entity.Migrations.Utilities.IndentedTextWriter" />。这只是用于创建编写器的帮助器方法。写入编写器将不会导致注册要执行的 SQL。必须将生成的 SQL 传递给 Statement 方法。</summary>
+      <returns>用于 SQL 生成的空文本编写器。</returns>
+    </member>
+    <member name="T:System.Data.Entity.SqlServer.SqlSpatialFunctions">
+      <summary>包含在 Linq to Entities 中公开 SqlServer 方法的函数存根。</summary>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.AsTextZM(System.Data.Entity.Spatial.DbGeography)">
+      <summary>返回地理实例的开放地理空间信息联盟 (OGC) 已知文本 (WKT) 表示形式，通过实例携带的 Z（海拔）和 M（度量）值扩充该实例。</summary>
+      <returns>地理实例的开放地理空间信息联盟 (OGC) 已知文本 (WKT) 表示形式。</returns>
+      <param name="geographyValue">地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.AsTextZM(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回地理实例的开放地理空间信息联盟 (OGC) 已知文本 (WKT) 表示形式，通过实例携带的 Z（海拔）和 M（度量）值扩充该实例。</summary>
+      <returns>几何实例的开放地理空间信息联盟 (OGC) 已知文本 (WKT) 表示形式。</returns>
+      <param name="geometryValue">几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.BufferWithTolerance(System.Data.Entity.Spatial.DbGeography,System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Boolean})">
+      <summary>返回一个几何对象，它表示针对允许的指定公差，与地理实例之间的距离小于或等于指定值的所有点的并集。</summary>
+      <returns>与地理实例之间的距离小于或等于指定值的所有点的并集</returns>
+      <param name="geographyValue">地理值。</param>
+      <param name="distance">距离。</param>
+      <param name="tolerance">指定的公差。</param>
+      <param name="relative">指定公差值是相对的还是绝对的。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.BufferWithTolerance(System.Data.Entity.Spatial.DbGeometry,System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Boolean})">
+      <summary>返回一个几何对象，它表示针对允许的指定公差，与几何实例之间的距离小于或等于指定值的所有点的并集。</summary>
+      <returns>与几何实例之间的距离小于或等于指定值的所有点的并集。</returns>
+      <param name="geometryValue">几何值。</param>
+      <param name="distance">距离。</param>
+      <param name="tolerance">指定的公差。</param>
+      <param name="relative">指定公差值是相对的还是绝对的。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.EnvelopeAngle(System.Data.Entity.Spatial.DbGeography)">
+      <summary>返回由 EnvelopeCenter() 返回的点与地理实例的点之间的最大角度（度）。</summary>
+      <returns>EnvelopeCenter() 返回的点之间的最大角度。</returns>
+      <param name="geographyValue">地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.EnvelopeCenter(System.Data.Entity.Spatial.DbGeography)">
+      <summary>返回可用作地理实例的边界圆中心的点。</summary>
+      <returns>指定边界圆的中心位置的 SqlGeography 值。</returns>
+      <param name="geographyValue">地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.Filter(System.Data.Entity.Spatial.DbGeography,System.Data.Entity.Spatial.DbGeography)">
+      <summary>提供快速的、只对交集编制索引的方法，以确定地理实例是否与另一 SqlGeography 实例相交（假定索引可用）。</summary>
+      <returns>如果某一地理实例可能与另一 SqlGeography 实例相交，则为 true；否则为 false。</returns>
+      <param name="geographyValue">地理值。</param>
+      <param name="geographyOther">要与调用筛选器的实例进行比较的另一地理实例。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.Filter(System.Data.Entity.Spatial.DbGeometry,System.Data.Entity.Spatial.DbGeometry)">
+      <summary>提供快速的、只对交集编制索引的方法，以确定地理实例是否与另一 SqlGeometry 实例相交（假定索引可用）。</summary>
+      <returns>如果某一地理实例可能与另一 SqlGeography 实例相交，则为 true；否则为 false。</returns>
+      <param name="geometryValue">几何值。</param>
+      <param name="geometryOther">要与调用筛选器的实例进行比较的另一地理实例。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.InstanceOf(System.Data.Entity.Spatial.DbGeography,System.String)">
+      <summary>测试 SqlGeography 实例是否与指定的类型相同。</summary>
+      <returns>一个字符串，它指定在地理类型层次结构中公开的 12 种类型之一。</returns>
+      <param name="geographyValue">地理值。</param>
+      <param name="geometryTypeName">一个字符串，它指定在地理类型层次结构中公开的 12 种类型之一。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.InstanceOf(System.Data.Entity.Spatial.DbGeometry,System.String)">
+      <summary>测试 SqlGeometry 实例是否与指定的类型相同。</summary>
+      <returns>一个字符串，它指定在地理类型层次结构中公开的 12 种类型之一。</returns>
+      <param name="geometryValue">几何值。</param>
+      <param name="geometryTypeName">一个字符串，它指定在地理类型层次结构中公开的 12 种类型之一。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.MakeValid(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>将无效的几何实例转换为具有有效开放地理空间信息联盟 (OGC) 类型的几何实例。</summary>
+      <returns>已转换的几何实例。</returns>
+      <param name="geometryValue">几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.NumRings(System.Data.Entity.Spatial.DbGeography)">
+      <summary>返回多边形实例中的总环数。</summary>
+      <returns>总环数。</returns>
+      <param name="geographyValue">地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.PointGeography(System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Int32})">
+      <summary>构造一个地理实例，它表示来自其 x 和 y 值以及空间引用 ID (SRID) 中的点实例。</summary>
+      <returns>构造的地理实例。</returns>
+      <param name="latitude">正在生成的点的 x 坐标。</param>
+      <param name="longitude">正在生成的点的 y 坐标</param>
+      <param name="spatialReferenceId">地理实例的 SRID。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.PointGeometry(System.Nullable{System.Double},System.Nullable{System.Double},System.Nullable{System.Int32})">
+      <summary>构造一个几何实例，它表示来自其 x 和 y 值以及空间引用 ID (SRID) 中的点实例。</summary>
+      <returns>构造的几何实例。</returns>
+      <param name="xCoordinate">正在生成的点的 x 坐标。</param>
+      <param name="yCoordinate">正在生成的点的 y 坐标</param>
+      <param name="spatialReferenceId">地理实例的 SRID。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.Reduce(System.Data.Entity.Spatial.DbGeography,System.Nullable{System.Double})">
+      <summary>返回对具有给定公差的实例运行 Douglas-Peucker 算法而生成的给定地理实例的近似值。</summary>
+      <returns>返回 <see cref="T:System.Data.Entity.Spatial.DbGeography" />。</returns>
+      <param name="geographyValue">地理值。</param>
+      <param name="tolerance">输入到 Douglas-Peucker 算法的公差。公差必须是正数。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.Reduce(System.Data.Entity.Spatial.DbGeometry,System.Nullable{System.Double})">
+      <summary>返回对具有给定公差的实例运行 Douglas-Peucker 算法而生成的给定地理实例的近似值。</summary>
+      <returns>返回 <see cref="T:System.Data.Entity.Spatial.DbGeometry" />。</returns>
+      <param name="geometryValue">几何值。</param>
+      <param name="tolerance">输入到 Douglas-Peucker 算法的公差。公差必须是正数。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialFunctions.RingN(System.Data.Entity.Spatial.DbGeography,System.Nullable{System.Int32})">
+      <summary>返回 SqlGeography 实例的指定环：1 ≤ n ≤ NumRings()。</summary>
+      <returns>表示由 n 指定的环的 SqlGeography 对象。</returns>
+      <param name="geographyValue">地理值。</param>
+      <param name="index">介于 1 到多边形实例中的环数之间的整数表达式。</param>
+    </member>
+    <member name="T:System.Data.Entity.SqlServer.SqlSpatialServices">
+      <summary>表示将实体框架与 Microsoft SQL Server 结合使用时将为地理空间类型提供支持的 <see cref="T:System.Data.Entity.Spatial.DbSpatialServices" /> 的实现。</summary>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.AsBinary(System.Data.Entity.Spatial.DbGeography)">
+      <summary>获取给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的已知二进制表示形式。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的已知二进制表示形式。</returns>
+      <param name="geographyValue">应为其生成已知二进制的地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.AsBinary(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>获取给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的已知二进制表示形式。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的已知二进制表示形式。</returns>
+      <param name="geometryValue">应为其生成已知二进制的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.AsGml(System.Data.Entity.Spatial.DbGeography)">
+      <summary>生成此 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的地理标记语言 (GML) 表示形式。</summary>
+      <returns>包含此 DbGeography 值的 GML 表示形式的字符串。</returns>
+      <param name="geographyValue">应生成 GML 的地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.AsGml(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>生成此 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的地理标记语言 (GML) 表示形式。</summary>
+      <returns>包含此 DbGeometry 值的 GML 表示形式的字符串。</returns>
+      <param name="geometryValue">应生成 GML 的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.AsText(System.Data.Entity.Spatial.DbGeography)">
+      <summary>获取给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的已知文本表示形式。此值仅应包含点的经度和纬度。</summary>
+      <returns>一个字符串，包含 <paramref name="geographyValue" /> 的已知文本表示形式。</returns>
+      <param name="geographyValue">应为其生成已知文本的地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.AsText(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>获取给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的已知文本表示形式，仅包含点的 X 和 Y 坐标。</summary>
+      <returns>一个字符串，包含 <paramref name="geometryValue" /> 的已知文本表示形式。</returns>
+      <param name="geometryValue">应为其生成已知文本的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.AsTextIncludingElevationAndMeasure(System.Data.Entity.Spatial.DbGeography)">
+      <summary>返回 <see cref="T:System.Data.Entity.SqlServer.SqlSpatialServices" /> 带有海拔和测量值的文本表示形式。</summary>
+      <returns>
+        <see cref="T:System.Data.Entity.SqlServer.SqlSpatialServices" /> 的文本表示形式。</returns>
+      <param name="geographyValue">地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.AsTextIncludingElevationAndMeasure(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回 <see cref="T:System.Data.Entity.SqlServer.SqlSpatialServices" /> 带有海拔和测量值的文本表示形式。</summary>
+      <returns>
+        <see cref="T:System.Data.Entity.SqlServer.SqlSpatialServices" /> 的文本表示形式。</returns>
+      <param name="geometryValue">几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Buffer(System.Data.Entity.Spatial.DbGeography,System.Double)">
+      <summary>创建一个地理值，该值表示所有距离小于或等于所给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的点。</summary>
+      <returns>一个新 DbGeography 值，表示所有距离小于或等于 <paramref name="geographyValue" /> 的点。</returns>
+      <param name="geographyValue">地理值。</param>
+      <param name="distance">指定从 <paramref name="geographyValue" /> 到缓冲区距离的双精度值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Buffer(System.Data.Entity.Spatial.DbGeometry,System.Double)">
+      <summary>创建一个几何值，该值表示所有距离小于或等于所给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 的点。</summary>
+      <returns>一个新 DbGeography 值，表示所有距离小于或等于 <paramref name="geometryValue" /> 的点。</returns>
+      <param name="geometryValue">几何值。</param>
+      <param name="distance">指定从 <paramref name="geometryValue" /> 到缓冲区距离的双精度值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Contains(System.Data.Entity.Spatial.DbGeometry,System.Data.Entity.Spatial.DbGeometry)">
+      <summary>确定一个 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值是否在空间上包含另一个值。</summary>
+      <returns>如果 <paramref name="geometryValue" /> 包含 <paramref name="otherGeometry" />，则为 true；否则为 false。</returns>
+      <param name="geometryValue">第一个几何值。</param>
+      <param name="otherGeometry">第二个几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.CreateProviderValue(System.Data.Entity.Spatial.DbGeographyWellKnownValue)">
+      <summary>基于指定的已知 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 表示形式，创建一个兼容此空间服务实现的提供程序特定值。</summary>
+      <returns>一个提供程序特定的值，它按与此空间服务实现兼容的方式对 <paramref name="wellKnownValue" /> 中包含的信息编码。</returns>
+      <param name="wellKnownValue">一个 <see cref="T:System.Data.Entity.Spatial.DbGeographyWellKnownValue" /> 实例，包含地理值的此已知表示形式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.CreateProviderValue(System.Data.Entity.Spatial.DbGeometryWellKnownValue)">
+      <summary>基于指定的已知 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 表示形式，创建一个兼容此空间服务实现的提供程序特定值。</summary>
+      <returns>一个提供程序特定的值，它按与此空间服务实现兼容的方式对 <paramref name="wellKnownValue" /> 中包含的信息编码。</returns>
+      <param name="wellKnownValue">一个 <see cref="T:System.Data.Entity.Spatial.DbGeometryWellKnownValue" /> 实例，包含几何值的此已知表示形式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.CreateWellKnownValue(System.Data.Entity.Spatial.DbGeography)">
+      <summary>使用其中一个或这两个标准已知空间格式，创建表示指定 <see cref="T:System.Data.Entity.Spatial.DbGeographyWellKnownValue" /> 值的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 实例。</summary>
+      <returns>
+        <paramref name="geographyValue" /> 的已知表示形式，作为新的 <see cref="T:System.Data.Entity.Spatial.DbGeographyWellKnownValue" />。</returns>
+      <param name="geographyValue">地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.CreateWellKnownValue(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>使用其中一个或这两个标准已知空间格式，创建表示指定 <see cref="T:System.Data.Entity.Spatial.DbGeometryWellKnownValue" /> 值的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 实例。</summary>
+      <returns>
+        <paramref name="geometryValue" /> 的已知表示形式，作为新的 <see cref="T:System.Data.Entity.Spatial.DbGeometryWellKnownValue" />。</returns>
+      <param name="geometryValue">几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Crosses(System.Data.Entity.Spatial.DbGeometry,System.Data.Entity.Spatial.DbGeometry)">
+      <summary>确定两个给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值是否在空间上相交。</summary>
+      <returns>如果 <paramref name="geometryValue" /> 与 <paramref name="otherGeometry" /> 相交，则为 true；否则为 false。</returns>
+      <param name="geometryValue">第一个几何值。</param>
+      <param name="otherGeometry">第二个几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Difference(System.Data.Entity.Spatial.DbGeography,System.Data.Entity.Spatial.DbGeography)">
+      <summary>计算两个 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的差异。</summary>
+      <returns>表示 <paramref name="geographyValue" /> 和 <paramref name="otherGeography" /> 的差异的新的 DbGeography 值。</returns>
+      <param name="geographyValue">第一个地理值。</param>
+      <param name="otherGeography">第二个地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Difference(System.Data.Entity.Spatial.DbGeometry,System.Data.Entity.Spatial.DbGeometry)">
+      <summary>计算两个 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的差异。</summary>
+      <returns>表示 <paramref name="geometryValue" /> 和 <paramref name="otherGeometry" /> 的差异的新的 DbGeometry 值。</returns>
+      <param name="geometryValue">第一个几何值。</param>
+      <param name="otherGeometry">第二个几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Disjoint(System.Data.Entity.Spatial.DbGeography,System.Data.Entity.Spatial.DbGeography)">
+      <summary>确定两个给定的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值是否在空间上不相交。</summary>
+      <returns>如果 <paramref name="geographyValue" /> 不与 <paramref name="otherGeography" /> 相交，则为 true；否则为 false。</returns>
+      <param name="geographyValue">用来比较不相交性的第一个地理值。</param>
+      <param name="otherGeography">用来比较不相交性的第二个地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Disjoint(System.Data.Entity.Spatial.DbGeometry,System.Data.Entity.Spatial.DbGeometry)">
+      <summary>确定两个给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值是否在空间上不相交。</summary>
+      <returns>如果 <paramref name="geometryValue" /> 不与 <paramref name="otherGeometry" /> 相交，则为 true；否则为 false。</returns>
+      <param name="geometryValue">用来比较不相交性的第一个几何值。</param>
+      <param name="otherGeometry">用来比较不相交性的第二个几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Distance(System.Data.Entity.Spatial.DbGeography,System.Data.Entity.Spatial.DbGeography)">
+      <summary>计算两个 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值中最接近的点之间的距离。</summary>
+      <returns>指定 <paramref name="geographyValue" /> 和 <paramref name="otherGeography" /> 中两个最接近的点之间的距离的双精度值。</returns>
+      <param name="geographyValue">第一个地理值。</param>
+      <param name="otherGeography">第二个地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Distance(System.Data.Entity.Spatial.DbGeometry,System.Data.Entity.Spatial.DbGeometry)">
+      <summary>计算两个 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值中最接近的点之间的距离。</summary>
+      <returns>指定 <paramref name="geographyValue" /> 和 <paramref name="otherGeography" /> 中两个最接近的点之间的距离的双精度值。</returns>
+      <param name="geometryValue">第一个地理值。</param>
+      <param name="otherGeometry">第二个地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.ElementAt(System.Data.Entity.Spatial.DbGeography,System.Int32)">
+      <summary>如果表示地理集合，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的元素。</summary>
+      <returns>如果表示其他地理值的集合，则为在位置 <paramref name="index" /> 处的 <paramref name="geographyValue" /> 中的元素；否则为 null。</returns>
+      <param name="geographyValue">不需要表示地理集合的地理值。</param>
+      <param name="index">在地理值中应提取元素的位置。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.ElementAt(System.Data.Entity.Spatial.DbGeometry,System.Int32)">
+      <summary>如果表示几何集合，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的元素。</summary>
+      <returns>如果表示其他地理值的集合，则为在位置 <paramref name="index" /> 处的 <paramref name="geographyValue" /> 中的元素；否则为 null。</returns>
+      <param name="geometryValue">不需要表示几何集合的几何值。</param>
+      <param name="index">在几何值中应提取元素的位置。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyCollectionFromBinary(System.Byte[],System.Int32)">
+      <summary>基于指定的已知二进制值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 集合值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，由已知二进制值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeography.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="geographyCollectionWellKnownBinary">一个字节数组，包含地理值的已知二进制表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyCollectionFromText(System.String,System.Int32)">
+      <summary>基于指定的已知文本值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 集合值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，由已知文本值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeography.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="geographyCollectionWellKnownText">一个字符串，包含地理值的已知文本表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyFromBinary(System.Byte[])">
+      <summary>基于指定的已知二进制值创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，由已知二进制值使用默认 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeography.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="wellKnownBinary">一个字节数组，包含地理值的已知二进制表示形式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyFromBinary(System.Byte[],System.Int32)">
+      <summary>基于指定的已知二进制值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，由已知二进制值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeography.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="wellKnownBinary">一个字节数组，包含地理值的已知二进制表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyFromGml(System.String)">
+      <summary>基于指定的地理标记语言 (GML) 值创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，由 GML 值使用默认 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 坐标系统标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeography.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="geographyMarkup">包含地理值的几何标记语言 (GML) 表示形式的字符串。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyFromGml(System.String,System.Int32)">
+      <summary>基于指定的地理标记语言 (GML) 值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，由 GML 值使用指定的坐标系标识符 (SRID) 进行定义。</returns>
+      <param name="geographyMarkup">包含地理值的几何标记语言 (GML) 表示形式的字符串。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyFromProviderValue(System.Object)">
+      <summary>基于与此空间服务实现兼容的提供程序特定的值创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" />DbGeometry 值，它受此空间服务实现和指定提供程序值的支持。</returns>
+      <param name="providerValue">此空间服务实现可将其解释为地理值的提供程序特定的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyFromText(System.String)">
+      <summary>基于指定的已知文本值创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，由已知文本值使用默认 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 坐标系标识符 (SRID) <see cref="P:System.Data.Entity.Spatial.DbGeography.DefaultCoordinateSystemId" /> 进行定义。</returns>
+      <param name="wellKnownText">一个字符串，包含地理值的已知文本表示形式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyFromText(System.String,System.Int32)">
+      <summary>基于指定的已知文本值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，由已知文本值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeography.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="wellKnownText">一个字符串，包含地理值的已知文本表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyLineFromBinary(System.Byte[],System.Int32)">
+      <summary>基于指定的已知二进制值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 线值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，由已知二进制值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeography.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="lineWellKnownBinary">一个字节数组，包含地理值的已知二进制表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyLineFromText(System.String,System.Int32)">
+      <summary>基于指定的已知文本值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 线值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，由已知文本值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeography.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="lineWellKnownText">一个字符串，包含地理值的已知文本表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyMultiLineFromBinary(System.Byte[],System.Int32)">
+      <summary>基于指定的已知二进制值和坐标系标识符，创建一个新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 多线值。</summary>
+      <returns>新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 多线值。</returns>
+      <param name="multiLineWellKnownBinary">已知的二进制值。</param>
+      <param name="coordinateSystemId">坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyMultiLineFromText(System.String,System.Int32)">
+      <summary>基于指定的已知文本值和坐标系标识符，创建一个新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 多线值。</summary>
+      <returns>新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 多线值。</returns>
+      <param name="multiLineWellKnownText">已知的文本值。</param>
+      <param name="coordinateSystemId">坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyMultiPointFromBinary(System.Byte[],System.Int32)">
+      <summary>基于指定的已知二进制值和坐标系标识符，创建一个新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 多点值。</summary>
+      <returns>新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 多点值。</returns>
+      <param name="multiPointWellKnownBinary">已知的二进制值。</param>
+      <param name="coordinateSystemId">坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyMultiPointFromText(System.String,System.Int32)">
+      <summary>基于指定的已知文本值和坐标系标识符，创建一个新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 多点值。</summary>
+      <returns>新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 多点值。</returns>
+      <param name="multiPointWellKnownText">已知的文本值。</param>
+      <param name="coordinateSystemId">坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyMultiPolygonFromBinary(System.Byte[],System.Int32)">
+      <summary>基于指定的已知二进制值和坐标系标识符，创建一个新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 多多边形值。</summary>
+      <returns>新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 多边形值。</returns>
+      <param name="multiPolygonWellKnownBinary">已知的二进制值。</param>
+      <param name="coordinateSystemId">坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyMultiPolygonFromText(System.String,System.Int32)">
+      <summary>基于指定的已知文本值和坐标系标识符，创建一个新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 多多边形值。</summary>
+      <returns>新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 多边形值。</returns>
+      <param name="multiPolygonKnownText">已知的文本值。</param>
+      <param name="coordinateSystemId">坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyPointFromBinary(System.Byte[],System.Int32)">
+      <summary>基于指定的已知二进制值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 点值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，由已知二进制值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeography.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="pointWellKnownBinary">一个字节数组，包含地理值的已知二进制表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyPointFromText(System.String,System.Int32)">
+      <summary>基于指定的已知文本值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 点值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，由已知文本值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeography.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="pointWellKnownText">一个字符串，包含地理值的已知文本表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyPolygonFromBinary(System.Byte[],System.Int32)">
+      <summary>基于指定的已知二进制值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 多边形值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，由已知二进制值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeography.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="polygonWellKnownBinary">一个字节数组，包含地理值的已知二进制表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeographyPolygonFromText(System.String,System.Int32)">
+      <summary>基于指定的已知文本值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 多边形值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，由已知文本值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeography.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="polygonWellKnownText">一个字符串，包含地理值的已知文本表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryCollectionFromBinary(System.Byte[],System.Int32)">
+      <summary>基于指定的已知二进制值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 集合值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，由已知二进制值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeometry.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="geometryCollectionWellKnownBinary">一个字节数组，包含几何值的已知二进制表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryCollectionFromText(System.String,System.Int32)">
+      <summary>基于指定的已知文本值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 集合值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，由已知文本值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeometry.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="geometryCollectionWellKnownText">一个字符串，包含几何值的已知文本表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryFromBinary(System.Byte[])">
+      <summary>基于指定的已知二进制值创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，由已知二进制值使用默认 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeometry.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="wellKnownBinary">一个字节数组，包含几何值的已知二进制表示形式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryFromBinary(System.Byte[],System.Int32)">
+      <summary>基于指定的已知二进制值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，由已知二进制值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeometry.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="wellKnownBinary">一个字节数组，包含几何值的已知二进制表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryFromGml(System.String)">
+      <summary>基于指定的地理标记语言 (GML) 值创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，由 GML 值使用默认 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 坐标系统标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeometry.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="geometryMarkup">包含几何值的地理标记语言 (GML) 表示形式的字符串。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryFromGml(System.String,System.Int32)">
+      <summary>基于指定的地理标记语言 (GML) 值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，由 GML 值使用指定的坐标系标识符 (SRID) 进行定义。</returns>
+      <param name="geometryMarkup">包含几何值的地理标记语言 (GML) 表示形式的字符串。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryFromProviderValue(System.Object)">
+      <summary>基于与此空间服务实现兼容的提供程序特定的值创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" />DbGeometry 值，它受此空间服务实现和指定提供程序值的支持。</returns>
+      <param name="providerValue">此空间服务实现可将其解释为几何值的提供程序特定的值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryFromText(System.String)">
+      <summary>基于指定的已知文本值创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，由已知文本值使用默认 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 坐标系标识符 (SRID) <see cref="P:System.Data.Entity.Spatial.DbGeometry.DefaultCoordinateSystemId" /> 进行定义。</returns>
+      <param name="wellKnownText">一个字符串，包含几何值的已知文本表示形式。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryFromText(System.String,System.Int32)">
+      <summary>基于指定的已知文本值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，由已知文本值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeometry.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="wellKnownText">一个字符串，包含几何值的已知文本表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryLineFromBinary(System.Byte[],System.Int32)">
+      <summary>基于指定的已知二进制值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 线值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，由已知二进制值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeometry.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="lineWellKnownBinary">一个字节数组，包含几何值的已知二进制表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryLineFromText(System.String,System.Int32)">
+      <summary>基于指定的已知文本值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 线值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，由已知文本值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeometry.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="lineWellKnownText">一个字符串，包含几何值的已知文本表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryMultiLineFromBinary(System.Byte[],System.Int32)">
+      <summary>基于指定的已知二进制值和坐标系标识符，创建一个新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 多线值。</summary>
+      <returns>新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 多线值。</returns>
+      <param name="multiLineWellKnownBinary">已知的二进制值。</param>
+      <param name="coordinateSystemId">坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryMultiLineFromText(System.String,System.Int32)">
+      <summary>基于指定的已知文本值和坐标系标识符，创建一个新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 多线值。</summary>
+      <returns>新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 多线值。</returns>
+      <param name="multiLineWellKnownText">已知的文本值。</param>
+      <param name="coordinateSystemId">坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryMultiPointFromBinary(System.Byte[],System.Int32)">
+      <summary>基于指定的已知二进制值和坐标系标识符，创建一个新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 多点值。</summary>
+      <returns>新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 多点值。</returns>
+      <param name="multiPointWellKnownBinary">已知的二进制值。</param>
+      <param name="coordinateSystemId">坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryMultiPointFromText(System.String,System.Int32)">
+      <summary>基于指定的已知文本值和坐标系标识符，创建一个新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 多点值。</summary>
+      <returns>新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 多点值。</returns>
+      <param name="multiPointWellKnownText">已知的文本值。</param>
+      <param name="coordinateSystemId">坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryMultiPolygonFromBinary(System.Byte[],System.Int32)">
+      <summary>基于指定的已知二进制值和坐标系标识符，创建一个新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 多多边形值。</summary>
+      <returns>新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 多边形值。</returns>
+      <param name="multiPolygonWellKnownBinary">已知的二进制值。</param>
+      <param name="coordinateSystemId">坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryMultiPolygonFromText(System.String,System.Int32)">
+      <summary>基于指定的已知文本值和坐标系标识符，创建一个新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 多多边形值。</summary>
+      <returns>新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 多边形值。</returns>
+      <param name="multiPolygonKnownText">已知的文本值。</param>
+      <param name="coordinateSystemId">坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryPointFromBinary(System.Byte[],System.Int32)">
+      <summary>基于指定的已知二进制值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 点值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，由已知二进制值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeometry.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="pointWellKnownBinary">一个字节数组，包含几何值的已知二进制表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryPointFromText(System.String,System.Int32)">
+      <summary>基于指定的已知文本值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 点值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，由已知文本值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeometry.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="pointWellKnownText">一个字符串，包含几何值的已知文本表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryPolygonFromBinary(System.Byte[],System.Int32)">
+      <summary>基于指定的已知二进制值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 多边形值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，由已知二进制值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeometry.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="polygonWellKnownBinary">一个字节数组，包含几何值的已知二进制表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GeometryPolygonFromText(System.String,System.Int32)">
+      <summary>基于指定的已知文本值和坐标系标识符 (SRID) 创建新的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 多边形值。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，由已知文本值使用指定的坐标系标识符 (SRID) (<see cref="P:System.Data.Entity.Spatial.DbGeometry.DefaultCoordinateSystemId" />) 进行定义。</returns>
+      <param name="polygonWellKnownText">一个字符串，包含几何值的已知文本表示形式。</param>
+      <param name="coordinateSystemId">新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值应使用的坐标系标识符。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetArea(System.Data.Entity.Spatial.DbGeography)">
+      <summary>返回一个指示给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的面积、可以为 null 的双精度值，如果该值不表示面则可能为 null。</summary>
+      <returns>一个可以为 null 的双精度值，指示给定的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的面积。</returns>
+      <param name="geographyValue">不需要表示面的地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetArea(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回一个指示给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的面积、可以为 null 的双精度值，如果该值不表示面则可能为 null。</summary>
+      <returns>一个可以为 null 的双精度值，指示给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的面积。</returns>
+      <param name="geometryValue">不需要表示面的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetBoundary(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回一个指示给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的边界、可以为 null 的双精度值。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的边界。</returns>
+      <param name="geometryValue">几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetCentroid(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回表示给定 DbGeometry 值形心的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，如果该值不表示面则可能为 null。</summary>
+      <returns>如果 <paramref name="geometryValue" /> 表示面，则为它的形心；否则为 null。</returns>
+      <param name="geometryValue">不需要表示面的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetConvexHull(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回一个指示给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的凸包、可以为 null 的双精度值。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的凸包。</returns>
+      <param name="geometryValue">几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetCoordinateSystemId(System.Data.Entity.Spatial.DbGeography)">
+      <summary>返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的坐标系标识符。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的坐标系标识符。</returns>
+      <param name="geographyValue">地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetCoordinateSystemId(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的坐标系标识符。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的坐标系标识符。</returns>
+      <param name="geometryValue">几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetDimension(System.Data.Entity.Spatial.DbGeography)">
+      <summary>获取给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的维度（如果该值为一个集合）或最大的元素维度。</summary>
+      <returns>
+        <paramref name="geographyValue" /> 的维度或最大元素维度（如果 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 为集合）。</returns>
+      <param name="geographyValue">应检索维度值的地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetDimension(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>获取给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的维度（如果该值为一个集合）或最大的元素维度。</summary>
+      <returns>
+        <paramref name="geometryValue" /> 的维度或最大元素维度（如果 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 为集合）。</returns>
+      <param name="geometryValue">应检索维度值的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetElementCount(System.Data.Entity.Spatial.DbGeography)">
+      <summary>如果表示地理集合，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的元素数目。</summary>
+      <returns>如果 <paramref name="geographyValue" /> 表示其他地理值的集合，则为它当中的元素个数；否则为 null。</returns>
+      <param name="geographyValue">不需要表示地理集合的地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetElementCount(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>如果表示几何集合，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的元素数目。</summary>
+      <returns>如果 <paramref name="geometryValue" /> 表示其他几何值的集合，则为它当中的元素数；否则为 null。</returns>
+      <param name="geometryValue">不需要表示几何集合的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetElevation(System.Data.Entity.Spatial.DbGeography)">
+      <summary>如果表示点，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的海拔（Z 坐标）。</summary>
+      <returns>如果 <paramref name="geographyValue" /> 表示点，则为它的海拔（Z 坐标）；否则为 null。</returns>
+      <param name="geographyValue">不需要表示点的地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetElevation(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>如果表示点，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的海拔 (Z)。</summary>
+      <returns>如果 <paramref name="geometryValue" /> 表示点，则为它的海拔（Z 坐标）；否则为 null。</returns>
+      <param name="geometryValue">不需要表示点的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetEndPoint(System.Data.Entity.Spatial.DbGeography)">
+      <summary>返回表示给定 DbGeography 值终点的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，如果该值不表示曲线则可能为 null。</summary>
+      <returns>如果 <paramref name="geographyValue" /> 表示曲线，则为它的终点；否则为 null。</returns>
+      <param name="geographyValue">不需要表示曲线的地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetEndPoint(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回表示给定 DbGeometry 值终点的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，如果该值不表示曲线则可能为 null。</summary>
+      <returns>如果 <paramref name="geometryValue" /> 表示曲线，则为它的终点；否则为 null。</returns>
+      <param name="geometryValue">不需要表示曲线的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetEnvelope(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>获取给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的包络线（最小边界框）作为几何值。</summary>
+      <returns>作为 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的 <paramref name="geometryValue" /> 的包络线。</returns>
+      <param name="geometryValue">应检索包络线值的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetExteriorRing(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回表示给定 DbGeometry 值外部环的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，如果该值不表示多边形则可能为 null。</summary>
+      <returns>如果此 <paramref name="geometryValue" /> 表示多边形，则为表示其上外部环的 DbGeometry 值；否则为 null。</returns>
+      <param name="geometryValue">不需要表示多边形的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetInteriorRingCount(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>如果表示多边形，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值中的内部环数。</summary>
+      <returns>如果此 <paramref name="geometryValue" /> 表示多边形，则为它当中的元素数；否则为 null。</returns>
+      <param name="geometryValue">不需要表示多边形的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetIsClosed(System.Data.Entity.Spatial.DbGeography)">
+      <summary>返回可以为 null 的布尔值，该值指示给定的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值是否闭合；如果该值不表示曲线则可能为 null。</summary>
+      <returns>如果给定的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值为闭合值，则为 true；否则为 false。</returns>
+      <param name="geographyValue">不需要表示曲线的地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetIsClosed(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回可以为 null 的布尔值，该值指示给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值是否闭合；如果该值不表示曲线则可能为 null。</summary>
+      <returns>如果给定的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值为闭合值，则为 true；否则为 false。</returns>
+      <param name="geometryValue">不需要表示曲线的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetIsEmpty(System.Data.Entity.Spatial.DbGeography)">
+      <summary>返回一个可以为 null 的布尔值，该值指示给定的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值是否为空。</summary>
+      <returns>如果给定的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 为空，则为 true；否则为 false。</returns>
+      <param name="geographyValue">地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetIsEmpty(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回一个可以为 null 的布尔值，该值指示给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值是否为空。</summary>
+      <returns>如果给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 为空，则为 true；否则为 false。</returns>
+      <param name="geometryValue">几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetIsRing(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回可以为 null 的布尔值，该值指示给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值是否是环；如果该值不表示曲线则可能为 null。</summary>
+      <returns>如果给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值是一个环，则为 true；否则为 false。</returns>
+      <param name="geometryValue">不需要表示曲线的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetIsSimple(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回一个可以为 null 的布尔值，该值指示给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值是否很简单。</summary>
+      <returns>如果给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值简单，则为 true；否则为 false。</returns>
+      <param name="geometryValue">几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetIsValid(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回一个可以为 null 的布尔值，该值指示给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值是否有效。</summary>
+      <returns>如果给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值有效，则为 true；否则为 false。</returns>
+      <param name="geometryValue">几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetLatitude(System.Data.Entity.Spatial.DbGeography)">
+      <summary>如果表示点，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的纬度坐标。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的维度坐标。</returns>
+      <param name="geographyValue">不需要表示点的地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetLength(System.Data.Entity.Spatial.DbGeography)">
+      <summary>返回一个指示给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的长度、可以为 null 的双精度值，如果该值不表示曲线则可能为 null。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的长度。</returns>
+      <param name="geographyValue">不需要表示曲线的地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetLength(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回一个指示给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的长度、可以为 null 的双精度值，如果该值不表示曲线则可能为 null。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的长度。</returns>
+      <param name="geometryValue">不需要表示曲线的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetLongitude(System.Data.Entity.Spatial.DbGeography)">
+      <summary>如果表示点，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的经度坐标。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的经度坐标。</returns>
+      <param name="geographyValue">不需要表示点的地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetMeasure(System.Data.Entity.Spatial.DbGeography)">
+      <summary>如果表示点，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的 M（度量值）坐标。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的 M（测量值）坐标。</returns>
+      <param name="geographyValue">不需要表示点的地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetMeasure(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>如果表示点，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的 M（度量值）坐标。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的 M（测量值）坐标。</returns>
+      <param name="geometryValue">不需要表示点的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetPointCount(System.Data.Entity.Spatial.DbGeography)">
+      <summary>如果表示行字符串或线性环，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值中的点数。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值中的点数。</returns>
+      <param name="geographyValue">不需要表示行字符串或线性环的地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetPointCount(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>如果表示行字符串或线性环，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值中的点数。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值中的点数。</returns>
+      <param name="geometryValue">不需要表示行字符串或线性环的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetPointOnSurface(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回表示给定 DbGeometry 值面上点的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，如果该值不表示面则可能为 null。</summary>
+      <returns>表示给定 <paramref name="geometryValue" /> 的面上一个点的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值。</returns>
+      <param name="geometryValue">不需要表示面的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetSpatialTypeName(System.Data.Entity.Spatial.DbGeography)">
+      <summary>返回指示给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的空间类型名称的值。</summary>
+      <returns>给定的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的空间类型名称。</returns>
+      <param name="geographyValue">地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetSpatialTypeName(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回指示给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的空间类型名称的值。</summary>
+      <returns>给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的空间类型名称。</returns>
+      <param name="geometryValue">几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetStartPoint(System.Data.Entity.Spatial.DbGeography)">
+      <summary>返回表示给定 DbGeography 值起点的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，如果该值不表示曲线则可能为 null。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的起始点。</returns>
+      <param name="geographyValue">不需要表示曲线的地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetStartPoint(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>返回表示给定 DbGeometry 值起点的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，如果该值不表示曲线则可能为 null。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的起始点。</returns>
+      <param name="geometryValue">不需要表示曲线的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetXCoordinate(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>如果表示点，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的 X 坐标。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的 X 坐标。</returns>
+      <param name="geometryValue">不需要表示点的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.GetYCoordinate(System.Data.Entity.Spatial.DbGeometry)">
+      <summary>如果表示点，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的 Y 坐标。</summary>
+      <returns>给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的 Y 坐标。</returns>
+      <param name="geometryValue">不需要表示点的几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.InteriorRingAt(System.Data.Entity.Spatial.DbGeometry,System.Int32)">
+      <summary>如果表示多边形，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值中的内部环。</summary>
+      <returns>如果表示多边形，则为位置 <paramref name="index" /> 处 <paramref name="geometryValue" /> 中的内部环；否则为 null。</returns>
+      <param name="geometryValue">不需要表示多边形的几何值。</param>
+      <param name="index">在几何值中应提取元素的位置。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Intersection(System.Data.Entity.Spatial.DbGeography,System.Data.Entity.Spatial.DbGeography)">
+      <summary>计算两个 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的交集。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，表示 <paramref name="geographyValue" /> 和 <paramref name="otherGeography" /> 的交集。</returns>
+      <param name="geographyValue">第一个地理值。</param>
+      <param name="otherGeography">第二个地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Intersection(System.Data.Entity.Spatial.DbGeometry,System.Data.Entity.Spatial.DbGeometry)">
+      <summary>计算两个 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的交集。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，表示 <paramref name="geographyValue" /> 和 <paramref name="otherGeography" /> 的交集。</returns>
+      <param name="geometryValue">第一个几何值。</param>
+      <param name="otherGeometry">第二个地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Intersects(System.Data.Entity.Spatial.DbGeography,System.Data.Entity.Spatial.DbGeography)">
+      <summary>确定两个给定的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值是否在空间上相交。</summary>
+      <returns>如果 <paramref name="geographyValue" /> 与 <paramref name="otherGeography" /> 相交，则为 true；否则为 false。</returns>
+      <param name="geographyValue">用来比较相交性的第一个地理值。</param>
+      <param name="otherGeography">用来比较相交性的第二个地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Intersects(System.Data.Entity.Spatial.DbGeometry,System.Data.Entity.Spatial.DbGeometry)">
+      <summary>确定两个给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值是否在空间上相交。</summary>
+      <returns>如果 <paramref name="geometryValue" /> 与 <paramref name="otherGeometry" /> 相交，则为 true；否则为 false。</returns>
+      <param name="geometryValue">用来比较相交性的第一个几何值。</param>
+      <param name="otherGeometry">用来比较相交性的第二个几何值。</param>
+    </member>
+    <member name="P:System.Data.Entity.SqlServer.SqlSpatialServices.NativeTypesAvailable">
+      <summary>获取一个值，该值指示 EF 是否将在假定提供程序具有所需的类型/资源而非更快失败的情况下继续运行。默认值为 true。</summary>
+      <returns>如果 EF 将在假定提供程序具有所需的类型/资源而非更快失败的情况下继续运行，则为 true；否则为 false。</returns>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Overlaps(System.Data.Entity.Spatial.DbGeometry,System.Data.Entity.Spatial.DbGeometry)">
+      <summary>确定两个给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值是否在空间上重叠。</summary>
+      <returns>如果 <paramref name="geometryValue" /> 与 <paramref name="otherGeometry" /> 重叠，则为 true；否则为 false。</returns>
+      <param name="geometryValue">第一个几何值。</param>
+      <param name="otherGeometry">第二个几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.PointAt(System.Data.Entity.Spatial.DbGeography,System.Int32)">
+      <summary>如果表示行字符串或线性环，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的点元素。</summary>
+      <returns>如果表示行字符串或线性环，则为位置 <paramref name="index" /> 处 <paramref name="geographyValue" /> 中的点；否则为 null。</returns>
+      <param name="geographyValue">不需要表示行字符串或线性环的地理值。</param>
+      <param name="index">在地理值中应提取元素的位置。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.PointAt(System.Data.Entity.Spatial.DbGeometry,System.Int32)">
+      <summary>如果表示行字符串或线性环，则返回给定 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的点元素。</summary>
+      <returns>如果表示行字符串或线性环，则为位置 <paramref name="index" /> 处 <paramref name="geometryValue" /> 中的点；否则为 null。</returns>
+      <param name="geometryValue">不需要表示行字符串或线性环的几何值。</param>
+      <param name="index">在几何值中应提取元素的位置。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Relate(System.Data.Entity.Spatial.DbGeometry,System.Data.Entity.Spatial.DbGeometry,System.String)">
+      <summary>根据给定的维度扩展的 9 交集模型 (DE-9IM) 交集模式来确定两个给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值在空间上是否相关。</summary>
+      <returns>如果根据指定的交集模式 <paramref name="matrix" />，此 <paramref name="geometryValue" /> 值与 <paramref name="otherGeometry" /> 相关，则为 true；否则为 false。</returns>
+      <param name="geometryValue">第一个几何值。</param>
+      <param name="otherGeometry">应与第一个几何值比较相关性的几何值。</param>
+      <param name="matrix">包含定义了相关性的 (DE-9IM) 交集模式的文本表示形式的字符串。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.SpatialEquals(System.Data.Entity.Spatial.DbGeography,System.Data.Entity.Spatial.DbGeography)">
+      <summary>确定两个给定的 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值在空间上是否相等。</summary>
+      <returns>如果 <paramref name="geographyValue" /> 在空间上与 <paramref name="otherGeography" /> 相等，则为 true；否则为 false。</returns>
+      <param name="geographyValue">要比较是否相等的第一个地理值。</param>
+      <param name="otherGeography">要比较是否相等的第二个地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.SpatialEquals(System.Data.Entity.Spatial.DbGeometry,System.Data.Entity.Spatial.DbGeometry)">
+      <summary>确定两个给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值在空间上是否相等。</summary>
+      <returns>如果 <paramref name="geometryValue" /> 在空间上与 <paramref name="otherGeometry" /> 相等，则为 true；否则为 false。</returns>
+      <param name="geometryValue">要比较是否相等的第一个几何值。</param>
+      <param name="otherGeometry">要比较是否相等的第二个几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.SymmetricDifference(System.Data.Entity.Spatial.DbGeography,System.Data.Entity.Spatial.DbGeography)">
+      <summary>计算两个 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的对称差异。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，表示 <paramref name="geographyValue" /> 和 <paramref name="otherGeography" /> 对称差异。</returns>
+      <param name="geographyValue">第一个地理值。</param>
+      <param name="otherGeography">第二个地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.SymmetricDifference(System.Data.Entity.Spatial.DbGeometry,System.Data.Entity.Spatial.DbGeometry)">
+      <summary>计算两个 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的对称差异。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，表示 <paramref name="geometryValue" /> 和 <paramref name="otherGeometry" /> 之间的对称差异。</returns>
+      <param name="geometryValue">第一个几何值。</param>
+      <param name="otherGeometry">第二个几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Touches(System.Data.Entity.Spatial.DbGeometry,System.Data.Entity.Spatial.DbGeometry)">
+      <summary>确定两个给定的 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值在空间上是否接触。</summary>
+      <returns>如果 <paramref name="geometryValue" /> 与 <paramref name="otherGeometry" /> 相接，则为 true；否则为 false。</returns>
+      <param name="geometryValue">第一个几何值。</param>
+      <param name="otherGeometry">第二个几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Union(System.Data.Entity.Spatial.DbGeography,System.Data.Entity.Spatial.DbGeography)">
+      <summary>计算两个 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值的并集。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeography" /> 值，表示 <paramref name="geographyValue" /> 和 <paramref name="otherGeography" /> 的并集。</returns>
+      <param name="geographyValue">第一个地理值。</param>
+      <param name="otherGeography">第二个地理值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Union(System.Data.Entity.Spatial.DbGeometry,System.Data.Entity.Spatial.DbGeometry)">
+      <summary>计算两个 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值的并集。</summary>
+      <returns>一个新 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值，表示 <paramref name="geometryValue" /> 和 <paramref name="otherGeometry" /> 的并集。</returns>
+      <param name="geometryValue">第一个几何值。</param>
+      <param name="otherGeometry">第二个几何值。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.SqlSpatialServices.Within(System.Data.Entity.Spatial.DbGeometry,System.Data.Entity.Spatial.DbGeometry)">
+      <summary>确定一个 <see cref="T:System.Data.Entity.Spatial.DbGeometry" /> 值在空间上是否在另一几何值内。</summary>
+      <returns>如果 geometryValue 在 otherGeometry 中，则为 true；否则为 false。</returns>
+      <param name="geometryValue">第一个几何值。</param>
+      <param name="otherGeometry">第二个几何值。</param>
+    </member>
+    <member name="T:System.Data.Entity.SqlServer.Utilities.TaskExtensions">
+      <summary>包含 <see cref="T:System.Threading.Tasks.Task" /> 类的扩展方法。</summary>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.Utilities.TaskExtensions.WithCurrentCulture(System.Threading.Tasks.Task)">
+      <summary>配置用于等待此 <see cref="T:System.Threading.Tasks.Task" /> 的等待器，以避免封送继续部分回原始上下文，但是保留当前区域性和 UI 区域性。</summary>
+      <returns>用于等待此任务的对象。</returns>
+      <param name="task">要等待的任务。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.Utilities.TaskExtensions.WithCurrentCulture``1(System.Threading.Tasks.Task{``0})">
+      <summary>配置用于等待此 <see cref="T:System.Threading.Tasks.Task`1" /> 的等待器，以避免封送继续部分回原始上下文，但是保留当前区域性和 UI 区域性。</summary>
+      <returns>用于等待此任务的对象。</returns>
+      <param name="task">要等待的任务。</param>
+      <typeparam name="T">相关 <see cref="T:System.Threading.Tasks.Task`1" /> 所生成的结果类型。</typeparam>
+    </member>
+    <member name="T:System.Data.Entity.SqlServer.Utilities.TaskExtensions.CultureAwaiter">
+      <summary>提供一个可等待的对象，它允许等待保留区域性的 <see cref="T:System.Threading.Tasks.Task" />。</summary>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.Utilities.TaskExtensions.CultureAwaiter.#ctor(System.Threading.Tasks.Task)">
+      <summary>构造 <see cref="T:System.Data.Entity.SqlServer.Utilities.TaskExtensions.CultureAwaiter" /> 类的新实例。</summary>
+      <param name="task">要等待的任务。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.Utilities.TaskExtensions.CultureAwaiter.GetAwaiter">
+      <summary>获取用于等待此 <see cref="T:System.Threading.Tasks.Task" /> 的等待器。</summary>
+      <returns>等待器实例。</returns>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.Utilities.TaskExtensions.CultureAwaiter.GetResult">
+      <summary>结束等待已完成的 <see cref="T:System.Threading.Tasks.Task" />。</summary>
+      <exception cref="T:System.NullReferenceException">未正确初始化等待器。</exception>
+      <exception cref="T:System.Threading.Tasks.TaskCanceledException">该任务已取消。</exception>
+      <exception cref="T:System.Exception">任务在错误状态下完成。</exception>
+    </member>
+    <member name="P:System.Data.Entity.SqlServer.Utilities.TaskExtensions.CultureAwaiter.IsCompleted">
+      <summary>获取此 <see cref="T:System.Threading.Tasks.Task" /> 是否已完成的信息。</summary>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.Utilities.TaskExtensions.CultureAwaiter.OnCompleted(System.Action)">
+      <summary>未实施此方法，不应调用它。</summary>
+      <param name="continuation">等待操作完成时要调用的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.Utilities.TaskExtensions.CultureAwaiter.UnsafeOnCompleted(System.Action)">
+      <summary>计划继续操作到与此 <see cref="T:System.Runtime.CompilerServices.TaskAwaiter" /> 关联的 <see cref="T:System.Threading.Tasks.Task" />。</summary>
+      <param name="continuation">等待操作完成时要调用的操作。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="continuation" /> 参数为 null（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.InvalidOperationException">未正确初始化等待器。</exception>
+    </member>
+    <member name="T:System.Data.Entity.SqlServer.Utilities.TaskExtensions.CultureAwaiter`1">
+      <summary>提供一个可等待的对象，它允许等待保留区域性的 <see cref="T:System.Threading.Tasks.Task`1" />。</summary>
+      <typeparam name="T">相关 <see cref="T:System.Threading.Tasks.Task`1" /> 所生成的结果类型。</typeparam>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.Utilities.TaskExtensions.CultureAwaiter`1.#ctor(System.Threading.Tasks.Task{`0})">
+      <summary>构造 <see cref="T:System.Data.Entity.SqlServer.Utilities.TaskExtensions.CultureAwaiter`1" /> 类的新实例。</summary>
+      <param name="task">要等待的任务。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.Utilities.TaskExtensions.CultureAwaiter`1.GetAwaiter">
+      <summary>获取用于等待此 <see cref="T:System.Threading.Tasks.Task`1" /> 的等待器。</summary>
+      <returns>等待器实例。</returns>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.Utilities.TaskExtensions.CultureAwaiter`1.GetResult">
+      <summary>结束等待已完成的 <see cref="T:System.Threading.Tasks.Task`1" />。</summary>
+      <returns>已完成的 <see cref="T:System.Threading.Tasks.Task`1" /> 的结果。</returns>
+      <exception cref="T:System.NullReferenceException">未正确初始化等待器。</exception>
+      <exception cref="T:System.Threading.Tasks.TaskCanceledException">该任务已取消。</exception>
+      <exception cref="T:System.Exception">任务在错误状态下完成。</exception>
+    </member>
+    <member name="P:System.Data.Entity.SqlServer.Utilities.TaskExtensions.CultureAwaiter`1.IsCompleted">
+      <summary>获取此 <see cref="T:System.Threading.Tasks.Task" /> 是否已完成的信息。</summary>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.Utilities.TaskExtensions.CultureAwaiter`1.OnCompleted(System.Action)">
+      <summary>未实施此方法，不应调用它。</summary>
+      <param name="continuation">等待操作完成时要调用的操作。</param>
+    </member>
+    <member name="M:System.Data.Entity.SqlServer.Utilities.TaskExtensions.CultureAwaiter`1.UnsafeOnCompleted(System.Action)">
+      <summary>计划继续操作到与此 <see cref="T:System.Runtime.CompilerServices.TaskAwaiter`1" /> 关联的 <see cref="T:System.Threading.Tasks.Task`1" />。</summary>
+      <param name="continuation">等待操作完成时要调用的操作。</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="continuation" /> 参数为 null（在 Visual Basic 中为 Nothing）。</exception>
+      <exception cref="T:System.InvalidOperationException">未正确初始化等待器。</exception>
+    </member>
+  </members>
+</doc>

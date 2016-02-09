@@ -754,8 +754,36 @@
         </member>
         <member name="T:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem">
             <summary>
-            SenparcMessageQueueItem
+            SenparcMessageQueue消息列队项
             </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem.Key">
+            <summary>
+            列队项唯一标识
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem.Action">
+            <summary>
+            列队项目命中触发时执行的委托
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem.AddTime">
+            <summary>
+            此实例对象的创建时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem.Description">
+            <summary>
+            项目说明（主要用于调试）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem.#ctor(System.String,System.Action,System.String)">
+            <summary>
+            初始化SenparcMessageQueue消息列队项
+            </summary>
+            <param name="key"></param>
+            <param name="action"></param>
+            <param name="description"></param>
         </member>
         <member name="T:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility">
             <summary>

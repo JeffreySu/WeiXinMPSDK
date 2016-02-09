@@ -23,7 +23,13 @@ namespace Senparc.Weixin.MessageQueue
     /// </summary>
     public class SenparcMessageQueue
     {
+        /// <summary>
+        /// 列队数据集合
+        /// </summary>
         private static Dictionary<string, SenparcMessageQueueItem> MessageQueueDictionary = new Dictionary<string, SenparcMessageQueueItem>(StringComparer.OrdinalIgnoreCase);
+        /// <summary>
+        /// 列队标识（Key）集合
+        /// </summary>
         private static List<string> MessageQueueList = new List<string>();
 
         /// <summary>

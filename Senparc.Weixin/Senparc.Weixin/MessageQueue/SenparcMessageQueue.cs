@@ -7,6 +7,9 @@
     
     创建标识：Senparc - 20151226
     
+    修改标识：Senparc - 20160210
+    修改描述：v4.5.10 取消MessageQueueList，使用MessageQueueDictionary.Keys记录标示
+              （使用MessageQueueDictionary.Keys会可能会使储存项目的无序执行）
 ----------------------------------------------------------------*/
 
 using System;
@@ -27,10 +30,6 @@ namespace Senparc.Weixin.MessageQueue
         /// 列队数据集合
         /// </summary>
         private static Dictionary<string, SenparcMessageQueueItem> MessageQueueDictionary = new Dictionary<string, SenparcMessageQueueItem>(StringComparer.OrdinalIgnoreCase);
-        /// <summary>
-        /// 列队标识（Key）集合
-        /// </summary>
-        private static List<string> MessageQueueList = new List<string>();
 
         /// <summary>
         /// 同步执行锁
@@ -60,7 +59,7 @@ namespace Senparc.Weixin.MessageQueue
         {
             lock (MessageQueueSyncLock)
             {
-                return MessageQueueList.FirstOrDefault();
+                return MessageQueueDictionary.Keys.FirstOrDefault();
             }
         }
 
@@ -90,10 +89,10 @@ namespace Senparc.Weixin.MessageQueue
         {
             lock (MessageQueueSyncLock)
             {
-                if (!MessageQueueDictionary.ContainsKey(key))
-                {
-                    MessageQueueList.Add(key);
-                }
+                //if (!MessageQueueDictionary.ContainsKey(key))
+                //{
+                //    MessageQueueList.Add(key);
+                //}
                 //else
                 //{
                 //    MessageQueueList.Remove(key);
@@ -117,7 +116,7 @@ namespace Senparc.Weixin.MessageQueue
                 if (MessageQueueDictionary.ContainsKey(key))
                 {
                     MessageQueueDictionary.Remove(key);
-                    MessageQueueList.Remove(key);
+                    //MessageQueueList.Remove(key);
                 }
             }
         }
@@ -130,7 +129,7 @@ namespace Senparc.Weixin.MessageQueue
         {
             lock (MessageQueueSyncLock)
             {
-                return MessageQueueList.Count;
+                return MessageQueueDictionary.Count;
             }
         }
     }

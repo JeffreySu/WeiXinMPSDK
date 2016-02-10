@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：SenparcMessageQueueThreadUtility.cs
+    文件功能描述：SenparcMessageQueue消息列队线程处理
+    
+    
+    创建标识：Senparc - 20160210
+    
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

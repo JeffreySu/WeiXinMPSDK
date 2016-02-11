@@ -31,6 +31,9 @@ namespace Senparc.Weixin.Threads
             _sleepMilliSeconds = sleepMilliSeconds;
         }
 
+        /// <summary>
+        /// 启动线程轮询
+        /// </summary>
         public void Run()
         {
             do

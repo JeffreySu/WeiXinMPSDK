@@ -17,11 +17,6 @@ namespace Senparc.Weixin.Threads
         /// </summary>
         public static Dictionary<string, Thread> AsynThreadCollection = new Dictionary<string, Thread>();//后台运行线程
 
-        //static ThreadUtility()
-        //{
-           
-        //}
-
         /// <summary>
         /// 注册线程
         /// </summary>

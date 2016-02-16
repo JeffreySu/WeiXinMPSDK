@@ -291,7 +291,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var data = new
                 {
-                    msgid = msgId
+                    msg_id = msgId
                 };
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
 

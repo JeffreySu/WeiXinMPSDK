@@ -236,7 +236,7 @@ Nuget对应地址为：https://www.nuget.org/packages/Senparc.Weixin.Open
 
 图书众筹
 --------------
-扫描下方二维码参与图书众筹
+扫描下方二维码参与《微信公众平台快速开发》图书众筹
 
 [![CrowdFunding]](http://www.weiweihi.com:8080/CrowdFunding/Home)  
 [CrowdFunding]: http://weixin.senparc.com/images/crowdfunding-qrcode.png

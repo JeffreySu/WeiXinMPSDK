@@ -238,8 +238,8 @@ Nuget对应地址为：https://www.nuget.org/packages/Senparc.Weixin.Open
 --------------
 扫描下方二维码参与图书众筹
 
-[![donate]](http://www.weiweihi.com:8080/CrowdFunding/Home)  
-[donate]: http://weixin.senparc.com/images/crowdfunding-qrcode.png
+[![CrowdFunding]](http://www.weiweihi.com:8080/CrowdFunding/Home)  
+[CrowdFunding]: http://weixin.senparc.com/images/crowdfunding-qrcode.png
 
 License
 --------------

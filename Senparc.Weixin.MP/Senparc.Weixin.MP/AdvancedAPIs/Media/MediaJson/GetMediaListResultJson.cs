@@ -55,6 +55,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
     public class Media_News_Content_Item : NewsModel
     {
         public string url { get; set; }
+
+        /// <summary>
+        /// 封面图片的url
+        /// </summary>
+        public string thumb_url { get; set; }
     }
 
     /// <summary>

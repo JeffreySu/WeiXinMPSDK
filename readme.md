@@ -234,6 +234,13 @@ Nuget对应地址为：https://www.nuget.org/packages/Senparc.Weixin.Open
 [donate]: http://weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png
 
 
+图书众筹
+--------------
+扫描下方二维码参与图书众筹
+
+[![donate]](http://www.weiweihi.com:8080/CrowdFunding/Home)  
+[donate]: http://weixin.senparc.com/images/crowdfunding-qrcode.png
+
 License
 --------------
 FreeBSD License

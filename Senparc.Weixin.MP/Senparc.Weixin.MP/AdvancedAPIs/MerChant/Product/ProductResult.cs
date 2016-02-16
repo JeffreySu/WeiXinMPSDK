@@ -111,7 +111,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <summary>
         /// 属性id
         /// </summary>
-        public int id { get; set; }
+        public string id { get; set; }
         /// <summary>
         /// 属性名称
         /// </summary>

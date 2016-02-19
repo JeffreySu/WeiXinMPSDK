@@ -68,13 +68,13 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appSecret"></param>
         public static void Register(string appId, string appSecret)
         {
-            JsApiTicketCollection[appId] = new JsApiTicketBag()
+            Update(appId, new JsApiTicketBag()
             {
                 AppId = appId,
                 AppSecret = appSecret,
                 JsApiTicketExpireTime = DateTime.MinValue,
                 JsApiTicketResult = new JsApiTicketResult()
-            };
+            });
         }
 
         /// <summary>

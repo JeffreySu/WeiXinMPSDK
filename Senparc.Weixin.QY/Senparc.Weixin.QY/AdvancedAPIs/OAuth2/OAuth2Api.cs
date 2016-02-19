@@ -18,6 +18,7 @@
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=OAuth2%E9%AA%8C%E8%AF%81%E6%8E%A5%E5%8F%A3
  */
 
+using System;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.OAuth2;
 
@@ -51,9 +52,24 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="code">通过员工授权获取到的code，每次员工授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期</param>
         /// 权限说明：管理员须拥有agent的使用权限；agentid必须和跳转链接时所在的企业应用ID相同。
         /// <returns></returns>
-        public static GetUserInfoResult GetUserId(string accessToken, string code,string agentId)
+        [Obsolete("请使用新方法GetUserId(string accessToken, string code)")]
+        public static GetUserInfoResult GetUserId(string accessToken, string code, string agentId)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken, code,agentId);
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={0}&code={1}&agentid={2}", accessToken, code, agentId);
+
+            return Get.GetJson<GetUserInfoResult>(url);
+        }
+
+        /// <summary>
+        /// 获取成员信息
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="code">通过员工授权获取到的code，每次员工授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期</param>
+        /// 权限说明：管理员须拥有agent的使用权限；agentid必须和跳转链接时所在的企业应用ID相同。
+        /// <returns></returns>
+        public static GetUserInfoResult GetUserId(string accessToken, string code)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token={0}&code={1}", accessToken, code);
 
             return Get.GetJson<GetUserInfoResult>(url);
         }

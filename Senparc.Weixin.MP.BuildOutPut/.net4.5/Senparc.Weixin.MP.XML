@@ -2911,6 +2911,17 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendMpNews(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            发送图文消息（点击跳转到图文消息页面）
+            图文消息条数限制在8条以内，注意，如果图文数超过8，则将会无响应。
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="openId"></param>
+            <param name="mediaId"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GroupMessageApi">
             <summary>
             高级群发接口
@@ -3410,6 +3421,11 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaList_News_Item.update_time">
             <summary>
             这个素材的最后更新时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Media.Media_News_Content_Item.thumb_url">
+            <summary>
+            封面图片的url
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Media.MediaList_OthersResult">
@@ -6107,6 +6123,26 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.RelationSearch(System.String,Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data_Device_Identifiers,System.Int32)">
+            <summary>
+             查询设备的关联关系
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="deviceIdentifier">指定的设备</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.RelationSearch(System.String,System.Int64,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            查询页面的关联关系
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="pageId">指定的页面id</param>
+            <param name="begin">关联关系列表的起始索引值</param>
+            <param name="count">待查询的关联关系数量，不能超过50个</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.GetShakeInfo(System.String,System.String,System.Int32,System.Int32)">
             <summary>
             获取摇周边的设备及用户信息
@@ -6164,6 +6200,31 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GetAuditStatusData.audit_time">
             <summary>
             确定审核结果的时间戳；若状态为审核中，则该时间值为0
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.RelationSearchResultJson">
+            <summary>
+            查询设备与页面的关联关系返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.RelationSearchResultJson.data">
+            <summary>
+            返回数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.RelationSearchDate.total_count">
+            <summary>
+            设备或页面的关联关系总数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.RelationItem">
+            <summary>
+            设备与页面的关联关系
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.RelationItem.page_id">
+            <summary>
+            摇周边页面唯一ID
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.BasePageResultJson">
@@ -6359,6 +6420,11 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data.audit_comment">
             <summary>
             审核备注，包括审核不通过的原因
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data_Device_Identifiers">
+            <summary>
+            设备参数
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data_Device_Identifiers.device_id">

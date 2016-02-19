@@ -128,17 +128,17 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 throw new UnRegisterAppIdException(null,"此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var accessTokenBag = (JsApiTicketBag)ItemCollection[appId];
-            lock (accessTokenBag.Lock)
+            var jsApiTicketBag = (JsApiTicketBag)ItemCollection[appId];
+            lock (jsApiTicketBag.Lock)
             {
-                if (getNewTicket || accessTokenBag.JsApiTicketExpireTime <= DateTime.Now)
+                if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
-                    accessTokenBag.JsApiTicketResult = CommonApi.GetTicket(accessTokenBag.AppId, accessTokenBag.AppSecret);
-                    accessTokenBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(accessTokenBag.JsApiTicketResult.expires_in);
+                    jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
+                    jsApiTicketBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(jsApiTicketBag.JsApiTicketResult.expires_in);
                 }
             }
-            return accessTokenBag.JsApiTicketResult;
+            return jsApiTicketBag.JsApiTicketResult;
         }
 
         #endregion

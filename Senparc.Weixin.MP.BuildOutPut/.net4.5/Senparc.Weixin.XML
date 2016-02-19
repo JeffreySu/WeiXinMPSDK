@@ -795,6 +795,21 @@
             SenparcMessageQueue线程自动处理
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.Finalize">
+            <summary>
+            析构函数，将未处理的列队处理掉
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.OperateQueue">
+            <summary>
+            操作列队
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.Run">
+            <summary>
+            启动线程轮询
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.Threads.ThreadUtility">
             <summary>
             线程处理类

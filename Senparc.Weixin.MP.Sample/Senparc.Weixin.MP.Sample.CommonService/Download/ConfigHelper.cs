@@ -79,7 +79,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
             doc.Save(GetDatabaseFilePath());
         }
 
-        public Stream Download(string version)
+        public string Download(string version)
         {
             lock (Lock)
             {
@@ -89,8 +89,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
             }
 
             //打包下载文件
-            FileStream fs = new FileStream(_context.Server.MapPath(string.Format("~/App_Data/Document/Files/{0}.rar",version)), FileMode.Open);
-            return fs;
+            //FileStream fs = new FileStream(_context.Server.MapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin-v{0}.rar", version)), FileMode.Open);
+            //return fs;
+            return _context.Server.MapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin-v{0}.rar", version));
         }
     }
 }

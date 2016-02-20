@@ -7,34 +7,47 @@
 {
     <style>
         #downloadArea {
+            padding: 50px;
         }
+
+            #downloadArea h2 {
+                font-size: 200%;
+                font-weight: bold;
+            }
+
+            #downloadArea img {
+                width: 200px;
+            }
 
             #downloadArea .qrcode {
                 text-align: center;
+                font-size: 120%;
             }
 
         #downloadTip {
             text-align: center;
             display: none;
+            padding: 20px;
         }
     </style>
     <script>
         var guid = '@ViewData["Guid"]';
         var interval;
         $(function () {
-            $('input:radio').eq(0).checked(true);
+
+            $('input[name=version]:eq(0)').attr('checked', 'checked');
 
             interval = setInterval(function () {
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("CheckDownload")',
-                    data: { guid: guid, version: $('input:radio:checked').eq(0).attr('id') },
+                    data: { guid: guid, version: $("input[name='version'][checked]").attr('id') },
                     dataType: "json",
                     success: function (json) {
                         if (json.success) {
                             //开始下载
                             $('#downloadTip').show();
-                            location.href = $('#downloadTip').attr('href');
+                            location.href = $('#downloadTip a').attr('href');
                         }
                     }
                 });
@@ -44,7 +57,7 @@
 }
 <div class="wrapper">
     <div id="downloadArea">
-        <h2>请用微信扫描下方二维码，即可开始下载</h2>
+        <h2>请用微信扫描下方二维码，进入公众号，即可自动开始下载</h2>
         <div class="qrcode">
             <img src="@ViewData["QrCodeUrl"]" />
             <div>请选择下载版本：</div>
@@ -52,7 +65,7 @@
                 <label for="v13_6_2"><input id="v13_6_2" type="radio" name="version" />V13.6.2</label>
             </div>
             <div id="downloadTip">
-                审核通过，下载已开始，如果10秒内没有开始下载，请 @Html.Action("Download", new { guid = ViewData["Guid"] }) 下载。
+                审核通过，下载已开始，如果10秒内没有开始下载，请 @Html.ActionLink("点击这里", "Download", new { guid = ViewData["Guid"], id = "linkDownload" }, new { target = "_blank" }) 下载。
             </div>
         </div>
     </div>

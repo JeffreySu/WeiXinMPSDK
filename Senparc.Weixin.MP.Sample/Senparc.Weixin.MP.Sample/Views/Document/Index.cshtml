@@ -6,13 +6,49 @@
 @section HeaderContent
 {
     <style>
-     
+        #downloadArea {
+        }
+
+            #downloadArea .qrcode {
+                text-align: center;
+            }
+
+        #downloadTip {
+            text-align: center;
+            display: none;
+        }
     </style>
     <script>
+        var guid = '@ViewData["Guid"]';
+        var interval;
+        $(function () {
+            interval = setInterval(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("CheckDownload", new {guid = ViewData["Guid"]})',
+                    data: { guid: guid },
+                    dataType: "json",
+                    success: function (json) {
+                        if (json.success) {
+                            //开始下载
+                            $('#downloadTip').show();
+                            location.href = $('#downloadTip').attr('href');
+                        }
+                    }
+                });
+            }, 1000);
+        });
     </script>
 }
 <div class="wrapper">
-
-
+    <div id="downloadArea">
+        <h2>请用微信扫描下方二维码，即可开始下载</h2>
+        <div class="qrcode">
+            <img src="@ViewData["QrCodeUrl"]" />
+            <div id="downloadTip">
+                审核通过，下载已开始，如果10秒内没有开始下载，请 @Html.Action("Download", new { guid = ViewData["Guid"] }) 下载。
+            </div>
+        </div>
+    </div>
     <div class="clear"></div>
 </div>

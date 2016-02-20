@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.Weixin.MP.AdvancedAPIs.QrCode;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.Download
 {
@@ -10,6 +11,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
     {
         public string Key { get; set; }
         public int QrCodeId { get; set; }
+        public CreateQrCodeResult QrCodeTicket { get; set; }
         public string Version { get; set; }
         public bool Used { get; set; }
     }

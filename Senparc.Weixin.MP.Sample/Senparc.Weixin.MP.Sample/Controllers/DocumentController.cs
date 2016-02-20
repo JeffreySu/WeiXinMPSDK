@@ -20,6 +20,19 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             var guid = Guid.NewGuid().ToString("n");
             ViewData["Guid"] = guid;
+
+            var configHelper = new ConfigHelper(this.HttpContext);
+            var qrCodeId = configHelper.GetQrCodeId();
+            var qrResult = AdvancedAPIs.QrCodeApi.Create(appId, 10000, qrCodeId);
+            ViewData["QrCodeUrl"] = qrResult.url;
+
+            ConfigHelper.CodeCollection[guid] = new CodeRecord()
+            {
+                Key = guid,
+                QrCodeId = qrCodeId,
+                QrCodeTicket = qrResult
+            };//添加对应关系
+
             return View();
         }
 
@@ -27,10 +40,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             return Task.Factory.StartNew<ActionResult>(() =>
             {
-                var configHelper = new ConfigHelper(this.HttpContext);
-                var qrCodeId = configHelper.GetQrCodeId();
-                var qrResult = AdvancedAPIs.QrCodeApi.Create(appId, 10000, qrCodeId);
-                ConfigHelper.CodeCollection[guid] = new KeyValuePair<int, string>(qrCodeId, null);//添加对应关系
+
                 return Content(qrResult.url);
             });
 

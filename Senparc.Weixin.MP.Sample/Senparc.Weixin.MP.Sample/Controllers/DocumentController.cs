@@ -92,7 +92,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         }
                     }
 
-                    var file = File(Encoding.UTF8.GetBytes(message??"未通过审核，或此二维码已过期，请刷新网页后重新操作！"), "text/plain");
+                    message = message ?? string.Format("未通过审核，或此二维码已过期，请刷新网页后重新操作！（{0}）", guid);
+
+                    var file = File(Encoding.UTF8.GetBytes(message), "text/plain");
                     file.FileDownloadName = "下载失败.txt";
                     return file;
                 }

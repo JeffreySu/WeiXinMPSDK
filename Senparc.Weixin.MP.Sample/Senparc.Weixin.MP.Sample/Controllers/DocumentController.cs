@@ -77,7 +77,22 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var success = CheckCanDownload(guid);
                 if (!success)
                 {
-                    var file = File(Encoding.UTF8.GetBytes("未通过审核，或此二维码已过期，请刷新网页后重新操作！"), "text/plain");
+                    string message = null;
+                    var guidNotFound = ConfigHelper.CodeCollection.ContainsKey(guid);
+                    if (guidNotFound)
+                    {
+                        message = "审核失败，请从官方下载页面进入！";
+                    }
+                    else
+                    {
+                        var codeRecord = ConfigHelper.CodeCollection[guid];
+                        if (!codeRecord.AllowDownload)
+                        {
+                            message = "审核失败，文件不允许下载，或已经下载过！如需重新下载请刷新浏览器！";
+                        }
+                    }
+
+                    var file = File(Encoding.UTF8.GetBytes(message??"未通过审核，或此二维码已过期，请刷新网页后重新操作！"), "text/plain");
                     file.FileDownloadName = "下载失败.txt";
                     return file;
                 }

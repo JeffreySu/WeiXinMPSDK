@@ -41,11 +41,12 @@
                 $.ajax({
                     type: 'POST',
                     url: '@Url.Action("CheckDownload")',
-                    data: { guid: guid, version: $("input[name='version'][checked]").attr('id') },
+                    data: { guid: guid, version: $("input[name='version'][checked]").val() },
                     dataType: "json",
                     success: function (json) {
                         if (json.success) {
                             //开始下载
+                            clearInterval(interval);
                             $('#downloadTip').show();
                             location.href = $('#downloadTip a').attr('href');
                         }
@@ -62,7 +63,7 @@
             <img src="@ViewData["QrCodeUrl"]" />
             <div>请选择下载版本：</div>
             <div>
-                <label for="v13_6_2"><input id="v13_6_2" type="radio" name="version" />V13.6.2</label>
+                <label for="v13_6_2"><input id="v13_6_2" value="13.6.2" type="radio" name="version" />V13.6.2</label>
             </div>
             <div id="downloadTip">
                 审核通过，下载已开始，如果10秒内没有开始下载，请 @Html.ActionLink("点击这里", "Download", new { guid = ViewData["Guid"] }, new { target = "_blank", id = "linkDownload" }) 下载。

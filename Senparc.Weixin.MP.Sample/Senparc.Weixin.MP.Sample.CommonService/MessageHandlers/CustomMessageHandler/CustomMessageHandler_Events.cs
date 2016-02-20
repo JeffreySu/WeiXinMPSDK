@@ -17,6 +17,7 @@ using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.Weixin.MP.Sample.CommonService.Download;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
@@ -230,7 +231,25 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
         {
             //通过扫描关注
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
+
+            //下载文档
+            if (requestMessage.EventKey.StartsWith("qrscene_"))
+            {
+                var sceneId = long.Parse(requestMessage.EventKey.Replace("qrscene_", ""));
+                //var configHelper = new ConfigHelper(new HttpContextWrapper(HttpContext.Current));
+                var codeRecord =
+                    ConfigHelper.CodeCollection.Values.FirstOrDefault(z => z.QrCodeTicket!=null && z.QrCodeId == sceneId);
+                if (codeRecord!=null)
+                {
+                    //确认可以下载
+                    codeRecord.AllowDownload = true;
+                }
+            }
+
             responseMessage.Content = "通过扫描关注。";
+
+
+
             return responseMessage;
         }
 

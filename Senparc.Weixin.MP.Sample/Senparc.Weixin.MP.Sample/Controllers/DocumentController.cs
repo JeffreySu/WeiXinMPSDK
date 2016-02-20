@@ -36,15 +36,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return View();
         }
 
-        public Task<ActionResult> GetQrCode(string guid)
-        {
-            return Task.Factory.StartNew<ActionResult>(() =>
-            {
-
-                return Content(qrResult.url);
-            });
-
-        }
 
         /// <summary>
         /// 检查是否可下载
@@ -56,8 +47,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             return Task.Factory.StartNew<ActionResult>(() =>
             {
-                var success = ConfigHelper.CodeCollection.ContainsKey(guid) && !ConfigHelper.CodeCollection[guid].Used;
-                return Json(new { success = true });
+                var success = ConfigHelper.CodeCollection.ContainsKey(guid) && !ConfigHelper.CodeCollection[guid].AllowDownload;
+                return Json(new { success = success });
             });
         }
 
@@ -70,7 +61,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             return Task.Factory.StartNew<FileResult>(() =>
             {
-                var success = ConfigHelper.CodeCollection.ContainsKey(guid) && !ConfigHelper.CodeCollection[guid].Used;
+                var success = ConfigHelper.CodeCollection.ContainsKey(guid) && !ConfigHelper.CodeCollection[guid].AllowDownload;
                 if (!success)
                 {
                     var file = File(Encoding.UTF8.GetBytes("未通过审核，或此二维码已过期"), "text/plain");
@@ -81,6 +72,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 {
                     var codeRecord = ConfigHelper.CodeCollection[guid];
                     codeRecord.Used = true;
+                    codeRecord.AllowDownload = false;
                     var configHelper = new ConfigHelper(this.HttpContext);
                     var fileStream = configHelper.Download(codeRecord.Version);
                     var file = File(fileStream, "application/octet-stream");

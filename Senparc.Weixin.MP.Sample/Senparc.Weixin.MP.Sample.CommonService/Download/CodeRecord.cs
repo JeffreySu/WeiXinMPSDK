@@ -14,5 +14,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
         public CreateQrCodeResult QrCodeTicket { get; set; }
         public string Version { get; set; }
         public bool Used { get; set; }
+        public bool AllowDownload { get; set; }
     }
 }

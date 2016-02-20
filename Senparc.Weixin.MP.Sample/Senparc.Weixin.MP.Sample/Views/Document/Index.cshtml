@@ -22,11 +22,13 @@
         var guid = '@ViewData["Guid"]';
         var interval;
         $(function () {
+            $('input:radio').eq(0).checked(true);
+
             interval = setInterval(function () {
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("CheckDownload", new {guid = ViewData["Guid"]})',
-                    data: { guid: guid },
+                    url: '@Url.Action("CheckDownload")',
+                    data: { guid: guid, version: $('input:radio:checked').eq(0).attr('id') },
                     dataType: "json",
                     success: function (json) {
                         if (json.success) {
@@ -45,6 +47,10 @@
         <h2>请用微信扫描下方二维码，即可开始下载</h2>
         <div class="qrcode">
             <img src="@ViewData["QrCodeUrl"]" />
+            <div>请选择下载版本：</div>
+            <div>
+                <label for="v13_6_2"><input id="v13_6_2" type="radio" name="version" />V13.6.2</label>
+            </div>
             <div id="downloadTip">
                 审核通过，下载已开始，如果10秒内没有开始下载，请 @Html.Action("Download", new { guid = ViewData["Guid"] }) 下载。
             </div>

@@ -148,6 +148,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
+    <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\WeixinJSSDKController.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Document\Config.xml" />
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\darktooltip.min.css" />
     <Content Include="Content\reset.css" />
@@ -312,8 +314,10 @@
     <Content Include="Views\OpenOAuth\Index.cshtml" />
     <Content Include="Views\OpenOAuth\UserInfoCallback.cshtml" />
     <Content Include="Views\Cache\Test.cshtml" />
+    <Content Include="Views\Document\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\Document\Files\" />
     <Folder Include="App_Data\OpenTickets\" />
     <Folder Include="Controllers\AppStore\" />
   </ItemGroup>

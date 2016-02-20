@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Download\CodeRecord.cs" />
+    <Compile Include="Download\Config.cs" />
+    <Compile Include="Download\ConfigHelper.cs" />
     <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageContext.cs" />
     <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageHandler.cs" />
     <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageHandler_Events.cs" />
@@ -72,6 +75,12 @@
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Download\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -26,7 +26,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var timestamp = JSSDKHelper.GetTimestamp();
             //获取随机码
             var nonceStr = JSSDKHelper.GetNoncestr();
-            string ticket = AccessTokenContainer.TryGetJsApiTicket(appId, secret);
+            string ticket = JsApiTicketContainer.TryGetJsApiTicket(appId, secret);
             //获取签名
             var signature = JSSDKHelper.GetSignature(ticket, nonceStr, timestamp, Request.Url.AbsoluteUri);
 

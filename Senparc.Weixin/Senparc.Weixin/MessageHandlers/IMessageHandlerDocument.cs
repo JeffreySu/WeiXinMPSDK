@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：IMessageHandlerDocument.cs
     文件功能描述：为IMessageHandler单独提供XDocument类型的属性接口（主要是ResponseDocument）。

@@ -4,6 +4,16 @@
         <name>Senparc.Weixin</name>
     </assembly>
     <members>
+        <member name="T:Senparc.Weixin.Cache.IContainerItemCollection">
+            <summary>
+            IContainerItemCollection
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Cache.ContainerItemCollection">
+            <summary>
+            储存某个Container下所有ContainerBag的字典集合
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.Cache.LocalCacheHelper.LocalCache">
             <summary>
             所有数据集合的列表
@@ -94,11 +104,27 @@
             指定是否是Debug状态，如果是，系统会自动输出日志
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.Containers.IBaseContainer">
+            <summary>
+            IBaseContainer
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Containers.IBaseContainer`1">
+            <summary>
+            带IBaseContainerBag泛型的IBaseContainer
+            </summary>
+            <typeparam name="TBag"></typeparam>
+        </member>
         <member name="T:Senparc.Weixin.Containers.BaseContainer`1">
             <summary>
             微信容器接口（如Ticket、AccessToken）
             </summary>
             <typeparam name="TBag"></typeparam>
+        </member>
+        <member name="P:Senparc.Weixin.Containers.BaseContainer`1.Cache">
+            <summary>
+            获取符合当前缓存策略配置的缓存的操作对象实例
+            </summary>
         </member>
         <member name="P:Senparc.Weixin.Containers.BaseContainer`1.CollectionList">
             <summary>
@@ -171,9 +197,14 @@
             IBaseContainerBag
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.Containers.IBaseContainerBag.Key">
+            <summary>
+            缓存键
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.Containers.IBaseContainerBag.CacheTime">
             <summary>
-            缓存时间，不使用属性变化监听
+            当前对象被缓存的时间
             </summary>
         </member>
         <member name="T:Senparc.Weixin.Containers.BaseContainerBag">
@@ -674,6 +705,11 @@
             消息列队
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.MessageQueue.SenparcMessageQueue.MessageQueueDictionary">
+            <summary>
+            列队数据集合
+            </summary>
+        </member>
         <member name="F:Senparc.Weixin.MessageQueue.SenparcMessageQueue.MessageQueueSyncLock">
             <summary>
             同步执行锁
@@ -704,14 +740,14 @@
         </member>
         <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.Add(System.String,System.Action)">
             <summary>
-            添加
+            添加列队成员
             </summary>
             <param name="key"></param>
             <param name="action"></param>
         </member>
         <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.Remove(System.String)">
             <summary>
-            移除对象
+            移除列队成员
             </summary>
             <param name="key"></param>
         </member>
@@ -723,12 +759,55 @@
         </member>
         <member name="T:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem">
             <summary>
-            SenparcMessageQueueItem
+            SenparcMessageQueue消息列队项
             </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem.Key">
+            <summary>
+            列队项唯一标识
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem.Action">
+            <summary>
+            列队项目命中触发时执行的委托
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem.AddTime">
+            <summary>
+            此实例对象的创建时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem.Description">
+            <summary>
+            项目说明（主要用于调试）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem.#ctor(System.String,System.Action,System.String)">
+            <summary>
+            初始化SenparcMessageQueue消息列队项
+            </summary>
+            <param name="key"></param>
+            <param name="action"></param>
+            <param name="description"></param>
         </member>
         <member name="T:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility">
             <summary>
             SenparcMessageQueue线程自动处理
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.Finalize">
+            <summary>
+            析构函数，将未处理的列队处理掉
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.OperateQueue">
+            <summary>
+            操作列队
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.Run">
+            <summary>
+            启动线程轮询
             </summary>
         </member>
         <member name="T:Senparc.Weixin.Threads.ThreadUtility">

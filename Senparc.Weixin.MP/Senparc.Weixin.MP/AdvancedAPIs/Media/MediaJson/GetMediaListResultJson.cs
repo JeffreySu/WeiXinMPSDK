@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：GetMediaListResultJson.cs
     文件功能描述：获取素材列表返回结果
@@ -55,6 +55,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
     public class Media_News_Content_Item : NewsModel
     {
         public string url { get; set; }
+
+        /// <summary>
+        /// 封面图片的url
+        /// </summary>
+        public string thumb_url { get; set; }
     }
 
     /// <summary>

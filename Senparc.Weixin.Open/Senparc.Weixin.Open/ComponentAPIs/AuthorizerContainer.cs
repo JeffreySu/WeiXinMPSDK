@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：AuthorizerContainer.cs
     文件功能描述：通用接口JsApiTicket容器，用于OPEN第三方JSSDK自动管理JsApiTicket，如果过期会重新获取
@@ -12,6 +12,9 @@
     
     修改标识：senparc - 20151004
     修改描述：文件名从JsApiTicketContainer.cs变为AuthorizerContainer.cs，用于集成所有授权方信息
+        
+    修改标识：Senparc - 20160206
+    修改描述：将public object Lock更改为internal object Lock
 
     ----------------------------------------------------------------*/
 
@@ -113,7 +116,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <summary>
         /// 只针对这个AppId的锁
         /// </summary>
-        public object Lock = new object();
+        internal object Lock = new object();
 
         private string _authorizerAppId;
         private string _componentAppId;

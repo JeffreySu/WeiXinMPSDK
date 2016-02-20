@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：RequestMessageEvent_Kf_Switch_Session.cs
     文件功能描述：事件之多客服接入会话(kf_switch_session)

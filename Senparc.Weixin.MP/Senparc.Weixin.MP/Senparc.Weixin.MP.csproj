@@ -160,6 +160,7 @@
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_SearchResult.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetAuditStatusResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\RelationSearchResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\PageManageResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetShakeInfoResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\RegisterData.cs" />
@@ -206,9 +207,10 @@
     <Compile Include="AppStore\Entities\Passport\PassportCollection.cs" />
     <Compile Include="AppStore\ReturnResult.cs" />
     <Compile Include="AppStore\Utility\AppUtility.cs" />
-    <Compile Include="CommonAPIs\AccessTokenContainer.cs">
+    <Compile Include="CommonAPIs\Containers\AccessTokenContainer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CommonAPIs\Containers\JsApiTicketContainer.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Common.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Conditional.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Custom.cs" />

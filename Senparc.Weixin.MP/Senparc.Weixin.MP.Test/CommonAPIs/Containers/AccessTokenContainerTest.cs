@@ -7,7 +7,7 @@ using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.MP.Test.CommonAPIs
+namespace Senparc.Weixin.MP.Test.CommonAPIs.Tests
 {
     //已测试通过
     [TestClass]
@@ -85,6 +85,33 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             Assert.AreEqual(treads.Length, accessTokenList.Count());//只存在同一个Token，实际不会多次刷新
             Assert.AreEqual(1, accessTokenList.Distinct().Count());//只存在同一个Token，实际不会多次刷新
             Console.WriteLine(accessTokenList[0]);
+        }
+
+        [TestMethod]
+        public void GetFirstOrDefaultAppIdTest()
+        {
+            //此测试需要使用本地缓存进行测试
+
+            var registeredAppId = base._appId;//已经注册的AppId
+
+            var appId = AccessTokenContainer.GetFirstOrDefaultAppId();
+            Assert.AreEqual(registeredAppId, appId);
+
+            //注册多个AppId
+            for (int i = 0; i < 100; i++)
+            {
+                AccessTokenContainer.Register("TestAppId_"+i,"TestAppSecret");
+            }
+
+            //删除部分AppId
+            var collectionList = AccessTokenContainer.GetCollectionList();
+            for (int i = 10; i < 50; i++)
+            {
+                collectionList.Remove("TestAppId_" + i);
+            }
+
+            appId = AccessTokenContainer.GetFirstOrDefaultAppId();
+            Assert.AreEqual(registeredAppId, appId);
         }
     }
 }

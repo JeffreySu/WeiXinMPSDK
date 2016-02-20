@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：BaseContainerBag.cs
     文件功能描述：微信容器接口中的封装Value（如Ticket、AccessToken等数据集合）
@@ -23,10 +23,13 @@ namespace Senparc.Weixin.Containers
     /// </summary>
     public interface IBaseContainerBag
     {
+    /// <summary>
+    /// 缓存键
+    /// </summary>
         string Key { get; set; }
-        /// <summary>
-        /// 缓存时间，不使用属性变化监听
-        /// </summary>
+    /// <summary>
+    /// 当前对象被缓存的时间
+    /// </summary>
         DateTime CacheTime { get; set; }
     }
 

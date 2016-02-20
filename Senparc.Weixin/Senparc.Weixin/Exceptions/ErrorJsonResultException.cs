@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：ErrorJsonResultException.cs
     文件功能描述：JSON返回错误代码（比如token_access相关操作中使用）。

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：AccessTokenResult.cs
     文件功能描述：access_token请求后的JSON返回格式

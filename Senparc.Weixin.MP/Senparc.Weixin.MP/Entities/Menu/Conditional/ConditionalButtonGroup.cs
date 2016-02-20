@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：ConditionalButtonGroup.cs
     文件功能描述：个性化菜单按钮设置（可以直接用ConditionalButtonGroup实例返回JSON对象）

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：CommonJsonSend.cs
     文件功能描述：向需要AccessToken的API发送消息的公共方法

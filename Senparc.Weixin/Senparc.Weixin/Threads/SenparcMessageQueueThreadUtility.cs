@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：SenparcMessageQueueThreadUtility.cs
+    文件功能描述：SenparcMessageQueue消息列队线程处理
+    
+    
+    创建标识：Senparc - 20160210
+    
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,32 +24,6 @@ namespace Senparc.Weixin.Threads
     /// </summary>
     public class SenparcMessageQueueThreadUtility
     {
-
-        ///// <summary>
-        ///// 同步执行锁
-        ///// </summary>
-        //private object syncLock = new object();//锁
-
-        //private Semaphore _semaphorePool;
-        //private int _semaphorePoolPreviousCount;
-        //private int semaphorePoolPreviousCount
-        //{
-        //    get
-        //    {
-        //        lock (syncLock)
-        //        {
-        //            return _semaphorePoolPreviousCount;
-        //        }
-        //    }
-        //    set
-        //    {
-        //        lock (syncLock)
-        //        {
-        //            _semaphorePoolPreviousCount = value;
-        //        }
-        //    }
-        //}
-
         private readonly int _sleepMilliSeconds;
 
         public SenparcMessageQueueThreadUtility(int sleepMilliSeconds = 2000)
@@ -46,19 +31,51 @@ namespace Senparc.Weixin.Threads
             _sleepMilliSeconds = sleepMilliSeconds;
         }
 
+        /// <summary>
+        /// 析构函数，将未处理的列队处理掉
+        /// </summary>
+        ~SenparcMessageQueueThreadUtility()
+        {
+            try
+            {
+                var mq = new SenparcMessageQueue();
+                System.Diagnostics.Trace.WriteLine(string.Format("SenparcMessageQueueThreadUtility执行析构函数"));
+                System.Diagnostics.Trace.WriteLine(string.Format("当前列队数量：{0}", mq.GetCount()));
+
+                OperateQueue();//处理列队
+            }
+            catch (Exception ex)
+            {
+                //此处可以添加日志
+                System.Diagnostics.Trace.WriteLine(string.Format("SenparcMessageQueueThreadUtility执行析构函数错误：{0}", ex.Message));
+            }
+
+        }
+
+        /// <summary>
+        /// 操作列队
+        /// </summary>
+        private void OperateQueue()
+        {
+            var mq = new SenparcMessageQueue();
+            var key = mq.GetCurrentKey(); //获取最新的Key
+            while (!string.IsNullOrEmpty(key))
+            {
+                var mqItem = mq.GetItem(key); //获取任务项
+                mqItem.Action(); //执行
+                mq.Remove(key); //清除
+                key = mq.GetCurrentKey(); //获取最新的Key
+            }
+        }
+
+        /// <summary>
+        /// 启动线程轮询
+        /// </summary>
         public void Run()
         {
             do
             {
-                var mq = new SenparcMessageQueue();
-                var key = mq.GetCurrentKey();//获取最新的Key
-                while (!string.IsNullOrEmpty(key))
-                {
-                    var mqItem = mq.GetItem(key);//获取任务项
-                    mqItem.Action();//执行
-                    mq.Remove(key);//清除
-                    key = mq.GetCurrentKey();//获取最新的Key
-                }
+                OperateQueue();
                 Thread.Sleep(_sleepMilliSeconds);
             } while (true);
         }

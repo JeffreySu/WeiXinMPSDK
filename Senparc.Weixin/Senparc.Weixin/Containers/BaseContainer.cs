@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：WeixinContainer.cs
     文件功能描述：微信容器（如Ticket、AccessToken）
@@ -18,11 +18,17 @@ using Senparc.Weixin.MessageQueue;
 
 namespace Senparc.Weixin.Containers
 {
+    /// <summary>
+    /// IBaseContainer
+    /// </summary>
     public interface IBaseContainer
     {
-
     }
 
+    /// <summary>
+    /// 带IBaseContainerBag泛型的IBaseContainer
+    /// </summary>
+    /// <typeparam name="TBag"></typeparam>
     public interface IBaseContainer<TBag> : IBaseContainer where TBag : IBaseContainerBag, new()
     {
     }
@@ -33,6 +39,9 @@ namespace Senparc.Weixin.Containers
     /// <typeparam name="TBag"></typeparam>
     public abstract class BaseContainer<TBag> : IBaseContainer<TBag> where TBag : class, IBaseContainerBag, new()
     {
+        /// <summary>
+        /// 获取符合当前缓存策略配置的缓存的操作对象实例
+        /// </summary>
         private static IContainerCacheStragegy /*IBaseCacheStrategy<string,Dictionary<string, TBag>>*/ Cache
         {
             get
@@ -107,7 +116,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static List<TBag> GetAllItems()
         {
-            return ItemCollection.Select(z => z.Value as TBag).ToList();
+            return ItemCollection.Values.Select(z => z as TBag).ToList();
         }
 
         /// <summary>
@@ -131,14 +140,14 @@ namespace Senparc.Weixin.Containers
         /// <param name="key"></param>
         /// <param name="property">具体某个属性</param>
         /// <returns></returns>
-        public static K TryGetItem<K>(string key, Func<TBag, K> property)
+        public static TK TryGetItem<TK>(string key, Func<TBag, TK> property)
         {
             if (ItemCollection.ContainsKey(key))
             {
                 var item = ItemCollection[key] as TBag;
                 return property(item);
             }
-            return default(K);
+            return default(TK);
         }
 
         /// <summary>

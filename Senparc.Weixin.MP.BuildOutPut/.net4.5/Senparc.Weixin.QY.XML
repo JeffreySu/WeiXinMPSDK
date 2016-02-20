@@ -1808,6 +1808,15 @@
             权限说明：管理员须拥有agent的使用权限；agentid必须和跳转链接时所在的企业应用ID相同。
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.OAuth2Api.GetUserId(System.String,System.String)">
+            <summary>
+            获取成员信息
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="code">通过员工授权获取到的code，每次员工授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期</param>
+            权限说明：管理员须拥有agent的使用权限；agentid必须和跳转链接时所在的企业应用ID相同。
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.OAuth2.GetUserInfoResult">
             <summary>
             获取成员信息返回结果

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：DeviceManageResultJson.cs
     文件功能描述：设备管理返回结果
@@ -44,6 +44,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         public string audit_comment { get; set; }
     }
 
+    /// <summary>
+    /// 设备参数
+    /// </summary>
     public class DeviceApply_Data_Device_Identifiers
     {
         /// <summary>

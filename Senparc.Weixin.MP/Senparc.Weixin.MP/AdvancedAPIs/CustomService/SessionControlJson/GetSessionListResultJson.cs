@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：GetSessionListResultJson.cs
     文件功能描述：获取客服的会话列表返回结果

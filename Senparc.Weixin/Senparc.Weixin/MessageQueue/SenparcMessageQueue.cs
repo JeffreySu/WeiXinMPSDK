@@ -1,4 +1,18 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：SenparcMessageQueue.cs
+    文件功能描述：SenparcMessageQueue消息列队
+    
+    
+    创建标识：Senparc - 20151226
+    
+    修改标识：Senparc - 20160210
+    修改描述：v4.5.10 取消MessageQueueList，使用MessageQueueDictionary.Keys记录标示
+              （使用MessageQueueDictionary.Keys会可能会使储存项目的无序执行）
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,19 +26,15 @@ namespace Senparc.Weixin.MessageQueue
     /// </summary>
     public class SenparcMessageQueue
     {
+        /// <summary>
+        /// 列队数据集合
+        /// </summary>
         private static Dictionary<string, SenparcMessageQueueItem> MessageQueueDictionary = new Dictionary<string, SenparcMessageQueueItem>(StringComparer.OrdinalIgnoreCase);
-        private static List<string> MessageQueueList = new List<string>();
-
-        //static SenparcMessageQueue()
-        //{
-
-        //}
 
         /// <summary>
         /// 同步执行锁
         /// </summary>
-        public static object MessageQueueSyncLock = new object();
-
+        private static object MessageQueueSyncLock = new object();
 
         /// <summary>
         /// 生成Key
@@ -49,7 +59,7 @@ namespace Senparc.Weixin.MessageQueue
         {
             lock (MessageQueueSyncLock)
             {
-                return MessageQueueList.FirstOrDefault();
+                return MessageQueueDictionary.Keys.FirstOrDefault();
             }
         }
 
@@ -71,7 +81,7 @@ namespace Senparc.Weixin.MessageQueue
         }
 
         /// <summary>
-        /// 添加
+        /// 添加列队成员
         /// </summary>
         /// <param name="key"></param>
         /// <param name="action"></param>
@@ -79,24 +89,24 @@ namespace Senparc.Weixin.MessageQueue
         {
             lock (MessageQueueSyncLock)
             {
-                if (!MessageQueueDictionary.ContainsKey(key))
-                {
-                    MessageQueueList.Add(key);
-                }
+                //if (!MessageQueueDictionary.ContainsKey(key))
+                //{
+                //    MessageQueueList.Add(key);
+                //}
                 //else
                 //{
                 //    MessageQueueList.Remove(key);
                 //    MessageQueueList.Add(key);//移动到末尾
                 //}
 
-                var mqItem =new  SenparcMessageQueueItem(key,action);
+                var mqItem = new SenparcMessageQueueItem(key, action);
                 MessageQueueDictionary[key] = mqItem;
                 return mqItem;
             }
         }
 
         /// <summary>
-        /// 移除对象
+        /// 移除列队成员
         /// </summary>
         /// <param name="key"></param>
         public void Remove(string key)
@@ -106,7 +116,7 @@ namespace Senparc.Weixin.MessageQueue
                 if (MessageQueueDictionary.ContainsKey(key))
                 {
                     MessageQueueDictionary.Remove(key);
-                    MessageQueueList.Remove(key);
+                    //MessageQueueList.Remove(key);
                 }
             }
         }
@@ -119,7 +129,7 @@ namespace Senparc.Weixin.MessageQueue
         {
             lock (MessageQueueSyncLock)
             {
-                return MessageQueueList.Count;
+                return MessageQueueDictionary.Count;
             }
         }
     }

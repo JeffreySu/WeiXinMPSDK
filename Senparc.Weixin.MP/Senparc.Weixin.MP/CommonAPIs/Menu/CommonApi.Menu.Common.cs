@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：CommonApi.Menu.Common.cs
     文件功能描述：通用自定义菜单接口（公共方法）

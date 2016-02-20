@@ -78,7 +78,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 if (!success)
                 {
                     string message = null;
-                    var guidNotFound = ConfigHelper.CodeCollection.ContainsKey(guid);
+                    var guidNotFound = !ConfigHelper.CodeCollection.ContainsKey(guid);
                     if (guidNotFound)
                     {
                         message = "审核失败，请从官方下载页面进入！";

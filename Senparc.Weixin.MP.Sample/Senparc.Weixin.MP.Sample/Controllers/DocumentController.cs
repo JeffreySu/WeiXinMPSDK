@@ -88,11 +88,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         var codeRecord = ConfigHelper.CodeCollection[guid];
                         if (!codeRecord.AllowDownload)
                         {
-                            message = "审核失败，文件不允许下载，或已经下载过！如需重新下载请刷新浏览器！";
+                            message = string.Format("审核失败，文件不允许下载，或已经下载过！如需重新下载请刷新浏览器！（101 - {0}）", guid);
                         }
                     }
 
-                    message = message ?? string.Format("未通过审核，或此二维码已过期，请刷新网页后重新操作！（{0}）", guid);
+                    message = message ?? string.Format("未通过审核，或此二维码已过期，请刷新网页后重新操作！（102 - {0}）", guid);
 
                     var file = File(Encoding.UTF8.GetBytes(message), "text/plain");
                     file.FileDownloadName = "下载失败.txt";
@@ -102,7 +102,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 {
                     var codeRecord = ConfigHelper.CodeCollection[guid];
                     codeRecord.Used = true;
-                    codeRecord.AllowDownload = false;
+                    //codeRecord.AllowDownload = false;//这里如果只允许一次下载，有的浏览器插件或者防护软件会自动访问页面上的链接，导致用户真实的下载时效
                     var configHelper = new ConfigHelper(this.HttpContext);
                     var filePath = configHelper.Download(codeRecord.Version);
                     var file = File(filePath, "application/octet-stream");

@@ -10,7 +10,7 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// IContainerItemCollection，对某个Container下的缓存值ContainerBag进行封装
     /// </summary>
-    public interface IContainerItemCollection : IDictionary<string, IBaseContainerBag>
+    public interface IContainerItemCollection : IBaseCacheStrategy<string, IBaseContainerBag>
     {
         /// <summary>
         /// 创建时间
@@ -31,6 +31,46 @@ namespace Senparc.Weixin.Cache
         public ContainerItemCollection()
         {
             CreateTime = DateTime.Now;
+        }
+
+        public string CacheSetKey { get; set; }
+        public void InsertToCache(string key, IBaseContainerBag value)
+        {
+            base[key] = value;
+        }
+
+        public void RemoveFromCache(string key)
+        {
+            base.Remove(key);
+        }
+
+        public IBaseContainerBag Get(string key)
+        {
+            if (this.CheckExisted(key))
+            {
+                return base[key];
+            }
+            return null;
+        }
+
+        public IDictionary<string, IBaseContainerBag> GetAll()
+        {
+            return this;
+        }
+
+        public bool CheckExisted(string key)
+        {
+            return base.ContainsKey(key);
+        }
+
+        public long GetCount()
+        {
+            return base.Count;
+        }
+
+        public void Update(string key, IBaseContainerBag value)
+        {
+            base[key] = value;
         }
     }
 }

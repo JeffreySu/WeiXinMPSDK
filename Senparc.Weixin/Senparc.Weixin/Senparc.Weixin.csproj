@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache\ContainerCacheStragegy\ContainerItemCollection.cs" />
     <Compile Include="Cache\ContainerCacheStragegy\IContainerCacheStragegy.cs" />
     <Compile Include="Cache\ContainerCacheStragegy\LocalContainerCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategy\IBaseCacheStrategy.cs" />

@@ -21,56 +21,59 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 储存某个Container下所有ContainerBag的字典集合
     /// </summary>
-    public class ContainerItemCollection : Dictionary<string, IBaseContainerBag>, IContainerItemCollection
+    public class ContainerItemCollection : IContainerItemCollection
     {
+        private Dictionary<string, IBaseContainerBag> _cache;
+
+        public ContainerItemCollection()
+        {
+            _cache = new Dictionary<string, IBaseContainerBag>(StringComparer.OrdinalIgnoreCase);
+            CreateTime = DateTime.Now;
+        }
+
         /// <summary>
         /// 创建时间
         /// </summary>
         public DateTime CreateTime { get; set; }
 
-        public ContainerItemCollection()
-        {
-            CreateTime = DateTime.Now;
-        }
-
         public string CacheSetKey { get; set; }
         public void InsertToCache(string key, IBaseContainerBag value)
         {
-            base[key] = value;
+            _cache[key] = value;
         }
 
         public void RemoveFromCache(string key)
         {
-            base.Remove(key);
+            _cache.Remove(key);
         }
 
         public IBaseContainerBag Get(string key)
         {
             if (this.CheckExisted(key))
             {
-                return base[key];
+                return _cache[key];
             }
             return null;
         }
 
         public IDictionary<string, IBaseContainerBag> GetAll()
         {
-            return this;
+            return _cache;
         }
 
         public bool CheckExisted(string key)
         {
-            return base.ContainsKey(key);
+            return _cache.ContainsKey(key);
         }
 
         public long GetCount()
         {
-            return base.Count;
+            return _cache.Count;
         }
 
         public void Update(string key, IBaseContainerBag value)
         {
-            base[key] = value;
+            _cache[key] = value;
         }
     }
 }

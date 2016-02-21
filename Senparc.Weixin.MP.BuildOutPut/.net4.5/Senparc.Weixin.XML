@@ -6,13 +6,35 @@
     <members>
         <member name="T:Senparc.Weixin.Cache.IContainerItemCollection">
             <summary>
-            IContainerItemCollection
+            IContainerItemCollection，对某个Container下的缓存值ContainerBag进行封装
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Cache.IContainerItemCollection.CreateTime">
+            <summary>
+            创建时间
             </summary>
         </member>
         <member name="T:Senparc.Weixin.Cache.ContainerItemCollection">
             <summary>
             储存某个Container下所有ContainerBag的字典集合
             </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Cache.ContainerItemCollection.CreateTime">
+            <summary>
+            创建时间
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Cache.IContainerCacheStragegy">
+            <summary>
+            容器缓存策略接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.IContainerCacheStragegy.UpdateContainerBag(System.String,Senparc.Weixin.Containers.IBaseContainerBag)">
+            <summary>
+            更新ContainerBag
+            </summary>
+            <param name="key"></param>
+            <param name="containerBag"></param>
         </member>
         <member name="P:Senparc.Weixin.Cache.LocalCacheHelper.LocalCache">
             <summary>
@@ -62,7 +84,7 @@
         </member>
         <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.GetAll">
             <summary>
-            获取所有细信息
+            获取所有缓存信息集合
             </summary>
             <returns></returns>
         </member>
@@ -70,7 +92,7 @@
             <summary>
             检查是否存在Key及对象
             </summary>
-            <param name="key"></param>
+            <param name="key">缓存键</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.GetCount">
@@ -83,10 +105,8 @@
             <summary>
             更新缓存
             </summary>
-            <typeparam name="TKey"></typeparam>
-            <typeparam name="TValue"></typeparam>
-            <param name="key"></param>
-            <param name="value"></param>
+            <param name="key">缓存键</param>
+            <param name="value">缓存值</param>
         </member>
         <member name="T:Senparc.Weixin.Config">
             <summary>

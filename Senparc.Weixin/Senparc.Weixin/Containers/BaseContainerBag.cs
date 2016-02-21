@@ -23,21 +23,21 @@ namespace Senparc.Weixin.Containers
     /// </summary>
     public interface IBaseContainerBag
     {
-    /// <summary>
-    /// 缓存键
-    /// </summary>
-    string Key { get; set; }
-    /// <summary>
-    /// 当前对象被缓存的时间
-    /// </summary>
-    DateTime CacheTime { get; set; }
+        /// <summary>
+        /// 缓存键
+        /// </summary>
+        string Key { get; set; }
+        /// <summary>
+        /// 当前对象被缓存的时间
+        /// </summary>
+        DateTime CacheTime { get; set; }
     }
 
-        /// <summary>
-        /// BaseContainer容器中的Value类型
-        /// </summary>
-        public class BaseContainerBag : BindableBase, IBaseContainerBag
-        {
+    /// <summary>
+    /// BaseContainer容器中的Value类型
+    /// </summary>
+    public class BaseContainerBag : BindableBase, IBaseContainerBag
+    {
         private string _key;
 
         /// <summary>
@@ -91,5 +91,5 @@ namespace Senparc.Weixin.Containers
         {
             base.PropertyChanged += BaseContainerBag_PropertyChanged;
         }
-        }
+    }
 }

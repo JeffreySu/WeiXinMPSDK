@@ -16,6 +16,8 @@ namespace Senparc.Weixin.Cache
         /// 创建时间
         /// </summary>
         DateTime CreateTime { get; set; }
+
+        IBaseContainerBag this[string key] { get; set; }
     }
 
     /// <summary>
@@ -24,6 +26,12 @@ namespace Senparc.Weixin.Cache
     public class ContainerItemCollection : IContainerItemCollection
     {
         private Dictionary<string, IBaseContainerBag> _cache;
+
+        public IBaseContainerBag this[string key]
+        {
+            get { return this.Get(key); }
+            set { this.Update(key, value); }
+        }
 
         public ContainerItemCollection()
         {

@@ -225,7 +225,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <returns></returns>
         public new static bool CheckRegistered(string componentAppId)
         {
-            return ItemCollection.ContainsKey(componentAppId);
+            return ItemCollection.CheckExisted(componentAppId);
         }
 
 

@@ -116,7 +116,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static List<TBag> GetAllItems()
         {
-            return ItemCollection.Values.Select(z => z as TBag).ToList();
+            return ItemCollection.GetAll().Values.Select(z => z as TBag).ToList();
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static TBag TryGetItem(string key)
         {
-            if (ItemCollection.ContainsKey(key))
+            if (ItemCollection.CheckExisted(key))
             {
                 return ItemCollection[key] as TBag;
             }
@@ -142,7 +142,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static TK TryGetItem<TK>(string key, Func<TBag, TK> property)
         {
-            if (ItemCollection.ContainsKey(key))
+            if (ItemCollection.CheckExisted(key))
             {
                 var item = ItemCollection[key] as TBag;
                 return property(item);
@@ -159,7 +159,7 @@ namespace Senparc.Weixin.Containers
         {
             if (value == null)
             {
-                ItemCollection.Remove(key);
+                ItemCollection.RemoveFromCache(key);
             }
             else
             {
@@ -192,11 +192,11 @@ namespace Senparc.Weixin.Containers
         {
             if (partialUpdate == null)
             {
-                ItemCollection.Remove(key);//移除对象
+                ItemCollection.RemoveFromCache(key);//移除对象
             }
             else
             {
-                if (!ItemCollection.ContainsKey(key))
+                if (!ItemCollection.CheckExisted(key))
                 {
                     ItemCollection[key] = new TBag()
                     {
@@ -215,7 +215,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static bool CheckRegistered(string key)
         {
-            return ItemCollection.ContainsKey(key);
+            return ItemCollection.CheckExisted(key);
         }
     }
 }

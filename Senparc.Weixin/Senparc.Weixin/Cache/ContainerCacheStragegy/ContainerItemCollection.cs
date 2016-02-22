@@ -17,6 +17,11 @@ namespace Senparc.Weixin.Cache
         /// </summary>
         DateTime CreateTime { get; set; }
 
+        /// <summary>
+        /// 索引器
+        /// </summary>
+        /// <param name="key">缓存键（通常为AppId，值和IBaseContainerBag.Key相等）</param>
+        /// <returns></returns>
         IBaseContainerBag this[string key] { get; set; }
     }
 
@@ -27,6 +32,11 @@ namespace Senparc.Weixin.Cache
     {
         private Dictionary<string, IBaseContainerBag> _cache;
 
+        /// <summary>
+        /// 索引器
+        /// </summary>
+        /// <param name="key">缓存键（通常为AppId，值和IBaseContainerBag.Key相等）</param>
+        /// <returns></returns>
         public IBaseContainerBag this[string key]
         {
             get { return this.Get(key); }
@@ -45,6 +55,9 @@ namespace Senparc.Weixin.Cache
         public DateTime CreateTime { get; set; }
 
         public string CacheSetKey { get; set; }
+
+        #region 实现IContainerItemCollection : IBaseCacheStrategy<string, IBaseContainerBag>接口
+
         public void InsertToCache(string key, IBaseContainerBag value)
         {
             _cache[key] = value;
@@ -83,5 +96,7 @@ namespace Senparc.Weixin.Cache
         {
             _cache[key] = value;
         }
+
+        #endregion
     }
 }

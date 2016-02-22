@@ -14,10 +14,24 @@
             创建时间
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.Cache.IContainerItemCollection.Item(System.String)">
+            <summary>
+            索引器
+            </summary>
+            <param name="key">缓存键（通常为AppId，值和IBaseContainerBag.Key相等）</param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.Cache.ContainerItemCollection">
             <summary>
             储存某个Container下所有ContainerBag的字典集合
             </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Cache.ContainerItemCollection.Item(System.String)">
+            <summary>
+            索引器
+            </summary>
+            <param name="key">缓存键（通常为AppId，值和IBaseContainerBag.Key相等）</param>
+            <returns></returns>
         </member>
         <member name="P:Senparc.Weixin.Cache.ContainerItemCollection.CreateTime">
             <summary>

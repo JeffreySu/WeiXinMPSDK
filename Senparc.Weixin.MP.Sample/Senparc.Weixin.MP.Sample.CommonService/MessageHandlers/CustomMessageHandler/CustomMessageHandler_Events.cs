@@ -17,6 +17,7 @@ using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.Weixin.MP.Sample.CommonService.Download;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
@@ -230,7 +231,28 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
         {
             //通过扫描关注
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "通过扫描关注。";
+
+            //下载文档
+            if (!string.IsNullOrEmpty(requestMessage.EventKey))
+            {
+                var sceneId = long.Parse(requestMessage.EventKey.Replace("qrscene_", ""));
+                //var configHelper = new ConfigHelper(new HttpContextWrapper(HttpContext.Current));
+                var codeRecord =
+                    ConfigHelper.CodeCollection.Values.FirstOrDefault(z => z.QrCodeTicket != null && z.QrCodeId == sceneId);
+
+
+                if (codeRecord != null)
+                {
+                    //确认可以下载
+                    codeRecord.AllowDownload = true;
+                    responseMessage.Content = "您已通过二维码验证，浏览器即将开始下载。";
+                }
+            }
+
+            responseMessage.Content = responseMessage.Content ?? "通过扫描二维码进入。";
+
+
+
             return responseMessage;
         }
 
@@ -261,6 +283,25 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
             {
                 responseMessage.Content += "\r\n============\r\n场景值：" + requestMessage.EventKey;
             }
+
+            //推送消息
+            //下载文档
+            if (requestMessage.EventKey.StartsWith("qrscene_"))
+            {
+                var sceneId = long.Parse(requestMessage.EventKey.Replace("qrscene_", ""));
+                //var configHelper = new ConfigHelper(new HttpContextWrapper(HttpContext.Current));
+                var codeRecord =
+                    ConfigHelper.CodeCollection.Values.FirstOrDefault(z => z.QrCodeTicket != null && z.QrCodeId == sceneId);
+
+                if (codeRecord != null)
+                {
+                    //确认可以下载
+                    codeRecord.AllowDownload = true;
+                    AdvancedAPIs.CustomApi.SendText(null, WeixinOpenId, "您已通过二维码验证，浏览器即将开始下载。");
+                }
+            }
+
+
             return responseMessage;
         }
 

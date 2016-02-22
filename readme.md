@@ -28,7 +28,8 @@
 4. 自定义菜单在线编辑工具：http://weixin.senparc.com/Menu
 5. 在线消息测试工具：http://weixin.senparc.com/SimulateTool
 6. 缓存测试工具：http://weixin.senparc.com/Cache/Test
-7. 源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
+7. chm帮助文档下载：http://weixin.senparc.com/Document
+8. 源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
 
 技术交流QQ群（目前未满可加：3群、8群，其他群均已满）：
 

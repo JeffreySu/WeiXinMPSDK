@@ -32,14 +32,14 @@ namespace Senparc.Weixin.Cache.Tests
                 newData["A"] = new TestContainerBag1();
                 c1Strategy.InsertToCache(key, newData);
                 data = c1Strategy.Get(key);
-                Assert.AreEqual(1, data.Count);
-                Console.WriteLine(data.Count);//1
+                Assert.AreEqual(1, data.GetCount());
+                Console.WriteLine(data.GetCount());//1
 
                 var collectionList = TestContainer1.GetCollectionList()[key];
-                collectionList.Add("ABC", new TestContainerBag1());
+                collectionList.InsertToCache("ABC", new TestContainerBag1());
                 data = c1Strategy.Get(key);
-                Assert.AreEqual(2, data.Count);
-                Console.WriteLine(data.Count);//2
+                Assert.AreEqual(2, data.GetCount());
+                Console.WriteLine(data.GetCount());//2
             }
             Console.WriteLine("使用注册");
             {
@@ -64,14 +64,14 @@ namespace Senparc.Weixin.Cache.Tests
                 newData["A"] = new TestContainerBag1();
                 c2Strategy.InsertToCache(key, newData);
                 data = c2Strategy.Get(key);
-                Assert.AreEqual(1, data.Count);
-                Console.WriteLine(data.Count);//1
+                Assert.AreEqual(1, data.GetCount());
+                Console.WriteLine(data.GetCount());//1
 
                 var collectionList = TestContainer2.GetCollectionList()[typeof(TestContainer2).ToString()];
-                collectionList.Add("DEF", new TestContainerBag2());
+                collectionList.InsertToCache("DEF", new TestContainerBag2());
                 data = c2Strategy.Get(key);
-                Assert.AreEqual(2, data.Count);
-                Console.WriteLine(data.Count);//1
+                Assert.AreEqual(2, data.GetCount());
+                Console.WriteLine(data.GetCount());//1
             }
         }
     }

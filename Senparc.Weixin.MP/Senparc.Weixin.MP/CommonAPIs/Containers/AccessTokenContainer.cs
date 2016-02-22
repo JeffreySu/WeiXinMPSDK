@@ -111,7 +111,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static string GetFirstOrDefaultAppId()
         {
-            return ItemCollection.Keys.FirstOrDefault();
+            return ItemCollection.GetAll().Keys.FirstOrDefault();
         }
 
         #region AccessToken

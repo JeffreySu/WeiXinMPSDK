@@ -9,6 +9,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.Open.CommonAPIs;
@@ -22,29 +23,41 @@ namespace Senparc.Weixin.MP.Sample
 
     public class WebApiApplication : System.Web.HttpApplication
     {
-protected void Application_Start()
-{
-    AreaRegistration.RegisterAllAreas();
+        protected void Application_Start()
+        {
+            AreaRegistration.RegisterAllAreas();
 
-    WebApiConfig.Register(GlobalConfiguration.Configuration);
-    FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-    RouteConfig.RegisterRoutes(RouteTable.Routes);
-    BundleConfig.RegisterBundles(BundleTable.Bundles);
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-    RegisterWeixinThreads();//激活微信缓存（必须）
-    RegisterWeixinPay();//注册微信支付
-    RegisterWeixinThirdParty(); //注册微信第三方平台
+            RegisterWeixinThreads();//激活微信缓存（必须）
+            RegisterSenparcWeixin();//注册Demo所用微信公众号的账号信息
+            RegisterWeixinPay();//注册微信支付
+            RegisterWeixinThirdParty(); //注册微信第三方平台
 
-    Senparc.Weixin.Config.IsDebug = true;//这里设为Debug状态时，/App_Data/目录下会生成日志文件记录所有的API请求日志，正式发布版本建议关闭
-}
+            Senparc.Weixin.Config.IsDebug = true;//这里设为Debug状态时，/App_Data/目录下会生成日志文件记录所有的API请求日志，正式发布版本建议关闭
+        }
 
-/// <summary>
-/// 激活微信缓存
-/// </summary>
-private void RegisterWeixinThreads()
-{
-    ThreadUtility.Register();
-}
+        /// <summary>
+        /// 激活微信缓存
+        /// </summary>
+        private void RegisterWeixinThreads()
+        {
+            ThreadUtility.Register();
+        }
+
+        /// <summary>
+        /// 注册Demo所用微信公众号的账号信息
+        /// </summary>
+        private void RegisterSenparcWeixin()
+        {
+            AccessTokenContainer.Register(
+                System.Configuration.ConfigurationManager.AppSettings["WeixinAppId"],
+                System.Configuration.ConfigurationManager.AppSettings["WeixinAppSecret"]);
+        }
+
 
         /// <summary>
         /// 注册微信支付

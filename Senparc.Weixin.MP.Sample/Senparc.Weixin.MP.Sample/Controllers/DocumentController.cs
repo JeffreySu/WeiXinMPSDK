@@ -43,13 +43,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             };//添加对应关系
 
             //下载版本
-            var files = System.IO.Directory.GetFiles(Server.MapPath("~/App_Data/Document/Files/"), "*.rar");
-            var versions = files.Select(z => 
-                                    System.IO.Path.GetFileNameWithoutExtension(
-                                        System.IO.Path.GetFileName(z)))
-                                .OrderByDescending(z => z)
-                                .ToList();
-            ViewData["Versions"] = versions;
+            ViewData["Versions"] = configHelper.GetConfig().Versions;
 
             return View();
         }

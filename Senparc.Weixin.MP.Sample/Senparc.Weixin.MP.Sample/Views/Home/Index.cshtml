@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "微信公众平台SDK - Senparc.Weixin SDK - 公众号 企业号 开放平台";
 }
-
 @section scripts
 {
     <script>
@@ -14,7 +13,6 @@
         });
     </script>
 }
-
 <div class="catalog">
     <a href="@Url.Action("Index", "Menu")">自定义菜单设置工具</a>
     <a href="@Url.Action("Index", "SimulateTool")">消息模拟工具</a>
@@ -23,17 +21,69 @@
 
     <div class="weixin-bottom">
         <p class="weixin-item-title">目前Senparc.Weixin.MP已支持微信6.x API中所有接口</p>
-        <a href="http://mp.weixin.qq.com/wiki/index.php?title=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E6%8C%87%E5%8D%97" class="application" target="_blank">查看官方API</a>
-    </div>
+        <div class="weixin-bottom-buttons">
 
+
+            <p class="weixin-item-button">
+                <a href="http://weixin.senparc.com@(Url.Action("Index", "Document"))" class="application" target="_blank">下载 Senparc.Weixin SDK 帮助文档</a>
+
+                &nbsp; &nbsp; &nbsp;
+
+                @*</p>
+                    <p class="weixin-item-button">*@
+                <a href="http://mp.weixin.qq.com/wiki/index.php?title=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E6%8C%87%E5%8D%97" class="application" target="_blank">查看微信官方API</a>
+            </p>
+        </div>
+
+        <table id="tbVersion">
+            <thead>
+                <tr>
+                    <th>功能模块</th>
+                    <th>文件名</th>
+                    <th>当前站点运行版本</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>SDK 公共基础库</td>
+                    <td>Senparc.Weixin.dll</td>
+                    <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["WeixinVersion"])</a></td>
+                </tr>
+                <tr>
+                    <td>公众号 + 微信支付 + JSSDK</td>
+                    <td>Senparc.Weixin.MP.dll</td>
+                    <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["MpVersion"])</a></td>
+                </tr>
+                <tr>
+                    <td>开放平台 SDK</td>
+                    <td>Senparc.Weixin.Open.dll</td>
+                    <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["OpenVersion"])</a></td>
+                </tr>
+                <tr>
+                    <td>企业号 SDK</td>
+                    <td>Senparc.Weixin.QY.dll</td>
+                    <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["QYVersion"])</a></td>
+                </tr>
+                <tr>
+                    <td>MVC扩展插件</td>
+                    <td>MvcExtentsion.dll</td>
+                    <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["ExtensionVersion"])</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="clear"></div>
+
+    </div>
     <div class="content-weixin">
         <div class="weixin-item">
             <p class="weixin-item-title">关注官方微信 进行互动测试</p>
-            <img src="/images/v2/ewm_01.png" alt="微信SDK" />
+            <img class="official-img" src="/images/v2/ewm_01.png" alt="微信SDK" />
         </div>
         <div class="clear"></div>
     </div>
-
+    <div class="clear"></div>
+    <div class="line"></div>
     <div class="test">
         <table>
             <tr>
@@ -134,18 +184,16 @@
             </tr>
         </table>
     </div>
-
     <div class="line"></div>
-
     <div class="weixin-weiweihi">
         <div class="weixin-item">
-            <p class="weixin-item-title">微信营销生态圈—— ——微微嗨</p>
             <div class="weixin-item-content">
+                <p class="weixin-item-title">微信营销生态圈—— ——微微嗨</p>
                 <p class="weixin-item-font">微微嗨是在Senparc.Weixin.MP + Open核心基础上开发的微信服务平台，联合数万开发者和代理商，打造一流的场景社群及微信营销生态圈。期待您的加入</p>
                 @*<a href="http://www.weiweihi.com/AgentApply" class="application" target="_blank">申请成为微微嗨代理</a>*@
             </div>
             <div class="weixin-item-img">
-                <img src="/images/v2/ewm_02.png" width="250"/>
+                <img src="/images/v2/ewm_02.png" width="250" />
             </div>
             <a href="javascript:;"></a>
         </div>

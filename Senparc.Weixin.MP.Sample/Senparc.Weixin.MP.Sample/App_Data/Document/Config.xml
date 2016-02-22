@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Config>
-  <QrCodeId>1</QrCodeId>
+  <QrCodeId>2</QrCodeId>
   <DownloadCount>0</DownloadCount>
   <Versions>
     <Version>13.6.2</Version>

@@ -42,6 +42,15 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 QrCodeTicket = qrResult
             };//添加对应关系
 
+            //下载版本
+            var files = System.IO.Directory.GetFiles(Server.MapPath("~/App_Data/Document/Files/"), "*.rar");
+            var versions = files.Select(z => 
+                                    System.IO.Path.GetFileNameWithoutExtension(
+                                        System.IO.Path.GetFileName(z)))
+                                .OrderByDescending(z => z)
+                                .ToList();
+            ViewData["Versions"] = versions;
+
             return View();
         }
 

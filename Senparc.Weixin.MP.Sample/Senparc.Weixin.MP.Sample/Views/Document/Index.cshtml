@@ -48,6 +48,7 @@
                             //开始下载
                             clearInterval(interval);
                             $('#downloadTip').show();
+                            $('#versionSelector').hide();
                             location.href = $('#downloadTip a').attr('href');
                         }
                     }
@@ -62,8 +63,13 @@
         <div class="qrcode">
             <img src="@ViewData["QrCodeUrl"]" />
             <div>请选择下载版本：</div>
-            <div>
-                <label for="v13_6_2"><input id="v13_6_2" value="13.6.2" type="radio" name="version" />V13.6.2</label>
+            <div id="versionSelector">
+                @foreach (var version in ViewData["Versions"] as List<string>)
+                {
+                    <p>
+                        <label for="@version.Replace(".","_")"><input id="@version.Replace(".","_")" value="@version.Replace("v","")" type="radio" name="version" />@version</label>
+                    </p>
+                }
             </div>
             <div id="downloadTip">
                 审核通过，下载已开始，如果10秒内没有开始下载，请 @Html.ActionLink("点击这里", "Download", new { guid = ViewData["Guid"] }, new { target = "_blank", id = "linkDownload" }) 下载。

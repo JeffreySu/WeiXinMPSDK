@@ -31,7 +31,7 @@
 7. chm帮助文档下载：http://weixin.senparc.com/Document
 8. 源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
 
-技术交流QQ群（目前未满可加：3群、8群，其他群均已满）：
+技术交流QQ群（目前未满可加：8群，其他群均已满）：
 
 1群：300313885，2群：293958349，3群：342319110，4群：372212092
 

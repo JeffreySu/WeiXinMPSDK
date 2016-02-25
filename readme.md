@@ -71,7 +71,7 @@
 
 > Senparc.Weixin.Open：Senparc.Weixin.Open.dll 第三方开放平台SDK源代码
 
-> Senparc.Weixin.Cache：分布式缓存扩展方案
+> Senparc.Weixin.Cache：Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis 等分布式缓存扩展方案
 
 > Senparc.Wiexin：所有Senparc.Weixin.[x].dll 基础类库源代码
 

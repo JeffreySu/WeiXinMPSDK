@@ -9564,6 +9564,31 @@
             <param name="requestMessage"></param>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.MP.Helpers.JsSdkUiPackage">
+            <summary>
+            为UI输出准备的JSSDK信息包
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Helpers.JsSdkUiPackage.AppId">
+            <summary>
+            微信AppId
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Helpers.JsSdkUiPackage.Timestamp">
+            <summary>
+            时间戳
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Helpers.JsSdkUiPackage.NonceStr">
+            <summary>
+            随机码
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Helpers.JsSdkUiPackage.Signature">
+            <summary>
+            签名
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MP.Helpers.MsgTypeHelper.GetRequestMsgType(System.Xml.Linq.XDocument)">
             <summary>
             根据xml信息，返回RequestMsgType
@@ -9664,6 +9689,15 @@
              <param name="code"></param>
              <param name="openid"></param>
              <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.Helpers.JSSDKHelper.GetJsSdkUiPackage(System.String,System.String,System.String)">
+            <summary>
+            获取给UI使用的JSSDK信息包
+            </summary>
+            <param name="appId"></param>
+            <param name="appSecret"></param>
+            <param name="url"></param>
+            <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.Helpers.SHA1UtilHelper.GetSha1(System.String)">
             <summary>

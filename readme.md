@@ -57,6 +57,9 @@
 
 项目文件夹说明
 --------------
+
+> Senparc.Weixin.Cache：Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis.dll 等分布式缓存扩展方案
+
 > Senparc.Weixin.MP.BuildOutPut：所有最新版本DLL发布文件夹
 
 > Senparc.Weixin.MP.MvcExtension：Senparc.Weixin.MP.MvcExtension.dll源码，为MVC4.0项目提供的扩展包。
@@ -70,8 +73,6 @@
 > Senparc.Weixin.QY：Senparc.Weixin.QY.dll 微信企业号SDK源代码
 
 > Senparc.Weixin.Open：Senparc.Weixin.Open.dll 第三方开放平台SDK源代码
-
-> Senparc.Weixin.Cache：Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis.dll 等分布式缓存扩展方案
 
 > Senparc.Wiexin：所有Senparc.Weixin.[x].dll 基础类库源代码
 

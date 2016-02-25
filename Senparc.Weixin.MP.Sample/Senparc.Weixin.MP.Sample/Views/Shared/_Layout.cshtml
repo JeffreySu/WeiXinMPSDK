@@ -70,6 +70,17 @@
                 <div class="clear"></div>
             </div>
         </div>
+
+        @if (!IsSectionDefined("catalog"))
+        {
+            <div class="catalog">
+                <a href="@Url.Action("Index", "Menu")">自定义菜单设置工具</a>
+                <a href="@Url.Action("Index", "SimulateTool")">消息模拟工具</a>
+                <a href="@Url.Action("Test", "Cache")">缓存测试</a>
+                <a href="http://weixin.senparc.com/@Url.Action("Index", "Document")">帮助文档</a>
+            </div>
+        }
+
         @RenderBody()
         <div class="feedback">
             <div class="wrapper">

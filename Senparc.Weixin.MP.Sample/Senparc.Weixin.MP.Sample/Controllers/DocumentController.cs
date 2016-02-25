@@ -43,7 +43,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             };//添加对应关系
 
             //下载版本
-            ViewData["Versions"] = configHelper.GetConfig().Versions;
+            var config = configHelper.GetConfig();
+            ViewData["Versions"] = config.Versions;
+            ViewData["DownloadCount"] = config.DownloadCount.ToString("##,###");
 
             return View();
         }
@@ -63,6 +65,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 {
                     var codeRecord = ConfigHelper.CodeCollection[guid];
                     codeRecord.Version = version;
+                }
+                else if (ConfigHelper.CodeCollection.ContainsKey(guid))
+                {
+                    ConfigHelper.CodeCollection[guid].Version = version;
                 }
                 return Json(new { success = success });
             });

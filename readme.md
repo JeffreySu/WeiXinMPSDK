@@ -1,7 +1,7 @@
 
 微信C# SDK
 =================
-微信公众号：Senparc.Weixin.MP.dll
+微信公众号 + 微信支付 + JSSDK + 摇周边：Senparc.Weixin.MP.dll
 -----------------
 微信企业号：Senparc.Weixin.QY.dl
 -----------------

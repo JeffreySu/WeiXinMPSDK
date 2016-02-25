@@ -69,7 +69,7 @@ namespace Senparc.Weixin.MP.Helpers
                     }
                 }
             }
-            return SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
+            return SHA1UtilHelper.GetSha1(sb.ToString()).ToLower();
         }
 
         /// <summary>

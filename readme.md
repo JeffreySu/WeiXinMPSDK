@@ -1,7 +1,6 @@
-
 微信C# SDK
 =================
-微信公众号：Senparc.Weixin.MP.dll
+微信公众号 / 微信支付 / JSSDK / 摇周边 / 等等：Senparc.Weixin.MP.dll
 -----------------
 微信企业号：Senparc.Weixin.QY.dl
 -----------------
@@ -57,6 +56,9 @@
 
 项目文件夹说明
 --------------
+
+> Senparc.Weixin.Cache：Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis.dll 等分布式缓存扩展方案
+
 > Senparc.Weixin.MP.BuildOutPut：所有最新版本DLL发布文件夹
 
 > Senparc.Weixin.MP.MvcExtension：Senparc.Weixin.MP.MvcExtension.dll源码，为MVC4.0项目提供的扩展包。

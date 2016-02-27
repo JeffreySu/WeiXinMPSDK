@@ -50,6 +50,11 @@
             <param name="key"></param>
             <param name="containerBag"></param>
         </member>
+        <member name="T:Senparc.Weixin.Cache.LocalCacheHelper">
+            <summary>
+            全局静态数据源帮助类
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.Cache.LocalCacheHelper.LocalCache">
             <summary>
             所有数据集合的列表
@@ -59,7 +64,6 @@
             <summary>
             本地容器缓存策略
             </summary>
-            <typeparam name="TContainerBag">容器内</typeparam>
         </member>
         <member name="M:Senparc.Weixin.Cache.LocalContainerCacheStrategy.#ctor">
             <summary>

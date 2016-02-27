@@ -151,7 +151,8 @@
     <Compile Include="Entities\Response\ResponseMessageMpNews.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
-    <Compile Include="Helpers\JSSDKHelper.cs" />
+    <Compile Include="Helpers\JSSDK\JSSDKHelper.cs" />
+    <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />
     <Compile Include="Helpers\MD5UtilHelper.cs" />
     <Compile Include="Helpers\SHA1UtilHelper.cs" />
     <Compile Include="MessageHandlers\QyMessageHandler.cs" />

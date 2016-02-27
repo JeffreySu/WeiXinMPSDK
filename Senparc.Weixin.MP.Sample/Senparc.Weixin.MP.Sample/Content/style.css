@@ -166,10 +166,11 @@
 	padding-right:40px;
 }
 .weixin-item img {
-    margin-left: 40px;
+    /*margin-left: 40px;*/
+
 }
-.img.official-img {
-    margin: 50px 0 0 30px;
+img.official-img {
+    margin: 50px 0 0 0;
     clear: both;
 }
 
@@ -180,7 +181,7 @@
 .weixin-bottom {
 	text-align:center;
 	padding-bottom:40px;
-    width: 627px;
+    width: 647px;
     float: left;
 }
 .application {
@@ -378,11 +379,12 @@
 
 #tbVersion{ color: #4d4d4d;font-size: 18px;/*text-align: center;*/ }
 #tbVersion th{ font-weight: bold;padding: 10px; color: #4d4d4d;border-bottom: 1px solid #4d4d4d;}
-#tbVersion td{ padding: 10px; color: #4d4d4d;}
-#tbVersion td a{  color: #4d4d4d;}
+#tbVersion td{ padding: 6px; color: #4d4d4d;line-height: 150%; vertical-align:middle;}
+#tbVersion td a{ color: #4d4d4d;}
+.sdk-version{ text-decoration:underline;}
+.sdk-version:hover{ text-decoration:none;}
+#tbVersion tbody>tr:hover{ background: #abe0ff;}
 
-.sdk-version{color:#fff;text-decoration:underline;}
-.sdk-version:hover{text-decoration:underline;}
 #menuEditor h3{text-align: left;
 font-size: 16px;
 font-weight: bold;

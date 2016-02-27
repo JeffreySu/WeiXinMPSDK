@@ -56,5 +56,7 @@ namespace Senparc.Weixin.QY.Helpers
              .Append("url=").Append(url.IndexOf("#") >= 0 ? url.Substring(0, url.IndexOf("#")) : url);
             return SHA1UtilHelper.GetSha1(sb.ToString()).ToLower();
         }
+
+
     }
 }

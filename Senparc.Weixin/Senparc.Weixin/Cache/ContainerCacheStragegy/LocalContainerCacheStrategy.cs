@@ -9,25 +9,26 @@ using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache
 {
+    /// <summary>
+    /// 全局静态数据源帮助类
+    /// </summary>
     public static class LocalCacheHelper
     {
 
         /// <summary>
         /// 所有数据集合的列表
         /// </summary>
-        public static IDictionary<string, IContainerItemCollection> LocalCache { get; set; }
+        internal static IDictionary<string, IContainerItemCollection> LocalCache { get; set; }
 
         static LocalCacheHelper()
         {
             LocalCache = new Dictionary<string, IContainerItemCollection>(StringComparer.OrdinalIgnoreCase);
         }
-
     }
 
     /// <summary>
     /// 本地容器缓存策略
     /// </summary>
-    /// <typeparam name="TContainerBag">容器内</typeparam>
     public class LocalContainerCacheStrategy : IContainerCacheStragegy
     //where TContainerBag : class, IBaseContainerBag, new()
     {
@@ -99,7 +100,6 @@ namespace Senparc.Weixin.Cache
 
         public IDictionary<string, IContainerItemCollection> GetAll()
         {
-            //var list = _collectionList.Values.ToList();
             return _cache;
         }
 

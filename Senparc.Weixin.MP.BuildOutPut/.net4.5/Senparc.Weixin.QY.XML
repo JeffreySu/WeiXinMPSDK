@@ -2986,6 +2986,31 @@
             <param name="url">当前网页的URL，不包含#及其后面部分(必须是调用JS接口页面的完整URL)</param>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.QY.Helpers.JsSdkUiPackage">
+            <summary>
+            为UI输出准备的JSSDK信息包
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Helpers.JsSdkUiPackage.AppId">
+            <summary>
+            微信AppId
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Helpers.JsSdkUiPackage.Timestamp">
+            <summary>
+            时间戳
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Helpers.JsSdkUiPackage.NonceStr">
+            <summary>
+            随机码
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Helpers.JsSdkUiPackage.Signature">
+            <summary>
+            签名
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.QY.Helpers.MD5UtilHelper">
             <summary>
             MD5UtilHelper µÄÕªÒªËµÃ÷¡£

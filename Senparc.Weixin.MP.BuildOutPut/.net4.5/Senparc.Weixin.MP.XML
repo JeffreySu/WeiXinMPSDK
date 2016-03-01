@@ -3802,7 +3802,7 @@
             <param name="orderId">订单Id</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MerChant.OrderApi.GetByFilterOrder(System.String,System.Int32,System.DateTime,System.DateTime)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.MerChant.OrderApi.GetByFilterOrder(System.String,System.Nullable{System.Int32},System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
             <summary>
             根据订单状态/创建时间获取订单详情
             </summary>

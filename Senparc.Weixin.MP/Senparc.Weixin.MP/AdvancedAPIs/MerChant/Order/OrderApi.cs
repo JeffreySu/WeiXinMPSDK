@@ -50,18 +50,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="beginTime">订单创建时间起始时间(不带该字段则不按照时间做筛选)</param>
         /// <param name="endTime">订单创建时间终止时间(不带该字段则不按照时间做筛选)</param>
         /// <returns></returns>
-        public static GetByFilterResult GetByFilterOrder(string accessToken, int status, DateTime beginTime, DateTime endTime)
+        public static GetByFilterResult GetByFilterOrder(string accessToken, int? status, DateTime? beginTime, DateTime? endTime)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/order/getbyfilter?access_token={0}";
 
             var data = new
-                {
-                    status = status,
-                    begintime = DateTimeHelper.GetWeixinDateTime(beginTime),
-                    endtime = DateTimeHelper.GetWeixinDateTime(endTime)
-                };
+            {
+                status = status,
+                begintime = beginTime.HasValue ? DateTimeHelper.GetWeixinDateTime(beginTime.Value) : (long?)null,
+                endtime = endTime.HasValue ? DateTimeHelper.GetWeixinDateTime(endTime.Value) : (long?)null
+            };
 
-            return CommonJsonSend.Send<GetByFilterResult>(accessToken, urlFormat, data);
+            return CommonJsonSend.Send<GetByFilterResult>(accessToken, urlFormat, data,jsonSetting:new JsonSetting(true));
         }
 
         /// <summary>

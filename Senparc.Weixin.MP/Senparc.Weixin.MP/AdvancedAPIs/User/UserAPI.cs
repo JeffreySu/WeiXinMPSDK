@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.User;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -45,7 +46,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}&lang={2}",
-                    accessToken, openId, lang.ToString());
+                    accessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
                 return HttpUtility.Get.GetJson<UserInfoJson>(url);
 
                 //错误时微信会返回错误码等信息，JSON数据包示例如下（该示例为AppID无效错误）:
@@ -64,8 +65,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/get?access_token={0}",
-                    accessToken);
+                string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/get?access_token={0}", accessToken.AsUrlData());
                 if (!string.IsNullOrEmpty(nextOpenId))
                 {
                     url += "&next_openid=" + nextOpenId;
@@ -87,8 +87,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token={0}",
-                    accessToken);
+                string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     openid = openId,
@@ -110,8 +109,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token={0}",
-                    accessToken);
+                string url = string.Format("https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
                     user_list = userList,

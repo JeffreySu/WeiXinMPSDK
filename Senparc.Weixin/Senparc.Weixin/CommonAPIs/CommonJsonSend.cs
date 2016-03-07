@@ -59,7 +59,7 @@ namespace Senparc.Weixin.CommonAPIs
 
             try
             {
-                var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken);
+                var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken.AsUrlData());
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
@@ -122,7 +122,7 @@ namespace Senparc.Weixin.CommonAPIs
         {
             try
             {
-                var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken);
+                var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken.AsUrlData());
 
                 switch (sendType)
                 {

@@ -33,7 +33,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static QyJsonResult TwoVerification(string accessToken, string userId)
         {
-            var url =string.Format ( "https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}",accessToken,userId);
+            var url =string.Format ( "https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}",accessToken.AsUrlData(), userId.AsUrlData());
             return Get.GetJson<QyJsonResult>(url);
         }
     }

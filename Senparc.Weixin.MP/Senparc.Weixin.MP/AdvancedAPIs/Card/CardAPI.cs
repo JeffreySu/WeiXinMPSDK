@@ -246,8 +246,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
                 };
 
-                var jsonSettingne=new JsonSetting(true);
-                return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut,jsonSetting: jsonSettingne);
+                var jsonSettingne = new JsonSetting(true);
+                return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSettingne);
 
             }, accessTokenOrAppId);
         }
@@ -719,6 +719,25 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 拉取会员信息接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="cardId">CardID</param>
+        /// <param name="code">Code</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static UserinfoGetResult UserinfoGet(string accessTokenOrAppId, string cardId, string code, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format("https://api.weixin.qq.com/card/membercard/userinfo/get?access_token={0}", accessToken);
+
+                return CommonJsonSend.Send<UserinfoGetResult>(null, urlFormat, new { card_id = cardId, code = code }, timeOut: timeOut);
+            }, accessTokenOrAppId);
+        }
+
 
         /// <summary>
         /// 设置跟随推荐接口

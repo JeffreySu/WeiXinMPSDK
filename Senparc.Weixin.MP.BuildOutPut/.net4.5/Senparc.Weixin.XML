@@ -1786,6 +1786,7 @@
             <param name="url"></param>
             <returns></returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.HttpUtility.RequestUtility.AsUrlData(System.String)" -->
         <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandler`2.WeixinOpenId">
             <summary>
             发送者用户名（OpenId）

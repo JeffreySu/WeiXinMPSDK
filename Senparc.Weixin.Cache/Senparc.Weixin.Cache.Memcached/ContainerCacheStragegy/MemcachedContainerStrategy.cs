@@ -144,7 +144,7 @@ namespace Senparc.Weixin.Cache.Memcached
             _cache.Store(StoreMode.Set, cacheKey, value,DateTime.Now.AddDays(1));
 
 #if DEBUG
-            var value = _cache.Get(cacheKey);
+            value = _cache.Get(cacheKey) as IContainerItemCollection;
 #endif
         }
 

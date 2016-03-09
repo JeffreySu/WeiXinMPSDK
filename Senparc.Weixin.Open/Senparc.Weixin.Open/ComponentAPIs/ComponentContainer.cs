@@ -29,6 +29,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     /// <summary>
     /// 第三方APP信息包
     /// </summary>
+    [Serializable]
     public class ComponentBag : BaseContainerBag
     {
         /// <summary>

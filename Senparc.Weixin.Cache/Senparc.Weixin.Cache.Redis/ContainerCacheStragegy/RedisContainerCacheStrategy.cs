@@ -101,6 +101,12 @@ namespace Senparc.Weixin.Cache.Redis
                 return null;
             }
             var cacheKey = GetFinalKey(key);
+
+            if (!CheckExisted(cacheKey))
+            {
+                return null;
+            }
+
             var value = _cache.StringGet(cacheKey);
             return StackExchangeRedisExtensions.Deserialize<IContainerItemCollection>(value);
         }
@@ -140,7 +146,7 @@ namespace Senparc.Weixin.Cache.Redis
             //_cache.SetEntry(cacheKey, obj);
 
 #if DEBUG
-            var value1 = _cache.HashGetAll(cacheKey);//正常情况下可以得到 //_cache.GetValue(cacheKey);
+            var value1 = _cache.StringGet(cacheKey);//正常情况下可以得到 //_cache.GetValue(cacheKey);
 #endif
         }
 
@@ -150,8 +156,9 @@ namespace Senparc.Weixin.Cache.Redis
             {
                 return;
             }
+           
             var cacheKey = GetFinalKey(key);
-            _cache.HashDelete(cacheKey, RedisValue.Null);
+            _cache.StringSet(cacheKey, RedisValue.Null);//TODO:尚未测试此方法是否有效
         }
 
         public void Update(string key, IContainerItemCollection value)

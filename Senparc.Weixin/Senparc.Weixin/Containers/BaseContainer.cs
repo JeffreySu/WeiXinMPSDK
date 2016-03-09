@@ -37,6 +37,7 @@ namespace Senparc.Weixin.Containers
     /// 微信容器接口（如Ticket、AccessToken）
     /// </summary>
     /// <typeparam name="TBag"></typeparam>
+    [Serializable]
     public abstract class BaseContainer<TBag> : IBaseContainer<TBag> where TBag : class, IBaseContainerBag, new()
     {
         /// <summary>
@@ -150,72 +151,72 @@ namespace Senparc.Weixin.Containers
             return default(TK);
         }
 
-/// <summary>
-/// 更新数据项
-/// </summary>
-/// <param name="key"></param>
-/// <param name="value">为null时删除该项</param>
-public static void Update(string key, TBag value)
-{
-    if (value == null)
-    {
-        ItemCollection.RemoveFromCache(key);
-    }
-    else
-    {
-        if (string.IsNullOrEmpty(value.Key))
+        /// <summary>
+        /// 更新数据项
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value">为null时删除该项</param>
+        public static void Update(string key, TBag value)
         {
-            value.Key = key;//确保Key有值
-        }
-        else
-        {
-            key = value.Key;//统一key
-        }
-
-        if (string.IsNullOrEmpty(key))
-        {
-            throw new WeixinException("key和value,Key不可以同时为null或空字符串！");
-        }
-
-        ItemCollection[key] = value;
-
-        Cache.Update(key, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
-    }
-}
-
-/// <summary>
-/// 更新数据项
-/// </summary>
-/// <param name="key"></param>
-/// <param name="partialUpdate">为null时删除该项</param>
-public static void Update(string key, Action<TBag> partialUpdate)
-{
-    if (partialUpdate == null)
-    {
-        ItemCollection.RemoveFromCache(key);//移除对象
-    }
-    else
-    {
-        if (!ItemCollection.CheckExisted(key))
-        {
-            ItemCollection[key] = new TBag()
+            if (value == null)
             {
-                Key = key//确保这一项Key已经被记录
-            };
-        }
-        partialUpdate(ItemCollection[key] as TBag);//更新对象
-        Cache.Update(key, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
-    }
-}
+                ItemCollection.RemoveFromCache(key);
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(value.Key))
+                {
+                    value.Key = key;//确保Key有值
+                }
+                else
+                {
+                    key = value.Key;//统一key
+                }
 
-/// <summary>
-/// 检查Key是否已经注册
-/// </summary>
-/// <param name="key"></param>
-/// <returns></returns>
-public static bool CheckRegistered(string key)
-{
-    return ItemCollection.CheckExisted(key);
-}
+                if (string.IsNullOrEmpty(key))
+                {
+                    throw new WeixinException("key和value,Key不可以同时为null或空字符串！");
+                }
+
+                ItemCollection[key] = value;
+
+                Cache.Update(key, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
+            }
+        }
+
+        /// <summary>
+        /// 更新数据项
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="partialUpdate">为null时删除该项</param>
+        public static void Update(string key, Action<TBag> partialUpdate)
+        {
+            if (partialUpdate == null)
+            {
+                ItemCollection.RemoveFromCache(key);//移除对象
+            }
+            else
+            {
+                if (!ItemCollection.CheckExisted(key))
+                {
+                    ItemCollection[key] = new TBag()
+                    {
+                        Key = key//确保这一项Key已经被记录
+                    };
+                }
+                partialUpdate(ItemCollection[key] as TBag);//更新对象
+                Cache.Update(key, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
+            }
+        }
+
+        /// <summary>
+        /// 检查Key是否已经注册
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static bool CheckRegistered(string key)
+        {
+            return ItemCollection.CheckExisted(key);
+        }
     }
 }

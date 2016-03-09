@@ -36,6 +36,7 @@ namespace Senparc.Weixin.Containers
     /// <summary>
     /// BaseContainer容器中的Value类型
     /// </summary>
+    [Serializable]
     public class BaseContainerBag : BindableBase, IBaseContainerBag
     {
         private string _key;

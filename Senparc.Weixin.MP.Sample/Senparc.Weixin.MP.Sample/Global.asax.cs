@@ -36,7 +36,7 @@ namespace Senparc.Weixin.MP.Sample
 
             RegisterWeixinThreads();//激活微信缓存（必须）
             RegisterSenparcWeixin();//注册Demo所用微信公众号的账号信息
-            //RegisterWeixinCache();//注册分布式缓存
+            RegisterWeixinCache();//注册分布式缓存
             RegisterWeixinPay();//注册微信支付
             RegisterWeixinThirdParty(); //注册微信第三方平台
 

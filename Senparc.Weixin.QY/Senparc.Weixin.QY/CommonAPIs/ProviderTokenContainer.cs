@@ -21,6 +21,7 @@ using Senparc.Weixin.QY.Entities;
 
 namespace Senparc.Weixin.QY.CommonAPIs
 {
+    [Serializable]
     class ProviderTokenBag
     {
         public string CorpId { get; set; }

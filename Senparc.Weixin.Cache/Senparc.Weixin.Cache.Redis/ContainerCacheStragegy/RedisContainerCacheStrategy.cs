@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Containers;
 using StackExchange.Redis;
+using StackExchange.Redis.KeyspaceIsolation;
 
 
 namespace Senparc.Weixin.Cache.Redis
@@ -66,6 +67,7 @@ namespace Senparc.Weixin.Cache.Redis
         ~RedisContainerCacheStrategy()
         {
             _client.Dispose();//释放
+            //_client.Dispose();//释放
             //GC.SuppressFinalize(_client);
         }
 
@@ -75,14 +77,13 @@ namespace Senparc.Weixin.Cache.Redis
             return String.Format("{0}{1}", CacheSetKey, key);
         }
 
-        ///// <summary>
-        ///// 获取hash
-        ///// </summary>
-        ///// <returns></returns>
-        //private IRedisHash<string, IContainerItemCollection> GetHash()
-        //{
-        //    return _cache.GetHash<string>(CacheSetKey);
-        //}
+        private IServer GetServer()
+        {
+            //https://github.com/StackExchange/StackExchange.Redis/blob/master/Docs/KeysScan.md
+            var server = _client.GetServer(_client.GetEndPoints()[0]);
+            return server;
+        }
+
 
         #region 实现 IContainerCacheStragegy 接口
 
@@ -100,26 +101,24 @@ namespace Senparc.Weixin.Cache.Redis
                 return null;
             }
             var cacheKey = GetFinalKey(key);
-            //var hash = GetHash();
-
-            return _cache(cacheKey);
-
-
-            return _cache.HashGet(hash, cacheKey);
+            return _cache.HashGetAll(cacheKey).ConvertFromRedis<IContainerItemCollection>();
         }
 
         public IDictionary<string, IContainerItemCollection> GetAll()
         {
-            var hash = GetHash();
-            var list = _cache.GetHashValues(hash);//.GetAllEntriesFromHash(hash);
+            var keys = GetServer().Keys();
             var dic = new Dictionary<string, IContainerItemCollection>();
-            list.ForEach(z => dic[z.CacheSetKey] = z);
+            foreach (var redisKey in keys)
+            {
+                dic[redisKey] = Get(redisKey);
+            }
             return dic;
         }
 
         public long GetCount()
         {
-            return _client.GetAllKeys().Count(z => z.StartsWith(CacheSetKey));
+            var count = GetServer().Keys().Count();
+            return count;
         }
 
         public void InsertToCache(string key, IContainerItemCollection value)
@@ -131,14 +130,12 @@ namespace Senparc.Weixin.Cache.Redis
 
             var cacheKey = GetFinalKey(key);
 
-            if (value is IDictionary)
-            {
-                //Dictionary类型
-            }
+            //if (value is IDictionary)
+            //{
+            //    //Dictionary类型
+            //}
 
-            //TODO：加了绝对过期时间就会立即失效（再次获取后为null），memcache低版本的bug
-            var hash = GetHash();
-            _cache.SetEntryInHash(hash, cacheKey, value);
+            _cache.HashSet(cacheKey, value.ToHashEntries());
             //_cache.SetEntry(cacheKey, obj);
 
 #if DEBUG
@@ -155,14 +152,12 @@ namespace Senparc.Weixin.Cache.Redis
                 return;
             }
             var cacheKey = GetFinalKey(key);
-            var hash = GetHash();
-            _cache.RemoveEntryFromHash(hash, cacheKey);
+            _cache.HashDelete(cacheKey, RedisValue.Null);
         }
 
         public void Update(string key, IContainerItemCollection value)
         {
-            var hash = GetHash();
-            _cache.SetEntryInHash(hash, key, value);
+            _cache.HashSet(key, value.ToHashEntries());
         }
 
         public void UpdateContainerBag(string key, IBaseContainerBag containerBag)
@@ -172,8 +167,7 @@ namespace Senparc.Weixin.Cache.Redis
                 var containerItemCollection = Get(key);
                 containerItemCollection[containerBag.Key] = containerBag;
 
-                var hash = GetHash();
-                _cache.SetEntryInHash(hash, key, containerItemCollection);
+                _cache.HashSet(key, containerItemCollection.ToHashEntries());
             }
         }
 

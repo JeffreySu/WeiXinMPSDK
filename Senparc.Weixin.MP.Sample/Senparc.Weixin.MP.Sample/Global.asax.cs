@@ -9,6 +9,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Senparc.Weixin.Cache;
+using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
@@ -34,6 +36,7 @@ namespace Senparc.Weixin.MP.Sample
 
             RegisterWeixinThreads();//激活微信缓存（必须）
             RegisterSenparcWeixin();//注册Demo所用微信公众号的账号信息
+            RegisterWeixinCache();//注册分布式缓存
             RegisterWeixinPay();//注册微信支付
             RegisterWeixinThirdParty(); //注册微信第三方平台
 
@@ -58,6 +61,14 @@ namespace Senparc.Weixin.MP.Sample
                 System.Configuration.ConfigurationManager.AppSettings["WeixinAppSecret"]);
         }
 
+        /// <summary>
+        /// 自定义缓存策略
+        /// </summary>
+        private void RegisterWeixinCache()
+        {
+            //如果不执行，则默认使用本地缓存
+            //CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);
+        }
 
         /// <summary>
         /// 注册微信支付

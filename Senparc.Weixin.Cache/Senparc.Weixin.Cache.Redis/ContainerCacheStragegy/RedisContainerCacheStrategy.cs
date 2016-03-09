@@ -139,9 +139,7 @@ namespace Senparc.Weixin.Cache.Redis
             //_cache.SetEntry(cacheKey, obj);
 
 #if DEBUG
-            var value1 = _cache.GetFromHash(cacheKey);//正常情况下可以得到 //_cache.GetValue(cacheKey);
-            var value2 = _cache.GetValueFromHash(hash, cacheKey);//正常情况下可以得到
-            var value3 = _cache.GetValue(cacheKey);//null
+            var value1 = _cache.HashGetAll(cacheKey);//正常情况下可以得到 //_cache.GetValue(cacheKey);
 #endif
         }
 

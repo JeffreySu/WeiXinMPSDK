@@ -38,7 +38,7 @@ namespace Senparc.Weixin.Cache.Redis
         //    AzureredisDb.Cache.StringSet(key, Serialize(value));
         //}
 
-        static byte[] Serialize(object o)
+        public static byte[] Serialize(this object o)
         {
             if (o == null)
             {
@@ -54,7 +54,7 @@ namespace Senparc.Weixin.Cache.Redis
             }
         }
 
-        static T Deserialize<T>(byte[] stream)
+        public static T Deserialize<T>(this byte[] stream)
         {
             if (stream == null)
             {

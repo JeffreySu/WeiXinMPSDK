@@ -101,7 +101,8 @@ namespace Senparc.Weixin.Cache.Redis
                 return null;
             }
             var cacheKey = GetFinalKey(key);
-            return _cache.HashGetAll(cacheKey).ConvertFromRedis<IContainerItemCollection>();
+            var value = _cache.StringGet(cacheKey);
+            return StackExchangeRedisExtensions.Deserialize<IContainerItemCollection>(value);
         }
 
         public IDictionary<string, IContainerItemCollection> GetAll()
@@ -135,7 +136,7 @@ namespace Senparc.Weixin.Cache.Redis
             //    //Dictionary类型
             //}
 
-            _cache.HashSet(cacheKey, value.ToHashEntries());
+            _cache.StringSet(cacheKey, value.Serialize());
             //_cache.SetEntry(cacheKey, obj);
 
 #if DEBUG
@@ -155,7 +156,7 @@ namespace Senparc.Weixin.Cache.Redis
 
         public void Update(string key, IContainerItemCollection value)
         {
-            _cache.HashSet(key, value.ToHashEntries());
+            _cache.StringSet(key, value.Serialize());
         }
 
         public void UpdateContainerBag(string key, IBaseContainerBag containerBag)
@@ -165,7 +166,7 @@ namespace Senparc.Weixin.Cache.Redis
                 var containerItemCollection = Get(key);
                 containerItemCollection[containerBag.Key] = containerBag;
 
-                _cache.HashSet(key, containerItemCollection.ToHashEntries());
+                _cache.StringSet(key, containerItemCollection.Serialize());
             }
         }
 

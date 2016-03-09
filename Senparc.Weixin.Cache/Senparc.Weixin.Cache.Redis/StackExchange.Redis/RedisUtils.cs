@@ -22,7 +22,7 @@ namespace Senparc.Weixin.Cache.Redis
         {
             PropertyInfo[] properties = obj.GetType().GetProperties();
             return properties
-                .Where(x => x.GetValue(obj) != null) // <-- PREVENT NullReferenceException
+                .Where(x => x.GetIndexParameters().Length == 0 && x.GetValue(obj) != null) // <-- PREVENT NullReferenceException
                 .Select(property => new HashEntry(property.Name, property.GetValue(obj)
                 .ToString())).ToArray();
         }

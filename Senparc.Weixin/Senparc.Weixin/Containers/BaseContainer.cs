@@ -88,6 +88,7 @@ namespace Senparc.Weixin.Containers
                         containerCacheStragegy.InsertToCache(cacheKey, newItemCollection);//插入到缓存
                     });
                 }
+
                 return CollectionList[cacheKey];
             }
         }

@@ -91,7 +91,8 @@ namespace Senparc.Weixin.Cache.Redis
 
         public bool CheckExisted(string key)
         {
-            return _cache.KeyExists(key);
+            var cacheKey = GetFinalKey(key);
+            return _cache.KeyExists(cacheKey);
         }
 
         public IContainerItemCollection Get(string key)
@@ -100,12 +101,12 @@ namespace Senparc.Weixin.Cache.Redis
             {
                 return null;
             }
-            var cacheKey = GetFinalKey(key);
 
-            if (!CheckExisted(cacheKey))
+            if (!CheckExisted(key))
             {
                 return null;
             }
+            var cacheKey = GetFinalKey(key);
 
             var value = _cache.StringGet(cacheKey);
             return StackExchangeRedisExtensions.Deserialize<IContainerItemCollection>(value);

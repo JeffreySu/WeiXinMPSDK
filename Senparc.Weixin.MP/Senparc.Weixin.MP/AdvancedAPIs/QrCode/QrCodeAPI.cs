@@ -117,7 +117,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static string GetShowQrCodeUrl(string ticket)
         {
             var urlFormat = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket={0}";
-            return string.Format(urlFormat, ticket);
+            return string.Format(urlFormat, ticket.AsUrlData());
         }
 
         /// <summary>

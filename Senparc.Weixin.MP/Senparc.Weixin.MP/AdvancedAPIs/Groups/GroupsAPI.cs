@@ -19,6 +19,7 @@
 */
 
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.Groups;
 using Senparc.Weixin.MP.CommonAPIs;
 
@@ -64,7 +65,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/get?access_token={0}";
-                var url = string.Format(urlFormat, accessToken);
+                var url = string.Format(urlFormat, accessToken.AsUrlData());
                 return HttpUtility.Get.GetJson<GroupsJson>(url);
 
             }, accessTokenOrAppId);

@@ -58,7 +58,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             var url =
                 string.Format(
                     "https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token={0}",
-                    componentAccessToken);
+                    componentAccessToken.AsUrlData());
 
             var data = new
             {
@@ -85,7 +85,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             var url =
                 string.Format(
                     "https://mp.weixin.qq.com/cgi-bin/componentloginpage?component_appid={0}&pre_auth_code={1}&redirect_uri={2}",
-                    componentAppId, preAuthCode, redirectUrl.UrlEncode());
+                    componentAppId.AsUrlData(), preAuthCode.AsUrlData(), redirectUrl.AsUrlData());
 
             return url;
         }
@@ -102,7 +102,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             var url =
                 string.Format(
-                    "https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token={0}", componentAccessToken);
+                    "https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token={0}", componentAccessToken.AsUrlData());
 
             var data = new
             {
@@ -128,7 +128,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             var url =
                 string.Format(
                     "https://api.weixin.qq.com/cgi-bin/component/api_authorizer_token?component_access_token={0}",
-                    componentAccessToken);
+                    componentAccessToken.AsUrlData());
 
             var data = new
             {
@@ -154,7 +154,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             var url =
                 string.Format(
                     "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token={0}",
-                    componentAccessToken);
+                    componentAccessToken.AsUrlData());
 
             var data = new
             {
@@ -179,7 +179,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             var url =
                 string.Format(
                     "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_option?component_access_token={0}",
-                    componentAccessToken);
+                    componentAccessToken.AsUrlData());
 
             var data = new
             {
@@ -206,7 +206,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             var url =
                 string.Format(
                     "https://api.weixin.qq.com/cgi-bin/component/api_set_authorizer_option?component_access_token={0}",
-                    componentAccessToken);
+                    componentAccessToken.AsUrlData());
 
             var data = new
             {
@@ -231,7 +231,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             //获取第三方平台的授权公众号token（公众号授权给第三方平台后，第三方平台通过“接口说明”中的api_authorizer_token接口得到的token）
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type={1}",
-                                    authorizerAccessToken, type);
+                                    authorizerAccessToken.AsUrlData(), type.AsUrlData());
 
             JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
             return result;

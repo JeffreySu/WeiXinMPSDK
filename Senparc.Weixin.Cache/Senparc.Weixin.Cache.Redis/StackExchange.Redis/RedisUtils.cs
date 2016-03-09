@@ -6,11 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 using StackExchange.Redis;
 
-namespace Senparc.Weixin.Cache.Redis.StackExchange.Redis
+namespace Senparc.Weixin.Cache.Redis
 {
+    /// <summary>
+    /// RedisUtils
+    /// </summary>
     public static class RedisUtils
     {
-        //Serialize in Redis format:
+        /// <summary>
+        /// Serialize in Redis format
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public static HashEntry[] ToHashEntries(this object obj)
         {
             PropertyInfo[] properties = obj.GetType().GetProperties();
@@ -20,7 +27,12 @@ namespace Senparc.Weixin.Cache.Redis.StackExchange.Redis
                 .ToString())).ToArray();
         }
 
-        //Deserialize from Redis format
+        /// <summary>
+        /// Deserialize from Redis format
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="hashEntries"></param>
+        /// <returns></returns>
         public static T ConvertFromRedis<T>(this HashEntry[] hashEntries)
         {
             PropertyInfo[] properties = typeof(T).GetProperties();

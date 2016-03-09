@@ -598,6 +598,77 @@
             <param name="userId">员工UserID</param>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.KFApi">
+            <summary>
+            发送消息
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.KFApi.SendText(System.String,Senparc.Weixin.QY.KF_User_Type,System.String,Senparc.Weixin.QY.KF_User_Type,System.String,System.String,System.Int32)">
+            <summary>
+            发送文本信息
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="senderType">发送人类型</param>
+            <param name="senderId">发送人标志</param>
+            <param name="receiverType">接收人类型</param>
+            <param name="receiverId">接收人标志</param>
+            <param name="content">消息内容</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.KFApi.SendImage(System.String,Senparc.Weixin.QY.KF_User_Type,System.String,Senparc.Weixin.QY.KF_User_Type,System.String,System.String,System.Int32)">
+            <summary>
+            发送图片信息
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="senderType">发送人类型</param>
+            <param name="senderId">发送人标志</param>
+            <param name="receiverType">接收人类型</param>
+            <param name="receiverId">接收人标志</param>
+            <param name="mediaId">图片的mediaId</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.KFApi.SendFile(System.String,Senparc.Weixin.QY.KF_User_Type,System.String,Senparc.Weixin.QY.KF_User_Type,System.String,System.String,System.Int32)">
+            <summary>
+            发送文件信息
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="senderType">发送人类型</param>
+            <param name="senderId">发送人标志</param>
+            <param name="receiverType">接收人类型</param>
+            <param name="receiverId">接收人标志</param>
+            <param name="mediaId">文件的mediaId</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.KFApi.SendVoice(System.String,Senparc.Weixin.QY.KF_User_Type,System.String,Senparc.Weixin.QY.KF_User_Type,System.String,System.String,System.Int32)">
+            <summary>
+            发送语音信息
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="senderType">发送人类型</param>
+            <param name="senderId">发送人标志</param>
+            <param name="receiverType">接收人类型</param>
+            <param name="receiverId">接收人标志</param>
+            <param name="mediaId">语音的mediaId</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.KFApi.GetKFList(System.String,System.Nullable{Senparc.Weixin.QY.KF_Type},System.Int32)">
+            <summary>
+            获取客服列表
+            </summary>
+            <param name="accessToken"></param>
+            <param name="type">不填时，同时返回内部、外部客服列表</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.QY.AdvancedAPIs.KF.GetKFListResult">
+            <summary>
+            客服返回结果
+            </summary>
+        </member>
         <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.QY.AdvancedAPIs.LoginAuthApi.GetLoginAuthUrl(System.String,System.String,System.String)" -->
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.LoginAuthApi.GetLoginInfo(System.String,System.String,System.Int32)">
             <summary>
@@ -3249,6 +3320,41 @@
         <member name="T:Senparc.Weixin.QY.Mute_Status">
             <summary>
             免打扰状态
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.KF_User_Type">
+            <summary>
+            客服消息用户类型
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.KF_User_Type.kf">
+            <summary>
+            客服
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.KF_User_Type.userid">
+            <summary>
+            客户，企业员工userid
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.KF_User_Type.openid">
+            <summary>
+            客户，企业员工openid
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.KF_Type">
+            <summary>
+            客服类型
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.KF_Type.internal">
+            <summary>
+            内部客服
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.KF_Type.external">
+            <summary>
+            外部客服
             </summary>
         </member>
         <member name="P:Senparc.Weixin.QY.MessageHandlers.IQyMessageHandler.EncryptPostData">

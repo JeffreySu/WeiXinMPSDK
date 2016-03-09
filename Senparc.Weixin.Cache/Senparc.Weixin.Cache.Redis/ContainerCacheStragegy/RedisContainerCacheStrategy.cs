@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,15 +43,13 @@ namespace Senparc.Weixin.Cache.Redis
 
         static RedisContainerCacheStrategy()
         {
-            DateTime dt1 = DateTime.Now;
-            //var config = RedisConfigInfo.GetConfig();
             var cache = RedisManager.GetClient();
 
             var testKey = Guid.NewGuid().ToString();
             var testValue = Guid.NewGuid().ToString();
             cache.Set(testKey, testValue);
             var storeValue = cache.Get<string>(testKey);
-            if (storeValue as string != testValue)
+            if (storeValue != testValue)
             {
                 throw new Exception("RedisStrategy失效，没有计入缓存！");
             }
@@ -72,7 +71,7 @@ namespace Senparc.Weixin.Cache.Redis
 
         private string GetFinalKey(string key)
         {
-            return String.Format("{0}:{1}",CacheSetKey, key);
+            return String.Format("{0}:{1}", CacheSetKey, key);
         }
 
         /// <summary>
@@ -86,57 +85,91 @@ namespace Senparc.Weixin.Cache.Redis
 
         #region 实现 IContainerCacheStragegy 接口
 
-        public string CacheSetKey
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public string CacheSetKey { get; set; }
 
         public bool CheckExisted(string key)
         {
-            throw new NotImplementedException();
+            return _client.ContainsKey(key);
         }
 
         public IContainerItemCollection Get(string key)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(key))
+            {
+                return null;
+            }
+            var cacheKey = GetFinalKey(key);
+            var hash = GetHash();
+            return _cache.GetValueFromHash(hash, cacheKey);
         }
 
         public IDictionary<string, IContainerItemCollection> GetAll()
         {
-            throw new NotImplementedException();
+            var hash = GetHash();
+            var list = _cache.GetHashValues(hash);//.GetAllEntriesFromHash(hash);
+            var dic = new Dictionary<string, IContainerItemCollection>();
+            list.ForEach(z => dic[z.CacheSetKey] = z);
+            return dic;
         }
 
         public long GetCount()
         {
-            throw new NotImplementedException();
+            return _client.GetAllKeys().Count(z => z.StartsWith(CacheSetKey));
         }
 
         public void InsertToCache(string key, IContainerItemCollection value)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(key) || value == null)
+            {
+                return;
+            }
+
+            var cacheKey = GetFinalKey(key);
+
+            if (value is IDictionary)
+            {
+                //Dictionary类型
+            }
+
+            //TODO：加了绝对过期时间就会立即失效（再次获取后为null），memcache低版本的bug
+            var hash = GetHash();
+            _cache.SetEntryInHash(hash, cacheKey, value);
+            //_cache.SetEntry(cacheKey, obj);
+
+#if DEBUG
+            var value1 = _cache.GetFromHash(cacheKey);//正常情况下可以得到 //_cache.GetValue(cacheKey);
+            var value2 = _cache.GetValueFromHash(hash, cacheKey);//正常情况下可以得到
+            var value3 = _cache.GetValue(cacheKey);//null
+#endif
         }
 
         public void RemoveFromCache(string key)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(key))
+            {
+                return;
+            }
+            var cacheKey = GetFinalKey(key);
+            var hash = GetHash();
+            _cache.RemoveEntryFromHash(hash, cacheKey);
         }
 
         public void Update(string key, IContainerItemCollection value)
         {
-            throw new NotImplementedException();
+            var hash = GetHash();
+            _cache.SetEntryInHash(hash, key, value);
         }
 
         public void UpdateContainerBag(string key, IBaseContainerBag containerBag)
         {
-            throw new NotImplementedException();
+            if (this.CheckExisted(key))
+            {
+                var containerItemCollection = Get(key);
+                containerItemCollection[containerBag.Key] = containerBag;
+
+                var hash = GetHash();
+                _cache.SetEntryInHash(hash, key, containerItemCollection);
+            }
         }
 
         #endregion

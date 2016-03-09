@@ -56,6 +56,8 @@
     <Compile Include="AdvancedAPIs\Chat\ChatJson\SetMuteData.cs" />
     <Compile Include="AdvancedAPIs\Chat\ChatJson\ChatResult.cs" />
     <Compile Include="AdvancedAPIs\Concern\ConcernApi.cs" />
+    <Compile Include="AdvancedAPIs\KF\KFApi.cs" />
+    <Compile Include="AdvancedAPIs\KF\KFResult.cs" />
     <Compile Include="AdvancedAPIs\LoginAuth\LoginAuthApi.cs" />
     <Compile Include="AdvancedAPIs\LoginAuth\GetLoginInfoResult.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaResult.cs" />

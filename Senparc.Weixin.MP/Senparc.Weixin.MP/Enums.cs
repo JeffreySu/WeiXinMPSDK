@@ -626,4 +626,41 @@ namespace Senparc.Weixin.MP
         /// </summary>
         SCENE_CARD_CUSTOM_CELL = 6
     }
+
+    /// <summary>
+    /// 当前用户的会员卡状态
+    /// </summary>
+    public enum UserCardStatus
+    {
+        /// <summary>
+        /// 正常
+        /// </summary>
+        NORMAL,
+
+
+        /// <summary>
+        /// 已过期
+        /// </summary>
+        EXPIRE,
+        /// <summary>
+        /// 转赠中
+        /// </summary>
+        GIFTING,
+        /// <summary>
+        /// 转赠成功
+        /// </summary>
+        GIFT_SUCC,
+        /// <summary>
+        /// 转赠超时
+        /// </summary>
+        GIFT_TIMEOUT,
+        /// <summary>
+        /// 已删除
+        /// </summary>
+        DELETE,
+        /// <summary>
+        /// 已失效
+        /// </summary>
+        UNAVAILABLE
+    }
 }

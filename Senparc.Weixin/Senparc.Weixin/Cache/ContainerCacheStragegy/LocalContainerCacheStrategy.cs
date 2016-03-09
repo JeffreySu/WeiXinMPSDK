@@ -14,7 +14,6 @@ namespace Senparc.Weixin.Cache
     /// </summary>
     public static class LocalCacheHelper
     {
-
         /// <summary>
         /// 所有数据集合的列表
         /// </summary>
@@ -29,7 +28,7 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 本地容器缓存策略
     /// </summary>
-    public class LocalContainerCacheStrategy : IContainerCacheStragegy
+    public sealed class LocalContainerCacheStrategy : IContainerCacheStragegy
     //where TContainerBag : class, IBaseContainerBag, new()
     {
         #region 数据源
@@ -65,10 +64,10 @@ namespace Senparc.Weixin.Cache
             internal static readonly LocalContainerCacheStrategy instance = new LocalContainerCacheStrategy();
         }
 
+
         #endregion
 
         #region ILocalCacheStrategy 成员
-
 
         public string CacheSetKey { get; set; }
 
@@ -79,7 +78,6 @@ namespace Senparc.Weixin.Cache
             {
                 return;
             }
-
             _cache[key] = value;
         }
 

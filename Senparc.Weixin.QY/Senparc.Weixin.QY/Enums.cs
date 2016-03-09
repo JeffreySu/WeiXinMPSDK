@@ -389,4 +389,38 @@ namespace Senparc.Weixin.QY
         关闭 = 0,
         打开 = 1
     }
+
+    /// <summary>
+    /// 客服消息用户类型
+    /// </summary>
+    public enum KF_User_Type
+    {
+        /// <summary>
+        /// 客服
+        /// </summary>
+        kf,
+        /// <summary>
+        /// 客户，企业员工userid
+        /// </summary>
+        userid,
+        /// <summary>
+        /// 客户，企业员工openid
+        /// </summary>
+        openid
+    }
+
+    /// <summary>
+    /// 客服类型
+    /// </summary>
+    public enum KF_Type
+    {
+        /// <summary>
+        /// 内部客服
+        /// </summary>
+        @internal,
+        /// <summary>
+        /// 外部客服
+        /// </summary>
+        external
+    }
 }

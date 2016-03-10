@@ -161,32 +161,32 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 更新数据项
         /// </summary>
-        /// <param name="bagKey"></param>
+        /// <param name="key"></param>
         /// <param name="bag">为null时删除该项</param>
-        public static void Update(string bagKey, TBag bag)
+        public static void Update(string key, TBag bag)
         {
             if (bag == null)
             {
-                ItemCollection.RemoveFromCache(bagKey);
+                ItemCollection.RemoveFromCache(key);
             }
             else
             {
                 if (string.IsNullOrEmpty(bag.Key))
                 {
-                    bag.Key = bagKey;//确保Key有值
+                    bag.Key = key;//确保Key有值
                 }
                 else
                 {
-                    bagKey = bag.Key;//统一key
+                    key = bag.Key;//统一key
                 }
 
-                if (string.IsNullOrEmpty(bagKey))
+                if (string.IsNullOrEmpty(key))
                 {
                     throw new WeixinException("key和value,Key不可以同时为null或空字符串！");
                 }
 
                 //var c1 = ItemCollection.GetCount();
-                ItemCollection[bagKey] = bag;
+                ItemCollection[key] = bag;
                 //var c2 = ItemCollection.GetCount();
                 var cacheKey = GetCacheKey();
                 Cache.Update(cacheKey, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
@@ -196,24 +196,24 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 更新数据项
         /// </summary>
-        /// <param name="bagKey"></param>
+        /// <param name="key"></param>
         /// <param name="partialUpdate">为null时删除该项</param>
-        public static void Update(string bagKey, Action<TBag> partialUpdate)
+        public static void Update(string key, Action<TBag> partialUpdate)
         {
             if (partialUpdate == null)
             {
-                ItemCollection.RemoveFromCache(bagKey);//移除对象
+                ItemCollection.RemoveFromCache(key);//移除对象
             }
             else
             {
-                if (!ItemCollection.CheckExisted(bagKey))
+                if (!ItemCollection.CheckExisted(key))
                 {
-                    ItemCollection[bagKey] = new TBag()
+                    ItemCollection[key] = new TBag()
                     {
-                        Key = bagKey//确保这一项Key已经被记录
+                        Key = key//确保这一项Key已经被记录
                     };
                 }
-                partialUpdate(ItemCollection[bagKey] as TBag);//更新对象
+                partialUpdate(ItemCollection[key] as TBag);//更新对象
                 var cacheKey = GetCacheKey();
                 Cache.Update(cacheKey, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
             }

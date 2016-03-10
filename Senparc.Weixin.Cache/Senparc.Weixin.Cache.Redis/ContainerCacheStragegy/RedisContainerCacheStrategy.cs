@@ -177,8 +177,7 @@ namespace Senparc.Weixin.Cache.Redis
                 var containerItemCollection = Get(key);
                 containerItemCollection[containerBag.Key] = containerBag;
 
-                var cacheKey = GetFinalKey(key);
-                Update(cacheKey, containerItemCollection);
+                Update(key, containerItemCollection);
             }
         }
 

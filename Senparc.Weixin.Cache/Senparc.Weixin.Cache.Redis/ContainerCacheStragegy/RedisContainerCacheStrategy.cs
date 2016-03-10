@@ -164,7 +164,8 @@ namespace Senparc.Weixin.Cache.Redis
 
         public void Update(string key, IContainerItemCollection value)
         {
-            _cache.StringSet(key, value.Serialize());
+            var cacheKey = GetFinalKey(key);
+            _cache.StringSet(cacheKey, value.Serialize());
         }
 
         public void UpdateContainerBag(string key, IBaseContainerBag containerBag)
@@ -174,7 +175,8 @@ namespace Senparc.Weixin.Cache.Redis
                 var containerItemCollection = Get(key);
                 containerItemCollection[containerBag.Key] = containerBag;
 
-                _cache.StringSet(key, containerItemCollection.Serialize());
+                var cacheKey = GetFinalKey(key);
+                Update(cacheKey, containerItemCollection);
             }
         }
 

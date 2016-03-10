@@ -52,18 +52,18 @@ namespace Senparc.Weixin.Containers
             }
         }
 
-        /// <summary>
-        /// 所有数据集合的列表   TODO：改为单个Container输出
-        /// </summary>
-        private static IDictionary<string, IContainerItemCollection> CollectionList
-        {
-            get
-            {
-                //var cacheKey = GetCacheKey<TBag>();
-                var list = Cache.GetAll();
-                return list as IDictionary<string, IContainerItemCollection>;
-            }
-        }
+        ///// <summary>
+        ///// 所有数据集合的列表   TODO：改为单个Container输出
+        ///// </summary>
+        //private static IDictionary<string, IContainerItemCollection> CollectionList
+        //{
+        //    get
+        //    {
+        //        //var cacheKey = GetCacheKey<TBag>();
+        //        var list = Cache.GetAll();
+        //        return list as IDictionary<string, IContainerItemCollection>;
+        //    }
+        //}
 
         /// <summary>
         /// 获取当前容器的数据项集合
@@ -74,10 +74,11 @@ namespace Senparc.Weixin.Containers
             get
             {
                 var cacheKey = GetCacheKey();
-                if (!CollectionList.ContainsKey(cacheKey))
+                IContainerItemCollection itemCollection;
+                if (!Cache.CheckExisted(cacheKey))
                 {
-                    var newItemCollection = new ContainerItemCollection();
-                    CollectionList[cacheKey] = newItemCollection;
+                     itemCollection = new ContainerItemCollection();
+                    //CollectionList[cacheKey] = newItemCollection;
 
                     //保存到缓存列队，等待执行
                     SenparcMessageQueue mq = new SenparcMessageQueue();
@@ -85,11 +86,15 @@ namespace Senparc.Weixin.Containers
                     mq.Add(mqKey, () =>
                     {
                         var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
-                        containerCacheStragegy.InsertToCache(cacheKey, newItemCollection);//插入到缓存
+                        containerCacheStragegy.InsertToCache(cacheKey, itemCollection);//插入到缓存
                     });
                 }
+                else
+                {
+                    itemCollection = Cache.Get(cacheKey) ;
+                }
 
-                return CollectionList[cacheKey];
+                return itemCollection;
             }
         }
 
@@ -102,14 +107,14 @@ namespace Senparc.Weixin.Containers
             return string.Format("Container:{0}", typeof(TBag));
         }
 
-        /// <summary>
-        /// 获取完整的数据集合的列表，包括所有的Container数据在内（建议不要进行任何修改操作）
-        /// </summary>
-        /// <returns></returns>
-        public static IDictionary<string, IContainerItemCollection> GetCollectionList()
-        {
-            return CollectionList;
-        }
+        ///// <summary>
+        ///// 获取完整的数据集合的列表，包括所有的Container数据在内（建议不要进行任何修改操作）
+        ///// </summary>
+        ///// <returns></returns>
+        //public static IDictionary<string, IContainerItemCollection> GetCollectionList()
+        //{
+        //    return CollectionList;
+        //}
 
         /// <summary>
         /// 获取所有容器内已经注册的项目
@@ -179,7 +184,9 @@ namespace Senparc.Weixin.Containers
                     throw new WeixinException("key和value,Key不可以同时为null或空字符串！");
                 }
 
+                var c1 = ItemCollection.GetCount();
                 ItemCollection[key] = value;
+                var c2 = ItemCollection.GetCount();
 
                 Cache.Update(key, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
             }

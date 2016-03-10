@@ -31,7 +31,7 @@ namespace Senparc.Weixin.Cache
     [Serializable]
     public class ContainerItemCollection : IContainerItemCollection
     {
-        private Dictionary<string, IBaseContainerBag> _cache;
+        private Dictionary<string, IBaseContainerBag> _cache;//TODO:可以考虑升级到统一的式缓存策略中
 
         /// <summary>
         /// 索引器
@@ -41,7 +41,7 @@ namespace Senparc.Weixin.Cache
         public IBaseContainerBag this[string key]
         {
             get { return this.Get(key); }
-            set { this.Update(key, value); }
+            set { this.Update(key, value); }//TODO:Redis 中此处无法将值更新进去
         }
 
         public ContainerItemCollection()

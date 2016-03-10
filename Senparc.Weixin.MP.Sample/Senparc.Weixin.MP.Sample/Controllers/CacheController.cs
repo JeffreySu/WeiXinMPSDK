@@ -25,7 +25,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     internal class TestContainerBag2 : BaseContainerBag
     {
         private DateTime _dateTime;
-
         public DateTime DateTime
         {
             get { return _dateTime; }
@@ -69,7 +68,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     Key = bagKey,
                     DateTime = DateTime.Now
                 };
-                TestContainer1.Update(bagKey, bag);
+                TestContainer1.Update(bagKey, bag);//更新到缓存（列队）
                 sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime.ToLongTimeString(), bag.DateTime.Ticks);
 
                 Thread.Sleep(1);
@@ -88,7 +87,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var itemCollection = containerCacheStragegy.Get(cacheKey);
                 var existed = itemCollection.CheckExisted(bagKey);
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);
-                sb.AppendFormat("{0}：{1}<br />", "插入缓存时间", !existed?"不存在": itemCollection[bagKey].CacheTime.Ticks.ToString());//应为0
+                sb.AppendFormat("{0}：{1}<br />", "插入缓存时间", !existed ? "不存在" : itemCollection[bagKey].CacheTime.Ticks.ToString());//应为0
 
                 var waitSeconds = i;
                 sb.AppendFormat("{0}：{1}<br />", "操作", "等待" + waitSeconds + "秒");
@@ -98,7 +97,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 itemCollection = containerCacheStragegy.Get(cacheKey);
                 existed = itemCollection.CheckExisted(bagKey);
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);
-                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "插入缓存时间",!existed?"不存在": itemCollection[bagKey].CacheTime.ToLongTimeString(), itemCollection[bagKey].CacheTime.Ticks);//应为当前加入到缓存的最新时间
+                sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "插入缓存时间",
+                    !existed ? "不存在（错误）" : itemCollection[bagKey].CacheTime.ToLongTimeString(),
+                    !existed ? "不存在（错误）" : itemCollection[bagKey].CacheTime.Ticks.ToString());//应为当前加入到缓存的最新时间
             }
 
             return Content(sb.ToString());

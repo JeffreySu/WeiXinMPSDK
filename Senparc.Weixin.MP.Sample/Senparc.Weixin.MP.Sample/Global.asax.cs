@@ -34,7 +34,7 @@ namespace Senparc.Weixin.MP.Sample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //RegisterWeixinCache();//注册分布式缓存
+            RegisterWeixinCache();//注册分布式缓存
             RegisterWeixinThreads();//激活微信缓存（必须）
             RegisterSenparcWeixin();//注册Demo所用微信公众号的账号信息
             RegisterWeixinPay();//注册微信支付

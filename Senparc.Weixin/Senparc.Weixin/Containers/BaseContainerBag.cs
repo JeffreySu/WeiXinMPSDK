@@ -70,8 +70,8 @@ namespace Senparc.Weixin.Containers
             {
                 var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
                 var cacheKey = ContainerHelper.GetCacheKey(this.GetType());
-                containerCacheStragegy.UpdateContainerBag(cacheKey, containerBag);
                 containerBag.CacheTime = DateTime.Now;//记录缓存时间
+                containerCacheStragegy.UpdateContainerBag(cacheKey, containerBag);
             });
         }
 

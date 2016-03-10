@@ -88,9 +88,14 @@ namespace Senparc.Weixin.Cache
 
         public IContainerItemCollection Get(string key)
         {
-            if (!_cache.ContainsKey(key))
+            if (string.IsNullOrEmpty(key))
             {
-                _cache[key] = new ContainerItemCollection();
+                return null;
+            }
+
+            if (!CheckExisted(key))
+            {
+                InsertToCache(key, new ContainerItemCollection());
             }
 
             return _cache[key];

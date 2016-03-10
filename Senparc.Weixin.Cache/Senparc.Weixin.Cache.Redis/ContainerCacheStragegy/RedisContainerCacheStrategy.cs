@@ -104,7 +104,7 @@ namespace Senparc.Weixin.Cache.Redis
 
             if (!CheckExisted(key))
             {
-                return null;
+                InsertToCache(key, new ContainerItemCollection());
             }
             var cacheKey = GetFinalKey(key);
 
@@ -157,7 +157,7 @@ namespace Senparc.Weixin.Cache.Redis
             {
                 return;
             }
-           
+
             var cacheKey = GetFinalKey(key);
             _cache.StringSet(cacheKey, RedisValue.Null);//TODO:尚未测试此方法是否有效
         }

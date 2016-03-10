@@ -93,10 +93,10 @@ namespace Senparc.Weixin.Cache
                 return null;
             }
 
-            if (!CheckExisted(key))
-            {
-                InsertToCache(key, new ContainerItemCollection());
-            }
+            //if (!CheckExisted(key))
+            //{
+            //    InsertToCache(key, new ContainerItemCollection());
+            //}
 
             return _cache[key];
         }

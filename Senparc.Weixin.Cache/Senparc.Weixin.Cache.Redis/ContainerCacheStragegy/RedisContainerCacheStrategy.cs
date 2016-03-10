@@ -102,10 +102,10 @@ namespace Senparc.Weixin.Cache.Redis
                 return null;
             }
 
-            if (!CheckExisted(key))
-            {
-                InsertToCache(key, new ContainerItemCollection());
-            }
+            //if (!CheckExisted(key))
+            //{
+            //    InsertToCache(key, new ContainerItemCollection());
+            //}
             var cacheKey = GetFinalKey(key);
 
             var value = _cache.StringGet(cacheKey);

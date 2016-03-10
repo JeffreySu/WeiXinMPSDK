@@ -6,6 +6,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using Senparc.Weixin.Cache;
+using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.MessageQueue;
 
@@ -49,6 +50,40 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public ActionResult Test()
         {
             return View();
+        }
+
+        public ActionResult Redis(int id = 1)
+        {
+            //测试Redis ItemCollection缓存更新功能
+
+            var sb = new StringBuilder();
+            var cacheKey = TestContainer1.GetCacheKey();
+            var containerCacheStragegy = id == 1 ? RedisContainerCacheStrategy.Instance : LocalContainerCacheStrategy.Instance;
+            var itemCollection = containerCacheStragegy.Get(cacheKey);
+
+            sb.AppendFormat("Count1：{0}<br />", itemCollection?.GetCount());
+
+
+            var bagKey = "Redis." + DateTime.Now.ToString();
+            var bag = new TestContainerBag1()
+            {
+                Key = bagKey,
+                DateTime = DateTime.Now
+            };
+            TestContainer1.Update(bagKey, bag);//更新到缓存（列队）
+
+            itemCollection = containerCacheStragegy.Get(cacheKey);
+
+            sb.AppendFormat("Count2：{0}<br />", itemCollection?.GetCount());
+
+            if (itemCollection != null)
+            {
+                itemCollection[DateTime.Now.Ticks.ToString()] = bag;
+            }
+
+            sb.AppendFormat("Count3：{0}<br />", itemCollection?.GetCount());
+
+            return Content(sb.ToString());
         }
 
         [HttpPost]

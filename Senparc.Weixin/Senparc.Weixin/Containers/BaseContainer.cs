@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MessageQueue;
@@ -77,7 +78,7 @@ namespace Senparc.Weixin.Containers
                 IContainerItemCollection itemCollection;
                 if (!Cache.CheckExisted(cacheKey))
                 {
-                     itemCollection = new ContainerItemCollection();
+                    itemCollection = new ContainerItemCollection();
                     //CollectionList[cacheKey] = newItemCollection;
 
                     //保存到缓存列队，等待执行
@@ -91,7 +92,7 @@ namespace Senparc.Weixin.Containers
                 }
                 else
                 {
-                    itemCollection = Cache.Get(cacheKey) ;
+                    itemCollection = Cache.Get(cacheKey);
                 }
 
                 return itemCollection;
@@ -160,60 +161,61 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 更新数据项
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value">为null时删除该项</param>
-        public static void Update(string key, TBag value)
+        /// <param name="bagKey"></param>
+        /// <param name="bag">为null时删除该项</param>
+        public static void Update(string bagKey, TBag bag)
         {
-            if (value == null)
+            if (bag == null)
             {
-                ItemCollection.RemoveFromCache(key);
+                ItemCollection.RemoveFromCache(bagKey);
             }
             else
             {
-                if (string.IsNullOrEmpty(value.Key))
+                if (string.IsNullOrEmpty(bag.Key))
                 {
-                    value.Key = key;//确保Key有值
+                    bag.Key = bagKey;//确保Key有值
                 }
                 else
                 {
-                    key = value.Key;//统一key
+                    bagKey = bag.Key;//统一key
                 }
 
-                if (string.IsNullOrEmpty(key))
+                if (string.IsNullOrEmpty(bagKey))
                 {
                     throw new WeixinException("key和value,Key不可以同时为null或空字符串！");
                 }
 
-                var c1 = ItemCollection.GetCount();
-                ItemCollection[key] = value;
-                var c2 = ItemCollection.GetCount();
-
-                Cache.Update(key, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
+                //var c1 = ItemCollection.GetCount();
+                ItemCollection[bagKey] = bag;
+                //var c2 = ItemCollection.GetCount();
+                var cacheKey = GetCacheKey();
+                Cache.Update(cacheKey, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
             }
         }
 
         /// <summary>
         /// 更新数据项
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="bagKey"></param>
         /// <param name="partialUpdate">为null时删除该项</param>
-        public static void Update(string key, Action<TBag> partialUpdate)
+        public static void Update(string bagKey, Action<TBag> partialUpdate)
         {
             if (partialUpdate == null)
             {
-                ItemCollection.RemoveFromCache(key);//移除对象
+                ItemCollection.RemoveFromCache(bagKey);//移除对象
             }
             else
             {
-                if (!ItemCollection.CheckExisted(key))
+                if (!ItemCollection.CheckExisted(bagKey))
                 {
-                    ItemCollection[key] = new TBag()
+                    ItemCollection[bagKey] = new TBag()
                     {
-                        Key = key//确保这一项Key已经被记录
+                        Key = bagKey//确保这一项Key已经被记录
                     };
                 }
-                partialUpdate(ItemCollection[key] as TBag);//更新对象
-                Cache.Update(key, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
+                partialUpdate(ItemCollection[bagKey] as TBag);//更新对象
+                var cacheKey = GetCacheKey();
+                Cache.Update(cacheKey, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
             }
         }
 

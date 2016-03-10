@@ -14,6 +14,7 @@ using System.Runtime.CompilerServices;
 using Senparc.Weixin.Annotations;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MessageQueue;
 
 namespace Senparc.Weixin.Containers
@@ -59,16 +60,17 @@ namespace Senparc.Weixin.Containers
         private void BaseContainerBag_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             var containerBag = (IBaseContainerBag)sender;
-            var key = SenparcMessageQueue.GenerateKey("ContainerBag", sender.GetType(), containerBag.Key, "UpdateContainerBag");
+            var mqKey = SenparcMessageQueue.GenerateKey("ContainerBag", sender.GetType(), containerBag.Key, "UpdateContainerBag");
 
             //获取对应Container的缓存相关
 
             //加入消息列队，每过一段时间进行自动更新，防止属性连续被编辑，短时间内反复更新缓存。
             SenparcMessageQueue mq = new SenparcMessageQueue();
-            mq.Add(key, () =>
+            mq.Add(mqKey, () =>
             {
                 var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
-                containerCacheStragegy.UpdateContainerBag(key, containerBag);
+                var cacheKey = ContainerHelper.GetCacheKey(this.GetType());
+                containerCacheStragegy.UpdateContainerBag(cacheKey, containerBag);
                 containerBag.CacheTime = DateTime.Now;//记录缓存时间
             });
         }

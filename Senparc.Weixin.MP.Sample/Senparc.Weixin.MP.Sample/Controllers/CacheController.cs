@@ -12,6 +12,7 @@ using Senparc.Weixin.MessageQueue;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
+    [Serializable]
     internal class TestContainerBag1 : BaseContainerBag
     {
         private DateTime _dateTime;
@@ -23,6 +24,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
     }
 
+    [Serializable]
     internal class TestContainerBag2 : BaseContainerBag
     {
         private DateTime _dateTime;
@@ -56,9 +58,18 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             //测试Redis ItemCollection缓存更新功能
 
+            if (id==1)
+            {
+                CacheStrategyFactory.RegisterContainerCacheStrategy(()=> RedisContainerCacheStrategy.Instance);
+            }
+            else
+            {
+                CacheStrategyFactory.RegisterContainerCacheStrategy(() => null);
+            }
+
             var sb = new StringBuilder();
             var cacheKey = TestContainer1.GetCacheKey();
-            var containerCacheStragegy = id == 1 ? RedisContainerCacheStrategy.Instance : LocalContainerCacheStrategy.Instance;
+            var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
             var itemCollection = containerCacheStragegy.Get(cacheKey);
 
             sb.AppendFormat("Count1：{0}<br />", itemCollection?.GetCount());

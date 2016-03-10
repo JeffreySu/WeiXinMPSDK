@@ -15,6 +15,7 @@ using System.Linq;
 using System.Web;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MessageQueue;
 
 namespace Senparc.Weixin.Containers
@@ -81,6 +82,12 @@ namespace Senparc.Weixin.Containers
                     itemCollection = new ContainerItemCollection();
                     //CollectionList[cacheKey] = newItemCollection;
 
+                    //直接执行
+                    //{
+                    //}
+                    //var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
+                    //containerCacheStragegy.InsertToCache(cacheKey, itemCollection);//插入到缓存
+
                     //保存到缓存列队，等待执行
                     SenparcMessageQueue mq = new SenparcMessageQueue();
                     var mqKey = SenparcMessageQueue.GenerateKey("ContainerItemCollection", typeof(BaseContainer<TBag>), cacheKey, "InsertItemCollection");
@@ -105,7 +112,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static string GetCacheKey()
         {
-            return string.Format("Container:{0}", typeof(TBag));
+            return ContainerHelper.GetCacheKey(typeof(TBag));
         }
 
         ///// <summary>

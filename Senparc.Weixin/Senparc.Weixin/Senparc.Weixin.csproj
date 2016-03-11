@@ -94,6 +94,7 @@
     <Compile Include="Exceptions\WeixinException.cs" />
     <Compile Include="Exceptions\UnRegisterAppIdException.cs" />
     <Compile Include="Exceptions\WeixinMenuException.cs" />
+    <Compile Include="Helpers\Containers\ContainerHelper.cs" />
     <Compile Include="Helpers\Conventers\ExpandoJsonConverter.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
     <Compile Include="Helpers\FileHelper.cs" />

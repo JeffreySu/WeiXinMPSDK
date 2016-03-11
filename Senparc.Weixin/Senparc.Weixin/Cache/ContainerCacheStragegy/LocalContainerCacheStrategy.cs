@@ -88,9 +88,15 @@ namespace Senparc.Weixin.Cache
 
         public IContainerItemCollection Get(string key)
         {
-            if (!_cache.ContainsKey(key))
+            if (string.IsNullOrEmpty(key))
             {
-                _cache[key] = new ContainerItemCollection();
+                return null;
+            }
+
+            if (!CheckExisted(key))
+            {
+                return null;
+                //InsertToCache(key, new ContainerItemCollection());
             }
 
             return _cache[key];
@@ -120,8 +126,10 @@ namespace Senparc.Weixin.Cache
         {
             if (_cache.ContainsKey(key))
             {
-                var containerItemCollection = _cache[key];
+                var containerItemCollection = Get(key);
                 containerItemCollection[bag.Key] = bag;
+
+                //因为这里获取的是containerItemCollection引用对象，所以不必再次更新整个containerItemCollection到缓存
             }
         }
 

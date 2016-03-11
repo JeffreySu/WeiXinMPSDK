@@ -18,6 +18,7 @@ using Senparc.Weixin.QY.Entities;
 
 namespace Senparc.Weixin.QY.CommonAPIs
 {
+    [Serializable]
     class JsApiTicketBag
     {
         public string AppId { get; set; }

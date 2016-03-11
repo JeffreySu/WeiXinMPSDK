@@ -48,6 +48,7 @@ namespace Senparc.Weixin.MP.Sample
         /// </summary>
         private void RegisterWeixinCache()
         {
+            RedisManager.ConfigurationOption = "localhost:16379";
             //如果不执行，则默认使用本地缓存
             CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);
         }

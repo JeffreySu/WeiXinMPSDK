@@ -11,7 +11,7 @@ namespace Senparc.Weixin.Cache.Redis
     {
         static object _locker = new object();
         private static ConnectionMultiplexer _redis;
-        public static ConfigurationOptions ConfigurationOptions { get; set; }
+        public static string ConfigurationOption { get; set; }
 
         public static ConnectionMultiplexer Manager
         {
@@ -33,13 +33,13 @@ namespace Senparc.Weixin.Cache.Redis
         {
             if (string.IsNullOrEmpty(connectionString))
             {
-                if (ConfigurationOptions == null)
+                if (ConfigurationOption == null)
                 {
                     connectionString = GetDefaultConnectionString();
                 }
                 else
                 {
-                    return ConnectionMultiplexer.Connect(ConfigurationOptions);
+                    return ConnectionMultiplexer.Connect(ConfigurationOptions.Parse(ConfigurationOption));
                 }
             }
             return ConnectionMultiplexer.Connect(connectionString);

@@ -1974,6 +1974,31 @@
             <param name="appId"></param>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.QY.CommonAPIs.ProviderTokenBag">
+            <summary>
+            ProviderTokenBag
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.CommonAPIs.ProviderTokenBag.CorpId">
+            <summary>
+            CorpId
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.CommonAPIs.ProviderTokenBag.CorpSecret">
+            <summary>
+            CorpSecret
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.CommonAPIs.ProviderTokenBag.ExpireTime">
+            <summary>
+            过期时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.CommonAPIs.ProviderTokenBag.ProviderTokenResult">
+            <summary>
+            ProviderTokenResult
+            </summary>
+        </member>
         <member name="F:Senparc.Weixin.QY.CommonAPIs.ProviderTokenBag.Lock">
             <summary>
             只针对这个CorpId的锁
@@ -2023,6 +2048,26 @@
             <param name="corpId"></param>
             <returns></returns>
         </member>
+        <member name="P:Senparc.Weixin.QY.CommonAPIs.AccessTokenBag.CorpId">
+            <summary>
+            CorpId
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.CommonAPIs.AccessTokenBag.CorpSecret">
+            <summary>
+            CorpSecret
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.CommonAPIs.AccessTokenBag.ExpireTime">
+            <summary>
+            过期时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.CommonAPIs.AccessTokenBag.AccessTokenResult">
+            <summary>
+            AccessTokenResult
+            </summary>
+        </member>
         <member name="F:Senparc.Weixin.QY.CommonAPIs.AccessTokenBag.Lock">
             <summary>
             只针对这个CorpId的锁
@@ -2035,7 +2080,8 @@
         </member>
         <member name="M:Senparc.Weixin.QY.CommonAPIs.AccessTokenContainer.Register(System.String,System.String)">
             <summary>
-            注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
+            注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token。
+            执行此注册过程，会连带注册ProviderTokenContainer。
             </summary>
             <param name="corpId"></param>
             <param name="corpSecret"></param>
@@ -3360,6 +3406,11 @@
         <member name="F:Senparc.Weixin.QY.KF_Type.external">
             <summary>
             外部客服
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.QY.Exceptions.WeixinQyException">
+            <summary>
+            企业号异常
             </summary>
         </member>
         <member name="P:Senparc.Weixin.QY.MessageHandlers.IQyMessageHandler.EncryptPostData">

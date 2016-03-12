@@ -11,25 +11,21 @@
 
 using System;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Open.CommonAPIs;
-using Senparc.Weixin.Open.ComponentAPIs;
+using Senparc.Weixin.QY.CommonAPIs;
 
-namespace Senparc.Weixin.Open.Exceptions
+namespace Senparc.Weixin.QY.Exceptions
 {
     /// <summary>
-    /// 第三方平台异常
+    /// 企业号异常
     /// </summary>
-    public class WeixinOpenException : WeixinException
+    public class WeixinQyException : WeixinException
     {
-        /// <summary>
-        /// ComponentBag
-        /// </summary>
-        public ComponentBag ComponentBag { get; set; }
+        public AccessTokenBag AccessTokenBag { get; set; }
 
-        public WeixinOpenException(string message, ComponentBag componentBag = null, Exception inner=null)
+        public WeixinQyException(string message, AccessTokenBag accessTokenBag = null, Exception inner=null)
             : base(message, inner)
         {
-            ComponentBag = ComponentBag;
+            AccessTokenBag = accessTokenBag;
         }
     }
 }

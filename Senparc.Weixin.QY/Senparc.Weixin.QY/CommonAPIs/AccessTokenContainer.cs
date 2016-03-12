@@ -24,30 +24,40 @@ using System.Collections.Generic;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.Entities;
+using Senparc.Weixin.QY.Exceptions;
 
 namespace Senparc.Weixin.QY.CommonAPIs
 {
     [Serializable]
-    class AccessTokenBag: BaseContainerBag
+    public class AccessTokenBag : BaseContainerBag
     {
+        /// <summary>
+        /// CorpId
+        /// </summary>
         public string CorpId
         {
             get { return _corpId; }
             set { base.SetContainerProperty(ref _corpId, value); }
         }
-
+        /// <summary>
+        /// CorpSecret
+        /// </summary>
         public string CorpSecret
         {
             get { return _corpSecret; }
             set { base.SetContainerProperty(ref _corpSecret, value); }
         }
-
+        /// <summary>
+        /// 过期时间
+        /// </summary>
         public DateTime ExpireTime
         {
             get { return _expireTime; }
             set { base.SetContainerProperty(ref _expireTime, value); }
         }
-
+        /// <summary>
+        /// AccessTokenResult
+        /// </summary>
         public AccessTokenResult AccessTokenResult
         {
             get { return _accessTokenResult; }
@@ -68,25 +78,27 @@ namespace Senparc.Weixin.QY.CommonAPIs
     /// <summary>
     /// 通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
     /// </summary>
-    public class AccessTokenContainer
+    public class AccessTokenContainer : BaseContainer<AccessTokenBag>
     {
-        static Dictionary<string, AccessTokenBag> AccessTokenCollection =
-           new Dictionary<string, AccessTokenBag>(StringComparer.OrdinalIgnoreCase);
+        private const string UN_REGISTER_ALERT = "此CorpId尚未注册，AccessTokenContainer.Register完成注册（全局执行一次即可）！";
 
         /// <summary>
-        /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
+        /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token。
+        /// 执行此注册过程，会连带注册ProviderTokenContainer。
         /// </summary>
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
         public static void Register(string corpId, string corpSecret)
         {
-            AccessTokenCollection[corpId] = new AccessTokenBag()
+            Update(corpId, new AccessTokenBag()
             {
                 CorpId = corpId,
                 CorpSecret = corpSecret,
                 ExpireTime = DateTime.MinValue,
                 AccessTokenResult = new AccessTokenResult()
-            };
+            });
+
+            ProviderTokenContainer.Register(corpId, corpSecret);//连带注册ProviderTokenContainer
         }
 
         /// <summary>
@@ -124,12 +136,12 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <returns></returns>
         public static AccessTokenResult GetTokenResult(string corpId, bool getNewToken = false)
         {
-            if (!AccessTokenCollection.ContainsKey(corpId))
+            if (!CheckRegistered(corpId))
             {
-                throw new WeixinException("此CorpId尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
+                throw new WeixinQyException(UN_REGISTER_ALERT);
             }
 
-            var accessTokenBag = AccessTokenCollection[corpId];
+            var accessTokenBag = (AccessTokenBag)ItemCollection[corpId];
             lock (accessTokenBag.Lock)
             {
                 if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
@@ -148,9 +160,9 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// </summary>
         /// <param name="corpId"></param>
         /// <returns></returns>
-        public static bool CheckRegistered(string corpId)
+        public new static bool CheckRegistered(string corpId)
         {
-            return AccessTokenCollection.ContainsKey(corpId);
+            return ItemCollection.CheckExisted(corpId);
         }
     }
 }

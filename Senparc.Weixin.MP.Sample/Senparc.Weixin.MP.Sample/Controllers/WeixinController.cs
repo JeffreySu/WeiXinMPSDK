@@ -25,8 +25,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     using Senparc.Weixin.MP.Entities;
     using Senparc.Weixin.MP.Helpers;
     using Senparc.Weixin.MP.MvcExtension;
-    //using Senparc.Weixin.MP.Sample.Service;
-    //using Senparc.Weixin.MP.Sample.CustomerMessageHandler;
     using Senparc.Weixin.MP.Sample.CommonService;
     using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 
@@ -36,7 +34,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public static readonly string EncodingAESKey = WebConfigurationManager.AppSettings["WeixinEncodingAESKey"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string AppId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
-        readonly Func<string> _getRandomFileName = () => DateTime.Now.Ticks + Guid.NewGuid().ToString("n").Substring(0, 6);
+        readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HH:mm:ss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
         public WeixinController()
         {

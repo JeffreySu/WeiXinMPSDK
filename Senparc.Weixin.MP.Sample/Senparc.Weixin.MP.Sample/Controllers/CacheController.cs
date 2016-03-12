@@ -58,9 +58,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             //测试Redis ItemCollection缓存更新功能
 
-            if (id==1)
+            if (id == 1)
             {
-                CacheStrategyFactory.RegisterContainerCacheStrategy(()=> RedisContainerCacheStrategy.Instance);
+                CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);
             }
             else
             {
@@ -72,7 +72,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
             var itemCollection = containerCacheStragegy.Get(cacheKey);
 
-            sb.AppendFormat("Count1：{0}<br />", itemCollection?.GetCount());
+            sb.AppendFormat("Count1：{0}<br />", itemCollection != null ? itemCollection.GetCount() : -1);
 
 
             var bagKey = "Redis." + DateTime.Now.ToString();
@@ -85,7 +85,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             itemCollection = containerCacheStragegy.Get(cacheKey);
 
-            sb.AppendFormat("Count2：{0}<br />", itemCollection?.GetCount());
+            sb.AppendFormat("Count2：{0}<br />", itemCollection != null ? itemCollection.GetCount() : -1);
 
             if (itemCollection != null)
             {
@@ -140,7 +140,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 var waitSeconds = i;
                 sb.AppendFormat("{0}：{1}<br />", "操作", "等待" + waitSeconds + "秒");
-                Thread.Sleep(waitSeconds*1000); //线程默认轮询等待时间为2秒
+                Thread.Sleep(waitSeconds * 1000); //线程默认轮询等待时间为2秒
                 sb.AppendFormat("{0}：{1}<br />", "当前消息列队数量（未更新缓存）", mq.GetCount());
 
                 itemCollection = containerCacheStragegy.Get(cacheKey);

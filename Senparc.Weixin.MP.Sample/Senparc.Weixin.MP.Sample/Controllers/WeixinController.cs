@@ -9,23 +9,14 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using System.Xml.Linq;
 using Senparc.Weixin.MP.Entities.Request;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
-    using Senparc.Weixin.MP.MessageHandlers;
-    using Senparc.Weixin.MP.Entities;
-    using Senparc.Weixin.MP.Helpers;
     using Senparc.Weixin.MP.MvcExtension;
-    using Senparc.Weixin.MP.Sample.CommonService;
     using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 
     public partial class WeixinController : Controller

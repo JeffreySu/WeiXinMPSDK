@@ -9,7 +9,7 @@
 Redis 分布式缓存：Senparc.Weixin.Cache.Redis.dll
 -----------------
 Memcached 分布式缓存：Senparc.Weixin.Cache.Memcached.dll
-
+-----------------
 
 
 本库为.NET4.5，其他.NET版本请看各自分支。

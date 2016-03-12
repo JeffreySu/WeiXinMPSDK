@@ -12,6 +12,10 @@
         
     修改标识：Senparc - 20160206
     修改描述：将public object Lock更改为internal object Lock
+
+    修改标识：Senparc - 20160312
+    修改描述：升级Container，继承自BaseContainer<JsApiTicketBag>
+
 ----------------------------------------------------------------*/
 
 using System;

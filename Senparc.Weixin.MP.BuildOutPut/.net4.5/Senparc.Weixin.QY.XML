@@ -1930,6 +1930,16 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.QY.CommonAPIs.JsApiTicketBag">
+            <summary>
+            JsApiTicketBag
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.QY.CommonAPIs.JsApiTicketBag.Lock">
+            <summary>
+            只针对这个AppId的锁
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.QY.CommonAPIs.JsApiTicketContainer">
             <summary>
             通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取

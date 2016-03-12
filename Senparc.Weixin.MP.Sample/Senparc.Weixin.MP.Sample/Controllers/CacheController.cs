@@ -6,7 +6,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using Senparc.Weixin.Cache;
-using Senparc.Weixin.Cache.Redis;
+//using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.MessageQueue;
 
@@ -60,7 +60,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             if (id==1)
             {
-                CacheStrategyFactory.RegisterContainerCacheStrategy(()=> RedisContainerCacheStrategy.Instance);
+                //CacheStrategyFactory.RegisterContainerCacheStrategy(()=> RedisContainerCacheStrategy.Instance);
             }
             else
             {

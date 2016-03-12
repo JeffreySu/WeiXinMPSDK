@@ -69,7 +69,7 @@ namespace Senparc.Weixin.MP.Helpers
                     }
                 }
             }
-            return SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
+            return SHA1UtilHelper.GetSha1(sb.ToString()).ToLower();
         }
 
         /// <summary>
@@ -193,5 +193,25 @@ namespace Senparc.Weixin.MP.Helpers
 			parameters.Add("nonce_str", nonce_str);
 			return CreateNonekeySha1(parameters);
 		}
+
+        /// <summary>
+        /// 获取给UI使用的JSSDK信息包
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="appSecret"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static JsSdkUiPackage GetJsSdkUiPackage(string appId ,string appSecret,string url)
+        {
+            //获取时间戳
+            var timestamp = GetTimestamp();
+            //获取随机码
+            string nonceStr = GetNoncestr();
+            string ticket = JsApiTicketContainer.TryGetJsApiTicket(appId,appSecret);
+            //获取签名
+            string signature = JSSDKHelper.GetSignature(ticket, nonceStr, timestamp, url);
+            //返回信息包
+            return new JsSdkUiPackage(appId,timestamp,nonceStr,signature);
+        }
     }
 }

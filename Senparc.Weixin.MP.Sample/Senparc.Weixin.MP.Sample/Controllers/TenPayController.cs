@@ -137,6 +137,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //string paySignDebuginfo = paySignReqHandler.getDebugInfo();
             //Response.Write("<br/>paySignDebuginfo:" + paySignDebuginfo + "<br/>");
 
+            //TODO：和JSSDK一样整合信息包
             ViewData["appId"] = TenPayInfo.AppId;
             ViewData["timeStamp"] = timeStamp;
             ViewData["nonceStr"] = nonceStr;

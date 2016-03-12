@@ -1,7 +1,6 @@
-
 微信C# SDK
 =================
-微信公众号：Senparc.Weixin.MP.dll
+微信公众号 / 微信支付 / JSSDK / 摇周边 / 等等：Senparc.Weixin.MP.dll
 -----------------
 微信企业号：Senparc.Weixin.QY.dl
 -----------------
@@ -31,7 +30,7 @@
 7. chm帮助文档下载：http://weixin.senparc.com/Document
 8. 源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
 
-技术交流QQ群（目前未满可加：3群、8群，其他群均已满）：
+技术交流QQ群（目前未满可加：8群，其他群均已满）：
 
 1群：300313885，2群：293958349，3群：342319110，4群：372212092
 
@@ -57,6 +56,9 @@
 
 项目文件夹说明
 --------------
+
+> Senparc.Weixin.Cache：Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis.dll 等分布式缓存扩展方案
+
 > Senparc.Weixin.MP.BuildOutPut：所有最新版本DLL发布文件夹
 
 > Senparc.Weixin.MP.MvcExtension：Senparc.Weixin.MP.MvcExtension.dll源码，为MVC4.0项目提供的扩展包。
@@ -97,7 +99,8 @@ public ActionResult Get(PostModel postModel, string echostr)
     }
     else
     {
-        return Content("failed:" + postModel.Signature + "," + MP.CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, Token) + "。" +
+        return Content("failed:" + postModel.Signature + "," 
+            + MP.CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, Token) + "。" +
             "如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。");
     }
 }
@@ -167,7 +170,8 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
         
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
-            var responseMessage = CreateResponseMessage<ResponseMessageText>();//ResponseMessageText也可以是News等其他类型
+            //ResponseMessageText也可以是News等其他类型
+            var responseMessage = CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "这条消息来自DefaultResponseMessage。";
             return responseMessage;
         }

@@ -11,6 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using System;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.Entities
@@ -18,6 +19,7 @@ namespace Senparc.Weixin.MP.Entities
     /// <summary>
     /// jsapi_ticket请求后的JSON返回格式
     /// </summary>
+    [Serializable]
     public class JsApiTicketResult : WxJsonResult
     {
         /// <summary>

@@ -8,11 +8,14 @@
     创建标识：Senparc - 20150430
 ----------------------------------------------------------------*/
 
+using System;
+
 namespace Senparc.Weixin.Open.Entities
 {
     /// <summary>
     /// 获取第三方平台access_token
     /// </summary>
+    [Serializable]
     public class ComponentAccessTokenResult
     {
         /// <summary>

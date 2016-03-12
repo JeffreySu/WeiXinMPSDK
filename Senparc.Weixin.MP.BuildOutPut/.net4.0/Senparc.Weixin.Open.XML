@@ -834,6 +834,16 @@
             公众号授权给开发者的权限集列表
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.Open.Exceptions.WeixinOpenException">
+            <summary>
+            第三方平台异常
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.Exceptions.WeixinOpenException.ComponentBag">
+            <summary>
+            ComponentBag
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.Open.Helpers.InfoTypeHelper.GetRequestInfoType(System.Xml.Linq.XDocument)">
             <summary>
             根据xml信息，返回InfoType

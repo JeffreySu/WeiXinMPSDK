@@ -14,6 +14,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 //using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
@@ -26,6 +27,19 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     {
         public ActionResult Index()
         {
+            Func<string, FileVersionInfo> getFileVersionInfo = dllFileName => 
+                FileVersionInfo.GetVersionInfo(Server.MapPath("~/bin/" + dllFileName));
+
+            Func<FileVersionInfo, string> getDisplayVersion = fileVersionInfo =>
+                 Regex.Match(fileVersionInfo.FileVersion, @"\d+\.\d+\.\d+").Value;
+
+            TempData["WeixinVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.dll"));
+            TempData["MpVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.MP.dll"));
+            TempData["ExtensionVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.MP.MvcExtension.dll"));
+            TempData["OpenVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Open.dll"));
+            TempData["QYVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.QY.dll"));
+            TempData["RedisCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Redis.dll"));
+            TempData["MemcachedCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Memcached.dll"));
             return View();
         }
 

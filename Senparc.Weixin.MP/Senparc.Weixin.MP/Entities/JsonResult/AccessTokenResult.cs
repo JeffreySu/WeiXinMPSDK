@@ -11,11 +11,14 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using System;
+
 namespace Senparc.Weixin.MP.Entities
 {
     /// <summary>
     /// access_token请求后的JSON返回格式
     /// </summary>
+    [Serializable]
     public class AccessTokenResult
     {
         /// <summary>

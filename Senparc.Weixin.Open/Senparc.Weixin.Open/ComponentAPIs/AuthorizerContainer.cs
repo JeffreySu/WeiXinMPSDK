@@ -28,6 +28,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     /// <summary>
     /// 之前的JsApiTicketBag
     /// </summary>
+    [Serializable]
     public class AuthorizerBag : BaseContainerBag
     {
         /// <summary>

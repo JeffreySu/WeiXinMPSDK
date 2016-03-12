@@ -30,6 +30,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// <summary>
     /// AccessToken及JsApiTicket包
     /// </summary>
+    [Serializable]
     public class AccessTokenBag : BaseContainerBag
     {
         public string AppId

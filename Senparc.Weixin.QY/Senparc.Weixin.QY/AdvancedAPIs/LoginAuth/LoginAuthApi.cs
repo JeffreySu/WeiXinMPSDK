@@ -12,6 +12,7 @@
     接口文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%99%BB%E5%BD%95%E6%8E%88%E6%9D%83%E6%B5%81%E7%A8%8B%E8%AF%B4%E6%98%8E
  */
 
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.LoginAuth;
 using Senparc.Weixin.QY.CommonAPIs;
 
@@ -34,7 +35,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         public static string GetLoginAuthUrl(string corpId, string redirectUrl, string state)
         {
             return string.Format("https://qy.weixin.qq.com/cgi-bin/loginpage?corp_id={0}&redirect_uri={1}&state={2}",
-                              corpId, redirectUrl, state);
+                              corpId.AsUrlData(), redirectUrl.AsUrlData(), state.AsUrlData());
         }
 
         /// <summary>

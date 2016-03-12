@@ -59,7 +59,7 @@
 	text-align:center;
 	width:260px;
 	float:left;
-	margin-top:48px;
+	margin-top:8px;
 }
 .container-left li {
 	background:#4EBBFD;
@@ -92,7 +92,7 @@
     display: block;
 }
 .contact {
-	margin-top:28px;
+	margin-top:118px;
 }
 .contatc-name {
 	font-size:16px;
@@ -131,6 +131,7 @@
 	/*float:left;
 	width:40%;*/
 }
+
 .max {
 	width:60%;
 }
@@ -141,9 +142,18 @@
 	font-size:20px;
 	color:#4D4D4D;
 	letter-spacing:1px;
-	padding-bottom:20px;
-	padding-top:35px;
+	margin-bottom:20px;
+	margin-top:35px;
 }
+.weixin-bottom-buttons {
+    margin-top: 40px;
+    clear: both;
+}
+.weixin-item-button {
+	margin-bottom:20px;
+}
+
+
 .weixin-item-content {
 	width:60%;
 	float:left;
@@ -155,17 +165,24 @@
 	padding-bottom:20px;
 	padding-right:40px;
 }
-.weixin-item-img {
-	/*float:left;*/
+.weixin-item img {
+    /*margin-left: 40px;*/
+
+}
+img.official-img {
+    margin: 50px 0 0 0;
+    clear: both;
 }
 
-.weixin-weiweihi{ width: 630px;margin: 0 auto;margin-bottom: 30px;}
+.weixin-weiweihi{ width: 730px;margin: 0 auto;margin-bottom: 30px;}
 
-.content-weixin{ text-align: center;margin-bottom: 30px;}
+.content-weixin{ text-align: center;margin-bottom: 30px;float: left;margin-left: 50px;}
 
 .weixin-bottom {
 	text-align:center;
-	padding-bottom:20px;
+	padding-bottom:40px;
+    width: 671px;
+    float: left;
 }
 .application {
 	background:#1FA0D2;
@@ -177,7 +194,7 @@
 	border-radius: 5px;
 }
 .test {
-	padding-bottom:20px;
+    margin-top: 0px; padding-bottom:20px; padding-top: 30px; clear: both;
 }
 
 .test table {
@@ -359,8 +376,15 @@
 }
 
 .version{ margin-top: 16px;}
-.sdk-version{color:#fff;text-decoration:underline;}
-.sdk-version:hover{text-decoration:underline;}
+
+#tbVersion{ color: #4d4d4d;font-size: 18px;/*text-align: center;*/ }
+#tbVersion th{ font-weight: bold;padding: 10px; color: #4d4d4d;border-bottom: 1px solid #4d4d4d;}
+#tbVersion td{ padding: 6px; color: #4d4d4d;line-height: 150%; vertical-align:middle;}
+#tbVersion td a{ color: #4d4d4d;}
+.sdk-version{ text-decoration:underline;}
+.sdk-version:hover{ text-decoration:none;}
+#tbVersion tbody>tr:hover{ background: #abe0ff;}
+
 #menuEditor h3{text-align: left;
 font-size: 16px;
 font-weight: bold;

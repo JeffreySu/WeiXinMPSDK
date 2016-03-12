@@ -24,11 +24,19 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// <summary>
     /// JsApiTicket包
     /// </summary>
+    [Serializable]
     public class JsApiTicketBag : BaseContainerBag
     {
-        public string AppId { get; set; }
-        public string AppSecret { get; set; }
-
+        public string AppId
+        {
+            get { return _appId; }
+            set { base.SetContainerProperty(ref _appId, value, "AppId"); }
+        }
+        public string AppSecret
+        {
+            get { return _appSecret; }
+            set { base.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
+        }
 
         public JsApiTicketResult JsApiTicketResult
         {
@@ -125,7 +133,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             if (!CheckRegistered(appId))
             {
-                throw new UnRegisterAppIdException(null,"此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
+                throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
             }
 
             var jsApiTicketBag = (JsApiTicketBag)ItemCollection[appId];

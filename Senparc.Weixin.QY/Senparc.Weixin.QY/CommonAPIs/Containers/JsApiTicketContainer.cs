@@ -9,30 +9,66 @@
  
     修改标识：Senparc - 20150313
     修改描述：整理接口
+
+    修改标识：Senparc - 20160312
+    修改描述：升级Container，继承自BaseContainer<JsApiTicketBag>
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
+using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.Entities;
+using Senparc.Weixin.QY.Exceptions;
 
 namespace Senparc.Weixin.QY.CommonAPIs
 {
-    class JsApiTicketBag
+    /// <summary>
+    /// JsApiTicketBag
+    /// </summary>
+    [Serializable]
+    public class JsApiTicketBag : BaseContainerBag
     {
-        public string AppId { get; set; }
-        public string AppSecret { get; set; }
-        public DateTime ExpireTime { get; set; }
-        public JsApiTicketResult JsApiTicketResult { get; set; }
+        public string AppId
+        {
+            get { return _appId; }
+            set { base.SetContainerProperty(ref _appId, value, "AppId"); }
+        }
+        public string AppSecret
+        {
+            get { return _appSecret; }
+            set { base.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
+        }
+
+        public JsApiTicketResult JsApiTicketResult
+        {
+            get { return _jsApiTicketResult; }
+            set { base.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
+        }
+
+        public DateTime ExpireTime
+        {
+            get { return _expireTime; }
+            set { base.SetContainerProperty(ref _expireTime, value, "ExpireTime"); }
+        }
+
+        /// <summary>
+        /// 只针对这个AppId的锁
+        /// </summary>
+        internal object Lock = new object();
+
+        private DateTime _expireTime;
+        private JsApiTicketResult _jsApiTicketResult;
+        private string _appSecret;
+        private string _appId;
     }
 
     /// <summary>
     /// 通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
     /// </summary>
-    public class JsApiTicketContainer
+    public class JsApiTicketContainer : BaseContainer<JsApiTicketBag>
     {
-        static Dictionary<string, JsApiTicketBag> JsApiTicketCollection =
-           new Dictionary<string, JsApiTicketBag>(StringComparer.OrdinalIgnoreCase);
+        private const string UN_REGISTER_ALERT = "此AppId尚未注册，JsApiTicketContainer.Register完成注册（全局执行一次即可）！";
 
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
@@ -41,13 +77,13 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="appSecret"></param>
         public static void Register(string appId, string appSecret)
         {
-            JsApiTicketCollection[appId] = new JsApiTicketBag()
+            Update(appId, new JsApiTicketBag()
             {
                 AppId = appId,
                 AppSecret = appSecret,
                 ExpireTime = DateTime.MinValue,
                 JsApiTicketResult = new JsApiTicketResult()
-            };
+            });
         }
 
         /// <summary>
@@ -85,19 +121,22 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <returns></returns>
         public static JsApiTicketResult GetTicketResult(string appId, bool getNewTicket = false)
         {
-            if (!JsApiTicketCollection.ContainsKey(appId))
+            if (!CheckRegistered(appId))
             {
-                throw new UnRegisterAppIdException(appId,string.Format("此appId（{0}）尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！", appId));
+                throw new WeixinQyException(UN_REGISTER_ALERT);
             }
 
-            var accessTicketBag = JsApiTicketCollection[appId];
-            if (getNewTicket || accessTicketBag.ExpireTime <= DateTime.Now)
+            var jsApiTicketBag = (JsApiTicketBag)ItemCollection[appId];
+            lock (jsApiTicketBag.Lock)
             {
-                //已过期，重新获取
-                accessTicketBag.JsApiTicketResult = CommonApi.GetTicket(accessTicketBag.AppId, accessTicketBag.AppSecret);
-                accessTicketBag.ExpireTime = DateTime.Now.AddSeconds(accessTicketBag.JsApiTicketResult.expires_in);
+                if (getNewTicket || jsApiTicketBag.ExpireTime <= DateTime.Now)
+                {
+                    //已过期，重新获取
+                    jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
+                    jsApiTicketBag.ExpireTime = DateTime.Now.AddSeconds(jsApiTicketBag.JsApiTicketResult.expires_in);
+                }
             }
-            return accessTicketBag.JsApiTicketResult;
+            return jsApiTicketBag.JsApiTicketResult;
         }
 
         /// <summary>
@@ -105,9 +144,9 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// </summary>
         /// <param name="appId"></param>
         /// <returns></returns>
-        public static bool CheckRegistered(string appId)
+        public new static bool CheckRegistered(string appId)
         {
-            return JsApiTicketCollection.ContainsKey(appId);
+            return ItemCollection.CheckExisted(appId);
         }
     }
 }

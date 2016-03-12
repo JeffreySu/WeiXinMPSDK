@@ -63,7 +63,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         public ProviderTokenResult ProviderTokenResult
         {
             get { return _providerTokenResult; }
-            set { _providerTokenResult = value; }
+            set { base.SetContainerProperty(ref _providerTokenResult, value); }
         }
 
         /// <summary>

@@ -12,26 +12,57 @@
         
     修改标识：Senparc - 20160206
     修改描述：将public object Lock更改为internal object Lock
+
+    修改标识：Senparc - 20160312
+    修改描述：1、升级Container，继承BaseContainer
+              2、使用新的AccessToken有效期机制
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
+using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.Entities;
 
 namespace Senparc.Weixin.QY.CommonAPIs
 {
     [Serializable]
-    class AccessTokenBag
+    class AccessTokenBag: BaseContainerBag
     {
-        public string CorpId { get; set; }
-        public string CorpSecret { get; set; }
-        public DateTime ExpireTime { get; set; }
-        public AccessTokenResult AccessTokenResult { get; set; }
+        public string CorpId
+        {
+            get { return _corpId; }
+            set { base.SetContainerProperty(ref _corpId, value); }
+        }
+
+        public string CorpSecret
+        {
+            get { return _corpSecret; }
+            set { base.SetContainerProperty(ref _corpSecret, value); }
+        }
+
+        public DateTime ExpireTime
+        {
+            get { return _expireTime; }
+            set { base.SetContainerProperty(ref _expireTime, value); }
+        }
+
+        public AccessTokenResult AccessTokenResult
+        {
+            get { return _accessTokenResult; }
+            set { base.SetContainerProperty(ref _accessTokenResult, value); }
+        }
+
         /// <summary>
         /// 只针对这个CorpId的锁
         /// </summary>
         internal object Lock = new object();
+
+        private string _corpId;
+        private string _corpSecret;
+        private DateTime _expireTime;
+        private AccessTokenResult _accessTokenResult;
     }
 
     /// <summary>
@@ -106,7 +137,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
                     //已过期，重新获取
                     accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.CorpId,
                         accessTokenBag.CorpSecret);
-                    accessTokenBag.ExpireTime = DateTime.Now.AddSeconds(7200);
+                    accessTokenBag.ExpireTime = DateTime.Now.AddSeconds(accessTokenBag.AccessTokenResult.expires_in);
                 }
             }
             return accessTokenBag.AccessTokenResult;

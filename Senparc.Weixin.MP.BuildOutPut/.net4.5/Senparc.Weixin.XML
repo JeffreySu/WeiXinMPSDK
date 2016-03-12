@@ -164,11 +164,6 @@
             获取符合当前缓存策略配置的缓存的操作对象实例
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.Containers.BaseContainer`1.CollectionList">
-            <summary>
-            所有数据集合的列表   TODO：改为单个Container输出
-            </summary>
-        </member>
         <member name="P:Senparc.Weixin.Containers.BaseContainer`1.ItemCollection">
             <summary>
             获取当前容器的数据项集合
@@ -178,12 +173,6 @@
         <member name="M:Senparc.Weixin.Containers.BaseContainer`1.GetCacheKey">
             <summary>
             获取缓存Key
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.GetCollectionList">
-            <summary>
-            获取完整的数据集合的列表，包括所有的Container数据在内（建议不要进行任何修改操作）
             </summary>
             <returns></returns>
         </member>
@@ -214,7 +203,7 @@
             更新数据项
             </summary>
             <param name="key"></param>
-            <param name="value">为null时删除该项</param>
+            <param name="bag">为null时删除该项</param>
         </member>
         <member name="M:Senparc.Weixin.Containers.BaseContainer`1.Update(System.String,System.Action{`0})">
             <summary>
@@ -644,6 +633,12 @@
             <summary>
             微信自定义异常基类
             </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.ContainerHelper.GetCacheKey(System.Type)">
+            <summary>
+            获取缓存Key
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.Helpers.ExpandoJsonConverter">
             <summary>

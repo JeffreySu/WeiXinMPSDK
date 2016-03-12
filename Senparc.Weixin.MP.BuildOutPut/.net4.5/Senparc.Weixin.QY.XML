@@ -2417,7 +2417,12 @@
         </member>
         <member name="P:Senparc.Weixin.QY.Entities.AccessTokenResult.access_token">
             <summary>
-            获取到的凭证
+            获取到的凭证。长度为64至512个字节
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.Entities.AccessTokenResult.expires_in">
+            <summary>
+            凭证的有效时间（秒）
             </summary>
         </member>
         <member name="T:Senparc.Weixin.QY.Entities.Receiver">

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Cache.Redis
 {
+    /// <summary>
+    ///  StackExchangeRedis 扩展
+    /// </summary>
     public static class StackExchangeRedisExtensions
     {
 
@@ -38,6 +41,11 @@ namespace Senparc.Weixin.Cache.Redis
         //    AzureredisDb.Cache.StringSet(key, Serialize(value));
         //}
 
+        /// <summary>
+        /// 序列化对象
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
         public static byte[] Serialize(this object o)
         {
             if (o == null)
@@ -54,6 +62,12 @@ namespace Senparc.Weixin.Cache.Redis
             }
         }
 
+        /// <summary>
+        /// 反序列化对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="stream"></param>
+        /// <returns></returns>
         public static T Deserialize<T>(this byte[] stream)
         {
             if (stream == null)

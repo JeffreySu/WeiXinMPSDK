@@ -35,18 +35,18 @@
 7. chm帮助文档下载：http://weixin.senparc.com/Document
 8. 源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
 
-技术交流QQ群（目前未满可加：8群/9群，其他群均已满）：
+* 技术交流QQ群（目前未满可加：8群/9群，其他群均已满）：
+ 
+> 1群：300313885，2群：293958349，3群：342319110，4群：372212092
 
-1群：300313885，2群：293958349，3群：342319110，4群：372212092
+> 5群：377815480，6群：425898825，7群：482942254，8群：106230270
 
-5群：377815480，6群：425898825，7群：482942254，8群：106230270
-
-9群：539061281
+> 9群：539061281
 
 
-业务联系QQ：498977166
+* 业务联系QQ：498977166
 
-新浪微博：[@苏震巍](http://weibo.com/jeffreysu1984)
+* 新浪微博：[@苏震巍](http://weibo.com/jeffreysu1984)
 
 如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！
 
@@ -219,22 +219,60 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 
 使用Nuget安装到项目中
 --------------
-地址：https://www.nuget.org/packages/Senparc.Weixin.MP
+###如何处理微信公众号请求？
+Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.MP
 
 命令：
 ```
 PM> Install-Package Senparc.Weixin.MP
 ```
 
+###如何增强 ASP.NET MVC 项目的功能？
+Senparc.Weixin.MP.MVC 针对 ASP.NET MVC 项目做了更多的优化，包括便捷的浏览器环境判断、官方 bug 修复等。
+* Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.MP.MVC
+
+* 命令：
+```
+PM> Install-Package Senparc.Weixin.MP.MVC
+```
+
 ###如何处理微信企业号请求？
 Senparc.Weixin.QY.dll对企业号相关功能进行了封装，操作过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致。
 
-Nuget对应地址为：https://www.nuget.org/packages/Senparc.Weixin.QY
+* Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.QY
+
+* 命令：
+```
+PM> Install-Package Senparc.Weixin.QY
+```
 
 ###如何处理微开放平台请求？
 Senparc.Weixin.Open.dll对目前所有的开放平台API进行了封装，消息处理过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致，其他一些特殊的消息流程请先阅读官方的文档，然后对照Senparc.Weixin.MP.Sample中有关Open的Demo进行开发。
 
-Nuget对应地址为：https://www.nuget.org/packages/Senparc.Weixin.Open
+* Nuget 地址为https://www.nuget.org/packages/Senparc.Weixin.Open
+
+* 命令：
+```
+PM> Install-Package Senparc.Weixin.Open
+```
+
+
+###如何使用分布式缓存？
+Senparc.Weixin SDK 提供了完善的缓存策略接口，默认使用本机缓存实现，同时也提供了 Redis 和 Memcached 两个扩展方案，您也可以根据相同的规则添加自己的缓存策略。
+
+* Redis 缓存扩展包 Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.Cache.Redis
+* 命令：
+```
+PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Redis
+```
+
+* Memcached 缓存扩展包 Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.Cache.Memcached
+* 命令：
+```
+PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
+```
+
+
 
 捐助
 --------------
@@ -242,7 +280,7 @@ Nuget对应地址为：https://www.nuget.org/packages/Senparc.Weixin.Open
 
 资金捐助：
 
-[![donate]](http://weixin.senparc.com/)  
+[![donate]](http://weixin.senparc.com/)
 [donate]: http://weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png
 
 

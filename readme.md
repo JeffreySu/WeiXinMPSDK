@@ -269,7 +269,7 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
 
 已实现功能
 -------------
-* 微信公众号
+> * 微信公众号
     - [x] 接收/发送消息（事件）
     - [x] 自定义菜单 & 个性化菜单
     - [x] OAuth授权
@@ -292,12 +292,12 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
     - [ ] 微信连WI-FI（未完整）
     - [ ] 微信扫一扫（商家）
 
-* 微信开放平台
+> * 微信开放平台
     - [x] 网站应用
     - [x] 公众号第三方平台
 
 
-* 微信企业号
+> * 微信企业号
 	- [x] 管理通讯录
 	- [x] 管理素材文件
 	- [x] 管理企业号应用
@@ -314,13 +314,13 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
 	- [x] 企业客服服务
 
 
-* 缓存策略
+> * 缓存策略
     - [x] 策略扩展接口
     - [x] 本地缓存
     - [x] Redis 扩展包
     - [x] Memcached 扩展包
 
-==欢迎开发者对未完成或需要补充的模块进行 Pull Request！==
+ 欢迎开发者对未完成或需要补充的模块进行 Pull Request！
 
 捐助
 --------------

@@ -2,7 +2,7 @@
 =================
 
 | # | 模块功能 | DLL |
-|--------|--------|
+|--------|--------|--------|
 | 1 | 微信公众号 / 微信支付 / JSSDK / 摇周边 / 等等 | Senparc.Weixin.MP.dll  |
 | 2 | 微信企业号 | Senparc.Weixin.QY.dl |
 | 3 | 微信开放平台 | Senparc.Weixin.Open.dll |

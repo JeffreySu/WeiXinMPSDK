@@ -3,13 +3,13 @@
 
 | # | 模块功能 | DLL |
 |--------|--------|--------|
-| 1 | 微信公众号 / 微信支付 / JSSDK / 摇周边 / 等等 | Senparc.Weixin.MP.dll  |
-| 2 | 微信企业号 | Senparc.Weixin.QY.dl |
-| 3 | 微信开放平台 | Senparc.Weixin.Open.dll |
-| 4 | Redis 分布式缓存 | Senparc.Weixin.Cache.Redis.dll |
-| 5 | Memcached 分布式缓存 | Senparc.Weixin.Cache.Memcached.dll |
-| 6 | ASP.NET MVC 扩展 | Senparc.Weixin.MP.MVC.dll |
-| 7 | 基础库 | Senparc.Weixin.dll |
+| 1 | 基础库 | Senparc.Weixin.dll |
+| 2 | 微信公众号 / 微信支付 / JSSDK / 摇周边 / 等等 | Senparc.Weixin.MP.dll  |
+| 3 | ASP.NET MVC 扩展 | Senparc.Weixin.MP.MVC.dll |
+| 4 | 微信企业号 | Senparc.Weixin.QY.dl |
+| 5 | 微信开放平台 | Senparc.Weixin.Open.dll |
+| 6 | Redis 分布式缓存 | Senparc.Weixin.Cache.Redis.dll |
+| 7 | Memcached 分布式缓存 | Senparc.Weixin.Cache.Memcached.dll |
 
 
 本库为.NET4.5，其他.NET版本请看各自分支。

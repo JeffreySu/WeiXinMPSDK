@@ -325,6 +325,7 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
     - [x] Redis 扩展包
     - [x] Memcached 扩展包
 
+==欢迎开发者对未完成或需要补充的模块进行 Pull Request！==
 
 捐助
 --------------

@@ -220,9 +220,9 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 使用Nuget安装到项目中
 --------------
 ###如何处理微信公众号请求？
-Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.MP
+* Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.MP
 
-命令：
+* 命令：
 ```
 PM> Install-Package Senparc.Weixin.MP
 ```
@@ -272,6 +272,58 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Redis
 PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
 ```
 
+已实现功能
+-------------
+* 微信公众号
+    - [x] 接收/发送消息（事件）
+    - [x] 自定义菜单 & 个性化菜单
+    - [x] OAuth授权
+    - [x] JSSDK
+    - [x] 微信支付
+    - [x] 用户管理
+    - [x] 素材管理
+<!--- [ ] 账号管理
+        - [x] 带参数二维码
+        - [ ] 长链接转短链接接口
+        - [ ] 微信认证事件推送-->
+    - [x] 数据统计
+    - [x] 微信小店
+    - [x] 微信卡券
+    - [x] 微信门店
+    - [x] 微信智能
+    - [x] 微信设备功能
+    - [x] 多客服功能
+    - [x] 微信摇一摇周边
+<!--- [ ] 微信连WI-FI（未完整）
+        - [x] 微信扫一扫-->
+
+* 微信开放平台
+    - [x] 网站应用
+    - [x] 公众号第三方平台
+
+
+* 微信企业号
+	- [x] 管理通讯录
+	- [x] 管理素材文件
+	- [x] 管理企业号应用
+	- [x] 接收消息与事件
+	- [x] 发送消息
+	- [x] 自定义菜单
+	- [x] 身份验证接口
+	- [x] JSSDK
+	- [x] 第三方应用授权
+ 	- [ ] 企业号授权登陆
+	- [x] 企业号微信支付
+	- [x] 企业回话服务
+	- [x] 企业摇一摇周边
+	- [x] 企业客服服务
+
+
+* 缓存策略
+    - [x] 策略扩展接口
+    - [x] 本地缓存
+    - [x] Redis 扩展包
+    - [x] Memcached 扩展包
 
 
 捐助

@@ -54,7 +54,7 @@ namespace Senparc.Weixin.MP.Sample
 
             //如果不执行下面的注册过程，则默认使用本地缓存
 
-            CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
+            //CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
             //CacheStrategyFactory.RegisterContainerCacheStrategy(() => MemcachedContainerStrategy.Instance);//Memcached
         }
 

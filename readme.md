@@ -36,7 +36,7 @@
 8. 源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
 
 * 技术交流QQ群（目前未满可加：8群/9群，其他群均已满）：
- 
+
 > 1群：300313885，2群：293958349，3群：342319110，4群：372212092
 
 > 5群：377815480，6群：425898825，7群：482942254，8群：106230270
@@ -54,7 +54,7 @@
 资金捐助： [进入主页](http://weixin.senparc.com)
 
 ###关注测试账号（SenparcRobot）：
-[![qrcode]](http://weixin.senparc.com/)  
+[![qrcode]](http://weixin.senparc.com/)
 [qrcode]: http://weixin.senparc.com/Images/qrcode.jpg
 
 
@@ -139,15 +139,15 @@ public ActionResult Post(PostModel postModel)
     {
         return Content("参数错误！");
     }
-    
+
     postModel.Token = Token;
     postModel.EncodingAESKey = EncodingAESKey;//根据自己后台的设置保持一致
     postModel.AppId = AppId;//根据自己后台的设置保持一致
 
     var messageHandler = new CustomMessageHandler(Request.InputStream, postModel);//接收消息（第一步）
-    
+
     messageHandler.Execute();//执行微信处理过程（第二步）
-    
+
     return new FixWeixinBugWeixinResult(messageHandler);//返回（第三步）
 }
 ```
@@ -169,7 +169,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
         {
 
         }
-        
+
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
             //ResponseMessageText也可以是News等其他类型
@@ -187,7 +187,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
         {
             //...
         }
-        
+
         //更多没有重写的OnXX方法，将默认返回DefaultResponseMessage中的结果。
         ....
     }

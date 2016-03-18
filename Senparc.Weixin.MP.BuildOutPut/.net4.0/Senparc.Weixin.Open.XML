@@ -421,15 +421,15 @@
             <param name="expiresIn"></param>
         </member>
         <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.RefreshAuthorizerToken(System.String,System.String,System.String,System.String)">
-            <summary>
-            刷新AuthorizerToken
+             <summary>
+             刷新AuthorizerToken
             
-            </summary>
-            <param name="componentAccessToken"></param>
-            <param name="componentAppId"></param>
-            <param name="authorizerAppid"></param>
-            <param name="refreshToken"></param>
-            <returns></returns>
+             </summary>
+             <param name="componentAccessToken"></param>
+             <param name="componentAppId"></param>
+             <param name="authorizerAppid"></param>
+             <param name="refreshToken"></param>
+             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.TryGetJsApiTicket(System.String,System.String,System.Boolean)">
             <summary>

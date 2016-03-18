@@ -1,20 +1,23 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：AccessTokenContainer.cs
     文件功能描述：通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
-    
-    
+
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150702
     修改描述：添加GetFirstOrDefaultAppId()方法
-    
+
     修改标识：Senparc - 20151004
     修改描述：v13.3.0 将JsApiTicketContainer整合到AccessTokenContainer
+
+    修改标识：Senparc - 20160318
+    修改描述：13.6.10 使用FlushCache.CreateInstance使注册过程立即生效
 
 ----------------------------------------------------------------*/
 
@@ -24,6 +27,7 @@ using System.Linq;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.CacheUtility;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
@@ -94,13 +98,16 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appSecret">微信公众号后台的【开发】>【基本配置】中的“AppSecret(应用密钥)”</param>
         public static void Register(string appId, string appSecret)
         {
-            Update(appId, new AccessTokenBag()
+            using (FlushCache.CreateInstance())
             {
-                AppId = appId,
-                AppSecret = appSecret,
-                AccessTokenExpireTime = DateTime.MinValue,
-                AccessTokenResult = new AccessTokenResult()
-            });
+                Update(appId, new AccessTokenBag()
+                {
+                    AppId = appId,
+                    AppSecret = appSecret,
+                    AccessTokenExpireTime = DateTime.MinValue,
+                    AccessTokenResult = new AccessTokenResult()
+                });
+            }
 
             //为JsApiTicketContainer进行自动注册
             JsApiTicketContainer.Register(appId, appSecret);

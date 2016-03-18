@@ -828,14 +828,14 @@
             SenparcMessageQueue线程自动处理
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.Finalize">
-            <summary>
-            析构函数，将未处理的列队处理掉
-            </summary>
-        </member>
         <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.OperateQueue">
             <summary>
             操作列队
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.Finalize">
+            <summary>
+            析构函数，将未处理的列队处理掉
             </summary>
         </member>
         <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.Run">
@@ -1433,6 +1433,39 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <param name="checkValidationResult"></param>
             <param name="jsonSetting"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.CacheUtility.CacheUtility">
+            <summary>
+            缓存工具类
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.CacheUtility.FlushCache">
+            <summary>
+            缓存立即生效方法
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.CacheUtility.FlushCache.DoFlush">
+            <summary>
+            是否立即个更新到缓存
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.CacheUtility.FlushCache.#ctor(System.Boolean)">
+             <summary>
+            
+             </summary>
+             <param name="doFlush">是否立即更新到缓存</param>
+        </member>
+        <member name="M:Senparc.Weixin.CacheUtility.FlushCache.Dispose">
+            <summary>
+            释放，开始立即更新所有缓存
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.CacheUtility.FlushCache.CreateInstance(System.Boolean)">
+            <summary>
+            创建一个FlushCache实例
+            </summary>
+            <param name="doFlush">是否立即更新到缓存</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Utilities.WeixinUtility.ApiUtility.IsAppId(System.String)">

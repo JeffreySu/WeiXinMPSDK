@@ -18,20 +18,20 @@ namespace Senparc.WeixinTests.Utilities.CachedUtility
         public string AppId
         {
             get { return _appId; }
-            set { base.SetContainerProperty(ref _appId, value); }
+            set { base.SetContainerProperty(ref _appId, value, "AppId"); }
         }
 
         public string AppSecret
         {
             get { return _appSecret; }
-            set { base.SetContainerProperty(ref _appSecret, value); }
+            set { base.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
         }
 
 
         public DateTime DateTime
         {
             get { return _dateTime; }
-            set { this.SetContainerProperty(ref _dateTime, value); }
+            set { this.SetContainerProperty(ref _dateTime, value, "DateTime"); }
         }
 
     }
@@ -66,7 +66,7 @@ namespace Senparc.WeixinTests.Utilities.CachedUtility
         public void FlushCacheTest()
         {
             //开启Redis缓存
-            CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
+            //CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
 
             var key = DateTime.Now.Ticks.ToString();
             var value = Guid.NewGuid().ToString();

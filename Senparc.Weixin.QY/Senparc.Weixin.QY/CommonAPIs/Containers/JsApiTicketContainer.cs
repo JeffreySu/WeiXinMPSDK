@@ -37,24 +37,24 @@ namespace Senparc.Weixin.QY.CommonAPIs
         public string AppId
         {
             get { return _appId; }
-            set { base.SetContainerProperty(ref _appId, value); }
+            set { base.SetContainerProperty(ref _appId, value, "AppId"); }
         }
         public string AppSecret
         {
             get { return _appSecret; }
-            set { base.SetContainerProperty(ref _appSecret, value); }
+            set { base.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
         }
 
         public JsApiTicketResult JsApiTicketResult
         {
             get { return _jsApiTicketResult; }
-            set { base.SetContainerProperty(ref _jsApiTicketResult, value); }
+            set { base.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
         }
 
         public DateTime ExpireTime
         {
             get { return _expireTime; }
-            set { base.SetContainerProperty(ref _expireTime, value); }
+            set { base.SetContainerProperty(ref _expireTime, value, "ExpireTime"); }
         }
 
         /// <summary>

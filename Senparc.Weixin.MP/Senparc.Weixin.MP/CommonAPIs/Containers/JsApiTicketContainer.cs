@@ -1,15 +1,18 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：JsApiTicketContainer.cs
     文件功能描述：通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
-    
-    
+
+
     创建标识：Senparc - 20160206
 
     修改标识：Senparc - 20160206
     修改描述：将public object Lock更改为internal object Lock
- 
+
+    修改标识：Senparc - 20160318
+    修改描述：13.6.10 使用FlushCache.CreateInstance使注册过程立即生效
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -18,6 +21,7 @@ using System.Linq;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.CacheUtility;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
@@ -76,13 +80,16 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <param name="appSecret"></param>
         public static void Register(string appId, string appSecret)
         {
-            Update(appId, new JsApiTicketBag()
+            using (FlushCache.CreateInstance())
             {
-                AppId = appId,
-                AppSecret = appSecret,
-                JsApiTicketExpireTime = DateTime.MinValue,
-                JsApiTicketResult = new JsApiTicketResult()
-            });
+                Update(appId, new JsApiTicketBag()
+                {
+                    AppId = appId,
+                    AppSecret = appSecret,
+                    JsApiTicketExpireTime = DateTime.MinValue,
+                    JsApiTicketResult = new JsApiTicketResult()
+                });
+            }
         }
 
         /// <summary>

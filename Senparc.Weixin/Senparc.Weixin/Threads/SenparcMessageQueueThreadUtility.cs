@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：SenparcMessageQueueThreadUtility.cs
     文件功能描述：SenparcMessageQueue消息列队线程处理
-    
-    
+
+
     创建标识：Senparc - 20160210
-    
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -25,6 +25,23 @@ namespace Senparc.Weixin.Threads
     public class SenparcMessageQueueThreadUtility
     {
         private readonly int _sleepMilliSeconds;
+
+        /// <summary>
+        /// 操作列队
+        /// </summary>
+        public static void OperateQueue()
+        {
+            var mq = new SenparcMessageQueue();
+            var key = mq.GetCurrentKey(); //获取最新的Key
+            while (!string.IsNullOrEmpty(key))
+            {
+                var mqItem = mq.GetItem(key); //获取任务项
+                mqItem.Action(); //执行
+                mq.Remove(key); //清除
+                key = mq.GetCurrentKey(); //获取最新的Key
+            }
+        }
+
 
         public SenparcMessageQueueThreadUtility(int sleepMilliSeconds = 2000)
         {
@@ -50,22 +67,6 @@ namespace Senparc.Weixin.Threads
                 System.Diagnostics.Trace.WriteLine(string.Format("SenparcMessageQueueThreadUtility执行析构函数错误：{0}", ex.Message));
             }
 
-        }
-
-        /// <summary>
-        /// 操作列队
-        /// </summary>
-        private void OperateQueue()
-        {
-            var mq = new SenparcMessageQueue();
-            var key = mq.GetCurrentKey(); //获取最新的Key
-            while (!string.IsNullOrEmpty(key))
-            {
-                var mqItem = mq.GetItem(key); //获取任务项
-                mqItem.Action(); //执行
-                mq.Remove(key); //清除
-                key = mq.GetCurrentKey(); //获取最新的Key
-            }
         }
 
         /// <summary>

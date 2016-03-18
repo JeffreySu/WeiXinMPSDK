@@ -1,25 +1,29 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：ProviderTokenContainer.cs
     文件功能描述：通用接口ProviderToken容器，用于自动管理ProviderToken，如果过期会重新获取
-    
-    
+
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
-        
+
     修改标识：Senparc - 20160206
     修改描述：将public object Lock更改为internal object Lock
 
     修改标识：Senparc - 20160312
     修改描述：升级Container，继承自BaseContainer<JsApiTicketBag>
 
+    修改标识：Senparc - 20160318
+    修改描述：v3.3.4 使用FlushCache.CreateInstance使注册过程立即生效
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
+using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.Entities;
@@ -91,13 +95,16 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="corpSecret"></param>
         public static void Register(string corpId, string corpSecret)
         {
-            Update(corpId, new ProviderTokenBag()
+            using (FlushCache.CreateInstance())
             {
-                CorpId = corpId,
-                CorpSecret = corpSecret,
-                ExpireTime = DateTime.MinValue,
-                ProviderTokenResult = new ProviderTokenResult()
-            });
+                Update(corpId, new ProviderTokenBag()
+                {
+                    CorpId = corpId,
+                    CorpSecret = corpSecret,
+                    ExpireTime = DateTime.MinValue,
+                    ProviderTokenResult = new ProviderTokenResult()
+                });
+            }
         }
 
         /// <summary>

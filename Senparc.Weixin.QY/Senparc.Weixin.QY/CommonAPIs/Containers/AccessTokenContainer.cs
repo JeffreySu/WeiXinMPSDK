@@ -1,15 +1,15 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：AccessTokenContainer.cs
     文件功能描述：通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
-    
-    
+
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
-        
+
     修改标识：Senparc - 20160206
     修改描述：将public object Lock更改为internal object Lock
 
@@ -17,10 +17,14 @@
     修改描述：1、升级Container，继承BaseContainer
               2、使用新的AccessToken有效期机制
 
+    修改标识：Senparc - 20160318
+    修改描述：v3.3.4 使用FlushCache.CreateInstance使注册过程立即生效
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
+using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.Entities;
@@ -90,13 +94,16 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="corpSecret"></param>
         public static void Register(string corpId, string corpSecret)
         {
-            Update(corpId, new AccessTokenBag()
+            using (FlushCache.CreateInstance())
             {
-                CorpId = corpId,
-                CorpSecret = corpSecret,
-                ExpireTime = DateTime.MinValue,
-                AccessTokenResult = new AccessTokenResult()
-            });
+                Update(corpId, new AccessTokenBag()
+                {
+                    CorpId = corpId,
+                    CorpSecret = corpSecret,
+                    ExpireTime = DateTime.MinValue,
+                    AccessTokenResult = new AccessTokenResult()
+                });
+            }
 
             ProviderTokenContainer.Register(corpId, corpSecret);//连带注册ProviderTokenContainer
         }

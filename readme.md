@@ -279,7 +279,7 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
     - [x] 素材管理
 	- [ ] 账号管理
         - [x] 带参数二维码
-        - [ ] 长链接转短链接接口
+        - [X] 长链接转短链接接口
         - [ ] 微信认证事件推送
     - [x] 数据统计
     - [x] 微信小店

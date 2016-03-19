@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Containers;
+using Senparc.Weixin.MessageQueue;
+using Senparc.Weixin.Threads;
 using StackExchange.Redis;
 using StackExchange.Redis.KeyspaceIsolation;
 
@@ -160,8 +162,8 @@ namespace Senparc.Weixin.Cache.Redis
                 return;
             }
 
-            var cacheKey = GetFinalKey(key);
-            _cache.StringSet(cacheKey, RedisValue.Null);//TODO:尚未测试此方法是否有效
+            SenparcMessageQueue.OperateQueue();//延迟缓存立即生效
+            _cache.KeyDelete(key);//删除键
         }
 
         public void Update(string key, IContainerItemCollection value)

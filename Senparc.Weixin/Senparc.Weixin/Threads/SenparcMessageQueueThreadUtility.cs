@@ -26,22 +26,6 @@ namespace Senparc.Weixin.Threads
     {
         private readonly int _sleepMilliSeconds;
 
-        /// <summary>
-        /// 操作列队
-        /// </summary>
-        public static void OperateQueue()
-        {
-            var mq = new SenparcMessageQueue();
-            var key = mq.GetCurrentKey(); //获取最新的Key
-            while (!string.IsNullOrEmpty(key))
-            {
-                var mqItem = mq.GetItem(key); //获取任务项
-                mqItem.Action(); //执行
-                mq.Remove(key); //清除
-                key = mq.GetCurrentKey(); //获取最新的Key
-            }
-        }
-
 
         public SenparcMessageQueueThreadUtility(int sleepMilliSeconds = 2000)
         {
@@ -59,7 +43,7 @@ namespace Senparc.Weixin.Threads
                 System.Diagnostics.Trace.WriteLine(string.Format("SenparcMessageQueueThreadUtility执行析构函数"));
                 System.Diagnostics.Trace.WriteLine(string.Format("当前列队数量：{0}", mq.GetCount()));
 
-                OperateQueue();//处理列队
+                SenparcMessageQueue.OperateQueue();//处理列队
             }
             catch (Exception ex)
             {
@@ -76,7 +60,7 @@ namespace Senparc.Weixin.Threads
         {
             do
             {
-                OperateQueue();
+                SenparcMessageQueue.OperateQueue();
                 Thread.Sleep(_sleepMilliSeconds);
             } while (true);
         }

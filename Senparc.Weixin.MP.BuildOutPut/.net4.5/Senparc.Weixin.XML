@@ -748,6 +748,11 @@
             同步执行锁
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.MessageQueue.SenparcMessageQueue.FlushCacheLock">
+            <summary>
+            立即同步所有缓存执行锁（给OperateQueue()使用）
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.GenerateKey(System.String,System.Type,System.String,System.String)">
             <summary>
             生成Key
@@ -757,6 +762,11 @@
             <param name="identityKey">对象唯一标识Key</param>
             <param name="actionName">操作名称，如“UpdateContainerBag”</param>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.OperateQueue">
+            <summary>
+            操作列队
+            </summary>
         </member>
         <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.GetCurrentKey">
             <summary>
@@ -826,11 +836,6 @@
         <member name="T:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility">
             <summary>
             SenparcMessageQueue线程自动处理
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.OperateQueue">
-            <summary>
-            操作列队
             </summary>
         </member>
         <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.Finalize">

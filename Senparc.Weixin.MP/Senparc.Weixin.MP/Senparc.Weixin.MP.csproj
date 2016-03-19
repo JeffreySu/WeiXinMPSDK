@@ -207,6 +207,8 @@
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\TemplateDataItem.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\TempleteModel.cs" />
     <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\UserAnalysisItemJson.cs" />
+    <Compile Include="AdvancedAPIs\Url\ShortUrlJson\ShortUrlResult.cs" />
+    <Compile Include="AdvancedAPIs\Url\UrlApi.cs" />
     <Compile Include="AdvancedAPIs\User\UserJson\OpenIdResultJson.cs" />
     <Compile Include="AdvancedAPIs\User\UserApi.cs" />
     <Compile Include="AdvancedAPIs\User\UserJson\BatchGetUserInfoData.cs" />

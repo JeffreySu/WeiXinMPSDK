@@ -6909,6 +6909,11 @@
             数据
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Url.ShortUrlResult">
+            <summary>
+            ShortUrl返回结果
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User.BatchGetUserInfoData">
             <summary>
             批量获取用户基本信息数据
@@ -7337,6 +7342,20 @@
             <param name="openId">支付该笔订单的用户 ID</param>
             <param name="feedBackId">投诉单号</param>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPI.UrlApi">
+            <summary>
+            长短链接接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPI.UrlApi.ShortUrl(System.String,System.String,System.String,System.Int32)">
+             <summary>
+            将一条长链接转成短链接。
+             </summary>
+             <param name="accessTokenOrAppId"></param>
+             <param name="action">此处填long2short，代表长链接转短链接</param>
+             <param name="longUrl">需要转换的长链接，支持http://、https://、weixin://wxpay 格式的url</param>
+            <param name="timeOut">请求超时时间</param>
         </member>
         <member name="M:Senparc.Weixin.MP.AppStore.Api.ApiConnection.Connection``1(System.Func{Senparc.Weixin.MP.AppStore.IAppResult{``0}})">
             <summary>

@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+
+    文件名：RedisContainerCacheStrategy.cs
+    文件功能描述：Redis 容器缓存策略。
+
+
+    创建标识：Senparc - 20160308
+
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

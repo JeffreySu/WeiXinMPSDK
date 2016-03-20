@@ -10,16 +10,11 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.MessageQueue;
-using Senparc.Weixin.Threads;
 using StackExchange.Redis;
-using StackExchange.Redis.KeyspaceIsolation;
 
 
 namespace Senparc.Weixin.Cache.Redis

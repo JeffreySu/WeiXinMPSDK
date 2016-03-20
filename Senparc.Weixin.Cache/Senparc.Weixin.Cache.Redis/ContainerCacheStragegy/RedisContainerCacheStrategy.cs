@@ -71,17 +71,21 @@ namespace Senparc.Weixin.Cache.Redis
             cache.StringSet(testKey, (string)null);
         }
 
+        /// <summary>
+        /// Redis 缓存策略
+        /// </summary>
         public RedisContainerCacheStrategy()
         {
             _client = RedisManager.Manager;
             _cache = _client.GetDatabase();
         }
 
+        /// <summary>
+        /// Redis 缓存策略析构函数，用于 _client 资源回收
+        /// </summary>
         ~RedisContainerCacheStrategy()
         {
             _client.Dispose();//释放
-            //_client.Dispose();//释放
-            //GC.SuppressFinalize(_client);
         }
 
         private string GetFinalKey(string key)
@@ -90,6 +94,10 @@ namespace Senparc.Weixin.Cache.Redis
             return String.Format("{0}{1}", CacheSetKey, key);//这里 CacheSetKey 暂时留空，保持key原貌
         }
 
+        /// <summary>
+        /// 获取 Server 对象
+        /// </summary>
+        /// <returns></returns>
         private IServer GetServer()
         {
             //https://github.com/StackExchange/StackExchange.Redis/blob/master/Docs/KeysScan.md
@@ -159,7 +167,6 @@ namespace Senparc.Weixin.Cache.Redis
             //}
 
             _cache.StringSet(cacheKey, value.Serialize());
-            //_cache.SetEntry(cacheKey, obj);
 
 #if DEBUG
             var value1 = _cache.StringGet(cacheKey);//正常情况下可以得到 //_cache.GetValue(cacheKey);

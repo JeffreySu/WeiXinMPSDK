@@ -92,7 +92,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 itemCollection[DateTime.Now.Ticks.ToString()] = bag;
             }
 
-            sb.AppendFormat("Count3：{0}<br />", itemCollection?.GetCount());
+            sb.AppendFormat("Count3：{0}<br />", itemCollection != null ? itemCollection.GetCount() : -1);
 
             return Content(sb.ToString());
         }

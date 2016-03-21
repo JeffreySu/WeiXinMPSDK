@@ -7,6 +7,9 @@
 
     创建标识：Senparc - 20151003
 
+    修改标识：Senparc - 20160321
+    修改描述：v4.5.18 完善 ItemCollection 中项目删除的方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -221,9 +224,9 @@ namespace Senparc.Weixin.Containers
                     };
                 }
                 partialUpdate(ItemCollection[key] as TBag);//更新对象
-                var cacheKey = GetCacheKey();
-                Cache.Update(cacheKey, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
             }
+            var cacheKey = GetCacheKey();
+            Cache.Update(cacheKey, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
         }
 
         /// <summary>

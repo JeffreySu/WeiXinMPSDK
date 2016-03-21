@@ -43,6 +43,8 @@ namespace Senparc.Weixin.Cache.Redis.Tests
         [TestMethod]
         public void RemoveTest()
         {
+            //CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
+
             var key = Guid.NewGuid().ToString();
             var count = cache.GetCount();
             cache.InsertToCache(key, new ContainerItemCollection()

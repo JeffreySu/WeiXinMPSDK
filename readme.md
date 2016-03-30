@@ -43,7 +43,7 @@
 
 > 9群：539061281
 
-> Redis / Memcached 分布式缓存群：发送申请及截图至 zsu@senparc.com ，标题：Senparc.Weixin.Cache 加群申请
+> 10群（Redis / Memcached 分布式缓存群）：只加已经在使用的开发者。发送申请及截图至 zsu@senparc.com 或QQ：498977166，标题：Senparc.Weixin.Cache 加群申请
 
 * 业务联系QQ：498977166
 

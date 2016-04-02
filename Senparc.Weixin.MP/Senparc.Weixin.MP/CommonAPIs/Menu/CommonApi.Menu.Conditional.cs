@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CommonApi.Menu.Conditional
     文件功能描述：个性化自定义菜单接口
-    
-    
+
+
     创建标识：Senparc - 20151222
-        
+
     修改标识：Senparc - 20151222
     修改描述：v13.5.1 添加个性化菜单接口
 ----------------------------------------------------------------*/
@@ -57,7 +57,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/delconditional?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {

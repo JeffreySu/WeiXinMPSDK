@@ -85,7 +85,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
                 var data = new
                 {
-                    menuId = menuId
+                    menuid = menuId
                 };
 
                 return CommonJsonSend.Send(accessToken, url, data, CommonJsonSendType.POST);

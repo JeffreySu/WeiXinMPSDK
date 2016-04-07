@@ -34,7 +34,8 @@ namespace Senparc.Weixin.QY.Entities
                 FromUserName = requestMessage.FromUserName,
                 ToUserName = requestMessage.ToUserName,
                 CreateTime = requestMessage.CreateTime,
-                MsgId = requestMessage.MsgId
+                MsgId = requestMessage.MsgId,
+                AgentID = requestMessage.AgentID
             };
 
             //判断是否具有EventKey属性

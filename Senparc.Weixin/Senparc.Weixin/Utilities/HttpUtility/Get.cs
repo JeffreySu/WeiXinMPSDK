@@ -33,13 +33,17 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="url"></param>
         /// <param name="encoding"></param>
         /// <returns></returns>
-        public static T GetJson<T>(string url, Encoding encoding = null)
+        public static T GetJson<T>(string url, Encoding encoding = null, int? maxJsonLength = null)
         {
             string returnText = RequestUtility.HttpGet(url, encoding);
 
             WeixinTrace.SendLog(url, returnText);
 
             JavaScriptSerializer js = new JavaScriptSerializer();
+            if (maxJsonLength.HasValue)
+            {
+                js.MaxJsonLength = maxJsonLength.GetValueOrDefault();
+            }
 
             if (returnText.Contains("errcode"))
             {

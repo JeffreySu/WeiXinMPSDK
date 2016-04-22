@@ -194,23 +194,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
-        /// <summary>
-        /// 此接口已取消，微信直接提供了十四种色值供选择，详见：http://mp.weixin.qq.com/wiki/8/b7e310e7943f7763450eced91fa793b0.html#.E5.8D.A1.E5.88.B8.E5.9F.BA.E7.A1.80.E4.BF.A1.E6.81.AF.E5.AD.97.E6.AE.B5.EF.BC.88.E9.87.8D.E8.A6.81.EF.BC.89
-        /// 获取颜色列表接口
-        /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <returns></returns>
-        //public static GetColorsResultJson GetColors(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
-        //{
-        //    return ApiHandlerWapper.TryCommonApi(accessToken =>
-        //    {
-        //        var urlFormat = string.Format("https://api.weixin.qq.com/card/getcolors?access_token={0}", accessToken.AsUrlData());
+        ///// <summary>
+        ///// 此接口已取消，微信直接提供了十四种色值供选择，详见：http://mp.weixin.qq.com/wiki/8/b7e310e7943f7763450eced91fa793b0.html#.E5.8D.A1.E5.88.B8.E5.9F.BA.E7.A1.80.E4.BF.A1.E6.81.AF.E5.AD.97.E6.AE.B5.EF.BC.88.E9.87.8D.E8.A6.81.EF.BC.89
+        ///// 获取颜色列表接口
+        ///// </summary>
+        ///// <param name="accessTokenOrAppId"></param>
+        ///// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        ///// <returns></returns>
 
-        //        return CommonJsonSend.Send<GetColorsResultJson>(null, urlFormat, null, timeOut: timeOut);
-
-        //    }, accessTokenOrAppId);
-        //}
 
         /// <summary>
         /// 生成卡券二维码
@@ -223,6 +214,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="expireSeconds">指定二维码的有效时间，范围是60 ~ 1800 秒。不填默认为永久有效。</param>
         /// <param name="isUniqueCode">指定下发二维码，生成的二维码随机分配一个code，领取后不可再次扫描。填写true 或false。默认false。</param>
         /// <param name="balance">红包余额，以分为单位。红包类型必填（LUCKY_MONEY），其他卡券类型不填。</param>
+        /// <param name="outer_id">自定义应用场景ID（v13.7.3起支持）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CreateQRResultJson CreateQR(string accessTokenOrAppId, string cardId, string code = null,

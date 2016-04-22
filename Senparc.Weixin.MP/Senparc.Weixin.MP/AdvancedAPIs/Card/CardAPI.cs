@@ -1,28 +1,31 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CardApi.cs
     文件功能描述：卡券高级功能API
-    
-    
+
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150212
     修改描述：整理接口
     修改标识：Senparc - 20150303
     修改描述：整理接口
- 
+
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
- 
+
     修改标识：Senparc - 20150512
     修改描述：门店接口过期处理
- 
+
     修改标识：Senparc - 20150717
     修改描述：增加获取用户已领取卡券、修改库存接口
+
+    修改标识：hello2008zj - 20160422
+    修改描述：修改CreateQR接口，匹配最新的文档
 ----------------------------------------------------------------*/
 
-/* 
+/*
    API地址：http://mp.weixin.qq.com/wiki/9/d8a5f3b102915f30516d79b44fe665ed.html
    PDF下载：https://mp.weixin.qq.com/zh_CN/htmledition/comm_htmledition/res/cardticket/wx_card_document.zip
 */
@@ -223,8 +226,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CreateQRResultJson CreateQR(string accessTokenOrAppId, string cardId, string code = null,
-                                                  string openId = null, string expireSeconds = null,
-                                                  bool isUniqueCode = false, string balance = null, int timeOut = Config.TIME_OUT)
+            string openId = null, string expireSeconds = null,
+            bool isUniqueCode = false, string balance = null, string outer_id = null,
+            int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -247,8 +251,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
                 };
 
-                var jsonSettingne = new JsonSetting(true);
-                return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSettingne);
+                //var jsonSettingne = new JsonSetting(true);
+
+                var jsonSetting = new JsonSetting(true, null,
+                                      new List<Type>()
+                                      {
+                                            //typeof (Modify_Msg_Operation),
+                                            //typeof (CardCreateInfo),
+                                            data.action_info.card.GetType()//过滤Modify_Msg_Operation主要起作用的是这个
+                                      });
+
+                return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
 
             }, accessTokenOrAppId);
         }
@@ -273,13 +286,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         /// <summary>
         /// 导入code
-        /// 
+        ///
         /// 新创建卡券情况
         /// 如果开发者打算新创建一张支持导入code模式的卡券，不同于以往的创建方式，建议开发者采用以下流程创建预存code模式卡券，否则会报错。
         /// 步骤一：创建预存模式卡券，将库存quantity初始值设置为0，并填入Deposit_Mode字段；
         /// 步骤二：待卡券通过审核后，调用导入code接口并核查code；
         /// 步骤三：调用修改库存接口，须令卡券库存小于或等于导入code的数目。（为了避免混乱建议设置为相等）
-        /// 
+        ///
         /// 注： 1）单次调用接口传入code的数量上限为100个。
         /// 2）每一个 code 均不能为空串。
         /// 3）导入结束后系统会自动判断提供方设置库存与实际导入code的量是否一致。
@@ -820,7 +833,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///  "custom_field_value1": "xxxxx",
         /// }
         /// 或者直接传入积分、余额的全量值
-        /// 
+        ///
         /// {
         ///  "code": "12312313",
         ///  "card_id":"p1Pj9jr90_SQRaVqYI239Ka1erkI",

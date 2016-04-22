@@ -423,4 +423,18 @@ namespace Senparc.Weixin.QY
         /// </summary>
         external
     }
+    /// <summary>redirect_uri支持登录的类型
+    /// </summary>
+    public enum Login_User_Type
+    {
+        /// <summary>成员登录
+        /// </summary>
+        member,
+        /// <summary>管理员登录
+        /// </summary>
+        admin,
+        /// <summary>成员或管理员皆可登录
+        /// </summary>
+        all
+    }
 }

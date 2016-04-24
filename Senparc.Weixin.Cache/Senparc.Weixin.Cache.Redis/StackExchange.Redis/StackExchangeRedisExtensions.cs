@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+
+    文件名：StackExchangeRedisExtensions.cs
+    文件功能描述：StackExchange.Redis 扩展。
+
+    创建标识：Senparc - 20160309
+
+----------------------------------------------------------------*/
+
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

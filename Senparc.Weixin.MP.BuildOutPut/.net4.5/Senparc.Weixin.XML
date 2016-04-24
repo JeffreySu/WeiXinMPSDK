@@ -142,6 +142,10 @@
             指定是否是Debug状态，如果是，系统会自动输出日志
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.Config.MaxJsonLength">
+            <summary>JavaScriptSerializer 类接受的 JSON 字符串的最大长度
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.Containers.IBaseContainer">
             <summary>
             IBaseContainer
@@ -1535,13 +1539,19 @@
             <param name="stream"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Get.GetJson``1(System.String,System.Text.Encoding)">
+        <member name="T:Senparc.Weixin.HttpUtility.Get">
+            <summary>
+            Get请求处理
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.Get.GetJson``1(System.String,System.Text.Encoding,System.Nullable{System.Int32})">
             <summary>
             GET方式请求URL，并返回T类型
             </summary>
             <typeparam name="T">接收JSON的数据类型</typeparam>
             <param name="url"></param>
             <param name="encoding"></param>
+            <param name="maxJsonLength">允许最大JSON长度</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.HttpUtility.Get.Download(System.String,System.IO.Stream)">
@@ -1551,12 +1561,13 @@
             <param name="url"></param>
             <param name="stream"></param>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Get.GetJsonAsync``1(System.String,System.Text.Encoding)">
+        <member name="M:Senparc.Weixin.HttpUtility.Get.GetJsonAsync``1(System.String,System.Text.Encoding,System.Nullable{System.Int32})">
             <summary>
             异步GetJsonA
             </summary>
             <param name="url"></param>
             <param name="encoding"></param>
+            <param name="maxJsonLength">允许最大JSON长度</param>
             <typeparam name="T"></typeparam>
             <returns></returns>
             <exception cref="T:Senparc.Weixin.Exceptions.ErrorJsonResultException"></exception>

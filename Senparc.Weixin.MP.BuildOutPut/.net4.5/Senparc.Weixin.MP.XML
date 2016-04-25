@@ -2509,6 +2509,11 @@
             必填
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfo_Sku.total_quantity">
+            <summary>
+            卡券全部库存的数量，上限为100000000。
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.ShelfCreateData">
             <summary>
             创建货架数据

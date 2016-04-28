@@ -8443,6 +8443,16 @@
             领取场景值，用于领取渠道数据统计。可在生成二维码接口及添加JS API 接口中自定义该字段的整型值。
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Get_Card.IsRestoreMemberCard">
+            <summary>
+            是否为删除后重新领取卡，1 代表是，0 代表否。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Get_Card.OldUserCardCode">
+            <summary>
+            转赠前的code序列号
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Del_Card.Event">
             <summary>
             删除卡券

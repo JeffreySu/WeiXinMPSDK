@@ -1,10 +1,10 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：TenPayController.cs
     文件功能描述：微信支付Controller
-    
-    
+
+
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
@@ -268,7 +268,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             resHandler.SetKey(TenPayInfo.Key, TenPayInfo.AppKey);
 
             string message;
-            
+
             //判断签名
             if (resHandler.IsTenpaySign())
             {
@@ -419,7 +419,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             string timeStamp = "";
             string appSignature = "";
-            //string appId, string openId, string transId, string out_Trade_No, string deliver_TimesTamp, string deliver_Status, string deliver_Msg, string app_Signature, 
+            //string appId, string openId, string transId, string out_Trade_No, string deliver_TimesTamp, string deliver_Status, string deliver_Msg, string app_Signature,
             string sp_billno = Request["order_no"];
             //当前时间 yyyyMMdd
             string date = DateTime.Now.ToString("yyyyMMdd");

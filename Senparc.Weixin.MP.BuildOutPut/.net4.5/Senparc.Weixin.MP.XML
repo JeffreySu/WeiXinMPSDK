@@ -1350,6 +1350,11 @@
             非必填
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.background_pic_url">
+            <summary>
+            会员卡背景图片，非必填
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.CustomField.name_type">
             <summary>
             会员信息类目名称。FIELD_NAME_TYPE_LEVEL等级；FIELD_NAME_TYPE_COUPON优惠券；FIELD_NAME_TYPE_STAMP印花；FIELD_NAME_TYPE_DISCOUNT折扣；FIELD_NAME_TYPE_ACHIEVEMEN成就；FIELD_NAME_TYPE_MILEAGE里程。

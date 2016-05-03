@@ -1,29 +1,29 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：UserInfoJson.cs
     文件功能描述：获取用户信息返回结果
-    
-    
+
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
- 
+
     修改标识：jsionr - 20150321
     修改描述：添加remark属性
 
     修改标识：Senparc - 20150321
-    修改描述：添加unionid属性 
+    修改描述：添加unionid属性
 
     修改标识：jsionr - 20150513
-    修改描述：增加个人分组信息 
-    
+    修改描述：增加个人分组信息
+
     修改标识：Senparc - 20150526
-    修改描述：修改备注 
-    
+    修改描述：修改备注
+
     修改标识：Senparc - 20150727
-    修改描述：添加批量获取用户基本信息返回结果 
+    修改描述：添加批量获取用户基本信息返回结果
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -57,7 +57,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
     /// <summary>
     /// 批量获取用户基本信息返回结果
     /// </summary>
-    public class BatchGetUserInfoJson : WxJsonResult
+    public class BatchGetUserInfoJsonResult : WxJsonResult
     {
         public List<UserInfoJson> user_info_list { get; set; }
     }

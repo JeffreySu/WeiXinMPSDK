@@ -44,7 +44,7 @@ namespace Senparc.Weixin.MP.Entities
 		/// <param name="msgType">响应类型</param>
 		/// <returns></returns>
 		[Obsolete("建议使用CreateFromRequestMessage<T>(IRequestMessageBase requestMessage)取代此方法")]
-		public static ResponseMessageBase CreateFromRequestMessage(IRequestMessageBase requestMessage, ResponseMsgType msgType)
+		private static ResponseMessageBase CreateFromRequestMessage(IRequestMessageBase requestMessage, ResponseMsgType msgType)
 		{
 			ResponseMessageBase responseMessage = null;
 			try
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.MP.Entities
 		{
 			try
 			{
-				var tType = typeof(T);
+                var tType = typeof(T);
 				var responseName = tType.Name.Replace("ResponseMessage", ""); //请求名称
 				ResponseMsgType msgType = (ResponseMsgType)Enum.Parse(typeof(ResponseMsgType), responseName);
 				return CreateFromRequestMessage(requestMessage, msgType) as T;

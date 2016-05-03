@@ -1,17 +1,20 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-  
+
     文件名：Enums.cs
     文件功能描述：枚举类型
-    
-    
+
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150507
     修改描述：添加 事件 异步任务完成事件推送 枚举类型
+
+    修改标识：zeje - 20150507
+    修改描述：v3.3.5 添加Login_User_Type枚举
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.QY
@@ -388,5 +391,53 @@ namespace Senparc.Weixin.QY
     {
         关闭 = 0,
         打开 = 1
+    }
+
+    /// <summary>
+    /// 客服消息用户类型
+    /// </summary>
+    public enum KF_User_Type
+    {
+        /// <summary>
+        /// 客服
+        /// </summary>
+        kf,
+        /// <summary>
+        /// 客户，企业员工userid
+        /// </summary>
+        userid,
+        /// <summary>
+        /// 客户，企业员工openid
+        /// </summary>
+        openid
+    }
+
+    /// <summary>
+    /// 客服类型
+    /// </summary>
+    public enum KF_Type
+    {
+        /// <summary>
+        /// 内部客服
+        /// </summary>
+        @internal,
+        /// <summary>
+        /// 外部客服
+        /// </summary>
+        external
+    }
+    /// <summary>redirect_uri支持登录的类型
+    /// </summary>
+    public enum Login_User_Type
+    {
+        /// <summary>成员登录
+        /// </summary>
+        member,
+        /// <summary>管理员登录
+        /// </summary>
+        admin,
+        /// <summary>成员或管理员皆可登录
+        /// </summary>
+        all
     }
 }

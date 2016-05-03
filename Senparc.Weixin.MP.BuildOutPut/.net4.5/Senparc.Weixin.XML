@@ -142,6 +142,10 @@
             指定是否是Debug状态，如果是，系统会自动输出日志
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.Config.MaxJsonLength">
+            <summary>JavaScriptSerializer 类接受的 JSON 字符串的最大长度
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.Containers.IBaseContainer">
             <summary>
             IBaseContainer
@@ -164,11 +168,6 @@
             获取符合当前缓存策略配置的缓存的操作对象实例
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.Containers.BaseContainer`1.CollectionList">
-            <summary>
-            所有数据集合的列表   TODO：改为单个Container输出
-            </summary>
-        </member>
         <member name="P:Senparc.Weixin.Containers.BaseContainer`1.ItemCollection">
             <summary>
             获取当前容器的数据项集合
@@ -178,12 +177,6 @@
         <member name="M:Senparc.Weixin.Containers.BaseContainer`1.GetCacheKey">
             <summary>
             获取缓存Key
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.GetCollectionList">
-            <summary>
-            获取完整的数据集合的列表，包括所有的Container数据在内（建议不要进行任何修改操作）
             </summary>
             <returns></returns>
         </member>
@@ -214,7 +207,7 @@
             更新数据项
             </summary>
             <param name="key"></param>
-            <param name="value">为null时删除该项</param>
+            <param name="bag">为null时删除该项</param>
         </member>
         <member name="M:Senparc.Weixin.Containers.BaseContainer`1.Update(System.String,System.Action{`0})">
             <summary>
@@ -563,17 +556,17 @@
         </member>
         <member name="F:Senparc.Weixin.ReturnCode.客服帐号名长度超过限制">
             <summary>
-            客服帐号名长度超过限制(仅允许10个英文字符，不包括@及@后的公众号的微信号)(invalid kf_acount length) 
+            客服帐号名长度超过限制(仅允许10个英文字符，不包括@及@后的公众号的微信号)(invalid kf_acount length)
             </summary>
         </member>
         <member name="F:Senparc.Weixin.ReturnCode.客服帐号名包含非法字符">
             <summary>
-            客服帐号名包含非法字符(仅允许英文+数字)(illegal character in kf_account) 
+            客服帐号名包含非法字符(仅允许英文+数字)(illegal character in kf_account)
             </summary>
         </member>
         <member name="F:Senparc.Weixin.ReturnCode.客服帐号个数超过限制">
             <summary>
-             	客服帐号个数超过限制(10个客服账号)(kf_account count exceeded) 
+             	客服帐号个数超过限制(10个客服账号)(kf_account count exceeded)
             </summary>
         </member>
         <member name="T:Senparc.Weixin.ReturnCode_QY">
@@ -644,6 +637,12 @@
             <summary>
             微信自定义异常基类
             </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.ContainerHelper.GetCacheKey(System.Type)">
+            <summary>
+            获取缓存Key
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.Helpers.ExpandoJsonConverter">
             <summary>
@@ -753,6 +752,11 @@
             同步执行锁
             </summary>
         </member>
+        <member name="F:Senparc.Weixin.MessageQueue.SenparcMessageQueue.FlushCacheLock">
+            <summary>
+            立即同步所有缓存执行锁（给OperateQueue()使用）
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.GenerateKey(System.String,System.Type,System.String,System.String)">
             <summary>
             生成Key
@@ -762,6 +766,11 @@
             <param name="identityKey">对象唯一标识Key</param>
             <param name="actionName">操作名称，如“UpdateContainerBag”</param>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.OperateQueue">
+            <summary>
+            操作列队
+            </summary>
         </member>
         <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.GetCurrentKey">
             <summary>
@@ -836,11 +845,6 @@
         <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.Finalize">
             <summary>
             析构函数，将未处理的列队处理掉
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.OperateQueue">
-            <summary>
-            操作列队
             </summary>
         </member>
         <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.Run">
@@ -1463,6 +1467,39 @@
             <param name="jsonSetting">JSON字符串生成设置</param>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.CacheUtility.CacheUtility">
+            <summary>
+            缓存工具类
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.CacheUtility.FlushCache">
+            <summary>
+            缓存立即生效方法
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.CacheUtility.FlushCache.DoFlush">
+            <summary>
+            是否立即个更新到缓存
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.CacheUtility.FlushCache.#ctor(System.Boolean)">
+             <summary>
+            
+             </summary>
+             <param name="doFlush">是否立即更新到缓存</param>
+        </member>
+        <member name="M:Senparc.Weixin.CacheUtility.FlushCache.Dispose">
+            <summary>
+            释放，开始立即更新所有缓存
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.CacheUtility.FlushCache.CreateInstance(System.Boolean)">
+            <summary>
+            创建一个FlushCache实例
+            </summary>
+            <param name="doFlush">是否立即更新到缓存</param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.Utilities.WeixinUtility.ApiUtility.IsAppId(System.String)">
             <summary>
             判断accessTokenOrAppId参数是否是AppId
@@ -1502,13 +1539,19 @@
             <param name="stream"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Get.GetJson``1(System.String,System.Text.Encoding)">
+        <member name="T:Senparc.Weixin.HttpUtility.Get">
+            <summary>
+            Get请求处理
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.HttpUtility.Get.GetJson``1(System.String,System.Text.Encoding,System.Nullable{System.Int32})">
             <summary>
             GET方式请求URL，并返回T类型
             </summary>
             <typeparam name="T">接收JSON的数据类型</typeparam>
             <param name="url"></param>
             <param name="encoding"></param>
+            <param name="maxJsonLength">允许最大JSON长度</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.HttpUtility.Get.Download(System.String,System.IO.Stream)">
@@ -1518,12 +1561,13 @@
             <param name="url"></param>
             <param name="stream"></param>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Get.GetJsonAsync``1(System.String,System.Text.Encoding)">
+        <member name="M:Senparc.Weixin.HttpUtility.Get.GetJsonAsync``1(System.String,System.Text.Encoding,System.Nullable{System.Int32})">
             <summary>
             异步GetJsonA
             </summary>
             <param name="url"></param>
             <param name="encoding"></param>
+            <param name="maxJsonLength">允许最大JSON长度</param>
             <typeparam name="T"></typeparam>
             <returns></returns>
             <exception cref="T:Senparc.Weixin.Exceptions.ErrorJsonResultException"></exception>
@@ -1786,6 +1830,7 @@
             <param name="url"></param>
             <returns></returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.HttpUtility.RequestUtility.AsUrlData(System.String)" -->
         <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandler`2.WeixinOpenId">
             <summary>
             发送者用户名（OpenId）

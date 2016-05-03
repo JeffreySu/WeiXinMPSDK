@@ -1,45 +1,92 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：ProviderTokenContainer.cs
     文件功能描述：通用接口ProviderToken容器，用于自动管理ProviderToken，如果过期会重新获取
-    
-    
+
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
-        
+
     修改标识：Senparc - 20160206
     修改描述：将public object Lock更改为internal object Lock
+
+    修改标识：Senparc - 20160312
+    修改描述：升级Container，继承自BaseContainer<JsApiTicketBag>
+
+    修改标识：Senparc - 20160318
+    修改描述：v3.3.4 使用FlushCache.CreateInstance使注册过程立即生效
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
+using Senparc.Weixin.CacheUtility;
+using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.Entities;
+using Senparc.Weixin.QY.Exceptions;
 
 namespace Senparc.Weixin.QY.CommonAPIs
 {
-    class ProviderTokenBag
+    /// <summary>
+    /// ProviderTokenBag
+    /// </summary>
+    [Serializable]
+    public class ProviderTokenBag : BaseContainerBag
     {
-        public string CorpId { get; set; }
-        public string CorpSecret { get; set; }
-        public DateTime ExpireTime { get; set; }
-        public ProviderTokenResult ProviderTokenResult { get; set; }
+        /// <summary>
+        /// CorpId
+        /// </summary>
+        public string CorpId
+        {
+            get { return _corpId; }
+            set { base.SetContainerProperty(ref _corpId, value); }
+        }
+        /// <summary>
+        /// CorpSecret
+        /// </summary>
+        public string CorpSecret
+        {
+            get { return _corpSecret; }
+            set { base.SetContainerProperty(ref _corpSecret, value); }
+        }
+        /// <summary>
+        /// 过期时间
+        /// </summary>
+        public DateTime ExpireTime
+        {
+            get { return _expireTime; }
+            set { base.SetContainerProperty(ref _expireTime, value); }
+        }
+        /// <summary>
+        /// ProviderTokenResult
+        /// </summary>
+        public ProviderTokenResult ProviderTokenResult
+        {
+            get { return _providerTokenResult; }
+            set { base.SetContainerProperty(ref _providerTokenResult, value); }
+        }
+
         /// <summary>
         /// 只针对这个CorpId的锁
         /// </summary>
         internal object Lock = new object();
+
+        private string _corpId;
+        private string _corpSecret;
+        private DateTime _expireTime;
+        private ProviderTokenResult _providerTokenResult;
     }
 
     /// <summary>
     /// 通用接口ProviderToken容器，用于自动管理ProviderToken，如果过期会重新获取
     /// </summary>
-    public class ProviderTokenContainer
+    public class ProviderTokenContainer : BaseContainer<ProviderTokenBag>
     {
-        static Dictionary<string, ProviderTokenBag> ProviderTokenCollection =
-           new Dictionary<string, ProviderTokenBag>(StringComparer.OrdinalIgnoreCase);
+        private const string UN_REGISTER_ALERT = "此CorpId尚未注册，ProviderTokenContainer.Register完成注册（全局执行一次即可）！";
 
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
@@ -48,13 +95,16 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="corpSecret"></param>
         public static void Register(string corpId, string corpSecret)
         {
-            ProviderTokenCollection[corpId] = new ProviderTokenBag()
+            using (FlushCache.CreateInstance())
             {
-                CorpId = corpId,
-                CorpSecret = corpSecret,
-                ExpireTime = DateTime.MinValue,
-                ProviderTokenResult = new ProviderTokenResult()
-            };
+                Update(corpId, new ProviderTokenBag()
+                {
+                    CorpId = corpId,
+                    CorpSecret = corpSecret,
+                    ExpireTime = DateTime.MinValue,
+                    ProviderTokenResult = new ProviderTokenResult()
+                });
+            }
         }
 
         /// <summary>
@@ -92,23 +142,23 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <returns></returns>
         public static ProviderTokenResult GetTokenResult(string corpId, bool getNewToken = false)
         {
-            if (!ProviderTokenCollection.ContainsKey(corpId))
+            if (!CheckRegistered(corpId))
             {
-                throw new WeixinException("此CorpId尚未注册，请先使用ProviderTokenContainer.Register完成注册（全局执行一次即可）！");
+                throw new WeixinQyException(UN_REGISTER_ALERT);
             }
 
-            var accessTokenBag = ProviderTokenCollection[corpId];
-            lock (accessTokenBag.Lock)
+            var providerTokenBag = (ProviderTokenBag)ItemCollection[corpId];
+            lock (providerTokenBag.Lock)
             {
-                if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
+                if (getNewToken || providerTokenBag.ExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
-                    accessTokenBag.ProviderTokenResult = CommonApi.GetProviderToken(accessTokenBag.CorpId,
-                        accessTokenBag.CorpSecret);
-                    accessTokenBag.ExpireTime = DateTime.Now.AddSeconds(7200);
+                    providerTokenBag.ProviderTokenResult = CommonApi.GetProviderToken(providerTokenBag.CorpId,
+                        providerTokenBag.CorpSecret);
+                    providerTokenBag.ExpireTime = DateTime.Now.AddSeconds(providerTokenBag.ProviderTokenResult.expires_in);
                 }
             }
-            return accessTokenBag.ProviderTokenResult;
+            return providerTokenBag.ProviderTokenResult;
         }
 
         /// <summary>
@@ -116,9 +166,9 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// </summary>
         /// <param name="corpId"></param>
         /// <returns></returns>
-        public static bool CheckRegistered(string corpId)
+        public new static bool CheckRegistered(string corpId)
         {
-            return ProviderTokenCollection.ContainsKey(corpId);
+            return ItemCollection.CheckExisted(corpId);
         }
     }
 }

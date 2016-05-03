@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CommonJsonSend.cs
     文件功能描述：通过CommonJsonSend中的方法调用接口
-    
-    
+
+
     创建标识：Senparc - 20151012
-    
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -59,7 +59,7 @@ namespace Senparc.Weixin.CommonAPIs
 
             try
             {
-                var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken);
+                var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken.AsUrlData());
                 switch (sendType)
                 {
                     case CommonJsonSendType.GET:
@@ -122,7 +122,7 @@ namespace Senparc.Weixin.CommonAPIs
         {
             try
             {
-                var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken);
+                var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken.AsUrlData());
 
                 switch (sendType)
                 {

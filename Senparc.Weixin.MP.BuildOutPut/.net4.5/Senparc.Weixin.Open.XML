@@ -421,15 +421,15 @@
             <param name="expiresIn"></param>
         </member>
         <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.RefreshAuthorizerToken(System.String,System.String,System.String,System.String)">
-            <summary>
-            刷新AuthorizerToken
+             <summary>
+             刷新AuthorizerToken
             
-            </summary>
-            <param name="componentAccessToken"></param>
-            <param name="componentAppId"></param>
-            <param name="authorizerAppid"></param>
-            <param name="refreshToken"></param>
-            <returns></returns>
+             </summary>
+             <param name="componentAccessToken"></param>
+             <param name="componentAppId"></param>
+             <param name="authorizerAppid"></param>
+             <param name="refreshToken"></param>
+             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.TryGetJsApiTicket(System.String,System.String,System.Boolean)">
             <summary>
@@ -832,6 +832,16 @@
         <member name="T:Senparc.Weixin.Open.FuncscopeCategory">
             <summary>
             公众号授权给开发者的权限集列表
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Open.Exceptions.WeixinOpenException">
+            <summary>
+            第三方平台异常
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Open.Exceptions.WeixinOpenException.ComponentBag">
+            <summary>
+            ComponentBag
             </summary>
         </member>
         <member name="M:Senparc.Weixin.Open.Helpers.InfoTypeHelper.GetRequestInfoType(System.Xml.Linq.XDocument)">

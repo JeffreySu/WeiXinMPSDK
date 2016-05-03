@@ -1,13 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：QueryAuthResult.cs
     文件功能描述：使用授权码换取公众号的授权信息返回结果
-    
-    
+
+
     创建标识：Senparc - 20150430
 ----------------------------------------------------------------*/
 
+using System;
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
@@ -16,6 +17,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     /// <summary>
     /// 使用授权码换取公众号的授权信息返回结果
     /// </summary>
+    [Serializable]
     public class QueryAuthResult : WxJsonResult
     {
         /// <summary>
@@ -27,6 +29,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     /// <summary>
     /// 授权信息
     /// </summary>
+    [Serializable]
     public class AuthorizationInfo
     {
         /// <summary>
@@ -60,11 +63,13 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public List<FuncscopeCategoryItem> func_info { get; set; }
     }
 
+    [Serializable]
     public class FuncscopeCategoryItem
     {
         public AuthorizationInfo_FuncscopeCategory funcscope_category { get; set; }
     }
 
+    [Serializable]
     public class AuthorizationInfo_FuncscopeCategory
     {
         public FuncscopeCategory id { get; set; }

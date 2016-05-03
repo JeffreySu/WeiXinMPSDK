@@ -60,7 +60,7 @@ namespace Senparc.Weixin.MP.Agent
             string nonce = "GodBlessYou";
             string signature = CheckSignature.GetSignature(timestamp, nonce, token);
             url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}",
-                    url.Contains("?") ? "&" : "?", signature, timestamp, nonce);
+                    url.Contains("?") ? "&" : "?", signature.AsUrlData(), timestamp.AsUrlData(), nonce.AsUrlData());
             var responseXml = RequestUtility.HttpPost(url, null, stream, timeOut: timeOut);
             return responseXml;
         }
@@ -209,9 +209,9 @@ namespace Senparc.Weixin.MP.Agent
                 string echostr = Guid.NewGuid().ToString("n");
                 string signature = CheckSignature.GetSignature(timestamp, nonce, token);
                 url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}&echostr={4}",
-                        url.Contains("?") ? "&" : "?", signature, timestamp, nonce, echostr);
+                        url.Contains("?") ? "&" : "?", signature.AsUrlData(), timestamp.AsUrlData(), nonce.AsUrlData(), echostr.AsUrlData());
 
-                var responseStr = RequestUtility.HttpGet(url, null, timeOut: timeOut);
+                var responseStr = RequestUtility.HttpGet(url, encoding: null, timeOut: timeOut);
                 return echostr == responseStr;
             }
             catch

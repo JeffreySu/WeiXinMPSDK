@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CommonApi.Menu.Conditional
     文件功能描述：个性化自定义菜单接口
-    
-    
+
+
     创建标识：Senparc - 20151222
-        
+
     修改标识：Senparc - 20151222
     修改描述：v13.5.1 添加个性化菜单接口
 ----------------------------------------------------------------*/
@@ -17,6 +17,7 @@
 
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
 
@@ -56,7 +57,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/delconditional?access_token={0}", accessToken);
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
@@ -80,11 +81,11 @@ namespace Senparc.Weixin.MP.CommonAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/delconditional?access_token={0}", accessToken);
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/delconditional?access_token={0}", accessToken.AsUrlData());
 
                 var data = new
                 {
-                    menuId = menuId
+                    menuid = menuId
                 };
 
                 return CommonJsonSend.Send(accessToken, url, data, CommonJsonSendType.POST);

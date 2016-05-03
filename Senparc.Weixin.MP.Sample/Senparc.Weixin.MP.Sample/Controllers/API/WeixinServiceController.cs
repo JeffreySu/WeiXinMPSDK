@@ -20,7 +20,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     //    {
     //        var routeDataTokens = base.ControllerContext.RouteData.Values;
     //        var signature = routeDataTokens["signature"];
-    //        //string timestamp, string nonce, string echostr 
+    //        //string timestamp, string nonce, string echostr
     //        return signature;
     //        //if (CheckSignature.Check(signature, timestamp, nonce))
     //        //{

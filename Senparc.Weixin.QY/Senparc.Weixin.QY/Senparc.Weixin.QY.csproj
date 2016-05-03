@@ -33,6 +33,25 @@
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.QY.XML</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.QY.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -56,6 +75,8 @@
     <Compile Include="AdvancedAPIs\Chat\ChatJson\SetMuteData.cs" />
     <Compile Include="AdvancedAPIs\Chat\ChatJson\ChatResult.cs" />
     <Compile Include="AdvancedAPIs\Concern\ConcernApi.cs" />
+    <Compile Include="AdvancedAPIs\KF\KFApi.cs" />
+    <Compile Include="AdvancedAPIs\KF\KFResult.cs" />
     <Compile Include="AdvancedAPIs\LoginAuth\LoginAuthApi.cs" />
     <Compile Include="AdvancedAPIs\LoginAuth\GetLoginInfoResult.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaResult.cs" />
@@ -64,8 +85,8 @@
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthApi.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthResult.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthPostData.cs" />
-    <Compile Include="CommonAPIs\JsApiTicketContainer.cs" />
-    <Compile Include="CommonAPIs\ProviderTokenContainer.cs" />
+    <Compile Include="CommonAPIs\Containers\JsApiTicketContainer.cs" />
+    <Compile Include="CommonAPIs\Containers\ProviderTokenContainer.cs" />
     <Compile Include="Entities\JsonResult\ConvertToUserIdResult.cs" />
     <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
     <Compile Include="AdvancedAPIs\Mass\MassApi.cs" />
@@ -78,7 +99,7 @@
     <Compile Include="AdvancedAPIs\Media\UploadResultJson.cs" />
     <Compile Include="AdvancedAPIs\OAuth2\OAuth2Api.cs" />
     <Compile Include="AdvancedAPIs\OAuth2\OAuth2Result.cs" />
-    <Compile Include="CommonAPIs\AccessTokenContainer.cs" />
+    <Compile Include="CommonAPIs\Containers\AccessTokenContainer.cs" />
     <Compile Include="CommonAPIs\AccessTokenHandlerWapper.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
@@ -150,6 +171,7 @@
     <Compile Include="Entities\Response\MpNewsArticle.cs" />
     <Compile Include="Entities\Response\ResponseMessageMpNews.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Exceptions\WeixinQyException.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />
@@ -187,9 +209,7 @@
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="CommonAPIs\CommonApi.Menu.cs" />
   </ItemGroup>

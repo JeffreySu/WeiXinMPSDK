@@ -123,7 +123,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             JsonSetting jsonSetting = null
             )
         {
-            var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken);
+            var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken.AsUrlData());
 
             switch (sendType)
             {

@@ -1,10 +1,10 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：ComponentContainer.cs
     文件功能描述：通用接口ComponentAccessToken容器，用于自动管理ComponentAccessToken，如果过期会重新获取
-    
-    
+
+
     创建标识：Senparc - 20150430
 
     修改标识：Senparc - 20151004
@@ -12,13 +12,20 @@
 
     修改标识：Senparc - 20151005
     修改描述：v1.4.3 添加ComponentVerifyTicketExpireTime及自动更新机制
-        
+
     修改标识：Senparc - 20160206
     修改描述：将public object Lock更改为internal object Lock
+
+    修改标识：Senparc - 20160318
+    修改描述：13.6.10 使用FlushCache.CreateInstance使注册过程立即生效
+
+    修改标识：Senparc - 20160318
+    修改描述：v1.6.4 使用FlushCache.CreateInstance使注册过程立即生效
 
 ----------------------------------------------------------------*/
 
 using System;
+using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.Entities;
@@ -29,6 +36,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     /// <summary>
     /// 第三方APP信息包
     /// </summary>
+    [Serializable]
     public class ComponentBag : BaseContainerBag
     {
         /// <summary>
@@ -211,11 +219,14 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 AuthorizerTokenRefreshedFunc = authorizerTokenRefreshedFunc;
             }
 
-            Update(componentAppId, new ComponentBag()
+            using (FlushCache.CreateInstance())
             {
-                ComponentAppId = componentAppId,
-                ComponentAppSecret = componentAppSecret,
-            });
+                Update(componentAppId, new ComponentBag()
+                {
+                    ComponentAppId = componentAppId,
+                    ComponentAppSecret = componentAppSecret,
+                });
+            }
         }
 
         /// <summary>

@@ -14,7 +14,6 @@ namespace Senparc.Weixin.Cache
     /// </summary>
     public static class LocalCacheHelper
     {
-
         /// <summary>
         /// 所有数据集合的列表
         /// </summary>
@@ -29,7 +28,7 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 本地容器缓存策略
     /// </summary>
-    public class LocalContainerCacheStrategy : IContainerCacheStragegy
+    public sealed class LocalContainerCacheStrategy : IContainerCacheStragegy
     //where TContainerBag : class, IBaseContainerBag, new()
     {
         #region 数据源
@@ -65,10 +64,10 @@ namespace Senparc.Weixin.Cache
             internal static readonly LocalContainerCacheStrategy instance = new LocalContainerCacheStrategy();
         }
 
+
         #endregion
 
         #region ILocalCacheStrategy 成员
-
 
         public string CacheSetKey { get; set; }
 
@@ -79,7 +78,6 @@ namespace Senparc.Weixin.Cache
             {
                 return;
             }
-
             _cache[key] = value;
         }
 
@@ -90,9 +88,15 @@ namespace Senparc.Weixin.Cache
 
         public IContainerItemCollection Get(string key)
         {
-            if (!_cache.ContainsKey(key))
+            if (string.IsNullOrEmpty(key))
             {
-                _cache[key] = new ContainerItemCollection();
+                return null;
+            }
+
+            if (!CheckExisted(key))
+            {
+                return null;
+                //InsertToCache(key, new ContainerItemCollection());
             }
 
             return _cache[key];
@@ -122,8 +126,10 @@ namespace Senparc.Weixin.Cache
         {
             if (_cache.ContainsKey(key))
             {
-                var containerItemCollection = _cache[key];
+                var containerItemCollection = Get(key);
                 containerItemCollection[bag.Key] = bag;
+
+                //因为这里获取的是containerItemCollection引用对象，所以不必再次更新整个containerItemCollection到缓存
             }
         }
 

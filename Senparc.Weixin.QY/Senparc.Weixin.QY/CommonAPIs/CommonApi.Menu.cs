@@ -43,7 +43,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <returns></returns>
         public static QyJsonResult CreateMenu(string accessToken, int agentId, ButtonGroup buttonData, int timeOut = Config.TIME_OUT)
         {
-            var urlFormat = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/create?access_token={0}&agentid={1}", accessToken, agentId);
+            var urlFormat = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/create?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
             ////对特殊符号进行URL转义
             //foreach (var button in buttonData.button)
             //{
@@ -154,7 +154,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <returns></returns>
         public static GetMenuResult GetMenu(string accessToken, int agentId)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/get?access_token={0}&agentid={1}", accessToken, agentId);
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
 
             var jsonString = RequestUtility.HttpGet(url, Encoding.UTF8);
             //var finalResult = GetMenuFromJson(jsonString);
@@ -415,7 +415,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <returns></returns>
         public static QyJsonResult DeleteMenu(string accessToken, int agentId)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken, agentId);
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
             var result = Get.GetJson<QyJsonResult>(url);
             return result;
         }

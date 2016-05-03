@@ -1,33 +1,22 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：WeixinController.cs
     文件功能描述：用于处理微信回调的信息
-    
-    
+
+
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using System.Xml.Linq;
 using Senparc.Weixin.MP.Entities.Request;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
-    using Senparc.Weixin.MP.MessageHandlers;
-    using Senparc.Weixin.MP.Entities;
-    using Senparc.Weixin.MP.Helpers;
     using Senparc.Weixin.MP.MvcExtension;
-    //using Senparc.Weixin.MP.Sample.Service;
-    //using Senparc.Weixin.MP.Sample.CustomerMessageHandler;
-    using Senparc.Weixin.MP.Sample.CommonService;
     using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 
     public partial class WeixinController : Controller
@@ -36,7 +25,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public static readonly string EncodingAESKey = WebConfigurationManager.AppSettings["WeixinEncodingAESKey"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string AppId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
-        readonly Func<string> _getRandomFileName = () => DateTime.Now.Ticks + Guid.NewGuid().ToString("n").Substring(0, 6);
+        readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
         public WeixinController()
         {
@@ -189,7 +178,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         /*
          * v0.3.0之前的原始Post方法见：WeixinController_OldPost.cs
-         * 
+         *
          * 注意：虽然这里提倡使用CustomerMessageHandler的方法，但是MessageHandler基类最终还是基于OldPost的判断逻辑，
          * 因此如果需要深入了解Senparc.Weixin.MP内部处理消息的机制，可以查看WeixinController_OldPost.cs中的OldPost方法。
          * 目前为止OldPost依然有效，依然可用于生产。

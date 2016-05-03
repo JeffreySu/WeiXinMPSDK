@@ -1,17 +1,20 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：RequestMessageEvent_UserGetCard.cs
     文件功能描述：事件之领取卡券
-    
-    
+
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150323
     修改描述：添加OuterId字段
+
+    修改标识：hello2008zj - 20160428
+    修改描述：v13.7.7 添加IsRestoreMemberCard及OldUserCardCode字段。
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.Entities
@@ -50,5 +53,16 @@ namespace Senparc.Weixin.MP.Entities
         /// 领取场景值，用于领取渠道数据统计。可在生成二维码接口及添加JS API 接口中自定义该字段的整型值。
         /// </summary>
         public int OuterId { get; set; }
+
+
+        /// <summary>
+        /// 是否为删除后重新领取卡，1 代表是，0 代表否。
+        /// </summary>
+        public int IsRestoreMemberCard { get; set; }
+
+        /// <summary>
+        /// 转赠前的code序列号
+        /// </summary>
+        public string OldUserCardCode { get; set; }
     }
 }

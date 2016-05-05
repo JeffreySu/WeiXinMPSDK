@@ -6988,7 +6988,7 @@
             用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User.BatchGetUserInfoJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User.BatchGetUserInfoJsonResult">
             <summary>
             批量获取用户基本信息返回结果
             </summary>

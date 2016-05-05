@@ -12,6 +12,9 @@
     
     修改标识：Senparc - 20150323
     修改描述：添加会议门票类型
+    
+    修改标识：hello2008zj - 20160502
+    修改描述：v13.7.8 添加 Card_MemberCardData.background_pic_url
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
@@ -192,6 +195,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public CustomCell custom_cell1 { get; set; }
+        /// <summary>
+        /// 会员卡背景图片，非必填
+        /// </summary>
+        public string background_pic_url { get; set; }
 
         public Card_MemberCardData()
             : base(CardType.MEMBER_CARD)

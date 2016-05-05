@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：RequestUtility.cs
     文件功能描述：获取请求结果
-    
-    
+
+
     创建标识：Senparc - 20150211
-    
-    修改标识：Senparc - 20150303
+
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150407
     修改描述：使用Post方法获取字符串结果 修改表单处理方法
 ----------------------------------------------------------------*/
@@ -59,8 +58,9 @@ namespace Senparc.Weixin.HttpUtility
 
         #endregion
 
-
         #region 同步方法
+
+        #region Get
 
         /// <summary>
         /// 使用Get方法获取字符串结果（没有加入Cookie）
@@ -72,10 +72,6 @@ namespace Senparc.Weixin.HttpUtility
             WebClient wc = new WebClient();
             wc.Proxy = _webproxy;
             wc.Encoding = encoding ?? Encoding.UTF8;
-            //if (encoding != null)
-            //{
-            //    wc.Encoding = encoding;
-            //}
             return wc.DownloadString(url);
         }
 
@@ -115,6 +111,10 @@ namespace Senparc.Weixin.HttpUtility
             }
         }
 
+        #endregion
+
+        #region Post
+
         /// <summary>
         /// 使用Post方法获取字符串结果，常规提交
         /// </summary>
@@ -148,7 +148,7 @@ namespace Senparc.Weixin.HttpUtility
             if (checkValidationResult)
             {
                 ServicePointManager.ServerCertificateValidationCallback =
-                  new System.Net.Security.RemoteCertificateValidationCallback(CheckValidationResult);
+                    new RemoteCertificateValidationCallback(CheckValidationResult);
             }
 
             #region 处理Form表单文件上传
@@ -162,7 +162,7 @@ namespace Senparc.Weixin.HttpUtility
                 //byte[] boundarybytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
                 string fileFormdataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n";
                 string dataFormdataTemplate = "\r\n--" + boundary +
-                                              "\r\nContent-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
+                                                "\r\nContent-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
                 foreach (var file in fileDictionary)
                 {
                     try
@@ -271,6 +271,8 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
         }
+
+        #endregion
 
         /// <summary>
         /// 验证服务器证书

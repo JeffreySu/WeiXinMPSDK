@@ -556,17 +556,17 @@
         </member>
         <member name="F:Senparc.Weixin.ReturnCode.客服帐号名长度超过限制">
             <summary>
-            客服帐号名长度超过限制(仅允许10个英文字符，不包括@及@后的公众号的微信号)(invalid kf_acount length) 
+            客服帐号名长度超过限制(仅允许10个英文字符，不包括@及@后的公众号的微信号)(invalid kf_acount length)
             </summary>
         </member>
         <member name="F:Senparc.Weixin.ReturnCode.客服帐号名包含非法字符">
             <summary>
-            客服帐号名包含非法字符(仅允许英文+数字)(illegal character in kf_account) 
+            客服帐号名包含非法字符(仅允许英文+数字)(illegal character in kf_account)
             </summary>
         </member>
         <member name="F:Senparc.Weixin.ReturnCode.客服帐号个数超过限制">
             <summary>
-             	客服帐号个数超过限制(10个客服账号)(kf_account count exceeded) 
+             	客服帐号个数超过限制(10个客服账号)(kf_account count exceeded)
             </summary>
         </member>
         <member name="T:Senparc.Weixin.ReturnCode_QY">

@@ -61,8 +61,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                             //TODO:交给Service处理具体信息，参考/Service/EventSercice.cs 及 /Service/LocationSercice.cs
                             var strongRequestMessage = requestMessage as RequestMessageText;
                             var strongresponseMessage =
-                                ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Text) as
-                                ResponseMessageText;
+                                ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
                             strongresponseMessage.Content =
                                 string.Format(
                                     "您刚才发送了文字信息：{0}\r\n您还可以发送【位置】【图片】【语音】等类型的信息，查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com",
@@ -80,8 +79,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                             //TODO:交给Service处理具体信息
                             var strongRequestMessage = requestMessage as RequestMessageImage;
                             var strongresponseMessage =
-                                ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.News) as
-                                ResponseMessageNews;
+                                ResponseMessageBase.CreateFromRequestMessage<ResponseMessageNews>(requestMessage);
                             strongresponseMessage.Articles.Add(new Article()
                             {
                                 Title = "您刚才发送了图片信息",
@@ -104,8 +102,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                             //TODO:交给Service处理具体信息
                             var strongRequestMessage = requestMessage as RequestMessageVoice;
                             var strongresponseMessage =
-                               ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Music) as
-                               ResponseMessageMusic;
+                               ResponseMessageBase.CreateFromRequestMessage<ResponseMessageMusic>(requestMessage);
                             strongresponseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
                             responseMessage = strongresponseMessage;
                             break;

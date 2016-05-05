@@ -42,8 +42,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Text
                 var responseText =
-                    ResponseMessageBase.CreateFromRequestMessage(requestEntity, ResponseMsgType.Text) as
-                    ResponseMessageText;
+                    ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestEntity);
                 Assert.IsNotNull(responseText);
                 responseText.Content = "新内容";
                 var responseDoc = EntityHelper.ConvertEntityToXml(responseText);
@@ -56,8 +55,7 @@ namespace Senparc.Weixin.MP.Test
             {
                 //News
                 var responseNews =
-                    ResponseMessageBase.CreateFromRequestMessage(requestEntity, ResponseMsgType.News) as
-                    ResponseMessageNews;
+                    ResponseMessageBase.CreateFromRequestMessage<ResponseMessageNews>(requestEntity);
                 Assert.IsNotNull(responseNews);
 
                 responseNews.Articles.Add(new Article()
@@ -150,8 +148,7 @@ namespace Senparc.Weixin.MP.Test
             Assert.IsNotNull(requestEntity);
 
             var responseMusic =
-                    ResponseMessageBase.CreateFromRequestMessage(requestEntity, ResponseMsgType.Music) as
-                    ResponseMessageMusic;
+                    ResponseMessageBase.CreateFromRequestMessage<ResponseMessageMusic>(requestEntity);
             Assert.IsNotNull(responseMusic);
 
             responseMusic.Music.Title = "测试Music";

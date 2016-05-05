@@ -1,15 +1,15 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：Enums.cs
     文件功能描述：枚举类型
-    
-    
+
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150303
     修改描述：添加企业号返回码
 ----------------------------------------------------------------*/
@@ -116,15 +116,15 @@ namespace Senparc.Weixin
         无效客服账号invalid_kf_account = 61452,
         客服帐号已存在kf_account_exsited = 61453,
         /// <summary>
-        /// 客服帐号名长度超过限制(仅允许10个英文字符，不包括@及@后的公众号的微信号)(invalid kf_acount length) 
+        /// 客服帐号名长度超过限制(仅允许10个英文字符，不包括@及@后的公众号的微信号)(invalid kf_acount length)
         /// </summary>
         客服帐号名长度超过限制 = 61454,
         /// <summary>
-        /// 客服帐号名包含非法字符(仅允许英文+数字)(illegal character in kf_account) 
+        /// 客服帐号名包含非法字符(仅允许英文+数字)(illegal character in kf_account)
         /// </summary>
         客服帐号名包含非法字符 = 61455,
         /// <summary>
-        ///  	客服帐号个数超过限制(10个客服账号)(kf_account count exceeded) 
+        ///  	客服帐号个数超过限制(10个客服账号)(kf_account count exceeded)
         /// </summary>
         客服帐号个数超过限制 = 61456,
         无效头像文件类型invalid_file_type = 61457,

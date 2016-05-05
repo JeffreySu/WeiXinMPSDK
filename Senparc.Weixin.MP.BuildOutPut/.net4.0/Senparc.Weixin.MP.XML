@@ -1350,6 +1350,11 @@
             非必填
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.background_pic_url">
+            <summary>
+            会员卡背景图片，非必填
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.CustomField.name_type">
             <summary>
             会员信息类目名称。FIELD_NAME_TYPE_LEVEL等级；FIELD_NAME_TYPE_COUPON优惠券；FIELD_NAME_TYPE_STAMP印花；FIELD_NAME_TYPE_DISCOUNT折扣；FIELD_NAME_TYPE_ACHIEVEMEN成就；FIELD_NAME_TYPE_MILEAGE里程。
@@ -2507,6 +2512,11 @@
             <summary>
             上架的数量。（不支持填写0或无限大）
             必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfo_Sku.total_quantity">
+            <summary>
+            卡券全部库存的数量，上限为100000000。
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.ShelfCreateData">
@@ -8413,6 +8423,16 @@
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Get_Card.OuterId">
             <summary>
             领取场景值，用于领取渠道数据统计。可在生成二维码接口及添加JS API 接口中自定义该字段的整型值。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Get_Card.IsRestoreMemberCard">
+            <summary>
+            是否为删除后重新领取卡，1 代表是，0 代表否。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Get_Card.OldUserCardCode">
+            <summary>
+            转赠前的code序列号
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Del_Card.Event">

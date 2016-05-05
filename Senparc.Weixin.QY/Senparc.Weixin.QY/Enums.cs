@@ -156,7 +156,10 @@ namespace Senparc.Weixin.QY
         Image,
         Voice,
         Video,
-        MpNews
+        MpNews,
+
+        //以下类型为Senparc.Weixin自用类型
+        NoResponse
     }
 
     /// <summary>

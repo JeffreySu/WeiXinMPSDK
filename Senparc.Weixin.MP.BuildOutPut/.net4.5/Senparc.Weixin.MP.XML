@@ -2609,11 +2609,6 @@
             会员信息
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.UserinfoGetResult.custom_field_list">
-            <summary>
-            开发者设置的会员卡会员信息类目，如等级。
-            </summary>
-        </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.UserinfoGetResult.user_card_status">
             <summary>
             当前用户的会员卡状态
@@ -2622,6 +2617,11 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.UserinfoGetResult_UserInfo.common_field_list">
             <summary>
             
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.UserinfoGetResult_UserInfo.custom_field_list">
+            <summary>
+            开发者设置的会员卡会员信息类目，如等级。
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.UserinfoGetResult_UserInfo_Item.name">

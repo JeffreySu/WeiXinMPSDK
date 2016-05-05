@@ -1,6 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：ResponseMessageNoResponse.cs
+    文件功能描述：无需响应（回复空字符串）的响应类型
+    
+    
+    创建标识：Senparc - 20150505
+    
+----------------------------------------------------------------*/
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;

@@ -6,6 +6,9 @@
     
     
     创建标识：Senparc - 20150709
+ 
+    修改标识：Senparc - 20160506
+    修改描述：添加“获取公众号连网URL”接口（GetConnectUrl）
 ----------------------------------------------------------------*/
 
 /*
@@ -13,6 +16,7 @@
  */
 
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs.WiFi;
 using Senparc.Weixin.MP.CommonAPIs;
 
@@ -30,7 +34,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="bssid">无线网络设备无线mac地址，格式冒号分隔，字符长度17个，并且字母小写，例如：00:1f:7a:ad:5c:a8</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult AddDevice(string accessTokenOrAppId, long shopId, string ssid, string password, string bssid, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult AddDevice(string accessTokenOrAppId, long shopId, string ssid, string password,
+            string bssid, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -120,7 +125,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="imgId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult GetQrcode(string accessTokenOrAppId, long shopId, int imgId, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult GetQrcode(string accessTokenOrAppId, long shopId, int imgId,
+            int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -146,7 +152,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="url">自定义链接（选择传入）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult SetHomePage(string accessTokenOrAppId, long shopId, string url = null, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SetHomePage(string accessTokenOrAppId, long shopId, string url = null,
+            int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -187,7 +194,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="shopId">查询的门店id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetHomePageResult GetHomePage(string accessTokenOrAppId, long shopId, int timeOut = Config.TIME_OUT)
+        public static GetHomePageResult GetHomePage(string accessTokenOrAppId, long shopId,
+            int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -212,7 +220,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="shopId">按门店ID搜索，-1为总统计</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetStatisticsResult GetStatistics(string accessTokenOrAppId, string beginDate, string endDate, long shopId = -1,
+        public static GetStatisticsResult GetStatistics(string accessTokenOrAppId, string beginDate, string endDate,
+            long shopId = -1,
             int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -228,6 +237,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 return CommonJsonSend.Send<GetStatisticsResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取公众号连网URL
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <returns></returns>
+        public static WiFiConnectUrlResultJson GetConnectUrl(string accessTokenOrAppId)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                const string urlFormat = "https://api.weixin.qq.com/bizwifi/account/get_connecturl?access_token={0}";
+
+                return CommonJsonSend.Send<WiFiConnectUrlResultJson>(accessToken, urlFormat, null,
+                    CommonJsonSendType.GET);
             }, accessTokenOrAppId);
         }
     }

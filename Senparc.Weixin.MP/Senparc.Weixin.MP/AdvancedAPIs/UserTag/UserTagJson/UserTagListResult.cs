@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.UserTag.UserTagJson
+namespace Senparc.Weixin.MP.AdvancedAPIs.UserTag
 {
     public class UserTagListResult :WxJsonResult
     {

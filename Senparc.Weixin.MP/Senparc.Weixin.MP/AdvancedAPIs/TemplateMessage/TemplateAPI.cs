@@ -18,6 +18,7 @@
     API：http://mp.weixin.qq.com/wiki/17/304c1885ea66dbedf7dc170d84999a9d.html
  */
 
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 using Senparc.Weixin.MP.CommonAPIs;
 
@@ -53,6 +54,47 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     data = data
                 };
                 return CommonJsonSend.Send<SendTemplateMessageResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 设置所属行业
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="industry_id1">公众号模板消息所属行业编号</param>
+        /// <param name="industry_id2">公众号模板消息所属行业编号</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+
+        public static WxJsonResult SetIndustry(string accessTokenOrAppId, IndustryCode industry_id1, IndustryCode industry_id2, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token={0}";
+                var msgData = new 
+                {
+                    industry_id1 = ((int)industry_id1).ToString(),
+                    industry_id2 = ((int)industry_id2).ToString()
+                };
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取设置的行业信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+
+        public static GetIndustryJsonResult GetIndustry(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/get_industry?access_token={0}";
+                return CommonJsonSend.Send<GetIndustryJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

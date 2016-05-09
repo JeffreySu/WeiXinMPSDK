@@ -103,7 +103,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="appId">批次ID，申请设备ID时所返回的批次ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetDeviceStatusResultJson DeviceApplyStatus(string accessTokenOrAppId, int appId,int timeOut = Config.TIME_OUT)
+        public static GetDeviceStatusResultJson DeviceApplyStatus(string accessTokenOrAppId, int appId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -166,7 +166,61 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="major"></param>
         /// <param name="minor"></param>
         /// <param name="poiId">Poi_id 的说明改为：设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。</param>
+        /// <param name="type">为1时，关联的门店和设备归属于同一公众账号；为2时，关联的门店为其他公众账号的门店。不填默认为1</param>
         /// <param name="timeOut"></param>
+        /// <param name="poi_appid">当Type为2时，必填	关联门店所归属的公众账号的APPID</param>
+        /// <returns></returns>
+        public static WxJsonResult DeviceBindLocatoin(string accessTokenOrAppId, long deviceId, string uuId, long major, long minor, long poiId, string poi_appid, int type = 1, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string url = string.Format("https://api.weixin.qq.com/shakearound/device/bindlocation?access_token={0}", accessToken.AsUrlData());
+
+                var data = type == 2
+                    ? new
+                    {
+                        device_identifier = new
+                        {
+                            device_id = deviceId,
+                            uuid = uuId,
+                            major = major,
+                            minor = minor
+                        },
+                        poi_id = poiId,
+                        type = type,
+                        poi_appid = poi_appid
+                    } as object
+                    : new
+                    {
+                        device_identifier = new
+                        {
+                            device_id = deviceId,
+                            uuid = uuId,
+                            major = major,
+                            minor = minor
+                        },
+                        poi_id = poiId
+                    } as object;
+
+
+                return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 配置设备与其他门店的关联关系
+        /// 设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
+        /// UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息。
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="deviceId">设备编号</param>
+        /// <param name="uuId"></param>
+        /// <param name="major"></param>
+        /// <param name="minor"></param>
+        /// <param name="poiId">Poi_id 的说明改为：设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。</param>
+        /// <param name="timeOut"></param>
+        /// <param name="type">为1时，关联的门店和设备归属于同一公众账号；为2时，关联的门店为其他公众账号的门店。不填默认为1</param>
         /// <returns></returns>
         public static WxJsonResult DeviceBindLocatoin(string accessTokenOrAppId, long deviceId, string uuId, long major, long minor, long poiId, int timeOut = Config.TIME_OUT)
         {
@@ -482,7 +536,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var data = new
                 {
-                    type=1,
+                    type = 1,
                     device_identifier = deviceIdentifier
                 };
 

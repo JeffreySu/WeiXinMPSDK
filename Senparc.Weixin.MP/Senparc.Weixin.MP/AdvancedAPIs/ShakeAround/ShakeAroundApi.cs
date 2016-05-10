@@ -18,6 +18,7 @@
     API：http://mp.weixin.qq.com/wiki/15/b9e012f917e3484b7ed02771156411f3.html
  */
 
+using System;
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
@@ -655,6 +656,30 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<StatisticsResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 批量查询设备统计数据接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="date">指定查询日期时间戳，单位为秒</param>
+        /// <param name="page_index">指定查询的结果页序号；返回结果按摇周边人数降序排序，每50条记录为一页</param>
+        /// <returns></returns>
+        public static DeviceListResultJson DeviceList(string accessTokenOrAppId, long date, string page_index, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/shakearound/statistics/devicelist?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    date = date,
+                    page_index = page_index,
+                   
+                };
+
+                return CommonJsonSend.Send<DeviceListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
 
             }, accessTokenOrAppId);
         }

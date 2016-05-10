@@ -189,6 +189,7 @@
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_WebsiteResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_SearchResult.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\DeviceListResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetDeviceStatusResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetAuditStatusResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\RelationSearchResultJson.cs" />

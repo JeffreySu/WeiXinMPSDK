@@ -9,7 +9,7 @@ using Senparc.Weixin.Entities;
 namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
 {
     /// <summary>
-    /// GetPrivateJsonResult
+    /// GetPrivateTemplateJsonResult
     /// </summary>
     public class GetPrivateTemplateJsonResult : WxJsonResult
     {

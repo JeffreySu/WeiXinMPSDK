@@ -46,7 +46,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="pageIndex">查询第几页，从1开始</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static GetRecordResult GetRecord(string accessTokenOrAppId, DateTime startTime, DateTime endTime,  int pageSize = 10, int pageIndex = 1, int timeOut = Config.TIME_OUT)
+        public static GetRecordResult GetRecord(string accessTokenOrAppId, DateTime startTime, DateTime endTime, int pageSize = 10, int pageIndex = 1, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {

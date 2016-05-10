@@ -18,6 +18,7 @@
     API：http://mp.weixin.qq.com/wiki/17/304c1885ea66dbedf7dc170d84999a9d.html
  */
 
+using System;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 using Senparc.Weixin.MP.CommonAPIs;
@@ -98,5 +99,67 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+        /// <summary>
+        /// 获得模板ID
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="template_id_short">模板库中模板的编号，有“TM**”和“OPENTMTM**”等形式</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static AddtemplateJsonResult Addtemplate(string accessTokenOrAppId, string template_id_short, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/api_add_template?access_token={0}";
+                var msgData = new
+                {
+                    template_id_short = template_id_short
+                    
+                };
+                return CommonJsonSend.Send<AddtemplateJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 获取模板列表
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+
+        public static GetPrivateTemplateJsonResult GetPrivateTemplate(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/get_all_private_template?access_token={0}";
+                return CommonJsonSend.Send<GetPrivateTemplateJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 删除模板
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="template_id">公众帐号下模板消息ID</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult DelPrivateTemplate(string accessTokenOrAppId, string template_id, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/del_private_template?access_token={0}";
+                var msgData = new
+                {
+                    template_id = template_id
+                };
+
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut);
+                    
+            }, accessTokenOrAppId);
+        }
+
+
+
+       
     }
 }

@@ -27,17 +27,17 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
         public void SendTemplateMessageTest()
         {
             var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//换成已经关注用户的openId
-            var templateId = "7y88eQNY_231KgUhPum-_9BiuiMTd_1kBOsNHL_I5bA";//换成已经在微信后台添加的模板Id
+            var templateId = "cCh2CTTJIbVZkcycDF08n96FP-oBwyMVrro8C2nfVo4";//换成已经在微信后台添加的模板Id
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
-            var testData = new TestTemplateData()
+            var testData = new //TestTemplateData()
             {
-                first = new TemplateDataItem("【测试】您好，我们发现您在微微嗨上的应用存在安全问题。"),
-                time = new TemplateDataItem(DateTime.Now.ToString()),
-                ip_list = new TemplateDataItem("172.23.1.1"),
-                sec_type = new TemplateDataItem("重试密码次数太多"),
-                remark = new TemplateDataItem("更详细信息，请到微微嗨官方网站（http://www.weiweihi.com）查看！")
+                first = new TemplateDataItem("【测试】您好，审核通过。"),
+                keyword1 = new TemplateDataItem(openId),
+                keyword2 = new TemplateDataItem("单元测试"),
+                keyword3 = new TemplateDataItem(DateTime.Now.ToString()),
+                remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://weixin.senparc.com）查看！")
             };
-            var result = MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(accessToken, openId, templateId, "#FF0000", "http://www.weiweihi.com", testData);
+            var result = MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(accessToken, openId, templateId, "#FF0000", "http://weixin.senparc.com", testData);
 
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
         }
@@ -67,5 +67,48 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
             Assert.AreEqual(IndustryCode.IT科技_IT软件与服务, result.secondary_industry.ConvertToIndustryCode());
 
         }
+
+        [TestMethod]
+        public void AddtemplateTest()
+        {
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
+            var result = TemplateApi.Addtemplate(accessToken, "OPENTM206164559");
+            Assert.AreEqual(ReturnCode.请求成功, result.errcode);
+            Assert.IsNotNull(result.template_id);
+            Console.WriteLine(result.template_id);
+        }
+        [TestMethod]
+        public void GetPrivateTemplateTest()
+        {
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
+            var result = TemplateApi.GetPrivateTemplate(accessToken);
+
+            Assert.AreEqual(ReturnCode.请求成功, result.errcode);
+            Assert.IsNotNull(result.template_list);
+            Assert.AreEqual("cCh2CTTJIbVZkcycDF08n96FP-oBwyMVrro8C2nfVo4", result.template_list[0].template_id);
+        }
+        [TestMethod]
+        public void DelPrivateTemplateTest()
+        {
+            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
+
+            //添加模板
+            var addResult = TemplateApi.Addtemplate(accessToken, "OPENTM206164559");
+            var templateId = addResult.template_id;
+            Assert.IsNotNull(templateId);
+
+            //获取模板
+            var templates = TemplateApi.GetPrivateTemplate(accessToken).template_list;
+            Assert.IsTrue(templates.FirstOrDefault(z => z.template_id == templateId) != null);
+
+            //删除模板
+            var result = TemplateApi.DelPrivateTemplate(accessToken, templateId);
+            Assert.AreEqual(ReturnCode.请求成功, result.errcode);
+
+            //验证模板已删除
+            templates = TemplateApi.GetPrivateTemplate(accessToken).template_list;
+            Assert.IsTrue(templates.FirstOrDefault(z => z.template_id == templateId) == null);
+        }
+
     }
 }

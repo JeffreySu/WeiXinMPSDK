@@ -203,8 +203,10 @@
     <Compile Include="AdvancedAPIs\Poi\StoreJson\CreateStoreData.cs" />
     <Compile Include="AdvancedAPIs\Poi\StoreJson\StoreResultJson.cs" />
     <Compile Include="AdvancedAPIs\Poi\StoreJson\UploadImageResultJson.cs" />
+    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\AddtemplateJsonResult.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateApi.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\GetIndustryJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\GetPrivateTemplateJsonResult.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\SendTemplateMessageResult.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\TemplateDataItem.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\TempleteModel.cs" />

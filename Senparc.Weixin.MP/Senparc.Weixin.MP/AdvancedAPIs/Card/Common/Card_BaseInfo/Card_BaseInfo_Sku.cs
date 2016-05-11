@@ -9,6 +9,9 @@
 
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20160425
+    修改描述：v13.7.6 添加total_quantity属性
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
@@ -23,5 +26,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 必填
         /// </summary>
         public int quantity { get; set; }
+        /// <summary>
+        /// 卡券全部库存的数量，上限为100000000。
+        /// </summary>
+        public int total_quantity { get; set; }
     }
 }

@@ -818,7 +818,7 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CreateQR(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CreateQR(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String,System.Int32)">
             <summary>
             生成卡券二维码
             获取二维码ticket 后，开发者可用ticket 换取二维码图片。换取指引参考：http://mp.weixin.qq.com/wiki/index.php?title=生成带参数的二维码
@@ -830,6 +830,7 @@
             <param name="expireSeconds">指定二维码的有效时间，范围是60 ~ 1800 秒。不填默认为永久有效。</param>
             <param name="isUniqueCode">指定下发二维码，生成的二维码随机分配一个code，领取后不可再次扫描。填写true 或false。默认false。</param>
             <param name="balance">红包余额，以分为单位。红包类型必填（LUCKY_MONEY），其他卡券类型不填。</param>
+            <param name="outer_id">自定义应用场景ID（v13.7.3起支持）</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
@@ -843,25 +844,25 @@
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CodeDeposit(System.String,System.String,System.String[],System.Int32)">
-            <summary>
-            导入code
+             <summary>
+             导入code
             
-            新创建卡券情况
-            如果开发者打算新创建一张支持导入code模式的卡券，不同于以往的创建方式，建议开发者采用以下流程创建预存code模式卡券，否则会报错。
-            步骤一：创建预存模式卡券，将库存quantity初始值设置为0，并填入Deposit_Mode字段；
-            步骤二：待卡券通过审核后，调用导入code接口并核查code；
-            步骤三：调用修改库存接口，须令卡券库存小于或等于导入code的数目。（为了避免混乱建议设置为相等）
+             新创建卡券情况
+             如果开发者打算新创建一张支持导入code模式的卡券，不同于以往的创建方式，建议开发者采用以下流程创建预存code模式卡券，否则会报错。
+             步骤一：创建预存模式卡券，将库存quantity初始值设置为0，并填入Deposit_Mode字段；
+             步骤二：待卡券通过审核后，调用导入code接口并核查code；
+             步骤三：调用修改库存接口，须令卡券库存小于或等于导入code的数目。（为了避免混乱建议设置为相等）
             
-            注： 1）单次调用接口传入code的数量上限为100个。
-            2）每一个 code 均不能为空串。
-            3）导入结束后系统会自动判断提供方设置库存与实际导入code的量是否一致。
-            4）导入失败支持重复导入，提示成功为止。
-            </summary>
-            <param name="accessTokenOrAppId"></param>
-            <param name="cardId">需要进行导入code的卡券ID</param>
-            <param name="codeList">需导入微信卡券后台的自定义code，上限为100个。</param>
-            <param name="timeOut"></param>
-            <returns></returns>
+             注： 1）单次调用接口传入code的数量上限为100个。
+             2）每一个 code 均不能为空串。
+             3）导入结束后系统会自动判断提供方设置库存与实际导入code的量是否一致。
+             4）导入失败支持重复导入，提示成功为止。
+             </summary>
+             <param name="accessTokenOrAppId"></param>
+             <param name="cardId">需要进行导入code的卡券ID</param>
+             <param name="codeList">需导入微信卡券后台的自定义code，上限为100个。</param>
+             <param name="timeOut"></param>
+             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.GetDepositCount(System.String,System.String,System.Int32)">
             <summary>
@@ -1059,45 +1060,45 @@
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.UpdateUser(System.String,System.String,System.String,System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.String,System.String,System.String,System.Int32)">
-            <summary>
-            更新会员信息
-            </summary>
-             post数据：
-            可以传入积分、余额的差值
-            {
-             "code": "12312313",
-             "card_id":"p1Pj9jr90_SQRaVqYI239Ka1erkI",
-             "record_bonus": "消费30元，获得3积分",
-             "add_bonus": 3,//可以传入积分增减的差值
-             "add_balance": -3000,//可以传入余额本次增减的差值
-             "record_balance": "购买焦糖玛琪朵一杯，扣除金额30元。",
-             "custom_field_value1": "xxxxx",
-            }
-            或者直接传入积分、余额的全量值
+             <summary>
+             更新会员信息
+             </summary>
+              post数据：
+             可以传入积分、余额的差值
+             {
+              "code": "12312313",
+              "card_id":"p1Pj9jr90_SQRaVqYI239Ka1erkI",
+              "record_bonus": "消费30元，获得3积分",
+              "add_bonus": 3,//可以传入积分增减的差值
+              "add_balance": -3000,//可以传入余额本次增减的差值
+              "record_balance": "购买焦糖玛琪朵一杯，扣除金额30元。",
+              "custom_field_value1": "xxxxx",
+             }
+             或者直接传入积分、余额的全量值
             
-            {
-             "code": "12312313",
-             "card_id":"p1Pj9jr90_SQRaVqYI239Ka1erkI",
-             "record_bonus": "消费30元，获得3积分",
-             "bonus": 3000,//可以传入第三方系统记录的积分全量值
-             "balance": 3000,//可以传入第三方系统记录的余额全量值
-             "record_balance": "购买焦糖玛琪朵一杯，扣除金额30元。",
-             "custom_field_value1": "xxxxx",
-            }
-            <param name="accessTokenOrAppId"></param>
-            <param name="code">卡券Code码。</param>
-            <param name="cardId">卡券ID。</param>
-            <param name="addBonus">需要变更的积分，扣除积分用“-“表示。</param>
-            <param name="addBalance">需要变更的余额，扣除金额用“-”表示。单位为分。</param>
-            <param name="bonus">需要设置的积分全量值，传入的数值会直接显示，如果同时传入add_bonus和bonus,则前者无效。</param>
-            <param name="balance">需要设置的余额全量值，传入的数值会直接显示，如果同时传入add_balance和balance,则前者无效。</param>
-            <param name="recordBonus">商家自定义积分消耗记录，不超过14个汉字。</param>
-            <param name="recordBalance">商家自定义金额消耗记录，不超过14个汉字。</param>
-            <param name="customFieldValue1">创建时字段custom_field1定义类型的最新数值，限制为4个汉字，12字节。</param>
-            <param name="customFieldValue2">创建时字段custom_field2定义类型的最新数值，限制为4个汉字，12字节。</param>
-            <param name="customFieldValue3">创建时字段custom_field3定义类型的最新数值，限制为4个汉字，12字节。</param>
-            <param name="timeOut"></param>
-            <returns></returns>
+             {
+              "code": "12312313",
+              "card_id":"p1Pj9jr90_SQRaVqYI239Ka1erkI",
+              "record_bonus": "消费30元，获得3积分",
+              "bonus": 3000,//可以传入第三方系统记录的积分全量值
+              "balance": 3000,//可以传入第三方系统记录的余额全量值
+              "record_balance": "购买焦糖玛琪朵一杯，扣除金额30元。",
+              "custom_field_value1": "xxxxx",
+             }
+             <param name="accessTokenOrAppId"></param>
+             <param name="code">卡券Code码。</param>
+             <param name="cardId">卡券ID。</param>
+             <param name="addBonus">需要变更的积分，扣除积分用“-“表示。</param>
+             <param name="addBalance">需要变更的余额，扣除金额用“-”表示。单位为分。</param>
+             <param name="bonus">需要设置的积分全量值，传入的数值会直接显示，如果同时传入add_bonus和bonus,则前者无效。</param>
+             <param name="balance">需要设置的余额全量值，传入的数值会直接显示，如果同时传入add_balance和balance,则前者无效。</param>
+             <param name="recordBonus">商家自定义积分消耗记录，不超过14个汉字。</param>
+             <param name="recordBalance">商家自定义金额消耗记录，不超过14个汉字。</param>
+             <param name="customFieldValue1">创建时字段custom_field1定义类型的最新数值，限制为4个汉字，12字节。</param>
+             <param name="customFieldValue2">创建时字段custom_field2定义类型的最新数值，限制为4个汉字，12字节。</param>
+             <param name="customFieldValue3">创建时字段custom_field3定义类型的最新数值，限制为4个汉字，12字节。</param>
+             <param name="timeOut"></param>
+             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.MemberCardDeal(System.String,System.String,System.String,System.String,System.Decimal,System.Decimal,System.String,System.Int32)">
             <summary>
@@ -1347,6 +1348,11 @@
             <summary>
             自定义会员信息类目，会员卡激活后显示
             非必填
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardData.background_pic_url">
+            <summary>
+            会员卡背景图片，非必填
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.CustomField.name_type">
@@ -2508,6 +2514,11 @@
             必填
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_BaseInfo_Sku.total_quantity">
+            <summary>
+            卡券全部库存的数量，上限为100000000。
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.ShelfCreateData">
             <summary>
             创建货架数据
@@ -2598,11 +2609,6 @@
             会员信息
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.UserinfoGetResult.custom_field_list">
-            <summary>
-            开发者设置的会员卡会员信息类目，如等级。
-            </summary>
-        </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.UserinfoGetResult.user_card_status">
             <summary>
             当前用户的会员卡状态
@@ -2611,6 +2617,11 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.UserinfoGetResult_UserInfo.common_field_list">
             <summary>
             
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.UserinfoGetResult_UserInfo.custom_field_list">
+            <summary>
+            开发者设置的会员卡会员信息类目，如等级。
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.UserinfoGetResult_UserInfo_Item.name">
@@ -6046,6 +6057,16 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.DeviceApplyStatus(System.String,System.Int32,System.Int32)">
+            <summary>
+            查询设备ID申请审核状态
+            接口说明 查询设备ID申请的审核状态。若单次申请的设备ID数量小于等于500个，系统会进行快速审核；若单次申请的设备ID数量大于500个，则在三个工作日内完成审核。
+            </summary>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
+            <param name="appId">批次ID，申请设备ID时所返回的批次ID</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.DeviceUpdate(System.String,System.Int64,System.String,System.Int64,System.Int64,System.String,System.Int32)">
             <summary>
             编辑设备信息
@@ -6246,6 +6267,32 @@
             <param name="endDate">结束日期时间戳，最长时间跨度为30天</param>
             <param name="timeOut"></param>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GetDeviceStatusResultJson">
+            <summary>
+            查询审核状态返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GetDeviceStatusData.apply_time">
+            <summary>
+            提交申请的时间戳
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GetDeviceStatusData.audit_comment">
+            <summary>
+            审核备注，包括审核不通过的原因
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GetDeviceStatusData.audit_status">
+            <summary>
+            审核状态。0：审核未通过、1：审核中、2：审核已通过；审核会在三个工作日内完成
+            TODO：可以做成枚举
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GetDeviceStatusData.audit_time">
+            <summary>
+            确定审核结果的时间戳；若状态为审核中，则该时间值为0
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GetAuditStatusResultJson">
             <summary>
@@ -6941,7 +6988,7 @@
             用户是否订阅该公众号标识，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User.BatchGetUserInfoJson">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.User.BatchGetUserInfoJsonResult">
             <summary>
             批量获取用户基本信息返回结果
             </summary>
@@ -7059,6 +7106,28 @@
             <param name="shopId">按门店ID搜索，-1为总统计</param>
             <param name="timeOut"></param>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.GetConnectUrl(System.String)">
+            <summary>
+            获取公众号连网URL
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiConnectUrlResultJson">
+            <summary>
+            WiFiConnectUrlResultJson
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiConnectUrlResultJson.data">
+            <summary>
+            data
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiConnectUrl_Data">
+            <summary>
+            WiFiConnectUrl_Data
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetHomePageResult">
             <summary>
@@ -8401,6 +8470,16 @@
             领取场景值，用于领取渠道数据统计。可在生成二维码接口及添加JS API 接口中自定义该字段的整型值。
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Get_Card.IsRestoreMemberCard">
+            <summary>
+            是否为删除后重新领取卡，1 代表是，0 代表否。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Get_Card.OldUserCardCode">
+            <summary>
+            转赠前的code序列号
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.Entities.RequestMessageEvent_User_Del_Card.Event">
             <summary>
             删除卡券
@@ -8551,6 +8630,11 @@
             </summary>
             <param name="xml">返回给服务器的Response Xml</param>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageNoResponse">
+            <summary>
+            当MessageHandler接收到IResponseNothing的返回类型参数时，只会向微信服务器返回空字符串，等同于return null
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkerSize">
             <summary>
@@ -9936,12 +10020,12 @@
         </member>
         <member name="T:Senparc.Weixin.MP.Helpers.MD5UtilHelper">
             <summary>
-            MD5UtilHelper µÄÕªÒªËµÃ÷¡£
+            MD5UtilHelper 的摘要说明。
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.Helpers.MD5UtilHelper.GetMD5(System.String,System.String)">
             <summary>
-            »ñÈ¡´óÐ´µÄMD5Ç©Ãû½á¹û
+            获取大写的MD5签名结果
             </summary>
             <param name="encypStr"></param>
             <param name="charset"></param>
@@ -10779,19 +10863,19 @@
         </member>
         <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util">
             <summary>
-            TenpayUtil µÄÕªÒªËµÃ÷¡£
-            ÅäÖÃÎÄ¼þ
+            TenpayUtil 的摘要说明。
+            配置文件
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.GetNoncestr">
             <summary>
-            Ëæ»úÉú³ÉNoncestr
+            随机生成Noncestr
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.UrlEncode(System.String,System.String)">
             <summary>
-            ¶Ô×Ö·û´®½øÐÐURL±àÂë
+            对字符串进行URL编码
             </summary>
             <param name="instr"></param>
             <param name="charset"></param>
@@ -10799,7 +10883,7 @@
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.UrlDecode(System.String,System.String)">
             <summary>
-            ¶Ô×Ö·û´®½øÐÐURL½âÂë
+            对字符串进行URL解码
             </summary>
             <param name="instr"></param>
             <param name="charset"></param>
@@ -10807,13 +10891,13 @@
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.UnixStamp">
             <summary>
-            È¡Ê±¼ä´ÁÉú³ÉËæ¼´Êý,Ìæ»»½»Ò×µ¥ºÅÖÐµÄºó10Î»Á÷Ë®ºÅ
+            取时间戳生成随即数,替换交易单号中的后10位流水号
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.BuildRandomStr(System.Int32)">
             <summary>
-            È¡Ëæ»úÊý
+            取随机数
             </summary>
             <param name="length"></param>
             <returns></returns>
@@ -11007,99 +11091,99 @@
         <!-- Badly formed XML comment ignored for member "T:Senparc.Weixin.MP.TenPayLib.RequestHandler" -->
         <member name="F:Senparc.Weixin.MP.TenPayLib.RequestHandler.Key">
             <summary>
-            ÃÜÔ¿
+            密钥
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.RequestHandler.Parameters">
             <summary>
-            ÇëÇóµÄ²ÎÊý
+            请求的参数
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.RequestHandler.DebugInfo">
             <summary>
-            debugÐÅÏ¢
+            debug信息
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.Init">
             <summary>
-            ³õÊ¼»¯º¯Êý
+            初始化函数
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.GetDebugInfo">
             <summary>
-            »ñÈ¡debugÐÅÏ¢
+            获取debug信息
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.GetKey">
             <summary>
-            »ñÈ¡ÃÜÔ¿
+            获取密钥
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.SetKey(System.String)">
             <summary>
-            ÉèÖÃÃÜÔ¿
+            设置密钥
             </summary>
             <param name="key"></param>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.SetParameter(System.String,System.String)">
             <summary>
-            ÉèÖÃ²ÎÊýÖµ
+            设置参数值
             </summary>
             <param name="parameter"></param>
             <param name="parameterValue"></param>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.GetRequestURL">
             <summary>
-            »ñÈ¡package´ø²ÎÊýµÄÇ©Ãû°ü
+            获取package带参数的签名包
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.CreateSign">
             <summary>
-            ´´½¨md5ÕªÒª,¹æÔòÊÇ:°´²ÎÊýÃû³Æa-zÅÅÐò,Óöµ½¿ÕÖµµÄ²ÎÊý²»²Î¼ÓÇ©Ãû
+            创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.CreateMd5Sign">
             <summary>
-            ´´½¨packageÇ©Ãû
+            创建package签名
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.CreateSHA1Sign">
             <summary>
-            ´´½¨sha1Ç©Ãû
+            创建sha1签名
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.ParseXML">
             <summary>
-            Êä³öXML
+            输出XML
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.RequestHandler.SetDebugInfo(System.String)">
             <summary>
-            ÉèÖÃdebugÐÅÏ¢
+            设置debug信息
             </summary>
             <param name="debugInfo"></param>
         </member>
         <member name="T:Senparc.Weixin.MP.TenPayLib.ResponseHandler">
                 '============================================================================
-                'ApiËµÃ÷£º
-                'GetKey()/setKey(),»ñÈ¡/ÉèÖÃÃÜÔ¿
-                'GetParameter()/setParameter(),»ñÈ¡/ÉèÖÃ²ÎÊýÖµ
-                'GetAllParameters(),»ñÈ¡ËùÓÐ²ÎÊý
-                'IsTenpaySign(),ÊÇ·ñÕýÈ·µÄÇ©Ãû,true:ÊÇ false:·ñ
-                'IsWXsign(),ÊÇ·ñÕýÈ·µÄÇ©Ãû,true:ÊÇ false:·ñ
-                ' * IsWXsignfeedbackÅÐ¶ÏÎ¢ÐÅÎ¬È¨Ç©Ãû
-                ' *GetDebugInfo(),»ñÈ¡debugÐÅÏ¢ 
+                'Api说明：
+                'GetKey()/setKey(),获取/设置密钥
+                'GetParameter()/setParameter(),获取/设置参数值
+                'GetAllParameters(),获取所有参数
+                'IsTenpaySign(),是否正确的签名,true:是 false:否
+                'IsWXsign(),是否正确的签名,true:是 false:否
+                ' * IsWXsignfeedback判断微信维权签名
+                ' *GetDebugInfo(),获取debug信息 
                 '============================================================================
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.Key">
             <summary>
-            ÃÜÔ¿ 
+            密钥 
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.Appkey">
@@ -11114,107 +11198,107 @@
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.Parameters">
             <summary>
-            Ó¦´ðµÄ²ÎÊý
+            应答的参数
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.DebugInfo">
             <summary>
-            debugÐÅÏ¢
+            debug信息
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.Content">
             <summary>
-            Ô­Ê¼ÄÚÈÝ
+            原始内容
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MP.TenPayLib.ResponseHandler.SignField">
             <summary>
-            ²ÎÓëÇ©ÃûµÄ²ÎÊýÁÐ±í
+            参与签名的参数列表
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.Init">
             <summary>
-            ³õÊ¼»¯º¯Êý
+            初始化函数
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.#ctor(System.Web.HttpContext)">
             <summary>
-            »ñÈ¡Ò³ÃæÌá½»µÄgetºÍpost²ÎÊý
+            获取页面提交的get和post参数
             </summary>
             <param name="httpContext"></param>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.GetKey">
             <summary>
-            »ñÈ¡ÃÜÔ¿
+            获取密钥
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.SetKey(System.String,System.String)">
             <summary>
-            ÉèÖÃÃÜÔ¿
+            设置密钥
             </summary>
             <param name="key"></param>
             <param name="appkey"></param>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.GetParameter(System.String)">
             <summary>
-            »ñÈ¡²ÎÊýÖµ
+            获取参数值
             </summary>
             <param name="parameter"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.SetParameter(System.String,System.String)">
             <summary>
-            ÉèÖÃ²ÎÊýÖµ
+            设置参数值
             </summary>
             <param name="parameter"></param>
             <param name="parameterValue"></param>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.IsTenpaySign">
             <summary>
-            ÊÇ·ñ²Æ¸¶Í¨Ç©Ãû,¹æÔòÊÇ:°´²ÎÊýÃû³Æa-zÅÅÐò,Óöµ½¿ÕÖµµÄ²ÎÊý²»²Î¼ÓÇ©Ãû¡£return boolean
+            是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名。return boolean
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.IsWXsign">
             <summary>
-            ÅÐ¶ÏÎ¢ÐÅÇ©Ãû
+            判断微信签名
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.IsWXsignfeedback">
             <summary>
-            ÅÐ¶ÏÎ¢ÐÅÎ¬È¨Ç©Ãû
+            判断微信维权签名
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.GetDebugInfo">
             <summary>
-            »ñÈ¡debugÐÅÏ¢
+            获取debug信息
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.ResponseHandler.SetDebugInfo(System.String)">
             <summary>
-            ÉèÖÃdebugÐÅÏ¢
+            设置debug信息
             </summary>
             <param name="debugInfo"></param>
         </member>
         <member name="T:Senparc.Weixin.MP.TenPayLib.TenPayUtil">
             <summary>
-            TenpayUtil µÄÕªÒªËµÃ÷¡£
-            ÅäÖÃÎÄ¼þ
+            TenpayUtil 的摘要说明。
+            配置文件
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayUtil.GetNoncestr">
             <summary>
-            Ëæ»úÉú³ÉNoncestr
+            随机生成Noncestr
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayUtil.UrlEncode(System.String,System.String)">
             <summary>
-            ¶Ô×Ö·û´®½øÐÐURL±àÂë
+            对字符串进行URL编码
             </summary>
             <param name="instr"></param>
             <param name="charset"></param>
@@ -11222,7 +11306,7 @@
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayUtil.UrlDecode(System.String,System.String)">
             <summary>
-            ¶Ô×Ö·û´®½øÐÐURL½âÂë
+            对字符串进行URL解码
             </summary>
             <param name="instr"></param>
             <param name="charset"></param>
@@ -11230,13 +11314,13 @@
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayUtil.UnixStamp">
             <summary>
-            È¡Ê±¼ä´ÁÉú³ÉËæ¼´Êý,Ìæ»»½»Ò×µ¥ºÅÖÐµÄºó10Î»Á÷Ë®ºÅ
+            取时间戳生成随即数,替换交易单号中的后10位流水号
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.TenPayUtil.BuildRandomStr(System.Int32)">
             <summary>
-            È¡Ëæ»úÊý
+            取随机数
             </summary>
             <param name="length"></param>
             <returns></returns>

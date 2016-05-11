@@ -54,5 +54,8 @@ namespace Senparc.Weixin
                 //}
             }
         }
+        /// <summary>JavaScriptSerializer 类接受的 JSON 字符串的最大长度
+        /// </summary>
+        public static int MaxJsonLength = int.MaxValue;
     }
 }

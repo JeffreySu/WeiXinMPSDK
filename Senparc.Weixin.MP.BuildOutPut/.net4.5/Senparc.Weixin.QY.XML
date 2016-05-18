@@ -1509,7 +1509,7 @@
             </remarks>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.GetDepartmentMemberInfo(System.String,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.GetDepartmentMemberInfo(System.String,System.Int32,System.Int32,System.Int32,System.Nullable{System.Int32})">
             <summary>
             获取部门成员(详情)
             </summary>
@@ -1517,6 +1517,10 @@
             <param name="departmentId">获取的部门id</param>
             <param name="fetchChild">1/0：是否递归获取子部门下面的成员</param>
             <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
+            <param name="maxJsonLength">设置 JavaScriptSerializer 类接受的 JSON 字符串的最大长度</param>
+            <remarks>
+            2016-05-03：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
+            </remarks>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.InviteMember(System.String,System.String,System.Int32)">
@@ -3114,6 +3118,9 @@
         <member name="M:Senparc.Weixin.QY.Helpers.JSSDKHelper.GetTimestamp">
             <summary>
             获取时间戳
+            <remarks>
+            2016-05-03：修改返回类型，方便GetSignature调用，避免再次类型转换
+            </remarks>
             </summary>
             <returns></returns>
         </member>

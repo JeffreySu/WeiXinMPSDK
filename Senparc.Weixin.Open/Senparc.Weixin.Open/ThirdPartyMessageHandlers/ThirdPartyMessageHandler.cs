@@ -103,6 +103,12 @@ namespace Senparc.Weixin.Open.MessageHandlers
                             ResponseMessageText = OnUnauthorizedRequest(requestMessage);
                         }
                         break;
+                    case RequestInfoType.authorized:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageAuthorized;
+                            ResponseMessageText = OnAuthorizedRequest(requestMessage);
+                        }
+                        break;
                     default:
                         throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
                 }
@@ -144,6 +150,11 @@ namespace Senparc.Weixin.Open.MessageHandlers
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual string OnUnauthorizedRequest(RequestMessageUnauthorized requestMessage)
+        {
+            return "success";
+        }
+
+        public virtual string OnAuthorizedRequest(RequestMessageAuthorized requestMessage)
         {
             return "success";
         }

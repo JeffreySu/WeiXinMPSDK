@@ -153,8 +153,8 @@ namespace Senparc.Weixin.MP.Test
 
             responseMusic.Music.Title = "测试Music";
             responseMusic.Music.Description = "测试Music的说明";
-            responseMusic.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
-            responseMusic.Music.HQMusicUrl = "http://weixin.senparc.com/Content/music2.mp3";
+            responseMusic.Music.MusicUrl = "http://sdk.weixin.senparc.com/Content/music1.mp3";
+            responseMusic.Music.HQMusicUrl = "http://sdk.weixin.senparc.com/Content/music2.mp3";
 
             var responseDoc = EntityHelper.ConvertEntityToXml(responseMusic);
             Console.WriteLine(responseDoc.ToString());

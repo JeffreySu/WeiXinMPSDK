@@ -35,7 +35,7 @@ namespace Senparc.Weixin.MP
         //  <MsgType>text</MsgType>
         //  <Content><![CDATA[您刚才发送了文字信息：中文
         //您还可以发送【位置】【图片】【语音】信息，查看不同格式的回复。
-        //SDK官方地址：http://weixin.senparc.com]]></Content>
+        //SDK官方地址：http://sdk.weixin.senparc.com]]></Content>
         //  <FuncFlag>0</FuncFlag>
         //</xml>
 

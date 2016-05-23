@@ -141,4 +141,170 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public string content { get; set; }
     }
+    /// <summary>
+    /// 拉取卡券返回结果
+    /// </summary>
+    public class GetCardBizuinInfoResultJson : WxJsonResult
+    {
+        public List<GetCardBizuinInfo_List> list { get; set; }
+    }
+
+    public class GetCardBizuinInfo_List
+    {
+        /// <summary>
+        /// 日期信息
+        /// </summary>
+        public string ref_date { get; set; }
+        /// <summary>
+        /// 浏览次数
+        /// </summary>
+        public int view_cnt { get; set; }
+        /// <summary>
+        /// 浏览人数
+        /// </summary>
+        public int view_user { get; set; }
+        /// <summary>
+        /// 领取次数
+        /// </summary>
+        public int receive_cnt { get; set; }
+        /// <summary>
+        /// 领取人数
+        /// </summary>
+        public int receive_user { get; set; }
+        /// <summary>
+        /// 使用次数
+        /// </summary>
+        public int verify_cnt { get; set; }
+        /// <summary>
+        /// 使用人数
+        /// </summary>
+        public int verify_user { get; set; }
+        /// <summary>
+        /// 转赠次数
+        /// </summary>
+        public int given_cnt { get; set; }
+        /// <summary>
+        /// 转赠人数
+        /// </summary>
+        public int given_user { get; set; }
+        /// <summary>
+        /// 过期次数
+        /// </summary>
+        public int expire_cnt { get; set; }
+        /// <summary>
+        /// 过期人数
+        /// </summary>
+        public int expire_user { get; set; }
+    }
+
+    public class GetCardInfoResultJson : WxJsonResult
+    {
+        public List<GetCardInfoItem> GetCardInfo { get; set; }
+    }
+
+    public class GetCardInfoItem
+    {
+        /// <summary>
+        /// 日期信息
+        /// </summary>
+        public string ref_date { get; set; }
+        /// <summary>
+        /// 卡券ID
+        /// </summary>
+        public string card_id { get; set; }
+        /// <summary>
+        /// cardtype:0：折扣券，1：代金券，2：礼品券，3：优惠券，4：团购券（暂不支持拉取特殊票券类型数据，电影票、飞机票、会议门票、景区门票）
+        /// </summary>
+        public int card_type { get; set; }
+        /// <summary>
+        /// 浏览次数
+        /// </summary>
+        public int view_cnt { get; set; }
+        /// <summary>
+        /// 浏览人数
+        /// </summary>
+        public int view_user { get; set; }
+        /// <summary>
+        /// 领取次数
+        /// </summary>
+        public int receive_cnt { get; set; }
+        /// <summary>
+        /// 领取人数
+        /// </summary>
+        public int receive_user { get; set; }
+        /// <summary>
+        /// 使用次数
+        /// </summary>
+        public int verify_cnt { get; set; }
+        /// <summary>
+        /// 使用人数
+        /// </summary>
+        public int verify_user { get; set; }
+        /// <summary>
+        /// 转赠次数
+        /// </summary>
+        public int given_cnt { get; set; }
+        /// <summary>
+        /// 转赠人数
+        /// </summary>
+        public int given_user { get; set; }
+        /// <summary>
+        /// 过期次数
+        /// </summary>
+        public int expire_cnt { get; set; }
+        /// <summary>
+        /// 过期人数
+        /// </summary>
+        public int expire_user { get; set; }
+
+    }
+
+    public class GetCardMemberCardInfoResultJson : WxJsonResult
+    {
+        public List<GetCardMemberCardInfoItem> GetCardMemberCardInfo { get; set; }
+     }
+
+    public class GetCardMemberCardInfoItem
+    {
+        /// <summary>
+        /// 日期信息
+        /// </summary>
+        public string ref_date { get; set; }
+        /// <summary>
+        /// 浏览次数
+        /// </summary>
+        public int view_cnt { get; set; }
+        /// <summary>
+        /// 浏览人数
+        /// </summary>
+        public int view_user { get; set; }
+        /// <summary>
+        /// 领取次数
+        /// </summary>
+        public int receive_cnt { get; set; }
+        /// <summary>
+        /// 领取人数
+        /// </summary>
+        public int receive_user { get; set; }
+        /// <summary>
+        /// 使用次数
+        /// </summary>
+        public int active_user { get; set; }
+        /// <summary>
+        /// 使用人数
+        /// </summary>
+        public int verify_cnt { get; set; }
+        /// <summary>
+        /// 激活人数
+        /// </summary>
+        public int verify_user { get; set; }
+        /// <summary>
+        /// 有效会员总人数
+        /// </summary>
+        public int total_user { get; set; }
+        /// <summary>
+        /// 历史领取会员卡总人数
+        /// </summary>
+        public int total_receive_user { get; set; }
+    }
 }

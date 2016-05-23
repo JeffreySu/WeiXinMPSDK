@@ -99,6 +99,7 @@
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateInfo.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateInfo_Card.cs" />
     <Compile Include="AdvancedAPIs\Card\CardCreate\CardCreateResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\CardCreate\NorFilter.cs" />
     <Compile Include="AdvancedAPIs\Card\CardManage\ActivateUserFormSetData.cs" />
     <Compile Include="AdvancedAPIs\Card\CardManage\BaseCardUpdateInfo.cs" />
     <Compile Include="AdvancedAPIs\Card\CardManage\BaseCardDetails.cs" />
@@ -110,6 +111,13 @@
     <Compile Include="AdvancedAPIs\Card\Common\Card_BaseInfo\Card_BaseInfo_Sku.cs" />
     <Compile Include="AdvancedAPIs\Card\Shelf\ShelfCreateData.cs" />
     <Compile Include="AdvancedAPIs\Card\Shelf\ShelfResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Card\Submerchat\BatchGetCardMerchantJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Card\Submerchat\CheckQualificationJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Card\Submerchat\GetApplyProtocolJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Card\Submerchat\GetCardMerchantJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Card\Submerchat\InfoList.cs" />
+    <Compile Include="AdvancedAPIs\Card\Submerchat\SubmerChantBatchGetJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Card\Submerchat\SubmerChantSubmitJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Card\UserInfo\UserinfoGetResult.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomInfoJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomOnlineJson.cs" />
@@ -159,6 +167,12 @@
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthUserInfo.cs" />
     <Compile Include="AdvancedAPIs\QrCode\CreateQrCodeResult.cs" />
     <Compile Include="AdvancedAPIs\QrCode\QrCodeApi.cs" />
+    <Compile Include="AdvancedAPIs\Scan\ScanJson\BrandInfo.cs" />
+    <Compile Include="AdvancedAPIs\Scan\ScanJson\MerchantInfoGetResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Scan\ScanJson\ProductCreateResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Scan\ScanJson\ProductGetListJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\Scan\ScanApi.cs" />
+    <Compile Include="AdvancedAPIs\Scan\ScanJson\ScanTicketCheckJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticApi.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\BaseSemanticResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticAgreement.cs" />
@@ -188,14 +202,23 @@
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_AppResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_WebsiteResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_SearchResult.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GroupAddResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\AddLotteryInfoResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\DeviceListResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetDeviceStatusResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetAuditStatusResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GroupGetDetailResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GroupGetListResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\PageListResultJson.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\PrizeInfoList.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\QueryLotteryJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\RegisterResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\RelationSearchResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\PageManageResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetShakeInfoResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\RegisterData.cs" />
+    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\SetPrizeBucketResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\StatisticsResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\UploadImageResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\DeviceManageResultJson.cs" />
@@ -224,7 +247,12 @@
     <Compile Include="AdvancedAPIs\User\UserJson\BatchGetUserInfoData.cs" />
     <Compile Include="AdvancedAPIs\User\UserJson\UserInfoJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiApi.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiOpenPluginTokenJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiRegisterJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiShopGetJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiShopListJsonResult.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiConnectUrlResultJson.cs" />
+    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiGetCouponPutJsonResult.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiHomePageResultJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiStatisticsResultJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiQrcodeResultJson.cs" />
@@ -452,6 +480,9 @@
     <Content Include="AdvancedAPIs\Card\readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\Scan\ScanJson\BrandInfo_Type.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <None Include="ClassDiagrams\MessageHandler.cd" />
   </ItemGroup>
   <ItemGroup />

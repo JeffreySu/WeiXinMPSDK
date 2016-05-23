@@ -21,10 +21,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.WiFi
        /// 获取Wi-Fi门店列表的返回结果
        /// </summary>
        public ShopList_Data data { get; set; }
-
-      
-
-    }
+     }
    public class ShopList_Data
    {
        /// <summary>
@@ -40,12 +37,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.WiFi
        /// </summary>
        public int pagecount { get; set; }
        public List<ShopList_Records> records { get; set; }
-      
-
-
-   } /// <summary>
-   /// 当前页列表数组
-   /// </summary>
+     } 
+    /// <summary>
+    /// 当前页列表数组
+    /// </summary>
    public class ShopList_Records
    {
        /// <summary>

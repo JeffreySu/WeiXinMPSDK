@@ -818,6 +818,76 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.PayActive(System.String,System.Int32)">
+            <summary>
+            开通券点账户接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.GetpayPrice(System.String,System.String,System.Int32,System.Int32)">
+             <summary>
+             对优惠券批价
+             </summary>
+             <param name="accessTokenOrAppId"></param>
+            <param name="cardId">需要来配置库存的card_id</param>
+             <param name="quantity">本次需要兑换的库存数目</param>
+             <param name="timeOut"></param>
+             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.GetCoinsInfo(System.String,System.Int32)">
+            <summary>
+            查询券点余额接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.PayConfirm(System.String,System.String,System.Int32,System.String,System.Int32)">
+             <summary>
+            确认兑换库存接口
+             </summary>
+             <param name="accessTokenOrAppId"></param>
+             <param name="cardId">需要来兑换库存的card_id</param>
+             <param name="quantity">本次需要兑换的库存数目</param>
+             <param name="orderId">仅可以使用上面得到的订单号，保证批价有效性</param>
+             <param name="timeOut"></param>
+             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.PayRecharge(System.String,System.Int32,System.Int32)">
+             <summary>
+            充值券点接口
+             </summary>
+             <param name="accessTokenOrAppId"></param>
+             <param name="coinCount">需要充值的券点数目，1点=1元</param>
+             <param name="timeOut"></param>
+             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.PayGetOrder(System.String,System.Int32,System.Int32)">
+             <summary>
+            查询订单详情接口
+             </summary>
+             <param name="accessTokenOrAppId"></param>
+             <param name="orderId">上一步中获得的订单号，作为一次交易的唯一凭证</param>
+             <param name="timeOut"></param>
+             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.GetOrderList(System.String,System.Int32,System.Int32,System.String,Senparc.Weixin.MP.AdvancedAPIs.Card.NorFilter,Senparc.Weixin.MP.AdvancedAPIs.Card.SortInfo,System.Int32,System.Int32,System.Int32)">
+             <summary>
+            查询券点流水详情接口
+             </summary>
+             <param name="accessTokenOrAppId"></param>
+             <param name="offset">分批查询的起点，默认为0</param>
+             <param name="count">分批查询的数量</param>
+             <param name="orderType">所要拉取的订单类型ORDER_TYPE_SYS_ADD 平台赠送 ORDER_TYPE_WXPAY 充值 ORDER_TYPE_REFUND 库存回退券点 ORDER_TYPE_REDUCE 券点兑换库存 ORDER_TYPE_SYS_REDUCE 平台扣减</param>
+             <param name="norFilter">反选，不要拉取的订单</param>
+             <param name="sortInfo">对结果排序</param>
+             <param name="beginTime">批量查询订单的起始事件，为时间戳，默认1周前</param>
+              <param name="endTime">批量查询订单的结束事件，为时间戳，默认为当前时间</param>
+             <param name="timeOut"></param>
+             <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CreateQR(System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String,System.Int32)">
             <summary>
             生成卡券二维码
@@ -889,6 +959,18 @@
             </summary>
             <param name="accessTokenOrAppId"></param>
             <param name="cardId"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CodeMark(System.String,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Mark(占用)Code接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="code">卡券的code码。</param>
+            <param name="cardId">卡券的ID。</param>
+            <param name="openId">用券用户的openid。</param>
+            <param name="isMark">是否要mark（占用）这个code，填写true或者false，表示占用或解除占用。</param>
             <param name="timeOut"></param>
             <returns></returns>
         </member>
@@ -971,6 +1053,37 @@
             <param name="code">需要设置为失效的code</param>
             <param name="cardId">自定义code 的卡券必填。非自定义code 的卡券不填。</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.GetCardBizuinInfo(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            拉取卡券概况数据接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="beginDate">查询数据的起始时间。</param>
+            <param name="endDate">查询数据的截至时间。</param>
+            <param name="condSource">卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.GetCardInfo(System.String,System.String,System.String,System.Int32,System.String,System.Int32)">
+            <summary>
+            获取免费券数据接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="beginDate">查询数据的起始时间。</param>
+            <param name="endDate">查询数据的截至时间。</param>
+            <param name="condSource">卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据</param>
+            <param name="cardId">卡券ID。填写后，指定拉出该卡券的相关数据。</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.GetCardMemberCardInfo(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            拉取会员卡数据接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="beginDate">查询数据的起始时间。</param>
+            <param name="endDate">查询数据的截至时间。</param>
+            <param name="condSource">卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CardUpdate(System.String,Senparc.Weixin.MP.CardType,System.Object,System.String,System.Int32)">
@@ -1056,6 +1169,18 @@
             <param name="accessTokenOrAppId"></param>
             <param name="cardId">卡券ID</param>
             <param name="isOpen">是否开启买单功能，填true/false</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.SelfConsumecellSet(System.String,System.String,System.Boolean,System.Int32)">
+            <summary>
+            设置自助核销接口
+            注意：设置自助核销的card_id必须已经配置了门店，否则会报错。
+            错误码，0为正常；43008为商户没有开通微信支付权限
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="cardId">卡券ID</param>
+            <param name="isOpen">是否开启自助核销功能，填true/false</param>
             <param name="timeOut"></param>
             <returns></returns>
         </member>
@@ -1166,6 +1291,115 @@
             <param name="zone">区域</param>
             <param name="entrance">入口</param>
             <param name="seatNumber">座位号</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.SubmerChantSubmit(System.String,Senparc.Weixin.MP.AdvancedAPIs.Card.InfoList,System.Int32)">
+            <summary>
+             创建子商户接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="info">json结构</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.GetApplyProtocol(System.String,System.Int32)">
+            <summary>
+            卡券开放类目查询接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.GetCardMerchant(System.String,System.String,System.Int32)">
+             <summary>
+            拉取单个子商户信息接口
+             </summary>
+             <param name="accessTokenOrAppId"></param>
+             <param name="appid"></param>
+             <param name="timeOut">代理请求超时时间（毫秒）</param>
+             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.BatchGetCardMerchant(System.String,System.String,System.Int32)">
+             <summary>
+            拉取子商户列表接口
+             </summary>
+             <param name="accessTokenOrAppId"></param>
+             <param name="nextGet">获取子商户列表，注意最开始时为空。每次拉取20个子商户，下次拉取时填入返回数据中该字段的值，该值无实际意义。</param>
+             <param name="timeOut">代理请求超时时间（毫秒）</param>
+             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.SubmerChantUpdate(System.String,Senparc.Weixin.MP.AdvancedAPIs.Card.InfoList,System.Int32)">
+            <summary>
+             更新子商户接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="info">json结构</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.SubmerChantGet(System.String,System.String,System.Int32)">
+            <summary>
+             拉取单个子商户信息接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="merchantId">子商户id，一个母商户公众号下唯一。</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.SubmerChantBatchGet(System.String,System.String,System.Int32,System.String,System.Int32)">
+            <summary>
+             批量拉取子商户信息接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="beginId">起始的子商户id，一个母商户公众号下唯一</param>
+            <param name="limit">拉取的子商户的个数，最大值为100</param>
+            <param name="status">json结构</param>
+            <param name="timeOut">子商户审核状态，填入后，只会拉出当前状态的子商户</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.AgentQualification(System.String,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+             母商户资质申请接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="registerCapital">注册资本，数字，单位：分</param>
+            <param name="businessLicenseMediaid">营业执照扫描件的media_id</param>
+            <param name="taxRegistRationCertificateMediaid">税务登记证扫描件的media_id</param>
+            <param name="lastQuarterTaxListingMediaid">上个季度纳税清单扫描件media_id</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CheckAgentQualification(System.String,System.Int32)">
+            <summary>
+            母商户资质审核查询接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.MerchantQualification(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+             子商户资质申请接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="appid">子商户公众号的appid</param>
+            <param name="name">子商户商户名，用于显示在卡券券面</param>
+            <param name="logoMediaid">子商户logo，用于显示在子商户卡券的券面</param>
+            <param name="businessLicenseMediaid">营业执照或个体工商户执照扫描件的media_id</param>
+             <param name="operatorIdCardMediaid">当子商户为个体工商户且无公章时，授权函须签名，并额外提交该个体工商户经营者身份证扫描件的media_id</param>
+            <param name="agreementFileMediaid">子商户与第三方签署的代理授权函的media_id</param>
+             <param name="primaryCategoryId">一级类目id</param>
+            <param name="secondaryCategoryId">二级类目id</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.CheckMerchantQualification(System.String,System.String,System.Int32)">
+            <summary>
+            子商户资质审核查询接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="appid"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
@@ -1578,6 +1812,216 @@
             卡券ID
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.PayActiveResultJson">
+            <summary>
+            开通券点账户返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.PayActiveResultJson.reward">
+            <summary>
+            奖励券点数量，以元为单位，微信卡券对每一个新开通券点账户的商户奖励200个券点，点击查看券点规则什么是券点？            
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.GetpayPriceResultJson">
+            <summary>
+            对优惠券批价的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetpayPriceResultJson.order_id">
+            <summary>
+            本次批价的订单号，用于下面的确认充值库存接口，仅对当前订单有效且仅可以使用一次，60s内可用于兑换库存。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetpayPriceResultJson.price">
+            <summary>
+            本次需要支付的券点总额度
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetpayPriceResultJson.free_coin">
+            <summary>
+            本次需要支付的免费券点额度
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetpayPriceResultJson.pay_coin">
+            <summary>
+            本次需要支付的付费券点额度
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCoinsInfoResultJson">
+            <summary>
+            查询券点余额返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCoinsInfoResultJson.free_coin">
+            <summary>
+            免费券点数目
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCoinsInfoResultJson.pay_coin">
+            <summary>
+            免费券点数目
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCoinsInfoResultJson.total_coin">
+            <summary>
+            全部券点数目
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.PayRechargeResultJson">
+            <summary>
+            确认兑换库存返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.PayRechargeResultJson.order_id">
+            <summary>
+            本次支付的订单号，用于查询订单状态
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.PayRechargeResultJson.qrcode_url">
+            <summary>
+            支付二维码的的链接，开发者可以调用二维码生成的公开库转化为二维码显示在网页上，微信扫码支付
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.PayRechargeResultJson.qrcode_buffer">
+            <summary>
+            二维码的数据流，开发者可以使用写入一个文件的方法显示该二维码
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.PayGetOrderResultJson">
+            <summary>
+            查询订单详情返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.PayGetOrderResultJson.order_info">
+            <summary>
+            订单信息结构体
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.PayGetOrderResultJson.PayGetOrder_Order_Info.order_id">
+            <summary>
+            订单号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.PayGetOrderResultJson.PayGetOrder_Order_Info.status">
+            <summary>
+            订单状态，ORDER_STATUS_WAITING 等待支付 ORDER_STATUS_SUCC 支付成功 ORDER_STATUS_FINANCE_SUCC 加代币成功 ORDER_STATUS_QUANTITY_SUCC 加库存成功 ORDER_STATUS_HAS_REFUND 已退币 ORDER_STATUS_REFUND_WAITING 等待退币确认 ORDER_STATUS_ROLLBACK 已回退,系统失败 ORDER_STATUS_HAS_RECEIPT 已开发票
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.PayGetOrderResultJson.PayGetOrder_Order_Info.create_time">
+            <summary>
+            订单创建时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.PayGetOrderResultJson.PayGetOrder_Order_Info.pay_finish_time">
+            <summary>
+            支付完成时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.PayGetOrderResultJson.PayGetOrder_Order_Info.desc">
+            <summary>
+            支付描述，一般为微信支付充值
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.PayGetOrderResultJson.PayGetOrder_Order_Info.free_coin_count">
+            <summary>
+            本次充值的付费券点数量，以元为单位
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.PayGetOrderResultJson.PayGetOrder_Order_Info.pay_coin_count">
+            <summary>
+            二维码的数据流，开发者可以使用写入一个文件的方法显示该二维码
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.PayGetOrderResultJson.PayGetOrder_Order_Info.refund_free_coin_count">
+            <summary>
+            回退的免费券点
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.PayGetOrderResultJson.PayGetOrder_Order_Info.refund_pay_coin_count">
+            <summary>
+            回退的付费券点
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.PayGetOrderResultJson.PayGetOrder_Order_Info.openid">
+            <summary>
+            支付人的openid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.PayGetOrderResultJson.PayGetOrder_Order_Info.order_type">
+            <summary>
+            订单类型，ORDER_TYPE_WXPAY为充值
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.GetOrderListResultJson">
+            <summary>
+            查询券点流水详情返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetOrderListResultJson.total_num">
+            <summary>
+            符合条件的订单总数量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetOrderListResultJson.order_list">
+            <summary>
+            显示的订单详情列表，根据offset和count来显示
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetOrderList_OrderList.order_id">
+            <summary>
+            订单号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetOrderList_OrderList.status">
+            <summary>
+            订单状态，ORDER_STATUS_WAITING 等待支付 ORDER_STATUS_SUCC 支付成功 ORDER_STATUS_FINANCE_SUCC 加代币成功 ORDER_STATUS_QUANTITY_SUCC 加库存成功 ORDER_STATUS_HAS_REFUND 已退币 ORDER_STATUS_REFUND_WAITING 等待退币确认 ORDER_STATUS_ROLLBACK 已回退,系统失败 ORDER_STATUS_HAS_RECEIPT 已开发票
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetOrderList_OrderList.create_time">
+            <summary>
+            订单创建时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetOrderList_OrderList.pay_finish_time">
+            <summary>
+            支付完成时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetOrderList_OrderList.desc">
+            <summary>
+            支付描述，一般为微信支付充值
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetOrderList_OrderList.free_coin_count">
+            <summary>
+            本次充值的付费券点数量，以元为单位
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetOrderList_OrderList.pay_coin_count">
+            <summary>
+            二维码的数据流，开发者可以使用写入一个文件的方法显示该二维码
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetOrderList_OrderList.refund_free_coin_count">
+            <summary>
+            回退的免费券点
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetOrderList_OrderList.refund_pay_coin_count">
+            <summary>
+            回退的付费券点
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetOrderList_OrderList.openid">
+            <summary>
+            支付人的openid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetOrderList_OrderList.order_type">
+            <summary>
+            订单类型，ORDER_TYPE_WXPAY为充值
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.GetColorsResultJson">
             <summary>
             获取颜色列表返回结果
@@ -1631,6 +2075,21 @@
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_UploadLogoResultJson">
             <summary>
             上传logo返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.NorFilter.status">
+            <summary>
+            反选，不要拉取的订单
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SortInfo.sort_key">
+            <summary>
+            排序依据，SORT_BY_TIME 以订单时间排序
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SortInfo.sort_type">
+            <summary>
+            排序规则，SORT_ASC 升序SORT_DESC 降序
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.ActivateUserFormSetData">
@@ -2165,6 +2624,181 @@
             返回一段html代码，可以直接嵌入到图文消息的正文里。即可以把这段代码嵌入到上传图文消息素材接口中的content字段里。
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardBizuinInfoResultJson">
+            <summary>
+            拉取卡券返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardBizuinInfo_List.ref_date">
+            <summary>
+            日期信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardBizuinInfo_List.view_cnt">
+            <summary>
+            浏览次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardBizuinInfo_List.view_user">
+            <summary>
+            浏览人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardBizuinInfo_List.receive_cnt">
+            <summary>
+            领取次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardBizuinInfo_List.receive_user">
+            <summary>
+            领取人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardBizuinInfo_List.verify_cnt">
+            <summary>
+            使用次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardBizuinInfo_List.verify_user">
+            <summary>
+            使用人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardBizuinInfo_List.given_cnt">
+            <summary>
+            转赠次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardBizuinInfo_List.given_user">
+            <summary>
+            转赠人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardBizuinInfo_List.expire_cnt">
+            <summary>
+            过期次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardBizuinInfo_List.expire_user">
+            <summary>
+            过期人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardInfoItem.ref_date">
+            <summary>
+            日期信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardInfoItem.card_id">
+            <summary>
+            卡券ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardInfoItem.card_type">
+            <summary>
+            cardtype:0：折扣券，1：代金券，2：礼品券，3：优惠券，4：团购券（暂不支持拉取特殊票券类型数据，电影票、飞机票、会议门票、景区门票）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardInfoItem.view_cnt">
+            <summary>
+            浏览次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardInfoItem.view_user">
+            <summary>
+            浏览人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardInfoItem.receive_cnt">
+            <summary>
+            领取次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardInfoItem.receive_user">
+            <summary>
+            领取人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardInfoItem.verify_cnt">
+            <summary>
+            使用次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardInfoItem.verify_user">
+            <summary>
+            使用人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardInfoItem.given_cnt">
+            <summary>
+            转赠次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardInfoItem.given_user">
+            <summary>
+            转赠人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardInfoItem.expire_cnt">
+            <summary>
+            过期次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardInfoItem.expire_user">
+            <summary>
+            过期人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMemberCardInfoItem.ref_date">
+            <summary>
+            日期信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMemberCardInfoItem.view_cnt">
+            <summary>
+            浏览次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMemberCardInfoItem.view_user">
+            <summary>
+            浏览人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMemberCardInfoItem.receive_cnt">
+            <summary>
+            领取次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMemberCardInfoItem.receive_user">
+            <summary>
+            领取人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMemberCardInfoItem.active_user">
+            <summary>
+            使用次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMemberCardInfoItem.verify_cnt">
+            <summary>
+            使用人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMemberCardInfoItem.verify_user">
+            <summary>
+            激活人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMemberCardInfoItem.total_user">
+            <summary>
+            有效会员总人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMemberCardInfoItem.total_receive_user">
+            <summary>
+            历史领取会员卡总人数
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.Card_MemberCardUpdateData">
             <summary>
             会员卡数据
@@ -2574,6 +3208,221 @@
             货架ID。货架的唯一标识。
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.BatchGetCardMerchantJsonResult.list">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.BatchGetCardMerchantJsonResult.next_get">
+            <summary>
+            获取子商户列表，注意最开始时为空。每次拉取20个子商户，下次拉取时填入返回数据中该字段的值，该值无实际意义。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.CheckQualificationJsonResult">
+            <summary>
+            母商户资质审核查询返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.CheckQualificationJsonResult.result">
+            <summary>
+            查询结果1.RESULT_PASS：审核通过 2.RESULT_NOT_PASS：审核驳回 3.RESULT_CHECKING：待审核 4.RESULT_NOTHING_TO_CHECK：无提审记录
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.GetApplyProtocolJsonResult">
+            <summary>
+            卡券开放类目查询的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetApplyProtocol_Category.primary_category_id">
+            <summary>
+            一级目录id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetApplyProtocol_Category.category_name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetApplyProtocol_Category.secondary_category">
+            <summary>
+            二级目录id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetApplyProtocol_Secondary_Category.secondary_category_id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetApplyProtocol_Secondary_Category.category_name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetApplyProtocol_Secondary_Category.need_qualification_stuffs">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetApplyProtocol_Secondary_Category.can_choose_prepaid_card">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetApplyProtocol_Secondary_Category.can_choose_payment_card">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMerchantJsonResult">
+            <summary>
+            拉取单个子商户信息的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMerchantJsonResult.appid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMerchantJsonResult.name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMerchantJsonResult.primary_category_id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMerchantJsonResult.secondary_category_id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMerchantJsonResult.submit_time">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.GetCardMerchantJsonResult.result">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.InfoList">
+            <summary>
+            创建子商户的功能的数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.InfoList.brand_name">
+            <summary>
+            子商户名称（12个汉字内），该名称将在制券时填入并显示在卡券页面上
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.InfoList.app_id">
+            <summary>
+            子商户的公众号app_id，配置后子商户卡券券面上的app_id为该app_id。注意：该app_id须经过认证
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.InfoList.logo_url">
+            <summary>
+            子商户名称（12个汉字内），该名称将在制券时填入并显示在卡券页面上
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.InfoList.protocol">
+            <summary>
+            授权函ID，即通过上传临时素材接口上传授权函后获得的meida_id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.InfoList.agreement_media_id">
+            <summary>
+            营业执照或个体工商户营业执照彩照或扫描件
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.InfoList.operator_media_id">
+            <summary>
+            营业执照内登记的经营者身份证彩照或扫描件
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.InfoList.end_time">
+            <summary>
+            授权函有效期截止时间（东八区时间，单位为秒），需要与提交的扫描件一致
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.InfoList.primary_category_id">
+            <summary>
+            一级类目id,可以通过本文档中接口查询
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.InfoList.secondary_category_id">
+            <summary>
+            二级类目id，可以通过本文档中接口查询
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.SubmerChantBatchGetJsonResult">
+            <summary>
+            批量拉取子商户信息的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SubmerChantBatchGet_InfoList.next_begin_id">
+            <summary>
+            拉渠道列表中最后一个子商户的id
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.SubmerChantSubmitJsonResult">
+            <summary>
+            创建子商户接口的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SubmerChantSubmit_info.merchant_id">
+            <summary>
+            子商户id，对于一个母商户公众号下唯一。创建卡券时需填入该id号，字段结构如下：base_info：｛sub_merchant_info:｛merchant_id：｝｝，详情见创建卡券接口
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SubmerChantSubmit_info.create_time">
+            <summary>
+            子商户信息创建时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SubmerChantSubmit_info.update_time">
+            <summary>
+            子商户信息更新时间
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SubmerChantSubmit_info.brand_name">
+            <summary>
+            子商户名称（12个汉字内），该名称将在制券时填入并显示在卡券页面上。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SubmerChantSubmit_info.logo_url">
+            <summary>
+            子商户logo，可通过上传logo接口获取。该logo将在制券时填入并显示在卡券页面上
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SubmerChantSubmit_info.status">
+            <summary>
+            子商户状态，"CHECKING" 审核中, "APPROVED" , 已通过；"REJECTED"被驳回, "EXPIRED"协议已过期
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SubmerChantSubmit_info.begin_time">
+            <summary>
+            创建时间（非协议开始时间）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SubmerChantSubmit_info.end_time">
+            <summary>
+            授权函有效期截止时间（东八区时间，单位为秒）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SubmerChantSubmit_info.primary_category_id">
+            <summary>
+            子商户一级类目
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.SubmerChantSubmit_info.secondary_category_id">
+            <summary>
+            子商户二级类目
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Card.UserinfoGetResult">
             <summary>
             会员信息
@@ -2840,6 +3689,16 @@
             <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号，账号前缀最多10个字符，必须是英文或者数字字符。如果没有公众号微信号，请前往微信公众平台设置。</param>
             <param name="nickName">客服昵称，最长6个汉字或12个英文字符</param>
             <param name="passWord">客服账号登录密码，格式为密码明文的32位加密MD5值</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomServiceApi.InviteWorker(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            邀请绑定客服帐号
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="kfAccount">完整客服帐号，格式为：帐号前缀@公众号微信号</param>
+            <param name="inviteWx">接收绑定邀请的客服微信号</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
@@ -4852,6 +5711,296 @@
             <param name="ticket"></param>
             <param name="stream"></param>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_BaseInfo.title">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_BaseInfo.thumb_url">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_BaseInfo.brand_tag">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_BaseInfo.category_id">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_BaseInfo.store_mgr_type">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_BaseInfo.store_vendorid_list">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_BaseInfo.color">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_DetailInfo.banner_list">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_ActionInfo.action_list">
+            <summary>
+            商品主页中可设置多个服务栏。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_ActionList.type">
+            <summary>
+            服务栏的类型，Media,视频播放；Text，文字介绍；Link，图片跳转；Link，普通链接；User，公众号；Card，微信卡券；Price，建议零售价；Product，微信小店；Store，电商链接；recommend，商品推荐。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_ModuleInfo.module_list">
+            <summary>
+            未来可设置多个组件，目前仅支持防伪组件。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_ModuleList.type">
+            <summary>
+            组件的类型，目前仅包括防伪组件anti_fake。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_ModuleList.native_show">
+            <summary>
+            设置为true时，防伪结果使用微信提供的弹窗页面展示，商户仅需调用“商品管理”部分的组件消息接口回传产品真假信息。设置为false时，无防伪弹窗效果。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_ModuleList.anti_fake_url">
+            <summary>
+            商户提供的防伪查询链接，当native_show设置为false时必填。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Scan.MerchantInfoGetResultJson">
+            <summary>
+            获取商户信息的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.MerchantInfoGetResultJson.brand_tag_list">
+            <summary>
+            品牌标签列表，创建商品时传入，商户自定义生成的品牌标识字段。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.MerchantInfoGetResultJson.verified_list">
+            <summary>
+            权限列表，包含商户号段、类目ID、类目名称三者的对应关系。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.MerchantInfoGet_Verified_List.verified_firm_code">
+            <summary>
+            商户号段，表示该商户下有资质的条码号段。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.MerchantInfoGet_Verified_List.verified_cate_list">
+            <summary>
+            商户类目列表，包含类目ID与对应的类目名称。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.MerchantInfoGet_Verified_Cate_List.verified_cate_id">
+            <summary>
+            商户类目ID，表示该商户下可用于创建商的类目ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.MerchantInfoGet_Verified_Cate_List.verified_cate_name">
+            <summary>
+            商户类目名称，对应类目ID的名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.ProductCreateResultJson.pid">
+            <summary>
+            转译后的商品id，将直接编入“获取商品二维码接口”返回的二维码内容。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Scan.ProductGetListJsonResult">
+            <summary>
+            批量查询商品返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.ProductGetListJsonResult.total">
+            <summary>
+            命中筛选条件的商品总数。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.ProductGetListJsonResult.key_list">
+            <summary>
+            商品信息列表。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.ProductGetList_KeyList.keystandard">
+            <summary>
+            商品编码标准。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.ProductGetList_KeyList.keystr">
+            <summary>
+            商品编码内容。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.ProductGetList_KeyList.category_id">
+            <summary>
+            商品类目ID。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.ProductGetList_KeyList.category_name">
+            <summary>
+            商品类目名称。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.ProductGetList_KeyList.update_time">
+            <summary>
+            商品信息的最后更新时间（整型）。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.ProductGetList_KeyList.status">
+            <summary>
+            商品主页的状态，on为发布状态，off为未发布状态，check为审核中状态，reject为审核未通过状态。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Scan.ScanTicketCheckJsonResult">
+            <summary>
+            检查wxticket参数的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.ScanTicketCheckJsonResult.keystandard">
+            <summary>
+            商品编码标准。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.ScanTicketCheckJsonResult.keystr">
+            <summary>
+            商品编码内容。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.ScanTicketCheckJsonResult.openid">
+            <summary>
+            当前访问者的openid，可唯一标识用户。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.ScanTicketCheckJsonResult.scene">
+            <summary>
+            打开商品主页的场景，scan为扫码，others为其他场景，可能是会话、收藏或朋友圈。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.ScanTicketCheckJsonResult.is_check">
+            <summary>
+            该条码（二维码）是否被扫描，true为是，false为否。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.ScanTicketCheckJsonResult.is_contact">
+            <summary>
+            是否关注公众号，true为已关注，false为未关注。
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_Price">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_Price.retail_price">
+            <summary>
+            表示商品的建议零售价，以“元”为单位。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_link.name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_link.link">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo_text.text">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ScanApi">
+            <summary>
+            微信扫一扫接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ScanApi.MerchantInfoGet(System.String,System.Int32)">
+            <summary>
+            获取商户信息
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ScanApi.ProductCreate(System.String,System.String,System.String,Senparc.Weixin.MP.AdvancedAPIs.Scan.BrandInfo,System.Int32)">
+            <summary>
+            创建商品
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <pram name="keyStandard">商品编码标准，暂时只支持ean13和ean8两种标准。</pram>
+            <pram name="keyStr">商品编码内容。直接填写商品条码，如“6900000000000”；注意：编码标准是ean13时，编码内容必须在商户的号段之下，否则会报错。</pram>
+            <pram name="baseInfo">商品的基本信息。</pram>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ScanApi.ModStatus(System.String,System.String,System.String,System.String,System.Int32)">
+             <summary>
+            提交审核/取消发布商品
+             </summary>
+             <param name="accessTokenOrAppId"></param>
+             <param name="keyStandard">商品编码标准。</param>
+             <param name="keyStr">商品编码内容。</param>
+             <param name="status">设置发布状态。on为提交审核，off为取消发布。</param>
+             <param name="timeOut"></param>
+             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ScanApi.TestWhiteListSet(System.String,System.String,System.String,System.Int32)">
+             <summary>
+            设置测试人员白名单
+             </summary>
+             <param name="accessTokenOrAppId"></param>
+             <param name="openId">测试人员的openid列表。</param>
+             <param name="userName">测试人员的微信号列表。</param>
+             <param name="timeOut"></param>
+             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ScanApi.ProductGetList(System.String,System.Int32,System.Int32,System.String,System.Int32)">
+             <summary>
+            批量查询商品信息
+             </summary>
+             <param name="accessTokenOrAppId"></param>
+             <param name="offset">商品编码标准。</param>
+             <param name="limit">商品编码标准。</param>
+             <param name="status">商品编码内容。</param>
+             <param name="timeOut"></param>
+             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ScanApi.ProductClear(System.String,System.Int32,System.String,System.Int32)">
+             <summary>
+            清除商品信息
+             </summary>
+             <param name="accessTokenOrAppId"></param>
+             <param name="keyStandard">商品编码标准。</param>
+             <param name="keyStr">商品编码标准。</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ScanApi.ScanTicketCheck(System.String,System.String,System.Int32)">
+             <summary>
+            检查wxticket参数
+             </summary>
+             <param name="accessTokenOrAppId"></param>
+            <param name="ticket">请求URL中带上的wxticket参数。</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.SemanticApi">
             <summary>
             语意理解接口
@@ -6024,12 +7173,27 @@
             搜索引擎类型：google, baidu, sogou, 360, taobao,jingdong
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.GroupAddResultJson">
+            <summary>
+            新增分组的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.GroupAdd_Data.group_id">
+            <summary>
+            分组唯一标识，全局唯一
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.GroupAdd_Data.group_name">
+            <summary>
+            分组名 
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi">
             <summary>
             摇一摇周边接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.Register(System.String,Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.RegisterData,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.Register(System.String,Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.RegisterData,Senparc.Weixin.MP.IndustryId,System.Int32)">
             <summary>
             申请开通功能
             </summary>
@@ -6090,13 +7254,13 @@
             </summary>
             <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="deviceId">设备编号</param>
-            <param name="uuId"></param>
+            <param name="uuid"></param>
             <param name="major"></param>
             <param name="minor"></param>
             <param name="poiId">Poi_id 的说明改为：设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。</param>
             <param name="type">为1时，关联的门店和设备归属于同一公众账号；为2时，关联的门店为其他公众账号的门店。不填默认为1</param>
             <param name="timeOut"></param>
-            <param name="poi_appid">当Type为2时，必填	关联门店所归属的公众账号的APPID</param>
+            <param name="poiAppid">当Type为2时，必填	关联门店所归属的公众账号的APPID</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.DeviceBindLocatoin(System.String,System.Int64,System.String,System.Int64,System.Int64,System.Int64,System.Int32)">
@@ -6107,7 +7271,7 @@
             </summary>
             <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="deviceId">设备编号</param>
-            <param name="uuId"></param>
+            <param name="uuid"></param>
             <param name="major"></param>
             <param name="minor"></param>
             <param name="poiId">Poi_id 的说明改为：设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。</param>
@@ -6292,25 +7456,164 @@
             </summary>
             <param name="accessTokenOrAppId">调用接口凭证</param>
             <param name="date">指定查询日期时间戳，单位为秒</param>
-            <param name="page_index">指定查询的结果页序号；返回结果按摇周边人数降序排序，每50条记录为一页</param>
+            <param name="pageIndex">指定查询的结果页序号；返回结果按摇周边人数降序排序，每50条记录为一页</param>
             <returns></returns>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceListResultJson.devices">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.PageList(System.String,System.Int64,System.Int32,System.Int32)">
+            <summary>
+            批量查询页面统计数据接口
+            </summary>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
+            <param name="date">指定查询日期时间戳，单位为秒</param>
+            <param name="pageIndex">指定查询的结果页序号；返回结果按摇周边人数降序排序，每50条记录为一页</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.GroupAdd(System.String,System.String,System.Int32)">
+            <summary>
+            新增分组
+            </summary>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
+            <param name="groupName">分组名称，不超过100汉字或200个英文字母</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.GroupUpdate(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            编辑分组信息
+            </summary>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
+            <param name="groupid">分组唯一标识，全局唯一</param>
+            <param name="groupName">分组名称，不超过100汉字或200个英文字母</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.GroupDelete(System.String,System.String,System.Int32)">
+            <summary>
+            删除分组
+            </summary>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
+            <param name="groupid">分组唯一标识，全局唯一</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.GroupGetList(System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            查询分组列表
+            </summary>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
+            <param name="begin">分组列表的起始索引值</param>
+            <param name="count">待查询的分组数量，不能超过1000个</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.GroupGetDetail(System.String,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            查询分组详情
+            </summary>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
+            <param name="groupId">分组唯一标识，全局唯一</param>
+            <param name="begin">分组列表的起始索引值</param>
+            <param name="count">待查询的分组数量，不能超过1000个</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.GroupGetAdddevice(System.String,System.String,Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data_Device_Identifiers,System.Int32)">
+            <summary>
+            添加设备到分组
+            </summary>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
+            <param name="groupid">分组唯一标识，全局唯一</param>
+            <param name="deviceIdentifier">分组列表的起始索引值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.GroupDeleteDevice(System.String,System.String,Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceApply_Data_Device_Identifiers,System.Int32)">
+            <summary>
+            从分组中移除设备
+            </summary>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
+            <param name="groupid">分组唯一标识，全局唯一</param>
+            <param name="deviceIdentifier">分组列表的起始索引值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.AddLotteryInfo(System.String,System.String,System.String,System.Int32,System.Int64,System.Int64,System.String,System.Int64,System.String,System.String,System.Int32)">
+            <summary>
+            创建红包活动
+            </summary>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
+            <param name="title">分组唯一标识，全局唯一</param>
+            <param name="desc">分组列表的起始索引值</param>
+            <param name="onoff">待查询的分组数量，不能超过1000个</param>
+            <param name="beginTime">待查询的分组数量，不能超过1000个</param>
+            <param name="expireTime">待查询的分组数量，不能超过1000个</param>
+            <param name="sponsorAppid">待查询的分组数量，不能超过1000个</param>
+            <param name="total">待查询的分组数量，不能超过1000个</param>
+            <param name="jumpUrl">待查询的分组数量，不能超过1000个</param>
+            <param name="key">待查询的分组数量，不能超过1000个</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.SetPrizeBucket(System.String,System.String,System.String,System.String,Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.PrizeInfoList,System.Int32)">
+            <summary>
+            录入红包信息
+            </summary>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
+            <param name="lotteryid">红包抽奖id，来自addlotteryinfo返回的lottery_id</param>
+            <param name="mchid">红包提供者的商户号，，需与预下单中的商户号mch_id一致</param>
+            <param name="sponsorappid">红包提供商户公众号的appid，需与预下单中的公众账号appid（wxappid）一致</param>
+            <param name="prizeinfolist">红包ticket列表，如果红包数较多，可以一次传入多个红包，批量调用该接口设置红包信息。每次请求传入的红包个数上限为100</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.SetLotterySwitch(System.String,System.String,System.Int32,System.Int32)">
+             <summary>
+            设置红包活动抽奖开关
+             </summary>
+             <param name="accessTokenOrAppId">调用接口凭证</param>
+             <param name="lotteryId">红包抽奖id，来自addlotteryinfo返回的lottery_id</param>
+             <param name="onOff">活动抽奖开关，0：关闭，1：开启</param>
+             <param name="timeOut"></param>
+             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.QueryLottery(System.String,System.String,System.Int32)">
+             <summary>
+            红包查询接口
+             </summary>
+             <param name="accessTokenOrAppId">调用接口凭证</param>
+             <param name="lotteryId">红包抽奖id，来自addlotteryinfo返回的lottery_id</param>
+             <param name="timeOut"></param>
+             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.AddLotteryInfoResultJson">
+            <summary>
+            创建红包活动的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.AddLotteryInfoResultJson.lottery_id">
+            <summary>
+            生成的红包活动id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.AddLotteryInfoResultJson.page_id">
+            <summary>
+            生成的模板页面ID  
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceListResultJson">
+            <summary>
+            批量查询设备统计数据的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceList_Data.devices">
             <summary>
             
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceListResultJson.date">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceList_Data.date">
             <summary>
             所查询的日期时间戳
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceListResultJson.total_count">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceList_Data.total_count">
             <summary>
             设备总数
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceListResultJson.page_index">
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceList_Data.page_index">
             <summary>
             所查询的结果页序号；返回结果按摇周边人数降序排序，每50条记录为一页   
             </summary>
@@ -6404,6 +7707,236 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GetAuditStatusData.audit_time">
             <summary>
             确定审核结果的时间戳；若状态为审核中，则该时间值为0
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GroupGetDetailResultJson.data">
+            <summary>
+            查询分组详情的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GroupGetDetail_Data.group_id">
+            <summary>
+            分组唯一标识，全局唯一
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GroupGetDetail_Data.group_name">
+            <summary>
+            分组名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GroupGetDetail_Data.total_count">
+            <summary>
+            此分组现有的总设备数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GroupGetDetail_Data.devices">
+            <summary>
+            分组下的设备列表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GroupGetDetail_Devices.device_id">
+            <summary>
+            设备编号，设备全局唯一ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GroupGetDetail_Devices.uuid">
+            <summary>
+            uuid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GroupGetDetail_Devices.major">
+            <summary>
+            major
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GroupGetDetail_Devices.minor">
+            <summary>
+            minor
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GroupGetDetail_Devices.comment">
+            <summary>
+            设备的备注信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GroupGetDetail_Devices.poi_id">
+            <summary>
+            设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。门店相关信息具体可查看门店相关的接口文档    
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GroupGetListResultJson">
+            <summary>
+            查询分组列表的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GroupGetList_Data.total_count">
+            <summary>
+            此账号下现有的总分组数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GroupGetList_Data.groups">
+            <summary>
+            分组列表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GroupGetList_Groups.group_id">
+            <summary>
+            分组唯一标识，全局唯一
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GroupGetList_Groups.group_name">
+            <summary>
+            分组名
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.PageListResultJson">
+            <summary>
+            批量查询页面统计数据的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.PageList_Data.date">
+            <summary>
+            所查询的日期时间戳，单位为秒
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.PageList_Data.total_count">
+            <summary>
+            页面总数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.PageList_Data.page_index">
+            <summary>
+            所查询的结果页序号；返回结果按摇周边人数降序排序，每50条记录为一页
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.PageList_Pages.page_id">
+            <summary>
+            页面ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.PageList_Pages.click_pv">
+            <summary>
+            点击摇周边消息的次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.PageList_Pages.click_uv">
+            <summary>
+            点击摇周边消息的人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.PageList_Pages.shake_pv">
+            <summary>
+            摇周边的次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.PageList_Pages.shake_uv">
+            <summary>
+            摇周边的人数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.PrizeInfoList">
+            <summary>
+            红包ticket列表，如果红包数较多，可以一次传入多个红包，批量调用该接口设置红包信息。每次请求传入的红包个数上限为100
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.PrizeInfoList.ticket">
+            <summary>
+            预下单时返回的红包ticket，单个活动红包ticket数量上限为100000个，可添加多次。    
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLotteryJsonResult">
+            <summary>
+            红包查询的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.lottery_id">
+            <summary>
+            红包抽奖id，来自addlotteryinfo返回的lottery_id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.title">
+            <summary>
+            抽奖活动名称（选择使用模板时，也作为摇一摇消息主标题），最长6个汉字，12个英文字母。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.desc">
+            <summary>
+            抽奖活动描述（选择使用模板时，也作为摇一摇消息副标题），最长7个汉字，14个英文字母。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.onoff">
+            <summary>
+            抽奖开关。0关闭，1开启，默认为1
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.begin_time">
+            <summary>
+            抽奖活动开始时间，unix时间戳，单位秒
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.expire_time">
+            <summary>
+            抽奖活动结束时间，unix时间戳，单位秒，红包活动有效期最长为91天
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.sponsor_appid">
+            <summary>
+            红包提供商户公众号的appid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.appid">
+            <summary>
+            创建活动的开发者appid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.prize_count_limit">
+            <summary>
+            创建活动时预设的录入红包ticket数量上限
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.prize_count">
+            <summary>
+            已录入的红包总数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.jump_url">
+            <summary>
+            红包关注界面后可以跳转到第三方自定义的页面
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.expired_prizes">
+            <summary>
+            过期红包ticket数量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.drawed_prizes">
+            <summary>
+            已发放的红包ticket数量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.available_prizes">
+            <summary>
+            可用的红包ticket数量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.expired_value">
+            <summary>
+            已过期的红包金额总和
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.drawed_value">
+            <summary>
+            已发放的红包金额总和
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.QueryLottery_Result.available_value">
+            <summary>
+            可用的红包金额总和   
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.RegisterResultJson">
+            <summary>
+            申请开通功能的返回结果
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.RelationSearchResultJson">
@@ -6544,6 +8077,28 @@
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.RegisterData">
             <summary>
             申请开通功能数据
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.RegisterData.#ctor">
+            <summary>
+            industry_id默认留空，可以使用ConvertIndustryId方法进行转换
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.RegisterData.ConvertIndustryId(Senparc.Weixin.MP.IndustryId)">
+            <summary>
+            转换_industry_id到合法的提交参数格式
+            </summary>
+            <param name="_industry_id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.SetPrizeBucketResultJson">
+            <summary>
+            录入红包消息的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.SetPrizeBucket_RepeatTicketList.ticket">
+            <summary>
+            ticket解析失败，可能有错别字符或不完整 
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.StatisticsResultJson">
@@ -7242,15 +8797,60 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.AddDevice(System.String,System.Int64,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.ShopList(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
-            添加设备
+            获取Wi-Fi门店列表
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="pageIndex">分页下标，默认从1开始</param>
+            <param name="pageSize">每页的个数，默认10个，最大20个</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.ShopGet(System.String,System.Int64,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            查询门店Wi-Fi信息
             </summary>
             <param name="accessTokenOrAppId"></param>
             <param name="shopId">门店ID</param>
-            <param name="ssid">无线网络设备的ssid，不能包含中文字符，必需是“WX”开头(“WX”为大写字母)</param>
-            <param name="password">无线网络设备的密码，大于8个字符，不能包含中文字符</param>
-            <param name="bssid">无线网络设备无线mac地址，格式冒号分隔，字符长度17个，并且字母小写，例如：00:1f:7a:ad:5c:a8</param>
+            <param name="pageindex">分页下标，默认从1开始</param>
+            <param name="pagesize">每页的个数，默认10个，最大20个</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.ShopUpdate(System.String,System.Int64,System.String,System.String,System.Int32)">
+            <summary>
+            修改门店网络信息
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="shopId">门店ID</param>
+            <param name="oldSsid">需要修改的ssid，当门店下有多个ssid时，必填</param>
+            <param name="ssid">无线网络设备的ssid。32个字符以内；ssid支持中文，但可能因设备兼容性问题导致显示乱码，或无法连接等问题，相关风险自行承担！当门店下是portal型设备时，ssid必填；当门店下是密码型设备时，ssid选填，且ssid和密码必须有一个以大写字母“WX”开头</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.ShopClean(System.String,System.Int64,System.String,System.Int32)">
+            <summary>
+            清空门店网络及设备
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="shopId">门店ID</param>
+            <param name="ssid">无线网络设备的ssid。若不填写ssid，默认为清空门店下所有设备；填写ssid则为清空该ssid下的所有设备</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.AddDevice(System.String,System.Int64,System.String,System.String,System.Int32)">
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.WifeRegister(System.String,System.Int64,System.String,System.String,System.Int32)">
+            <summary>
+            添加portal型设备
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="shopId">门店ID</param>
+            <param name="ssid">无线网络设备的ssid，限30个字符以内。ssid支持中文，但可能因设备兼容性问题导致显示乱码，或无法连接等问题，相关风险自行承担！</param>
+            <param name="reset">重置secretkey，false-不重置，true-重置，默认为false</param>
             <param name="timeOut"></param>
             <returns></returns>
         </member>
@@ -7304,6 +8904,8 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.SetBar(System.String,System.Int64,System.Int32,System.Int32)" -->
+        <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.SetFinishpage(System.String,System.Int64,System.String,System.Int32)" -->
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.GetStatistics(System.String,System.String,System.String,System.Int64,System.Int32)">
             <summary>
             数据统计
@@ -7315,12 +8917,166 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
+        <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.SetCouponPut(System.String,System.Int64,System.String,System.String,System.String,System.String,System.Int32,System.Int32)" -->
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.GetCouponPut(System.String,System.Int64,System.Int32)">
+            <summary>
+            查询门店卡券投放信息
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="shopId">门店ID，可设置为0，表示所有门店</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.GetConnectUrl(System.String)">
             <summary>
             获取公众号连网URL
             </summary>
             <param name="accessTokenOrAppId"></param>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.OpenPluginToken(System.String,System.String,System.Int32)">
+            <summary>
+            第三方平台获取开插件wifi_token
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="callBackUrl">回调URL，开通插件成功后的跳转页面。注：该参数域名必须与跳转进开通插件页面的页面域名保持一致，建议均采用第三方平台域名。</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiOpenPluginTokenJsonResult">
+            <summary>
+            第三方平台获取开插件wifi_token的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.OpenPluginToken_Data.is_open">
+            <summary>
+            该公众号是否已开通微信连Wi-Fi插件，true-已开通，false-未开通
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.OpenPluginToken_Data.wifi_token">
+            <summary>
+            开通插件的凭证，当is_open为false时才返回值
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiRegisterJsonResult">
+            <summary>
+            添加portal型设备的返回结果
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiShopGetJsonResult">
+            <summary>
+            查询门店Wi-Fi信息的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiShopGetJsonResult.ssid_password_list">
+            <summary>
+            ssid和密码的列表，数组格式。当为密码型设备时，密码才有值
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiShopGetJsonResult.password">
+            <summary>
+            设备密码，当设备类型为密码型时返回
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiShopGetJsonResult.protocol_type">
+            <summary>
+            门店内设备的设备类型，0-未添加设备，4-密码型设备，31-portal型设备
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiShopGetJsonResult.ap_count">
+            <summary>
+            门店内设备总数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiShopGetJsonResult.template_id">
+            <summary>
+            商家主页模板类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiShopGetJsonResult.homepage_url">
+            <summary>
+            商家主页链接
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiShopGetJsonResult.bar_type">
+            <summary>
+            顶部常驻入口上显示的文本内容：0--欢迎光临+公众号名称；1--欢迎光临+门店名称；2--已连接+公众号名称+WiFi；3--已连接+门店名称+Wi-Fi
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.ShopGet_Ssid_Password_List.ssid">
+            <summary>
+            无线网络设备的ssid，未添加设备为空，多个ssid时显示第一个
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.ShopGet_Data.shop_name">
+            <summary>
+            门店名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.ShopGet_Data.ssid">
+            <summary>
+            无线网络设备的ssid，未添加设备为空，多个ssid时显示第一个
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.ShopGet_Data.ssid_list">
+            <summary>
+            无线网络设备的ssid列表，返回数组格式
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiShopListJsonResult.data">
+            <summary>
+            获取Wi-Fi门店列表的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.ShopList_Data.totalcount">
+            <summary>
+            总数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.ShopList_Data.pageindex">
+            <summary>
+            分页下标
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.ShopList_Data.pagecount">
+            <summary>
+            分页页数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.ShopList_Records">
+            <summary>
+            当前页列表数组
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.ShopList_Records.shop_id">
+            <summary>
+             门店ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.ShopList_Records.shop_name">
+             <summary>
+            门店名称
+             </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.ShopList_Records.ssid">
+            <summary>
+            无线网络设备的ssid，未添加设备为空，多个ssid时显示第一个
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.ShopList_Records.ssid_list">
+            <summary>
+            无线网络设备的ssid列表，返回数组格式
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.ShopList_Records.protocol_type">
+            <summary>
+            门店内设备的设备类型，0-未添加设备，1-专业型设备，4-密码型设备，5-portal自助型设备，31-portal改造型设备
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.ShopList_Records.sid">
+            <summary>
+            商户自己的id，与门店poi_id对应关系，建议在添加门店时候建立关联关系，具体请参考“微信门店接口”
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiConnectUrlResultJson">
             <summary>
@@ -7335,6 +9091,41 @@
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiConnectUrl_Data">
             <summary>
             WiFiConnectUrl_Data
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiGetCouponPutJsonResult">
+            <summary>
+            查询门店卡券投放信息的返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetCouponPut_Data.shop_id">
+            <summary>
+            门店ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetCouponPut_Data.card_status">
+            <summary>
+            卡券投放状态（0表示生效中，1表示未生效，2表示已过期）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetCouponPut_Data.card_id">
+            <summary>
+            卡券ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetCouponPut_Data.card_describe">
+            <summary>
+            卡券描述
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetCouponPut_Data.start_date">
+            <summary>
+            卡券投放开始时间（单位是秒）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetCouponPut_Data.end_date">
+            <summary>
+            卡券投放结束时间（单位是秒）
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetHomePageResult">
@@ -8157,6 +9948,11 @@
             matchrule共六个字段，均可为空，但不能全部为空，至少要有一个匹配信息是不为空的。 country、province、city组成地区信息，将按照country、province、city的顺序进行验证，要符合地区信息表的内容。地区信息从大到小验证，小的可以不填，即若填写了省份信息，则国家信息也必填并且匹配，城市信息可以不填。 例如 “中国 广东省 广州市”、“中国 广东省”都是合法的地域信息，而“中国 广州市”则不合法，因为填写了城市信息但没有填写省份信息。 地区信息表请点击下载。
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.tag_id">
+            <summary>
+            用户标签的id，可通过用户标签管理接口获取
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.group_id">
             <summary>
             用户分组id，可通过用户分组管理接口获取
@@ -8186,6 +9982,16 @@
             <summary>
             客户端版本，当前只具体到系统型号：IOS(1), Android(2),Others(3)，不填则不做匹配
             </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.language">
+             <summary>
+             语言信息，是用户在微信中设置的语言，具体请参考语言表：
+             1、简体中文 "zh_CN" 2、繁体中文TW "zh_TW" 3、繁体中文HK "zh_HK" 4、英文 "en" 5、印尼 "id" 
+            6、马来 "ms" 7、西班牙 "es" 8、韩国 "ko" 9、意大利 "it" 10、日本 "ja" 
+            11、波兰 "pl" 12、葡萄牙 "pt" 13、俄国 "ru" 14、泰文 "th" 15、越南 "vi" 
+            16、阿拉伯语 "ar" 17、北印度 "hi" 18、希伯来 "he" 19、土耳其 "tr" 20、德语 "de" 
+            21、法语 "fr"
+             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.Entities.Menu.MenuMatchRule.CheckAllNull">
             <summary>
@@ -9967,6 +11773,11 @@
         <member name="T:Senparc.Weixin.MP.IndustryCode">
             <summary>
             行业代码
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.IndustryId">
+            <summary>
+            行业代号
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.Helpers.EntityHelper.FillEntityWithXml``1(``0,System.Xml.Linq.XDocument)">

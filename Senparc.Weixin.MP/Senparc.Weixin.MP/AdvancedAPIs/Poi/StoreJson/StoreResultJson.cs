@@ -96,4 +96,5 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
     {
         public List<string> category_list { get; set; } 
     }
+
 }

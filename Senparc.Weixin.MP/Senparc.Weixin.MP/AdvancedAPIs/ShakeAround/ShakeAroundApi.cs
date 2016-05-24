@@ -12,12 +12,20 @@
 
     修改标识：Senparc - 20160424
     修改描述：v13.7.5 添加 ShakeAroundApi.DeviceApplyStatus 接口
+ 
+    修改标识：Senparc - 20160520
+    修改描述：添加批量查询页面统计数据接口，新增分组接口，编辑分组信息接口，删除分组接口，查询分组列表接口，
+              查询分组详情接口，添加设备到分组接口，从分组中移除设备接口，创建红包活动接口，录入红包信息接口，
+              设置红包活动抽奖开关接口，红包查询接口
+    修改标识：Senparc - 20160520
+    修改描述：修改批量查询设备统计数据接口
 ----------------------------------------------------------------*/
 
 /*
     API：http://mp.weixin.qq.com/wiki/15/b9e012f917e3484b7ed02771156411f3.html
  */
 
+using System;
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
@@ -38,13 +46,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult Register(string accessTokenOrAppId, RegisterData data, int timeOut = Config.TIME_OUT)
+        public static RegisterResultJson Register(string accessTokenOrAppId, RegisterData data,IndustryId industry_id, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string url = string.Format("https://api.weixin.qq.com/shakearound/account/register?access_token={0}", accessToken.AsUrlData());
 
-                return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                data.industry_id = RegisterData.ConvertIndustryId(industry_id);
+                return CommonJsonSend.Send<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -103,7 +112,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="appId">批次ID，申请设备ID时所返回的批次ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetDeviceStatusResultJson DeviceApplyStatus(string accessTokenOrAppId, int appId,int timeOut = Config.TIME_OUT)
+        public static GetDeviceStatusResultJson DeviceApplyStatus(string accessTokenOrAppId, int appId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -162,13 +171,67 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <param name="deviceId">设备编号</param>
-        /// <param name="uuId"></param>
+        /// <param name="uuid"></param>
+        /// <param name="major"></param>
+        /// <param name="minor"></param>
+        /// <param name="poiId">Poi_id 的说明改为：设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。</param>
+        /// <param name="type">为1时，关联的门店和设备归属于同一公众账号；为2时，关联的门店为其他公众账号的门店。不填默认为1</param>
+        /// <param name="timeOut"></param>
+        /// <param name="poiAppid">当Type为2时，必填	关联门店所归属的公众账号的APPID</param>
+        /// <returns></returns>
+        public static WxJsonResult DeviceBindLocatoin(string accessTokenOrAppId, long deviceId, string uuid, long major, long minor, long poiId, string poiAppid, int type = 1, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string url = string.Format("https://api.weixin.qq.com/shakearound/device/bindlocation?access_token={0}", accessToken.AsUrlData());
+
+                var data = type == 2
+                    ? new
+                    {
+                        device_identifier = new
+                        {
+                            device_id = deviceId,
+                            uuid = uuid,
+                            major = major,
+                            minor = minor
+                        },
+                        poi_id = poiId,
+                        type = type,
+                        poi_appid = poiAppid
+                    } as object
+                    : new
+                    {
+                        device_identifier = new
+                        {
+                            device_id = deviceId,
+                            uuid = uuid,
+                            major = major,
+                            minor = minor
+                        },
+                        poi_id = poiId
+                    } as object;
+
+
+                return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 配置设备与其他门店的关联关系
+        /// 设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
+        /// UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息。
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="deviceId">设备编号</param>
+        /// <param name="uuid"></param>
         /// <param name="major"></param>
         /// <param name="minor"></param>
         /// <param name="poiId">Poi_id 的说明改为：设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。</param>
         /// <param name="timeOut"></param>
+        /// <param name="type">为1时，关联的门店和设备归属于同一公众账号；为2时，关联的门店为其他公众账号的门店。不填默认为1</param>
         /// <returns></returns>
-        public static WxJsonResult DeviceBindLocatoin(string accessTokenOrAppId, long deviceId, string uuId, long major, long minor, long poiId, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult DeviceBindLocatoin(string accessTokenOrAppId, long deviceId, string uuid, long major, long minor, long poiId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -179,7 +242,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     device_identifier = new
                     {
                         device_id = deviceId,
-                        uuid = uuId,
+                        uuid = uuid,
                         major = major,
                         minor = minor
                     },
@@ -482,7 +545,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var data = new
                 {
-                    type=1,
+                    type = 1,
                     device_identifier = deviceIdentifier
                 };
 
@@ -604,5 +667,365 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+        /// <summary>
+        /// 批量查询设备统计数据接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="date">指定查询日期时间戳，单位为秒</param>
+        /// <param name="pageIndex">指定查询的结果页序号；返回结果按摇周边人数降序排序，每50条记录为一页</param>
+        /// <returns></returns>
+        public static DeviceListResultJson DeviceList(string accessTokenOrAppId, long date, string pageIndex, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/shakearound/statistics/devicelist?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    date = date,
+                    page_index = pageIndex
+                   
+                };
+
+                return CommonJsonSend.Send<DeviceListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 批量查询页面统计数据接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="date">指定查询日期时间戳，单位为秒</param>
+        /// <param name="pageIndex">指定查询的结果页序号；返回结果按摇周边人数降序排序，每50条记录为一页</param>
+        /// <returns></returns>
+        public static PageListResultJson PageList(string accessTokenOrAppId, long date, int pageIndex, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/shakearound/statistics/pagelist?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    date = date,
+                    page_index = pageIndex
+
+                };
+
+                return CommonJsonSend.Send<PageListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 新增分组
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="groupName">分组名称，不超过100汉字或200个英文字母</param>
+        /// <returns></returns>
+        public static GroupAddResultJson GroupAdd(string accessTokenOrAppId, string groupName,int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/add?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    group_name=groupName
+                   
+
+                };
+
+                return CommonJsonSend.Send<GroupAddResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 编辑分组信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="groupid">分组唯一标识，全局唯一</param>
+        /// <param name="groupName">分组名称，不超过100汉字或200个英文字母</param>
+        /// <returns></returns>
+        public static RegisterResultJson GroupUpdate(string accessTokenOrAppId, string groupid,string groupName, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/update?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    group_id=groupid,
+                    group_name = groupName
+
+
+                };
+
+                return CommonJsonSend.Send<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 删除分组
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="groupid">分组唯一标识，全局唯一</param>
+        
+        /// <returns></returns>
+        public static RegisterResultJson GroupDelete(string accessTokenOrAppId, string groupId,int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/delete?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    group_id = groupId
+                };
+
+                return CommonJsonSend.Send<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 查询分组列表
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="begin">分组列表的起始索引值</param>
+        /// <param name="count">待查询的分组数量，不能超过1000个</param>
+        /// <returns></returns>
+        public static GroupGetListResultJson GroupGetList(string accessTokenOrAppId, int begin, int count, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/getlist?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    begin = begin,
+                    count = count
+                };
+
+                return CommonJsonSend.Send<GroupGetListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 查询分组详情
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="groupId">分组唯一标识，全局唯一</param>
+        /// <param name="begin">分组列表的起始索引值</param>
+        /// <param name="count">待查询的分组数量，不能超过1000个</param>
+        /// <returns></returns>
+        public static GroupGetDetailResultJson GroupGetDetail(string accessTokenOrAppId, string groupId, int begin, int count, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/getdetail?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    group_id=groupId,
+                    begin = begin,
+                    count = count
+                };
+
+                return CommonJsonSend.Send<GroupGetDetailResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 添加设备到分组
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="groupid">分组唯一标识，全局唯一</param>
+        /// <param name="deviceIdentifier">分组列表的起始索引值</param>
+       
+        /// <returns></returns>
+        public static RegisterResultJson GroupGetAdddevice(string accessTokenOrAppId, string groupId, DeviceApply_Data_Device_Identifiers deviceIdentifier, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/adddevice?access_token={0}", accessToken.AsUrlData());
+                object data = null;
+                if (string.IsNullOrEmpty(((long)deviceIdentifier.device_id).ToString()))
+                {
+                    data = new
+                    {
+                        group_id = groupId,
+                        uuid = deviceIdentifier.uuid,
+                        major = deviceIdentifier.major,
+                        minor = deviceIdentifier.minor
+
+                    };
+                }
+                else 
+                {
+                    data = new
+                    {
+                        group_id = groupId,
+                        device_id = deviceIdentifier.device_id
+                    };
+                }
+
+                return CommonJsonSend.Send<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 从分组中移除设备
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="groupid">分组唯一标识，全局唯一</param>
+        /// <param name="deviceIdentifier">分组列表的起始索引值</param>
+
+        /// <returns></returns>
+        public static RegisterResultJson GroupDeleteDevice(string accessTokenOrAppId, string groupId, DeviceApply_Data_Device_Identifiers deviceIdentifier, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/deletedevice?access_token={0}", accessToken.AsUrlData());
+                var data = new object();
+                if (!deviceIdentifier.device_id.HasValue)
+                {
+                    data = new
+                    {
+                        group_id = groupId,
+                        uuid = deviceIdentifier.uuid,
+                        major = deviceIdentifier.major,
+                        minor = deviceIdentifier.minor
+
+                    };
+                }
+                else
+                {
+                    data = new
+                    {
+                        group_id = groupId,
+                        device_id = deviceIdentifier.device_id.Value
+                    };
+                }
+
+
+                return CommonJsonSend.Send<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        
+        /// <summary>
+        /// 创建红包活动
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="title">分组唯一标识，全局唯一</param>
+        /// <param name="desc">分组列表的起始索引值</param>
+        /// <param name="onoff">待查询的分组数量，不能超过1000个</param>
+        /// <param name="beginTime">待查询的分组数量，不能超过1000个</param>
+        /// <param name="expireTime">待查询的分组数量，不能超过1000个</param>
+        /// <param name="sponsorAppid">待查询的分组数量，不能超过1000个</param>
+        /// <param name="total">待查询的分组数量，不能超过1000个</param>
+        /// <param name="jumpUrl">待查询的分组数量，不能超过1000个</param>
+        /// <param name="key">待查询的分组数量，不能超过1000个</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static AddLotteryInfoResultJson AddLotteryInfo(string accessTokenOrAppId, string title, string desc, int onoff,long beginTime,long expireTime,string sponsorAppid,long total,string jumpUrl,string key,int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/addlotteryinfo?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    title = title,
+                    desc = desc,
+                    onoff = onoff,
+                    begin_time = beginTime,
+                    expire_time = expireTime,
+                    sponsor_appid = sponsorAppid,
+                    total = total,
+                    jumpurl = jumpUrl,
+                    key = key
+                };
+
+                return CommonJsonSend.Send<AddLotteryInfoResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        /// 录入红包信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="lotteryid">红包抽奖id，来自addlotteryinfo返回的lottery_id</param>
+        /// <param name="mchid">红包提供者的商户号，，需与预下单中的商户号mch_id一致</param>
+        /// <param name="sponsorappid">红包提供商户公众号的appid，需与预下单中的公众账号appid（wxappid）一致</param>
+        /// <param name="prizeinfolist">红包ticket列表，如果红包数较多，可以一次传入多个红包，批量调用该接口设置红包信息。每次请求传入的红包个数上限为100</param>
+       
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static SetPrizeBucketResultJson SetPrizeBucket(string accessTokenOrAppId, string lotteryId, string mchid, string sponsorAppid, PrizeInfoList prizeInfoList,int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/setprizebucket?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    lottery_id = lotteryId,
+                    mchid = mchid,
+                    sponsorapp_id = sponsorAppid,
+                    prizeinfolist=prizeInfoList
+                   
+                 
+                };
+
+                return CommonJsonSend.Send<SetPrizeBucketResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        ///设置红包活动抽奖开关
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="lotteryId">红包抽奖id，来自addlotteryinfo返回的lottery_id</param>
+        /// <param name="onOff">活动抽奖开关，0：关闭，1：开启</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult SetLotterySwitch(string accessTokenOrAppId, string lotteryId, int onOff,int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/setlotteryswitch?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    lottery_id = lotteryId,
+                    onoff = onOff
+                 };
+
+                return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.GET, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        /// <summary>
+        ///红包查询接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="lotteryId">红包抽奖id，来自addlotteryinfo返回的lottery_id</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static QueryLotteryJsonResult QueryLottery(string accessTokenOrAppId, string lotteryId,int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/querylottery?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    lottery_id = lotteryId
+                 };
+
+                return CommonJsonSend.Send<QueryLotteryJsonResult>(null, url, data, CommonJsonSendType.GET, timeOut);
+
+            }, accessTokenOrAppId);
+        }
     }
+
 }

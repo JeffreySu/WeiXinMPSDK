@@ -1,6 +1,8 @@
 微信C# SDK
 =================
 
+> 如果需要使用或修改此项目的源代码，建议先Fork。也欢迎将您修改的通用版本Pull Request过来。
+
 | # | 模块功能 | DLL |
 |--------|--------|--------|
 | 1 | 基础库 | Senparc.Weixin.dll |
@@ -22,28 +24,28 @@
 
 目前官方的API都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的[DLLs](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut)。
 
-如果需要使用或修改此项目的源代码，建议先Fork。也欢迎将您修改的通用版本Pull Request过来。
 
 资源
 ----------------
 1. 官网地址：http://weixin.senparc.com/
+2. Demo 地址：http://sdk.weixin.senparc.com/
 2. 系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
-3. 微信技术交流社区：http://www.weiweihi.com/QA
-4. 自定义菜单在线编辑工具：http://weixin.senparc.com/Menu
-5. 在线消息测试工具：http://weixin.senparc.com/SimulateTool
-6. 缓存测试工具：http://weixin.senparc.com/Cache/Test
-7. chm帮助文档下载：http://weixin.senparc.com/Document
+3. 微信技术交流社区：http://weixin.senparc.com/QA
+4. 自定义菜单在线编辑工具：http://sdk.weixin.senparc.com/Menu
+5. 在线消息测试工具：http://sdk.weixin.senparc.com/SimulateTool
+6. 缓存测试工具：http://sdk.weixin.senparc.com/Cache/Test
+7. chm帮助文档下载：http://sdk.weixin.senparc.com/Document
 8. 源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
 
-* 技术交流QQ群（目前未满可加：9群，其他群均已满）：
+* 技术交流QQ群（目前未满可加：11群，其他群均已满）：
 
-> 1群：300313885，2群：293958349，3群：342319110，4群：372212092
+> 1群：300313885，2群：293958349，3群：342319110，4群：372212092，5群：377815480
 
-> 5群：377815480，6群：425898825，7群：482942254，8群：106230270
-
-> 9群：539061281
+> 6群：425898825，7群：482942254，8群：106230270，9群：539061281
 
 > 10群（Redis / Memcached 分布式缓存群）：只加已经在使用的开发者。发送申请及截图至 zsu@senparc.com 或QQ：498977166，标题：Senparc.Weixin.Cache 加群申请
+
+> 11群：553198593
 
 * 业务联系QQ：498977166
 

@@ -31,12 +31,15 @@ namespace Senparc.Weixin.QY.Helpers
 
         /// <summary>
         /// 获取时间戳
+        /// <remarks>
+        /// 2016-05-03：修改返回类型，方便GetSignature调用，避免再次类型转换
+        /// </remarks>
         /// </summary>
         /// <returns></returns>
-        public static string GetTimestamp()
+        public static long GetTimestamp()
         {
             TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-            return Convert.ToInt64(ts.TotalSeconds).ToString();
+            return Convert.ToInt64(ts.TotalSeconds);
         }
 
         /// <summary>

@@ -15,7 +15,7 @@ namespace Senparc.Weixin.MP.Test.Agents
         [TestMethod]
         public void RequestXmlTest()
         {
-            var url = "http://weixin.senparc.com/weixin"; //可以换成你自己的地址
+            var url = "http://sdk.weixin.senparc.com/weixin"; //可以换成你自己的地址
             var token = "weixin"; //替换成自己的Token
 
             var requestXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.Test.Agents
         [TestMethod]
         public void CheckUrlAndTokenTest()
         {
-            var url = "http://weixin.senparc.com/weixin";
+            var url = "http://sdk.weixin.senparc.com/weixin";
             var token = "weixin";
             var result = MessageAgent.CheckUrlAndToken(url, token);
             Assert.IsTrue(result);

@@ -2609,11 +2609,6 @@
             会员信息
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.UserinfoGetResult.custom_field_list">
-            <summary>
-            开发者设置的会员卡会员信息类目，如等级。
-            </summary>
-        </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.UserinfoGetResult.user_card_status">
             <summary>
             当前用户的会员卡状态
@@ -2622,6 +2617,11 @@
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.UserinfoGetResult_UserInfo.common_field_list">
             <summary>
             
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.UserinfoGetResult_UserInfo.custom_field_list">
+            <summary>
+            开发者设置的会员卡会员信息类目，如等级。
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Card.UserinfoGetResult_UserInfo_Item.name">
@@ -6082,7 +6082,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.DeviceBindLocatoin(System.String,System.Int64,System.String,System.Int64,System.Int64,System.Int64,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.DeviceBindLocatoin(System.String,System.Int64,System.String,System.Int64,System.Int64,System.Int64,System.String,System.Int32,System.Int32)">
             <summary>
             配置设备与门店的关联关系
             设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
@@ -6094,7 +6094,25 @@
             <param name="major"></param>
             <param name="minor"></param>
             <param name="poiId">Poi_id 的说明改为：设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。</param>
+            <param name="type">为1时，关联的门店和设备归属于同一公众账号；为2时，关联的门店为其他公众账号的门店。不填默认为1</param>
             <param name="timeOut"></param>
+            <param name="poi_appid">当Type为2时，必填	关联门店所归属的公众账号的APPID</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.DeviceBindLocatoin(System.String,System.Int64,System.String,System.Int64,System.Int64,System.Int64,System.Int32)">
+            <summary>
+            配置设备与其他门店的关联关系
+            设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
+            UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息。
+            </summary>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
+            <param name="deviceId">设备编号</param>
+            <param name="uuId"></param>
+            <param name="major"></param>
+            <param name="minor"></param>
+            <param name="poiId">Poi_id 的说明改为：设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。</param>
+            <param name="timeOut"></param>
+            <param name="type">为1时，关联的门店和设备归属于同一公众账号；为2时，关联的门店为其他公众账号的门店。不填默认为1</param>
             <returns></returns>
         </member>
         <member name="F:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.searchDeviceUrl">
@@ -6267,6 +6285,75 @@
             <param name="endDate">结束日期时间戳，最长时间跨度为30天</param>
             <param name="timeOut"></param>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.DeviceList(System.String,System.Int64,System.String,System.Int32)">
+            <summary>
+            批量查询设备统计数据接口
+            </summary>
+            <param name="accessTokenOrAppId">调用接口凭证</param>
+            <param name="date">指定查询日期时间戳，单位为秒</param>
+            <param name="page_index">指定查询的结果页序号；返回结果按摇周边人数降序排序，每50条记录为一页</param>
+            <returns></returns>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceListResultJson.devices">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceListResultJson.date">
+            <summary>
+            所查询的日期时间戳
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceListResultJson.total_count">
+            <summary>
+            设备总数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DeviceListResultJson.page_index">
+            <summary>
+            所查询的结果页序号；返回结果按摇周边人数降序排序，每50条记录为一页   
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DevicesList_DevicesItem.device_id">
+            <summary>
+            设备编号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DevicesList_DevicesItem.major">
+            <summary>
+            major
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DevicesList_DevicesItem.minor">
+            <summary>
+            minor
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DevicesList_DevicesItem.uuid">
+            <summary>
+            uuid
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DevicesList_DevicesItem.shake_pv">
+            <summary>
+            摇周边的次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DevicesList_DevicesItem.shake_uv">
+            <summary>
+            摇周边的人数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DevicesList_DevicesItem.click_pv">
+            <summary>
+            点击摇周边消息的次数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.DevicesList_DevicesItem.click_uv">
+            <summary>
+            点击摇周边消息的人数
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.ShakeAround.GetDeviceStatusResultJson">
             <summary>
@@ -6886,23 +6973,82 @@
             上传成功后图片的链接
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateApi">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.AddtemplateJsonResult">
             <summary>
-            模板消息接口
+            AddtemplateJsonResult
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(System.String,System.String,System.String,System.String,System.String,System.Object,System.Int32)">
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.GetIndustryJsonResult">
             <summary>
-            模板消息接口
+            GetIndustryJsonResult
             </summary>
-            <param name="accessTokenOrAppId"></param>
-            <param name="openId"></param>
-            <param name="templateId"></param>
-            <param name="topcolor"></param>
-            <param name="url"></param>
-            <param name="data"></param>
-            <param name="timeOut">代理请求超时时间（毫秒）</param>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.GetIndustryJsonResult.primary_industry">
+            <summary>
+            帐号设置的主营行业
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.GetIndustryJsonResult.secondary_industry">
+            <summary>
+            帐号设置的副营行业
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.GetIndustry_Item">
+            <summary>
+            GetIndustry_Item
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.GetIndustry_Item.first_class">
+            <summary>
+            主行业
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.GetIndustry_Item.second_class">
+            <summary>
+            副行业
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.GetIndustry_Item.ConvertToIndustryCode">
+            <summary>
+            将当前对象转成IndustryCode
+            </summary>
+            <param name="item"></param>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.GetPrivateTemplateJsonResult">
+            <summary>
+            GetPrivateTemplateJsonResult
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.GetPrivateTemplate_TemplateItem.template_id">
+            <summary>
+            模板ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.GetPrivateTemplate_TemplateItem.title">
+            <summary>
+            模板标题
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.GetPrivateTemplate_TemplateItem.primary_industry">
+            <summary>
+            模板所属行业的一级行业
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.GetPrivateTemplate_TemplateItem.deputy_industry">
+            <summary>
+            模板所属行业的二级行业
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.GetPrivateTemplate_TemplateItem.content">
+            <summary>
+            模板内容
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.GetPrivateTemplate_TemplateItem.example">
+            <summary>
+            模板示例
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage.SendTemplateMessageResult">
             <summary>
@@ -6955,6 +7101,68 @@
             <summary>
             数据
             </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TemplateApi">
+            <summary>
+            模板消息接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(System.String,System.String,System.String,System.String,System.String,System.Object,System.Int32)">
+            <summary>
+            模板消息接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="openId"></param>
+            <param name="templateId"></param>
+            <param name="topcolor"></param>
+            <param name="url"></param>
+            <param name="data"></param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SetIndustry(System.String,Senparc.Weixin.MP.IndustryCode,Senparc.Weixin.MP.IndustryCode,System.Int32)">
+            <summary>
+            设置所属行业
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="industry_id1">公众号模板消息所属行业编号</param>
+            <param name="industry_id2">公众号模板消息所属行业编号</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.GetIndustry(System.String,System.Int32)">
+            <summary>
+            获取设置的行业信息
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.Addtemplate(System.String,System.String,System.Int32)">
+            <summary>
+            获得模板ID
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="template_id_short">模板库中模板的编号，有“TM**”和“OPENTMTM**”等形式</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.GetPrivateTemplate(System.String,System.Int32)">
+            <summary>
+            获取模板列表
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.DelPrivateTemplate(System.String,System.String,System.Int32)">
+            <summary>
+            删除模板
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="template_id">公众帐号下模板消息ID</param>
+            <param name="timeOut"></param>
+            <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Url.ShortUrlResult">
             <summary>
@@ -7106,6 +7314,28 @@
             <param name="shopId">按门店ID搜索，-1为总统计</param>
             <param name="timeOut"></param>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.WiFiApi.GetConnectUrl(System.String)">
+            <summary>
+            获取公众号连网URL
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiConnectUrlResultJson">
+            <summary>
+            WiFiConnectUrlResultJson
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiConnectUrlResultJson.data">
+            <summary>
+            data
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.WiFiConnectUrl_Data">
+            <summary>
+            WiFiConnectUrl_Data
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.MP.AdvancedAPIs.WiFi.GetHomePageResult">
             <summary>
@@ -8586,6 +8816,11 @@
             <param name="xml">返回给服务器的Response Xml</param>
             <returns></returns>
         </member>
+        <member name="T:Senparc.Weixin.MP.Entities.ResponseMessageNoResponse">
+            <summary>
+            当MessageHandler接收到IResponseNothing的返回类型参数时，只会向微信服务器返回空字符串，等同于return null
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkerSize">
             <summary>
             标记大小
@@ -9727,6 +9962,11 @@
         <member name="F:Senparc.Weixin.MP.UserCardStatus.UNAVAILABLE">
             <summary>
             已失效
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.IndustryCode">
+            <summary>
+            行业代码
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MP.Helpers.EntityHelper.FillEntityWithXml``1(``0,System.Xml.Linq.XDocument)">

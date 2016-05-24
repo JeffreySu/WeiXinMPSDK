@@ -9,10 +9,14 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20150505
+    修改描述：添加ResponseMessageNoResponse类型处理
 ----------------------------------------------------------------*/
 
 using System;
 using System.Xml.Linq;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Helpers;
 
@@ -72,7 +76,10 @@ namespace Senparc.Weixin.MP.Entities
 					case ResponseMsgType.Transfer_Customer_Service:
 						responseMessage = new ResponseMessageTransfer_Customer_Service();
 						break;
-					default:
+                    case ResponseMsgType.NoResponse:
+                        responseMessage = new ResponseMessageNoResponse();
+                        break;
+                    default:
 						throw new UnknownRequestMsgTypeException(string.Format("ResponseMsgType没有为 {0} 提供对应处理程序。", msgType), new ArgumentOutOfRangeException());
 				}
 

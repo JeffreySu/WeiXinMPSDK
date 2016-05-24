@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,6 +13,25 @@ namespace Senparc.Weixin.HttpUtility.Tests
     [TestClass]
     public class GetTest
     {
+        [TestMethod]
+        public void DownloadTest()
+        {
+            var url = "http://sdk.weixin.senparc.com/images/v2/ewm_01.png";
+            using (FileStream fs = new FileStream(string.Format("qr-{0}.jpg", DateTime.Now.Ticks), FileMode.OpenOrCreate))
+            {
+                Get.Download(url, fs);//下载
+                fs.Flush();//直接保存，无需处理指针
+            }
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                Get.Download(url, ms);//下载
+                ms.Seek(0, SeekOrigin.Begin);//将指针放到流的开始位置
+                string base64Img = Convert.ToBase64String(ms.ToArray());//输出图片base64编码
+            }
+        }
+
+
         [TestMethod]
         public void GetJsonTest()
         {

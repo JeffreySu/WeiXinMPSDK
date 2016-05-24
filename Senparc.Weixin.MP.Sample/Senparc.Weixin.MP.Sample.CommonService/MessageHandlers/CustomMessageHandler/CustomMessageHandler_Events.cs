@@ -39,7 +39,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 您也可以直接点击菜单查看各种类型的回复。
 还可以点击菜单体验微信支付。
 
-SDK官方地址：http://weixin.senparc.com
+SDK官方地址：http://sdk.weixin.senparc.com
 源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK
 Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
 
@@ -108,8 +108,8 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         {
                             Title = "您点击了子菜单图文按钮",
                             Description = "您点击了子菜单图文按钮，这是一条图文信息。",
-                            PicUrl = "http://weixin.senparc.com/Images/qrcode.jpg",
-                            Url = "http://weixin.senparc.com"
+                            PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg",
+                            Url = "http://sdk.weixin.senparc.com"
                         });
                     }
                     break;
@@ -124,8 +124,8 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         reponseMessage = strongResponseMessage;
                         strongResponseMessage.Music.Title = "天籁之音";
                         strongResponseMessage.Music.Description = "真的是天籁之音";
-                        strongResponseMessage.Music.MusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
-                        strongResponseMessage.Music.HQMusicUrl = "http://weixin.senparc.com/Content/music1.mp3";
+                        strongResponseMessage.Music.MusicUrl = "http://sdk.weixin.senparc.com/Content/music1.mp3";
+                        strongResponseMessage.Music.HQMusicUrl = "http://sdk.weixin.senparc.com/Content/music1.mp3";
                         strongResponseMessage.Music.ThumbMediaId = uploadResult.thumb_media_id;
                     }
                     break;
@@ -171,8 +171,8 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         {
                             Title = "OAuth2.0测试",
                             Description = "点击【查看全文】进入授权页面。\r\n注意：此页面仅供测试（是专门的一个临时测试账号的授权，并非Senparc.Weixin.MP SDK官方账号，所以如果授权后出现错误页面数正常情况），测试号随时可能过期。请将此DEMO部署到您自己的服务器上，并使用自己的appid和secret。",
-                            Url = "http://weixin.senparc.com/oauth2",
-                            PicUrl = "http://weixin.senparc.com/Images/qrcode.jpg"
+                            Url = "http://sdk.weixin.senparc.com/oauth2",
+                            PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
                         });
                         reponseMessage = strongResponseMessage;
                     }

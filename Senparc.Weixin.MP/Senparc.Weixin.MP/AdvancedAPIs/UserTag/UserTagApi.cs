@@ -1,6 +1,5 @@
-﻿using Senparc.Weixin.CommonAPIs;
+﻿using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.MP.AdvancedAPIs.UserTag.UserTagJson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,13 +25,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.UserTag
                 return CommonJsonSend.Send<CreateTagResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
-        public static UserTagJson.TagJson Get(string accessTokenOrAppId)
+        public static TagJson Get(string accessTokenOrAppId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var urlFormat = "https://api.weixin.qq.com/cgi-bin/tags/get?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
-                return HttpUtility.Get.GetJson<UserTagJson.TagJson>(url);
+                return HttpUtility.Get.GetJson<TagJson>(url);
 
             }, accessTokenOrAppId);
         }

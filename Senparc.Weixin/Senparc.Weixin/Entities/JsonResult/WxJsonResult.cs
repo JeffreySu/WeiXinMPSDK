@@ -58,5 +58,5 @@ namespace Senparc.Weixin.Entities
         //        }
         //    }
         //}
-    }
+        }
 }

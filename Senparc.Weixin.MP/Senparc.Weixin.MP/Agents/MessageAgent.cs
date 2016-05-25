@@ -211,7 +211,7 @@ namespace Senparc.Weixin.MP.Agent
                 url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}&echostr={4}",
                         url.Contains("?") ? "&" : "?", signature.AsUrlData(), timestamp.AsUrlData(), nonce.AsUrlData(), echostr.AsUrlData());
 
-                var responseStr = RequestUtility.HttpGet(url, encoding: null, timeOut: timeOut);
+                var responseStr = RequestUtility.HttpGet(url, null, timeOut: timeOut);
                 return echostr == responseStr;
             }
             catch

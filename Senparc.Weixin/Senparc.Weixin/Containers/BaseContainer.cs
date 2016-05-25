@@ -198,9 +198,9 @@ namespace Senparc.Weixin.Containers
                 //var c1 = ItemCollection.GetCount();
                 ItemCollection[key] = bag;
                 //var c2 = ItemCollection.GetCount();
+                var cacheKey = GetCacheKey();
+                Cache.Update(cacheKey, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
             }
-            var cacheKey = GetCacheKey();
-            Cache.Update(cacheKey, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
         }
 
         /// <summary>

@@ -260,16 +260,12 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="departmentId">获取的部门id</param>
         /// <param name="fetchChild">1/0：是否递归获取子部门下面的成员</param>
         /// <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
-        /// <param name="maxJsonLength">设置 JavaScriptSerializer 类接受的 JSON 字符串的最大长度</param>
-        /// <remarks>
-        /// 2016-04-16：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
-        /// </remarks>
         /// <returns></returns>
-        public static GetDepartmentMemberResult GetDepartmentMember(string accessToken, int departmentId, int fetchChild, int status, int? maxJsonLength = null)
+        public static GetDepartmentMemberResult GetDepartmentMember(string accessToken, int departmentId, int fetchChild, int status)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
 
-            return Get.GetJson<GetDepartmentMemberResult>(url, maxJsonLength: maxJsonLength);
+            return Get.GetJson<GetDepartmentMemberResult>(url);
         }
 
         /// <summary>

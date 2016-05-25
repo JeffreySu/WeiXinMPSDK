@@ -189,8 +189,6 @@
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_WebsiteResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\Semantic_SearchResult.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
-    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\DeviceListResultJson.cs" />
-    <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetDeviceStatusResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\GetAuditStatusResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\RelationSearchResultJson.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\PageManageResultJson.cs" />
@@ -204,19 +202,11 @@
     <Compile Include="AdvancedAPIs\Poi\StoreJson\CreateStoreData.cs" />
     <Compile Include="AdvancedAPIs\Poi\StoreJson\StoreResultJson.cs" />
     <Compile Include="AdvancedAPIs\Poi\StoreJson\UploadImageResultJson.cs" />
-    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\AddtemplateJsonResult.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateApi.cs" />
-    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\GetIndustryJsonResult.cs" />
-    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\GetPrivateTemplateJsonResult.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\SendTemplateMessageResult.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\TemplateDataItem.cs" />
     <Compile Include="AdvancedAPIs\TemplateMessage\TemplateMessageJson\TempleteModel.cs" />
     <Compile Include="AdvancedAPIs\Analysis\AnalysisResultJson\UserAnalysisItemJson.cs" />
-    <Compile Include="AdvancedAPIs\UserTag\UserTagApi.cs" />
-    <Compile Include="AdvancedAPIs\UserTag\UserTagJson\CreateTagResult.cs" />
-    <Compile Include="AdvancedAPIs\UserTag\UserTagJson\TagJson.cs" />
-    <Compile Include="AdvancedAPIs\UserTag\UserTagJson\UserTagJsonResult.cs" />
-    <Compile Include="AdvancedAPIs\UserTag\UserTagJson\UserTagListResult.cs" />
     <Compile Include="AdvancedAPIs\Url\ShortUrlJson\ShortUrlResult.cs" />
     <Compile Include="AdvancedAPIs\Url\UrlApi.cs" />
     <Compile Include="AdvancedAPIs\User\UserJson\OpenIdResultJson.cs" />
@@ -224,7 +214,6 @@
     <Compile Include="AdvancedAPIs\User\UserJson\BatchGetUserInfoData.cs" />
     <Compile Include="AdvancedAPIs\User\UserJson\UserInfoJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiApi.cs" />
-    <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiConnectUrlResultJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiHomePageResultJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiStatisticsResultJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiQrcodeResultJson.cs" />
@@ -289,7 +278,6 @@
     <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
-    <Compile Include="Entities\Response\ResponseMessageNoResponse.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\EventHelper.cs" />
@@ -454,7 +442,6 @@
   <ItemGroup>
     <None Include="ClassDiagrams\MessageHandler.cd" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

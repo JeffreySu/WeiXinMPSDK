@@ -60,7 +60,6 @@ namespace Senparc.Weixin.Helpers
             var json = Regex.Replace(jsonString, @"\\u[0123456789abcdef]{4}", evaluator);//或：[\\u007f-\\uffff]，\对应为\u000a，但一般情况下会保持\
             return json;
         }
-
     }
 
 }

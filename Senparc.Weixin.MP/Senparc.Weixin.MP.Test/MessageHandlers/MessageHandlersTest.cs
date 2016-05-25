@@ -27,7 +27,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
             var responseMessage =
-               ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(RequestMessage);
+               ResponseMessageBase.CreateFromRequestMessage(RequestMessage, ResponseMsgType.Text) as
+               ResponseMessageText;
             responseMessage.Content = "文字信息";
             return responseMessage;
         }

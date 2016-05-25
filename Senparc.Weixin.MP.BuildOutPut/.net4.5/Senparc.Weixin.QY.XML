@@ -669,7 +669,7 @@
             客服返回结果
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.QY.AdvancedAPIs.LoginAuthApi.GetLoginAuthUrl(System.String,System.String,System.String,Senparc.Weixin.QY.Login_User_Type)" -->
+        <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.QY.AdvancedAPIs.LoginAuthApi.GetLoginAuthUrl(System.String,System.String,System.String)" -->
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.LoginAuthApi.GetLoginInfo(System.String,System.String,System.Int32)">
             <summary>
             获取企业号管理员登录信息
@@ -1495,7 +1495,7 @@
             <param name="userId">员工UserID</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.GetDepartmentMember(System.String,System.Int32,System.Int32,System.Int32,System.Nullable{System.Int32})">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.GetDepartmentMember(System.String,System.Int32,System.Int32,System.Int32)">
             <summary>
             获取部门成员
             </summary>
@@ -1503,10 +1503,6 @@
             <param name="departmentId">获取的部门id</param>
             <param name="fetchChild">1/0：是否递归获取子部门下面的成员</param>
             <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
-            <param name="maxJsonLength">设置 JavaScriptSerializer 类接受的 JSON 字符串的最大长度</param>
-            <remarks>
-            2016-04-16：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
-            </remarks>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MailListApi.GetDepartmentMemberInfo(System.String,System.Int32,System.Int32,System.Int32)">
@@ -2977,11 +2973,6 @@
             文章列表，微信客户端只能输出前10条（可能未来数字会有变化，出于视觉效果考虑，建议控制在8条以内）
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.QY.Entities.ResponseMessageNoResponse">
-            <summary>
-            当MessageHandler接收到IResponseNothing的返回类型参数时，只会向微信服务器返回空字符串，等同于return null
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.QY.Entities.ResponseMessageVideo">
             <summary>
             需要预先上传多媒体文件到微信服务器，只支持认证服务号。
@@ -3154,12 +3145,12 @@
         </member>
         <member name="T:Senparc.Weixin.QY.Helpers.MD5UtilHelper">
             <summary>
-            MD5UtilHelper 的摘要说明。
+            MD5UtilHelper µÄÕªÒªËµÃ÷¡£
             </summary>
         </member>
         <member name="M:Senparc.Weixin.QY.Helpers.MD5UtilHelper.GetMD5(System.String,System.String)">
             <summary>
-            获取大写的MD5签名结果
+            »ñÈ¡´óÐ´µÄMD5Ç©Ãû½á¹û
             </summary>
             <param name="encypStr"></param>
             <param name="charset"></param>
@@ -3425,22 +3416,6 @@
         <member name="F:Senparc.Weixin.QY.KF_Type.external">
             <summary>
             外部客服
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.QY.Login_User_Type">
-            <summary>redirect_uri支持登录的类型
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.QY.Login_User_Type.member">
-            <summary>成员登录
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.QY.Login_User_Type.admin">
-            <summary>管理员登录
-            </summary>
-        </member>
-        <member name="F:Senparc.Weixin.QY.Login_User_Type.all">
-            <summary>成员或管理员皆可登录
             </summary>
         </member>
         <member name="T:Senparc.Weixin.QY.Exceptions.WeixinQyException">
@@ -3727,67 +3702,67 @@
         <!-- Badly formed XML comment ignored for member "T:Senparc.Weixin.QY.TenPayLib.RequestHandler" -->
         <member name="F:Senparc.Weixin.QY.TenPayLib.RequestHandler.Key">
             <summary>
-            密钥
+            ÃÜÔ¿
             </summary>
         </member>
         <member name="F:Senparc.Weixin.QY.TenPayLib.RequestHandler.Parameters">
             <summary>
-            请求的参数
+            ÇëÇóµÄ²ÎÊý
             </summary>
         </member>
         <member name="F:Senparc.Weixin.QY.TenPayLib.RequestHandler.DebugInfo">
             <summary>
-            debug信息
+            debugÐÅÏ¢
             </summary>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.Init">
             <summary>
-            初始化函数
+            ³õÊ¼»¯º¯Êý
             </summary>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.GetDebugInfo">
             <summary>
-            获取debug信息
+            »ñÈ¡debugÐÅÏ¢
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.GetKey">
             <summary>
-            获取密钥
+            »ñÈ¡ÃÜÔ¿
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.SetKey(System.String)">
             <summary>
-            设置密钥
+            ÉèÖÃÃÜÔ¿
             </summary>
             <param name="key"></param>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.SetParameter(System.String,System.String)">
             <summary>
-            设置参数值
+            ÉèÖÃ²ÎÊýÖµ
             </summary>
             <param name="parameter"></param>
             <param name="parameterValue"></param>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.CreateMd5Sign(System.String,System.String)">
             <summary>
-            创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
+            ´´½¨md5ÕªÒª,¹æÔòÊÇ:°´²ÎÊýÃû³Æa-zÅÅÐò,Óöµ½¿ÕÖµµÄ²ÎÊý²»²Î¼ÓÇ©Ãû
             </summary>
-            <param name="key">参数名</param>
-            <param name="value">参数值</param>
-            key和value通常用于填充最后一组参数
+            <param name="key">²ÎÊýÃû</param>
+            <param name="value">²ÎÊýÖµ</param>
+            keyºÍvalueÍ¨³£ÓÃÓÚÌî³ä×îºóÒ»×é²ÎÊý
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.ParseXML">
             <summary>
-            输出XML
+            Êä³öXML
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.RequestHandler.SetDebugInfo(System.String)">
             <summary>
-            设置debug信息
+            ÉèÖÃdebugÐÅÏ¢
             </summary>
             <param name="debugInfo"></param>
         </member>
@@ -3942,19 +3917,19 @@
         </member>
         <member name="T:Senparc.Weixin.QY.TenPayLib.TenPayUtil">
             <summary>
-            TenpayUtil 的摘要说明。
-            配置文件
+            TenpayUtil µÄÕªÒªËµÃ÷¡£
+            ÅäÖÃÎÄ¼þ
             </summary>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.TenPayUtil.GetNoncestr">
             <summary>
-            随机生成Noncestr
+            Ëæ»úÉú³ÉNoncestr
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.TenPayUtil.UrlEncode(System.String,System.String)">
             <summary>
-            对字符串进行URL编码
+            ¶Ô×Ö·û´®½øÐÐURL±àÂë
             </summary>
             <param name="instr"></param>
             <param name="charset"></param>
@@ -3962,7 +3937,7 @@
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.TenPayUtil.UrlDecode(System.String,System.String)">
             <summary>
-            对字符串进行URL解码
+            ¶Ô×Ö·û´®½øÐÐURL½âÂë
             </summary>
             <param name="instr"></param>
             <param name="charset"></param>
@@ -3970,13 +3945,13 @@
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.TenPayUtil.UnixStamp">
             <summary>
-            取时间戳生成随即数,替换交易单号中的后10位流水号
+            È¡Ê±¼ä´ÁÉú³ÉËæ¼´Êý,Ìæ»»½»Ò×µ¥ºÅÖÐµÄºó10Î»Á÷Ë®ºÅ
             </summary>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.TenPayLib.TenPayUtil.BuildRandomStr(System.Int32)">
             <summary>
-            取随机数
+            È¡Ëæ»úÊý
             </summary>
             <param name="length"></param>
             <returns></returns>

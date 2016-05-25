@@ -21,7 +21,7 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
         [TestMethod]
         public void CreateFromRequestMessageTest()
         {
-            var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
+            var responseMessage = ResponseMessageBase.CreateFromRequestMessage(requestMessage, ResponseMsgType.Text);
             Assert.IsNotNull(responseMessage);
             Assert.AreEqual(ResponseMsgType.Text, responseMessage.MsgType);
             Assert.AreEqual("Senparc", responseMessage.FromUserName);

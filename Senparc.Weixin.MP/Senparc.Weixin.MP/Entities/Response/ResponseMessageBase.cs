@@ -9,14 +9,10 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
-    修改标识：Senparc - 20150505
-    修改描述：添加ResponseMessageNoResponse类型处理
 ----------------------------------------------------------------*/
 
 using System;
 using System.Xml.Linq;
-using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Helpers;
 
@@ -48,7 +44,7 @@ namespace Senparc.Weixin.MP.Entities
 		/// <param name="msgType">响应类型</param>
 		/// <returns></returns>
 		[Obsolete("建议使用CreateFromRequestMessage<T>(IRequestMessageBase requestMessage)取代此方法")]
-		private static ResponseMessageBase CreateFromRequestMessage(IRequestMessageBase requestMessage, ResponseMsgType msgType)
+		public static ResponseMessageBase CreateFromRequestMessage(IRequestMessageBase requestMessage, ResponseMsgType msgType)
 		{
 			ResponseMessageBase responseMessage = null;
 			try
@@ -76,10 +72,7 @@ namespace Senparc.Weixin.MP.Entities
 					case ResponseMsgType.Transfer_Customer_Service:
 						responseMessage = new ResponseMessageTransfer_Customer_Service();
 						break;
-                    case ResponseMsgType.NoResponse:
-                        responseMessage = new ResponseMessageNoResponse();
-                        break;
-                    default:
+					default:
 						throw new UnknownRequestMsgTypeException(string.Format("ResponseMsgType没有为 {0} 提供对应处理程序。", msgType), new ArgumentOutOfRangeException());
 				}
 
@@ -106,7 +99,7 @@ namespace Senparc.Weixin.MP.Entities
 		{
 			try
 			{
-                var tType = typeof(T);
+				var tType = typeof(T);
 				var responseName = tType.Name.Replace("ResponseMessage", ""); //请求名称
 				ResponseMsgType msgType = (ResponseMsgType)Enum.Parse(typeof(ResponseMsgType), responseName);
 				return CreateFromRequestMessage(requestMessage, msgType) as T;

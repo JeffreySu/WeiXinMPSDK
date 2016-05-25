@@ -134,14 +134,9 @@ namespace Senparc.Weixin.MessageHandlers
         {
             get
             {
-                if (ResponseMessage == null || ResponseMessage is IResponseMessageNoResponse)
-                {
-                    return "";
-                }
-
                 if (_textResponseMessage == null)
                 {
-                    return /*ResponseDocument == null ? null : */ ResponseDocument.ToString();
+                    return ResponseDocument == null ? null : ResponseDocument.ToString();
                 }
                 else
                 {
@@ -193,7 +188,7 @@ namespace Senparc.Weixin.MessageHandlers
         /// <summary>
         /// 使用requestMessageBase的构造函数
         /// </summary>
-        /// <param name="requestMessageBase"></param>
+        /// <param name="postDataDocument"></param>
         /// <param name="maxRecordCount"></param>
         /// <param name="postData">需要传入到Init的参数</param>
         public MessageHandler(RequestMessageBase requestMessageBase, int maxRecordCount = 0, object postData = null)

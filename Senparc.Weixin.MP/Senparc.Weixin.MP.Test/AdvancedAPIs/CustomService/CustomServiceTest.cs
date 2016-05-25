@@ -114,7 +114,5 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var result = CustomServiceApi.GetWaitCase(accessToken);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
-
-        
     }
 }

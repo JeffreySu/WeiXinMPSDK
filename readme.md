@@ -6,7 +6,7 @@
 | 1 | 基础库 | Senparc.Weixin.dll |
 | 2 | 微信公众号 / 微信支付 / JSSDK / 摇周边 / 等等 | Senparc.Weixin.MP.dll  |
 | 3 | ASP.NET MVC 扩展 | Senparc.Weixin.MP.MVC.dll |
-| 4 | 微信企业号 | Senparc.Weixin.QY.dll |
+| 4 | 微信企业号 | Senparc.Weixin.QY.dl |
 | 5 | 微信开放平台 | Senparc.Weixin.Open.dll |
 | 6 | Redis 分布式缓存 | Senparc.Weixin.Cache.Redis.dll |
 | 7 | Memcached 分布式缓存 | Senparc.Weixin.Cache.Memcached.dll |
@@ -35,7 +35,7 @@
 7. chm帮助文档下载：http://weixin.senparc.com/Document
 8. 源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
 
-* 技术交流QQ群（目前未满可加：9群，其他群均已满）：
+* 技术交流QQ群（目前未满可加：8群/9群，其他群均已满）：
 
 > 1群：300313885，2群：293958349，3群：342319110，4群：372212092
 
@@ -43,7 +43,6 @@
 
 > 9群：539061281
 
-> 10群（Redis / Memcached 分布式缓存群）：只加已经在使用的开发者。发送申请及截图至 zsu@senparc.com 或QQ：498977166，标题：Senparc.Weixin.Cache 加群申请
 
 * 业务联系QQ：498977166
 

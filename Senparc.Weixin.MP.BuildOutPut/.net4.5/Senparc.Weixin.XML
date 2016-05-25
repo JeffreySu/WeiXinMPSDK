@@ -142,10 +142,6 @@
             指定是否是Debug状态，如果是，系统会自动输出日志
             </summary>
         </member>
-        <member name="F:Senparc.Weixin.Config.MaxJsonLength">
-            <summary>JavaScriptSerializer 类接受的 JSON 字符串的最大长度
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.Containers.IBaseContainer">
             <summary>
             IBaseContainer
@@ -505,11 +501,6 @@
             所有Request和Response消息的基类
             </summary>
         </member>
-        <member name="T:Senparc.Weixin.Entities.IResponseMessageNoResponse">
-            <summary>
-            当MessageHandler接收到IResponseNothing的返回类型参数时，只会向微信服务器返回空字符串，等同于return null
-            </summary>
-        </member>
         <member name="T:Senparc.Weixin.Entities.WxJsonResult">
             <summary>
             公众号JSON返回结果（用于菜单接口等）
@@ -561,17 +552,17 @@
         </member>
         <member name="F:Senparc.Weixin.ReturnCode.客服帐号名长度超过限制">
             <summary>
-            客服帐号名长度超过限制(仅允许10个英文字符，不包括@及@后的公众号的微信号)(invalid kf_acount length)
+            客服帐号名长度超过限制(仅允许10个英文字符，不包括@及@后的公众号的微信号)(invalid kf_acount length) 
             </summary>
         </member>
         <member name="F:Senparc.Weixin.ReturnCode.客服帐号名包含非法字符">
             <summary>
-            客服帐号名包含非法字符(仅允许英文+数字)(illegal character in kf_account)
+            客服帐号名包含非法字符(仅允许英文+数字)(illegal character in kf_account) 
             </summary>
         </member>
         <member name="F:Senparc.Weixin.ReturnCode.客服帐号个数超过限制">
             <summary>
-             	客服帐号个数超过限制(10个客服账号)(kf_account count exceeded)
+             	客服帐号个数超过限制(10个客服账号)(kf_account count exceeded) 
             </summary>
         </member>
         <member name="T:Senparc.Weixin.ReturnCode_QY">
@@ -1544,19 +1535,13 @@
             <param name="stream"></param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.HttpUtility.Get">
-            <summary>
-            Get请求处理
-            </summary>
-        </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Get.GetJson``1(System.String,System.Text.Encoding,System.Nullable{System.Int32})">
+        <member name="M:Senparc.Weixin.HttpUtility.Get.GetJson``1(System.String,System.Text.Encoding)">
             <summary>
             GET方式请求URL，并返回T类型
             </summary>
             <typeparam name="T">接收JSON的数据类型</typeparam>
             <param name="url"></param>
             <param name="encoding"></param>
-            <param name="maxJsonLength">允许最大JSON长度</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.HttpUtility.Get.Download(System.String,System.IO.Stream)">
@@ -1566,13 +1551,12 @@
             <param name="url"></param>
             <param name="stream"></param>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Get.GetJsonAsync``1(System.String,System.Text.Encoding,System.Nullable{System.Int32})">
+        <member name="M:Senparc.Weixin.HttpUtility.Get.GetJsonAsync``1(System.String,System.Text.Encoding)">
             <summary>
             异步GetJsonA
             </summary>
             <param name="url"></param>
             <param name="encoding"></param>
-            <param name="maxJsonLength">允许最大JSON长度</param>
             <typeparam name="T"></typeparam>
             <returns></returns>
             <exception cref="T:Senparc.Weixin.Exceptions.ErrorJsonResultException"></exception>
@@ -1911,7 +1895,7 @@
         </member>
         <member name="P:Senparc.Weixin.MessageHandlers.IMessageHandlerDocument.TextResponseMessage">
             <summary>
-            文字返回信息。使用规则：当TextResponseMessage不为null时（""!=null），才获取ResponseDocument。
+            文字返回信息。当TextResponseMessage不为null时，才获取ResponseDocument
             </summary>
         </member>
         <member name="T:Senparc.Weixin.MessageHandlers.MessageHandler`3">
@@ -2021,7 +2005,7 @@
             <summary>
             使用requestMessageBase的构造函数
             </summary>
-            <param name="requestMessageBase"></param>
+            <param name="postDataDocument"></param>
             <param name="maxRecordCount"></param>
             <param name="postData">需要传入到Init的参数</param>
         </member>

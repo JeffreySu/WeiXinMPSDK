@@ -163,7 +163,6 @@
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Entities\Response\ResponseMessageImage.cs" />
     <Compile Include="Entities\Response\ResponseMessageNews.cs" />
-    <Compile Include="Entities\Response\ResponseMessageNoResponse.cs" />
     <Compile Include="Entities\Response\ResponseMessageText.cs" />
     <Compile Include="Entities\Response\ResponseMessageVideo.cs" />
     <Compile Include="Entities\Response\ResponseMessageVoice.cs" />

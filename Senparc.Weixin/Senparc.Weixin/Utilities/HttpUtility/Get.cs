@@ -1,17 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-
+    
     文件名：Get.cs
     文件功能描述：Get
-
-
+    
+    
     创建标识：Senparc - 20150211
-
+    
     修改标识：Senparc - 20150303
     修改描述：整理接口
-
-    修改标识：zeje - 20160422
-    修改描述：v4.5.19 为GetJson方法添加maxJsonLength参数
 ----------------------------------------------------------------*/
 
 using System;
@@ -25,9 +22,6 @@ using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.HttpUtility
 {
-    /// <summary>
-    /// Get请求处理
-    /// </summary>
     public static class Get
     {
         #region 同步方法
@@ -38,19 +32,14 @@ namespace Senparc.Weixin.HttpUtility
         /// <typeparam name="T">接收JSON的数据类型</typeparam>
         /// <param name="url"></param>
         /// <param name="encoding"></param>
-        /// <param name="maxJsonLength">允许最大JSON长度</param>
         /// <returns></returns>
-        public static T GetJson<T>(string url, Encoding encoding = null, int? maxJsonLength = null)
+        public static T GetJson<T>(string url, Encoding encoding = null)
         {
             string returnText = RequestUtility.HttpGet(url, encoding);
 
             WeixinTrace.SendLog(url, returnText);
 
             JavaScriptSerializer js = new JavaScriptSerializer();
-            if (maxJsonLength.HasValue)
-            {
-                js.MaxJsonLength = maxJsonLength.Value;
-            }
 
             if (returnText.Contains("errcode"))
             {
@@ -78,7 +67,7 @@ namespace Senparc.Weixin.HttpUtility
         public static void Download(string url, Stream stream)
         {
             //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3
-            //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
+            //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);  
 
             WebClient wc = new WebClient();
             var data = wc.DownloadData(url);
@@ -97,19 +86,14 @@ namespace Senparc.Weixin.HttpUtility
         /// </summary>
         /// <param name="url"></param>
         /// <param name="encoding"></param>
-        /// <param name="maxJsonLength">允许最大JSON长度</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         /// <exception cref="ErrorJsonResultException"></exception>
-        public static async Task<T> GetJsonAsync<T>(string url, Encoding encoding = null, int? maxJsonLength = null)
+        public static async Task<T> GetJsonAsync<T>(string url, Encoding encoding = null)
         {
             string returnText = await RequestUtility.HttpGetAsync(url, encoding);
 
             JavaScriptSerializer js = new JavaScriptSerializer();
-            if (maxJsonLength.HasValue)
-            {
-                js.MaxJsonLength = maxJsonLength.Value;
-            }
 
             if (returnText.Contains("errcode"))
             {
@@ -138,7 +122,7 @@ namespace Senparc.Weixin.HttpUtility
         public static async Task DownloadAsync(string url, Stream stream)
         {
             //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3
-            //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
+            //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);  
 
             WebClient wc = new WebClient();
             var data = await wc.DownloadDataTaskAsync(url);

@@ -105,7 +105,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="userList"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static BatchGetUserInfoJsonResult BatchGetUserInfo(string accessTokenOrAppId, List<BatchGetUserInfoData> userList, int timeOut = Config.TIME_OUT)
+        public static BatchGetUserInfoJson BatchGetUserInfo(string accessTokenOrAppId, List<BatchGetUserInfoData> userList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -114,7 +114,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     user_list = userList,
                 };
-                return CommonJsonSend.Send<BatchGetUserInfoJsonResult>(accessToken, url, data, timeOut: timeOut);
+                return CommonJsonSend.Send<BatchGetUserInfoJson>(accessToken, url, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

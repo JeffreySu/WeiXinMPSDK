@@ -71,11 +71,12 @@ namespace Senparc.Weixin.Cache.Memcached
 
         static MemcachedContainerStrategy()
         {
+
             // //初始化memcache服务器池
             //SockIOPool pool = SockIOPool.GetInstance();
             ////设置Memcache池连接点服务器端。
             //pool.SetServers(serverlist);
-            ////其他参数根据需要进行配置
+            ////其他参数根据需要进行配置 
 
             //pool.InitConnections = 3;
             //pool.MinConnections = 3;
@@ -123,6 +124,8 @@ namespace Senparc.Weixin.Cache.Memcached
         }
 
         #endregion
+
+
 
 
         #region IContainerCacheStragegy 成员

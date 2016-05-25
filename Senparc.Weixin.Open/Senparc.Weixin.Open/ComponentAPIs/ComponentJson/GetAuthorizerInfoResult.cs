@@ -1,15 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-
+    
     文件名：GetAuthorizerInfoResult.cs
     文件功能描述：获取授权方的账户信息返回结果
-
-
+    
+    
     创建标识：Senparc - 20150726
-
-    修改标识：Senparc - 20150402
-    修改描述：添加序列化特性[Serializable]
-
 ----------------------------------------------------------------*/
 
 using System;
@@ -21,7 +17,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     /// <summary>
     /// 获取授权方的账户信息返回结果
     /// </summary>
-    [Serializable]
     public class GetAuthorizerInfoResult : WxJsonResult
     {
         /// <summary>
@@ -34,7 +29,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public AuthorizationInfo authorization_info { get; set; }
     }
 
-    [Serializable]
     public class AuthorizerInfo
     {
         /// <summary>
@@ -71,23 +65,21 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
     }
 
-    [Serializable]
     public class ServiceTypeInfo
     {
         public ServiceType id { get; set; }
     }
 
-    [Serializable]
     public class VerifyTypeInfo
     {
         public VerifyType id { get; set; }
     }
 
-    [Serializable]
     public class BusinessInfo
     {
         public int open_pay { get; set; }
         public int open_shake { get; set; }
+        public int open_scan { get; set; }
         public int open_card { get; set; }
         public int open_store { get; set; }
     }

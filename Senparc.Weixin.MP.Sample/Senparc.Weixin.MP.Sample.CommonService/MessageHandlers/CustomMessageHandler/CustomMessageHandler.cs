@@ -1,10 +1,10 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-
+    
     文件名：CustomMessageHandler.cs
     文件功能描述：自定义MessageHandler
-
-
+    
+    
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
@@ -179,7 +179,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 /* 如果要写成一行，可以直接用：
                  * responseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
                  * 或
-                 *
+                 * 
                  */
                 var msg = string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
                 var agentResponseMessage = responseXml.CreateResponseMessage();
@@ -195,7 +195,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             }
             else if (requestMessage.Content == "测试" || requestMessage.Content == "退出")
             {
-                /*
+                /* 
                 * 这是一个特殊的过程，此请求通常来自于微微嗨（http://www.weiweihi.com）的“盛派网络小助手”应用请求（http://www.weiweihi.com/User/App/Detail/1），
                 * 用于演示微微嗨应用商店的处理过程，由于微微嗨的应用内部可以单独设置对话过期时间，所以这里通常不需要考虑对话状态，只要做最简单的响应。
                 */

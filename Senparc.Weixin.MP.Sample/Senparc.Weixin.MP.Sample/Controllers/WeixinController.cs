@@ -1,10 +1,10 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-
+    
     文件名：WeixinController.cs
     文件功能描述：用于处理微信回调的信息
-
-
+    
+    
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
@@ -178,7 +178,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         /*
          * v0.3.0之前的原始Post方法见：WeixinController_OldPost.cs
-         *
+         * 
          * 注意：虽然这里提倡使用CustomerMessageHandler的方法，但是MessageHandler基类最终还是基于OldPost的判断逻辑，
          * 因此如果需要深入了解Senparc.Weixin.MP内部处理消息的机制，可以查看WeixinController_OldPost.cs中的OldPost方法。
          * 目前为止OldPost依然有效，依然可用于生产。

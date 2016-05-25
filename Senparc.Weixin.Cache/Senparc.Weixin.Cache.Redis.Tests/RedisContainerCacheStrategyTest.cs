@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.CacheUtility;
 
 namespace Senparc.Weixin.Cache.Redis.Tests
 {
@@ -12,9 +13,6 @@ namespace Senparc.Weixin.Cache.Redis.Tests
             cache = RedisContainerCacheStrategy.Instance;
         }
 
-        /// <summary>
-        /// 单例测试
-        /// </summary>
         [TestMethod]
         public void SingletonTest()
         {
@@ -22,9 +20,6 @@ namespace Senparc.Weixin.Cache.Redis.Tests
             Assert.AreEqual(cache.GetHashCode(), cache2.GetHashCode());
         }
 
-        /// <summary>
-        /// 插入测试
-        /// </summary>
         [TestMethod]
         public void InsertToCacheTest()
         {
@@ -45,9 +40,6 @@ namespace Senparc.Weixin.Cache.Redis.Tests
             Assert.AreEqual(count + 1, count2);
         }
 
-        /// <summary>
-        /// 删除测试
-        /// </summary>
         [TestMethod]
         public void RemoveTest()
         {
@@ -59,12 +51,12 @@ namespace Senparc.Weixin.Cache.Redis.Tests
             {
 
             });
-
+            
             var item = cache.Get(key);
             Assert.IsNotNull(item);
             var count2 = cache.GetCount();
             Assert.AreEqual(count + 1, count2);
-
+          
             cache.RemoveFromCache(key);
             item = cache.Get(key);
             Assert.IsNull(item);

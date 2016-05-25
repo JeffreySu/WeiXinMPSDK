@@ -1,31 +1,28 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-
+    
     文件名：CardApi.cs
     文件功能描述：卡券高级功能API
-
-
+    
+    
     创建标识：Senparc - 20150211
-
+    
     修改标识：Senparc - 20150212
     修改描述：整理接口
     修改标识：Senparc - 20150303
     修改描述：整理接口
-
+ 
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
-
+ 
     修改标识：Senparc - 20150512
     修改描述：门店接口过期处理
-
+ 
     修改标识：Senparc - 20150717
     修改描述：增加获取用户已领取卡券、修改库存接口
-
-    修改标识：hello2008zj - 20160422
-    修改描述：修改CreateQR接口，匹配最新的文档
 ----------------------------------------------------------------*/
 
-/*
+/* 
    API地址：http://mp.weixin.qq.com/wiki/9/d8a5f3b102915f30516d79b44fe665ed.html
    PDF下载：https://mp.weixin.qq.com/zh_CN/htmledition/comm_htmledition/res/cardticket/wx_card_document.zip
 */
@@ -181,27 +178,36 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var jsonSetting = new JsonSetting(true, null,
                     new List<Type>()
                     {
-        //typeof (Modify_Msg_Operation),
-        //typeof (CardCreateInfo),
-        typeof (Card_BaseInfoBase)//过滤Modify_Msg_Operation主要起作用的是这个
+                        //typeof (Modify_Msg_Operation),
+                        //typeof (CardCreateInfo),
+                        typeof (Card_BaseInfoBase)//过滤Modify_Msg_Operation主要起作用的是这个
                     });
 
                 var result = CommonJsonSend.Send<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut,
-                    //针对特殊字段的null值进行过滤
-                    jsonSetting: jsonSetting);
+                   //针对特殊字段的null值进行过滤
+                   jsonSetting: jsonSetting);
                 return result;
 
             }, accessTokenOrAppId);
         }
 
-        ///// <summary>
-        ///// 此接口已取消，微信直接提供了十四种色值供选择，详见：http://mp.weixin.qq.com/wiki/8/b7e310e7943f7763450eced91fa793b0.html#.E5.8D.A1.E5.88.B8.E5.9F.BA.E7.A1.80.E4.BF.A1.E6.81.AF.E5.AD.97.E6.AE.B5.EF.BC.88.E9.87.8D.E8.A6.81.EF.BC.89
-        ///// 获取颜色列表接口
-        ///// </summary>
-        ///// <param name="accessTokenOrAppId"></param>
-        ///// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        ///// <returns></returns>
+        /// <summary>
+        /// 此接口已取消，微信直接提供了十四种色值供选择，详见：http://mp.weixin.qq.com/wiki/8/b7e310e7943f7763450eced91fa793b0.html#.E5.8D.A1.E5.88.B8.E5.9F.BA.E7.A1.80.E4.BF.A1.E6.81.AF.E5.AD.97.E6.AE.B5.EF.BC.88.E9.87.8D.E8.A6.81.EF.BC.89
+        /// 获取颜色列表接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        //public static GetColorsResultJson GetColors(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
+        //{
+        //    return ApiHandlerWapper.TryCommonApi(accessToken =>
+        //    {
+        //        var urlFormat = string.Format("https://api.weixin.qq.com/card/getcolors?access_token={0}", accessToken.AsUrlData());
 
+        //        return CommonJsonSend.Send<GetColorsResultJson>(null, urlFormat, null, timeOut: timeOut);
+
+        //    }, accessTokenOrAppId);
+        //}
 
         /// <summary>
         /// 生成卡券二维码
@@ -214,13 +220,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="expireSeconds">指定二维码的有效时间，范围是60 ~ 1800 秒。不填默认为永久有效。</param>
         /// <param name="isUniqueCode">指定下发二维码，生成的二维码随机分配一个code，领取后不可再次扫描。填写true 或false。默认false。</param>
         /// <param name="balance">红包余额，以分为单位。红包类型必填（LUCKY_MONEY），其他卡券类型不填。</param>
-        /// <param name="outer_id">自定义应用场景ID（v13.7.3起支持）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static CreateQRResultJson CreateQR(string accessTokenOrAppId, string cardId, string code = null,
-            string openId = null, string expireSeconds = null,
-            bool isUniqueCode = false, string balance = null, string outer_id = null,
-            int timeOut = Config.TIME_OUT)
+                                                  string openId = null, string expireSeconds = null,
+                                                  bool isUniqueCode = false, string balance = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -243,17 +247,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
                 };
 
-                //var jsonSettingne = new JsonSetting(true);
-
-                var jsonSetting = new JsonSetting(true, null,
-                                      new List<Type>()
-                                      {
-                                            //typeof (Modify_Msg_Operation),
-                                            //typeof (CardCreateInfo),
-                                            data.action_info.card.GetType()//过滤Modify_Msg_Operation主要起作用的是这个
-                                      });
-
-                return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                var jsonSettingne = new JsonSetting(true);
+                return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSettingne);
 
             }, accessTokenOrAppId);
         }
@@ -278,13 +273,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         /// <summary>
         /// 导入code
-        ///
+        /// 
         /// 新创建卡券情况
         /// 如果开发者打算新创建一张支持导入code模式的卡券，不同于以往的创建方式，建议开发者采用以下流程创建预存code模式卡券，否则会报错。
         /// 步骤一：创建预存模式卡券，将库存quantity初始值设置为0，并填入Deposit_Mode字段；
         /// 步骤二：待卡券通过审核后，调用导入code接口并核查code；
         /// 步骤三：调用修改库存接口，须令卡券库存小于或等于导入code的数目。（为了避免混乱建议设置为相等）
-        ///
+        /// 
         /// 注： 1）单次调用接口传入code的数量上限为100个。
         /// 2）每一个 code 均不能为空串。
         /// 3）导入结束后系统会自动判断提供方设置库存与实际导入code的量是否一致。
@@ -825,7 +820,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///  "custom_field_value1": "xxxxx",
         /// }
         /// 或者直接传入积分、余额的全量值
-        ///
+        /// 
         /// {
         ///  "code": "12312313",
         ///  "card_id":"p1Pj9jr90_SQRaVqYI239Ka1erkI",

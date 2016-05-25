@@ -1,24 +1,20 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-
+    
     文件名：ShakeAroundApi.cs
     文件功能描述：摇一摇周边接口
-
-
+    
+    
     创建标识：Senparc - 20150512
-
+ 
     修改标识：Senparc - 20160216
     修改描述：添加 查询设备与页面的关联关系 接口
-
-    修改标识：Senparc - 20160424
-    修改描述：v13.7.5 添加 ShakeAroundApi.DeviceApplyStatus 接口
 ----------------------------------------------------------------*/
 
 /*
     API：http://mp.weixin.qq.com/wiki/15/b9e012f917e3484b7ed02771156411f3.html
  */
 
-using System;
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
@@ -95,31 +91,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
-
-        /// <summary>
-        /// 查询设备ID申请审核状态
-        /// 接口说明 查询设备ID申请的审核状态。若单次申请的设备ID数量小于等于500个，系统会进行快速审核；若单次申请的设备ID数量大于500个，则在三个工作日内完成审核。
-        /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
-        /// <param name="appId">批次ID，申请设备ID时所返回的批次ID</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static GetDeviceStatusResultJson DeviceApplyStatus(string accessTokenOrAppId, int appId, int timeOut = Config.TIME_OUT)
-        {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                string url = string.Format("https://api.weixin.qq.com/shakearound/device/applystatus?access_token={0}", accessToken.AsUrlData());
-
-                var data = new
-                {
-                    apply_id = appId,
-                };
-
-                return CommonJsonSend.Send<GetDeviceStatusResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
-            }, accessTokenOrAppId);
-        }
-
         /// <summary>
         /// 编辑设备信息
         /// 设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
@@ -167,61 +138,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="major"></param>
         /// <param name="minor"></param>
         /// <param name="poiId">Poi_id 的说明改为：设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。</param>
-        /// <param name="type">为1时，关联的门店和设备归属于同一公众账号；为2时，关联的门店为其他公众账号的门店。不填默认为1</param>
         /// <param name="timeOut"></param>
-        /// <param name="poi_appid">当Type为2时，必填	关联门店所归属的公众账号的APPID</param>
-        /// <returns></returns>
-        public static WxJsonResult DeviceBindLocatoin(string accessTokenOrAppId, long deviceId, string uuId, long major, long minor, long poiId, string poi_appid, int type = 1, int timeOut = Config.TIME_OUT)
-        {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                string url = string.Format("https://api.weixin.qq.com/shakearound/device/bindlocation?access_token={0}", accessToken.AsUrlData());
-
-                var data = type == 2
-                    ? new
-                    {
-                        device_identifier = new
-                        {
-                            device_id = deviceId,
-                            uuid = uuId,
-                            major = major,
-                            minor = minor
-                        },
-                        poi_id = poiId,
-                        type = type,
-                        poi_appid = poi_appid
-                    } as object
-                    : new
-                    {
-                        device_identifier = new
-                        {
-                            device_id = deviceId,
-                            uuid = uuId,
-                            major = major,
-                            minor = minor
-                        },
-                        poi_id = poiId
-                    } as object;
-
-
-                return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
-            }, accessTokenOrAppId);
-        }
-
-        /// <summary>
-        /// 配置设备与其他门店的关联关系
-        /// 设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
-        /// UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息。
-        /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
-        /// <param name="deviceId">设备编号</param>
-        /// <param name="uuId"></param>
-        /// <param name="major"></param>
-        /// <param name="minor"></param>
-        /// <param name="poiId">Poi_id 的说明改为：设备关联的门店ID，关联门店后，在门店1KM的范围内有优先摇出信息的机会。</param>
-        /// <param name="timeOut"></param>
-        /// <param name="type">为1时，关联的门店和设备归属于同一公众账号；为2时，关联的门店为其他公众账号的门店。不填默认为1</param>
         /// <returns></returns>
         public static WxJsonResult DeviceBindLocatoin(string accessTokenOrAppId, long deviceId, string uuId, long major, long minor, long poiId, int timeOut = Config.TIME_OUT)
         {
@@ -537,7 +454,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var data = new
                 {
-                    type = 1,
+                    type=1,
                     device_identifier = deviceIdentifier
                 };
 
@@ -656,30 +573,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<StatisticsResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
-            }, accessTokenOrAppId);
-        }
-        /// <summary>
-        /// 批量查询设备统计数据接口
-        /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
-        /// <param name="date">指定查询日期时间戳，单位为秒</param>
-        /// <param name="page_index">指定查询的结果页序号；返回结果按摇周边人数降序排序，每50条记录为一页</param>
-        /// <returns></returns>
-        public static DeviceListResultJson DeviceList(string accessTokenOrAppId, long date, string page_index, int timeOut = Config.TIME_OUT)
-        {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/statistics/devicelist?access_token={0}", accessToken.AsUrlData());
-
-                var data = new
-                {
-                    date = date,
-                    page_index = page_index,
-                   
-                };
-
-                return CommonJsonSend.Send<DeviceListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
 
             }, accessTokenOrAppId);
         }

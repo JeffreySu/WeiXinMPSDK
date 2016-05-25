@@ -39,7 +39,7 @@ namespace Senparc.Weixin.MessageHandlers
         XDocument FinalResponseDocument { get; }
 
         /// <summary>
-        /// 文字返回信息。使用规则：当TextResponseMessage不为null时（""!=null），才获取ResponseDocument。
+        /// 文字返回信息。当TextResponseMessage不为null时，才获取ResponseDocument
         /// </summary>
         string TextResponseMessage { get; set; }
     }

@@ -129,5 +129,9 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.LoginAuth
         /// 登录跳转的url，一次性有效，不可多次使用
         /// </summary>
         public string login_url { get; set; }
+        /// <summary>
+        /// url有效时长，单位为秒
+        /// </summary>
+        public int expires_in { get; set; }
     }
 }

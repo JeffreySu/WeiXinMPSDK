@@ -385,7 +385,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static CreateQRResultJson CreateQR(string accessTokenOrAppId, string cardId, string code = null,
             string openId = null, string expireSeconds = null,
-            bool isUniqueCode = false, string balance = null, string outer_id = null,
+            bool isUniqueCode = false, string balance = null, string outer_id=null,
             int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -404,7 +404,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             openid = openId,
                             expire_seconds = expireSeconds,
                             is_unique_code = false,
-                            balance = balance
+                            balance = balance,
+                            outer_id = outer_id
                         }
                     }
                 };

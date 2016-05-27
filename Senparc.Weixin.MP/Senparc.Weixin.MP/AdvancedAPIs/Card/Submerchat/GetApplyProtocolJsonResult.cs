@@ -24,7 +24,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// </summary>
    public class GetApplyProtocolJsonResult : WxJsonResult
     {
-       public GetApplyProtocol_Category category { get; set;}
+      public List<GetApplyProtocol_Category> category { get; set; } 
      }
    public class GetApplyProtocol_Category
    {
@@ -39,7 +39,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
        /// <summary>
        /// 二级目录id
        /// </summary>
-       public GetApplyProtocol_Secondary_Category secondary_category { get; set; }
+       public List<GetApplyProtocol_Secondary_Category> secondary_category { get; set; } 
 
       
    }

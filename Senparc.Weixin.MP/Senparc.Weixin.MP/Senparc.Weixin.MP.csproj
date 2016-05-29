@@ -257,6 +257,7 @@
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiStatisticsResultJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiQrcodeResultJson.cs" />
     <Compile Include="AdvancedAPIs\WiFi\WiFiJson\WiFiDeviceResultJson.cs" />
+    <Compile Include="Agents\AgentHttpUtility.cs" />
     <Compile Include="AppStore\Api.cs" />
     <Compile Include="AppStore\Api\ApiConnection.cs" />
     <Compile Include="AppStore\Api\ApiContainer.cs" />

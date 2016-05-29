@@ -13,6 +13,9 @@
     修改标识：Senparc - 20150306
     修改描述：增加多客服接口
  
+    修改标识：Senparc - 20160520
+    修改描述：增加邀请绑定客服帐号接口
+ 
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
 ----------------------------------------------------------------*/
@@ -139,11 +142,36 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     password = passWord
                 };
 
-                return CommonJsonSend.Send<CustomOnlineJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
+        /// <summary>
+        /// 邀请绑定客服帐号
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="kfAccount">完整客服帐号，格式为：帐号前缀@公众号微信号</param>
+        /// <param name="inviteWx">接收绑定邀请的客服微信号</param>
 
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static WxJsonResult InviteWorker(string accessTokenOrAppId, string kfAccount, string inviteWx,int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfaccount/inviteworker?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    kf_account = kfAccount,
+                    invite_wx = inviteWx
+                   
+                };
+
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
         /// <summary>
         /// 设置客服信息
         /// </summary>
@@ -166,7 +194,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     password = passWord
                 };
 
-                return CommonJsonSend.Send<CustomOnlineJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

@@ -69,6 +69,26 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return CommonJsonSend.Send<GetPreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
+        /// <summary>
+        /// 设置授权配置
+        /// </summary>
+        /// <param name="suiteAccessToken"></param>
+        /// <param name="preAuthCode">预授权码</param>
+        /// <param name="sessionInfo">本次授权过程中需要用到的会话信息</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static QyJsonResult SetSessionInfo(string suiteAccessToken, string preAuthCode, SessionInfo sessionInfo, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/set_session_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
+
+            var data = new
+            {
+                pre_auth_code = preAuthCode,
+                session_info = sessionInfo
+            };
+
+            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
 
         /// <summary>
         /// 获取企业号的永久授权码
@@ -181,7 +201,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             {
                 suite_id = suiteId,
                 auth_corpid = authCorpId,
-                permanent_code = permanentCode,
+                permanent_code = permanentCode
             };
 
             return CommonJsonSend.Send<GetCorpTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);

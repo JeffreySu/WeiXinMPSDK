@@ -12,6 +12,9 @@
  
     修改标识：Senparc - 20150313
     修改描述：开放代理请求超时时间
+    
+    修改标识：Senparc - 20160530
+    修改描述：修改接口
 ----------------------------------------------------------------*/
 
 /*
@@ -61,11 +64,16 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_pre_auth_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
-            var data = new
+            var data = appId != null && appId.Length > 0
+                ? new
                 {
                     suite_id = suiteId,
                     appid = appId
-                };
+                } as object
+                : new
+                {
+                    suite_id = suiteId,
+                } as object;
 
             return CommonJsonSend.Send<GetPreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }

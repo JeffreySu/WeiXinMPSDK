@@ -11,12 +11,16 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using System.Xml.Linq;
 namespace Senparc.Weixin.MP.Entities
 {
     public interface IRequestMessageBase : Weixin.Entities.IRequestMessageBase
     {
         RequestMsgType MsgType { get; }
         string Encrypt { get; set; }
+
+        XDocument Decrypt { get; set; }
+
         long MsgId { get; set; }
     }
 
@@ -31,6 +35,8 @@ namespace Senparc.Weixin.MP.Entities
         }
 
         public string Encrypt { get; set; }
+
+        public XDocument Decrypt { get; set; }
 
         public RequestMessageBase()
         {

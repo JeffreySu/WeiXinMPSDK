@@ -1113,46 +1113,47 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
-        /// <summary>
-        /// 更新会员信息
-        /// </summary>
-        ///  post数据：
-        /// 可以传入积分、余额的差值
-        /// {
-        ///  "code": "12312313",
-        ///  "card_id":"p1Pj9jr90_SQRaVqYI239Ka1erkI",
-        ///  "record_bonus": "消费30元，获得3积分",
-        ///  "add_bonus": 3,//可以传入积分增减的差值
-        ///  "add_balance": -3000,//可以传入余额本次增减的差值
-        ///  "record_balance": "购买焦糖玛琪朵一杯，扣除金额30元。",
-        ///  "custom_field_value1": "xxxxx",
-        /// }
-        /// 或者直接传入积分、余额的全量值
-        ///
-        /// {
-        ///  "code": "12312313",
-        ///  "card_id":"p1Pj9jr90_SQRaVqYI239Ka1erkI",
-        ///  "record_bonus": "消费30元，获得3积分",
-        ///  "bonus": 3000,//可以传入第三方系统记录的积分全量值
-        ///  "balance": 3000,//可以传入第三方系统记录的余额全量值
-        ///  "record_balance": "购买焦糖玛琪朵一杯，扣除金额30元。",
-        ///  "custom_field_value1": "xxxxx",
-        /// }
-        /// <param name="accessTokenOrAppId"></param>
-        /// <param name="code">卡券Code码。</param>
-        /// <param name="cardId">卡券ID。</param>
-        /// <param name="addBonus">需要变更的积分，扣除积分用“-“表示。</param>
-        /// <param name="addBalance">需要变更的余额，扣除金额用“-”表示。单位为分。</param>
+        ///  <summary>
+        ///  更新会员信息
+        ///  </summary>
+        ///   post数据：
+        ///  可以传入积分、余额的差值
+        ///  {
+        ///   "code": "12312313",
+        ///   "card_id":"p1Pj9jr90_SQRaVqYI239Ka1erkI",
+        ///   "record_bonus": "消费30元，获得3积分",
+        ///   "add_bonus": 3,//可以传入积分增减的差值
+        ///   "add_balance": -3000,//可以传入余额本次增减的差值
+        ///   "record_balance": "购买焦糖玛琪朵一杯，扣除金额30元。",
+        ///   "custom_field_value1": "xxxxx",
+        ///  }
+        ///  或者直接传入积分、余额的全量值
+        /// 
+        ///  {
+        ///   "code": "12312313",
+        ///   "card_id":"p1Pj9jr90_SQRaVqYI239Ka1erkI",
+        ///   "record_bonus": "消费30元，获得3积分",
+        ///   "bonus": 3000,//可以传入第三方系统记录的积分全量值
+        ///   "balance": 3000,//可以传入第三方系统记录的余额全量值
+        ///   "record_balance": "购买焦糖玛琪朵一杯，扣除金额30元。",
+        ///   "custom_field_value1": "xxxxx",
+        ///  }
+        ///  <param name="accessTokenOrAppId"></param>
+        ///  <param name="code">卡券Code码。</param>
+        ///  <param name="cardId">卡券ID。</param>
+        ///  <param name="addBonus">需要变更的积分，扣除积分用“-“表示。</param>
+        ///  <param name="addBalance">需要变更的余额，扣除金额用“-”表示。单位为分。</param>
+        /// <param name="backgroundPicUrl">用户卡片的背景图片</param>
         /// <param name="bonus">需要设置的积分全量值，传入的数值会直接显示，如果同时传入add_bonus和bonus,则前者无效。</param>
-        /// <param name="balance">需要设置的余额全量值，传入的数值会直接显示，如果同时传入add_balance和balance,则前者无效。</param>
-        /// <param name="recordBonus">商家自定义积分消耗记录，不超过14个汉字。</param>
-        /// <param name="recordBalance">商家自定义金额消耗记录，不超过14个汉字。</param>
-        /// <param name="customFieldValue1">创建时字段custom_field1定义类型的最新数值，限制为4个汉字，12字节。</param>
-        /// <param name="customFieldValue2">创建时字段custom_field2定义类型的最新数值，限制为4个汉字，12字节。</param>
-        /// <param name="customFieldValue3">创建时字段custom_field3定义类型的最新数值，限制为4个汉字，12字节。</param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static UpdateUserResult UpdateUser(string accessTokenOrAppId, string code, string cardId, int addBonus, int addBalance,
+        ///  <param name="balance">需要设置的余额全量值，传入的数值会直接显示，如果同时传入add_balance和balance,则前者无效。</param>
+        ///  <param name="recordBonus">商家自定义积分消耗记录，不超过14个汉字。</param>
+        ///  <param name="recordBalance">商家自定义金额消耗记录，不超过14个汉字。</param>
+        ///  <param name="customFieldValue1">创建时字段custom_field1定义类型的最新数值，限制为4个汉字，12字节。</param>
+        ///  <param name="customFieldValue2">创建时字段custom_field2定义类型的最新数值，限制为4个汉字，12字节。</param>
+        ///  <param name="customFieldValue3">创建时字段custom_field3定义类型的最新数值，限制为4个汉字，12字节。</param>
+        ///  <param name="timeOut"></param>
+        ///  <returns></returns>
+        public static UpdateUserResult UpdateUser(string accessTokenOrAppId, string code, string cardId, int addBonus, int addBalance,string backgroundPicUrl =null,
             int? bonus = null, int? balance = null, string recordBonus = null, string recordBalance = null, string customFieldValue1 = null,
             string customFieldValue2 = null, string customFieldValue3 = null, int timeOut = Config.TIME_OUT)
         {
@@ -1164,6 +1165,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     code = code,
                     card_id = cardId,
+                    background_pic_url =backgroundPicUrl ,
                     add_bonus = addBonus,
                     bonus = bonus,
                     record_bonus = recordBonus,

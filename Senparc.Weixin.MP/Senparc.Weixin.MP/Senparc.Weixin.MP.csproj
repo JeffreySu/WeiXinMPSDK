@@ -159,6 +159,22 @@
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthUserInfo.cs" />
     <Compile Include="AdvancedAPIs\QrCode\CreateQrCodeResult.cs" />
     <Compile Include="AdvancedAPIs\QrCode\QrCodeApi.cs" />
+    <Compile Include="AdvancedAPIs\ScanProduct\ScanJson\GetWxTicketResult.cs" />
+    <Compile Include="AdvancedAPIs\ScanProduct\ScanJson\ProductModel.cs" />
+    <Compile Include="AdvancedAPIs\ScanProduct\ScanJson\OperateProductResult.cs" />
+    <Compile Include="AdvancedAPIs\ScanProduct\ScanJson\GetProductResult.cs" />
+    <Compile Include="AdvancedAPIs\ScanProduct\ScanJson\MerchantInfoResult.cs" />
+    <Compile Include="AdvancedAPIs\ScanProduct\ScanJson\Product_Brand_Base_Info.cs" />
+    <Compile Include="AdvancedAPIs\ScanProduct\ScanJson\Product_Brand_Info.cs" />
+    <Compile Include="AdvancedAPIs\ScanProduct\ScanJson\Product_Brand_Detail_Info.cs" />
+    <Compile Include="AdvancedAPIs\ScanProduct\ScanJson\Product_Brand_Action_Info.cs" />
+    <Compile Include="AdvancedAPIs\ScanProduct\ScanJson\Product_Brand_Module_Info.cs" />
+    <Compile Include="AdvancedAPIs\ScanProduct\ScanJson\PublicProductResult.cs" />
+    <Compile Include="AdvancedAPIs\ScanProduct\ScanJson\QrCodeResult.cs" />
+    <Compile Include="AdvancedAPIs\ScanProduct\ScanJson\VerifiedCate.cs" />
+    <Compile Include="AdvancedAPIs\ScanProduct\ScanProductApi.cs" />
+    <Compile Include="AdvancedAPIs\ScanProduct\ScanJson\Key.cs" />
+    <Compile Include="AdvancedAPIs\ScanProduct\ScanJson\ProductListResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticApi.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticResult\BaseSemanticResult.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticAgreement.cs" />
@@ -265,9 +281,14 @@
     <Compile Include="Entities\Menu\Buttons\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Menu\IButtonGroupBase.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Merchant_Order.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Scan_Product_Callback.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Scan_Product_Verify_Action.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Scan_Product_Enter_Session.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Scan_Product.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_ShakearoundUserShake.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Submit_Membercard_User_Info.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Enter_Session_From_Card.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Scan_Product_Async.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_View_Card.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Consume_Card.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_WifiConnected.cs" />
@@ -454,9 +475,7 @@
   <ItemGroup>
     <None Include="ClassDiagrams\MessageHandler.cd" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AdvancedAPIs\Saoyisao\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

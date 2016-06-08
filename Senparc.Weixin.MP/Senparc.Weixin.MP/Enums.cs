@@ -206,6 +206,27 @@ namespace Senparc.Weixin.MP
         /// 摇一摇事件通知
         /// </summary>
         ShakearoundUserShake,
+
+        /// <summary>
+        /// 组件消息
+        /// </summary>
+        scan_product_callback,
+        /// <summary>
+        /// 打开商品主页事件推送
+        /// </summary>
+        user_scan_product,
+        /// <summary>
+        /// 当用户从商品主页进入公众号会话时事件推送
+        /// </summary>
+        user_scan_product_enter_session,
+        /// <summary>
+        /// 地理位置异步推送
+        /// </summary>
+        user_scan_product_async,
+        /// <summary>
+        /// 商品审核结果推送
+        /// </summary>
+        user_scan_product_verify_action
     }
 
 
@@ -711,5 +732,17 @@ namespace Senparc.Weixin.MP
         印刷_印刷 = 40,
         其它_其它 = 41,
         请求成功
+    }
+
+    public enum ProductPublicStatus
+    {
+        On,
+        Off
+    }
+
+    public enum ProductKeystandardOptions
+    {
+        Ean13,
+        Qrcode
     }
 }

@@ -115,6 +115,18 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.ShakearoundUserShake://摇一摇事件通知
                     responseMessage = OnEvent_ShakearoundUserShake(RequestMessage as RequestMessageEvent_ShakearoundUserShake);
                     break;
+                case Event.user_scan_product:
+                    responseMessage = OnEvent_User_Scan_Product(requestMessage as RequestMessageEvent_User_Scan_Product);
+                    break;
+                case Event.user_scan_product_async:
+                    responseMessage = OnEvent_User_Scan_Product_Async(requestMessage as RequestMessageEvent_User_Scan_Product_Async);
+                    break;
+                case Event.user_scan_product_enter_session:
+                    responseMessage = OnEvent_User_Scan_Product_Enter_Session(requestMessage as RequestMessageEvent_User_Scan_Product_Enter_Session);
+                    break;
+                case Event.user_scan_product_verify_action:
+                    responseMessage = OnEvent_User_Scan_Product_Verify_Action(requestMessage as RequestMessageEvent_User_Scan_Product_Verify_Action);
+                    break;
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -379,6 +391,47 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
+
+        /// <summary>
+        /// Event事件类型请求之打开商品主页事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_User_Scan_Product(RequestMessageEvent_User_Scan_Product requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// Event事件类型请求之地理位置异步推送事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_User_Scan_Product_Async(RequestMessageEvent_User_Scan_Product_Async requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// Event事件类型请求之进入公众号事件推送
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_User_Scan_Product_Enter_Session(RequestMessageEvent_User_Scan_Product_Enter_Session requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        /// <summary>
+        /// Event事件类型请求之商品审核结果推送事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual IResponseMessageBase OnEvent_User_Scan_Product_Verify_Action(RequestMessageEvent_User_Scan_Product_Verify_Action requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
 
         #endregion
     }

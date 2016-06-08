@@ -170,6 +170,21 @@ namespace Senparc.Weixin.MP
                             case "SHAKEAROUNDUSERSHAKE"://摇一摇事件通知
                                 requestMessage = new RequestMessageEvent_ShakearoundUserShake();
                                 break;
+                            case "SCAN_PRODUCT_CALLBACK": //扫一扫组件消息推送
+                                requestMessage = new RequestMessageEvent_User_Scan_Product_Callback();
+                                break;
+                            case "USER_SCAN_PRODUCT": //用户打开商品主页事件
+                                requestMessage = new RequestMessageEvent_User_Scan_Product();
+                                break;
+                            case "USER_SCAN_PRODUCT_ENTER_SESSION":
+                                requestMessage = new RequestMessageEvent_User_Scan_Product_Enter_Session();
+                                break;
+                            case "USER_SCAN_PRODUCT_ASYNC":
+                                requestMessage = new RequestMessageEvent_User_Scan_Product_Async();
+                                break;
+                            case "USER_SCAN_PRODUCT_VERIFY_ACTION":
+                                requestMessage = new RequestMessageEvent_User_Scan_Product_Verify_Action();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

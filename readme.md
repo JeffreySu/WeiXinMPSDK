@@ -331,8 +331,8 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
 
 资金捐助：
 
-[![donate]](http://weixin.senparc.com/)
-[donate]: http://weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png
+[![donate]](http://sdk.weixin.senparc.com/)
+[donate]: http://sdk.weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png
 
 
 图书众筹
@@ -340,7 +340,7 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
 扫描下方二维码参与《微信公众平台快速开发》图书众筹
 
 [![CrowdFunding]](http://www.weiweihi.com:8080/CrowdFunding/Home)  
-[CrowdFunding]: http://weixin.senparc.com/images/crowdfunding-qrcode.png
+[CrowdFunding]: http://sdk.weixin.senparc.com/images/crowdfunding-qrcode.png
 
 License
 --------------

@@ -149,7 +149,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         {
             var url =
                 string.Format(
-                    "https://qyapi.weixin.qq.com/cgi-bin/material/del?access_token={0}&agentid={1}&media_id={2}}",
+                    "https://qyapi.weixin.qq.com/cgi-bin/material/del?access_token={0}&agentid={1}&media_id={2}",
                     accessToken.AsUrlData(), agentId, mediaId.AsUrlData());
 
             return CommonJsonSend.Send<QyJsonResult>(null, url, null, CommonJsonSendType.GET);

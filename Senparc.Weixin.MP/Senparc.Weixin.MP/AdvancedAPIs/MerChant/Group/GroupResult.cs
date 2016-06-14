@@ -17,7 +17,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// <summary>
     /// 获取所有分组返回信息
     /// </summary>
-    public class GetAllGroup
+    public class GetAllGroup : WxResult
     {
         /// <summary>
         /// 分组集合

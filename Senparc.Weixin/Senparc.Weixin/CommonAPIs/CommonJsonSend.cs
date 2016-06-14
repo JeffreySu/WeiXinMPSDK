@@ -54,6 +54,7 @@ namespace Senparc.Weixin.CommonAPIs
         /// <param name="jsonSetting"></param>
         /// <returns></returns>
         public static T Send<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false, JsonSetting jsonSetting = null)
+            where T : WxResult
         {
             //TODO:此方法可以设定一个日志记录开关
 
@@ -119,6 +120,7 @@ namespace Senparc.Weixin.CommonAPIs
         public static async Task<T> SendAsync<T>(string accessToken, string urlFormat, object data, CommonJsonSendType sendType = CommonJsonSendType.POST, int timeOut = Config.TIME_OUT, bool checkValidationResult = false,
             JsonSetting jsonSetting = null
             )
+            where T : WxResult
         {
             try
             {

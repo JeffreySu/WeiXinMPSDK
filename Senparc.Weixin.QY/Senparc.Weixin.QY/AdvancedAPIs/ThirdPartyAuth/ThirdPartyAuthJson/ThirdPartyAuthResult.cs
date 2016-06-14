@@ -48,7 +48,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth
         public int expires_in { get; set; }
     }
 
-    public class GetPermanentCodeResult
+    public class GetPermanentCodeResult : WxResult
     {
         /// <summary>
         /// 授权方（企业）access_token
@@ -186,7 +186,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth
     /// <summary>
     /// 获取企业号的授权信息返回结果
     /// </summary>
-    public class GetAuthInfoResult
+    public class GetAuthInfoResult : WxResult
     {
         /// <summary>
         /// 授权方企业信息
@@ -286,7 +286,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth
     /// <summary>
     /// 获取企业号access_token返回结果
     /// </summary>
-    public class GetCorpTokenResult
+    public class GetCorpTokenResult : WxResult
     {
         /// <summary>
         /// 授权方（企业）access_token

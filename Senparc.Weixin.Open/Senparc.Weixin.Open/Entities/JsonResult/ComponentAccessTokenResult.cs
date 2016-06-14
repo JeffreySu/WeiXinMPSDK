@@ -8,6 +8,7 @@
     创建标识：Senparc - 20150430
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Entities;
 using System;
 
 namespace Senparc.Weixin.Open.Entities
@@ -16,7 +17,7 @@ namespace Senparc.Weixin.Open.Entities
     /// 获取第三方平台access_token
     /// </summary>
     [Serializable]
-    public class ComponentAccessTokenResult
+    public class ComponentAccessTokenResult : WxResult
     {
         /// <summary>
         /// 第三方平台access_token

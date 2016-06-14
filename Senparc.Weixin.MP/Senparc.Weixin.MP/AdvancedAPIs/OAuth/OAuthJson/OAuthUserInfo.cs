@@ -11,12 +11,13 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Entities;
 namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
 {
     /// <summary>
     /// 通过OAuth的获取到的用户信息（snsapi_userinfo=scope）
     /// </summary>
-    public class OAuthUserInfo
+    public class OAuthUserInfo : WxResult
     {
         public string openid { get; set; }
         public string nickname { get; set; }

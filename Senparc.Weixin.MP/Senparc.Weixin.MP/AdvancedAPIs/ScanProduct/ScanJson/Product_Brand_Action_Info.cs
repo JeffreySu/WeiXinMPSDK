@@ -12,7 +12,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
     }
 
 
-    public class Product_Brand_Action_Info_Base
+
+    public abstract class Product_Brand_Action_Info_Base
     {
         public string type { get; set; }
     }
@@ -105,6 +106,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
         public string recommend { get; set; }
         public string recommend_list { get; set; }
         public string keystr { get; set; }
-        public string keystr { get; set; }
+        public string Keystandard { get; set; }
     }
 }

@@ -399,6 +399,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <returns></returns>
         public virtual IResponseMessageBase OnEvent_User_Scan_Product(RequestMessageEvent_User_Scan_Product requestMessage)
         {
+            //ResponseScanProduct
             return DefaultResponseMessage(requestMessage);
         }
 

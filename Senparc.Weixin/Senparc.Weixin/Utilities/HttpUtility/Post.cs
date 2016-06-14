@@ -41,6 +41,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="returnText"></param>
         /// <returns></returns>
         public static T GetResult<T>(string returnText)
+            where T : WxResult
         {
             JavaScriptSerializer js = new JavaScriptSerializer();
 
@@ -48,6 +49,7 @@ namespace Senparc.Weixin.HttpUtility
             {
                 //可能发生错误
                 WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
+                errorResult.Json = returnText;
                 if (errorResult.errcode != ReturnCode.请求成功)
                 {
                     //发生错误
@@ -60,6 +62,7 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             T result = js.Deserialize<T>(returnText);
+            result.Json = returnText;
             return result;
         }
 
@@ -78,6 +81,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="postDataDictionary"></param>
         /// <returns></returns>
         public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
+            where T : WxResult
         {
             using (MemoryStream ms = new MemoryStream())
             {
@@ -100,6 +104,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <returns></returns>
         public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+            where T : WxResult
         {
             string returnText = RequestUtility.HttpPost(url, cookieContainer, fileStream, null, null, encoding, timeOut: timeOut, checkValidationResult: checkValidationResult);
 
@@ -120,6 +125,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
+            where T : WxResult
         {
             string returnText = RequestUtility.HttpPost(url, cookieContainer, formData, encoding, timeOut: timeOut);
             var result = GetResult<T>(returnText);
@@ -157,6 +163,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
+            where T : WxResult
         {
             string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, null, fileDictionary, null, encoding, timeOut);
             var result = GetResult<T>(returnText);
@@ -175,6 +182,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="checkValidationResult"></param>
         /// <returns></returns>
         public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+            where T : WxResult
         {
             string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, fileStream, null, null, encoding, timeOut, checkValidationResult: checkValidationResult);
             var result = GetResult<T>(returnText);
@@ -192,6 +200,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
+            where T : WxResult
         {
             string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, formData, encoding, timeOut);
             var result = GetResult<T>(returnText);

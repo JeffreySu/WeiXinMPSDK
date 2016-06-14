@@ -23,7 +23,7 @@ using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 
-namespace Senparc.Weixin.HttpUtility
+namespace Senparc.Weixin.HttpUtility 
 {
     /// <summary>
     /// Get请求处理
@@ -41,6 +41,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="maxJsonLength">允许最大JSON长度</param>
         /// <returns></returns>
         public static T GetJson<T>(string url, Encoding encoding = null, int? maxJsonLength = null)
+            where T : WxResult
         {
             string returnText = RequestUtility.HttpGet(url, encoding);
 
@@ -56,6 +57,7 @@ namespace Senparc.Weixin.HttpUtility
             {
                 //可能发生错误
                 WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
+                errorResult.Json = returnText;
                 if (errorResult.errcode != ReturnCode.请求成功)
                 {
                     //发生错误
@@ -66,6 +68,7 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             T result = js.Deserialize<T>(returnText);
+            result.Json = returnText;
 
             return result;
         }
@@ -102,6 +105,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         /// <exception cref="ErrorJsonResultException"></exception>
         public static async Task<T> GetJsonAsync<T>(string url, Encoding encoding = null, int? maxJsonLength = null)
+            where T:WxResult
         {
             string returnText = await RequestUtility.HttpGetAsync(url, encoding);
 
@@ -115,6 +119,7 @@ namespace Senparc.Weixin.HttpUtility
             {
                 //可能发生错误
                 WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
+                errorResult.Json = returnText;
                 if (errorResult.errcode != ReturnCode.请求成功)
                 {
                     //发生错误
@@ -125,7 +130,7 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             T result = js.Deserialize<T>(returnText);
-
+            result.Json = returnText;
             return result;
         }
 

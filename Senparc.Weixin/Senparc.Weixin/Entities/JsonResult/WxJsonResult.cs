@@ -32,11 +32,21 @@ namespace Senparc.Weixin.Entities
         ReturnCode errcode { get; set; }
     }
 
+    public interface IWxResult
+    {
+        string Json { get; set; }
+    }
+
+    public class WxResult : IWxResult
+    {
+        public string Json { get; set; }
+    }
+
     /// <summary>
     /// 公众号JSON返回结果（用于菜单接口等）
     /// </summary>
     [Serializable]
-    public class WxJsonResult : IWxJsonResult
+    public class WxJsonResult : WxResult, IWxJsonResult
     {
         public ReturnCode errcode { get; set; }
         public string errmsg { get; set; }
@@ -58,5 +68,5 @@ namespace Senparc.Weixin.Entities
         //        }
         //    }
         //}
-        }
+    }
 }

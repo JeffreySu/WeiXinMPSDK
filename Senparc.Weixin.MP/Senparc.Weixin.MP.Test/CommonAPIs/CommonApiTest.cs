@@ -39,7 +39,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                     {
                         _appConfig = new
                         {
-                            AppId = "YourAppId", //换成你的信息
+                            AppId = "wx0e2ceaf763dd6e7a", //换成你的信息
                             Secret = "YourSecret",//换成你的信息
                             MchId = "YourMchId",//换成你的信息
                             TenPayKey = "YourTenPayKey",//换成你的信息

@@ -11,6 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Entities;
 using System;
 
 namespace Senparc.Weixin.MP.Entities
@@ -19,7 +20,7 @@ namespace Senparc.Weixin.MP.Entities
     /// access_token请求后的JSON返回格式
     /// </summary>
     [Serializable]
-    public class AccessTokenResult
+    public class AccessTokenResult : WxResult
     {
         /// <summary>
         /// 获取到的凭证

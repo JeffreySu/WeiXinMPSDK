@@ -9,12 +9,13 @@
     
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Entities;
 namespace Senparc.Weixin.Open.QRConnect
 {
     /// <summary>
     /// 通过OAuth的获取到的用户信息（snsapi_userinfo=scope）
     /// </summary>
-    public class QRConnectUserInfo
+    public class QRConnectUserInfo : WxResult
     {
         /// <summary>
         /// 普通用户的标识，对当前开发者帐号唯一

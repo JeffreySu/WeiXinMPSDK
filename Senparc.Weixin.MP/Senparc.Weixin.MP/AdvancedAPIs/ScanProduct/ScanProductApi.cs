@@ -200,6 +200,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
                     status = status,
                     keystr = keystr,
                 };
+
+                //var s = CommonJsonSend.Send<string>(accessToken, urlFormat, msgData, timeOut: timeOut);
+
                 return CommonJsonSend.Send<ProductListResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
 
             }, accessTokenOrAppId);

@@ -8,6 +8,7 @@
     创建标识：Senparc - 20150319
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Entities;
 namespace Senparc.Weixin.MP.AppStore
 {
     public interface IAppResult<T> where T : IAppResultData
@@ -30,7 +31,7 @@ namespace Senparc.Weixin.MP.AppStore
     /// <summary>
     /// JSON返回结果（用于菜单接口等）
     /// </summary>
-    public class AppResult<T> : IAppResult<T> where T : IAppResultData
+    public class AppResult<T> : WxResult, IAppResult<T> where T : IAppResultData
     {
         public AppResultKind Result { get; set; }
         /// <summary>

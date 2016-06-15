@@ -49,10 +49,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     accessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
                 return HttpUtility.Get.GetJson<UserInfoJson>(url);
 
-                //错误时微信会返回错误码等信息，JSON数据包示例如下（该示例为AppID无效错误）:
-                //{"errcode":40013,"errmsg":"invalid appid"}
+        //错误时微信会返回错误码等信息，JSON数据包示例如下（该示例为AppID无效错误）:
+        //{"errcode":40013,"errmsg":"invalid appid"}
 
-            }, accessTokenOrAppId);
+    }, accessTokenOrAppId);
         }
 
         /// <summary>

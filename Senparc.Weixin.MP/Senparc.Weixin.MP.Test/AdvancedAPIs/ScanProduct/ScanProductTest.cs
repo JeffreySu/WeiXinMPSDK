@@ -11,7 +11,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.ScanProduct
     public class ScanProductTest : CommonApiTest
     {
 
-        private static readonly string accessToken = "ENgTWMa473M3UJUhSIYrJxrv2e62XJIGaDwBeKOYqVjc7GMjfGJZug_pXgt6xO7hU8LYckr5l87gZuYmItry1EGWhkyvnV2cL6mfllLQiKyeF97B0p53cGX9aegBgFxUTOXcAFAOJS";
+        private static readonly string accessToken = "XFp9iZ7Kag8jyE8xjGHU3CtMFXpbTKrSMxfXnXEus7oZURm7rwLzPq4h-pTFK9aI0QuPRQIUZFTvpZrUKnLpoIDBOfiBQJgya2M8yP8KDkLIjyMs5czrjMMlB5J0qILrFNIiALDVDY";
 
         private static readonly string goodKeyStr = "6954496901195";
 
@@ -66,6 +66,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.ScanProduct
             var product = new ProductModel
             {
                 keystr = keystr,
+                keystandard = ProductKeystandardOptions.ean13,
                 brand_info = new Product_Brand_Info
                 {
                     base_info = new Product_Brand_Base_Info
@@ -97,12 +98,11 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.ScanProduct
 
                     }
                 },
-                keystandard = ProductKeystandardOptions.ean13.ToString().ToLower()
             };
             var result = MP.AdvancedAPIs.ScanProduct.ScanProductApi.CreateProduct(accessToken, product);
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
 
-            var codeResult = MP.AdvancedAPIs.ScanProduct.ScanProductApi.GetProductQrCode(accessToken, keystr, ProductKeystandardOptions.ean13);
+            var codeResult = MP.AdvancedAPIs.ScanProduct.ScanProductApi.GetProductQrCode(accessToken, keystr, ProductKeystandardOptions.ean13, "123456");
 
             product.brand_info.base_info.title = "测试商品2";
             result = MP.AdvancedAPIs.ScanProduct.ScanProductApi.UpdateProduct(accessToken, product);

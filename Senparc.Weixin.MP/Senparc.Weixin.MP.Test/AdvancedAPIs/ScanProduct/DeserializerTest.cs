@@ -98,6 +98,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         }
     }
 }";
+
+        private static readonly string json2 = "{'keystandard':'ean13','keystr':'6954496900556','brand_info':{'base_info':{'title':'稚优泉','thumb_url':'http://mmbiz.qpic.cn/mmbiz/hXn4njvzgZUT3A4VeW98Msv5lFP8ZKeg4l0D1WtKlZo1ibJasouW6cGOa18MGqw2X8cryNSIiarekty2tGiaKn7SA/0?wx_fmt=jpeg','color':'auto','brand_tag':'稚优泉','category_id':538112978,'store_mgr_type':'custom','store_vendorid_list':[],'status':'off'},'detail_info':{'banner_list':[{'link':'http://mmbiz.qpic.cn/mmbiz/hXn4njvzgZUT3A4VeW98Msv5lFP8ZKeg4YWvsqtZzmKPp3rN9v1K56qQ5B8VEYAEkuXgnOAvEKMVqwNfawM6rQ/0?wx_fmt=jpeg'},{'link':'http://mmbiz.qpic.cn/mmbiz/hXn4njvzgZUT3A4VeW98Msv5lFP8ZKegnw0UMjyiaZW3pCrtKZCyhRvKXZw01iafXDAYNCUKO8HFcJia7EZxaULKw/0?wx_fmt=jpeg'},{'link':'http://mmbiz.qpic.cn/mmbiz/hXn4njvzgZUT3A4VeW98Msv5lFP8ZKegVV2ll5ARtBib50woqT1ibdomE1wlAJu6Z3icmPTBodmicOYQ17XWONHGGg/0?wx_fmt=jpeg'},{'link':'http://mmbiz.qpic.cn/mmbiz/hXn4njvzgZUT3A4VeW98Msv5lFP8ZKegMoRFKluibnLSenpicL5RSUCYS3NQCcqyAdURicutHq741IR1EXGO2EEtw/0?wx_fmt=jpeg'},{'link':'http://mmbiz.qpic.cn/mmbiz/hXn4njvzgZUT3A4VeW98Msv5lFP8ZKeg02UEqFAc6ZHWt0JtIZEzSHpcu0PQcKcB5MCUaKnJDxIibJiaNy0JWEBA/0?wx_fmt=jpeg'},{'link':'http://mmbiz.qpic.cn/mmbiz/hXn4njvzgZUT3A4VeW98Msv5lFP8ZKegW6QHbdcWDiaWba5W9TlGPibXibocrsjLVbmzv4O4fLbZkHgNVtHrN1rcg/0?wx_fmt=jpeg'}],'detail_list':[{'title':'容量','desc':'50ml'}]},'action_info':{'action_list':[{'type':'price','retail_price':'51.00'},{'type':'user','name':'查看公众号','appid':'wx0e2ceaf763dd6e7a'},{'type':'text','name':'商品简介','text':'50ml 男女面部隔离紫外线，spf50,PA+++'}]}}}";
         [TestMethod]
         public void TestMethod1()
         {
@@ -115,6 +117,12 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             //serializer.Converters.Add(new BaseConverter());
 
             var s = Newtonsoft.Json.JsonConvert.DeserializeObject<ProductModel>(json);
+
+            var ss = Newtonsoft.Json.JsonConvert.SerializeObject(s);
+
+            var s2 = Newtonsoft.Json.JsonConvert.DeserializeObject<ProductModel>(json2);
+
+            var ss2 = Newtonsoft.Json.JsonConvert.SerializeObject(s2);
 
         }
 

@@ -142,11 +142,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/scan/product/get?access_token={0}";
+                const string urlFormat = "https://api.weixin.qq.com/scan/product/getqrcode?access_token={0}";
                 var msgData = new
                 {
                     keystr = keyStr,
-                    keyStandard = keyStandard.ToString().ToLower(),
+                    keystandard = keyStandard.ToString().ToLower(),
                     extinfo = extInfo,
                     qrcode_size = qrcodeSize
                 };
@@ -171,7 +171,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
                 var msgData = new
                 {
                     keystr = keyStr,
-                    keyStandard = keyStandard.ToString().ToLower(),
+                    keystandard = keyStandard.ToString().ToLower(),
                 };
                 return CommonJsonSend.Send<GetProductResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
 

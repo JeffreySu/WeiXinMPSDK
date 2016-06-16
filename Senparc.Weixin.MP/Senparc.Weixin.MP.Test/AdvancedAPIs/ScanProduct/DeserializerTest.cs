@@ -2,16 +2,16 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.MP.AdvancedAPIs.ScanProduct;
+using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
     [TestClass]
     public class DeserializerTest
     {
-        [TestMethod]
-        public void TestMethod1()
-        {
-            var json = @"{
+        public static readonly string json = @"{
     'keystandard': 'qrcode',
     'keystr': 'wxscandemo',
     'brand_info': {
@@ -98,10 +98,98 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         }
     }
 }";
-            JavaScriptSerializer js = new JavaScriptSerializer();
+        [TestMethod]
+        public void TestMethod1()
+        {
+            //JsonConverter[] converters = { new BaseConverter() };
 
-            var s = js.Deserialize<ProductModel>(json);
+            //var test = JsonConvert.DeserializeObject<ProductModel>(json, new JsonSerializerSettings() { Converters = converters });
 
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Converters = new List<JsonConverter> { new ScanProductActionListConverter() }
+            };
+            //GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new ScanProductActionListConverter());
+
+            //var serializer = JsonSerializer.CreateDefault();
+            //serializer.Converters.Add(new BaseConverter());
+
+            var s = Newtonsoft.Json.JsonConvert.DeserializeObject<ProductModel>(json);
+
+        }
+
+        [TestMethod]
+        public void Test2()
+        {
+            AFoo a = new AFoo();
+            a.FooBarBuzz = "A";
+            a.A = "Hello World";
+
+            BFoo b = new BFoo();
+            b.FooBarBuzz = "B";
+            b.B = "Hello World";
+
+            List<BaseFoo> allFoos = new List<BaseFoo>();
+            allFoos.Add(a);
+            allFoos.Add(b);
+
+            var result = JsonConvert.SerializeObject(allFoos);
+
+            // issue here:
+            //Additional information: Could not create an instance of type ConsoleApplication6.BaseFoo. Type is an interface or abstract class and cannot be instantiated. Path '[0].A', line 1, position 6.
+            //var test = JsonConvert.DeserializeObject<List<BaseFoo>>(result);
+            //JsonConverter[] converters = { new BaseConverter() };
+
+            //var test = JsonConvert.DeserializeObject<List<BaseFoo>>(result, new JsonSerializerSettings() { Converters = converters });
+            var test = JsonConvert.DeserializeObject<List<BaseFoo>>(result);
+
+        }
+
+        public class FooConverter : JsonConverter
+        {
+            public override bool CanConvert(Type objectType)
+            {
+                return (objectType == typeof(BaseFoo));
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                JObject jo = JObject.Load(reader);
+                if (jo["FooBarBuzz"].Value<string>() == "A")
+                    return jo.ToObject<AFoo>(serializer);
+
+                if (jo["FooBarBuzz"].Value<string>() == "B")
+                    return jo.ToObject<BFoo>(serializer);
+
+                return null;
+            }
+
+            public override bool CanWrite
+            {
+                get { return false; }
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public class BaseFoo
+        {
+            public string FooBarBuzz { get; set; }
+        }
+
+        [JsonConverter(typeof(FooConverter))]
+        public class AFoo : BaseFoo
+        {
+            public string A { get; set; }
+        }
+
+        [JsonConverter(typeof(FooConverter))]
+        public class BFoo : BaseFoo
+        {
+            public string B { get; set; }
         }
     }
 }

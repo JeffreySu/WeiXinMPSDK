@@ -742,7 +742,8 @@ namespace Senparc.Weixin.MP
 
     public enum ProductKeystandardOptions
     {
-        Ean13,
-        Qrcode
+        ean8,
+        ean13,
+        qrcode
     }
 }

@@ -50,7 +50,6 @@ namespace Senparc.Weixin.Threads
                 //此处可以添加日志
                 System.Diagnostics.Trace.WriteLine(string.Format("SenparcMessageQueueThreadUtility执行析构函数错误：{0}", ex.Message));
             }
-
         }
 
         /// <summary>

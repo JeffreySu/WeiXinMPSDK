@@ -1184,7 +1184,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.UpdateUser(System.String,System.String,System.String,System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.String,System.String,System.String,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CardApi.UpdateUser(System.String,System.String,System.String,System.Int32,System.Int32,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.String,System.String,System.String,System.Int32)">
              <summary>
              更新会员信息
              </summary>
@@ -1215,7 +1215,8 @@
              <param name="cardId">卡券ID。</param>
              <param name="addBonus">需要变更的积分，扣除积分用“-“表示。</param>
              <param name="addBalance">需要变更的余额，扣除金额用“-”表示。单位为分。</param>
-             <param name="bonus">需要设置的积分全量值，传入的数值会直接显示，如果同时传入add_bonus和bonus,则前者无效。</param>
+            <param name="backgroundPicUrl">用户卡片的背景图片</param>
+            <param name="bonus">需要设置的积分全量值，传入的数值会直接显示，如果同时传入add_bonus和bonus,则前者无效。</param>
              <param name="balance">需要设置的余额全量值，传入的数值会直接显示，如果同时传入add_balance和balance,则前者无效。</param>
              <param name="recordBonus">商家自定义积分消耗记录，不超过14个汉字。</param>
              <param name="recordBalance">商家自定义金额消耗记录，不超过14个汉字。</param>
@@ -5605,7 +5606,7 @@
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "P:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthUserInfo.unionid" -->
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthApi.GetAuthorizeUrl(System.String,System.String,System.String,Senparc.Weixin.MP.OAuthScope,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthApi.GetAuthorizeUrl(System.String,System.String,System.String,Senparc.Weixin.MP.OAuthScope,System.String,System.Boolean)">
             <summary>
             获取验证地址
             </summary>
@@ -5614,6 +5615,7 @@
             <param name="state"></param>
             <param name="scope"></param>
             <param name="responseType"></param>
+            <param name="addConnectRedirect">加上后可以解决40029-invalid code的问题（测试中）</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthApi.GetAccessToken(System.String,System.String,System.String,System.String)">

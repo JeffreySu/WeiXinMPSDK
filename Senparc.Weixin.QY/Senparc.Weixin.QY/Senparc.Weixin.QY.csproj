@@ -83,6 +83,7 @@
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\ShakeAroundResultJson.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthApi.cs" />
+    <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\SessionInfo.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthResult.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthPostData.cs" />
     <Compile Include="CommonAPIs\Containers\JsApiTicketContainer.cs" />

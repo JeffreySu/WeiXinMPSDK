@@ -149,7 +149,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         {
             var url =
                 string.Format(
-                    "https://qyapi.weixin.qq.com/cgi-bin/material/del?access_token={0}&agentid={1}&media_id={2}}",
+                    "https://qyapi.weixin.qq.com/cgi-bin/material/del?access_token={0}&agentid={1}&media_id={2}",
                     accessToken.AsUrlData(), agentId, mediaId.AsUrlData());
 
             return CommonJsonSend.Send<QyJsonResult>(null, url, null, CommonJsonSendType.GET);
@@ -220,6 +220,25 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             };
 
             return CommonJsonSend.Send<BatchGetMaterialResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+        /// <summary>
+        /// 上传图文消息内的图片
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="media"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static uploadimgMediaResult uploadimgMedia(string accessToken, string media, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}",
+                accessToken.AsUrlData());
+
+            var data = new
+            {
+                media = media
+            };
+
+            return CommonJsonSend.Send<uploadimgMediaResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
     }
 }

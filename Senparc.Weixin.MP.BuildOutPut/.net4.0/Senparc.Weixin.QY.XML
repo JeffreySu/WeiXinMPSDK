@@ -679,6 +679,17 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.LoginAuthApi.GetLoginUrl(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            获取企业号管理员登录信息
+            </summary>
+            <param name="providerAccessToken">服务提供商的accesstoken</param>
+            <param name="loginTicket">通过get_login_info得到的login_ticket, 24小时有效</param>
+            <param name="target">登录跳转到企业号后台的目标页面，目前有：agent_setting、send_msg、contact</param>
+            <param name="agentid">授权方应用id</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.GetLoginInfoResult">
             <summary>
             获取企业号管理员登录信息返回结果
@@ -784,6 +795,16 @@
             该管理员对应用的权限：1.管理权限，0.使用权限
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.GetLoginUrlResult.login_url">
+            <summary>
+            登录跳转的url，一次性有效，不可多次使用
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.LoginAuth.GetLoginUrlResult.expires_in">
+            <summary>
+            url有效时长，单位为秒
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Media.GetForeverMpNewsResult">
             <summary>
             获取永久图文素材返回结果
@@ -874,6 +895,11 @@
             图文消息，一个图文消息支持1到10个图文
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.Media.uploadimgMediaResult.url">
+            <summary>
+            图片url，可放置于图文消息中的正文
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.Media.UploadTemporaryResultJson">
             <summary>
             上传临时媒体文件返回结果
@@ -938,14 +964,24 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuthApi.GetPreAuthCode(System.String,System.String,System.Int32[],System.Int32)">
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuthApi.GetPreAuthCode(System.String,System.String,System.Int32)">
             <summary>
             获取预授权码
             </summary>
             <param name="suiteAccessToken"></param>
             <param name="suiteId">应用套件id</param>
-            <param name="appId">应用id，本参数选填，表示用户能对本套件内的哪些应用授权，不填时默认用户有全部授权权限</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuthApi.SetAuthConfig(System.String,System.String,System.Int32[],System.Int32,System.Int32)">
+            <summary>
+            设置授权配置
+            </summary>
+            <param name="suiteAccessToken"></param>
+            <param name="authCode">预授权码</param>
+            <param name="appid">允许进行授权的应用id，如1、2、3， 不填或者填空数组都表示允许授权套件内所有应用 </param>
+            <param name="auth_type">授权类型：0 正式授权， 1 测试授权， 默认值为0 </param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuthApi.GetPermanentCode(System.String,System.String,System.String,System.Int32)">
@@ -1003,6 +1039,11 @@
             <param name="permanentCode">永久授权码，通过get_permanent_code获取</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
+        </member>
+        <member name="P:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth.SessionInfo.appid">
+            <summary>
+            允许进行授权的应用id，如1、2、3
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth.GetSuiteTokenResult">
             <summary>
@@ -1874,6 +1915,15 @@
             <param name="agentId"></param>
             <param name="offset"></param>
             <param name="count"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.QY.AdvancedAPIs.MediaApi.uploadimgMedia(System.String,System.String,System.Int32)">
+            <summary>
+            上传图文消息内的图片
+            </summary>
+            <param name="accessToken"></param>
+            <param name="media"></param>
             <param name="timeOut"></param>
             <returns></returns>
         </member>

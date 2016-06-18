@@ -62,5 +62,28 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             return CommonJsonSend.Send<GetLoginInfoResult>(providerAccessToken, url, data, CommonJsonSendType.POST,
                                                            timeOut);
         }
+        /// <summary>
+        /// 获取企业号管理员登录信息
+        /// </summary>
+        /// <param name="providerAccessToken">服务提供商的accesstoken</param>
+        /// <param name="loginTicket">通过get_login_info得到的login_ticket, 24小时有效</param>
+        /// <param name="target">登录跳转到企业号后台的目标页面，目前有：agent_setting、send_msg、contact</param>
+        /// <param name="agentid">授权方应用id</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static GetLoginUrlResult GetLoginUrl(string providerAccessToken, string loginTicket,string target,int agentid,int timeOut = Config.TIME_OUT)
+        {
+            string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_url?provider_access_token={0}";
+
+            var data = new
+            {
+                login_ticket = loginTicket,
+                target = target,
+                agentid = agentid
+            };
+
+            return CommonJsonSend.Send<GetLoginUrlResult>(providerAccessToken, url, data, CommonJsonSendType.POST,
+                                                           timeOut);
+        }
     }
 }

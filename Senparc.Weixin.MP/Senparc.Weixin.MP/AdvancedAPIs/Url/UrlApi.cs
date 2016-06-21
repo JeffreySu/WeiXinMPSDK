@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+  
+    修改标识：Senparc - 20160621
+    修改描述：修改命名空间
+              其改为Senparc.Weixin.MP.AdvancedAPIs       
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +14,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.Url;
 
-namespace Senparc.Weixin.MP.AdvancedAPI
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
     /// 长短链接接口

@@ -48,7 +48,11 @@ namespace Senparc.Weixin.Open
         /// <summary>
         /// 推送取消授权通知
         /// </summary>
-        unauthorized
+        unauthorized,
+        /// <summary>
+        /// 推送授权通知
+        /// </summary>
+        authorized
     }
 
     /// <summary>

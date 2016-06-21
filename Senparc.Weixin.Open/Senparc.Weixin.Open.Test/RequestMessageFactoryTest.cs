@@ -25,6 +25,10 @@ namespace Senparc.Weixin.Open.Test
 <AuthorizerAppid>211</AuthorizerAppid>
 </xml>";
 
+        private string authorizedText = @"<xml><AppId><![CDATA[1]]></AppId>
+<CreateTime>1413192605</CreateTime>
+<InfoType><![CDATA[authorized]]></InfoType><AuthorizerAppid><![CDATA[211]]></AuthorizerAppid><AuthorizationCode><![CDATA[query]]></AuthorizationCode><AuthorizationCodeExpiredTime><![CDATA[1463624918]]></AuthorizationCodeExpiredTime></xml>";
+
         [TestMethod]
         public void GetRequestEntityTest()
         {
@@ -48,6 +52,19 @@ namespace Senparc.Weixin.Open.Test
                 Assert.AreEqual("1", result.AppId);
                 Assert.AreEqual(dt, result.CreateTime);
                 Assert.AreEqual("211", (result as RequestMessageUnauthorized).AuthorizerAppid);
+                Console.WriteLine(doc);
+            }
+
+            {
+                //unauthorized
+                var doc = XDocument.Parse(authorizedText);
+                var result = RequestMessageFactory.GetRequestEntity(doc);
+                Assert.IsInstanceOfType(result, typeof(RequestMessageAuthorized));
+                Assert.AreEqual("1", result.AppId);
+                Assert.AreEqual(dt, result.CreateTime);
+                Assert.AreEqual("211", (result as RequestMessageAuthorized).AuthorizerAppid);
+                Assert.AreEqual(1463624918, (result as RequestMessageAuthorized).AuthorizationCodeExpiredTime);
+                Assert.AreEqual("query", (result as RequestMessageAuthorized).AuthorizationCode);
                 Console.WriteLine(doc);
             }
         }

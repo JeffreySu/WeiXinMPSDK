@@ -24,7 +24,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
             type = "media";
         }
 
-        public string type { get; set; }
         public string link { get; set; }
         public string image { get; set; }
     }
@@ -46,6 +45,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
         public string name { get; set; }
     }
 
+    public class Product_Brand_Action_Info_ImageLink : Product_Brand_Action_Info_Base
+    {
+        public Product_Brand_Action_Info_ImageLink()
+        {
+            type = "link";
+        }
+        public string link { get; set; }
+        public string image { get; set; }
+        public string showtype { get; set; }
+    }
+
     public class Product_Brand_Action_Info_Link : Product_Brand_Action_Info_Base
     {
         public Product_Brand_Action_Info_Link()
@@ -54,9 +64,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
         }
         public string name { get; set; }
         public string link { get; set; }
-        public string image { get; set; }
-        public string showtype { get; set; }
+        //public string image { get; set; }
+        public string digest { get; set; }
     }
+
 
     public class Product_Brand_Action_Info_User : Product_Brand_Action_Info_Base
     {

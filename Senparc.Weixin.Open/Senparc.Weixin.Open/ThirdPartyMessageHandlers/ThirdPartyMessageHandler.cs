@@ -109,6 +109,12 @@ namespace Senparc.Weixin.Open.MessageHandlers
                             ResponseMessageText = OnAuthorizedRequest(requestMessage);
                         }
                         break;
+                    case RequestInfoType.updateauthorized:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageUpdateAuthorized;
+                            ResponseMessageText = OnUpadateAuthorizedRequest(requestMessage);
+                        }
+                        break;
                     default:
                         throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
                 }
@@ -155,6 +161,11 @@ namespace Senparc.Weixin.Open.MessageHandlers
         }
 
         public virtual string OnAuthorizedRequest(RequestMessageAuthorized requestMessage)
+        {
+            return "success";
+        }
+
+        public virtual string OnUpadateAuthorizedRequest(RequestMessageUpdateAuthorized requestMessage)
         {
             return "success";
         }

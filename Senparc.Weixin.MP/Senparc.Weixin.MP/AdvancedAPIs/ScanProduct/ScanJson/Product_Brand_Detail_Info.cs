@@ -17,6 +17,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
     public class Product_Brand_Detail_Info_Link
     {
         public string link { get; set; }
+        //public string desc { get; set; }
     }
 
     public class Product_Brand_Detail_Info_Desc

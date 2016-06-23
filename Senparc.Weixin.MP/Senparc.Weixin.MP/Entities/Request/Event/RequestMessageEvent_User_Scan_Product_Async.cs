@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.Entities
 {
+    /// <summary>
+    /// 地理位置推送
+    /// </summary>
     public class RequestMessageEvent_User_Scan_Product_Async : RequestMessageEventBase, IRequestMessageEventBase
     {
         public override MP.Event Event
@@ -18,7 +21,7 @@ namespace Senparc.Weixin.MP.Entities
         /// <summary>
         /// 商品编码标准
         /// </summary>
-        public string KeyStrandard { get; set; }
+        public string KeyStandard { get; set; }
 
         /// <summary>
         /// 商品编码内容

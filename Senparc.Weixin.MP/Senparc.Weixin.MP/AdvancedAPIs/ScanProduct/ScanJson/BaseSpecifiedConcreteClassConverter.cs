@@ -24,9 +24,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
     {
         static JsonSerializerSettings SpecifiedSubclassConversion = new JsonSerializerSettings() { ContractResolver = new BaseSpecifiedConcreteClassConverter() };
 
+        private Type type1 = typeof(Product_Brand_Action_Info_Base);
+        private Type type2 = typeof(Product_Brand_Module_Info_Item_Base);
         public override bool CanConvert(Type objectType)
         {
-            return (objectType == typeof(Product_Brand_Action_Info_Base));
+            return (objectType == type1 || objectType == type2);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -68,6 +70,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
                     return JsonConvert.DeserializeObject<Product_Brand_Action_Info_Store>(jo.ToString(), SpecifiedSubclassConversion);
                 case "recommend":
                     return JsonConvert.DeserializeObject<Product_Brand_Action_Info_Recommend>(jo.ToString(), SpecifiedSubclassConversion);
+                case "anti_fake":
+                    return jo.ToObject<Product_Brand_Module_Info_Item_AntiFake>();
 
                 default:
                     return null;

@@ -286,7 +286,7 @@
     <Compile Include="Entities\Menu\Buttons\SingleScancodePushButton.cs" />
     <Compile Include="Entities\Menu\IButtonGroupBase.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Merchant_Order.cs" />
-    <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Scan_Product_Callback.cs" />
+    <Compile Include="Entities\Request\Event\RequestMessageEvent_Scan_Product_Callback.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Scan_Product_Verify_Action.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Scan_Product_Enter_Session.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_User_Scan_Product.cs" />
@@ -316,7 +316,7 @@
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Entities\Response\ResponseMessageNoResponse.cs" />
-    <Compile Include="Entities\Response\ResponseScanProduct.cs" />
+    <Compile Include="Entities\Response\ResponseMessageScanProduct.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\EventHelper.cs" />

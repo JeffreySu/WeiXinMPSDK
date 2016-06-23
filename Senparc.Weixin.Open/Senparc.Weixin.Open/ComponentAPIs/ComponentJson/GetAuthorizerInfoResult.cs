@@ -90,6 +90,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public int open_shake { get; set; }
         public int open_card { get; set; }
         public int open_store { get; set; }
+        public int open_scan { get; set; }
     }
 
     //[Obsolete("此类已过期，请使用AuthorizationInfo")]

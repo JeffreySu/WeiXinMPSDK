@@ -65,7 +65,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
             }, accessTokenOrAppId);
         }
 
-        public static OperateProductResult DeleteProduct(string accessTokenOrAppId, string keyStr, ProductKeystandardOptions keyStandard, int timeOut = Config.TIME_OUT)
+        public static OperateProductResult DeleteProduct(string accessTokenOrAppId, string keyStr, ProductKeyStandardOptions keyStandard, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -89,7 +89,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
         /// <param name="keyStandard">商品编码标准</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static PublicProductResult PublicProduct(string accessTokenOrAppId, string keyStr, ProductKeystandardOptions keyStandard, ProductPublicStatus status, int timeOut = Config.TIME_OUT)
+        public static PublicProductResult PublicProduct(string accessTokenOrAppId, string keyStr, ProductKeyStandardOptions keyStandard, ProductPublicStatus status, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -138,7 +138,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
         /// <param name="keyStandard"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static QrCodeResult GetProductQrCode(string accessTokenOrAppId, string keyStr, ProductKeystandardOptions keyStandard, string extInfo = "", int qrcodeSize = 100, int timeOut = Config.TIME_OUT)
+        public static QrCodeResult GetProductQrCode(string accessTokenOrAppId, string keyStr, ProductKeyStandardOptions keyStandard, string extInfo = "", int qrcodeSize = 100, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -163,7 +163,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
         /// <param name="keyStandard"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetProductResult GetProduct(string accessTokenOrAppId, string keyStr, ProductKeystandardOptions keyStandard, int timeOut = Config.TIME_OUT)
+        public static GetProductResult GetProduct(string accessTokenOrAppId, string keyStr, ProductKeyStandardOptions keyStandard, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {

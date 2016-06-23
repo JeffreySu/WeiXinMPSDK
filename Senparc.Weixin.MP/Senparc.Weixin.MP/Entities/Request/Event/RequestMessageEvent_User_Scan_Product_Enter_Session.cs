@@ -29,7 +29,7 @@ namespace Senparc.Weixin.MP.Entities
         /// <summary>
         /// 商品编码标准
         /// </summary>
-        public string KeyStrandard { get; set; }
+        public string KeyStandard { get; set; }
 
         /// <summary>
         /// 商品编码内容

@@ -8,6 +8,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
 {
     public class Product_Brand_Module_Info
     {
+        public List<Product_Brand_Module_Info_Item_Base> module_list { get; set; }
     }
 
     public class Product_Brand_Module_Info_Item_Base
@@ -16,13 +17,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
 
     }
 
-    public class Product_Brand_Module_Info_Item : Product_Brand_Module_Info_Item_Base
+    public class Product_Brand_Module_Info_Item_AntiFake : Product_Brand_Module_Info_Item_Base
     {
-        public Product_Brand_Module_Info_Item()
+        public Product_Brand_Module_Info_Item_AntiFake()
         {
-            type = "anti-fake";
+            type = "anti_fake";
         }
 
-        public bool native_show { get; set; }
+        public string native_show { get; set; }
     }
 }

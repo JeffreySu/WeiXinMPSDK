@@ -79,6 +79,9 @@ namespace Senparc.Weixin.MP.Entities
                     case ResponseMsgType.NoResponse:
                         responseMessage = new ResponseMessageNoResponse();
                         break;
+                    case ResponseMsgType.ScanProduct:
+                        responseMessage = new ResponseMessageScanProduct();
+                        break;
                     default:
 						throw new UnknownRequestMsgTypeException(string.Format("ResponseMsgType没有为 {0} 提供对应处理程序。", msgType), new ArgumentOutOfRangeException());
 				}

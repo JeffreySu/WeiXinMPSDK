@@ -50,6 +50,10 @@ namespace Senparc.Weixin.Open
         /// </summary>
         unauthorized,
         /// <summary>
+        /// 更新授权
+        /// </summary>
+        updateauthorized,
+        /// <summary>
         /// 推送授权通知
         /// </summary>
         authorized
@@ -103,7 +107,7 @@ namespace Senparc.Weixin.Open
     /// </summary>
     public enum FuncscopeCategory
     {
-        消息管理权限,
+        消息管理权限 = 1,
         用户管理权限,
         帐号服务权限,
         网页服务权限,

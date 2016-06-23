@@ -29,7 +29,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
         public string category_id { get; set; }
 
         /// <summary>
-        /// 是否展示有该商品的电商渠道
+        /// 是否展示有该商品的电商渠道，识别条件是编码内容。auto为自动，由微信识别展示渠道；custom为自定义，商户可指定store_vendorid_list内的渠道出现。
         /// </summary>
         public string store_mgr_type { get; set; }
 
@@ -43,5 +43,25 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
         /// 主页头部背景颜色，必须大写的例如FFFFFF，不要传入#
         /// </summary>
         public string color { get; set; }
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //public string use_local_ext_info { get; set; }
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //public string source { get; set; }
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //public string service_title { get; set; }
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //public string service_iconurl { get; set; }
     }
 }

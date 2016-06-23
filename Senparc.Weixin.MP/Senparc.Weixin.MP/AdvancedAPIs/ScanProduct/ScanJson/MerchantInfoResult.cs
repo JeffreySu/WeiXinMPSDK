@@ -19,6 +19,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
 
     public class VerifiedList
     {
+        /// <summary>
+        /// 商户号段，表示该商户下有资质的条码号段。
+        /// </summary>
         public int verified_firm_code { get; set; }
         /// <summary>
         /// 商品类目列表

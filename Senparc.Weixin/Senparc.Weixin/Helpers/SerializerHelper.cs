@@ -46,14 +46,16 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public string GetJsonString(object data, JsonSetting jsonSetting = null)
         {
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            jsSerializer.RegisterConverters(new JavaScriptConverter[]
-            {
-                new WeixinJsonConventer(data.GetType(), jsonSetting),
-                new ExpandoJsonConverter()
-            });
+            //JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            //jsSerializer.RegisterConverters(new JavaScriptConverter[]
+            //{
+            //    new WeixinJsonConventer(data.GetType(), jsonSetting),
+            //    new ExpandoJsonConverter()
+            //});
 
-            var jsonString = jsSerializer.Serialize(data);
+            //var jsonString = jsSerializer.Serialize(data);
+
+            var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(data);
 
             //解码Unicode，也可以通过设置App.Config（Web.Config）设置来做，这里只是暂时弥补一下，用到的地方不多
             MatchEvaluator evaluator = new MatchEvaluator(DecodeUnicode);

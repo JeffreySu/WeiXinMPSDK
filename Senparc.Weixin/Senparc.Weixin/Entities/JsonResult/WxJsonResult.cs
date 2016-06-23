@@ -17,6 +17,7 @@
     修改描述：调整位置，去除MP下的WxJsonResult
 ----------------------------------------------------------------*/
 
+using Newtonsoft.Json;
 using System;
 
 namespace Senparc.Weixin.Entities
@@ -39,6 +40,7 @@ namespace Senparc.Weixin.Entities
 
     public class WxResult : IWxResult
     {
+        [JsonIgnore]
         public string Json { get; set; }
     }
 

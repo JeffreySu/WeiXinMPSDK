@@ -115,6 +115,9 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 case Event.ShakearoundUserShake://摇一摇事件通知
                     responseMessage = OnEvent_ShakearoundUserShake(RequestMessage as RequestMessageEvent_ShakearoundUserShake);
                     break;
+                case Event.scan_product_callback:
+                    responseMessage = OnEvent_Scan_Product_Callback(requestMessage as RequestMessageEvent_Scan_Product_Callback);
+                    break;
                 case Event.user_scan_product:
                     responseMessage = OnEvent_User_Scan_Product(requestMessage as RequestMessageEvent_User_Scan_Product);
                     break;
@@ -409,6 +412,11 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual IResponseMessageBase OnEvent_User_Scan_Product_Async(RequestMessageEvent_User_Scan_Product_Async requestMessage)
+        {
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        public virtual IResponseMessageBase OnEvent_Scan_Product_Callback(RequestMessageEvent_Scan_Product_Callback requestMessage)
         {
             return DefaultResponseMessage(requestMessage);
         }

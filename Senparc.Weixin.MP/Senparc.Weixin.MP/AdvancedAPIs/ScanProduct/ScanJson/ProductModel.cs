@@ -1,4 +1,6 @@
-﻿using Senparc.Weixin.Entities;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Senparc.Weixin.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
         /// <summary>
         /// 商品编码标准,只支持 ean13 和 qrcode 两种标准。
         /// </summary>
-        public string keystandard { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ProductKeyStandardOptions keystandard { get; set; }
 
         /// <summary>
         /// 商品编码内容。

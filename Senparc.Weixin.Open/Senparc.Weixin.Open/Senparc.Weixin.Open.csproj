@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
+    <Compile Include="Entities\Request\RequestMessageUpdateAuthorized.cs" />
     <Compile Include="Entities\Request\RequestMessageAuthorized.cs" />
     <Compile Include="Exceptions\WeixinOpenException.cs" />
     <Compile Include="OAuthAPIs\OAuthContainer.cs" />

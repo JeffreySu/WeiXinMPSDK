@@ -27,16 +27,16 @@ namespace Senparc.Weixin.Open.CommonAPIs.Tests
 
             //ComponentContainer.Register(base._appId, base._appSecret, getComponentVerifyTicketFunc);
 
-            var fullCollections = ComponentContainer.GetCollectionList();
-            Assert.IsTrue(fullCollections.Count == 1);
+            //var fullCollections = ComponentContainer.GetCollectionList();
+            //Assert.IsTrue(fullCollections.Count == 1);
 
-            var container = fullCollections.Values.First();
-            var bag = container.Values.First();
-            Assert.IsTrue(container.Values.Count == 1);
-            Assert.AreEqual(base._appId, bag.ComponentAppId);
-            Assert.AreEqual(base._appSecret, bag.ComponentAppSecret);
-            Assert.IsNotNull(bag.Key);
-            Assert.AreEqual(base._appId, bag.Key);
+            //var container = fullCollections.Values.First();
+            //var bag = container.Values.First();
+            //Assert.IsTrue(container.Values.Count == 1);
+            //Assert.AreEqual(base._appId, bag.ComponentAppId);
+            //Assert.AreEqual(base._appSecret, bag.ComponentAppSecret);
+            //Assert.IsNotNull(bag.Key);
+            //Assert.AreEqual(base._appId, bag.Key);
 
             var ticket = ComponentContainer.TryGetComponentVerifyTicket(base._appId);
             Assert.AreEqual(base._ticket, ticket);

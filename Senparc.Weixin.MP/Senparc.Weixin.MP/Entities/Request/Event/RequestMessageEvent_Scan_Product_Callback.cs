@@ -9,7 +9,7 @@ namespace Senparc.Weixin.MP.Entities
     /// <summary>
     /// 组件消息推送
     /// </summary>
-    public class RequestMessageEvent_User_Scan_Product_Callback : RequestMessageEventBase, IRequestMessageEventBase
+    public class RequestMessageEvent_Scan_Product_Callback : RequestMessageEventBase, IRequestMessageEventBase
     {
         public override Event Event
         {
@@ -22,7 +22,7 @@ namespace Senparc.Weixin.MP.Entities
         /// <summary>
         /// 商品编码标准
         /// </summary>
-        public string KeyStrandard { get; set; }
+        public string KeyStandard { get; set; }
 
         /// <summary>
         /// 商品编码内容
@@ -37,11 +37,11 @@ namespace Senparc.Weixin.MP.Entities
         /// <summary>
         /// 是否使用微信提供的弹窗页面展示防伪结果
         /// </summary>
-        public bool NeedAntiFake { get; set; }
+        public string NeedAntiFake { get; set; }
 
-        /// <summary>
-        /// 商品防伪查询的结果,real 表示码为真,fake 表示码为假。
-        /// </summary>
-        public string CodeResul { get; set; }
+        ///// <summary>
+        ///// 商品防伪查询的结果,real 表示码为真,fake 表示码为假。
+        ///// </summary>
+        //public string CodeResul { get; set; }
     }
 }

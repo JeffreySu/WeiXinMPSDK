@@ -65,7 +65,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
             }, accessTokenOrAppId);
         }
 
-        public static OperateProductResult DeleteProduct(string accessTokenOrAppId, string keyStr, ProductKeystandardOptions keyStandard, int timeOut = Config.TIME_OUT)
+        public static OperateProductResult DeleteProduct(string accessTokenOrAppId, string keyStr, ProductKeyStandardOptions keyStandard, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -89,7 +89,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
         /// <param name="keyStandard">商品编码标准</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static PublicProductResult PublicProduct(string accessTokenOrAppId, string keyStr, ProductKeystandardOptions keyStandard, ProductPublicStatus status, int timeOut = Config.TIME_OUT)
+        public static PublicProductResult PublicProduct(string accessTokenOrAppId, string keyStr, ProductKeyStandardOptions keyStandard, ProductPublicStatus status, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -138,15 +138,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
         /// <param name="keyStandard"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static QrCodeResult GetProductQrCode(string accessTokenOrAppId, string keyStr, ProductKeystandardOptions keyStandard, string extInfo = "", int qrcodeSize = 100, int timeOut = Config.TIME_OUT)
+        public static QrCodeResult GetProductQrCode(string accessTokenOrAppId, string keyStr, ProductKeyStandardOptions keyStandard, string extInfo = "", int qrcodeSize = 100, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/scan/product/get?access_token={0}";
+                const string urlFormat = "https://api.weixin.qq.com/scan/product/getqrcode?access_token={0}";
                 var msgData = new
                 {
                     keystr = keyStr,
-                    keyStandard = keyStandard.ToString().ToLower(),
+                    keystandard = keyStandard.ToString().ToLower(),
                     extinfo = extInfo,
                     qrcode_size = qrcodeSize
                 };
@@ -163,7 +163,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
         /// <param name="keyStandard"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetProductResult GetProduct(string accessTokenOrAppId, string keyStr, ProductKeystandardOptions keyStandard, int timeOut = Config.TIME_OUT)
+        public static GetProductResult GetProduct(string accessTokenOrAppId, string keyStr, ProductKeyStandardOptions keyStandard, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -171,7 +171,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ScanProduct
                 var msgData = new
                 {
                     keystr = keyStr,
-                    keyStandard = keyStandard.ToString().ToLower(),
+                    keystandard = keyStandard.ToString().ToLower(),
                 };
                 return CommonJsonSend.Send<GetProductResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
 

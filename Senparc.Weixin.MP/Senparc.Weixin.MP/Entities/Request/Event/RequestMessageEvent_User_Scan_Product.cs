@@ -40,6 +40,6 @@ namespace Senparc.Weixin.MP.Entities
 
         public int Scene { get; set; }
 
-        public string ExInfo { get; set; }
+        public string ExtInfo { get; set; }
     }
 }

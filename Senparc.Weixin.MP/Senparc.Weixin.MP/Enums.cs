@@ -207,6 +207,7 @@ namespace Senparc.Weixin.MP
         /// </summary>
         ShakearoundUserShake,
 
+        scan_product,
         /// <summary>
         /// 组件消息
         /// </summary>
@@ -251,6 +252,7 @@ namespace Senparc.Weixin.MP
         Transfer_Customer_Service,
         //transfer_customer_service
 
+        ScanProduct,
         //以下为延伸类型，微信官方并未提供具体的回复类型
         [Description("多图文")]
         MultipleNews = 106,
@@ -740,9 +742,10 @@ namespace Senparc.Weixin.MP
         Off
     }
 
-    public enum ProductKeystandardOptions
+    public enum ProductKeyStandardOptions
     {
-        Ean13,
-        Qrcode
+        ean8,
+        ean13 = 4,
+        qrcode
     }
 }

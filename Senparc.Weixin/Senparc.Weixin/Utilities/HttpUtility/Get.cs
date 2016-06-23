@@ -48,15 +48,16 @@ namespace Senparc.Weixin.HttpUtility
             WeixinTrace.SendLog(url, returnText);
 
             JavaScriptSerializer js = new JavaScriptSerializer();
-            if (maxJsonLength.HasValue)
-            {
-                js.MaxJsonLength = maxJsonLength.Value;
-            }
+            //if (maxJsonLength.HasValue)
+            //{
+            //    js.MaxJsonLength = maxJsonLength.Value;
+            //}
 
             if (returnText.Contains("errcode"))
             {
                 //可能发生错误
-                WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
+                //WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
+                WxJsonResult errorResult = Newtonsoft.Json.JsonConvert.DeserializeObject<WxJsonResult>(returnText);
                 errorResult.Json = returnText;
                 if (errorResult.errcode != ReturnCode.请求成功)
                 {
@@ -67,7 +68,8 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 
-            T result = js.Deserialize<T>(returnText);
+            //T result = js.Deserialize<T>(returnText);
+            T result = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(returnText);
             result.Json = returnText;
 
             return result;
@@ -109,16 +111,17 @@ namespace Senparc.Weixin.HttpUtility
         {
             string returnText = await RequestUtility.HttpGetAsync(url, encoding);
 
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            if (maxJsonLength.HasValue)
-            {
-                js.MaxJsonLength = maxJsonLength.Value;
-            }
+            //JavaScriptSerializer js = new JavaScriptSerializer();
+            //if (maxJsonLength.HasValue)
+            //{
+            //    js.MaxJsonLength = maxJsonLength.Value;
+            //}
 
             if (returnText.Contains("errcode"))
             {
                 //可能发生错误
-                WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
+                //WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
+                WxJsonResult errorResult = Newtonsoft.Json.JsonConvert.DeserializeObject<WxJsonResult>(returnText);
                 errorResult.Json = returnText;
                 if (errorResult.errcode != ReturnCode.请求成功)
                 {
@@ -129,7 +132,8 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 
-            T result = js.Deserialize<T>(returnText);
+            //T result = js.Deserialize<T>(returnText);
+            T result = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(returnText);
             result.Json = returnText;
             return result;
         }

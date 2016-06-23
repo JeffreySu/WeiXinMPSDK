@@ -43,12 +43,13 @@ namespace Senparc.Weixin.HttpUtility
         public static T GetResult<T>(string returnText)
             where T : WxResult
         {
-            JavaScriptSerializer js = new JavaScriptSerializer();
+            //JavaScriptSerializer js = new JavaScriptSerializer();
 
             if (returnText.Contains("errcode"))
             {
                 //可能发生错误
-                WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
+                //WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
+                WxJsonResult errorResult = Newtonsoft.Json.JsonConvert.DeserializeObject<WxJsonResult>(returnText);
                 errorResult.Json = returnText;
                 if (errorResult.errcode != ReturnCode.请求成功)
                 {
@@ -61,7 +62,8 @@ namespace Senparc.Weixin.HttpUtility
                 }
             }
 
-            T result = js.Deserialize<T>(returnText);
+            //T result = js.Deserialize<T>(returnText);
+            T result = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(returnText);
             result.Json = returnText;
             return result;
         }

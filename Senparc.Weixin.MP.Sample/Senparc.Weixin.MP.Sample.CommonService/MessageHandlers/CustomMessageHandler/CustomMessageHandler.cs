@@ -1,10 +1,10 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CustomMessageHandler.cs
     文件功能描述：自定义MessageHandler
-    
-    
+
+
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
@@ -153,9 +153,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             {
                 responseMessage.Content =
                     @"您正在进行微信内置浏览器约束判断测试。您可以：
-<a href=""http://weixin.senparc.com/FilterTest/"">点击这里</a>进行客户端约束测试（地址：http://weixin.senparc.com/FilterTest/），如果在微信外打开将直接返回文字。
+<a href=""http://sdk.weixin.senparc.com/FilterTest/"">点击这里</a>进行客户端约束测试（地址：http://sdk.weixin.senparc.com/FilterTest/），如果在微信外打开将直接返回文字。
 或：
-<a href=""http://weixin.senparc.com/FilterTest/Redirect"">点击这里</a>进行客户端约束测试（地址：http://weixin.senparc.com/FilterTest/Redirect），如果在微信外打开将重定向一次URL。";
+<a href=""http://sdk.weixin.senparc.com/FilterTest/Redirect"">点击这里</a>进行客户端约束测试（地址：http://sdk.weixin.senparc.com/FilterTest/Redirect），如果在微信外打开将重定向一次URL。";
             }
             else if (requestMessage.Content == "托管" || requestMessage.Content == "代理")
             {
@@ -179,7 +179,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 /* 如果要写成一行，可以直接用：
                  * responseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
                  * 或
-                 * 
+                 *
                  */
                 var msg = string.Format("\r\n\r\n代理过程总耗时：{0}毫秒", (dt2 - dt1).Milliseconds);
                 var agentResponseMessage = responseXml.CreateResponseMessage();
@@ -195,7 +195,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             }
             else if (requestMessage.Content == "测试" || requestMessage.Content == "退出")
             {
-                /* 
+                /*
                 * 这是一个特殊的过程，此请求通常来自于微微嗨（http://www.weiweihi.com）的“盛派网络小助手”应用请求（http://www.weiweihi.com/User/App/Detail/1），
                 * 用于演示微微嗨应用商店的处理过程，由于微微嗨的应用内部可以单独设置对话过期时间，所以这里通常不需要考虑对话状态，只要做最简单的响应。
                 */
@@ -239,7 +239,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 授权之后，您的微信所收到的消息将转发到第三方（盛派网络小助手）的服务器上，并获得对应的回复。
 
 测试完成后，您可以登陆公众号后台取消授权。",
-                    Url = "http://weixin.senparc.com/OpenOAuth/JumpToMpOAuth"
+                    Url = "http://sdk.weixin.senparc.com/OpenOAuth/JumpToMpOAuth"
                 });
                 return openResponseMessage;
             }
@@ -284,7 +284,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     WeixinContext.ExpireMinutes, WeixinContext.MaxRecordCount);
                 result.AppendLine("\r\n");
                 result.AppendLine(
-                    "您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：http://weixin.senparc.com");
+                    "您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：http://sdk.weixin.senparc.com");
 
                 responseMessage.Content = result.ToString();
             }
@@ -323,14 +323,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 Title = "您刚才发送了图片信息",
                 Description = "您发送的图片将会显示在边上",
                 PicUrl = requestMessage.PicUrl,
-                Url = "http://weixin.senparc.com"
+                Url = "http://sdk.weixin.senparc.com"
             });
             responseMessage.Articles.Add(new Article()
             {
                 Title = "第二条",
                 Description = "第二条带连接的内容",
                 PicUrl = requestMessage.PicUrl,
-                Url = "http://weixin.senparc.com"
+                Url = "http://sdk.weixin.senparc.com"
             });
 
             return responseMessage;
@@ -352,8 +352,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //设置音乐信息
             responseMessage.Music.Title = "天籁之音";
             responseMessage.Music.Description = "播放您上传的语音";
-            responseMessage.Music.MusicUrl = "http://weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
-            responseMessage.Music.HQMusicUrl = "http://weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
+            responseMessage.Music.MusicUrl = "http://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
+            responseMessage.Music.HQMusicUrl = "http://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
             responseMessage.Music.ThumbMediaId = uploadResult.media_id;
             return responseMessage;
         }

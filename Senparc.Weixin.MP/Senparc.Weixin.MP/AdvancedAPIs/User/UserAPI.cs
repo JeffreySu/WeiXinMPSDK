@@ -49,10 +49,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     accessToken.AsUrlData(), openId.AsUrlData(), lang.ToString("g").AsUrlData());
                 return HttpUtility.Get.GetJson<UserInfoJson>(url);
 
-                //错误时微信会返回错误码等信息，JSON数据包示例如下（该示例为AppID无效错误）:
-                //{"errcode":40013,"errmsg":"invalid appid"}
+        //错误时微信会返回错误码等信息，JSON数据包示例如下（该示例为AppID无效错误）:
+        //{"errcode":40013,"errmsg":"invalid appid"}
 
-            }, accessTokenOrAppId);
+    }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="userList"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static BatchGetUserInfoJson BatchGetUserInfo(string accessTokenOrAppId, List<BatchGetUserInfoData> userList, int timeOut = Config.TIME_OUT)
+        public static BatchGetUserInfoJsonResult BatchGetUserInfo(string accessTokenOrAppId, List<BatchGetUserInfoData> userList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -114,7 +114,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     user_list = userList,
                 };
-                return CommonJsonSend.Send<BatchGetUserInfoJson>(accessToken, url, data, timeOut: timeOut);
+                return CommonJsonSend.Send<BatchGetUserInfoJsonResult>(accessToken, url, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

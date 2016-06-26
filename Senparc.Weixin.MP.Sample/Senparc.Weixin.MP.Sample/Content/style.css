@@ -50,7 +50,7 @@
 .senparc-jumbotron {
 	background:url(/images/v2/background.png);
 	width:100%;
-	padding:28px 0;
+	padding:28px 0 0 0;
 }
 .senparc-container {
 }
@@ -92,7 +92,7 @@
     display: block;
 }
 .contact {
-	margin-top:118px;
+	margin-top:100px;
 }
 .contatc-name {
 	font-size:16px;
@@ -100,6 +100,7 @@
 	letter-spacing:1px;
 	float:left;
 	line-height:26px;
+    clear: left;
 }
 .contatc-img {
 	float:left;
@@ -181,7 +182,7 @@ img.official-img {
 .weixin-bottom {
 	text-align:center;
 	padding-bottom:40px;
-    width: 647px;
+    width: 671px;
     float: left;
 }
 .application {

@@ -82,6 +82,10 @@
     <Compile Include="Utilities\HttpUtility\RequestUtilityTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj">
+      <Project>{51ac27b4-11ae-4f59-b82a-0bb3afa5f62b}</Project>
+      <Name>Senparc.Weixin.Cache.Redis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
       <Project>{814092CD-9CD0-4FB7-91E8-D147F476F1FB}</Project>
       <Name>Senparc.Weixin</Name>
@@ -89,6 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Utilities\HttpUtility\Upload.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utilities\CachedUtility\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

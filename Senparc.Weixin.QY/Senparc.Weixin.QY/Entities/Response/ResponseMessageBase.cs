@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150313
     修改描述：整理接口
+
+    修改标识：Senparc - 20150505
+    修改描述：添加ResponseMessageNoResponse类型处理
 ----------------------------------------------------------------*/
 
 using System;
@@ -45,7 +48,7 @@ namespace Senparc.Weixin.QY.Entities
 		/// <param name="msgType">响应类型</param>
 		/// <returns></returns>
 		[Obsolete("建议使用CreateFromRequestMessage<T>(IRequestMessageBase requestMessage)取代此方法")]
-		public static ResponseMessageBase CreateFromRequestMessage(IRequestMessageBase requestMessage, ResponseMsgType msgType)
+		private static ResponseMessageBase CreateFromRequestMessage(IRequestMessageBase requestMessage, ResponseMsgType msgType)
 		{
 			ResponseMessageBase responseMessage = null;
 			try
@@ -70,6 +73,9 @@ namespace Senparc.Weixin.QY.Entities
 					case ResponseMsgType.MpNews:
 						responseMessage = new ResponseMessageMpNews();
 						break;
+                    case ResponseMsgType.NoResponse:
+                        responseMessage = new ResponseMessageNoResponse();
+				        break;
 					default:
 						throw new UnknownRequestMsgTypeException(string.Format("ResponseMsgType没有为 {0} 提供对应处理程序。", msgType), new ArgumentOutOfRangeException());
 				}
@@ -145,7 +151,10 @@ namespace Senparc.Weixin.QY.Entities
                     case ResponseMsgType.MpNews:
                         responseMessage = new ResponseMessageMpNews();
 						break;
-				}
+                    case ResponseMsgType.NoResponse:
+                        responseMessage = new ResponseMessageNoResponse();
+                        break;
+                }
 
 				responseMessage.FillEntityWithXml(doc);
 				return responseMessage;

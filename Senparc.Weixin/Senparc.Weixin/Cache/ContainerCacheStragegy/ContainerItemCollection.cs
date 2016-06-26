@@ -41,7 +41,7 @@ namespace Senparc.Weixin.Cache
         public IBaseContainerBag this[string key]
         {
             get { return this.Get(key); }
-            set { this.Update(key, value); }//TODO:Redis 中此处无法将值更新进去
+            set { this.Update(key, value); }
         }
 
         public ContainerItemCollection()

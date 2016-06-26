@@ -61,8 +61,7 @@ namespace Senparc.Weixin.MP
             }
             else
             {
-                //accessToken
-                accessToken = accessTokenOrAppId;
+                accessToken = accessTokenOrAppId;//accessToken
             }
 
 
@@ -127,6 +126,8 @@ namespace Senparc.Weixin.MP
             }
             return result;
         }
+
+
 
     }
 }

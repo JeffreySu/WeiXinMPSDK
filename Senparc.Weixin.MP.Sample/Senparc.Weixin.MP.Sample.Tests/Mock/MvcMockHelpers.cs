@@ -35,7 +35,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Mock
 
             request.Setup(r => r.InputStream).Returns(inputStream);
             request.Setup(r => r.UserAgent).Returns(userAgent);
-            request.Setup(r => r.Url).Returns(new Uri("http://weixin.senparc.com"));
+            request.Setup(r => r.Url).Returns(new Uri("http://sdk.weixin.senparc.com"));
 
             return context.Object;
         }

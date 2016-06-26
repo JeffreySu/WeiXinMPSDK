@@ -78,7 +78,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
 
         /* 由于获取accessToken有次数限制，为了节约请求，
-        * 可以到 http://weixin.senparc.com/Menu 获取Token之后填入下方，
+        * 可以到 http://sdk.weixin.senparc.com/Menu 获取Token之后填入下方，
         * 使用当前可用Token直接进行测试。
         */
         private string _access_token = null;

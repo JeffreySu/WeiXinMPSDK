@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+
+    文件名：RedisContainerCacheStrategy.cs
+    文件功能描述：Redis 容器缓存策略。
+
+
+    创建标识：Senparc - 20160308
+
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Senparc.Weixin.Containers;
+using Senparc.Weixin.MessageQueue;
 using StackExchange.Redis;
-using StackExchange.Redis.KeyspaceIsolation;
 
 
 namespace Senparc.Weixin.Cache.Redis
@@ -58,17 +66,21 @@ namespace Senparc.Weixin.Cache.Redis
             cache.StringSet(testKey, (string)null);
         }
 
+        /// <summary>
+        /// Redis 缓存策略
+        /// </summary>
         public RedisContainerCacheStrategy()
         {
             _client = RedisManager.Manager;
             _cache = _client.GetDatabase();
         }
 
+        /// <summary>
+        /// Redis 缓存策略析构函数，用于 _client 资源回收
+        /// </summary>
         ~RedisContainerCacheStrategy()
         {
             _client.Dispose();//释放
-            //_client.Dispose();//释放
-            //GC.SuppressFinalize(_client);
         }
 
         private string GetFinalKey(string key)
@@ -77,6 +89,10 @@ namespace Senparc.Weixin.Cache.Redis
             return String.Format("{0}{1}", CacheSetKey, key);//这里 CacheSetKey 暂时留空，保持key原貌
         }
 
+        /// <summary>
+        /// 获取 Server 对象
+        /// </summary>
+        /// <returns></returns>
         private IServer GetServer()
         {
             //https://github.com/StackExchange/StackExchange.Redis/blob/master/Docs/KeysScan.md
@@ -146,7 +162,6 @@ namespace Senparc.Weixin.Cache.Redis
             //}
 
             _cache.StringSet(cacheKey, value.Serialize());
-            //_cache.SetEntry(cacheKey, obj);
 
 #if DEBUG
             var value1 = _cache.StringGet(cacheKey);//正常情况下可以得到 //_cache.GetValue(cacheKey);
@@ -160,8 +175,8 @@ namespace Senparc.Weixin.Cache.Redis
                 return;
             }
 
-            var cacheKey = GetFinalKey(key);
-            _cache.StringSet(cacheKey, RedisValue.Null);//TODO:尚未测试此方法是否有效
+            SenparcMessageQueue.OperateQueue();//延迟缓存立即生效
+            _cache.KeyDelete(key);//删除键
         }
 
         public void Update(string key, IContainerItemCollection value)

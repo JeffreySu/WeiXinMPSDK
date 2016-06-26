@@ -52,7 +52,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         /// <summary>
         /// 设备编号
         /// </summary>
-        public long device_id { get; set; }
+        public long? device_id { get; set; }
         public string uuid { get; set; }
         public long major { get; set; }
         public long minor { get; set; }

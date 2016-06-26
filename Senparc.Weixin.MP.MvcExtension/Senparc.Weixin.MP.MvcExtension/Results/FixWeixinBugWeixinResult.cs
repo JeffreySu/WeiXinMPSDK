@@ -40,6 +40,12 @@ namespace Senparc.Weixin.MP.MvcExtension
                 }
                 else if (_messageHandlerDocument != null && _messageHandlerDocument.TextResponseMessage != null)
                 {
+                    if (_messageHandlerDocument.TextResponseMessage.Equals(String.Empty))
+                    {
+                        //无需响应，开发者返回了ResponseNoResponse
+                        return null;
+                    }
+
                     if (_messageHandlerDocument.ResponseDocument != null)
                     {
                         //返回XML响应信息

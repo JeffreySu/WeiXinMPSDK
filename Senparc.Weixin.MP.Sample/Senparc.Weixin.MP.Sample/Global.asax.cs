@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Senparc.Weixin.Cache;
+using Senparc.Weixin.Cache.Memcached;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.TenPayLib;
@@ -48,8 +49,18 @@ namespace Senparc.Weixin.MP.Sample
         /// </summary>
         private void RegisterWeixinCache()
         {
-            //如果不执行，则默认使用本地缓存
-            CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);
+            //如果留空，默认为localhost（默认端口）
+
+            var redisConfiguration = System.Configuration.ConfigurationManager.AppSettings["Cache_Redis_Configuration"];
+            RedisManager.ConfigurationOption = redisConfiguration;
+
+            //如果不执行下面的注册过程，则默认使用本地缓存
+
+            if (redisConfiguration != "Redis配置")
+            {
+                CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
+            }
+            //CacheStrategyFactory.RegisterContainerCacheStrategy(() => MemcachedContainerStrategy.Instance);//Memcached
         }
 
         /// <summary>
@@ -146,7 +157,6 @@ namespace Senparc.Weixin.MP.Sample
                      fs.Flush();
                  }
              };
-
 
             //执行注册
             ComponentContainer.Register(

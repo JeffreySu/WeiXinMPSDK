@@ -4,6 +4,8 @@
     文件名：OAuthJoinAPI.cs
     文件功能描述：公众号授权给第三方平台
     
+    修改标识：Senparc - 20160520
+    修改描述：添加“确认授权”接口
     
     创建标识：Senparc - 20150430
 ----------------------------------------------------------------*/
@@ -111,6 +113,34 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             };
 
             return CommonJsonSend.Send<QueryAuthResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 确认授权
+        /// </summary>
+        /// <param name="componentAppId">服务开发方的appid</param>
+        /// <param name="componentAccessToken">服务开发方的access_token</param>
+        /// <param name="authorizerAppid">授权code,会在授权成功时返回给第三方平台，详见第三方平台授权流程说明</param>
+        /// <param name="funscopeCategoryId">服务开发方的access_token</param>
+        /// <param name="confirmValue">服务开发方的access_token</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static WxJsonResult ApiConfirmAuth(string componentAccessToken, string componentAppId, string authorizerAppid, int funscopeCategoryId, int confirmValue, int timeOut = Config.TIME_OUT)
+        {
+            var url =
+                string.Format(
+                    "https://api.weixin.qq.com/ cgi-bin/component/api_confirm_authorization?component_access_token={0}", componentAccessToken.AsUrlData());
+
+            var data = new
+            {
+                component_appid = componentAppId,
+                authorizer_appid = authorizerAppid,
+                funscope_category_id = funscopeCategoryId,
+                confirm_value = confirmValue
+
+            };
+
+            return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>

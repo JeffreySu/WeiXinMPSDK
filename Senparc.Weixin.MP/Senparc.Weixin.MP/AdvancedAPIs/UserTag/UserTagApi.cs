@@ -1,4 +1,13 @@
-﻿using Senparc.Weixin.MP.CommonAPIs;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+  
+    修改标识：Senparc - 20160621
+    修改描述：修改命名空间
+              其改为Senparc.Weixin.MP.AdvancedAPIs       
+----------------------------------------------------------------*/
+
+using Senparc.Weixin.MP.AdvancedAPIs.UserTag;
+using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.Entities;
 using System;
 using System.Collections.Generic;
@@ -6,7 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs.UserTag
+namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     public class UserTagApi
     {

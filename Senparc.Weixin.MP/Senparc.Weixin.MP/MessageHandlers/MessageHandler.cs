@@ -327,7 +327,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     case RequestMsgType.Event:
                         {
                             var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                            ResponseMessage = OnTextOrEventRequest(requestMessageText) 
+                            ResponseMessage = OnTextOrEventRequest(requestMessageText)
                                                 ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
                         }
                         break;
@@ -336,7 +336,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 }
 
                 //记录上下文
-                if (WeixinContextGlobal.UseWeixinContext && ResponseMessage != null)
+                if (WeixinContextGlobal.UseWeixinContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
                 {
                     WeixinContext.InsertMessage(ResponseMessage);
                 }
@@ -354,7 +354,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public virtual void OnExecuting()
         {
             //消息去重
-            if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true) 
+            if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true)
                 && OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1
                 //&& !(RequestMessage is RequestMessageEvent_Merchant_Order)批量订单的MsgId可能会相同
                 )
@@ -363,8 +363,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 if ((lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)//使用MsgId去重
                     ||
                     //使用CreateTime去重（OpenId对象已经是同一个）
-                    ((lastMessage.MsgId == RequestMessage.MsgId 
-                        && lastMessage.CreateTime == RequestMessage.CreateTime 
+                    ((lastMessage.MsgId == RequestMessage.MsgId
+                        && lastMessage.CreateTime == RequestMessage.CreateTime
                         && lastMessage.MsgType == RequestMessage.MsgType))
                     )
                 {

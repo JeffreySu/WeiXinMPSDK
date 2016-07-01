@@ -395,6 +395,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     action_name = "QR_CARD",
+                    expire_seconds = expireSeconds,
                     action_info = new
                     {
                         card = new
@@ -402,7 +403,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             card_id = cardId,
                             code = code,
                             openid = openId,
-                            expire_seconds = expireSeconds,
+                            //expire_seconds = expireSeconds,
                             is_unique_code = false,
                             balance = balance,
                             outer_id = outer_id

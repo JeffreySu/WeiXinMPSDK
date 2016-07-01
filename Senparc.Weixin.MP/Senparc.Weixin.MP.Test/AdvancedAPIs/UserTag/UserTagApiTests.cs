@@ -18,6 +18,13 @@ public void CreateTest()
     var result = Senparc.Weixin.MP.AdvancedAPIs.UserTagApi.Create(_appId, "新增标签");
     Assert.AreEqual(Senparc.Weixin.ReturnCode.请求成功,result.errcode);
 }
+
+[TestMethod]
+public void GetTest()
+{
+    var result = Senparc.Weixin.MP.AdvancedAPIs.UserTagApi.Get(_appId, "获取标签");
+    Assert.AreEqual(Senparc.Weixin.ReturnCode.请求成功, result.errcode);
+}
     }
 
 }

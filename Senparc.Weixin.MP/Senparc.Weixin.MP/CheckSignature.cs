@@ -12,6 +12,10 @@
     
     修改标识：Senparc - 20151005
     修改描述：v13.3.1 提供带PostModel参数的方法
+
+    修改标识：Senparc - 20151005
+    修改描述：v13.8.7 fixbug：Check(string signature, PostModel postModel)方法调用错误
+
 ----------------------------------------------------------------*/
 
 using System.Linq;
@@ -41,7 +45,7 @@ namespace Senparc.Weixin.MP
         /// <returns></returns>
         public static bool Check(string signature, PostModel postModel)
         {
-            return Check(postModel.Timestamp, postModel.Nonce, postModel.Token);
+            return Check(signature, postModel.Timestamp, postModel.Nonce, postModel.Token);
         }
 
         /// <summary>

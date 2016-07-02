@@ -1,0 +1,73 @@
+﻿@model Senparc.Weixin.MP.Sample.Models.VD.Analysis_IndexVD
+
+@{
+    ViewBag.Title = "微信分析数据接口测试工具";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Index", "Analysis", null, FormMethod.Post))
+{
+    <div class="wrapper">
+        <div class="form-control">
+            <ul>
+                <li>
+                    <label class="control-label">AppId:</label>
+                    @Html.TextBoxFor(z => z.AppId)
+                </li>
+                <li>
+                    <label class="control-label">AppSecret:</label>
+                    @Html.TextBoxFor(z => z.AppSecret)
+                </li>
+                <li>
+                    <label class="control-label">开始日期:</label>
+                    @Html.TextBoxFor(z => z.StartDate)
+                </li>
+                <li>
+                    <label class="control-label">结束日期:</label>
+                    @Html.TextBoxFor(z => z.EndDate)
+                </li>
+                <li>
+                    <label class="control-label">类型:</label>
+                    <select id="AnalysisType" class="control-select">
+                        <option value="0">图文群发每日数据</option>
+                        <option value="1">图文群发总数据</option>
+                        <option value="2">图文统计数据</option>
+                        <option value="3">图文统计分时数据</option>
+                        <option value="4">图文分享转发数据</option>
+                        <option value="5">图文分享转发分时数据</option>
+                        <option value="6">接口分析数据</option>
+                        <option value="7">接口分析分时数据</option>
+                        <option value="8">消息发送概况数据</option>
+                        <option value="9">消息分送分时数据</option>
+                        <option value="10">消息发送周数据</option>
+                        <option value="11">消息发送月数据</option>
+                        <option value="12">消息发送分布数据</option>
+                        <option value="13">消息发送分布周数据</option>
+                        <option value="14">消息发送分布月数据</option>
+                        <option value="15">用户增减数据</option>
+                        <option value="16">累计用户数据</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+    </div>
+    @Model.Result.ToJson()
+    <input type="submit" value="提交" />
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -19,6 +19,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     public class UserTagApi
     {
+        /// <summary>
+        /// 创建标签
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="name"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
         public static CreateTagResult Create(string accessTokenOrAppId,string name, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -34,6 +41,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 return CommonJsonSend.Send<CreateTagResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
+        /// <summary>
+        /// 获取公众号已创建的标签
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <returns></returns>
         public static TagJson Get(string accessTokenOrAppId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -44,6 +56,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+        /// <summary>
+        /// 编辑标签
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
         public  static WxJsonResult Update(string accessTokenOrAppId, int id, string name, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -57,7 +77,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         name = name
                     }
                 };
-                return CommonJsonSend.Send(accessToken, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -79,7 +99,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
-        public static UserTagJsonResult Get(string accessTokenOrAppId, int tagid,string next_openid="", int timeOut = Config.TIME_OUT)
+        /// <summary>
+        /// 获取标签下粉丝列表
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="tagid"></param>
+        /// <param name="nextOpenid"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static UserTagJsonResult Get(string accessTokenOrAppId, int tagid,string nextOpenid="", int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -87,11 +115,19 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     tagid = tagid,
-                    next_openid = next_openid
+                    next_openid = nextOpenid
                 };
                 return CommonJsonSend.Send<UserTagJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
             }, accessTokenOrAppId);
         }
+        /// <summary>
+        /// 批量为用户打标签
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="tagid"></param>
+        /// <param name="openid_list"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
         public static WxJsonResult BatchTagging(string accessTokenOrAppId,int tagid,List<string> openid_list,int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -106,6 +142,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+        /// <summary>
+        /// 批量为用户取消标签
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="tagid"></param>
+        /// <param name="openid_list"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
         public static WxJsonResult BatchUntagging(string accessTokenOrAppId, int tagid, List<string> openid_list, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -120,6 +164,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+        /// <summary>
+        /// 获取用户身上的标签列表
+        /// </summary>
+        /// <param name="accessTokenOrAppid"></param>
+        /// <param name="openid"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
         public static UserTagListResult UserTagList(string accessTokenOrAppid,string openid,int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>

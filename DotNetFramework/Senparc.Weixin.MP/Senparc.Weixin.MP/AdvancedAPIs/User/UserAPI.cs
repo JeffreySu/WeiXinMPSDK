@@ -93,7 +93,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     openid = openId,
                     remark = remark
                 };
-                return CommonJsonSend.Send(accessToken, url, data, timeOut: timeOut);
+                return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

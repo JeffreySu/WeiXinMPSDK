@@ -58,7 +58,7 @@
 
 ###关注测试账号（SenparcRobot）：
 [![qrcode]](http://weixin.senparc.com/)
-[qrcode]: http://weixin.senparc.com/Images/qrcode.jpg
+[qrcode]: http://sdk.weixin.senparc.com/Images/qrcode.jpg
 
 
 微信公众平台开发系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html

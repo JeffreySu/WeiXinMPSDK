@@ -3,6 +3,8 @@
 
 > 如果需要使用或修改此项目的源代码，建议先Fork。也欢迎将您修改的通用版本Pull Request过来。
 
+> .NET Framework 版本及 .NET Core 版本代码分别位于 DotNetFramework 和 DotNetCore（完善中） 文件夹下，结构基本保持一致，以下介绍以 .NET Framework 版本为例。
+
 | # | 模块功能 | DLL |
 |--------|--------|--------|
 | 1 | 基础库 | Senparc.Weixin.dll |
@@ -14,7 +16,7 @@
 | 7 | Memcached 分布式缓存 | Senparc.Weixin.Cache.Memcached.dll |
 
 
-本库为.NET4.5，其他.NET版本请看各自分支。
+本库为.NET4.5（包括 .NET Framework 及 .NET Core），其他.NET版本请看各自分支。
 
 * 已经支持所有微信6 API，包括自定义菜单/个性化菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口等等。
     > （同时由于易信的API目前与微信保持一致，此SDK也可以直接用于易信，如需使用易信的自定义菜单，通用接口改成易信的通讯地址即可）

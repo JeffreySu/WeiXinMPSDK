@@ -21,6 +21,9 @@
 
     修改标识：Senparc - 20150407
     修改描述：上传永久视频接口修改
+    
+    修改标识：Senparc - 20160703
+    修改描述：修改接口http为https
 ----------------------------------------------------------------*/
 
 /*
@@ -56,7 +59,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("http://api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString().AsUrlData());
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString().AsUrlData());
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
                 return Post.PostFileGetJson<UploadTemporaryMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
@@ -94,7 +97,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="stream"></param>
         public static void Get(string accessToken, string mediaId, Stream stream)
         {
-            var url = string.Format("http://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+            var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
             HttpUtility.Get.Download(url, stream);
         }
         #endregion

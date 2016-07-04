@@ -39,20 +39,21 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class ShakeAroundApi
     {
-        /// <summary>
+       /// <summary>
         /// 申请开通功能
-        /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
-        /// <param name="data"></param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static RegisterResultJson Register(string accessTokenOrAppId, RegisterData data,IndustryId industry_id, int timeOut = Config.TIME_OUT)
+       /// </summary>
+       /// <param name="accessTokenOrAppId"></param>
+       /// <param name="data"></param>
+       /// <param name="industry_Id"></param>
+       /// <param name="timeOut"></param>
+       /// <returns></returns>
+        public static RegisterResultJson Register(string accessTokenOrAppId, RegisterData data, IndustryId industry_Id, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 string url = string.Format("https://api.weixin.qq.com/shakearound/account/register?access_token={0}", accessToken.AsUrlData());
 
-                data.industry_id = RegisterData.ConvertIndustryId(industry_id);
+                data.industry_id = RegisterData.ConvertIndustryId(industry_Id);
                 return CommonJsonSend.Send<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
 
             }, accessTokenOrAppId);
@@ -673,6 +674,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <param name="date">指定查询日期时间戳，单位为秒</param>
         /// <param name="pageIndex">指定查询的结果页序号；返回结果按摇周边人数降序排序，每50条记录为一页</param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
         public static DeviceListResultJson DeviceList(string accessTokenOrAppId, long date, string pageIndex, int timeOut = Config.TIME_OUT)
         {
@@ -684,7 +686,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     date = date,
                     page_index = pageIndex
-                   
+
                 };
 
                 return CommonJsonSend.Send<DeviceListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
@@ -697,6 +699,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <param name="date">指定查询日期时间戳，单位为秒</param>
         /// <param name="pageIndex">指定查询的结果页序号；返回结果按摇周边人数降序排序，每50条记录为一页</param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
         public static PageListResultJson PageList(string accessTokenOrAppId, long date, int pageIndex, int timeOut = Config.TIME_OUT)
         {
@@ -720,8 +723,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <param name="groupName">分组名称，不超过100汉字或200个英文字母</param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GroupAddResultJson GroupAdd(string accessTokenOrAppId, string groupName,int timeOut = Config.TIME_OUT)
+        public static GroupAddResultJson GroupAdd(string accessTokenOrAppId, string groupName, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -729,8 +733,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var data = new
                 {
-                    group_name=groupName
-                   
+                    group_name = groupName
+
 
                 };
 
@@ -744,8 +748,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <param name="groupid">分组唯一标识，全局唯一</param>
         /// <param name="groupName">分组名称，不超过100汉字或200个英文字母</param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static RegisterResultJson GroupUpdate(string accessTokenOrAppId, string groupid,string groupName, int timeOut = Config.TIME_OUT)
+        public static RegisterResultJson GroupUpdate(string accessTokenOrAppId, string groupid, string groupName, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -753,7 +758,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var data = new
                 {
-                    group_id=groupid,
+                    group_id = groupid,
                     group_name = groupName
 
 
@@ -767,10 +772,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 删除分组
         /// </summary>
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
-        /// <param name="groupid">分组唯一标识，全局唯一</param>
-        
+        /// <param name="groupId">分组唯一标识，全局唯一</param>
+        /// <param name="timeOut"></param>
+
         /// <returns></returns>
-        public static RegisterResultJson GroupDelete(string accessTokenOrAppId, string groupId,int timeOut = Config.TIME_OUT)
+        public static RegisterResultJson GroupDelete(string accessTokenOrAppId, string groupId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -824,7 +830,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var data = new
                 {
-                    group_id=groupId,
+                    group_id = groupId,
                     begin = begin,
                     count = count
                 };
@@ -837,9 +843,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 添加设备到分组
         /// </summary>
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
-        /// <param name="groupid">分组唯一标识，全局唯一</param>
+        /// <param name="groupId">分组唯一标识，全局唯一</param>
         /// <param name="deviceIdentifier">分组列表的起始索引值</param>
-       
+
         /// <returns></returns>
         public static RegisterResultJson GroupGetAdddevice(string accessTokenOrAppId, string groupId, DeviceApply_Data_Device_Identifiers deviceIdentifier, int timeOut = Config.TIME_OUT)
         {
@@ -858,7 +864,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                     };
                 }
-                else 
+                else
                 {
                     data = new
                     {
@@ -875,7 +881,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 从分组中移除设备
         /// </summary>
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
-        /// <param name="groupid">分组唯一标识，全局唯一</param>
+        /// <param name="groupId">分组唯一标识，全局唯一</param>
         /// <param name="deviceIdentifier">分组列表的起始索引值</param>
 
         /// <returns></returns>
@@ -910,7 +916,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
-        
+
         /// <summary>
         /// 创建红包活动
         /// </summary>
@@ -926,7 +932,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="key">待查询的分组数量，不能超过1000个</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static AddLotteryInfoResultJson AddLotteryInfo(string accessTokenOrAppId, string title, string desc, int onoff,long beginTime,long expireTime,string sponsorAppid,long total,string jumpUrl,string key,int timeOut = Config.TIME_OUT)
+        public static AddLotteryInfoResultJson AddLotteryInfo(string accessTokenOrAppId, string title, string desc, int onoff, long beginTime, long expireTime, string sponsorAppid, long total, string jumpUrl, string key, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -953,14 +959,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 录入红包信息
         /// </summary>
         /// <param name="accessTokenOrAppId">调用接口凭证</param>
-        /// <param name="lotteryid">红包抽奖id，来自addlotteryinfo返回的lottery_id</param>
+        /// <param name="lotteryId">红包抽奖id，来自addlotteryinfo返回的lottery_id</param>
         /// <param name="mchid">红包提供者的商户号，，需与预下单中的商户号mch_id一致</param>
-        /// <param name="sponsorappid">红包提供商户公众号的appid，需与预下单中的公众账号appid（wxappid）一致</param>
-        /// <param name="prizeinfolist">红包ticket列表，如果红包数较多，可以一次传入多个红包，批量调用该接口设置红包信息。每次请求传入的红包个数上限为100</param>
-       
+        /// <param name="sponsorAppid">红包提供商户公众号的appid，需与预下单中的公众账号appid（wxappid）一致</param>
+        /// <param name="prizeInfoList">红包ticket列表，如果红包数较多，可以一次传入多个红包，批量调用该接口设置红包信息。每次请求传入的红包个数上限为100</param>
+
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static SetPrizeBucketResultJson SetPrizeBucket(string accessTokenOrAppId, string lotteryId, string mchid, string sponsorAppid, PrizeInfoList prizeInfoList,int timeOut = Config.TIME_OUT)
+        public static SetPrizeBucketResultJson SetPrizeBucket(string accessTokenOrAppId, string lotteryId, string mchid, string sponsorAppid, PrizeInfoList prizeInfoList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -971,9 +977,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     lottery_id = lotteryId,
                     mchid = mchid,
                     sponsorapp_id = sponsorAppid,
-                    prizeinfolist=prizeInfoList
-                   
-                 
+                    prizeinfolist = prizeInfoList
+
+
                 };
 
                 return CommonJsonSend.Send<SetPrizeBucketResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
@@ -988,7 +994,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="onOff">活动抽奖开关，0：关闭，1：开启</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult SetLotterySwitch(string accessTokenOrAppId, string lotteryId, int onOff,int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SetLotterySwitch(string accessTokenOrAppId, string lotteryId, int onOff, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -998,7 +1004,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     lottery_id = lotteryId,
                     onoff = onOff
-                 };
+                };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.GET, timeOut);
 
@@ -1011,7 +1017,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="lotteryId">红包抽奖id，来自addlotteryinfo返回的lottery_id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static QueryLotteryJsonResult QueryLottery(string accessTokenOrAppId, string lotteryId,int timeOut = Config.TIME_OUT)
+        public static QueryLotteryJsonResult QueryLottery(string accessTokenOrAppId, string lotteryId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -1020,7 +1026,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     lottery_id = lotteryId
-                 };
+                };
 
                 return CommonJsonSend.Send<QueryLotteryJsonResult>(null, url, data, CommonJsonSendType.GET, timeOut);
 

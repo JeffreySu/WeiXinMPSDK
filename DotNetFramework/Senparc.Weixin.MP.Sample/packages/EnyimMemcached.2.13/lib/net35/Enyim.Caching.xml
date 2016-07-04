@@ -1,0 +1,2032 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Enyim.Caching</name>
+    </assembly>
+    <members>
+        <member name="T:Enyim.Caching.Configuration.FactoryElement`1">
+            <summary>
+            This element is used to define locator/transcoder/keyTransformer instances. It also provides custom initializations for them using a factory.
+            </summary>
+            <typeparam name="TFactory"></typeparam>
+        </member>
+        <member name="M:Enyim.Caching.Configuration.FactoryElement`1.CreateInstance">
+            <summary>
+            Creates the provider by using the factory (if present) or directly instantiating by type name
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.FactoryElement`1.Factory">
+            <summary>
+            Gets or sets the type of the factory.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.FailImmediatelyPolicy">
+            <summary>
+            Fails a node immediately when an error occures. This is the default policy.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.FailImmediatelyPolicyFactory">
+            <summary>
+            Creates instances of <see cref="T:FailImmediatelyPolicy"/>.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.ThrottlingFailurePolicy">
+            <summary>
+            Fails a node when the specified number of failures happen in a specified time window.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.ThrottlingFailurePolicy.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Creates a new instance of <see cref="T:ThrottlingFailurePolicy"/>.
+            </summary>
+            <param name="resetAfter">Specifies the time in milliseconds how long a node should function properly to reset its failure counter.</param>
+            <param name="failureThreshold">Specifies the number of failures that must occur in the specified time window to fail a node.</param>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.ThrottlingFailurePolicyFactory">
+            <summary>
+            Creates instances of <see cref="T:ThrottlingFailurePolicy"/>.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.IProviderFactory`1">
+            <summary>
+            Provides a way for custom initalization of the providers (locators, transcoders, key transformers)
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Enyim.Caching.Memcached.ThrottlingFailurePolicyFactory.ResetAfter">
+            <summary>
+            Gets or sets the amount of time of in milliseconds after the failure counter is reset.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Memcached.ThrottlingFailurePolicyFactory.FailureThreshold">
+            <summary>
+            Gets or sets the number of failures that must happen in a time window to make a node marked as failed.
+            </summary>
+        </member>
+        <member name="T:Enyim.Collections.InterlockedStack`1">
+            <summary>
+            Implements a non-locking stack.
+            </summary>
+            <typeparam name="TItem"></typeparam>
+        </member>
+        <member name="T:Enyim.Reflection.FastActivator">
+            <summary>
+            <para>Implements a very fast object factory for dynamic object creation. Dynamically generates a factory class which will use the new() constructor of the requested type.</para>
+            <para>Much faster than using Activator at the price of the first invocation being significantly slower than subsequent calls.</para>
+            </summary>
+        </member>
+        <member name="M:Enyim.Reflection.FastActivator.Create``1">
+            <summary>
+            Creates an instance of the specified type using a generated factory to avoid using Reflection.
+            </summary>
+            <typeparam name="T">The type to be created.</typeparam>
+            <returns>The newly created instance.</returns>
+        </member>
+        <member name="M:Enyim.Reflection.FastActivator.Create(System.Type)">
+            <summary>
+            Creates an instance of the specified type using a generated factory to avoid using Reflection.
+            </summary>
+            <param name="type">The type to be created.</param>
+            <returns>The newly created instance.</returns>
+        </member>
+        <member name="T:Enyim.Caching.ILogFactory">
+            <summary>
+            Implement this interface to instantiate your custom ILog implementation
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.ILog">
+            <summary>
+            The ILog interface is used by the client to log messages.
+            </summary>
+            <remarks>Use the <see cref="T:Enyim.Caching.LogManager" /> class to programmatically assign logger implementations.</remarks>
+        </member>
+        <member name="T:Enyim.Caching.LogManager">
+            <summary>
+            Creates loggers based on the current configuration.
+            </summary>
+            <example>
+            
+            Config file:
+            
+            <configuration>
+            	<configSections>
+            		<sectionGroup name="enyim.com">
+            			<section name="log" type="Enyim.Caching.EnyimLoggerSection, Enyim.Caching" />
+            		</sectionGroup>
+            	</configSections>
+            	<enyim.com>
+            		<log factory="Enyim.Caching.Log4NetLoggerFactory, Enyim.Caching" />
+            	</enyim.com>
+            </configuration>
+            
+            Code:
+            
+            	LogManager.AssignFactory(new Log4NetLogFactory());
+            
+            </example>
+        </member>
+        <member name="M:Enyim.Caching.LogManager.AssignFactory(Enyim.Caching.ILogFactory)">
+            <summary>
+            Assigns a new logger factory programmatically.
+            </summary>
+            <param name="factory"></param>
+        </member>
+        <member name="M:Enyim.Caching.LogManager.GetLogger(System.Type)">
+            <summary>
+            Returns a new logger for the specified Type.
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Enyim.Caching.LogManager.GetLogger(System.String)">
+            <summary>
+            Returns a logger with the specified name.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Enyim.Caching.Configuration.IAuthenticationConfiguration">
+            <summary>
+            Defines an interface for configuring the authentication paramaters the <see cref="T:MemcachedClient"/>.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.IAuthenticationConfiguration.Type">
+            <summary>
+            Gets or sets the type of the <see cref="T:Enyim.Caching.Memcached.IAuthenticationProvider"/> which will be used authehticate the connections to the Memcached nodes.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.IAuthenticationConfiguration.Parameters">
+            <summary>
+            Gets or sets the parameters passed to the authenticator instance.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Configuration.AuthenticationElement">
+            <summary>
+            Configures the authentication settings for Memcached servers.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.AuthenticationElement.Type">
+            <summary>
+            Gets or sets the type of the <see cref="T:Enyim.Caching.Memcached.IAuthenticationProvider"/> which will be used authehticate the connections to the Memcached nodes.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Configuration.EndPointElement">
+            <summary>
+            Represents a configuration element that contains a Memcached node address. This class cannot be inherited. 
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.EndPointElement.Address">
+            <summary>
+            Gets or sets the ip address of the node.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.EndPointElement.Port">
+            <summary>
+            Gets or sets the port of the node.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.EndPointElement.EndPoint">
+            <summary>
+            Gets the <see cref="T:IPEndPoint"/> representation of this instance.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Configuration.EndPointElementCollection">
+            <summary>
+            Represents a collection of <see cref="T:EndPointElement"/> instances. This class cannot be inherited.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Configuration.EndPointElementCollection.CreateNewElement">
+            <summary>
+            Creates a new <see cref="T:ConfigurationElement"/>.
+            </summary>
+            <returns>A new <see cref="T:ConfigurationElement"/>.</returns>
+        </member>
+        <member name="M:Enyim.Caching.Configuration.EndPointElementCollection.GetElementKey(System.Configuration.ConfigurationElement)">
+            <summary>
+            Gets the element key for a specified configuration element when overridden in a derived class.
+            </summary>
+            <param name="element">The <see cref="T:ConfigurationElement"/> to return the key for. </param>
+            <returns>An <see cref="T:Object"/> that acts as the key for the specified <see cref="T:ConfigurationElement"/>.</returns>
+        </member>
+        <member name="M:Enyim.Caching.Configuration.EndPointElementCollection.ToIPEndPointCollection">
+            <summary>
+            Helper method; converts the collection into an <see cref="T:IPEndPoint"/> collection for the interface implementation.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Enyim.Caching.Configuration.IMemcachedClientConfiguration">
+            <summary>
+            Defines an interface for configuring the <see cref="T:MemcachedClient"/>.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Configuration.IMemcachedClientConfiguration.CreateKeyTransformer">
+            <summary>
+            Creates an <see cref="T:Enyim.Caching.Memcached.IMemcachedKeyTransformer"/> instance which will be used to convert item keys for Memcached.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Configuration.IMemcachedClientConfiguration.CreateNodeLocator">
+            <summary>
+            Creates an <see cref="T:Enyim.Caching.Memcached.IMemcachedNodeLocator"/> instance which will be used to assign items to Memcached nodes.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Configuration.IMemcachedClientConfiguration.CreateTranscoder">
+            <summary>
+            Creates an <see cref="T:Enyim.Caching.Memcached.ITranscoder"/> instance which will be used to serialize or deserialize items.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.IMemcachedClientConfiguration.Servers">
+            <summary>
+            Gets a list of <see cref="T:IPEndPoint"/> each representing a Memcached server in the pool.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.IMemcachedClientConfiguration.SocketPool">
+            <summary>
+            Gets the configuration of the socket pool.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.IMemcachedClientConfiguration.Authentication">
+            <summary>
+            Gets the authentication settings.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Configuration.ISocketPoolConfiguration">
+            <summary>
+            Defines an interface for configuring the socket pool for the <see cref="T:MemcachedClient"/>.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.ISocketPoolConfiguration.MinPoolSize">
+            <summary>
+            Gets or sets a value indicating the minimum amount of sockets per server in the socket pool.
+            </summary>
+            <returns>The minimum amount of sockets per server in the socket pool.</returns>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.ISocketPoolConfiguration.MaxPoolSize">
+            <summary>
+            Gets or sets a value indicating the maximum amount of sockets per server in the socket pool.
+            </summary>
+            <returns>The maximum amount of sockets per server in the socket pool.</returns>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.ISocketPoolConfiguration.ConnectionTimeout">
+            <summary>
+            Gets or sets a value that specifies the amount of time after which the connection attempt will fail.
+            </summary>
+            <returns>The value of the connection timeout.</returns>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.ISocketPoolConfiguration.QueueTimeout">
+            <summary>
+            Gets or sets a value that specifies the amount of time after which the getting a connection from the pool will fail.
+            </summary>
+            <returns>The value of the queue timeout.</returns>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.ISocketPoolConfiguration.ReceiveTimeout">
+            <summary>
+            Gets or sets a value that specifies the amount of time after which receiving data from the socket will fail.
+            </summary>
+            <returns>The value of the receive timeout.</returns>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.ISocketPoolConfiguration.DeadTimeout">
+            <summary>
+            Gets or sets a value that specifies the amount of time after which an unresponsive (dead) server will be checked if it is working.
+            </summary>
+            <returns>The value of the dead timeout.</returns>
+        </member>
+        <member name="T:Enyim.Caching.Configuration.MemcachedClientConfiguration">
+            <summary>
+            Configuration class
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Configuration.MemcachedClientConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MemcachedClientConfiguration"/> class.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Configuration.MemcachedClientConfiguration.AddServer(System.String)">
+            <summary>
+            Adds a new server to the pool.
+            </summary>
+            <param name="address">The address and the port of the server in the format 'host:port'.</param>
+        </member>
+        <member name="M:Enyim.Caching.Configuration.MemcachedClientConfiguration.AddServer(System.String,System.Int32)">
+            <summary>
+            Adds a new server to the pool.
+            </summary>
+            <param name="address">The host name or IP address of the server.</param>
+            <param name="port">The port number of the memcached instance.</param>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientConfiguration.Servers">
+            <summary>
+            Gets a list of <see cref="T:IPEndPoint"/> each representing a Memcached server in the pool.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientConfiguration.SocketPool">
+            <summary>
+            Gets the configuration of the socket pool.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientConfiguration.Authentication">
+            <summary>
+            Gets the authentication settings.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientConfiguration.KeyTransformer">
+            <summary>
+            Gets or sets the <see cref="T:Enyim.Caching.Memcached.IMemcachedKeyTransformer"/> which will be used to convert item keys for Memcached.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientConfiguration.NodeLocator">
+            <summary>
+            Gets or sets the Type of the <see cref="T:Enyim.Caching.Memcached.IMemcachedNodeLocator"/> which will be used to assign items to Memcached nodes.
+            </summary>
+            <remarks>If both <see cref="M:NodeLocator"/> and  <see cref="M:NodeLocatorFactory"/> are assigned then the latter takes precedence.</remarks>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientConfiguration.NodeLocatorFactory">
+            <summary>
+            Gets or sets the NodeLocatorFactory instance which will be used to create a new IMemcachedNodeLocator instances.
+            </summary>
+            <remarks>If both <see cref="M:NodeLocator"/> and  <see cref="M:NodeLocatorFactory"/> are assigned then the latter takes precedence.</remarks>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientConfiguration.Transcoder">
+            <summary>
+            Gets or sets the <see cref="T:Enyim.Caching.Memcached.ITranscoder"/> which will be used serialize or deserialize items.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientConfiguration.PerformanceMonitor">
+            <summary>
+            Gets or sets the <see cref="T:Enyim.Caching.Memcached.IPerformanceMonitor"/> instance which will be used monitor the performance of the client.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientConfiguration.Protocol">
+            <summary>
+            Gets or sets the type of the communication between client and server.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Configuration.MemcachedClientSection">
+            <summary>
+            Configures the <see cref="T:MemcachedClient"/>. This class cannot be inherited.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Configuration.MemcachedClientSection.PostDeserialize">
+            <summary>
+            Called after deserialization.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientSection.Servers">
+            <summary>
+            Returns a collection of Memcached servers which can be used by the client.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientSection.SocketPool">
+            <summary>
+            Gets or sets the configuration of the socket pool.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientSection.Authentication">
+            <summary>
+            Gets or sets the configuration of the authenticator.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientSection.NodeLocator">
+            <summary>
+            Gets or sets the <see cref="T:Enyim.Caching.Memcached.IMemcachedNodeLocator"/> which will be used to assign items to Memcached nodes.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientSection.KeyTransformer">
+            <summary>
+            Gets or sets the <see cref="T:Enyim.Caching.Memcached.IMemcachedKeyTransformer"/> which will be used to convert item keys for Memcached.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientSection.Transcoder">
+            <summary>
+            Gets or sets the <see cref="T:Enyim.Caching.Memcached.ITranscoder"/> which will be used serialzie or deserialize items.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientSection.PerformanceMonitor">
+            <summary>
+            Gets or sets the <see cref="T:Enyim.Caching.Memcached.IPerformanceMonitor"/> which will be used monitor the performance of the client.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.MemcachedClientSection.Protocol">
+            <summary>
+            Gets or sets the type of the communication between client and server.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Configuration.ProviderElement`1">
+            <summary>
+            This element is used to define locator/transcoder/keyTransformer instances. It also provides custom initializations for them using a factory.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Enyim.Caching.Configuration.ProviderElement`1.CreateInstance">
+            <summary>
+            Creates the provider by using the factory (if present) or directly instantiating by type name
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.ProviderElement`1.Type">
+            <summary>
+            Gets or sets the type of the provider.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.ProviderElement`1.Factory">
+            <summary>
+            Gets or sets the type of the provider factory.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.SocketPoolConfiguration.Enyim#Caching#Configuration#ISocketPoolConfiguration#MaxPoolSize">
+            <summary>
+            Gets or sets a value indicating the maximum amount of sockets per server in the socket pool.
+            </summary>
+            <returns>The maximum amount of sockets per server in the socket pool. The default is 20.</returns>
+            <remarks>It should be 0.75 * (number of threads) for optimal performance.</remarks>
+        </member>
+        <member name="T:Enyim.Caching.Configuration.SocketPoolElement">
+            <summary>
+            Configures the socket pool settings for Memcached servers.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Configuration.SocketPoolElement.PostDeserialize">
+            <summary>
+            Called after deserialization.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.SocketPoolElement.MinPoolSize">
+            <summary>
+            Gets or sets a value indicating the minimum amount of sockets per server in the socket pool.
+            </summary>
+            <returns>The minimum amount of sockets per server in the socket pool.</returns>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.SocketPoolElement.MaxPoolSize">
+            <summary>
+            Gets or sets a value indicating the maximum amount of sockets per server in the socket pool.
+            </summary>
+            <returns>The maximum amount of sockets per server in the socket pool. The default is 20.</returns>
+            <remarks>It should be 0.75 * (number of threads) for optimal performance.</remarks>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.SocketPoolElement.ConnectionTimeout">
+            <summary>
+            Gets or sets a value that specifies the amount of time after which the connection attempt will fail.
+            </summary>
+            <returns>The value of the connection timeout. The default is 10 seconds.</returns>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.SocketPoolElement.QueueTimeout">
+            <summary>
+            Gets or sets a value that specifies the amount of time after which the getting a connection from the pool will fail. The default is 100 msec.
+            </summary>
+            <returns>The value of the queue timeout.</returns>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.SocketPoolElement.ReceiveTimeout">
+            <summary>
+            Gets or sets a value that specifies the amount of time after which receiving data from the socket fails.
+            </summary>
+            <returns>The value of the receive timeout. The default is 10 seconds.</returns>
+        </member>
+        <member name="P:Enyim.Caching.Configuration.SocketPoolElement.DeadTimeout">
+            <summary>
+            Gets or sets a value that specifies the amount of time after which an unresponsive (dead) server will be checked if it is working.
+            </summary>
+            <returns>The value of the dead timeout. The default is 10 secs.</returns>
+        </member>
+        <member name="T:Enyim.Caching.Configuration.TextElement">
+            <summary>
+            CDATA config element
+            </summary>
+        </member>
+        <member name="T:Enyim.HashkitCrc32">
+            <summary>
+            CRC-32 implementation. Compatible with libhashkit.
+            </summary>
+        </member>
+        <member name="T:Enyim.HashkitMurmur">
+            <summary>
+            Murmur hash. Uses the same seed values as libhashkit.
+            </summary>
+            <remarks>Does not support block based hashing.</remarks>
+        </member>
+        <member name="T:Enyim.HashkitOneAtATime">
+            <summary>
+            This is Jenkin's "One at A time Hash".
+            http://en.wikipedia.org/wiki/Jenkins_hash_function
+            
+            Coming from libhashkit.
+            </summary>
+            <remarks>Does not support block based hashing.</remarks>
+        </member>
+        <member name="T:Enyim.HashCodeCombiner">
+            <summary>
+            Combines multiple hash codes into one.
+            </summary>
+        </member>
+        <member name="T:Enyim.Collections.InterlockedQueue`1">
+            <summary>
+            Implements a non-locking queue.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Enyim.Collections.InterlockedQueue`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:InterlockedQueue"/> class.
+            </summary>
+        </member>
+        <member name="M:Enyim.Collections.InterlockedQueue`1.Dequeue(`0@)">
+            <summary>
+            Removes and returns the item at the beginning of the <see cref="T:InterlockedQueue"/>.
+            </summary>
+            <param name="value">The object that is removed from the beginning of the <see cref="T:InterlockedQueue"/>.</param>
+            <returns><value>true</value> if an item was successfully dequeued; otherwise <value>false</value>.</returns>
+        </member>
+        <member name="M:Enyim.Collections.InterlockedQueue`1.Enqueue(`0)">
+            <summary>
+            Adds an object to the end of the <see cref="T:InterlockedQueue"/>.
+            </summary>
+            <param name="value">The item to be added to the <see cref="T:InterlockedQueue"/>. The value can be <value>null</value>.</param>
+        </member>
+        <member name="T:Enyim.FNV64">
+            <summary>
+            Implements a 64 bit long FNV1 hash.
+            </summary>
+            <remarks>
+            Calculation found at http://lists.danga.com/pipermail/memcached/2007-April/003846.html, but 
+            it is pretty much available everywhere
+            </remarks>
+        </member>
+        <member name="M:Enyim.FNV64.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:FNV64"/> class.
+            </summary>
+        </member>
+        <member name="M:Enyim.FNV64.Initialize">
+            <summary>
+            Initializes an instance of <see cref="T:FNV64"/>.
+            </summary>
+        </member>
+        <member name="M:Enyim.FNV64.HashCore(System.Byte[],System.Int32,System.Int32)">
+            <summary>Routes data written to the object into the <see cref="T:FNV64" /> hash algorithm for computing the hash.</summary>
+            <param name="array">The input data. </param>
+            <param name="ibStart">The offset into the byte array from which to begin using data. </param>
+            <param name="cbSize">The number of bytes in the array to use as data. </param>
+        </member>
+        <member name="M:Enyim.FNV64.HashFinal">
+            <summary>
+            Returns the computed <see cref="T:FNV64" /> hash value after all data has been written to the object.
+            </summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="T:Enyim.FNV64a">
+            <summary>
+            Implements a 64 bit long FVNV1a hash.
+            </summary>
+        </member>
+        <member name="M:Enyim.FNV64a.HashCore(System.Byte[],System.Int32,System.Int32)">
+            <summary>Routes data written to the object into the <see cref="T:FNV64" /> hash algorithm for computing the hash.</summary>
+            <param name="array">The input data. </param>
+            <param name="ibStart">The offset into the byte array from which to begin using data. </param>
+            <param name="cbSize">The number of bytes in the array to use as data. </param>
+        </member>
+        <member name="T:Enyim.FNV1">
+            <summary>
+            Implements an FNV1 hash algorithm.
+            </summary>
+        </member>
+        <member name="F:Enyim.FNV1.CurrentHashValue">
+            <summary>
+            The current hash value.
+            </summary>
+        </member>
+        <member name="M:Enyim.FNV1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:FNV1a"/> class.
+            </summary>
+        </member>
+        <member name="M:Enyim.FNV1.Initialize">
+            <summary>
+            Initializes an instance of <see cref="T:FNV1a"/>.
+            </summary>
+        </member>
+        <member name="M:Enyim.FNV1.HashCore(System.Byte[],System.Int32,System.Int32)">
+            <summary>Routes data written to the object into the <see cref="T:FNV1a" /> hash algorithm for computing the hash.</summary>
+            <param name="array">The input data. </param>
+            <param name="ibStart">The offset into the byte array from which to begin using data. </param>
+            <param name="cbSize">The number of bytes in the array to use as data. </param>
+        </member>
+        <member name="M:Enyim.FNV1.HashFinal">
+            <summary>
+            Returns the computed <see cref="T:FNV1a" /> hash value after all data has been written to the object.
+            </summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="T:Enyim.FNV1a">
+            <summary>
+            Implements an FNV1a hash algorithm.
+            </summary>
+        </member>
+        <member name="M:Enyim.FNV1a.HashCore(System.Byte[],System.Int32,System.Int32)">
+            <summary>Routes data written to the object into the <see cref="T:FNV1a" /> hash algorithm for computing the hash.</summary>
+            <param name="array">The input data. </param>
+            <param name="ibStart">The offset into the byte array from which to begin using data. </param>
+            <param name="cbSize">The number of bytes in the array to use as data. </param>
+        </member>
+        <member name="T:Enyim.ModifiedFNV">
+            <summary>
+            Implements a modified FNV hash. Provides better distribution than FNV1 but it's only 32 bit long.
+            </summary>
+            <remarks>Algorithm found at http://bretm.home.comcast.net/hash/6.html</remarks>
+        </member>
+        <member name="M:Enyim.ModifiedFNV.HashFinal">
+            <summary>
+            Returns the computed <see cref="T:ModifiedFNV" /> hash value after all data has been written to the object.
+            </summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="T:Enyim.Caching.NullLoggerFactory">
+            <summary>
+            Creates an empty logger. Used when no other factories are installed.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.MemcachedClient">
+            <summary>
+            Memcached client.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.IMemcachedResultsClient">
+            <summary>
+            Interface for API methods that return detailed operation results
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.MemcachedClient.Infinite">
+            <summary>
+            Represents a value which indicates that an item should never expire.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.#ctor">
+            <summary>
+            Initializes a new MemcachedClient instance using the default configuration section (enyim/memcached).
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.#ctor(System.String)">
+            <summary>
+            Initializes a new MemcachedClient instance using the specified configuration section. 
+            This overload allows to create multiple MemcachedClients with different pool configurations.
+            </summary>
+            <param name="sectionName">The name of the configuration section to be used for configuring the behavior of the client.</param>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.#ctor(Enyim.Caching.Configuration.IMemcachedClientConfiguration)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MemcachedClient"/> using the specified configuration instance.
+            </summary>
+            <param name="configuration">The client configuration.</param>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Get(System.String)">
+            <summary>
+            Retrieves the specified item from the cache.
+            </summary>
+            <param name="key">The identifier for the item to retrieve.</param>
+            <returns>The retrieved item, or <value>null</value> if the key was not found.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Get``1(System.String)">
+            <summary>
+            Retrieves the specified item from the cache.
+            </summary>
+            <param name="key">The identifier for the item to retrieve.</param>
+            <returns>The retrieved item, or <value>default(T)</value> if the key was not found.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.TryGet(System.String,System.Object@)">
+            <summary>
+            Tries to get an item from the cache.
+            </summary>
+            <param name="key">The identifier for the item to retrieve.</param>
+            <param name="value">The retrieved item or null if not found.</param>
+            <returns>The <value>true</value> if the item was successfully retrieved.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Store(Enyim.Caching.Memcached.StoreMode,System.String,System.Object)">
+            <summary>
+            Inserts an item into the cache with a cache key to reference its location.
+            </summary>
+            <param name="mode">Defines how the item is stored in the cache.</param>
+            <param name="key">The key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <remarks>The item does not expire unless it is removed due memory pressure.</remarks>
+            <returns>true if the item was successfully stored in the cache; false otherwise.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Store(Enyim.Caching.Memcached.StoreMode,System.String,System.Object,System.TimeSpan)">
+            <summary>
+            Inserts an item into the cache with a cache key to reference its location.
+            </summary>
+            <param name="mode">Defines how the item is stored in the cache.</param>
+            <param name="key">The key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <param name="validFor">The interval after the item is invalidated in the cache.</param>
+            <returns>true if the item was successfully stored in the cache; false otherwise.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Store(Enyim.Caching.Memcached.StoreMode,System.String,System.Object,System.DateTime)">
+            <summary>
+            Inserts an item into the cache with a cache key to reference its location.
+            </summary>
+            <param name="mode">Defines how the item is stored in the cache.</param>
+            <param name="key">The key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <param name="expiresAt">The time when the item is invalidated in the cache.</param>
+            <returns>true if the item was successfully stored in the cache; false otherwise.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Cas(Enyim.Caching.Memcached.StoreMode,System.String,System.Object,System.UInt64)">
+            <summary>
+            Inserts an item into the cache with a cache key to reference its location and returns its version.
+            </summary>
+            <param name="mode">Defines how the item is stored in the cache.</param>
+            <param name="key">The key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <remarks>The item does not expire unless it is removed due memory pressure.</remarks>
+            <returns>A CasResult object containing the version of the item and the result of the operation (true if the item was successfully stored in the cache; false otherwise).</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Cas(Enyim.Caching.Memcached.StoreMode,System.String,System.Object,System.TimeSpan,System.UInt64)">
+            <summary>
+            Inserts an item into the cache with a cache key to reference its location and returns its version.
+            </summary>
+            <param name="mode">Defines how the item is stored in the cache.</param>
+            <param name="key">The key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <param name="validFor">The interval after the item is invalidated in the cache.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <returns>A CasResult object containing the version of the item and the result of the operation (true if the item was successfully stored in the cache; false otherwise).</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Cas(Enyim.Caching.Memcached.StoreMode,System.String,System.Object,System.DateTime,System.UInt64)">
+            <summary>
+            Inserts an item into the cache with a cache key to reference its location and returns its version.
+            </summary>
+            <param name="mode">Defines how the item is stored in the cache.</param>
+            <param name="key">The key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <param name="expiresAt">The time when the item is invalidated in the cache.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <returns>A CasResult object containing the version of the item and the result of the operation (true if the item was successfully stored in the cache; false otherwise).</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Cas(Enyim.Caching.Memcached.StoreMode,System.String,System.Object)">
+            <summary>
+            Inserts an item into the cache with a cache key to reference its location and returns its version.
+            </summary>
+            <param name="mode">Defines how the item is stored in the cache.</param>
+            <param name="key">The key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <remarks>The item does not expire unless it is removed due memory pressure. The text protocol does not support this operation, you need to Store then GetWithCas.</remarks>
+            <returns>A CasResult object containing the version of the item and the result of the operation (true if the item was successfully stored in the cache; false otherwise).</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Increment(System.String,System.UInt64,System.UInt64)">
+            <summary>
+            Increments the value of the specified key by the given amount. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to increase the item.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Increment(System.String,System.UInt64,System.UInt64,System.TimeSpan)">
+            <summary>
+            Increments the value of the specified key by the given amount. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to increase the item.</param>
+            <param name="validFor">The interval after the item is invalidated in the cache.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Increment(System.String,System.UInt64,System.UInt64,System.DateTime)">
+            <summary>
+            Increments the value of the specified key by the given amount. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to increase the item.</param>
+            <param name="expiresAt">The time when the item is invalidated in the cache.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Increment(System.String,System.UInt64,System.UInt64,System.UInt64)">
+            <summary>
+            Increments the value of the specified key by the given amount, but only if the item's version matches the CAS value provided. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to increase the item.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Increment(System.String,System.UInt64,System.UInt64,System.TimeSpan,System.UInt64)">
+            <summary>
+            Increments the value of the specified key by the given amount, but only if the item's version matches the CAS value provided. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to increase the item.</param>
+            <param name="validFor">The interval after the item is invalidated in the cache.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Increment(System.String,System.UInt64,System.UInt64,System.DateTime,System.UInt64)">
+            <summary>
+            Increments the value of the specified key by the given amount, but only if the item's version matches the CAS value provided. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to increase the item.</param>
+            <param name="expiresAt">The time when the item is invalidated in the cache.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Decrement(System.String,System.UInt64,System.UInt64)">
+            <summary>
+            Decrements the value of the specified key by the given amount. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to decrease the item.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Decrement(System.String,System.UInt64,System.UInt64,System.TimeSpan)">
+            <summary>
+            Decrements the value of the specified key by the given amount. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to decrease the item.</param>
+            <param name="validFor">The interval after the item is invalidated in the cache.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Decrement(System.String,System.UInt64,System.UInt64,System.DateTime)">
+            <summary>
+            Decrements the value of the specified key by the given amount. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to decrease the item.</param>
+            <param name="expiresAt">The time when the item is invalidated in the cache.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Decrement(System.String,System.UInt64,System.UInt64,System.UInt64)">
+            <summary>
+            Decrements the value of the specified key by the given amount, but only if the item's version matches the CAS value provided. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to decrease the item.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Decrement(System.String,System.UInt64,System.UInt64,System.TimeSpan,System.UInt64)">
+            <summary>
+            Decrements the value of the specified key by the given amount, but only if the item's version matches the CAS value provided. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to decrease the item.</param>
+            <param name="validFor">The interval after the item is invalidated in the cache.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Decrement(System.String,System.UInt64,System.UInt64,System.DateTime,System.UInt64)">
+            <summary>
+            Decrements the value of the specified key by the given amount, but only if the item's version matches the CAS value provided. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to decrease the item.</param>
+            <param name="expiresAt">The time when the item is invalidated in the cache.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Append(System.String,System.ArraySegment{System.Byte})">
+            <summary>
+            Appends the data to the end of the specified item's data on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="data">The data to be appended to the item.</param>
+            <returns>true if the data was successfully stored; false otherwise.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Prepend(System.String,System.ArraySegment{System.Byte})">
+            <summary>
+            Inserts the data before the specified item's data on the server.
+            </summary>
+            <returns>true if the data was successfully stored; false otherwise.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Append(System.String,System.UInt64,System.ArraySegment{System.Byte})">
+            <summary>
+            Appends the data to the end of the specified item's data on the server, but only if the item's version matches the CAS value provided.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <param name="data">The data to be prepended to the item.</param>
+            <returns>true if the data was successfully stored; false otherwise.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Prepend(System.String,System.UInt64,System.ArraySegment{System.Byte})">
+            <summary>
+            Inserts the data before the specified item's data on the server, but only if the item's version matches the CAS value provided.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <param name="data">The data to be prepended to the item.</param>
+            <returns>true if the data was successfully stored; false otherwise.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.FlushAll">
+            <summary>
+            Removes all data from the cache. Note: this will invalidate all data on all servers in the pool.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Stats">
+            <summary>
+            Returns statistics about the servers.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Remove(System.String)">
+            <summary>
+            Removes the specified item from the cache.
+            </summary>
+            <param name="key">The identifier for the item to delete.</param>
+            <returns>true if the item was successfully removed from the cache; false otherwise.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Get(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Retrieves multiple items from the cache.
+            </summary>
+            <param name="keys">The list of identifiers for the items to retrieve.</param>
+            <returns>a Dictionary holding all items indexed by their key.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.SafeWaitAllAndDispose(System.Threading.WaitHandle[])">
+            <summary>
+            Waits for all WaitHandles and works in both STA and MTA mode.
+            </summary>
+            <param name="waitHandles"></param>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.Dispose">
+            <summary>
+            Releases all resources allocated by this instance
+            </summary>
+            <remarks>You should only call this when you are not using static instances of the client, so it can close all conections and release the sockets.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteStore(Enyim.Caching.Memcached.StoreMode,System.String,System.Object)">
+            <summary>
+            Inserts an item into the cache with a cache key to reference its location.
+            </summary>
+            <param name="mode">Defines how the item is stored in the cache.</param>
+            <param name="key">The key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <remarks>The item does not expire unless it is removed due memory pressure.</remarks>
+            <returns>true if the item was successfully stored in the cache; false otherwise.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteStore(Enyim.Caching.Memcached.StoreMode,System.String,System.Object,System.TimeSpan)">
+            <summary>
+            Inserts an item into the cache with a cache key to reference its location.
+            </summary>
+            <param name="mode">Defines how the item is stored in the cache.</param>
+            <param name="key">The key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <param name="validFor">The interval after the item is invalidated in the cache.</param>
+            <returns>true if the item was successfully stored in the cache; false otherwise.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteStore(Enyim.Caching.Memcached.StoreMode,System.String,System.Object,System.DateTime)">
+            <summary>
+            Inserts an item into the cache with a cache key to reference its location.
+            </summary>
+            <param name="mode">Defines how the item is stored in the cache.</param>
+            <param name="key">The key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <param name="expiresAt">The time when the item is invalidated in the cache.</param>
+            <returns>true if the item was successfully stored in the cache; false otherwise.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteCas(Enyim.Caching.Memcached.StoreMode,System.String,System.Object)">
+            <summary>
+            Inserts an item into the cache with a cache key to reference its location and returns its version.
+            </summary>
+            <param name="mode">Defines how the item is stored in the cache.</param>
+            <param name="key">The key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <remarks>The item does not expire unless it is removed due memory pressure. The text protocol does not support this operation, you need to Store then GetWithCas.</remarks>
+            <returns>A CasResult object containing the version of the item and the result of the operation (true if the item was successfully stored in the cache; false otherwise).</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteCas(Enyim.Caching.Memcached.StoreMode,System.String,System.Object,System.UInt64)">
+            <summary>
+            Inserts an item into the cache with a cache key to reference its location and returns its version.
+            </summary>
+            <param name="mode">Defines how the item is stored in the cache.</param>
+            <param name="key">The key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <remarks>The item does not expire unless it is removed due memory pressure.</remarks>
+            <returns>A CasResult object containing the version of the item and the result of the operation (true if the item was successfully stored in the cache; false otherwise).</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteCas(Enyim.Caching.Memcached.StoreMode,System.String,System.Object,System.TimeSpan,System.UInt64)">
+            <summary>
+            Inserts an item into the cache with a cache key to reference its location and returns its version.
+            </summary>
+            <param name="mode">Defines how the item is stored in the cache.</param>
+            <param name="key">The key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <param name="validFor">The interval after the item is invalidated in the cache.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <returns>A CasResult object containing the version of the item and the result of the operation (true if the item was successfully stored in the cache; false otherwise).</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteCas(Enyim.Caching.Memcached.StoreMode,System.String,System.Object,System.DateTime,System.UInt64)">
+            <summary>
+            Inserts an item into the cache with a cache key to reference its location and returns its version.
+            </summary>
+            <param name="mode">Defines how the item is stored in the cache.</param>
+            <param name="key">The key used to reference the item.</param>
+            <param name="value">The object to be inserted into the cache.</param>
+            <param name="expiresAt">The time when the item is invalidated in the cache.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <returns>A CasResult object containing the version of the item and the result of the operation (true if the item was successfully stored in the cache; false otherwise).</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteGet(System.String)">
+            <summary>
+            Retrieves the specified item from the cache.
+            </summary>
+            <param name="key">The identifier for the item to retrieve.</param>
+            <returns>The retrieved item, or <value>null</value> if the key was not found.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteTryGet(System.String,System.Object@)">
+            <summary>
+            Tries to get an item from the cache.
+            </summary>
+            <param name="key">The identifier for the item to retrieve.</param>
+            <param name="value">The retrieved item or null if not found.</param>
+            <returns>The <value>true</value> if the item was successfully retrieved.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteGet``1(System.String)">
+            <summary>
+            Retrieves the specified item from the cache.
+            </summary>
+            <param name="key">The identifier for the item to retrieve.</param>
+            <returns>The retrieved item, or <value>default(T)</value> if the key was not found.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteGet(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Retrieves multiple items from the cache.
+            </summary>
+            <param name="keys">The list of identifiers for the items to retrieve.</param>
+            <returns>a Dictionary holding all items indexed by their key.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteIncrement(System.String,System.UInt64,System.UInt64)">
+            <summary>
+            Increments the value of the specified key by the given amount. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to increase the item.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteIncrement(System.String,System.UInt64,System.UInt64,System.TimeSpan)">
+            <summary>
+            Increments the value of the specified key by the given amount. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to increase the item.</param>
+            <param name="validFor">The interval after the item is invalidated in the cache.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteIncrement(System.String,System.UInt64,System.UInt64,System.DateTime)">
+            <summary>
+            Increments the value of the specified key by the given amount. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to increase the item.</param>
+            <param name="expiresAt">The time when the item is invalidated in the cache.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteIncrement(System.String,System.UInt64,System.UInt64,System.UInt64)">
+            <summary>
+            Increments the value of the specified key by the given amount, but only if the item's version matches the CAS value provided. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to increase the item.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteIncrement(System.String,System.UInt64,System.UInt64,System.TimeSpan,System.UInt64)">
+            <summary>
+            Increments the value of the specified key by the given amount, but only if the item's version matches the CAS value provided. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to increase the item.</param>
+            <param name="validFor">The interval after the item is invalidated in the cache.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteIncrement(System.String,System.UInt64,System.UInt64,System.DateTime,System.UInt64)">
+            <summary>
+            Increments the value of the specified key by the given amount, but only if the item's version matches the CAS value provided. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to increase the item.</param>
+            <param name="expiresAt">The time when the item is invalidated in the cache.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteDecrement(System.String,System.UInt64,System.UInt64)">
+            <summary>
+            Decrements the value of the specified key by the given amount. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to decrease the item.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteDecrement(System.String,System.UInt64,System.UInt64,System.TimeSpan)">
+            <summary>
+            Decrements the value of the specified key by the given amount. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to decrease the item.</param>
+            <param name="validFor">The interval after the item is invalidated in the cache.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteDecrement(System.String,System.UInt64,System.UInt64,System.DateTime)">
+            <summary>
+            Decrements the value of the specified key by the given amount. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to decrease the item.</param>
+            <param name="expiresAt">The time when the item is invalidated in the cache.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteDecrement(System.String,System.UInt64,System.UInt64,System.UInt64)">
+            <summary>
+            Decrements the value of the specified key by the given amount, but only if the item's version matches the CAS value provided. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to decrease the item.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteDecrement(System.String,System.UInt64,System.UInt64,System.TimeSpan,System.UInt64)">
+            <summary>
+            Decrements the value of the specified key by the given amount, but only if the item's version matches the CAS value provided. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to decrease the item.</param>
+            <param name="validFor">The interval after the item is invalidated in the cache.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteDecrement(System.String,System.UInt64,System.UInt64,System.DateTime,System.UInt64)">
+            <summary>
+            Decrements the value of the specified key by the given amount, but only if the item's version matches the CAS value provided. The operation is atomic and happens on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="defaultValue">The value which will be stored by the server if the specified item was not found.</param>
+            <param name="delta">The amount by which the client wants to decrease the item.</param>
+            <param name="expiresAt">The time when the item is invalidated in the cache.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <returns>The new value of the item or defaultValue if the key was not found.</returns>
+            <remarks>If the client uses the Text protocol, the item must be inserted into the cache before it can be changed. It must be inserted as a <see cref="T:System.String"/>. Moreover the Text protocol only works with <see cref="T:System.UInt32"/> values, so return value -1 always indicates that the item was not found.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteAppend(System.String,System.ArraySegment{System.Byte})">
+            <summary>
+            Appends the data to the end of the specified item's data on the server.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="data">The data to be appended to the item.</param>
+            <returns>true if the data was successfully stored; false otherwise.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteAppend(System.String,System.UInt64,System.ArraySegment{System.Byte})">
+            <summary>
+            Appends the data to the end of the specified item's data on the server, but only if the item's version matches the CAS value provided.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <param name="data">The data to be prepended to the item.</param>
+            <returns>true if the data was successfully stored; false otherwise.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecutePrepend(System.String,System.ArraySegment{System.Byte})">
+            <summary>
+            Inserts the data before the specified item's data on the server.
+            </summary>
+            <returns>true if the data was successfully stored; false otherwise.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecutePrepend(System.String,System.UInt64,System.ArraySegment{System.Byte})">
+            <summary>
+            Inserts the data before the specified item's data on the server, but only if the item's version matches the CAS value provided.
+            </summary>
+            <param name="key">The key used to reference the item.</param>
+            <param name="cas">The cas value which must match the item's version.</param>
+            <param name="data">The data to be prepended to the item.</param>
+            <returns>true if the data was successfully stored; false otherwise.</returns>
+        </member>
+        <member name="M:Enyim.Caching.MemcachedClient.ExecuteRemove(System.String)">
+            <summary>
+            Removes the specified item from the cache.
+            </summary>
+            <param name="key">The identifier for the item to delete.</param>
+            <returns>true if the item was successfully removed from the cache; false otherwise.</returns>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.PooledSocket.InstanceId">
+            <summary>
+            The ID of this instance. Used by the <see cref="T:MemcachedServer"/> to identify the instance in its inner lists.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.PooledSocket.Destroy">
+            <summary>
+            Releases all resources used by this instance and shuts down the inner <see cref="T:Socket"/>. This instance will not be usable anymore.
+            </summary>
+            <remarks>Use the IDisposable.Dispose method if you want to release this instance back into the pool.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.PooledSocket.ReadByte">
+            <summary>
+            Reads the next byte from the server's response.
+            </summary>
+            <remarks>This method blocks and will not return until the value is read.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.PooledSocket.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Reads data from the server into the specified buffer.
+            </summary>
+            <param name="buffer">An array of <see cref="T:System.Byte"/> that is the storage location for the received data.</param>
+            <param name="offset">The location in buffer to store the received data.</param>
+            <param name="count">The number of bytes to read.</param>
+            <remarks>This method blocks and will not return until the specified amount of bytes are read.</remarks>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.PooledSocket.ReceiveAsync(Enyim.Caching.Memcached.AsyncIOArgs)">
+            <summary>
+            Receives data asynchronously. Returns true if the IO is pending. Returns false if the socket already failed or the data was available in the buffer.
+            p.Next will only be called if the call completes asynchronously.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.PooledSocket.AsyncSocketHelper">
+            <summary>
+            Supports exactly one reader and writer, but they can do IO concurrently
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.PooledSocket.AsyncSocketHelper.Read(Enyim.Caching.Memcached.AsyncIOArgs)">
+            <summary>
+            returns true if io is pending
+            </summary>
+            <param name="p"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.PooledSocket.AsyncSocketHelper.EndReceive">
+            <summary>
+            returns true when io is pending
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.PlainTextAuthenticator">
+            <summary>
+            Implements the default plain text ("PLAIN") Memcached authentication.
+            </summary>
+            <remarks>Either use the parametrized constructor, or pass the "userName" and "password" parameters during initalization.</remarks>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.ISaslAuthenticationProvider">
+            <summary>
+            Provides the base interface for Memcached SASL authentication.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.CommandNotSupportedException">
+            <summary>
+            The exception that is thrown when a command is not supported by the Memcached server.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.MemcachedClientException">
+            <summary>
+            The exception that is thrown when a client error occures during communicating with the Memcached servers.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.MemcachedException">
+            <summary>
+            The exception that is thrown when an unknown error occures in the <see cref="T:MemcachedClient"/>
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.MemcachedException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MemcachedException"/> class.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.MemcachedException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MemcachedException"/> class with a specified error message.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.MemcachedException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MemcachedException"/> class with a specified error message and a reference to the inner exception that is the cause of this exception.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.MemcachedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MemcachedException"/> class with serialized data.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.MemcachedClientException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:MemcachedClientException"/> class.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.MemcachedClientException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MemcachedClientException"/> class with a specified error message.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.MemcachedClientException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MemcachedClientException"/> class with a specified error message and a reference to the inner exception that is the cause of this exception.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.MemcachedClientException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:MemcachedClientException"/> class with serialized data.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.CommandNotSupportedException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandNotSupportedException"/> class.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.CommandNotSupportedException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandNotSupportedException"/> class with a specified error message.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.CommandNotSupportedException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandNotSupportedException"/> class with a specified error message and a reference to the inner exception that is the cause of this exception.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.CommandNotSupportedException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CommandNotSupportedException"/> class with serialized data.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.IServerPool">
+            <summary>
+            Provides custom server pool implementations
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.IMemcachedKeyTransformer">
+            <summary>
+            Converts Memcached item keys into a custom format.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.IMemcachedKeyTransformer.Transform(System.String)">
+            <summary>
+            Performs the transformation.
+            </summary>
+            <param name="key">The key to be transformed.</param>
+            <returns>the transformed key.</returns>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.IMemcachedNodeLocator">
+            <summary>
+            Defines a locator class which maps item keys to memcached servers.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.IMemcachedNodeLocator.Initialize(System.Collections.Generic.IList{Enyim.Caching.Memcached.IMemcachedNode})">
+            <summary>
+            Initializes the locator.
+            </summary>
+            <param name="nodes">The memcached nodes defined in the configuration.</param>
+            <remarks>This called first when the server pool is initialized, and subsequently every time 
+            when a node goes down or comes back. If your locator has its own logic to deal with dead nodes 
+            then ignore all calls but the first. Otherwise make sure that your implementation can handle 
+            simultaneous calls to Initialize and Locate in a thread safe manner.</remarks>
+            <seealso cref="T:DefaultNodeLocator"/>
+            <seealso cref="T:KetamaNodeLocator"/>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.IMemcachedNodeLocator.Locate(System.String)">
+            <summary>
+            Returns the memcached node the specified key belongs to.
+            </summary>
+            <param name="key">The key of the item to be located.</param>
+            <returns>The <see cref="T:MemcachedNode"/> the specifed item belongs to</returns>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.IMemcachedNodeLocator.GetWorkingNodes">
+            <summary>
+            Returns all the working nodes currently available to the locator.
+            </summary>
+            <remarks>It should return an instance which is safe to enumerate multiple times and provides the same results every time.</remarks>
+            <returns></returns>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.Base64KeyTransformer">
+            <summary>
+            A key transformer which converts the item keys into Base64.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.SHA1KeyTransformer">
+            <summary>
+            A key transformer which converts the item keys into their SHA1 hash.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.TigerHashKeyTransformer">
+            <summary>
+            A key transformer which converts the item keys into their Tiger hash.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.KetamaNodeLocatorFactory">
+            <summary>
+            Implements Ketama cosistent hashing, compatible with the "spymemcached" Java client
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.DefaultNodeLocator">
+            <summary>
+            This is a ketama-like consistent hashing based node locator. Used when no other <see cref="T:IMemcachedNodeLocator"/> is specified for the pool.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.DefaultNodeLocator.FindNode(System.String)">
+            <summary>
+            locates a node by its key
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.KetamaNodeLocator">
+            <summary>
+            Implements Ketama cosistent hashing, compatible with the "spymemcached" Java client
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.KetamaNodeLocator.#ctor">
+            <summary>
+            Initialized a new instance of the <see cref="T:Enyim.Caching.Memcached.KetamaNodeLocator"/> using the default hash algorithm.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.KetamaNodeLocator.#ctor(System.String)">
+            <summary>
+            Initialized a new instance of the <see cref="T:Enyim.Caching.Memcached.KetamaNodeLocator"/> using a custom hash algorithm.
+            </summary>
+            <param name="hashName">The name of the hash algorithm to use.
+            <list type="table">
+            <listheader><term>Name</term><description>Description</description></listheader>
+            <item><term>md5</term><description>Equivalent of System.Security.Cryptography.MD5</description></item>
+            <item><term>sha1</term><description>Equivalent of System.Security.Cryptography.SHA1</description></item>
+            <item><term>tiger</term><description>Tiger Hash</description></item>
+            <item><term>crc</term><description>CRC32</description></item>
+            <item><term>fnv1_32</term><description>FNV Hash 32bit</description></item>
+            <item><term>fnv1_64</term><description>FNV Hash 64bit</description></item>
+            <item><term>fnv1a_32</term><description>Modified FNV Hash 32bit</description></item>
+            <item><term>fnv1a_64</term><description>Modified FNV Hash 64bit</description></item>
+            <item><term>murmur</term><description>Murmur Hash</description></item>
+            <item><term>oneatatime</term><description>Jenkin's "One at A time Hash"</description></item>
+            </list>
+            </param>
+            <remarks>If the hashName does not match any of the item on the list it will be passed to HashAlgorithm.Create.</remarks>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.KetamaNodeLocator.LookupData">
+            <summary>
+            this will encapsulate all the indexes we need for lookup
+            so the instance can be reinitialized without locking
+            in case an IMemcachedConfig implementation returns the same instance form the CreateLocator()
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.SingleNodeLocator">
+            <summary>
+            This is a simple node locator with no computation overhead, always returns the first server from the list. Use only in single server deployments.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.VBucketNodeLocator">
+            <summary>
+            Implements a vbucket based node locator.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.VBucketNodeLocatorFactory">
+            <summary>
+            Factory for the vbucket based locator.
+            </summary>
+            <remarks>You need to use this in the configuration file because this is the only way pass parameters to the VBucketNodeLocator.
+            
+            	<locator factory="Enyim.Caching.Memcached.VBucketNodeLocatorFactory" configFile="vbucket.json" />
+            
+            </remarks>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.MemcachedNode">
+            <summary>
+            Represents a Memcached node in the pool.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.MemcachedNode.Ping">
+            <summary>
+            Gets a value indicating whether the server is working or not.
+            
+            If the server is back online, we'll ercreate the internal socket pool and mark the server as alive so operations can target it.
+            </summary>
+            <returns>true if the server is alive; false otherwise.</returns>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.MemcachedNode.Acquire">
+            <summary>
+            Acquires a new item from the pool
+            </summary>
+            <returns>An <see cref="T:PooledSocket"/> instance which is connected to the memcached server, or <value>null</value> if the pool is dead.</returns>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.MemcachedNode.Dispose">
+            <summary>
+            Releases all resources allocated by this instance
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Memcached.MemcachedNode.EndPoint">
+            <summary>
+            Gets the <see cref="T:IPEndPoint"/> of this instance
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Memcached.MemcachedNode.IsAlive">
+            <summary>
+            <para>Gets a value indicating whether the server is working or not. Returns a <b>cached</b> state.</para>
+            <para>To get real-time information and update the cached state, use the <see cref="M:Ping"/> method.</para>
+            </summary>
+            <remarks>Used by the <see cref="T:ServerPool"/> to quickly check if the server's state is valid.</remarks>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.MemcachedNode.InternalPoolImpl.freeItems">
+            <summary>
+            A list of already connected but free to use sockets
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.MemcachedNode.InternalPoolImpl.Acquire">
+            <summary>
+            Acquires a new item from the pool
+            </summary>
+            <returns>An <see cref="T:PooledSocket"/> instance which is connected to the memcached server, or <value>null</value> if the pool is dead.</returns>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.MemcachedNode.InternalPoolImpl.ReleaseSocket(Enyim.Caching.Memcached.PooledSocket)">
+            <summary>
+            Releases an item back into the pool
+            </summary>
+            <param name="socket"></param>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.MemcachedNode.InternalPoolImpl.Dispose">
+            <summary>
+            Releases all resources allocated by this instance
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.IOperation.ReadResponseAsync(Enyim.Caching.Memcached.PooledSocket,System.Action{System.Boolean})">
+            <summary>
+            'next' is called when the operation completes. The bool parameter indicates the success of the operation.
+            </summary>
+            <param name="socket"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Enyim.Caching.Memcached.ISingleItemOperation.CasValue">
+            <summary>
+            The CAS value returned by the server after executing the command.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.Protocol.MultiItemOperation">
+            <summary>
+            Base class for implementing operations working with multiple items.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.Protocol.Operation">
+            <summary>
+            Base class for implementing operations.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.Protocol.Binary.BinaryNode">
+            <summary>
+            A node which is used by the BinaryPool. It implements the binary protocol's SASL auth. mechanism.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.Protocol.Binary.BinaryNode.CreateSocket">
+            <summary>
+            Authenticates the new socket before it is put into the pool.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.Protocol.Binary.BinaryNode.Auth(Enyim.Caching.Memcached.PooledSocket)">
+            <summary>
+            Implements memcached's SASL auth sequence. (See the protocol docs for more details.)
+            </summary>
+            <param name="socket"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.Protocol.Binary.BinaryOperationFactory">
+            <summary>
+            Memcached client.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.Protocol.Binary.BinaryPool">
+            <summary>
+            Server pool implementing the binary protocol.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.Protocol.Binary.BinaryResponse.ReadAsync(Enyim.Caching.Memcached.PooledSocket,System.Action{System.Boolean},System.Boolean@)">
+            <summary>
+            Reads the response from the socket asynchronously.
+            </summary>
+            <param name="socket">The socket to read from.</param>
+            <param name="next">The delegate whihc will continue processing the response. This is only called if the read completes asynchronoulsy.</param>
+            <param name="ioPending">Set totrue if the read is still pending when ReadASync returns. In this case 'next' will be called when the read is finished.</param>
+            <returns>
+            If the socket is already dead, ReadAsync returns false, next is not called, ioPending = false
+            If the read completes synchronously (e.g. data is received from the buffer), it returns true/false depending on the StatusCode, and ioPending is set to true, 'next' will not be called.
+            It returns true if it has to read from the socket, so the operation will complate asynchronously at a later time. ioPending will be true, and 'next' will be called to handle the data
+            </returns>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.Protocol.SingleItemOperation">
+            <summary>
+            Base class for implementing operations working with keyed items.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Memcached.Protocol.SingleItemOperation.Enyim#Caching#Memcached#ISingleItemOperation#Key">
+            <summary>
+            The item key of the current operation.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.Protocol.Binary.ConcatOperation">
+            <summary>
+            Implements append/prepend.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.Protocol.Binary.SaslContinue">
+            <summary>
+            SASL auth step.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.Protocol.Binary.SaslStart">
+            <summary>
+            Starts the SASL auth sequence.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.Protocol.Text.TextSocketHelper.ReadResponse(Enyim.Caching.Memcached.PooledSocket)">
+            <summary>
+            Reads the response of the server.
+            </summary>
+            <returns>The data sent by the memcached server.</returns>
+            <exception cref="T:System.InvalidOperationException">The server did not sent a response or an empty line was returned.</exception>
+            <exception cref="T:Enyim.Caching.Memcached.MemcachedException">The server did not specified any reason just returned the string ERROR. - or - The server returned a SERVER_ERROR, in this case the Message of the exception is the message returned by the server.</exception>
+            <exception cref="T:Enyim.Caching.Memcached.MemcachedClientException">The server did not recognize the request sent by the client. The Message of the exception is the message returned by the server.</exception>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.Protocol.Text.TextSocketHelper.ReadLine(Enyim.Caching.Memcached.PooledSocket)">
+            <summary>
+            Reads a line from the socket. A line is terninated by \r\n.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.Protocol.Text.TextSocketHelper.GetCommandBuffer(System.String)">
+            <summary>
+            Gets the bytes representing the specified command. returned buffer can be used to streamline multiple writes into one Write on the Socket
+            using the <see cref="M:Enyim.Caching.Memcached.PooledSocket.Write(IList&lt;ArraySegment&lt;byte&gt;&gt;)"/>
+            </summary>
+            <param name="value">The command to be converted.</param>
+            <returns>The buffer containing the bytes representing the command. The command must be terminated by \r\n.</returns>
+            <remarks>The Nagle algorithm is disabled on the socket to speed things up, so it's recommended to convert a command into a buffer
+            and use the <see cref="M:Enyim.Caching.Memcached.PooledSocket.Write(IList&lt;ArraySegment&lt;byte&gt;&gt;)"/> to send the command and the additional buffers in one transaction.</remarks>
+        </member>
+        <member name="P:Enyim.Caching.Memcached.Results.IOperationResult.Success">
+            <summary>
+            A value indicating whether an operation was successful
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Memcached.Results.IOperationResult.Message">
+            <summary>
+            A message indicating success, warning or failure reason for an operation
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Memcached.Results.IOperationResult.Exception">
+            <summary>
+            An exception that caused a failure
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Memcached.Results.IOperationResult.StatusCode">
+            <summary>
+            The StatusCode returned from the server
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Memcached.Results.IOperationResult.InnerResult">
+            <summary>
+            A result that influenced the current result
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.Results.Extensions.OperationResultExtensions.Fail(Enyim.Caching.Memcached.Results.IOperationResult,System.String,System.Exception)">
+            <summary>
+            Set the result Success to false
+            </summary>
+            <param name="source">Result to update</param>
+            <param name="message">Message indicating source of failure</param>
+            <param name="ex">Exception causing failure</param>
+            <returns>Updated source</returns>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.Results.Extensions.OperationResultExtensions.Pass(Enyim.Caching.Memcached.Results.IOperationResult,System.String)">
+            <summary>
+            Set the result Success to true
+            </summary>
+            <param name="source">Result to update</param>
+            <param name="message">Message indicating a possible warning</param>
+            <returns>Updated source</returns>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.Results.Extensions.OperationResultExtensions.Copy(Enyim.Caching.Memcached.Results.IOperationResult,Enyim.Caching.Memcached.Results.IOperationResult)">
+            <summary>
+            Copy properties from one IOperationResult to another.  Does not use reflection.
+            Ony LCD properties are copied
+            </summary>
+            <param name="target"></param>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.Results.Extensions.OperationResultExtensions.PassOrFail(Enyim.Caching.Memcached.Results.IOperationResult,System.Boolean,System.String,System.Exception)">
+            <summary>
+            Copy properties from one IOperationResult to another.  Does not use reflection.
+            Ony LCD properties are copied
+            </summary>
+            <param name="target"></param>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.Results.Extensions.OperationResultExtensions.Combine(Enyim.Caching.Memcached.Results.IOperationResult,Enyim.Caching.Memcached.Results.IOperationResult)">
+            <summary>
+            Combine will attempt to minimize the depth of InnerResults and maintain status codes
+            </summary>
+            <param name="target"></param>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.ServerStats">
+            <summary>
+            Represents the statistics of a Memcached node.
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.ServerStats.All">
+            <summary>
+            Defines a value which indicates that the statstics should be retrieved for all servers in the pool.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.ServerStats.GetValue(System.Net.IPEndPoint,Enyim.Caching.Memcached.StatItem)">
+            <summary>
+            Gets a stat value for the specified server.
+            </summary>
+            <param name="server">The adress of the server. If <see cref="F:System.Net.IPAddress.Any"/> is specified it will return the sum of all server stat values.</param>
+            <param name="item">The stat to be returned</param>
+            <returns>The value of the specified stat item</returns>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.ServerStats.GetVersion(System.Net.IPEndPoint)">
+            <summary>
+            Returns the server of memcached running on the specified server.
+            </summary>
+            <param name="server">The adress of the server</param>
+            <returns>The version of memcached</returns>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.ServerStats.GetUptime(System.Net.IPEndPoint)">
+            <summary>
+            Returns the uptime of the specific server.
+            </summary>
+            <param name="server">The adress of the server</param>
+            <returns>A value indicating how long the server is running</returns>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.ServerStats.GetRaw(System.Net.IPEndPoint,System.String)">
+            <summary>
+            Returns the stat value for a specific server. The value is not converted but returned as the server returned it.
+            </summary>
+            <param name="server">The adress of the server</param>
+            <param name="key">The name of the stat value</param>
+            <returns>The value of the stat item</returns>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.ServerStats.GetRaw(System.Net.IPEndPoint,Enyim.Caching.Memcached.StatItem)">
+            <summary>
+            Returns the stat value for a specific server. The value is not converted but returned as the server returned it.
+            </summary>
+            <param name="server">The adress of the server</param>
+            <param name="item">The stat value to be returned</param>
+            <returns>The value of the stat item</returns>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.SlidingBuffer">
+            <summary>
+            Supports exactly one reader and writer, but they can access the buffer concurrently.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.StatItem">
+            <summary>
+            Represent a stat item returned by Memcached.
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StatItem.Uptime">
+            <summary>
+            The number of seconds the server has been running.
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StatItem.ServerTime">
+            <summary>
+            Current time according to the server.
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StatItem.Version">
+            <summary>
+            The version of the server.
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StatItem.ItemCount">
+            <summary>
+            The number of items stored by the server.
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StatItem.TotalItems">
+            <summary>
+            The total number of items stored by the server including the ones whihc have been already evicted.
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StatItem.ConnectionCount">
+            <summary>
+            Number of active connections to the server.
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StatItem.TotalConnections">
+            <summary>
+            The total number of connections ever made to the server.
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StatItem.ConnectionStructures">
+            <summary>
+            ?
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StatItem.GetCount">
+            <summary>
+            Number of get operations performed by the server.
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StatItem.SetCount">
+            <summary>
+            Number of set operations performed by the server.
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StatItem.GetHits">
+            <summary>
+            Cache hit.
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StatItem.GetMisses">
+            <summary>
+            Cache miss.
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StatItem.UsedBytes">
+            <summary>
+            ?
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StatItem.BytesRead">
+            <summary>
+            Number of bytes read from the server.
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StatItem.BytesWritten">
+            <summary>
+            Number of bytes written to the server.
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StatItem.MaxBytes">
+            <summary>
+            ?
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.StoreMode">
+            <summary>
+            Inidicates the mode how the items are stored in Memcached.
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StoreMode.Add">
+            <summary>
+            Store the data, but only if the server does not already hold data for a given key
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StoreMode.Replace">
+            <summary>
+            Store the data, but only if the server does already hold data for a given key
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StoreMode.Set">
+            <summary>
+            Store the data, overwrite if already exist
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StoreCommand.Add">
+            <summary>
+            Store the data, but only if the server does not already hold data for a given key
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StoreCommand.Replace">
+            <summary>
+            Store the data, but only if the server does already hold data for a given key
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StoreCommand.Set">
+            <summary>
+            Store the data, overwrite if already exist
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StoreCommand.Append">
+            <summary>
+            Appends the data to an existing key's data
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StoreCommand.Prepend">
+            <summary>
+            Inserts the data before an existing key's data
+            </summary>
+        </member>
+        <member name="F:Enyim.Caching.Memcached.StoreCommand.CheckAndSet">
+            <summary>
+            Stores the data only if it has not been updated by someone else. Uses a "transaction id" to check for modification.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.CacheItem">
+            <summary>
+            Represents an object either being retrieved from the cache
+            or being sent to the cache.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.CacheItem.#ctor(System.UInt32,System.ArraySegment{System.Byte})">
+            <summary>
+            Initializes a new instance of <see cref="T:CacheItem"/>.
+            </summary>
+            <param name="flags">Custom item data.</param>
+            <param name="data">The serialized item.</param>
+        </member>
+        <member name="P:Enyim.Caching.Memcached.CacheItem.Data">
+            <summary>
+            The data representing the item being stored/retireved.
+            </summary>
+        </member>
+        <member name="P:Enyim.Caching.Memcached.CacheItem.Flags">
+            <summary>
+            Flags set for this instance.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.DataContractTranscoder">
+            <summary>
+            Default <see cref="T:Enyim.Caching.Memcached.ITranscoder"/> implementation. Primitive types are manually serialized, the rest is serialized using <see cref="T:System.Runtime.Serialization.NetDataContractSerializer"/>.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.DefaultTranscoder">
+            <summary>
+            Default <see cref="T:Enyim.Caching.Memcached.ITranscoder"/> implementation. Primitive types are manually serialized, the rest is serialized using <see cref="T:System.Runtime.Serialization.Formatters.Binary.BinaryFormatter"/>.
+            </summary>
+        </member>
+        <member name="T:Enyim.Caching.Memcached.ITranscoder">
+            <summary>
+            Provides an interface for serializing items for Memcached.
+            </summary>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.ITranscoder.Serialize(System.Object)">
+            <summary>
+            Serializes an object for storing in the cache.
+            </summary>
+            <param name="value">The object to serialize</param>
+            <returns>The serialized object</returns>
+        </member>
+        <member name="M:Enyim.Caching.Memcached.ITranscoder.Deserialize(Enyim.Caching.Memcached.CacheItem)">
+            <summary>
+            Deserializes the <see cref="T:CacheItem"/> into an object.
+            </summary>
+            <param name="item">The stream that contains the data to deserialize.</param>
+            <returns>The deserialized object</returns>
+        </member>
+        <member name="T:Enyim.TigerHash">
+            <summary>
+            Implements the Tiger hash. (http://www.cs.technion.ac.il/~biham/Reports/Tiger/)
+            
+            Ported (and cleaned&amp;sped up) from the Tiger.NET VB code. (http://www.hotpixel.net/software.html)
+            </summary>
+        </member>
+        <member name="M:Enyim.TigerHash.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:TigerHash"/> class.
+            </summary>
+        </member>
+        <member name="M:Enyim.TigerHash.Initialize">
+            <summary>
+            Initializes an instance of <see cref="T:TigerHash"/>.
+            </summary>
+        </member>
+        <member name="M:Enyim.TigerHash.HashCore(System.Byte[],System.Int32,System.Int32)">
+            <summary>Routes data written to the object into the <see cref="T:TigerHash" /> hash algorithm for computing the hash.</summary>
+            <param name="array">The input data. </param>
+            <param name="ibStart">The offset into the byte array from which to begin using data. </param>
+            <param name="cbSize">The number of bytes in the array to use as data. </param>
+        </member>
+        <member name="M:Enyim.TigerHash.HashFinal">
+            <summary>
+            Returns the computed <see cref="T:TigerHash" /> hash value after all data has been written to the object.
+            </summary>
+            <returns>The computed hash code.</returns>
+        </member>
+        <member name="T:Enyim.Caching.UIntEqualityComparer">
+            <summary>
+            A fast comparer for dictionaries indexed by UInt. Faster than using Comparer.Default
+            </summary>
+        </member>
+    </members>
+</doc>

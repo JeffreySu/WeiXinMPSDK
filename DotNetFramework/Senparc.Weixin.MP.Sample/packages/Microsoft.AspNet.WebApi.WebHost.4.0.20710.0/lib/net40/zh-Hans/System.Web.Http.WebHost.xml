@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Web.Http.WebHost</name>
+  </assembly>
+  <members>
+    <member name="T:System.Web.Http.GlobalConfiguration">
+      <summary> 为 ASP.NET 应用程序提供全局 <see cref="T:System.Web.Http.HttpConfiguration" />。</summary>
+    </member>
+    <member name="P:System.Web.Http.GlobalConfiguration.Configuration"></member>
+    <member name="P:System.Web.Http.GlobalConfiguration.DefaultHandler">
+      <summary> 获取将为所有请求调用的默认消息处理程序。 </summary>
+    </member>
+    <member name="T:System.Web.Http.RouteCollectionExtensions">
+      <summary>
+        <see cref="T:System.Web.Routing.RouteCollection" /> 的扩展方法</summary>
+    </member>
+    <member name="M:System.Web.Http.RouteCollectionExtensions.MapHttpRoute(System.Web.Routing.RouteCollection,System.String,System.String)">
+      <summary>映射指定的路由模板。</summary>
+      <returns>对映射路由的引用。</returns>
+      <param name="routes">应用程序的路由的集合。</param>
+      <param name="name">要映射的路由的名称。</param>
+      <param name="routeTemplate">路由的路由模板。</param>
+    </member>
+    <member name="M:System.Web.Http.RouteCollectionExtensions.MapHttpRoute(System.Web.Routing.RouteCollection,System.String,System.String,System.Object)">
+      <summary>映射指定的路由模板并设置默认路由。</summary>
+      <returns>对映射路由的引用。</returns>
+      <param name="routes">应用程序的路由的集合。</param>
+      <param name="name">要映射的路由的名称。</param>
+      <param name="routeTemplate">路由的路由模板。</param>
+      <param name="defaults">一个包含默认路由值的对象。</param>
+    </member>
+    <member name="M:System.Web.Http.RouteCollectionExtensions.MapHttpRoute(System.Web.Routing.RouteCollection,System.String,System.String,System.Object,System.Object)">
+      <summary>映射指定的路由模板并设置默认路由值和约束。</summary>
+      <returns>对映射路由的引用。</returns>
+      <param name="routes">应用程序的路由的集合。</param>
+      <param name="name">要映射的路由的名称。</param>
+      <param name="routeTemplate">路由的路由模板。</param>
+      <param name="defaults">一个包含默认路由值的对象。</param>
+      <param name="constraints">一组表达式，用于指定 routeTemplate 的值。</param>
+    </member>
+    <member name="M:System.Web.Http.RouteCollectionExtensions.MapHttpRoute(System.Web.Routing.RouteCollection,System.String,System.String,System.Object,System.Object,System.Net.Http.HttpMessageHandler)">
+      <summary>映射指定的路由模板并设置默认的路由值、约束和终结点消息处理程序。</summary>
+      <returns>对映射路由的引用。</returns>
+      <param name="routes">应用程序的路由的集合。</param>
+      <param name="name">要映射的路由的名称。</param>
+      <param name="routeTemplate">路由的路由模板。</param>
+      <param name="defaults">一个包含默认路由值的对象。</param>
+      <param name="constraints">一组表达式，用于指定 routeTemplate 的值。</param>
+      <param name="handler">请求将被调度到的处理程序。</param>
+    </member>
+    <member name="T:System.Web.Http.WebHost.HttpControllerHandler">
+      <summary> 一个 <see cref="T:System.Web.IHttpAsyncHandler" />，用于将 ASP.NET 请求传递给 <see cref="T:System.Web.Http.HttpServer" /> 管道并写回结果。</summary>
+    </member>
+    <member name="M:System.Web.Http.WebHost.HttpControllerHandler.#ctor(System.Web.Routing.RouteData)">
+      <summary> 初始化 <see cref="T:System.Web.Http.WebHost.HttpControllerHandler" /> 类的新实例。</summary>
+      <param name="routeData">路由数据。</param>
+    </member>
+    <member name="M:System.Web.Http.WebHost.HttpControllerHandler.BeginProcessRequest(System.Web.HttpContextBase,System.AsyncCallback,System.Object)">
+      <summary> 开始处理请求。</summary>
+      <returns>一个 <see cref="T:System.IAsyncResult" />，其中包含有关进程状态的信息。</returns>
+      <param name="httpContextBase">基 HTTP 上下文。</param>
+      <param name="callback">回调。</param>
+      <param name="state">状态。</param>
+    </member>
+    <member name="M:System.Web.Http.WebHost.HttpControllerHandler.EndProcessRequest(System.IAsyncResult)">
+      <summary> 在进程结束时，提供异步进程结束方法。</summary>
+      <param name="result">一个 <see cref="T:System.IAsyncResult" />，其中包含有关进程状态的信息。</param>
+    </member>
+    <member name="P:System.Web.Http.WebHost.HttpControllerHandler.IsReusable">
+      <summary> 获取一个值，该值指示其他请求能否使用 <see cref="T:System.Web.IHttpHandler" /> 实例。</summary>
+    </member>
+    <member name="M:System.Web.Http.WebHost.HttpControllerHandler.ProcessRequest(System.Web.HttpContextBase)">
+      <summary> 处理请求。</summary>
+      <param name="httpContextBase">基 HTTP 上下文。</param>
+    </member>
+    <member name="M:System.Web.Http.WebHost.HttpControllerHandler.System#Web#IHttpAsyncHandler#BeginProcessRequest(System.Web.HttpContext,System.AsyncCallback,System.Object)">
+      <summary> 开始处理请求。</summary>
+      <returns>一个 <see cref="T:System.IAsyncResult" />，其中包含有关进程状态的信息。</returns>
+      <param name="httpContext">HTTP 上下文。</param>
+      <param name="callback">回调。</param>
+      <param name="state">状态。</param>
+    </member>
+    <member name="M:System.Web.Http.WebHost.HttpControllerHandler.System#Web#IHttpAsyncHandler#EndProcessRequest(System.IAsyncResult)">
+      <summary> 在进程结束时，提供异步进程结束方法。</summary>
+      <param name="result">一个 <see cref="T:System.IAsyncResult" />，其中包含有关进程状态的信息。</param>
+    </member>
+    <member name="P:System.Web.Http.WebHost.HttpControllerHandler.System#Web#IHttpHandler#IsReusable">
+      <summary> 获取一个值，该值指示其他请求能否使用 <see cref="T:System.Web.IHttpHandler" /> 实例。</summary>
+    </member>
+    <member name="M:System.Web.Http.WebHost.HttpControllerHandler.System#Web#IHttpHandler#ProcessRequest(System.Web.HttpContext)">
+      <summary> 处理请求。</summary>
+      <param name="httpContext">基 HTTP 上下文。</param>
+    </member>
+    <member name="T:System.Web.Http.WebHost.HttpControllerRouteHandler">
+      <summary> 一个 <see cref="T:System.Web.Routing.IRouteHandler" />，用于返回可将请求传递到给定 <see cref="T:System.Web.Http.HttpServer" /> 实例的 <see cref="T:System.Web.Http.WebHost.HttpControllerHandler" /> 的实例。</summary>
+    </member>
+    <member name="M:System.Web.Http.WebHost.HttpControllerRouteHandler.#ctor">
+      <summary> 初始化 <see cref="T:System.Web.Http.WebHost.HttpControllerRouteHandler" /> 类的新实例。</summary>
+    </member>
+    <member name="M:System.Web.Http.WebHost.HttpControllerRouteHandler.GetHttpHandler(System.Web.Routing.RequestContext)">
+      <summary> 提供用于处理请求的对象。</summary>
+      <returns> 一个处理请求的对象。</returns>
+      <param name="requestContext">一个对象，封装有关请求的信息。</param>
+    </member>
+    <member name="P:System.Web.Http.WebHost.HttpControllerRouteHandler.Instance">
+      <summary> 获取单一 <see cref="T:System.Web.Http.WebHost.HttpControllerRouteHandler" /> 实例。</summary>
+    </member>
+    <member name="M:System.Web.Http.WebHost.HttpControllerRouteHandler.System#Web#Routing#IRouteHandler#GetHttpHandler(System.Web.Routing.RequestContext)">
+      <summary> 提供用于处理请求的对象。</summary>
+      <returns> 一个处理请求的对象。 </returns>
+      <param name="requestContext">一个对象，封装有关请求的信息。</param>
+    </member>
+    <member name="T:System.Web.Http.WebHost.PreApplicationStartCode">
+      <summary>为简单成员资格应用程序预启动代码提供注册点。</summary>
+    </member>
+    <member name="M:System.Web.Http.WebHost.PreApplicationStartCode.Start">
+      <summary>注册简单成员资格应用程序预启动代码。</summary>
+    </member>
+    <member name="T:System.Web.Http.WebHost.WebHostBufferPolicySelector">
+      <summary>表示 Web 主机缓冲区策略选择器。</summary>
+    </member>
+    <member name="M:System.Web.Http.WebHost.WebHostBufferPolicySelector.#ctor">
+      <summary>初始化 <see cref="T:System.Web.Http.WebHost.WebHostBufferPolicySelector" /> 类的新实例。</summary>
+    </member>
+    <member name="M:System.Web.Http.WebHost.WebHostBufferPolicySelector.UseBufferedInputStream(System.Object)">
+      <summary>获取一个值，该值指示主机是否应缓冲 HTTP 请求的实体正文。</summary>
+      <returns>如果应使用缓冲，则为 true；否则，应使用已流式处理的请求。</returns>
+      <param name="hostContext">主机上下文。</param>
+    </member>
+    <member name="M:System.Web.Http.WebHost.WebHostBufferPolicySelector.UseBufferedOutputStream(System.Net.Http.HttpResponseMessage)">
+      <summary>使用 Web 主机的缓冲输出流。</summary>
+      <returns>缓冲输出流。</returns>
+      <param name="response">响应。</param>
+    </member>
+  </members>
+</doc>

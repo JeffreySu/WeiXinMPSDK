@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "文档下载";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section HeaderContent
+{
+    <style>
+        #downloadArea {
+            padding: 50px;
+        }
+
+        #downloadArea h2 {
+            font-size: 200%;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #downloadArea img {
+            width: 200px;
+            margin: 20px;
+        }
+
+        #downloadArea .versionSelector-title {
+            font-weight: bold;
+            margin: 10px;
+        }
+
+        #downloadArea .qrcode {
+            text-align: center;
+            font-size: 120%;
+        }
+
+        #downloadTip {
+            text-align: center;
+            display: none;
+            padding: 20px;
+        }
+    </style>
+    <script>
+        var guid = '@ViewData["Guid"]';
+        var interval;
+        $(function() {
+
+            $('input[name=version]').eq(0).attr('checked', true);
+
+            interval = setInterval(function() {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("CheckDownload")',
+                    data: { guid: guid, version: $("input[name='version']:checked").val() },
+                    dataType: "json",
+                    success: function(json) {
+                        if (json.success) {
+                            //开始下载
+                            clearInterval(interval);
+                            $('#downloadTip').show();
+                            $('#versionSelector').hide();
+                            location.href = $('#downloadTip a').attr('href');
+                        }
+                    }
+                });
+            }, 1000);
+        });
+    </script>
+}
+<div class="wrapper">
+    <div id="downloadArea">
+        <h2>请用微信扫描下方二维码，进入公众号，即可自动开始下载类库帮助文档</h2>
+        <div class="qrcode">
+            <div class="versionSelector-title">帮助文档已累计下载 @ViewData["DownloadCount"] 次</div>
+            <img src="@ViewData["QrCodeUrl"]" />
+            <div id="versionSelector">
+                
+                <div class="versionSelector-title">请选择下载版本：</div>
+                @foreach (var version in ViewData["Versions"] as List<string>)
+                {
+                    <p>
+                        <label for="@version.Replace(".", "_")"><input id="@version.Replace(".", "_")" value="@version" type="radio" name="version"/>v@(version)</label>
+                    </p>
+                }
+            </div>
+            <div id="downloadTip">
+                审核通过，下载已开始，如果10秒内没有开始下载，请 @Html.ActionLink("点击这里", "Download", new { guid = ViewData["Guid"] }, new { target = "_blank", id = "linkDownload" }) 下载。
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>

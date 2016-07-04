@@ -1,0 +1,54 @@
+﻿@model List<Senparc.Weixin.MP.Sample.Models.ProductModel>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>产品列表</title>
+    <style>
+        ul#productList, ul#productList li {
+            list-style: none;
+            display: inline;
+        }
+
+            ul#productList li {
+                border: 1px solid #008b8b;
+                background: #c9ff94;
+                padding: 30px;
+                margin: 20px;
+                overflow: hidden;
+                float: left;
+            }
+
+                ul#productList li.br {
+                    clear: left;
+                }
+
+                ul#productList li a {
+                    text-decoration: none;
+                    display: block;
+                    overflow: hidden;
+                    clear: both;
+                }
+    </style>
+</head>
+<body>
+    <div>
+        <ul id="productList">
+            @for (int i = 0; i <= Model.Count - 1; i++)
+            {
+                var item = Model[i];
+                <li class="@(i > 0 && i % 4==0 ? "br" : null)">
+                    <a href="@Url.Action("ProductItem", "TenPayV3", new {productId = item.Id, hc = item.GetHashCode()})">
+                        <h2>@item.Name</h2>
+                        <p>@item.Price.ToString("c")</p>
+                        <p>点击购买</p>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</body>
+</html>

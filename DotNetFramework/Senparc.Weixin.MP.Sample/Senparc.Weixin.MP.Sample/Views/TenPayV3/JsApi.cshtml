@@ -1,0 +1,138 @@
+﻿@using Senparc.Weixin.MP.Sample.Models
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>公众号jsapi支付测试网页</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=GBK" />
+    <script language="javascript" src="http://res.mail.qq.com/mmr/static/lib/js/jquery.js" type="text/javascript"></script>
+    <script language="javascript" src="http://res.mail.qq.com/mmr/static/lib/js/lazyloadv3.js" type="text/javascript"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+            background: #eae9e6;
+        }
+
+        body, p, table, td, th {
+            font-size: 14px;
+            font-family: helvetica,Arial,Tahoma;
+        }
+
+        h1 {
+            font-family: Baskerville,HelveticaNeue-Bold,helvetica,Arial,Tahoma;
+        }
+
+        a {
+            text-decoration: none;
+            color: #385487;
+        }
+
+        .product {
+            font-size: 200%;
+            color: #a5a5a5;
+        }
+
+        .title h1 {
+            font-size: 22px;
+            font-weight: bold;
+            padding: 0;
+            margin: 0;
+            line-height: 1.2;
+            color: #1f1f1f;
+        }
+
+        .title p {
+            color: #aaa;
+            font-size: 12px;
+            margin: 5px 0 0;
+            padding: 0;
+            font-weight: bold;
+        }
+
+    </style>
+    <script language="javascript" type="text/javascript">
+        function auto_remove(img) {
+            div = img.parentNode.parentNode; div.parentNode.removeChild(div);
+            img.onerror = "";
+            return true;
+        }
+
+        function changefont(fontsize) {
+            if (fontsize < 1 || fontsize > 4) return;
+            $('#content').removeClass().addClass('fontSize' + fontsize);
+        }
+
+        // 当微信内置浏览器完成内部初始化后会触发WeixinJSBridgeReady事件。
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            //公众号支付
+            jQuery('a#getBrandWCPayRequest').click(function (e) {
+                WeixinJSBridge.invoke('getBrandWCPayRequest', {
+                    "appId": "@ViewData["appId"]", //公众号名称，由商户传入
+                    "timeStamp": "@ViewData["timeStamp"]", //时间戳
+                    "nonceStr": "@ViewData["nonceStr"]", //随机串
+                    "package": "@Html.Raw(ViewData["package"])",//扩展包
+                    "signType": "MD5", //微信签名方式:MD5
+                    "paySign": "@ViewData["paySign"]" //微信签名
+                }, function (res) {
+
+                    if (res.err_msg == "get_brand_wcpay_request:ok") {
+                    }
+                    // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok，但并不保证它绝对可靠。
+                    //因此微信团队建议，当收到ok返回时，向商户后台询问是否收到交易成功的通知，若收到通知，前端展示交易成功的界面；若此时未收到通知，商户后台主动调用查询订单接口，查询订单的当前状态，并反馈给前端展示相应的界面。
+                });
+
+            });
+
+            WeixinJSBridge.log('yo~ ready.');
+
+        }, false);
+        if (jQuery) {
+            jQuery(function () {
+
+                var width = jQuery('body').width() * 0.87;
+                jQuery('img').error(function () {
+                    var self = jQuery(this);
+                    var org = self.attr('data-original1');
+                    self.attr("src", org);
+                    self.error(function () {
+                        auto_remove(this);
+                    });
+                });
+                jQuery('img').each(function () {
+                    var self = jQuery(this);
+                    var w = self.css('width');
+                    var h = self.css('height');
+                    w = w.replace('px', '');
+                    h = h.replace('px', '');
+                    if (w <= width) {
+                        return;
+                    }
+                    var new_w = width;
+                    var new_h = Math.round(h * width / w);
+                    self.css({ 'width': new_w + 'px', 'height': new_h + 'px' });
+                    self.parents('div.pic').css({ 'width': new_w + 'px', 'height': new_h + 'px' });
+                });
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="WCPay">
+        <a id="getBrandWCPayRequest" href="javascript:void(0);">
+            @if (ViewData["product"] is ProductModel)
+            {
+                var product = (ProductModel)ViewData["product"];
+                <div class="product">
+                    您已选中产品：@product.Name<br />
+                    单价：@product.Price.ToString("c")
+                </div>
+            }
+            <h1 class="title">点击提交可体验微信支付</h1>
+        </a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1517 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>System.Net.Http.Formatting</name>
+  </assembly>
+  <members>
+    <member name="T:System.Net.Http.HttpClientExtensions">
+      <summary>用于使用 <see cref="T:System.Net.Http.HttpClient" /> 来帮助发出格式化请求的扩展方法。</summary>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PostAsJsonAsync``1(System.Net.Http.HttpClient,System.String,``0)">
+      <summary>使用序列化为 JSON 的指定值以异步操作方式发送 POST 请求。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PostAsJsonAsync``1(System.Net.Http.HttpClient,System.String,``0,System.Threading.CancellationToken)">
+      <summary>使用序列化为 JSON 的指定值以异步操作方式发送 POST 请求。包含用于取消请求的取消标记。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <param name="cancellationToken">一个取消标记，可供其他对象或线程用来接收取消通知。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PostAsXmlAsync``1(System.Net.Http.HttpClient,System.String,``0)">
+      <summary>使用序列化为 XML 的指定值以异步操作方式发送 POST 请求。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PostAsXmlAsync``1(System.Net.Http.HttpClient,System.String,``0,System.Threading.CancellationToken)">
+      <summary>使用序列化为 XML 的指定值以异步操作方式发送 POST 请求。包含用于取消请求的取消标记。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <param name="cancellationToken">一个取消标记，可供其他对象或线程用来接收取消通知。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PostAsync``1(System.Net.Http.HttpClient,System.String,``0,System.Net.Http.Formatting.MediaTypeFormatter)">
+      <summary>使用通过给定格式化程序序列化的指定值，以异步操作方式发送 POST 请求。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <param name="formatter">用于序列化值的格式化程序。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PostAsync``1(System.Net.Http.HttpClient,System.String,``0,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue,System.Threading.CancellationToken)">
+      <summary>使用通过给定格式化程序和媒体类型序列化的指定值，以异步操作方式发送 POST 请求。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <param name="formatter">用于序列化值的格式化程序。</param>
+      <param name="mediaType">Content-Type 标头的授权值。可以为 null，在这种情况下将使用格式化程序的默认内容类型。</param>
+      <param name="cancellationToken">一个取消标记，可供其他对象或线程用来接收取消通知。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PostAsync``1(System.Net.Http.HttpClient,System.String,``0,System.Net.Http.Formatting.MediaTypeFormatter,System.String)">
+      <summary>使用通过给定格式化程序和媒体类型字符串序列化的指定值，以异步操作方式发送 POST 请求。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <param name="formatter">用于序列化值的格式化程序。</param>
+      <param name="mediaType">Content-Type 标头的授权值。可以为 null，在这种情况下将使用格式化程序的默认内容类型。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PostAsync``1(System.Net.Http.HttpClient,System.String,``0,System.Net.Http.Formatting.MediaTypeFormatter,System.String,System.Threading.CancellationToken)">
+      <summary>使用通过给定格式化程序和媒体类型字符串序列化的指定值，以异步操作方式发送 POST 请求。包含用于取消请求的取消标记。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <param name="formatter">用于序列化值的格式化程序。</param>
+      <param name="mediaType">Content-Type 标头的授权值。可以为 null，在这种情况下将使用格式化程序的默认内容类型。</param>
+      <param name="cancellationToken">一个取消标记，可供其他对象或线程用来接收取消通知。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PostAsync``1(System.Net.Http.HttpClient,System.String,``0,System.Net.Http.Formatting.MediaTypeFormatter,System.Threading.CancellationToken)">
+      <summary>使用通过给定格式化程序序列化的指定值，以异步操作方式发送 POST 请求。包含用于取消请求的取消标记。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <param name="formatter">用于序列化值的格式化程序。</param>
+      <param name="cancellationToken">一个取消标记，可供其他对象或线程用来接收取消通知。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PutAsJsonAsync``1(System.Net.Http.HttpClient,System.String,``0)">
+      <summary>使用序列化为 JSON 的指定值以异步操作方式发送 PUT 请求。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PutAsJsonAsync``1(System.Net.Http.HttpClient,System.String,``0,System.Threading.CancellationToken)">
+      <summary>使用序列化为 JSON 的指定值以异步操作方式发送 PUT 请求。包含用于取消请求的取消标记。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <param name="cancellationToken">一个取消标记，可供其他对象或线程用来接收取消通知。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PutAsXmlAsync``1(System.Net.Http.HttpClient,System.String,``0)">
+      <summary>使用序列化为 XML 的指定值以异步操作方式发送 PUT 请求。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PutAsXmlAsync``1(System.Net.Http.HttpClient,System.String,``0,System.Threading.CancellationToken)">
+      <summary>使用序列化为 XML 的指定值以异步操作方式发送 PUT 请求。包含用于取消请求的取消标记。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <param name="cancellationToken">一个取消标记，可供其他对象或线程用来接收取消通知。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PutAsync``1(System.Net.Http.HttpClient,System.String,``0,System.Net.Http.Formatting.MediaTypeFormatter)">
+      <summary>使用通过给定格式化程序序列化的指定值，以异步操作方式发送 PUT 请求。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <param name="formatter">用于序列化值的格式化程序。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PutAsync``1(System.Net.Http.HttpClient,System.String,``0,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue,System.Threading.CancellationToken)">
+      <summary> 使用通过给定格式化程序和媒体类型序列化的指定值，以异步操作方式发送 PUT 请求。包含用于取消请求的取消标记。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <param name="formatter">用于序列化值的格式化程序。</param>
+      <param name="mediaType">Content-Type 标头的授权值。可以为 null，在这种情况下将使用格式化程序的默认内容类型。</param>
+      <param name="cancellationToken">一个取消标记，可供其他对象或线程用来接收取消通知。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PutAsync``1(System.Net.Http.HttpClient,System.String,``0,System.Net.Http.Formatting.MediaTypeFormatter,System.String)">
+      <summary>使用通过给定格式化程序和媒体类型字符串序列化的指定值，以异步操作方式发送 PUT 请求。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <param name="formatter">用于序列化值的格式化程序。</param>
+      <param name="mediaType">Content-Type 标头的授权值。可以为 null，在这种情况下将使用格式化程序的默认内容类型。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PutAsync``1(System.Net.Http.HttpClient,System.String,``0,System.Net.Http.Formatting.MediaTypeFormatter,System.String,System.Threading.CancellationToken)">
+      <summary>使用通过给定格式化程序和媒体类型字符串序列化的指定值，以异步操作方式发送 PUT 请求。包含用于取消请求的取消标记。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <param name="formatter">用于序列化值的格式化程序。</param>
+      <param name="mediaType">Content-Type 标头的授权值。可以为 null，在这种情况下将使用格式化程序的默认内容类型。</param>
+      <param name="cancellationToken">一个取消标记，可供其他对象或线程用来接收取消通知。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpClientExtensions.PutAsync``1(System.Net.Http.HttpClient,System.String,``0,System.Net.Http.Formatting.MediaTypeFormatter,System.Threading.CancellationToken)">
+      <summary>使用通过给定格式化程序和媒体类型字符串序列化的指定值，以异步操作方式发送 PUT 请求。包含用于取消请求的取消标记。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="client">用于发出请求的客户端。</param>
+      <param name="requestUri">请求将发送到的 URI。</param>
+      <param name="value">要写入到请求的实体正文的值。</param>
+      <param name="formatter">用于序列化值的格式化程序。</param>
+      <param name="cancellationToken">一个取消标记，可供其他对象或线程用来接收取消通知。</param>
+      <typeparam name="T">要序列化的对象的类型。</typeparam>
+    </member>
+    <member name="T:System.Net.Http.HttpClientFactory">
+      <summary>表示用于创建 <see cref="T:System.Net.Http.HttpClient" /> 的新实例的工厂。</summary>
+    </member>
+    <member name="M:System.Net.Http.HttpClientFactory.Create(System.Net.Http.DelegatingHandler[])">
+      <summary>创建 <see cref="T:System.Net.Http.HttpClient" /> 的新实例。</summary>
+      <returns>
+        <see cref="T:System.Net.Http.HttpClient" /> 的新实例。</returns>
+      <param name="handlers">将 HTTP 响应消息处理委托给其他处理程序的 HTTP 处理程序的列表。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpClientFactory.Create(System.Net.Http.HttpMessageHandler,System.Net.Http.DelegatingHandler[])">
+      <summary>创建 <see cref="T:System.Net.Http.HttpClient" /> 的新实例。</summary>
+      <returns>
+        <see cref="T:System.Net.Http.HttpClient" /> 的新实例。</returns>
+      <param name="innerHandler">负责处理 HTTP 响应消息的内部处理程序。</param>
+      <param name="handlers">将 HTTP 响应消息处理委托给其他处理程序的 HTTP 处理程序的列表。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpClientFactory.CreatePipeline(System.Net.Http.HttpMessageHandler,System.Collections.Generic.IEnumerable{System.Net.Http.DelegatingHandler})">
+      <summary>创建应通过管道传输的 <see cref="T:System.Net.Http.HttpClient" /> 的新实例。</summary>
+      <returns>应通过管道传输的 <see cref="T:System.Net.Http.HttpClient" /> 的新实例。</returns>
+      <param name="innerHandler">负责处理 HTTP 响应消息的内部处理程序。</param>
+      <param name="handlers">将 HTTP 响应消息处理委托给其他处理程序的 HTTP 处理程序的列表。</param>
+    </member>
+    <member name="T:System.Net.Http.HttpContentExtensions">
+      <summary>指定用于允许从 HttpContent 实例读取强类型对象的扩展方法。</summary>
+    </member>
+    <member name="M:System.Net.Http.HttpContentExtensions.ReadAsAsync``1(System.Net.Http.HttpContent)">
+      <summary> 返回一个任务，该任务将从 content 实例生成指定类型 &lt;typeparamref name="T" /&gt; 的对象。</summary>
+      <returns>一个指定类型的对象实例。</returns>
+      <param name="content">要从中读取的 HttpContent 实例。</param>
+      <typeparam name="T">要读取的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpContentExtensions.ReadAsAsync``1(System.Net.Http.HttpContent,System.Collections.Generic.IEnumerable{System.Net.Http.Formatting.MediaTypeFormatter})">
+      <summary> 返回一个任务，该任务将从 content 实例生成指定类型 &lt;typeparamref name="T" /&gt; 的对象。</summary>
+      <returns>一个指定类型的对象实例。</returns>
+      <param name="content">要从中读取的 HttpContent 实例。</param>
+      <param name="formatters">要使用的 MediaTyepFormatter 实例的集合。</param>
+      <typeparam name="T">要读取的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpContentExtensions.ReadAsAsync``1(System.Net.Http.HttpContent,System.Collections.Generic.IEnumerable{System.Net.Http.Formatting.MediaTypeFormatter},System.Net.Http.Formatting.IFormatterLogger)">
+      <summary> 返回一个任务，该任务将从 content 实例生成指定类型 &lt;typeparamref name="T" /&gt; 的对象。</summary>
+      <returns>一个指定类型的对象实例。</returns>
+      <param name="content">要从中读取的 HttpContent 实例。</param>
+      <param name="formatters">要使用的 MediaTypeFormatter 实例的集合。</param>
+      <param name="formatterLogger">要将事件记录到的 IFormatterLogger。</param>
+      <typeparam name="T">要读取的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpContentExtensions.ReadAsAsync(System.Net.Http.HttpContent,System.Type)">
+      <summary> 返回一个任务，该任务将从 content 实例生成指定 type 的对象。</summary>
+      <returns>一个任务，将生成指定类型的对象实例。</returns>
+      <param name="content">要从中读取的 HttpContent 实例。</param>
+      <param name="type">要读取的对象的类型。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpContentExtensions.ReadAsAsync(System.Net.Http.HttpContent,System.Type,System.Collections.Generic.IEnumerable{System.Net.Http.Formatting.MediaTypeFormatter})">
+      <summary> 返回一个任务，该任务将使用所提供的用于反序列化内容的 formatters 之一从 content 实例生成指定 type 的对象。</summary>
+      <returns>一个指定类型的对象实例。</returns>
+      <param name="content">要从中读取的 HttpContent 实例。</param>
+      <param name="type">要读取的对象的类型。</param>
+      <param name="formatters">要使用的 MediaTypeFormatter 实例的集合。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpContentExtensions.ReadAsAsync(System.Net.Http.HttpContent,System.Type,System.Collections.Generic.IEnumerable{System.Net.Http.Formatting.MediaTypeFormatter},System.Net.Http.Formatting.IFormatterLogger)">
+      <summary> 返回一个任务，该任务将使用所提供的用于反序列化内容的 formatters 之一从 content 实例生成指定 type 的对象。</summary>
+      <returns>一个指定类型的对象实例。</returns>
+      <param name="content">要从中读取的 HttpContent 实例。</param>
+      <param name="type">要读取的对象的类型。</param>
+      <param name="formatters">要使用的 MediaTypeFormatter 实例的集合。</param>
+      <param name="formatterLogger">要将事件记录到的 IFormatterLogger。</param>
+    </member>
+    <member name="T:System.Net.Http.HttpContentFormDataExtensions">
+      <summary>用于从 <see cref="T:System.Net.Http.HttpContent" /> 实例读取 HTML 窗体 URL 编码数据的扩展方法。</summary>
+    </member>
+    <member name="M:System.Net.Http.HttpContentFormDataExtensions.IsFormData(System.Net.Http.HttpContent)">
+      <summary>确定指定的内容是否是 HTML 窗体 URL 编码数据。</summary>
+      <returns>如果指定的内容是 HTML 窗体 URL 编码数据，则为 true；否则为 false。</returns>
+      <param name="content">内容。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpContentFormDataExtensions.ReadAsFormDataAsync(System.Net.Http.HttpContent)">
+      <summary>从 <see cref="T:System.Net.Http.HttpContent" /> 实例异步读取 HTML 窗体 URL 编码数据，并将结果存储在 <see cref="T:System.Collections.Specialized.NameValueCollection" /> 对象中。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="content">内容。</param>
+    </member>
+    <member name="T:System.Net.Http.HttpContentMessageExtensions">
+      <summary>表示用于从 <see cref="T:System.Net.Http.HttpContent" /> 实例读取 <see cref="T:System.Net.Http.HttpRequestMessage" /> 和 <see cref="T:System.Net.Http.HttpResponseMessage" /> 实体的扩展方法。</summary>
+    </member>
+    <member name="M:System.Net.Http.HttpContentMessageExtensions.IsHttpRequestMessageContent(System.Net.Http.HttpContent)">
+      <summary>确定指定的内容是否是 HTTP 请求消息内容。</summary>
+      <returns>如果指定的内容是 HTTP 消息内容，则为 true；否则为 false。</returns>
+      <param name="content">要检查的内容。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpContentMessageExtensions.IsHttpResponseMessageContent(System.Net.Http.HttpContent)">
+      <summary>确定指定的内容是否是 HTTP 响应消息内容。</summary>
+      <returns>如果指定的内容是 HTTP 消息内容，则为 true；否则为 false。</returns>
+      <param name="content">要检查的内容。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpContentMessageExtensions.ReadAsHttpRequestMessageAsync(System.Net.Http.HttpContent)">
+      <summary> 将 <see cref="T:System.Net.Http.HttpContent" /> 读取为 <see cref="T:System.Net.Http.HttpRequestMessage" />。</summary>
+      <returns>分析的 <see cref="T:System.Net.Http.HttpRequestMessage" /> 实例。</returns>
+      <param name="content">要读取的内容。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpContentMessageExtensions.ReadAsHttpRequestMessageAsync(System.Net.Http.HttpContent,System.String)">
+      <summary> 将 <see cref="T:System.Net.Http.HttpContent" /> 读取为 <see cref="T:System.Net.Http.HttpRequestMessage" />。</summary>
+      <returns>分析的 <see cref="T:System.Net.Http.HttpRequestMessage" /> 实例。</returns>
+      <param name="content">要读取的内容。</param>
+      <param name="uriScheme">要在请求 URI 中使用的 URI 方案。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpContentMessageExtensions.ReadAsHttpRequestMessageAsync(System.Net.Http.HttpContent,System.String,System.Int32)">
+      <summary> 将 <see cref="T:System.Net.Http.HttpContent" /> 读取为 <see cref="T:System.Net.Http.HttpRequestMessage" />。</summary>
+      <returns>分析的 <see cref="T:System.Net.Http.HttpRequestMessage" /> 实例。</returns>
+      <param name="content">要读取的内容。</param>
+      <param name="uriScheme">要在请求 URI 中使用的 URI 方案。</param>
+      <param name="bufferSize">缓冲区的大小。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpContentMessageExtensions.ReadAsHttpRequestMessageAsync(System.Net.Http.HttpContent,System.String,System.Int32,System.Int32)">
+      <summary>将 <see cref="T:System.Net.Http.HttpContent" /> 读取为 <see cref="T:System.Net.Http.HttpRequestMessage" />。</summary>
+      <returns>分析的 <see cref="T:System.Net.Http.HttpRequestMessage" /> 实例。</returns>
+      <param name="content">要读取的内容。</param>
+      <param name="uriScheme">要在请求 URI 中使用的 URI 方案。</param>
+      <param name="bufferSize">缓冲区的大小。</param>
+      <param name="maxHeaderSize">HTTP 标头的最大长度。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpContentMessageExtensions.ReadAsHttpResponseMessageAsync(System.Net.Http.HttpContent)">
+      <summary> 将 <see cref="T:System.Net.Http.HttpContent" /> 读取为 <see cref="T:System.Net.Http.HttpResponseMessage" />。</summary>
+      <returns>分析的 <see cref="T:System.Net.Http.HttpResponseMessage" /> 实例。</returns>
+      <param name="content">要读取的内容。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpContentMessageExtensions.ReadAsHttpResponseMessageAsync(System.Net.Http.HttpContent,System.Int32)">
+      <summary>将 <see cref="T:System.Net.Http.HttpContent" /> 读取为 <see cref="T:System.Net.Http.HttpResponseMessage" />。</summary>
+      <returns>分析的 <see cref="T:System.Net.Http.HttpResponseMessage" /> 实例。</returns>
+      <param name="content">要读取的内容。</param>
+      <param name="bufferSize">缓冲区的大小。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpContentMessageExtensions.ReadAsHttpResponseMessageAsync(System.Net.Http.HttpContent,System.Int32,System.Int32)">
+      <summary>将 <see cref="T:System.Net.Http.HttpContent" /> 读取为 <see cref="T:System.Net.Http.HttpResponseMessage" />。</summary>
+      <returns>分析的 <see cref="T:System.Net.Http.HttpResponseMessage" /> 实例。</returns>
+      <param name="content">要读取的内容。</param>
+      <param name="bufferSize">缓冲区的大小。</param>
+      <param name="maxHeaderSize">HTTP 标头的最大长度。</param>
+    </member>
+    <member name="T:System.Net.Http.HttpContentMultipartExtensions">
+      <summary>用于从 <see cref="T:System.Net.Http.HttpContent" /> 实例读取 MIME 多部分实体的扩展方法。</summary>
+    </member>
+    <member name="M:System.Net.Http.HttpContentMultipartExtensions.IsMimeMultipartContent(System.Net.Http.HttpContent)">
+      <summary>确定指定的内容是否是 MIME 多部分内容。</summary>
+      <returns>如果指定的内容是 MIME 多部分内容，则为 true；否则为 false。</returns>
+      <param name="content">内容。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpContentMultipartExtensions.IsMimeMultipartContent(System.Net.Http.HttpContent,System.String)">
+      <summary>确定指定的内容是否是具有指定子类型的 MIME 多部分内容。</summary>
+      <returns>如果指定的内容是具有指定子类型的 MIME 多部分内容，则为 true；否则为 false。</returns>
+      <param name="content">内容。</param>
+      <param name="subtype">要匹配的 MIME 多部分子类型。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpContentMultipartExtensions.ReadAsMultipartAsync(System.Net.Http.HttpContent)">
+      <summary>读取 MIME 多部分消息中的所有正文部分，并生成一组 <see cref="T:System.Net.Http.HttpContent" /> 实例作为结果。</summary>
+      <returns>一个 &lt;see cref="T:System.Threading.Tasks.Task`1" /&gt;，表示获取 <see cref="T:System.Net.Http.HttpContent" /> 实例集合的任务，其中，每个实例都表示一个正文部分。</returns>
+      <param name="content">要用于对象内容的现有 <see cref="T:System.Net.Http.HttpContent" /> 实例。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpContentMultipartExtensions.ReadAsMultipartAsync``1(System.Net.Http.HttpContent,``0)">
+      <summary>读取 MIME 多部分消息中的所有正文部分，并通过使用 streamProvider 实例确定每个正文部分内容的写入位置，来生成一组 <see cref="T:System.Net.Http.HttpContent" /> 实例作为结果。</summary>
+      <returns>
+        <see cref="T:System.Threading.Tasks.Task`1" />，表示获取 <see cref="T:System.Net.Http.HttpContent" /> 实例集合的任务，而该实例集合中的每个实例均表示正文部分。</returns>
+      <param name="content">要用于对象内容的现有 <see cref="T:System.Net.Http.HttpContent" /> 实例。</param>
+      <param name="streamProvider">一个流提供程序，用于为分析正文部分时要写入所分析正文部分的位置提供输出流。</param>
+      <typeparam name="T">MIME 多部分的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.HttpContentMultipartExtensions.ReadAsMultipartAsync``1(System.Net.Http.HttpContent,``0,System.Int32)">
+      <summary>通过使用 bufferSize 作为读取缓冲区大小来读取 MIME 多部分消息中的所有正文部分，并通过使用 streamProvider 实例确定每个正文部分内容的写入位置，来生成一组 <see cref="T:System.Net.Http.HttpContent" /> 实例作为结果。</summary>
+      <returns>
+        <see cref="T:System.Threading.Tasks.Task`1" />，表示获取 <see cref="T:System.Net.Http.HttpContent" /> 实例集合的任务，而该实例集合中的每个实例均表示正文部分。</returns>
+      <param name="content">要用于对象内容的现有 <see cref="T:System.Net.Http.HttpContent" /> 实例。</param>
+      <param name="streamProvider">一个流提供程序，用于为分析正文部分时要写入所分析正文部分的位置提供输出流。</param>
+      <param name="bufferSize">用于读取内容的缓冲区的大小。</param>
+      <typeparam name="T">MIME 多部分的类型。</typeparam>
+    </member>
+    <member name="T:System.Net.Http.HttpMessageContent">
+      <summary> 派生的 <see cref="T:System.Net.Http.HttpContent" /> 类，该类可以将 <see cref="P:System.Net.Http.HttpMessageContent.HttpResponseMessage" /> 或 <see cref="P:System.Net.Http.HttpMessageContent.HttpRequestMessage" /> 封装为具有媒体类型“application/http”的实体。</summary>
+    </member>
+    <member name="M:System.Net.Http.HttpMessageContent.#ctor(System.Net.Http.HttpRequestMessage)">
+      <summary> 对封装 <see cref="P:System.Net.Http.HttpMessageContent.HttpRequestMessage" /> 的 <see cref="T:System.Net.Http.HttpMessageContent" /> 类的新实例进行初始化。</summary>
+      <param name="httpRequest">要封装的 <see cref="P:System.Net.Http.HttpMessageContent.HttpResponseMessage" /> 实例。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpMessageContent.#ctor(System.Net.Http.HttpResponseMessage)">
+      <summary> 对封装 <see cref="P:System.Net.Http.HttpMessageContent.HttpResponseMessage" /> 的 <see cref="T:System.Net.Http.HttpMessageContent" /> 类的新实例进行初始化。</summary>
+      <param name="httpResponse">要封装的 <see cref="P:System.Net.Http.HttpMessageContent.HttpResponseMessage" /> 实例。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpMessageContent.Dispose(System.Boolean)">
+      <summary> 释放非托管资源和托管资源（后者为可选项）</summary>
+      <param name="disposing">若为 true，则同时释放托管资源和非托管资源；若为 false，则仅释放非托管资源。</param>
+    </member>
+    <member name="P:System.Net.Http.HttpMessageContent.HttpRequestMessage">
+      <summary> 获取 HTTP 请求消息。</summary>
+    </member>
+    <member name="P:System.Net.Http.HttpMessageContent.HttpResponseMessage">
+      <summary> 获取 HTTP 响应消息。</summary>
+    </member>
+    <member name="M:System.Net.Http.HttpMessageContent.SerializeToStreamAsync(System.IO.Stream,System.Net.TransportContext)">
+      <summary> 以异步方式将对象的内容序列化为给定 stream。</summary>
+      <returns>一个以异步方式序列化对象内容的 <see cref="T:System.Threading.Tasks.Task" /> 实例。</returns>
+      <param name="stream">要写入到的 <see cref="T:System.IO.Stream" />。</param>
+      <param name="context">关联的 <see cref="T:System.Net.TransportContext" />。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpMessageContent.TryComputeLength(System.Int64@)">
+      <summary> 计算流的长度（如果可能）。</summary>
+      <returns>如果已计算长度，则为 true；否则为 false。</returns>
+      <param name="length">所计算的流的长度。</param>
+    </member>
+    <member name="T:System.Net.Http.HttpRequestHeadersExtensions">
+      <summary>为 <see cref="T:System.Net.Http.Headers.HttpRequestHeaders" /> 类提供扩展方法。</summary>
+    </member>
+    <member name="M:System.Net.Http.HttpRequestHeadersExtensions.GetCookies(System.Net.Http.Headers.HttpRequestHeaders)">
+      <summary>获取请求中存在的任何 cookie 标头。</summary>
+      <returns>
+        <see cref="T:System.Net.Http.Headers.CookieHeaderValue" /> 实例的集合。</returns>
+      <param name="headers">请求标头。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpRequestHeadersExtensions.GetCookies(System.Net.Http.Headers.HttpRequestHeaders,System.String)">
+      <summary>获取请求中存在的任何 Cookie 标头，这些标头中包含名称与指定值匹配的 Cookie 状态。</summary>
+      <returns>
+        <see cref="T:System.Net.Http.Headers.CookieHeaderValue" /> 实例的集合。</returns>
+      <param name="headers">请求标头。</param>
+      <param name="name">要匹配的 Cookie 状态名称。</param>
+    </member>
+    <member name="M:System.Net.Http.HttpRequestMessageExtensions.CreateResponse(System.Net.Http.HttpRequestMessage)"></member>
+    <member name="M:System.Net.Http.HttpRequestMessageExtensions.CreateResponse(System.Net.Http.HttpRequestMessage,System.Net.HttpStatusCode)"></member>
+    <member name="T:System.Net.Http.HttpResponseHeadersExtensions">
+      <summary> 为 <see cref="T:System.Net.Http.Headers.HttpResponseHeaders" /> 类提供扩展方法。</summary>
+    </member>
+    <member name="M:System.Net.Http.HttpResponseHeadersExtensions.AddCookies(System.Net.Http.Headers.HttpResponseHeaders,System.Collections.Generic.IEnumerable{System.Net.Http.Headers.CookieHeaderValue})">
+      <summary> 将 cookies 添加到响应。每个 Set-Cookie 标头均表示为一个 <see cref="T:System.Net.Http.Headers.CookieHeaderValue" /> 实例。<see cref="T:System.Net.Http.Headers.CookieHeaderValue" /> 包含有关域、路径的信息和其他 cookie 信息，以及一个或多个 <see cref="T:System.Net.Http.Headers.CookieState" /> 实例。每个 <see cref="T:System.Net.Http.Headers.CookieState" /> 实例包含一个 cookie 名称和与该名称关联的 cookie 状态。状态采用了将会在线编码为 HTML 窗体 URL 编码的数据的 <see cref="T:System.Collections.Specialized.NameValueCollection" /> 格式。这种表示形式使同一 Cookie 标头中可以带有多个相关“Cookie”，同时仍可对每个 Cookie 状态进行分隔。下面显示了一个示例 Cookie 标头。在此示例中，有两个 <see cref="T:System.Net.Http.Headers.CookieState" />，其名称分别为 state1 和 state2。此外，每个 cookie 状态包含两个名称/值对（name1/value1 和 name2/value2）和（name3/value3 和 name4/value4）。&lt;code&gt; Set-Cookie:state1:name1=value1&amp;amp;name2=value2; state2:name3=value3&amp;amp;name4=value4; domain=domain1; path=path1; &lt;/code&gt;</summary>
+      <param name="headers">响应标头</param>
+      <param name="cookies">要添加到响应中的 cookie 值。</param>
+    </member>
+    <member name="T:System.Net.Http.MultipartFileData">
+      <summary>表示多部分文件数据。</summary>
+    </member>
+    <member name="M:System.Net.Http.MultipartFileData.#ctor(System.Net.Http.Headers.HttpContentHeaders,System.String)">
+      <summary>初始化 <see cref="T:System.Net.Http.MultipartFileData" /> 类的新实例。</summary>
+      <param name="headers">多部分文件数据的标头。</param>
+      <param name="localFileName">多部分文件数据的本地文件的名称。</param>
+    </member>
+    <member name="P:System.Net.Http.MultipartFileData.Headers">
+      <summary>获取或设置多部分文件数据的标头。</summary>
+      <returns>多部分文件数据的标头。</returns>
+    </member>
+    <member name="P:System.Net.Http.MultipartFileData.LocalFileName">
+      <summary>获取或设置多部分文件数据的本地文件的名称。</summary>
+      <returns>多部分文件数据的本地文件的名称。</returns>
+    </member>
+    <member name="T:System.Net.Http.MultipartFileStreamProvider">
+      <summary>表示一个 <see cref="T:System.Net.Http.IMultipartStreamProvider" />，该接口适用于使用 <see cref="T:System.IO.FileStream" /> 将 MIME 多部分消息的每个 MIME 正文部分写入文件中。</summary>
+    </member>
+    <member name="M:System.Net.Http.MultipartFileStreamProvider.#ctor(System.String)">
+      <summary>初始化 <see cref="T:System.Net.Http.MultipartFileStreamProvider" /> 类的新实例。</summary>
+      <param name="rootPath">MIME 多部分正文部分的内容写入到的根路径。</param>
+    </member>
+    <member name="M:System.Net.Http.MultipartFileStreamProvider.#ctor(System.String,System.Int32)">
+      <summary>初始化 <see cref="T:System.Net.Http.MultipartFileStreamProvider" /> 类的新实例。</summary>
+      <param name="rootPath">MIME 多部分正文部分的内容写入到的根路径。</param>
+      <param name="bufferSize">为写入到文件而缓冲的字节数。</param>
+    </member>
+    <member name="P:System.Net.Http.MultipartFileStreamProvider.BufferSize">
+      <summary>获取或设置为写入到文件而缓冲的字节数。</summary>
+      <returns>为写入到文件而缓冲的字节数。</returns>
+    </member>
+    <member name="P:System.Net.Http.MultipartFileStreamProvider.FileData">
+      <summary>获取或设置多部分文件数据。</summary>
+      <returns>多部分文件数据。</returns>
+    </member>
+    <member name="M:System.Net.Http.MultipartFileStreamProvider.GetLocalFileName(System.Net.Http.Headers.HttpContentHeaders)">
+      <summary>获取本地文件名，该文件名将与用于创建存储当前 MIME 正文部分内容的绝对文件名的根路径组合在一起。</summary>
+      <returns>不包含路径部分的相对文件名。</returns>
+      <param name="headers">当前 MIME 正文部分的标头。</param>
+    </member>
+    <member name="M:System.Net.Http.MultipartFileStreamProvider.GetStream(System.Net.Http.HttpContent,System.Net.Http.Headers.HttpContentHeaders)">
+      <summary>获取消息正文部分写入到的流实例。</summary>
+      <returns>消息正文部分写入到的 <see cref="T:System.IO.Stream" /> 实例。</returns>
+      <param name="parent">HTTP 内容。</param>
+      <param name="headers">描述正文部分的标头字段。</param>
+    </member>
+    <member name="P:System.Net.Http.MultipartFileStreamProvider.RootPath">
+      <summary>获取或设置 MIME 多部分正文部分的内容写入到的根路径。</summary>
+      <returns>MIME 多部分正文部分的内容写入到的根路径。</returns>
+    </member>
+    <member name="T:System.Net.Http.MultipartFormDataStreamProvider">
+      <summary> 一个 <see cref="T:System.Net.Http.IMultipartStreamProvider" />，适合与 HTML 文件上载一起使用，以将文件内容写入 <see cref="T:System.IO.FileStream" />。流提供程序将查看 &lt;b&gt;Content-Disposition&lt;/b&gt; 标头字段，并根据 &lt;b&gt;filename&lt;/b&gt; 参数是否存在来确定输出 <see cref="T:System.IO.Stream" />。如果 &lt;b&gt;Content-Disposition&lt;/b&gt; 标头字段中存在 &lt;b&gt;filename&lt;/b&gt; 参数，则正文部分将写入 <see cref="T:System.IO.FileStream" /> 中；否则，正文部分将写入 <see cref="T:System.IO.MemoryStream" /> 中。这将更加便于处理作为窗体数据和文件内容的组合的 MIME 多部分 HTML 窗体数据。</summary>
+    </member>
+    <member name="M:System.Net.Http.MultipartFormDataStreamProvider.#ctor(System.String)">
+      <summary> 初始化 <see cref="T:System.Net.Http.MultipartFormDataStreamProvider" /> 类的新实例。</summary>
+      <param name="rootPath">MIME 多部分正文部分的内容写入到的根路径。</param>
+    </member>
+    <member name="M:System.Net.Http.MultipartFormDataStreamProvider.#ctor(System.String,System.Int32)">
+      <summary> 初始化 <see cref="T:System.Net.Http.MultipartFormDataStreamProvider" /> 类的新实例。</summary>
+      <param name="rootPath">MIME 多部分正文部分的内容写入到的根路径。</param>
+      <param name="bufferSize">为写入到文件而缓冲的字节数。</param>
+    </member>
+    <member name="M:System.Net.Http.MultipartFormDataStreamProvider.ExecutePostProcessingAsync">
+      <summary>将非文件内容读取为窗体数据</summary>
+      <returns>表示异步操作的任务。</returns>
+    </member>
+    <member name="P:System.Net.Http.MultipartFormDataStreamProvider.FormData">
+      <summary>获取作为多部分窗体数据的一部分传递的窗体数据的 <see cref="T:System.Collections.Specialized.NameValueCollection" />。</summary>
+      <returns>窗体数据的 <see cref="T:System.Collections.Specialized.NameValueCollection" />。</returns>
+    </member>
+    <member name="M:System.Net.Http.MultipartFormDataStreamProvider.GetStream(System.Net.Http.HttpContent,System.Net.Http.Headers.HttpContentHeaders)">
+      <returns>消息正文部分写入到的 <see cref="T:System.IO.Stream" /> 实例。</returns>
+      <param name="parent">包含此正文部分的 HTTP 内容。</param>
+      <param name="headers">描述正文部分的标头字段。</param>
+    </member>
+    <member name="T:System.Net.Http.MultipartMemoryStreamProvider">
+      <summary>表示一个多部分内存流提供程序。</summary>
+    </member>
+    <member name="M:System.Net.Http.MultipartMemoryStreamProvider.#ctor">
+      <summary>初始化 <see cref="T:System.Net.Http.MultipartMemoryStreamProvider" /> 类的新实例。</summary>
+    </member>
+    <member name="M:System.Net.Http.MultipartMemoryStreamProvider.GetStream(System.Net.Http.HttpContent,System.Net.Http.Headers.HttpContentHeaders)">
+      <summary>返回 <see cref="T:System.Net.Http.MultipartMemoryStreamProvider" /> 的 <see cref="T:System.IO.Stream" />。</summary>
+      <returns>
+        <see cref="T:System.Net.Http.MultipartMemoryStreamProvider" /> 的 <see cref="T:System.IO.Stream" />。</returns>
+      <param name="parent">
+        <see cref="T:System.Net.Http.HttpContent" /> 对象。</param>
+      <param name="headers">HTTP 内容标头。</param>
+    </member>
+    <member name="T:System.Net.Http.MultipartRelatedStreamProvider">
+      <summary>表示与多部分相关的多流的提供程序。</summary>
+    </member>
+    <member name="M:System.Net.Http.MultipartRelatedStreamProvider.#ctor">
+      <summary>初始化 <see cref="T:System.Net.Http.MultipartRelatedStreamProvider" /> 类的新实例。</summary>
+    </member>
+    <member name="M:System.Net.Http.MultipartRelatedStreamProvider.GetStream(System.Net.Http.HttpContent,System.Net.Http.Headers.HttpContentHeaders)">
+      <summary>获取提供程序的相关流。</summary>
+      <returns>内容标头。</returns>
+      <param name="parent">父内容。</param>
+      <param name="headers">http 内容标头。</param>
+    </member>
+    <member name="P:System.Net.Http.MultipartRelatedStreamProvider.RootContent">
+      <summary>获取 <see cref="T:System.Net.Http.MultipartRelatedStreamProvider" /> 的根内容。</summary>
+      <returns>
+        <see cref="T:System.Net.Http.MultipartRelatedStreamProvider" /> 的根内容。</returns>
+    </member>
+    <member name="T:System.Net.Http.MultipartStreamProvider">
+      <summary>表示一个流提供程序，该流提供程序将检查 MIME 多部分分析器作为 MIME 多部分扩展方法（请参见 <see cref="T:System.Net.Http.HttpContentMultipartExtensions" />）的一部分提供的标头，并决定要返回哪种类型的流供正文部分写入。</summary>
+    </member>
+    <member name="M:System.Net.Http.MultipartStreamProvider.#ctor">
+      <summary>初始化 <see cref="T:System.Net.Http.MultipartStreamProvider" /> 类的新实例。</summary>
+    </member>
+    <member name="P:System.Net.Http.MultipartStreamProvider.Contents">
+      <summary>获取或设置此 <see cref="T:System.Net.Http.MultipartStreamProvider" /> 的内容。</summary>
+      <returns>此 <see cref="T:System.Net.Http.MultipartStreamProvider" /> 的内容。</returns>
+    </member>
+    <member name="M:System.Net.Http.MultipartStreamProvider.ExecutePostProcessingAsync">
+      <summary>执行此 <see cref="T:System.Net.Http.MultipartStreamProvider" /> 的处理后操作。</summary>
+      <returns>此操作的异步任务。</returns>
+    </member>
+    <member name="M:System.Net.Http.MultipartStreamProvider.GetStream(System.Net.Http.HttpContent,System.Net.Http.Headers.HttpContentHeaders)">
+      <summary>获取要将正文部分写入到的流。分析完 MIME 多部分正文部分后将调用此方法。</summary>
+      <returns>消息正文部分写入到的 <see cref="T:System.IO.Stream" /> 实例。</returns>
+      <param name="parent">HTTP 内容。</param>
+      <param name="headers">描述正文部分的标头字段。</param>
+    </member>
+    <member name="T:System.Net.Http.ObjectContent">
+      <summary> 包含一个值，以及要在写入此内容时用于序列化该值的关联 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />。</summary>
+    </member>
+    <member name="M:System.Net.Http.ObjectContent.#ctor(System.Type,System.Object,System.Net.Http.Formatting.MediaTypeFormatter)">
+      <summary>初始化 <see cref="T:System.Net.Http.ObjectContent" /> 类的新实例。</summary>
+      <param name="type">此实例将包含的对象的类型。</param>
+      <param name="value">此实例将包含的对象的值。</param>
+      <param name="formatter">序列化值时要使用的格式化程序。</param>
+    </member>
+    <member name="M:System.Net.Http.ObjectContent.#ctor(System.Type,System.Object,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue)">
+      <summary> 初始化 <see cref="T:System.Net.Http.ObjectContent" /> 类的新实例。</summary>
+      <param name="type">此实例将包含的对象的类型。</param>
+      <param name="value">此实例将包含的对象的值。</param>
+      <param name="formatter">序列化值时要使用的格式化程序。</param>
+      <param name="mediaType">Content-Type 标头的授权值。可以为 null，在这种情况下将使用格式化程序的默认内容类型。</param>
+    </member>
+    <member name="M:System.Net.Http.ObjectContent.#ctor(System.Type,System.Object,System.Net.Http.Formatting.MediaTypeFormatter,System.String)">
+      <summary>初始化 <see cref="T:System.Net.Http.ObjectContent" /> 类的新实例。</summary>
+      <param name="type">此实例将包含的对象的类型。</param>
+      <param name="value">此实例将包含的对象的值。</param>
+      <param name="formatter">序列化值时要使用的格式化程序。</param>
+      <param name="mediaType">Content-Type 标头的授权值。</param>
+    </member>
+    <member name="P:System.Net.Http.ObjectContent.Formatter">
+      <summary>获取与此内容实例关联的媒体类型格式化程序。</summary>
+      <returns>
+        <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />。</returns>
+    </member>
+    <member name="P:System.Net.Http.ObjectContent.ObjectType">
+      <summary>获取由此 <see cref="T:System.Net.Http.ObjectContent" /> 实例管理的对象的类型。</summary>
+      <returns>对象类型。</returns>
+    </member>
+    <member name="M:System.Net.Http.ObjectContent.SerializeToStreamAsync(System.IO.Stream,System.Net.TransportContext)">
+      <summary>以异步方式将对象的内容序列化为给定流。</summary>
+      <returns>表示异步操作的任务对象。</returns>
+      <param name="stream">要写入到的流。</param>
+      <param name="context">关联的 <see cref="T:System.Net.TransportContext" />。</param>
+    </member>
+    <member name="M:System.Net.Http.ObjectContent.TryComputeLength(System.Int64@)">
+      <summary>计算流的长度（如果可能）。</summary>
+      <returns>如果已计算长度，则为 true；否则为 false。</returns>
+      <param name="length">接收所计算的流的长度。</param>
+    </member>
+    <member name="P:System.Net.Http.ObjectContent.Value">
+      <summary>获取或设置内容值。</summary>
+      <returns>内容值。</returns>
+    </member>
+    <member name="T:System.Net.Http.ObjectContent`1">
+      <summary>
+        <see cref="T:System.Net.Http.ObjectContent" /> 的泛型形式。</summary>
+      <typeparam name="T">此类将包含的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.ObjectContent`1.#ctor(`0,System.Net.Http.Formatting.MediaTypeFormatter)">
+      <summary>初始化 <see cref="T:System.Net.Http.ObjectContent`1" /> 类的新实例。</summary>
+      <param name="value">此实例将包含的对象的值。</param>
+      <param name="formatter">序列化值时要使用的格式化程序。</param>
+    </member>
+    <member name="M:System.Net.Http.ObjectContent`1.#ctor(`0,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue)">
+      <summary> 初始化 &lt;see cref="T:System.Net.Http.ObjectContent`1" /&gt; 类的新实例。</summary>
+      <param name="value">此实例将包含的对象的值。</param>
+      <param name="formatter">序列化值时要使用的格式化程序。</param>
+      <param name="mediaType">Content-Type 标头的授权值。可以为 null，在这种情况下将使用格式化程序的默认内容类型。</param>
+    </member>
+    <member name="M:System.Net.Http.ObjectContent`1.#ctor(`0,System.Net.Http.Formatting.MediaTypeFormatter,System.String)">
+      <summary>初始化 <see cref="T:System.Net.Http.ObjectContent`1" /> 类的新实例。</summary>
+      <param name="value">此实例将包含的对象的值。</param>
+      <param name="formatter">序列化值时要使用的格式化程序。</param>
+      <param name="mediaType">Content-Type 标头的授权值。</param>
+    </member>
+    <member name="T:System.Net.Http.PushStreamContent">
+      <summary>实现了数据生产者希望直接使用流写入（以同步方式或以异步方式）的方案。</summary>
+    </member>
+    <member name="M:System.Net.Http.PushStreamContent.#ctor(System.Action{System.IO.Stream,System.Net.Http.HttpContent,System.Net.TransportContext})">
+      <summary>初始化 <see cref="T:System.Net.Http.PushStreamContent" /> 类的新实例。</summary>
+      <param name="onStreamAvailable">当输出流可用且允许操作直接写入时调用的操作。</param>
+    </member>
+    <member name="M:System.Net.Http.PushStreamContent.#ctor(System.Action{System.IO.Stream,System.Net.Http.HttpContent,System.Net.TransportContext},System.Net.Http.Headers.MediaTypeHeaderValue)">
+      <summary>初始化 <see cref="T:System.Net.Http.PushStreamContent" /> 类的新实例。</summary>
+      <param name="onStreamAvailable">当输出流可用且允许操作直接写入时调用的操作。</param>
+      <param name="mediaType">媒体类型。</param>
+    </member>
+    <member name="M:System.Net.Http.PushStreamContent.#ctor(System.Action{System.IO.Stream,System.Net.Http.HttpContent,System.Net.TransportContext},System.String)">
+      <summary>初始化 <see cref="T:System.Net.Http.PushStreamContent" /> 类的新实例。</summary>
+      <param name="onStreamAvailable">当输出流可用且允许操作直接写入时调用的操作。</param>
+      <param name="mediaType">媒体类型。</param>
+    </member>
+    <member name="M:System.Net.Http.PushStreamContent.SerializeToStreamAsync(System.IO.Stream,System.Net.TransportContext)">
+      <summary>以异步方式将推送内容序列化为流。</summary>
+      <returns>序列化后的推送内容。</returns>
+      <param name="stream">将序列化推送内容的流。</param>
+      <param name="context">上下文。</param>
+    </member>
+    <member name="M:System.Net.Http.PushStreamContent.TryComputeLength(System.Int64@)">
+      <summary>确定流内容是否具有有效的长度（以字节为单位）。</summary>
+      <returns>如果该长度为有效长度，则为 true；否则为 false。</returns>
+      <param name="length">流内容的长度（以字节为单位）。</param>
+    </member>
+    <member name="T:System.Net.Http.UriExtensions">
+      <summary>包含允许从 <see cref="T:System.Uri" /> 实例的查询组件读取强类型对象的扩展方法。</summary>
+    </member>
+    <member name="M:System.Net.Http.UriExtensions.ParseQueryString(System.Uri)">
+      <summary>分析指定的 URI 的查询部分。</summary>
+      <returns>包含查询参数的 <see cref="T:System.Collections.Specialized.NameValueCollection" />。</returns>
+      <param name="address">要分析的 URI。</param>
+    </member>
+    <member name="M:System.Net.Http.UriExtensions.TryReadQueryAs(System.Uri,System.Type,System.Object@)">
+      <summary>将 URI 查询字符串中提供的 HTML 窗体 URL 编码数据读取为指定类型的对象。</summary>
+      <returns>如果 URI 的查询组件可以读取为指定的类型，则为 true；否则为 false。</returns>
+      <param name="address">要读取的 URI。</param>
+      <param name="type">要读取的对象的类型。</param>
+      <param name="value">此方法返回时，将包含一个从 URI 的查询组件初始化的对象。将此参数视为未初始化。</param>
+    </member>
+    <member name="M:System.Net.Http.UriExtensions.TryReadQueryAs``1(System.Uri,``0@)">
+      <summary>将 URI 查询字符串中提供的 HTML 窗体 URL 编码数据读取为指定类型的对象。</summary>
+      <returns>如果 URI 的查询组件可以读取为指定的类型，则为 true；否则为 false。</returns>
+      <param name="address">要读取的 URI。</param>
+      <param name="value">此方法返回时，将包含一个从 URI 的查询组件初始化的对象。将此参数视为未初始化。</param>
+      <typeparam name="T">要读取的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.UriExtensions.TryReadQueryAsJson(System.Uri,Newtonsoft.Json.Linq.JObject@)">
+      <summary>读取 <see cref="T:System.Uri" /> 查询组件中作为 <see cref="T:Newtonsoft.Json.Linq.JObject" /> 对象提供的 HTML 窗体 URL 编码数据。</summary>
+      <returns>  如果查询组件可以读取为 <see cref="T:Newtonsoft.Json.Linq.JObject" />，则为 true；否则为 false。</returns>
+      <param name="address">要从中读取的 <see cref="T:System.Uri" /> 实例。</param>
+      <param name="value">要使用此实例或 null（如果无法执行转换）进行初始化的对象。</param>
+    </member>
+    <member name="T:System.Net.Http.Formatting.BufferedMediaTypeFormatter">
+      <summary>表示允许在异步格式化程序基础结构之上使用同步格式化程序的帮助器类。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.BufferedMediaTypeFormatter.#ctor">
+      <summary>初始化 <see cref="T:System.Net.Http.Formatting.BufferedMediaTypeFormatter" /> 类的新实例。</summary>
+    </member>
+    <member name="P:System.Net.Http.Formatting.BufferedMediaTypeFormatter.BufferSize">
+      <summary>获取或设置用于流的建议缓冲区大小（以字节为单位）。</summary>
+      <returns>用于流的建议缓冲区大小（以字节为单位）。</returns>
+    </member>
+    <member name="M:System.Net.Http.Formatting.BufferedMediaTypeFormatter.ReadFromStream(System.Type,System.IO.Stream,System.Net.Http.HttpContent,System.Net.Http.Formatting.IFormatterLogger)">
+      <summary>从缓冲流同步读取。</summary>
+      <returns>给定 <paramref name="type" /> 的对象。</returns>
+      <param name="type">要反序列化的对象的类型。</param>
+      <param name="readStream">要从中读取的流</param>
+      <param name="content">
+        <see cref="T:System.Net.Http.HttpContent" />（如果可用）。可以为 null。</param>
+      <param name="formatterLogger">要将事件记录到的 <see cref="T:System.Net.Http.Formatting.IFormatterLogger" />。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.BufferedMediaTypeFormatter.ReadFromStreamAsync(System.Type,System.IO.Stream,System.Net.Http.HttpContent,System.Net.Http.Formatting.IFormatterLogger)">
+      <summary>从缓冲流异步读取。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="type">要反序列化的对象的类型。</param>
+      <param name="readStream">要从中读取的流。</param>
+      <param name="content">
+        <see cref="T:System.Net.Http.HttpContent" />（如果可用）。可以为 null。</param>
+      <param name="formatterLogger">要将事件记录到的 <see cref="T:System.Net.Http.Formatting.IFormatterLogger" />。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.BufferedMediaTypeFormatter.WriteToStream(System.Type,System.Object,System.IO.Stream,System.Net.Http.HttpContent)">
+      <summary>同步写入到缓冲流。</summary>
+      <param name="type">要序列化的对象的类型。</param>
+      <param name="value">要写入的对象值。可以为 null。</param>
+      <param name="writeStream">要写入到的流。</param>
+      <param name="content">
+        <see cref="T:System.Net.Http.HttpContent" />（如果可用）。可以为 null。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.BufferedMediaTypeFormatter.WriteToStreamAsync(System.Type,System.Object,System.IO.Stream,System.Net.Http.HttpContent,System.Net.TransportContext)">
+      <summary>异步写入到缓冲流。</summary>
+      <returns>一个表示异步操作的任务对象。</returns>
+      <param name="type">要序列化的对象的类型。</param>
+      <param name="value">要写入的对象值。它可以为 null。</param>
+      <param name="writeStream">要写入到的流。</param>
+      <param name="content">
+        <see cref="T:System.Net.Http.HttpContent" />（如果可用）。可以为 null。</param>
+      <param name="transportContext">传输上下文。</param>
+    </member>
+    <member name="T:System.Net.Http.Formatting.ContentNegotiationResult">
+      <summary> 表示使用 &lt;see cref="M:System.Net.Http.Formatting.IContentNegotiator.Negotiate(System.Type,System.Net.Http.HttpRequestMessage,System.Collections.Generic.IEnumerable{System.Net.Http.Formatting.MediaTypeFormatter})" /&gt; 执行的内容协商的结果</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.ContentNegotiationResult.#ctor(System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue)">
+      <summary> 创建内容协商结果对象。</summary>
+      <param name="formatter">格式化程序。</param>
+      <param name="mediaType">首选媒体类型。可以为 null。</param>
+    </member>
+    <member name="P:System.Net.Http.Formatting.ContentNegotiationResult.Formatter">
+      <summary> 为序列化选择的格式化程序。</summary>
+    </member>
+    <member name="P:System.Net.Http.Formatting.ContentNegotiationResult.MediaType">
+      <summary> 与为序列化选择的格式化程序关联的媒体类型。可以为 null。 </summary>
+    </member>
+    <member name="T:System.Net.Http.Formatting.DefaultContentNegotiator">
+      <summary>
+        <see cref="T:System.Net.Http.Formatting.IContentNegotiator" /> 的默认实现，用于为 <see cref="T:System.Net.Http.HttpRequestMessage" /> 或 <see cref="T:System.Net.Http.HttpResponseMessage" /> 选择 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DefaultContentNegotiator.#ctor">
+      <summary>初始化 <see cref="T:System.Net.Http.Formatting.DefaultContentNegotiator" /> 类的新实例。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DefaultContentNegotiator.#ctor(System.Boolean)">
+      <summary>初始化 <see cref="T:System.Net.Http.Formatting.DefaultContentNegotiator" /> 类的新实例。</summary>
+      <param name="excludeMatchOnTypeOnly">若要排除仅在对象类型上匹配的格式化程序，则为 true；否则为 false。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DefaultContentNegotiator.ComputeFormatterMatches(System.Type,System.Net.Http.HttpRequestMessage,System.Collections.Generic.IEnumerable{System.Net.Http.Formatting.MediaTypeFormatter})">
+      <summary>确定每个格式化程序与 HTTP 请求的具体匹配程度。</summary>
+      <returns>返回表示所有匹配项的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatterMatch" /> 对象的集合。</returns>
+      <param name="type">要序列化的类型。</param>
+      <param name="request">请求。</param>
+      <param name="formatters">可供选择的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 对象集。</param>
+    </member>
+    <member name="P:System.Net.Http.Formatting.DefaultContentNegotiator.ExcludeMatchOnTypeOnly">
+      <summary>若要排除仅在对象类型上匹配的格式化程序，则为 true；否则为 false。</summary>
+      <returns>返回一个 <see cref="T:System.Boolean" />。</returns>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DefaultContentNegotiator.MatchAcceptHeader(System.Collections.Generic.IEnumerable{System.Net.Http.Headers.MediaTypeWithQualityHeaderValue},System.Net.Http.Formatting.MediaTypeFormatter)">
+      <summary>将一组 Accept 标头字段与格式化程序支持的媒体类型进行匹配。</summary>
+      <returns>返回指示匹配质量的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatterMatch" /> 对象；如果没有匹配项，则返回 null。</returns>
+      <param name="sortedAcceptValues">按 q 因子降序排列的 Accept 标头值的列表。可以通过调用 <see cref="M:System.Net.Http.Formatting.DefaultContentNegotiator.SortMediaTypeWithQualityHeaderValuesByQFactor(System.Collections.Generic.ICollection{System.Net.Http.Headers.MediaTypeWithQualityHeaderValue})" /> 方法来创建此列表。</param>
+      <param name="formatter">要匹配的格式化程序。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DefaultContentNegotiator.MatchMediaTypeMapping(System.Net.Http.HttpRequestMessage,System.Net.Http.Formatting.MediaTypeFormatter)">
+      <summary>将请求与媒体类型格式化程序中的 <see cref="T:System.Net.Http.Formatting.MediaTypeMapping" /> 对象进行匹配。</summary>
+      <returns>返回指示匹配质量的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatterMatch" /> 对象；如果没有匹配项，则返回 null。</returns>
+      <param name="request">请求。</param>
+      <param name="formatter">媒体类型格式化程序。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DefaultContentNegotiator.MatchRequestMediaType(System.Net.Http.HttpRequestMessage,System.Net.Http.Formatting.MediaTypeFormatter)">
+      <summary>将请求的内容类型与格式化程序支持的媒体类型进行匹配。</summary>
+      <returns>返回指示匹配质量的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatterMatch" /> 对象；如果没有匹配项，则返回 null。</returns>
+      <param name="request">请求。</param>
+      <param name="formatter">要匹配的格式化程序。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DefaultContentNegotiator.MatchType(System.Type,System.Net.Http.Formatting.MediaTypeFormatter)">
+      <summary>选择格式化程序第一个受支持的媒体类型。</summary>
+      <returns>返回一个 <see cref="P:System.Net.Http.Formatting.MediaTypeFormatterMatch.Ranking" /> 设置为 <see cref="F:System.Net.Http.Formatting.MediaTypeFormatterMatchRanking.MatchOnCanWriteType" /> 的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatterMatch" />；如果没有匹配项，则返回 null。</returns>
+      <param name="type">要匹配的类型。</param>
+      <param name="formatter">要匹配的格式化程序。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DefaultContentNegotiator.Negotiate(System.Type,System.Net.Http.HttpRequestMessage,System.Collections.Generic.IEnumerable{System.Net.Http.Formatting.MediaTypeFormatter})">
+      <summary> 通过在已为给定 <paramref name="request" /> 传入的 <paramref name="formatters" /> 中选择可以序列化给定 <paramref name="type" /> 的对象的最适当 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />，来执行内容协商。</summary>
+      <returns>包含最适当的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 实例的协商结果或 null（如果没有适当的格式化程序）。</returns>
+      <param name="type">要序列化的类型。</param>
+      <param name="request">请求。</param>
+      <param name="formatters">可供选择的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 对象集。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DefaultContentNegotiator.SelectResponseCharacterEncoding(System.Net.Http.HttpRequestMessage,System.Net.Http.Formatting.MediaTypeFormatter)">
+      <summary>确定用于写入响应的最佳字符编码。</summary>
+      <returns>返回最匹配的 <see cref="T:System.Text.Encoding" />。</returns>
+      <param name="request">请求。</param>
+      <param name="formatter">所选媒体格式化程序。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DefaultContentNegotiator.SelectResponseMediaTypeFormatter(System.Collections.Generic.ICollection{System.Net.Http.Formatting.MediaTypeFormatterMatch})">
+      <summary>从找到的候选匹配项中选择最匹配项。</summary>
+      <returns>返回用于表示最匹配项的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatterMatch" /> 对象。</returns>
+      <param name="matches">匹配项的集合。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DefaultContentNegotiator.SortMediaTypeWithQualityHeaderValuesByQFactor(System.Collections.Generic.ICollection{System.Net.Http.Headers.MediaTypeWithQualityHeaderValue})">
+      <summary>将 Accept 标头值按 q 因子的降序进行排序。</summary>
+      <returns>返回 MediaTypeWithQualityHeaderValue 对象的已排序列表。</returns>
+      <param name="headerValues">一个表示 Accept 标头值的 MediaTypeWithQualityHeaderValue 对象的集合。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DefaultContentNegotiator.SortStringWithQualityHeaderValuesByQFactor(System.Collections.Generic.ICollection{System.Net.Http.Headers.StringWithQualityHeaderValue})">
+      <summary>将 Accept-Charset、Accept-Encoding、Accept-Language 或相关标头值的列表按 q 因子的降序进行排序。</summary>
+      <returns>返回 StringWithQualityHeaderValue 对象的已排序列表。</returns>
+      <param name="headerValues">一个表示标头字段的 StringWithQualityHeaderValue 对象的集合。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DefaultContentNegotiator.UpdateBestMatch(System.Net.Http.Formatting.MediaTypeFormatterMatch,System.Net.Http.Formatting.MediaTypeFormatterMatch)">
+      <summary>评估某个匹配项是否比当前匹配项更匹配。</summary>
+      <returns>返回较匹配的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatterMatch" /> 对象。</returns>
+      <param name="current">当前匹配项。</param>
+      <param name="potentialReplacement">要针对当前匹配项进行评估的匹配项。</param>
+    </member>
+    <member name="T:System.Net.Http.Formatting.DelegatingEnumerable`1">
+      <summary> 帮助器类，用于通过具体的实现委托 &lt;see cref="T:System.Collections.Generic.IEnumerable`1" /&gt; 类型来序列化这些类型。</summary>
+      <typeparam name="T">实现为代理的接口。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DelegatingEnumerable`1.#ctor">
+      <summary> 初始化 DelegatingEnumerable。要使 <see cref="T:System.Runtime.Serialization.DataContractSerializer" /> 正常工作，此构造函数是必需的。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DelegatingEnumerable`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+      <summary> 使用 &lt;see cref="T:System.Collections.Generic.IEnumerable`1" /&gt; 初始化 DelegatingEnumerable。这是用于为 <see cref="T:System.Xml.Serialization.XmlSerializer" /> 代理 &lt;see cref="T:System.Collections.Generic.IEnumerable`1" /&gt; 接口的帮助器类。</summary>
+      <param name="source">要从中获取枚举器的 &lt;see cref="T:System.Collections.Generic.IEnumerable`1" /&gt; 实例。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DelegatingEnumerable`1.Add(System.Object)">
+      <summary> 此方法未实现，但却是使序列化可以正常工作所必需的方法。请勿使用。</summary>
+      <param name="item">要添加的项。未使用。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DelegatingEnumerable`1.GetEnumerator">
+      <summary> 获取关联的 &lt;see cref="T:System.Collections.Generic.IEnumerable`1" /&gt; 的枚举器。</summary>
+      <returns>&lt;see cref="T:System.Collections.Generic.IEnumerable`1" /&gt; 源的枚举器。</returns>
+    </member>
+    <member name="M:System.Net.Http.Formatting.DelegatingEnumerable`1.System#Collections#IEnumerable#GetEnumerator">
+      <summary> 获取关联的 &lt;see cref="T:System.Collections.Generic.IEnumerable`1" /&gt; 的枚举器。</summary>
+      <returns>&lt;see cref="T:System.Collections.Generic.IEnumerable`1" /&gt; 源的枚举器。</returns>
+    </member>
+    <member name="T:System.Net.Http.Formatting.FormDataCollection">
+      <summary>表示窗体数据的集合。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.FormDataCollection.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})">
+      <summary>初始化 <see cref="T:System.Net.Http.Formatting.FormDataCollection" /> 类的新实例。</summary>
+      <param name="pairs">对。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.FormDataCollection.#ctor(System.String)">
+      <summary>初始化 <see cref="T:System.Net.Http.Formatting.FormDataCollection" /> 类的新实例。</summary>
+      <param name="query">查询。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.FormDataCollection.#ctor(System.Uri)">
+      <summary>初始化 <see cref="T:System.Net.Http.Formatting.FormDataCollection" /> 类的新实例。</summary>
+      <param name="uri">URI</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.FormDataCollection.Get(System.String)">
+      <summary>获取窗体数据的集合。</summary>
+      <returns>窗体数据的集合。</returns>
+      <param name="key">键。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.FormDataCollection.GetEnumerator">
+      <summary>获取循环访问集合的可枚举值。</summary>
+      <returns>循环访问集合的可枚举值。</returns>
+    </member>
+    <member name="M:System.Net.Http.Formatting.FormDataCollection.GetValues(System.String)">
+      <summary>获取窗体数据集合的值。</summary>
+      <returns>窗体数据集合的值。</returns>
+      <param name="key">键。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.FormDataCollection.ReadAsNameValueCollection">
+      <summary>读取名称值集合形式的窗体数据集合。</summary>
+      <returns>名称值集合形式的窗体数据集合。</returns>
+    </member>
+    <member name="M:System.Net.Http.Formatting.FormDataCollection.System#Collections#IEnumerable#GetEnumerator">
+      <summary>获取循环访问集合的可枚举值。</summary>
+      <returns>循环访问集合的可枚举值。</returns>
+    </member>
+    <member name="T:System.Net.Http.Formatting.FormUrlEncodedMediaTypeFormatter">
+      <summary>
+        <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 类，用于处理以 HTML 窗体 URL 结尾的数据（也称为 application/x-www-form-urlencoded）。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.FormUrlEncodedMediaTypeFormatter.#ctor">
+      <summary>初始化 <see cref="T:System.Net.Http.Formatting.FormUrlEncodedMediaTypeFormatter" /> 类的新实例。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.FormUrlEncodedMediaTypeFormatter.CanReadType(System.Type)">
+      <summary>查询 <see cref="T:System.Net.Http.Formatting.FormUrlEncodedMediaTypeFormatter" /> 是否可以反序列化指定类型的对象。</summary>
+      <returns>如果 <see cref="T:System.Net.Http.Formatting.FormUrlEncodedMediaTypeFormatter" /> 可以反序列化该类型，则为 true；否则为 false。</returns>
+      <param name="type">要反序列化的类型。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.FormUrlEncodedMediaTypeFormatter.CanWriteType(System.Type)">
+      <summary>查询 <see cref="T:System.Net.Http.Formatting.FormUrlEncodedMediaTypeFormatter" /> 是否可以序列化指定类型的对象。</summary>
+      <returns>如果 <see cref="T:System.Net.Http.Formatting.FormUrlEncodedMediaTypeFormatter" /> 可以序列化该类型，则为 true；否则为 false。</returns>
+      <param name="type">要序列化的类型。</param>
+    </member>
+    <member name="P:System.Net.Http.Formatting.FormUrlEncodedMediaTypeFormatter.DefaultMediaType">
+      <summary>获取 HTML 窗体 URL 编码数据的默认媒体类型，即 application/x-www-form-urlencoded。</summary>
+      <returns>HTML 窗体 URL 编码数据的默认媒体类型</returns>
+    </member>
+    <member name="P:System.Net.Http.Formatting.FormUrlEncodedMediaTypeFormatter.MaxDepth">
+      <summary>获取或设置此格式化程序所允许的最大深度。</summary>
+      <returns>最大深度。</returns>
+    </member>
+    <member name="P:System.Net.Http.Formatting.FormUrlEncodedMediaTypeFormatter.ReadBufferSize">
+      <summary>获取或设置在读取传入流时的缓冲区大小。</summary>
+      <returns>缓冲区大小。</returns>
+    </member>
+    <member name="M:System.Net.Http.Formatting.FormUrlEncodedMediaTypeFormatter.ReadFromStreamAsync(System.Type,System.IO.Stream,System.Net.Http.HttpContent,System.Net.Http.Formatting.IFormatterLogger)">
+      <summary> 以异步方式反序列化指定类型的对象。</summary>
+      <returns>一个 <see cref="T:System.Threading.Tasks.Task" />，其结果将是已读取的对象实例。</returns>
+      <param name="type">要反序列化的对象的类型。</param>
+      <param name="readStream">要读取的 <see cref="T:System.IO.Stream" />。</param>
+      <param name="content">要读取的内容的 <see cref="T:System.Net.Http.HttpContent" />。</param>
+      <param name="formatterLogger">要将事件记录到的 <see cref="T:System.Net.Http.Formatting.IFormatterLogger" />。</param>
+    </member>
+    <member name="T:System.Net.Http.Formatting.IContentNegotiator">
+      <summary> 执行内容协商。这是根据请求中的标头值选择响应编写器（格式化程序）的过程。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.IContentNegotiator.Negotiate(System.Type,System.Net.Http.HttpRequestMessage,System.Collections.Generic.IEnumerable{System.Net.Http.Formatting.MediaTypeFormatter})">
+      <summary> 通过在已为给定 request 传入的 formatters 中选择可以序列化给定 type 的对象的最适当 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />，来执行内容协商。</summary>
+      <returns>包含最适当的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 实例的协商结果或 null（如果没有适当的格式化程序）。</returns>
+      <param name="type">要序列化的类型。</param>
+      <param name="request">请求消息，其中包含用于执行协商的标头值。</param>
+      <param name="formatters">可供选择的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 对象集。</param>
+    </member>
+    <member name="T:System.Net.Http.Formatting.IFormatterLogger">
+      <summary>指定一个可供格式化程序用来在读取时记录错误的回调接口。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.IFormatterLogger.LogError(System.String,System.Exception)">
+      <summary>记录错误。</summary>
+      <param name="errorPath">要为其记录错误的成员的路径。</param>
+      <param name="exception">错误消息。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.IFormatterLogger.LogError(System.String,System.String)">
+      <summary>记录错误。</summary>
+      <param name="errorPath">要为其记录错误的成员的路径。</param>
+      <param name="errorMessage">要记录的错误消息。</param>
+    </member>
+    <member name="T:System.Net.Http.Formatting.IRequiredMemberSelector">
+      <summary>定义用于确定反序列化时是否需要给定成员的方法。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.IRequiredMemberSelector.IsRequiredMember(System.Reflection.MemberInfo)">
+      <summary>确定反序列化时是否需要给定的成员。</summary>
+      <returns>如果应将 <paramref name="member" /> 视为所需成员，则为 true；否则为 false。</returns>
+      <param name="member">要被反序列化的 <see cref="T:System.Reflection.MemberInfo" />。</param>
+    </member>
+    <member name="T:System.Net.Http.Formatting.JsonMediaTypeFormatter">
+      <summary>表示用于处理 JSON 的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 类。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.JsonMediaTypeFormatter.#ctor">
+      <summary> 初始化 <see cref="T:System.Net.Http.Formatting.JsonMediaTypeFormatter" /> 类的新实例。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.JsonMediaTypeFormatter.CanReadType(System.Type)">
+      <summary>确定此 <see cref="T:System.Net.Http.Formatting.JsonMediaTypeFormatter" /> 是否可以读取指定 <paramref name="type" /> 的对象。</summary>
+      <returns>如果可以读取此 <paramref name="type" /> 的对象，则为 true；否则为 false。</returns>
+      <param name="type">将要读取的对象的类型。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.JsonMediaTypeFormatter.CanWriteType(System.Type)">
+      <summary>确定此 <see cref="T:System.Net.Http.Formatting.JsonMediaTypeFormatter" /> 是否可以写入指定 <paramref name="type" /> 的对象。</summary>
+      <returns>如果可以写入此 <paramref name="type" /> 的对象，则为 true；否则为 false。</returns>
+      <param name="type">将要写入的对象的类型。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.JsonMediaTypeFormatter.CreateDefaultSerializerSettings">
+      <summary> 使用 <see cref="T:System.Net.Http.Formatting.JsonMediaTypeFormatter" /> 所使用的默认设置创建一个 JsonSerializerSettings 实例。</summary>
+      <returns>根据 <see cref="T:System.Net.Http.Formatting.JsonMediaTypeFormatter" /> 所使用的默认设置新建的 JsonSerializerSettings 实例。</returns>
+    </member>
+    <member name="P:System.Net.Http.Formatting.JsonMediaTypeFormatter.DefaultMediaType">
+      <summary>获取 JSON 的默认媒体类型，即“application/json”。</summary>
+      <returns>JSON 的 <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" />。</returns>
+    </member>
+    <member name="P:System.Net.Http.Formatting.JsonMediaTypeFormatter.Indent">
+      <summary> 获取或设置一个值，该值指示写入数据时是否缩进元素。</summary>
+      <returns>如果要在写入数据时缩进元素，则为 true；否则为 false。</returns>
+    </member>
+    <member name="P:System.Net.Http.Formatting.JsonMediaTypeFormatter.MaxDepth">
+      <summary>获取或设置此格式化程序所允许的最大深度。</summary>
+      <returns>此格式化程序所允许的最大深度。</returns>
+    </member>
+    <member name="M:System.Net.Http.Formatting.JsonMediaTypeFormatter.ReadFromStreamAsync(System.Type,System.IO.Stream,System.Net.Http.HttpContent,System.Net.Http.Formatting.IFormatterLogger)">
+      <summary>从指定 <paramref name="stream" /> 中读取指定 <paramref name="type" /> 的对象。在反序列化期间调用此方法。</summary>
+      <returns>返回 <see cref="T:System.Threading.Tasks.Task`1" />。</returns>
+      <param name="type">要读取的对象的类型。</param>
+      <param name="readStream">要从中读取的流</param>
+      <param name="content">要写入的内容。</param>
+      <param name="formatterLogger">要将事件记录到的 <see cref="T:System.Net.Http.Formatting.IFormatterLogger" />。</param>
+    </member>
+    <member name="P:System.Net.Http.Formatting.JsonMediaTypeFormatter.SerializerSettings">
+      <summary> 获取或设置用于配置 JsonSerializer 的 JsonSerializerSettings。</summary>
+      <returns> 用于配置 JsonSerializer 的 JsonSerializerSettings。</returns>
+    </member>
+    <member name="P:System.Net.Http.Formatting.JsonMediaTypeFormatter.UseDataContractJsonSerializer">
+      <summary> 获取或设置一个值，该值指示是否在默认情况下使用 <see cref="T:System.Runtime.Serialization.Json.DataContractJsonSerializer" />。</summary>
+      <returns>如果要在默认情况下使用 <see cref="T:System.Runtime.Serialization.Json.DataContractJsonSerializer" />，则为 true；否则为 false。</returns>
+    </member>
+    <member name="M:System.Net.Http.Formatting.JsonMediaTypeFormatter.WriteToStreamAsync(System.Type,System.Object,System.IO.Stream,System.Net.Http.HttpContent,System.Net.TransportContext)">
+      <summary>将指定 <paramref name="type" /> 的对象写入到指定 <paramref name="stream" /> 中。在序列化期间调用此方法。</summary>
+      <returns>一个将值写入流的 <see cref="T:System.Threading.Tasks.Task" />。</returns>
+      <param name="type">要写入的对象的类型。</param>
+      <param name="value">要写入的对象。</param>
+      <param name="writeStream">要写入到的 <see cref="T:System.IO.Stream" />。</param>
+      <param name="content">要在其中写入内容的 <see cref="T:System.Net.Http.HttpContent" />。</param>
+      <param name="transportContext">
+        <see cref="T:System.Net.TransportContext" />。</param>
+    </member>
+    <member name="T:System.Net.Http.Formatting.MediaTypeFormatter">
+      <summary> 用于使用 <see cref="T:System.Net.Http.ObjectContent" /> 处理序列化和反序列化强类型对象的基类。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatter.#ctor">
+      <summary>初始化 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 类的新实例。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatter.CanReadType(System.Type)">
+      <summary>查询此 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 是否可以反序列化指定类型的对象。</summary>
+      <returns>如果 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 可以反序列化该类型，则为 true；否则为 false。</returns>
+      <param name="type">要反序列化的类型。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatter.CanWriteType(System.Type)">
+      <summary>查询此 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 是否可以序列化指定类型的对象。</summary>
+      <returns>如果 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 可以序列化该类型，则为 true；否则为 false。</returns>
+      <param name="type">要序列化的类型。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatter.GetDefaultValueForType(System.Type)">
+      <summary>获取指定类型的默认值。</summary>
+      <returns>默认值。</returns>
+      <param name="type">要获取其默认值的类型。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatter.GetPerRequestFormatterInstance(System.Type,System.Net.Http.HttpRequestMessage,System.Net.Http.Headers.MediaTypeHeaderValue)">
+      <summary>返回可以为给定参数设置响应格式的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 专用实例。</summary>
+      <returns>返回 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />。</returns>
+      <param name="type">要设置格式的类型。</param>
+      <param name="request">请求。</param>
+      <param name="mediaType">媒体类型。</param>
+    </member>
+    <member name="P:System.Net.Http.Formatting.MediaTypeFormatter.MaxHttpCollectionKeys">
+      <summary>获取或设置 T 中存储的最大键数：<see cref="System.Collections.Specialized.NameValueCollection" />.</summary>
+      <returns>最大键数。</returns>
+    </member>
+    <member name="P:System.Net.Http.Formatting.MediaTypeFormatter.MediaTypeMappings">
+      <summary>获取与媒体类型的 HTTP 请求匹配的 <see cref="T:System.Net.Http.Formatting.MediaTypeMapping" /> 对象的可变集合。</summary>
+      <returns>
+        <see cref="T:System.Net.Http.Formatting.MediaTypeMapping" /> 集合。</returns>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatter.ReadFromStreamAsync(System.Type,System.IO.Stream,System.Net.Http.HttpContent,System.Net.Http.Formatting.IFormatterLogger)">
+      <summary>以异步方式反序列化指定类型的对象。</summary>
+      <returns>一个 <see cref="T:System.Threading.Tasks.Task" />，其结果将是给定类型的对象。</returns>
+      <param name="type">要反序列化的对象的类型。</param>
+      <param name="readStream">要读取的 <see cref="T:System.IO.Stream" />。</param>
+      <param name="content">
+        <see cref="T:System.Net.Http.HttpContent" />（如果可用）。它可以为 null。</param>
+      <param name="formatterLogger">要将事件记录到的 <see cref="T:System.Net.Http.Formatting.IFormatterLogger" />。</param>
+      <exception cref="T:System.NotSupportedException">派生类型需要支持读取。</exception>
+    </member>
+    <member name="P:System.Net.Http.Formatting.MediaTypeFormatter.RequiredMemberSelector">
+      <summary>获取或设置用于确定所需成员的 <see cref="T:System.Net.Http.Formatting.IRequiredMemberSelector" /> 实例。</summary>
+      <returns>
+        <see cref="T:System.Net.Http.Formatting.IRequiredMemberSelector" /> 实例。</returns>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatter.SelectCharacterEncoding(System.Net.Http.Headers.HttpContentHeaders)">
+      <summary>根据给定的一组内容标头，确定用于读取或写入 HTTP 实体正文的最佳字符编码。</summary>
+      <returns>最匹配的编码。</returns>
+      <param name="contentHeaders">内容标头。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatter.SetDefaultContentHeaders(System.Type,System.Net.Http.Headers.HttpContentHeaders,System.Net.Http.Headers.MediaTypeHeaderValue)">
+      <summary> 为将要使用此格式化程序设置格式的内容设置默认标头。此方法是从 <see cref="T:System.Net.Http.ObjectContent" /> 构造函数中调用的。此实现将 Content-Type 标头设置为 mediaType 的值（如果该值不为 null）。如果该值为 null，则此实现会将 Content-Type 设置为此格式化程序的默认媒体类型。如果 Content-Type 未指定字符集，则此实现将使用此格式化程序配置的 <see cref="T:System.Text.Encoding" /> 来设置字符集。</summary>
+      <param name="type">要序列化的对象的类型。请参见 <see cref="T:System.Net.Http.ObjectContent" />。</param>
+      <param name="headers">应配置的内容标头。</param>
+      <param name="mediaType">授权媒体类型。可以为 null。</param>
+    </member>
+    <member name="P:System.Net.Http.Formatting.MediaTypeFormatter.SupportedEncodings">
+      <summary>获取此 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 所支持的字符编码的可变集合。</summary>
+      <returns>
+        <see cref="T:System.Text.Encoding" /> 对象的集合。</returns>
+    </member>
+    <member name="P:System.Net.Http.Formatting.MediaTypeFormatter.SupportedMediaTypes">
+      <summary>获取此 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 所支持的媒体类型的可变集合。</summary>
+      <returns>
+        <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" /> 对象的集合。</returns>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatter.WriteToStreamAsync(System.Type,System.Object,System.IO.Stream,System.Net.Http.HttpContent,System.Net.TransportContext)">
+      <summary>以异步方式写入指定类型的对象。</summary>
+      <returns>将执行写操作的 <see cref="T:System.Threading.Tasks.Task" />。</returns>
+      <param name="type">要写入的对象的类型。</param>
+      <param name="value">要写入的对象值。它可以为 null。</param>
+      <param name="writeStream">要写入到的 <see cref="T:System.IO.Stream" />。</param>
+      <param name="content">
+        <see cref="T:System.Net.Http.HttpContent" />（如果可用）。它可以为 null。</param>
+      <param name="transportContext">
+        <see cref="T:System.Net.TransportContext" />（如果可用）。它可以为 null。</param>
+      <exception cref="T:System.NotSupportedException">派生类型需要支持写入。</exception>
+    </member>
+    <member name="T:System.Net.Http.Formatting.MediaTypeFormatterCollection">
+      <summary>表示包含 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 实例的集合类。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatterCollection.#ctor">
+      <summary>使用默认值初始化 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatterCollection" /> 类的新实例。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatterCollection.#ctor(System.Collections.Generic.IEnumerable{System.Net.Http.Formatting.MediaTypeFormatter})">
+      <summary>使用给定 <paramref name="formatters" /> 初始化 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatterCollection" /> 类的新实例。</summary>
+      <param name="formatters">要放入集合中的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 实例的集合。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatterCollection.FindReader(System.Type,System.Net.Http.Headers.MediaTypeHeaderValue)">
+      <summary> 搜索可以在给定 <paramref name="mediaType" /> 中读取 .NET <paramref name="type" /> 的格式化程序的集合。</summary>
+      <returns>可以读取该类型的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />；或者如果找不到格式化程序，则为 null。</returns>
+      <param name="type">要读取的.NET 类型。</param>
+      <param name="mediaType">要匹配的媒体类型。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatterCollection.FindWriter(System.Type,System.Net.Http.Headers.MediaTypeHeaderValue)">
+      <summary> 搜索可以在给定 <paramref name="mediaType" /> 中写入 .NET <paramref name="type" /> 的格式化程序的集合。</summary>
+      <returns>可以写入该类型的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />；或者如果找不到格式化程序，则为 null。</returns>
+      <param name="type">要写入的.NET 类型。</param>
+      <param name="mediaType">要匹配的媒体类型。</param>
+    </member>
+    <member name="P:System.Net.Http.Formatting.MediaTypeFormatterCollection.FormUrlEncodedFormatter">
+      <summary> 获取要对 application/x-www-form-urlencoded 数据使用的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />。</summary>
+      <returns> 要对 application/x-www-form-urlencoded 数据使用的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />。</returns>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatterCollection.IsTypeExcludedFromValidation(System.Type)">
+      <summary> 确定 <paramref name="type" /> 是否为那些应排除在验证之外的松散定义的类型之一。</summary>
+      <returns>如果应排除该类型，则为 true；否则为 false。</returns>
+      <param name="type">要验证的 .NET <see cref="T:System.Type" />。</param>
+    </member>
+    <member name="P:System.Net.Http.Formatting.MediaTypeFormatterCollection.JsonFormatter">
+      <summary> 获取要用于 JSON 的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />。</summary>
+      <returns>要用于 JSON 的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />。</returns>
+    </member>
+    <member name="P:System.Net.Http.Formatting.MediaTypeFormatterCollection.XmlFormatter">
+      <summary> 获取要用于 XML 的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />。</summary>
+      <returns> 要用于 XML 的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />。</returns>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatterExtensions.AddQueryStringMapping(System.Net.Http.Formatting.MediaTypeFormatter,System.String,System.String,System.Net.Http.Headers.MediaTypeHeaderValue)">
+      <summary> 更新 <see cref="T:System.Net.Http.Formatting.MediaTypeMapping" /> 元素的一组给定 formatter，以使其将 mediaType 与包含特定查询参数和值的 <see cref="T:System.Uri" /> 相关联。</summary>
+      <param name="formatter">用于接收新的 <see cref="T:System.Net.Http.Formatting.QueryStringMapping" /> 项的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />。</param>
+      <param name="queryStringParameterName">查询参数的名称。</param>
+      <param name="queryStringParameterValue">分配给该查询参数的值。</param>
+      <param name="mediaType">要与包含一个与 queryStringParameterName 和 queryStringParameterValue 匹配的查询字符串的 <see cref="T:System.Uri" /> 关联的 <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" />。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatterExtensions.AddQueryStringMapping(System.Net.Http.Formatting.MediaTypeFormatter,System.String,System.String,System.String)">
+      <summary> 更新 <see cref="T:System.Net.Http.Formatting.MediaTypeMapping" /> 元素的一组给定 formatter，以使其将 mediaType 与包含特定查询参数和值的 <see cref="T:System.Uri" /> 相关联。</summary>
+      <param name="formatter">用于接收新的 <see cref="T:System.Net.Http.Formatting.QueryStringMapping" /> 项的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />。</param>
+      <param name="queryStringParameterName">查询参数的名称。</param>
+      <param name="queryStringParameterValue">分配给该查询参数的值。</param>
+      <param name="mediaType">要与包含一个与 queryStringParameterName 和 queryStringParameterValue 匹配的查询字符串的 <see cref="T:System.Uri" /> 关联的媒体类型。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatterExtensions.AddRequestHeaderMapping(System.Net.Http.Formatting.MediaTypeFormatter,System.String,System.String,System.StringComparison,System.Boolean,System.Net.Http.Headers.MediaTypeHeaderValue)">
+      <summary> 更新 <see cref="T:System.Net.Http.Formatting.MediaTypeMapping" /> 元素的一组给定 formatter，以使其将 mediaType 与具有特定值的特定 HTTP 请求标头字段相关联。</summary>
+      <param name="formatter">用于接收新的 <see cref="T:System.Net.Http.Formatting.MediaRangeMapping" /> 项的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />。</param>
+      <param name="headerName">要匹配的标头的名称。</param>
+      <param name="headerValue">要匹配的标头值。</param>
+      <param name="valueComparison">匹配 headerValue 时要使用的 <see cref="T:System.StringComparison" />。</param>
+      <param name="isValueSubstring">如果设置为 true，则 headerValue 在与实际标头值的子字符串匹配时将被视为匹配项。</param>
+      <param name="mediaType">要与 <see cref="M:HttpRequestMessage.Header" /> 条目（其名称与 headerName 匹配，并且其值与 headerValue 匹配）关联的 <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" />。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatterExtensions.AddRequestHeaderMapping(System.Net.Http.Formatting.MediaTypeFormatter,System.String,System.String,System.StringComparison,System.Boolean,System.String)">
+      <summary> 更新 <see cref="T:System.Net.Http.Formatting.MediaTypeMapping" /> 元素的一组给定 formatter，以使其将 mediaType 与具有特定值的特定 HTTP 请求标头字段相关联。</summary>
+      <param name="formatter">用于接收新的 <see cref="T:System.Net.Http.Formatting.MediaRangeMapping" /> 项的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" />。</param>
+      <param name="headerName">要匹配的标头的名称。</param>
+      <param name="headerValue">要匹配的标头值。</param>
+      <param name="valueComparison">匹配 headerValue 时要使用的 <see cref="T:System.StringComparison" />。</param>
+      <param name="isValueSubstring">如果设置为 true，则 headerValue 在与实际标头值的子字符串匹配时将被视为匹配项。</param>
+      <param name="mediaType">要与 <see cref="M:HttpRequestMessage.Header" /> 条目（其名称与 headerName 匹配，并且其值与 headerValue 匹配）关联的媒体类型。</param>
+    </member>
+    <member name="T:System.Net.Http.Formatting.MediaTypeFormatterMatch">
+      <summary> 此类描述特定 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 与请求的匹配程度。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeFormatterMatch.#ctor(System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue,System.Nullable{System.Double},System.Net.Http.Formatting.MediaTypeFormatterMatchRanking)">
+      <summary> 初始化 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatterMatch" /> 类的新实例。</summary>
+      <param name="formatter">要匹配的格式化程序。</param>
+      <param name="mediaType">媒体类型。可以为 null，在这种情况下，将使用媒体类型 application/octet 流。</param>
+      <param name="quality">匹配的质量。可以为 null，在这种情况下，将其视为值为 1.0 的完全匹配</param>
+      <param name="ranking">匹配的类型。</param>
+    </member>
+    <member name="P:System.Net.Http.Formatting.MediaTypeFormatterMatch.Formatter">
+      <summary> 获取媒体类型格式化程序。</summary>
+    </member>
+    <member name="P:System.Net.Http.Formatting.MediaTypeFormatterMatch.MediaType">
+      <summary> 获取匹配的媒体类型。</summary>
+    </member>
+    <member name="P:System.Net.Http.Formatting.MediaTypeFormatterMatch.Quality">
+      <summary> 获取匹配的质量</summary>
+    </member>
+    <member name="P:System.Net.Http.Formatting.MediaTypeFormatterMatch.Ranking">
+      <summary> 获取发生的匹配类型。 </summary>
+    </member>
+    <member name="T:System.Net.Http.Formatting.MediaTypeFormatterMatchRanking">
+      <summary> 包含 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 与传入请求中找到的显式或隐式首选项的匹配程度的相关信息。</summary>
+    </member>
+    <member name="F:System.Net.Http.Formatting.MediaTypeFormatterMatchRanking.None">
+      <summary> 没有找到匹配项</summary>
+    </member>
+    <member name="F:System.Net.Http.Formatting.MediaTypeFormatterMatchRanking.MatchOnCanWriteType">
+      <summary> 在类型上匹配，意味着格式化程序能够序列化该类型。</summary>
+    </member>
+    <member name="F:System.Net.Http.Formatting.MediaTypeFormatterMatchRanking.MatchOnRequestAcceptHeaderLiteral">
+      <summary>在显式文本 accept 标头（如“application/json”）上匹配。</summary>
+    </member>
+    <member name="F:System.Net.Http.Formatting.MediaTypeFormatterMatchRanking.MatchOnRequestAcceptHeaderSubtypeMediaRange">
+      <summary>在 Accept 标头中的显式子类型范围（如“application/*”）上匹配。</summary>
+    </member>
+    <member name="F:System.Net.Http.Formatting.MediaTypeFormatterMatchRanking.MatchOnRequestAcceptHeaderAllMediaRange">
+      <summary>在 Accept 标头中的显式“*/*”范围上匹配。</summary>
+    </member>
+    <member name="F:System.Net.Http.Formatting.MediaTypeFormatterMatchRanking.MatchOnRequestWithMediaTypeMapping">
+      <summary> 在应用各种 <see cref="T:System.Net.Http.Formatting.MediaTypeMapping" /> 后，在 <see cref="T:System.Net.Http.HttpRequestMessage" /> 上匹配。</summary>
+    </member>
+    <member name="F:System.Net.Http.Formatting.MediaTypeFormatterMatchRanking.MatchOnRequestMediaType">
+      <summary> 在 HTTP 请求消息中的实体正文的媒体类型上匹配。</summary>
+    </member>
+    <member name="T:System.Net.Http.Formatting.MediaTypeMapping">
+      <summary> 一个抽象基类，用于在具有某些特征的 <see cref="T:System.Net.Http.HttpRequestMessage" /> 或 <see cref="T:System.Net.Http.HttpResponseMessage" /> 实例与特定的 <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" /> 之间创建关联。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeMapping.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue)">
+      <summary> 初始化具有给定 mediaType 值的 <see cref="T:System.Net.Http.Formatting.MediaTypeMapping" /> 的新实例。</summary>
+      <param name="mediaType"> 与具有给定 <see cref="T:System.Net.Http.Formatting.MediaTypeMapping" /> 特征的 <see cref="T:System.Net.Http.HttpRequestMessage" /> 或 <see cref="T:System.Net.Http.HttpResponseMessage" /> 实例相关联的 <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" />。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeMapping.#ctor(System.String)">
+      <summary> 初始化具有给定 mediaType 值的 <see cref="T:System.Net.Http.Formatting.MediaTypeMapping" /> 的新实例。</summary>
+      <param name="mediaType"> 与具有给定 <see cref="T:System.Net.Http.Formatting.MediaTypeMapping" /> 特征的 <see cref="T:System.Net.Http.HttpRequestMessage" /> 或 <see cref="T:System.Net.Http.HttpResponseMessage" /> 实例相关联的 <see cref="T:System.String" />。</param>
+    </member>
+    <member name="P:System.Net.Http.Formatting.MediaTypeMapping.MediaType">
+      <summary> 获取与具有给定 <see cref="T:System.Net.Http.Formatting.MediaTypeMapping" /> 特征的 <see cref="T:System.Net.Http.HttpRequestMessage" /> 或 <see cref="T:System.Net.Http.HttpResponseMessage" /> 实例关联的 <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" />。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.MediaTypeMapping.TryMatchMediaType(System.Net.Http.HttpRequestMessage)">
+      <summary> 返回与 request 关联的 <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" /> 的匹配质量。</summary>
+      <returns> 匹配的质量。该值必须介于 0.0 和 1.0 之间。值 0.0 表示不匹配。值 1.0 表示完全匹配。 </returns>
+      <param name="request"> 要针对与 <see cref="T:System.Net.Http.Formatting.MediaTypeMapping" /> 的 <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" /> 关联的特征进行评估的 <see cref="T:System.Net.Http.HttpRequestMessage" />。</param>
+    </member>
+    <member name="T:System.Net.Http.Formatting.QueryStringMapping">
+      <summary> 用于从查询字符串提供 <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" /> 的类。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.QueryStringMapping.#ctor(System.String,System.String,System.Net.Http.Headers.MediaTypeHeaderValue)">
+      <summary> 初始化 <see cref="T:System.Net.Http.Formatting.QueryStringMapping" /> 类的新实例。</summary>
+      <param name="queryStringParameterName">要匹配的查询字符串参数的名称（如果存在）。</param>
+      <param name="queryStringParameterValue">由 queryStringParameterName 指定的查询字符串参数的值。</param>
+      <param name="mediaType">当由 queryStringParameterName 指定的查询参数存在且分配了由 queryStringParameterValue 指定的值时要使用的 <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" />。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.QueryStringMapping.#ctor(System.String,System.String,System.String)">
+      <summary> 初始化 <see cref="T:System.Net.Http.Formatting.QueryStringMapping" /> 类的新实例。</summary>
+      <param name="queryStringParameterName">要匹配的查询字符串参数的名称（如果存在）。</param>
+      <param name="queryStringParameterValue">由 queryStringParameterName 指定的查询字符串参数的值。</param>
+      <param name="mediaType">当由 queryStringParameterName 指定的查询参数存在且分配了由 queryStringParameterValue 指定的值时要使用的媒体类型。</param>
+    </member>
+    <member name="P:System.Net.Http.Formatting.QueryStringMapping.QueryStringParameterName">
+      <summary> 获取查询字符串参数名称。</summary>
+    </member>
+    <member name="P:System.Net.Http.Formatting.QueryStringMapping.QueryStringParameterValue">
+      <summary> 获取查询字符串参数值。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.QueryStringMapping.TryMatchMediaType(System.Net.Http.HttpRequestMessage)">
+      <summary> 返回一个值，该值指示当前 <see cref="T:System.Net.Http.Formatting.QueryStringMapping" /> 实例是否可以从 request 返回 <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" />。</summary>
+      <returns>如果此实例可以从 request 生成 <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" />，则返回 1.0；否则返回 0.0。</returns>
+      <param name="request">要检查的 <see cref="T:System.Net.Http.HttpRequestMessage" />。</param>
+    </member>
+    <member name="T:System.Net.Http.Formatting.RequestHeaderMapping">
+      <summary> 此类提供从任意 HTTP 请求标头字段到 <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" />（用来选择用于处理 <see cref="T:System.Net.Http.HttpRequestMessage" /> 或 <see cref="T:System.Net.Http.HttpResponseMessage" /> 的实体正文的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 实例）的映射。&lt;remarks&gt;此类只检查与匹配项的 <see cref="M:HttpRequestMessage.Headers" /> 关联的标头字段。它不检查与 <see cref="M:HttpResponseMessage.Headers" /> 或 <see cref="M:HttpContent.Headers" /> 实例关联的标头字段。&lt;/remarks&gt;</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.RequestHeaderMapping.#ctor(System.String,System.String,System.StringComparison,System.Boolean,System.Net.Http.Headers.MediaTypeHeaderValue)">
+      <summary> 初始化 <see cref="T:System.Net.Http.Formatting.RequestHeaderMapping" /> 类的新实例。</summary>
+      <param name="headerName">要匹配的标头的名称。</param>
+      <param name="headerValue">要匹配的标头值。</param>
+      <param name="valueComparison">匹配 headerValue 时要使用的 <see cref="T:System.StringComparison" />。</param>
+      <param name="isValueSubstring">如果设置为 true，则 headerValue 在与实际标头值的子字符串匹配时将被视为匹配项。</param>
+      <param name="mediaType">将 headerName 和 headerValue 视为匹配项时要使用的 <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" />。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.RequestHeaderMapping.#ctor(System.String,System.String,System.StringComparison,System.Boolean,System.String)">
+      <summary> 初始化 <see cref="T:System.Net.Http.Formatting.RequestHeaderMapping" /> 类的新实例。</summary>
+      <param name="headerName">要匹配的标头的名称。</param>
+      <param name="headerValue">要匹配的标头值。</param>
+      <param name="valueComparison">匹配 headerValue 时要使用的值比较。</param>
+      <param name="isValueSubstring">如果设置为 true，则 headerValue 在与实际标头值的子字符串匹配时将被视为匹配项。</param>
+      <param name="mediaType">将 headerName 和 headerValue 视为匹配项时要使用的媒体类型。</param>
+    </member>
+    <member name="P:System.Net.Http.Formatting.RequestHeaderMapping.HeaderName">
+      <summary> 获取要匹配的标头的名称。</summary>
+    </member>
+    <member name="P:System.Net.Http.Formatting.RequestHeaderMapping.HeaderValue">
+      <summary> 获取要匹配的标头值。</summary>
+    </member>
+    <member name="P:System.Net.Http.Formatting.RequestHeaderMapping.HeaderValueComparison">
+      <summary> 获取在匹配 <see cref="M:HeaderValue" /> 时要使用的 <see cref="T:System.StringComparison" />。</summary>
+    </member>
+    <member name="P:System.Net.Http.Formatting.RequestHeaderMapping.IsValueSubstring">
+      <summary> 获取一个值，该值指示 <see cref="M:HeaderValue" /> 是否与实际标头值的子字符串匹配。此实例是值子字符串。</summary>
+      <returns>true<see cref="P:System.Net.Http.Formatting.RequestHeaderMapping.HeaderValue" />false</returns>
+    </member>
+    <member name="M:System.Net.Http.Formatting.RequestHeaderMapping.TryMatchMediaType(System.Net.Http.HttpRequestMessage)">
+      <summary> 返回一个值，该值指示当前 <see cref="T:System.Net.Http.Formatting.RequestHeaderMapping" /> 实例是否可以从 request 返回 <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" />。</summary>
+      <returns> 匹配的质量。该值必须介于 0.0 和 1.0 之间。值 0.0 表示不匹配。值 1.0 表示完全匹配。 </returns>
+      <param name="request">要检查的 <see cref="T:System.Net.Http.HttpRequestMessage" />。</param>
+    </member>
+    <member name="T:System.Net.Http.Formatting.XmlHttpRequestHeaderMapping">
+      <summary> 一个 <see cref="T:System.Net.Http.Formatting.RequestHeaderMapping" />，该类在请求中不存在显式 Accept 标头字段时，会将 AJAX XmlHttpRequest (XHR) 所设置的 X-Requested-With http 标头字段映射到媒体类型 application/json。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.XmlHttpRequestHeaderMapping.#ctor">
+      <summary> 初始化 <see cref="T:System.Net.Http.Formatting.XmlHttpRequestHeaderMapping" /> 类的新实例</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.XmlHttpRequestHeaderMapping.TryMatchMediaType(System.Net.Http.HttpRequestMessage)">
+      <summary> 返回一个值，该值指示当前 <see cref="T:System.Net.Http.Formatting.RequestHeaderMapping" /> 实例是否可以从 request 返回 <see cref="T:System.Net.Http.Headers.MediaTypeHeaderValue" />。</summary>
+      <returns> 匹配的质量。值 0.0 表示不匹配。值 1.0 表示完全匹配，并且请求是使用不带 Accept 标头的 XmlHttpRequest 发出的。 </returns>
+      <param name="request">要检查的 <see cref="T:System.Net.Http.HttpRequestMessage" />。</param>
+    </member>
+    <member name="T:System.Net.Http.Formatting.XmlMediaTypeFormatter">
+      <summary>用于处理 Xml 的 <see cref="T:System.Net.Http.Formatting.MediaTypeFormatter" /> 类。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.XmlMediaTypeFormatter.#ctor">
+      <summary>初始化 <see cref="T:System.Net.Http.Formatting.XmlMediaTypeFormatter" /> 类的新实例。</summary>
+    </member>
+    <member name="M:System.Net.Http.Formatting.XmlMediaTypeFormatter.CanReadType(System.Type)">
+      <summary>查询 <see cref="T:System.Net.Http.Formatting.XmlMediaTypeFormatter" /> 是否可以反序列化指定类型的对象。</summary>
+      <returns>如果 <see cref="T:System.Net.Http.Formatting.XmlMediaTypeFormatter" /> 可以反序列化该类型，则为 true；否则为 false。</returns>
+      <param name="type">要反序列化的类型。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.XmlMediaTypeFormatter.CanWriteType(System.Type)">
+      <summary>查询 <see cref="T:System.Net.Http.Formatting.XmlMediaTypeFormatter" /> 是否可以序列化指定类型的对象。</summary>
+      <returns>如果 <see cref="T:System.Net.Http.Formatting.XmlMediaTypeFormatter" /> 可以序列化该类型，则为 true；否则为 false。</returns>
+      <param name="type">要序列化的类型。</param>
+    </member>
+    <member name="P:System.Net.Http.Formatting.XmlMediaTypeFormatter.DefaultMediaType">
+      <summary>获取 XML 格式化程序的默认媒体类型。</summary>
+      <returns>默认媒体类型，即“application/xml”。</returns>
+    </member>
+    <member name="P:System.Net.Http.Formatting.XmlMediaTypeFormatter.Indent">
+      <summary>获取或设置一个值，该值指示写入数据时是否缩进元素。</summary>
+      <returns>若要缩进元素，则为 true；否则为 false。</returns>
+    </member>
+    <member name="P:System.Net.Http.Formatting.XmlMediaTypeFormatter.MaxDepth">
+      <summary>获取和设置最大嵌套节点深度。</summary>
+      <returns>最大嵌套节点深度。</returns>
+    </member>
+    <member name="M:System.Net.Http.Formatting.XmlMediaTypeFormatter.ReadFromStreamAsync(System.Type,System.IO.Stream,System.Net.Http.HttpContent,System.Net.Http.Formatting.IFormatterLogger)">
+      <summary> 在反序列化期间调用，用于从指定的 readStream 读取指定 type 的对象。</summary>
+      <returns>一个 <see cref="T:System.Threading.Tasks.Task" />，其结果将是已读取的对象实例。</returns>
+      <param name="type">要读取的对象的类型。</param>
+      <param name="readStream">要从中读取的 <see cref="T:System.IO.Stream" />。</param>
+      <param name="content">要读取的内容的 <see cref="T:System.Net.Http.HttpContent" />。</param>
+      <param name="formatterLogger">要将事件记录到的 <see cref="T:System.Net.Http.Formatting.IFormatterLogger" />。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.XmlMediaTypeFormatter.RemoveSerializer(System.Type)">
+      <summary>注销当前与给定类型关联的序列化程序。</summary>
+      <returns>如果以前已为该类型注册序列化程序，则为 true；否则为 false。</returns>
+      <param name="type">应删除其序列化程序的对象的类型。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.XmlMediaTypeFormatter.SetSerializer``1(System.Runtime.Serialization.XmlObjectSerializer)">
+      <summary>注册用于读取或写入指定类型对象的 <see cref="T:System.Runtime.Serialization.XmlObjectSerializer" />。</summary>
+      <param name="serializer">
+        <see cref="T:System.Runtime.Serialization.XmlObjectSerializer" /> 实例。</param>
+      <typeparam name="T">将使用 <paramref name="serializer" /> 进行序列化或反序列化的对象的类型。</typeparam>
+    </member>
+    <member name="M:System.Net.Http.Formatting.XmlMediaTypeFormatter.SetSerializer(System.Type,System.Runtime.Serialization.XmlObjectSerializer)">
+      <summary>注册用于读取或写入指定类型对象的 <see cref="T:System.Runtime.Serialization.XmlObjectSerializer" />。</summary>
+      <param name="type">将使用 <paramref name="serializer" /> 进行序列化或反序列化的对象的类型。</param>
+      <param name="serializer">
+        <see cref="T:System.Runtime.Serialization.XmlObjectSerializer" /> 实例。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.XmlMediaTypeFormatter.SetSerializer(System.Type,System.Xml.Serialization.XmlSerializer)">
+      <summary>注册用于读取或写入指定类型对象的 <see cref="T:System.Xml.Serialization.XmlSerializer" />。</summary>
+      <param name="type">将使用 <paramref name="serializer" /> 进行序列化或反序列化的对象的类型。</param>
+      <param name="serializer">
+        <see cref="T:System.Xml.Serialization.XmlSerializer" /> 实例。</param>
+    </member>
+    <member name="M:System.Net.Http.Formatting.XmlMediaTypeFormatter.SetSerializer``1(System.Xml.Serialization.XmlSerializer)">
+      <summary>注册用于读取或写入指定类型对象的 <see cref="T:System.Xml.Serialization.XmlSerializer" />。</summary>
+      <param name="serializer">
+        <see cref="T:System.Xml.Serialization.XmlSerializer" /> 实例。</param>
+      <typeparam name="T">将使用 <paramref name="serializer" /> 进行序列化或反序列化的对象的类型。</typeparam>
+    </member>
+    <member name="P:System.Net.Http.Formatting.XmlMediaTypeFormatter.UseXmlSerializer">
+      <summary>获取或设置一个值，该值指示 XML 格式化程序是否将 <see cref="T:System.Xml.Serialization.XmlSerializer" /> 而非 <see cref="T:System.Runtime.Serialization.DataContractSerializer" /> 用作默认序列化程序。</summary>
+      <returns>如果为 true，则该格式化程序默认使用 <see cref="T:System.Xml.Serialization.XmlSerializer" />；否则默认使用 <see cref="T:System.Runtime.Serialization.DataContractSerializer" />。</returns>
+    </member>
+    <member name="M:System.Net.Http.Formatting.XmlMediaTypeFormatter.WriteToStreamAsync(System.Type,System.Object,System.IO.Stream,System.Net.Http.HttpContent,System.Net.TransportContext)">
+      <summary> 在序列化期间调用，用于将指定 type 的对象写入指定 writeStream。</summary>
+      <returns>一个将值写入流的 <see cref="T:System.Threading.Tasks.Task" />。</returns>
+      <param name="type">要写入的对象的类型。</param>
+      <param name="value">要写入的对象。</param>
+      <param name="writeStream">要写入到的 <see cref="T:System.IO.Stream" />。</param>
+      <param name="content">要写入的内容的 <see cref="T:System.Net.Http.HttpContent" />。</param>
+      <param name="transportContext">
+        <see cref="T:System.Net.TransportContext" />。</param>
+    </member>
+    <member name="T:System.Net.Http.Handlers.HttpProgressEventArgs">
+      <summary>表示 HTTP 进度的事件参数。</summary>
+    </member>
+    <member name="M:System.Net.Http.Handlers.HttpProgressEventArgs.#ctor(System.Int32,System.Object,System.Int32,System.Nullable{System.Int64})">
+      <summary>初始化 <see cref="T:System.Net.Http.Handlers.HttpProgressEventArgs" /> 类的新实例。</summary>
+      <param name="progressPercentage">进度百分比。</param>
+      <param name="userToken">用户令牌。</param>
+      <param name="bytesTransferred">传输的字节数。</param>
+      <param name="totalBytes">传输的字节总数。</param>
+    </member>
+    <member name="P:System.Net.Http.Handlers.HttpProgressEventArgs.BytesTransferred">
+      <summary>获取在 HTTP 进度中传输的字节数。</summary>
+      <returns>在 HTTP 进度中传输的字节数。</returns>
+    </member>
+    <member name="P:System.Net.Http.Handlers.HttpProgressEventArgs.TotalBytes">
+      <summary>获取由 HTTP 进度传输的字节总数。</summary>
+      <returns>由 HTTP 进度传输的字节总数。</returns>
+    </member>
+    <member name="T:System.Net.Http.Handlers.ProgressMessageHandler">
+      <summary>为正在上载的请求实体和正在下载的响应实体生成进度通知。</summary>
+    </member>
+    <member name="M:System.Net.Http.Handlers.ProgressMessageHandler.#ctor">
+      <summary>初始化 <see cref="T:System.Net.Http.Handlers.ProgressMessageHandler" /> 类的新实例。</summary>
+    </member>
+    <member name="M:System.Net.Http.Handlers.ProgressMessageHandler.#ctor(System.Net.Http.HttpMessageHandler)">
+      <summary>初始化 <see cref="T:System.Net.Http.Handlers.ProgressMessageHandler" /> 类的新实例。</summary>
+      <param name="innerHandler">内部消息处理程序。</param>
+    </member>
+    <member name="E:System.Net.Http.Handlers.ProgressMessageHandler.HttpReceiveProgress">
+      <summary>正在下载事件实体时发生。</summary>
+    </member>
+    <member name="E:System.Net.Http.Handlers.ProgressMessageHandler.HttpSendProgress">
+      <summary>正在上载事件实体时发生。</summary>
+    </member>
+    <member name="M:System.Net.Http.Handlers.ProgressMessageHandler.OnHttpRequestProgress(System.Net.Http.HttpRequestMessage,System.Net.Http.Handlers.HttpProgressEventArgs)">
+      <summary>引发处理进度请求的事件。</summary>
+      <param name="request">请求。</param>
+      <param name="e">请求的事件处理程序。</param>
+    </member>
+    <member name="M:System.Net.Http.Handlers.ProgressMessageHandler.OnHttpResponseProgress(System.Net.Http.HttpRequestMessage,System.Net.Http.Handlers.HttpProgressEventArgs)">
+      <summary>引发处理进度响应的事件。</summary>
+      <param name="request">请求。</param>
+      <param name="e">请求的事件处理程序。</param>
+    </member>
+    <member name="M:System.Net.Http.Handlers.ProgressMessageHandler.SendAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+      <summary>将指定的进度消息发送到进行传递的 HTTP 服务器。</summary>
+      <returns>已发送的进度消息。</returns>
+      <param name="request">请求。</param>
+      <param name="cancellationToken">取消标记。</param>
+    </member>
+    <member name="T:System.Net.Http.Headers.CookieHeaderValue">
+      <summary>为 Cookie 标头提供值。</summary>
+    </member>
+    <member name="M:System.Net.Http.Headers.CookieHeaderValue.#ctor">
+      <summary>初始化 <see cref="T:System.Net.Http.Headers.CookieHeaderValue" /> 类的新实例。</summary>
+    </member>
+    <member name="M:System.Net.Http.Headers.CookieHeaderValue.#ctor(System.String,System.Collections.Specialized.NameValueCollection)">
+      <summary>初始化 <see cref="T:System.Net.Http.Headers.CookieHeaderValue" /> 类的新实例。</summary>
+      <param name="name">名称的值。</param>
+      <param name="values">值。</param>
+    </member>
+    <member name="M:System.Net.Http.Headers.CookieHeaderValue.#ctor(System.String,System.String)">
+      <summary>初始化 <see cref="T:System.Net.Http.Headers.CookieHeaderValue" /> 类的新实例。</summary>
+      <param name="name">名称的值。</param>
+      <param name="value">值。</param>
+    </member>
+    <member name="M:System.Net.Http.Headers.CookieHeaderValue.Clone">
+      <summary>创建 Cookie 值的卷影副本。</summary>
+      <returns>Cookie 值的卷影副本。</returns>
+    </member>
+    <member name="P:System.Net.Http.Headers.CookieHeaderValue.Cookies">
+      <summary>获取客户端发送的 Cookie 的集合。</summary>
+      <returns>用于表示客户端的 Cookie 变量的集合对象。</returns>
+    </member>
+    <member name="P:System.Net.Http.Headers.CookieHeaderValue.Domain">
+      <summary>获取或设置要与 Cookie 关联的域。</summary>
+      <returns>要与 Cookie 关联的域的名称。</returns>
+    </member>
+    <member name="P:System.Net.Http.Headers.CookieHeaderValue.Expires">
+      <summary>获取或设置 Cookie 的到期日期和时间。</summary>
+      <returns>Cookie 的到期日时间（客户端上）。</returns>
+    </member>
+    <member name="P:System.Net.Http.Headers.CookieHeaderValue.HttpOnly">
+      <summary>获取或设置一个值，该值指定是否可通过客户端脚本访问 Cookie。</summary>
+      <returns>如果 Cookie 具有 HttpOnly 特性并且不能通过客户端脚本访问，则为 true；否则为 false。</returns>
+    </member>
+    <member name="P:System.Net.Http.Headers.CookieHeaderValue.Item(System.String)">
+      <summary>获取 Cookie 属性的快捷方式。</summary>
+      <returns>Cookie 值。</returns>
+    </member>
+    <member name="P:System.Net.Http.Headers.CookieHeaderValue.MaxAge">
+      <summary>获取或设置资源所允许保留的最长年限。</summary>
+      <returns>资源所允许保留的最长年限。</returns>
+    </member>
+    <member name="P:System.Net.Http.Headers.CookieHeaderValue.Path">
+      <summary>获取或设置要使用当前 Cookie 传输的虚拟路径。</summary>
+      <returns>要使用 Cookie 传输的虚拟路径。</returns>
+    </member>
+    <member name="P:System.Net.Http.Headers.CookieHeaderValue.Secure">
+      <summary>获取或设置一个值，该值指示是否要使用安全套接字层 (SSL)（即仅通过 HTTPS）传输 Cookie。</summary>
+      <returns>若要通过 SSL 连接 (HTTPS) 传输 Cookie，则为 true；否则为 false。</returns>
+    </member>
+    <member name="M:System.Net.Http.Headers.CookieHeaderValue.ToString">
+      <summary>返回表示当前对象的字符串。</summary>
+      <returns>表示当前对象的字符串。</returns>
+    </member>
+    <member name="M:System.Net.Http.Headers.CookieHeaderValue.TryParse(System.String,System.Net.Http.Headers.CookieHeaderValue@)">
+      <summary>指示一个值，该值表示是否将转换字符串表示形式。</summary>
+      <returns>如果将转换字符串表示形式，则为 true；否则为 false。</returns>
+      <param name="input">输入值。</param>
+      <param name="parsedValue">要转换的分析值。</param>
+    </member>
+    <member name="T:System.Net.Http.Headers.CookieState">
+      <summary>包含 Cookie 名称及其关联的 Cookie 状态。</summary>
+    </member>
+    <member name="M:System.Net.Http.Headers.CookieState.#ctor(System.String)">
+      <summary>初始化 <see cref="T:System.Net.Http.Headers.CookieState" /> 类的新实例。</summary>
+      <param name="name">Cookie 的名称。</param>
+    </member>
+    <member name="M:System.Net.Http.Headers.CookieState.#ctor(System.String,System.Collections.Specialized.NameValueCollection)">
+      <summary>初始化 <see cref="T:System.Net.Http.Headers.CookieState" /> 类的新实例。</summary>
+      <param name="name">Cookie 的名称。</param>
+      <param name="values">Cookie 的名称/值对的集合。</param>
+    </member>
+    <member name="M:System.Net.Http.Headers.CookieState.#ctor(System.String,System.String)">
+      <summary>初始化 <see cref="T:System.Net.Http.Headers.CookieState" /> 类的新实例。</summary>
+      <param name="name">Cookie 的名称。</param>
+      <param name="value">Cookie 的值。</param>
+    </member>
+    <member name="M:System.Net.Http.Headers.CookieState.Clone">
+      <summary>返回一个新对象，该对象是当前实例的副本。</summary>
+      <returns>一个新对象，该对象是当前实例的副本。</returns>
+    </member>
+    <member name="P:System.Net.Http.Headers.CookieState.Item(System.String)">
+      <summary>获取或设置具有指定 Cookie 名称的 Cookie 值（如果 Cookie 数据已结构化）。</summary>
+      <returns>具有指定 Cookie 名称的 Cookie 值。</returns>
+    </member>
+    <member name="P:System.Net.Http.Headers.CookieState.Name">
+      <summary>获取或设置 Cookie 的名称。</summary>
+      <returns>Cookie 的名称。</returns>
+    </member>
+    <member name="M:System.Net.Http.Headers.CookieState.ToString">
+      <summary>返回当前对象的字符串表示形式。</summary>
+      <returns>当前对象的字符串表示形式。</returns>
+    </member>
+    <member name="P:System.Net.Http.Headers.CookieState.Value">
+      <summary>获取或设置 Cookie 值（如果 Cookie 数据是一个简单的字符串值）。</summary>
+      <returns>Cookie 的值。</returns>
+    </member>
+    <member name="P:System.Net.Http.Headers.CookieState.Values">
+      <summary>获取或设置名称/值对的集合（如果 Cookie 数据已结构化）。</summary>
+      <returns>Cookie 的名称/值对的集合。</returns>
+    </member>
+  </members>
+</doc>

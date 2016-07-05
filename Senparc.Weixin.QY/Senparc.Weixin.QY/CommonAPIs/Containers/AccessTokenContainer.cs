@@ -86,6 +86,11 @@ namespace Senparc.Weixin.QY.CommonAPIs
     {
         private const string UN_REGISTER_ALERT = "此CorpId尚未注册，AccessTokenContainer.Register完成注册（全局执行一次即可）！";
 
+        private static string GetKey(string corpId, string corpSecret)
+        {
+            return corpId + corpSecret;
+        }
+
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token。
         /// 执行此注册过程，会连带注册ProviderTokenContainer。
@@ -96,7 +101,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         {
             using (FlushCache.CreateInstance())
             {
-                Update(corpId, new AccessTokenBag()
+                Update(GetKey(corpId,corpSecret), new AccessTokenBag()
                 {
                     CorpId = corpId,
                     CorpSecret = corpSecret,
@@ -117,38 +122,40 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <returns></returns>
         public static string TryGetToken(string corpId, string corpSecret, bool getNewToken = false)
         {
-            if (!CheckRegistered(corpId) || getNewToken)
+            if (!CheckRegistered(GetKey(corpId, corpSecret)) || getNewToken)
             {
                 Register(corpId, corpSecret);
             }
-            return GetToken(corpId);
+            return GetToken(corpId, corpSecret);
         }
 
         /// <summary>
         /// 获取可用Token
         /// </summary>
         /// <param name="corpId"></param>
+        /// <param name="corpSecret"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static string GetToken(string corpId, bool getNewToken = false)
+        public static string GetToken(string corpId, string corpSecret, bool getNewToken = false)
         {
-            return GetTokenResult(corpId, getNewToken).access_token;
+            return GetTokenResult(corpId, corpSecret, getNewToken).access_token;
         }
 
         /// <summary>
         /// 获取可用Token
         /// </summary>
         /// <param name="corpId"></param>
+        /// <param name="corpSecret"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static AccessTokenResult GetTokenResult(string corpId, bool getNewToken = false)
+        public static AccessTokenResult GetTokenResult(string corpId, string corpSecret, bool getNewToken = false)
         {
-            if (!CheckRegistered(corpId))
+            if (!CheckRegistered(GetKey(corpId, corpSecret)))
             {
                 throw new WeixinQyException(UN_REGISTER_ALERT);
             }
 
-            var accessTokenBag = (AccessTokenBag)ItemCollection[corpId];
+            var accessTokenBag = (AccessTokenBag)ItemCollection[GetKey(corpId, corpSecret)];
             lock (accessTokenBag.Lock)
             {
                 if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
@@ -165,11 +172,11 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <summary>
         /// 检查是否已经注册
         /// </summary>
-        /// <param name="corpId"></param>
+        /// <param name="key"></param>
         /// <returns></returns>
-        public new static bool CheckRegistered(string corpId)
+        public new static bool CheckRegistered(string key)
         {
-            return ItemCollection.CheckExisted(corpId);
+            return ItemCollection.CheckExisted(key);
         }
     }
 }

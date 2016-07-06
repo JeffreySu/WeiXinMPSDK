@@ -342,5 +342,32 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 获取聊天记录
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="startTime">起始时间，unix时间戳</param>
+        /// <param name="endTime">结束时间，unix时间戳，每次查询时段不能超过24小时</param>
+        /// <param name="msgId">消息id顺序从小到大，从1开始</param>
+        /// <param name="number">每次获取条数，最多10000条</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetMsgListResultJson GetMsgList(string accessTokenOrAppId, DateTime startTime, DateTime endTime, long msgId, int number,int timeOut = Config .TIME_OUT )
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var urlFormat =string.Format("https://api.weixin.qq.com/customservice/msgrecord/getmsglist?access_token={0}",accessToken.AsUrlData());
+                var data = new
+                {
+                    starttime = startTime ,
+                    endtime = endTime ,
+                    msgid = msgId ,
+                    number = number 
+                 };
+                return CommonJsonSend.Send<GetMsgListResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+            },accessTokenOrAppId );
+
+        }
     }
 }

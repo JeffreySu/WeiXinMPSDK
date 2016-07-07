@@ -97,6 +97,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return RequestUtility.HttpPost(urlFormat, null, ms);
         }
+
         /// <summary>
         /// 撤销订单接口
         /// </summary>

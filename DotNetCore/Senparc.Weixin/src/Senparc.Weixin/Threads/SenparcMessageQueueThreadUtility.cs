@@ -40,16 +40,19 @@ namespace Senparc.Weixin.Threads
             try
             {
                 var mq = new SenparcMessageQueue();
-                System.Diagnostics.Trace.WriteLine(string.Format("SenparcMessageQueueThreadUtility执行析构函数"));
+#if NET461
+				System.Diagnostics.Trace.WriteLine(string.Format("SenparcMessageQueueThreadUtility执行析构函数"));
                 System.Diagnostics.Trace.WriteLine(string.Format("当前列队数量：{0}", mq.GetCount()));
-
+#endif
                 SenparcMessageQueue.OperateQueue();//处理列队
             }
             catch (Exception ex)
             {
-                //此处可以添加日志
-                System.Diagnostics.Trace.WriteLine(string.Format("SenparcMessageQueueThreadUtility执行析构函数错误：{0}", ex.Message));
-            }
+#if NET461
+				//此处可以添加日志
+				System.Diagnostics.Trace.WriteLine(string.Format("SenparcMessageQueueThreadUtility执行析构函数错误：{0}", ex.Message));
+#endif
+			}
         }
 
         /// <summary>

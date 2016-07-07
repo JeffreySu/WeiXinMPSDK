@@ -1,103 +1,90 @@
-﻿using System;
+﻿using Senparc.Weixin.Containers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.Containers;
 
-namespace Senparc.Weixin.Cache
+namespace Senparc.Weixin.Cache.ContainerCacheStragegy
 {
-    /// <summary>
-    /// IContainerItemCollection，对某个Container下的缓存值ContainerBag进行封装
-    /// </summary>
-    public interface IContainerItemCollection : IBaseCacheStrategy<string, IBaseContainerBag>
-    {
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        DateTime CreateTime { get; set; }
+	/// <summary>
+	/// IContainerItemCollection，对某个Container下的缓存值ContainerBag进行封装 
+	/// </summary>
+	public interface IContainerItemCollection : IBaseCacheStrategy<string, IBaseContainerBag>
+	{
+		/// <summary>
+		/// 创建时间
+		/// </summary>
+		DateTime CreateTime { get; set; }
+		IBaseContainerBag this[string key] { get; set; }
+	}
 
-        /// <summary>
-        /// 索引器
-        /// </summary>
-        /// <param name="key">缓存键（通常为AppId，值和IBaseContainerBag.Key相等）</param>
-        /// <returns></returns>
-        IBaseContainerBag this[string key] { get; set; }
-    }
+	/// <summary>
+	/// 储存某个Container下所有ContainerBag的字典集合
+	/// </summary>
+	public class ContainerItemCollection : IContainerItemCollection
+	{
+		/// <summary>
+		/// 创建时间
+		/// </summary>
+		public DateTime CreateTime { get; set; }
+		private Dictionary<string, IBaseContainerBag> _cache = new Dictionary<string, IBaseContainerBag>();
 
-    /// <summary>
-    /// 储存某个Container下所有ContainerBag的字典集合
-    /// </summary>
-    [Serializable]
-    public class ContainerItemCollection : IContainerItemCollection
-    {
-        private Dictionary<string, IBaseContainerBag> _cache;//TODO:可以考虑升级到统一的式缓存策略中
+		public ContainerItemCollection()
+		{
+			CreateTime = DateTime.Now;
+		}
+		public string CacheSetKey { get; set; }
 
-        /// <summary>
-        /// 索引器
-        /// </summary>
-        /// <param name="key">缓存键（通常为AppId，值和IBaseContainerBag.Key相等）</param>
-        /// <returns></returns>
-        public IBaseContainerBag this[string key]
-        {
-            get { return this.Get(key); }
-            set { this.Update(key, value); }
-        }
+		public IBaseContainerBag this[string key]
+		{
+			get
+			{
+				return this.Get(key);
+			}
 
-        public ContainerItemCollection()
-        {
-            _cache = new Dictionary<string, IBaseContainerBag>(StringComparer.OrdinalIgnoreCase);
-            CreateTime = DateTime.Now;
-        }
+			set
+			{
+				this.Update(key, value);
+			}
+		}
 
-        /// <summary>
-        /// 创建时间
-        /// </summary>
-        public DateTime CreateTime { get; set; }
+		public void InsertToCache(string key, IBaseContainerBag value)
+		{
+			_cache[key] = value;
+		}
 
-        public string CacheSetKey { get; set; }
+		public void RemoveFromCache(string key)
+		{
+			_cache.Remove(key);
+		}
 
-        #region 实现IContainerItemCollection : IBaseCacheStrategy<string, IBaseContainerBag>接口
+		public IBaseContainerBag Get(string key)
+		{
+			if (this.CheckExisted(key))
+			{
+				return _cache[key];
+			}
+			return null;
+		}
 
-        public void InsertToCache(string key, IBaseContainerBag value)
-        {
-            _cache[key] = value;
-        }
+		public IDictionary<string, IBaseContainerBag> GetAll()
+		{
+			return _cache;
+		}
 
-        public void RemoveFromCache(string key)
-        {
-            _cache.Remove(key);
-        }
+		public bool CheckExisted(string key)
+		{
+			return _cache.ContainsKey(key);
+		}
 
-        public IBaseContainerBag Get(string key)
-        {
-            if (this.CheckExisted(key))
-            {
-                return _cache[key];
-            }
-            return null;
-        }
+		public long GetCount()
+		{
+			return _cache.Count;
+		}
 
-        public IDictionary<string, IBaseContainerBag> GetAll()
-        {
-            return _cache;
-        }
-
-        public bool CheckExisted(string key)
-        {
-            return _cache.ContainsKey(key);
-        }
-
-        public long GetCount()
-        {
-            return _cache.Count;
-        }
-
-        public void Update(string key, IBaseContainerBag value)
-        {
-            _cache[key] = value;
-        }
-
-        #endregion
-    }
+		public void Update(string key, IBaseContainerBag value)
+		{
+			_cache[key] = value;
+		}
+	}
 }

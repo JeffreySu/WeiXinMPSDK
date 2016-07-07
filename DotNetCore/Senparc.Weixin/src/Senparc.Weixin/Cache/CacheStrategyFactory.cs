@@ -28,13 +28,13 @@ namespace Senparc.Weixin.Cache
             if (ContainerCacheStrageFunc == null)
             {
                 //默认状态
-                return LocalContainerCacheStrategy.Instance;
+                return LocalContainerCacheStrategy.Instance as IContainerCacheStragegy;
             }
             else
             {
                 //自定义类型
                 var instance = ContainerCacheStrageFunc();
-                return instance;
+                return instance as IContainerCacheStragegy;
             }
         }
     }

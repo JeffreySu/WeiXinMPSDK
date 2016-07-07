@@ -1,13 +1,35 @@
 ﻿{
-  "version": "1.0.0-*",
-
-  "dependencies": {
-    "NETStandard.Library": "1.6.0"
-  },
-
-  "frameworks": {
-    "netstandard1.6": {
-      "imports": "dnxcore50"
-    }
-  }
+	"title": "Senparc.Weixin",
+	"copyright": "算神工作室 Copyright © 2004~2016",
+	"version": "1.2.3-*",
+	"description": "Senparc.Weixin Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植",
+	"authors": [ "算神" ],
+	"packOptions": {
+		"tags": [ "weixin", "wechat", "微信", "Senparc", "ASP.Net Core" ],
+		"projectUrl": "",
+		"licenseUrl": ""
+	},
+	"frameworks": {
+		"netstandard1.6": {
+			"dependencies": {
+				"System.Dynamic.Runtime": "4.0.11",
+				"System.Xml.XmlSerializer": "4.0.11"
+			}
+		},
+		"net461": {
+			"frameworkAssemblies": {
+				"System.Xml.Linq": "4.0.0.0",
+				"System.Xml": "4.0.0.0"
+			}
+		}
+	},
+	"dependencies": {
+		"Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
+		"NETStandard.Library": "1.6.0",
+		"Newtonsoft.Json": "9.0.1",
+		"System.Threading.Thread": "4.0.0"
+	},
+	"buildOptions": {
+		"nowarn": [ "CS0168", "CS0169", "CS0108", "CS0162", "CS0618", "CS0162", "CS0414", "CS0114" ]
+	}
 }

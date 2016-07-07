@@ -282,7 +282,7 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
     - [x] 微信支付
     - [x] 用户管理
     - [x] 素材管理
-	- [ ] 账号管理
+	- [x] 账号管理
         - [x] 带参数二维码
         - [X] 长链接转短链接接口
         - [ ] 微信认证事件推送
@@ -294,8 +294,8 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
     - [x] 微信设备功能
     - [x] 多客服功能
     - [x] 微信摇一摇周边
-    - [ ] 微信连WI-FI（未完整）
-    - [ ] 微信扫一扫（商家）
+    - [x] 微信连WI-FI（未完整）
+    - [x] 微信扫一扫（商家）
 
 > * 微信开放平台
     - [x] 网站应用
@@ -312,7 +312,7 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
 	- [x] 身份验证接口
 	- [x] JSSDK
 	- [x] 第三方应用授权
- 	- [ ] 企业号授权登陆
+ 	- [x] 企业号授权登陆
 	- [x] 企业号微信支付
 	- [x] 企业回话服务
 	- [x] 企业摇一摇周边

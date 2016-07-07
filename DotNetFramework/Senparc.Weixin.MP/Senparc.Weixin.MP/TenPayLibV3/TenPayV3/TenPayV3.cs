@@ -9,12 +9,17 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20160707
+    修改描述：增加撤销订单接口：Reverse
+              
 ----------------------------------------------------------------*/
 
 /*
     官方API：https://mp.weixin.qq.com/paymch/readtemplate?t=mp/business/course2_tmpl&lang=zh_CN&token=25857919#4
  */
 
+using System;
 using System.IO;
 using System.Text;
 using Senparc.Weixin.HttpUtility;
@@ -86,6 +91,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/closeorder";
 
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return RequestUtility.HttpPost(urlFormat, null, ms);
+        }
+        /// <summary>
+        /// 撤销订单接口
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string Reverse(string data)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/reverse";
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);

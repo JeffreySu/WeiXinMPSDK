@@ -571,6 +571,18 @@
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.ApiConfirmAuth(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            确认授权
+            </summary>
+            <param name="componentAppId">服务开发方的appid</param>
+            <param name="componentAccessToken">服务开发方的access_token</param>
+            <param name="authorizerAppid">授权code,会在授权成功时返回给第三方平台，详见第三方平台授权流程说明</param>
+            <param name="funscopeCategoryId">服务开发方的access_token</param>
+            <param name="confirmValue">服务开发方的access_token</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.ApiAuthorizerToken(System.String,System.String,System.String,System.String,System.Int32)">
             <summary>
             获取（刷新）授权公众号的令牌

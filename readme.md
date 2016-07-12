@@ -1,8 +1,6 @@
 微信C# SDK
 =================
 
-> 如果需要使用或修改此项目的源代码，建议先Fork。也欢迎将您修改的通用版本Pull Request过来。
-
 > .NET Framework 版本及 .NET Core 版本代码分别位于 DotNetFramework 和 DotNetCore（完善中） 文件夹下，结构基本保持一致，以下介绍以 .NET Framework 版本为例。
 
 | # | 模块功能 | DLL |
@@ -28,6 +26,8 @@
 
 
 ## 贡献代码
+
+> 如果需要使用或修改此项目的源代码，建议先Fork。也欢迎将您修改的通用版本Pull Request过来。
 
 1. Fork
 2. 创建您的特性分支 (`git checkout -b my-new-feature`)

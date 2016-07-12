@@ -27,6 +27,14 @@
 目前官方的API都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的[DLLs](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut)。
 
 
+## 贡献代码
+
+1. Fork
+2. 创建您的特性分支 (`git checkout -b my-new-feature`)
+3. 提交您的改动 (`git commit -am 'Added some feature'`)
+4. 将您的修改记录提交到远程 `git` 仓库 (`git push origin my-new-feature`)
+5. 然后到 github 网站的该 `git` 远程仓库的 `my-new-feature` 分支下发起 Pull Request
+
 资源
 ----------------
 1. 官网地址：http://weixin.senparc.com/

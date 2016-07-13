@@ -322,6 +322,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\EventHelper.cs" />
+    <Compile Include="Helpers\UserInfoHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />
     <Compile Include="Helpers\MsgTypeHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKHelper.cs" />

@@ -11,6 +11,8 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.MP.Helpers;
+
 namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
 {
     /// <summary>
@@ -40,5 +42,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
         /// 只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。详见：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&amp;t=resource/res_list&verify=1&amp;lang=zh_CN
         /// </summary>
         public string unionid { get; set; }
+        /// <summary>
+        /// 获取指定大小的用户头像网址
+        /// </summary>
+        /// <param name="size">代表正方形头像大小（有0、46、64、96、132数值可选，0代表640*640正方形头像）</param>
+        /// <returns></returns>
+        public string GetHeadImageUrl(int size = 0)
+        {
+            return UserInfoHelper.GetHeadImageUrlWithSize(headimgurl, size);
+        }
     }
 }

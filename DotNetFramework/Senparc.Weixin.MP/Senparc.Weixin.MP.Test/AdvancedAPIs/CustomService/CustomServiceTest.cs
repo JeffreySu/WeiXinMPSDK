@@ -14,8 +14,6 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
     [TestClass]
     public class CustomServiceTest : CommonApiTest
     {
-        protected string _custonPassWord = MD5UtilHelper.GetMD5("123123", null);
-
         [TestMethod]
         public void GetRecordTest()
         {
@@ -45,7 +43,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         public void AddCustomTest()
         {
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
-            var result = CustomServiceApi.AddCustom(accessToken, "zcc@SenparcRobot", "zcc", _custonPassWord);
+            var result = CustomServiceApi.AddCustom(accessToken, "zcc@SenparcRobot", "zcc");
             Assert.AreEqual(result.errcode,ReturnCode.请求成功);
         }
 
@@ -53,7 +51,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         public void UpdateCustomTest()
         {
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
-            var result = CustomServiceApi.UpdateCustom(accessToken, "zcc@SenparcRobot", "zcc", _custonPassWord);
+            var result = CustomServiceApi.UpdateCustom(accessToken, "zcc@SenparcRobot", "zcc");
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
 

@@ -2,7 +2,7 @@
     Copyright (C) 2016 Senparc
     
     文件名：CustomServiceAPI.cs
-    文件功能描述：多客服接口
+    文件功能描述：新版客服接口
     
     
     创建标识：Senparc - 20150211
@@ -21,7 +21,7 @@
 ----------------------------------------------------------------*/
 
 /* 
-    多客服接口聊天记录接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E8%8E%B7%E5%8F%96%E5%AE%A2%E6%9C%8D%E8%81%8A%E5%A4%A9%E8%AE%B0%E5%BD%95
+    新版客服接口聊天记录接口，官方API：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1464937269_mUtmK&token=&lang=zh_CN
 */
 
 using System;
@@ -35,7 +35,7 @@ using Senparc.Weixin.MP.CommonAPIs;
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     /// <summary>
-    /// 多客服接口
+    /// 新版客服接口
     /// </summary>
     public static class CustomServiceApi
     {
@@ -126,10 +126,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号，账号前缀最多10个字符，必须是英文或者数字字符。如果没有公众号微信号，请前往微信公众平台设置。</param>
         /// <param name="nickName">客服昵称，最长6个汉字或12个英文字符</param>
-        /// <param name="passWord">客服账号登录密码，格式为密码明文的32位加密MD5值</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult AddCustom(string accessTokenOrAppId, string kfAccount, string nickName, string passWord, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult AddCustom(string accessTokenOrAppId, string kfAccount, string nickName, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -138,8 +137,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     kf_account = kfAccount,
-                    nickname = nickName,
-                    password = passWord
+                    nickname = nickName
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
@@ -165,7 +163,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     kf_account = kfAccount,
                     invite_wx = inviteWx
-                   
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
@@ -178,10 +175,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号，账号前缀最多10个字符，必须是英文或者数字字符。如果没有公众号微信号，请前往微信公众平台设置。</param>
         /// <param name="nickName">客服昵称，最长6个汉字或12个英文字符</param>
-        /// <param name="passWord">客服账号登录密码，格式为密码明文的32位加密MD5值</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult UpdateCustom(string accessTokenOrAppId, string kfAccount, string nickName, string passWord, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult UpdateCustom(string accessTokenOrAppId, string kfAccount, string nickName, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -190,8 +186,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     kf_account = kfAccount,
-                    nickname = nickName,
-                    password = passWord
+                    nickname = nickName
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
@@ -242,10 +237,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId">客户openid</param>
         /// <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号</param>
-        /// <param name="text">附加信息，文本会展示在客服人员的多客服客户端(非必须)</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult CreateSession(string accessTokenOrAppId, string openId, string kfAccount, string text = null, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult CreateSession(string accessTokenOrAppId, string openId, string kfAccount, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -254,8 +248,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     openid = openId,
-                    kf_account = kfAccount,
-                    text = text
+                    kf_account = kfAccount
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
@@ -269,10 +262,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId">客户openid</param>
         /// <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号</param>
-        /// <param name="text">附加信息，文本会展示在客服人员的多客服客户端(非必须)</param>
+        /// <param name="text">附加信息，文本会展示在客服人员的新版客服客户端(非必须)</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult CloseSession(string accessTokenOrAppId, string openId, string kfAccount, string text = null, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult CloseSession(string accessTokenOrAppId, string openId, string kfAccount, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -281,8 +274,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     openid = openId,
-                    kf_account = kfAccount,
-                    text = text
+                    kf_account = kfAccount
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);

@@ -31,6 +31,7 @@ using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.User
 {
@@ -84,19 +85,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
         /// <returns></returns>
         public string GetHeadImageUrl(int size = 0)
         {
-            var url = headimgurl;
-            if (url == null)
-                return null;
-
-            var tail = "/" + size.ToString("d");
-            if (url.EndsWith(tail))
-                return url;
-
-            var slashIndex = url.LastIndexOf('/');
-            if (slashIndex < 0)
-                return url;
-
-            return url.Substring(0, slashIndex) + tail;
+            return UserInfoHelper.GetHeadImageUrlWithSize(headimgurl, size);
         }
 
         /// <summary>

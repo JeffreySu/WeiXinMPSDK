@@ -16,6 +16,7 @@
 
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
 {
@@ -48,5 +49,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// 客服头像
         /// </summary>
         public string kf_headimgurl { get; set; }
-	}
+
+        /// <summary>
+        /// 获取指定大小的用户头像网址
+        /// </summary>
+        /// <param name="size">代表正方形头像大小（目前发现有0、300数值可选，0代表640*640正方形头像）</param>
+        /// <returns></returns>
+        public string GetHeadImageUrl(int size = 0)
+        {
+            return UserInfoHelper.GetHeadImageUrlWithSize(kf_headimgurl, size);
+        }
+    }
 }

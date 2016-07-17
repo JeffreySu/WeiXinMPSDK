@@ -17,7 +17,10 @@
     修改描述：v13.3.0 将JsApiTicketContainer整合到AccessTokenContainer
 
     修改标识：Senparc - 20160318
-    修改描述：13.6.10 使用FlushCache.CreateInstance使注册过程立即生效
+    修改描述：v13.6.10 使用FlushCache.CreateInstance使注册过程立即生效
+
+    修改标识：Senparc - 20160717
+    修改描述：v13.8.11 添加注册过程中的Name参数
 
 ----------------------------------------------------------------*/
 
@@ -83,12 +86,14 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="appId">微信公众号后台的【开发】>【基本配置】中的“AppID(应用ID)”</param>
         /// <param name="appSecret">微信公众号后台的【开发】>【基本配置】中的“AppSecret(应用密钥)”</param>
-        public static void Register(string appId, string appSecret)
+        /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别</param>
+        public static void Register(string appId, string appSecret, string name = null)
         {
             using (FlushCache.CreateInstance())
             {
                 Update(appId, new AccessTokenBag()
                 {
+                    Name = name,
                     AppId = appId,
                     AppSecret = appSecret,
                     AccessTokenExpireTime = DateTime.MinValue,

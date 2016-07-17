@@ -6,6 +6,9 @@
     
     
     创建标识：Senparc - 20151003
+
+    修改标识：Senparc - 20160717
+    修改描述：v4.5.21 添加BaseContainerBag.Name属性
     
 ----------------------------------------------------------------*/
 
@@ -41,6 +44,16 @@ namespace Senparc.Weixin.Containers
     public class BaseContainerBag : BindableBase, IBaseContainerBag
     {
         private string _key;
+        private string _name;
+
+        /// <summary>
+        /// 用于标记，方便后台管理
+        /// </summary>
+        public string Name
+        {
+            get { return _name; }
+            set { this.SetContainerProperty(ref _key, value); }
+        }
 
         /// <summary>
         /// 通常为AppId

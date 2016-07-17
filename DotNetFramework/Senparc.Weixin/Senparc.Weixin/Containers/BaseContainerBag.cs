@@ -52,7 +52,7 @@ namespace Senparc.Weixin.Containers
         public string Name
         {
             get { return _name; }
-            set { this.SetContainerProperty(ref _key, value); }
+            set { this.SetContainerProperty(ref _name, value); }
         }
 
         /// <summary>

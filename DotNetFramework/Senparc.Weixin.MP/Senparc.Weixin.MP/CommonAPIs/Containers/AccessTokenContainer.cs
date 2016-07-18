@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
@@ -114,6 +115,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
             return ItemCollection.GetAll().Keys.FirstOrDefault();
         }
 
+        #region 同步方法
+
         #region AccessToken
 
         /// <summary>
@@ -172,5 +175,72 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
         #endregion
 
+        #endregion
+
+        #region 异步方法
+
+        #region AccessToken
+
+        /// <summary>
+        /// 使用完整的应用凭证获取Token，如果不存在将自动注册
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="appSecret"></param>
+        /// <param name="getNewToken"></param>
+        /// <returns></returns>
+        public static string TryGetAccessToken(string appId, string appSecret, bool getNewToken = false)
+        {
+            if (!CheckRegistered(appId) || getNewToken)
+            {
+                Register(appId, appSecret);
+            }
+            return GetAccessToken(appId);
+        }
+
+        /// <summary>
+        /// 获取可用Token
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="getNewToken">是否强制重新获取新的Token</param>
+        /// <returns></returns>
+        public static string GetAccessToken(string appId, bool getNewToken = false)
+        {
+            return GetAccessTokenResult(appId, getNewToken).access_token;
+        }
+
+        /// <summary>
+        /// 获取可用AccessTokenResult对象
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="getNewToken">是否强制重新获取新的Token</param>
+        /// <returns></returns>
+        public static async Task<AccessTokenResult> GetAccessTokenResultAsync(string appId, bool getNewToken = false)
+        {
+            if (!CheckRegistered(appId))
+            {
+                throw new UnRegisterAppIdException(appId, string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！", appId));
+            }
+
+            var accessTokenBag = (AccessTokenBag)ItemCollection[appId];
+
+            //lock (accessTokenBag.Lock)
+            {
+                if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
+                {
+                    //已过期，重新获取
+                    var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.AppId, accessTokenBag.AppSecret);
+
+                    accessTokenBag.AccessTokenResult = accessTokenResult;
+                    accessTokenBag.AccessTokenExpireTime = DateTime.Now.AddSeconds(accessTokenBag.AccessTokenResult.expires_in);
+                }
+            }
+            return accessTokenBag.AccessTokenResult;
+        }
+
+
+        #endregion
+
+
+        #endregion
     }
 }

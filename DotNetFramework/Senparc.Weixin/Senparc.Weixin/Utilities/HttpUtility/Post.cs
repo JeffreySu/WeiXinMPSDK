@@ -212,6 +212,8 @@ namespace Senparc.Weixin.HttpUtility
             await stream.WriteAsync(fileBytes, 0, fileBytes.Length);//也可以分段写入
         }
 
+        
+
         #endregion
     }
 }

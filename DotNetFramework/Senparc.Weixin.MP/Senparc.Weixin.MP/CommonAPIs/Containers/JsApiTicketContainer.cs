@@ -21,6 +21,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
@@ -163,5 +164,27 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
         #endregion
 
+        #region 异步方法
+         /// <summary>
+        /// 注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="appSecret"></param>
+        /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别</param>
+        public static async Task RegisterAsync(string appId, string appSecret, string name = null)
+        {
+            using (FlushCache.CreateInstance())
+            {
+                Update(appId, new JsApiTicketBag()
+                {
+                    Name = name,
+                    AppId = appId,
+                    AppSecret = appSecret,
+                    JsApiTicketExpireTime = DateTime.MinValue,
+                    JsApiTicketResult = new JsApiTicketResult()
+                });
+            }
+        }
+        #endregion
     }
 }

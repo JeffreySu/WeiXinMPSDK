@@ -143,7 +143,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static string GetAccessToken(string appId, bool getNewToken = false)
         {
-            return GetAccessTokenResult(appId, getNewToken).access_token;
+            return GetAccessTokenResult(appId, getNewToken).access_token ;
         }
 
         /// <summary>
@@ -181,31 +181,36 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
         #region AccessToken
 
+
+        
+
+
+
         /// <summary>
-        /// 使用完整的应用凭证获取Token，如果不存在将自动注册
+        /// 【异步方法】使用完整的应用凭证获取Token，如果不存在将自动注册
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
         /// <param name="getNewToken"></param>
         /// <returns></returns>
-        public static string TryGetAccessToken(string appId, string appSecret, bool getNewToken = false)
+        public static async Task<string> TryGetAccessTokenAsync(string appId, string appSecret, bool getNewToken = false)
         {
             if (!CheckRegistered(appId) || getNewToken)
             {
                 Register(appId, appSecret);
             }
-            return GetAccessToken(appId);
+            return await  GetAccessTokenAsync( appId);
         }
 
         /// <summary>
-        /// 获取可用Token
+        /// 【异步方法】获取可用Token
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static string GetAccessToken(string appId, bool getNewToken = false)
+        public static async Task<string> GetAccessTokenAsync(string appId, bool getNewToken = false)
         {
-            return GetAccessTokenResult(appId, getNewToken).access_token;
+            return await GetAccessTokenResultAsync( appId, getNewToken).Result.access_token ;
         }
 
         /// <summary>

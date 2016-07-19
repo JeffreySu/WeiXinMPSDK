@@ -207,7 +207,7 @@ namespace Senparc.Weixin.MP
         }
 
         /// <summary>
-        /// 使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
+        /// 【异步方法】使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="appId"></param>
@@ -216,13 +216,13 @@ namespace Senparc.Weixin.MP
         /// <param name="retryIfFaild"></param>
         /// <returns></returns>
         [Obsolete("请使用TryCommonApi()方法")]
-        public static T Do<T>(Func<string, T> fun, string appId, string appSecret, bool retryIfFaild = true)
+        public static async Task<T> DoAsync<T>(Func<string, Task<T>> fun, string appId, string appSecret, bool retryIfFaild = true)
             where T : WxJsonResult
         {
-            T result = null;
+            Task<T> result = null;
             try
             {
-                var accessToken = AccessTokenContainer.TryGetAccessToken(appId, appSecret, false);
+                var accessToken = await AccessTokenContainer.TryGetAccessTokenAsync(appId, appSecret, false);
                 result = fun(accessToken);
             }
             catch (ErrorJsonResultException ex)
@@ -230,11 +230,11 @@ namespace Senparc.Weixin.MP
                 if (retryIfFaild && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
                 {
                     //尝试重新验证
-                    var accessToken = AccessTokenContainer.TryGetAccessToken(appId, appSecret, true);
-                    result = Do(fun, appId, appSecret, false);
+                    var accessToken = AccessTokenContainer.TryGetAccessTokenAsync(appId, appSecret, true);
+                    result = DoAsync(fun, appId, appSecret, false);
                 }
             }
-            return result;
+            return result.Result;
         }
 
         #endregion

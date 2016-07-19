@@ -100,13 +100,14 @@
             ComponentVerifyTicket服务器推送更新时间（分钟）
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentContainer.TryRegister(System.String,System.String,System.Boolean)">
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentContainer.TryRegister(System.String,System.String,System.Boolean,System.String)">
             <summary>
             检查AppId是否已经注册，如果没有，则创建
             </summary>
             <param name="componentAppId"></param>
             <param name="componentAppSecret"></param>
             <param name="getNewToken"></param>
+            <param name="name">标记Component名称（如微信公众号名称），帮助管理员识别</param>
         </member>
         <member name="F:Senparc.Weixin.Open.ComponentAPIs.ComponentContainer.GetComponentVerifyTicketFunc">
             <summary>
@@ -123,7 +124,7 @@
             AuthorizerAccessToken更新后的回调
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentContainer.Register(System.String,System.String,System.Func{System.String,System.String},System.Func{System.String,System.String},System.Action{System.String,Senparc.Weixin.Open.ComponentAPIs.RefreshAuthorizerTokenResult})">
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentContainer.Register(System.String,System.String,System.Func{System.String,System.String},System.Func{System.String,System.String},System.Action{System.String,Senparc.Weixin.Open.ComponentAPIs.RefreshAuthorizerTokenResult},System.String)">
             <summary>
             注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
             </summary>
@@ -132,6 +133,7 @@
             <param name="getComponentVerifyTicketFunc">获取ComponentVerifyTicket的方法</param>
             <param name="getAuthorizerRefreshTokenFunc">从数据库中获取已存的AuthorizerAccessToken的方法</param>
             <param name="authorizerTokenRefreshedFunc">AuthorizerAccessToken更新后的回调</param>
+            <param name="name">标记Authorizer名称（如微信公众号名称），帮助管理员识别</param>
         </member>
         <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentContainer.CheckRegistered(System.String)">
             <summary>
@@ -260,10 +262,13 @@
             包括通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.Register(System.String,System.String)">
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.Register(System.String,System.String,System.String)">
             <summary>
             注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
             </summary>
+            <param name="authorizerAppId"></param>
+            <param name="componentAppId"></param>
+            <param name="name">标记Authorizer名称（如微信公众号名称），帮助管理员识别</param>
         </member>
         <member name="M:Senparc.Weixin.Open.ComponentAPIs.AuthorizerContainer.TryRegister(System.String,System.String)">
             <summary>

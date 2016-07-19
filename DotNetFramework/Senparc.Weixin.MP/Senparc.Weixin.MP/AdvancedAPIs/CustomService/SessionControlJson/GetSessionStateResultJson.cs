@@ -26,6 +26,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         /// <summary>
         /// 会话接入的时间
         /// </summary>
-        public string createtime { get; set; }
+        public long createtime { get; set; }
 	}
 }

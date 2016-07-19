@@ -38,13 +38,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
         public string openid { get; set; }
 
         /// <summary>
-        /// 指定接待的客服，为空表示未指定客服
+        /// 最后一条消息的时间，UNIX时间戳
         /// </summary>
-        public string kf_account { get; set; }
-
-        /// <summary>
-        /// 用户来访时间，UNIX时间戳
-        /// </summary>
-        public string createtime { get; set; }
+        public long latest_time { get; set; }
     }
 }

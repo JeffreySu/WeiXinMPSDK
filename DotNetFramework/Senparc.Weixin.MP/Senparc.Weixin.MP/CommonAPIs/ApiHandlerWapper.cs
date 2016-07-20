@@ -234,7 +234,7 @@ namespace Senparc.Weixin.MP
                     result = DoAsync(fun, appId, appSecret, false);
                 }
             }
-            return result.Result;
+            return result;
         }
 
         #endregion

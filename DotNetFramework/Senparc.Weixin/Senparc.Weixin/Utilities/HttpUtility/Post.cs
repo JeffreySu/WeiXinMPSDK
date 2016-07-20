@@ -18,6 +18,9 @@
 
     修改标识：Senparc - 20150407
     修改描述：发起Post请求方法修改，为了上传永久视频素材
+ 
+    修改标识：Senparc - 20160720
+    修改描述：增加了PostFileGetJsonAsync的异步方法（与之前的方法多一个参数）
 ----------------------------------------------------------------*/
 
 using System;
@@ -196,6 +199,28 @@ namespace Senparc.Weixin.HttpUtility
             string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, formData, encoding, timeOut);
             var result = GetResult<T>(returnText);
             return result;
+        }
+
+        /// <summary>
+        /// 【异步方法】发起Post请求
+        /// </summary>
+        /// <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
+        /// <param name="url">请求Url</param>
+        /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
+        /// <param name="encoding"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="fileDictionary"></param>
+        /// <param name="postDataDictionary"></param>
+        /// <returns></returns>
+        public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                postDataDictionary.FillFormDataStream(ms); //填充formData
+                string returnText = await RequestUtility.HttpPostAsync( url, cookieContainer, ms, fileDictionary, null, encoding, timeOut: timeOut);
+                var result = GetResult<T>(returnText);
+                return result;
+            }
         }
 
         /// <summary>

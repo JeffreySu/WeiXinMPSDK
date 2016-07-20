@@ -161,19 +161,19 @@ namespace Senparc.Weixin.MP.CommonAPIs
         }
 
         /// <summary>
-        /// 获取调用微信JS接口的临时票据
+        /// 【异步方法】获取调用微信JS接口的临时票据
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static JsApiTicketResult GetTicketByAccessToken(string accessTokenOrAppId, string type = "jsapi")
+        public static async Task<JsApiTicketResult> GetTicketByAccessTokenAsync(string accessTokenOrAppId, string type = "jsapi")
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 var url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type={1}",
                                         accessToken.AsUrlData(), type.AsUrlData());
 
-                JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
+                JsApiTicketResult result = Get.GetJsonAsync<JsApiTicketResult>(url);
                 return result;
 
             }, accessTokenOrAppId);

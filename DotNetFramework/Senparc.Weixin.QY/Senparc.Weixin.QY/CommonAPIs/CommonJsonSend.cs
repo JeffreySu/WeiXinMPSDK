@@ -14,6 +14,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
@@ -28,6 +29,8 @@ namespace Senparc.Weixin.QY.CommonAPIs
 
     public static class CommonJsonSend
     {
+        #region 同步请求
+        
         /// <summary>
         /// 向需要AccessToken的API发送消息的公共方法
         /// </summary>
@@ -42,6 +45,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         {
             return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<QyJsonResult>(accessToken, urlFormat, data, sendType, timeOut,checkValidationResult,jsonSetting);
         }
+        #endregion
 
         /// <summary>
         /// 向需要AccessToken的API发送消息的公共方法
@@ -58,6 +62,8 @@ namespace Senparc.Weixin.QY.CommonAPIs
         {
             return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<T>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult, jsonSetting);
         }
+
+   
     }
 }
 

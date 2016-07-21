@@ -653,6 +653,41 @@
             <param name="openId">用户的唯一标识</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.Open.QRConnect.QRConnectAPI.GetAccessTokenAsync(System.String,System.String,System.String,System.String)">
+            <summary>
+            【异步方法】获取AccessToken
+            </summary>
+            <param name="appId">应用唯一标识，在微信开放平台提交应用审核通过后获得</param>
+            <param name="appSecret">应用密钥AppSecret，在微信开放平台提交应用审核通过后获得</param>
+            <param name="code">GetQRConnectUrl()接口返回的code</param>
+            <param name="grantType">填authorization_code</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.QRConnect.QRConnectAPI.RefreshTokenAsync(System.String,System.String,System.String)">
+            <summary>
+            【异步方法】刷新access_token（如果需要）
+            </summary>
+            <param name="appId">第三方应用唯一标识</param>
+            <param name="refreshToken">填写通过access_token获取到的refresh_token参数</param>
+            <param name="grantType">填refresh_token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.QRConnect.QRConnectAPI.GetUserInfoAsync(System.String,System.String)">
+            <summary>
+            【异步方法】获取用户基本信息
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="openId">普通用户的标识，对当前公众号唯一</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.QRConnect.QRConnectAPI.AuthAsync(System.String,System.String)">
+            <summary>
+            【异步方法】检验授权凭证（access_token）是否有效
+            </summary>
+            <param name="accessToken"></param>
+            <param name="openId">用户的唯一标识</param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.Open.QRConnect.RefreshAccessTokenResult">
             <summary>
             刷新access_token有效期返回结果
@@ -783,6 +818,37 @@
         <member name="M:Senparc.Weixin.Open.OAuthAPIs.OAuthApi.GetUserInfo(System.String,System.String,Senparc.Weixin.Language)">
             <summary>
             获取用户基本信息
+            </summary>
+            <param name="accessToken">调用接口凭证</param>
+            <param name="openId">普通用户的标识，对当前公众号唯一</param>
+            <param name="lang">返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.OAuthAPIs.OAuthApi.GetAccessTokenAsync(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            【异步方法】获取AccessToken
+            </summary>
+            <param name="appId"></param>
+            <param name="componentAppid">服务开发方的appid</param>
+            <param name="componentAccessToken">服务开发方的access_token</param>
+            <param name="code">GetAuthorizeUrl()接口返回的code</param>
+            <param name="grantType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.OAuthAPIs.OAuthApi.RefreshTokenAsync(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            【异步方法】刷新access_token（如果需要）
+            </summary>
+            <param name="appId"></param>
+            <param name="refreshToken">填写通过access_token获取到的refresh_token参数</param>
+            <param name="componentAccessToken"></param>
+            <param name="grantType"></param>
+            <param name="componentAppid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.OAuthAPIs.OAuthApi.GetUserInfoAsync(System.String,System.String,Senparc.Weixin.Language)">
+            <summary>
+            【异步方法】获取用户基本信息
             </summary>
             <param name="accessToken">调用接口凭证</param>
             <param name="openId">普通用户的标识，对当前公众号唯一</param>
@@ -1010,6 +1076,94 @@
             <returns></returns>
         </member>
         <!-- 对于成员“M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.GetJsApiTicket(System.String,System.String)”忽略有格式错误的 XML 注释 -->
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.GetComponentAccessTokenAsync(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            【异步方法】获取第三方平台access_token
+            </summary>
+            <param name="componentAppId">第三方平台appid</param>
+            <param name="componentAppSecret">第三方平台appsecret</param>
+            <param name="componentVerifyTicket">微信后台推送的ticket，此ticket会定时推送，具体请见本页末尾的推送说明</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.GetPreAuthCodeAsync(System.String,System.String,System.Int32)">
+            <summary>
+            【异步方法】获取预授权码
+            </summary>
+            <param name="componentAppId">第三方平台方appid</param>
+            <param name="componentAccessToken"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.QueryAuthAsync(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            【异步方法】使用授权码换取公众号的授权信息
+            </summary>
+            <param name="componentAppId">服务开发方的appid</param>
+            <param name="componentAccessToken">服务开发方的access_token</param>
+            <param name="authorizationCode">授权code,会在授权成功时返回给第三方平台，详见第三方平台授权流程说明</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.ApiConfirmAuthAsync(System.String,System.String,System.String,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            【异步方法】确认授权
+            </summary>
+            <param name="componentAppId">服务开发方的appid</param>
+            <param name="componentAccessToken">服务开发方的access_token</param>
+            <param name="authorizerAppid">授权code,会在授权成功时返回给第三方平台，详见第三方平台授权流程说明</param>
+            <param name="funscopeCategoryId">服务开发方的access_token</param>
+            <param name="confirmValue">服务开发方的access_token</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.ApiAuthorizerTokenAsync(System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            【异步方法】获取（刷新）授权公众号的令牌
+            由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，refresh_token拥有较长的有效期（30天），当refresh_token失效的后，需要用户重新授权。
+            </summary>
+            <param name="componentAccessToken"></param>
+            <param name="componentAppId"></param>
+            <param name="authorizerAppId"></param>
+            <param name="authorizerRefreshToken"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.GetAuthorizerInfoAsync(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            【异步方法】获取授权方信息
+            注意：此方法返回的JSON中，authorization_info.authorizer_appid等几个参数通常为空（哪怕公众号有权限）
+            </summary>
+            <param name="componentAccessToken"></param>
+            <param name="componentAppId"></param>
+            <param name="authorizerAppId"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.GetAuthorizerOptionAsync(System.String,System.String,System.String,Senparc.Weixin.Open.OptionName,System.Int32)">
+            <summary>
+            【异步方法】获取授权方的选项设置信息
+            </summary>
+            <param name="componentAppId">服务开发商的appid</param>
+            <param name="componentAccessToken">服务开发方的access_token</param>
+            <param name="authorizerAppId">授权公众号appid</param>
+            <param name="optionName">选项名称</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.SetAuthorizerOptionAsync(System.String,System.String,System.String,Senparc.Weixin.Open.OptionName,System.Int32,System.Int32)">
+            <summary>
+            【异步方法】设置授权方的选项信息
+            </summary>
+            <param name="componentAccessToken">服务开发方的access_token</param>
+            <param name="componentAppId">服务开发商的appid</param>
+            <param name="authorizerAppId">授权公众号appid</param>
+            <param name="optionName">选项名称</param>
+            <param name="optionValue">设置的选项值</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <returns></returns>
+        </member>
+        <!-- 对于成员“M:Senparc.Weixin.Open.ComponentAPIs.ComponentApi.GetJsApiTicketAsync(System.String,System.String)”忽略有格式错误的 XML 注释 -->
         <member name="T:Senparc.Weixin.Open.ComponentAPIs.AuthorizerOptionResult">
             <summary>
             获取授权方的选项设置信息返回结果

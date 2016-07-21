@@ -140,7 +140,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var url = string.Format("http://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}",
                                         accessToken.AsUrlData(), openId.AsUrlData());
-                WeixinUserInfoResult result = Get.GetJsonAsync<WeixinUserInfoResult>(url);
+               var result = Get.GetJsonAsync<WeixinUserInfoResult>(url);
                 return result;
 
             }, accessTokenOrAppId);
@@ -173,7 +173,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 var url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type={1}",
                                         accessToken.AsUrlData(), type.AsUrlData());
 
-                JsApiTicketResult result = Get.GetJsonAsync<JsApiTicketResult>(url);
+                var result = Get.GetJsonAsync<JsApiTicketResult>(url);
                 return result;
 
             }, accessTokenOrAppId);

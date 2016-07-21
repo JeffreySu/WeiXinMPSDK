@@ -143,7 +143,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static string GetAccessToken(string appId, bool getNewToken = false)
         {
-            return GetAccessTokenResult(appId, getNewToken).access_token ;
+            return GetAccessTokenResult(appId, getNewToken).access_token;
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         #region AccessToken
 
 
-        
+
 
 
 
@@ -199,7 +199,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 Register(appId, appSecret);
             }
-            return await  GetAccessTokenAsync( appId);
+            return await GetAccessTokenAsync(appId);
         }
 
         /// <summary>
@@ -210,7 +210,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static async Task<string> GetAccessTokenAsync(string appId, bool getNewToken = false)
         {
-            return await GetAccessTokenResultAsync( appId, getNewToken).Result.access_token ;
+            var result = await GetAccessTokenResultAsync(appId, getNewToken);
+            return result.access_token;
         }
 
         /// <summary>
@@ -234,7 +235,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 {
                     //已过期，重新获取
                     var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.AppId, accessTokenBag.AppSecret);
-
                     accessTokenBag.AccessTokenResult = accessTokenResult;
                     accessTokenBag.AccessTokenExpireTime = DateTime.Now.AddSeconds(accessTokenBag.AccessTokenResult.expires_in);
                 }

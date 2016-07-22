@@ -38,7 +38,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     public static class MediaApi
     {
         #region 同步请求
-        
+
         /// <summary>
         /// 上传临时媒体文件
         /// </summary>
@@ -262,7 +262,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = media;
-            return  await Post.PostFileGetJsonAsync<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, timeOut);
+            return await Post.PostFileGetJsonAsync<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, timeOut);
         }
 
         /// <summary>
@@ -275,7 +275,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}",
                 accessToken.AsUrlData(), mediaId.AsUrlData());
-            await HttpUtility.Get.DownloadAsync( url, stream);//todo 异常处理
+            await HttpUtility.Get.DownloadAsync(url, stream);//todo 异常处理
         }
 
         /// <summary>
@@ -300,7 +300,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 }
             };
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<UploadForeverResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UploadForeverResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -351,7 +351,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                     "https://qyapi.weixin.qq.com/cgi-bin/material/get?access_token={0}&media_id={1}&agentid={2}",
                     accessToken.AsUrlData(), mediaId.AsUrlData(), agentId);
 
-            await HttpUtility.Get.DownloadAsync( url, stream);//todo 异常处理
+            await HttpUtility.Get.DownloadAsync(url, stream);//todo 异常处理
         }
 
         /// <summary>
@@ -437,6 +437,10 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<BatchGetMaterialResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
+
+        /*上传的图片限制
+          大小不超过2MB，支持JPG,PNG格式
+          每天上传的图片不能超过100张*/
         /// <summary>
         /// 【异步方法】上传图文消息内的图片
         /// </summary>
@@ -444,6 +448,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="media"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+       
         public static async Task<UploadimgMediaResult> UploadimgMediaAsync(string accessToken, string media, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}",

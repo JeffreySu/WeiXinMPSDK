@@ -27,6 +27,7 @@
  
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
+  
 ----------------------------------------------------------------*/
 
 /*
@@ -202,7 +203,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     media_id = mediaId
                 };
-                return CommonJsonSend.Send<GetNewsResultJson>(accessToken, url, data, CommonJsonSendType.POST, timeOut: timeOut);
+        return CommonJsonSend.Send<GetNewsResultJson>(accessToken, url, data, CommonJsonSendType.POST, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

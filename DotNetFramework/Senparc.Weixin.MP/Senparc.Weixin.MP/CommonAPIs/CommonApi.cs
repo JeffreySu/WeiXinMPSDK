@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// </summary>
     public partial class CommonApi
     {
-        #region `同步方法
+        #region 同步方法
 
         /// <summary>
         /// 获取凭证接口

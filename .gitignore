@@ -15,3 +15,4 @@ bak.zip
 *.DotSettings
 /DotNetCore/Senparc.Weixin/.vs
 applicationhost.config
+packages/

@@ -96,45 +96,55 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs.Tests
             AccessTokenContainer.Register(base._appId, base._appSecret);
             //模拟多线程获取
             List<string> accessTokenList = new List<string>();
-            int threadsCount = 50;
+            int threadsCount = 6;//数字不易过大，否则超过微信允许同一个客户端同时并发数量，将可能看不到效果
+            int round = 10;//测试多少轮
 
             //同步
             TimeSpan syncTime =new TimeSpan();
             var dt1 = DateTime.Now;
-            Parallel.For(0, threadsCount, (i) =>
+            for (int j = 0; j < round; j++)
             {
-                var dts = DateTime.Now;
-                var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId, true);
-                var dte = DateTime.Now;
-                accessTokenList.Add(accessTokenResult.access_token);//同时多次获取
+                Console.WriteLine("同步第{0}轮", j+1);
+                Parallel.For(0, threadsCount, (i) =>
+                {
+                    var dts = DateTime.Now;
+                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId, true);
+                    var dte = DateTime.Now;
+                    accessTokenList.Add(accessTokenResult.access_token);//同时多次获取
 
-                Console.WriteLine("{0}同步线程耗时：{1}ms",i,(dte-dts).TotalMilliseconds);
-                syncTime = syncTime.Add((dte - dts));
-                //Console.WriteLine(accessTokenResult.access_token);
-            });
+                    Console.WriteLine("{0}同步线程耗时：{1}ms", i, (dte - dts).TotalMilliseconds);
+                    syncTime = syncTime.Add((dte - dts));
+                    //Console.WriteLine(accessTokenResult.access_token);
+                });
+            }
+          
             var dt2 = DateTime.Now;
             Console.WriteLine("线程用时总和：{0}ms", syncTime.TotalMilliseconds);
-            Console.WriteLine("{0}线程同步时间：{1}ms", threadsCount, (dt2 - dt1).TotalMilliseconds);
+            Console.WriteLine("{0}线程{1}轮同步时间：{2}ms", threadsCount, round,(dt2 - dt1).TotalMilliseconds);
             Console.WriteLine("=================");
 
 
             //异步
             TimeSpan asyncTime =new TimeSpan();
             var dt3 = DateTime.Now;
-            Parallel.For(0, threadsCount, (i) =>
+            for (int j = 0; j < round; j++)
             {
-                var dts = DateTime.Now;
-                var accessTokenResult = AccessTokenContainer.GetAccessTokenResultAsync(base._appId, true).Result;
-                var dte = DateTime.Now;
-                accessTokenList.Add(accessTokenResult.access_token);//同时多次获取
+                Console.WriteLine("异步第{0}轮", j+1);
+                Parallel.For(0, threadsCount, (i) =>
+                {
+                    var dts = DateTime.Now;
+                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResultAsync(base._appId, true).Result;
+                    var dte = DateTime.Now;
+                    accessTokenList.Add(accessTokenResult.access_token); //同时多次获取
 
-                Console.WriteLine("{0}异步线程耗时：{1}ms",i,(dte-dts).TotalMilliseconds);
-                asyncTime= syncTime.Add((dte - dts));
-                //Console.WriteLine(accessTokenResult.access_token);
-            });
+                    Console.WriteLine("{0}异步线程耗时：{1}ms", i, (dte - dts).TotalMilliseconds);
+                    asyncTime = syncTime.Add((dte - dts));
+                    //Console.WriteLine(accessTokenResult.access_token);
+                });
+            }
             var dt4 = DateTime.Now;
             Console.WriteLine("线程用时总和：{0}ms", asyncTime.TotalMilliseconds);
-            Console.WriteLine("{0}线程异步时间：{1}ms", threadsCount, (dt4 - dt3).TotalMilliseconds);
+            Console.WriteLine("{0}个线程{1}轮异步时间：{2}ms", threadsCount, round,(dt4 - dt3).TotalMilliseconds);
 
         }
 

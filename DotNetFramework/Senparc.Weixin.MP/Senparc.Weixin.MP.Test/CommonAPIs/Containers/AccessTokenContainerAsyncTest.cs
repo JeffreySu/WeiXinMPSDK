@@ -96,7 +96,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs.Tests
             AccessTokenContainer.Register(base._appId, base._appSecret);
             //模拟多线程获取
             List<string> accessTokenList = new List<string>();
-            int threadsCount = 6;//数字不易过大，否则超过微信允许同一个客户端同时并发数量，将可能看不到效果
+            int threadsCount = 5;//数字不易过大，否则超过微信允许同一个客户端同时并发数量，将可能看不到效果
             int round = 10;//测试多少轮
 
             //同步

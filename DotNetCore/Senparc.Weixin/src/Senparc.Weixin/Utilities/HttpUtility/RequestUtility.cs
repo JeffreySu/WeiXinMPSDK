@@ -1,4 +1,19 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+
+    文件名：RequestUtility.cs
+    文件功能描述：获取请求结果
+
+
+    创建标识：Senparc - 20150211
+
+    修改描述：整理接口
+
+    修改标识：Senparc - 20150407
+    修改描述：使用Post方法获取字符串结果 修改表单处理方法
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -14,7 +29,40 @@ namespace Senparc.Weixin.HttpUtility
 {
 	public static class RequestUtility
 	{
+		#region 代理
+		/*
+        private static WebProxy _webproxy = null;
+
+        /// <summary>
+        /// 设置Web代理
+        /// </summary>
+        /// <param name="host"></param>
+        /// <param name="port"></param>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        public static void SetHttpProxy(string host, string port, string username, string password)
+        {
+            ICredentials cred;
+            cred = new NetworkCredential(username, password);
+            if (!string.IsNullOrEmpty(host))
+            {
+                _webproxy = new WebProxy(host + ":" + port ?? "80", true, null, cred);
+            }
+        }
+
+        /// <summary>
+        /// 清除Web代理状态
+        /// </summary>
+        public static void RemoveHttpProxy()
+        {
+            _webproxy = null;
+        }
+		*/
+		#endregion
+
 		#region 同步方法
+
+		#region Get
 
 		/// <summary>
 		/// 使用Get方法获取字符串结果（没有加入Cookie）
@@ -48,6 +96,10 @@ namespace Senparc.Weixin.HttpUtility
 			t.Wait();
 			return t.Result;
 		}
+
+		#endregion
+
+		#region Post
 
 		/// <summary>
 		/// 使用Post方法获取字符串结果，常规提交
@@ -98,7 +150,7 @@ namespace Senparc.Weixin.HttpUtility
 			hc.Headers.Add("Timeout", timeOut.ToString());
 			hc.Headers.Add("KeepAlive", "true");
 
-#region 处理Form表单文件上传
+			#region 处理Form表单文件上传
 			var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
 			if (formUploadFile)
 			{
@@ -155,13 +207,13 @@ namespace Senparc.Weixin.HttpUtility
 				var footer = Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
 				postStream.Write(footer, 0, footer.Length);
 
-				hc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(string.Format("multipart/form-data; boundary={0}", boundary));
+				hc.Headers.ContentType = new MediaTypeHeaderValue(string.Format("multipart/form-data; boundary={0}", boundary));
 			}
 			else
 			{
-				hc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/x-www-form-urlencoded");
+				hc.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 			}
-#endregion
+			#endregion
 
 			var t = client.PostAsync(url, hc);
 			t.Wait();
@@ -169,6 +221,8 @@ namespace Senparc.Weixin.HttpUtility
 			t1.Wait();
 			return t1.Result;
 		}
+
+		#endregion
 
 		/// <summary>
 		/// 验证服务器证书
@@ -182,9 +236,9 @@ namespace Senparc.Weixin.HttpUtility
 		{
 			return true;
 		}
-#endregion
+		#endregion
 
-#region 异步方法
+		#region 异步方法
 
 		/// <summary>
 		/// 使用Get方法获取字符串结果（没有加入Cookie）
@@ -263,7 +317,7 @@ namespace Senparc.Weixin.HttpUtility
 			hc.Headers.Add("Timeout", timeOut.ToString());
 			hc.Headers.Add("KeepAlive", "true");
 
-#region 处理Form表单文件上传
+			#region 处理Form表单文件上传
 			var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
 			if (formUploadFile)
 			{
@@ -326,7 +380,7 @@ namespace Senparc.Weixin.HttpUtility
 			{
 				hc.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/x-www-form-urlencoded");
 			}
-#endregion
+			#endregion
 
 			var r = await client.PostAsync(url, hc);
 			return await r.Content.ReadAsStringAsync();
@@ -346,7 +400,7 @@ namespace Senparc.Weixin.HttpUtility
 			stream.Seek(0, SeekOrigin.Begin);//设置指针读取位置
 		}
 
-#endregion
+		#endregion
 
 		/// <summary>
 		/// 组装QueryString的方法
@@ -426,6 +480,7 @@ namespace Senparc.Weixin.HttpUtility
 		{
 			return WebUtility.UrlDecode(url);
 		}
+
 		/// <summary>
 		/// <para>将 URL 中的参数名称/值编码为合法的格式。</para>
 		/// <para>可以解决类似这样的问题：假设参数名为 tvshow, 参数值为 Tom&Jerry，如果不编码，可能得到的网址： http://a.com/?tvshow=Tom&Jerry&year=1965 编码后则为：http://a.com/?tvshow=Tom%26Jerry&year=1965 </para>

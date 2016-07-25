@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：WeixinTrace.cs
+    文件功能描述：跟踪日志相关
+    
+    
+    创建标识：Senparc - 20151012
+    
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;

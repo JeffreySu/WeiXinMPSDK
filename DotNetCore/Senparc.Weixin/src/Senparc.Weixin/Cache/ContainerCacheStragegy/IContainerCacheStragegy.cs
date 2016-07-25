@@ -4,20 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Containers;
-using Senparc.Weixin.Cache.ContainerCacheStragegy;
 
 namespace Senparc.Weixin.Cache
 {
-	/// <summary>
-	/// 容器缓存策略接口
-	/// </summary>
-	public interface IContainerCacheStragegy : IBaseCacheStrategy<string, IContainerItemCollection>
-	{
-		/// <summary>
-		/// 更新ContainerBag
-		/// </summary>
-		/// <param name="key"></param>
-		/// <param name="containerBag"></param>
-		void UpdateContainerBag(string key, IBaseContainerBag containerBag);
-	}
+    /// <summary>
+    /// 容器缓存策略接口
+    /// </summary>
+    public interface IContainerCacheStragegy : IBaseCacheStrategy<string, IContainerItemCollection>
+    {
+        /// <summary>
+        /// 更新ContainerBag
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="containerBag"></param>
+        void UpdateContainerBag(string key, IBaseContainerBag containerBag);
+    }
 }

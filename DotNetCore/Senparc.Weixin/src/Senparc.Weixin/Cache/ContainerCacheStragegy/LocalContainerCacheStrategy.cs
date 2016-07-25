@@ -5,127 +5,133 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Containers;
-using Senparc.Weixin.Cache.ContainerCacheStragegy;
 
 namespace Senparc.Weixin.Cache
 {
-	public static class LocalCacheHelper
-	{
-		/// <summary>
-		/// 所有数据集合的列表
-		/// </summary>
-		internal static IDictionary<string, IContainerItemCollection> LocalCache { get; set; }
+    /// <summary>
+    /// 全局静态数据源帮助类
+    /// </summary>
+    public static class LocalCacheHelper
+    {
+        /// <summary>
+        /// 所有数据集合的列表
+        /// </summary>
+        internal static IDictionary<string, IContainerItemCollection> LocalCache { get; set; }
 
-		static LocalCacheHelper()
-		{
-			LocalCache = new Dictionary<string, IContainerItemCollection>(StringComparer.OrdinalIgnoreCase);
-		}
+        static LocalCacheHelper()
+        {
+            LocalCache = new Dictionary<string, IContainerItemCollection>(StringComparer.OrdinalIgnoreCase);
+        }
+    }
 
-	}
+    /// <summary>
+    /// 本地容器缓存策略
+    /// </summary>
+    public sealed class LocalContainerCacheStrategy : IContainerCacheStragegy
+    //where TContainerBag : class, IBaseContainerBag, new()
+    {
+        #region 数据源
 
-	/// <summary>
-	/// 本地容器缓存策略
-	/// </summary>
-	/// <typeparam name="TContainerBag">容器内</typeparam>
-	public class LocalContainerCacheStrategy : IContainerCacheStragegy
-	//where TContainerBag : class, IBaseContainerBag, new()
-	{
-		#region 数据源
+        private IDictionary<string, IContainerItemCollection> _cache = LocalCacheHelper.LocalCache;
 
-		private IDictionary<string, IContainerItemCollection> _cache = LocalCacheHelper.LocalCache;
+        #endregion
 
-		#endregion
+        #region 单例
 
-		#region 单例
+        /// <summary>
+        /// LocalCacheStrategy的构造函数
+        /// </summary>
+        LocalContainerCacheStrategy()
+        {
+        }
 
-		/// <summary>
-		/// LocalCacheStrategy的构造函数
-		/// </summary>
-		LocalContainerCacheStrategy()
-		{
-		}
+        //静态LocalCacheStrategy
+        public static IContainerCacheStragegy Instance
+        {
+            get
+            {
+                return Nested.instance;//返回Nested类中的静态成员instance
+            }
+        }
 
-		//静态LocalCacheStrategy
-		public static IContainerCacheStragegy Instance
-		{
-			get
-			{
-				return Nested.instance;//返回Nested类中的静态成员instance
-			}
-		}
-
-		class Nested
-		{
-			static Nested()
-			{
-			}
-			//将instance设为一个初始化的LocalCacheStrategy新实例
-			internal static readonly LocalContainerCacheStrategy instance = new LocalContainerCacheStrategy();
-		}
-
-		#endregion
-
-		#region ILocalCacheStrategy 成员
+        class Nested
+        {
+            static Nested()
+            {
+            }
+            //将instance设为一个初始化的LocalCacheStrategy新实例
+            internal static readonly LocalContainerCacheStrategy instance = new LocalContainerCacheStrategy();
+        }
 
 
-		public string CacheSetKey { get; set; }
+        #endregion
+
+        #region ILocalCacheStrategy 成员
+
+        public string CacheSetKey { get; set; }
 
 
-		public void InsertToCache(string key, IContainerItemCollection value)
-		{
-			if (key == null || value == null)
-			{
-				return;
-			}
+        public void InsertToCache(string key, IContainerItemCollection value)
+        {
+            if (key == null || value == null)
+            {
+                return;
+            }
+            _cache[key] = value;
+        }
 
-			_cache[key] = value;
-		}
+        public void RemoveFromCache(string key)
+        {
+            _cache.Remove(key);
+        }
 
-		public void RemoveFromCache(string key)
-		{
-			_cache.Remove(key);
-		}
+        public IContainerItemCollection Get(string key)
+        {
+            if (string.IsNullOrEmpty(key))
+            {
+                return null;
+            }
 
-		public IContainerItemCollection Get(string key)
-		{
-			if (!_cache.ContainsKey(key))
-			{
-				_cache[key] = new ContainerItemCollection();
-			}
+            if (!CheckExisted(key))
+            {
+                return null;
+                //InsertToCache(key, new ContainerItemCollection());
+            }
 
-			return _cache[key];
-		}
+            return _cache[key];
+        }
 
-		public IDictionary<string, IContainerItemCollection> GetAll()
-		{
-			//var list = _collectionList.Values.ToList();
-			return _cache;
-		}
+        public IDictionary<string, IContainerItemCollection> GetAll()
+        {
+            return _cache;
+        }
 
-		public bool CheckExisted(string key)
-		{
-			return _cache.ContainsKey(key);
-		}
+        public bool CheckExisted(string key)
+        {
+            return _cache.ContainsKey(key);
+        }
 
-		public long GetCount()
-		{
-			return _cache.Count;
-		}
+        public long GetCount()
+        {
+            return _cache.Count;
+        }
 
-		public void Update(string key, IContainerItemCollection value)
-		{
-			_cache[key] = value;
-		}
+        public void Update(string key, IContainerItemCollection value)
+        {
+            _cache[key] = value;
+        }
 
-		public void UpdateContainerBag(string key, IBaseContainerBag containerBag)
-		{
-			if (_cache.ContainsKey(key))
-			{
-				var containerItemCollection = _cache[key];
-				containerItemCollection[containerBag.Key] = containerBag;
-			}
-		}
+        public void UpdateContainerBag(string key, IBaseContainerBag bag)
+        {
+            if (_cache.ContainsKey(key))
+            {
+                var containerItemCollection = Get(key);
+                containerItemCollection[bag.Key] = bag;
 
-		#endregion
-	}
+                //因为这里获取的是containerItemCollection引用对象，所以不必再次更新整个containerItemCollection到缓存
+            }
+        }
+
+        #endregion
+    }
 }

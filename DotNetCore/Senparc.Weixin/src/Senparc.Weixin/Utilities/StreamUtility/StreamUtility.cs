@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：StreamUtility.cs
+    文件功能描述：流处理公共类
+    
+    
+    创建标识：Senparc - 20150419
+    
+----------------------------------------------------------------*/
+
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -18,11 +29,7 @@ namespace Senparc.Weixin.StreamUtility
 			byte[] arr = new byte[stream.Length];
 			stream.Position = 0;
 			stream.Read(arr, 0, (int)stream.Length);
-#if NET451
-			return Convert.ToBase64String(arr, Base64FormattingOptions.None);
-#else
 			return Convert.ToBase64String(arr);
-#endif
 		}
 
 		/// <summary>
@@ -61,10 +68,10 @@ namespace Senparc.Weixin.StreamUtility
 			}
 		}
 
-#endregion
+		#endregion
 
 
-#region 同步方法
+		#region 同步方法
 
 		/// <summary>
 		/// 获取Stream的Base64字符串
@@ -76,11 +83,7 @@ namespace Senparc.Weixin.StreamUtility
 			byte[] arr = new byte[stream.Length];
 			stream.Position = 0;
 			await stream.ReadAsync(arr, 0, (int)stream.Length);
-#if NET451
-			return Convert.ToBase64String(arr, Base64FormattingOptions.None);
-#else
 			return Convert.ToBase64String(arr);
-#endif
 		}
 
 		/// <summary>
@@ -119,7 +122,7 @@ namespace Senparc.Weixin.StreamUtility
 			}
 		}
 
-#endregion
+		#endregion
 
 
 	}

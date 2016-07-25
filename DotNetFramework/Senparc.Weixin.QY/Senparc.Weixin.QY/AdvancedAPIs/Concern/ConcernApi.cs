@@ -9,12 +9,16 @@
     
     修改标识：MysticBoy - 20150414
     修改描述：TwoVerification接口没有参数
+ 
+    修改标识：Senparc - 20160720
+    修改描述：增加其接口的异步方法
 ----------------------------------------------------------------*/
 
 /*
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E5%85%B3%E6%B3%A8%E4%B8%8E%E5%8F%96%E6%B6%88%E5%85%B3%E6%B3%A8
  */
 
+using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 
@@ -25,6 +29,8 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     /// </summary>
     public static class ConcernApi
     {
+        #region 同步请求
+       
         /// <summary>
         /// 二次验证
         /// </summary>
@@ -36,5 +42,21 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             var url =string.Format ( "https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}",accessToken.AsUrlData(), userId.AsUrlData());
             return Get.GetJson<QyJsonResult>(url);
         }
+        #endregion
+
+        #region 异步请求
+
+        /// <summary>
+        /// 【异步方法】二次验证
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="userId">员工UserID</param>
+        /// <returns></returns>
+        public static async Task<QyJsonResult> TwoVerificationAsync(string accessToken, string userId)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
+            return await Get.GetJsonAsync<QyJsonResult>(url);
+        }
+        #endregion
     }
 }

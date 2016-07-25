@@ -119,6 +119,7 @@
     <Compile Include="AdvancedAPIs\Card\Submerchat\SubmerChantBatchGetJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Card\Submerchat\SubmerChantSubmitJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Card\UserInfo\UserinfoGetResult.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\ChatLogJson\GetMsgListResultJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomInfoJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomOnlineJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\GetRecordResult.cs" />

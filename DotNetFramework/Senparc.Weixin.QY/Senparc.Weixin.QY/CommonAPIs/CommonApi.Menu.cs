@@ -12,6 +12,9 @@
  
     修改标识：Senparc - 20150313
     修改描述：开放代理请求超时时间
+
+    修改标识：Senparc - 20160720
+    修改描述：增加其接口的异步方法
 ----------------------------------------------------------------*/
 
 /*
@@ -22,6 +25,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
@@ -33,6 +37,8 @@ namespace Senparc.Weixin.QY.CommonAPIs
 {
     public partial class CommonApi
     {
+        #region 同步请求
+        
         /// <summary>
         /// 创建菜单
         /// </summary>
@@ -419,5 +425,22 @@ namespace Senparc.Weixin.QY.CommonAPIs
             var result = Get.GetJson<QyJsonResult>(url);
             return result;
         }
+        #endregion
+
+        #region 异步请求
+
+        /// <summary>
+        /// 【异步方法】删除菜单
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="agentId">企业应用的id，整型。可在应用的设置页面查看</param>
+        /// <returns></returns>
+        public static async Task<QyJsonResult> DeleteMenuAsync(string accessToken, int agentId)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
+            var result = await Get.GetJsonAsync<QyJsonResult>(url);
+            return result;
+        }
+        #endregion
     }
 }

@@ -6,6 +6,9 @@
     
     
     创建标识：Senparc - 20150722
+ 
+    修改标识：Senparc - 20160720
+    修改描述：增加其接口的异步方法
 ----------------------------------------------------------------*/
 
 /*
@@ -14,6 +17,7 @@
 
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
@@ -23,6 +27,8 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     /// </summary>
     public static class TenPay
     {
+        #region 同步请求
+        
         /// <summary>
         /// 用于企业向微信用户个人付款 
         /// 目前支持向指定微信用户的openid付款
@@ -57,5 +63,43 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
         }
+        #endregion
+
+        #region 异步请求
+         /// <summary>
+        ///【异步方法】 用于企业向微信用户个人付款 
+        /// 目前支持向指定微信用户的openid付款
+        /// </summary>
+        /// <param name="data">微信支付需要post的xml数据</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<string> TransfersAsync(string data, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
+
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return await RequestUtility.HttpPostAsync( urlFormat, null, ms, timeOut: timeOut);
+        }
+
+        /// <summary>
+        /// 【异步方法】用于商户的企业付款操作进行结果查询，返回付款操作详细结果。
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<string> GetTransferInfoAsync(string data, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
+
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return await RequestUtility.HttpPostAsync( urlFormat, null, ms, timeOut: timeOut);
+        }
+        #endregion
     }
 }

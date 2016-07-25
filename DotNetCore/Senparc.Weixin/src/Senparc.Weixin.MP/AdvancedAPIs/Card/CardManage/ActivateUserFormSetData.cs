@@ -1,11 +1,11 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 LSW
+    Copyright (C) 2016 Senparc
     
     文件名：ActivateUserFormSetData.cs
     文件功能描述：会员卡设置开卡字段需要的数据
     
     
-    创建标识：LSW - 20150910
+    创建标识：Senparc - 20150910
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card

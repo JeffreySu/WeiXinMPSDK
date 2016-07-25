@@ -1,11 +1,11 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 LSW
+    Copyright (C) 2016 Senparc
     
     文件名：ShakearoundUserShake.cs
     文件功能描述：系统拍照发图中的SendPicsInfo
     
     
-    创建标识：LSW - 20150914
+    创建标识：Senparc - 20150914
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.Entities

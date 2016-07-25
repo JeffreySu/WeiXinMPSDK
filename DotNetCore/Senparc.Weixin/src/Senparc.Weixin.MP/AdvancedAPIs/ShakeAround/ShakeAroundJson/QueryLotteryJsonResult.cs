@@ -1,10 +1,10 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 LSW
+    Copyright (C) 2016 Senparc
     
     文件名：QueryLotteryJsonResult.cs
     文件功能描述：红包查询的返回结果
     
-    创建标识：LSW - 20160520
+    创建标识：Senparc - 20160520
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;

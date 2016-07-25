@@ -2,22 +2,36 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-// General Information about an assembly is controlled through the following
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
+// 有关程序集的常规信息通过以下
+// 特性集控制。更改这些特性值可修改
+// 与程序集关联的信息。
 [assembly: AssemblyTitle("Senparc.Weixin.MP")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("微信公众平台SDK")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Senparc")]
 [assembly: AssemblyProduct("Senparc.Weixin.MP")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCopyright("Copyright © Senparc 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// Setting ComVisible to false makes the types in this assembly not visible
-// to COM components.  If you need to access a type in this assembly from
-// COM, set the ComVisible attribute to true on that type.
+// 将 ComVisible 设置为 false 使此程序集中的类型
+// 对 COM 组件不可见。如果需要从 COM 访问此程序集中的类型，
+// 则将该类型上的 ComVisible 特性设置为 true。
 [assembly: ComVisible(false)]
 
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d8cdd239-4366-486a-8d34-57611791065e")]
+// 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
+[assembly: Guid("77930cac-6c32-4185-b33f-fb56647d9780")]
+
+// 程序集的版本信息由下面四个值组成:
+//
+//      主版本
+//      次版本
+//      生成号
+//      修订号
+//
+// 可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值，
+// 方法是按如下所示使用“*”:
+// [assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("14.1.0.*")]
+//[assembly: AssemblyInformationalVersion("13.3.1-alpha")]
+//[assembly: AssemblyFileVersion("0.4.2.0")]

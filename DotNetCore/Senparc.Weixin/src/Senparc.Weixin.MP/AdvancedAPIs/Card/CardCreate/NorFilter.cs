@@ -1,10 +1,10 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 LSW
+    Copyright (C) 2016 Senparc
     
     文件名：NorFilter.cs
     文件功能描述：NorFilter反选，不要拉取的订单
                   SortInfo对结果排序
-    创建标识：LSW - 20160519
+    创建标识：Senparc - 20160519
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;

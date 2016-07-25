@@ -1,5 +1,30 @@
-﻿/*
-	API：http://mp.weixin.qq.com/wiki/13/43de8269be54a0a6f64413e4dfa94f39.html
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：CommonApi.Menu.Custom.cs
+    文件功能描述：通用自定义菜单接口（自定义接口）
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+ 
+    修改标识：Senparc - 20150312
+    修改描述：开放代理请求超时时间
+ 
+    修改标识：Senparc - 201503232
+    修改描述：修改字符串是否为空判断方式（感谢dusdong）
+ 
+    修改标识：Senparc - 20150703
+    修改描述：改用accessTokenOrAppId参数
+
+    修改标识：IsaacXu - 20151222
+    修改描述：添加CreateMenu重写方法
+----------------------------------------------------------------*/
+
+/*
+    API：http://mp.weixin.qq.com/wiki/13/43de8269be54a0a6f64413e4dfa94f39.html
  */
 
 using System;
@@ -57,12 +82,12 @@ namespace Senparc.Weixin.MP.CommonAPIs
 			 }, accessTokenOrAppId);
 		}
 
+
 		/// <summary>
 		/// 创建菜单
 		/// </summary>
-		/// <param name="accessTokenOrAppId">AccessToken或AppId。当为AppId时，如果AccessToken错误将自动获取一次。当为null时，获取当前注册的第一个AppId</param>
+		/// <param name="accessTokenOrAppId">AccessToken或AppId。当为AppId时，如果AccessToken错误将自动获取一次。当为null时，获取当前注册的第一个AppId。</param>
 		/// <param name="buttonData">菜单内容</param>
-		/// <param name="timeOut"></param>
 		/// <returns></returns>
 		public static WxJsonResult CreateMenu(string accessTokenOrAppId, object buttonData, int timeOut = Config.TIME_OUT)
 		{
@@ -70,6 +95,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
 			{
 				var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
 				return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, buttonData, timeOut: timeOut);
+
 			}, accessTokenOrAppId);
 		}
 
@@ -142,13 +168,13 @@ namespace Senparc.Weixin.MP.CommonAPIs
 					throw new ErrorJsonResultException(fullResult["errmsg"] as string, null, null);
 				}
 			}
-			catch (ErrorJsonResultException)
+			catch (ErrorJsonResultException ex)
 			{
 				finalResult = null;
 
 				//如果没有惨淡会返回错误代码：46003：menu no exist
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 				//其他异常
 				finalResult = null;
@@ -172,7 +198,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
 				//var finalResult = GetMenuFromJson(jsonString);
 
 				GetMenuResult finalResult;
-
 				try
 				{
 					var jsonResult = JsonConvert.DeserializeObject<GetMenuResultFull>(jsonString);
@@ -183,7 +208,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
 					finalResult = GetMenuFromJsonResult(jsonResult, new ButtonGroup());
 				}
-				catch (WeixinException)
+				catch (WeixinException ex)
 				{
 					finalResult = null;
 				}
@@ -192,6 +217,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
 			}, accessTokenOrAppId);
 		}
+
 		#endregion
 
 		/// <summary>

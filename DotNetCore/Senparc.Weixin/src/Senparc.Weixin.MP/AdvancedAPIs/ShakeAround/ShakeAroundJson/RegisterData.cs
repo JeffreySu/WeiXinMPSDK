@@ -1,4 +1,14 @@
-﻿using System.Collections.Generic;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：RegisterData.cs
+    文件功能描述：申请开通功能数据
+    
+    
+    创建标识：Senparc - 20150914
+----------------------------------------------------------------*/
+
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
 {

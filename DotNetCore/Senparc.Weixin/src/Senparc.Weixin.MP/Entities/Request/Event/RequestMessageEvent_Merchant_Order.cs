@@ -1,11 +1,11 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 LSW
+    Copyright (C) 2016 Senparc
     
     文件名：RequestMessageEvent_Location.cs
     文件功能描述：事件之微小店订单付款通知
     
     
-    创建标识：LSW - 20150211
+    创建标识：Senparc - 20150211
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.Entities

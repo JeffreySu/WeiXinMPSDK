@@ -1,11 +1,11 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 LSW
+    Copyright (C) 2016 Senparc
   
     文件名：ApiContainer.cs
     文件功能描述：API操作容器
     
     
-    创建标识：LSW - 20150319
+    创建标识：Senparc - 20150319
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.AppStore.Api

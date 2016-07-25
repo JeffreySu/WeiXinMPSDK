@@ -1,16 +1,16 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 LSW
+    Copyright (C) 2016 Senparc
   
     文件名：RequestMessageFactory.cs
     文件功能描述：获取XDocument转换后的IRequestMessageBase实例
     
     
-    创建标识：LSW - 20150211
+    创建标识：Senparc - 20150211
     
-    修改标识：LSW - 20150303
+    修改标识：Senparc - 20150303
     修改描述：整理接口
     
-    修改标识：LSW - 20150327
+    修改标识：Senparc - 20150327
     修改描述：添加小视频类型
 ----------------------------------------------------------------*/
 
@@ -25,6 +25,9 @@ using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP
 {
+    /// <summary>
+    /// RequestMessage消息处理方法工厂类
+    /// </summary>
     public static class RequestMessageFactory
     {
         //<?xml version="1.0" encoding="utf-8"?>
@@ -186,7 +189,7 @@ namespace Senparc.Weixin.MP
 
 
         /// <summary>
-        /// 获取XDocument转换后的IRequestMessageBase实例。
+        /// 获取XML转换后的IRequestMessageBase实例。
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <returns></returns>
@@ -197,7 +200,7 @@ namespace Senparc.Weixin.MP
 
 
         /// <summary>
-        /// 获取XDocument转换后的IRequestMessageBase实例。
+        /// 获取内容为XML的Stream转换后的IRequestMessageBase实例。
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
         /// </summary>
         /// <param name="stream">如Request.InputStream</param>

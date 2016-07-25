@@ -12,8 +12,8 @@ namespace Senparc.Weixin.MP.TenPayLib
         {
             Parameters = new Hashtable();
 
-            this.HttpContext = httpContext ?? new DefaultHttpContext();
-        }
+			this.HttpContext = httpContext ?? new DefaultHttpContext();
+		}
 
         /// <summary>
         /// 网关url地址
@@ -203,7 +203,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected virtual string GetCharset()
         {
-            return Encoding.UTF8.WebName;
-        }
+			return Encoding.UTF8.WebName;
+		}
     }
 }

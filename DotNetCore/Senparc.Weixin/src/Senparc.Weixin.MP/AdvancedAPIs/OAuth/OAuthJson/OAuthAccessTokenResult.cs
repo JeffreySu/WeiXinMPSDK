@@ -1,17 +1,20 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 LSW
+    Copyright (C) 2016 Senparc
     
     文件名：OAuthAccessTokenResult.cs
     文件功能描述：获取OAuth AccessToken的结果
     
     
-    创建标识：LSW - 20150211
+    创建标识：Senparc - 20150211
     
-    修改标识：LSW - 20150303
+    修改标识：Senparc - 20150303
     修改描述：整理接口
     
-    修改标识：LSW - 20150331
+    修改标识：Senparc - 20150331
     修改描述：添加注释说明
+    
+    修改标识：Senparc - 20160722
+    修改说明：添加unionid的参数
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -44,5 +47,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
         /// 用户授权的作用域，使用逗号（,）分隔
         /// </summary>
         public string scope { get; set; }
+        /// <summary>
+        /// 只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。详见：获取用户个人信息（UnionID机制）
+        /// </summary>
+        public string unionid { get; set; }
     }
 }

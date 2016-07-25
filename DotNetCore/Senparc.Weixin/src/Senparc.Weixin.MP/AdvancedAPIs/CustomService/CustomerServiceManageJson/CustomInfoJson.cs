@@ -1,4 +1,20 @@
-﻿using System.Collections.Generic;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：CustomInfoJson.cs
+    文件功能描述：客服列表返回结果
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+
+    修改标识：Senparc - 20150306
+    修改描述：增加“客服头像”
+----------------------------------------------------------------*/
+
+using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
@@ -26,11 +42,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.CustomService
 		/// <summary>
 		/// 客服工号
 		/// </summary>
-		public int kf_id { get; set; }
+        public int kf_id { get; set; }
 
-		/// <summary>
-		/// 客服头像
-		/// </summary>
-		public string kf_headimgurl { get; set; }
+        /// <summary>
+        /// 客服头像
+        /// </summary>
+        public string kf_headimgurl { get; set; }
 	}
 }

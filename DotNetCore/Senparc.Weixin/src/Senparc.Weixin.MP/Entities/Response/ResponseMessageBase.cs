@@ -1,8 +1,24 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：ResponseMessageBase.cs
+    文件功能描述：响应回复消息基类
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+    
+    修改标识：Senparc - 20150505
+    修改描述：添加ResponseMessageNoResponse类型处理
+----------------------------------------------------------------*/
+
+using System;
 using System.Xml.Linq;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.Entities.Response;
 
 namespace Senparc.Weixin.MP.Entities
 {
@@ -16,7 +32,7 @@ namespace Senparc.Weixin.MP.Entities
 	/// <summary>
 	/// 微信公众号响应回复消息
 	/// </summary>
-	public class ResponseMessageBase : Weixin.Entities.ResponseMessageBase, IResponseMessageBase
+    public class ResponseMessageBase : Weixin.Entities.ResponseMessageBase, IResponseMessageBase
 	{
 		public virtual ResponseMsgType MsgType
 		{
@@ -60,10 +76,10 @@ namespace Senparc.Weixin.MP.Entities
 					case ResponseMsgType.Transfer_Customer_Service:
 						responseMessage = new ResponseMessageTransfer_Customer_Service();
 						break;
-					case ResponseMsgType.NoResponse:
-						responseMessage = new ResponseMessageNoResponse();
-						break;
-					default:
+                    case ResponseMsgType.NoResponse:
+                        responseMessage = new ResponseMessageNoResponse();
+                        break;
+                    default:
 						throw new UnknownRequestMsgTypeException(string.Format("ResponseMsgType没有为 {0} 提供对应处理程序。", msgType), new ArgumentOutOfRangeException());
 				}
 
@@ -90,7 +106,7 @@ namespace Senparc.Weixin.MP.Entities
 		{
 			try
 			{
-				var tType = typeof(T);
+                var tType = typeof(T);
 				var responseName = tType.Name.Replace("ResponseMessage", ""); //请求名称
 				ResponseMsgType msgType = (ResponseMsgType)Enum.Parse(typeof(ResponseMsgType), responseName);
 				return CreateFromRequestMessage(requestMessage, msgType) as T;
@@ -138,11 +154,11 @@ namespace Senparc.Weixin.MP.Entities
 					case ResponseMsgType.News:
 						responseMessage = new ResponseMessageNews();
 						break;
-					case ResponseMsgType.Transfer_Customer_Service:
-						responseMessage = new ResponseMessageTransfer_Customer_Service();
+                    case ResponseMsgType.Transfer_Customer_Service:
+                        responseMessage = new ResponseMessageTransfer_Customer_Service();
 						break;
 				}
-				
+                
 				responseMessage.FillEntityWithXml(doc);
 				return responseMessage;
 			}

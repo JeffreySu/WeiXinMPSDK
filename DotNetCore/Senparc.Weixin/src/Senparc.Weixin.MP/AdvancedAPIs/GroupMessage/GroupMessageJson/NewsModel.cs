@@ -1,14 +1,17 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 LSW
+    Copyright (C) 2016 Senparc
     
     文件名：NewsModel.cs
     文件功能描述：群发图文消息模型
     
     
-    创建标识：LSW - 20150211
+    创建标识：Senparc - 20150211
     
-    修改标识：LSW - 20150303
+    修改标识：Senparc - 20150303
     修改描述：整理接口
+ 
+    修改标识：Senparc - 20160722
+    修改描述：增加了thumb_url的参数
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
@@ -52,5 +55,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// 是否显示封面，1为显示，0为不显示
         /// </summary>
         public string show_cover_pic { get; set; }
+        /// <summary>
+        /// 缩略图的URL
+        /// </summary>
+        public string  thumb_url { get; set; }
     }
 }

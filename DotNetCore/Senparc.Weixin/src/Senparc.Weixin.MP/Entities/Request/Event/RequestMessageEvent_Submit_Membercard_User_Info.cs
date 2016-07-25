@@ -1,11 +1,11 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 LSW
+    Copyright (C) 2016 Senparc
     
     文件名：RequestMessageEvent_Submit_Membercard_User_Info.cs
     文件功能描述：事件之接收会员信息事件通知（submit_membercard_user_info）
     
     
-    创建标识：LSW - 20150910
+    创建标识：Senparc - 20150910
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.Entities

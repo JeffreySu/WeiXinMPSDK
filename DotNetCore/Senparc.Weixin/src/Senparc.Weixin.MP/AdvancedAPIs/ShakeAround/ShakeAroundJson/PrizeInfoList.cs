@@ -1,9 +1,9 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 LSW
+    Copyright (C) 2016 Senparc
     
     文件名：PrizeInfoList.cs
     文件功能描述：录入红包信息
-    创建标识：LSW - 20160520
+    创建标识：Senparc - 20160520
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;

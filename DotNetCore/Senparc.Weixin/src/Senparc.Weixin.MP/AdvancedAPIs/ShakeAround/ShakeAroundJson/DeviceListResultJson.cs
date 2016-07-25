@@ -1,4 +1,14 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：DeviceListResultJson.cs
+    文件功能描述：批量查询设备统计数据的返回结果
+    
+    修改标识：Senparc - 20160520
+    修改描述：修改批量查询设备统计数据的返回结果
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

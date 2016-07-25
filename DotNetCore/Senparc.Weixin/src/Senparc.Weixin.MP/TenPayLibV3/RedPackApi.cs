@@ -1,16 +1,22 @@
-﻿using Senparc.Weixin.MP.TenPayLibV3.Entities;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+  
+    文件名：RedPackApi.cs
+    文件功能描述：普通红包发送和红包查询Api（暂缺裂变红包发送）
+    
+    
+    创建标识：Yu XiaoChou - 20160107
+----------------------------------------------------------------*/
+
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
 	/// <summary>
@@ -88,7 +94,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 #endif
 			X509Certificate cer = new X509Certificate(cert, password);
 
-#region 发起post请求
+			#region 发起post请求
 			HttpClientHandler handler = new HttpClientHandler();
 			handler.ClientCertificateOptions = ClientCertificateOption.Automatic;
 			HttpClient client = new HttpClient(handler);
@@ -98,7 +104,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 			var t1 = t.Result.Content.ReadAsStreamAsync();
 			StreamReader streamReader = new StreamReader(t1.Result);
 			string responseContent = streamReader.ReadToEnd();
-#endregion
+			#endregion
 
 			XmlDocument doc = new XmlDocument();
 			doc.LoadXml(responseContent);
@@ -206,12 +212,12 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
 			//调用证书
 			//X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
-#if	NET461
+#if NET461
 			ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
 #endif
 			X509Certificate cer = new X509Certificate(cert, password);
 
-#region 发起post请求
+			#region 发起post请求
 			HttpClientHandler handler = new HttpClientHandler();
 			handler.ClientCertificateOptions = ClientCertificateOption.Automatic;
 			HttpClient client = new HttpClient(handler);
@@ -221,7 +227,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 			var t1 = t.Result.Content.ReadAsStreamAsync();
 			StreamReader streamReader = new StreamReader(t1.Result);
 			string responseContent = streamReader.ReadToEnd();
-#endregion
+			#endregion
 
 			XmlDocument doc = new XmlDocument();
 			doc.LoadXml(responseContent);
@@ -345,5 +351,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 				return true;
 			return false;
 		}
+
 	}
 }

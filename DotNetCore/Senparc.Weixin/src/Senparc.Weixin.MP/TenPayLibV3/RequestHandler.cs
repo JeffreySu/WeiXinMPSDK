@@ -1,3 +1,20 @@
+ï»¿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+ 
+    æ–‡ä»¶åï¼šRequestHandler.cs
+    æ–‡ä»¶åŠŸèƒ½æè¿°ï¼šå¾®ä¿¡æ”¯ä»˜V3 è¯·æ±‚å¤„ç†
+    
+    
+    åˆ›å»ºæ ‡è¯†ï¼šSenparc - 20150211
+    
+    ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20150303
+    ä¿®æ”¹æè¿°ï¼šæ•´ç†æ¥å£
+
+    ä¿®æ”¹æ ‡è¯†ï¼šYu XiaoChou - 20160107
+    ä¿®æ”¹æè¿°ï¼šå¢åŠ ä¸€ä¸ªä¸éœ€è¦HttpContextçš„åˆå§‹åŒ–æ–¹æ³•ï¼Œé¿å…ä½¿ç”¨è¿™ä¸ªç±»çš„æ—¶å€™ï¼Œè¿˜è¦å¿…é¡»ä»é¡µé¢åˆå§‹åŒ–ä¸€ä¸ªå¯¹è±¡è¿‡æ¥ï¼Œå¯ä»¥åœ¨åŸºç±»é‡Œç›´æ¥ä½¿ç”¨è¿™ä¸ªç±»ï¼Œ
+                ç›¸åº”çš„ï¼Œå°†GetCharsetæ–¹æ³•ä¸­ï¼Œä¸å­˜åœ¨HttpContextæ—¶ï¼Œé»˜è®¤ä½¿ç”¨UTF-8
+----------------------------------------------------------------*/
+
 using System;
 using System.Collections;
 using System.Text;
@@ -7,177 +24,178 @@ using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
-	/**
-	'Ç©Ãû¹¤¾ßÀà
-	 ============================================================================/// <summary>
-	'apiËµÃ÷£º
-	'Init();
-	'³õÊ¼»¯º¯Êı£¬Ä¬ÈÏ¸øÒ»Ğ©²ÎÊı¸³Öµ¡£
-	'SetKey(key_)'ÉèÖÃÉÌ»§ÃÜÔ¿
-	'CreateMd5Sign(signParams);×ÖµäÉú³ÉMd5Ç©Ãû
-	'GenPackage(packageParams);»ñÈ¡package°ü
-	'CreateSHA1Sign(signParams);´´½¨Ç©ÃûSHA1
-	'ParseXML();Êä³öxml
-	'GetDebugInfo(),»ñÈ¡debugĞÅÏ¢
-	 * 
-	 * ============================================================================
-	 */
-	public class RequestHandler
-	{
-		public RequestHandler()
-		{
-			Parameters = new Hashtable();
-		}
+    /**
+    'ç­¾åå·¥å…·ç±»
+     ============================================================================/// <summary>
+    'apiè¯´æ˜ï¼š
+    'Init();
+    'åˆå§‹åŒ–å‡½æ•°ï¼Œé»˜è®¤ç»™ä¸€äº›å‚æ•°èµ‹å€¼ã€‚
+    'SetKey(key_)'è®¾ç½®å•†æˆ·å¯†é’¥
+    'CreateMd5Sign(signParams);å­—å…¸ç”ŸæˆMd5ç­¾å
+    'GenPackage(packageParams);è·å–packageåŒ…
+    'CreateSHA1Sign(signParams);åˆ›å»ºç­¾åSHA1
+    'ParseXML();è¾“å‡ºxml
+    'GetDebugInfo(),è·å–debugä¿¡æ¯
+     * 
+     * ============================================================================
+     */
+    public class RequestHandler
+    {
 
-		public RequestHandler(HttpContext httpContext)
-		{
+        public RequestHandler()
+        {
+            Parameters = new Hashtable();
+        }
+
+
+        public RequestHandler(HttpContext httpContext)
+        {
 			Parameters = new Hashtable();
 
 			this.HttpContext = httpContext ?? new DefaultHttpContext();
-
 		}
-		/// <summary>
-		/// ÃÜÔ¿
-		/// </summary>
-		private string Key;
+        /// <summary>
+        /// å¯†é’¥
+        /// </summary>
+        private string Key;
 
-		protected HttpContext HttpContext;
+        protected HttpContext HttpContext;
 
-		/// <summary>
-		/// ÇëÇóµÄ²ÎÊı
-		/// </summary>
-		protected Hashtable Parameters;
+        /// <summary>
+        /// è¯·æ±‚çš„å‚æ•°
+        /// </summary>
+        protected Hashtable Parameters;
 
-		/// <summary>
-		/// debugĞÅÏ¢
-		/// </summary>
-		private string DebugInfo;
+        /// <summary>
+        /// debugä¿¡æ¯
+        /// </summary>
+        private string DebugInfo;
 
-		/// <summary>
-		/// ³õÊ¼»¯º¯Êı
-		/// </summary>
-		public virtual void Init()
-		{
-		}
-		/// <summary>
-		/// »ñÈ¡debugĞÅÏ¢
-		/// </summary>
-		/// <returns></returns>
-		public String GetDebugInfo()
-		{
-			return DebugInfo;
-		}
-		/// <summary>
-		/// »ñÈ¡ÃÜÔ¿
-		/// </summary>
-		/// <returns></returns>
-		public string GetKey()
-		{
-			return Key;
-		}
-		/// <summary>
-		/// ÉèÖÃÃÜÔ¿
-		/// </summary>
-		/// <param name="key"></param>
-		public void SetKey(string key)
-		{
-			this.Key = key;
-		}
+        /// <summary>
+        /// åˆå§‹åŒ–å‡½æ•°
+        /// </summary>
+        public virtual void Init()
+        {
+        }
+        /// <summary>
+        /// è·å–debugä¿¡æ¯
+        /// </summary>
+        /// <returns></returns>
+        public String GetDebugInfo()
+        {
+            return DebugInfo;
+        }
+        /// <summary>
+        /// è·å–å¯†é’¥
+        /// </summary>
+        /// <returns></returns>
+        public string GetKey()
+        {
+            return Key;
+        }
+        /// <summary>
+        /// è®¾ç½®å¯†é’¥
+        /// </summary>
+        /// <param name="key"></param>
+        public void SetKey(string key)
+        {
+            this.Key = key;
+        }
 
-		/// <summary>
-		/// ÉèÖÃ²ÎÊıÖµ
-		/// </summary>
-		/// <param name="parameter"></param>
-		/// <param name="parameterValue"></param>
-		public void SetParameter(string parameter, string parameterValue)
-		{
-			if (parameter != null && parameter != "")
-			{
-				if (Parameters.Contains(parameter))
-				{
-					Parameters.Remove(parameter);
-				}
+        /// <summary>
+        /// è®¾ç½®å‚æ•°å€¼
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <param name="parameterValue"></param>
+        public void SetParameter(string parameter, string parameterValue)
+        {
+            if (parameter != null && parameter != "")
+            {
+                if (Parameters.Contains(parameter))
+                {
+                    Parameters.Remove(parameter);
+                }
 
-				Parameters.Add(parameter, parameterValue);
-			}
-		}
-
-
-		/// <summary>
-		/// ´´½¨md5ÕªÒª,¹æÔòÊÇ:°´²ÎÊıÃû³Æa-zÅÅĞò,Óöµ½¿ÕÖµµÄ²ÎÊı²»²Î¼ÓÇ©Ãû
-		/// </summary>
-		/// <param name="key">²ÎÊıÃû</param>
-		/// <param name="value">²ÎÊıÖµ</param>
-		/// keyºÍvalueÍ¨³£ÓÃÓÚÌî³ä×îºóÒ»×é²ÎÊı
-		/// <returns></returns>
-		public virtual string CreateMd5Sign(string key, string value)
-		{
-			StringBuilder sb = new StringBuilder();
-
-			ArrayList akeys = new ArrayList(Parameters.Keys);
-			akeys.Sort();
-
-			foreach (string k in akeys)
-			{
-				string v = (string)Parameters[k];
-				if (null != v && "".CompareTo(v) != 0
-					&& "sign".CompareTo(k) != 0 && "key".CompareTo(k) != 0)
-				{
-					sb.Append(k + "=" + v + "&");
-				}
-			}
-
-			sb.Append(key + "=" + value);
-			string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
-
-			return sign;
-		}
-
-		/// <summary>
-		/// Êä³öXML
-		/// </summary>
-		/// <returns></returns>
-		public string ParseXML()
-		{
-			StringBuilder sb = new StringBuilder();
-			sb.Append("<xml>");
-			foreach (string k in Parameters.Keys)
-			{
-				string v = (string)Parameters[k];
-				if (Regex.IsMatch(v, @"^[0-9.]$"))
-				{
-
-					sb.Append("<" + k + ">" + v + "</" + k + ">");
-				}
-				else
-				{
-					sb.Append("<" + k + "><![CDATA[" + v + "]]></" + k + ">");
-				}
-
-			}
-			sb.Append("</xml>");
-			return sb.ToString();
-		}
+                Parameters.Add(parameter, parameterValue);
+            }
+        }
 
 
+        /// <summary>
+        /// åˆ›å»ºmd5æ‘˜è¦,è§„åˆ™æ˜¯:æŒ‰å‚æ•°åç§°a-zæ’åº,é‡åˆ°ç©ºå€¼çš„å‚æ•°ä¸å‚åŠ ç­¾å
+        /// </summary>
+        /// <param name="key">å‚æ•°å</param>
+        /// <param name="value">å‚æ•°å€¼</param>
+        /// keyå’Œvalueé€šå¸¸ç”¨äºå¡«å……æœ€åä¸€ç»„å‚æ•°
+        /// <returns></returns>
+        public virtual string CreateMd5Sign(string key, string value)
+        {
+            StringBuilder sb = new StringBuilder();
 
-		/// <summary>
-		/// ÉèÖÃdebugĞÅÏ¢
-		/// </summary>
-		/// <param name="debugInfo"></param>
-		public void SetDebugInfo(String debugInfo)
-		{
-			this.DebugInfo = debugInfo;
-		}
+            ArrayList akeys = new ArrayList(Parameters.Keys);
+            akeys.Sort();
 
-		public Hashtable GetAllParameters()
-		{
-			return this.Parameters;
-		}
+            foreach (string k in akeys)
+            {
+                string v = (string)Parameters[k];
+                if (null != v && "".CompareTo(v) != 0
+                    && "sign".CompareTo(k) != 0 && "key".CompareTo(k) != 0)
+                {
+                    sb.Append(k + "=" + v + "&");
+                }
+            }
 
-		protected virtual string GetCharset()
-		{
+            sb.Append(key + "=" + value);
+            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+
+            return sign;
+        }
+
+        /// <summary>
+        /// è¾“å‡ºXML
+        /// </summary>
+        /// <returns></returns>
+        public string ParseXML()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<xml>");
+            foreach (string k in Parameters.Keys)
+            {
+                string v = (string)Parameters[k];
+                if (Regex.IsMatch(v, @"^[0-9.]$"))
+                {
+
+                    sb.Append("<" + k + ">" + v + "</" + k + ">");
+                }
+                else
+                {
+                    sb.Append("<" + k + "><![CDATA[" + v + "]]></" + k + ">");
+                }
+
+            }
+            sb.Append("</xml>");
+            return sb.ToString();
+        }
+
+
+
+        /// <summary>
+        /// è®¾ç½®debugä¿¡æ¯
+        /// </summary>
+        /// <param name="debugInfo"></param>
+        public void SetDebugInfo(String debugInfo)
+        {
+            this.DebugInfo = debugInfo;
+        }
+
+        public Hashtable GetAllParameters()
+        {
+            return this.Parameters;
+        }
+
+        protected virtual string GetCharset()
+        {
 			return Encoding.UTF8.WebName;
 		}
-	}
+    }
 }

@@ -1,11 +1,11 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 LSW
+    Copyright (C) 2016 Senparc
     
     文件名：DeviceManageResultJson.cs
     文件功能描述：设备管理返回结果
     
     
-    创建标识：LSW - 20150512
+    创建标识：Senparc - 20150512
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;

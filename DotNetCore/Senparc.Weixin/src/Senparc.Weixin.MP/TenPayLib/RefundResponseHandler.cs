@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+ 
+    文件名：RefundResponseHandler.cs
+    文件功能描述：微信支付退款 响应处理
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Text;
@@ -144,8 +157,6 @@ namespace Senparc.Weixin.MP.TenPayLib
 
 			var t = this.HttpContext.Response.WriteAsync(strHtml);
 			t.Wait();
-
-			//this.HttpContext.Response.End();
 		}
 
 		/// <summary>

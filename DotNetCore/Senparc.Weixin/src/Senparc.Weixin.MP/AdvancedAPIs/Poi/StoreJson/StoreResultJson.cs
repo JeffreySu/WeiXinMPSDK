@@ -1,11 +1,11 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 LSW
+    Copyright (C) 2016 Senparc
     
     文件名：StoreResultJson.cs
     文件功能描述：门店相关接口返回结果
     
     
-    创建标识：LSW - 20150513
+    创建标识：Senparc - 20150513
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -96,4 +96,5 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
     {
         public List<string> category_list { get; set; } 
     }
+
 }

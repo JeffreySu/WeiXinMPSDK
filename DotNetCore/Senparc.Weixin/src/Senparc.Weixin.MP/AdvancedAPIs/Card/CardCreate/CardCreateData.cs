@@ -1,4 +1,23 @@
-﻿namespace Senparc.Weixin.MP.AdvancedAPIs.Card
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：CardCreateData.cs
+    文件功能描述：所有类型的卡券数据
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+    
+    修改标识：Senparc - 20150323
+    修改描述：添加会议门票类型
+    
+    修改标识：hello2008zj - 20160502
+    修改描述：v13.7.8 添加 Card_MemberCardData.background_pic_url
+----------------------------------------------------------------*/
+
+namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
     /* 所有类型的卡券数据 */
 

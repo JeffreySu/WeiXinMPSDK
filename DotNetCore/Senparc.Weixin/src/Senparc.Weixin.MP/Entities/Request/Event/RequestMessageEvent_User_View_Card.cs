@@ -1,11 +1,11 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 LSW
+    Copyright (C) 2016 Senparc
     
     文件名：RequestMessageEvent_User_View_Card.cs
     文件功能描述：事件之进入会员卡
     
     
-    创建标识：LSW - 20150722
+    创建标识：Senparc - 20150722
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.Entities

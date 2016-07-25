@@ -1,4 +1,19 @@
-﻿using System.Collections.Generic;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+
+    文件名：ProductResult.cs
+    文件功能描述：商品结果
+
+
+    创建标识：Senparc - 20150827
+
+    修改标识：Senparc - 20160610
+    修改描述：修改PropertyValue的id类型为int
+
+----------------------------------------------------------------*/
+
+
+using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant

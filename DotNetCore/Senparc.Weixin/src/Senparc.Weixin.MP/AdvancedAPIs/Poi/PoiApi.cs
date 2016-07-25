@@ -1,8 +1,25 @@
-﻿/* 
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：StoreApi.cs
+    文件功能描述：门店管理接口
+    
+    
+    创建标识：Senparc - 20150513
+    
+    修改标识：Senparc - 201501018
+    修改描述：修改UploadImage()方法bug
+
+    修改标识：Senparc - 20160719
+    修改描述：增加其接口的异步方法
+----------------------------------------------------------------*/
+
+/* 
    开发文档下载地址：https://mp.weixin.qq.com/zh_CN/htmledition/comm_htmledition/res/store_manage/store_manage_file.zip
 */
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.Poi;
@@ -37,6 +54,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class PoiApi
     {
+        #region 同步请求
+        
+     
         /// <summary>
         /// 上传图片
         /// </summary>
@@ -48,8 +68,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}",
-                    accessToken.AsUrlData());
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
 
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
@@ -184,5 +203,155 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+        #endregion
+
+        #region 异步请求
+         /// <summary>
+        /// 【异步方法】上传图片
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="file">文件路径</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<UploadImageResultJson> UploadImageAsync(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
+
+                var fileDictionary = new Dictionary<string, string>();
+                fileDictionary["media"] = file;
+                return Post.PostFileGetJsonAsync<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】创建门店
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="createStoreData"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> AddPoiAsync(string accessTokenOrAppId, CreateStoreData createStoreData,
+            int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            {
+                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token={0}", accessToken.AsUrlData());
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】查询门店信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="poiId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetStoreResultJson> GetPoiAsync(string accessTokenOrAppId, string poiId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            {
+                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    poi_id = poiId
+                };
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetStoreResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】查询门店列表
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="begin">开始位置，0 即为从第一条开始查询</param>
+        /// <param name="limit">返回数据条数，最大允许50，默认为20</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetStoreListResultJson> GetPoiListAsync(string accessTokenOrAppId, int begin, int limit = 20, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/getpoilist?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    begin = begin,
+                    limit = limit
+                };
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetStoreListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】删除门店
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="poiId"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> DeletePoiAsync(string accessTokenOrAppId, string poiId, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/delpoi?access_token={0}", accessToken.AsUrlData());
+
+                var data = new
+                {
+                    poi_id = poiId
+                };
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】修改门店服务信息
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="updateStoreData">修改门店服务信息需要Post的数据</param>
+        /// 商户可以通过该接口，修改门店的服务信息，包括：图片列表、营业时间、推荐、特色服务、简介、人均价格、电话7 个字段。目前基础字段包括（名称、坐标、地址等不可修改）
+        /// 若有填写内容则为覆盖更新，若无内容则视为不修改，维持原有内容。
+        /// photo_list 字段为全列表覆盖，若需要增加图片，需将之前图片同样放入list 中，在其后增加新增图片。如：已有A、B、C 三张图片，又要增加D、E 两张图，则需要调用该接口，photo_list 传入A、B、C、D、E 五张图片的链接。
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> UpdatePoiAsync(string accessTokenOrAppId, UpdateStoreData updateStoreData, int timeOut = Config.TIME_OUT)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/updatepoi?access_token={0}", accessToken.AsUrlData());
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, updateStoreData, CommonJsonSendType.POST, timeOut);
+
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取门店类目表
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <returns></returns>
+        public static async Task<GetCategoryResult> GetCategoryAsync(string accessTokenOrAppId)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            {
+                var url = string.Format("http://api.weixin.qq.com/cgi-bin/api_getwxcategory?access_token={0}", accessToken.AsUrlData());
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCategoryResult>(null, url, null, CommonJsonSendType.GET);
+
+            }, accessTokenOrAppId);
+        }
+        #endregion
     }
 }

@@ -16,6 +16,7 @@ using Senparc.Weixin.MP.Helpers;
  * getDebugInfo(),获取debug信息
  * 
  * ============================================================================
+ *
  */
 
 namespace Senparc.Weixin.MP.TenPayLib

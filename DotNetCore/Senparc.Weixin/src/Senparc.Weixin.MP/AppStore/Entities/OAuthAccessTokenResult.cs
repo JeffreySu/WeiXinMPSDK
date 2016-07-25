@@ -1,11 +1,11 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 LSW
+    Copyright (C) 2016 Senparc
   
     文件名：OAuthAccessTokenResult.cs
     文件功能描述：获取OAuth AccessToken的结果
     
     
-    创建标识：LSW - 20150319
+    创建标识：Senparc - 20150319
 ----------------------------------------------------------------*/
 
 using System;

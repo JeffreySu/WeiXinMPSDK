@@ -1,3 +1,16 @@
+/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+ 
+    文件名：TenPayUtil.cs
+    文件功能描述：微信支付配置文件
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
 using System;
 using System.Text;
 using Senparc.Weixin.MP.Helpers;
@@ -47,7 +60,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 					res = WebUtility.UrlEncode(instr);
 
 				}
-				catch (Exception)
+				catch (Exception ex)
 				{
 					res = WebUtility.UrlEncode(instr);
 				}

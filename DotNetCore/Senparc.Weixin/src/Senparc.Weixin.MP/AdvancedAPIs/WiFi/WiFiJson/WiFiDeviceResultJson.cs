@@ -1,11 +1,11 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 LSW
+    Copyright (C) 2016 Senparc
     
     文件名：WiFiDeviceResultJson.cs
     文件功能描述：WiFi设备接口返回结果
     
     
-    创建标识：LSW - 20150709
+    创建标识：Senparc - 20150709
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;

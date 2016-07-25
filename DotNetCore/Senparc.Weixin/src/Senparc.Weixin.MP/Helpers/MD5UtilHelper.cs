@@ -1,3 +1,16 @@
+/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：MD5UtilHelper.cs
+    文件功能描述：获取大写的MD5签名结果
+    
+    
+    创建标识：Senparc - 20150211
+    
+    修改标识：Senparc - 20150303
+    修改描述：整理接口
+----------------------------------------------------------------*/
+
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -5,11 +18,11 @@ using System.Text;
 namespace Senparc.Weixin.MP.Helpers
 {
 	/// <summary>
-	/// MD5UtilHelper 的摘要说明。
+    /// MD5UtilHelper 的摘要说明。
 	/// </summary>
 	public class MD5UtilHelper
 	{
-		public MD5UtilHelper()
+        public MD5UtilHelper()
 		{
 			//
 			// TODO: 在此处添加构造函数逻辑
@@ -17,7 +30,7 @@ namespace Senparc.Weixin.MP.Helpers
 		}
 
 		/// <summary>
-		/// 获取大写的MD5签名结果
+        /// 获取大写的MD5签名结果
 		/// </summary>
 		/// <param name="encypStr"></param>
 		/// <param name="charset"></param>

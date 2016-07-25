@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MessageHandlers;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.MvcExtension
 {
@@ -73,7 +73,7 @@ namespace Senparc.Weixin.MP.MvcExtension
 
 				if (_messageHandlerDocument.FinalResponseDocument == null)
 				{
-					//throw new Senparc.Weixin.MP.WeixinException("ResponseMessage不能为Null！", null);
+					//throw new LSW.Weixin.MP.WeixinException("ResponseMessage不能为Null！", null);
 				}
 				else
 				{
@@ -98,7 +98,7 @@ namespace Senparc.Weixin.MP.MvcExtension
 
 				if (_messageHandlerDocument.FinalResponseDocument == null)
 				{
-					//throw new Senparc.Weixin.MP.WeixinException("ResponseMessage不能为Null！", null);
+					//throw new LSW.Weixin.MP.WeixinException("ResponseMessage不能为Null！", null);
 				}
 				else
 				{

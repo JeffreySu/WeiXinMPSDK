@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+	Copyright (C) 2016 Senparc
+	
+	文件名：EntityHelper.cs
+	文件功能描述：实体与xml相互转换
+	
+	
+	创建标识：Senparc - 20150313
+	
+	修改标识：Senparc - 20150313
+	修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
@@ -169,7 +182,7 @@ namespace Senparc.Weixin.QY.Helpers
 			/* 注意！
 			 * 经过测试，微信对字段排序有严格要求，这里对排序进行强制约束
 			*/
-			var propNameOrder = new List<string>() { "ToUserName", "FromUserName", "CreateTime", "MsgType"};
+			var propNameOrder = new List<string>() { "ToUserName", "FromUserName", "CreateTime", "MsgType" };
 			//不同返回类型需要对应不同特殊格式的排序
 			if (entity is ResponseMessageNews)
 			{

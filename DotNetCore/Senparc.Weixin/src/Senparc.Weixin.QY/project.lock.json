@@ -881,7 +881,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
-      "Senparc.Weixin/1.2.3": {
+      "Senparc.Weixin/1.2.4": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6.1",
         "dependencies": {
@@ -2433,7 +2433,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
-      "Senparc.Weixin/1.2.3": {
+      "Senparc.Weixin/1.2.4": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
@@ -6239,7 +6239,7 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
-    "Senparc.Weixin/1.2.3": {
+    "Senparc.Weixin/1.2.4": {
       "type": "project",
       "path": "../Senparc.Weixin/project.json",
       "msbuildProject": "../Senparc.Weixin/Senparc.Weixin.xproj"
@@ -6248,7 +6248,7 @@
   "projectFileDependencyGroups": {
     "": [
       "Microsoft.AspNetCore.Http >= 1.0.0",
-      "Senparc.Weixin >= 1.2.3",
+      "Senparc.Weixin >= 1.2.4",
       "System.Collections.NonGeneric >= 4.0.1",
       "System.Xml.XPath.XmlDocument >= 4.0.1",
       "System.Xml.XmlDocument >= 4.0.1"

@@ -1,3 +1,13 @@
+/*----------------------------------------------------------------
+	Copyright (C) 2016 Senparc
+ 
+	文件名：ResponseHandler.cs
+	文件功能描述：微信支付 响应处理
+	
+	
+	创建标识：Senparc - 20150722
+----------------------------------------------------------------*/
+
 using System;
 using System.Collections;
 using System.Collections.Specialized;
@@ -44,7 +54,7 @@ namespace Senparc.Weixin.QY.TenPayLib
 		/// 应答的参数
 		/// </summary>
 		protected Hashtable Parameters;
-		
+
 		/// <summary>
 		/// debug信息
 		/// </summary>
@@ -105,20 +115,20 @@ namespace Senparc.Weixin.QY.TenPayLib
 				}
 			}
 		}
-	
+
 
 		/// <summary>
 		/// 获取密钥
 		/// </summary>
 		/// <returns></returns>
-		public string GetKey() 
-		{ return Key;}
+		public string GetKey()
+		{ return Key; }
 
 		/// <summary>
 		/// 设置密钥
 		/// </summary>
 		/// <param name="key"></param>
-		public void SetKey(string key) 
+		public void SetKey(string key)
 		{
 			this.Key = key;
 		}
@@ -128,7 +138,7 @@ namespace Senparc.Weixin.QY.TenPayLib
 		/// </summary>
 		/// <param name="parameter"></param>
 		/// <returns></returns>
-		public string GetParameter(string parameter) 
+		public string GetParameter(string parameter)
 		{
 			string s = (string)Parameters[parameter];
 			return (null == s) ? "" : s;
@@ -139,16 +149,16 @@ namespace Senparc.Weixin.QY.TenPayLib
 		/// </summary>
 		/// <param name="parameter"></param>
 		/// <param name="parameterValue"></param>
-		public void SetParameter(string parameter,string parameterValue) 
+		public void SetParameter(string parameter, string parameterValue)
 		{
-			if(parameter != null && parameter != "")
+			if (parameter != null && parameter != "")
 			{
-				if(Parameters.Contains(parameter))
+				if (Parameters.Contains(parameter))
 				{
 					Parameters.Remove(parameter);
 				}
-	
-				Parameters.Add(parameter,parameterValue);		
+
+				Parameters.Add(parameter, parameterValue);
 			}
 		}
 
@@ -156,18 +166,18 @@ namespace Senparc.Weixin.QY.TenPayLib
 		/// 是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名。return boolean
 		/// </summary>
 		/// <returns></returns>
-		public virtual Boolean IsTenpaySign() 
+		public virtual Boolean IsTenpaySign()
 		{
 			StringBuilder sb = new StringBuilder();
 
-			ArrayList akeys=new ArrayList(Parameters.Keys); 
+			ArrayList akeys = new ArrayList(Parameters.Keys);
 			akeys.Sort();
 
-			foreach(string k in akeys)
+			foreach (string k in akeys)
 			{
 				string v = (string)Parameters[k];
-				if(null != v && "".CompareTo(v) != 0
-					&& "sign".CompareTo(k) != 0 && "key".CompareTo(k) != 0) 
+				if (null != v && "".CompareTo(v) != 0
+					&& "sign".CompareTo(k) != 0 && "key".CompareTo(k) != 0)
 				{
 					sb.Append(k + "=" + v + "&");
 				}
@@ -177,27 +187,27 @@ namespace Senparc.Weixin.QY.TenPayLib
 			string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
 			this.SetDebugInfo(sb.ToString() + " &sign=" + sign);
 			//debug信息
-			return GetParameter("sign").ToLower().Equals(sign); 
+			return GetParameter("sign").ToLower().Equals(sign);
 		}
 
 		/// <summary>
 		/// 获取debug信息
 		/// </summary>
 		/// <returns></returns>
-		public string GetDebugInfo() 
-		{ return DebugInfo;}
-				
+		public string GetDebugInfo()
+		{ return DebugInfo; }
+
 		/// <summary>
 		/// 设置debug信息
 		/// </summary>
 		/// <param name="debugInfo"></param>
 		protected void SetDebugInfo(String debugInfo)
-		{ this.DebugInfo = debugInfo;}
+		{ this.DebugInfo = debugInfo; }
 
 		protected virtual string GetCharset()
 		{
 			return Encoding.UTF8.WebName;
-			
+
 		}
 
 		/// <summary>

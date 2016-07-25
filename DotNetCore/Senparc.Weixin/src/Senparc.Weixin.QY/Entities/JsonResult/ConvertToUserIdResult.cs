@@ -1,11 +1,11 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2015 LSW
+    Copyright (C) 2016 Senparc
     
     文件名：ConvertToUserIdResult.cs
     文件功能描述：openid转换成userid接口返回的Json结果
     
     
-    创建标识：LSW - 20150722
+    创建标识：Senparc - 20150722
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;

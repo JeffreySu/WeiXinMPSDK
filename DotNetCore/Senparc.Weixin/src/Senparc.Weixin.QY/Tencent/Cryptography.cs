@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+	文件名：Cryptography.cs
+	文件功能描述：加解密算法
+	
+	
+	创建标识：Senparc - 20150313
+	
+	修改标识：Senparc - 20150313
+	修改描述：整理接口
+----------------------------------------------------------------*/
+
+using System;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
@@ -45,11 +56,11 @@ namespace Tencent
 			byte[] bMsg = new byte[len];
 			byte[] bCorpid = new byte[btmpMsg.Length - 20 - len];
 			Array.Copy(btmpMsg, 20, bMsg, 0, len);
-			Array.Copy(btmpMsg, 20+len , bCorpid, 0, btmpMsg.Length - 20 - len);
+			Array.Copy(btmpMsg, 20 + len, bCorpid, 0, btmpMsg.Length - 20 - len);
 			string oriMsg = Encoding.UTF8.GetString(bMsg);
 			corpid = Encoding.UTF8.GetString(bCorpid);
 
-			
+
 			return oriMsg;
 		}
 
@@ -70,7 +81,7 @@ namespace Tencent
 			Array.Copy(bMsgLen, 0, bMsg, bRand.Length, bMsgLen.Length);
 			Array.Copy(btmpMsg, 0, bMsg, bRand.Length + bMsgLen.Length, btmpMsg.Length);
 			Array.Copy(bCorpid, 0, bMsg, bRand.Length + bMsgLen.Length + btmpMsg.Length, bCorpid.Length);
-   
+
 			return AES_encrypt(bMsg, Iv, Key);
 
 		}
@@ -95,7 +106,6 @@ namespace Tencent
 
 		private static String AES_encrypt(String Input, byte[] Iv, byte[] Key)
 		{
-			//var aes = new RijndaelManaged();
 			var aes = Aes.Create();
 			//秘钥的大小，以位为单位
 			aes.KeySize = 256;

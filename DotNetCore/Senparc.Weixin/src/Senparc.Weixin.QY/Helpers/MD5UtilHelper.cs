@@ -1,3 +1,16 @@
+/*----------------------------------------------------------------
+	Copyright (C) 2016 Senparc
+	
+	文件名：MD5UtilHelper.cs
+	文件功能描述：获取大写的MD5签名结果
+	
+	
+	创建标识：Senparc - 20150313
+	
+	修改标识：Senparc - 20150313
+	修改描述：整理接口
+----------------------------------------------------------------*/
+
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -36,7 +49,7 @@ namespace Senparc.Weixin.QY.Helpers
 			{
 				inputBye = Encoding.GetEncoding(charset).GetBytes(encypStr);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
 				inputBye = Encoding.GetEncoding("GB2312").GetBytes(encypStr);
 			}

@@ -9,12 +9,17 @@
   
     增加功能：获取应用概况列表
     修改标识：Bemguin - 20150614 
+ 
+    修改标识：Senparc - 20160720
+    修改描述：增加其接口的异步方法
+ 
 ----------------------------------------------------------------*/
 
 /*
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E4%BC%81%E4%B8%9A%E5%8F%B7%E5%BA%94%E7%94%A8
  */
 
+using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.App;
@@ -26,6 +31,9 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     /// </summary>
     public static class AppApi
     {
+        #region 同步请求
+        
+        
         /// <summary>
         /// 获取企业号应用信息
         /// </summary>
@@ -67,6 +75,50 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return Get.GetJson<GetAppListResult>(url);
         }
+        #endregion
 
+        #region 异步请求
+        /// <summary>
+        /// 【异步方法】获取企业号应用信息
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="agentId">企业应用的id，可在应用的设置页面查看</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<GetAppInfoResult> GetAppInfoAsync(string accessToken, int agentId, int timeOut = Config.TIME_OUT)
+        {
+            string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
+
+            return await Get.GetJsonAsync<GetAppInfoResult>(url);
+        }
+
+        /// <summary>
+        /// 【异步方法】设置企业号应用
+        /// 此App只能修改现有的并且有权限管理的应用，无法创建新应用（因为新应用没有权限）
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="data">设置应用需要Post的数据</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<QyJsonResult> SetAppAsync(string accessToken, SetAppPostData data, int timeOut = Config.TIME_OUT)
+        {
+            string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
+
+            return await Get.GetJsonAsync<QyJsonResult>(url);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取应用概况列表
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<GetAppListResult> GetAppListAsync(string accessToken, int timeOut = Config.TIME_OUT)
+        {
+            string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/list?access_token={0}", accessToken.AsUrlData());
+
+            return await Get.GetJsonAsync<GetAppListResult>(url);
+        }
+        #endregion
     }
 }

@@ -16,6 +16,9 @@
     修改标识：Senparc - 20160318
     修改描述：v3.3.4 使用FlushCache.CreateInstance使注册过程立即生效
 
+    修改标识：Senparc - 20160717
+    修改描述：v3.3.8 添加注册过程中的Name参数
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -80,12 +83,14 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
-        public static void Register(string appId, string appSecret)
+        /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别</param>
+        public static void Register(string appId, string appSecret,string name=null)
         {
             using (FlushCache.CreateInstance())
             {
                 Update(appId, new JsApiTicketBag()
                 {
+                    Name = name,
                     AppId = appId,
                     AppSecret = appSecret,
                     ExpireTime = DateTime.MinValue,

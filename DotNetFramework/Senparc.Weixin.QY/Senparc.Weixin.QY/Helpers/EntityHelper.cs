@@ -181,7 +181,7 @@ namespace Senparc.Weixin.QY.Helpers
             /* 注意！
              * 经过测试，微信对字段排序有严格要求，这里对排序进行强制约束
             */
-            var propNameOrder = new List<string>() { "ToUserName", "FromUserName", "CreateTime", "MsgType"};
+            var propNameOrder = new List<string>() { "ToUserName", "FromUserName", "CreateTime", "MsgType" };
             //不同返回类型需要对应不同特殊格式的排序
             if (entity is ResponseMessageNews)
             {

@@ -15,6 +15,9 @@
 
     修改标识：Senparc - 20151205
     修改描述：v13.4.5 提供OmitRepeatedMessageFunc方法增强消息去重灵活性
+  
+    修改标识：Senparc - 20160722
+    修改描述： 记录上下文，此处修改
 ----------------------------------------------------------------*/
 
 using System;
@@ -336,7 +339,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 }
 
                 //记录上下文
-                if (WeixinContextGlobal.UseWeixinContext && ResponseMessage != null)
+                //此处修改
+                if (WeixinContextGlobal.UseWeixinContext && ResponseMessage != null && !string.IsNullOrEmpty(ResponseMessage.FromUserName))
                 {
                     WeixinContext.InsertMessage(ResponseMessage);
                 }

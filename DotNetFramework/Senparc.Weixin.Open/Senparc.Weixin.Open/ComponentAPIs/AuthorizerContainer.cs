@@ -19,6 +19,9 @@
     修改标识：Senparc - 20160318
     修改描述：v1.6.4 使用FlushCache.CreateInstance使注册过程立即生效
 
+    修改标识：Senparc - 20160717
+    修改描述：1.6.6 添加注册过程中的Name参数
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -141,7 +144,10 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
         /// </summary>
-        private static void Register(string componentAppId, string authorizerAppId)
+        /// <param name="authorizerAppId"></param>
+        /// <param name="componentAppId"></param>
+        /// <param name="name">标记Authorizer名称（如微信公众号名称），帮助管理员识别</param>
+        private static void Register(string componentAppId, string authorizerAppId,string name=null)
         {
             var componentBag = ComponentContainer.TryGetItem(componentAppId);
             if (componentBag == null)
@@ -153,6 +159,8 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             {
                 Update(authorizerAppId, new AuthorizerBag()
                 {
+                    Name = name,
+
                     AuthorizerAppId = authorizerAppId,
                     ComponentAppId = componentAppId,
 

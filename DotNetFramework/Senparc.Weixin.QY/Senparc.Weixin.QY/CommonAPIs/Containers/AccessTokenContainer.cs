@@ -19,6 +19,9 @@
 
     修改标识：Senparc - 20160318
     修改描述：v3.3.4 使用FlushCache.CreateInstance使注册过程立即生效
+    
+    修改标识：Senparc - 20160717
+    修改描述：v3.3.8 添加注册过程中的Name参数
 
 ----------------------------------------------------------------*/
 
@@ -92,12 +95,14 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// </summary>
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
-        public static void Register(string corpId, string corpSecret)
+        /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别</param>
+        public static void Register(string corpId, string corpSecret, string name = null)
         {
             using (FlushCache.CreateInstance())
             {
                 Update(corpId, new AccessTokenBag()
                 {
+                    Name = name,
                     CorpId = corpId,
                     CorpSecret = corpSecret,
                     ExpireTime = DateTime.MinValue,

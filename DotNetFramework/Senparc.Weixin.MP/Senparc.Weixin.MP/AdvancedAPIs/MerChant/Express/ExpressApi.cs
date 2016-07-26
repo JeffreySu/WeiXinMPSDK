@@ -1,4 +1,10 @@
-﻿using Senparc.Weixin.Entities;
+﻿/*----------------------------------------------------------------
+修改标识：Senparc - 20160719
+修改描述：增加其接口的异步方法
+----------------------------------------------------------------*/
+
+using System.Threading.Tasks;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
@@ -8,6 +14,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class ExpressApi
     {
+        #region 同步请求
+        
+      
         /// <summary>
         /// 增加邮费模板
         /// </summary>
@@ -81,5 +90,82 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             return CommonJsonSend.Send<GetAllExpressResult>(accessToken, urlFormat, null, CommonJsonSendType.GET);
         }
+        #endregion
+
+        #region 异步请求
+        /// <summary>
+        /// 【异步方法】增加邮费模板
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="addExpressData">增加邮费模板需要Post的数据</param>
+        /// <returns></returns>
+        public static async Task<AddExpressResult> AddExpressAsync(string accessToken, AddExpressData addExpressData)
+        {
+            var urlFormat = "https://api.weixin.qq.com/merchant/express/add?access_token={0}";
+
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddExpressResult>(accessToken, urlFormat, addExpressData);
+        }
+
+        /// <summary>
+        /// 【异步方法】删除邮费模板
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="templateId">邮费模板Id</param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> DeleteExpressAsync(string accessToken, int templateId)
+        {
+            var urlFormat = "https://api.weixin.qq.com/merchant/express/del?access_token={0}";
+
+            var data = new
+            {
+                template_id = templateId
+            };
+
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
+        }
+
+        /// <summary>
+        /// 【异步方法】修改邮费模板
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="upDateExpressData">修改邮费模板需要Post的数据</param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> UpDateExpressAsync(string accessToken, UpDateExpressData upDateExpressData)
+        {
+            var urlFormat = "https://api.weixin.qq.com/merchant/express/update?access_token={0}";
+
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, upDateExpressData);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取指定ID的邮费模板
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="templateId">邮费模板Id</param>
+        /// <returns></returns>
+        public static async Task<GetByIdExpressResult> GetByIdExpressAsync(string accessToken, int templateId)
+        {
+            var urlFormat = "https://api.weixin.qq.com/merchant/express/getbyid?access_token={0}";
+
+            var data = new
+            {
+                template_id = templateId
+            };
+
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetByIdExpressResult>(accessToken, urlFormat, data);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取所有邮费模板
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public static async Task<GetAllExpressResult> GetAllExpressAsync(string accessToken)
+        {
+            var urlFormat = "https://api.weixin.qq.com/merchant/express/getall?access_token={0}";
+
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAllExpressResult>(accessToken, urlFormat, null, CommonJsonSendType.GET);
+        }
+        #endregion
     }
 }

@@ -22,6 +22,9 @@
     修改标识：Senparc - 20160318
     修改描述：v1.6.4 使用FlushCache.CreateInstance使注册过程立即生效
 
+    修改标识：Senparc - 20160717
+    修改描述：1.6.6 添加注册过程中的Name参数
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -175,11 +178,12 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="componentAppId"></param>
         /// <param name="componentAppSecret"></param>
         /// <param name="getNewToken"></param>
-        private static void TryRegister(string componentAppId, string componentAppSecret, bool getNewToken = false)
+        /// <param name="name">标记Component名称（如微信公众号名称），帮助管理员识别</param>
+        private static void TryRegister(string componentAppId, string componentAppSecret, bool getNewToken = false, string name = null)
         {
             if (!CheckRegistered(componentAppId) || getNewToken)
             {
-                Register(componentAppId, componentAppSecret, null, null, null);
+                Register(componentAppId, componentAppSecret, null, null, null, name);
             }
         }
 
@@ -207,7 +211,8 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <param name="getComponentVerifyTicketFunc">获取ComponentVerifyTicket的方法</param>
         /// <param name="getAuthorizerRefreshTokenFunc">从数据库中获取已存的AuthorizerAccessToken的方法</param>
         /// <param name="authorizerTokenRefreshedFunc">AuthorizerAccessToken更新后的回调</param>
-        public static void Register(string componentAppId, string componentAppSecret, Func<string, string> getComponentVerifyTicketFunc, Func<string, string> getAuthorizerRefreshTokenFunc, Action<string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc)
+        /// <param name="name">标记Authorizer名称（如微信公众号名称），帮助管理员识别</param>
+        public static void Register(string componentAppId, string componentAppSecret, Func<string, string> getComponentVerifyTicketFunc, Func<string, string> getAuthorizerRefreshTokenFunc, Action<string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc, string name = null)
         {
             //激活消息列队线程
 
@@ -223,6 +228,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             {
                 Update(componentAppId, new ComponentBag()
                 {
+                    Name = name,
                     ComponentAppId = componentAppId,
                     ComponentAppSecret = componentAppSecret,
                 });

@@ -92,6 +92,7 @@
     <Compile Include="AdvancedAPIs\Semantic\SemanticTest.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundTest.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateTest.cs" />
+    <Compile Include="CommonAPIs\Containers\AccessTokenContainerAsyncTest.cs" />
     <Compile Include="CommonAPIs\Containers\JsApiTicketContainerTest.cs" />
     <Compile Include="Entities\Request\PostModelTest.cs" />
     <Compile Include="MessageHandlers\MessageHandlers_OmitRepeatMessageTest.cs" />

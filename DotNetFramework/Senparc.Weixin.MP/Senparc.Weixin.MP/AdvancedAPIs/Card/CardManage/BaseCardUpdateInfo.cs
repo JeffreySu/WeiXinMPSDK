@@ -137,12 +137,62 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public string custom_url { get; set; }
+
+        //以下增加
+
+        /// <summary>
+        /// 自定义跳转外链的入口名字
+        /// 非必填
+        /// </summary>
+        public string custom_url_name { get; set; }
+        /// <summary>
+        /// 显示在入口右侧的提示语
+        /// 非必填
+        /// </summary>
+        public string custom_url_sub_title { get; set; }
+        /// <summary>
+        /// 营销场景的自定义入口名称
+        /// 非必填
+        /// </summary>
+        public string promotion_url_name { get; set; }
+        /// <summary>
+        /// 入口跳转外链的地址链接
+        /// 非必填
+        /// </summary>
+        public string promotion_url { get; set; }
+        /// <summary>
+        /// 显示在营销入口右侧的提示语
+        /// 非必填
+        /// </summary>
+        public string promotion_url_sub_title { get; set; }
+
+        /// <summary>
+        /// 顶部居中的自定义cell入口名称
+        /// 非必填
+        /// </summary>
+        public string center_title { get; set; }
+        /// <summary>
+        /// 显示在顶部居中的自定义cell入口右侧的提示语
+        /// 非必填
+        /// </summary>
+        public string center_sub_title { get; set; }
+        /// <summary>
+        /// 顶部居中的自定义cell入口跳转外链的地址链接
+        /// 非必填
+        /// </summary>
+        public string center_url { get; set; }
     }
     /// <summary>
     /// 使用日期，有效期的信息
     /// </summary>
     public class Card_UpdateDateInfo
     {
+
+        /// <summary>
+        /// 使用时间的类型 1：固定日期区间，2：固定时长（自领取后按天算）
+        /// 必填
+        /// </summary>
+        public string type { get; set; }
         /// <summary>
         /// 固定日期区间专用，表示起用时间。从1970 年1 月1 日00:00:00 至起用时间的秒数，最终需转换为字符串形态传入，下同。（单位为秒）
         /// 非必填

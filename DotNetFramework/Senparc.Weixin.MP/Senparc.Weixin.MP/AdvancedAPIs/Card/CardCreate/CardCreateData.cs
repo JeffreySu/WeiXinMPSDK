@@ -200,6 +200,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public string background_pic_url { get; set; }
 
+        //以下增加201607026
+        /// <summary>
+        /// 积分规则结构体
+        /// </summary>
+        public BonusRule bonus_rule { get; set; }
+        /// <summary>
+        /// 折扣
+        /// </summary>
+        public int discount { get; set; }
+
         public Card_MemberCardData()
             : base(CardType.MEMBER_CARD)
         {
@@ -235,6 +245,21 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 必填
         /// </summary>
         public string url { get; set; }
+    }
+
+    /// <summary>
+    /// 积分规则，新增加
+    /// </summary>
+    public class BonusRule
+    {
+        public int cost_money_unit { get; set; }
+        public int increase_bonus { get; set; }
+        public int max_increase_bonus { get; set; }
+        public int init_increase_bonus { get; set; }
+        public int cost_bonus_unit { get; set; }
+        public int reduce_money { get; set; }
+        public int least_money_to_use_bonus { get; set; }
+        public int max_reduce_bonus { get; set; }
     }
 
     /// <summary>

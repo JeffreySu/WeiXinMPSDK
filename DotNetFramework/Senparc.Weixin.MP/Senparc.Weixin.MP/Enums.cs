@@ -423,6 +423,18 @@ namespace Senparc.Weixin.MP
         /// 二维码
         /// </summary>
         CODE_TYPE_QRCODE = 2,
+        /// <summary>
+        /// 二维码无code显示
+        /// </summary>
+        CODE_TYPE_ONLY_QRCODE = 3,
+        /// <summary>
+        /// 一维码无code显示
+        /// </summary>
+        CODE_TYPE_ONLY_BARCODE = 4,
+        /// <summary>
+        /// 不显示code和条形码类型
+        /// </summary>
+        CODE_TYPE_NONE = 5,
     }
     /// <summary>
     /// 卡券 商户自定义cell 名称

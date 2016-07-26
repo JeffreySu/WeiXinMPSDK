@@ -154,6 +154,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public Modify_Msg_Operation modify_msg_operation { get; set; }
 
+        //以下增加20160726
+        /// <summary>
+        /// 设置本卡券支持全部门店
+        /// </summary>
+        public bool use_all_locations { get; set; }
+        /// <summary>
+        ///进入会员卡时是否推送事件，填写true或false，会员卡专用。
+        /// </summary>
+        public bool need_push_on_view { get; set; }
+        /// <summary>
+        /// 会员卡支持微信支付刷卡
+        /// </summary>
+        public Card_BaseInfo_member_card_PayInfo pay_info { get; set; }
+
         //public Card_BaseInfoBase()
         //{
         //    modify_msg_operation = new Modify_Msg_Operation();//为了解决提交时候modify_msg_operation=null，导致47001的错误

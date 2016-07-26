@@ -45,4 +45,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         public int fixed_begin_term { get; set; }
     }
 
+    /// <summary>
+    ///会员卡支持微信支付刷卡 
+    /// </summary>
+    public class Card_BaseInfo_member_card_PayInfo
+    {
+        public Card_BaseInfo_member_card_SwipeCard swipe_card { get; set; }
+    }
+
+    public class Card_BaseInfo_member_card_SwipeCard
+    {
+        public bool is_swipe_card { get; set; }
+    }
+
 }

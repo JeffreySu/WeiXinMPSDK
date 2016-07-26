@@ -6,6 +6,9 @@
     
     
     创建标识：Senparc - 20150430
+ 
+    修改标识：Senparc - 20160726
+    修改描述： RequestInfoType中加了updateauthorized，authorized
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Open
@@ -48,7 +51,15 @@ namespace Senparc.Weixin.Open
         /// <summary>
         /// 推送取消授权通知
         /// </summary>
-        unauthorized
+        unauthorized,
+        /// <summary>
+        /// 更新授权
+        /// </summary>
+        updateauthorized,
+        /// <summary>
+        /// 授权成功通知
+        /// </summary>
+        authorized
     }
 
     /// <summary>

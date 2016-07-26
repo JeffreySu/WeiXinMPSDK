@@ -1,8 +1,6 @@
 微信C# SDK
 =================
 
-> 如果需要使用或修改此项目的源代码，建议先Fork。也欢迎将您修改的通用版本Pull Request过来。
-
 > .NET Framework 版本及 .NET Core 版本代码分别位于 DotNetFramework 和 DotNetCore（完善中） 文件夹下，结构基本保持一致，以下介绍以 .NET Framework 版本为例。
 
 | # | 模块功能 | DLL |
@@ -26,6 +24,16 @@
 
 目前官方的API都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的[DLLs](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut)。
 
+
+## 贡献代码
+
+> 如果需要使用或修改此项目的源代码，建议先Fork。也欢迎将您修改的通用版本Pull Request过来。
+
+1. Fork
+2. 创建您的特性分支 (`git checkout -b my-new-feature`)
+3. 提交您的改动 (`git commit -am 'Added some feature'`)
+4. 将您的修改记录提交到远程 `git` 仓库 (`git push origin my-new-feature`)
+5. 然后到 github 网站的该 `git` 远程仓库的 `my-new-feature` 分支下发起 Pull Request
 
 资源
 ----------------
@@ -282,7 +290,7 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
     - [x] 微信支付
     - [x] 用户管理
     - [x] 素材管理
-	- [ ] 账号管理
+	- [x] 账号管理
         - [x] 带参数二维码
         - [X] 长链接转短链接接口
         - [ ] 微信认证事件推送
@@ -294,8 +302,8 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
     - [x] 微信设备功能
     - [x] 多客服功能
     - [x] 微信摇一摇周边
-    - [ ] 微信连WI-FI（未完整）
-    - [ ] 微信扫一扫（商家）
+    - [x] 微信连WI-FI（未完整）
+    - [x] 微信扫一扫（商家）
 
 > * 微信开放平台
     - [x] 网站应用
@@ -312,7 +320,7 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
 	- [x] 身份验证接口
 	- [x] JSSDK
 	- [x] 第三方应用授权
- 	- [ ] 企业号授权登陆
+ 	- [x] 企业号授权登陆
 	- [x] 企业号微信支付
 	- [x] 企业回话服务
 	- [x] 企业摇一摇周边

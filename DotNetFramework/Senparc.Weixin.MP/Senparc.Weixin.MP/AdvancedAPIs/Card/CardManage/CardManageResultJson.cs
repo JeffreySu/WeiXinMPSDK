@@ -79,7 +79,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// <summary>
     /// 会员卡交易返回结果
     /// </summary>
-    public class MemberCardDeal : WxJsonResult
+    public class MemberCardDealResultJson : WxJsonResult
     {
         /// <summary>
         /// 当前用户积分总额

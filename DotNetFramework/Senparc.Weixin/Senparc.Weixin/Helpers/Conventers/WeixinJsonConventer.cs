@@ -7,11 +7,16 @@
     
     创建标识：Senparc - 20150930
     
+    修改标识：Senparc - 20160722
+    修改描述：增加特性，对json格式的输出内容的控制，对枚举类型字符串输出、默认值不输出、例外属性等，如会员卡卡里面的CodeType
+             IDictionary中foreach中的内容的修改
+    
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reflection;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 
@@ -35,7 +40,34 @@ namespace Senparc.Weixin.Helpers
         /// </summary>
         public List<Type> TypesToIgnore { get; set; }
 
+        #region Add
+        
+    
+        public class IgnoreValueAttribute : Attribute
+        {
+            public IgnoreValueAttribute(object value)
+            {
+                this.Value = value;
+            }
+            public object Value { get; set; }
+        }
+        /// <summary>
+        /// 例外属性，即不排除的属性值
+        /// </summary>
+        public class ExcludedAttribute : Attribute
+        {
 
+        }
+
+        /// <summary>
+        /// 枚举类型显示字符串
+        /// </summary>
+        public class EnumStringAttribute : Attribute
+        {
+
+        }
+
+        #endregion
         /// <summary>
         /// JSON输出设置 构造函数
         /// </summary>
@@ -95,16 +127,35 @@ namespace Senparc.Weixin.Helpers
             var properties = obj.GetType().GetProperties();
             foreach (var propertyInfo in properties)
             {
-                if (!this._jsonSetting.PropertiesToIgnore.Contains(propertyInfo.Name))
-                {
-                    bool ignoreProp = propertyInfo.IsDefined(typeof(ScriptIgnoreAttribute), true);
-
-                    if ((this._jsonSetting.IgnoreNulls || ignoreProp) && propertyInfo.GetValue(obj, null) == null)
-                    {
-                        continue;
-                    }
-
+                //排除的属性
+                bool excludedProp = propertyInfo.IsDefined(typeof(JsonSetting.ExcludedAttribute), true);
+                if (excludedProp)
                     result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null));
+                else
+                {
+                    if (!this._jsonSetting.PropertiesToIgnore.Contains(propertyInfo.Name))
+                    {
+                        bool ignoreProp = propertyInfo.IsDefined(typeof(ScriptIgnoreAttribute), true);
+                        if ((this._jsonSetting.IgnoreNulls || ignoreProp) && propertyInfo.GetValue(obj, null) == null)
+                        {
+                            continue;
+                        }
+
+                        //当值匹配时需要忽略的属性
+                        JsonSetting.IgnoreValueAttribute attri = propertyInfo.GetCustomAttribute<JsonSetting.IgnoreValueAttribute>();
+                        if (attri != null && attri.Value.Equals(propertyInfo.GetValue(obj)))
+                        {
+                            continue;
+                        }
+
+                        JsonSetting.EnumStringAttribute enumStringAttri = propertyInfo.GetCustomAttribute<JsonSetting.EnumStringAttribute>();
+                        if (enumStringAttri != null)
+                        {   //枚举类型显示字符串
+                            result.Add(propertyInfo.Name, propertyInfo.GetValue(obj).ToString());
+                        }
+                        else
+                            result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null));
+                    }
                 }
             }
             return result;

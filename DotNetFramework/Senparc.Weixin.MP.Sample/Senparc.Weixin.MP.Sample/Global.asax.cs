@@ -38,6 +38,7 @@ namespace Senparc.Weixin.MP.Sample
             RegisterWeixinCache();//注册分布式缓存
             RegisterWeixinThreads();//激活微信缓存（必须）
             RegisterSenparcWeixin();//注册Demo所用微信公众号的账号信息
+            RegisterSenparcQyWeixin();//注册Demo所用微信企业号的账号信息
             RegisterWeixinPay();//注册微信支付
             RegisterWeixinThirdParty(); //注册微信第三方平台
 
@@ -78,7 +79,26 @@ namespace Senparc.Weixin.MP.Sample
         {
             AccessTokenContainer.Register(
                 System.Configuration.ConfigurationManager.AppSettings["WeixinAppId"],
-                System.Configuration.ConfigurationManager.AppSettings["WeixinAppSecret"]);
+                System.Configuration.ConfigurationManager.AppSettings["WeixinAppSecret"],
+                "【盛派网络小助手】公众号");
+        }
+
+        /// <summary>
+        /// 注册Demo所用微信企业号的账号信息
+        /// </summary>
+        private void RegisterSenparcQyWeixin()
+        {
+            Senparc.Weixin.QY.CommonAPIs.AccessTokenContainer.Register(
+                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"],
+                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"],
+                "【盛派网络】企业号"
+                );
+
+            Senparc.Weixin.QY.CommonAPIs.ProviderTokenContainer.Register(
+                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"],
+                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"],
+                "【盛派网络】企业号"
+                );
         }
 
         /// <summary>
@@ -164,7 +184,8 @@ namespace Senparc.Weixin.MP.Sample
                 ConfigurationManager.AppSettings["Component_Secret"],
                 getComponentVerifyTicketFunc,
                 getAuthorizerRefreshTokenFunc,
-                authorizerTokenRefreshedFunc);
+                authorizerTokenRefreshedFunc,
+                "【盛派网络】开放平台");
         }
     }
 }

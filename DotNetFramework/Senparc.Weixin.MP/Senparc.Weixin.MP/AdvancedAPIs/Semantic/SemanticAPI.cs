@@ -19,6 +19,7 @@
     文档下载：http://mp.weixin.qq.com/wiki/static/assets/f48efdb46b4bca35caed4f01ca92e7da.zip
  */
 
+using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.Semantic;
 using Senparc.Weixin.MP.CommonAPIs;
@@ -30,6 +31,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     /// </summary>
     public static class SemanticApi
     {
+        #region 同步请求
+ 
         /// <summary>
         /// 发送语义理解请求
         /// </summary>
@@ -54,5 +57,33 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
              }, accessTokenOrAppId);
         }
+        #endregion
+
+        #region 异步请求
+        /// <summary>
+        /// 【异步方法】发送语义理解请求
+        /// </summary>
+        /// <typeparam name="T">语意理解返回的结果类型，在 AdvancedAPIs/Semantic/SemanticResult </typeparam>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="semanticPostData">语义理解请求需要post的数据</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<T> SemanticSendAsync<T>(string accessTokenOrAppId, SemanticPostData semanticPostData, int timeOut = Config.TIME_OUT) where T : WxJsonResult
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            {
+                var urlFormat = "https://api.weixin.qq.com/semantic/semproxy/search?access_token={0}";
+
+                //switch (semanticPostData.category)
+                //{
+                //    case "restaurant":
+                //        BaseSemanticResultJson as Semantic_RestaurantResult;
+                //}
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<T>(accessToken, urlFormat, semanticPostData, timeOut: timeOut);
+
+            }, accessTokenOrAppId);
+        }
+        #endregion
     }
 }

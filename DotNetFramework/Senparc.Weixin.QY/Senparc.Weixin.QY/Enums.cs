@@ -33,6 +33,7 @@ namespace Senparc.Weixin.QY
         Link, //连接信息
         Event, //事件推送
         ShortVideo, //小视频
+        File,//文件
     }
 
     /// <summary>

@@ -1,3 +1,13 @@
+/*----------------------------------------------------------------
+	Copyright (C) 2016 Senparc
+ 
+	文件名：RequestHandler.cs
+	文件功能描述：微信支付 请求处理
+	
+	
+	创建标识：Senparc - 20150722
+----------------------------------------------------------------*/
+
 using System;
 using System.Collections;
 using System.Text;
@@ -30,6 +40,7 @@ namespace Senparc.Weixin.QY.TenPayLib
 			Parameters = new Hashtable();
 
 			this.HttpContext = httpContext ?? new DefaultHttpContext();
+
 		}
 		/// <summary>
 		/// 密钥

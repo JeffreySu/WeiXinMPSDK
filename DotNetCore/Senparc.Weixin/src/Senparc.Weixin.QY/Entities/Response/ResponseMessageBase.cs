@@ -1,9 +1,24 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：ResponseMessageBase.cs
+    文件功能描述：响应回复消息基类
+    
+    
+    创建标识：Senparc - 20150313
+    
+    修改标识：Senparc - 20150313
+    修改描述：整理接口
+
+    修改标识：Senparc - 20150505
+    修改描述：添加ResponseMessageNoResponse类型处理
+----------------------------------------------------------------*/
+
+using System;
 using System.Xml.Linq;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.Helpers;
-using Senparc.Weixin.QY.Entities.Response;
 
 namespace Senparc.Weixin.QY.Entities
 {
@@ -58,9 +73,9 @@ namespace Senparc.Weixin.QY.Entities
 					case ResponseMsgType.MpNews:
 						responseMessage = new ResponseMessageMpNews();
 						break;
-					case ResponseMsgType.NoResponse:
-						responseMessage = new ResponseMessageNoResponse();
-						break;
+                    case ResponseMsgType.NoResponse:
+                        responseMessage = new ResponseMessageNoResponse();
+				        break;
 					default:
 						throw new UnknownRequestMsgTypeException(string.Format("ResponseMsgType没有为 {0} 提供对应处理程序。", msgType), new ArgumentOutOfRangeException());
 				}
@@ -133,13 +148,13 @@ namespace Senparc.Weixin.QY.Entities
 					case ResponseMsgType.News:
 						responseMessage = new ResponseMessageNews();
 						break;
-					case ResponseMsgType.MpNews:
-						responseMessage = new ResponseMessageMpNews();
+                    case ResponseMsgType.MpNews:
+                        responseMessage = new ResponseMessageMpNews();
 						break;
-					case ResponseMsgType.NoResponse:
-						responseMessage = new ResponseMessageNoResponse();
-						break;
-				}
+                    case ResponseMsgType.NoResponse:
+                        responseMessage = new ResponseMessageNoResponse();
+                        break;
+                }
 
 				responseMessage.FillEntityWithXml(doc);
 				return responseMessage;

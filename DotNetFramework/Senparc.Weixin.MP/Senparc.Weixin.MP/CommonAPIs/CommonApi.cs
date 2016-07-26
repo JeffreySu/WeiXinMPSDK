@@ -88,7 +88,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         public static JsApiTicketResult GetTicket(string appId, string secret, string type = "jsapi")
         {
             var accessToken = AccessTokenContainer.TryGetAccessToken(appId, secret);
-            return GetTicketByAccessToken(accessToken,type);
+            return GetTicketByAccessToken(accessToken, type);
         }
 
         /// <summary>
@@ -100,12 +100,12 @@ namespace Senparc.Weixin.MP.CommonAPIs
         public static JsApiTicketResult GetTicketByAccessToken(string accessTokenOrAppId, string type = "jsapi")
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
-        {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type={1}",
-                                    accessToken.AsUrlData(), type.AsUrlData());
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type={1}",
+                                        accessToken.AsUrlData(), type.AsUrlData());
 
-            JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
-            return result;
+                JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
+                return result;
 
             }, accessTokenOrAppId);
         }
@@ -139,14 +139,14 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static async Task<WeixinUserInfoResult> GetUserInfoAsync(string accessTokenOrAppId, string openId)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var url = string.Format("http://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}",
-                                        accessToken.AsUrlData(), openId.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var url = string.Format("http://api.weixin.qq.com/cgi-bin/user/info?access_token={0}&openid={1}",
+                                       accessToken.AsUrlData(), openId.AsUrlData());
                var result = Get.GetJsonAsync<WeixinUserInfoResult>(url);
-                return result;
+               return result;
 
-            }, accessTokenOrAppId);
+           }, accessTokenOrAppId);
         }
 
 
@@ -159,7 +159,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <returns></returns>
         public static async Task<JsApiTicketResult> GetTicketAsync(string appId, string secret, string type = "jsapi")
         {
-            var accessToken = await AccessTokenContainer.TryGetAccessTokenAsync( appId, secret);
+            var accessToken = await AccessTokenContainer.TryGetAccessTokenAsync(appId, secret);
             return GetTicketByAccessToken(accessToken, type);
         }
 

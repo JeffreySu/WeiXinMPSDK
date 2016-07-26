@@ -1,7 +1,7 @@
 ﻿{
 	"title": "Senparc.Weixin.QY",
 	"copyright": "算神工作室 Copyright © 2004~2016",
-	"version": "1.2.8-*",
+	"version": "1.2.9-*",
 	"description": "Senparc.Weixin.QY Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植",
 	"authors": [ "算神" ],
 	"packOptions": {
@@ -14,7 +14,7 @@
 		"net461": {}
 	},
 	"dependencies": {
-		"Senparc.Weixin": "1.2.3",
+		"Senparc.Weixin": "1.2.5",
 		"Microsoft.AspNetCore.Http": "1.0.0",
 		"System.Collections.NonGeneric": "4.0.1",
 		"System.Xml.XmlDocument": "4.0.1",

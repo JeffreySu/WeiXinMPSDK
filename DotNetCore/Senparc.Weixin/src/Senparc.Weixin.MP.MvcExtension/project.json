@@ -1,7 +1,7 @@
 ﻿{
 	"title": "Senparc.Weixin.MP.MvcExtension",
 	"copyright": "算神工作室 Copyright © 2004~2016",
-	"version": "1.2.2-*",
+	"version": "1.2.3-*",
 	"description": "Senparc.Weixin.MP.MvcExtension Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植",
 	"authors": [ "算神" ],
 	"packOptions": {
@@ -14,7 +14,7 @@
 		"net461": {}
 	},
 	"dependencies": {
-		"Senparc.Weixin": "1.2.3",
+		"Senparc.Weixin": "1.2.5",
 		"Microsoft.AspNetCore.Mvc.Core": "1.0.0"
 	}
 }

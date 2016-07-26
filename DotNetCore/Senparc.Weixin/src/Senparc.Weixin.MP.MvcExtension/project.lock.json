@@ -1028,7 +1028,7 @@
           "lib/net45/_._": {}
         }
       },
-      "Senparc.Weixin/1.2.3": {
+      "Senparc.Weixin/1.2.5": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6.1",
         "dependencies": {
@@ -2829,7 +2829,7 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Senparc.Weixin/1.2.3": {
+      "Senparc.Weixin/1.2.5": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
@@ -6860,7 +6860,7 @@
         "runtimes/aot/lib/netcore50/System.Xml.XmlSerializer.dll"
       ]
     },
-    "Senparc.Weixin/1.2.3": {
+    "Senparc.Weixin/1.2.5": {
       "type": "project",
       "path": "../Senparc.Weixin/project.json",
       "msbuildProject": "../Senparc.Weixin/Senparc.Weixin.xproj"
@@ -6869,7 +6869,7 @@
   "projectFileDependencyGroups": {
     "": [
       "Microsoft.AspNetCore.Mvc.Core >= 1.0.0",
-      "Senparc.Weixin >= 1.2.3"
+      "Senparc.Weixin >= 1.2.5"
     ],
     ".NETFramework,Version=v4.6.1": [],
     ".NETStandard,Version=v1.6": []

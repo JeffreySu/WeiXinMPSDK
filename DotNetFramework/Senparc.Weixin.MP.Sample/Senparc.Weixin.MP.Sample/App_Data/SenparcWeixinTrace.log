@@ -159,3 +159,27 @@
     URL：https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=微信AppId&secret=微信AppSecret
     errcode：不合法的APPID
     errmsg：invalid appid hint: [kCAnma0651vr20]
+
+[接口调用]
+[2016/07/26 09:00:55]
+    URL：https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%E5%BE%AE%E4%BF%A1AppId&secret=%E5%BE%AE%E4%BF%A1AppSecret
+    Result：
+{"errcode":40013,"errmsg":"invalid appid hint: [fkRwsA0851mgr4]"}
+
+[ErrorJsonResultException]
+[2016/07/26 09:00:55]
+    URL：https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%E5%BE%AE%E4%BF%A1AppId&secret=%E5%BE%AE%E4%BF%A1AppSecret
+    errcode：不合法的APPID
+    errmsg：invalid appid hint: [fkRwsA0851mgr4]
+
+[接口调用]
+[2016/07/26 09:02:17]
+    URL：https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%E5%BE%AE%E4%BF%A1AppId&secret=%E5%BE%AE%E4%BF%A1AppSecret
+    Result：
+{"errcode":40013,"errmsg":"invalid appid hint: [EqVKha0934ken1]"}
+
+[ErrorJsonResultException]
+[2016/07/26 09:02:17]
+    URL：https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%E5%BE%AE%E4%BF%A1AppId&secret=%E5%BE%AE%E4%BF%A1AppSecret
+    errcode：不合法的APPID
+    errmsg：invalid appid hint: [EqVKha0934ken1]

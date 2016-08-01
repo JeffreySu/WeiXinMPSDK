@@ -99,7 +99,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
         {
             get
             {
-                return EncryptPostData != null ? EncryptPostData.AgentID : -1;
+                return EncryptPostData != null ? EncryptPostData.AgentID  : -1;
             }
         }
 

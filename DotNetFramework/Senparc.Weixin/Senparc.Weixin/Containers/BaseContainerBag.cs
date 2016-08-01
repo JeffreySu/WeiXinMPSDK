@@ -28,6 +28,10 @@ namespace Senparc.Weixin.Containers
     public interface IBaseContainerBag
     {
         /// <summary>
+        /// 用于标记，方便后台管理
+        /// </summary>
+        string Name { get; set; }
+        /// <summary>
         /// 缓存键
         /// </summary>
         string Key { get; set; }

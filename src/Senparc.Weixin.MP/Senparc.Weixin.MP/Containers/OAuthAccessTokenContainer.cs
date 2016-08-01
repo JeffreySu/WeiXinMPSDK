@@ -65,7 +65,7 @@ namespace Senparc.Weixin.MP.Containers
     }
 
     /// <summary>
-    /// 用户OAuth容器，用于自动管理OAuth的AccessToken，如果过期会重新获取
+    /// 用户OAuth容器，用于自动管理OAuth的AccessToken，如果过期会重新获取（测试中，暂时别用）
     /// </summary>
     public class OAuthAccessTokenContainer : BaseContainer<OAuthAccessTokenBag>
     {

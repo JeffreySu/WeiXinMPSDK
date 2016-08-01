@@ -26,8 +26,8 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
             //错误的AccessToken
             {
-                var appId = MP.CommonAPIs.AccessTokenContainer.GetFirstOrDefaultAppId();
-                var accessToken = MP.CommonAPIs.AccessTokenContainer.GetAccessToken(appId);
+                var appId = MP.Containers.AccessTokenContainer.GetFirstOrDefaultAppId();
+                var accessToken = MP.Containers.AccessTokenContainer.GetAccessToken(appId);
                 Console.WriteLine("当前AccessToken：" + accessToken);
 
                 var result = ApiHandlerWapper.TryCommonApi(Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenu, "12345678901234567890这是错误的AccessToken");

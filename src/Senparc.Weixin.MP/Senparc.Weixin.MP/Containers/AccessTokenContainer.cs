@@ -111,6 +111,10 @@ namespace Senparc.Weixin.MP.Containers
 
             //为JsApiTicketContainer进行自动注册
             JsApiTicketContainer.Register(appId, appSecret, name);
+
+            //OAuthAccessTokenContainer进行自动注册
+            OAuthAccessTokenContainer.Register(appId, appSecret, name);
+
         }
 
         /// <summary>

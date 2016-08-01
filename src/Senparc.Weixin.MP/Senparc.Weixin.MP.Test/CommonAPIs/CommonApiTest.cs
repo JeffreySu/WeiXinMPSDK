@@ -8,6 +8,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.User;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.Test.CommonAPIs

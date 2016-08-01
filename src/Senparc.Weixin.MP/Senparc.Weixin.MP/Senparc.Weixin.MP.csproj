@@ -282,6 +282,7 @@
     <Compile Include="Containers\AccessTokenContainer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Containers\OAuthAccessTokenContainer.cs" />
     <Compile Include="Containers\JsApiTicketContainer.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Common.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Conditional.cs" />

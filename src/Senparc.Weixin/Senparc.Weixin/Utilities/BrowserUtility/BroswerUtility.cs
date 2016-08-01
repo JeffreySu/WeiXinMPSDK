@@ -9,7 +9,7 @@
 
 ----------------------------------------------------------------*/
 
-using System.Web;
+using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.BrowserUtility
 {
@@ -20,16 +20,20 @@ namespace Senparc.Weixin.BrowserUtility
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
-        public static bool SideInWeixinBroswer(this HttpContextBase httpContext)
+        public static bool SideInWeixinBroswer(this HttpContext httpContext)
         {
-            var userAgent = httpContext.Request.UserAgent;
-            if (string.IsNullOrEmpty(userAgent) || (!userAgent.Contains("MicroMessenger") && !userAgent.Contains("Windows Phone")))
-            {
-                //在微信外部
-                return false;
-            }
-            //在微信内部
-            return true;
+			string ustr = string.Empty;
+			var userAgent = httpContext.Request.Headers["User-Agent"];
+			if (userAgent.Count > 0)
+				ustr = userAgent[0];
+
+			if (string.IsNullOrEmpty(ustr) || (!ustr.Contains("MicroMessenger") && !ustr.Contains("Windows Phone")))
+			{
+				//在微信外部
+				return false;
+			}
+			//在微信内部
+			return true;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Net;
+using System.Text;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
@@ -15,8 +16,8 @@ namespace Senparc.Weixin.MP.TenPayLib
         public static string UrlEncode1(string con)
         {
             string UrlEncode = "";
-            UrlEncode = System.Web.HttpUtility.UrlEncode(con, Encoding.UTF8);
-            UrlEncode = UrlEncode.Replace("+", "%20");
+			UrlEncode = WebUtility.UrlEncode(con);
+			UrlEncode = UrlEncode.Replace("+", "%20");
             return UrlEncode;
         }
         //' * google api 二维码生成【QRcode可以存储最多4296个字母数字类型的任意文本，具体可以查看二维码数据格式】

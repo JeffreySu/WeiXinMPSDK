@@ -1,0 +1,23 @@
+{
+	"title": "Senparc.Weixin.MP.MvcExtension",
+	"copyright": "Senparc Copyright © 2004~2016",
+	"version": "1.2.3-*",
+	"description": "Senparc.Weixin.MP.MvcExtension Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植",
+	"authors": [ "算神" ],
+	"packOptions": {
+		"tags": [ "weixin", "wechat", "微信", "Senparc", "ASP.Net Core" ],
+		"projectUrl": "",
+		"licenseUrl": ""
+	},
+	"frameworks": {
+		"netstandard1.6": {},
+		"net461": {}
+	},
+  "dependencies": {
+    "Senparc.Weixin": "1.2.5",
+    "Microsoft.AspNetCore.Mvc.Core": "1.0.0"
+  },
+  "buildOptions": {
+    "xmlDoc": true
+  }
+}

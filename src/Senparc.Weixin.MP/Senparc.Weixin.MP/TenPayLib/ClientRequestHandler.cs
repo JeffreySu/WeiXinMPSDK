@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
-using System.Web;
 using Senparc.Weixin.MP.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
@@ -12,8 +12,8 @@ namespace Senparc.Weixin.MP.TenPayLib
         {
             Parameters = new Hashtable();
 
-            this.HttpContext = httpContext ?? HttpContext.Current;
-        }
+			this.HttpContext = httpContext ?? new DefaultHttpContext();
+		}
 
         /// <summary>
         /// 网关url地址
@@ -203,7 +203,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected virtual string GetCharset()
         {
-            return this.HttpContext.Request.ContentEncoding.BodyName;
-        }
+			return Encoding.UTF8.WebName;
+		}
     }
 }

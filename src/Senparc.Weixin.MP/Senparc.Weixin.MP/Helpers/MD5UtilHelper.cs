@@ -38,7 +38,7 @@ namespace Senparc.Weixin.MP.Helpers
 		public static string GetMD5(string encypStr, string charset)
 		{
 			string retStr;
-			MD5CryptoServiceProvider m5 = new MD5CryptoServiceProvider();
+			var m5 = MD5.Create();
 
 			//创建md5对象
 			byte[] inputBye;

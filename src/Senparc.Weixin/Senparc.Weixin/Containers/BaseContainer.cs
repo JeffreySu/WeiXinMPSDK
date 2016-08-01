@@ -15,7 +15,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
@@ -42,7 +41,6 @@ namespace Senparc.Weixin.Containers
     /// 微信容器接口（如Ticket、AccessToken）
     /// </summary>
     /// <typeparam name="TBag"></typeparam>
-    [Serializable]
     public abstract class BaseContainer<TBag> : IBaseContainer<TBag> where TBag : class, IBaseContainerBag, new()
     {
         /// <summary>

@@ -19,8 +19,8 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 using Senparc.Weixin.MP.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -50,11 +50,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         public RequestHandler(HttpContext httpContext)
         {
-            Parameters = new Hashtable();
+			Parameters = new Hashtable();
 
-            this.HttpContext = httpContext ?? HttpContext.Current;
-
-        }
+			this.HttpContext = httpContext ?? new DefaultHttpContext();
+		}
         /// <summary>
         /// 密钥
         /// </summary>
@@ -196,12 +195,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         protected virtual string GetCharset()
         {
-            if (this.HttpContext == null)
-            {
-                return Encoding.UTF8.BodyName;
-            }
-
-            return this.HttpContext.Request.ContentEncoding.BodyName;
-        }
+			return Encoding.UTF8.WebName;
+		}
     }
 }

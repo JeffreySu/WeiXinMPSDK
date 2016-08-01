@@ -18,7 +18,6 @@ using System;
 using System.Collections;
 using System.Text;
 using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Containers;
 
 namespace Senparc.Weixin.MP.Helpers
 {

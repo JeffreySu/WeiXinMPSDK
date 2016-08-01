@@ -13,8 +13,8 @@
 
 using System.Collections;
 using System.Text;
-using System.Web;
 using Senparc.Weixin.MP.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {

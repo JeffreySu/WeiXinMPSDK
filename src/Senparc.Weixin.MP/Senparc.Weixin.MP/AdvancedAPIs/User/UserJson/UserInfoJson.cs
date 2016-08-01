@@ -88,10 +88,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.User
         /// 用户所在的分组ID（兼容旧的用户分组接口）
         /// </summary>
         public int groupid { get; set; }
-        /// <summary>
-        /// 用户标签
-        /// </summary>
-        public int[] tagid_list { get; set; }
     }
 
     /// <summary>

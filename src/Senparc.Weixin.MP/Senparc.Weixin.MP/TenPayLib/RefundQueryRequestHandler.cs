@@ -1,4 +1,4 @@
-﻿using System.Web;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {

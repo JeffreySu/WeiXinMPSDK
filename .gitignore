@@ -11,8 +11,9 @@ bak.zip
 *.pdb
 *.tmp
 
+
 /Tools/*
 *.DotSettings
-/DotNetCore/Senparc.Weixin/.vs
+.vs
 applicationhost.config
 packages/

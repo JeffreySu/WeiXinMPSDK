@@ -26,10 +26,10 @@ namespace Senparc.Weixin.MP.Helpers
         /// <returns></returns>
         public static string GetSha1(string str)
         {
-            //建立SHA1对象
-            SHA1 sha = new SHA1CryptoServiceProvider();
-            //将mystr转换成byte[] 
-            ASCIIEncoding enc = new ASCIIEncoding();
+			//建立SHA1对象
+			SHA1 sha = SHA1.Create();
+			//将mystr转换成byte[] 
+			ASCIIEncoding enc = new ASCIIEncoding();
             byte[] dataToHash = enc.GetBytes(str);
             //Hash运算
             byte[] dataHashed = sha.ComputeHash(dataToHash);

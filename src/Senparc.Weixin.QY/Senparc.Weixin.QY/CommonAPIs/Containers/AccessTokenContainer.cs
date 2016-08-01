@@ -35,7 +35,6 @@ using Senparc.Weixin.QY.Exceptions;
 
 namespace Senparc.Weixin.QY.CommonAPIs
 {
-    [Serializable]
     public class AccessTokenBag : BaseContainerBag
     {
         /// <summary>

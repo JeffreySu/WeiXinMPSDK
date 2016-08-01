@@ -18,7 +18,7 @@ namespace Senparc.Weixin.Exceptions
     /// <summary>
     /// 微信自定义异常基类
     /// </summary>
-    public class WeixinException : ApplicationException
+    public class WeixinException : Exception
     {
         public WeixinException(string message)
             : base(message, null)

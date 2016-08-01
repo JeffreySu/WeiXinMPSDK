@@ -37,7 +37,6 @@ namespace Senparc.Weixin.QY.CommonAPIs
     /// <summary>
     /// ProviderTokenBag
     /// </summary>
-    [Serializable]
     public class ProviderTokenBag : BaseContainerBag
     {
         /// <summary>

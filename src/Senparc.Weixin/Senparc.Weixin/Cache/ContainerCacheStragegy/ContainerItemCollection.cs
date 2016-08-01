@@ -28,7 +28,6 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 储存某个Container下所有ContainerBag的字典集合
     /// </summary>
-    [Serializable]
     public class ContainerItemCollection : IContainerItemCollection
     {
         private Dictionary<string, IBaseContainerBag> _cache;//TODO:可以考虑升级到统一的式缓存策略中

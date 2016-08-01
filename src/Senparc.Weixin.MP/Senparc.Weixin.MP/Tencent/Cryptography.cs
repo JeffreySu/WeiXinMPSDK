@@ -106,9 +106,9 @@ namespace Tencent
 
         private static String AES_encrypt(String Input, byte[] Iv, byte[] Key)
         {
-            var aes = new RijndaelManaged();
-            //秘钥的大小，以位为单位
-            aes.KeySize = 256;
+			var aes = Aes.Create();
+			//秘钥的大小，以位为单位
+			aes.KeySize = 256;
             //支持的块大小
             aes.BlockSize = 128;
             //填充模式
@@ -134,9 +134,9 @@ namespace Tencent
 
         private static String AES_encrypt(byte[] Input, byte[] Iv, byte[] Key)
         {
-            var aes = new RijndaelManaged();
-            //秘钥的大小，以位为单位
-            aes.KeySize = 256;
+			var aes = Aes.Create();
+			//秘钥的大小，以位为单位
+			aes.KeySize = 256;
             //支持的块大小
             aes.BlockSize = 128;
             //填充模式
@@ -205,8 +205,8 @@ namespace Tencent
         }
         private static byte[] AES_decrypt(String Input, byte[] Iv, byte[] Key)
         {
-            RijndaelManaged aes = new RijndaelManaged();
-            aes.KeySize = 256;
+			var aes = Aes.Create();
+			aes.KeySize = 256;
             aes.BlockSize = 128;
             aes.Mode = CipherMode.CBC;
             aes.Padding = PaddingMode.None;

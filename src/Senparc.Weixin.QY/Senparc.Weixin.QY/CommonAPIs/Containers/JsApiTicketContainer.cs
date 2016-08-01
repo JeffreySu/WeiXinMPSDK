@@ -34,7 +34,6 @@ namespace Senparc.Weixin.QY.CommonAPIs
     /// <summary>
     /// JsApiTicketBag
     /// </summary>
-    [Serializable]
     public class JsApiTicketBag : BaseContainerBag
     {
         public string AppId

@@ -36,8 +36,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
              {
                  var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token={0}";
-                 var jsonSetting = new JsonSetting(true);
-                 return CommonJsonSend.Send<CreateMenuConditionalResult>(accessToken, urlFormat, buttonData, timeOut: timeOut, jsonSetting: jsonSetting);
+                 return CommonJsonSend.Send<CreateMenuConditionalResult>(accessToken, urlFormat, buttonData, timeOut: timeOut);
 
              }, accessTokenOrAppId);
         }

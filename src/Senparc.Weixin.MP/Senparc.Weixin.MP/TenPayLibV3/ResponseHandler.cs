@@ -16,9 +16,9 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Xml;
 using Senparc.Weixin.MP.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -84,42 +84,39 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="httpContext"></param>
         public ResponseHandler(HttpContext httpContext)
         {
-            Parameters = new Hashtable();
-            XmlMap = new Hashtable();
+			Parameters = new Hashtable();
+			XmlMap = new Hashtable();
 
-            this.HttpContext = httpContext ?? HttpContext.Current;
-            NameValueCollection collection;
-            //post data
-            if (this.HttpContext.Request.HttpMethod == "POST")
-            {
-                collection = this.HttpContext.Request.Form;
-                foreach (string k in collection)
-                {
-                    string v = (string)collection[k];
-                    this.SetParameter(k, v);
-                }
-            }
-            //query string
-            collection = this.HttpContext.Request.QueryString;
-            foreach (string k in collection)
-            {
-                string v = (string)collection[k];
-                this.SetParameter(k, v);
-            }
-            if (this.HttpContext.Request.InputStream.Length > 0)
-            {
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(this.HttpContext.Request.InputStream);
-                XmlNode root = xmlDoc.SelectSingleNode("xml");
-                XmlNodeList xnl = root.ChildNodes;
+			this.HttpContext = httpContext ?? new DefaultHttpContext();
+			IFormCollection collection;
+			//post data
+			if (this.HttpContext.Request.Method.ToUpper() == "POST")
+			{
+				collection = this.HttpContext.Request.Form;
+				foreach (var k in collection)
+				{
+					this.SetParameter(k.Key, k.Value[0]);
+				}
+			}
+			//query string
+			var coll = this.HttpContext.Request.Query;
+			foreach (var k in coll)
+			{
+				this.SetParameter(k.Key, k.Value[0]);
+			}
+			if (this.HttpContext.Request.Body.Length > 0)
+			{
+				XmlDocument xmlDoc = new XmlDocument();
+				xmlDoc.Load(this.HttpContext.Request.Body);
+				XmlNode root = xmlDoc.SelectSingleNode("xml");
+				XmlNodeList xnl = root.ChildNodes;
 
-                foreach (XmlNode xnf in xnl)
-                {
-                    XmlMap.Add(xnf.Name, xnf.InnerText);
-                    this.SetParameter(xnf.Name, xnf.InnerText);
-                }
-            }
-        }
+				foreach (XmlNode xnf in xnl)
+				{
+					XmlMap.Add(xnf.Name, xnf.InnerText);
+				}
+			}
+		}
     
 
 		/// <summary>
@@ -211,8 +208,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
 		protected virtual string GetCharset()
 		{
-			return this.HttpContext.Request.ContentEncoding.BodyName;
-			
+			return Encoding.UTF8.WebName;
+
 		}
 
         /// <summary>

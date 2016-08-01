@@ -116,7 +116,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                 case "SubClickRoot_Music":
                     {
                         //上传缩略图
-                        var accessToken = CommonAPIs.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
+                        var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
                         var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.thumb,
                                                                      Server.GetMapPath("~/Images/Logo.jpg"));
                         //设置音乐信息
@@ -132,7 +132,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                 case "SubClickRoot_Image":
                     {
                         //上传图片
-                        var accessToken = CommonAPIs.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
+                        var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
                         var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
                                                                      Server.GetMapPath("~/Images/Logo.jpg"));
                         //设置图片信息

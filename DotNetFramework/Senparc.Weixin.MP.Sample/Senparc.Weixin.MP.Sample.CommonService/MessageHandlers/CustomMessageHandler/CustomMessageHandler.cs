@@ -345,7 +345,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             var responseMessage = CreateResponseMessage<ResponseMessageMusic>();
             //上传缩略图
-            var accessToken = CommonAPIs.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
+            var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
             var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
                                                          Server.GetMapPath("~/Images/Logo.jpg"));
 

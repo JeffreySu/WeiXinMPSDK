@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
 using System.Threading.Tasks;
+using Senparc.Weixin.MP.Containers;
 
 namespace Senparc.Weixin.MP.Test.CommonAPIs.Tests
 {

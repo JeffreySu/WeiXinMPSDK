@@ -74,8 +74,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
     /// </summary>
     public class JsApiTicketContainer : BaseContainer<JsApiTicketBag>
     {
-        static Dictionary<string, JsApiTicketBag> JsApiTicketCollection =
-           new Dictionary<string, JsApiTicketBag>(StringComparer.OrdinalIgnoreCase);
+        //static Dictionary<string, JsApiTicketBag> JsApiTicketCollection =
+        //   new Dictionary<string, JsApiTicketBag>(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，

@@ -106,7 +106,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             }
 
             //为JsApiTicketContainer进行自动注册
-            JsApiTicketContainer.Register(appId, appSecret);
+            JsApiTicketContainer.Register(appId, appSecret, name);
         }
 
         /// <summary>

@@ -12,7 +12,6 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// 用于实现INotifyPropertyChanged
     /// </summary>
-    [Serializable]
     public abstract class BindableBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

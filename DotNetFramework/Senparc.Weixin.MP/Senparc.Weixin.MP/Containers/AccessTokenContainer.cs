@@ -25,6 +25,9 @@
     修改标识：Senparc - 20160721
     修改描述：增加其接口的异步方法
 
+    修改标识：Senparc - 20160801
+    修改描述：v14.2.1 转移到Senparc.Weixin.MP.Containers命名空间下
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -36,7 +39,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.CacheUtility;
 
-namespace Senparc.Weixin.MP.CommonAPIs
+namespace Senparc.Weixin.MP.Containers
 {
     /// <summary>
     /// AccessToken包

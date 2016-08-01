@@ -15,6 +15,9 @@
 
     修改标识：Senparc - 20160717
     修改描述：v13.8.11 添加注册过程中的Name参数
+    
+    修改标识：Senparc - 20160801
+    修改描述：v14.2.1 转移到Senparc.Weixin.MP.Containers命名空间下
 
 ----------------------------------------------------------------*/
 
@@ -27,7 +30,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.CacheUtility;
 
-namespace Senparc.Weixin.MP.CommonAPIs
+namespace Senparc.Weixin.MP.Containers
 {
     /// <summary>
     /// JsApiTicket包

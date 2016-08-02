@@ -1,6 +1,5 @@
 ﻿using System.Xml.Linq;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Utilities;
 
 namespace Senparc.Weixin.Open.Helpers
 {
@@ -26,12 +25,12 @@ namespace Senparc.Weixin.Open.Helpers
                         case "Int64":
                         case "Double":
                         case "Nullable`1": //可为空对象
-                            EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value);
+                            EntityUtility.EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value);
                             break;
                         case "Boolean":
                             if (propName == "FuncFlag")
                             {
-                                EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value == "1");
+                                EntityUtility.EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value == "1");
                             }
                             else
                             {

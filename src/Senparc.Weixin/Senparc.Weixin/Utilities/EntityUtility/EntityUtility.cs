@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using System.Web.ModelBinding;
 using Senparc.Weixin.Helpers;
 
-namespace Senparc.Weixin.Utilities
+namespace Senparc.Weixin.EntityUtility
 {
     public static class EntityUtility
     {

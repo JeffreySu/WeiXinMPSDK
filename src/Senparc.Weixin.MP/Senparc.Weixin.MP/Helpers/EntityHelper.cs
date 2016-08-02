@@ -17,6 +17,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.Utilities;
 
 namespace Senparc.Weixin.MP.Helpers
 {
@@ -32,6 +33,10 @@ namespace Senparc.Weixin.MP.Helpers
         {
             entity = entity ?? new T();
             var root = doc.Root;
+            if (root == null)
+            {
+                return;//无法处理
+            }
 
             var props = entity.GetType().GetProperties();
             foreach (var prop in props)
@@ -44,33 +49,29 @@ namespace Senparc.Weixin.MP.Helpers
                         //case "String":
                         //    goto default;
                         case "DateTime":
-                            prop.SetValue(entity, DateTimeHelper.GetDateTimeFromXml(root.Element(propName).Value), null);
+                        case "Int32":
+                        case "Int64":
+                        case "Double":
+                        case "Nullable`1": //可为空对象
+                            EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value);
                             break;
                         case "Boolean":
                             if (propName == "FuncFlag")
                             {
-                                prop.SetValue(entity, root.Element(propName).Value == "1", null);
+                                EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value == "1");
                             }
                             else
                             {
                                 goto default;
                             }
                             break;
-                        case "Int32":
-                            prop.SetValue(entity, int.Parse(root.Element(propName).Value), null);
-                            break;
-                        case "Int64":
-                            prop.SetValue(entity, long.Parse(root.Element(propName).Value), null);
-                            break;
-                        case "Double":
-                            prop.SetValue(entity, double.Parse(root.Element(propName).Value), null);
-                            break;
+
                         //以下为枚举类型
                         case "RequestMsgType":
                             //已设为只读
                             //prop.SetValue(entity, MsgTypeHelper.GetRequestMsgType(root.Element(propName).Value), null);
                             break;
-                        case "ResponseMsgType"://Response适用
+                        case "ResponseMsgType": //Response适用
                             //已设为只读
                             //prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
                             break;
@@ -79,57 +80,58 @@ namespace Senparc.Weixin.MP.Helpers
                             //prop.SetValue(entity, EventHelper.GetEventType(root.Element(propName).Value), null);
                             break;
                         //以下为实体类型
-                        case "List`1"://List<T>类型，ResponseMessageNews适用
-                            var genericArguments = prop.PropertyType.GetGenericArguments();
-                            if (genericArguments[0].Name == "Article")//ResponseMessageNews适用
+                        case "List`1": //List<T>类型，ResponseMessageNews适用
                             {
-                                //文章下属节点item
-                                List<Article> articles = new List<Article>();
-                                foreach (var item in root.Element(propName).Elements("item"))
+                                var genericArguments = prop.PropertyType.GetGenericArguments();
+                                if (genericArguments[0].Name == "Article")//ResponseMessageNews适用
                                 {
-                                    var article = new Article();
-                                    FillEntityWithXml(article, new XDocument(item));
-                                    articles.Add(article);
+                                    //文章下属节点item
+                                    List<Article> articles = new List<Article>();
+                                    foreach (var item in root.Element(propName).Elements("item"))
+                                    {
+                                        var article = new Article();
+                                        FillEntityWithXml(article, new XDocument(item));
+                                        articles.Add(article);
+                                    }
+                                    prop.SetValue(entity, articles, null);
                                 }
-                                prop.SetValue(entity, articles, null);
-                            }
-                            else if (genericArguments[0].Name == "Account")
-                            {
-                                List<CustomerServiceAccount> accounts = new List<CustomerServiceAccount>();
-                                foreach (var item in root.Elements(propName))
+                                else if (genericArguments[0].Name == "Account")
                                 {
-                                    var account = new CustomerServiceAccount();
-                                    FillEntityWithXml(account, new XDocument(item));
-                                    accounts.Add(account);
+                                    List<CustomerServiceAccount> accounts = new List<CustomerServiceAccount>();
+                                    foreach (var item in root.Elements(propName))
+                                    {
+                                        var account = new CustomerServiceAccount();
+                                        FillEntityWithXml(account, new XDocument(item));
+                                        accounts.Add(account);
+                                    }
+                                    prop.SetValue(entity, accounts, null);
                                 }
-                                prop.SetValue(entity, accounts, null);
-                            }
-                            else if (genericArguments[0].Name == "PicItem")
-                            {
-                                List<PicItem> picItems = new List<PicItem>();
-                                foreach (var item in root.Elements(propName).Elements("item"))
+                                else if (genericArguments[0].Name == "PicItem")
                                 {
-                                    var picItem = new PicItem();
-                                    var picMd5Sum = item.Element("PicMd5Sum").Value;
-                                    Md5Sum md5Sum = new Md5Sum() { PicMd5Sum = picMd5Sum };
-                                    picItem.item = md5Sum;
-                                    picItems.Add(picItem);
+                                    List<PicItem> picItems = new List<PicItem>();
+                                    foreach (var item in root.Elements(propName).Elements("item"))
+                                    {
+                                        var picItem = new PicItem();
+                                        var picMd5Sum = item.Element("PicMd5Sum").Value;
+                                        Md5Sum md5Sum = new Md5Sum() { PicMd5Sum = picMd5Sum };
+                                        picItem.item = md5Sum;
+                                        picItems.Add(picItem);
+                                    }
+                                    prop.SetValue(entity, picItems, null);
                                 }
-                                prop.SetValue(entity, picItems, null);
-                            }
-                            else if (genericArguments[0].Name == "AroundBeacon")
-                            {
-                                List<AroundBeacon> aroundBeacons = new List<AroundBeacon>();
-                                foreach (var item in root.Elements(propName).Elements("AroundBeacon"))
+                                else if (genericArguments[0].Name == "AroundBeacon")
                                 {
-                                    var aroundBeaconItem = new AroundBeacon();
-                                    FillEntityWithXml(aroundBeaconItem, new XDocument(item));
-                                    aroundBeacons.Add(aroundBeaconItem);
+                                    List<AroundBeacon> aroundBeacons = new List<AroundBeacon>();
+                                    foreach (var item in root.Elements(propName).Elements("AroundBeacon"))
+                                    {
+                                        var aroundBeaconItem = new AroundBeacon();
+                                        FillEntityWithXml(aroundBeaconItem, new XDocument(item));
+                                        aroundBeacons.Add(aroundBeaconItem);
+                                    }
+                                    prop.SetValue(entity, aroundBeacons, null);
                                 }
-                                prop.SetValue(entity, aroundBeacons, null);
+                                break;
                             }
-                            break;
-                            break;
                         case "Music"://ResponseMessageMusic适用
                             Music music = new Music();
                             FillEntityWithXml(music, new XDocument(root.Element(propName)));
@@ -189,7 +191,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
         /// <param name="entity">实体</param>
         /// <returns></returns>
-        public static XDocument ConvertEntityToXml<T>(this T entity) where T : class , new()
+        public static XDocument ConvertEntityToXml<T>(this T entity) where T : class, new()
         {
             entity = entity ?? new T();
             var doc = new XDocument();
@@ -345,7 +347,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
         /// <param name="entity">实体</param>
         /// <returns></returns>
-        public static string ConvertEntityToXmlString<T>(this T entity) where T : class , new()
+        public static string ConvertEntityToXmlString<T>(this T entity) where T : class, new()
         {
             return entity.ConvertEntityToXml().ToString();
         }

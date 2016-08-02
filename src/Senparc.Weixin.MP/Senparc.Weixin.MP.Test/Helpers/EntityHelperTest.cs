@@ -21,7 +21,7 @@ namespace Senparc.Weixin.MP.Test
     <MsgId>5832509444155992350</MsgId>
 </xml>
 ";
-      
+
         [TestMethod]
         public void FillEntityWithXmlTest()
         {
@@ -32,6 +32,45 @@ namespace Senparc.Weixin.MP.Test
             Assert.AreEqual("gh_a96a4a619366", entity.ToUserName);
             Assert.AreEqual(RequestMsgType.Text, entity.MsgType);
         }
+
+
+        #region 可为空对象测试
+
+        class NullableClass : RequestMessageBase, IResponseMessageBase
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public int? AgentId { get; set; }
+            public int? MchId { get; set; }
+
+            public string ToUserName { get; set; }
+            public string FromUserName { get; set; }
+            public DateTime CreateTime { get; set; }
+            public ResponseMsgType MsgType { get; }
+        }
+        [TestMethod]
+        public void ConvertEntityToXml_NullableTest()
+        {
+
+
+            var nullableTestXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<xml>
+  <Id><![CDATA[10]]></Id>
+  <Name><![CDATA[Jeffrey Su]]></Name>
+  <AgentId></AgentId>
+  <MchId>123</MchId>
+</xml>";
+            var doc = XDocument.Parse(nullableTestXml);
+            var entity = new NullableClass();
+            EntityHelper.FillEntityWithXml(entity as RequestMessageBase, doc);
+
+            Assert.AreEqual(10, entity.Id);
+            Assert.AreEqual("Jeffrey Su", entity.Name);
+            Assert.AreEqual(null, entity.AgentId);
+            Assert.AreEqual(123, entity.MchId);
+        }
+        #endregion
+
 
         [TestMethod]
         public void ConvertEntityToXmlTest()
@@ -59,12 +98,12 @@ namespace Senparc.Weixin.MP.Test
                 Assert.IsNotNull(responseNews);
 
                 responseNews.Articles.Add(new Article()
-                                              {
-                                                  Description = "测试说明",
-                                                  Title = "测试标题",
-                                                  Url = "http://www.senparc.com",
-                                                  PicUrl = "http://img.senparc.com/images/v2/logo.jpg'"
-                                              });
+                {
+                    Description = "测试说明",
+                    Title = "测试标题",
+                    Url = "http://www.senparc.com",
+                    PicUrl = "http://img.senparc.com/images/v2/logo.jpg'"
+                });
                 Assert.AreEqual(1, responseNews.ArticleCount);
                 var responseDoc = EntityHelper.ConvertEntityToXml(responseNews);
                 Console.WriteLine(responseDoc.ToString());
@@ -106,7 +145,7 @@ namespace Senparc.Weixin.MP.Test
                 //var responseDoc = EntityHelper.ConvertEntityToXml(responseNews);
                 //Console.WriteLine(responseDoc.ToString());
                 //Assert.AreEqual(requestEntity.PicUrl, responseDoc.Root.Element("Articles").Elements("item").First().Element("PicUrl").Value);
-   
+
 
                 //返回图片信息
                 var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageImage>(requestEntity);
@@ -116,18 +155,18 @@ namespace Senparc.Weixin.MP.Test
 
             }
 
-//            {
-//                var imageResponseXML = @"<?xml version=""1.0"" encoding=""utf-8""?>
-//<xml>
-//  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
-//<FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
-//<CreateTime>1392354263</CreateTime>
-//<MsgType><![CDATA[image]]></MsgType>
-//<PicUrl><![CDATA[http://mmbiz.qpic.cn/mmbiz/ZxBXNzgHyUqDOeR0nSWZ4ibeF49C2yBbUB9tltJaFLqvjvDOUkt1tgp3q2cr1KZMLRsHHA2380sAggSPRuRMjicQ/0]]></PicUrl>
-//<MsgId>5980116024231210973</MsgId>
-//<MediaId><![CDATA[Mj0WUTZeeG9yuBKhGP7iR5n1xUJO9IpTjGNC4buMuswfEOmk6QSIRb_i98do5nwo]]></MediaId>
-//</xml>";
-//            }
+            //            {
+            //                var imageResponseXML = @"<?xml version=""1.0"" encoding=""utf-8""?>
+            //<xml>
+            //  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+            //<FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+            //<CreateTime>1392354263</CreateTime>
+            //<MsgType><![CDATA[image]]></MsgType>
+            //<PicUrl><![CDATA[http://mmbiz.qpic.cn/mmbiz/ZxBXNzgHyUqDOeR0nSWZ4ibeF49C2yBbUB9tltJaFLqvjvDOUkt1tgp3q2cr1KZMLRsHHA2380sAggSPRuRMjicQ/0]]></PicUrl>
+            //<MsgId>5980116024231210973</MsgId>
+            //<MediaId><![CDATA[Mj0WUTZeeG9yuBKhGP7iR5n1xUJO9IpTjGNC4buMuswfEOmk6QSIRb_i98do5nwo]]></MediaId>
+            //</xml>";
+            //            }
         }
 
         [TestMethod]

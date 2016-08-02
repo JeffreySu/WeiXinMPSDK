@@ -12,6 +12,9 @@
     
     修改标识：Senparc - 20150507
     修改描述：添加 事件 异步任务完成事件推送
+ 
+    修改标识：Senparc - 20160802
+    修改描述：将其AgentID类型改为int?
 ----------------------------------------------------------------*/
 
 using System;
@@ -95,7 +98,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
         /// <summary>
         /// 应用ID
         /// </summary>
-        public int AgentId
+        public int? AgentId
         {
             get
             {

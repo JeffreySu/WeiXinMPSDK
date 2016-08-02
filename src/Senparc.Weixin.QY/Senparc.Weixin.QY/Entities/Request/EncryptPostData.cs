@@ -6,6 +6,9 @@
     
     
     创建标识：Senparc - 20150313
+ 
+    修改标识：Senparc - 20160802
+    修改描述：将其AgentID类型改为int?
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.QY.Entities
@@ -14,6 +17,6 @@ namespace Senparc.Weixin.QY.Entities
     {
         public string ToUserName { get; set; }
         public string Encrypt { get; set; }
-        public int AgentID { get; set; }
+        public int? AgentID { get; set; }
     }
 }

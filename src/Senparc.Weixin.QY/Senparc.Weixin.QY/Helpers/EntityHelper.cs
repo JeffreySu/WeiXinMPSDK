@@ -42,32 +42,28 @@ namespace Senparc.Weixin.QY.Helpers
 				{
 					switch (prop.PropertyType.Name)
 					{
-						//case "String":
-						//    goto default;
-						case "DateTime":
-							prop.SetValue(entity, DateTimeHelper.GetDateTimeFromXml(root.Element(propName).Value), null);
-							break;
-						case "Boolean":
-							if (propName == "FuncFlag")
-							{
-								prop.SetValue(entity, root.Element(propName).Value == "1", null);
-							}
-							else
-							{
-								goto default;
-							}
-							break;
-						case "Int32":
-							prop.SetValue(entity, int.Parse(root.Element(propName).Value), null);
-							break;
-						case "Int64":
-							prop.SetValue(entity, long.Parse(root.Element(propName).Value), null);
-							break;
-						case "Double":
-							prop.SetValue(entity, double.Parse(root.Element(propName).Value), null);
-							break;
-						//以下为枚举类型
-						case "RequestMsgType":
+                        //case "String":
+                        //    goto default;
+                        case "DateTime":
+                        case "Int32":
+                        case "Int64":
+                        case "Double":
+                        case "Nullable`1": //可为空对象
+                            EntityUtility.EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value);
+                            break;
+                        case "Boolean":
+                            if (propName == "FuncFlag")
+                            {
+                                EntityUtility.EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value == "1");
+                            }
+                            else
+                            {
+                                goto default;
+                            }
+                            break;
+
+                        //以下为枚举类型
+                        case "RequestMsgType":
 							//已设为只读
 							//prop.SetValue(entity, MsgTypeHelper.GetRequestMsgType(root.Element(propName).Value), null);
 							break;

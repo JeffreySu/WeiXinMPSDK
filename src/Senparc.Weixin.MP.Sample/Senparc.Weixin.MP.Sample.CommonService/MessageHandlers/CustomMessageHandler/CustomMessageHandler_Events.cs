@@ -11,6 +11,7 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.Context;
@@ -52,13 +53,13 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
         public string GetDownloadInfo(CodeRecord codeRecord)
         {
             return string.Format(@"您已通过二维码验证，浏览器即将开始下载 Senparc.Weixin SDK 帮助文档。
-当前选择的版本：v{0}
+当前选择的版本：v{0}（{1}）
 
 我们期待您的意见和建议，客服热线：400-031-8816。
 
 感谢您对盛派网络的支持！
 
-© 2016 Senparc", codeRecord.Version);
+© 2016 Senparc", codeRecord.Version, codeRecord.IsWebVersion ? "网页版" : ".chm文档版");
         }
 
         public override IResponseMessageBase OnTextOrEventRequest(RequestMessageText requestMessage)
@@ -261,7 +262,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                 }
             }
 
-            responseMessage.Content = responseMessage.Content ?? string.Format("通过扫描二维码进入，场景值：{0}",requestMessage.EventKey);
+            responseMessage.Content = responseMessage.Content ?? string.Format("通过扫描二维码进入，场景值：{0}", requestMessage.EventKey);
 
 
 
@@ -307,9 +308,16 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
 
                 if (codeRecord != null)
                 {
-                    //确认可以下载
-                    codeRecord.AllowDownload = true;
-                    AdvancedAPIs.CustomApi.SendText(null, WeixinOpenId, GetDownloadInfo(codeRecord));
+                    if (codeRecord.AllowDownload)
+                    {
+                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, WeixinOpenId, "下载已经开始，如需下载其他版本，请刷新页面后重新扫一扫。"));
+                    }
+                    else
+                    {
+                        //确认可以下载
+                        codeRecord.AllowDownload = true;
+                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, WeixinOpenId, GetDownloadInfo(codeRecord)));
+                    }
                 }
             }
 

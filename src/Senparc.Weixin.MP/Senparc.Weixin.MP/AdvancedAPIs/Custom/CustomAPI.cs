@@ -18,6 +18,9 @@
  
     修改标识：Senparc - 20160722
     修改描述：将其SendText方法增加了kfAccount的参数
+   
+    修改标识：Senparc - 20160802
+    修改描述：将其Send方法增加了kfAccount的参数
 ----------------------------------------------------------------*/
 
 /* 
@@ -51,15 +54,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="kfAccount">客服</param>
         /// <returns></returns>
-        public static WxJsonResult SendText(string accessTokenOrAppId, string openId, string content, int timeOut = Config.TIME_OUT, string kfAccount = "")
+        public static WxJsonResult SendText(string accessTokenOrAppId, string openId, string content,
+            int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            if (string.IsNullOrWhiteSpace(kfAccount))
+            {
+                return CustomApi.SendText(accessTokenOrAppId, openId, content, timeOut);
+            }
+
+
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                if (string.IsNullOrEmpty(kfAccount))
-                {
-                    return CustomApi.SendText(accessTokenOrAppId, openId, content, timeOut);
-                }
-
                 var data = new
                 {
                     touser = openId,
@@ -68,13 +73,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     {
                         content = content
                     },
-                customservice =new 
-                {
-                    kf_account = kfAccount
-                }
-               
-                } ;
-                
+                    customservice = new
+                    {
+                        kf_account = kfAccount
+                    }
+
+                };
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -87,9 +91,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="kfAccount">客服</param>
         /// <returns></returns>
-        public static WxJsonResult SendImage(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SendImage(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            if (string.IsNullOrWhiteSpace(kfAccount))
+            {
+                return CustomApi.SendImage(accessTokenOrAppId, openId, mediaId, timeOut);
+            }
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var data = new
@@ -99,6 +108,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     image = new
                     {
                         media_id = mediaId
+                    },
+                    CustomService = new
+                    {
+                        kf_account = kfAccount
                     }
                 };
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
@@ -113,9 +126,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="kfAccount"></param>
         /// <returns></returns>
-        public static WxJsonResult SendVoice(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SendVoice(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            if (string.IsNullOrWhiteSpace(kfAccount))
+            {
+                return CustomApi.SendVoice(accessTokenOrAppId, openId, mediaId, timeOut);
+            }
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var data = new
@@ -125,6 +143,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     voice = new
                     {
                         media_id = mediaId
+                    },
+                    CustomService = new
+                    {
+                        kf_account = kfAccount
                     }
                 };
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
@@ -141,9 +163,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="title"></param>
         /// <param name="description"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="kfAccount">客服</param>
         /// <returns></returns>
-        public static WxJsonResult SendVideo(string accessTokenOrAppId, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SendVideo(string accessTokenOrAppId, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            if (string.IsNullOrWhiteSpace(kfAccount))
+            {
+                return CustomApi.SendVideo(accessTokenOrAppId, openId, mediaId, title, description, timeOut);
+            }
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var data = new
@@ -155,6 +182,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         media_id = mediaId,
                         title = title,
                         description = description
+                    },
+                    CustomService = new
+                    {
+                        kf_account = kfAccount
                     }
                 };
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
@@ -172,10 +203,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="hqMusicUrl">高品质音乐链接，wifi环境优先使用该链接播放音乐</param>
         /// <param name="thumbMediaId">视频缩略图的媒体ID</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="kfAccount">客服</param>
         /// <returns></returns>
         public static WxJsonResult SendMusic(string accessTokenOrAppId, string openId, string title, string description,
-                                    string musicUrl, string hqMusicUrl, string thumbMediaId, int timeOut = Config.TIME_OUT)
+                                    string musicUrl, string hqMusicUrl, string thumbMediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            if (string.IsNullOrWhiteSpace(kfAccount))
+            {
+                return CustomApi.SendMusic(accessTokenOrAppId, openId, title, description, musicUrl, hqMusicUrl,
+                    thumbMediaId, timeOut);
+            }
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var data = new
@@ -189,7 +226,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         musicurl = musicUrl,
                         hqmusicurl = hqMusicUrl,
                         thumb_media_id = thumbMediaId
+                    },
+                    CustomService = new
+                    {
+                        kf_account = kfAccount
                     }
+
                 };
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
@@ -203,9 +245,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId"></param>
         /// <param name="articles"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="kfAccount">客服</param>
         /// <returns></returns>
-        public static WxJsonResult SendNews(string accessTokenOrAppId, string openId, List<Article> articles, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SendNews(string accessTokenOrAppId, string openId, List<Article> articles, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            if (string.IsNullOrWhiteSpace(kfAccount))
+            {
+                return CustomApi.SendNews(accessTokenOrAppId, openId, articles, timeOut);
+            }
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var data = new
@@ -221,7 +268,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             url = z.Url,
                             picurl = z.PicUrl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
                         }).ToList()
+                    },
+                    CustomService = new
+                    {
+                        kf_account = kfAccount
                     }
+
                 };
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
@@ -236,9 +288,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut"></param>
+        /// <param name="kfAccount">客服</param>
         /// <returns></returns>
-        public static WxJsonResult SendMpNews(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult SendMpNews(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            if (string.IsNullOrWhiteSpace(kfAccount))
+            {
+                return CustomApi.SendMpNews(accessTokenOrAppId, openId, mediaId, timeOut);
+            }
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var data = new
@@ -248,6 +305,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     mpnews = new
                     {
                         media_id = mediaId
+                    },
+                    CustomService = new
+                    {
+                        kf_account = kfAccount 
                     }
                 };
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
@@ -269,11 +330,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> SendTextAsync(string accessTokenOrAppId, string openId, string content, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 if (string.IsNullOrEmpty(kfAccount))
                 {
-                    return CustomApi.SendTextAsync( accessTokenOrAppId, openId, content, timeOut);
+                    return CustomApi.SendTextAsync(accessTokenOrAppId, openId, content, timeOut);
                 }
 
                 var data = new
@@ -291,12 +352,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 };
 
-                return Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync( accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
 
-       
+
         /// <summary>
         /// 【异步方法】发送图片消息
         /// </summary>
@@ -304,10 +365,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="kfAccount">客服</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> SendImageAsync(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> SendImageAsync(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            if (string.IsNullOrWhiteSpace(kfAccount))
+            {
+                return CustomApi.SendImage(accessTokenOrAppId, openId, mediaId, timeOut);
+            }
+            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
             {
                 var data = new
                 {
@@ -316,6 +382,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     image = new
                     {
                         media_id = mediaId
+                    },
+                    CustomService = new
+                    {
+                        kf_account = kfAccount
                     }
                 };
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
@@ -330,10 +400,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="kfAccount"></param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> SendVoiceAsync(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> SendVoiceAsync(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            if (string.IsNullOrWhiteSpace(kfAccount))
+            {
+                return CustomApi.SendVoice(accessTokenOrAppId, openId, mediaId, timeOut);
+            }
+            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
             {
                 var data = new
                 {
@@ -342,6 +417,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     voice = new
                     {
                         media_id = mediaId
+                    },
+                    CustomService = new
+                    {
+                        kf_account = kfAccount
                     }
                 };
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
@@ -358,10 +437,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="title"></param>
         /// <param name="description"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="kfAccount">客服</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> SendVideoAsync(string accessTokenOrAppId, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> SendVideoAsync(string accessTokenOrAppId, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            if (string.IsNullOrWhiteSpace(kfAccount))
+            {
+                return CustomApi.SendVideo(accessTokenOrAppId, openId, mediaId, title, description, timeOut);
+            }
+            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
             {
                 var data = new
                 {
@@ -372,6 +456,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         media_id = mediaId,
                         title = title,
                         description = description
+                    },
+                    CustomService = new
+                    {
+                        kf_account = kfAccount
                     }
                 };
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
@@ -379,7 +467,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
         /// <summary>
-        ///【异步方法】 发送音乐消息
+        /// 【异步方法】发送音乐消息
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
@@ -389,11 +477,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="hqMusicUrl">高品质音乐链接，wifi环境优先使用该链接播放音乐</param>
         /// <param name="thumbMediaId">视频缩略图的媒体ID</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="kfAccount">客服</param>
         /// <returns></returns>
         public static async Task<WxJsonResult> SendMusicAsync(string accessTokenOrAppId, string openId, string title, string description,
-                                    string musicUrl, string hqMusicUrl, string thumbMediaId, int timeOut = Config.TIME_OUT)
+                                    string musicUrl, string hqMusicUrl, string thumbMediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            if (string.IsNullOrWhiteSpace(kfAccount))
+            {
+                return CustomApi.SendMusic(accessTokenOrAppId, openId, title, description, musicUrl, hqMusicUrl,
+                    thumbMediaId, timeOut);
+            }
+            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
             {
                 var data = new
                 {
@@ -406,7 +500,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         musicurl = musicUrl,
                         hqmusicurl = hqMusicUrl,
                         thumb_media_id = thumbMediaId
+                    },
+                    CustomService = new
+                    {
+                        kf_account = kfAccount
                     }
+
                 };
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
@@ -420,10 +519,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId"></param>
         /// <param name="articles"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="kfAccount">客服</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> SendNewsAsync(string accessTokenOrAppId, string openId, List<Article> articles, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> SendNewsAsync(string accessTokenOrAppId, string openId, List<Article> articles, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            if (string.IsNullOrWhiteSpace(kfAccount))
+            {
+                return CustomApi.SendNews(accessTokenOrAppId, openId, articles, timeOut);
+            }
+            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
             {
                 var data = new
                 {
@@ -438,12 +542,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             url = z.Url,
                             picurl = z.PicUrl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
                         }).ToList()
+                    },
+                    CustomService = new
+                    {
+                        kf_account = kfAccount
                     }
+
                 };
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
+
 
         /// <summary>
         /// 【异步方法】发送图文消息（点击跳转到图文消息页面）
@@ -453,9 +563,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut"></param>
+        /// <param name="kfAccount">客服</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> SendMpNewsAsync(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> SendMpNewsAsync(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            if (string.IsNullOrWhiteSpace(kfAccount))
+            {
+                return CustomApi.SendMpNews(accessTokenOrAppId, openId, mediaId, timeOut);
+            }
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 var data = new
@@ -465,6 +580,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     mpnews = new
                     {
                         media_id = mediaId
+                    },
+                    CustomService = new
+                    {
+                        kf_account = kfAccount
                     }
                 };
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);

@@ -259,6 +259,7 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\senparc.menu.js" />
+    <Content Include="Scripts\tongji.sdk.js" />
     <Content Include="Scripts\tongji.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

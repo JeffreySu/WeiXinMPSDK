@@ -45,7 +45,6 @@ namespace Senparc.Weixin.MP.Containers
     /// <summary>
     /// AccessToken包
     /// </summary>
-    [Serializable]
     public class AccessTokenBag : BaseContainerBag
     {
         public string AppId

@@ -27,7 +27,6 @@ namespace Senparc.Weixin.MP.Containers
     /// <summary>
     /// OAuth包
     /// </summary>
-    [Serializable]
     public class OAuthAccessTokenBag : BaseContainerBag
     {
         public string AppId

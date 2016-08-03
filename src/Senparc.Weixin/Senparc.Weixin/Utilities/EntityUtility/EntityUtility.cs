@@ -15,7 +15,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.ModelBinding;
 using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.EntityUtility
@@ -35,7 +34,8 @@ namespace Senparc.Weixin.EntityUtility
                 return default(T);
             }
 
-            if (!typeof(T).IsGenericType)
+            //if (!typeof(T).IsGenericType)
+            if (!typeof(T).IsGenericParameter)//TODO: .net core 暂时未提供Type.IsGenericType判断
             {
                 return (T)Convert.ChangeType(convertibleValue, typeof(T));
             }

@@ -15,5 +15,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
         public string Version { get; set; }
         public bool Used { get; set; }
         public bool AllowDownload { get; set; }
+        public bool IsWebVersion { get; set; }
     }
 }

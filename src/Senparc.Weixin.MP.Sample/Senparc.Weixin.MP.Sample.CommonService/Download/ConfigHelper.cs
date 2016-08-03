@@ -46,7 +46,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
             {
                 QrCodeId = int.Parse(doc.Root.Element("QrCodeId").Value),
                 DownloadCount = int.Parse(doc.Root.Element("DownloadCount").Value),
-                Versions = doc.Root.Element("Versions").Elements("Version").Select(z => z.Value).ToList()
+                Versions = doc.Root.Element("Versions").Elements("Version").Select(z => z.Value).ToList(),
+                WebVersions = doc.Root.Element("WebVersions").Elements("Version").Select(z => z.Value).ToList()
             };
             return config;
         }
@@ -79,7 +80,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
             doc.Save(GetDatabaseFilePath());
         }
 
-        public string Download(string version)
+        public string Download(string version,bool isWebVersion)
         {
             lock (Lock)
             {
@@ -91,7 +92,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
             //打包下载文件
             //FileStream fs = new FileStream(_context.Server.MapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin-v{0}.rar", version)), FileMode.Open);
             //return fs;
-            return _context.Server.MapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin-v{0}.rar", version));
+            return _context.Server.MapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin{0}-v{1}.rar",isWebVersion?"-Web":"", version));
         }
     }
 }

@@ -24,7 +24,9 @@
 
     修改标识：Senparc - 20160717
     修改描述：1.6.6 添加注册过程中的Name参数
-
+    
+    修改标识：Senparc - 20160803
+    修改描述：v2.1.3 使用ApiUtility.GetExpireTime()方法处理过期
 ----------------------------------------------------------------*/
 
 using System;
@@ -33,6 +35,7 @@ using Senparc.Weixin.Containers;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.Open.Exceptions;
+using Senparc.Weixin.Utilities.WeixinUtility;
 
 namespace Senparc.Weixin.Open.ComponentAPIs
 {
@@ -271,7 +274,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 }
                 componentVerifyTicket = GetComponentVerifyTicketFunc(componentAppId); //获取最新的componentVerifyTicket
                 bag.ComponentVerifyTicket = componentVerifyTicket;
-                bag.ComponentVerifyTicketExpireTime = DateTime.Now.AddMinutes(COMPONENT_VERIFY_TICKET_UPDATE_MINUTES);
+                bag.ComponentVerifyTicketExpireTime = ApiUtility.GetExpireTime(COMPONENT_VERIFY_TICKET_UPDATE_MINUTES * 60);
             }
             return componentVerifyTicket;
         }
@@ -344,7 +347,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                     var componentAccessTokenResult = ComponentApi.GetComponentAccessToken(accessTokenBag.ComponentAppId, accessTokenBag.ComponentAppSecret, componentVerifyTicket);
 
                     accessTokenBag.ComponentAccessTokenResult = componentAccessTokenResult;
-                    accessTokenBag.ComponentAccessTokenExpireTime = DateTime.Now.AddSeconds(componentAccessTokenResult.expires_in);
+                    accessTokenBag.ComponentAccessTokenExpireTime = ApiUtility.GetExpireTime(componentAccessTokenResult.expires_in);
                 }
             }
             return accessTokenBag.ComponentAccessTokenResult;
@@ -401,7 +404,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                     var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret, componentVerifyTicket);
 
                     var preAuthCodeResult = ComponentApi.GetPreAuthCode(componentBag.ComponentAppId, accessToken);
-                    componentBag.PreAuthCodeExpireTime = DateTime.Now.AddSeconds(preAuthCodeResult.expires_in);
+                    componentBag.PreAuthCodeExpireTime = ApiUtility.GetExpireTime(preAuthCodeResult.expires_in);
 
 
                     componentBag.PreAuthCodeResult = preAuthCodeResult;

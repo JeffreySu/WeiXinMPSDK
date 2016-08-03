@@ -28,24 +28,24 @@ namespace Senparc.Weixin.Utilities.WeixinUtility
         /// <summary>
         /// 获取过期时间
         /// </summary>
-        /// <param name="expire_in">有效时间（秒）</param>
+        /// <param name="expireInSeconds">有效时间（秒）</param>
         /// <returns></returns>
-        public static DateTime GetExpireTime(int expire_in)
+        public static DateTime GetExpireTime(int expireInSeconds)
         {
-            if (expire_in > 3600)
+            if (expireInSeconds > 3600)
             {
-                expire_in -= 600;//提前10分钟过期
+                expireInSeconds -= 600;//提前10分钟过期
             }
-            else if (expire_in > 1800)
+            else if (expireInSeconds > 1800)
             {
-                expire_in -= 300;//提前5分钟过期
+                expireInSeconds -= 300;//提前5分钟过期
             }
-            else if (expire_in > 300)
+            else if (expireInSeconds > 300)
             {
-                expire_in -= 30;//提前1分钟过期
+                expireInSeconds -= 30;//提前1分钟过期
             }
 
-            return DateTime.Now.AddSeconds(expire_in);//提前2分钟重新获取
+            return DateTime.Now.AddSeconds(expireInSeconds);//提前2分钟重新获取
         }
     }
 }

@@ -21,7 +21,9 @@
 
     修改标识：Senparc - 20160717
     修改描述：1.6.6 添加注册过程中的Name参数
-
+    
+    修改标识：Senparc - 20160803
+    修改描述：v2.1.3 使用ApiUtility.GetExpireTime()方法处理过期
 ----------------------------------------------------------------*/
 
 using System;
@@ -29,6 +31,7 @@ using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.Open.Exceptions;
+using Senparc.Weixin.Utilities.WeixinUtility;
 
 namespace Senparc.Weixin.Open.ComponentAPIs
 {
@@ -309,7 +312,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                                               authorizationInfo.authorizer_refresh_token;
 
                 authorizerBag.AuthorizationInfo = authorizationInfo;
-                authorizerBag.AuthorizationInfoExpireTime = DateTime.Now.AddSeconds(authorizationInfo.expires_in);
+                authorizerBag.AuthorizationInfoExpireTime = ApiUtility.GetExpireTime(authorizationInfo.expires_in);
 
                 //通知变更
                 if (refreshTokenChanged)
@@ -345,7 +348,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 authorizerBag.AuthorizationInfo.authorizer_access_token = authorizerAccessToken;
                 authorizerBag.AuthorizationInfo.authorizer_refresh_token = authorizerRefreshToken;
                 authorizerBag.AuthorizationInfo.expires_in = expiresIn;
-                authorizerBag.AuthorizationInfoExpireTime = DateTime.Now.AddSeconds(expiresIn);
+                authorizerBag.AuthorizationInfoExpireTime = ApiUtility.GetExpireTime(expiresIn);
 
                 //通知变更
                 if (refreshTokenChanged)
@@ -427,7 +430,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
                     accessTicketBag.JsApiTicketResult = ComponentApi.GetJsApiTicket(authorizerAccessToken);
 
-                    accessTicketBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(accessTicketBag.JsApiTicketResult.expires_in);
+                    accessTicketBag.JsApiTicketExpireTime = ApiUtility.GetExpireTime(accessTicketBag.JsApiTicketResult.expires_in);
                 }
             }
             return accessTicketBag.JsApiTicketResult;

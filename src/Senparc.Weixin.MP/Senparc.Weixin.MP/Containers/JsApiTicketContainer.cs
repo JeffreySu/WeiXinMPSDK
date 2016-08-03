@@ -18,7 +18,9 @@
     
     修改标识：Senparc - 20160801
     修改描述：v14.2.1 转移到Senparc.Weixin.MP.Containers命名空间下
-
+    
+    修改标识：Senparc - 20160803
+    修改描述：v14.2.3 使用ApiUtility.GetExpireTime()方法处理过期
 ----------------------------------------------------------------*/
 
 using System;
@@ -30,6 +32,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.Utilities.WeixinUtility;
 
 namespace Senparc.Weixin.MP.Containers
 {
@@ -160,7 +163,7 @@ namespace Senparc.Weixin.MP.Containers
                 {
                     //已过期，重新获取
                     jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
-                    jsApiTicketBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(jsApiTicketBag.JsApiTicketResult.expires_in);
+                    jsApiTicketBag.JsApiTicketExpireTime = ApiUtility.GetExpireTime(jsApiTicketBag.JsApiTicketResult.expires_in);
                 }
             }
             return jsApiTicketBag.JsApiTicketResult;

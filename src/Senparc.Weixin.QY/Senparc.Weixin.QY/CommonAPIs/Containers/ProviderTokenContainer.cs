@@ -21,7 +21,9 @@
 
     修改标识：Senparc - 20160717
     修改描述：v3.3.8 添加注册过程中的Name参数
-
+    
+    修改标识：Senparc - 20160803
+    修改描述：v4.1.2 使用ApiUtility.GetExpireTime()方法处理过期
 ----------------------------------------------------------------*/
 
 using System;
@@ -31,6 +33,7 @@ using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Exceptions;
+using Senparc.Weixin.Utilities.WeixinUtility;
 
 namespace Senparc.Weixin.QY.CommonAPIs
 {
@@ -160,7 +163,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
                     //已过期，重新获取
                     providerTokenBag.ProviderTokenResult = CommonApi.GetProviderToken(providerTokenBag.CorpId,
                         providerTokenBag.CorpSecret);
-                    providerTokenBag.ExpireTime = DateTime.Now.AddSeconds(providerTokenBag.ProviderTokenResult.expires_in);
+                    providerTokenBag.ExpireTime = ApiUtility.GetExpireTime(providerTokenBag.ProviderTokenResult.expires_in);
                 }
             }
             return providerTokenBag.ProviderTokenResult;

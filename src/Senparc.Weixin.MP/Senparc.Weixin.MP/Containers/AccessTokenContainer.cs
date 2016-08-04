@@ -28,6 +28,9 @@
     修改标识：Senparc - 20160801
     修改描述：v14.2.1 转移到Senparc.Weixin.MP.Containers命名空间下
 
+    修改标识：Senparc - 20160803
+    修改描述：v14.2.3 使用ApiUtility.GetExpireTime()方法处理过期
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -39,6 +42,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.Utilities.WeixinUtility;
 
 namespace Senparc.Weixin.MP.Containers
 {
@@ -177,7 +181,7 @@ namespace Senparc.Weixin.MP.Containers
                 {
                     //已过期，重新获取
                     accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.AppId, accessTokenBag.AppSecret);
-                    accessTokenBag.AccessTokenExpireTime = DateTime.Now.AddSeconds(accessTokenBag.AccessTokenResult.expires_in);
+                    accessTokenBag.AccessTokenExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
                 }
             }
             return accessTokenBag.AccessTokenResult;
@@ -242,7 +246,7 @@ namespace Senparc.Weixin.MP.Containers
                     //已过期，重新获取
                     var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.AppId, accessTokenBag.AppSecret);
                     accessTokenBag.AccessTokenResult = accessTokenResult;
-                    accessTokenBag.AccessTokenExpireTime = DateTime.Now.AddSeconds(accessTokenBag.AccessTokenResult.expires_in);
+                    accessTokenBag.AccessTokenExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
                 }
             }
             return accessTokenBag.AccessTokenResult;

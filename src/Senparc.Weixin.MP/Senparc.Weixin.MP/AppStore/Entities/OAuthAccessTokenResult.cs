@@ -9,6 +9,7 @@
 ----------------------------------------------------------------*/
 
 using System;
+using Senparc.Weixin.Utilities.WeixinUtility;
 
 namespace Senparc.Weixin.MP.AppStore
 {
@@ -38,7 +39,7 @@ namespace Senparc.Weixin.MP.AppStore
             set
             {
                 _expiresIn = value;
-                ExpireTimeTicks = DateTime.Now.AddSeconds(expires_in).Ticks;
+                ExpireTimeTicks = ApiUtility.GetExpireTime(expires_in).Ticks;
             }
         }
 

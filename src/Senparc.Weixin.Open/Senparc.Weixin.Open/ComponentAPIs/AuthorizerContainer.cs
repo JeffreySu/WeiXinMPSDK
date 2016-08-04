@@ -24,9 +24,14 @@
     
     修改标识：Senparc - 20160803
     修改描述：v2.1.3 使用ApiUtility.GetExpireTime()方法处理过期
+   
+    修改标识：Senparc - 20160804
+    修改描述：v2.1.5 增加异步方法
+    
 ----------------------------------------------------------------*/
 
 using System;
+using System.Threading.Tasks;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Open.Entities;
@@ -144,13 +149,14 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     /// </summary>
     public class AuthorizerContainer : BaseContainer<AuthorizerBag>
     {
+        #region 同步方法
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
         /// </summary>
         /// <param name="authorizerAppId"></param>
         /// <param name="componentAppId"></param>
         /// <param name="name">标记Authorizer名称（如微信公众号名称），帮助管理员识别</param>
-        private static void Register(string componentAppId, string authorizerAppId,string name=null)
+        private static void Register(string componentAppId, string authorizerAppId, string name = null)
         {
             var componentBag = ComponentContainer.TryGetItem(componentAppId);
             if (componentBag == null)
@@ -436,6 +442,145 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             return accessTicketBag.JsApiTicketResult;
         }
 
+        #endregion
+        #endregion
+
+        #region 异步方法
+        /// <summary>
+        /// 【异步方法】获取可用AuthorizerAccessToken
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="authorizerAppid"></param>
+        /// <param name="getNewTicket"></param>
+        /// <returns></returns>
+        public static async Task<string> TryGetAuthorizerAccessTokenAsync(string componentAppId, string authorizerAppid, bool getNewTicket = false)
+        {
+            TryRegister(componentAppId, authorizerAppid);
+            var result = await GetAuthorizerInfoResultAsync(componentAppId, authorizerAppid);
+
+            return  result.authorization_info.authorizer_access_token;
+        }
+
+        /// <summary>
+        /// 【异步方法】获取可用的GetAuthorizerInfoResult
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="authorizerAppid"></param>
+        /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+        /// <returns></returns>
+        ///// <exception cref="WeixinOpenException">此公众号没有高级权限</exception>
+        public static async Task<GetAuthorizerInfoResult> GetAuthorizerInfoResultAsync(string componentAppId, string authorizerAppid, bool getNewTicket = false)
+        {
+            TryRegister(componentAppId, authorizerAppid);
+
+            var authorizerBag = (AuthorizerBag)ItemCollection[authorizerAppid];
+            //lock (authorizerBag.Lock)
+            {
+
+                //更新AuthorizerInfo
+                if (getNewTicket || authorizerBag.AuthorizerInfo.user_name == null)
+                {
+                    var componentVerifyTicket = ComponentContainer.TryGetComponentVerifyTicket(componentAppId);
+                    var componentAccessToken = ComponentContainer.GetComponentAccessToken(componentAppId, componentVerifyTicket);
+
+                    //已过期，重新获取
+                    var getAuthorizerInfoResult = await ComponentApi.GetAuthorizerInfoAsync(componentAccessToken, componentAppId, authorizerAppid);//TODO:如果是过期，可以通过刷新的方式重新获取
+
+                    //AuthorizerInfo
+                    authorizerBag.AuthorizerInfo = getAuthorizerInfoResult.authorizer_info;
+
+                    //var componentBag = ComponentContainer.TryGetItem(componentAppId);
+                    //if (string.IsNullOrEmpty(authorizerBag.AuthorizerInfoResult.authorization_info.authorizer_access_token))
+                    //{
+                    //    //账号没有此权限
+                    //    throw new WeixinOpenException("此公众号没有高级权限", componentBag);
+                    //}
+                }
+            }
+            return authorizerBag.FullAuthorizerInfoResult;
+        }
+
+
+       
+        /// <summary>
+        /// 【异步方法】刷新AuthorizerToken
+        ///
+        /// </summary>
+        /// <param name="componentAccessToken"></param>
+        /// <param name="componentAppId"></param>
+        /// <param name="authorizerAppid"></param>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
+        public static async Task<RefreshAuthorizerTokenResult> RefreshAuthorizerTokenAsync(string componentAccessToken, string componentAppId, string authorizerAppid,
+                      string refreshToken)
+        {
+            var refreshResult = await ComponentApi.ApiAuthorizerTokenAsync(componentAccessToken, componentAppId, authorizerAppid,
+                         refreshToken);
+            //更新到存储
+            ComponentContainer.AuthorizerTokenRefreshedFunc(authorizerAppid, refreshResult);
+            return refreshResult;
+        }
+
+
+
+        #region JSTicket
+
+
+        /// <summary>
+        /// 【异步方法】使用完整的应用凭证获取Ticket，如果不存在将自动注册
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// /// <param name="authorizerAppid"></param>
+        /// <param name="getNewTicket"></param>
+        /// <returns></returns>
+        public static async Task<string> TryGetJsApiTicketAsync(string componentAppId, string authorizerAppid, bool getNewTicket = false)
+        {
+            TryRegister(componentAppId, authorizerAppid);
+
+            return await TryGetJsApiTicketAsync(componentAppId, authorizerAppid);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取可用Ticket
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="authorizerAppid"></param>
+        /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+        /// <returns></returns>
+        public static async Task<string> GetJsApiTicketAsync(string componentAppId, string authorizerAppid, bool getNewTicket = false)
+        {
+            var result = await GetJsApiTicketResultAsync(componentAppId, authorizerAppid, getNewTicket);
+            return result.ticket;
+        }
+
+        /// <summary>
+        /// 【异步方法】获取可用Ticket
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="authorizerAppid"></param>
+        /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+        /// <returns></returns>
+        public static async Task<JsApiTicketResult> GetJsApiTicketResultAsync(string componentAppId, string authorizerAppid, bool getNewTicket = false)
+        {
+            TryRegister(componentAppId, authorizerAppid);
+
+            var accessTicketBag = (AuthorizerBag)ItemCollection[authorizerAppid];
+            //lock (accessTicketBag.Lock)
+            {
+                if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= DateTime.Now)
+                {
+                    //已过期，重新获取
+                    var authorizerAccessToken =  await TryGetAuthorizerAccessTokenAsync( componentAppId, authorizerAppid);
+
+                    accessTicketBag.JsApiTicketResult =  await ComponentApi.GetJsApiTicketAsync(authorizerAccessToken);
+
+                    accessTicketBag.JsApiTicketExpireTime = ApiUtility.GetExpireTime(accessTicketBag.JsApiTicketResult.expires_in);
+                }
+            }
+            return accessTicketBag.JsApiTicketResult;
+        }
+
+        #endregion
         #endregion
     }
 }

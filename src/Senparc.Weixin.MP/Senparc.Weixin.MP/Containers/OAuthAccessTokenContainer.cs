@@ -9,6 +9,7 @@
 
     修改标识：Senparc - 20160803
     修改描述：v14.2.3 使用ApiUtility.GetExpireTime()方法处理过期
+ 
     修改标识：Senparc - 20160804
     修改描述：增加TryGetOAuthAccessTokenAsync，GetOAuthAccessTokenAsync，GetOAuthAccessTokenResultAsync的异步方法
 

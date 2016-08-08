@@ -10,6 +10,9 @@
     修改标识：Senparc - 20160321
     修改描述：v4.5.18 完善 ItemCollection 中项目删除的方法
 
+    修改标识：Senparc - 20160808
+    修改描述：v4.7.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -48,7 +51,7 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 获取符合当前缓存策略配置的缓存的操作对象实例
         /// </summary>
-        private static IContainerCacheStragegy /*IBaseCacheStrategy<string,Dictionary<string, TBag>>*/ Cache
+        protected static IContainerCacheStragegy /*IBaseCacheStrategy<string,Dictionary<string, TBag>>*/ Cache
         {
             get
             {
@@ -56,19 +59,6 @@ namespace Senparc.Weixin.Containers
                 return CacheStrategyFactory.GetContainerCacheStragegyInstance();
             }
         }
-
-        ///// <summary>
-        ///// 所有数据集合的列表   TODO：改为单个Container输出
-        ///// </summary>
-        //private static IDictionary<string, IContainerItemCollection> CollectionList
-        //{
-        //    get
-        //    {
-        //        //var cacheKey = GetCacheKey<TBag>();
-        //        var list = Cache.GetAll();
-        //        return list as IDictionary<string, IContainerItemCollection>;
-        //    }
-        //}
 
         //2016.8.8注释掉
         /// <summary>
@@ -110,6 +100,8 @@ namespace Senparc.Weixin.Containers
         //    }
         //}
 
+
+
         ///// <summary>
         ///// 获取Container缓存Key
         ///// </summary>
@@ -129,6 +121,17 @@ namespace Senparc.Weixin.Containers
             return string.Format("{0}:{1}", ContainerHelper.GetCacheKey(typeof(TBag)), shortKey);
         }
 
+
+        /// <summary>
+        /// 返回已经注册的第一个AppId
+        /// </summary>
+        /// <returns></returns>
+        public static string GetFirstOrDefaultAppId()
+        {
+            var firstBag = GetAllItems().FirstOrDefault() as IBaseContainerBag_AppId;
+            return firstBag == null ? null : firstBag.AppId;
+        }
+
         ///// <summary>
         ///// 获取完整的数据集合的列表，包括所有的Container数据在内（建议不要进行任何修改操作）
         ///// </summary>
@@ -145,7 +148,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static List<TBag> GetAllItems()
         {
-            return Cache.GetAll().Values.Select(z => z as TBag).ToList();
+            return Cache.GetAll<TBag>().Values.Select(z => z as TBag).ToList();
         }
 
         /// <summary>
@@ -220,7 +223,7 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 更新数据项
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="shortKey"></param>
         /// <param name="partialUpdate">为null时删除该项</param>
         public static void Update(string shortKey, Action<TBag> partialUpdate)
         {
@@ -247,11 +250,12 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 检查Key是否已经注册
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="shortKey"></param>
         /// <returns></returns>
-        public static bool CheckRegistered(string key)
+        public static bool CheckRegistered(string shortKey)
         {
-            return Cache.CheckExisted(key);
+            var cacheKey = GetItemCacheKey(shortKey);
+            return Cache.CheckExisted(cacheKey);
         }
     }
 }

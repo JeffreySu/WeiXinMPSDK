@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Caching;
+using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache
 {
     public interface IBaseCacheStrategy
     {
-        /// <summary>
-        /// 整个Cache集合的Key
-        /// </summary>
-        string CacheSetKey { get; set; }
+        ///// <summary>
+        ///// 整个Cache集合的Key
+        ///// </summary>
+        //string CacheSetKey { get; set; }
     }
 
     /// <summary>

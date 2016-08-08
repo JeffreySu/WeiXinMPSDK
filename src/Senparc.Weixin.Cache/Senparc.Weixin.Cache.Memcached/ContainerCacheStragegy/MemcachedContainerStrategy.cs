@@ -1,4 +1,18 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+
+    文件名：MemcachedContainerStrategy.cs
+    文件功能描述：Memcached 容器缓存策略。
+
+
+    创建标识：Senparc - 20160308
+
+    修改标识：Senparc - 20160808
+    修改描述：v0.0.2 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
+
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -17,10 +31,6 @@ namespace Senparc.Weixin.Cache.Memcached
         private MemcachedClientConfiguration _config;
         private static Dictionary<string, int> _serverlist;// = SiteConfig.MemcachedAddresss; TODO:全局注册配置
 
-        private string GetFinalKey(string key)
-        {
-            return string.Format("{0}{1}",CacheSetKey, key);
-        }
 
         #region 单例
 
@@ -52,7 +62,6 @@ namespace Senparc.Weixin.Cache.Memcached
         }
 
         #endregion
-
 
         #region 配置
 
@@ -124,11 +133,14 @@ namespace Senparc.Weixin.Cache.Memcached
 
         #endregion
 
-
         #region IContainerCacheStragegy 成员
+        public string GetFinalKey(string key)
+        {
+            return String.Format("{0}:{1}", "SenparcWeixinContainer", key);
+        }
 
-        public string CacheSetKey { get; set; }
-        public void InsertToCache(string key, IContainerItemCollection value)//TODO:添加Timeout参数
+
+        public void InsertToCache(string key, IBaseContainerBag value)//TODO:添加Timeout参数
         {
             if (string.IsNullOrEmpty(key) || value == null)
             {
@@ -141,7 +153,7 @@ namespace Senparc.Weixin.Cache.Memcached
             _cache.Store(StoreMode.Set, cacheKey, value,DateTime.Now.AddDays(1));
 
 #if DEBUG
-            value = _cache.Get(cacheKey) as IContainerItemCollection;
+            value = _cache.Get(cacheKey) as IBaseContainerBag;
 #endif
         }
 
@@ -155,7 +167,7 @@ namespace Senparc.Weixin.Cache.Memcached
             _cache.Remove(cacheKey);
         }
 
-        public IContainerItemCollection Get(string key)
+        public IBaseContainerBag Get(string key)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -163,12 +175,17 @@ namespace Senparc.Weixin.Cache.Memcached
             }
 
             var cacheKey = GetFinalKey(key);
-            return _cache.Get<IContainerItemCollection>(cacheKey);
+            return _cache.Get<IBaseContainerBag>(cacheKey);
         }
 
-        public IDictionary<string, IContainerItemCollection> GetAll()
+        public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
         {
-            throw new NotImplementedException();//TODO:需要定义二级缓存键，从池中获取
+            throw new NotImplementedException();
+        }
+
+        public IDictionary<string, IBaseContainerBag> GetAll()
+        {
+            throw new NotImplementedException();
         }
 
         public bool CheckExisted(string key)
@@ -186,7 +203,7 @@ namespace Senparc.Weixin.Cache.Memcached
             throw new NotImplementedException();//TODO:需要定义二级缓存键，从池中获取
         }
 
-        public void Update(string key, IContainerItemCollection value)
+        public void Update(string key, IBaseContainerBag value)
         {
             var cacheKey = GetFinalKey(key);
             _cache.Store(StoreMode.Set, cacheKey, value, DateTime.Now.AddDays(1));
@@ -197,7 +214,7 @@ namespace Senparc.Weixin.Cache.Memcached
             object value;
             if (_cache.TryGet(key,out value))
             {
-                var containerItemCollection = (IContainerItemCollection) value;
+                var containerItemCollection = (IBaseContainerBag) value;
                 containerItemCollection[containerBag.Key] = containerBag;
             }
         }

@@ -31,11 +31,15 @@
     修改标识：Senparc - 20160803
     修改描述：v14.2.3 使用ApiUtility.GetExpireTime()方法处理过期
 
+    修改标识：Senparc - 20160808
+    修改描述：v14.3.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
@@ -50,7 +54,7 @@ namespace Senparc.Weixin.MP.Containers
     /// AccessToken包
     /// </summary>
     [Serializable]
-    public class AccessTokenBag : BaseContainerBag
+    public class AccessTokenBag : BaseContainerBag, IBaseContainerBag_AppId
     {
         public string AppId
         {
@@ -121,15 +125,6 @@ namespace Senparc.Weixin.MP.Containers
 
         }
 
-        /// <summary>
-        /// 返回已经注册的第一个AppId
-        /// </summary>
-        /// <returns></returns>
-        public static string GetFirstOrDefaultAppId()
-        {
-            return ItemCollection.GetAll().Keys.FirstOrDefault();
-        }
-
         #region 同步方法
 
         #region AccessToken
@@ -174,7 +169,7 @@ namespace Senparc.Weixin.MP.Containers
                 throw new UnRegisterAppIdException(appId, string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！", appId));
             }
 
-            var accessTokenBag = (AccessTokenBag)ItemCollection[appId];
+            var accessTokenBag = TryGetItem(appId);
             lock (accessTokenBag.Lock)
             {
                 if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
@@ -237,7 +232,7 @@ namespace Senparc.Weixin.MP.Containers
                 throw new UnRegisterAppIdException(appId, string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！", appId));
             }
 
-            var accessTokenBag = (AccessTokenBag)ItemCollection[appId];
+            var accessTokenBag = TryGetItem(appId);
 
             //lock (accessTokenBag.Lock)
             {

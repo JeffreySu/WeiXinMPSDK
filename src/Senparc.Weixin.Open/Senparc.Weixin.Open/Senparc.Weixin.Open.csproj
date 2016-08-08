@@ -65,9 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
-    <Compile Include="OAuthAPIs\OAuthContainer.cs" />
-    <Compile Include="ComponentAPIs\ComponentContainer.cs" />
-    <Compile Include="ComponentAPIs\AuthorizerContainer.cs" />
+    <Compile Include="Containers\OAuthContainer.cs" />
+    <Compile Include="Containers\ComponentContainer.cs" />
+    <Compile Include="Containers\AuthorizerContainer.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\GetAuthorizerInfoResult.cs" />
     <Compile Include="ComponentAPIs\ComponentJson\RefreshAuthorizerTokenResult.cs" />
     <Compile Include="Entities\JsonResult\ComponentAccessTokenResult.cs" />

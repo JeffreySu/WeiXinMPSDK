@@ -7,12 +7,16 @@
     
     创建标识：Senparc - 20151004
 
+    修改标识：Senparc - 20160808
+    修改描述：v2.2.0 将Container统一移到Containers命名空间下
+
 ----------------------------------------------------------------*/
 
 using System;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
+using Senparc.Weixin.Open.Containers;
 
 namespace Senparc.Weixin.Open.Exceptions
 {

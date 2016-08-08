@@ -24,16 +24,18 @@
     
     修改标识：Senparc - 20160803
     修改描述：v2.1.3 使用ApiUtility.GetExpireTime()方法处理过期
+
 ----------------------------------------------------------------*/
 
 using System;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
+using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.Open.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
 
-namespace Senparc.Weixin.Open.ComponentAPIs
+namespace Senparc.Weixin.Open.Containers
 {
     /// <summary>
     /// 之前的JsApiTicketBag
@@ -210,7 +212,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             TryRegister(componentAppId, authorizerAppid);
 
-            var authorizerBag = (AuthorizerBag)ItemCollection[authorizerAppid];
+            var authorizerBag = TryGetItem(authorizerAppid);
             lock (authorizerBag.Lock)
             {
                 //更新Authorization
@@ -265,7 +267,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             TryRegister(componentAppId, authorizerAppid);
 
-            var authorizerBag = (AuthorizerBag)ItemCollection[authorizerAppid];
+            var authorizerBag = TryGetItem(authorizerAppid);
             lock (authorizerBag.Lock)
             {
 
@@ -304,7 +306,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
             if (authorizationInfo.expires_in > 0 && authorizationInfo.authorizer_access_token != null)
             {
-                var authorizerBag = (AuthorizerBag)ItemCollection[authorizerAppid];
+                var authorizerBag = TryGetItem(authorizerAppid);
 
                 var refreshTokenChanged = authorizerBag.AuthorizationInfo.authorizer_access_token !=
                                          authorizationInfo.authorizer_access_token
@@ -338,7 +340,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
 
             if (expiresIn > 0 && authorizerAccessToken != null)
             {
-                var authorizerBag = (AuthorizerBag)ItemCollection[authorizerAppid];
+                var authorizerBag = TryGetItem(authorizerAppid);
 
                 var refreshTokenChanged = authorizerBag.AuthorizationInfo.authorizer_access_token !=
                                           authorizerAccessToken
@@ -420,7 +422,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             TryRegister(componentAppId, authorizerAppid);
 
-            var accessTicketBag = (AuthorizerBag)ItemCollection[authorizerAppid];
+            var accessTicketBag = TryGetItem(authorizerAppid);
             lock (accessTicketBag.Lock)
             {
                 if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= DateTime.Now)

@@ -21,6 +21,10 @@
     
     修改标识：Senparc - 20160803
     修改描述：v14.2.3 使用ApiUtility.GetExpireTime()方法处理过期
+
+    修改标识：Senparc - 20160808
+    修改描述：v14.3.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -40,7 +44,7 @@ namespace Senparc.Weixin.MP.Containers
     /// JsApiTicket包
     /// </summary>
     [Serializable]
-    public class JsApiTicketBag : BaseContainerBag
+    public class JsApiTicketBag : BaseContainerBag, IBaseContainerBag_AppId
     {
         public string AppId
         {
@@ -105,14 +109,6 @@ namespace Senparc.Weixin.MP.Containers
             }
         }
 
-        /// <summary>
-        /// 返回已经注册的第一个AppId
-        /// </summary>
-        /// <returns></returns>
-        public static string GetFirstOrDefaultAppId()
-        {
-            return ItemCollection.GetAll().Keys.FirstOrDefault();
-        }
 
         #region JsApiTicket
 
@@ -156,7 +152,7 @@ namespace Senparc.Weixin.MP.Containers
                 throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var jsApiTicketBag = (JsApiTicketBag)ItemCollection[appId];
+            var jsApiTicketBag = TryGetItem(appId);
             lock (jsApiTicketBag.Lock)
             {
                 if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= DateTime.Now)

@@ -9,6 +9,10 @@
     
     修改标识：Senparc - 20160803
     修改描述：v14.2.3 使用ApiUtility.GetExpireTime()方法处理过期
+
+    修改标识：Senparc - 20160808
+    修改描述：v14.3.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -30,7 +34,7 @@ namespace Senparc.Weixin.MP.Containers
     /// OAuth包
     /// </summary>
     [Serializable]
-    public class OAuthAccessTokenBag : BaseContainerBag
+    public class OAuthAccessTokenBag : BaseContainerBag, IBaseContainerBag_AppId
     {
         public string AppId
         {
@@ -95,15 +99,6 @@ namespace Senparc.Weixin.MP.Containers
             }
         }
 
-        /// <summary>
-        /// 返回已经注册的第一个AppId
-        /// </summary>
-        /// <returns></returns>
-        public static string GetFirstOrDefaultAppId()
-        {
-            return ItemCollection.GetAll().Keys.FirstOrDefault();
-        }
-
         #region OAuthAccessToken
 
         /// <summary>
@@ -114,13 +109,13 @@ namespace Senparc.Weixin.MP.Containers
         /// <param name="code">code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。</param>
         /// <param name="getNewToken"></param>
         /// <returns></returns>
-        public static string TryGetOAuthAccessToken(string appId, string appSecret,string code, bool getNewToken = false)
+        public static string TryGetOAuthAccessToken(string appId, string appSecret, string code, bool getNewToken = false)
         {
             if (!CheckRegistered(appId) || getNewToken)
             {
                 Register(appId, appSecret);
             }
-            return GetOAuthAccessToken(appId,code);
+            return GetOAuthAccessToken(appId, code);
         }
 
         /// <summary>
@@ -149,7 +144,7 @@ namespace Senparc.Weixin.MP.Containers
                 throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用OAuthAccessTokenContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var oAuthAccessTokenBag = (OAuthAccessTokenBag)ItemCollection[appId];
+            var oAuthAccessTokenBag = TryGetItem(appId);
             lock (oAuthAccessTokenBag.Lock)
             {
                 if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= DateTime.Now)

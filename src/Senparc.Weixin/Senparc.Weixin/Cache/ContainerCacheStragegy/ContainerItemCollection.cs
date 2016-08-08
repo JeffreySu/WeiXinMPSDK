@@ -55,7 +55,7 @@ namespace Senparc.Weixin.Cache
         /// </summary>
         public DateTime CreateTime { get; set; }
 
-        public string CacheSetKey { get; set; }
+        //public string CacheSetKey { get; set; }
 
         #region 实现IContainerItemCollection : IBaseCacheStrategy<string, IBaseContainerBag>接口
 

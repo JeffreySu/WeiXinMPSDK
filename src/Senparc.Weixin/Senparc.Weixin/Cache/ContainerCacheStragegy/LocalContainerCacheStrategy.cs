@@ -69,8 +69,11 @@ namespace Senparc.Weixin.Cache
 
         #region ILocalCacheStrategy 成员
 
-        public string CacheSetKey { get; set; }
-
+        //public string CacheSetKey { get; set; }
+        public string GetFinalKey(string key)
+        {
+            return String.Format("{0}:{1}", "SenparcWeixinContainer", key);
+        }
 
         public void InsertToCache(string key, IBaseContainerBag value)
         {
@@ -100,6 +103,21 @@ namespace Senparc.Weixin.Cache
             }
 
             return _cache[key];
+        }
+
+
+        public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
+        {
+            var dic = new Dictionary<string, TBag>();
+            var cacheList = GetAll();
+            foreach (var baseContainerBag in cacheList)
+            {
+                if (baseContainerBag.Value is TBag)
+                {
+                    dic[baseContainerBag.Key] = (TBag)baseContainerBag.Value;
+                }
+            }
+            return dic;
         }
 
         public IDictionary<string, IBaseContainerBag> GetAll()

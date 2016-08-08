@@ -68,7 +68,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             var sb = new StringBuilder();
-            var cacheKey = TestContainer1.GetCacheKey();
+            var cacheKey = TestContainer1.GetContainerCacheKey();
             var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
             var itemCollection = containerCacheStragegy.Get(cacheKey);
 
@@ -131,7 +131,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 sb.AppendFormat("{0}：{1}<br />", "已经加入列队", mqItem != null);
                 sb.AppendFormat("{0}：{1}<br />", "当前消息列队数量（未更新缓存）", mq.GetCount());
 
-                var cacheKey = TestContainer1.GetCacheKey();
+                var cacheKey = TestContainer1.GetContainerCacheKey();
                 var itemCollection = containerCacheStragegy.Get(cacheKey);
                 var existed = itemCollection.CheckExisted(bagKey);
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);

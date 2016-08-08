@@ -220,8 +220,8 @@ namespace Senparc.Weixin.MP.Containers
             {
                 throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
             }
-        
-            var jsApiTicketBag = (JsApiTicketBag)ItemCollection[appId];
+
+            var jsApiTicketBag = TryGetItem(appId);
             //lock (jsApiTicketBag.Lock)
             {
                 if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= DateTime.Now)

@@ -16,6 +16,7 @@ using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.MessageHandlers;
 using Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers;
 using Senparc.Weixin.Open.ComponentAPIs;
+using Senparc.Weixin.Open.Containers;
 using Senparc.Weixin.Open.Entities.Request;
 
 namespace Senparc.Weixin.MP.Sample.Controllers

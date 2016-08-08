@@ -514,7 +514,7 @@ namespace Senparc.Weixin.Open.Containers
                 throw new WeixinOpenException(UN_REGISTER_ALERT);
             }
 
-            var accessTokenBag = (ComponentBag)ItemCollection[componentAppId];
+            var accessTokenBag = TryGetItem(componentAppId);
            // lock (accessTokenBag.Lock)
             {
                 if (getNewToken || accessTokenBag.ComponentAccessTokenExpireTime <= DateTime.Now)
@@ -572,7 +572,7 @@ namespace Senparc.Weixin.Open.Containers
                 throw new WeixinOpenException(UN_REGISTER_ALERT);
             }
 
-            var componentBag = (ComponentBag)ItemCollection[componentAppId];
+            var componentBag = TryGetItem(componentAppId);
             //lock (componentBag.Lock)
             {
                 if (getNewToken || componentBag.PreAuthCodeExpireTime <= DateTime.Now)
@@ -617,7 +617,7 @@ namespace Senparc.Weixin.Open.Containers
                 throw new WeixinOpenException(UN_REGISTER_ALERT);
             }
 
-            var componentBag = (ComponentBag)ItemCollection[componentAppId];
+            var componentBag = TryGetItem(componentAppId);
             //lock (componentBag.Lock)
             {
                 var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret);

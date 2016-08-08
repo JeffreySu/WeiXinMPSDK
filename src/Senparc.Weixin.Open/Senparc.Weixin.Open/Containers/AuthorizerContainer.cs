@@ -474,7 +474,7 @@ namespace Senparc.Weixin.Open.Containers
         {
             TryRegister(componentAppId, authorizerAppid);
 
-            var authorizerBag = (AuthorizerBag)ItemCollection[authorizerAppid];
+            var authorizerBag = TryGetItem(authorizerAppid);
             //lock (authorizerBag.Lock)
             {
 
@@ -565,7 +565,7 @@ namespace Senparc.Weixin.Open.Containers
         {
             TryRegister(componentAppId, authorizerAppid);
 
-            var accessTicketBag = (AuthorizerBag)ItemCollection[authorizerAppid];
+            var accessTicketBag = TryGetItem(authorizerAppid);
             //lock (accessTicketBag.Lock)
             {
                 if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= DateTime.Now)

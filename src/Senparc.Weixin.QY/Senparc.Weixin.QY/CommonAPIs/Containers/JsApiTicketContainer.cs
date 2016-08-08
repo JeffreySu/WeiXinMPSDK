@@ -147,7 +147,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
                 throw new WeixinQyException(UN_REGISTER_ALERT);
             }
 
-            var jsApiTicketBag = (JsApiTicketBag)ItemCollection[appId];
+            var jsApiTicketBag = TryGetItem(appId);
             lock (jsApiTicketBag.Lock)
             {
                 if (getNewTicket || jsApiTicketBag.ExpireTime <= DateTime.Now)
@@ -168,7 +168,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// 此接口无异步方法
         public new static bool CheckRegistered(string appId)
         {
-            return ItemCollection.CheckExisted(appId);
+            return Cache.CheckExisted(appId);
         }
         #endregion
 
@@ -214,7 +214,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
                 throw new WeixinQyException(UN_REGISTER_ALERT);
             }
 
-            var jsApiTicketBag = (JsApiTicketBag)ItemCollection[appId];
+            var jsApiTicketBag = TryGetItem(appId);
             //lock (jsApiTicketBag.Lock)
             {
                 if (getNewTicket || jsApiTicketBag.ExpireTime <= DateTime.Now)

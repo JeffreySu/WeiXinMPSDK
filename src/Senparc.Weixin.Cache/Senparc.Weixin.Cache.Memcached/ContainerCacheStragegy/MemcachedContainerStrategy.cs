@@ -214,8 +214,7 @@ namespace Senparc.Weixin.Cache.Memcached
             object value;
             if (_cache.TryGet(key,out value))
             {
-                var containerItemCollection = (IBaseContainerBag) value;
-                containerItemCollection[containerBag.Key] = containerBag;
+                Update(key, containerBag);
             }
         }
 

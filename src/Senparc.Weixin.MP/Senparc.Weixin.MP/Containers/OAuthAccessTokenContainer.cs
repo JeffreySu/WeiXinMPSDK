@@ -107,16 +107,6 @@ namespace Senparc.Weixin.MP.Containers
             }
         }
 
-        /// <summary>
-        /// 返回已经注册的第一个AppId
-        /// </summary>
-        /// <returns></returns>
-        /// 此接口不提供异步方法
-        public static string GetFirstOrDefaultAppId()
-        {
-            return ItemCollection.GetAll().Keys.FirstOrDefault();
-        }
-
         #region OAuthAccessToken
 
         /// <summary>
@@ -226,7 +216,7 @@ namespace Senparc.Weixin.MP.Containers
                 throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用OAuthAccessTokenContainer.Register完成注册（全局执行一次即可）！");
             }
 
-            var oAuthAccessTokenBag = (OAuthAccessTokenBag)ItemCollection[appId];
+            var oAuthAccessTokenBag = TryGetItem(appId);
             //lock (oAuthAccessTokenBag.Lock)
             {
                 if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= DateTime.Now)

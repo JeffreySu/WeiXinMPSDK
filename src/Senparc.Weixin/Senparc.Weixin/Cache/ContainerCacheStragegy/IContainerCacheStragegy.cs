@@ -10,8 +10,8 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 容器缓存策略接口
     /// </summary>
-    public interface IContainerCacheStragegy: IBaseCacheStrategy<string, IBaseContainerBag>
-      
+    public interface IContainerCacheStragegy : IBaseCacheStrategy<string, IBaseContainerBag>, ICacheLock
+
     {
         /// <summary>
         /// 获取缓存中最终的键，建议格式： return String.Format("{0}:{1}", "SenparcWeixinContainer", key);

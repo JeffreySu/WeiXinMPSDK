@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Caching;
 using Senparc.Weixin.Containers;
@@ -143,6 +144,59 @@ namespace Senparc.Weixin.Cache
         public void UpdateContainerBag(string key, IBaseContainerBag bag)
         {
             Update(key, bag);
+        }
+
+        #endregion
+
+        #region ICacheLock
+
+        private static Dictionary<string, object> LockPool = new Dictionary<string, object>();
+        private static Random _rnd = new Random();
+
+        private bool RetryLock(string resourceName, int retryCount, TimeSpan retryDelay, Func<bool> action)
+        {
+            int currentRetry = 0;
+            int maxRetryDelay = (int)retryDelay.TotalMilliseconds;
+            while (currentRetry++ < retryCount)
+            {
+                if (action())
+                {
+                    return true;//取得锁
+                }
+                Thread.Sleep(_rnd.Next(maxRetryDelay));
+            }
+            return false;
+        }
+
+        public bool Lock(string resourceName)
+        {
+            var successfull = RetryLock(resourceName, 9999999 /*暂时不限制*/, new TimeSpan(0, 0, 0, 0, 100), () =>
+                        {
+                            try
+                            {
+                                if (LockPool.ContainsKey(resourceName))
+                                {
+                                    return false;//已被别人锁住，没有取得锁
+                                }
+                                else
+                                {
+                                    LockPool.Add(resourceName, new object());//创建锁
+                                    return true;//取得锁
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                WeixinTrace.Log("本地同步锁发生异常：" + ex.Message);
+                                return false;
+                            }
+                        }
+                );
+            return successfull;
+        }
+
+        public void UnLock(string resourceName)
+        {
+            LockPool.Remove(resourceName);
         }
 
         #endregion

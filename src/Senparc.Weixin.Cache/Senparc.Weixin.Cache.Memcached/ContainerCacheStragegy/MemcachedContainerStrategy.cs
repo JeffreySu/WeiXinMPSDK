@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Enyim.Caching;
 using Enyim.Caching.Configuration;
@@ -150,7 +151,7 @@ namespace Senparc.Weixin.Cache.Memcached
             var cacheKey = GetFinalKey(key);
 
             //TODO：加了绝对过期时间就会立即失效（再次获取后为null），memcache低版本的bug
-            _cache.Store(StoreMode.Set, cacheKey, value,DateTime.Now.AddDays(1));
+            _cache.Store(StoreMode.Set, cacheKey, value, DateTime.Now.AddDays(1));
 
 #if DEBUG
             value = _cache.Get(cacheKey) as IBaseContainerBag;
@@ -212,10 +213,68 @@ namespace Senparc.Weixin.Cache.Memcached
         public void UpdateContainerBag(string key, IBaseContainerBag containerBag)
         {
             object value;
-            if (_cache.TryGet(key,out value))
+            if (_cache.TryGet(key, out value))
             {
                 Update(key, containerBag);
             }
+        }
+
+        #endregion
+
+        #region ICacheLock
+        private static Random _rnd = new Random();
+
+        private bool RetryLock(string resourceName, int retryCount, TimeSpan retryDelay, Func<bool> action)
+        {
+            int currentRetry = 0;
+            int maxRetryDelay = (int)retryDelay.TotalMilliseconds;
+            while (currentRetry++ < retryCount)
+            {
+                if (action())
+                {
+                    return true;//取得锁
+                }
+                Thread.Sleep(_rnd.Next(maxRetryDelay));
+            }
+            return false;
+        }
+
+        private string GetLockKey(string resourceName)
+        {
+            return string.Format("{0}:{1}", "Lock", resourceName);
+        }
+
+        public bool Lock(string resourceName)
+        {
+            var key = GetFinalKey(resourceName);
+            var successfull = RetryLock(key, 9999999 /*暂时不限制*/, new TimeSpan(0, 0, 0, 0, 100), () =>
+                {
+                    try
+                    {
+                        if (_cache.Get(key) != null)
+                        {
+                            return false;//已被别人锁住，没有取得锁
+                        }
+                        else
+                        {
+                            _cache.Store(StoreMode.Set, key, new object(), new TimeSpan(0, 0, 10));//创建锁
+                            return true;//取得锁
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        WeixinTrace.Log("Memcached同步锁发生异常：" + ex.Message);
+                        return false;
+                    }
+                }
+              );
+            return successfull;
+        }
+
+        public void UnLock(string resourceName)
+        {
+            var key = GetFinalKey(resourceName);
+            _cache.Remove(key);
         }
 
         #endregion

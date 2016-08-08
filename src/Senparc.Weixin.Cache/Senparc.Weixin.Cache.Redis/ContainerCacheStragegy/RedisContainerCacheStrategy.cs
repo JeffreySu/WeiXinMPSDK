@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Redlock.CSharp;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MessageQueue;
@@ -52,7 +53,6 @@ namespace Senparc.Weixin.Cache.Redis
         }
 
         #endregion
-
 
         static RedisContainerCacheStrategy()
         {
@@ -203,6 +203,26 @@ namespace Senparc.Weixin.Cache.Redis
             {
                 Update(key, containerBag);
             }
+        }
+
+        #endregion
+
+        #region ICacheLock
+
+        private Redlock.CSharp.Redlock _dlm;
+        private Lock _lockObject;
+
+        public bool Lock(string resourceName)
+        {
+            _dlm = _dlm ?? new Redlock.CSharp.Redlock(_client);
+            Lock lockObject;
+            var successfull = _dlm.Lock(resourceName, new TimeSpan(0, 0, 10), out lockObject);
+            return successfull;
+        }
+
+        public void UnLock(string resourceName)
+        {
+            _dlm.Unlock(_lockObject);
         }
 
         #endregion

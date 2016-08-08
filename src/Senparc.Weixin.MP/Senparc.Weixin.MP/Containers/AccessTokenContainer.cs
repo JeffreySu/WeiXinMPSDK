@@ -41,6 +41,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Senparc.Weixin.Cache;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
@@ -79,12 +80,6 @@ namespace Senparc.Weixin.MP.Containers
             get { return _accessTokenResult; }
             set { base.SetContainerProperty(ref _accessTokenResult, value); }
         }
-
-
-        /// <summary>
-        /// 只针对这个AppId的锁
-        /// </summary>
-        internal object Lock = new object();
 
         private AccessTokenResult _accessTokenResult;
         private DateTime _accessTokenExpireTime;
@@ -170,7 +165,8 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var accessTokenBag = TryGetItem(appId);
-            lock (accessTokenBag.Lock)
+
+            using (Cache.InstanceCacheLockWrapper(appId))//同步锁
             {
                 if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
                 {
@@ -234,7 +230,7 @@ namespace Senparc.Weixin.MP.Containers
 
             var accessTokenBag = TryGetItem(appId);
 
-            //lock (accessTokenBag.Lock)
+            using (Cache.InstanceCacheLockWrapper(appId))//同步锁
             {
                 if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
                 {

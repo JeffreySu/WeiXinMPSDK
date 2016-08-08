@@ -6,9 +6,13 @@
 
 
     创建标识：Senparc - 20160801
-    
+
     修改标识：Senparc - 20160803
     修改描述：v14.2.3 使用ApiUtility.GetExpireTime()方法处理过期
+ 
+    修改标识：Senparc - 20160804
+    修改描述：v14.2.4 增加TryGetOAuthAccessTokenAsync，GetOAuthAccessTokenAsync，GetOAuthAccessTokenResultAsync的异步方法
+
 
     修改标识：Senparc - 20160808
     修改描述：v14.3.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
@@ -75,6 +79,9 @@ namespace Senparc.Weixin.MP.Containers
     /// </summary>
     public class OAuthAccessTokenContainer : BaseContainer<OAuthAccessTokenBag>
     {
+        #region 同步方法
+
+
         //static Dictionary<string, JsApiTicketBag> JsApiTicketCollection =
         //   new Dictionary<string, JsApiTicketBag>(StringComparer.OrdinalIgnoreCase);
 
@@ -84,6 +91,7 @@ namespace Senparc.Weixin.MP.Containers
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
         /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别</param>
+        /// 此接口不提供异步方法
         public static void Register(string appId, string appSecret, string name = null)
         {
             using (FlushCache.CreateInstance())
@@ -97,6 +105,16 @@ namespace Senparc.Weixin.MP.Containers
                     OAuthAccessTokenResult = new OAuthAccessTokenResult()
                 });
             }
+        }
+
+        /// <summary>
+        /// 返回已经注册的第一个AppId
+        /// </summary>
+        /// <returns></returns>
+        /// 此接口不提供异步方法
+        public static string GetFirstOrDefaultAppId()
+        {
+            return ItemCollection.GetAll().Keys.FirstOrDefault();
         }
 
         #region OAuthAccessToken
@@ -159,6 +177,72 @@ namespace Senparc.Weixin.MP.Containers
         }
 
         #endregion
+        #endregion
 
+        #region 异步方法
+        #region OAuthAccessToken
+
+        /// <summary>
+        /// 【异步方法】使用完整的应用凭证获取Ticket，如果不存在将自动注册
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="appSecret"></param>
+        /// <param name="code">code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。</param>
+        /// <param name="getNewToken"></param>
+        /// <returns></returns>
+        public static async Task<string> TryGetOAuthAccessTokenAsync(string appId, string appSecret, string code, bool getNewToken = false)
+        {
+            if (!CheckRegistered(appId) || getNewToken)
+            {
+                Register(appId, appSecret);
+            }
+            return await GetOAuthAccessTokenAsync(appId, code);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取可用Ticket
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="code">code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。</param>
+        /// <param name="getNewToken">是否强制重新获取新的Ticket</param>
+        /// <returns></returns>
+        public static async Task<string> GetOAuthAccessTokenAsync(string appId, string code, bool getNewToken = false)
+        {
+            var result = await GetOAuthAccessTokenResultAsync(appId, code, getNewToken);
+            return result.access_token;
+        }
+
+        /// <summary>
+        /// 【异步方法】获取可用Ticket
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="code">code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。</param>
+        /// <param name="getNewToken">是否强制重新获取新的Ticket</param>
+        /// <returns></returns>
+        public static async Task<OAuthAccessTokenResult> GetOAuthAccessTokenResultAsync(string appId, string code, bool getNewToken = false)
+        {
+            if (!CheckRegistered(appId))
+            {
+                throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用OAuthAccessTokenContainer.Register完成注册（全局执行一次即可）！");
+            }
+
+            var oAuthAccessTokenBag = (OAuthAccessTokenBag)ItemCollection[appId];
+            //lock (oAuthAccessTokenBag.Lock)
+            {
+                if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= DateTime.Now)
+                {
+                    //已过期，重新获取
+                    var oAuthAccessTokenResult = await OAuthApi.GetAccessTokenAsync(oAuthAccessTokenBag.AppId, oAuthAccessTokenBag.AppSecret, code);
+                    oAuthAccessTokenBag.OAuthAccessTokenResult = oAuthAccessTokenResult;
+                    //oAuthAccessTokenBag.OAuthAccessTokenResult =  OAuthApi.GetAccessToken(oAuthAccessTokenBag.AppId, oAuthAccessTokenBag.AppSecret, code);
+                    oAuthAccessTokenBag.OAuthAccessTokenExpireTime =
+                        ApiUtility.GetExpireTime(oAuthAccessTokenBag.OAuthAccessTokenResult.expires_in);
+                }
+            }
+            return oAuthAccessTokenBag.OAuthAccessTokenResult;
+        }
+
+        #endregion
+        #endregion
     }
 }

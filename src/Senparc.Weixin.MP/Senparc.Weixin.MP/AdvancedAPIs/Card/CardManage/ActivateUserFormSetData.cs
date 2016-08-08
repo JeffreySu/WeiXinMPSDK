@@ -6,7 +6,12 @@
     
     
     创建标识：Senparc - 20150910
+ 
+    修改标识：Senparc - 20160808
+    修改描述：修改BaseForm
 ----------------------------------------------------------------*/
+
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
@@ -50,5 +55,49 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 自定义选项名称
         /// </summary>
         public string[] custom_field_list { get; set; }
+
+        /// <summary>
+        /// 自定义富文本类型
+        /// </summary>
+        public List<RichField> rich_field_list { get; set; }
+    }
+
+    /// <summary>
+    /// 自定义富文本类型，包含以下三个字段
+    /// 富文本类型
+    /// FORM_FIELD_RADIO 自定义单选
+    /// FORM_FIELD_SELECT 自定义选择项
+    /// FORM_FIELD_CHECK_BOX 自定义多选
+    /// </summary>
+    public class RichField
+    {
+        public RichFieldType type { get; set; }
+        /// <summary>
+        /// 否 string(32)  职业  字段名
+        /// </summary>
+        public string name { get; set; }
+        /// <summary>
+        /// 否 arry    见上述示例 选择项
+        /// </summary>
+        public string[] values { get; set; }
+    }
+
+    /// <summary>
+    /// 富文本类型
+    /// </summary>
+    public enum RichFieldType
+    {
+        /// <summary>
+        /// 自定义单选
+        /// </summary>
+        FORM_FIELD_RADIO = 0,
+        /// <summary>
+        /// 自定义选择项
+        /// </summary>
+        FORM_FIELD_SELECT = 1,
+        /// <summary>
+        /// 自定义多选
+        /// </summary>
+        FORM_FIELD_CHECK_BOX
     }
 }

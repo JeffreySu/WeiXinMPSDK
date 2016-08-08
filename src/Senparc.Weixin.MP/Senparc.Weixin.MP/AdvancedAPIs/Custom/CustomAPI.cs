@@ -21,6 +21,9 @@
    
     修改标识：Senparc - 20160802
     修改描述：将其Send方法增加了kfAccount的参数
+ 
+    创建标识：Senparc - 20160808
+    创建描述：增加SendCard
 ----------------------------------------------------------------*/
 
 /* 
@@ -31,6 +34,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 
@@ -466,7 +470,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
-                
+
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -515,7 +519,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
-               
+
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -563,7 +567,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
-               
+
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -617,7 +621,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
-               
+
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -679,7 +683,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
-                
+
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -741,7 +745,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
-               
+
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -791,11 +795,38 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
-                
+
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
         #endregion
+
+        ///
+        /// 发送卡券 查看card_ext字段详情及签名规则，特别注意客服消息接口投放卡券仅支持非自定义Code码的卡券。 
+        ///
+        public static WxJsonResult SendCard(string accessTokenOrAppId, string openId, string cardId, CardExt cardExt, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var data = new
+                {
+                    touser = openId,
+                    msgtype = "wxcard",
+                    wxcard = new
+                    {
+                        card_id = cardId,
+                        card_ext = cardExt
+                    }
+                };
+                JsonSetting jsonSetting = new JsonSetting()
+                {
+                    TypesToIgnore = new List<System.Type>() { typeof(CardExt) }
+                };
+
+                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut, jsonSetting: jsonSetting);
+
+            }, accessTokenOrAppId);
+        }
     }
 }

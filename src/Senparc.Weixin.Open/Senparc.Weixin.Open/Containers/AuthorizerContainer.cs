@@ -32,6 +32,7 @@
 
 using System;
 using System.Threading.Tasks;
+using Senparc.Weixin.Cache;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Open.ComponentAPIs;
@@ -218,7 +219,7 @@ namespace Senparc.Weixin.Open.Containers
             TryRegister(componentAppId, authorizerAppid);
 
             var authorizerBag = TryGetItem(authorizerAppid);
-            lock (authorizerBag.Lock)
+            using (Cache.InstanceCacheLockWrapper(authorizerAppid))//同步锁
             {
                 //更新Authorization
                 if (getNewTicket || authorizerBag.AuthorizationInfoExpireTime <= DateTime.Now)
@@ -273,7 +274,7 @@ namespace Senparc.Weixin.Open.Containers
             TryRegister(componentAppId, authorizerAppid);
 
             var authorizerBag = TryGetItem(authorizerAppid);
-            lock (authorizerBag.Lock)
+            using (Cache.InstanceCacheLockWrapper(authorizerAppid))//同步锁
             {
 
                 //更新AuthorizerInfo
@@ -428,7 +429,7 @@ namespace Senparc.Weixin.Open.Containers
             TryRegister(componentAppId, authorizerAppid);
 
             var accessTicketBag = TryGetItem(authorizerAppid);
-            lock (accessTicketBag.Lock)
+            using (Cache.InstanceCacheLockWrapper(authorizerAppid))//同步锁
             {
                 if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= DateTime.Now)
                 {
@@ -475,7 +476,7 @@ namespace Senparc.Weixin.Open.Containers
             TryRegister(componentAppId, authorizerAppid);
 
             var authorizerBag = TryGetItem(authorizerAppid);
-            //lock (authorizerBag.Lock)
+            using (Cache.InstanceCacheLockWrapper(authorizerAppid))//同步锁
             {
 
                 //更新AuthorizerInfo
@@ -566,7 +567,7 @@ namespace Senparc.Weixin.Open.Containers
             TryRegister(componentAppId, authorizerAppid);
 
             var accessTicketBag = TryGetItem(authorizerAppid);
-            //lock (accessTicketBag.Lock)
+            using (Cache.InstanceCacheLockWrapper(authorizerAppid))//同步锁
             {
                 if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= DateTime.Now)
                 {

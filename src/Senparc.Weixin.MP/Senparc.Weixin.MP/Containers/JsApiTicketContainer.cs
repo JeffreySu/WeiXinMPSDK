@@ -35,6 +35,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Senparc.Weixin.Cache;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
@@ -161,7 +162,7 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var jsApiTicketBag = TryGetItem(appId);
-            lock (jsApiTicketBag.Lock)
+            using (Cache.InstanceCacheLockWrapper(appId))//同步锁
             {
                 if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= DateTime.Now)
                 {
@@ -222,7 +223,7 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var jsApiTicketBag = TryGetItem(appId);
-            //lock (jsApiTicketBag.Lock)
+            using (Cache.InstanceCacheLockWrapper(appId))//同步锁
             {
                 if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= DateTime.Now)
                 {

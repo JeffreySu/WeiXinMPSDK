@@ -215,8 +215,7 @@ namespace Senparc.Weixin.Cache.Redis
         public bool Lock(string resourceName)
         {
             _dlm = _dlm ?? new Redlock.CSharp.Redlock(_client);
-            Lock lockObject;
-            var successfull = _dlm.Lock(resourceName, new TimeSpan(0, 0, 10), out lockObject);
+            var successfull = _dlm.Lock(resourceName, new TimeSpan(0, 0, 10), out _lockObject);
             return successfull;
         }
 

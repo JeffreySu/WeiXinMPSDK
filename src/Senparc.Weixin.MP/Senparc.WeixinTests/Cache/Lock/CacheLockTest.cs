@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Cache;
+using Senparc.Weixin.Cache.Redis;
 
 namespace Senparc.WeixinTests.Cache.Lock
 {
@@ -22,6 +23,15 @@ namespace Senparc.WeixinTests.Cache.Lock
              *             3、出现死锁；
              *             4、某线程始终无法获得锁（超时或一直运行）
              */
+
+            bool useRedis = true;
+
+            if (useRedis)
+            {
+                var redisConfiguration = "localhost:6379";
+                RedisManager.ConfigurationOption = redisConfiguration;
+                CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
+            }
 
             var cache = CacheStrategyFactory.GetContainerCacheStragegyInstance();
             Random rnd = new Random();

@@ -128,6 +128,7 @@
     <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetSessionStateResultJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetSessionListResultJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetWaitCaseResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Custom\CardExt.cs" />
     <Compile Include="AdvancedAPIs\Custom\CustomApi.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageApi.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\NewsModel.cs" />

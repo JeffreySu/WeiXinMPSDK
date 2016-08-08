@@ -41,8 +41,8 @@ namespace Senparc.Weixin.Helpers
         public List<Type> TypesToIgnore { get; set; }
 
         #region Add
-        
-    
+
+
         public class IgnoreValueAttribute : Attribute
         {
             public IgnoreValueAttribute(object value)

@@ -23,6 +23,10 @@
     
     修改标识：Senparc - 20150323
     修改描述：添加上传logo返回结果
+ 
+    创建标识：Senparc - 20160808
+    创建描述：添加创建标识：Senparc - 20160520
+    创建描述：添加Card_UpdateResultJson
 ----------------------------------------------------------------*/
 
 using System.CodeDom;
@@ -39,7 +43,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 卡券ID
         /// </summary>
-       public string card_id { get; set; } 
+        public string card_id { get; set; }
     }
     /// <summary>
     /// 开通券点账户返回结果
@@ -49,7 +53,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 奖励券点数量，以元为单位，微信卡券对每一个新开通券点账户的商户奖励200个券点，点击查看券点规则什么是券点？            
         /// </summary>
-        public string  reward { get; set; }
+        public string reward { get; set; }
     }
     /// <summary>
     /// 对优惠券批价的返回结果
@@ -112,7 +116,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// <summary>
     /// 查询订单详情返回结果
     /// </summary>
-    public class PayGetOrderResultJson : WxJsonResult 
+    public class PayGetOrderResultJson : WxJsonResult
     {
         /// <summary>
         /// 订单信息结构体
@@ -165,12 +169,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
             /// 订单类型，ORDER_TYPE_WXPAY为充值
             /// </summary>
             public string order_type { get; set; }
-           
+
         }
     }
-   /// <summary>
+    /// <summary>
     /// 查询券点流水详情返回结果
-   /// </summary>
+    /// </summary>
     public class GetOrderListResultJson : WxJsonResult
     {
         /// <summary>
@@ -182,7 +186,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public List<GetOrderList_OrderList> order_list { get; set; }
 
-      
+
     }
     public class GetOrderList_OrderList
     {
@@ -242,7 +246,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public List<Card_Color> colors { get; set; }
     }
-    
+
     public class Card_Color
     {
         /// <summary>
@@ -299,5 +303,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     public class Card_UploadLogoResultJson : WxJsonResult
     {
         public string url { get; set; }
+    }
+
+    public class Card_UpdateResultJson : WxJsonResult
+    {
+        ///
+        /// 此次更新是否需要提审，true为需要，false为不需要。 
+        ///
+        public bool send_check { get; set; }
     }
 }

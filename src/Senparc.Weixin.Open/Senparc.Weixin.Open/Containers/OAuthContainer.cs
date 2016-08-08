@@ -7,6 +7,9 @@
     
     创建标识：Senparc - 201501011
 
+    修改标识：Senparc - 20160808
+    修改描述：v2.2.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -15,7 +18,7 @@ using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.Open.Exceptions;
 
-namespace Senparc.Weixin.Open.OAuthAPIs
+namespace Senparc.Weixin.Open.Containers
 {
     //TODO:将在1.7.9中发布
 }

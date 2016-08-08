@@ -113,6 +113,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
         #endregion
+
         #region 异步请求
         /// <summary>
         /// 【异步方法】获取AccessToken

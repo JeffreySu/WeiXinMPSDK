@@ -10,6 +10,9 @@
     修改标识：Senparc - 20160321
     修改描述：v4.5.18 完善 ItemCollection 中项目删除的方法
 
+    修改标识：Senparc - 20160808
+    修改描述：v4.7.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -48,7 +51,7 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 获取符合当前缓存策略配置的缓存的操作对象实例
         /// </summary>
-        private static IContainerCacheStragegy /*IBaseCacheStrategy<string,Dictionary<string, TBag>>*/ Cache
+        protected static IContainerCacheStragegy /*IBaseCacheStrategy<string,Dictionary<string, TBag>>*/ Cache
         {
             get
             {
@@ -57,65 +60,76 @@ namespace Senparc.Weixin.Containers
             }
         }
 
-        ///// <summary>
-        ///// 所有数据集合的列表   TODO：改为单个Container输出
-        ///// </summary>
-        //private static IDictionary<string, IContainerItemCollection> CollectionList
-        //{
-        //    get
-        //    {
-        //        //var cacheKey = GetCacheKey<TBag>();
-        //        var list = Cache.GetAll();
-        //        return list as IDictionary<string, IContainerItemCollection>;
-        //    }
-        //}
-
+        //2016.8.8注释掉
         /// <summary>
         /// 获取当前容器的数据项集合
         /// </summary>
         /// <returns></returns>
-        protected static IContainerItemCollection ItemCollection
-        {
-            get
-            {
-                var cacheKey = GetCacheKey();
-                IContainerItemCollection itemCollection;
-                if (!Cache.CheckExisted(cacheKey))
-                {
-                    itemCollection = new ContainerItemCollection();
-                    //CollectionList[cacheKey] = newItemCollection;
+        //protected static IContainerItemCollection ItemCollection
+        //{
+        //    get
+        //    {
+        //        var cacheKey = GetContainerCacheKey();
+        //        IContainerItemCollection itemCollection;
+        //        if (!Cache.CheckExisted(cacheKey))
+        //        {
+        //            itemCollection = new ContainerItemCollection();
+        //            //CollectionList[cacheKey] = newItemCollection;
 
-                    //直接执行
-                    //{
-                    //}
-                    //var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
-                    //containerCacheStragegy.InsertToCache(cacheKey, itemCollection);//插入到缓存
+        //            //直接执行
+        //            //{
+        //            //}
+        //            //var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
+        //            //containerCacheStragegy.InsertToCache(cacheKey, itemCollection);//插入到缓存
 
-                    //保存到缓存列队，等待执行
-                    SenparcMessageQueue mq = new SenparcMessageQueue();
-                    var mqKey = SenparcMessageQueue.GenerateKey("ContainerItemCollection", typeof(BaseContainer<TBag>), cacheKey, "InsertItemCollection");
-                    mq.Add(mqKey, () =>
-                    {
-                        var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
-                        containerCacheStragegy.InsertToCache(cacheKey, itemCollection);//插入到缓存
-                    });
-                }
-                else
-                {
-                    itemCollection = Cache.Get(cacheKey);
-                }
+        //            //保存到缓存列队，等待执行
+        //            SenparcMessageQueue mq = new SenparcMessageQueue();
+        //            var mqKey = SenparcMessageQueue.GenerateKey("ContainerItemCollection", typeof(BaseContainer<TBag>), cacheKey, "InsertItemCollection");
+        //            mq.Add(mqKey, () =>
+        //            {
+        //                var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
+        //                containerCacheStragegy.InsertToCache(cacheKey, itemCollection);//插入到缓存
+        //            });
+        //        }
+        //        else
+        //        {
+        //            itemCollection = Cache.Get(cacheKey);
+        //        }
 
-                return itemCollection;
-            }
-        }
+        //        return itemCollection;
+        //    }
+        //}
+
+
+
+        ///// <summary>
+        ///// 获取Container缓存Key
+        ///// </summary>
+        ///// <returns></returns>
+        //public static string GetContainerCacheKey()
+        //{
+        //    return ContainerHelper.GetCacheKey(typeof(TBag));
+        //}
 
         /// <summary>
-        /// 获取缓存Key
+        /// 获取ItemCollection缓存Key
+        /// </summary>
+        /// <param name="shortKey">最简短的Key，比如AppId，不需要考虑容器前缀</param>
+        /// <returns></returns>
+        public static string GetItemCacheKey(string shortKey)
+        {
+            return string.Format("{0}:{1}", ContainerHelper.GetCacheKey(typeof(TBag)), shortKey);
+        }
+
+
+        /// <summary>
+        /// 返回已经注册的第一个AppId
         /// </summary>
         /// <returns></returns>
-        public static string GetCacheKey()
+        public static string GetFirstOrDefaultAppId()
         {
-            return ContainerHelper.GetCacheKey(typeof(TBag));
+            var firstBag = GetAllItems().FirstOrDefault() as IBaseContainerBag_AppId;
+            return firstBag == null ? null : firstBag.AppId;
         }
 
         ///// <summary>
@@ -134,19 +148,20 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static List<TBag> GetAllItems()
         {
-            return ItemCollection.GetAll().Values.Select(z => z as TBag).ToList();
+            return Cache.GetAll<TBag>().Values.Select(z => z as TBag).ToList();
         }
 
         /// <summary>
         /// 尝试获取某一项Bag
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="shortKey"></param>
         /// <returns></returns>
-        public static TBag TryGetItem(string key)
+        public static TBag TryGetItem(string shortKey)
         {
-            if (ItemCollection.CheckExisted(key))
+            var cacheKey = GetItemCacheKey(shortKey);
+            if (Cache.CheckExisted(cacheKey))
             {
-                return ItemCollection[key] as TBag;
+                return Cache.Get(cacheKey) as TBag;
             }
 
             return default(TBag);
@@ -155,14 +170,15 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 尝试获取某一项Bag中的具体某个属性
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="shortKey"></param>
         /// <param name="property">具体某个属性</param>
         /// <returns></returns>
-        public static TK TryGetItem<TK>(string key, Func<TBag, TK> property)
+        public static TK TryGetItem<TK>(string shortKey, Func<TBag, TK> property)
         {
-            if (ItemCollection.CheckExisted(key))
+            var cacheKey = GetItemCacheKey(shortKey);
+            if (Cache.CheckExisted(cacheKey))
             {
-                var item = ItemCollection[key] as TBag;
+                var item = Cache.Get(cacheKey) as TBag;
                 return property(item);
             }
             return default(TK);
@@ -171,72 +187,75 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 更新数据项
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="shortKey"></param>
         /// <param name="bag">为null时删除该项</param>
-        public static void Update(string key, TBag bag)
+        public static void Update(string shortKey, TBag bag)
         {
+            var cacheKey = GetItemCacheKey(shortKey);
             if (bag == null)
             {
-                ItemCollection.RemoveFromCache(key);
+                Cache.RemoveFromCache(cacheKey);
             }
             else
             {
                 if (string.IsNullOrEmpty(bag.Key))
                 {
-                    bag.Key = key;//确保Key有值
+                    bag.Key = cacheKey;//确保Key有值
                 }
                 else
                 {
-                    key = bag.Key;//统一key
+                    cacheKey = bag.Key;//统一key
                 }
 
-                if (string.IsNullOrEmpty(key))
+                if (string.IsNullOrEmpty(cacheKey))
                 {
                     throw new WeixinException("key和value,Key不可以同时为null或空字符串！");
                 }
 
                 //var c1 = ItemCollection.GetCount();
-                ItemCollection[key] = bag;
+                //ItemCollection[key] = bag;
                 //var c2 = ItemCollection.GetCount();
             }
-            var cacheKey = GetCacheKey();
-            Cache.Update(cacheKey, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
+            //var containerCacheKey = GetContainerCacheKey();
+            Cache.Update(cacheKey, bag);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
         }
 
         /// <summary>
         /// 更新数据项
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="shortKey"></param>
         /// <param name="partialUpdate">为null时删除该项</param>
-        public static void Update(string key, Action<TBag> partialUpdate)
+        public static void Update(string shortKey, Action<TBag> partialUpdate)
         {
+            var cacheKey = GetItemCacheKey(shortKey);
             if (partialUpdate == null)
             {
-                ItemCollection.RemoveFromCache(key);//移除对象
+                Cache.RemoveFromCache(cacheKey);//移除对象
             }
             else
             {
-                if (!ItemCollection.CheckExisted(key))
+                if (!Cache.CheckExisted(cacheKey))
                 {
-                    ItemCollection[key] = new TBag()
+                    var newBag = new TBag()
                     {
-                        Key = key//确保这一项Key已经被记录
+                        Key = cacheKey//确保这一项Key已经被记录
                     };
+
+                    Cache.InsertToCache(cacheKey, newBag);
                 }
-                partialUpdate(ItemCollection[key] as TBag);//更新对象
+                partialUpdate(TryGetItem(shortKey));//更新对象
             }
-            var cacheKey = GetCacheKey();
-            Cache.Update(cacheKey, ItemCollection);//更新到缓存，TODO：有的缓存框架可一直更新Hash中的某个键值对
         }
 
         /// <summary>
         /// 检查Key是否已经注册
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="shortKey"></param>
         /// <returns></returns>
-        public static bool CheckRegistered(string key)
+        public static bool CheckRegistered(string shortKey)
         {
-            return ItemCollection.CheckExisted(key);
+            var cacheKey = GetItemCacheKey(shortKey);
+            return Cache.CheckExisted(cacheKey);
         }
     }
 }

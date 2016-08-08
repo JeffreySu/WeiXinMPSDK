@@ -57,7 +57,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //var result = AccessTokenContainer.TryGetAccessToken(appId, appSecret);
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //TODO:为简化代码，这里不处理异常（如Token过期）
                 return Json(new { error = "执行过程发生错误！" }, JsonRequestBehavior.AllowGet);

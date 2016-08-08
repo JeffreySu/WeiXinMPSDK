@@ -161,7 +161,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
                 throw new WeixinQyException(UN_REGISTER_ALERT);
             }
 
-            var accessTokenBag = (AccessTokenBag)ItemCollection[corpId];
+            var accessTokenBag = TryGetItem(corpId);
             lock (accessTokenBag.Lock)
             {
                 if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
@@ -183,7 +183,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// 此接口无异步方法
         public new static bool CheckRegistered(string corpId)
         {
-            return ItemCollection.CheckExisted(corpId);
+            return Cache.CheckExisted(corpId);
         }
         #endregion
 
@@ -229,8 +229,8 @@ namespace Senparc.Weixin.QY.CommonAPIs
                 throw new WeixinQyException(UN_REGISTER_ALERT);
             }
 
-            var accessTokenBag = (AccessTokenBag)ItemCollection[corpId];
-           // lock (accessTokenBag.Lock)
+            var accessTokenBag = TryGetItem(corpId);
+            // lock (accessTokenBag.Lock)
             {
                 if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
                 {

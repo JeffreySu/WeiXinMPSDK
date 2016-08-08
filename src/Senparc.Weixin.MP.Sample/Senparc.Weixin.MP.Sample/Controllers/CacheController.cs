@@ -68,11 +68,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             var sb = new StringBuilder();
-            var cacheKey = TestContainer1.GetCacheKey();
+            //var cacheKey = TestContainer1.GetContainerCacheKey();
             var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
-            var itemCollection = containerCacheStragegy.Get(cacheKey);
+            var itemCollection = containerCacheStragegy.GetAll<TestContainerBag1>();
 
-            sb.AppendFormat("Count1：{0}<br />", itemCollection != null ? itemCollection.GetCount() : -1);
+            sb.AppendFormat("Count1：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
 
 
             var bagKey = "Redis." + DateTime.Now.ToString();
@@ -83,16 +83,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             };
             TestContainer1.Update(bagKey, bag);//更新到缓存（列队）
 
-            itemCollection = containerCacheStragegy.Get(cacheKey);
+            itemCollection = containerCacheStragegy.GetAll<TestContainerBag1>();
 
-            sb.AppendFormat("Count2：{0}<br />", itemCollection != null ? itemCollection.GetCount() : -1);
+            sb.AppendFormat("Count2：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
 
             if (itemCollection != null)
             {
                 itemCollection[DateTime.Now.Ticks.ToString()] = bag;
             }
 
-            sb.AppendFormat("Count3：{0}<br />", itemCollection != null ? itemCollection.GetCount() : -1);
+            sb.AppendFormat("Count3：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
 
             return Content(sb.ToString());
         }
@@ -131,9 +131,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 sb.AppendFormat("{0}：{1}<br />", "已经加入列队", mqItem != null);
                 sb.AppendFormat("{0}：{1}<br />", "当前消息列队数量（未更新缓存）", mq.GetCount());
 
-                var cacheKey = TestContainer1.GetCacheKey();
-                var itemCollection = containerCacheStragegy.Get(cacheKey);
-                var existed = itemCollection.CheckExisted(bagKey);
+                var itemCollection = containerCacheStragegy.GetAll<TestContainerBag1>();
+                var existed = itemCollection.ContainsKey(bagKey);
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);
                 sb.AppendFormat("{0}：{1}<br />", "插入缓存时间",
                     !existed ? "不存在" : itemCollection[bagKey].CacheTime.Ticks.ToString()); //应为0
@@ -143,8 +142,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 Thread.Sleep(waitSeconds * 1000); //线程默认轮询等待时间为2秒
                 sb.AppendFormat("{0}：{1}<br />", "当前消息列队数量（未更新缓存）", mq.GetCount());
 
-                itemCollection = containerCacheStragegy.Get(cacheKey);
-                existed = itemCollection.CheckExisted(bagKey);
+                itemCollection  = containerCacheStragegy.GetAll<TestContainerBag1>();
+                existed = itemCollection.ContainsKey(bagKey);
                 finalExisted = existed;
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);
                 sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "插入缓存时间",

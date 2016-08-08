@@ -31,6 +31,10 @@
     修改标识：Senparc - 20160804
     修改描述：v2.1.4 增加了TryGetComponentAccessTokenAsync，GetComponentAccessTokenAsync，
               GetComponentAccessTokenResultAsync，TryGetPreAuthCodeAsync，GetPreAuthCodeAsync，GetPreAuthCodeResultAsync，GetQueryAuthResultAsync的异步方法
+
+    修改标识：Senparc - 20160808
+    修改描述：v2.2.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -41,8 +45,9 @@ using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.Open.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using Senparc.Weixin.Open.ComponentAPIs;
 
-namespace Senparc.Weixin.Open.ComponentAPIs
+namespace Senparc.Weixin.Open.Containers
 {
     /// <summary>
     /// 第三方APP信息包
@@ -253,9 +258,9 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         /// <returns></returns>
         public new static bool CheckRegistered(string componentAppId)
         {
-            return ItemCollection.CheckExisted(componentAppId);
+            var cacheKey = GetItemCacheKey(componentAppId);
+            return Cache.CheckExisted(cacheKey);
         }
-
 
         #region component_verify_ticket
 
@@ -278,7 +283,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             {
                 if (GetComponentVerifyTicketFunc == null)
                 {
-                    throw new WeixinOpenException("GetComponentVerifyTicketFunc必须在注册时提供！", TryGetItem(componentAppId));
+                    throw new WeixinOpenException("GetComponentVerifyTicketFunc必须在注册时提供！", bag);
                 }
                 componentVerifyTicket = GetComponentVerifyTicketFunc(componentAppId); //获取最新的componentVerifyTicket
                 bag.ComponentVerifyTicket = componentVerifyTicket;
@@ -344,7 +349,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 throw new WeixinOpenException(UN_REGISTER_ALERT);
             }
 
-            var accessTokenBag = (ComponentBag)ItemCollection[componentAppId];
+            var accessTokenBag = TryGetItem(componentAppId);
             lock (accessTokenBag.Lock)
             {
                 if (getNewToken || accessTokenBag.ComponentAccessTokenExpireTime <= DateTime.Now)
@@ -401,7 +406,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 throw new WeixinOpenException(UN_REGISTER_ALERT);
             }
 
-            var componentBag = (ComponentBag)ItemCollection[componentAppId];
+            var componentBag = TryGetItem(componentAppId);
             lock (componentBag.Lock)
             {
                 if (getNewToken || componentBag.PreAuthCodeExpireTime <= DateTime.Now)
@@ -446,7 +451,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 throw new WeixinOpenException(UN_REGISTER_ALERT);
             }
 
-            var componentBag = (ComponentBag)ItemCollection[componentAppId];
+            var componentBag = TryGetItem(componentAppId);
             lock (componentBag.Lock)
             {
                 var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret);
@@ -509,7 +514,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 throw new WeixinOpenException(UN_REGISTER_ALERT);
             }
 
-            var accessTokenBag = (ComponentBag)ItemCollection[componentAppId];
+            var accessTokenBag = TryGetItem(componentAppId);
            // lock (accessTokenBag.Lock)
             {
                 if (getNewToken || accessTokenBag.ComponentAccessTokenExpireTime <= DateTime.Now)
@@ -567,7 +572,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 throw new WeixinOpenException(UN_REGISTER_ALERT);
             }
 
-            var componentBag = (ComponentBag)ItemCollection[componentAppId];
+            var componentBag = TryGetItem(componentAppId);
             //lock (componentBag.Lock)
             {
                 if (getNewToken || componentBag.PreAuthCodeExpireTime <= DateTime.Now)
@@ -612,7 +617,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 throw new WeixinOpenException(UN_REGISTER_ALERT);
             }
 
-            var componentBag = (ComponentBag)ItemCollection[componentAppId];
+            var componentBag = TryGetItem(componentAppId);
             //lock (componentBag.Lock)
             {
                 var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret);

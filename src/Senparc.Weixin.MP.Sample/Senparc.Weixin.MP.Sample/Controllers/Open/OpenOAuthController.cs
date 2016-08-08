@@ -9,6 +9,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
+using Senparc.Weixin.Open.Containers;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {

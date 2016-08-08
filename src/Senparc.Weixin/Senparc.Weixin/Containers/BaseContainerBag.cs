@@ -41,6 +41,14 @@ namespace Senparc.Weixin.Containers
         DateTime CacheTime { get; set; }
     }
 
+    public interface IBaseContainerBag_AppId
+    {
+        /// <summary>
+        /// AppId
+        /// </summary>
+        string AppId { get; set; }
+    }
+
     /// <summary>
     /// BaseContainer容器中的Value类型
     /// </summary>

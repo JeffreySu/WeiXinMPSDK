@@ -90,6 +90,8 @@ namespace Senparc.Weixin.MP.Containers
     /// </summary>
     public class JsApiTicketContainer : BaseContainer<JsApiTicketBag>
     {
+        const string LockResourceName = "MP.JsApiTicketContainer";
+
         #region 同步方法
 
 
@@ -162,7 +164,7 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var jsApiTicketBag = TryGetItem(appId);
-            using (Cache.InstanceCacheLockWrapper(appId))//同步锁
+            using (Cache.InstanceCacheLockWrapper(LockResourceName,appId))//同步锁
             {
                 if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= DateTime.Now)
                 {
@@ -223,7 +225,7 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var jsApiTicketBag = TryGetItem(appId);
-            using (Cache.InstanceCacheLockWrapper(appId))//同步锁
+            using (Cache.InstanceCacheLockWrapper(LockResourceName,appId))//同步锁
             {
                 if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= DateTime.Now)
                 {

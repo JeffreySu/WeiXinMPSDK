@@ -92,8 +92,9 @@
     <Compile Include="AdvancedAPIs\Semantic\SemanticTest.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundTest.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateTest.cs" />
-    <Compile Include="CommonAPIs\Containers\AccessTokenContainerAsyncTest.cs" />
-    <Compile Include="CommonAPIs\Containers\JsApiTicketContainerTest.cs" />
+    <Compile Include="Containers\AccessTokenContainerAsyncTest.cs" />
+    <Compile Include="Containers\AccessTokenContainerLockTest.cs" />
+    <Compile Include="Containers\JsApiTicketContainerTest.cs" />
     <Compile Include="Entities\Request\PostModelTest.cs" />
     <Compile Include="MessageHandlers\MessageHandlers_OmitRepeatMessageTest.cs" />
     <Compile Include="RequestMessageFactoryTest.cs" />
@@ -106,7 +107,7 @@
     <Compile Include="AdvancedAPIs\WeixinShop\ShelvesTest.cs" />
     <Compile Include="Agents\MessageAgentTest.cs" />
     <Compile Include="CheckSignatureTest.cs" />
-    <Compile Include="CommonAPIs\Containers\AccessTokenContainerTest.cs" />
+    <Compile Include="Containers\AccessTokenContainerTest.cs" />
     <Compile Include="CommonAPIs\CommonApiTest.cs" />
     <Compile Include="Context\MessageContainerTest.cs" />
     <Compile Include="Context\WeixinContextTest.cs" />

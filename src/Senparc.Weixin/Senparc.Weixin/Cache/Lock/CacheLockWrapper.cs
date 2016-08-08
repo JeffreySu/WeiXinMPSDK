@@ -11,10 +11,10 @@ namespace Senparc.Weixin.Cache
         private string _resourceName;
         private IContainerCacheStragegy _containerCacheStragegy;
 
-        public CacheLockWrapper(IContainerCacheStragegy containerCacheStragegy, string resourceName)
+        public CacheLockWrapper(IContainerCacheStragegy containerCacheStragegy, string resourceName, string key)
         {
             _containerCacheStragegy = containerCacheStragegy;
-            _resourceName = resourceName;
+            _resourceName = resourceName + key;/*加上Key可以针对某个AppId加锁*/
             _containerCacheStragegy.Lock(_resourceName);
         }
 

@@ -80,6 +80,8 @@ namespace Senparc.Weixin.MP.Containers
     /// </summary>
     public class OAuthAccessTokenContainer : BaseContainer<OAuthAccessTokenBag>
     {
+        const string LockResourceName = "MP.OAuthAccessTokenContainer";
+
         #region 同步方法
 
 
@@ -154,7 +156,7 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var oAuthAccessTokenBag = TryGetItem(appId);
-            using (Cache.InstanceCacheLockWrapper(appId))//同步锁
+            using (Cache.InstanceCacheLockWrapper(LockResourceName,appId))//同步锁
             {
                 if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= DateTime.Now)
                 {
@@ -218,7 +220,7 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var oAuthAccessTokenBag = TryGetItem(appId);
-            using (Cache.InstanceCacheLockWrapper(appId))//同步锁
+            using (Cache.InstanceCacheLockWrapper(LockResourceName,appId))//同步锁
             {
                 if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= DateTime.Now)
                 {

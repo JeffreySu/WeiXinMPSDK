@@ -5,8 +5,9 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 using Senparc.Weixin.MP.Containers;
+using Senparc.Weixin.MP.Test.CommonAPIs;
 
-namespace Senparc.Weixin.MP.Test.CommonAPIs.Tests
+namespace Senparc.Weixin.MP.Test.Containers.Tests
 {
     //已测试通过
     [TestClass]

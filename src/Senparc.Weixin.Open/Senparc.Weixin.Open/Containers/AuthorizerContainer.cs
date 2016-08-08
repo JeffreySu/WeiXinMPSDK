@@ -151,6 +151,8 @@ namespace Senparc.Weixin.Open.Containers
     /// </summary>
     public class AuthorizerContainer : BaseContainer<AuthorizerBag>
     {
+        const string LockResourceName = "Open.AuthorizerContainer";
+        
         #region 同步方法
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
@@ -219,7 +221,7 @@ namespace Senparc.Weixin.Open.Containers
             TryRegister(componentAppId, authorizerAppid);
 
             var authorizerBag = TryGetItem(authorizerAppid);
-            using (Cache.InstanceCacheLockWrapper(authorizerAppid))//同步锁
+            using (Cache.InstanceCacheLockWrapper(LockResourceName,authorizerAppid))//同步锁
             {
                 //更新Authorization
                 if (getNewTicket || authorizerBag.AuthorizationInfoExpireTime <= DateTime.Now)
@@ -274,7 +276,7 @@ namespace Senparc.Weixin.Open.Containers
             TryRegister(componentAppId, authorizerAppid);
 
             var authorizerBag = TryGetItem(authorizerAppid);
-            using (Cache.InstanceCacheLockWrapper(authorizerAppid))//同步锁
+            using (Cache.InstanceCacheLockWrapper(LockResourceName,authorizerAppid))//同步锁
             {
 
                 //更新AuthorizerInfo
@@ -429,7 +431,7 @@ namespace Senparc.Weixin.Open.Containers
             TryRegister(componentAppId, authorizerAppid);
 
             var accessTicketBag = TryGetItem(authorizerAppid);
-            using (Cache.InstanceCacheLockWrapper(authorizerAppid))//同步锁
+            using (Cache.InstanceCacheLockWrapper(LockResourceName,authorizerAppid))//同步锁
             {
                 if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= DateTime.Now)
                 {
@@ -476,7 +478,7 @@ namespace Senparc.Weixin.Open.Containers
             TryRegister(componentAppId, authorizerAppid);
 
             var authorizerBag = TryGetItem(authorizerAppid);
-            using (Cache.InstanceCacheLockWrapper(authorizerAppid))//同步锁
+            using (Cache.InstanceCacheLockWrapper(LockResourceName,authorizerAppid))//同步锁
             {
 
                 //更新AuthorizerInfo
@@ -567,7 +569,7 @@ namespace Senparc.Weixin.Open.Containers
             TryRegister(componentAppId, authorizerAppid);
 
             var accessTicketBag = TryGetItem(authorizerAppid);
-            using (Cache.InstanceCacheLockWrapper(authorizerAppid))//同步锁
+            using (Cache.InstanceCacheLockWrapper(LockResourceName,authorizerAppid))//同步锁
             {
                 if (getNewTicket || accessTicketBag.JsApiTicketExpireTime <= DateTime.Now)
                 {

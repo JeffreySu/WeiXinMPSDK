@@ -92,6 +92,8 @@ namespace Senparc.Weixin.MP.Containers
     /// </summary>
     public class AccessTokenContainer : BaseContainer<AccessTokenBag>
     {
+        const string LockResourceName = "MP.AccessTokenContainer";
+
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token
         /// </summary>
@@ -166,7 +168,7 @@ namespace Senparc.Weixin.MP.Containers
 
             var accessTokenBag = TryGetItem(appId);
 
-            using (Cache.InstanceCacheLockWrapper(appId))//同步锁
+            using (Cache.InstanceCacheLockWrapper(LockResourceName,appId))//同步锁
             {
                 if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
                 {
@@ -177,7 +179,6 @@ namespace Senparc.Weixin.MP.Containers
             }
             return accessTokenBag.AccessTokenResult;
         }
-
 
         #endregion
 
@@ -230,7 +231,7 @@ namespace Senparc.Weixin.MP.Containers
 
             var accessTokenBag = TryGetItem(appId);
 
-            using (Cache.InstanceCacheLockWrapper(appId))//同步锁
+            using (Cache.InstanceCacheLockWrapper(LockResourceName,appId))//同步锁
             {
                 if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
                 {

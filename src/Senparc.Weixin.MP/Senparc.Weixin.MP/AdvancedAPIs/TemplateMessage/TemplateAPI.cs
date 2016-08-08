@@ -15,6 +15,9 @@
  
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
+ 
+    修改标识：Senparc - 20160808
+    修改描述：去掉SendTemplateMessage，SendTemplateMessageAsync中的topcolor参数
 ----------------------------------------------------------------*/
 
 /*
@@ -35,19 +38,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public static class TemplateApi
     {
         #region 同步请求
-       
+
         /// <summary>
         /// 模板消息接口
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
         /// <param name="templateId"></param>
-        /// <param name="topcolor"></param>
         /// <param name="url"></param>
         /// <param name="data"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static SendTemplateMessageResult SendTemplateMessage(string accessTokenOrAppId, string openId, string templateId, string topcolor, string url, object data, int timeOut = Config.TIME_OUT)
+        public static SendTemplateMessageResult SendTemplateMessage(string accessTokenOrAppId, string openId, string templateId, string url, object data, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -56,7 +58,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     touser = openId,
                     template_id = templateId,
-                    topcolor = topcolor,
+                    // topcolor = topcolor,
                     url = url,
                     data = data
                 };
@@ -79,7 +81,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token={0}";
-                var msgData = new 
+                var msgData = new
                 {
                     industry_id1 = ((int)industry_id1).ToString(),
                     industry_id2 = ((int)industry_id2).ToString()
@@ -120,7 +122,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var msgData = new
                 {
                     template_id_short = template_id_short
-                    
+
                 };
                 return CommonJsonSend.Send<AddtemplateJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut);
 
@@ -160,34 +162,33 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut);
-                    
+
             }, accessTokenOrAppId);
         }
 
         #endregion
 
         #region 异步请求
-         /// <summary>
+        /// <summary>
         /// 【异步方法】模板消息接口
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
         /// <param name="templateId"></param>
-        /// <param name="topcolor"></param>
         /// <param name="url"></param>
         /// <param name="data"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<SendTemplateMessageResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, string templateId, string topcolor, string url, object data, int timeOut = Config.TIME_OUT)
+        public static async Task<SendTemplateMessageResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, string templateId, string url, object data, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}";
                 var msgData = new TempleteModel()
                 {
                     touser = openId,
                     template_id = templateId,
-                    topcolor = topcolor,
+                   // topcolor = topcolor,
                     url = url,
                     data = data
                 };
@@ -207,10 +208,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         public static async Task<WxJsonResult> SetIndustryAsync(string accessTokenOrAppId, IndustryCode industry_id1, IndustryCode industry_id2, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token={0}";
-                var msgData = new 
+                var msgData = new
                 {
                     industry_id1 = ((int)industry_id1).ToString(),
                     industry_id2 = ((int)industry_id2).ToString()
@@ -229,7 +230,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         public static async Task<GetIndustryJsonResult> GetIndustryAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/get_industry?access_token={0}";
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetIndustryJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
@@ -245,13 +246,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<AddtemplateJsonResult> AddtemplateAsync(string accessTokenOrAppId, string template_id_short, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/api_add_template?access_token={0}";
                 var msgData = new
                 {
                     template_id_short = template_id_short
-                    
+
                 };
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddtemplateJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut);
 
@@ -266,7 +267,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         public static async Task<GetPrivateTemplateJsonResult> GetPrivateTemplateAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/get_all_private_template?access_token={0}";
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPrivateTemplateJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
@@ -282,7 +283,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> DelPrivateTemplateAsync(string accessTokenOrAppId, string template_id, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/del_private_template?access_token={0}";
                 var msgData = new
@@ -291,7 +292,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut);
-                    
+
             }, accessTokenOrAppId);
         }
 

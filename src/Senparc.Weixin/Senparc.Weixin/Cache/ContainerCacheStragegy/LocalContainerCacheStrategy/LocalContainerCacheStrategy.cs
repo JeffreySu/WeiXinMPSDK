@@ -170,33 +170,34 @@ namespace Senparc.Weixin.Cache
 
         public bool Lock(string resourceName)
         {
-            var successful = RetryLock(resourceName, 9999999 /*暂时不限制*/, new TimeSpan(0, 0, 0, 0, 100), () =>
-                        {
-                            try
-                            {
-                                if (LockPool.ContainsKey(resourceName))
-                                {
-                                    return false;//已被别人锁住，没有取得锁
-                                }
-                                else
-                                {
-                                    LockPool.Add(resourceName, new object());//创建锁
-                                    return true;//取得锁
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                WeixinTrace.Log("本地同步锁发生异常：" + ex.Message);
-                                return false;
-                            }
-                        }
-                );
-            return successful;
+            return Lock(resourceName, 9999 /*暂时不限制*/, new TimeSpan(0, 0, 0, 0, 1000));
         }
 
         public bool Lock(string resourceName, int retryCount, TimeSpan retryDelay)
         {
-            return Lock(resourceName);
+
+            var successful = RetryLock(resourceName, retryCount, retryDelay, () =>
+            {
+                try
+                {
+                    if (LockPool.ContainsKey(resourceName))
+                    {
+                        return false;//已被别人锁住，没有取得锁
+                    }
+                    else
+                    {
+                        LockPool.Add(resourceName, new object());//创建锁
+                        return true;//取得锁
+                    }
+                }
+                catch (Exception ex)
+                {
+                    WeixinTrace.Log("本地同步锁发生异常：" + ex.Message);
+                    return false;
+                }
+            }
+                );
+            return successful;
         }
 
         public void UnLock(string resourceName)

@@ -17,6 +17,15 @@ namespace Senparc.Weixin.Cache
         /// <param name="resourceName"></param>
         bool Lock(string resourceName);
 
+        /// <summary>
+        /// 开始锁，并设置重试条件
+        /// </summary>
+        /// <param name="resourceName"></param>
+        /// <param name="retryCount"></param>
+        /// <param name="retryDelay"></param>
+        /// <returns></returns>
+        bool Lock(string resourceName, int retryCount, TimeSpan retryDelay);
+
         //bool IsLocked(string resourceName);
 
         //释放锁

@@ -246,27 +246,32 @@ namespace Senparc.Weixin.Cache.Memcached
 
         public bool Lock(string resourceName)
         {
+            return Lock(resourceName, 999, new TimeSpan(0, 0, 0, 0, 1000));
+        }
+
+        public bool Lock(string resourceName, int retryCount, TimeSpan retryDelay)
+        {
             var key = GetFinalKey(resourceName);
-            var successfull = RetryLock(key, 9999999 /*暂时不限制*/, new TimeSpan(0, 0, 0, 0, 100), () =>
+            var successfull = RetryLock(key, retryCount /*暂时不限制*/, retryDelay, () =>
+            {
+                try
                 {
-                    try
+                    if (_cache.Get(key) != null)
                     {
-                        if (_cache.Get(key) != null)
-                        {
-                            return false;//已被别人锁住，没有取得锁
-                        }
-                        else
-                        {
-                            _cache.Store(StoreMode.Set, key, new object(), new TimeSpan(0, 0, 10));//创建锁
-                            return true;//取得锁
-                        }
+                        return false;//已被别人锁住，没有取得锁
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        WeixinTrace.Log("Memcached同步锁发生异常：" + ex.Message);
-                        return false;
+                        _cache.Store(StoreMode.Set, key, new object(), new TimeSpan(0, 0, 10));//创建锁
+                        return true;//取得锁
                     }
                 }
+                catch (Exception ex)
+                {
+                    WeixinTrace.Log("Memcached同步锁发生异常：" + ex.Message);
+                    return false;
+                }
+            }
               );
             return successfull;
         }

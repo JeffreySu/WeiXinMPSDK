@@ -194,6 +194,11 @@ namespace Senparc.Weixin.Cache
             return successful;
         }
 
+        public bool Lock(string resourceName, int retryCount, TimeSpan retryDelay)
+        {
+            return Lock(resourceName);
+        }
+
         public void UnLock(string resourceName)
         {
             LockPool.Remove(resourceName);

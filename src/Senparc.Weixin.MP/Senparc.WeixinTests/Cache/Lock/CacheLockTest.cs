@@ -44,11 +44,11 @@ namespace Senparc.WeixinTests.Cache.Lock
                 Console.WriteLine("线程 {0} / {1} : {2} 进入，准备尝试锁", Thread.CurrentThread.GetHashCode(), resourceName, appId);
 
                 DateTime dt1 = DateTime.Now;
-                using (var cacheLock = cache.InstanceCacheLockWrapper(resourceName, appId))
+                using (var cacheLock = cache.InstanceCacheLockWrapper(resourceName, appId, 10, new TimeSpan(0, 0, 0, 0, 1000)))
                 {
                     var result = cacheLock.LockSuccessful
                         ? "成功"
-                        :"【失败！】";
+                        : "【失败！】";
 
                     Console.WriteLine("线程 {0} / {1} : {2} 进入锁，等待时间：{3}ms，获得锁结果：{4}", Thread.CurrentThread.GetHashCode(), resourceName, appId, (DateTime.Now - dt1).TotalMilliseconds, result);
 

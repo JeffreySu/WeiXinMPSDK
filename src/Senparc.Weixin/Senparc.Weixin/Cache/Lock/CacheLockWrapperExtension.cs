@@ -8,9 +8,14 @@ namespace Senparc.Weixin.Cache
 {
     public static class CacheLockWrapperExtension
     {
+        public static CacheLockWrapper InstanceCacheLockWrapper(this IContainerCacheStragegy stragegy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
+        {
+            return new CacheLockWrapper(stragegy, resourceName,key, retryCount, retryDelay);
+        }
+
         public static CacheLockWrapper InstanceCacheLockWrapper(this IContainerCacheStragegy stragegy, string resourceName, string key)
         {
-            return new CacheLockWrapper(stragegy, resourceName,key);
+            return new CacheLockWrapper(stragegy, resourceName, key);
         }
     }
 }

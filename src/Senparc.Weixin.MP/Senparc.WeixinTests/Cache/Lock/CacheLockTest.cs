@@ -22,6 +22,8 @@ namespace Senparc.WeixinTests.Cache.Lock
              *             2、不同的ResourceName、appId之间任意组合相互干扰；
              *             3、出现死锁；
              *             4、某线程始终无法获得锁（超时或一直运行）
+             *             
+             * 注意：超时导致的失败可能是由于设置的最大等待时间现对于测试的Thread.sleep太短。
              */
 
             bool useRedis = true;
@@ -35,14 +37,21 @@ namespace Senparc.WeixinTests.Cache.Lock
 
             var cache = CacheStrategyFactory.GetContainerCacheStragegyInstance();
             Random rnd = new Random();
-            Parallel.For(0, 20, i =>
+            Parallel.For(0, 4, i =>
             {
                 var appId = (i % 2).ToString();
-                var resourceName = "Test-" + rnd.Next(0, 2);
+                var resourceName = "Test-" + rnd.Next(0, 1);
                 Console.WriteLine("线程 {0} / {1} : {2} 进入，准备尝试锁", Thread.CurrentThread.GetHashCode(), resourceName, appId);
-                using (cache.InstanceCacheLockWrapper(resourceName, appId))
+
+                DateTime dt1 = DateTime.Now;
+                using (var cacheLock = cache.InstanceCacheLockWrapper(resourceName, appId))
                 {
-                    Console.WriteLine("线程 {0} / {1} : {2} 进入锁", Thread.CurrentThread.GetHashCode(), resourceName, appId);
+                    var result = cacheLock.LockSuccessful
+                        ? "成功"
+                        :"【失败！】";
+
+                    Console.WriteLine("线程 {0} / {1} : {2} 进入锁，等待时间：{3}ms，获得锁结果：{4}", Thread.CurrentThread.GetHashCode(), resourceName, appId, (DateTime.Now - dt1).TotalMilliseconds, result);
+
                     Thread.Sleep(500);
                 }
                 Console.WriteLine("线程 {0} / {1} : {2} 释放锁", Thread.CurrentThread.GetHashCode(), resourceName, appId);

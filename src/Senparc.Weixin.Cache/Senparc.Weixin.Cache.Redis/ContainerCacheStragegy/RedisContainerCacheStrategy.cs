@@ -221,7 +221,10 @@ namespace Senparc.Weixin.Cache.Redis
 
         public void UnLock(string resourceName)
         {
-            _dlm.Unlock(_lockObject);
+            if (_lockObject != null)
+            {
+                _dlm.Unlock(_lockObject);
+            }
         }
 
         #endregion

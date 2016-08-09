@@ -16,6 +16,9 @@ namespace Senparc.Weixin.Cache
         /// </summary>
         /// <param name="resourceName"></param>
         bool Lock(string resourceName);
+
+        //bool IsLocked(string resourceName);
+
         //释放锁
         void UnLock(string resourceName);
     }

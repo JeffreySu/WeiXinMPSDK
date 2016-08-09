@@ -1,8 +1,20 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache.Redis.Tests
 {
+    internal class TestContainerBag1 : BaseContainerBag
+    {
+        private DateTime _dateTime;
+
+        public DateTime DateTime
+        {
+            get { return _dateTime; }
+            set { this.SetContainerProperty(ref _dateTime, value); }
+        }
+    }
+
     [TestClass]
     public class RedisContainerCacheStrategyTest
     {
@@ -30,7 +42,7 @@ namespace Senparc.Weixin.Cache.Redis.Tests
         {
             var key = Guid.NewGuid().ToString();
             var count = cache.GetCount();
-            cache.InsertToCache(key, new ContainerItemCollection()
+            cache.InsertToCache(key, new TestContainerBag1()
             {
 
             });
@@ -38,8 +50,8 @@ namespace Senparc.Weixin.Cache.Redis.Tests
             var item = cache.Get(key);
             Assert.IsNotNull(item);
 
-            Console.WriteLine(item.CacheSetKey);
-            Console.WriteLine(item.CreateTime);
+            Console.WriteLine(item.Key);
+            Console.WriteLine(item.CacheTime);
 
             var count2 = cache.GetCount();
             Assert.AreEqual(count + 1, count2);
@@ -55,7 +67,7 @@ namespace Senparc.Weixin.Cache.Redis.Tests
 
             var key = Guid.NewGuid().ToString();
             var count = cache.GetCount();
-            cache.InsertToCache(key, new ContainerItemCollection()
+            cache.InsertToCache(key, new TestContainerBag1()
             {
 
             });

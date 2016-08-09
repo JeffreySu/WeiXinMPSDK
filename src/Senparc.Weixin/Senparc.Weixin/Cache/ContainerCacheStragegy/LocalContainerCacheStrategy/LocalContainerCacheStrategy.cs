@@ -170,7 +170,7 @@ namespace Senparc.Weixin.Cache
 
         public bool Lock(string resourceName)
         {
-            var successfull = RetryLock(resourceName, 9999999 /*暂时不限制*/, new TimeSpan(0, 0, 0, 0, 100), () =>
+            var successful = RetryLock(resourceName, 9999999 /*暂时不限制*/, new TimeSpan(0, 0, 0, 0, 100), () =>
                         {
                             try
                             {
@@ -191,7 +191,7 @@ namespace Senparc.Weixin.Cache
                             }
                         }
                 );
-            return successfull;
+            return successful;
         }
 
         public void UnLock(string resourceName)

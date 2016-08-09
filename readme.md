@@ -1,7 +1,7 @@
 微信C# SDK
 =================
 
-> .NET Framework 版本及 .NET Core 版本代码分别位于 DotNetFramework 和 DotNetCore（完善中） 文件夹下，结构基本保持一致，以下介绍以 .NET Framework 版本为例。
+> .NET Framework 版本及 .NET Core 版本代码分别位于 [master](https://github.com/JeffreySu/WeiXinMPSDK) 和 [DotNET-Core](https://github.com/JeffreySu/WeiXinMPSDK/tree/DotNET-Core) 分支下，结构基本保持一致，以下介绍以 .NET Framework 版本为例。
 
 | # | 模块功能 | DLL |
 |--------|--------|--------|
@@ -22,7 +22,7 @@
 * 已经全面支持微信公众号、企业号、开放平台的最新API。
 * 已经支持分布式缓存及缓存策略扩展。
 
-目前官方的API都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的[DLLs](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/Senparc.Weixin.MP.BuildOutPut)。
+目前官方的API都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的[DLLs](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut)。
 
 
 ## 贡献代码
@@ -47,15 +47,15 @@
 7. chm帮助文档下载：http://sdk.weixin.senparc.com/Document
 8. 源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
 
-* 技术交流QQ群（目前未满可加：11群，其他群均已满）：
+* 技术交流QQ群（目前未满可加：3群，其他群均已满）：
 
 > 1群：300313885，2群：293958349，3群：342319110，4群：372212092，5群：377815480
 
-> 6群：425898825，7群：482942254，8群：106230270，9群：539061281
+> 6群：425898825，7群：482942254，8群：106230270，9群：539061281，11群：553198593
 
 > 10群（Redis / Memcached 分布式缓存群）：只加已经在使用的开发者。发送申请及截图至 zsu@senparc.com 或QQ：498977166，标题：Senparc.Weixin.Cache 加群申请
 
-> 11群：553198593
+> 
 
 * 业务联系QQ：498977166
 

@@ -13,6 +13,6 @@ bak.zip
 
 /Tools/*
 *.DotSettings
-/DotNetCore/Senparc.Weixin/.vs
+.vs
 applicationhost.config
 packages/

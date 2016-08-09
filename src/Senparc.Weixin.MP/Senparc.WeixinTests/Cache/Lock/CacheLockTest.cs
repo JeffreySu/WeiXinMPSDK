@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,6 +12,21 @@ namespace Senparc.WeixinTests.Cache.Lock
     [TestClass]
     public class CacheLockTest
     {
+        [TestMethod]
+        public void TestParallelThreadsRunAtSameTime()
+        {
+            var dt1 = DateTime.Now;
+            Parallel.For(0, 100, i =>
+            {
+                Console.WriteLine("T:{0}，Use Time：{1}ms", Thread.CurrentThread.GetHashCode(),
+                    (DateTime.Now - dt1).TotalMilliseconds);
+                Thread.Sleep(20);
+            });
+            var dt2 = DateTime.Now;
+            Console.WriteLine("Working Threads Count:{0}", 100 * 20 / (dt2 - dt1).TotalMilliseconds);
+            //测试结果：同时运行的线程数约为4（平均3.6）
+        }
+
         [TestMethod]
         public void LockTest()
         {
@@ -36,26 +53,90 @@ namespace Senparc.WeixinTests.Cache.Lock
             }
 
             var cache = CacheStrategyFactory.GetContainerCacheStragegyInstance();
+
             Random rnd = new Random();
-            Parallel.For(0, 4, i =>
+            var threadsCount = 20M;
+            int sleepMillionSeconds = 500;
+
+            //初步估计需要重试时间
+            var differentLocksCount = (2 /*appId*/* 2 /*resource*/) /* = diffrent locks count */;
+            var runCycle = threadsCount / differentLocksCount /* = Run Cycle*/;
+            var hopedTotalTime = runCycle * sleepMillionSeconds /* = Hoped Total Time */;
+            var randomRetryDelay = (20 / 2) /*random retry delay*/;
+            var retryTimes = hopedTotalTime / randomRetryDelay; /* = maxium retry times */;
+
+            Console.WriteLine("differentLocksCount:{0}", differentLocksCount);
+            Console.WriteLine("runCycle:{0}", runCycle);
+            Console.WriteLine("hopedTotalTime:{0}ms", hopedTotalTime);
+            Console.WriteLine("randomRetryDelay:{0}ms", randomRetryDelay);
+            Console.WriteLine("retryTimes:{0}", retryTimes);
+            Console.WriteLine("=====================");
+
+            List<Thread> list = new List<Thread>();
+            int runThreads = 0;
+
+            for (int i = 0; i < (int)threadsCount; i++)
             {
-                var appId = (i % 2).ToString();
-                var resourceName = "Test-" + rnd.Next(0, 1);
-                Console.WriteLine("线程 {0} / {1} : {2} 进入，准备尝试锁", Thread.CurrentThread.GetHashCode(), resourceName, appId);
-
-                DateTime dt1 = DateTime.Now;
-                using (var cacheLock = cache.InstanceCacheLockWrapper(resourceName, appId, 10, new TimeSpan(0, 0, 0, 0, 1000)))
+                runThreads++;
+                var thread = new Thread(() =>
                 {
-                    var result = cacheLock.LockSuccessful
-                        ? "成功"
-                        : "【失败！】";
+                    var appId = (i % 2).ToString();
+                    var resourceName = "Test-" + rnd.Next(0, 2);
+                    Console.WriteLine("线程 {0} / {1} : {2} 进入，准备尝试锁", Thread.CurrentThread.GetHashCode(), resourceName, appId);
 
-                    Console.WriteLine("线程 {0} / {1} : {2} 进入锁，等待时间：{3}ms，获得锁结果：{4}", Thread.CurrentThread.GetHashCode(), resourceName, appId, (DateTime.Now - dt1).TotalMilliseconds, result);
+                    DateTime dt1 = DateTime.Now;
+                    using (var cacheLock = cache.InstanceCacheLockWrapper(resourceName, appId, (int)retryTimes, new TimeSpan(0, 0, 0, 0, 20)))
+                    {
+                        var result = cacheLock.LockSuccessful
+                            ? "成功"
+                            : "【失败！】";
 
-                    Thread.Sleep(500);
-                }
-                Console.WriteLine("线程 {0} / {1} : {2} 释放锁", Thread.CurrentThread.GetHashCode(), resourceName, appId);
-            });
+                        Console.WriteLine("线程 {0} / {1} : {2} 进入锁，等待时间：{3}ms，获得锁结果：{4}", Thread.CurrentThread.GetHashCode(), resourceName, appId, (DateTime.Now - dt1).TotalMilliseconds, result);
+
+                        Thread.Sleep(sleepMillionSeconds);
+                    }
+                    Console.WriteLine("线程 {0} / {1} : {2} 释放锁（{3}ms）", Thread.CurrentThread.GetHashCode(), resourceName, appId, (DateTime.Now - dt1).TotalMilliseconds);
+                    runThreads--;
+                });
+                list.Add(thread);
+            }
+
+            list.ForEach(z => z.Start());
+
+            while (runThreads > 0)
+            {
+                Thread.Sleep(10);
+            }
+            //Thread.Sleep((int)hopedTotalTime + 1000);
+            //while (true)
+            //{
+            //    Thread.Sleep(10);
+            //    if (list.Count(z => z.ThreadState == ThreadState.Aborted) == list.Count())
+            //    {
+            //        break;
+            //    }
+            //}
+
+            //等待
+            //Parallel.For(0, (int)threadsCount, i =>
+            //{
+            //    var appId = (i % 2).ToString();
+            //    var resourceName = "Test-" + rnd.Next(0, 2);
+            //    Console.WriteLine("线程 {0} / {1} : {2} 进入，准备尝试锁", Thread.CurrentThread.GetHashCode(), resourceName, appId);
+
+            //    DateTime dt1 = DateTime.Now;
+            //    using (var cacheLock = cache.InstanceCacheLockWrapper(resourceName, appId, (int)retryTimes, new TimeSpan(0, 0, 0, 0, 20)))
+            //    {
+            //        var result = cacheLock.LockSuccessful
+            //            ? "成功"
+            //            : "【失败！】";
+
+            //        Console.WriteLine("线程 {0} / {1} : {2} 进入锁，等待时间：{3}ms，获得锁结果：{4}", Thread.CurrentThread.GetHashCode(), resourceName, appId, (DateTime.Now - dt1).TotalMilliseconds, result);
+
+            //        Thread.Sleep(sleepMillionSeconds);
+            //    }
+            //    Console.WriteLine("线程 {0} / {1} : {2} 释放锁（{3}ms）", Thread.CurrentThread.GetHashCode(), resourceName, appId, (DateTime.Now - dt1).TotalMilliseconds);
+            //});
         }
     }
 }

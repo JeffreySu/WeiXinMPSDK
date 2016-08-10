@@ -60,6 +60,10 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
 
             {
                 tokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId);
+                if (base._userRedis)
+                {
+                    Thread.Sleep(2500);//等待缓存更新
+                }
                 Console.WriteLine("HashCode：{0}", tokenResult.GetHashCode());
                 dt1 = DateTime.Now;
                 var allItems = AccessTokenContainer.GetAllItems();

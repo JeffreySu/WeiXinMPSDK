@@ -254,7 +254,7 @@ namespace Senparc.Weixin.Open.Containers
         /// <returns></returns>
         public new static bool CheckRegistered(string componentAppId)
         {
-            var cacheKey = ContainerHelper.GetItemCacheKey(typeof(ComponentBag), componentAppId);
+            var cacheKey = GetBagCacheKey(componentAppId);
             return Cache.CheckExisted(cacheKey);
         }
 

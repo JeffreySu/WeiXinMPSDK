@@ -65,7 +65,12 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
                 var allItems = AccessTokenContainer.GetAllItems();
                 dt2 = DateTime.Now;
                 Assert.IsTrue(allItems.Count > 0);
-                Assert.AreSame(tokenResult, allItems[0].AccessTokenResult);//证明缓存成功
+
+                //序列化
+                var d1 = StackExchangeRedisExtensions.Serialize(tokenResult);
+                var d2 = StackExchangeRedisExtensions.Serialize(allItems[0].AccessTokenResult);
+
+                Assert.AreEqual(String.Concat(d1), String.Concat(d2));//证明缓存成功
                 Console.WriteLine("All Items:{0}", allItems.Count);
                 Console.WriteLine("HashCode：{0}", allItems[0].AccessTokenResult.GetHashCode());
                 Console.WriteLine("耗时：{0}毫秒", (dt2 - dt1).TotalMilliseconds);

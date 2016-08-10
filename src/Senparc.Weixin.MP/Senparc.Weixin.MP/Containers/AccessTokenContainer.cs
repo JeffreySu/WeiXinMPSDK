@@ -34,6 +34,9 @@
     修改标识：Senparc - 20160808
     修改描述：v14.3.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
 
+    修改标识：Senparc - 20160810
+    修改描述：v14.3.3 fix bug
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -139,7 +142,7 @@ namespace Senparc.Weixin.MP.Containers
             {
                 Register(appId, appSecret);
             }
-            return GetAccessToken(appId);
+            return GetAccessToken(appId,getNewToken);
         }
 
         /// <summary>

@@ -121,6 +121,17 @@ namespace Senparc.Weixin.Containers
             return firstBag == null ? null : firstBag.AppId;
         }
 
+        /// <summary>
+        /// 获取ItemCollection缓存Key
+        /// </summary>
+        /// <param name="shortKey">最简短的Key，比如AppId，不需要考虑容器前缀</param>
+        /// <returns></returns>
+        public static string GetBagCacheKey(string shortKey)
+        {
+            return ContainerHelper.GetItemCacheKey(typeof(TBag), shortKey);
+        }
+
+
         ///// <summary>
         ///// 获取完整的数据集合的列表，包括所有的Container数据在内（建议不要进行任何修改操作）
         ///// </summary>
@@ -137,7 +148,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static List<TBag> GetAllItems()
         {
-            return Cache.GetAll<TBag>().Values.Select(z => z as TBag).ToList();
+            return Cache.GetAll<TBag>().Values.Select(z => z).ToList();
         }
 
         /// <summary>
@@ -147,7 +158,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static TBag TryGetItem(string shortKey)
         {
-            var cacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag),shortKey);
+            var cacheKey = GetBagCacheKey(shortKey);
             if (Cache.CheckExisted(cacheKey))
             {
                 return (TBag)Cache.Get(cacheKey);
@@ -164,7 +175,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static TK TryGetItem<TK>(string shortKey, Func<TBag, TK> property)
         {
-            var cacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag), shortKey);
+            var cacheKey = GetBagCacheKey(shortKey);
             if (Cache.CheckExisted(cacheKey))
             {
                 var item = Cache.Get(cacheKey) as TBag;
@@ -180,7 +191,7 @@ namespace Senparc.Weixin.Containers
         /// <param name="bag">为null时删除该项</param>
         public static void Update(string shortKey, TBag bag)
         {
-            var cacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag), shortKey);
+            var cacheKey = GetBagCacheKey(shortKey);
             if (bag == null)
             {
                 Cache.RemoveFromCache(cacheKey);
@@ -216,7 +227,7 @@ namespace Senparc.Weixin.Containers
         /// <param name="partialUpdate">为null时删除该项</param>
         public static void Update(string shortKey, Action<TBag> partialUpdate)
         {
-            var cacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag), shortKey);
+            var cacheKey = GetBagCacheKey(shortKey);
             if (partialUpdate == null)
             {
                 Cache.RemoveFromCache(cacheKey);//移除对象
@@ -243,7 +254,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static bool CheckRegistered(string shortKey)
         {
-            var cacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag),shortKey);
+            var cacheKey = GetBagCacheKey(shortKey);
             return Cache.CheckExisted(cacheKey);
         }
     }

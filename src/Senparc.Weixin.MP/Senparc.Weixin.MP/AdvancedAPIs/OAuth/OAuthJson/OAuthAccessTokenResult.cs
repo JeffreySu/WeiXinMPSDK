@@ -15,8 +15,12 @@
     
     修改标识：Senparc - 20160722
     修改说明：添加unionid的参数
+    
+    修改标识：Senparc - 20160810
+    修改说明：添加序列化标签
 ----------------------------------------------------------------*/
 
+using System;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
@@ -25,6 +29,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
     /// 获取OAuth AccessToken的结果
     /// 如果错误，返回结果{"errcode":40029,"errmsg":"invalid code"}
     /// </summary>
+    [Serializable]
     public class OAuthAccessTokenResult : WxJsonResult
     {
         /// <summary>

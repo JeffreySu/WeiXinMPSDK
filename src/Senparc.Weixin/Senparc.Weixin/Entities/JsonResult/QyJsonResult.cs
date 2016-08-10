@@ -6,13 +6,20 @@
 
 
     创建标识：Senparc - 20150928
+
+    修改标识：Senparc - 20160810
+    修改描述：v4.1.4 AccessTokenResult添加序列化标签
+
 ----------------------------------------------------------------*/
+
+using System;
 
 namespace Senparc.Weixin.Entities
 {
     /// <summary>
     /// 企业号JSON返回结果
     /// </summary>
+    [Serializable]
     public class QyJsonResult : IJsonResult
     {
         public ReturnCode_QY errcode { get; set; }

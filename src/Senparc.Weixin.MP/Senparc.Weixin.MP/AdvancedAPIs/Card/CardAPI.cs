@@ -192,17 +192,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                 }
 
-                var jsonSetting = new JsonSetting(true, null,
-                    new List<Type>()
-                    {
-        //typeof (Modify_Msg_Operation),
-        //typeof (CardCreateInfo),
-        typeof (Card_BaseInfoBase)//过滤Modify_Msg_Operation主要起作用的是这个
-                    });
+        //        var jsonSetting = new JsonSetting(true, null,
+        //            new List<Type>()
+        //            {
+        ////typeof (Modify_Msg_Operation),
+        ////typeof (CardCreateInfo),
+        //typeof (Card_BaseInfoBase)//过滤Modify_Msg_Operation主要起作用的是这个
+        //            });
 
-                var result = CommonJsonSend.Send<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut,
+                var result = CommonJsonSend.Send<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut//,
                     //针对特殊字段的null值进行过滤
-                    jsonSetting: jsonSetting);
+                    /*jsonSetting: jsonSetting*/);
                 return result;
 
             }, accessTokenOrAppId);
@@ -420,15 +420,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 //var jsonSettingne = new JsonSetting(true);
 
-                var jsonSetting = new JsonSetting(true, null,
-                                      new List<Type>()
-                                      {
-                                            //typeof (Modify_Msg_Operation),
-                                            //typeof (CardCreateInfo),
-                                            data.action_info.card.GetType()//过滤Modify_Msg_Operation主要起作用的是这个
-                                      });
+                //var jsonSetting = new JsonSetting(true, null,
+                //                      new List<Type>()
+                //                      {
+                //                            //typeof (Modify_Msg_Operation),
+                //                            //typeof (CardCreateInfo),
+                //                            data.action_info.card.GetType()//过滤Modify_Msg_Operation主要起作用的是这个
+                //                      });
 
-                return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut/*, jsonSetting: jsonSetting*/);
 
             }, accessTokenOrAppId);
         }
@@ -1005,10 +1005,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var urlFormat = string.Format("https://api.weixin.qq.com/card/membercard/activateuserform/set?access_token={0}", accessToken.AsUrlData());
-                JsonSetting jsonSetting = new JsonSetting()
-                {
-                    TypesToIgnore = new List<Type>() { typeof(ActivateUserFormSetData), typeof(BaseForm) }
-                };
+                //JsonSetting jsonSetting = new JsonSetting()
+                //{
+                //    TypesToIgnore = new List<Type>() { typeof(ActivateUserFormSetData), typeof(BaseForm) }
+                //};
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -1188,10 +1188,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     custom_field_value3 = customFieldValue3,
                 };
 
-                JsonSetting jsonSetting = new JsonSetting()
-                {
-                    TypesToIgnore = new List<Type>() { data.GetType() }
-                };
+                //JsonSetting jsonSetting = new JsonSetting()
+                //{
+                //    TypesToIgnore = new List<Type>() { data.GetType() }
+                //};
 
                 return CommonJsonSend.Send<UpdateUserResult>(null, urlFormat, data, timeOut: timeOut);
 
@@ -1810,17 +1810,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                 }
 
-                var jsonSetting = new JsonSetting(true, null,
-                    new List<Type>()
-                    {
-        //typeof (Modify_Msg_Operation),
-        //typeof (CardCreateInfo),
-        typeof (Card_BaseInfoBase)//过滤Modify_Msg_Operation主要起作用的是这个
-                    });
+        //        var jsonSetting = new JsonSetting(true, null,
+        //            new List<Type>()
+        //            {
+        ////typeof (Modify_Msg_Operation),
+        ////typeof (CardCreateInfo),
+        //typeof (Card_BaseInfoBase)//过滤Modify_Msg_Operation主要起作用的是这个
+        //            });
 
-                var result = Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut,
+                var result = Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardCreateResultJson>(null, urlFormat, cardData, timeOut: timeOut//,
                     //针对特殊字段的null值进行过滤
-                    jsonSetting: jsonSetting);
+                    /*jsonSetting: jsonSetting*/);
                 return result;
 
             }, accessTokenOrAppId);
@@ -2037,15 +2037,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 //var jsonSettingne = new JsonSetting(true);
 
-                var jsonSetting = new JsonSetting(true, null,
-                                      new List<Type>()
-                                      {
-                                            //typeof (Modify_Msg_Operation),
-                                            //typeof (CardCreateInfo),
-                                            data.action_info.card.GetType()//过滤Modify_Msg_Operation主要起作用的是这个
-                                      });
+                //var jsonSetting = new JsonSetting(true, null,
+                //                      new List<Type>()
+                //                      {
+                //                            //typeof (Modify_Msg_Operation),
+                //                            //typeof (CardCreateInfo),
+                //                            data.action_info.card.GetType()//过滤Modify_Msg_Operation主要起作用的是这个
+                //                      });
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut/*, jsonSetting: jsonSetting*/);
 
             }, accessTokenOrAppId);
         }

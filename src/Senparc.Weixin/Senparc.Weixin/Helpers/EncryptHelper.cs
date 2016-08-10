@@ -25,15 +25,16 @@ namespace Senparc.Weixin.Helpers
         /// 返回加密后的字符串
         public static string SHA1_Encrypt(string sourceStr)
         {
-            byte[] strRes = Encoding.Default.GetBytes(sourceStr);
-            HashAlgorithm iSHA = new SHA1CryptoServiceProvider();
-            strRes = iSHA.ComputeHash(strRes);
-            StringBuilder enText = new StringBuilder();
-            foreach (byte iByte in strRes)
-            {
-                enText.AppendFormat("{0:x2}", iByte);
-            }
-            return enText.ToString();
+            throw new ArgumentException("暂时不可用");
+            //byte[] strRes = Encoding.UTF8.GetBytes(sourceStr);
+            //HashAlgorithm iSHA = new SHA1CryptoServiceProvider();
+            //strRes = iSHA.ComputeHash(strRes);
+            //StringBuilder enText = new StringBuilder();
+            //foreach (byte iByte in strRes)
+            //{
+            //    enText.AppendFormat("{0:x2}", iByte);
+            //}
+            //return enText.ToString();
         }
     }
 }

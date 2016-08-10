@@ -109,19 +109,19 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 每人最大领取次数，不填写默认等于quantity。
         /// 不需提审
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(0)]
+        //[JsonSetting.IgnoreValueAttribute(0)]
         public int get_limit { get; set; }
         /// <summary>
         /// 领取卡券原生页面是否可分享，填写true 或false，true 代表可分享。默认false。
         /// 不需提审
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(false)]
+        //[JsonSetting.IgnoreValueAttribute(false)]
         public bool can_share { get; set; }
         /// <summary>
         /// 卡券是否可转赠，填写true 或false,true 代表可转赠。默认false。
         /// 不需提审
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(false)]
+        //[JsonSetting.IgnoreValueAttribute(false)]
         public bool can_give_friend { get; set; }
         /// <summary>
         /// 门店位置ID。商户需在mp 平台上录入门店信息或调用批量导入门店信息接口获取门店位置ID。

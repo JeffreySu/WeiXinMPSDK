@@ -22,7 +22,7 @@ namespace Senparc.Weixin.QY.Entities
     /// <summary>
     /// GetToken请求后的JSON返回格式
     /// </summary>
-    [Serializable]
+    //[Serializable]
     public class AccessTokenResult : QyJsonResult
     {
         /// <summary>

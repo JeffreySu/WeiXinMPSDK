@@ -819,12 +819,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         card_ext = cardExt
                     }
                 };
-                JsonSetting jsonSetting = new JsonSetting()
-                {
-                    TypesToIgnore = new List<System.Type>() { typeof(CardExt) }
-                };
+                //JsonSetting jsonSetting = new JsonSetting()
+                //{
+                //    TypesToIgnore = new List<System.Type>() { typeof(CardExt) }
+                //};
 
-                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut
+                   /* , jsonSetting: jsonSetting*/);
 
             }, accessTokenOrAppId);
         }

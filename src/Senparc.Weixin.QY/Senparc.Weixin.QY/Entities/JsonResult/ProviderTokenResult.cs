@@ -20,7 +20,7 @@ namespace Senparc.Weixin.QY.Entities
     /// <summary>
     /// 获取应用提供商凭证返回格式
     /// </summary>
-    [Serializable]
+    //[Serializable]
     public class ProviderTokenResult : QyJsonResult
     {
         /// <summary>

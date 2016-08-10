@@ -48,7 +48,7 @@ namespace Senparc.Weixin.MP.Containers
     /// <summary>
     /// JsApiTicket包
     /// </summary>
-    [Serializable]
+    //[Serializable]
     public class JsApiTicketBag : BaseContainerBag, IBaseContainerBag_AppId
     {
         public string AppId

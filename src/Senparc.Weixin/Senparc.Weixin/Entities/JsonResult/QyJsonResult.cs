@@ -19,7 +19,7 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// 企业号JSON返回结果
     /// </summary>
-    [Serializable]
+    //[Serializable]
     public class QyJsonResult : IJsonResult
     {
         public ReturnCode_QY errcode { get; set; }

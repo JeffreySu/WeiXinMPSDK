@@ -47,13 +47,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 设置为true时用户领取会员卡后系统自动将其激活，无需调用激活接口。
         /// 非必填
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(false)]
+        //[JsonSetting.IgnoreValueAttribute(false)]
         public bool auto_activate { get; set; }
         /// <summary>
         /// 设置为true时会员卡支持一键激活，不允许同时传入activate_url字段，否则设置wx_activate失效。
         /// 非必填
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(false)]
+        //[JsonSetting.IgnoreValueAttribute(false)]
         public bool wx_activate { get; set; }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 初始设置积分 int型数据
         /// 非必填,null时显示查看
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(0)]
+        //[JsonSetting.IgnoreValueAttribute(0)]
         public int init_increase_bonus { get; set; }
 
         /// <summary>

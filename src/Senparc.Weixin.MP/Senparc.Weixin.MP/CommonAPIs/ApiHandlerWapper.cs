@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.Utilities.WeixinUtility;
 
 namespace Senparc.Weixin.MP

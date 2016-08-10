@@ -21,6 +21,7 @@
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Containers;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {

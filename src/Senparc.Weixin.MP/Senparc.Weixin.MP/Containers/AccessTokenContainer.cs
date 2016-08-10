@@ -168,7 +168,7 @@ namespace Senparc.Weixin.MP.Containers
 
             var accessTokenBag = TryGetItem(appId);
 
-            using (Cache.InstanceCacheLockWrapper(LockResourceName,appId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName,appId))//同步锁
             {
                 if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
                 {
@@ -231,7 +231,7 @@ namespace Senparc.Weixin.MP.Containers
 
             var accessTokenBag = TryGetItem(appId);
 
-            using (Cache.InstanceCacheLockWrapper(LockResourceName,appId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName,appId))//同步锁
             {
                 if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
                 {

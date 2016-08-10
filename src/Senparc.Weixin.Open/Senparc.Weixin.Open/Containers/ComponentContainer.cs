@@ -345,7 +345,7 @@ namespace Senparc.Weixin.Open.Containers
             }
 
             var accessTokenBag = TryGetItem(componentAppId);
-            using (Cache.InstanceCacheLockWrapper(LockResourceName, componentAppId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName, componentAppId))//同步锁
             {
                 if (getNewToken || accessTokenBag.ComponentAccessTokenExpireTime <= DateTime.Now)
                 {
@@ -402,7 +402,7 @@ namespace Senparc.Weixin.Open.Containers
             }
 
             var componentBag = TryGetItem(componentAppId);
-            using (Cache.InstanceCacheLockWrapper(LockResourceName, componentAppId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName, componentAppId))//同步锁
             {
                 if (getNewToken || componentBag.PreAuthCodeExpireTime <= DateTime.Now)
                 {
@@ -447,7 +447,7 @@ namespace Senparc.Weixin.Open.Containers
             }
 
             var componentBag = TryGetItem(componentAppId);
-            using (Cache.InstanceCacheLockWrapper(LockResourceName, componentAppId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName, componentAppId))//同步锁
             {
                 var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret);
                 var queryAuthResult = ComponentApi.QueryAuth(accessToken, componentAppId, authorizationCode);
@@ -510,7 +510,7 @@ namespace Senparc.Weixin.Open.Containers
             }
 
             var accessTokenBag = TryGetItem(componentAppId);
-            using (Cache.InstanceCacheLockWrapper(LockResourceName, componentAppId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName, componentAppId))//同步锁
             {
                 if (getNewToken || accessTokenBag.ComponentAccessTokenExpireTime <= DateTime.Now)
                 {
@@ -568,7 +568,7 @@ namespace Senparc.Weixin.Open.Containers
             }
 
             var componentBag = TryGetItem(componentAppId);
-            using (Cache.InstanceCacheLockWrapper(LockResourceName, componentAppId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName, componentAppId))//同步锁
             {
                 if (getNewToken || componentBag.PreAuthCodeExpireTime <= DateTime.Now)
                 {
@@ -613,7 +613,7 @@ namespace Senparc.Weixin.Open.Containers
             }
 
             var componentBag = TryGetItem(componentAppId);
-            using (Cache.InstanceCacheLockWrapper(LockResourceName, componentAppId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName, componentAppId))//同步锁
             {
                 var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret);
                 var queryAuthResult = await ComponentApi.QueryAuthAsync(accessToken, componentAppId, authorizationCode);

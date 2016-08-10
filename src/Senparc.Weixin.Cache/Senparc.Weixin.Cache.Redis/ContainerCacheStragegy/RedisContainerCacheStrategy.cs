@@ -29,7 +29,7 @@ namespace Senparc.Weixin.Cache.Redis
     /// </summary>
     public sealed class RedisContainerCacheStrategy : IContainerCacheStragegy
     {
-        private ConnectionMultiplexer _client;
+        internal ConnectionMultiplexer _client;
         private IDatabase _cache;
 
         #region 单例
@@ -87,6 +87,7 @@ namespace Senparc.Weixin.Cache.Redis
             _client.Dispose();//释放
         }
 
+      
         public string GetFinalKey(string key)
         {
             return String.Format("{0}:{1}", "SenparcWeixinContainer", key);
@@ -207,39 +208,10 @@ namespace Senparc.Weixin.Cache.Redis
 
         #endregion
 
-        #region ICacheLock
-
-        private Redlock.CSharp.Redlock _dlm;
-        private Lock _lockObject;
-
-        public bool Lock(string resourceName)
+        public ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
-            return Lock(resourceName, 0, new TimeSpan());
+            return new RedisCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
         }
 
-        public bool Lock(string resourceName, int retryCount, TimeSpan retryDelay)
-        {
-            if (retryCount != 0)
-            {
-                _dlm = new Redlock.CSharp.Redlock(retryCount, retryDelay, _client);
-            }
-            else if (_dlm == null)
-            {
-                _dlm = new Redlock.CSharp.Redlock(_client);
-            }
-
-            var successfull = _dlm.Lock(resourceName, new TimeSpan(0, 0, 10), out _lockObject);
-            return successfull;
-        }
-
-        public void UnLock(string resourceName)
-        {
-            if (_lockObject != null)
-            {
-                _dlm.Unlock(_lockObject);
-            }
-        }
-
-        #endregion
     }
 }

@@ -67,12 +67,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\ContainerCacheStragegy\IContainerCacheStragegy.cs" />
+    <Compile Include="Cache\Lock\LocalCacheLock.cs" />
     <Compile Include="Cache\ContainerCacheStragegy\LocalContainerCacheStrategy\LocalContainerCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategy\IBaseCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategyFactory.cs" />
-    <Compile Include="Cache\Lock\CacheLockWrapper.cs" />
+    <Compile Include="Cache\Lock\BaseCacheLock.cs" />
     <Compile Include="Cache\Lock\ICacheLock.cs" />
-    <Compile Include="Cache\Lock\CacheLockWrapperExtension.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Containers\BaseContainer.cs" />
     <Compile Include="Containers\BaseContainerBag.cs" />

@@ -14,6 +14,16 @@ namespace Senparc.Weixin.Cache
         ///// 整个Cache集合的Key
         ///// </summary>
         //string CacheSetKey { get; set; }
+
+        /// <summary>
+        /// 创建一个（分布）锁
+        /// </summary>
+        /// <param name="resourceName"></param>
+        /// <param name="key"></param>
+        /// <param name="retryCount"></param>
+        /// <param name="retryDelay"></param>
+        /// <returns></returns>
+        ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan());
     }
 
     /// <summary>

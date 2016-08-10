@@ -149,62 +149,12 @@ namespace Senparc.Weixin.Cache
         #endregion
 
         #region ICacheLock
-
-        private static Dictionary<string, object> LockPool = new Dictionary<string, object>();
-        private static Random _rnd = new Random();
-
-        private bool RetryLock(string resourceName, int retryCount, TimeSpan retryDelay, Func<bool> action)
+        public ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
-            int currentRetry = 0;
-            int maxRetryDelay = (int)retryDelay.TotalMilliseconds;
-            while (currentRetry++ < retryCount)
-            {
-                if (action())
-                {
-                    return true;//取得锁
-                }
-                Thread.Sleep(_rnd.Next(maxRetryDelay));
-            }
-            return false;
-        }
-
-        public bool Lock(string resourceName)
-        {
-            return Lock(resourceName, 9999 /*暂时不限制*/, new TimeSpan(0, 0, 0, 0, 1000));
-        }
-
-        public bool Lock(string resourceName, int retryCount, TimeSpan retryDelay)
-        {
-
-            var successful = RetryLock(resourceName, retryCount, retryDelay, () =>
-            {
-                try
-                {
-                    if (LockPool.ContainsKey(resourceName))
-                    {
-                        return false;//已被别人锁住，没有取得锁
-                    }
-                    else
-                    {
-                        LockPool.Add(resourceName, new object());//创建锁
-                        return true;//取得锁
-                    }
-                }
-                catch (Exception ex)
-                {
-                    WeixinTrace.Log("本地同步锁发生异常：" + ex.Message);
-                    return false;
-                }
-            }
-                );
-            return successful;
-        }
-
-        public void UnLock(string resourceName)
-        {
-            LockPool.Remove(resourceName);
+            return new LocalCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
         }
 
         #endregion
+
     }
 }

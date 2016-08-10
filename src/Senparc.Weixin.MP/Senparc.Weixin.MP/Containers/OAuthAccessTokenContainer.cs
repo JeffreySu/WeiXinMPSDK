@@ -156,7 +156,7 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var oAuthAccessTokenBag = TryGetItem(appId);
-            using (Cache.InstanceCacheLockWrapper(LockResourceName,appId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName,appId))//同步锁
             {
                 if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= DateTime.Now)
                 {
@@ -220,7 +220,7 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var oAuthAccessTokenBag = TryGetItem(appId);
-            using (Cache.InstanceCacheLockWrapper(LockResourceName,appId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName,appId))//同步锁
             {
                 if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= DateTime.Now)
                 {

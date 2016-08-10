@@ -164,7 +164,7 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var jsApiTicketBag = TryGetItem(appId);
-            using (Cache.InstanceCacheLockWrapper(LockResourceName,appId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName,appId))//同步锁
             {
                 if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= DateTime.Now)
                 {
@@ -225,7 +225,7 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var jsApiTicketBag = TryGetItem(appId);
-            using (Cache.InstanceCacheLockWrapper(LockResourceName,appId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName,appId))//同步锁
             {
                 if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= DateTime.Now)
                 {

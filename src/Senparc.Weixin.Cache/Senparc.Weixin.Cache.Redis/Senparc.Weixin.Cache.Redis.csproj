@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContainerCacheStragegy\RedisContainerCacheStrategy.cs" />
+    <Compile Include="RedisCacheLock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StackExchange.Redis\RedisManager.cs" />
     <Compile Include="StackExchange.Redis\StackExchangeRedisExtensions.cs" />

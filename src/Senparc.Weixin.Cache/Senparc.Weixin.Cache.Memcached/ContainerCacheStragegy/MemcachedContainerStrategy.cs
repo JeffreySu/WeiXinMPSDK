@@ -28,7 +28,7 @@ namespace Senparc.Weixin.Cache.Memcached
 {
     public class MemcachedContainerStrategy : IContainerCacheStragegy
     {
-        private MemcachedClient _cache;
+        internal MemcachedClient _cache;
         private MemcachedClientConfiguration _config;
         private static Dictionary<string, int> _serverlist;// = SiteConfig.MemcachedAddresss; TODO:全局注册配置
 
@@ -221,68 +221,9 @@ namespace Senparc.Weixin.Cache.Memcached
 
         #endregion
 
-        #region ICacheLock
-        private static Random _rnd = new Random();
-
-        private bool RetryLock(string resourceName, int retryCount, TimeSpan retryDelay, Func<bool> action)
+        public ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
-            int currentRetry = 0;
-            int maxRetryDelay = (int)retryDelay.TotalMilliseconds;
-            while (currentRetry++ < retryCount)
-            {
-                if (action())
-                {
-                    return true;//取得锁
-                }
-                Thread.Sleep(_rnd.Next(maxRetryDelay));
-            }
-            return false;
+            return new MemcachedCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
         }
-
-        private string GetLockKey(string resourceName)
-        {
-            return string.Format("{0}:{1}", "Lock", resourceName);
-        }
-
-        public bool Lock(string resourceName)
-        {
-            return Lock(resourceName, 999, new TimeSpan(0, 0, 0, 0, 1000));
-        }
-
-        public bool Lock(string resourceName, int retryCount, TimeSpan retryDelay)
-        {
-            var key = GetFinalKey(resourceName);
-            var successfull = RetryLock(key, retryCount /*暂时不限制*/, retryDelay, () =>
-            {
-                try
-                {
-                    if (_cache.Get(key) != null)
-                    {
-                        return false;//已被别人锁住，没有取得锁
-                    }
-                    else
-                    {
-                        _cache.Store(StoreMode.Set, key, new object(), new TimeSpan(0, 0, 10));//创建锁
-                        return true;//取得锁
-                    }
-                }
-                catch (Exception ex)
-                {
-                    WeixinTrace.Log("Memcached同步锁发生异常：" + ex.Message);
-                    return false;
-                }
-            }
-              );
-            return successfull;
-        }
-
-        public void UnLock(string resourceName)
-        {
-            var key = GetFinalKey(resourceName);
-            _cache.Remove(key);
-        }
-
-        #endregion
-
     }
 }

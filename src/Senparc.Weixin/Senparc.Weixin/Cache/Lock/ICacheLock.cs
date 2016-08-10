@@ -9,8 +9,14 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 缓存锁接口
     /// </summary>
-    public interface ICacheLock
+    public interface ICacheLock : IDisposable
     {
+        /// <summary>
+        /// 立即开始锁定
+        /// </summary>
+        /// <returns></returns>
+        ICacheLock LockNow();
+
         /// <summary>
         /// 开始锁
         /// </summary>

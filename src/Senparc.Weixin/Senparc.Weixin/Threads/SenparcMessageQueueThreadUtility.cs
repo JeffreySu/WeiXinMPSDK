@@ -27,7 +27,7 @@ namespace Senparc.Weixin.Threads
         private readonly int _sleepMilliSeconds;
 
 
-        public SenparcMessageQueueThreadUtility(int sleepMilliSeconds = 2000)
+        public SenparcMessageQueueThreadUtility(int sleepMilliSeconds = 1000)
         {
             _sleepMilliSeconds = sleepMilliSeconds;
         }

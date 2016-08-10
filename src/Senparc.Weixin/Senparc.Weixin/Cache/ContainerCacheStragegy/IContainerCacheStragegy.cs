@@ -14,13 +14,6 @@ namespace Senparc.Weixin.Cache
 
     {
         /// <summary>
-        /// 获取缓存中最终的键，建议格式： return String.Format("{0}:{1}", "SenparcWeixinContainer", key);
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        string GetFinalKey(string key);
-
-        /// <summary>
         /// 获取所有ContainerBag
         /// </summary>
         /// <typeparam name="TBag"></typeparam>

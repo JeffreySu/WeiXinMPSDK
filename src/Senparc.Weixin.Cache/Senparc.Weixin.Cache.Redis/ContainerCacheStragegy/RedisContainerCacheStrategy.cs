@@ -87,10 +87,10 @@ namespace Senparc.Weixin.Cache.Redis
             _client.Dispose();//释放
         }
 
-      
-        public string GetFinalKey(string key)
+
+        public string GetFinalKey(string key, bool isFullKey = false)
         {
-            return String.Format("{0}:{1}", "SenparcWeixinContainer", key);
+            return isFullKey ? key : String.Format("{0}:{1}", "SenparcWeixinContainer", key);
         }
 
         /// <summary>
@@ -109,26 +109,32 @@ namespace Senparc.Weixin.Cache.Redis
 
         //public string CacheSetKey { get; set; }
 
-        public bool CheckExisted(string key)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="isFullKey">是否已经是完整的Key</param>
+        /// <returns></returns>
+        public bool CheckExisted(string key, bool isFullKey = false)
         {
-            var cacheKey = GetFinalKey(key);
+            var cacheKey = isFullKey ? key : GetFinalKey(key);
             return _cache.KeyExists(cacheKey);
         }
 
-        public IBaseContainerBag Get(string key)
+        public IBaseContainerBag Get(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
                 return null;
             }
 
-            if (!CheckExisted(key))
+            if (!CheckExisted(key, isFullKey))
             {
                 return null;
                 //InsertToCache(key, new ContainerItemCollection());
             }
 
-            var cacheKey = GetFinalKey(key);
+            var cacheKey = GetFinalKey(key,isFullKey);
 
             var value = _cache.StringGet(cacheKey);
             return StackExchangeRedisExtensions.Deserialize<IBaseContainerBag>(value);
@@ -136,16 +142,22 @@ namespace Senparc.Weixin.Cache.Redis
 
         public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
         {
-            var keys = GetServer().Keys();
-            var dic = new Dictionary<string, IBaseContainerBag>();
+            var itemCacheKey = BaseContainer<BaseContainerBag>.GetItemCacheKey<TBag>("*");
+
+            //var keyPattern = string.Format("*{0}", itemCacheKey);
+            var keyPattern = GetFinalKey(itemCacheKey);
+
+            var keys = GetServer().Keys(pattern: keyPattern);
+            var dic = new Dictionary<string, TBag>();
             foreach (var redisKey in keys)
             {
                 if (redisKey.ToString().Contains(ContainerHelper.GetCacheKey(typeof(TBag))))
                 {
-                    dic[redisKey] = (TBag)Get(redisKey);
+                    var bag = Get(redisKey,true);
+                    dic[redisKey] = (TBag)bag;
                 }
             }
-            return dic as IDictionary<string, TBag>;
+            return dic;
         }
 
         public IDictionary<string, IBaseContainerBag> GetAll()
@@ -188,13 +200,17 @@ namespace Senparc.Weixin.Cache.Redis
                 return;
             }
 
+            var cacheKey = GetFinalKey(key);
+
+
             SenparcMessageQueue.OperateQueue();//延迟缓存立即生效
-            _cache.KeyDelete(key);//删除键
+            _cache.KeyDelete(cacheKey);//删除键
         }
 
         public void Update(string key, IBaseContainerBag value)
         {
             var cacheKey = GetFinalKey(key);
+            //value.Key = cacheKey;//储存最终的键
             _cache.StringSet(cacheKey, value.Serialize());
         }
 

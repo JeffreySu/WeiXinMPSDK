@@ -118,9 +118,18 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static string GetItemCacheKey(string shortKey)
         {
-            return string.Format("{0}:{1}", ContainerHelper.GetCacheKey(typeof(TBag)), shortKey);
+            return GetItemCacheKey<TBag>(shortKey);
         }
 
+        /// <summary>
+        /// 获取ItemCollection缓存Key
+        /// </summary>
+        /// <param name="shortKey">最简短的Key，比如AppId，不需要考虑容器前缀</param>
+        /// <returns></returns>
+        public static string GetItemCacheKey<T>(string shortKey)
+        {
+            return string.Format("{0}:{1}", ContainerHelper.GetCacheKey(typeof(T)), shortKey);
+        }
 
         /// <summary>
         /// 返回已经注册的第一个AppId
@@ -200,17 +209,17 @@ namespace Senparc.Weixin.Containers
             {
                 if (string.IsNullOrEmpty(bag.Key))
                 {
-                    bag.Key = cacheKey;//确保Key有值
+                    bag.Key = shortKey;//确保Key有值
                 }
-                else
-                {
-                    cacheKey = bag.Key;//统一key
-                }
+                //else
+                //{
+                //    cacheKey = bag.Key;//统一key
+                //}
 
-                if (string.IsNullOrEmpty(cacheKey))
-                {
-                    throw new WeixinException("key和value,Key不可以同时为null或空字符串！");
-                }
+                //if (string.IsNullOrEmpty(cacheKey))
+                //{
+                //    throw new WeixinException("key和value,Key不可以同时为null或空字符串！");
+                //}
 
                 //var c1 = ItemCollection.GetCount();
                 //ItemCollection[key] = bag;

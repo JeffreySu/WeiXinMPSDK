@@ -71,9 +71,9 @@ namespace Senparc.Weixin.Cache
         #region ILocalCacheStrategy 成员
 
         //public string CacheSetKey { get; set; }
-        public string GetFinalKey(string key)
+        public string GetFinalKey(string key, bool isFullKey = false)
         {
-            return String.Format("{0}:{1}", "SenparcWeixinContainer", key);
+            return isFullKey ? key : String.Format("{0}:{1}", "SenparcWeixinContainer", key);
         }
 
         public void InsertToCache(string key, IBaseContainerBag value)
@@ -90,20 +90,21 @@ namespace Senparc.Weixin.Cache
             _cache.Remove(key);
         }
 
-        public IBaseContainerBag Get(string key)
+        public IBaseContainerBag Get(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
                 return null;
             }
 
-            if (!CheckExisted(key))
+            if (!CheckExisted(key, isFullKey))
             {
                 return null;
                 //InsertToCache(key, new ContainerItemCollection());
             }
 
-            return _cache[key];
+            var cacheKey = GetFinalKey(key, isFullKey);
+            return _cache[cacheKey];
         }
 
 
@@ -126,9 +127,10 @@ namespace Senparc.Weixin.Cache
             return _cache;
         }
 
-        public bool CheckExisted(string key)
+        public bool CheckExisted(string key, bool isFullKey = false)
         {
-            return _cache.ContainsKey(key);
+            var cacheKey = GetFinalKey(key, isFullKey);
+            return _cache.ContainsKey(cacheKey);
         }
 
         public long GetCount()

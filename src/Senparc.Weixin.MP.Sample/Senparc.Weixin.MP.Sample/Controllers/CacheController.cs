@@ -108,13 +108,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             for (int i = 0; i < 3; i++)
             {
                 sb.AppendFormat("<br />====== {0}：{1} ======<br /><br />", "开始一轮测试", i + 1);
-                var bagKey = DateTime.Now.Ticks.ToString();
+                var shortBagKey = DateTime.Now.Ticks.ToString();
+                var finalBagKey = containerCacheStragegy.GetFinalKey(TestContainer1.GetItemCacheKey(shortBagKey));//获取最终缓存中的键
                 var bag = new TestContainerBag1()
                 {
-                    Key = bagKey,
+                    Key = shortBagKey,
                     DateTime = DateTime.Now
                 };
-                TestContainer1.Update(bagKey, bag); //更新到缓存（列队）
+                TestContainer1.Update(shortBagKey, bag); //更新到缓存（列队）
                 sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime.ToLongTimeString(),
                     bag.DateTime.Ticks);
 
@@ -132,10 +133,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 sb.AppendFormat("{0}：{1}<br />", "当前消息列队数量（未更新缓存）", mq.GetCount());
 
                 var itemCollection = containerCacheStragegy.GetAll<TestContainerBag1>();
-                var existed = itemCollection.ContainsKey(bagKey);
+                var existed = itemCollection.ContainsKey(finalBagKey);
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);
                 sb.AppendFormat("{0}：{1}<br />", "插入缓存时间",
-                    !existed ? "不存在" : itemCollection[bagKey].CacheTime.Ticks.ToString()); //应为0
+                    !existed ? "不存在" : itemCollection[finalBagKey].CacheTime.Ticks.ToString()); //应为0
 
                 var waitSeconds = i;
                 sb.AppendFormat("{0}：{1}<br />", "操作", "等待" + waitSeconds + "秒");
@@ -143,12 +144,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 sb.AppendFormat("{0}：{1}<br />", "当前消息列队数量（未更新缓存）", mq.GetCount());
 
                 itemCollection  = containerCacheStragegy.GetAll<TestContainerBag1>();
-                existed = itemCollection.ContainsKey(bagKey);
+                existed = itemCollection.ContainsKey(finalBagKey);
                 finalExisted = existed;
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);
                 sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "插入缓存时间",
-                    !existed ? "不存在" : itemCollection[bagKey].CacheTime.ToLongTimeString(),
-                    !existed ? "不存在" : itemCollection[bagKey].CacheTime.Ticks.ToString()); //应为当前加入到缓存的最新时间
+                    !existed ? "不存在" : itemCollection[finalBagKey].CacheTime.ToLongTimeString(),
+                    !existed ? "不存在" : itemCollection[finalBagKey].CacheTime.Ticks.ToString()); //应为当前加入到缓存的最新时间
 
             }
 

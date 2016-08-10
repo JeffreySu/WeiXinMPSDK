@@ -135,9 +135,9 @@ namespace Senparc.Weixin.Cache.Memcached
         #endregion
 
         #region IContainerCacheStragegy 成员
-        public string GetFinalKey(string key)
+        public string GetFinalKey(string key, bool isFullKey = false)
         {
-            return String.Format("{0}:{1}", "SenparcWeixinContainer", key);
+            return isFullKey ? key : String.Format("{0}:{1}", "SenparcWeixinContainer", key);
         }
 
 
@@ -168,14 +168,14 @@ namespace Senparc.Weixin.Cache.Memcached
             _cache.Remove(cacheKey);
         }
 
-        public IBaseContainerBag Get(string key)
+        public IBaseContainerBag Get(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
                 return null;
             }
 
-            var cacheKey = GetFinalKey(key);
+            var cacheKey = GetFinalKey(key, isFullKey);
             return _cache.Get<IBaseContainerBag>(cacheKey);
         }
 
@@ -189,8 +189,9 @@ namespace Senparc.Weixin.Cache.Memcached
             throw new NotImplementedException();
         }
 
-        public bool CheckExisted(string key)
+        public bool CheckExisted(string key, bool isFullKey = false)
         {
+            key = isFullKey ? key : GetFinalKey(key);
             object value;
             if (_cache.TryGet(key, out value))
             {

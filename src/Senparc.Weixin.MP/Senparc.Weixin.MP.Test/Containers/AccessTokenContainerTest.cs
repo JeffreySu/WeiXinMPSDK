@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
+using Senparc.Weixin.Cache;
+using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 
@@ -16,6 +19,15 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
         [TestMethod]
         public void ContainerTest()
         {
+            bool useRedis = true;
+
+            if (useRedis)
+            {
+                var redisConfiguration = "localhost:6379";
+                RedisManager.ConfigurationOption = redisConfiguration;
+                CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
+            }
+
             //注册
             AccessTokenContainer.Register(base._appId, base._appSecret);
 
@@ -27,6 +39,11 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             Assert.IsNotNull(tokenResult);
             Console.WriteLine(tokenResult.access_token);
             Console.WriteLine("耗时：{0}毫秒", (dt2 - dt1).TotalMilliseconds);
+
+            if (useRedis)
+            {
+                Thread.Sleep(2500);//等待缓存更新
+            }
 
             //只获取Token字符串
             dt1 = DateTime.Now;
@@ -100,7 +117,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             //注册多个AppId
             for (int i = 0; i < 100; i++)
             {
-                AccessTokenContainer.Register("TestAppId_"+i,"TestAppSecret");
+                AccessTokenContainer.Register("TestAppId_" + i, "TestAppSecret");
             }
 
             ////删除部分AppId

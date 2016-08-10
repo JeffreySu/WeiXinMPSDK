@@ -10,6 +10,7 @@ using Senparc.Weixin.MP.AdvancedAPIs.User;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.Threads;
 
 namespace Senparc.Weixin.MP.Test.CommonAPIs
 {
@@ -106,6 +107,9 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         {
             //全局只需注册一次
             AccessTokenContainer.Register(_appId, _appSecret);
+
+            ThreadUtility.Register();
+
 
             //v13.3.0之后，JsApiTicketContainer已经合并入AccessTokenContainer，已经不需要单独注册
             ////全局只需注册一次

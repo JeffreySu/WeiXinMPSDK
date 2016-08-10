@@ -134,7 +134,7 @@ namespace Senparc.Weixin.Cache.Redis
                 //InsertToCache(key, new ContainerItemCollection());
             }
 
-            var cacheKey = GetFinalKey(key,isFullKey);
+            var cacheKey = GetFinalKey(key, isFullKey);
 
             var value = _cache.StringGet(cacheKey);
             return StackExchangeRedisExtensions.Deserialize<IBaseContainerBag>(value);
@@ -142,7 +142,7 @@ namespace Senparc.Weixin.Cache.Redis
 
         public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
         {
-            var itemCacheKey = BaseContainer<BaseContainerBag>.GetItemCacheKey<TBag>("*");
+            var itemCacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag),"*");
 
             //var keyPattern = string.Format("*{0}", itemCacheKey);
             var keyPattern = GetFinalKey(itemCacheKey);
@@ -151,11 +151,16 @@ namespace Senparc.Weixin.Cache.Redis
             var dic = new Dictionary<string, TBag>();
             foreach (var redisKey in keys)
             {
-                if (redisKey.ToString().Contains(ContainerHelper.GetCacheKey(typeof(TBag))))
+                try
                 {
-                    var bag = Get(redisKey,true);
+                    var bag = Get(redisKey, true);
                     dic[redisKey] = (TBag)bag;
                 }
+                catch (Exception)
+                {
+                    
+                }
+               
             }
             return dic;
         }

@@ -19,18 +19,6 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
         [TestMethod]
         public void ContainerTest()
         {
-            bool useRedis = true;
-
-            if (useRedis)
-            {
-                var redisConfiguration = "localhost:6379";
-                RedisManager.ConfigurationOption = redisConfiguration;
-                CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
-            }
-
-            //注册
-            AccessTokenContainer.Register(base._appId, base._appSecret);
-
             //获取Token完整结果（包括当前过期秒数）
             DateTime dt1 = DateTime.Now;
             var tokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId);
@@ -40,7 +28,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             Console.WriteLine(tokenResult.access_token);
             Console.WriteLine("耗时：{0}毫秒", (dt2 - dt1).TotalMilliseconds);
 
-            if (useRedis)
+            if (base._userRedis)
             {
                 Thread.Sleep(2500);//等待缓存更新
             }

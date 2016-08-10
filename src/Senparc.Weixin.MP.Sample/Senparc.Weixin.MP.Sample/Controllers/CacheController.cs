@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Containers;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MessageQueue;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
@@ -109,7 +110,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 sb.AppendFormat("<br />====== {0}：{1} ======<br /><br />", "开始一轮测试", i + 1);
                 var shortBagKey = DateTime.Now.Ticks.ToString();
-                var finalBagKey = containerCacheStragegy.GetFinalKey(TestContainer1.GetItemCacheKey(shortBagKey));//获取最终缓存中的键
+                var finalBagKey = containerCacheStragegy.GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
                 var bag = new TestContainerBag1()
                 {
                     Key = shortBagKey,
@@ -143,7 +144,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 Thread.Sleep(waitSeconds * 1000); //线程默认轮询等待时间为2秒
                 sb.AppendFormat("{0}：{1}<br />", "当前消息列队数量（未更新缓存）", mq.GetCount());
 
-                itemCollection  = containerCacheStragegy.GetAll<TestContainerBag1>();
+                itemCollection = containerCacheStragegy.GetAll<TestContainerBag1>();
                 existed = itemCollection.ContainsKey(finalBagKey);
                 finalExisted = existed;
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);

@@ -42,6 +42,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.Open.Exceptions;
@@ -253,7 +254,7 @@ namespace Senparc.Weixin.Open.Containers
         /// <returns></returns>
         public new static bool CheckRegistered(string componentAppId)
         {
-            var cacheKey = GetItemCacheKey(componentAppId);
+            var cacheKey = ContainerHelper.GetItemCacheKey(typeof(ComponentBag), componentAppId);
             return Cache.CheckExisted(cacheKey);
         }
 

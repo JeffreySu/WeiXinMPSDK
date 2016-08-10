@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：BaseProductData.cs
+    修改标识：Senparc - 20160805
+    修改描述：修改Property中参数的类型，将其int改为string 
+              修改Attrext中参数的类型，将其bool改为int
+----------------------------------------------------------------*/
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 {
@@ -15,6 +23,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// sku信息列表(可为多个)，每个sku信息串即为一个确定的商品，比如白色的37码的鞋子
         /// </summary>
         public List<Sku_list> sku_list { get; set; }
+
         /// <summary>
         /// 商品其他属性
         /// </summary>
@@ -27,62 +36,81 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 
     public class Product_base
     {
-        /// <summary>
-        /// 商品分类id
-        /// </summary>
-        public string[] category_id { get; set; }
-        /// <summary>
-        /// 商品属性列表
-        /// </summary>
-        public List<Property> property { get; set; }
+
         /// <summary>
         /// 商品名称
         /// </summary>
         public string name { get; set; }
+
+
         /// <summary>
-        /// 商品sku定义
+        /// 商品分类id
         /// </summary>
-        public Sku_info sku_info { get; set; }
-        /// <summary>
-        /// 商品主图
-        /// </summary>
-        public string main_img { get; set; }
+        public string[] category_id { get; set; }
+
+
         /// <summary>
         /// 商品图片列表
         /// </summary>
         public string[] img { get; set; }
+
+
         /// <summary>
         /// 商品详情列表，显示在客户端的商品详情页内
         /// </summary>
         public List<Detail> detail { get; set; }
+
+        /// <summary>
+        /// 商品属性列表
+        /// </summary>
+        public List<Property> property { get; set; }
+
+        /// <summary>
+        /// 商品sku定义
+        /// </summary>
+        public List<Sku_info> sku_info { get; set; }
+
         /// <summary>
         /// 用户商品限购数量
         /// </summary>
         public int buy_limit { get; set; }
+
+        /// <summary>
+        /// 商品主图
+        /// </summary>
+        public string main_img { get; set; }
+
+        /// <summary>
+        /// 详情 
+        /// </summary>
+        public string detail_html { get; set; }
+
+
     }
 
     public class Property
     {
         /// <summary>
-        /// 属性id
+        /// 属性id 原来是int 改为string
         /// </summary>
-        public int id { get; set; }
+        public string id { get; set; }
         /// <summary>
-        /// 属性值id
+        /// 属性值id 原来是int 改为string
         /// </summary>
-        public int vid { get; set; }
+        public string vid { get; set; }
     }
 
     public class Sku_info
     {
         /// <summary>
-        /// sku属性
+        /// sku属性 原来是int 改为string
         /// </summary>
-        public int id { get; set; }
+        public string id { get; set; }
         /// <summary>
-        /// sku值
+        /// sku值 原来是int 改为string
         /// </summary>
-        public int[] vid { get; set; }
+        public string[] vid { get; set; }
+
     }
 
     public class Detail
@@ -135,19 +163,19 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <summary>
         /// 是否包邮(0-否, 1-是), 如果包邮delivery_info字段可省略
         /// </summary>
-        public bool isPostFree { get; set; }
+        public int isPostFree { get; set; }
         /// <summary>
         /// 是否提供发票(0-否, 1-是)
         /// </summary>
-        public bool isHasReceipt { get; set; }
+        public int isHasReceipt { get; set; }
         /// <summary>
         /// 是否保修(0-否, 1-是)
         /// </summary>
-        public bool isUnderGuaranty { get; set; }
+        public int isUnderGuaranty { get; set; }
         /// <summary>
         /// 是否支持退换货(0-否, 1-是)
         /// </summary>
-        public bool isSupportReplace { get; set; }
+        public int isSupportReplace { get; set; }
     }
 
     public class Location
@@ -201,7 +229,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// </summary>
         public int price { get; set; }
     }
-    
+
     /// <summary>
     /// 添加商品信息
     /// </summary>

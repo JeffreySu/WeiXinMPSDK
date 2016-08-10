@@ -21,6 +21,9 @@
    
     修改标识：Senparc - 20160802
     修改描述：将其Send方法增加了kfAccount的参数
+ 
+    创建标识：Senparc - 20160808
+    创建描述：增加SendCard
 ----------------------------------------------------------------*/
 
 /* 
@@ -31,6 +34,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 
@@ -57,15 +61,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static WxJsonResult SendText(string accessTokenOrAppId, string openId, string content,
             int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
             {
-                return CustomApi.SendText(accessTokenOrAppId, openId, content, timeOut);
+                data = new
+                 {
+                     touser = openId,
+                     msgtype = "text",
+                     text = new
+                     {
+                         content = content
+                     }
+                 };
             }
-
-
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            else
             {
-                var data = new
+                data = new
                 {
                     touser = openId,
                     msgtype = "text",
@@ -79,6 +90,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
 
                 };
+            }
+
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -95,13 +110,24 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static WxJsonResult SendImage(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+
+            object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
             {
-                return CustomApi.SendImage(accessTokenOrAppId, openId, mediaId, timeOut);
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "image",
+                    image = new
+                    {
+                        media_id = mediaId
+                    }
+
+                };
             }
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            else
             {
-                var data = new
+                data = new
                 {
                     touser = openId,
                     msgtype = "image",
@@ -114,6 +140,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         kf_account = kfAccount
                     }
                 };
+            }
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -130,13 +159,24 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static WxJsonResult SendVoice(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
             {
-                return CustomApi.SendVoice(accessTokenOrAppId, openId, mediaId, timeOut);
+
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "voice",
+                    voice = new
+                    {
+                        media_id = mediaId
+                    }
+
+                };
             }
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            else
             {
-                var data = new
+                data = new
                 {
                     touser = openId,
                     msgtype = "voice",
@@ -149,6 +189,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         kf_account = kfAccount
                     }
                 };
+            }
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -167,13 +211,24 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static WxJsonResult SendVideo(string accessTokenOrAppId, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
             {
-                return CustomApi.SendVideo(accessTokenOrAppId, openId, mediaId, title, description, timeOut);
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "video",
+                    video = new
+                    {
+                        media_id = mediaId,
+                        title = title,
+                        description = description
+                    }
+                };
             }
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            else
             {
-                var data = new
+                data = new
                 {
                     touser = openId,
                     msgtype = "video",
@@ -188,6 +243,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         kf_account = kfAccount
                     }
                 };
+            }
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -208,14 +267,27 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static WxJsonResult SendMusic(string accessTokenOrAppId, string openId, string title, string description,
                                     string musicUrl, string hqMusicUrl, string thumbMediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
             {
-                return CustomApi.SendMusic(accessTokenOrAppId, openId, title, description, musicUrl, hqMusicUrl,
-                    thumbMediaId, timeOut);
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "music",
+                    music = new
+                    {
+                        title = title,
+                        description = description,
+                        musicurl = musicUrl,
+                        hqmusicurl = hqMusicUrl,
+                        thumb_media_id = thumbMediaId
+                    }
+
+                };
             }
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            else
             {
-                var data = new
+                data = new
                 {
                     touser = openId,
                     msgtype = "music",
@@ -233,6 +305,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
 
                 };
+            }
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -249,13 +324,28 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static WxJsonResult SendNews(string accessTokenOrAppId, string openId, List<Article> articles, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
             {
-                return CustomApi.SendNews(accessTokenOrAppId, openId, articles, timeOut);
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "news",
+                    news = new
+                    {
+                        articles = articles.Select(z => new
+                        {
+                            title = z.Title,
+                            description = z.Description,
+                            url = z.Url,
+                            picurl = z.PicUrl //图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
+                        }).ToList()
+                    }
+                };
             }
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            else
             {
-                var data = new
+                data = new
                 {
                     touser = openId,
                     msgtype = "news",
@@ -275,6 +365,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
 
                 };
+            }
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -292,13 +385,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static WxJsonResult SendMpNews(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
             {
-                return CustomApi.SendMpNews(accessTokenOrAppId, openId, mediaId, timeOut);
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "mpnews",
+                    mpnews = new
+                    {
+                        media_id = mediaId
+                    }
+                };
             }
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            else
             {
-                var data = new
+                data = new
                 {
                     touser = openId,
                     msgtype = "mpnews",
@@ -308,9 +410,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     },
                     CustomService = new
                     {
-                        kf_account = kfAccount 
+                        kf_account = kfAccount
                     }
                 };
+            }
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -330,14 +436,23 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> SendTextAsync(string accessTokenOrAppId, string openId, string content, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            object data = null;
+            if (string.IsNullOrEmpty(kfAccount))
             {
-                if (string.IsNullOrEmpty(kfAccount))
+                data = new
                 {
-                    return CustomApi.SendTextAsync(accessTokenOrAppId, openId, content, timeOut);
-                }
+                    touser = openId,
+                    msgtype = "text",
+                    text = new
+                    {
+                        content = content
+                    }
 
-                var data = new
+                };
+            }
+            else
+            {
+                data = new
                 {
                     touser = openId,
                     msgtype = "text",
@@ -351,6 +466,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
 
                 };
+            }
+
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            {
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
@@ -369,13 +488,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> SendImageAsync(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
             {
-                return CustomApi.SendImage(accessTokenOrAppId, openId, mediaId, timeOut);
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "image",
+                    image = new
+                    {
+                        media_id = mediaId
+                    }
+                };
             }
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            else
             {
-                var data = new
+                data = new
                 {
                     touser = openId,
                     msgtype = "image",
@@ -388,6 +516,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         kf_account = kfAccount
                     }
                 };
+            }
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            {
+
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -404,13 +536,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> SendVoiceAsync(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
             {
-                return CustomApi.SendVoice(accessTokenOrAppId, openId, mediaId, timeOut);
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "voice",
+                    voice = new
+                    {
+                        media_id = mediaId
+                    }
+                };
             }
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            else
             {
-                var data = new
+                data = new
                 {
                     touser = openId,
                     msgtype = "voice",
@@ -423,6 +564,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         kf_account = kfAccount
                     }
                 };
+            }
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            {
+
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -441,13 +586,24 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> SendVideoAsync(string accessTokenOrAppId, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
             {
-                return CustomApi.SendVideo(accessTokenOrAppId, openId, mediaId, title, description, timeOut);
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "video",
+                    video = new
+                    {
+                        media_id = mediaId,
+                        title = title,
+                        description = description
+                    }
+                };
             }
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            else
             {
-                var data = new
+                data = new
                 {
                     touser = openId,
                     msgtype = "video",
@@ -462,6 +618,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         kf_account = kfAccount
                     }
                 };
+            }
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            {
+
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -482,14 +642,27 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<WxJsonResult> SendMusicAsync(string accessTokenOrAppId, string openId, string title, string description,
                                     string musicUrl, string hqMusicUrl, string thumbMediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
             {
-                return CustomApi.SendMusic(accessTokenOrAppId, openId, title, description, musicUrl, hqMusicUrl,
-                    thumbMediaId, timeOut);
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "music",
+                    music = new
+                    {
+                        title = title,
+                        description = description,
+                        musicurl = musicUrl,
+                        hqmusicurl = hqMusicUrl,
+                        thumb_media_id = thumbMediaId
+                    }
+
+                };
             }
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            else
             {
-                var data = new
+                data = new
                 {
                     touser = openId,
                     msgtype = "music",
@@ -507,6 +680,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
 
                 };
+            }
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            {
+
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -523,13 +700,29 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> SendNewsAsync(string accessTokenOrAppId, string openId, List<Article> articles, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
             {
-                return CustomApi.SendNews(accessTokenOrAppId, openId, articles, timeOut);
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "news",
+                    news = new
+                    {
+                        articles = articles.Select(z => new
+                        {
+                            title = z.Title,
+                            description = z.Description,
+                            url = z.Url,
+                            picurl = z.PicUrl //图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
+                        }).ToList()
+                    }
+
+                };
             }
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            else
             {
-                var data = new
+                data = new
                 {
                     touser = openId,
                     msgtype = "news",
@@ -549,6 +742,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
 
                 };
+            }
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            {
+
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
@@ -567,13 +764,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> SendMpNewsAsync(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
+            object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
             {
-                return CustomApi.SendMpNews(accessTokenOrAppId, openId, mediaId, timeOut);
+                data = new
+                {
+                    touser = openId,
+                    msgtype = "mpnews",
+                    mpnews = new
+                    {
+                        media_id = mediaId
+                    }
+                };
             }
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            else
             {
-                var data = new
+                data = new
                 {
                     touser = openId,
                     msgtype = "mpnews",
@@ -586,10 +792,41 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         kf_account = kfAccount
                     }
                 };
+            }
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            {
+
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
         #endregion
+
+        ///
+        /// 发送卡券 查看card_ext字段详情及签名规则，特别注意客服消息接口投放卡券仅支持非自定义Code码的卡券。 
+        ///
+        public static WxJsonResult SendCard(string accessTokenOrAppId, string openId, string cardId, CardExt cardExt, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var data = new
+                {
+                    touser = openId,
+                    msgtype = "wxcard",
+                    wxcard = new
+                    {
+                        card_id = cardId,
+                        card_ext = cardExt
+                    }
+                };
+                JsonSetting jsonSetting = new JsonSetting()
+                {
+                    TypesToIgnore = new List<System.Type>() { typeof(CardExt) }
+                };
+
+                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut, jsonSetting: jsonSetting);
+
+            }, accessTokenOrAppId);
+        }
     }
 }

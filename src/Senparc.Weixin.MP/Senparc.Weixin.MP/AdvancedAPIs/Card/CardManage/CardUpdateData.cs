@@ -9,7 +9,12 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+ 
+    修改标识：Senparc - 20160808
+    修改描述：修改Card_MemberCardUpdateData
 ----------------------------------------------------------------*/
+
+using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
@@ -38,6 +43,65 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public string prerogative { get; set; }
+        /// <summary>
+        /// 设置为true时用户领取会员卡后系统自动将其激活，无需调用激活接口。
+        /// 非必填
+        /// </summary>
+        [JsonSetting.IgnoreValueAttribute(false)]
+        public bool auto_activate { get; set; }
+        /// <summary>
+        /// 设置为true时会员卡支持一键激活，不允许同时传入activate_url字段，否则设置wx_activate失效。
+        /// 非必填
+        /// </summary>
+        [JsonSetting.IgnoreValueAttribute(false)]
+        public bool wx_activate { get; set; }
+
+        /// <summary>
+        /// 激活会员卡的url，与“bind_old_card_url”字段二选一必填。
+        /// </summary>
+        public string activate_url { get; set; }
+        /// <summary>
+        /// 设置跳转外链查看积分详情。仅适用于积分无法通过激活接口同步的情况下使用该字段。
+        /// 非必填
+        /// </summary>
+        public string bonus_url { get; set; }
+        /// <summary>
+        /// 初始设置积分 int型数据
+        /// 非必填,null时显示查看
+        /// </summary>
+        [JsonSetting.IgnoreValueAttribute(0)]
+        public int init_increase_bonus { get; set; }
+
+        /// <summary>
+        /// 设置跳转外链查看余额详情。仅适用于余额无法通过激活接口同步的情况下使用该字段。
+        /// 非必填
+        /// </summary>
+        public string balance_url { get; set; }
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示。
+        /// 非必填
+        /// </summary>
+        public CustomField custom_field1 { get; set; }
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示。
+        /// 非必填
+        /// </summary>
+        public CustomField custom_field2 { get; set; }
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示。
+        /// 非必填
+        /// </summary>
+        public CustomField custom_field3 { get; set; }
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示
+        /// 非必填
+        /// </summary>
+        public CustomCell custom_cell1 { get; set; }
+
+        /// <summary>
+        /// 卡背景图，非必填
+        /// </summary>
+        public string background_pic_url { get; set; }
     }
 
     /// <summary>

@@ -30,6 +30,10 @@
 
     修改标识：Senparc - 20150512
     修改描述：添加摇一摇周边【关联操作标志位】、【新增操作标志位】枚举类型
+ 
+    修改标识：Senparc - 20160803
+    修改描述：将其卡券中的 code_type 定义完整
+ 
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;
@@ -423,6 +427,18 @@ namespace Senparc.Weixin.MP
         /// 二维码
         /// </summary>
         CODE_TYPE_QRCODE = 2,
+        ///
+        /// 二维码无code显示
+        ///
+        CODE_TYPE_ONLY_QRCODE = 3,
+        ///
+        /// 一维码无code显示
+        ///
+        CODE_TYPE_ONLY_BARCODE = 4,
+        ///
+        /// 不显示code和条形码类型
+        ///
+        CODE_TYPE_NONE = 5
     }
     /// <summary>
     /// 卡券 商户自定义cell 名称

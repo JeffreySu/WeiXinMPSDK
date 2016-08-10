@@ -38,7 +38,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
                 keyword3 = new TemplateDataItem(DateTime.Now.ToString()),
                 remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
             };
-            var result = MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(accessToken, openId, templateId, "#FF0000", "http://sdk.weixin.senparc.com", testData);
+            var result = MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(accessToken, openId, templateId, "http://sdk.weixin.senparc.com", testData);
 
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
         }

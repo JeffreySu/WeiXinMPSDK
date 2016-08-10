@@ -22,16 +22,23 @@
     
     修改标识：Senparc - 20160717
     修改描述：v3.3.8 添加注册过程中的Name参数
-
+    
+    修改标识：Senparc - 20160803
+    修改描述：v4.1.2 使用ApiUtility.GetExpireTime()方法处理过期
+ 
+    修改标识：Senparc - 20160804
+    修改描述：v4.1.3 增加TryGetTokenAsync，GetTokenAsync，GetTokenResultAsync的异步方法
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Exceptions;
+using Senparc.Weixin.Utilities.WeixinUtility;
 
 namespace Senparc.Weixin.QY.CommonAPIs
 {
@@ -87,7 +94,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
     public class AccessTokenContainer : BaseContainer<AccessTokenBag>
     {
         private const string UN_REGISTER_ALERT = "此CorpId尚未注册，AccessTokenContainer.Register完成注册（全局执行一次即可）！";
-
+        #region 同步方法
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token。
         /// 执行此注册过程，会连带注册ProviderTokenContainer。
@@ -95,6 +102,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
         /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别</param>
+        /// 此接口无异步方法
         public static void Register(string corpId, string corpSecret, string name = null)
         {
             using (FlushCache.CreateInstance())
@@ -111,7 +119,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
 
             ProviderTokenContainer.Register(corpId, corpSecret);//连带注册ProviderTokenContainer
         }
-
+      
         /// <summary>
         /// 使用完整的应用凭证获取Token，如果不存在将自动注册
         /// </summary>
@@ -152,7 +160,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
                 throw new WeixinQyException(UN_REGISTER_ALERT);
             }
 
-            var accessTokenBag = (AccessTokenBag)ItemCollection[corpId];
+            var accessTokenBag = TryGetItem(corpId);
             lock (accessTokenBag.Lock)
             {
                 if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
@@ -160,7 +168,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
                     //已过期，重新获取
                     accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.CorpId,
                         accessTokenBag.CorpSecret);
-                    accessTokenBag.ExpireTime = DateTime.Now.AddSeconds(accessTokenBag.AccessTokenResult.expires_in);
+                    accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
                 }
             }
             return accessTokenBag.AccessTokenResult;
@@ -171,9 +179,71 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// </summary>
         /// <param name="corpId"></param>
         /// <returns></returns>
+        /// 此接口无异步方法
         public new static bool CheckRegistered(string corpId)
         {
-            return ItemCollection.CheckExisted(corpId);
+            return Cache.CheckExisted(corpId);
         }
+        #endregion
+
+        #region 异步方法
+         /// <summary>
+        /// 【异步方法】使用完整的应用凭证获取Token，如果不存在将自动注册
+        /// </summary>
+        /// <param name="corpId"></param>
+        /// <param name="corpSecret"></param>
+        /// <param name="getNewToken"></param>
+        /// <returns></returns>
+        public static async Task<string> TryGetTokenAsync(string corpId, string corpSecret, bool getNewToken = false)
+        {
+            if (!CheckRegistered(corpId) || getNewToken)
+            {
+                Register(corpId, corpSecret);
+            }
+            return await GetTokenAsync(corpId);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取可用Token
+        /// </summary>
+        /// <param name="corpId"></param>
+        /// <param name="getNewToken">是否强制重新获取新的Token</param>
+        /// <returns></returns>
+        public static async Task<string> GetTokenAsync(string corpId, bool getNewToken = false)
+        {
+            var result = await GetTokenResultAsync(corpId, getNewToken);
+            return result.access_token;
+        }
+
+        /// <summary>
+        /// 【异步方法】获取可用Token
+        /// </summary>
+        /// <param name="corpId"></param>
+        /// <param name="getNewToken">是否强制重新获取新的Token</param>
+        /// <returns></returns>
+        public static async Task<AccessTokenResult> GetTokenResultAsync(string corpId, bool getNewToken = false)
+        {
+            if (!CheckRegistered(corpId))
+            {
+                throw new WeixinQyException(UN_REGISTER_ALERT);
+            }
+
+            var accessTokenBag = TryGetItem(corpId);
+            // lock (accessTokenBag.Lock)
+            {
+                if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
+                {
+                    //已过期，重新获取
+                    var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.CorpId,
+                        accessTokenBag.CorpSecret);
+                    //accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.CorpId,
+                    //    accessTokenBag.CorpSecret);
+                    accessTokenBag.AccessTokenResult = accessTokenResult;
+                    accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
+                }
+            }
+            return accessTokenBag.AccessTokenResult;
+        }
+ #endregion
     }
 }

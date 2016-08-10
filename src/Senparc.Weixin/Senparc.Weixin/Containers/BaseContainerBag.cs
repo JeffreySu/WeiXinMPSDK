@@ -32,13 +32,21 @@ namespace Senparc.Weixin.Containers
         /// </summary>
         string Name { get; set; }
         /// <summary>
-        /// 缓存键
+        /// 缓存键，形如：wx669ef95216eef885，最底层的Key，不考虑命名空间等
         /// </summary>
         string Key { get; set; }
         /// <summary>
         /// 当前对象被缓存的时间
         /// </summary>
         DateTime CacheTime { get; set; }
+    }
+
+    public interface IBaseContainerBag_AppId
+    {
+        /// <summary>
+        /// AppId
+        /// </summary>
+        string AppId { get; set; }
     }
 
     /// <summary>
@@ -85,9 +93,11 @@ namespace Senparc.Weixin.Containers
             mq.Add(mqKey, () =>
             {
                 var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
-                var cacheKey = ContainerHelper.GetCacheKey(this.GetType());
+                var itemCacheKey = ContainerHelper.GetItemCacheKey(containerBag);
                 containerBag.CacheTime = DateTime.Now;//记录缓存时间
-                containerCacheStragegy.UpdateContainerBag(cacheKey, containerBag);
+
+                //cacheKey形如:Container:Senparc.Weixin.MP.Containers.AccessTokenBag:wx669ef95216eef885
+                containerCacheStragegy.UpdateContainerBag(itemCacheKey, containerBag);
             });
         }
 

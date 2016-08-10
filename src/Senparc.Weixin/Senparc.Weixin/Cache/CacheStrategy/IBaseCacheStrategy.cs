@@ -8,10 +8,20 @@ namespace Senparc.Weixin.Cache
 {
     public interface IBaseCacheStrategy
     {
+        ///// <summary>
+        ///// 整个Cache集合的Key
+        ///// </summary>
+        //string CacheSetKey { get; set; }
+
         /// <summary>
-        /// 整个Cache集合的Key
+        /// 创建一个（分布）锁
         /// </summary>
-        string CacheSetKey { get; set; }
+        /// <param name="resourceName"></param>
+        /// <param name="key"></param>
+        /// <param name="retryCount"></param>
+        /// <param name="retryDelay"></param>
+        /// <returns></returns>
+        ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan());
     }
 
     /// <summary>
@@ -20,6 +30,15 @@ namespace Senparc.Weixin.Cache
     public interface IBaseCacheStrategy<TKey, TValue> : IBaseCacheStrategy
         where TValue : class
     {
+        /// <summary>
+        /// 获取缓存中最终的键，如Container建议格式： return String.Format("{0}:{1}", "SenparcWeixinContainer", key);
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
+        /// <returns></returns>
+        string GetFinalKey(string key, bool isFullKey = false);
+
+
         /// <summary>
         /// 添加指定ID的对象
         /// </summary>
@@ -37,8 +56,9 @@ namespace Senparc.Weixin.Cache
         /// 返回指定缓存键的对象
         /// </summary>
         /// <param name="key">缓存键</param>
+        /// <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
         /// <returns></returns>
-        TValue Get(TKey key);
+        TValue Get(TKey key, bool isFullKey = false);
 
         /// <summary>
         /// 获取所有缓存信息集合
@@ -50,8 +70,9 @@ namespace Senparc.Weixin.Cache
         /// 检查是否存在Key及对象
         /// </summary>
         /// <param name="key">缓存键</param>
+        /// <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
         /// <returns></returns>
-        bool CheckExisted(TKey key);
+        bool CheckExisted(TKey key, bool isFullKey = false);
 
         /// <summary>
         /// 获取缓存集合总数（注意：每个缓存框架的计数对象不一定一致！）

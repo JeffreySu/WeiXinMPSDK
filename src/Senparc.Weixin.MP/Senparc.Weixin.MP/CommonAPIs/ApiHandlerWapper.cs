@@ -69,7 +69,6 @@ namespace Senparc.Weixin.MP
                 accessToken = accessTokenOrAppId;//accessToken
             }
 
-
             T result = null;
 
             try

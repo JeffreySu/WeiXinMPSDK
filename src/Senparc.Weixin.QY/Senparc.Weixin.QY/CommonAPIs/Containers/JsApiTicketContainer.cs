@@ -18,16 +18,23 @@
 
     修改标识：Senparc - 20160717
     修改描述：v3.3.8 添加注册过程中的Name参数
-
+    
+    修改标识：Senparc - 20160803
+    修改描述：v4.1.2 使用ApiUtility.GetExpireTime()方法处理过期
+ 
+    修改标识：Senparc - 20160804
+    修改描述：v4.1.3 增加TryGetTicketAsync，GetTicketAsync，GetTicketResultAsync的异步方法
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Exceptions;
+using Senparc.Weixin.Utilities.WeixinUtility;
 
 namespace Senparc.Weixin.QY.CommonAPIs
 {
@@ -76,14 +83,15 @@ namespace Senparc.Weixin.QY.CommonAPIs
     public class JsApiTicketContainer : BaseContainer<JsApiTicketBag>
     {
         private const string UN_REGISTER_ALERT = "此AppId尚未注册，JsApiTicketContainer.Register完成注册（全局执行一次即可）！";
-
+        #region 同步方法
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="appSecret"></param>
         /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别</param>
-        public static void Register(string appId, string appSecret,string name=null)
+        /// 此接口无异步方法
+        public static void Register(string appId, string appSecret, string name = null)
         {
             using (FlushCache.CreateInstance())
             {
@@ -138,14 +146,14 @@ namespace Senparc.Weixin.QY.CommonAPIs
                 throw new WeixinQyException(UN_REGISTER_ALERT);
             }
 
-            var jsApiTicketBag = (JsApiTicketBag)ItemCollection[appId];
+            var jsApiTicketBag = TryGetItem(appId);
             lock (jsApiTicketBag.Lock)
             {
                 if (getNewTicket || jsApiTicketBag.ExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
                     jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
-                    jsApiTicketBag.ExpireTime = DateTime.Now.AddSeconds(jsApiTicketBag.JsApiTicketResult.expires_in);
+                    jsApiTicketBag.ExpireTime = ApiUtility.GetExpireTime(jsApiTicketBag.JsApiTicketResult.expires_in);
                 }
             }
             return jsApiTicketBag.JsApiTicketResult;
@@ -156,9 +164,69 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// </summary>
         /// <param name="appId"></param>
         /// <returns></returns>
+        /// 此接口无异步方法
         public new static bool CheckRegistered(string appId)
         {
-            return ItemCollection.CheckExisted(appId);
+            return Cache.CheckExisted(appId);
         }
+        #endregion
+
+        #region 异步方法
+        /// <summary>
+        /// 【异步方法】使用完整的应用凭证获取Ticket，如果不存在将自动注册
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="appSecret"></param>
+        /// <param name="getNewTicket"></param>
+        /// <returns></returns>
+        public static async Task<string> TryGetTicketAsync(string appId, string appSecret, bool getNewTicket = false)
+        {
+            if (!CheckRegistered(appId) || getNewTicket)
+            {
+                Register(appId, appSecret);
+            }
+            return await GetTicketAsync(appId);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取可用Ticket
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+        /// <returns></returns>
+        public static async Task<string> GetTicketAsync(string appId, bool getNewTicket = false)
+        {
+            var result = await GetTicketResultAsync(appId, getNewTicket);
+            return result.ticket;
+        }
+
+        /// <summary>
+        /// 【异步方法】获取可用Ticket
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
+        /// <returns></returns>
+        public static async Task<JsApiTicketResult> GetTicketResultAsync(string appId, bool getNewTicket = false)
+        {
+            if (!CheckRegistered(appId))
+            {
+                throw new WeixinQyException(UN_REGISTER_ALERT);
+            }
+
+            var jsApiTicketBag = TryGetItem(appId);
+            //lock (jsApiTicketBag.Lock)
+            {
+                if (getNewTicket || jsApiTicketBag.ExpireTime <= DateTime.Now)
+                {
+                    //已过期，重新获取
+                    var jsApiTicketResult = await CommonApi.GetTicketAsync(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
+                    jsApiTicketBag.JsApiTicketResult = jsApiTicketResult;
+                    //jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
+                    jsApiTicketBag.ExpireTime = ApiUtility.GetExpireTime(jsApiTicketBag.JsApiTicketResult.expires_in);
+                }
+            }
+            return jsApiTicketBag.JsApiTicketResult;
+        }
+        #endregion
     }
 }

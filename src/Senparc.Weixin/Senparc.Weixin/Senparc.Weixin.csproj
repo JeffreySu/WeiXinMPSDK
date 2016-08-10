@@ -66,11 +66,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cache\ContainerCacheStragegy\ContainerItemCollection.cs" />
     <Compile Include="Cache\ContainerCacheStragegy\IContainerCacheStragegy.cs" />
-    <Compile Include="Cache\ContainerCacheStragegy\LocalContainerCacheStrategy.cs" />
+    <Compile Include="Cache\Lock\LocalCacheLock.cs" />
+    <Compile Include="Cache\ContainerCacheStragegy\LocalContainerCacheStrategy\LocalContainerCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategy\IBaseCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategyFactory.cs" />
+    <Compile Include="Cache\Lock\BaseCacheLock.cs" />
+    <Compile Include="Cache\Lock\ICacheLock.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Containers\BaseContainer.cs" />
     <Compile Include="Containers\BaseContainerBag.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="Helpers\Containers\ContainerHelper.cs" />
     <Compile Include="Helpers\Conventers\ExpandoJsonConverter.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
+    <Compile Include="Helpers\EncryptHelper.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\Extensions\IDictionaryExtensions.cs" />
     <Compile Include="Helpers\SerializerHelper.cs" />

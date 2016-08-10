@@ -6,8 +6,13 @@
     
     
     创建标识：Senparc - 20150325
+
+    修改标识：Senparc - 20160810
+    修改描述：v4.1.4 ProviderTokenResult添加序列化标签
+
 ----------------------------------------------------------------*/
 
+using System;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.QY.Entities
@@ -15,6 +20,7 @@ namespace Senparc.Weixin.QY.Entities
     /// <summary>
     /// 获取应用提供商凭证返回格式
     /// </summary>
+    [Serializable]
     public class ProviderTokenResult : QyJsonResult
     {
         /// <summary>

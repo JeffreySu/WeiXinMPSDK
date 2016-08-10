@@ -28,24 +28,37 @@
     修改标识：Senparc - 20160801
     修改描述：v14.2.1 转移到Senparc.Weixin.MP.Containers命名空间下
 
+    修改标识：Senparc - 20160803
+    修改描述：v14.2.3 使用ApiUtility.GetExpireTime()方法处理过期
+
+    修改标识：Senparc - 20160808
+    修改描述：v14.3.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
+
+    修改标识：Senparc - 20160810
+    修改描述：v14.3.3 fix bug
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Senparc.Weixin.Cache;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.Utilities.WeixinUtility;
 
 namespace Senparc.Weixin.MP.Containers
 {
     /// <summary>
     /// AccessToken包
     /// </summary>
-    public class AccessTokenBag : BaseContainerBag
+    [Serializable]
+    public class AccessTokenBag : BaseContainerBag, IBaseContainerBag_AppId
     {
         public string AppId
         {
@@ -71,12 +84,6 @@ namespace Senparc.Weixin.MP.Containers
             set { base.SetContainerProperty(ref _accessTokenResult, value); }
         }
 
-
-        /// <summary>
-        /// 只针对这个AppId的锁
-        /// </summary>
-        internal object Lock = new object();
-
         private AccessTokenResult _accessTokenResult;
         private DateTime _accessTokenExpireTime;
         private string _appSecret;
@@ -88,6 +95,8 @@ namespace Senparc.Weixin.MP.Containers
     /// </summary>
     public class AccessTokenContainer : BaseContainer<AccessTokenBag>
     {
+        const string LockResourceName = "MP.AccessTokenContainer";
+
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token
         /// </summary>
@@ -116,15 +125,6 @@ namespace Senparc.Weixin.MP.Containers
 
         }
 
-        /// <summary>
-        /// 返回已经注册的第一个AppId
-        /// </summary>
-        /// <returns></returns>
-        public static string GetFirstOrDefaultAppId()
-        {
-            return ItemCollection.GetAll().Keys.FirstOrDefault();
-        }
-
         #region 同步方法
 
         #region AccessToken
@@ -142,7 +142,7 @@ namespace Senparc.Weixin.MP.Containers
             {
                 Register(appId, appSecret);
             }
-            return GetAccessToken(appId);
+            return GetAccessToken(appId,getNewToken);
         }
 
         /// <summary>
@@ -169,19 +169,19 @@ namespace Senparc.Weixin.MP.Containers
                 throw new UnRegisterAppIdException(appId, string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！", appId));
             }
 
-            var accessTokenBag = (AccessTokenBag)ItemCollection[appId];
-            lock (accessTokenBag.Lock)
+            var accessTokenBag = TryGetItem(appId);
+
+            using (Cache.BeginCacheLock(LockResourceName,appId))//同步锁
             {
                 if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
                     accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.AppId, accessTokenBag.AppSecret);
-                    accessTokenBag.AccessTokenExpireTime = DateTime.Now.AddSeconds(accessTokenBag.AccessTokenResult.expires_in);
+                    accessTokenBag.AccessTokenExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
                 }
             }
             return accessTokenBag.AccessTokenResult;
         }
-
 
         #endregion
 
@@ -232,16 +232,16 @@ namespace Senparc.Weixin.MP.Containers
                 throw new UnRegisterAppIdException(appId, string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！", appId));
             }
 
-            var accessTokenBag = (AccessTokenBag)ItemCollection[appId];
+            var accessTokenBag = TryGetItem(appId);
 
-            //lock (accessTokenBag.Lock)
+            using (Cache.BeginCacheLock(LockResourceName,appId))//同步锁
             {
                 if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
                     var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.AppId, accessTokenBag.AppSecret);
                     accessTokenBag.AccessTokenResult = accessTokenResult;
-                    accessTokenBag.AccessTokenExpireTime = DateTime.Now.AddSeconds(accessTokenBag.AccessTokenResult.expires_in);
+                    accessTokenBag.AccessTokenExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
                 }
             }
             return accessTokenBag.AccessTokenResult;

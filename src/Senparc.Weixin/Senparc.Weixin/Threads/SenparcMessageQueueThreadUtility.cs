@@ -27,10 +27,10 @@ namespace Senparc.Weixin.Threads
 		private readonly int _sleepMilliSeconds;
 
 
-		public SenparcMessageQueueThreadUtility(int sleepMilliSeconds = 2000)
-		{
-			_sleepMilliSeconds = sleepMilliSeconds;
-		}
+        public SenparcMessageQueueThreadUtility(int sleepMilliSeconds = 1000)
+        {
+            _sleepMilliSeconds = sleepMilliSeconds;
+        }
 
 		/// <summary>
 		/// 析构函数，将未处理的列队处理掉

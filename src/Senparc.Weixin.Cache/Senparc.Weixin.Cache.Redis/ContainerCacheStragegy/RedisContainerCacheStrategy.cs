@@ -167,6 +167,7 @@ namespace Senparc.Weixin.Cache.Redis
 
         public IDictionary<string, IBaseContainerBag> GetAll()
         {
+            //尽量不要用此方法！
             return GetAll<IBaseContainerBag>();
         }
 

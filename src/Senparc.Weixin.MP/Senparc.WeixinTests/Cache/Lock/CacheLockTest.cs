@@ -83,14 +83,14 @@ namespace Senparc.WeixinTests.Cache.Lock
 
             Random rnd = new Random();
             var threadsCount = 20M;
-            int sleepMillionSeconds = 500;
+            int sleepMillionSeconds = 100;
 
             //初步估计需要重试时间
             var differentLocksCount = (2 /*appId*/* 2 /*resource*/) /* = diffrent locks count */;
             var runCycle = threadsCount / differentLocksCount /* = Run Cycle*/;
             var hopedTotalTime = runCycle * (sleepMillionSeconds + 100) /* = Hoped Total Time */;
             var randomRetryDelay = (20 / 2) /*random retry delay*/;
-            var retryTimes = hopedTotalTime / randomRetryDelay; /* = maxium retry times */;//此数字可以调整（根据测试结果逐步缩小，可以看到会有失败的锁产生）
+            var retryTimes = 50;// hopedTotalTime / randomRetryDelay; /* = maxium retry times */;//此数字可以调整（根据测试结果逐步缩小，可以看到会有失败的锁产生）
 
             Console.WriteLine("sleepMillionSeconds:{0}ms", sleepMillionSeconds);
             Console.WriteLine("differentLocksCount:{0}", differentLocksCount);

@@ -36,7 +36,7 @@ namespace Senparc.Weixin.Cache
 
         public override bool Lock(string resourceName)
         {
-            return Lock(resourceName, 9999 /*暂时不限制*/, new TimeSpan(0, 0, 0, 0, 1000));
+            return Lock(resourceName, 9999 /*暂时不限制*/, new TimeSpan(0, 0, 0, 0, 20));
         }
 
         public override bool Lock(string resourceName, int retryCount, TimeSpan retryDelay)

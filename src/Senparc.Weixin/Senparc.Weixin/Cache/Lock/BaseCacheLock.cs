@@ -20,8 +20,6 @@ namespace Senparc.Weixin.Cache
             _resourceName = resourceName + key;/*加上Key可以针对某个AppId加锁*/
             _retryCount = retryCount;
             _retryDelay = retryDelay;
-
-
         }
 
         public void Dispose()

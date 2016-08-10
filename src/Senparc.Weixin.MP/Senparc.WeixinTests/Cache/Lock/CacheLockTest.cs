@@ -90,8 +90,9 @@ namespace Senparc.WeixinTests.Cache.Lock
             var runCycle = threadsCount / differentLocksCount /* = Run Cycle*/;
             var hopedTotalTime = runCycle * (sleepMillionSeconds + 100) /* = Hoped Total Time */;
             var randomRetryDelay = (20 / 2) /*random retry delay*/;
-            var retryTimes = hopedTotalTime / randomRetryDelay; /* = maxium retry times */;
+            var retryTimes = hopedTotalTime / randomRetryDelay; /* = maxium retry times */;//此数字可以调整（根据测试结果逐步缩小，可以看到会有失败的锁产生）
 
+            Console.WriteLine("sleepMillionSeconds:{0}ms", sleepMillionSeconds);
             Console.WriteLine("differentLocksCount:{0}", differentLocksCount);
             Console.WriteLine("runCycle:{0}", runCycle);
             Console.WriteLine("hopedTotalTime:{0}ms", hopedTotalTime);
@@ -100,16 +101,16 @@ namespace Senparc.WeixinTests.Cache.Lock
             Console.WriteLine("=====================");
 
             List<Thread> list = new List<Thread>();
-            int runThreads = 0;
+            int[] runThreads = {0};
 
             for (int i = 0; i < (int)threadsCount; i++)
             {
-                runThreads++;
+                runThreads[0]++;
                 var i1 = i;
                 var thread = new Thread(() =>
                 {
                     var appId = (i1 % 2).ToString();
-                    var resourceName = "Test-" + rnd.Next(0, 2);
+                    var resourceName = "Test-" + rnd.Next(0, 2);//调整这里的随机数，可以改变锁的个数
                     var cache = CacheStrategyFactory.GetContainerCacheStragegyInstance();//每次重新获取实例（因为单例模式，所以其实是同一个）
 
                     Console.WriteLine("线程 {0} / {1} : {2} 进入，准备尝试锁。Cache实例：{3}", Thread.CurrentThread.GetHashCode(), resourceName, appId,cache.GetHashCode());
@@ -127,7 +128,7 @@ namespace Senparc.WeixinTests.Cache.Lock
                         Thread.Sleep(sleepMillionSeconds);
                     }
                     Console.WriteLine("线程 {0} / {1} : {2} 释放锁（{3}ms）", Thread.CurrentThread.GetHashCode(), resourceName, appId, (DateTime.Now - dt1).TotalMilliseconds);
-                    runThreads--;
+                    runThreads[0]--;
                 });
                 list.Add(thread);
             }
@@ -136,7 +137,7 @@ namespace Senparc.WeixinTests.Cache.Lock
 
             list.ForEach(z => z.Start());
 
-            while (runThreads > 0)
+            while (runThreads[0] > 0)
             {
                 Thread.Sleep(10);
             }

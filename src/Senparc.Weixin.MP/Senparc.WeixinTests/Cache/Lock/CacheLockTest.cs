@@ -116,7 +116,7 @@ namespace Senparc.WeixinTests.Cache.Lock
 
 
                     DateTime dt1 = DateTime.Now;
-                    using (var cacheLock = Cache.BeginCacheLock(resourceName, appId, (int)retryTimes, new TimeSpan(0, 0, 0, 0, 20)))
+                    using (var cacheLock = cache.BeginCacheLock(resourceName, appId, (int)retryTimes, new TimeSpan(0, 0, 0, 0, 20)))
                     {
                         var result = cacheLock.LockSuccessful
                             ? "成功"

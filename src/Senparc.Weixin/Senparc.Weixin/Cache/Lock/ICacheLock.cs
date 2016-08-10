@@ -12,6 +12,11 @@ namespace Senparc.Weixin.Cache
     public interface ICacheLock : IDisposable
     {
         /// <summary>
+        /// 是否成功获得锁
+        /// </summary>
+        bool LockSuccessful { get; set; }
+
+        /// <summary>
         /// 立即开始锁定
         /// </summary>
         /// <returns></returns>

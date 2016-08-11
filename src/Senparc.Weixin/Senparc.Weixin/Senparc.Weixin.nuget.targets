@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="EmitMSBuildWarning" BeforeTargets="Build">
+    <Warning Text="无法在面向多个框架的项目中完全安装包含 MSBuild 目标与属性文件的包。已忽略 MSBuild 目标与属性文件。" />
+  </Target>
+</Project>

@@ -323,10 +323,10 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
  	- [x] 企业号授权登陆
 	- [x] 企业号微信支付
 	- [x] 企业回话服务
-	    - [] 企业会话回调
+	    - [ ] 企业会话回调
 	- [x] 企业摇一摇周边
 	- [x] 企业客服服务
-	    - [] 客服回复消息回调
+	    - [ ] 客服回复消息回调
 
 
 > * 缓存策略

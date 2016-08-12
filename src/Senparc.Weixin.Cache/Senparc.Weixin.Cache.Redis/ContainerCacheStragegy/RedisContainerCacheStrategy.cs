@@ -9,6 +9,9 @@
 
     修改标识：Senparc - 20160808
     修改描述：v0.2.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
+    
+    修改标识：Senparc - 20160812
+    修改描述：v0.2.1  解决Container无法注册的问题
 
 ----------------------------------------------------------------*/
 
@@ -117,7 +120,7 @@ namespace Senparc.Weixin.Cache.Redis
         /// <returns></returns>
         public bool CheckExisted(string key, bool isFullKey = false)
         {
-            var cacheKey = isFullKey ? key : GetFinalKey(key);
+            var cacheKey = GetFinalKey(key, isFullKey);
             return _cache.KeyExists(cacheKey);
         }
 
@@ -142,7 +145,7 @@ namespace Senparc.Weixin.Cache.Redis
 
         public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
         {
-            var itemCacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag),"*");
+            var itemCacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag), "*");
 
             //var keyPattern = string.Format("*{0}", itemCacheKey);
             var keyPattern = GetFinalKey(itemCacheKey);
@@ -158,15 +161,16 @@ namespace Senparc.Weixin.Cache.Redis
                 }
                 catch (Exception)
                 {
-                    
+
                 }
-               
+
             }
             return dic;
         }
 
         public IDictionary<string, IBaseContainerBag> GetAll()
         {
+            //尽量不要用此方法！
             return GetAll<IBaseContainerBag>();
         }
 
@@ -198,32 +202,30 @@ namespace Senparc.Weixin.Cache.Redis
 #endif
         }
 
-        public void RemoveFromCache(string key)
+        public void RemoveFromCache(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
                 return;
             }
 
-            var cacheKey = GetFinalKey(key);
-
-
+            var cacheKey = GetFinalKey(key, isFullKey);
             SenparcMessageQueue.OperateQueue();//延迟缓存立即生效
             _cache.KeyDelete(cacheKey);//删除键
         }
 
-        public void Update(string key, IBaseContainerBag value)
+        public void Update(string key, IBaseContainerBag value, bool isFullKey = false)
         {
-            var cacheKey = GetFinalKey(key);
+            var cacheKey = GetFinalKey(key, isFullKey);
             //value.Key = cacheKey;//储存最终的键
             _cache.StringSet(cacheKey, value.Serialize());
         }
 
-        public void UpdateContainerBag(string key, IBaseContainerBag containerBag)
+        public void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false)
         {
-            if (this.CheckExisted(key))
+            if (this.CheckExisted(key, isFullKey))
             {
-                Update(key, containerBag);
+                Update(key, containerBag, isFullKey);
             }
         }
 

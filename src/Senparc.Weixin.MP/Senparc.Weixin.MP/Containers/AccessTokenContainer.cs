@@ -109,6 +109,7 @@ namespace Senparc.Weixin.MP.Containers
             {
                 Update(appId, new AccessTokenBag()
                 {
+                    //Key = appId,
                     Name = name,
                     AppId = appId,
                     AppSecret = appSecret,
@@ -142,7 +143,7 @@ namespace Senparc.Weixin.MP.Containers
             {
                 Register(appId, appSecret);
             }
-            return GetAccessToken(appId,getNewToken);
+            return GetAccessToken(appId, getNewToken);
         }
 
         /// <summary>
@@ -171,7 +172,7 @@ namespace Senparc.Weixin.MP.Containers
 
             var accessTokenBag = TryGetItem(appId);
 
-            using (Cache.BeginCacheLock(LockResourceName,appId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
             {
                 if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
                 {
@@ -234,7 +235,7 @@ namespace Senparc.Weixin.MP.Containers
 
             var accessTokenBag = TryGetItem(appId);
 
-            using (Cache.BeginCacheLock(LockResourceName,appId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
             {
                 if (getNewToken || accessTokenBag.AccessTokenExpireTime <= DateTime.Now)
                 {

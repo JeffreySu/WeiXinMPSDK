@@ -109,7 +109,6 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
         public CommonApiTest()
         {
-            _userRedis = true;
             if (_userRedis)
             {
                 var redisConfiguration = "localhost:6379";

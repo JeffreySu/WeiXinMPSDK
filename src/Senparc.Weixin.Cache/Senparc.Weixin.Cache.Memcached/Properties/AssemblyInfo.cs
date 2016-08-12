@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Senparc.Weixin.Cache.Redis")]
+[assembly: AssemblyTitle("Senparc.Weixin.Cache.Memcached")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Senparc.Weixin.Cache.Redis")]
+[assembly: AssemblyProduct("Senparc.Weixin.Cache.Memcached")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,9 +20,9 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("51ac27b4-11ae-4f59-b82a-0bb3afa5f62b")]
+[assembly: Guid("5b729497-5323-41d7-a104-0632119bedde")]
 
-// 程序集的版本信息由下列四个值组成:
+// 程序集的版本信息由下列四个值组成: 
 //
 //      主版本
 //      次版本
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 //可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值，
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.2.1.*")]
+[assembly: AssemblyVersion("0.0.3.*")]
 //[assembly: AssemblyFileVersion("1.0.0.0")]

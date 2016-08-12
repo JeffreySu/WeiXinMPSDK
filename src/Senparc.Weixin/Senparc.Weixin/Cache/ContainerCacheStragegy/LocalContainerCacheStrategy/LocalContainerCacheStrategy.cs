@@ -1,4 +1,18 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+
+    文件名：LocalContainerCacheStrategy.cs
+    文件功能描述：本地容器缓存。
+
+
+    创建标识：Senparc - 20160308
+
+    修改标识：Senparc - 20160812
+    修改描述：v4.7.4  解决Container无法注册的问题
+
+ ----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -85,9 +99,10 @@ namespace Senparc.Weixin.Cache
             _cache[key] = value;
         }
 
-        public void RemoveFromCache(string key)
+        public void RemoveFromCache(string key, bool isFullKey = false)
         {
-            _cache.Remove(key);
+            var cacheKey = GetFinalKey(key, isFullKey);
+            _cache.Remove(cacheKey);
         }
 
         public IBaseContainerBag Get(string key, bool isFullKey = false)
@@ -138,14 +153,15 @@ namespace Senparc.Weixin.Cache
             return _cache.Count;
         }
 
-        public void Update(string key, IBaseContainerBag value)
+        public void Update(string key, IBaseContainerBag value, bool isFullKey = false)
         {
-            _cache[key] = value;
+            var cacheKey = GetFinalKey(key, isFullKey);
+            _cache[cacheKey] = value;
         }
 
-        public void UpdateContainerBag(string key, IBaseContainerBag bag)
+        public void UpdateContainerBag(string key, IBaseContainerBag bag, bool isFullKey = false)
         {
-            Update(key, bag);
+            Update(key, bag, isFullKey);
         }
 
         #endregion

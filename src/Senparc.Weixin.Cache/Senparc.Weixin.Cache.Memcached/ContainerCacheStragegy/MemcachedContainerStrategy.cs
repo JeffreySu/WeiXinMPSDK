@@ -10,7 +10,10 @@
     修改标识：Senparc - 20160808
     修改描述：v0.0.2 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
 
-----------------------------------------------------------------*/
+    修改标识：Senparc - 20160812
+    修改描述：v0.0.3  解决Container无法注册的问题
+
+ ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
@@ -158,13 +161,13 @@ namespace Senparc.Weixin.Cache.Memcached
 #endif
         }
 
-        public void RemoveFromCache(string key)
+        public void RemoveFromCache(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
                 return;
             }
-            var cacheKey = GetFinalKey(key);
+            var cacheKey = GetFinalKey(key, isFullKey);
             _cache.Remove(cacheKey);
         }
 
@@ -191,9 +194,9 @@ namespace Senparc.Weixin.Cache.Memcached
 
         public bool CheckExisted(string key, bool isFullKey = false)
         {
-            key = isFullKey ? key : GetFinalKey(key);
+            var cacheKey =  GetFinalKey(key, isFullKey);
             object value;
-            if (_cache.TryGet(key, out value))
+            if (_cache.TryGet(cacheKey, out value))
             {
                 return true;
             }
@@ -205,18 +208,19 @@ namespace Senparc.Weixin.Cache.Memcached
             throw new NotImplementedException();//TODO:需要定义二级缓存键，从池中获取
         }
 
-        public void Update(string key, IBaseContainerBag value)
+        public void Update(string key, IBaseContainerBag value, bool isFullKey = false)
         {
-            var cacheKey = GetFinalKey(key);
+            var cacheKey = GetFinalKey(key, isFullKey);
             _cache.Store(StoreMode.Set, cacheKey, value, DateTime.Now.AddDays(1));
         }
 
-        public void UpdateContainerBag(string key, IBaseContainerBag containerBag)
+        public void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false)
         {
+            var cacheKey = GetFinalKey(key, isFullKey);
             object value;
-            if (_cache.TryGet(key, out value))
+            if (_cache.TryGet(cacheKey, out value))
             {
-                Update(key, containerBag);
+                Update(cacheKey, containerBag, true);
             }
         }
 

@@ -1,4 +1,19 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+
+    文件名：IBaseCacheStrategy.cs
+    文件功能描述：缓存策略基类。
+
+
+    创建标识：Senparc - 20160308
+
+    修改标识：Senparc - 20160812
+    修改描述：v4.7.4  解决Container无法注册的问题
+
+ ----------------------------------------------------------------*/
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,7 +67,8 @@ namespace Senparc.Weixin.Cache
         /// 移除指定缓存键的对象
         /// </summary>
         /// <param name="key">缓存键</param>
-        void RemoveFromCache(TKey key);
+        /// <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
+        void RemoveFromCache(TKey key, bool isFullKey = false);
 
         /// <summary>
         /// 返回指定缓存键的对象
@@ -87,6 +103,7 @@ namespace Senparc.Weixin.Cache
         /// </summary>
         /// <param name="key">缓存键</param>
         /// <param name="value">缓存值</param>
-        void Update(TKey key, TValue value);
+        /// <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
+        void Update(TKey key, TValue value, bool isFullKey = false);
     }
 }

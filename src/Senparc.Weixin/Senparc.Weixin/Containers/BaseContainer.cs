@@ -111,6 +111,22 @@ namespace Senparc.Weixin.Containers
         //    return ContainerHelper.GetCacheKey(typeof(TBag));
         //}
 
+
+
+        /// <summary>
+        /// 进行注册过程的委托
+        /// </summary>
+        protected static Func<TBag> RegisterFunc { get; set; }
+
+        /// <summary>
+        /// 如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
+        /// </summary>
+        private static void TryReRegister()
+        {
+            RegisterFunc();
+            //TODO:如果需要校验ContainerBag的正确性，可以从返回值进行判断
+        }
+
         /// <summary>
         /// 返回已经注册的第一个AppId
         /// </summary>
@@ -255,7 +271,15 @@ namespace Senparc.Weixin.Containers
         public static bool CheckRegistered(string shortKey)
         {
             var cacheKey = GetBagCacheKey(shortKey);
+            var registered = Cache.CheckExisted(cacheKey);
+            if (!registered)
+            {
+                //如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
+                TryReRegister();
+            }
+
             return Cache.CheckExisted(cacheKey);
         }
+
     }
 }

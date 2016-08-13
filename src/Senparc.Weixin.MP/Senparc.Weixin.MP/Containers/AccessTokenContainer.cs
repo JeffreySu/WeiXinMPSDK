@@ -105,18 +105,24 @@ namespace Senparc.Weixin.MP.Containers
         /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别</param>
         public static void Register(string appId, string appSecret, string name = null)
         {
-            using (FlushCache.CreateInstance())
+            //记录注册信息，这里需要一个委托
+            RegisterFunc = () =>
             {
-                Update(appId, new AccessTokenBag()
+                using (FlushCache.CreateInstance())
                 {
-                    //Key = appId,
-                    Name = name,
-                    AppId = appId,
-                    AppSecret = appSecret,
-                    AccessTokenExpireTime = DateTime.MinValue,
-                    AccessTokenResult = new AccessTokenResult()
-                });
-            }
+                    var bag = new AccessTokenBag()
+                    {
+                        //Key = appId,
+                        Name = name,
+                        AppId = appId,
+                        AppSecret = appSecret,
+                        AccessTokenExpireTime = DateTime.MinValue,
+                        AccessTokenResult = new AccessTokenResult()
+                    };
+                    Update(appId, bag);
+                    return bag;
+                }
+            };
 
             //为JsApiTicketContainer进行自动注册
             JsApiTicketContainer.Register(appId, appSecret, name);

@@ -1,2 +1,3 @@
 language: csharp
-solution: Senparc.Weixin.MP.Sample.sln
+script:
+  - xbuild src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.sln

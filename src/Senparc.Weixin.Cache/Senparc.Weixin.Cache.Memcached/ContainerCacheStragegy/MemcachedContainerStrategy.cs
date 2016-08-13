@@ -29,12 +29,11 @@ using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache.Memcached
 {
-    public class MemcachedContainerStrategy : IContainerCacheStragegy
+    public class MemcachedContainerStrategy : BaseCacheStrategy, IContainerCacheStragegy
     {
         internal MemcachedClient _cache;
         private MemcachedClientConfiguration _config;
         private static Dictionary<string, int> _serverlist;// = SiteConfig.MemcachedAddresss; TODO:全局注册配置
-
 
         #region 单例
 
@@ -138,11 +137,6 @@ namespace Senparc.Weixin.Cache.Memcached
         #endregion
 
         #region IContainerCacheStragegy 成员
-        public string GetFinalKey(string key, bool isFullKey = false)
-        {
-            return isFullKey ? key : String.Format("{0}:{1}", "SenparcWeixinContainer", key);
-        }
-
 
         public void InsertToCache(string key, IBaseContainerBag value)//TODO:添加Timeout参数
         {
@@ -194,7 +188,7 @@ namespace Senparc.Weixin.Cache.Memcached
 
         public bool CheckExisted(string key, bool isFullKey = false)
         {
-            var cacheKey =  GetFinalKey(key, isFullKey);
+            var cacheKey = GetFinalKey(key, isFullKey);
             object value;
             if (_cache.TryGet(cacheKey, out value))
             {
@@ -226,7 +220,7 @@ namespace Senparc.Weixin.Cache.Memcached
 
         #endregion
 
-        public ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
+        public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
             return new MemcachedCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
         }

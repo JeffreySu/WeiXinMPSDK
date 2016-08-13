@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache\CacheStrategy\BaseCacheStrategy.cs" />
     <Compile Include="Cache\ContainerCacheStragegy\IContainerCacheStragegy.cs" />
     <Compile Include="Cache\Lock\LocalCacheLock.cs" />
     <Compile Include="Cache\ContainerCacheStragegy\LocalContainerCacheStrategy\LocalContainerCacheStrategy.cs" />

@@ -28,7 +28,9 @@
 
     修改标识：Senparc - 20160808
     修改描述：v14.3.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
-
+    
+    修改标识：Senparc - 20160813
+    修改描述：v14.3.4 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
 ----------------------------------------------------------------*/
 
 using System;
@@ -107,17 +109,23 @@ namespace Senparc.Weixin.MP.Containers
         /*此接口不提供异步方法*/
         public static void Register(string appId, string appSecret, string name = null)
         {
-            using (FlushCache.CreateInstance())
+            //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
+            RegisterFunc = () =>
             {
-                Update(appId, new JsApiTicketBag()
+                using (FlushCache.CreateInstance())
                 {
-                    Name = name,
-                    AppId = appId,
-                    AppSecret = appSecret,
-                    JsApiTicketExpireTime = DateTime.MinValue,
-                    JsApiTicketResult = new JsApiTicketResult()
-                });
-            }
+                    var bag = new JsApiTicketBag()
+                    {
+                        Name = name,
+                        AppId = appId,
+                        AppSecret = appSecret,
+                        JsApiTicketExpireTime = DateTime.MinValue,
+                        JsApiTicketResult = new JsApiTicketResult()
+                    };
+                    Update(appId, bag);
+                    return bag;
+                }
+            };
         }
 
 
@@ -164,7 +172,7 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var jsApiTicketBag = TryGetItem(appId);
-            using (Cache.BeginCacheLock(LockResourceName,appId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
             {
                 if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= DateTime.Now)
                 {
@@ -225,7 +233,7 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var jsApiTicketBag = TryGetItem(appId);
-            using (Cache.BeginCacheLock(LockResourceName,appId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
             {
                 if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= DateTime.Now)
                 {

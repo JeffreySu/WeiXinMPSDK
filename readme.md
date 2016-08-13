@@ -74,7 +74,7 @@
 微信公众平台开发系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
 
 
-项目文件夹说明
+项目文件夹说明（src文件夹下）
 --------------
 
 | 文件夹 | 说明 |

@@ -1,4 +1,2 @@
 language: csharp
-solution: src/Senparc.Weixin//Senparc.Weixin.sln
-script:
-  - xbuild src/Senparc.Weixin//Senparc.Weixin.sln
+solution: src/Senparc.Weixin/Senparc.Weixin.sln

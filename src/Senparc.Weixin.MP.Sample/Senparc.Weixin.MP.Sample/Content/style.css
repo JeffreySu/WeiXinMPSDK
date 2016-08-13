@@ -129,6 +129,7 @@
     overflow: hidden;
 }
 .weixin-item {
+    margin-bottom: 30px;
 	/*float:left;
 	width:40%;*/
 }
@@ -378,13 +379,13 @@ img.official-img {
 
 .version{ margin-top: 16px;}
 
-#tbVersion{ color: #4d4d4d;font-size: 18px;/*text-align: center;*/ }
-#tbVersion th{ font-weight: bold;padding: 10px; color: #4d4d4d;border-bottom: 1px solid #4d4d4d;}
-#tbVersion td{ padding: 6px; color: #4d4d4d;line-height: 150%; vertical-align:middle;}
-#tbVersion td a{ color: #4d4d4d;}
+.tbVersion{ color: #4d4d4d;font-size: 18px;/*text-align: center;*/ }
+.tbVersion th{ font-weight: bold;padding: 10px; color: #4d4d4d;border-bottom: 1px solid #4d4d4d;}
+.tbVersion td{ padding: 6px; color: #4d4d4d;line-height: 150%; vertical-align:middle;}
+.tbVersion td a{ color: #4d4d4d;}
 .sdk-version{ text-decoration:underline;}
 .sdk-version:hover{ text-decoration:none;}
-#tbVersion tbody>tr:hover{ background: #abe0ff;}
+.tbVersion tbody>tr:hover{ background: #abe0ff;}
 
 #menuEditor h3{text-align: left;
 font-size: 16px;

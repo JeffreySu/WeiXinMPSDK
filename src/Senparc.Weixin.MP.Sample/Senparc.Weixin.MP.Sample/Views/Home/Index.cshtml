@@ -36,7 +36,7 @@
             </p>
         </div>
 
-        <table id="tbVersion">
+        <table class="tbVersion">
             <thead>
                 <tr>
                     <th>#</th>
@@ -90,9 +90,9 @@
             </tr>
             <tr>
                 <td></td>
-                <td>当前缓存框架：</td>
+                <td>运行中的缓存框架</td>
                 <td>@TempData["CacheStrategy"]</td>
-                <td></td>
+                <td>@Html.ActionLink("测试","Test","Cache",null,new {@class="sdk-version" })</td>
             </tr>
             </tbody>
         </table>
@@ -105,6 +105,18 @@
             <p class="weixin-item-title">关注官方微信 进行互动测试</p>
             <img class="official-img" src="/images/v2/ewm_01.png" alt="微信SDK" />
         </div>
+        <div class="clear"></div>
+        <table class="tbVersion">
+            <tr>
+                <td>运行中的缓存框架：@TempData["CacheStrategy"]</td>
+                <td>@Html.ActionLink("测试", "Test", "Cache", null, new {@class = "sdk-version"})</td>
+            </tr>
+            <tr>
+                <td>最新文档版本：@TempData["NewestDocumentVersion"]</td>
+                <td>@Html.ActionLink("下载", "Index", "Document", null, new { @class = "sdk-version" })</td>
+            </tr>
+
+        </table>
         <div class="clear"></div>
     </div>
     <div class="clear"></div>

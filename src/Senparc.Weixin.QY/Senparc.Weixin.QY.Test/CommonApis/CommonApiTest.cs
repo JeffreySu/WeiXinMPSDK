@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.Cache;
+using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.CommonAPIs;
 
@@ -55,8 +57,18 @@ namespace Senparc.Weixin.QY.Test.CommonApis
         }
 
 
+        protected readonly bool _userRedis = true;//是否使用Reids
+
         public CommonApiTest()
         {
+            if (_userRedis)
+            {
+                var redisConfiguration = "localhost:6379";
+                RedisManager.ConfigurationOption = redisConfiguration;
+                CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
+            }
+
+
             //全局只需注册一次
             AccessTokenContainer.Register(_corpId, _corpSecret);
         }

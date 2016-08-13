@@ -15,7 +15,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.ModelBinding;
 using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.EntityUtility

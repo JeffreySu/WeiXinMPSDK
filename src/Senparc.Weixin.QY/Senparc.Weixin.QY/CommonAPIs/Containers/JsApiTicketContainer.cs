@@ -173,16 +173,16 @@ namespace Senparc.Weixin.QY.CommonAPIs
             return jsApiTicketBag.JsApiTicketResult;
         }
 
-        /// <summary>
-        /// 检查是否已经注册
-        /// </summary>
-        /// <param name="appId"></param>
-        /// <returns></returns>
-        /// 此接口无异步方法
-        public new static bool CheckRegistered(string appId)
-        {
-            return Cache.CheckExisted(appId);
-        }
+        ///// <summary>
+        ///// 检查是否已经注册
+        ///// </summary>
+        ///// <param name="appId"></param>
+        ///// <returns></returns>
+        ///// 此接口无异步方法
+        //public new static bool CheckRegistered(string appId)
+        //{
+        //    return Cache.CheckExisted(appId);
+        //}
         #endregion
 
         #region 异步方法

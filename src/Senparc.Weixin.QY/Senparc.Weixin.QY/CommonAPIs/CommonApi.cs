@@ -15,6 +15,10 @@
 
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
+
+    修改标识：Senparc - 20160813
+    修改描述：修改GetTicket()方法，使用AccessTokenContainer获取AccessToken
+
 ----------------------------------------------------------------*/
 
 /*
@@ -38,7 +42,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         public const string API_URL = "https://qyapi.weixin.qq.com/cgi-bin";
 
         #region 同步请求
-        
+
         /// <summary>
         /// 获取AccessToken
         /// </summary>
@@ -94,7 +98,8 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <returns></returns>
         public static JsApiTicketResult GetTicket(string corpId, string corpSecret)
         {
-            var accessToken = GetToken(corpId, corpSecret).access_token;
+            var accessToken = AccessTokenContainer.TryGetToken(corpId, corpSecret);
+            //var accessToken = GetToken(corpId, corpSecret).access_token;
 
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token={0}",
                                     accessToken.AsUrlData());
@@ -115,10 +120,10 @@ namespace Senparc.Weixin.QY.CommonAPIs
             var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_provider_token";
 
             var data = new
-                {
-                    corpid = corpId,
-                    provider_secret = providerSecret
-                };
+            {
+                corpid = corpId,
+                provider_secret = providerSecret
+            };
 
             return CommonJsonSend.Send<ProviderTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
@@ -222,7 +227,8 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <returns></returns>
         public static async Task<JsApiTicketResult> GetTicketAsync(string corpId, string corpSecret)
         {
-            var accessToken = GetToken(corpId, corpSecret).access_token;
+            var accessToken = await AccessTokenContainer.TryGetTokenAsync(corpId, corpSecret);
+            //var accessToken = GetToken(corpId, corpSecret).access_token;
 
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token={0}",
                                     accessToken.AsUrlData());
@@ -243,12 +249,12 @@ namespace Senparc.Weixin.QY.CommonAPIs
             var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_provider_token";
 
             var data = new
-                {
-                    corpid = corpId,
-                    provider_secret = providerSecret
-                };
+            {
+                corpid = corpId,
+                provider_secret = providerSecret
+            };
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<ProviderTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProviderTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>

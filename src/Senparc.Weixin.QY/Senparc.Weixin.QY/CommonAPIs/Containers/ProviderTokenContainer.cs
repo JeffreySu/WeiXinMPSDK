@@ -188,16 +188,16 @@ namespace Senparc.Weixin.QY.CommonAPIs
             return providerTokenBag.ProviderTokenResult;
         }
 
-        /// <summary>
-        /// 检查是否已经注册
-        /// </summary>
-        /// <param name="corpId"></param>
-        /// <returns></returns>
-        /// 此接口无异步方法
-        public new static bool CheckRegistered(string corpId)
-        {
-            return Cache.CheckExisted(corpId);
-        }
+        ///// <summary>
+        ///// 检查是否已经注册
+        ///// </summary>
+        ///// <param name="corpId"></param>
+        ///// <returns></returns>
+        ///// 此接口无异步方法
+        //public new static bool CheckRegistered(string corpId)
+        //{
+        //    return Cache.CheckExisted(corpId);
+        //}
         #endregion
 
         #region 异步方法

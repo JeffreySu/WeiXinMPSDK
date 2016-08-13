@@ -30,6 +30,7 @@
 
 using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.QY.Containers;
 using Senparc.Weixin.QY.Entities;
 
 namespace Senparc.Weixin.QY.CommonAPIs

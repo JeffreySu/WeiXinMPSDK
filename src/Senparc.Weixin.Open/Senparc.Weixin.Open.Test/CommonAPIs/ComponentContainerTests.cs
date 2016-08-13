@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Test;
+using Senparc.Weixin.Open.Containers;
 
 namespace Senparc.Weixin.Open.CommonAPIs.Tests
 {
@@ -26,7 +25,6 @@ namespace Senparc.Weixin.Open.CommonAPIs.Tests
             };
 
             //ComponentContainer.Register(base._appId, base._appSecret, getComponentVerifyTicketFunc);
-
             var fullCollections = ComponentContainer.GetCollectionList();
             Assert.IsTrue(fullCollections.Count == 1);
 

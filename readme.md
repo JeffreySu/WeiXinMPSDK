@@ -3,15 +3,31 @@
 
 > .NET Framework 版本及 .NET Core 版本代码分别位于 [master](https://github.com/JeffreySu/WeiXinMPSDK) 和 [DotNET-Core](https://github.com/JeffreySu/WeiXinMPSDK/tree/DotNET-Core) 分支下，结构基本保持一致，以下介绍以 .NET Framework 版本为例。
 
-| # | 模块功能 | DLL |
-|--------|--------|--------|
-| 1 | 基础库 | Senparc.Weixin.dll |
-| 2 | 微信公众号 / 微信支付 / JSSDK / 摇周边 / 等等 | Senparc.Weixin.MP.dll  |
-| 3 | ASP.NET MVC 扩展 | Senparc.Weixin.MP.MVC.dll |
-| 4 | 微信企业号 | Senparc.Weixin.QY.dll |
-| 5 | 微信开放平台 | Senparc.Weixin.Open.dll |
-| 6 | Redis 分布式缓存 | Senparc.Weixin.Cache.Redis.dll |
-| 7 | Memcached 分布式缓存 | Senparc.Weixin.Cache.Memcached.dll |
+| # | 模块功能                                     | DLL                               | Nuget                                       |
+|---|----------------------------------------------|-----------------------------------|---------------------------------------------|
+| 1| 基础库                                        |Senparc.Weixin.dll                 | [![Senparc.Weixin][1.1]][1.2]               |
+| 2| 微信公众号 / 微信支付 / JSSDK / 摇周边 / 等等 |Senparc.Weixin.MP.dll              | [![Senparc.Weixin.MP][2.1]][2.2]            |
+| 3| ASP.NET MVC 扩展                              |Senparc.Weixin.MP.MVC.dll          | [![Senparc.Weixin.MP.MVC][3.1]][3.2]        |
+| 4| 微信企业号                                    |Senparc.Weixin.QY.dll              | [![Senparc.Weixin.QY][4.1]][4.2]            |
+| 5| 微信开放平台                                  |Senparc.Weixin.Open.dll            | [![Senparc.Weixin.Open][5.1]][5.2]          |
+| 6| Redis 分布式缓存                              |Senparc.Weixin.Cache.Redis.dll     | [![Senparc.Weixin.Cache.Redis][6.1]][6.2]   |
+| 7| Memcached 分布式缓存                          |Senparc.Weixin.Cache.Memcached.dll |[![Senparc.Weixin.Cache.Memcached][7.1]][7.2]| 
+
+[1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
+[1.2]: https://www.nuget.org/packages/Senparc.Weixin
+[2.1]: https://img.shields.io/nuget/v/Senparc.Weixin.MP.svg?style=flat
+[2.2]: https://www.nuget.org/packages/Senparc.Weixin.MP
+[3.1]: https://img.shields.io/nuget/v/Senparc.Weixin.MP.MVC.svg?style=flat
+[3.2]: https://www.nuget.org/packages/Senparc.Weixin.MP.MVC
+[4.1]: https://img.shields.io/nuget/v/Senparc.Weixin.QY.svg?style=flat
+[4.2]: https://www.nuget.org/packages/Senparc.Weixin.QY
+[5.1]: https://img.shields.io/nuget/v/Senparc.Weixin.Open.svg?style=flat
+[5.2]: https://www.nuget.org/packages/Senparc.Weixin.Open
+[6.1]: https://img.shields.io/nuget/v/Senparc.Weixin.Cache.Redis.svg?style=flat
+[6.2]: https://www.nuget.org/packages/Senparc.Weixin.Cache.Redis
+[7.1]: https://img.shields.io/nuget/v/Senparc.Weixin.Cache.Memcached.svg?style=flat
+[7.2]: https://www.nuget.org/packages/Senparc.Weixin.Cache.Memcached
+
 
 
 本库为.NET4.5（包括 .NET Framework 及 .NET Core），其他.NET版本请看各自分支。
@@ -74,7 +90,7 @@
 微信公众平台开发系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
 
 
-项目文件夹说明
+项目文件夹说明（src文件夹下）
 --------------
 
 | 文件夹 | 说明 |

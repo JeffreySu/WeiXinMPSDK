@@ -197,6 +197,7 @@ namespace Senparc.Weixin.Open.Containers
                     return bag;
                 }
             };
+            RegisterFunc();
 
             //TODO：这里也可以考虑尝试进行授权（会影响速度）
         }

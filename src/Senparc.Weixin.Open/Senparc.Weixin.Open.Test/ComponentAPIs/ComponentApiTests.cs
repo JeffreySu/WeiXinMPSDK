@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Open.CommonAPIs;
+using Senparc.Weixin.Open.Containers;
 using Senparc.Weixin.Open.Test;
 
 namespace Senparc.Weixin.Open.ComponentAPIs.Tests

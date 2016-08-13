@@ -129,6 +129,7 @@ namespace Senparc.Weixin.MP.Containers
                     return bag;
                 }
             };
+            RegisterFunc();
 
             //为JsApiTicketContainer进行自动注册
             JsApiTicketContainer.Register(appId, appSecret, name);

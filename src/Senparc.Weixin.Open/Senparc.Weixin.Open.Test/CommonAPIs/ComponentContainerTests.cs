@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Open.Test;
 using Senparc.Weixin.Open.Containers;
 
@@ -24,13 +25,12 @@ namespace Senparc.Weixin.Open.CommonAPIs.Tests
                 return base._ticket;
             };
 
-            //ComponentContainer.Register(base._appId, base._appSecret, getComponentVerifyTicketFunc);
-            var fullCollections = ComponentContainer.GetCollectionList();
+            ComponentContainer.Register(base._appId, base._appSecret, getComponentVerifyTicketFunc,null,null);
+
+            var fullCollections = ComponentContainer.GetAllItems();
             Assert.IsTrue(fullCollections.Count == 1);
 
-            var container = fullCollections.Values.First();
-            var bag = container.Values.First();
-            Assert.IsTrue(container.Values.Count == 1);
+            var bag = fullCollections.First();
             Assert.AreEqual(base._appId, bag.ComponentAppId);
             Assert.AreEqual(base._appSecret, bag.ComponentAppSecret);
             Assert.IsNotNull(bag.Key);

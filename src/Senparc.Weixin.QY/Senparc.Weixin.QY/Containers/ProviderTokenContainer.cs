@@ -109,8 +109,6 @@ namespace Senparc.Weixin.QY.Containers
     {
         private const string UN_REGISTER_ALERT = "此CorpId尚未注册，ProviderTokenContainer.Register完成注册（全局执行一次即可）！";
 
-        #region 同步方法
-
 
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
@@ -136,7 +134,11 @@ namespace Senparc.Weixin.QY.Containers
                     return bag;
                 }
             };
+            RegisterFunc();
         }
+
+
+        #region 同步方法
 
         /// <summary>
         /// 使用完整的应用凭证获取Token，如果不存在将自动注册

@@ -133,6 +133,7 @@ namespace Senparc.Weixin.QY.Containers
                     return bag;
                 }
             };
+            RegisterFunc();
 
             ProviderTokenContainer.Register(corpId, corpSecret);//连带注册ProviderTokenContainer
         }

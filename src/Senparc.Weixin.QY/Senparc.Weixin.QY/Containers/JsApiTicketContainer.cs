@@ -121,6 +121,7 @@ namespace Senparc.Weixin.QY.Containers
                     return bag;
                 }
             };
+            RegisterFunc();
         }
 
         /// <summary>

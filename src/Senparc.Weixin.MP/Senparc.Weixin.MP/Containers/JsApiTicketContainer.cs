@@ -129,6 +129,8 @@ namespace Senparc.Weixin.MP.Containers
                     return bag;
                 }
             };
+            RegisterFunc();
+
         }
 
 

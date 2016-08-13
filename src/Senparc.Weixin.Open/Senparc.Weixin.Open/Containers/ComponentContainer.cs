@@ -254,6 +254,7 @@ namespace Senparc.Weixin.Open.Containers
                     return bag;
                 }
             };
+            RegisterFunc();
         }
 
         #region component_verify_ticket

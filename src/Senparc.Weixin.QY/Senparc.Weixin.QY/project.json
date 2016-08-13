@@ -14,7 +14,7 @@
 		"net461": {}
 	},
 	"dependencies": {
-		"Senparc.Weixin": "1.2.5",
+		"Senparc.Weixin": "4.7.5",
 		"Microsoft.AspNetCore.Http": "1.0.0",
 		"System.Collections.NonGeneric": "4.0.1",
 		"System.Xml.XmlDocument": "4.0.1",

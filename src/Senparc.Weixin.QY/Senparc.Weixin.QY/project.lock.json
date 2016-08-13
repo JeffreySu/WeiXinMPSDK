@@ -6248,7 +6248,7 @@
   "projectFileDependencyGroups": {
     "": [
       "Microsoft.AspNetCore.Http >= 1.0.0",
-      "Senparc.Weixin >= 1.2.5",
+      "Senparc.Weixin >= 4.7.5",
       "System.Collections.NonGeneric >= 4.0.1",
       "System.Xml.XPath.XmlDocument >= 4.0.1",
       "System.Xml.XmlDocument >= 4.0.1"

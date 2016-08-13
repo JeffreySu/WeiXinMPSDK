@@ -16,7 +16,7 @@ namespace Senparc.Weixin.QY.Test.CommonAPIs
     {
         [TestMethod]
         public void ContainerTest()
-        {
+         {
             //注册
             AccessTokenContainer.Register(base._corpId, base._corpSecret);
 

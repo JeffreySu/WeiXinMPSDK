@@ -16,3 +16,4 @@ bak.zip
 .vs
 applicationhost.config
 packages/
+/src/Senparc.Weixin.QY/Senparc.Weixin.QY.Test/test.config

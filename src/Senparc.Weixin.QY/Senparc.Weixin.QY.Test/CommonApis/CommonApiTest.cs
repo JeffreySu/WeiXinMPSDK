@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.CommonAPIs;
@@ -13,8 +15,45 @@ namespace Senparc.Weixin.QY.Test.CommonApis
     [TestClass]
     public partial class CommonApiTest
     {
-        protected string _corpId = "wx7618c0a6d9358622"; //换成你的信息
-        protected string _corpSecret = "PKrd-r76fDCNjbUY5-9I1vhOkMqBly038Sc8zcODscmu202dqCtUWkxK7nrCGUR3"; //换成你的信息
+        private dynamic _appConfig;
+        protected dynamic AppConfig
+        {
+            get
+            {
+                if (_appConfig == null)
+                {
+                    if (File.Exists("../../test.config"))
+                    {
+                        var doc = XDocument.Load("../../test.config");
+                        _appConfig = new
+                        {
+                            CorpId = doc.Root.Element("CorpId").Value,
+                            CorpSecret = doc.Root.Element("CorpSecret").Value,
+                        };
+                    }
+                    else
+                    {
+                        _appConfig = new
+                        {
+                            CorpId = "YourAppId", //换成你的信息
+                            CorpSecret = "YourSecret",//换成你的信息
+                        };
+                    }
+                }
+                return _appConfig;
+            }
+        }
+
+        protected string _corpId
+        {
+            get { return AppConfig.CorpId; }
+        }
+
+        protected string _corpSecret
+        {
+            get { return AppConfig.CorpSecret; }
+        }
+
 
         public CommonApiTest()
         {

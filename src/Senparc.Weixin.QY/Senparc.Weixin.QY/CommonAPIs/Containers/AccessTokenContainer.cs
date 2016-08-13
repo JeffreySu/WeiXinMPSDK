@@ -32,6 +32,9 @@
     修改标识：Senparc - 20160813
     修改描述：v4.1.5 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
 
+    修改标识：Senparc - 20160813
+    修改描述：v4.1.6 完善GetToken()方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -144,7 +147,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
             {
                 Register(corpId, corpSecret);
             }
-            return GetToken(corpId);
+            return GetToken(corpId, getNewToken);
         }
 
         /// <summary>
@@ -185,16 +188,17 @@ namespace Senparc.Weixin.QY.CommonAPIs
             return accessTokenBag.AccessTokenResult;
         }
 
-        /// <summary>
-        /// 检查是否已经注册
-        /// </summary>
-        /// <param name="corpId"></param>
-        /// <returns></returns>
-        /// 此接口无异步方法
-        public new static bool CheckRegistered(string corpId)
-        {
-            return Cache.CheckExisted(corpId);
-        }
+        ///// <summary>
+        ///// 检查是否已经注册
+        ///// </summary>
+        ///// <param name="corpId"></param>
+        ///// <returns></returns>
+        ///// 此接口无异步方法
+        //public new static bool CheckRegistered(string corpId)
+        //{
+        //    return Cache.CheckExisted(corpId);
+        //}
+
         #endregion
 
         #region 异步方法
@@ -211,7 +215,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
             {
                 Register(corpId, corpSecret);
             }
-            return await GetTokenAsync(corpId);
+            return await GetTokenAsync(corpId, getNewToken);
         }
 
         /// <summary>

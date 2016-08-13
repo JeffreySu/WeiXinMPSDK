@@ -30,6 +30,10 @@
 
     修改标识：Senparc - 20160813
     修改描述：v2.2.1 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+
+    修改标识：Senparc - 20160813
+    修改描述：v2.2.2 完善getNewToken参数传递
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -270,7 +274,7 @@ namespace Senparc.Weixin.Open.Containers
         {
             TryRegister(componentAppId, authorizerAppid);
 
-            return GetAuthorizerInfoResult(componentAppId, authorizerAppid).authorization_info.authorizer_access_token;
+            return GetAuthorizerInfoResult(componentAppId, authorizerAppid, getNewTicket).authorization_info.authorizer_access_token;
         }
 
         /// <summary>
@@ -414,7 +418,7 @@ namespace Senparc.Weixin.Open.Containers
         {
             TryRegister(componentAppId, authorizerAppid);
 
-            return GetJsApiTicket(componentAppId, authorizerAppid);
+            return GetJsApiTicket(componentAppId, authorizerAppid, getNewTicket);
         }
 
         /// <summary>
@@ -470,7 +474,7 @@ namespace Senparc.Weixin.Open.Containers
         public static async Task<string> TryGetAuthorizerAccessTokenAsync(string componentAppId, string authorizerAppid, bool getNewTicket = false)
         {
             TryRegister(componentAppId, authorizerAppid);
-            var result = await GetAuthorizerInfoResultAsync(componentAppId, authorizerAppid);
+            var result = await GetAuthorizerInfoResultAsync(componentAppId, authorizerAppid, getNewTicket);
 
             return result.authorization_info.authorizer_access_token;
         }
@@ -551,7 +555,7 @@ namespace Senparc.Weixin.Open.Containers
         {
             TryRegister(componentAppId, authorizerAppid);
 
-            return await TryGetJsApiTicketAsync(componentAppId, authorizerAppid);
+            return await GetJsApiTicketAsync(componentAppId, authorizerAppid, getNewTicket);
         }
 
         /// <summary>

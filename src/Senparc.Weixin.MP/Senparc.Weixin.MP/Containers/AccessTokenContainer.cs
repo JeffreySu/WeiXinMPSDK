@@ -40,6 +40,9 @@
     修改标识：Senparc - 20160813
     修改描述：v14.3.4 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
 
+    修改标识：Senparc - 20160813
+    修改描述：v14.3.6 完善getNewToken参数传递
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -214,7 +217,7 @@ namespace Senparc.Weixin.MP.Containers
             {
                 Register(appId, appSecret);
             }
-            return await GetAccessTokenAsync(appId);
+            return await GetAccessTokenAsync(appId, getNewToken);
         }
 
         /// <summary>

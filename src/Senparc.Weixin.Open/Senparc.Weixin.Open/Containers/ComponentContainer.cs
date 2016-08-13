@@ -37,6 +37,9 @@
 
     修改标识：Senparc - 20160813
     修改描述：v2.2.1 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+
+    修改标识：Senparc - 20160813
+    修改描述：v2.2.2 完善getNewToken参数传递
 ----------------------------------------------------------------*/
 
 using System;
@@ -311,7 +314,7 @@ namespace Senparc.Weixin.Open.Containers
         public static string TryGetComponentAccessToken(string componentAppId, string componentAppSecret, string componentVerifyTicket = null, bool getNewToken = false)
         {
             TryRegister(componentAppId, componentAppSecret, getNewToken);
-            return GetComponentAccessToken(componentAppId, componentVerifyTicket);
+            return GetComponentAccessToken(componentAppId, componentVerifyTicket, getNewToken);
         }
 
         /// <summary>
@@ -445,7 +448,7 @@ namespace Senparc.Weixin.Open.Containers
             var componentBag = TryGetItem(componentAppId);
             using (Cache.BeginCacheLock(LockResourceName, componentAppId))//同步锁
             {
-                var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret);
+                var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret,null, getNewToken);
                 var queryAuthResult = ComponentApi.QueryAuth(accessToken, componentAppId, authorizationCode);
 
                 if (updateToAuthorizerContanier)
@@ -474,7 +477,7 @@ namespace Senparc.Weixin.Open.Containers
         public static async Task<string> TryGetComponentAccessTokenAsync(string componentAppId, string componentAppSecret, string componentVerifyTicket = null, bool getNewToken = false)
         {
             TryRegister(componentAppId, componentAppSecret, getNewToken);
-            return await GetComponentAccessTokenAsync(componentAppId, componentVerifyTicket);
+            return await GetComponentAccessTokenAsync(componentAppId, componentVerifyTicket, getNewToken);
         }
 
         /// <summary>
@@ -535,7 +538,7 @@ namespace Senparc.Weixin.Open.Containers
         public static async Task<string> TryGetPreAuthCodeAsync(string componentAppId, string componentAppSecret, bool getNewToken = false)
         {
             TryRegister(componentAppId, componentAppSecret, getNewToken);
-            return await GetPreAuthCodeAsync(componentAppId);
+            return await GetPreAuthCodeAsync(componentAppId, getNewToken);
         }
 
         /// <summary>
@@ -611,7 +614,7 @@ namespace Senparc.Weixin.Open.Containers
             var componentBag = TryGetItem(componentAppId);
             using (Cache.BeginCacheLock(LockResourceName, componentAppId))//同步锁
             {
-                var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret);
+                var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret,null, getNewToken);
                 var queryAuthResult = await ComponentApi.QueryAuthAsync(accessToken, componentAppId, authorizationCode);
 
                 if (updateToAuthorizerContanier)

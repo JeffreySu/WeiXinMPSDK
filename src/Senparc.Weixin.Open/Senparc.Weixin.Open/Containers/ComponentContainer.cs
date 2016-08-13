@@ -35,6 +35,8 @@
     修改标识：Senparc - 20160808
     修改描述：v2.2.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
 
+    修改标识：Senparc - 20160813
+    修改描述：v2.2.1 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
 ----------------------------------------------------------------*/
 
 using System;
@@ -228,7 +230,6 @@ namespace Senparc.Weixin.Open.Containers
         {
             //激活消息列队线程
 
-
             if (GetComponentVerifyTicketFunc == null)
             {
                 GetComponentVerifyTicketFunc = getComponentVerifyTicketFunc;
@@ -236,26 +237,20 @@ namespace Senparc.Weixin.Open.Containers
                 AuthorizerTokenRefreshedFunc = authorizerTokenRefreshedFunc;
             }
 
-            using (FlushCache.CreateInstance())
+            RegisterFunc = () =>
             {
-                Update(componentAppId, new ComponentBag()
+                using (FlushCache.CreateInstance())
                 {
-                    Name = name,
-                    ComponentAppId = componentAppId,
-                    ComponentAppSecret = componentAppSecret,
-                });
-            }
-        }
-
-        /// <summary>
-        /// 检查是否已经注册
-        /// </summary>
-        /// <param name="componentAppId"></param>
-        /// <returns></returns>
-        public new static bool CheckRegistered(string componentAppId)
-        {
-            var cacheKey = GetBagCacheKey(componentAppId);
-            return Cache.CheckExisted(cacheKey);
+                    var bag = new ComponentBag()
+                    {
+                        Name = name,
+                        ComponentAppId = componentAppId,
+                        ComponentAppSecret = componentAppSecret,
+                    };
+                    Update(componentAppId, bag);
+                    return bag;
+                }
+            };
         }
 
         #region component_verify_ticket

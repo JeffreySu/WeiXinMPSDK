@@ -13,9 +13,11 @@
     修改标识：Senparc - 20160804
     修改描述：v14.2.4 增加TryGetOAuthAccessTokenAsync，GetOAuthAccessTokenAsync，GetOAuthAccessTokenResultAsync的异步方法
 
-
     修改标识：Senparc - 20160808
     修改描述：v14.3.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
+        
+    修改标识：Senparc - 20160813
+    修改描述：v14.3.4 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
 
 ----------------------------------------------------------------*/
 
@@ -97,17 +99,22 @@ namespace Senparc.Weixin.MP.Containers
         /// 此接口不提供异步方法
         public static void Register(string appId, string appSecret, string name = null)
         {
-            using (FlushCache.CreateInstance())
+            RegisterFunc = () =>
             {
-                Update(appId, new OAuthAccessTokenBag()
+                using (FlushCache.CreateInstance())
                 {
-                    Name = name,
-                    AppId = appId,
-                    AppSecret = appSecret,
-                    OAuthAccessTokenExpireTime = DateTime.MinValue,
-                    OAuthAccessTokenResult = new OAuthAccessTokenResult()
-                });
-            }
+                    var bag = new OAuthAccessTokenBag()
+                    {
+                        Name = name,
+                        AppId = appId,
+                        AppSecret = appSecret,
+                        OAuthAccessTokenExpireTime = DateTime.MinValue,
+                        OAuthAccessTokenResult = new OAuthAccessTokenResult()
+                    };
+                    Update(appId, bag);
+                    return bag;
+                }
+            };
         }
 
         #region OAuthAccessToken
@@ -156,7 +163,7 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var oAuthAccessTokenBag = TryGetItem(appId);
-            using (Cache.BeginCacheLock(LockResourceName,appId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
             {
                 if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= DateTime.Now)
                 {
@@ -220,7 +227,7 @@ namespace Senparc.Weixin.MP.Containers
             }
 
             var oAuthAccessTokenBag = TryGetItem(appId);
-            using (Cache.BeginCacheLock(LockResourceName,appId))//同步锁
+            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
             {
                 if (getNewToken || oAuthAccessTokenBag.OAuthAccessTokenExpireTime <= DateTime.Now)
                 {

@@ -285,6 +285,9 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
 > * 微信公众号
     - [x] 接收/发送消息（事件）
     - [x] 自定义菜单 & 个性化菜单
+        - [ ] 自定义菜单事件推送
+    - [x] 消息管理
+        - [ ] 接收普通消息的事件推送
     - [x] OAuth授权
     - [x] JSSDK
     - [x] 微信支付
@@ -297,6 +300,11 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
     - [x] 数据统计
     - [x] 微信小店
     - [x] 微信卡券
+        - [x] 卡券事件推送
+            - [ ] 买单事件推送
+            - [ ] 会员卡内容更新事件推送
+            - [ ] 库存报警事件推送
+            - [ ] 券点流水详情事件推送
     - [x] 微信门店
     - [x] 微信智能
     - [x] 微信设备功能
@@ -304,6 +312,12 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
     - [x] 微信摇一摇周边
     - [x] 微信连WI-FI（未完整）
     - [x] 微信扫一扫（商家）
+        - [ ] 扫一扫事件推送
+            - [ ] 打开商品主页事件推送
+            - [ ] 关注公众号事件推送
+            - [ ] 进入公众号事件推送
+            - [ ] 地理位置信息异步推送
+            - [ ] 商品审核结果推送
 
 > * 微信开放平台
     - [x] 网站应用
@@ -320,13 +334,19 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
 	- [x] 身份验证接口
 	- [x] JSSDK
 	- [x] 第三方应用授权
+	    - [x] 第三方回调协议
+	        - [ ] 授权成功推送auth_code事件
+	        - [ ] 通讯录变更通知
  	- [x] 企业号授权登陆
 	- [x] 企业号微信支付
 	- [x] 企业回话服务
 	    - [ ] 企业会话回调
 	- [x] 企业摇一摇周边
+	- [ ] 企业卡券服务
+	    - [ ] 卡券事件推送
 	- [x] 企业客服服务
 	    - [ ] 客服回复消息回调
+	    
 
 
 > * 缓存策略

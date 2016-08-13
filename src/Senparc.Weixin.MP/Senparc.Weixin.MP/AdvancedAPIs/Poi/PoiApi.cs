@@ -12,6 +12,9 @@
 
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
+ 
+    修改标识：Senparc - 20160812
+    修改描述：修改获取门店类目接口地址
 ----------------------------------------------------------------*/
 
 /* 
@@ -197,7 +200,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format("http://api.weixin.qq.com/cgi-bin/api_getwxcategory?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getwxcategory?access_token={0}", accessToken.AsUrlData());
 
                 return CommonJsonSend.Send<GetCategoryResult>(null, url, null, CommonJsonSendType.GET);
 
@@ -346,7 +349,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
             {
-                var url = string.Format("http://api.weixin.qq.com/cgi-bin/api_getwxcategory?access_token={0}", accessToken.AsUrlData());
+                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getwxcategory?access_token={0}", accessToken.AsUrlData());
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCategoryResult>(null, url, null, CommonJsonSendType.GET);
 

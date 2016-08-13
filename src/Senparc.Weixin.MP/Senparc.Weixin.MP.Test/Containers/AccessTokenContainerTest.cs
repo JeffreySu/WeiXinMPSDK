@@ -127,5 +127,26 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             //appId = AccessTokenContainer.GetFirstOrDefaultAppId();
             //Assert.AreEqual(registeredAppId, appId);
         }
+
+
+        [TestMethod]
+        public void ReTryRegisterTest()
+        {
+            //第一步：注册（基类已完成）
+            var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId);
+            Assert.IsNotNull(accessTokenResult);
+            Assert.IsNotNull(accessTokenResult.access_token);
+            Console.WriteLine(accessTokenResult.access_token);
+
+            //第二步：清空注册信息
+            var i = 0;
+
+
+            //第三步：在不注册的情况下调用接口
+            accessTokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId, true);
+            Assert.IsNotNull(accessTokenResult);
+            Assert.IsNotNull(accessTokenResult.access_token);
+            Console.WriteLine(accessTokenResult.access_token);
+        }
     }
 }

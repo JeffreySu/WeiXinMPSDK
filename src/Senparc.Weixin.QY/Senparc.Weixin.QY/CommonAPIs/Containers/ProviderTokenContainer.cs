@@ -27,6 +27,10 @@
  
     修改标识：Senparc - 20160804
     修改描述：v4.1.3 增加TryGetTokenAsync，GetTokenAsync，GetTokenResultAsync的异步方法
+    
+    修改标识：Senparc - 20160813
+    修改描述：v4.1.5 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -98,8 +102,8 @@ namespace Senparc.Weixin.QY.CommonAPIs
         private const string UN_REGISTER_ALERT = "此CorpId尚未注册，ProviderTokenContainer.Register完成注册（全局执行一次即可）！";
 
         #region 同步方法
-        
-        
+
+
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
         /// </summary>
@@ -108,17 +112,22 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="name">标记Provider名称（如微信公众号名称），帮助管理员识别</param>
         public static void Register(string corpId, string corpSecret, string name = null)
         {
-            using (FlushCache.CreateInstance())
+            RegisterFunc = () =>
             {
-                Update(corpId, new ProviderTokenBag()
+                using (FlushCache.CreateInstance())
                 {
-                    Name = name,
-                    CorpId = corpId,
-                    CorpSecret = corpSecret,
-                    ExpireTime = DateTime.MinValue,
-                    ProviderTokenResult = new ProviderTokenResult()
-                });
-            }
+                    var bag = new ProviderTokenBag()
+                    {
+                        Name = name,
+                        CorpId = corpId,
+                        CorpSecret = corpSecret,
+                        ExpireTime = DateTime.MinValue,
+                        ProviderTokenResult = new ProviderTokenResult()
+                    };
+                    Update(corpId, bag);
+                    return bag;
+                }
+            };
         }
 
         /// <summary>
@@ -188,7 +197,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         #endregion
 
         #region 异步方法
-         /// <summary>
+        /// <summary>
         /// 【异步方法】使用完整的应用凭证获取Token，如果不存在将自动注册
         /// </summary>
         /// <param name="corpId"></param>

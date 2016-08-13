@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "微信公众平台SDK - Senparc.Weixin SDK - 公众号 企业号 开放平台";
+    ViewBag.Title = "微信公众平台SDK - Senparc.Weixin SDK - 公众号 企业号 开放平台 盛派微信号";
 }
 @section scripts
 {
@@ -88,13 +88,6 @@
                 <td><a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Memcached" target="_blank">Senparc.Weixin.Cache.Memcached.dll</a></td>
                 <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["MemcachedCacheVersion"])</a></td>
             </tr>
-            <tr>
-                <td></td>
-                <td>运行中的缓存框架</td>
-                <td>@TempData["CacheStrategy"]</td>
-                <td>@Html.ActionLink("测试","Test","Cache",null,new {@class="sdk-version" })</td>
-            </tr>
-            </tbody>
         </table>
 
         <div class="clear"></div>

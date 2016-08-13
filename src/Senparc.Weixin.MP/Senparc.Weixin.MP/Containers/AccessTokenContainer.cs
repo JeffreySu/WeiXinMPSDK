@@ -105,7 +105,7 @@ namespace Senparc.Weixin.MP.Containers
         /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别</param>
         public static void Register(string appId, string appSecret, string name = null)
         {
-            //记录注册信息，这里需要一个委托
+            //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
             RegisterFunc = () =>
             {
                 using (FlushCache.CreateInstance())

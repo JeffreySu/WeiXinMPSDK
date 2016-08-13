@@ -121,9 +121,9 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
         /// </summary>
-        private static void TryReRegister()
+        private static TBag TryReRegister()
         {
-            RegisterFunc();
+            return RegisterFunc();
             //TODO:如果需要校验ContainerBag的正确性，可以从返回值进行判断
         }
 
@@ -272,7 +272,7 @@ namespace Senparc.Weixin.Containers
         {
             var cacheKey = GetBagCacheKey(shortKey);
             var registered = Cache.CheckExisted(cacheKey);
-            if (!registered)
+            if (!registered && RegisterFunc != null)
             {
                 //如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
                 TryReRegister();

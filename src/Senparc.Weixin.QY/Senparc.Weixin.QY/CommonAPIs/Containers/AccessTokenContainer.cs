@@ -28,6 +28,10 @@
  
     修改标识：Senparc - 20160804
     修改描述：v4.1.3 增加TryGetTokenAsync，GetTokenAsync，GetTokenResultAsync的异步方法
+    
+    修改标识：Senparc - 20160813
+    修改描述：v4.1.5 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -106,21 +110,27 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// 此接口无异步方法
         public static void Register(string corpId, string corpSecret, string name = null)
         {
-            using (FlushCache.CreateInstance())
+            //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
+            RegisterFunc = () =>
             {
-                Update(corpId, new AccessTokenBag()
+                using (FlushCache.CreateInstance())
                 {
-                    Name = name,
-                    CorpId = corpId,
-                    CorpSecret = corpSecret,
-                    ExpireTime = DateTime.MinValue,
-                    AccessTokenResult = new AccessTokenResult()
-                });
-            }
+                    var bag = new AccessTokenBag()
+                    {
+                        Name = name,
+                        CorpId = corpId,
+                        CorpSecret = corpSecret,
+                        ExpireTime = DateTime.MinValue,
+                        AccessTokenResult = new AccessTokenResult()
+                    };
+                    Update(corpId, bag);
+                    return bag;
+                }
+            };
 
             ProviderTokenContainer.Register(corpId, corpSecret);//连带注册ProviderTokenContainer
         }
-      
+
         /// <summary>
         /// 使用完整的应用凭证获取Token，如果不存在将自动注册
         /// </summary>
@@ -188,7 +198,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         #endregion
 
         #region 异步方法
-         /// <summary>
+        /// <summary>
         /// 【异步方法】使用完整的应用凭证获取Token，如果不存在将自动注册
         /// </summary>
         /// <param name="corpId"></param>
@@ -245,6 +255,6 @@ namespace Senparc.Weixin.QY.CommonAPIs
             }
             return accessTokenBag.AccessTokenResult;
         }
- #endregion
+        #endregion
     }
 }

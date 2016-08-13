@@ -24,6 +24,10 @@
  
     修改标识：Senparc - 20160804
     修改描述：v4.1.3 增加TryGetTicketAsync，GetTicketAsync，GetTicketResultAsync的异步方法
+    
+    修改标识：Senparc - 20160813
+    修改描述：v4.1.5 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -94,17 +98,23 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// 此接口无异步方法
         public static void Register(string appId, string appSecret, string name = null)
         {
-            using (FlushCache.CreateInstance())
+            //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
+            RegisterFunc = () =>
             {
-                Update(appId, new JsApiTicketBag()
+                using (FlushCache.CreateInstance())
                 {
-                    Name = name,
-                    AppId = appId,
-                    AppSecret = appSecret,
-                    ExpireTime = DateTime.MinValue,
-                    JsApiTicketResult = new JsApiTicketResult()
-                });
-            }
+                    var bag = new JsApiTicketBag()
+                    {
+                        Name = name,
+                        AppId = appId,
+                        AppSecret = appSecret,
+                        ExpireTime = DateTime.MinValue,
+                        JsApiTicketResult = new JsApiTicketResult()
+                    };
+                    Update(appId,bag);
+                    return bag;
+                }
+            };
         }
 
         /// <summary>

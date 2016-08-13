@@ -82,12 +82,18 @@
                     <td><a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Redis" target="_blank">Senparc.Weixin.Cache.Redis.dll</a></td>
                     <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["RedisCacheVersion"])</a></td>
                 </tr>
-                <tr>
-                    <td>7</td>
-                    <td>Memcached 缓存</td>
-                    <td><a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Memcached" target="_blank">Senparc.Weixin.Cache.Memcached.dll</a></td>
-                    <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["MemcachedCacheVersion"])</a></td>
-                </tr>
+            <tr>
+                <td>7</td>
+                <td>Memcached 缓存</td>
+                <td><a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Memcached" target="_blank">Senparc.Weixin.Cache.Memcached.dll</a></td>
+                <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["MemcachedCacheVersion"])</a></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>当前缓存框架：</td>
+                <td>@TempData["CacheStrategy"]</td>
+                <td></td>
+            </tr>
             </tbody>
         </table>
 

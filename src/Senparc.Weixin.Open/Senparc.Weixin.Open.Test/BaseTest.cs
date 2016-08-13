@@ -5,8 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Senparc.Weixin.Cache;
+using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
+using Senparc.Weixin.Open.Containers;
 
 namespace Senparc.Weixin.Open.Test
 {
@@ -58,6 +61,8 @@ namespace Senparc.Weixin.Open.Test
             get { return AppConfig.Ticket; }
         }
 
+        protected bool _userRedis = true;//使用Redis缓存
+
         public BaseTest()
         {
             Func<string, string> getComponentVerifyTicketFunc = s =>
@@ -66,7 +71,14 @@ namespace Senparc.Weixin.Open.Test
                 return _ticket;
             };
 
-            //ComponentContainer.Register(_appId, _appSecret, getComponentVerifyTicketFunc);
+            if (_userRedis)
+            {
+                var redisConfiguration = "localhost:6379";
+                RedisManager.ConfigurationOption = redisConfiguration;
+                CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
+            }
+
+            ComponentContainer.Register(_appId, _appSecret, getComponentVerifyTicketFunc,null,null,"Open缓存测试");
         }
     }
 }

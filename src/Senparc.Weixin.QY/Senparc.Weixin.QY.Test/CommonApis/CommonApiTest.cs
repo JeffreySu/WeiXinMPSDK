@@ -8,6 +8,7 @@ using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.QY.Containers;
 
 namespace Senparc.Weixin.QY.Test.CommonApis
 {

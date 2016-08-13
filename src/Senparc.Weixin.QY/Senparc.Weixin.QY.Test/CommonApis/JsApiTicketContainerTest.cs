@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.QY.Containers;
 using Senparc.Weixin.QY.Test.CommonApis;
 
 namespace Senparc.Weixin.QY.Test.CommonAPIs

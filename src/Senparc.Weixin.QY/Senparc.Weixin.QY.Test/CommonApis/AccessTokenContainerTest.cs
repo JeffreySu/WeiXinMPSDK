@@ -34,7 +34,7 @@ namespace Senparc.Weixin.QY.Test.CommonAPIs
                 Assert.AreEqual(tokenResult.access_token, token);
 
                 token = AccessTokenContainer.TryGetToken(base._corpId, base._corpSecret, true);
-                Assert.AreNotEqual(tokenResult.access_token, token);
+                Assert.AreEqual(tokenResult.access_token, token);//现在微信服务器有AccessToken缓存，短时间内一致
             }
         }
 

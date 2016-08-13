@@ -32,7 +32,7 @@ namespace Senparc.Weixin.QY.Test.CommonAPIs
                 Assert.AreEqual(ticketResult.ticket, ticket);
 
                 ticket = JsApiTicketContainer.TryGetTicket(base._corpId, base._corpSecret, true);
-                Assert.AreNotEqual(ticketResult.ticket, ticket);
+                Assert.AreEqual(ticketResult.ticket, ticket);//现在微信服务器有Ticket缓存，短时间内一致
             }
 
         }

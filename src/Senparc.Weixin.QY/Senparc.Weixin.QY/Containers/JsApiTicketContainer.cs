@@ -30,7 +30,9 @@
 
     修改标识：Senparc - 20160813
     修改描述：v4.1.6 完善GetToken()方法
-
+    
+    修改标识：Senparc - 20160813
+    修改描述：v4.1.8 修改命名空间为Senparc.Weixin.QY.Containers
 ----------------------------------------------------------------*/
 
 using System;
@@ -43,7 +45,7 @@ using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
 
-namespace Senparc.Weixin.QY.CommonAPIs
+namespace Senparc.Weixin.QY.Containers
 {
     /// <summary>
     /// JsApiTicketBag

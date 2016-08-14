@@ -380,7 +380,7 @@ img.official-img {
 
 .version{ margin-top: 16px;}
 
-.tbVersion{ color: #4d4d4d;font-size: 15px;/*text-align: center;*/ }
+.tbVersion{ color: #4d4d4d;font-size: 15px;width: 100%; /*text-align: center;*/ }
 .tbVersion th{ font-weight: bold;padding: 10px; color: #4d4d4d;border-bottom: 1px solid #4d4d4d;}
 .tbVersion td{ padding: 6px; color: #4d4d4d;line-height: 150%; vertical-align:middle;}
 .tbVersion td a{ color: #4d4d4d;}

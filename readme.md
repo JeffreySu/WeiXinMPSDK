@@ -1,4 +1,4 @@
-微信C# SD K[![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
+微信C# SDK  [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
 =================
 
 > .NET Framework 版本及 .NET Core 版本代码分别位于 [master](https://github.com/JeffreySu/WeiXinMPSDK) 和 [DotNET-Core](https://github.com/JeffreySu/WeiXinMPSDK/tree/DotNET-Core) 分支下，结构基本保持一致，以下介绍以 .NET Framework 版本为例。

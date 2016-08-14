@@ -172,7 +172,7 @@
 
 }
 img.official-img {
-    margin: 50px 0 0 0;
+    margin: 30px 0 0 0;
     clear: both;
 }
 
@@ -194,10 +194,6 @@ img.official-img {
 	font-size: 16px;
 	margin-top: 20px;
 	border-radius: 5px;
-}
-
-.application img {
-    vertical-align: bottom;
 }
 
 .test {
@@ -391,6 +387,9 @@ img.official-img {
 .sdk-version{ text-decoration:underline;}
 .sdk-version:hover{ text-decoration:none;}
 .tbVersion tbody>tr:hover{ background: #abe0ff;}
+.tbVersion img {
+    vertical-align: bottom;
+}
 
 #menuEditor h3{text-align: left;
 font-size: 16px;

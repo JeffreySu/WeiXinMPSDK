@@ -94,7 +94,7 @@ namespace Senparc.Weixin.QY.Containers
     public class JsApiTicketContainer : BaseContainer<JsApiTicketBag>
     {
         private const string UN_REGISTER_ALERT = "此AppId尚未注册，JsApiTicketContainer.Register完成注册（全局执行一次即可）！";
-        #region 同步方法
+
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
         /// </summary>
@@ -117,12 +117,15 @@ namespace Senparc.Weixin.QY.Containers
                         ExpireTime = DateTime.MinValue,
                         JsApiTicketResult = new JsApiTicketResult()
                     };
-                    Update(appId,bag);
+                    Update(appId, bag);
                     return bag;
                 }
             };
             RegisterFunc();
         }
+
+        #region 同步方法
+
 
         /// <summary>
         /// 使用完整的应用凭证获取Ticket，如果不存在将自动注册
@@ -187,6 +190,7 @@ namespace Senparc.Weixin.QY.Containers
         //{
         //    return Cache.CheckExisted(appId);
         //}
+
         #endregion
 
         #region 异步方法

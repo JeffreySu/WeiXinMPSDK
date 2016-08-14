@@ -105,7 +105,7 @@ namespace Senparc.Weixin.QY.Containers
     public class AccessTokenContainer : BaseContainer<AccessTokenBag>
     {
         private const string UN_REGISTER_ALERT = "此CorpId尚未注册，AccessTokenContainer.Register完成注册（全局执行一次即可）！";
-        #region 同步方法
+
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token。
         /// 执行此注册过程，会连带注册ProviderTokenContainer。
@@ -135,8 +135,13 @@ namespace Senparc.Weixin.QY.Containers
             };
             RegisterFunc();
 
+            JsApiTicketContainer.Register(corpId, corpSecret);//连带注册JsApiTicketContainer
+
             ProviderTokenContainer.Register(corpId, corpSecret);//连带注册ProviderTokenContainer
         }
+
+        #region 同步方法
+
 
         /// <summary>
         /// 使用完整的应用凭证获取Token，如果不存在将自动注册

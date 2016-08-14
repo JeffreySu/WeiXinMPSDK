@@ -22,6 +22,7 @@ namespace Senparc.Weixin.QY.Test.CommonAPIs
             //获取Ticket完整结果（包括当前过期秒数）
             var ticketResult = JsApiTicketContainer.GetTicketResult(base._corpId);
             Assert.IsNotNull(ticketResult);
+            Console.WriteLine(ticketResult.ticket);
 
             //只获取Ticket字符串
             var ticket = JsApiTicketContainer.GetTicket(base._corpId);
@@ -34,6 +35,7 @@ namespace Senparc.Weixin.QY.Test.CommonAPIs
 
                 ticket = JsApiTicketContainer.TryGetTicket(base._corpId, base._corpSecret, true);
                 Assert.AreEqual(ticketResult.ticket, ticket);//现在微信服务器有Ticket缓存，短时间内一致
+                Console.WriteLine(ticketResult.ticket);
             }
 
         }

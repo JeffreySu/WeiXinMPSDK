@@ -54,7 +54,7 @@
 ----------------
 1. 官网地址：http://weixin.senparc.com/
 2. Demo 地址：http://sdk.weixin.senparc.com/
-2. 系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
+2. 微信开发系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
 3. 微信技术交流社区：http://weixin.senparc.com/QA
 4. 自定义菜单在线编辑工具：http://sdk.weixin.senparc.com/Menu
 5. 在线消息测试工具：http://sdk.weixin.senparc.com/SimulateTool
@@ -84,9 +84,6 @@
 ###关注测试账号（SenparcRobot）：
 [![qrcode]](http://weixin.senparc.com/)
 [qrcode]: http://sdk.weixin.senparc.com/Images/qrcode.jpg
-
-
-微信公众平台开发系列教程：http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html
 
 
 项目文件夹说明（src文件夹下）

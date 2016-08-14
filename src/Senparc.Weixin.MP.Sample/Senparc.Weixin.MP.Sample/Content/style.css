@@ -183,7 +183,7 @@ img.official-img {
 .weixin-bottom {
 	text-align:center;
 	padding-bottom:40px;
-    width: 671px;
+    width: 680px;
     float: left;
 }
 .application {
@@ -195,6 +195,11 @@ img.official-img {
 	margin-top: 20px;
 	border-radius: 5px;
 }
+
+.application img {
+    vertical-align: bottom;
+}
+
 .test {
     margin-top: 0px; padding-bottom:20px; padding-top: 30px; clear: both;
 }
@@ -379,7 +384,7 @@ img.official-img {
 
 .version{ margin-top: 16px;}
 
-.tbVersion{ color: #4d4d4d;font-size: 18px;/*text-align: center;*/ }
+.tbVersion{ color: #4d4d4d;font-size: 15px;/*text-align: center;*/ }
 .tbVersion th{ font-weight: bold;padding: 10px; color: #4d4d4d;border-bottom: 1px solid #4d4d4d;}
 .tbVersion td{ padding: 6px; color: #4d4d4d;line-height: 150%; vertical-align:middle;}
 .tbVersion td a{ color: #4d4d4d;}

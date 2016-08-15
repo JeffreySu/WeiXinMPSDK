@@ -61,6 +61,7 @@
 6. 缓存测试工具：http://sdk.weixin.senparc.com/Cache/Test
 7. chm帮助文档下载：http://sdk.weixin.senparc.com/Document
 8. 源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
+9. 更多资源：https://github.com/JeffreySu/WeixinResource
 
 * 技术交流QQ群（目前未满可加：3群，其他群均已满）：
 

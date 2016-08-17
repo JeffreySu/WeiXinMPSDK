@@ -19,17 +19,607 @@
     </section>
 
     <section class="main-content">
-      <h3>
-<a id="欢迎使用senparcweixinmp-微信公众平台sdk" class="anchor" href="#%E6%AC%A2%E8%BF%8E%E4%BD%BF%E7%94%A8senparcweixinmp-%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%B9%B3%E5%8F%B0sdk" aria-hidden="true"><span class="octicon octicon-link"></span></a>欢迎使用Senparc.Weixin.MP 微信公众平台SDK！</h3>
+      <h1>
+<a id="微信c-sdk--" class="anchor" href="#%E5%BE%AE%E4%BF%A1c-sdk--" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>微信C# SDK  <a href="https://travis-ci.org/JeffreySu/WeiXinMPSDK"><img src="https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master" alt="Build Status"></a>
+</h1>
 
-<p>源代码地址：<a href="https://github.com/JeffreySu/WeiXinMPSDK">https://github.com/JeffreySu/WeiXinMPSDK</a></p>
+<blockquote>
+<p>.NET Framework 版本及 .NET Core 版本代码分别位于 <a href="https://github.com/JeffreySu/WeiXinMPSDK">master</a> 和 <a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/DotNET-Core">DotNET-Core</a> 分支下，结构基本保持一致，以下介绍以 .NET Framework 版本为例。</p>
+</blockquote>
 
-<p>在线Demo：<a href="http://weixin.senparc.com">http://weixin.senparc.com</a></p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>模块功能</th>
+<th>DLL</th>
+<th>Nuget</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>基础库</td>
+<td>Senparc.Weixin.dll</td>
+<td><a href="https://www.nuget.org/packages/Senparc.Weixin"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat" alt="Senparc.Weixin"></a></td>
+</tr>
+<tr>
+<td>2</td>
+<td>微信公众号 / 微信支付 / JSSDK / 摇周边 / 等等</td>
+<td>Senparc.Weixin.MP.dll</td>
+<td><a href="https://www.nuget.org/packages/Senparc.Weixin.MP"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.MP.svg?style=flat" alt="Senparc.Weixin.MP"></a></td>
+</tr>
+<tr>
+<td>3</td>
+<td>ASP.NET MVC 扩展</td>
+<td>Senparc.Weixin.MP.MVC.dll</td>
+<td><a href="https://www.nuget.org/packages/Senparc.Weixin.MP.MVC"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.MP.MVC.svg?style=flat" alt="Senparc.Weixin.MP.MVC"></a></td>
+</tr>
+<tr>
+<td>4</td>
+<td>微信企业号</td>
+<td>Senparc.Weixin.QY.dll</td>
+<td><a href="https://www.nuget.org/packages/Senparc.Weixin.QY"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.QY.svg?style=flat" alt="Senparc.Weixin.QY"></a></td>
+</tr>
+<tr>
+<td>5</td>
+<td>微信开放平台</td>
+<td>Senparc.Weixin.Open.dll</td>
+<td><a href="https://www.nuget.org/packages/Senparc.Weixin.Open"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.Open.svg?style=flat" alt="Senparc.Weixin.Open"></a></td>
+</tr>
+<tr>
+<td>6</td>
+<td>Redis 分布式缓存</td>
+<td>Senparc.Weixin.Cache.Redis.dll</td>
+<td><a href="https://www.nuget.org/packages/Senparc.Weixin.Cache.Redis"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.Cache.Redis.svg?style=flat" alt="Senparc.Weixin.Cache.Redis"></a></td>
+</tr>
+<tr>
+<td>7</td>
+<td>Memcached 分布式缓存</td>
+<td>Senparc.Weixin.Cache.Memcached.dll</td>
+<td><a href="https://www.nuget.org/packages/Senparc.Weixin.Cache.Memcached"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.Cache.Memcached.svg?style=flat" alt="Senparc.Weixin.Cache.Memcached"></a></td>
+</tr>
+</tbody>
+</table>
+
+<p>本库为.NET4.5，其他.NET版本请看各自分支（DotNET-Core、.NET 4.0等）。</p>
+
+<ul>
+<li>已经支持所有微信6 API，包括自定义菜单/个性化菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口等等。</li>
+<li>已经支持用户会话上下文（解决服务器无法使用Session处理用户信息的问题）。</li>
+<li>已经全面支持微信公众号、企业号、开放平台的最新API。</li>
+<li>已经支持分布式缓存及缓存策略扩展。</li>
+</ul>
+
+<p>目前官方的API都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的<a href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut">DLLs</a>。</p>
+
+<h2>
+<a id="贡献代码" class="anchor" href="#%E8%B4%A1%E7%8C%AE%E4%BB%A3%E7%A0%81" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>贡献代码</h2>
+
+<blockquote>
+<p>如果需要使用或修改此项目的源代码，建议先Fork。也欢迎将您修改的通用版本Pull Request过来。</p>
+</blockquote>
+
+<ol>
+<li>Fork</li>
+<li>创建您的特性分支 (<code>git checkout -b my-new-feature</code>)</li>
+<li>提交您的改动 (<code>git commit -am 'Added some feature'</code>)</li>
+<li>将您的修改记录提交到远程 <code>git</code> 仓库 (<code>git push origin my-new-feature</code>)</li>
+<li>然后到 github 网站的该 <code>git</code> 远程仓库的 <code>my-new-feature</code> 分支下发起 Pull Request</li>
+</ol>
+
+<h2>
+<a id="资源" class="anchor" href="#%E8%B5%84%E6%BA%90" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>资源</h2>
+
+<ol>
+<li>官网地址：<a href="http://weixin.senparc.com/">http://weixin.senparc.com/</a>
+</li>
+<li>Demo 地址：<a href="http://sdk.weixin.senparc.com/">http://sdk.weixin.senparc.com/</a>
+</li>
+<li>微信开发系列教程：<a href="http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html">http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html</a>
+</li>
+<li>微信技术交流社区：<a href="http://weixin.senparc.com/QA">http://weixin.senparc.com/QA</a>
+</li>
+<li>自定义菜单在线编辑工具：<a href="http://sdk.weixin.senparc.com/Menu">http://sdk.weixin.senparc.com/Menu</a>
+</li>
+<li>在线消息测试工具：<a href="http://sdk.weixin.senparc.com/SimulateTool">http://sdk.weixin.senparc.com/SimulateTool</a>
+</li>
+<li>缓存测试工具：<a href="http://sdk.weixin.senparc.com/Cache/Test">http://sdk.weixin.senparc.com/Cache/Test</a>
+</li>
+<li>chm帮助文档下载：<a href="http://sdk.weixin.senparc.com/Document">http://sdk.weixin.senparc.com/Document</a>
+</li>
+<li>源代码及最新更新：<a href="https://github.com/JeffreySu/WeiXinMPSDK">https://github.com/JeffreySu/WeiXinMPSDK</a>
+</li>
+<li><p>微信开发资源集合：<a href="https://github.com/JeffreySu/WeixinResource">https://github.com/JeffreySu/WeixinResource</a></p></li>
+</ol>
+
+<ul>
+<li>技术交流QQ群（目前未满可加：3群，其他群均已满）：</li>
+</ul>
+
+<blockquote>
+<p>1群：300313885，2群：293958349，3群：342319110，4群：372212092，5群：377815480</p>
+
+<p>6群：425898825，7群：482942254，8群：106230270，9群：539061281，11群：553198593</p>
+
+<p>10群（Redis / Memcached 分布式缓存群）：只加已经在使用的开发者。发送申请及截图至 <a href="mailto:zsu@senparc.com">zsu@senparc.com</a> 或QQ：498977166，标题：Senparc.Weixin.Cache 加群申请</p>
+</blockquote>
+
+<ul>
+<li><p>业务联系QQ：498977166</p></li>
+<li><p>新浪微博：<a href="http://weibo.com/jeffreysu1984">@苏震巍</a></p></li>
+</ul>
+
+<p>如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！</p>
+
+<p>资金捐助： <a href="http://weixin.senparc.com">进入主页</a></p>
 
 <h3>
-<a id="关注测试账号" class="anchor" href="#%E5%85%B3%E6%B3%A8%E6%B5%8B%E8%AF%95%E8%B4%A6%E5%8F%B7" aria-hidden="true"><span class="octicon octicon-link"></span></a>关注测试账号：</h3>
+<a id="关注测试账号senparcrobot" class="anchor" href="#%E5%85%B3%E6%B3%A8%E6%B5%8B%E8%AF%95%E8%B4%A6%E5%8F%B7senparcrobot" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>关注测试账号（SenparcRobot）：</h3>
 
-<p><a href="http://weixin.senparc.com/"><img src="http://weixin.senparc.com/Images/qrcode.jpg" alt="image"></a>  </p>
+<p><a href="http://weixin.senparc.com/"><img src="http://sdk.weixin.senparc.com/Images/qrcode.jpg" alt="qrcode"></a></p>
+
+<h2>
+<a id="项目文件夹说明src文件夹下" class="anchor" href="#%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%A4%B9%E8%AF%B4%E6%98%8Esrc%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>项目文件夹说明（src文件夹下）</h2>
+
+<table>
+<thead>
+<tr>
+<th>文件夹</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Senparc.Weixin.Cache</td>
+<td>Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis.dll 等分布式缓存扩展方案</td>
+</tr>
+<tr>
+<td>Senparc.Weixin.MP.BuildOutPut</td>
+<td>所有最新版本DLL发布文件夹</td>
+</tr>
+<tr>
+<td>Senparc.Weixin.MP.MvcExtension</td>
+<td>Senparc.Weixin.MP.MvcExtension.dll源码，为MVC4.0项目提供的扩展包。</td>
+</tr>
+<tr>
+<td>Senparc.Weixin.MP.Sample</td>
+<td>可以直接发布使用的Demo（ASP.NET MVC 4.0）</td>
+</tr>
+<tr>
+<td>Senparc.Weixin.MP.Sample.WebForms</td>
+<td>可以直接发布使用的Demo（ASP.NET WebForms）</td>
+</tr>
+<tr>
+<td>Senparc.Weixin.MP</td>
+<td>Senparc.Weixin.MP.dll 微信公众账号SDK源代码</td>
+</tr>
+<tr>
+<td>Senparc.Weixin.QY</td>
+<td>Senparc.Weixin.QY.dll 微信企业号SDK源代码</td>
+</tr>
+<tr>
+<td>Senparc.Weixin.Open</td>
+<td>Senparc.Weixin.Open.dll 第三方开放平台SDK源代码</td>
+</tr>
+<tr>
+<td>Senparc.Wiexin</td>
+<td>所有Senparc.Weixin.[x].dll 基础类库源代码</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="senparcweixinmpsample中的关键代码说明" class="anchor" href="#senparcweixinmpsample%E4%B8%AD%E7%9A%84%E5%85%B3%E9%94%AE%E4%BB%A3%E7%A0%81%E8%AF%B4%E6%98%8E" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Senparc.Weixin.MP.Sample中的关键代码说明</h2>
+
+<blockquote>
+<p>注：这是MVC项目，WebForms项目见对应Demo中的Weixin.aspx。</p>
+</blockquote>
+
+<h3>
+<a id="controllersweixincontrollercs" class="anchor" href="#controllersweixincontrollercs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>/Controllers/WeixinController.cs</h3>
+
+<p>下面的Token需要和微信公众平台后台设置的Token同步，如果经常更换建议写入Web.config等配置文件（实际使用过程中两列建议使用数字+英文大小写改写Token，Token一旦被破解，微信请求将很容易被伪造！）：</p>
+
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">public</span> <span class="pl-k">readonly</span> <span class="pl-k">string</span> Token = <span class="pl-s"><span class="pl-pds">"</span>weixin<span class="pl-pds">"</span></span>;</pre></div>
+
+<p>下面这个Action（Get）用于接收并返回微信后台Url的验证结果，无需改动。地址如：http://domain/Weixin或http://domain/Weixin/Index</p>
+
+<div class="highlight highlight-source-cs"><pre><span class="pl-c">/// &lt;<span class="pl-ent">summary</span>&gt;</span>
+<span class="pl-c">/// 微信后台验证地址（使用Get），微信后台的“接口配置信息”的Url填写如：http://weixin.senparc.com/weixin</span>
+<span class="pl-c">/// &lt;/<span class="pl-ent">summary</span>&gt;</span>
+[HttpGet]
+[ActionName(<span class="pl-s"><span class="pl-pds">"</span>Index<span class="pl-pds">"</span></span>)]
+<span class="pl-k">public</span> ActionResult Get(PostModel postModel, <span class="pl-k">string</span> echostr)
+{
+    <span class="pl-k">if</span> (CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
+    {
+        <span class="pl-k">return</span> Content(echostr); <span class="pl-c">//返回随机字符串则表示验证通过</span>
+    }
+    <span class="pl-k">else</span>
+    {
+        <span class="pl-k">return</span> Content(<span class="pl-s"><span class="pl-pds">"</span>failed:<span class="pl-pds">"</span></span> + postModel.Signature + <span class="pl-s"><span class="pl-pds">"</span>,<span class="pl-pds">"</span></span> 
+            + MP.CheckSignature.GetSignature(postModel.Timestamp, postModel.Nonce, Token) + <span class="pl-s"><span class="pl-pds">"</span>。<span class="pl-pds">"</span></span> +
+            <span class="pl-s"><span class="pl-pds">"</span>如果你在浏览器中看到这句话，说明此地址可以被作为微信公众账号后台的Url，请注意保持Token一致。<span class="pl-pds">"</span></span>);
+    }
+}</pre></div>
+
+<p>上述方法中的PostModel是一个包括了了Signature、Timestamp、Nonce（由微信服务器通过请求时的Url参数传入），以及AppId、Token、EncodingAESKey等一系列内部敏感的信息（需要自行传入）的实体类，同时也会在后面用到。</p>
+
+<p>下面这个Action（Post）用于接收来自微信服务器的Post请求（通常由用户发起），这里的if必不可少，之前的Get只提供微信后台保存Url时的验证，每次Post必须重新验证，否则很容易伪造请求。</p>
+
+<div class="highlight highlight-source-cs"><pre><span class="pl-c">/// &lt;<span class="pl-ent">summary</span>&gt;</span>
+<span class="pl-c">/// 用户发送消息后，微信平台自动Post一个请求到这里，并等待响应XML</span>
+<span class="pl-c">/// &lt;/<span class="pl-ent">summary</span>&gt;</span>
+[HttpPost]
+[ActionName(<span class="pl-s"><span class="pl-pds">"</span>Index<span class="pl-pds">"</span></span>)]
+<span class="pl-k">public</span> ActionResult Post(PostModel postModel)
+{
+    <span class="pl-k">if</span> (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
+    {
+        <span class="pl-k">return</span> Content(<span class="pl-s"><span class="pl-pds">"</span>参数错误！<span class="pl-pds">"</span></span>);
+    }
+    ...
+}</pre></div>
+
+<h3>
+<a id="如何处理微信公众账号请求" class="anchor" href="#%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E8%B4%A6%E5%8F%B7%E8%AF%B7%E6%B1%82" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>如何处理微信公众账号请求？</h3>
+
+<p>Senparc.Weixin.MP提供了2中处理请求的方式，<a href="https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A4%84%E7%90%86%E5%BE%AE%E4%BF%A1%E4%BF%A1%E6%81%AF%E7%9A%84%E5%B8%B8%E8%A7%84%E6%96%B9%E6%B3%95">传统方法</a>及使用<a href="https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B">MessageHandler</a>处理方法（推荐）。上面两个方法在wiki中已经有比较详细的说明，这里简单举例MessageHandler的处理方法。</p>
+
+<p>MessageHandler的处理流程非常简单：</p>
+
+<div class="highlight highlight-source-cs"><pre>[HttpPost]
+[ActionName(<span class="pl-s"><span class="pl-pds">"</span>Index<span class="pl-pds">"</span></span>)]
+<span class="pl-k">public</span> ActionResult Post(PostModel postModel)
+{
+    <span class="pl-k">if</span> (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
+    {
+        <span class="pl-k">return</span> Content(<span class="pl-s"><span class="pl-pds">"</span>参数错误！<span class="pl-pds">"</span></span>);
+    }
+
+    postModel.Token = Token;
+    postModel.EncodingAESKey = EncodingAESKey;<span class="pl-c">//根据自己后台的设置保持一致</span>
+    postModel.AppId = AppId;<span class="pl-c">//根据自己后台的设置保持一致</span>
+
+    <span class="pl-k">var</span> messageHandler = <span class="pl-k">new</span> CustomMessageHandler(Request.InputStream, postModel);<span class="pl-c">//接收消息（第一步）</span>
+
+    messageHandler.Execute();<span class="pl-c">//执行微信处理过程（第二步）</span>
+
+    <span class="pl-k">return</span> <span class="pl-k">new</span> FixWeixinBugWeixinResult(messageHandler);<span class="pl-c">//返回（第三步）</span>
+}</pre></div>
+
+<p>整个消息除了postModel的赋值以外，接收（第一步）、处理（第二步）、返回（第三步）分别只需要一行代码。</p>
+
+<p>上述代码中的CustomMessageHandler是一个自定义的类，继承自Senparc.Weixin.MP.MessageHandler.cs。MessageHandler是一个抽象类，包含了执行各种不同请求类型的抽象方法（如文字，语音，位置、图片等等），我们只需要在自己创建的CustomMessageHandler中逐个实现这些方法就可以了。刚建好的CustomMessageHandler.cs如下：</p>
+
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">using</span> System<span class="pl-k">;</span>
+<span class="pl-k">using</span> System.IO<span class="pl-k">;</span>
+<span class="pl-k">using</span> Senparc.Weixin.MP.MessageHandlers<span class="pl-k">;</span>
+<span class="pl-k">using</span> Senparc.Weixin.MP.Entities<span class="pl-k">;</span>
+
+<span class="pl-k">namespace</span> <span class="pl-en">Senparc.Weixin.MP.Sample.CustomerMessageHandler</span>
+{
+    <span class="pl-k">public</span> <span class="pl-k">class</span> <span class="pl-en">CustomMessageHandler</span> : <span class="pl-k">MessageHandler</span>&lt;<span class="pl-k">MessageContext</span>&gt;
+    {
+        <span class="pl-k">public</span> <span class="pl-k">public</span> <span class="pl-en">CustomMessageHandler</span>(<span class="pl-k">Stream</span> <span class="pl-smi">inputStream</span>, <span class="pl-k">PostModel</span> <span class="pl-smi">postModel</span>, <span class="pl-k">int</span> <span class="pl-smi">maxRecordCount</span> <span class="pl-k">=</span> <span class="pl-c1">0</span>)
+            : <span class="pl-c1">base</span>(inputStream, postModel, maxRecordCount)
+        {
+
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">override</span> IResponseMessageBase <span class="pl-en">DefaultResponseMessage</span>(<span class="pl-k">IRequestMessageBase</span> <span class="pl-smi">requestMessage</span>)
+        {
+            <span class="pl-c">//ResponseMessageText也可以是News等其他类型</span>
+            <span class="pl-k">var</span> responseMessage = CreateResponseMessage&lt;ResponseMessageText&gt;();
+            responseMessage.Content = <span class="pl-s"><span class="pl-pds">"</span>这条消息来自DefaultResponseMessage。<span class="pl-pds">"</span></span>;
+            <span class="pl-k">return</span> responseMessage;
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">override</span> IResponseMessageBase <span class="pl-en">OnTextRequest</span>(<span class="pl-k">RequestMessageText</span> <span class="pl-smi">requestMessage</span>)
+        {
+            <span class="pl-c">//...</span>
+        }
+
+        <span class="pl-k">public</span> <span class="pl-k">override</span> IResponseMessageBase <span class="pl-en">OnVoiceRequest</span>(<span class="pl-k">RequestMessageVoice</span> <span class="pl-smi">requestMessage</span>)
+        {
+            <span class="pl-c">//...</span>
+        }
+
+        <span class="pl-c">//更多没有重写的OnXX方法，将默认返回DefaultResponseMessage中的结果。</span>
+        ....
+    }
+}</pre></div>
+
+<p>其中OnTextRequest、OnVoiceRequest等分别对应了接收文字、语音等不同的请求类型。</p>
+
+<p>比如我们需要对文字类型请求做出回应，只需要完善OnTextRequest方法：</p>
+
+<div class="highlight highlight-source-cs"><pre>      <span class="pl-k">public</span> <span class="pl-k">override</span> IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+      {
+          <span class="pl-c">//TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs</span>
+          <span class="pl-k">var</span> responseMessage = CreateResponseMessage&lt;ResponseMessageText&gt;();
+          responseMessage.Content =
+              <span class="pl-k">string</span>.Format(
+                  <span class="pl-s"><span class="pl-pds">"</span>您刚才发送了文字信息：{0}<span class="pl-pds">"</span></span>,
+                  requestMessage.Content);
+          <span class="pl-k">return</span> responseMessage;
+      }</pre></div>
+
+<p>这样CustomMessageHandler在执行messageHandler.Execute()的时候，如果发现请求信息的类型是文本，会自动调用以上代码，并返回代码中的responseMessage作为返回信息。responseMessage可以是IResponseMessageBase接口下的任何类型（包括文字、新闻、多媒体等格式）。</p>
+
+<p>从v0.4.0开始，MessageHandler增加了对用户会话上下文的支持，用于解决服务器上无法使用Session管理用户会话的缺陷。详见：<a href="https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E7%94%A8%E6%88%B7%E4%B8%8A%E4%B8%8B%E6%96%87WeixinContext%E5%92%8CMessageContext">用户上下文WeixinContext和MessageContext</a></p>
+
+<h2>
+<a id="使用nuget安装到项目中" class="anchor" href="#%E4%BD%BF%E7%94%A8nuget%E5%AE%89%E8%A3%85%E5%88%B0%E9%A1%B9%E7%9B%AE%E4%B8%AD" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>使用Nuget安装到项目中</h2>
+
+<h3>
+<a id="如何处理微信公众号请求" class="anchor" href="#%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E8%AF%B7%E6%B1%82" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>如何处理微信公众号请求？</h3>
+
+<ul>
+<li><p>Nuget 地址：<a href="https://www.nuget.org/packages/Senparc.Weixin.MP">https://www.nuget.org/packages/Senparc.Weixin.MP</a></p></li>
+<li><p>命令：</p></li>
+</ul>
+
+<pre><code>PM&gt; Install-Package Senparc.Weixin.MP
+</code></pre>
+
+<h3>
+<a id="如何增强-aspnet-mvc-项目的功能" class="anchor" href="#%E5%A6%82%E4%BD%95%E5%A2%9E%E5%BC%BA-aspnet-mvc-%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%8A%9F%E8%83%BD" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>如何增强 ASP.NET MVC 项目的功能？</h3>
+
+<p>Senparc.Weixin.MP.MVC 针对 ASP.NET MVC 项目做了更多的优化，包括便捷的浏览器环境判断、官方 bug 修复等。</p>
+
+<ul>
+<li><p>Nuget 地址：<a href="https://www.nuget.org/packages/Senparc.Weixin.MP.MVC">https://www.nuget.org/packages/Senparc.Weixin.MP.MVC</a></p></li>
+<li><p>命令：</p></li>
+</ul>
+
+<pre><code>PM&gt; Install-Package Senparc.Weixin.MP.MVC
+</code></pre>
+
+<h3>
+<a id="如何处理微信企业号请求" class="anchor" href="#%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%BE%AE%E4%BF%A1%E4%BC%81%E4%B8%9A%E5%8F%B7%E8%AF%B7%E6%B1%82" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>如何处理微信企业号请求？</h3>
+
+<p>Senparc.Weixin.QY.dll对企业号相关功能进行了封装，操作过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致。</p>
+
+<ul>
+<li><p>Nuget 地址：<a href="https://www.nuget.org/packages/Senparc.Weixin.QY">https://www.nuget.org/packages/Senparc.Weixin.QY</a></p></li>
+<li><p>命令：</p></li>
+</ul>
+
+<pre><code>PM&gt; Install-Package Senparc.Weixin.QY
+</code></pre>
+
+<h3>
+<a id="如何处理微开放平台请求" class="anchor" href="#%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%BE%AE%E5%BC%80%E6%94%BE%E5%B9%B3%E5%8F%B0%E8%AF%B7%E6%B1%82" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>如何处理微开放平台请求？</h3>
+
+<p>Senparc.Weixin.Open.dll对目前所有的开放平台API进行了封装，消息处理过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致，其他一些特殊的消息流程请先阅读官方的文档，然后对照Senparc.Weixin.MP.Sample中有关Open的Demo进行开发。</p>
+
+<ul>
+<li><p>Nuget 地址为<a href="https://www.nuget.org/packages/Senparc.Weixin.Open">https://www.nuget.org/packages/Senparc.Weixin.Open</a></p></li>
+<li><p>命令：</p></li>
+</ul>
+
+<pre><code>PM&gt; Install-Package Senparc.Weixin.Open
+</code></pre>
+
+<h3>
+<a id="如何使用分布式缓存" class="anchor" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>如何使用分布式缓存？</h3>
+
+<p>Senparc.Weixin SDK 提供了完善的缓存策略接口，默认使用本机缓存实现，同时也提供了 Redis 和 Memcached 两个扩展方案，您也可以根据相同的规则添加自己的缓存策略。</p>
+
+<ul>
+<li>Redis 缓存扩展包 Nuget 地址：<a href="https://www.nuget.org/packages/Senparc.Weixin.Cache.Redis">https://www.nuget.org/packages/Senparc.Weixin.Cache.Redis</a>
+</li>
+<li>命令：</li>
+</ul>
+
+<pre><code>PM&gt; Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Redis
+</code></pre>
+
+<ul>
+<li>Memcached 缓存扩展包 Nuget 地址：<a href="https://www.nuget.org/packages/Senparc.Weixin.Cache.Memcached">https://www.nuget.org/packages/Senparc.Weixin.Cache.Memcached</a>
+</li>
+<li>命令：</li>
+</ul>
+
+<pre><code>PM&gt; Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
+</code></pre>
+
+<h2>
+<a id="已实现功能" class="anchor" href="#%E5%B7%B2%E5%AE%9E%E7%8E%B0%E5%8A%9F%E8%83%BD" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>已实现功能</h2>
+
+<blockquote>
+<ul>
+<li>
+<p>微信公众号</p>
+
+<ul>
+<li>[x] 接收/发送消息（事件）</li>
+<li>[x] 自定义菜单 &amp; 个性化菜单
+
+<ul>
+<li>[ ] 自定义菜单事件推送</li>
+</ul>
+</li>
+<li>[x] 消息管理
+
+<ul>
+<li>[ ] 接收普通消息的事件推送</li>
+</ul>
+</li>
+<li>[x] OAuth授权</li>
+<li>[x] JSSDK</li>
+<li>[x] 微信支付</li>
+<li>[x] 用户管理</li>
+<li>[x] 素材管理</li>
+<li>[x] 账号管理
+
+<ul>
+<li>[x] 带参数二维码</li>
+<li>[X] 长链接转短链接接口</li>
+<li>[ ] 微信认证事件推送</li>
+</ul>
+</li>
+<li>[x] 数据统计</li>
+<li>[x] 微信小店</li>
+<li>[x] 微信卡券
+
+<ul>
+<li>[x] 卡券事件推送
+
+<ul>
+<li>[ ] 买单事件推送</li>
+<li>[ ] 会员卡内容更新事件推送</li>
+<li>[ ] 库存报警事件推送</li>
+<li>[ ] 券点流水详情事件推送</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>[x] 微信门店</li>
+<li>[x] 微信智能</li>
+<li>[x] 微信设备功能</li>
+<li>[x] 多客服功能</li>
+<li>[x] 微信摇一摇周边</li>
+<li>[x] 微信连WI-FI（未完整）</li>
+<li>[x] 微信扫一扫（商家）
+
+<ul>
+<li>[ ] 扫一扫事件推送
+
+<ul>
+<li>[ ] 打开商品主页事件推送</li>
+<li>[ ] 关注公众号事件推送</li>
+<li>[ ] 进入公众号事件推送</li>
+<li>[ ] 地理位置信息异步推送</li>
+<li>[ ] 商品审核结果推送</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>微信开放平台</p>
+
+<ul>
+<li>[x] 网站应用</li>
+<li>[x] 公众号第三方平台</li>
+</ul>
+</li>
+<li>
+<p>微信企业号</p>
+
+<ul>
+<li>[x] 管理通讯录</li>
+<li>[x] 管理素材文件</li>
+<li>[x] 管理企业号应用</li>
+<li>[x] 接收消息与事件</li>
+<li>[x] 发送消息</li>
+<li>[x] 自定义菜单</li>
+<li>[x] 身份验证接口</li>
+<li>[x] JSSDK</li>
+<li>[x] 第三方应用授权
+
+<ul>
+<li>[x] 第三方回调协议
+
+<ul>
+<li>[ ] 授权成功推送auth_code事件</li>
+<li>[ ] 通讯录变更通知</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>[x] 企业号授权登陆</li>
+<li>[x] 企业号微信支付</li>
+<li>[x] 企业回话服务
+
+<ul>
+<li>[ ] 企业会话回调</li>
+</ul>
+</li>
+<li>[x] 企业摇一摇周边</li>
+<li>[ ] 企业卡券服务
+
+<ul>
+<li>[ ] 卡券事件推送</li>
+</ul>
+</li>
+<li>[x] 企业客服服务
+
+<ul>
+<li>[ ] 客服回复消息回调</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>缓存策略</p>
+
+<ul>
+<li>[x] 策略扩展接口</li>
+<li>[x] 本地缓存</li>
+<li>[x] Redis 扩展包</li>
+<li>[x] Memcached 扩展包</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+
+<p>欢迎开发者对未完成或需要补充的模块进行 Pull Request！</p>
+
+<h2>
+<a id="捐助" class="anchor" href="#%E6%8D%90%E5%8A%A9" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>捐助</h2>
+
+<p>如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！</p>
+
+<p>资金捐助：</p>
+
+<p><a href="http://sdk.weixin.senparc.com/"><img src="http://sdk.weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png" alt="donate"></a></p>
+
+<h2>
+<a id="图书众筹" class="anchor" href="#%E5%9B%BE%E4%B9%A6%E4%BC%97%E7%AD%B9" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>图书众筹</h2>
+
+<p>扫描下方二维码参与《微信公众平台快速开发》图书众筹</p>
+
+<p><a href="http://www.weiweihi.com:8080/CrowdFunding/Home"><img src="http://sdk.weixin.senparc.com/images/crowdfunding-qrcode.png" alt="CrowdFunding"></a>  </p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>FreeBSD License</p>
+
+<pre><code>Copyright (c) 2016, Jeffrey Su &lt;www.jeffrey.su@gmail.com&gt;, Suzhou Senparc Network Technology Co.,Ltd.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met: 
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer. 
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution. 
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+The views and conclusions contained in the software and documentation are those
+of the authors and should not be interpreted as representing official policies, 
+either expressed or implied, of the FreeBSD Project.
+</code></pre>
+
+<p>via <a href="https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md">https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</a></p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/JeffreySu/WeiXinMPSDK">微信公众平台SDK</a> is maintained by <a href="https://github.com/JeffreySu">JeffreySu</a>.</span>

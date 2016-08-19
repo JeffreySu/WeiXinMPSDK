@@ -36,6 +36,12 @@
 
     修改标识：Senparc - 20160810
     修改描述：v14.3.3 fix bug
+        
+    修改标识：Senparc - 20160813
+    修改描述：v14.3.4 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+
+    修改标识：Senparc - 20160813
+    修改描述：v14.3.6 完善getNewToken参数传递
 
 ----------------------------------------------------------------*/
 
@@ -105,18 +111,25 @@ namespace Senparc.Weixin.MP.Containers
         /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别</param>
         public static void Register(string appId, string appSecret, string name = null)
         {
-            using (FlushCache.CreateInstance())
+            //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
+            RegisterFunc = () =>
             {
-                Update(appId, new AccessTokenBag()
+                using (FlushCache.CreateInstance())
                 {
-                    //Key = appId,
-                    Name = name,
-                    AppId = appId,
-                    AppSecret = appSecret,
-                    AccessTokenExpireTime = DateTime.MinValue,
-                    AccessTokenResult = new AccessTokenResult()
-                });
-            }
+                    var bag = new AccessTokenBag()
+                    {
+                        //Key = appId,
+                        Name = name,
+                        AppId = appId,
+                        AppSecret = appSecret,
+                        AccessTokenExpireTime = DateTime.MinValue,
+                        AccessTokenResult = new AccessTokenResult()
+                    };
+                    Update(appId, bag);
+                    return bag;
+                }
+            };
+            RegisterFunc();
 
             //为JsApiTicketContainer进行自动注册
             JsApiTicketContainer.Register(appId, appSecret, name);
@@ -205,7 +218,7 @@ namespace Senparc.Weixin.MP.Containers
             {
                 Register(appId, appSecret);
             }
-            return await GetAccessTokenAsync(appId);
+            return await GetAccessTokenAsync(appId, getNewToken);
         }
 
         /// <summary>

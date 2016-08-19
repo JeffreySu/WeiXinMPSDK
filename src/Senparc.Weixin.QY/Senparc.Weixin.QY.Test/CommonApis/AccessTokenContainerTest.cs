@@ -6,6 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Entities;
 using System.Threading.Tasks;
+using Senparc.Weixin.QY.Containers;
 using Senparc.Weixin.QY.Test.CommonApis;
 
 namespace Senparc.Weixin.QY.Test.CommonAPIs
@@ -16,7 +17,7 @@ namespace Senparc.Weixin.QY.Test.CommonAPIs
     {
         [TestMethod]
         public void ContainerTest()
-        {
+         {
             //注册
             AccessTokenContainer.Register(base._corpId, base._corpSecret);
 
@@ -34,7 +35,7 @@ namespace Senparc.Weixin.QY.Test.CommonAPIs
                 Assert.AreEqual(tokenResult.access_token, token);
 
                 token = AccessTokenContainer.TryGetToken(base._corpId, base._corpSecret, true);
-                Assert.AreNotEqual(tokenResult.access_token, token);
+                Assert.AreEqual(tokenResult.access_token, token);//现在微信服务器有AccessToken缓存，短时间内一致
             }
         }
 

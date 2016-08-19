@@ -1,8 +1,8 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
 
-    文件名：ProviderTokenContainer.cs
-    文件功能描述：通用接口ProviderToken容器，用于自动管理ProviderToken，如果过期会重新获取
+    文件名：AccessTokenContainer.cs
+    文件功能描述：通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
 
 
     创建标识：Senparc - 20150313
@@ -14,11 +14,12 @@
     修改描述：将public object Lock更改为internal object Lock
 
     修改标识：Senparc - 20160312
-    修改描述：升级Container，继承自BaseContainer<JsApiTicketBag>
+    修改描述：1、升级Container，继承BaseContainer
+              2、使用新的AccessToken有效期机制
 
     修改标识：Senparc - 20160318
     修改描述：v3.3.4 使用FlushCache.CreateInstance使注册过程立即生效
-
+    
     修改标识：Senparc - 20160717
     修改描述：v3.3.8 添加注册过程中的Name参数
     
@@ -27,6 +28,15 @@
  
     修改标识：Senparc - 20160804
     修改描述：v4.1.3 增加TryGetTokenAsync，GetTokenAsync，GetTokenResultAsync的异步方法
+    
+    修改标识：Senparc - 20160813
+    修改描述：v4.1.5 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+
+    修改标识：Senparc - 20160813
+    修改描述：v4.1.6 完善GetToken()方法
+    
+    修改标识：Senparc - 20160813
+    修改描述：v4.1.8 修改命名空间为Senparc.Weixin.QY.Containers
 ----------------------------------------------------------------*/
 
 using System;
@@ -35,17 +45,15 @@ using System.Threading.Tasks;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
 
-namespace Senparc.Weixin.QY.CommonAPIs
+namespace Senparc.Weixin.QY.Containers
 {
-    /// <summary>
-    /// ProviderTokenBag
-    /// </summary>
     [Serializable]
-    public class ProviderTokenBag : BaseContainerBag
+    public class AccessTokenBag : BaseContainerBag
     {
         /// <summary>
         /// CorpId
@@ -72,12 +80,12 @@ namespace Senparc.Weixin.QY.CommonAPIs
             set { base.SetContainerProperty(ref _expireTime, value); }
         }
         /// <summary>
-        /// ProviderTokenResult
+        /// AccessTokenResult
         /// </summary>
-        public ProviderTokenResult ProviderTokenResult
+        public AccessTokenResult AccessTokenResult
         {
-            get { return _providerTokenResult; }
-            set { base.SetContainerProperty(ref _providerTokenResult, value); }
+            get { return _accessTokenResult; }
+            set { base.SetContainerProperty(ref _accessTokenResult, value); }
         }
 
         /// <summary>
@@ -88,39 +96,52 @@ namespace Senparc.Weixin.QY.CommonAPIs
         private string _corpId;
         private string _corpSecret;
         private DateTime _expireTime;
-        private ProviderTokenResult _providerTokenResult;
+        private AccessTokenResult _accessTokenResult;
     }
 
     /// <summary>
-    /// 通用接口ProviderToken容器，用于自动管理ProviderToken，如果过期会重新获取
+    /// 通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
     /// </summary>
-    public class ProviderTokenContainer : BaseContainer<ProviderTokenBag>
+    public class AccessTokenContainer : BaseContainer<AccessTokenBag>
     {
-        private const string UN_REGISTER_ALERT = "此CorpId尚未注册，ProviderTokenContainer.Register完成注册（全局执行一次即可）！";
+        private const string UN_REGISTER_ALERT = "此CorpId尚未注册，AccessTokenContainer.Register完成注册（全局执行一次即可）！";
 
-        #region 同步方法
-        
-        
         /// <summary>
-        /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
+        /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token。
+        /// 执行此注册过程，会连带注册ProviderTokenContainer。
         /// </summary>
         /// <param name="corpId"></param>
         /// <param name="corpSecret"></param>
-        /// <param name="name">标记Provider名称（如微信公众号名称），帮助管理员识别</param>
+        /// <param name="name">标记AccessToken名称（如微信公众号名称），帮助管理员识别</param>
+        /// 此接口无异步方法
         public static void Register(string corpId, string corpSecret, string name = null)
         {
-            using (FlushCache.CreateInstance())
+            //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
+            RegisterFunc = () =>
             {
-                Update(corpId, new ProviderTokenBag()
+                using (FlushCache.CreateInstance())
                 {
-                    Name = name,
-                    CorpId = corpId,
-                    CorpSecret = corpSecret,
-                    ExpireTime = DateTime.MinValue,
-                    ProviderTokenResult = new ProviderTokenResult()
-                });
-            }
+                    var bag = new AccessTokenBag()
+                    {
+                        Name = name,
+                        CorpId = corpId,
+                        CorpSecret = corpSecret,
+                        ExpireTime = DateTime.MinValue,
+                        AccessTokenResult = new AccessTokenResult()
+                    };
+                    Update(corpId, bag);
+                    return bag;
+                }
+            };
+            RegisterFunc();
+
+            JsApiTicketContainer.Register(corpId, corpSecret);//连带注册JsApiTicketContainer
+
+            ProviderTokenContainer.Register(corpId, corpSecret);//连带注册ProviderTokenContainer
         }
+
+        #region 同步方法
+
 
         /// <summary>
         /// 使用完整的应用凭证获取Token，如果不存在将自动注册
@@ -135,7 +156,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
             {
                 Register(corpId, corpSecret);
             }
-            return GetToken(corpId);
+            return GetToken(corpId, getNewToken);
         }
 
         /// <summary>
@@ -146,7 +167,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <returns></returns>
         public static string GetToken(string corpId, bool getNewToken = false)
         {
-            return GetTokenResult(corpId, getNewToken).provider_access_token;
+            return GetTokenResult(corpId, getNewToken).access_token;
         }
 
         /// <summary>
@@ -155,41 +176,42 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="corpId"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static ProviderTokenResult GetTokenResult(string corpId, bool getNewToken = false)
+        public static AccessTokenResult GetTokenResult(string corpId, bool getNewToken = false)
         {
             if (!CheckRegistered(corpId))
             {
                 throw new WeixinQyException(UN_REGISTER_ALERT);
             }
 
-            var providerTokenBag = TryGetItem(corpId);
-            lock (providerTokenBag.Lock)
+            var accessTokenBag = TryGetItem(corpId);
+            lock (accessTokenBag.Lock)
             {
-                if (getNewToken || providerTokenBag.ExpireTime <= DateTime.Now)
+                if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
-                    providerTokenBag.ProviderTokenResult = CommonApi.GetProviderToken(providerTokenBag.CorpId,
-                        providerTokenBag.CorpSecret);
-                    providerTokenBag.ExpireTime = ApiUtility.GetExpireTime(providerTokenBag.ProviderTokenResult.expires_in);
+                    accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.CorpId,
+                        accessTokenBag.CorpSecret);
+                    accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
                 }
             }
-            return providerTokenBag.ProviderTokenResult;
+            return accessTokenBag.AccessTokenResult;
         }
 
-        /// <summary>
-        /// 检查是否已经注册
-        /// </summary>
-        /// <param name="corpId"></param>
-        /// <returns></returns>
-        /// 此接口无异步方法
-        public new static bool CheckRegistered(string corpId)
-        {
-            return Cache.CheckExisted(corpId);
-        }
+        ///// <summary>
+        ///// 检查是否已经注册
+        ///// </summary>
+        ///// <param name="corpId"></param>
+        ///// <returns></returns>
+        ///// 此接口无异步方法
+        //public new static bool CheckRegistered(string corpId)
+        //{
+        //    return Cache.CheckExisted(corpId);
+        //}
+
         #endregion
 
         #region 异步方法
-         /// <summary>
+        /// <summary>
         /// 【异步方法】使用完整的应用凭证获取Token，如果不存在将自动注册
         /// </summary>
         /// <param name="corpId"></param>
@@ -202,7 +224,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
             {
                 Register(corpId, corpSecret);
             }
-            return await GetTokenAsync(corpId);
+            return await GetTokenAsync(corpId, getNewToken);
         }
 
         /// <summary>
@@ -214,7 +236,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         public static async Task<string> GetTokenAsync(string corpId, bool getNewToken = false)
         {
             var result = await GetTokenResultAsync(corpId, getNewToken);
-            return result.provider_access_token;
+            return result.access_token;
         }
 
         /// <summary>
@@ -223,28 +245,28 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="corpId"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static async Task<ProviderTokenResult> GetTokenResultAsync(string corpId, bool getNewToken = false)
+        public static async Task<AccessTokenResult> GetTokenResultAsync(string corpId, bool getNewToken = false)
         {
             if (!CheckRegistered(corpId))
             {
                 throw new WeixinQyException(UN_REGISTER_ALERT);
             }
 
-            var providerTokenBag = TryGetItem(corpId);
-            //lock (providerTokenBag.Lock)
+            var accessTokenBag = TryGetItem(corpId);
+            // lock (accessTokenBag.Lock)
             {
-                if (getNewToken || providerTokenBag.ExpireTime <= DateTime.Now)
+                if (getNewToken || accessTokenBag.ExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
-                    var providerTokenResult = await CommonApi.GetProviderTokenAsync(providerTokenBag.CorpId,
-                        providerTokenBag.CorpSecret);
-                    providerTokenBag.ProviderTokenResult = providerTokenResult;
-                    //providerTokenBag.ProviderTokenResult = CommonApi.GetProviderToken(providerTokenBag.CorpId,
-                    //    providerTokenBag.CorpSecret);
-                    providerTokenBag.ExpireTime = ApiUtility.GetExpireTime(providerTokenBag.ProviderTokenResult.expires_in);
+                    var accessTokenResult = await CommonApi.GetTokenAsync(accessTokenBag.CorpId,
+                        accessTokenBag.CorpSecret);
+                    //accessTokenBag.AccessTokenResult = CommonApi.GetToken(accessTokenBag.CorpId,
+                    //    accessTokenBag.CorpSecret);
+                    accessTokenBag.AccessTokenResult = accessTokenResult;
+                    accessTokenBag.ExpireTime = ApiUtility.GetExpireTime(accessTokenBag.AccessTokenResult.expires_in);
                 }
             }
-            return providerTokenBag.ProviderTokenResult;
+            return accessTokenBag.AccessTokenResult;
         }
         #endregion
     }

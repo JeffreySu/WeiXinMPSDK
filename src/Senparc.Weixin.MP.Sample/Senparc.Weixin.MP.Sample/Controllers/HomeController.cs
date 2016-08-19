@@ -18,7 +18,9 @@ using System.Text.RegularExpressions;
 //using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using Senparc.Weixin.Cache;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Sample.CommonService.Download;
 using Senparc.Weixin.Open.CommonAPIs;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
@@ -40,6 +42,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             TempData["QYVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.QY.dll"));
             TempData["RedisCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Redis.dll"));
             TempData["MemcachedCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Memcached.dll"));
+
+            //缓存
+            var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
+            TempData["CacheStrategy"] = containerCacheStragegy.GetType().Name.Replace("ContainerCacheStrategy","");
+
+            //文档下载版本
+            var configHelper = new ConfigHelper(this.HttpContext);
+            var config = configHelper.GetConfig();
+            TempData["NewestDocumentVersion"] = config.Versions.First();
+
             return View();
         }
 

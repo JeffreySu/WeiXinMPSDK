@@ -129,6 +129,7 @@
     overflow: hidden;
 }
 .weixin-item {
+    margin-bottom: 30px;
 	/*float:left;
 	width:40%;*/
 }
@@ -171,7 +172,7 @@
 
 }
 img.official-img {
-    margin: 50px 0 0 0;
+    margin: 30px 0 0 0;
     clear: both;
 }
 
@@ -182,7 +183,7 @@ img.official-img {
 .weixin-bottom {
 	text-align:center;
 	padding-bottom:40px;
-    width: 671px;
+    width: 680px;
     float: left;
 }
 .application {
@@ -194,6 +195,7 @@ img.official-img {
 	margin-top: 20px;
 	border-radius: 5px;
 }
+
 .test {
     margin-top: 0px; padding-bottom:20px; padding-top: 30px; clear: both;
 }
@@ -378,13 +380,16 @@ img.official-img {
 
 .version{ margin-top: 16px;}
 
-#tbVersion{ color: #4d4d4d;font-size: 18px;/*text-align: center;*/ }
-#tbVersion th{ font-weight: bold;padding: 10px; color: #4d4d4d;border-bottom: 1px solid #4d4d4d;}
-#tbVersion td{ padding: 6px; color: #4d4d4d;line-height: 150%; vertical-align:middle;}
-#tbVersion td a{ color: #4d4d4d;}
+.tbVersion{ color: #4d4d4d;font-size: 15px;width: 100%; /*text-align: center;*/ }
+.tbVersion th{ font-weight: bold;padding: 10px; color: #4d4d4d;border-bottom: 1px solid #4d4d4d;}
+.tbVersion td{ padding: 6px; color: #4d4d4d;line-height: 150%; vertical-align:middle;}
+.tbVersion td a{ color: #4d4d4d;}
 .sdk-version{ text-decoration:underline;}
 .sdk-version:hover{ text-decoration:none;}
-#tbVersion tbody>tr:hover{ background: #abe0ff;}
+.tbVersion tbody>tr:hover{ background: #abe0ff;}
+.tbVersion img {
+    vertical-align: bottom;
+}
 
 #menuEditor h3{text-align: left;
 font-size: 16px;

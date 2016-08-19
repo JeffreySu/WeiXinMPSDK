@@ -1,4 +1,19 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+  
+    文件名：ThirdPartyMessageHandler.cs
+    文件功能描述：开放平台消息处理器
+    
+    
+    创建标识：Senparc - 20150211
+
+    修改标识：Senparc - 20160813
+    修改描述：v2.3.0 添加authorized和updateauthorized两种通知类型的处理
+
+----------------------------------------------------------------*/
+
+
+using System;
 using System.IO;
 using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
@@ -103,6 +118,18 @@ namespace Senparc.Weixin.Open.MessageHandlers
                             ResponseMessageText = OnUnauthorizedRequest(requestMessage);
                         }
                         break;
+                    case RequestInfoType.authorized:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageAuthorized;
+                            ResponseMessageText = OnAuthorizedRequest(requestMessage);
+                        }
+                        break;
+                    case RequestInfoType.updateauthorized:
+                        {
+                            var requestMessage = RequestMessage as RequestMessageUpdateAuthorized;
+                            ResponseMessageText = OnUpdateAuthorizedRequest(requestMessage);
+                        }
+                        break;
                     default:
                         throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
                 }
@@ -144,6 +171,26 @@ namespace Senparc.Weixin.Open.MessageHandlers
         /// <param name="requestMessage"></param>
         /// <returns></returns>
         public virtual string OnUnauthorizedRequest(RequestMessageUnauthorized requestMessage)
+        {
+            return "success";
+        }
+
+        /// <summary>
+        /// 授权成功通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual string OnAuthorizedRequest(RequestMessageAuthorized requestMessage)
+        {
+            return "success";
+        }
+
+        /// <summary>
+        /// 授权更新通知
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public virtual string OnUpdateAuthorizedRequest(RequestMessageUpdateAuthorized requestMessage)
         {
             return "success";
         }

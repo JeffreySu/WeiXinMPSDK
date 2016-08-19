@@ -56,7 +56,6 @@ namespace Senparc.Weixin.MP.MvcExtension
                         //返回XML响应信息或用户指定的文本内容
                         return _messageHandlerDocument.TextResponseMessage;
                     }
-
                 }
                 else
                 {

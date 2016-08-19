@@ -59,7 +59,6 @@ Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.MP.MvcExtension.pdb
 *.pdb
 Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/1.txt
 /Senparc.Weixin.MP/Senparc.Weixin.MP.Test/test.config
-/Senparc.Weixin.Open/Senparc.Weixin.Open.Test/test.bak.config
 /Senparc.Weixin.Open/Senparc.Weixin.Open.Test/test.config
 /Senparc.Weixin.MP.Sample/UpgradeLog.htm
 *.tmp

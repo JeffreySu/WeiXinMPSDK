@@ -12,6 +12,10 @@
     
     修改标识：Senparc - 20150327
     修改描述：添加小视频类型
+
+    修改标识：Senparc - 20160813
+    修改描述：v2.3.0 添加authorized和updateauthorized两种通知类型的处理
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -24,6 +28,9 @@ using Senparc.Weixin.Open.Helpers;
 
 namespace Senparc.Weixin.Open
 {
+    /// <summary>
+    /// RequestMessage工厂
+    /// </summary>
     public static class RequestMessageFactory
     {
         //<?xml version="1.0" encoding="utf-8"?>
@@ -55,8 +62,33 @@ namespace Senparc.Weixin.Open
                         requestMessage = new RequestMessageComponentVerifyTicket();
                         break;
                     case RequestInfoType.unauthorized:
+                        /*
+                         * <xml>
+                        <AppId>第三方平台appid</AppId>
+                        <CreateTime>1413192760</CreateTime>
+                        <InfoType>unauthorized</InfoType>
+                        <AuthorizerAppid>公众号appid</AuthorizerAppid>
+                        </xml>
+                        */
                         requestMessage = new RequestMessageUnauthorized();
                         break;
+                    case RequestInfoType.authorized:
+                        /*
+                        <xml>
+                        <AppId>第三方平台appid</AppId>
+                        <CreateTime>1413192760</CreateTime>
+                        <InfoType>authorized</InfoType>
+                        <AuthorizerAppid>公众号appid</AuthorizerAppid>
+                        <AuthorizationCode>授权码（code）</AuthorizationCode>
+                        <AuthorizationCodeExpiredTime>过期时间</AuthorizationCodeExpiredTime>
+                        </xml>
+                        */
+                        requestMessage = new RequestMessageAuthorized();
+                        break;
+                    case RequestInfoType.updateauthorized:
+                        requestMessage = new RequestMessageUpdateAuthorized();
+                        break;
+
                     default:
                         throw new UnknownRequestMsgTypeException(string.Format("InfoType：{0} 在RequestMessageFactory中没有对应的处理程序！", infoType), new ArgumentOutOfRangeException());//为了能够对类型变动最大程度容错（如微信目前还可以对公众账号suscribe等未知类型，但API没有开放），建议在使用的时候catch这个异常
                 }

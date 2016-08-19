@@ -30,7 +30,7 @@ namespace Senparc.Weixin.Cache.Redis
     /// <summary>
     /// Redis容器缓存策略
     /// </summary>
-    public sealed class RedisContainerCacheStrategy : IContainerCacheStragegy
+    public sealed class RedisContainerCacheStrategy : BaseCacheStrategy, IContainerCacheStragegy
     {
         internal ConnectionMultiplexer _client;
         private IDatabase _cache;
@@ -88,12 +88,6 @@ namespace Senparc.Weixin.Cache.Redis
         ~RedisContainerCacheStrategy()
         {
             _client.Dispose();//释放
-        }
-
-
-        public string GetFinalKey(string key, bool isFullKey = false)
-        {
-            return isFullKey ? key : String.Format("{0}:{1}", "SenparcWeixinContainer", key);
         }
 
         /// <summary>
@@ -231,7 +225,7 @@ namespace Senparc.Weixin.Cache.Redis
 
         #endregion
 
-        public ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
+        public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
             return new RedisCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
         }

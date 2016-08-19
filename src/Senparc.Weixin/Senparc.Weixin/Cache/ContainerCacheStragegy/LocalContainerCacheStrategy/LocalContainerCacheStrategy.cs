@@ -21,6 +21,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Caching;
 using Senparc.Weixin.Containers;
+using Senparc.Weixin.Cache;
 
 namespace Senparc.Weixin.Cache
 {
@@ -43,7 +44,7 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 本地容器缓存策略
     /// </summary>
-    public sealed class LocalContainerCacheStrategy : IContainerCacheStragegy
+    public sealed class LocalContainerCacheStrategy : BaseCacheStrategy, IContainerCacheStragegy
     //where TContainerBag : class, IBaseContainerBag, new()
     {
         #region 数据源
@@ -84,11 +85,6 @@ namespace Senparc.Weixin.Cache
 
         #region ILocalCacheStrategy 成员
 
-        //public string CacheSetKey { get; set; }
-        public string GetFinalKey(string key, bool isFullKey = false)
-        {
-            return isFullKey ? key : String.Format("{0}:{1}", "SenparcWeixinContainer", key);
-        }
 
         public void InsertToCache(string key, IBaseContainerBag value)
         {
@@ -167,7 +163,7 @@ namespace Senparc.Weixin.Cache
         #endregion
 
         #region ICacheLock
-        public ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
+        public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
             return new LocalCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
         }

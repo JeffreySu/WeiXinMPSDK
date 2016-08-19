@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "微信公众平台SDK - Senparc.Weixin SDK - 公众号 企业号 开放平台";
+    ViewBag.Title = "微信公众平台SDK - Senparc.Weixin SDK - 公众号 企业号 开放平台 盛派微信号";
 }
 @section scripts
 {
@@ -17,31 +17,19 @@
 <div class="wrapper">
 
     <div class="weixin-bottom">
-        <p class="weixin-item-title">目前Senparc.Weixin.MP已支持微信6.x API中所有接口</p>
-        <div class="weixin-bottom-buttons">
+        <p class="weixin-item-title">
+            目前Senparc.Weixin SDK已支持微信6.x API中所有接口
+            <a href="https://travis-ci.org/JeffreySu/WeiXinMPSDK" target="_blank"></a>
+        </p>
 
 
-            <p class="weixin-item-button">
-                <a href="http://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))" class="application" target="_blank">下载 Senparc.Weixin SDK 帮助文档</a>
-
-                &nbsp; &nbsp; &nbsp;
-
-                <a href="https://github.com/JeffreySu/WeiXinMPSDK" class="application" target="_blank">github 源码</a>
-
-                &nbsp; &nbsp; &nbsp;
-
-                @*</p>
-                    <p class="weixin-item-button">*@
-                <a href="http://mp.weixin.qq.com/wiki/index.php?title=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E6%8C%87%E5%8D%97" class="application" target="_blank">查看微信官方API</a>
-            </p>
-        </div>
-
-        <table id="tbVersion">
+        <table class="tbVersion">
             <thead>
                 <tr>
                     <th>#</th>
                     <th>功能模块</th>
                     <th>Nuget 文件名</th>
+                    <th>Nuget 版本</th>
                     <th>当前站点运行版本</th>
                 </tr>
             </thead>
@@ -49,48 +37,112 @@
                 <tr>
                     <td>1</td>
                     <td>SDK 公共基础库</td>
-                    <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin" target="_blank">Senparc.Weixin.dll</a></td>
+                    <td>
+                        <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin" target="_blank">
+                            Senparc.Weixin.dll
+                        </a>
+                    </td>
+                    <td>
+                        <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin" target="_blank">
+                            <img src="https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat" />
+                        </a>
+                    </td>
                     <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["WeixinVersion"])</a></td>
                 </tr>
                 <tr>
                     <td>2</td>
                     <td>公众号<br />微信支付<br />JSSDK<br />摇一摇周边</td>
-                    <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">Senparc.Weixin.MP.dll</a></td>
+                    <td>
+                        <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">
+                            Senparc.Weixin.MP.dll
+                        </a>
+                    </td>
+                    <td>
+                        <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">
+                            <img src="https://img.shields.io/nuget/v/Senparc.Weixin.MP.svg?style=flat" />
+                        </a>
+                    </td>
                     <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["MpVersion"])</a></td>
                 </tr>
                 <tr>
                     <td>3</td>
                     <td>开放平台 SDK</td>
                     <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.Open" target="_blank">Senparc.Weixin.Open.dll</a></td>
+                    <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.Open" target="_blank"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.Open.svg?style=flat" /></a></td>
                     <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["OpenVersion"])</a></td>
                 </tr>
                 <tr>
                     <td>4</td>
                     <td>企业号 SDK</td>
-                    <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.QY" target="_blank">Senparc.Weixin.QY.dll</a></td>
+                    <td>
+                        <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.QY" target="_blank">
+                            Senparc.Weixin.QY.dll
+                        </a>
+                    </td>
+                    <td>
+                        <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.QY" target="_blank">
+                            <img src="https://img.shields.io/nuget/v/Senparc.Weixin.QY.svg?style=flat" />
+                        </a>
+                    </td>
                     <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["QYVersion"])</a></td>
                 </tr>
                 <tr>
                     <td>5</td>
                     <td>MVC扩展插件</td>
                     <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP.MVC" target="_blank">Senparc.Weixin.MP.MvcExtentsion.dll</a></td>
+                    <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP.MVC" target="_blank"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.MP.Mvc.svg?style=flat" /></a></td>
                     <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["ExtensionVersion"])</a></td>
                 </tr>
                 <tr>
                     <td>6</td>
                     <td>Redis 缓存</td>
-                    <td><a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Redis" target="_blank">Senparc.Weixin.Cache.Redis.dll</a></td>
+                    <td>
+                        <a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Redis" target="_blank">
+                            Senparc.Weixin.Cached.Redis.dll
+                        </a>
+                    </td>
+                    <td>
+                        <a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Redis" target="_blank">
+                            <img src="https://img.shields.io/nuget/v/Senparc.Weixin.Cache.Redis.svg?style=flat" />
+                        </a>
+                    </td>
                     <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["RedisCacheVersion"])</a></td>
                 </tr>
                 <tr>
                     <td>7</td>
                     <td>Memcached 缓存</td>
-                    <td><a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Memcached" target="_blank">Senparc.Weixin.Cache.Memcached.dll</a></td>
+                    <td>
+                        <a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Memcached" target="_blank">
+                            Senparc.Weixin.Cached.Memcached.dll
+                        </a>
+                    </td>
+                    <td>
+                        <a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Memcached" target="_blank">
+                            <img src="https://img.shields.io/nuget/v/Senparc.Weixin.Cache.Memcached.svg?style=flat" />
+                        </a>
+                    </td>
                     <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["MemcachedCacheVersion"])</a></td>
                 </tr>
-            </tbody>
         </table>
 
+        <div class="clear"></div>
+
+        <div class="weixin-bottom-buttons">
+
+            <p class="weixin-item-button">
+                <a href="http://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))" class="application" target="_blank">下载 Senparc.Weixin SDK 帮助文档</a>
+
+                &nbsp; &nbsp; &nbsp;
+
+                <a href="https://github.com/JeffreySu/WeiXinMPSDK" class="application" target="_blank">GitHub 源码</a>
+
+                &nbsp; &nbsp; &nbsp;
+
+                @*</p>
+                    <p class="weixin-item-button">*@
+                <a href="http://mp.weixin.qq.com/wiki/index.php?title=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E6%8C%87%E5%8D%97" class="application" target="_blank">微信官方API</a>
+            </p>
+        </div>
         <div class="clear"></div>
 
     </div>
@@ -99,6 +151,27 @@
             <p class="weixin-item-title">关注官方微信 进行互动测试</p>
             <img class="official-img" src="/images/v2/ewm_01.png" alt="微信SDK" />
         </div>
+        <div class="clear"></div>
+        <table class="tbVersion">
+            <tr>
+                <td>运行中的缓存框架：@TempData["CacheStrategy"]</td>
+                <td>@Html.ActionLink("测试", "Test", "Cache", null, new { @class = "sdk-version" })</td>
+            </tr>
+            <tr>
+                <td>最新文档版本（MP）：v@(TempData["NewestDocumentVersion"])</td>
+                <td>@Html.ActionLink("下载", "Index", "Document", null, new { @class = "sdk-version" })</td>
+            </tr>
+
+            <tr>
+                <td>GitHub 源码：<img src="https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master"></td>
+                <td>
+                    <a href="https://github.com/JeffreySu/WeiXinMPSDK" class="sdk-version" target="_blank">
+                        查看
+                    </a>
+                </td>
+            </tr>
+
+        </table>
         <div class="clear"></div>
     </div>
     <div class="clear"></div>
@@ -207,8 +280,8 @@
     <div class="weixin-weiweihi">
         <div class="weixin-item">
             <div class="weixin-item-content">
-                <p class="weixin-item-title">微信营销生态圈—— ——微微嗨</p>
-                <p class="weixin-item-font">微微嗨是在 Senparc.Weixin.MP + Open 核心基础上开发的微信服务平台，联合数万开发者和代理商，打造一流的场景社群及微信营销生态圈。期待您的加入</p>
+                <p class="weixin-item-title">基于 Senparc SDK 开发的“微微嗨云平台”</p>
+                <p class="weixin-item-font">“微微嗨云平台”是在 Senparc.Weixin.MP + Open + Redis 等模块的基础上研发的实时场景互动平台，为各类会议、活动、婚庆、教育等不同场景提供组织管理及多屏实时互动服务。欢迎体验！</p>
                 @*<a href="http://www.weiweihi.com/AgentApply" class="application" target="_blank">申请成为微微嗨代理</a>*@
             </div>
             <div class="weixin-item-img">

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.QY.Containers;
 using Senparc.Weixin.QY.Test.CommonApis;
 
 namespace Senparc.Weixin.QY.Test.CommonAPIs
@@ -21,6 +22,7 @@ namespace Senparc.Weixin.QY.Test.CommonAPIs
             //获取Ticket完整结果（包括当前过期秒数）
             var ticketResult = JsApiTicketContainer.GetTicketResult(base._corpId);
             Assert.IsNotNull(ticketResult);
+            Console.WriteLine(ticketResult.ticket);
 
             //只获取Ticket字符串
             var ticket = JsApiTicketContainer.GetTicket(base._corpId);
@@ -32,7 +34,8 @@ namespace Senparc.Weixin.QY.Test.CommonAPIs
                 Assert.AreEqual(ticketResult.ticket, ticket);
 
                 ticket = JsApiTicketContainer.TryGetTicket(base._corpId, base._corpSecret, true);
-                Assert.AreNotEqual(ticketResult.ticket, ticket);
+                Assert.AreEqual(ticketResult.ticket, ticket);//现在微信服务器有Ticket缓存，短时间内一致
+                Console.WriteLine(ticketResult.ticket);
             }
 
         }

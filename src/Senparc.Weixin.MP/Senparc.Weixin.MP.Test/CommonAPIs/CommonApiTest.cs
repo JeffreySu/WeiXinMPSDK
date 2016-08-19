@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         }
 
 
-        protected readonly bool _userRedis = false;//是否使用Reids
+        protected readonly bool _userRedis = true;//是否使用Reids
 
         /* 由于获取accessToken有次数限制，为了节约请求，
         * 可以到 http://sdk.weixin.senparc.com/Menu 获取Token之后填入下方，
@@ -116,12 +116,10 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                 CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
             }
 
-
             //全局只需注册一次
             AccessTokenContainer.Register(_appId, _appSecret);
 
             ThreadUtility.Register();
-
 
             //v13.3.0之后，JsApiTicketContainer已经合并入AccessTokenContainer，已经不需要单独注册
             ////全局只需注册一次

@@ -6,6 +6,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.AdvancedAPIs;
 using Senparc.Weixin.QY.AdvancedAPIs.MailList;
 using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.QY.Containers;
 using Senparc.Weixin.QY.Test.CommonApis;
 
 namespace Senparc.Weixin.QY.Test.AdvancedAPIs

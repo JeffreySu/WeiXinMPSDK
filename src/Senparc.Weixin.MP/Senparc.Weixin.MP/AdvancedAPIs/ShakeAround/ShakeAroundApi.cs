@@ -22,6 +22,9 @@
 
     修改标识：20160719
     修改描述：增加其接口的异步方法
+ 
+    修改标识：20160823
+    修改描述：modify DeletePage 的方法中的参数，即longn []pageIds改为long pageId 
 ----------------------------------------------------------------*/
 
 /*
@@ -486,10 +489,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 删除页面
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="pageIds">指定页面的Id数组</param>
+        /// <param name="pageId">指定页面的Id数组</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult DeletePage(string accessTokenOrAppId, long[] pageIds, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult DeletePage(string accessTokenOrAppId, long pageId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -497,7 +500,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 var data = new
                 {
-                    page_ids = pageIds
+                    page_id = pageId
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);

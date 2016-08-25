@@ -298,9 +298,7 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
 > * 微信公众号
     - [x] 接收/发送消息（事件）
     - [x] 自定义菜单 & 个性化菜单
-        - [ ] 自定义菜单事件推送
     - [x] 消息管理
-        - [ ] 接收普通消息的事件推送
     - [x] OAuth授权
     - [x] JSSDK
     - [x] 微信支付

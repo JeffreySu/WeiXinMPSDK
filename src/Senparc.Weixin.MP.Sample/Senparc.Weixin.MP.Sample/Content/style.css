@@ -13,7 +13,7 @@
 	margin-top:8px;
 }
 .navbar-collapse {
-	float:left;
+	float:right;
 }
 .wrapper-header {
 	width: 1100px;
@@ -35,7 +35,7 @@
 .nav-catalog {
 	line-height:58px;
 	color:#fff;
-	padding-left:176px;
+	padding-right:16px;
 }
 .nav-catalog li {
 	color:#fff;

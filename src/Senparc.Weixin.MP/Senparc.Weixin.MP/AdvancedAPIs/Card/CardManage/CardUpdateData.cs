@@ -102,6 +102,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 卡背景图，非必填
         /// </summary>
         public string background_pic_url { get; set; }
+
+        /// <summary>
+        /// 积分规则结构体
+        /// </summary>
+        public BonusRule bonus_rule { get; set; }
+        /// <summary>
+        /// 折扣
+        /// </summary>
+        [JsonSetting.IgnoreValueAttribute(0)]
+        public int discount { get; set; }
     }
 
     /// <summary>

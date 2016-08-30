@@ -158,6 +158,44 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 激活会员卡的url，与“bind_old_card_url”字段二选一必填。
         /// </summary>
         public string activate_url { get; set; }
+
+        //以下增加
+        /// <summary>
+        /// 会员卡背景图像，必须是上传媒体地址
+        /// </summary>
+        public string background_pic_url { get; set; }
+        /// <summary>
+        ///是否开通一键开卡 
+        /// </summary>
+        public bool wx_activate { get; set; }
+        /// <summary>
+        /// 是否开通自动激活
+        /// </summary>
+        public bool auto_activate { get; set; }
+        /// <summary>
+        ///自定义会员信息类目，会员卡激活后显示 
+        /// </summary>
+        public CustomField custom_field1 { get; set; }
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示
+        /// </summary>
+        public CustomField custom_field2 { get; set; }
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示
+        /// </summary>
+        public CustomField custom_field3 { get; set; }
+        /// <summary>
+        /// 自定义会员信息类目，会员卡激活后显示
+        /// </summary>
+        public CustomCell custom_cell1 { get; set; }
+        /// <summary>
+        /// 积分规则结构体
+        /// </summary>
+        public BonusRule bonus_rule { get; set; }
+        /// <summary>
+        /// 折扣
+        /// </summary>
+        public int discount { get; set; }
     }
     /// <summary>
     /// 门票数据

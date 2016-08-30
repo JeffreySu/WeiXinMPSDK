@@ -8,6 +8,7 @@ using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.QY.Entities;
+using Senparc.Weixin.QY.Helpers;
 using Senparc.Weixin.QY.MessageHandlers;
 
 namespace Senparc.Weixin.QY.Test.MessageHandlers
@@ -24,9 +25,8 @@ namespace Senparc.Weixin.QY.Test.MessageHandlers
 
             public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
             {
-                var responseMessage =
-                   ResponseMessageBase.CreateFromRequestMessage(RequestMessage, ResponseMsgType.Text) as
-                   ResponseMessageText;
+                var responseMessage = RequestMessage.CreateResponseMessage<ResponseMessageText>();
+               
                 responseMessage.Content = "文字信息";
                 return responseMessage;
             }

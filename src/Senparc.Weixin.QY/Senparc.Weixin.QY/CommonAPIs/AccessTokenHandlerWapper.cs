@@ -14,6 +14,7 @@
 using System;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.QY.Containers;
 
 namespace Senparc.Weixin.QY.CommonAPIs
 {

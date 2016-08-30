@@ -9,6 +9,9 @@
 
     修改标识：Senparc - 20160808
     修改描述：v0.2.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
+    
+    修改标识：Senparc - 20160812
+    修改描述：v0.2.1  解决Container无法注册的问题
 
 ----------------------------------------------------------------*/
 
@@ -27,9 +30,9 @@ namespace Senparc.Weixin.Cache.Redis
     /// <summary>
     /// Redis容器缓存策略
     /// </summary>
-    public sealed class RedisContainerCacheStrategy : IContainerCacheStragegy
+    public sealed class RedisContainerCacheStrategy : BaseCacheStrategy, IContainerCacheStragegy
     {
-        private ConnectionMultiplexer _client;
+        internal ConnectionMultiplexer _client;
         private IDatabase _cache;
 
         #region 单例
@@ -87,11 +90,6 @@ namespace Senparc.Weixin.Cache.Redis
             _client.Dispose();//释放
         }
 
-        public string GetFinalKey(string key)
-        {
-            return String.Format("{0}:{1}", "SenparcWeixinContainer", key);
-        }
-
         /// <summary>
         /// 获取 Server 对象
         /// </summary>
@@ -108,26 +106,32 @@ namespace Senparc.Weixin.Cache.Redis
 
         //public string CacheSetKey { get; set; }
 
-        public bool CheckExisted(string key)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="isFullKey">是否已经是完整的Key</param>
+        /// <returns></returns>
+        public bool CheckExisted(string key, bool isFullKey = false)
         {
-            var cacheKey = GetFinalKey(key);
+            var cacheKey = GetFinalKey(key, isFullKey);
             return _cache.KeyExists(cacheKey);
         }
 
-        public IBaseContainerBag Get(string key)
+        public IBaseContainerBag Get(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
                 return null;
             }
 
-            if (!CheckExisted(key))
+            if (!CheckExisted(key, isFullKey))
             {
                 return null;
                 //InsertToCache(key, new ContainerItemCollection());
             }
 
-            var cacheKey = GetFinalKey(key);
+            var cacheKey = GetFinalKey(key, isFullKey);
 
             var value = _cache.StringGet(cacheKey);
             return StackExchangeRedisExtensions.Deserialize<IBaseContainerBag>(value);
@@ -135,20 +139,32 @@ namespace Senparc.Weixin.Cache.Redis
 
         public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
         {
-            var keys = GetServer().Keys();
-            var dic = new Dictionary<string, IBaseContainerBag>();
+            var itemCacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag), "*");
+
+            //var keyPattern = string.Format("*{0}", itemCacheKey);
+            var keyPattern = GetFinalKey(itemCacheKey);
+
+            var keys = GetServer().Keys(pattern: keyPattern);
+            var dic = new Dictionary<string, TBag>();
             foreach (var redisKey in keys)
             {
-                if (redisKey.ToString().Contains(ContainerHelper.GetCacheKey(typeof(TBag))))
+                try
                 {
-                    dic[redisKey] = (TBag)Get(redisKey);
+                    var bag = Get(redisKey, true);
+                    dic[redisKey] = (TBag)bag;
                 }
+                catch (Exception)
+                {
+
+                }
+
             }
-            return dic as IDictionary<string, TBag>;
+            return dic;
         }
 
         public IDictionary<string, IBaseContainerBag> GetAll()
         {
+            //尽量不要用此方法！
             return GetAll<IBaseContainerBag>();
         }
 
@@ -180,53 +196,39 @@ namespace Senparc.Weixin.Cache.Redis
 #endif
         }
 
-        public void RemoveFromCache(string key)
+        public void RemoveFromCache(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
                 return;
             }
 
+            var cacheKey = GetFinalKey(key, isFullKey);
             SenparcMessageQueue.OperateQueue();//延迟缓存立即生效
-            _cache.KeyDelete(key);//删除键
+            _cache.KeyDelete(cacheKey);//删除键
         }
 
-        public void Update(string key, IBaseContainerBag value)
+        public void Update(string key, IBaseContainerBag value, bool isFullKey = false)
         {
-            var cacheKey = GetFinalKey(key);
+            var cacheKey = GetFinalKey(key, isFullKey);
+            //value.Key = cacheKey;//储存最终的键
             _cache.StringSet(cacheKey, value.Serialize());
         }
 
-        public void UpdateContainerBag(string key, IBaseContainerBag containerBag)
+        public void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false)
         {
-            if (this.CheckExisted(key))
+            if (this.CheckExisted(key, isFullKey))
             {
-                Update(key, containerBag);
+                Update(key, containerBag, isFullKey);
             }
         }
 
         #endregion
 
-        #region ICacheLock
-
-        private Redlock.CSharp.Redlock _dlm;
-        private Lock _lockObject;
-
-        public bool Lock(string resourceName)
+        public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
-            _dlm = _dlm ?? new Redlock.CSharp.Redlock(_client);
-            var successfull = _dlm.Lock(resourceName, new TimeSpan(0, 0, 10), out _lockObject);
-            return successfull;
+            return new RedisCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
         }
 
-        public void UnLock(string resourceName)
-        {
-            if (_lockObject != null)
-            {
-                _dlm.Unlock(_lockObject);
-            }
-        }
-
-        #endregion
     }
 }

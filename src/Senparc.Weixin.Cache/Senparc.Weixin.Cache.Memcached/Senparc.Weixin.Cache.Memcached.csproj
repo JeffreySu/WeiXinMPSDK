@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContainerCacheStragegy\MemcachedContainerStrategy.cs" />
+    <Compile Include="MamcachedCacheLock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

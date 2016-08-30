@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20160813
+    修改描述：v4.7.7 添加DefaultCacheNamespace
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -54,8 +57,15 @@ namespace Senparc.Weixin
                 //}
             }
         }
-        /// <summary>JavaScriptSerializer 类接受的 JSON 字符串的最大长度
+
+        /// <summary>
+        /// JavaScriptSerializer 类接受的 JSON 字符串的最大长度
         /// </summary>
         public static int MaxJsonLength = int.MaxValue;
+
+        /// <summary>
+        /// 默认缓存键的第一级命名空间，默认值：DefaultCache
+        /// </summary>
+        public static string DefaultCacheNamespace = "DefaultCache";
     }
 }

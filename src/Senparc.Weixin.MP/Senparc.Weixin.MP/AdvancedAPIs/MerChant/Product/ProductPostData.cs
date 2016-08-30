@@ -97,7 +97,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <summary>
         /// 属性值id 原来是int 改为string
         /// </summary>
-        public string vid { get; set; }
+        public string vid { get; set; }     
     }
 
     public class Sku_info

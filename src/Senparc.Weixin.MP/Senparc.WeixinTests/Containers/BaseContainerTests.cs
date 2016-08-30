@@ -57,5 +57,13 @@ namespace Senparc.Weixin.Containers.Tests
 
             //Console.WriteLine("H1:{0}，H2{1}", h1, h2);
         }
+
+        [TestMethod()]
+        public void GetItemCacheKeyTest()
+        {
+            var shortKey = "123abc";
+            var itemCacheKey = TestContainer1.GetBagCacheKey(shortKey);
+            Assert.AreEqual("Container:Senparc.Weixin.Containers.Tests.TestContainerBag1:"+shortKey, itemCacheKey);
+        }
     }
 }

@@ -61,6 +61,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 红包
         /// </summary>
         public Card_LuckyMoneyResult lucky_money { get; set; }
+        /// <summary>
+        /// 会议门票
+        /// </summary>
+        public Card_MeetingTicketResult meeting_ticket { get; set; }
     }
 
     /// <summary>
@@ -226,6 +230,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// </summary>
     public class Card_LuckyMoneyResult : BaseCardInfoResult
     {
+    }
+
+    public class Card_MeetingTicketResult : BaseCardInfoResult
+    {
+        /// <summary>
+        /// 会议详情
+        /// </summary>
+        public string meeting_detail { get; set; }
+        /// <summary>
+        /// 会场导览图
+        /// </summary>
+        public string map_url { get; set; }
     }
 
     public class BaseCardInfoResult

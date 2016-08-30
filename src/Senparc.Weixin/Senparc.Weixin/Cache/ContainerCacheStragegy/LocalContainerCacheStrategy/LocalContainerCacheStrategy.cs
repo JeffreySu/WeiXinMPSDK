@@ -1,4 +1,18 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+
+    文件名：LocalContainerCacheStrategy.cs
+    文件功能描述：本地容器缓存。
+
+
+    创建标识：Senparc - 20160308
+
+    修改标识：Senparc - 20160812
+    修改描述：v4.7.4  解决Container无法注册的问题
+
+ ----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -7,6 +21,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Caching;
 using Senparc.Weixin.Containers;
+using Senparc.Weixin.Cache;
 
 namespace Senparc.Weixin.Cache
 {
@@ -29,7 +44,7 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 本地容器缓存策略
     /// </summary>
-    public sealed class LocalContainerCacheStrategy : IContainerCacheStragegy
+    public sealed class LocalContainerCacheStrategy : BaseCacheStrategy, IContainerCacheStragegy
     //where TContainerBag : class, IBaseContainerBag, new()
     {
         #region 数据源
@@ -70,11 +85,6 @@ namespace Senparc.Weixin.Cache
 
         #region ILocalCacheStrategy 成员
 
-        //public string CacheSetKey { get; set; }
-        public string GetFinalKey(string key)
-        {
-            return String.Format("{0}:{1}", "SenparcWeixinContainer", key);
-        }
 
         public void InsertToCache(string key, IBaseContainerBag value)
         {
@@ -85,25 +95,27 @@ namespace Senparc.Weixin.Cache
             _cache[key] = value;
         }
 
-        public void RemoveFromCache(string key)
+        public void RemoveFromCache(string key, bool isFullKey = false)
         {
-            _cache.Remove(key);
+            var cacheKey = GetFinalKey(key, isFullKey);
+            _cache.Remove(cacheKey);
         }
 
-        public IBaseContainerBag Get(string key)
+        public IBaseContainerBag Get(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
                 return null;
             }
 
-            if (!CheckExisted(key))
+            if (!CheckExisted(key, isFullKey))
             {
                 return null;
                 //InsertToCache(key, new ContainerItemCollection());
             }
 
-            return _cache[key];
+            var cacheKey = GetFinalKey(key, isFullKey);
+            return _cache[cacheKey];
         }
 
 
@@ -126,9 +138,10 @@ namespace Senparc.Weixin.Cache
             return _cache;
         }
 
-        public bool CheckExisted(string key)
+        public bool CheckExisted(string key, bool isFullKey = false)
         {
-            return _cache.ContainsKey(key);
+            var cacheKey = GetFinalKey(key, isFullKey);
+            return _cache.ContainsKey(cacheKey);
         }
 
         public long GetCount()
@@ -136,69 +149,26 @@ namespace Senparc.Weixin.Cache
             return _cache.Count;
         }
 
-        public void Update(string key, IBaseContainerBag value)
+        public void Update(string key, IBaseContainerBag value, bool isFullKey = false)
         {
-            _cache[key] = value;
+            var cacheKey = GetFinalKey(key, isFullKey);
+            _cache[cacheKey] = value;
         }
 
-        public void UpdateContainerBag(string key, IBaseContainerBag bag)
+        public void UpdateContainerBag(string key, IBaseContainerBag bag, bool isFullKey = false)
         {
-            Update(key, bag);
+            Update(key, bag, isFullKey);
         }
 
         #endregion
 
         #region ICacheLock
-
-        private static Dictionary<string, object> LockPool = new Dictionary<string, object>();
-        private static Random _rnd = new Random();
-
-        private bool RetryLock(string resourceName, int retryCount, TimeSpan retryDelay, Func<bool> action)
+        public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
-            int currentRetry = 0;
-            int maxRetryDelay = (int)retryDelay.TotalMilliseconds;
-            while (currentRetry++ < retryCount)
-            {
-                if (action())
-                {
-                    return true;//取得锁
-                }
-                Thread.Sleep(_rnd.Next(maxRetryDelay));
-            }
-            return false;
-        }
-
-        public bool Lock(string resourceName)
-        {
-            var successful = RetryLock(resourceName, 9999999 /*暂时不限制*/, new TimeSpan(0, 0, 0, 0, 100), () =>
-                        {
-                            try
-                            {
-                                if (LockPool.ContainsKey(resourceName))
-                                {
-                                    return false;//已被别人锁住，没有取得锁
-                                }
-                                else
-                                {
-                                    LockPool.Add(resourceName, new object());//创建锁
-                                    return true;//取得锁
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                WeixinTrace.Log("本地同步锁发生异常：" + ex.Message);
-                                return false;
-                            }
-                        }
-                );
-            return successful;
-        }
-
-        public void UnLock(string resourceName)
-        {
-            LockPool.Remove(resourceName);
+            return new LocalCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
         }
 
         #endregion
+
     }
 }

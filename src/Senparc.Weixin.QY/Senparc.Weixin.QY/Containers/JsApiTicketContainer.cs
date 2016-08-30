@@ -24,6 +24,15 @@
  
     修改标识：Senparc - 20160804
     修改描述：v4.1.3 增加TryGetTicketAsync，GetTicketAsync，GetTicketResultAsync的异步方法
+    
+    修改标识：Senparc - 20160813
+    修改描述：v4.1.5 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+
+    修改标识：Senparc - 20160813
+    修改描述：v4.1.6 完善GetToken()方法
+    
+    修改标识：Senparc - 20160813
+    修改描述：v4.1.8 修改命名空间为Senparc.Weixin.QY.Containers
 ----------------------------------------------------------------*/
 
 using System;
@@ -32,11 +41,12 @@ using System.Threading.Tasks;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
 
-namespace Senparc.Weixin.QY.CommonAPIs
+namespace Senparc.Weixin.QY.Containers
 {
     /// <summary>
     /// JsApiTicketBag
@@ -84,7 +94,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
     public class JsApiTicketContainer : BaseContainer<JsApiTicketBag>
     {
         private const string UN_REGISTER_ALERT = "此AppId尚未注册，JsApiTicketContainer.Register完成注册（全局执行一次即可）！";
-        #region 同步方法
+
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
         /// </summary>
@@ -94,18 +104,28 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// 此接口无异步方法
         public static void Register(string appId, string appSecret, string name = null)
         {
-            using (FlushCache.CreateInstance())
+            //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
+            RegisterFunc = () =>
             {
-                Update(appId, new JsApiTicketBag()
+                using (FlushCache.CreateInstance())
                 {
-                    Name = name,
-                    AppId = appId,
-                    AppSecret = appSecret,
-                    ExpireTime = DateTime.MinValue,
-                    JsApiTicketResult = new JsApiTicketResult()
-                });
-            }
+                    var bag = new JsApiTicketBag()
+                    {
+                        Name = name,
+                        AppId = appId,
+                        AppSecret = appSecret,
+                        ExpireTime = DateTime.MinValue,
+                        JsApiTicketResult = new JsApiTicketResult()
+                    };
+                    Update(appId, bag);
+                    return bag;
+                }
+            };
+            RegisterFunc();
         }
+
+        #region 同步方法
+
 
         /// <summary>
         /// 使用完整的应用凭证获取Ticket，如果不存在将自动注册
@@ -120,7 +140,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
             {
                 Register(appId, appSecret);
             }
-            return GetTicket(appId);
+            return GetTicket(appId, getNewTicket);
         }
 
         /// <summary>
@@ -160,16 +180,17 @@ namespace Senparc.Weixin.QY.CommonAPIs
             return jsApiTicketBag.JsApiTicketResult;
         }
 
-        /// <summary>
-        /// 检查是否已经注册
-        /// </summary>
-        /// <param name="appId"></param>
-        /// <returns></returns>
-        /// 此接口无异步方法
-        public new static bool CheckRegistered(string appId)
-        {
-            return Cache.CheckExisted(appId);
-        }
+        ///// <summary>
+        ///// 检查是否已经注册
+        ///// </summary>
+        ///// <param name="appId"></param>
+        ///// <returns></returns>
+        ///// 此接口无异步方法
+        //public new static bool CheckRegistered(string appId)
+        //{
+        //    return Cache.CheckExisted(appId);
+        //}
+
         #endregion
 
         #region 异步方法
@@ -186,7 +207,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
             {
                 Register(appId, appSecret);
             }
-            return await GetTicketAsync(appId);
+            return await GetTicketAsync(appId, getNewTicket);
         }
 
         /// <summary>

@@ -52,6 +52,24 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -86,8 +104,8 @@
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\SessionInfo.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthResult.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthPostData.cs" />
-    <Compile Include="CommonAPIs\Containers\JsApiTicketContainer.cs" />
-    <Compile Include="CommonAPIs\Containers\ProviderTokenContainer.cs" />
+    <Compile Include="Containers\JsApiTicketContainer.cs" />
+    <Compile Include="Containers\ProviderTokenContainer.cs" />
     <Compile Include="Entities\JsonResult\ConvertToUserIdResult.cs" />
     <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
     <Compile Include="AdvancedAPIs\Mass\MassApi.cs" />
@@ -100,7 +118,7 @@
     <Compile Include="AdvancedAPIs\Media\UploadResultJson.cs" />
     <Compile Include="AdvancedAPIs\OAuth2\OAuth2Api.cs" />
     <Compile Include="AdvancedAPIs\OAuth2\OAuth2Result.cs" />
-    <Compile Include="CommonAPIs\Containers\AccessTokenContainer.cs" />
+    <Compile Include="Containers\AccessTokenContainer.cs" />
     <Compile Include="CommonAPIs\AccessTokenHandlerWapper.cs" />
     <Compile Include="CommonAPIs\CommonApi.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />

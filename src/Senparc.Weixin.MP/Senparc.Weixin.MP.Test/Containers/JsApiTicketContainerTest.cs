@@ -16,6 +16,7 @@ namespace Senparc.Weixin.MP.Test.Containers
     {
         //v13.3.0之后，JsApiTicketContainer已经合并入AccessTokenContainer
         //v13.6.0之后，JsApiTicketContainer重新从AccessTokenContainer分离
+        //v14.2.0之后，所有Container命名空间调整到Senparc.Weixin.MP.Containers下
         [TestMethod]
         public void ContainerTest()
         {

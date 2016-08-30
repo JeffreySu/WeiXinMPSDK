@@ -4,12 +4,15 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.Cache;
+using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.User;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.Threads;
 
 namespace Senparc.Weixin.MP.Test.CommonAPIs
 {
@@ -78,6 +81,8 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         }
 
 
+        protected readonly bool _userRedis = true;//是否使用Reids
+
         /* 由于获取accessToken有次数限制，为了节约请求，
         * 可以到 http://sdk.weixin.senparc.com/Menu 获取Token之后填入下方，
         * 使用当前可用Token直接进行测试。
@@ -104,8 +109,17 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
         public CommonApiTest()
         {
+            if (_userRedis)
+            {
+                var redisConfiguration = "localhost:6379";
+                RedisManager.ConfigurationOption = redisConfiguration;
+                CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
+            }
+
             //全局只需注册一次
             AccessTokenContainer.Register(_appId, _appSecret);
+
+            ThreadUtility.Register();
 
             //v13.3.0之后，JsApiTicketContainer已经合并入AccessTokenContainer，已经不需要单独注册
             ////全局只需注册一次

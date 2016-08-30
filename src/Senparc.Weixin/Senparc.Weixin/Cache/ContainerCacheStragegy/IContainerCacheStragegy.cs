@@ -1,4 +1,18 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+
+    文件名：IContainerCacheStragegy.cs
+    文件功能描述：容器缓存策略基类。
+
+
+    创建标识：Senparc - 20160308
+
+    修改标识：Senparc - 20160812
+    修改描述：v4.7.4  解决Container无法注册的问题
+
+ ----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,16 +24,9 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 容器缓存策略接口
     /// </summary>
-    public interface IContainerCacheStragegy : IBaseCacheStrategy<string, IBaseContainerBag>, ICacheLock
+    public interface IContainerCacheStragegy : IBaseCacheStrategy<string, IBaseContainerBag>
 
     {
-        /// <summary>
-        /// 获取缓存中最终的键，建议格式： return String.Format("{0}:{1}", "SenparcWeixinContainer", key);
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        string GetFinalKey(string key);
-
         /// <summary>
         /// 获取所有ContainerBag
         /// </summary>
@@ -32,6 +39,7 @@ namespace Senparc.Weixin.Cache
         /// </summary>
         /// <param name="key"></param>
         /// <param name="containerBag"></param>
-        void UpdateContainerBag(string key, IBaseContainerBag containerBag);
+        /// <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
+        void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false);
     }
 }

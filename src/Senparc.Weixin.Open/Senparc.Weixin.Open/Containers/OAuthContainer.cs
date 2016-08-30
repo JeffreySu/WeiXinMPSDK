@@ -20,5 +20,5 @@ using Senparc.Weixin.Open.Exceptions;
 
 namespace Senparc.Weixin.Open.Containers
 {
-    //TODO:将在1.7.9中发布
+    //TODO:计划于3.x中发布
 }

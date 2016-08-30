@@ -51,8 +51,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Redlock.CSharp, Version=0.0.1.22859, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.Cache.Redis.RedLock.0.0.1\lib\net45\Redlock.CSharp.dll</HintPath>
+    <Reference Include="Redlock.CSharp, Version=0.0.2.35303, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.Cache.Redis.RedLock.0.0.2\lib\net45\Redlock.CSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="StackExchange.Redis, Version=1.0.316.0, Culture=neutral, processorArchitecture=MSIL">
@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContainerCacheStragegy\RedisContainerCacheStrategy.cs" />
+    <Compile Include="RedisCacheLock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StackExchange.Redis\RedisManager.cs" />
     <Compile Include="StackExchange.Redis\StackExchangeRedisExtensions.cs" />

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
+using Senparc.Weixin.Cache;
+using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 
@@ -16,6 +18,16 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
         [TestMethod]
         public void ContainerAsyncTest()
         {
+
+            bool useRedis = true;
+
+            if (useRedis)
+            {
+                var redisConfiguration = "localhost:6379";
+                RedisManager.ConfigurationOption = redisConfiguration;
+                CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
+            }
+
             //注册
             AccessTokenContainer.Register(base._appId, base._appSecret);
 

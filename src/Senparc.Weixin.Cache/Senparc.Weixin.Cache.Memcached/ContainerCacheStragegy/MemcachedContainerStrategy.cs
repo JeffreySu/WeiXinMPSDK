@@ -10,7 +10,10 @@
     修改标识：Senparc - 20160808
     修改描述：v0.0.2 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
 
-----------------------------------------------------------------*/
+    修改标识：Senparc - 20160812
+    修改描述：v0.0.3  解决Container无法注册的问题
+
+ ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
@@ -26,12 +29,11 @@ using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache.Memcached
 {
-    public class MemcachedContainerStrategy : IContainerCacheStragegy
+    public class MemcachedContainerStrategy : BaseCacheStrategy, IContainerCacheStragegy
     {
-        private MemcachedClient _cache;
+        internal MemcachedClient _cache;
         private MemcachedClientConfiguration _config;
         private static Dictionary<string, int> _serverlist;// = SiteConfig.MemcachedAddresss; TODO:全局注册配置
-
 
         #region 单例
 
@@ -135,11 +137,6 @@ namespace Senparc.Weixin.Cache.Memcached
         #endregion
 
         #region IContainerCacheStragegy 成员
-        public string GetFinalKey(string key)
-        {
-            return String.Format("{0}:{1}", "SenparcWeixinContainer", key);
-        }
-
 
         public void InsertToCache(string key, IBaseContainerBag value)//TODO:添加Timeout参数
         {
@@ -158,24 +155,24 @@ namespace Senparc.Weixin.Cache.Memcached
 #endif
         }
 
-        public void RemoveFromCache(string key)
+        public void RemoveFromCache(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
                 return;
             }
-            var cacheKey = GetFinalKey(key);
+            var cacheKey = GetFinalKey(key, isFullKey);
             _cache.Remove(cacheKey);
         }
 
-        public IBaseContainerBag Get(string key)
+        public IBaseContainerBag Get(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
                 return null;
             }
 
-            var cacheKey = GetFinalKey(key);
+            var cacheKey = GetFinalKey(key, isFullKey);
             return _cache.Get<IBaseContainerBag>(cacheKey);
         }
 
@@ -189,10 +186,11 @@ namespace Senparc.Weixin.Cache.Memcached
             throw new NotImplementedException();
         }
 
-        public bool CheckExisted(string key)
+        public bool CheckExisted(string key, bool isFullKey = false)
         {
+            var cacheKey = GetFinalKey(key, isFullKey);
             object value;
-            if (_cache.TryGet(key, out value))
+            if (_cache.TryGet(cacheKey, out value))
             {
                 return true;
             }
@@ -204,80 +202,27 @@ namespace Senparc.Weixin.Cache.Memcached
             throw new NotImplementedException();//TODO:需要定义二级缓存键，从池中获取
         }
 
-        public void Update(string key, IBaseContainerBag value)
+        public void Update(string key, IBaseContainerBag value, bool isFullKey = false)
         {
-            var cacheKey = GetFinalKey(key);
+            var cacheKey = GetFinalKey(key, isFullKey);
             _cache.Store(StoreMode.Set, cacheKey, value, DateTime.Now.AddDays(1));
         }
 
-        public void UpdateContainerBag(string key, IBaseContainerBag containerBag)
+        public void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false)
         {
+            var cacheKey = GetFinalKey(key, isFullKey);
             object value;
-            if (_cache.TryGet(key, out value))
+            if (_cache.TryGet(cacheKey, out value))
             {
-                Update(key, containerBag);
+                Update(cacheKey, containerBag, true);
             }
         }
 
         #endregion
 
-        #region ICacheLock
-        private static Random _rnd = new Random();
-
-        private bool RetryLock(string resourceName, int retryCount, TimeSpan retryDelay, Func<bool> action)
+        public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
-            int currentRetry = 0;
-            int maxRetryDelay = (int)retryDelay.TotalMilliseconds;
-            while (currentRetry++ < retryCount)
-            {
-                if (action())
-                {
-                    return true;//取得锁
-                }
-                Thread.Sleep(_rnd.Next(maxRetryDelay));
-            }
-            return false;
+            return new MemcachedCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
         }
-
-        private string GetLockKey(string resourceName)
-        {
-            return string.Format("{0}:{1}", "Lock", resourceName);
-        }
-
-        public bool Lock(string resourceName)
-        {
-            var key = GetFinalKey(resourceName);
-            var successfull = RetryLock(key, 9999999 /*暂时不限制*/, new TimeSpan(0, 0, 0, 0, 100), () =>
-                {
-                    try
-                    {
-                        if (_cache.Get(key) != null)
-                        {
-                            return false;//已被别人锁住，没有取得锁
-                        }
-                        else
-                        {
-                            _cache.Store(StoreMode.Set, key, new object(), new TimeSpan(0, 0, 10));//创建锁
-                            return true;//取得锁
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        WeixinTrace.Log("Memcached同步锁发生异常：" + ex.Message);
-                        return false;
-                    }
-                }
-              );
-            return successfull;
-        }
-
-        public void UnLock(string resourceName)
-        {
-            var key = GetFinalKey(resourceName);
-            _cache.Remove(key);
-        }
-
-        #endregion
-
     }
 }

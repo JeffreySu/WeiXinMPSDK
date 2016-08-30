@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
+using Senparc.Weixin.Cache;
+using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 
@@ -16,9 +19,6 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
         [TestMethod]
         public void ContainerTest()
         {
-            //注册
-            AccessTokenContainer.Register(base._appId, base._appSecret);
-
             //获取Token完整结果（包括当前过期秒数）
             DateTime dt1 = DateTime.Now;
             var tokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId);
@@ -27,6 +27,11 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             Assert.IsNotNull(tokenResult);
             Console.WriteLine(tokenResult.access_token);
             Console.WriteLine("耗时：{0}毫秒", (dt2 - dt1).TotalMilliseconds);
+
+            if (base._userRedis)
+            {
+                Thread.Sleep(2500);//等待缓存更新
+            }
 
             //只获取Token字符串
             dt1 = DateTime.Now;
@@ -55,12 +60,21 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
 
             {
                 tokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId);
+                if (base._userRedis)
+                {
+                    Thread.Sleep(2500);//等待缓存更新
+                }
                 Console.WriteLine("HashCode：{0}", tokenResult.GetHashCode());
                 dt1 = DateTime.Now;
                 var allItems = AccessTokenContainer.GetAllItems();
                 dt2 = DateTime.Now;
                 Assert.IsTrue(allItems.Count > 0);
-                Assert.AreSame(tokenResult, allItems[0].AccessTokenResult);//证明缓存成功
+
+                //序列化
+                var d1 = StackExchangeRedisExtensions.Serialize(tokenResult);
+                var d2 = StackExchangeRedisExtensions.Serialize(allItems[0].AccessTokenResult);
+
+                Assert.AreEqual(String.Concat(d1), String.Concat(d2));//证明缓存成功
                 Console.WriteLine("All Items:{0}", allItems.Count);
                 Console.WriteLine("HashCode：{0}", allItems[0].AccessTokenResult.GetHashCode());
                 Console.WriteLine("耗时：{0}毫秒", (dt2 - dt1).TotalMilliseconds);
@@ -100,7 +114,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             //注册多个AppId
             for (int i = 0; i < 100; i++)
             {
-                AccessTokenContainer.Register("TestAppId_"+i,"TestAppSecret");
+                AccessTokenContainer.Register("TestAppId_" + i, "TestAppSecret");
             }
 
             ////删除部分AppId
@@ -112,6 +126,27 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
 
             //appId = AccessTokenContainer.GetFirstOrDefaultAppId();
             //Assert.AreEqual(registeredAppId, appId);
+        }
+
+
+        [TestMethod]
+        public void ReTryRegisterTest()
+        {
+            //第一步：注册（基类已完成）
+            var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId);
+            Assert.IsNotNull(accessTokenResult);
+            Assert.IsNotNull(accessTokenResult.access_token);
+            Console.WriteLine(accessTokenResult.access_token);
+
+            //第二步：清空注册信息
+            var i = 0;
+
+
+            //第三步：在不注册的情况下调用接口
+            accessTokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId, true);
+            Assert.IsNotNull(accessTokenResult);
+            Assert.IsNotNull(accessTokenResult.access_token);
+            Console.WriteLine(accessTokenResult.access_token);
         }
     }
 }

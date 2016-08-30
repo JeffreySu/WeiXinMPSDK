@@ -54,6 +54,24 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -66,13 +84,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cache\CacheStrategy\BaseCacheStrategy.cs" />
     <Compile Include="Cache\ContainerCacheStragegy\IContainerCacheStragegy.cs" />
+    <Compile Include="Cache\Lock\LocalCacheLock.cs" />
     <Compile Include="Cache\ContainerCacheStragegy\LocalContainerCacheStrategy\LocalContainerCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategy\IBaseCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategyFactory.cs" />
-    <Compile Include="Cache\Lock\CacheLockWrapper.cs" />
+    <Compile Include="Cache\Lock\BaseCacheLock.cs" />
     <Compile Include="Cache\Lock\ICacheLock.cs" />
-    <Compile Include="Cache\Lock\CacheLockWrapperExtension.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Containers\BaseContainer.cs" />
     <Compile Include="Containers\BaseContainerBag.cs" />

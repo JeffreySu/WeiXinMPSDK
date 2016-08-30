@@ -13,6 +13,9 @@
     修改标识：Senparc - 20160808
     修改描述：v4.7.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
 
+    修改标识：Senparc - 20160813
+    修改描述：v4.7.5 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -111,16 +114,21 @@ namespace Senparc.Weixin.Containers
         //    return ContainerHelper.GetCacheKey(typeof(TBag));
         //}
 
-        /// <summary>
-        /// 获取ItemCollection缓存Key
-        /// </summary>
-        /// <param name="shortKey">最简短的Key，比如AppId，不需要考虑容器前缀</param>
-        /// <returns></returns>
-        public static string GetItemCacheKey(string shortKey)
-        {
-            return string.Format("{0}:{1}", ContainerHelper.GetCacheKey(typeof(TBag)), shortKey);
-        }
 
+
+        /// <summary>
+        /// 进行注册过程的委托
+        /// </summary>
+        protected static Func<TBag> RegisterFunc { get; set; }
+
+        /// <summary>
+        /// 如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
+        /// </summary>
+        private static TBag TryReRegister()
+        {
+            return RegisterFunc();
+            //TODO:如果需要校验ContainerBag的正确性，可以从返回值进行判断
+        }
 
         /// <summary>
         /// 返回已经注册的第一个AppId
@@ -131,6 +139,17 @@ namespace Senparc.Weixin.Containers
             var firstBag = GetAllItems().FirstOrDefault() as IBaseContainerBag_AppId;
             return firstBag == null ? null : firstBag.AppId;
         }
+
+        /// <summary>
+        /// 获取ItemCollection缓存Key
+        /// </summary>
+        /// <param name="shortKey">最简短的Key，比如AppId，不需要考虑容器前缀</param>
+        /// <returns></returns>
+        public static string GetBagCacheKey(string shortKey)
+        {
+            return ContainerHelper.GetItemCacheKey(typeof(TBag), shortKey);
+        }
+
 
         ///// <summary>
         ///// 获取完整的数据集合的列表，包括所有的Container数据在内（建议不要进行任何修改操作）
@@ -148,7 +167,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static List<TBag> GetAllItems()
         {
-            return Cache.GetAll<TBag>().Values.Select(z => z as TBag).ToList();
+            return Cache.GetAll<TBag>().Values.Select(z => z).ToList();
         }
 
         /// <summary>
@@ -158,10 +177,10 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static TBag TryGetItem(string shortKey)
         {
-            var cacheKey = GetItemCacheKey(shortKey);
+            var cacheKey = GetBagCacheKey(shortKey);
             if (Cache.CheckExisted(cacheKey))
             {
-                return Cache.Get(cacheKey) as TBag;
+                return (TBag)Cache.Get(cacheKey);
             }
 
             return default(TBag);
@@ -175,7 +194,7 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static TK TryGetItem<TK>(string shortKey, Func<TBag, TK> property)
         {
-            var cacheKey = GetItemCacheKey(shortKey);
+            var cacheKey = GetBagCacheKey(shortKey);
             if (Cache.CheckExisted(cacheKey))
             {
                 var item = Cache.Get(cacheKey) as TBag;
@@ -191,7 +210,7 @@ namespace Senparc.Weixin.Containers
         /// <param name="bag">为null时删除该项</param>
         public static void Update(string shortKey, TBag bag)
         {
-            var cacheKey = GetItemCacheKey(shortKey);
+            var cacheKey = GetBagCacheKey(shortKey);
             if (bag == null)
             {
                 Cache.RemoveFromCache(cacheKey);
@@ -200,17 +219,17 @@ namespace Senparc.Weixin.Containers
             {
                 if (string.IsNullOrEmpty(bag.Key))
                 {
-                    bag.Key = cacheKey;//确保Key有值
+                    bag.Key = shortKey;//确保Key有值，形如：wx669ef95216eef885，最底层的Key
                 }
-                else
-                {
-                    cacheKey = bag.Key;//统一key
-                }
+                //else
+                //{
+                //    cacheKey = bag.Key;//统一key
+                //}
 
-                if (string.IsNullOrEmpty(cacheKey))
-                {
-                    throw new WeixinException("key和value,Key不可以同时为null或空字符串！");
-                }
+                //if (string.IsNullOrEmpty(cacheKey))
+                //{
+                //    throw new WeixinException("key和value,Key不可以同时为null或空字符串！");
+                //}
 
                 //var c1 = ItemCollection.GetCount();
                 //ItemCollection[key] = bag;
@@ -227,7 +246,7 @@ namespace Senparc.Weixin.Containers
         /// <param name="partialUpdate">为null时删除该项</param>
         public static void Update(string shortKey, Action<TBag> partialUpdate)
         {
-            var cacheKey = GetItemCacheKey(shortKey);
+            var cacheKey = GetBagCacheKey(shortKey);
             if (partialUpdate == null)
             {
                 Cache.RemoveFromCache(cacheKey);//移除对象
@@ -254,8 +273,16 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static bool CheckRegistered(string shortKey)
         {
-            var cacheKey = GetItemCacheKey(shortKey);
+            var cacheKey = GetBagCacheKey(shortKey);
+            var registered = Cache.CheckExisted(cacheKey);
+            if (!registered && RegisterFunc != null)
+            {
+                //如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
+                TryReRegister();
+            }
+
             return Cache.CheckExisted(cacheKey);
         }
+
     }
 }

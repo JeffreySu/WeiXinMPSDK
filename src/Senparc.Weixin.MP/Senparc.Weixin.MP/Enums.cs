@@ -34,6 +34,9 @@
     修改标识：Senparc - 20160803
     修改描述：将其卡券中的 code_type 定义完整
  
+    修改标识：Senparc - 20160901
+    修改描述：v14.3.7 增加QrCode_ActionName枚举
+
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;
@@ -818,5 +821,24 @@ namespace Senparc.Weixin.MP
         机构组织_其他组织 = 01204, //需要资质文件
         代运营商_代运营商 = 01301, //需要资质文件
         智能硬件_智能硬件 = 01401, //需要资质文件
+    }
+
+    /// <summary>
+    /// 二维码类型
+    /// </summary>
+    public enum QrCode_ActionName
+    {
+        /// <summary>
+        /// 临时
+        /// </summary>
+        QR_SCENE,
+        /// <summary>
+        /// 永久
+        /// </summary>
+        QR_LIMIT_SCENE,
+        /// <summary>
+        /// 永久的字符串
+        /// </summary>
+        QR_LIMIT_STR_SCENE
     }
 }

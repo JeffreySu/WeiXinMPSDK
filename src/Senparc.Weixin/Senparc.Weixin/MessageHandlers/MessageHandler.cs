@@ -140,7 +140,7 @@ namespace Senparc.Weixin.MessageHandlers
                 //    return "";
                 //}
 
-                return _textResponseMessage ?? ResponseDocument.ToString();
+                return _textResponseMessage ?? ResponseDocument?.ToString();
             }
             set
             {

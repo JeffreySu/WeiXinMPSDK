@@ -134,19 +134,13 @@ namespace Senparc.Weixin.MessageHandlers
         {
             get
             {
-                if (ResponseMessage == null || ResponseMessage is IResponseMessageNoResponse)
-                {
-                    return "";
-                }
+                //下面这段代码导致不能获得TextResponseMessage
+                //if (ResponseMessage == null || ResponseMessage is IResponseMessageNoResponse)
+                //{
+                //    return "";
+                //}
 
-                if (_textResponseMessage == null)
-                {
-                    return /*ResponseDocument == null ? null : */ ResponseDocument.ToString();
-                }
-                else
-                {
-                    return _textResponseMessage;
-                }
+                return _textResponseMessage ?? ResponseDocument?.ToString();
             }
             set
             {

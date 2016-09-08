@@ -40,7 +40,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
     }
 
     public abstract class QyMessageHandler<TC> : MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IQyMessageHandler
-        where TC : class ,IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
+        where TC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         /// <summary>
         /// 上下文（仅限于当前MessageHandler基类内）
@@ -102,7 +102,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
         {
             get
             {
-                return EncryptPostData != null ? EncryptPostData.AgentID  : -1;
+                return EncryptPostData != null ? EncryptPostData.AgentID : -1;
             }
         }
 
@@ -143,7 +143,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
             }
         }
 
-      
+
 
         private PostModel _postModel;
 
@@ -192,7 +192,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
             RequestMessage = RequestMessageFactory.GetRequestEntity(requestDocument);
 
             //记录上下文
-            if (WeixinContextGlobal.UseWeixinContext)
+            if (RequestMessage.MsgType != RequestMsgType.DEFAULT && WeixinContextGlobal.UseWeixinContext)
             {
                 WeixinContext.InsertMessage(RequestMessage);
             }
@@ -244,18 +244,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
                             if (RequestMessage is IThirdPartyInfoBase)
                             {
                                 var thirdPartyInfo = RequestMessage as IThirdPartyInfoBase;
-                                switch (thirdPartyInfo.InfoType)
-                                {
-                                    case ThirdPartyInfo.SUITE_TICKET:
-                                        break;
-                                    case ThirdPartyInfo.CHANGE_AUTH:
-                                        break;
-                                    case ThirdPartyInfo.CANCEL_AUTH:
-                                        break;
-                                    default:
-                                        throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
-                                }
-                                TextResponseMessage = "success";//设置文字类型返回
+                                TextResponseMessage = OnThirdPartyEvent(thirdPartyInfo);
                             }
                             else
                             {
@@ -310,6 +299,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
                 OnExecuted();
             }
         }
+
 
         public virtual void OnExecuting()
         {
@@ -583,5 +573,52 @@ namespace Senparc.Weixin.QY.MessageHandlers
 
         #endregion
 
+        #region 第三方回调事件
+        public const string ThirdPartyEventSuccessResult = "success";
+        private string OnThirdPartyEvent(IThirdPartyInfoBase thirdPartyInfo)
+        {
+            switch (thirdPartyInfo.InfoType)
+            {
+                case ThirdPartyInfo.SUITE_TICKET:
+                    return OnThirdPartyEvent_Suite_Ticket((RequestMessageInfo_Suite_Ticket)thirdPartyInfo);
+                case ThirdPartyInfo.CHANGE_AUTH:
+                    return OnThirdPartyEvent_Change_Auth((RequestMessageInfo_Change_Auth)thirdPartyInfo);
+                case ThirdPartyInfo.CANCEL_AUTH:
+                    return OnThirdPartyEvent_Cancel_Auth((RequestMessageInfo_Cancel_Auth)thirdPartyInfo);
+                case ThirdPartyInfo.CREATE_AUTH:
+                    return OnThirdPartyEvent_Create_Auth((RequestMessageInfo_Create_Auth)thirdPartyInfo);
+                case ThirdPartyInfo.CONTACT_SYNC:
+                    return OnThirdPartyEvent_Contact_Sync((RequestMessageInfo_Contact_Sync)thirdPartyInfo);
+                default:
+                    throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
+            }
+        }
+
+        protected virtual string OnThirdPartyEvent_Contact_Sync(RequestMessageInfo_Contact_Sync thirdPartyInfo)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        protected virtual string OnThirdPartyEvent_Create_Auth(RequestMessageInfo_Create_Auth thirdPartyInfo)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        protected virtual string OnThirdPartyEvent_Cancel_Auth(RequestMessageInfo_Cancel_Auth thirdPartyInfo)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        protected virtual string OnThirdPartyEvent_Change_Auth(RequestMessageInfo_Change_Auth thirdPartyInfo)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        protected virtual string OnThirdPartyEvent_Suite_Ticket(RequestMessageInfo_Suite_Ticket thirdPartyInfo)
+        {
+            return ThirdPartyEventSuccessResult;
+        }
+
+        #endregion
     }
 }

@@ -130,6 +130,11 @@ namespace Senparc.Weixin.QY
     public enum ThirdPartyInfo
     {
         /// <summary>
+        /// 未知
+        /// </summary>
+        Unkonwn,
+
+        /// <summary>
         /// 推送suite_ticket协议
         /// </summary>
         SUITE_TICKET,
@@ -143,6 +148,16 @@ namespace Senparc.Weixin.QY
         /// 取消授权的通知
         /// </summary>
         CANCEL_AUTH,
+
+        /// <summary>
+        /// 授权成功推送auth_code事件
+        /// </summary>
+        CREATE_AUTH,
+
+        /// <summary>
+        /// 通讯录变更通知
+        /// </summary>
+        CONTACT_SYNC
     }
 
 

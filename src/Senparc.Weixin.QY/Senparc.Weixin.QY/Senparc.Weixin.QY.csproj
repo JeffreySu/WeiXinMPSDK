@@ -166,6 +166,8 @@
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Enter_Agent.cs" />
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfoBase.cs" />
+    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Contact_Sync.cs" />
+    <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Create_Auth.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Suite_Ticket.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Change_Auth.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Cancel_Auth.cs" />

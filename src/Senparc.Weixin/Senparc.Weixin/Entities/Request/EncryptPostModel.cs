@@ -14,7 +14,7 @@
 namespace Senparc.Weixin
 {
     /// <summary>
-    /// 接收解密信息统一接口
+    /// 接收加密信息统一接口
     /// </summary>
     public interface IEncryptPostModel
     {

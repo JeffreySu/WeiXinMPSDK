@@ -9,6 +9,9 @@
 
     修改标识：Senparc - 20160610
     修改描述：修改PropertyValue的id类型为int
+  
+    修改标识：Senparc - 20160825
+    修改描述;将Sku和Value中的id的int类型改为string类型
 
 ----------------------------------------------------------------*/
 
@@ -88,9 +91,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     public class Sku
     {
         /// <summary>
-        /// sku id
+        /// sku id 将int类型修改为string类型
         /// </summary>
-        public int id { get; set; }
+        public string id { get; set; }
         /// <summary>
         /// sku 名称
         /// </summary>
@@ -105,8 +108,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     {
         /// <summary>
         /// vid
+        /// 将id的int类型改为string类型
         /// </summary>
-        public int id { get; set; }
+        public string id { get; set; }
         /// <summary>
         /// vid名称
         /// </summary>

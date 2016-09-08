@@ -1,4 +1,5 @@
 # git ignore file
+/backup/
 Nuget/
 bin/
 obj/
@@ -20,3 +21,6 @@ packages/
 /src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/App_Data/Document/Files
 /src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/App_Data/SenparcWeixinTrace.log
 /src/Senparc.Weixin.MP/Senparc.Weixin.MP.Test/test.config
+packages/
+/src/Senparc.Weixin.QY/Senparc.Weixin.QY.Test/test.config
+/src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/.vscode

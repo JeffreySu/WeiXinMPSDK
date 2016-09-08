@@ -9,6 +9,11 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20160909
+    修改描述：v4.7.8 修正在ResponseMessage都null的情况下，
+              没有对_textResponseMessage做判断就直接返回空字符串的问题
+
 ----------------------------------------------------------------*/
 
 /*
@@ -134,7 +139,8 @@ namespace Senparc.Weixin.MessageHandlers
         {
             get
             {
-                if (ResponseMessage == null || ResponseMessage is IResponseMessageNoResponse)
+                if (_textResponseMessage != null
+                    && (ResponseMessage == null || ResponseMessage is IResponseMessageNoResponse))
                 {
                     return "";
                 }

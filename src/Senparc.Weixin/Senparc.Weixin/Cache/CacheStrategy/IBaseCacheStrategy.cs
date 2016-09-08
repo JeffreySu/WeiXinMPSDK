@@ -2,7 +2,7 @@
     Copyright (C) 2016 Senparc
 
     文件名：IBaseCacheStrategy.cs
-    文件功能描述：缓存策略基类。
+    文件功能描述：缓存策略接口。
 
 
     创建标识：Senparc - 20160308

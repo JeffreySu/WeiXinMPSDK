@@ -12,6 +12,7 @@
 using System;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.QY.Containers;
 
 namespace Senparc.Weixin.QY.Exceptions
 {

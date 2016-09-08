@@ -30,10 +30,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         /// 申请的批次ID，可用在“查询设备列表”接口按批次查询本次申请成功的设备ID。
         /// </summary>
         public long apply_id { get; set; }
-        /// <summary>
-        /// 指定的设备ID列表
-        /// </summary>
-        public List<DeviceApply_Data_Device_Identifiers> device_identifiers { get; set; }
+        ///// <summary>
+        ///// 指定的设备ID列表
+        ///// </summary>
+        //public List<DeviceApply_Data_Device_Identifiers> device_identifiers { get; set; }
         /// <summary>
         /// 审核状态。0：审核未通过、1：审核中、2：审核已通过；审核会在三个工作日内完成
         /// </summary>

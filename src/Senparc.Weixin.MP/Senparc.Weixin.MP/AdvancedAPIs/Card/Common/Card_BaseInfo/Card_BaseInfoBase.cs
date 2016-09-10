@@ -9,6 +9,9 @@
 
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20160910
+    修改描述：v14.3.9 修改Card_BaseInfoBase.get_limit类型为long
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -79,7 +82,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 每人最大领取次数，不填写默认等于quantity。
         /// 非必填
         /// </summary>
-        public int get_limit { get; set; }
+        public long get_limit { get; set; }
         /// <summary>
         /// 是否自定义code 码。填写true或false，不填代表默认为false。
         /// 非必填

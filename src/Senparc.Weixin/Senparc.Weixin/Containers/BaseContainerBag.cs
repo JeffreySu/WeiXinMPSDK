@@ -14,7 +14,6 @@
 
 using System;
 using System.Runtime.CompilerServices;
-using Senparc.Weixin.Annotations;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;

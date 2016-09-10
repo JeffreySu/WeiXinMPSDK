@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.MvcExtension", "..\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.csproj", "{EE8630BC-6191-4C40-9061-12C76342562D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{4C992D29-47D0-4686-BC85-D1D526AE6E83}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{2E87002F-2664-4D69-9834-2C6E720556BE}"
@@ -27,18 +25,6 @@ Global
 		Test|x86 = Test|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EE8630BC-6191-4C40-9061-12C76342562D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE8630BC-6191-4C40-9061-12C76342562D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE8630BC-6191-4C40-9061-12C76342562D}.Debug|x86.ActiveCfg = Debug|x86
-		{EE8630BC-6191-4C40-9061-12C76342562D}.Debug|x86.Build.0 = Debug|x86
-		{EE8630BC-6191-4C40-9061-12C76342562D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE8630BC-6191-4C40-9061-12C76342562D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EE8630BC-6191-4C40-9061-12C76342562D}.Release|x86.ActiveCfg = Release|x86
-		{EE8630BC-6191-4C40-9061-12C76342562D}.Release|x86.Build.0 = Release|x86
-		{EE8630BC-6191-4C40-9061-12C76342562D}.Test|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE8630BC-6191-4C40-9061-12C76342562D}.Test|Any CPU.Build.0 = Debug|Any CPU
-		{EE8630BC-6191-4C40-9061-12C76342562D}.Test|x86.ActiveCfg = Release|x86
-		{EE8630BC-6191-4C40-9061-12C76342562D}.Test|x86.Build.0 = Release|x86
 		{814092CD-9CD0-4FB7-91E8-D147F476F1FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{814092CD-9CD0-4FB7-91E8-D147F476F1FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{814092CD-9CD0-4FB7-91E8-D147F476F1FB}.Debug|x86.ActiveCfg = Debug|x86
@@ -68,7 +54,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{EE8630BC-6191-4C40-9061-12C76342562D} = {2E87002F-2664-4D69-9834-2C6E720556BE}
 		{814092CD-9CD0-4FB7-91E8-D147F476F1FB} = {2E87002F-2664-4D69-9834-2C6E720556BE}
 		{1D815FBF-451C-4E23-939C-CB80172F445C} = {2E87002F-2664-4D69-9834-2C6E720556BE}
 		{92B3A2C3-C3FD-4993-AB42-4FC55BBEC130} = {2E87002F-2664-4D69-9834-2C6E720556BE}

@@ -12,6 +12,10 @@
     
     修改标识：Senparc - 20150323
     修改描述：添加新卡券类型：会议门票
+
+    修改标识：Senparc - 20160910
+    修改描述：v14.3.9 修改Card_BaseInfoBase.get_limit类型为long
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card

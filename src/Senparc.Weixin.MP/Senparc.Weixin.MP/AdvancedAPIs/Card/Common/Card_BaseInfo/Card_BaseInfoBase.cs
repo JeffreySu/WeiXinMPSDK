@@ -79,7 +79,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 每人最大领取次数，不填写默认等于quantity。
         /// 非必填
         /// </summary>
-        public int get_limit { get; set; }
+        public long get_limit { get; set; }
         /// <summary>
         /// 是否自定义code 码。填写true或false，不填代表默认为false。
         /// 非必填

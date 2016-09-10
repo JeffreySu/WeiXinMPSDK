@@ -110,7 +110,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 折扣
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(0)]
+        //[JsonSetting.IgnoreValueAttribute(0)]
         public int discount { get; set; }
     }
 

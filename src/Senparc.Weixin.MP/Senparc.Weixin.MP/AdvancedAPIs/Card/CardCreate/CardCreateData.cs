@@ -123,25 +123,25 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 是否支持积分，填写true 或false，如填写true，积分相关字段均为必填。填写false，积分字段无需填写。储值字段处理方式相同。
         /// 必填
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(false)]
+       //[JsonSetting.IgnoreValueAttribute(false)]
         public bool supply_bonus { get; set; }
         /// <summary>
         /// 是否支持储值，填写true 或false。
         /// 必填
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(false)]
+       //[JsonSetting.IgnoreValueAttribute(false)]
         public bool supply_balance { get; set; }
         /// <summary>
         /// 设置为true时用户领取会员卡后系统自动将其激活，无需调用激活接口。
         /// 非必填
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(false)]
+       //[JsonSetting.IgnoreValueAttribute(false)]
         public bool auto_activate { get; set; }
         /// <summary>
         /// 设置为true时会员卡支持一键激活，不允许同时传入activate_url字段，否则设置wx_activate失效。
         /// 非必填
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(false)]
+       //[JsonSetting.IgnoreValueAttribute(false)]
         public bool wx_activate { get; set; }
         /// <summary>
         /// 积分清零规则
@@ -214,7 +214,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 折扣
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(0)]
+        //[JsonSetting.IgnoreValueAttribute(0)]
         public int discount { get; set; }
 
         public Card_MemberCardData()
@@ -258,21 +258,21 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// </summary>
     public class BonusRule
     {
-        [JsonSetting.IgnoreValueAttribute(0)]
+        //[JsonSetting.IgnoreValueAttribute(0)]
         public int cost_money_unit { get; set; }
-        [JsonSetting.IgnoreValueAttribute(0)]
+        //[JsonSetting.IgnoreValueAttribute(0)]
         public int increase_bonus { get; set; }
-        [JsonSetting.IgnoreValueAttribute(0)]
+        //[JsonSetting.IgnoreValueAttribute(0)]
         public int max_increase_bonus { get; set; }
-        [JsonSetting.IgnoreValueAttribute(0)]
+        //[JsonSetting.IgnoreValueAttribute(0)]
         public int init_increase_bonus { get; set; }
-        [JsonSetting.IgnoreValueAttribute(0)]
+        //[JsonSetting.IgnoreValueAttribute(0)]
         public int cost_bonus_unit { get; set; }
-        [JsonSetting.IgnoreValueAttribute(0)]
+        //[JsonSetting.IgnoreValueAttribute(0)]
         public int reduce_money { get; set; }
-        [JsonSetting.IgnoreValueAttribute(0)]
+        //[JsonSetting.IgnoreValueAttribute(0)]
         public int least_money_to_use_bonus { get; set; }
-        [JsonSetting.IgnoreValueAttribute(0)]
+        //[JsonSetting.IgnoreValueAttribute(0)]
         public int max_reduce_bonus { get; set; }
     }
 

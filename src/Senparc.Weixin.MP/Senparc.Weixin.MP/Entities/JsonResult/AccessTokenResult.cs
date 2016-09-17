@@ -12,6 +12,7 @@
 ----------------------------------------------------------------*/
 
 using System;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.Entities
 {
@@ -19,7 +20,7 @@ namespace Senparc.Weixin.MP.Entities
     /// access_token请求后的JSON返回格式
     /// </summary>
     [Serializable]
-    public class AccessTokenResult
+    public class AccessTokenResult : WxJsonResult
     {
         /// <summary>
         /// 获取到的凭证

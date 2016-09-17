@@ -81,7 +81,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Senparc.Weixin.MP.Entities.Menu.ConditionalButtonGroup" Collapsed="true">
-    <Position X="5" Y="1.75" Width="1.5" />
+    <Position X="5" Y="1.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAABAAAAAAAAAA=</HashCode>
       <FileName>Entities\Menu\Conditional\ConditionalButtonGroup.cs</FileName>
@@ -119,7 +119,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Senparc.Weixin.MP.Entities.Menu.IButtonGroupBase" Collapsed="true">
-    <Position X="2.75" Y="1.25" Width="1.5" />
+    <Position X="2.75" Y="1.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Entities\Menu\IButtonGroupBase.cs</FileName>

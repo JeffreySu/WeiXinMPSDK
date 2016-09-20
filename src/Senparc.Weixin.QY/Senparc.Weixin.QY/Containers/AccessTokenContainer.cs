@@ -52,7 +52,7 @@ using Senparc.Weixin.Utilities.WeixinUtility;
 
 namespace Senparc.Weixin.QY.Containers
 {
-    [Serializable]
+    //[Serializable]
     public class AccessTokenBag : BaseContainerBag
     {
         /// <summary>

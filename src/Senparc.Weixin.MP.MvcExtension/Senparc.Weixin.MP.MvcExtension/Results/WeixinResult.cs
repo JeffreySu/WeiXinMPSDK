@@ -6,7 +6,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.MessageHandlers;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using System.Web.Mvc;
+//using System.Web.Mvc;
 
 namespace Senparc.Weixin.MP.MvcExtension
 {

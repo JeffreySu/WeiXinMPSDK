@@ -55,7 +55,7 @@ namespace Senparc.Weixin.QY.Containers
     /// <summary>
     /// ProviderTokenBag
     /// </summary>
-    [Serializable]
+    //[Serializable]
     public class ProviderTokenBag : BaseContainerBag
     {
         /// <summary>

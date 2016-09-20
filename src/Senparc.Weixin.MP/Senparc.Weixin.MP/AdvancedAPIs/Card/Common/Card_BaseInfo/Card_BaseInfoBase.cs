@@ -9,6 +9,9 @@
 
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20160910
+    修改描述：v14.3.9 修改Card_BaseInfoBase.get_limit类型为long
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;

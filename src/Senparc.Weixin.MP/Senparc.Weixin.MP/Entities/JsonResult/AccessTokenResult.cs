@@ -12,6 +12,7 @@
 ----------------------------------------------------------------*/
 
 using System;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.Entities
 {

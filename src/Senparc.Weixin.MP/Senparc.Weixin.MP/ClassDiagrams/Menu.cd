@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Alphabetical">
+  <Class Name="Senparc.Weixin.MP.Entities.Menu.BaseButton" Collapsed="true">
+    <Position X="1" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu\Buttons\BaseButton.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Senparc.Weixin.MP.Entities.Menu.SingleButton" Collapsed="true">
+    <Position X="3.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu\Buttons\SingleButton.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Senparc.Weixin.MP.Entities.Menu.SingleClickButton" Collapsed="true">
+    <Position X="5.75" Y="10.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu\Buttons\SingleClickButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Senparc.Weixin.MP.Entities.Menu.SingleLocationSelectButton" Collapsed="true">
+    <Position X="5.75" Y="12.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu\Buttons\SingleLocationSelectButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Senparc.Weixin.MP.Entities.Menu.SinglePicPhotoOrAlbumButton" Collapsed="true">
+    <Position X="5.75" Y="6.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu\Buttons\SinglePicPhotoOrAlbumButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Senparc.Weixin.MP.Entities.Menu.SinglePicSysphotoButton" Collapsed="true">
+    <Position X="5.75" Y="8.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu\Buttons\SinglePicSysphotoButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Senparc.Weixin.MP.Entities.Menu.SinglePicWeixinButton" Collapsed="true">
+    <Position X="5.75" Y="9.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu\Buttons\SinglePicWeixinButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Senparc.Weixin.MP.Entities.Menu.SingleScancodePushButton" Collapsed="true">
+    <Position X="5.75" Y="11.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu\Buttons\SingleScancodePushButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Senparc.Weixin.MP.Entities.Menu.SingleScancodeWaitmsgButton" Collapsed="true">
+    <Position X="5.75" Y="13.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu\Buttons\SingleScancodeWaitmsgButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Senparc.Weixin.MP.Entities.Menu.SingleViewButton" Collapsed="true">
+    <Position X="5.75" Y="7.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu\Buttons\SingleViewButton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Senparc.Weixin.MP.Entities.Menu.SubButton" Collapsed="true">
+    <Position X="3.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu\Buttons\SubButton.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Senparc.Weixin.MP.Entities.Menu.ConditionalButtonGroup" Collapsed="true">
+    <Position X="5" Y="1.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu\Conditional\ConditionalButtonGroup.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Senparc.Weixin.MP.Entities.Menu.MenuMatchRule" Collapsed="true">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAQAAAgAAAQAKAAAAgAAAAACAAAAAAAAAAI=</HashCode>
+      <FileName>Entities\Menu\Conditional\MenuMatchRule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Senparc.Weixin.MP.Entities.Menu.ButtonGroup" Collapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu\Custom\ButtonGroup.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Senparc.Weixin.MP.Entities.Menu.ButtonGroupBase" Collapsed="true">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu\ButtonGroupBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Senparc.Weixin.MP.Entities.Menu.IBaseButton" Collapsed="true">
+    <Position X="1" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu\Buttons\BaseButton.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Senparc.Weixin.MP.Entities.Menu.IButtonGroupBase" Collapsed="true">
+    <Position X="2.75" Y="1.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Menu\IButtonGroupBase.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

@@ -14,9 +14,9 @@ namespace Senparc.Weixin.MP.Helpers.Tests
         [TestMethod()]
         public void GetSignatureTest()
         {
-            var result = JSSDKHelper.GetSignature("ticket", "noncestr", "timestamp", "url");
+            var result = JSSDKHelper.GetSignature("kgt8ON7yVITDhtdwci0qefK1QvDlwsAPwMnZOO_J0MxaUpuHtIU_IltC7zs3kfNOYTHEqeIEvEXZHbS3xXNx3g", "B7EE6F5F9AA5CD17CA1AEA43CE848496", "1474350784", "https://www.baidu.com");
             Assert.IsNotNull(result);
-            Assert.AreEqual("59aeda0e6c88f28a661c4cacc5250fc494757c07",result);
+            Assert.AreEqual("3b1b4171bcfa0f0661be9c5474002d3eb25a3368", result);
             Console.WriteLine(result);
         }
     }

@@ -82,13 +82,19 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="url"></param>
         /// <param name="cookieContainer"></param>
         /// <param name="encoding"></param>
+        /// <param name="cer">证书，如果不需要则保留null</param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static string HttpGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
+        public static string HttpGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             request.Timeout = timeOut;
             request.Proxy = _webproxy;
+            if (cer != null)
+            {
+                request.ClientCertificates.Add(cer);
+            }
 
             if (cookieContainer != null)
             {
@@ -120,11 +126,11 @@ namespace Senparc.Weixin.HttpUtility
         /// 使用Post方法获取字符串结果，常规提交
         /// </summary>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null,  X509Certificate cer = null,int timeOut = Config.TIME_OUT)
         {
             MemoryStream ms = new MemoryStream();
             formData.FillFormDataStream(ms);//填充formData
-            return HttpPost(url, cookieContainer, ms, null, null, encoding, timeOut);
+            return HttpPost(url, cookieContainer, ms, null, null, encoding,cer, timeOut);
         }
 
         /// <summary>
@@ -135,16 +141,21 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="postStream"></param>
         /// <param name="fileDictionary">需要上传的文件，Key：对应要上传的Name，Value：本地文件名</param>
         /// <param name="encoding"></param>
+        /// <param name="cer">证书，如果不需要则保留null</param>
         /// <param name="timeOut"></param>
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <param name="refererUrl"></param>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.Timeout = timeOut;
             request.Proxy = _webproxy;
+            if (cer != null)
+            {
+                request.ClientCertificates.Add(cer);
+            }
 
             if (checkValidationResult)
             {
@@ -287,6 +298,8 @@ namespace Senparc.Weixin.HttpUtility
         {
             return true;
         }
+
+
         #endregion
 
         #region 异步方法
@@ -310,13 +323,19 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="url"></param>
         /// <param name="cookieContainer"></param>
         /// <param name="encoding"></param>
+        /// <param name="cer">证书，如果不需要则保留null</param>
+        /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<string> HttpGetAsync(string url, CookieContainer cookieContainer = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
+        public static async Task<string> HttpGetAsync(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
             request.Timeout = timeOut;
             request.Proxy = _webproxy;
+            if (cer != null)
+            {
+                request.ClientCertificates.Add(cer);
+            }
 
             if (cookieContainer != null)
             {
@@ -344,11 +363,11 @@ namespace Senparc.Weixin.HttpUtility
         /// 使用Post方法获取字符串结果，常规提交
         /// </summary>
         /// <returns></returns>
-        public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
+        public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
         {
             MemoryStream ms = new MemoryStream();
             await formData.FillFormDataStreamAsync(ms);//填充formData
-            return await HttpPostAsync(url, cookieContainer, ms, null, null, encoding, timeOut);
+            return await HttpPostAsync(url, cookieContainer, ms, null, null, encoding,cer, timeOut);
         }
 
 
@@ -362,12 +381,16 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="timeOut"></param>
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <returns></returns>
-        public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+        public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
             request.Timeout = timeOut;
             request.Proxy = _webproxy;
+            if (cer != null)
+            {
+                request.ClientCertificates.Add(cer);
+            }
 
             if (checkValidationResult)
             {

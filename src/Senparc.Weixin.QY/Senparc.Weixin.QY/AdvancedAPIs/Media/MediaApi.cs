@@ -52,7 +52,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = media;
-            return Post.PostFileGetJson<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, timeOut);
+            return Post.PostFileGetJson<UploadTemporaryResultJson>(url, null, fileDictionary, null, null,null, timeOut);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/add_material?agentid={1}&type={2}&access_token={0}", accessToken.AsUrlData(), agentId, type);
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = media;
-            return Post.PostFileGetJson<UploadForeverResultJson>(url, null, fileDictionary, null, null, timeOut);
+            return Post.PostFileGetJson<UploadForeverResultJson>(url, null, fileDictionary, null, null,null, timeOut);
         }
 
         /// <summary>
@@ -262,7 +262,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = media;
-            return await Post.PostFileGetJsonAsync<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, timeOut);
+            return await Post.PostFileGetJsonAsync<UploadTemporaryResultJson>(url, null, fileDictionary, null, null,null, timeOut);
         }
 
         /// <summary>
@@ -317,7 +317,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/add_material?agentid={1}&type={2}&access_token={0}", accessToken.AsUrlData(), agentId, type);
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = media;
-            return await Post.PostFileGetJsonAsync<UploadForeverResultJson>(url, null, fileDictionary, null, null, timeOut);
+            return await Post.PostFileGetJsonAsync<UploadForeverResultJson>(url, null, fileDictionary, null, null,null, timeOut);
         }
 
         /// <summary>

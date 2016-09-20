@@ -27,6 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
@@ -70,22 +71,23 @@ namespace Senparc.Weixin.HttpUtility
         #region 同步方法
 
         /// <summary>
-        /// 发起Post请求
+        /// 发起Post请求，可上传文件
         /// </summary>
         /// <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
         /// <param name="url">请求Url</param>
         /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
         /// <param name="encoding"></param>
+        /// <param name="cer">证书，如果不需要则保留null</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="fileDictionary"></param>
         /// <param name="postDataDictionary"></param>
         /// <returns></returns>
-        public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
+        public static T PostFileGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
         {
             using (MemoryStream ms = new MemoryStream())
             {
                 postDataDictionary.FillFormDataStream(ms); //填充formData
-                string returnText = RequestUtility.HttpPost(url, cookieContainer, ms, fileDictionary, null, encoding, timeOut: timeOut);
+                string returnText = RequestUtility.HttpPost(url, cookieContainer, ms, fileDictionary, null, encoding, cer, timeOut);
                 var result = GetResult<T>(returnText);
                 return result;
             }
@@ -99,12 +101,13 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
         /// <param name="fileStream">文件流</param>
         /// <param name="encoding"></param>
+        /// <param name="cer">证书，如果不需要则保留null</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <returns></returns>
-        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
-            string returnText = RequestUtility.HttpPost(url, cookieContainer, fileStream, null, null, encoding, timeOut: timeOut, checkValidationResult: checkValidationResult);
+            string returnText = RequestUtility.HttpPost(url, cookieContainer, fileStream, null, null, encoding, cer, timeOut, checkValidationResult);
 
             WeixinTrace.SendLog(url, returnText);
 
@@ -119,12 +122,13 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cookieContainer"></param>
         /// <param name="formData"></param>
         /// <param name="encoding"></param>
+        /// <param name="cer">证书，如果不需要则保留null</param>
         /// <param name="timeOut"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
+        public static T PostGetJson<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
         {
-            string returnText = RequestUtility.HttpPost(url, cookieContainer, formData, encoding, timeOut: timeOut);
+            string returnText = RequestUtility.HttpPost(url, cookieContainer, formData, encoding, cer, timeOut);
             var result = GetResult<T>(returnText);
             return result;
         }
@@ -149,40 +153,53 @@ namespace Senparc.Weixin.HttpUtility
 
         #region 异步方法
 
-        /// <summary>
-        /// PostFileGetJson的异步版本
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="url"></param>
-        /// <param name="cookieContainer"></param>
-        /// <param name="fileDictionary"></param>
-        /// <param name="encoding"></param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
-        {
-            string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, null, fileDictionary, null, encoding, timeOut);
-            var result = GetResult<T>(returnText);
-            return result;
-        }
 
         /// <summary>
-        /// PostGetJson的异步版本
+        /// 【异步方法】发起Post请求，可上传文件
+        /// </summary>
+        /// <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
+        /// <param name="url">请求Url</param>
+        /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
+        /// <param name="encoding"></param>
+        /// <param name="cer">证书，如果不需要则保留null</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <param name="fileDictionary"></param>
+        /// <param name="postDataDictionary"></param>
+        /// <returns></returns>
+        public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                postDataDictionary.FillFormDataStream(ms); //填充formData
+                string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, ms, fileDictionary, null, encoding, cer, timeOut);
+                var result = GetResult<T>(returnText);
+                return result;
+            }
+        }
+
+
+        /// <summary>
+        /// 【异步方法】PostGetJson的异步版本
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="url"></param>
         /// <param name="cookieContainer"></param>
         /// <param name="fileStream"></param>
         /// <param name="encoding"></param>
+        /// <param name="cer">证书，如果不需要则保留null</param>
         /// <param name="timeOut"></param>
         /// <param name="checkValidationResult"></param>
         /// <returns></returns>
-        public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+        public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Stream fileStream = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
-            string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, fileStream, null, null, encoding, timeOut, checkValidationResult: checkValidationResult);
+            string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, fileStream, null, null, encoding, cer, timeOut, checkValidationResult);
+
+            WeixinTrace.SendLog(url, returnText);
+
             var result = GetResult<T>(returnText);
             return result;
         }
+
 
         /// <summary>
         /// PostGetJson的异步版本
@@ -192,36 +209,35 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cookieContainer"></param>
         /// <param name="formData"></param>
         /// <param name="encoding"></param>
+        /// <param name="cer">证书，如果不需要则保留null</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
+        public static async Task<T> PostGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
         {
-            string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, formData, encoding, timeOut);
+            string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, formData, encoding, cer, timeOut);
             var result = GetResult<T>(returnText);
             return result;
         }
 
-        /// <summary>
-        /// 【异步方法】发起Post请求
-        /// </summary>
-        /// <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
-        /// <param name="url">请求Url</param>
-        /// <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
-        /// <param name="encoding"></param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <param name="fileDictionary"></param>
-        /// <param name="postDataDictionary"></param>
-        /// <returns></returns>
-        public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Dictionary<string, string> postDataDictionary = null, Encoding encoding = null, int timeOut = Config.TIME_OUT)
-        {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                postDataDictionary.FillFormDataStream(ms); //填充formData
-                string returnText = await RequestUtility.HttpPostAsync( url, cookieContainer, ms, fileDictionary, null, encoding, timeOut: timeOut);
-                var result = GetResult<T>(returnText);
-                return result;
-            }
-        }
+        ///// <summary>
+        ///// PostFileGetJson的异步版本
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <param name="url"></param>
+        ///// <param name="cookieContainer"></param>
+        ///// <param name="fileDictionary"></param>
+        ///// <param name="encoding"></param>
+        ///// <param name="cer">证书，如果不需要则保留null</param>
+        ///// <param name="timeOut"></param>
+        ///// <returns></returns>
+        //public static async Task<T> PostFileGetJsonAsync<T>(string url, CookieContainer cookieContainer = null, Dictionary<string, string> fileDictionary = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
+        //{
+        //    string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, null, fileDictionary, null, encoding, cer, timeOut);
+        //    var result = GetResult<T>(returnText);
+        //    return result;
+        //}
+
+
 
         /// <summary>
         /// 使用Post方法上传数据并下载文件或结果
@@ -236,8 +252,6 @@ namespace Senparc.Weixin.HttpUtility
             var fileBytes = await wc.UploadDataTaskAsync(url, "POST", Encoding.UTF8.GetBytes(string.IsNullOrEmpty(data) ? "" : data));
             await stream.WriteAsync(fileBytes, 0, fileBytes.Length);//也可以分段写入
         }
-
-        
 
         #endregion
     }

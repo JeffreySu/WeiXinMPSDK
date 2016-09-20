@@ -166,6 +166,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 显示在营销入口右侧的提示语。 不需提审
         /// </summary>
         public string promotion_url_sub_title { get; set; }
+
+        /// <summary>
+        /// 顶部居中的自定义cell入口名称
+        /// 非必填
+        /// </summary>
+        public string center_title { get; set; }
+        /// <summary>
+        /// 显示在顶部居中的自定义cell入口右侧的提示语
+        /// 非必填
+        /// </summary>
+        public string center_sub_title { get; set; }
+        /// <summary>
+        /// 顶部居中的自定义cell入口跳转外链的地址链接
+        /// 非必填
+        /// </summary>
+        public string center_url { get; set; }
     }
     /// <summary>
     /// 使用日期，有效期的信息

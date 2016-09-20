@@ -9,6 +9,9 @@
 
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20160910
+    修改描述：v14.3.9 修改Card_BaseInfoBase.get_limit类型为long
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -79,7 +82,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 每人最大领取次数，不填写默认等于quantity。
         /// 非必填
         /// </summary>
-        public int get_limit { get; set; }
+        public long get_limit { get; set; }
         /// <summary>
         /// 是否自定义code 码。填写true或false，不填代表默认为false。
         /// 非必填
@@ -158,6 +161,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         //{
         //    modify_msg_operation = new Modify_Msg_Operation();//为了解决提交时候modify_msg_operation=null，导致47001的错误
         //}
+
+        //以下增加
+        /// <summary>
+        /// 设置本卡券支持全部门店
+        /// </summary>
+        public bool use_all_locations { get; set;}
+        /// <summary>
+        ///进入会员卡时是否推送事件，填写true或false，会员卡专用。
+        /// </summary>
+        public bool need_push_on_view { get; set; }
+        /// <summary>
+        /// 会员卡支持微信支付刷卡
+        /// </summary>
+        public Card_BaseInfo_member_card_PayInfo pay_info { get; set;}
     }
 
     public class Modify_Msg_Operation /*: JsonIgnoreNull//为了解决提交时候modify_msg_operation=null，导致47001的错误*/

@@ -111,6 +111,23 @@ namespace Senparc.Weixin.MP.CommonAPIs
             }, accessTokenOrAppId);
         }
 
+
+        /// <summary>
+        /// 获取微信服务器的ip段
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <returns></returns>
+        public static GetCallBackIpResult GetCallBackIp(string accessTokenOrAppId)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
+
+                return Get.GetJson<GetCallBackIpResult>(url);
+
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 
         #region 异步方法
@@ -182,6 +199,23 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 【异步方法】获取微信服务器的ip段
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <returns></returns>
+        public static async Task<GetCallBackIpResult> GetCallBackIpAsync(string accessTokenOrAppId)
+        {
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
+
+                return Get.GetJsonAsync<GetCallBackIpResult>(url);
+
+            }, accessTokenOrAppId);
+        }
+
         #endregion
     }
 }

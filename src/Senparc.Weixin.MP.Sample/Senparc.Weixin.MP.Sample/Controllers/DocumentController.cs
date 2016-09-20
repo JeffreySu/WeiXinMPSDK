@@ -31,7 +31,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //chm二维码
             var qrCodeId = configHelper.GetQrCodeId();
-            var qrResult = AdvancedAPIs.QrCodeApi.Create(appId, 10000, qrCodeId);
+            var qrResult = AdvancedAPIs.QrCodeApi.Create(appId,10000, qrCodeId, QrCode_ActionName.QR_SCENE);
 
             var qrCodeUrl = AdvancedAPIs.QrCodeApi.GetShowQrCodeUrl(qrResult.ticket);
             ViewData["QrCodeUrl"] = qrCodeUrl;

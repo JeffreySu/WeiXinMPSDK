@@ -288,6 +288,7 @@
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Common.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Conditional.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Custom.cs" />
+    <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\JsonResult\Menu\CreateMenuConditionalResult.cs" />
     <Compile Include="Entities\Menu\Conditional\ConditionalButtonGroup.cs" />
@@ -487,6 +488,7 @@
       <SubType>Code</SubType>
     </Compile>
     <None Include="ClassDiagrams\MessageHandler.cd" />
+    <None Include="ClassDiagrams\Menu.cd" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

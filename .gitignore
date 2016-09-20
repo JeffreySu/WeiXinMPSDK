@@ -77,3 +77,4 @@ Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/Web.config
 /Tools/*
 *.DotSettings
 /Senparc.Weixin.MP.BuildOutPut/chm
+/.vs

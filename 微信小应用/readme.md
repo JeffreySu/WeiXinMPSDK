@@ -10,7 +10,7 @@ Windows：http://pan.baidu.com/s/1eR4KtPK 密码：31uk
 
 Mac：http://pan.baidu.com/s/1o8B5QZ4 密码：mljs
 
-补丁（最后更新时间：2016-09-23 0:31）：http://pan.baidu.com/s/1nvpTmpb 密码：zx8o
+补丁（最后更新时间：2016-09-23 0:42）：http://pan.baidu.com/s/1qXMGQWO 密码：ri8p
 
 >注意：以上地址随时可能更新，请保持关注。
 

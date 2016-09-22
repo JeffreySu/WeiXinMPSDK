@@ -1,20 +1,24 @@
 
+QQ群
+--------
+Senparc.Weixin 12群：108830388
+
+
 开发工具
 ----------
 Windows：http://pan.baidu.com/s/1eR4KtPK 密码：31uk
 
 Mac：http://pan.baidu.com/s/1o8B5QZ4 密码：mljs
 
-补丁：http://pan.baidu.com/s/1nvnRx4d 密码：idw8
+补丁：http://pan.baidu.com/s/1miyIFlI 密码：njpg
 
 >注意：以上地址随时可能更新，请保持关注。
 
 >安装步骤：
 >1、选择Windows或Mac版本进行安装
->2、解压补丁，覆盖安装目录下同名文件夹
+>2、解压补丁，选择win或mac对应目录，覆盖安装目录下同名文件夹（package.nw）
 >3、启动程序
 
-QQ群：108830388
 
 界面界面截图
 -----------

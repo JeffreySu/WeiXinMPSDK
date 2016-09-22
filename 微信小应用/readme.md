@@ -1,3 +1,4 @@
+
 开发工具
 ----------
 Windows：http://pan.baidu.com/s/1eR4KtPK 密码：31uk
@@ -10,6 +11,8 @@ Mac：http://pan.baidu.com/s/1o8B5QZ4 密码：mljs
 >1、选择Windows或Mac版本进行安装
 >2、解压补丁，覆盖安装目录下同名文件夹
 >3、启动程序
+
+QQ群：108830388
 
 界面界面截图
 -----------

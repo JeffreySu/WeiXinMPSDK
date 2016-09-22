@@ -16,7 +16,7 @@ Mac(0.9)：http://pan.baidu.com/s/1o8B5QZ4 密码：mljs
 
 >安装步骤：
 >
->1. 选择上述Windows或Mac版本进行安装（0.9），如果没有安装0.7的请先安装0.7（[[Windows](http://dldir1.qq.com/WechatWebDev/release/0.7.0/wechat_web_devtools_0.7.0_x64.exe)|[Mac] (http://dldir1.qq.com/WechatWebDev/release/0.7.0/wechat_web_devtools_0.7.0.dmg)）
+>1. 选择上述Windows或Mac版本进行安装（0.9），如果没有安装0.7的请先安装0.7（[Windows](http://dldir1.qq.com/WechatWebDev/release/0.7.0/wechat_web_devtools_0.7.0_x64.exe) / [Mac] (http://dldir1.qq.com/WechatWebDev/release/0.7.0/wechat_web_devtools_0.7.0.dmg)）
 >
 >2. 解压补丁，选择win或mac对应目录，覆盖安装0.9版本目录下同名文件夹（package.nw）
 >

@@ -6,7 +6,10 @@ namespace Senparc.Weixin.QY.Entities
     /// </summary>
     public class RequestMessageInfo_Contact_Sync : ThirdPartyInfoBase, IThirdPartyInfoBase
     {
-        public override ThirdPartyInfo InfoType => ThirdPartyInfo.CONTACT_SYNC;
+        public override ThirdPartyInfo InfoType
+        {
+            get { return ThirdPartyInfo.CONTACT_SYNC; }
+        }
 
         /// <summary>
         /// 授权方企业号的corpid

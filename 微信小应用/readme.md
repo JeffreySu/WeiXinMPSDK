@@ -16,6 +16,7 @@ Mac：http://pan.baidu.com/s/1o8B5QZ4 密码：mljs
 ----------
 http://wxopen.notedown.cn/
 
+https://github.com/gavinkwoe/weapp-ide-crack
 
 说明
 ----------

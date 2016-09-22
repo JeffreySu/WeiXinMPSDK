@@ -20,7 +20,7 @@ Mac(0.9)：http://pan.baidu.com/s/1o8B5QZ4 密码：mljs
 >
 >2. 解压补丁，选择win或mac对应目录，覆盖安装0.9版本目录下同名文件夹（package.nw）
 >
->3. 启动0.7版本程序，扫描登陆
+>3. 启动0.7版本程序，扫描登陆，关闭（不是卸载）
 >
 >4. 启动0.9版本程序
 >
@@ -35,6 +35,9 @@ Mac(0.9)：http://pan.baidu.com/s/1o8B5QZ4 密码：mljs
 
 ![界面2](files/snapshot2.png)
 
+
+
+![界面3](files/snapshot3.png)
 
 
 更多API及介绍

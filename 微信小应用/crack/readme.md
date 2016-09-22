@@ -1,0 +1,1 @@
+解决没有应用号权限的问题，感谢https://github.com/gavinkwoe提供！

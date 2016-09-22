@@ -13,7 +13,11 @@ Mac：http://pan.baidu.com/s/1o8B5QZ4 密码：mljs
 
 界面界面截图
 -----------
-!(界面1)[files/snapshot1.png]
+![界面1](files/snapshot1.png)
+
+
+
+![界面2](files/snapshot2.png)
 
 
 

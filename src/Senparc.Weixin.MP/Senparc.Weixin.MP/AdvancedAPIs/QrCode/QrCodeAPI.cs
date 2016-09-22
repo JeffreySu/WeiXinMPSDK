@@ -104,7 +104,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         };
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException(nameof(actionName), actionName, null);
+                        //throw new ArgumentOutOfRangeException(nameof(actionName), actionName, null);
+                        throw new ArgumentOutOfRangeException(actionName.GetType().Name, actionName, null);
                 }
 
                 return CommonJsonSend.Send<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
@@ -226,7 +227,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         };
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException(nameof(actionName), actionName, null);
+                        //throw new ArgumentOutOfRangeException(nameof(actionName), actionName, null);
+                        throw new ArgumentOutOfRangeException(actionName.GetType().Name, actionName, null);
                 }
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);

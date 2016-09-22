@@ -7,6 +7,8 @@ Mac：http://pan.baidu.com/s/1o8B5QZ4 密码：mljs
 
 补丁：http://pan.baidu.com/s/1nvnRx4d 密码：idw8
 
+>注意：以上地址随时可能更新，请保持关注。
+
 >安装步骤：
 >1、选择Windows或Mac版本进行安装
 >2、解压补丁，覆盖安装目录下同名文件夹

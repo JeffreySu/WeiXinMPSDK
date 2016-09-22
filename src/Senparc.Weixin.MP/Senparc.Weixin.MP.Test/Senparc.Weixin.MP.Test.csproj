@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Senparc.Weixin.MP.Test</RootNamespace>
     <AssemblyName>Senparc.Weixin.MP.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -92,10 +92,14 @@
     <Compile Include="AdvancedAPIs\Semantic\SemanticTest.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundTest.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateTest.cs" />
-    <Compile Include="CommonAPIs\Containers\JsApiTicketContainerTest.cs" />
+    <Compile Include="Containers\AccessTokenContainerAsyncTest.cs" />
+    <Compile Include="Containers\AccessTokenContainerLockTest.cs" />
+    <Compile Include="Containers\JsApiTicketContainerTest.cs" />
     <Compile Include="Entities\Request\PostModelTest.cs" />
+    <Compile Include="Helpers\JSSDK\JSSDKHelperTests.cs" />
     <Compile Include="MessageHandlers\MessageHandlers_OmitRepeatMessageTest.cs" />
     <Compile Include="RequestMessageFactoryTest.cs" />
+    <Compile Include="Senparc.Weixin.Utilites\HttpUtility\RequestUtilityTests.cs" />
     <Compile Include="TenPayV3\RedPackApiTest.cs" />
     <Compile Include="TenPay\TenPayRightsTest.cs" />
     <Compile Include="AdvancedAPIs\User\CustomTest.cs" />
@@ -104,7 +108,7 @@
     <Compile Include="AdvancedAPIs\WeixinShop\ShelvesTest.cs" />
     <Compile Include="Agents\MessageAgentTest.cs" />
     <Compile Include="CheckSignatureTest.cs" />
-    <Compile Include="CommonAPIs\Containers\AccessTokenContainerTest.cs" />
+    <Compile Include="Containers\AccessTokenContainerTest.cs" />
     <Compile Include="CommonAPIs\CommonApiTest.cs" />
     <Compile Include="Context\MessageContainerTest.cs" />
     <Compile Include="Context\WeixinContextTest.cs" />
@@ -132,6 +136,10 @@
     <Compile Include="CommonAPIs\CommonApiTest.Menu.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj">
+      <Project>{51ac27b4-11ae-4f59-b82a-0bb3afa5f62b}</Project>
+      <Name>Senparc.Weixin.Cache.Redis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
       <Name>Senparc.Weixin</Name>

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <AssemblyName>Senparc.Weixin</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -26,11 +26,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.0\</OutputPath>
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.0\Senparc.Weixin.XML</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.XML</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
@@ -54,6 +54,24 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -66,11 +84,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cache\ContainerCacheStragegy\ContainerItemCollection.cs" />
+    <Compile Include="Cache\CacheStrategy\BaseCacheStrategy.cs" />
     <Compile Include="Cache\ContainerCacheStragegy\IContainerCacheStragegy.cs" />
-    <Compile Include="Cache\ContainerCacheStragegy\LocalContainerCacheStrategy.cs" />
+    <Compile Include="Cache\Lock\LocalCacheLock.cs" />
+    <Compile Include="Cache\ContainerCacheStragegy\LocalContainerCacheStrategy\LocalContainerCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategy\IBaseCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategyFactory.cs" />
+    <Compile Include="Cache\Lock\BaseCacheLock.cs" />
+    <Compile Include="Cache\Lock\ICacheLock.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Containers\BaseContainer.cs" />
     <Compile Include="Containers\BaseContainerBag.cs" />
@@ -98,6 +119,7 @@
     <Compile Include="Helpers\Containers\ContainerHelper.cs" />
     <Compile Include="Helpers\Conventers\ExpandoJsonConverter.cs" />
     <Compile Include="Helpers\DateTimeHelper.cs" />
+    <Compile Include="Helpers\EncryptHelper.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\Extensions\IDictionaryExtensions.cs" />
     <Compile Include="Helpers\SerializerHelper.cs" />
@@ -111,6 +133,7 @@
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Utilities\CacheUtility\CacheUtility.cs" />
     <Compile Include="Utilities\CacheUtility\FlushCache.cs" />
+    <Compile Include="Utilities\EntityUtility\EntityUtility.cs" />
     <Compile Include="Utilities\WeixinUtility\ApiUtility.cs" />
     <Compile Include="Utilities\XmlUtility\XmlUtility.cs" />
     <Compile Include="Utilities\HttpUtility\Get.cs" />

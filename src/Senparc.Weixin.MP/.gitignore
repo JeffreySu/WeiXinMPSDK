@@ -1,4 +1,0 @@
-# git ignore file
-*.[user]
-*.[suo]
-TestResults/

@@ -11,12 +11,14 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Memcached;
-//using Senparc.Weixin.Cache.Redis;
+using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
+using Senparc.Weixin.Open.Containers;
 using Senparc.Weixin.Threads;
 
 namespace Senparc.Weixin.MP.Sample
@@ -38,6 +40,7 @@ namespace Senparc.Weixin.MP.Sample
             RegisterWeixinCache();//注册分布式缓存
             RegisterWeixinThreads();//激活微信缓存（必须）
             RegisterSenparcWeixin();//注册Demo所用微信公众号的账号信息
+            RegisterSenparcQyWeixin();//注册Demo所用微信企业号的账号信息
             RegisterWeixinPay();//注册微信支付
             RegisterWeixinThirdParty(); //注册微信第三方平台
 
@@ -50,17 +53,16 @@ namespace Senparc.Weixin.MP.Sample
         private void RegisterWeixinCache()
         {
             //如果留空，默认为localhost（默认端口）
-            //RedisManager.ConfigurationOption = System.Configuration.ConfigurationManager.AppSettings["Cache_Redis_Configuration"];
 
-            //var redisConfiguration = System.Configuration.ConfigurationManager.AppSettings["Cache_Redis_Configuration"];
-            //RedisManager.ConfigurationOption = redisConfiguration;
+            var redisConfiguration = System.Configuration.ConfigurationManager.AppSettings["Cache_Redis_Configuration"];
+            RedisManager.ConfigurationOption = redisConfiguration;
 
             //如果不执行下面的注册过程，则默认使用本地缓存
 
-            //if (redisConfiguration != "Redis配置")
-            //{
-                //CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
-            //}
+            if (redisConfiguration != "Redis配置")
+            {
+                CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
+            }
             //CacheStrategyFactory.RegisterContainerCacheStrategy(() => MemcachedContainerStrategy.Instance);//Memcached
         }
 
@@ -79,7 +81,26 @@ namespace Senparc.Weixin.MP.Sample
         {
             AccessTokenContainer.Register(
                 System.Configuration.ConfigurationManager.AppSettings["WeixinAppId"],
-                System.Configuration.ConfigurationManager.AppSettings["WeixinAppSecret"]);
+                System.Configuration.ConfigurationManager.AppSettings["WeixinAppSecret"],
+                "【盛派网络小助手】公众号");
+        }
+
+        /// <summary>
+        /// 注册Demo所用微信企业号的账号信息
+        /// </summary>
+        private void RegisterSenparcQyWeixin()
+        {
+            Senparc.Weixin.QY.Containers.AccessTokenContainer.Register(
+                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"],
+                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"],
+                "【盛派网络】企业号"
+                );
+
+            Senparc.Weixin.QY.Containers.ProviderTokenContainer.Register(
+                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"],
+                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"],
+                "【盛派网络】企业号"
+                );
         }
 
         /// <summary>
@@ -165,7 +186,8 @@ namespace Senparc.Weixin.MP.Sample
                 ConfigurationManager.AppSettings["Component_Secret"],
                 getComponentVerifyTicketFunc,
                 getAuthorizerRefreshTokenFunc,
-                authorizerTokenRefreshedFunc);
+                authorizerTokenRefreshedFunc,
+                "【盛派网络】开放平台");
         }
     }
 }

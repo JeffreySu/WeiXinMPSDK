@@ -6,6 +6,9 @@
     
     
     创建标识：Senparc - 20151003
+
+    修改标识：Senparc - 20160717
+    修改描述：v4.5.21 添加BaseContainerBag.Name属性
     
 ----------------------------------------------------------------*/
 
@@ -24,14 +27,26 @@ namespace Senparc.Weixin.Containers
     /// </summary>
     public interface IBaseContainerBag
     {
-    /// <summary>
-    /// 缓存键
-    /// </summary>
+        /// <summary>
+        /// 用于标记，方便后台管理
+        /// </summary>
+        string Name { get; set; }
+        /// <summary>
+        /// 缓存键，形如：wx669ef95216eef885，最底层的Key，不考虑命名空间等
+        /// </summary>
         string Key { get; set; }
-    /// <summary>
-    /// 当前对象被缓存的时间
-    /// </summary>
+        /// <summary>
+        /// 当前对象被缓存的时间
+        /// </summary>
         DateTime CacheTime { get; set; }
+    }
+
+    public interface IBaseContainerBag_AppId
+    {
+        /// <summary>
+        /// AppId
+        /// </summary>
+        string AppId { get; set; }
     }
 
     /// <summary>
@@ -41,6 +56,16 @@ namespace Senparc.Weixin.Containers
     public class BaseContainerBag : BindableBase, IBaseContainerBag
     {
         private string _key;
+        private string _name;
+
+        /// <summary>
+        /// 用于标记，方便后台管理
+        /// </summary>
+        public string Name
+        {
+            get { return _name; }
+            set { this.SetContainerProperty(ref _name, value); }
+        }
 
         /// <summary>
         /// 通常为AppId
@@ -48,7 +73,7 @@ namespace Senparc.Weixin.Containers
         public string Key
         {
             get { return _key; }
-            set { this.SetContainerProperty(ref _key, value, "Key"); }
+            set { this.SetContainerProperty(ref _key, value); }
         }
 
         /// <summary>
@@ -69,9 +94,11 @@ namespace Senparc.Weixin.Containers
             mq.Add(mqKey, () =>
             {
                 var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
-                var cacheKey = ContainerHelper.GetCacheKey(this.GetType());
+                var itemCacheKey = ContainerHelper.GetItemCacheKey(containerBag);
                 containerBag.CacheTime = DateTime.Now;//记录缓存时间
-                containerCacheStragegy.UpdateContainerBag(cacheKey, containerBag);
+
+                //cacheKey形如:Container:Senparc.Weixin.MP.Containers.AccessTokenBag:wx669ef95216eef885
+                containerCacheStragegy.UpdateContainerBag(itemCacheKey, containerBag);
             });
         }
 
@@ -84,7 +111,7 @@ namespace Senparc.Weixin.Containers
         /// <param name="value"></param>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        protected bool SetContainerProperty<T>(ref T storage, T value, String propertyName)
+        protected bool SetContainerProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
         {
             var result = base.SetProperty(ref storage, value, propertyName);
             return result;

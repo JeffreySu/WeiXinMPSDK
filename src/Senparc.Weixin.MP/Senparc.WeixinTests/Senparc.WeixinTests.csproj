@@ -72,7 +72,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Cache\CacheStrategyFactoryTests.cs" />
+    <Compile Include="Cache\Lock\CacheLockTest.cs" />
     <Compile Include="Containers\BaseContainerTests.cs" />
+    <Compile Include="Helpers\Containers\ContainerHelperTests.cs" />
     <Compile Include="Helpers\SerializerHelperTests.cs" />
     <Compile Include="MessageQueue\SenparcMessageQueueTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,6 +84,10 @@
     <Compile Include="Utilities\HttpUtility\RequestUtilityTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj">
+      <Project>{51ac27b4-11ae-4f59-b82a-0bb3afa5f62b}</Project>
+      <Name>Senparc.Weixin.Cache.Redis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
       <Project>{814092CD-9CD0-4FB7-91E8-D147F476F1FB}</Project>
       <Name>Senparc.Weixin</Name>

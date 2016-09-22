@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -26,11 +26,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.0\</OutputPath>
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.0\Senparc.Weixin.MP.XML</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.MP.XML</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
@@ -119,6 +119,7 @@
     <Compile Include="AdvancedAPIs\Card\Submerchat\SubmerChantBatchGetJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Card\Submerchat\SubmerChantSubmitJsonResult.cs" />
     <Compile Include="AdvancedAPIs\Card\UserInfo\UserinfoGetResult.cs" />
+    <Compile Include="AdvancedAPIs\CustomService\ChatLogJson\GetMsgListResultJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomInfoJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\CustomOnlineJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\CustomerServiceManageJson\GetRecordResult.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetSessionStateResultJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetSessionListResultJson.cs" />
     <Compile Include="AdvancedAPIs\CustomService\SessionControlJson\GetWaitCaseResultJson.cs" />
+    <Compile Include="AdvancedAPIs\Custom\CardExt.cs" />
     <Compile Include="AdvancedAPIs\Custom\CustomApi.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageApi.cs" />
     <Compile Include="AdvancedAPIs\GroupMessage\GroupMessageJson\NewsModel.cs" />
@@ -278,13 +280,15 @@
     <Compile Include="AppStore\Entities\Passport\PassportCollection.cs" />
     <Compile Include="AppStore\ReturnResult.cs" />
     <Compile Include="AppStore\Utility\AppUtility.cs" />
-    <Compile Include="CommonAPIs\Containers\AccessTokenContainer.cs">
+    <Compile Include="Containers\AccessTokenContainer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CommonAPIs\Containers\JsApiTicketContainer.cs" />
+    <Compile Include="Containers\OAuthAccessTokenContainer.cs" />
+    <Compile Include="Containers\JsApiTicketContainer.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Common.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Conditional.cs" />
     <Compile Include="CommonAPIs\Menu\CommonApi.Menu.Custom.cs" />
+    <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\JsonResult\Menu\CreateMenuConditionalResult.cs" />
     <Compile Include="Entities\Menu\Conditional\ConditionalButtonGroup.cs" />
@@ -484,6 +488,7 @@
       <SubType>Code</SubType>
     </Compile>
     <None Include="ClassDiagrams\MessageHandler.cd" />
+    <None Include="ClassDiagrams\Menu.cd" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

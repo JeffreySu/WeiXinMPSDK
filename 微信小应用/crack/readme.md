@@ -1,1 +1,1 @@
-解决没有应用号权限的问题，感谢https://github.com/gavinkwoe提供！
+解决没有应用号权限的问题，破解后可正常登陆，感谢 https://github.com/gavinkwoe 提供破解思路！

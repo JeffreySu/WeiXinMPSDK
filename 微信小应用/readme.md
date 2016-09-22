@@ -40,6 +40,10 @@ Mac(0.9)：http://pan.baidu.com/s/1o8B5QZ4 密码：mljs
 ![界面3](files/snapshot3.png)
 
 
+Demo下载
+---------
+http://pan.baidu.com/s/1o8hJGeQ 密码：wlc4
+
 更多API及介绍
 ----------
 http://wxopen.notedown.cn/

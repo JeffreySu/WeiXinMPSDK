@@ -13,7 +13,7 @@ Senparc.Weixin 12群：108830388
 微信官方WIKI
 --------
 
-`此程序为微信官方提供，不需要进行破解、运行0.7版本等繁琐步骤。`
+
 
 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1474632113_xQVCl&token=&lang=zh_CN
 
@@ -21,7 +21,7 @@ https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1474632113_xQVCl&token=&l
 2. [小程序设计指南](https://mp.weixin.qq.com/debug/wxadoc/design/index.html)
 3. [小程序开发工具](https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/download.html)
 
-    直接下载：
+    直接下载（`此程序为微信官方提供，不需要进行破解、运行0.7版本等繁琐步骤。`）：
     
     [windows 64](https://servicewechat.com/wxa-dev-logic/download_redirect?type=x64&from=mpwiki&t=1474644089434)
 
@@ -29,7 +29,21 @@ https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1474632113_xQVCl&token=&l
 
     [mac](https://servicewechat.com/wxa-dev-logic/download_redirect?type=darwin&from=mpwiki&t=1474644089434)
 
-    
+如果我想用破解的怎么办？
+----------
+1. 选择上述Windows或Mac版本进行安装（0.9），
+如果没有安装0.7的请先安装0.7（[Windows](http://dldir1.qq.com/WechatWebDev/release/0.7.0/wechat_web_devtools_0.7.0_x64.exe) / [Mac] (http://dldir1.qq.com/WechatWebDev/release/0.7.0/wechat_web_devtools_0.7.0.dmg)）
+
+2. [[下载](https://github.com/JeffreySu/WeiXinMPSDK/archive/master.zip)]
+本库源文件，在当前目录的`crack`文件夹下选择`win`或`mac`对应目录，覆盖安装0.9版本目录下同名文件夹（package.nw或Resources）
+
+3. 启动0.7版本程序，扫描登陆，关闭（不是卸载）
+
+4. 启动0.9版本程序
+
+5. 完成
+
+
 界面界面截图
 -----------
 ![界面1](files/snapshot1.png)

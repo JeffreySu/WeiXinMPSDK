@@ -31,6 +31,8 @@ https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1474632113_xQVCl&token=&l
 
 如果我想用破解的怎么办？
 ----------
+破解的用处在于你可以不受“无AppID”带来的功能限制。
+
 1. 选择上述Windows或Mac版本进行安装（0.9），
 如果没有安装0.7的请先安装0.7（[Windows](http://dldir1.qq.com/WechatWebDev/release/0.7.0/wechat_web_devtools_0.7.0_x64.exe) / [Mac] (http://dldir1.qq.com/WechatWebDev/release/0.7.0/wechat_web_devtools_0.7.0.dmg)）
 

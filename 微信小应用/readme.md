@@ -12,6 +12,9 @@ Senparc.Weixin 12群：108830388
 
 微信官方WIKI
 --------
+
+`此程序为微信官方提供，不需要进行破解、运行0.7版本等繁琐步骤。`
+
 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1474632113_xQVCl&token=&lang=zh_CN
 
 1. [小程序开发文档](https://mp.weixin.qq.com/debug/wxadoc/dev/index.html)

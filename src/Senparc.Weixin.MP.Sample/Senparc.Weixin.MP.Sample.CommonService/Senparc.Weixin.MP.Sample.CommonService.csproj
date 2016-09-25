@@ -9,9 +9,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Senparc.Weixin.MP.Sample.CommonService</RootNamespace>
     <AssemblyName>Senparc.Weixin.MP.Sample.CommonService</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +20,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,27 +28,11 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Senparc.Weixin.MP">
+      <HintPath>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.MP.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -60,45 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Download\CodeRecord.cs" />
-    <Compile Include="Download\Config.cs" />
-    <Compile Include="Download\ConfigHelper.cs" />
-    <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageContext.cs" />
-    <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageHandler.cs" />
-    <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageHandler_Events.cs" />
+    <Compile Include="CustomMessageHandler\CustomMessageContext.cs" />
+    <Compile Include="CustomMessageHandler\CustomMessageHandler.cs" />
+    <Compile Include="CustomMessageHandler\CustomMessageHandler_Events.cs" />
     <Compile Include="EventService.cs" />
     <Compile Include="LocationService.cs" />
-    <Compile Include="MessageHandlers\OpenMessageHandler\OpenCheckMessageHandler.cs" />
-    <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageContext.cs" />
-    <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageHandler.cs" />
-    <Compile Include="OpenTicket\OpenTicketHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MessageHandlers\CustomThirdPartyMessageHandlers\CustomThirdPartyMessageHandler.cs" />
-    <Compile Include="Utilities\Server.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
-      <Project>{1d815fbf-451c-4e23-939c-cb80172f445c}</Project>
-      <Name>Senparc.Weixin.MP</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.csproj">
-      <Project>{54732c3d-b673-4bbf-b0c3-6432e3d6f522}</Project>
-      <Name>Senparc.Weixin.Open</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin.QY\Senparc.Weixin.QY\Senparc.Weixin.QY.csproj">
-      <Project>{2ca35598-f1a1-4dc9-aa20-a4346bfcb954}</Project>
-      <Name>Senparc.Weixin.QY</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
-      <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
-      <Name>Senparc.Weixin</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Download\readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

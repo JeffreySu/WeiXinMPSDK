@@ -53,33 +53,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, reduceStockData);
         }
         #endregion
-        #region 异步请求
-        /// <summary>
-        /// 【异步方法】增加库存
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="addStockData">增加库存需要Post的数据</param>
-        /// <returns></returns>
-        public static async Task<WxJsonResult> AddStockAsync(string accessToken, AddStockData addStockData)
-        {
-            var urlFormat = "https://api.weixin.qq.com/merchant/stock/add?access_token={0}";
-
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, addStockData);
-        }
-
-        /// <summary>
-        /// 【异步方法】减少库存
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="reduceStockData">减少库存需要Post的数据</param>
-        /// <returns></returns>
-        public static async Task<WxJsonResult> ReduceStockAsync(string accessToken, ReduceStockData reduceStockData)
-        {
-            var urlFormat = "https://api.weixin.qq.com/merchant/stock/reduce?access_token={0}";
-
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, reduceStockData);
-        }
-        #endregion
         
     }
 }

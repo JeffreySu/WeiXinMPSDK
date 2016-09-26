@@ -6,7 +6,6 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using Senparc.Weixin.Cache;
-using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MessageQueue;
@@ -21,7 +20,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public DateTime DateTime
         {
             get { return _dateTime; }
-            set { this.SetContainerProperty(ref _dateTime, value); }
+            set { this.SetContainerProperty(ref _dateTime, value, "DateTime"); }
         }
     }
 
@@ -32,7 +31,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public DateTime DateTime
         {
             get { return _dateTime; }
-            set { this.SetContainerProperty(ref _dateTime, value); }
+            set { this.SetContainerProperty(ref _dateTime, value, "DateTime"); }
 
         }
     }
@@ -55,48 +54,48 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return View();
         }
 
-        public ActionResult Redis(int id = 1)
-        {
-            //测试Redis ItemCollection缓存更新功能
-
-            if (id == 1)
-            {
-                CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);
-            }
-            else
-            {
-                CacheStrategyFactory.RegisterContainerCacheStrategy(() => null);
-            }
-
-            var sb = new StringBuilder();
-            //var cacheKey = TestContainer1.GetContainerCacheKey();
-            var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
-            var itemCollection = containerCacheStragegy.GetAll<TestContainerBag1>();
-
-            sb.AppendFormat("Count1：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
-
-
-            var bagKey = "Redis." + DateTime.Now.ToString();
-            var bag = new TestContainerBag1()
-            {
-                Key = bagKey,
-                DateTime = DateTime.Now
-            };
-            TestContainer1.Update(bagKey, bag);//更新到缓存（列队）
-
-            itemCollection = containerCacheStragegy.GetAll<TestContainerBag1>();
-
-            sb.AppendFormat("Count2：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
-
-            if (itemCollection != null)
-            {
-                itemCollection[DateTime.Now.Ticks.ToString()] = bag;
-            }
-
-            sb.AppendFormat("Count3：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
-
-            return Content(sb.ToString());
-        }
+//        public ActionResult Redis(int id = 1)
+//        {
+//            //测试Redis ItemCollection缓存更新功能
+//
+//            if (id == 1)
+//            {
+//                CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);
+//            }
+//            else
+//            {
+//                CacheStrategyFactory.RegisterContainerCacheStrategy(() => null);
+//            }
+//
+//            var sb = new StringBuilder();
+//            //var cacheKey = TestContainer1.GetContainerCacheKey();
+//            var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
+//            var itemCollection = containerCacheStragegy.GetAll<TestContainerBag1>();
+//
+//            sb.AppendFormat("Count1：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
+//
+//
+//            var bagKey = "Redis." + DateTime.Now.ToString();
+//            var bag = new TestContainerBag1()
+//            {
+//                Key = bagKey,
+//                DateTime = DateTime.Now
+//            };
+//            TestContainer1.Update(bagKey, bag);//更新到缓存（列队）
+//
+//            itemCollection = containerCacheStragegy.GetAll<TestContainerBag1>();
+//
+//            sb.AppendFormat("Count2：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
+//
+//            if (itemCollection != null)
+//            {
+//                itemCollection[DateTime.Now.Ticks.ToString()] = bag;
+//            }
+//
+//            sb.AppendFormat("Count3：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
+//
+//            return Content(sb.ToString());
+//        }
 
         [HttpPost]
         public ActionResult RunTest()

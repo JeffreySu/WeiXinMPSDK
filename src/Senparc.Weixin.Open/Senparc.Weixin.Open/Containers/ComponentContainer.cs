@@ -68,7 +68,7 @@ namespace Senparc.Weixin.Open.Containers
         public string ComponentAppId
         {
             get { return _componentAppId; }
-            set { base.SetContainerProperty(ref _componentAppId, value); }
+            set { base.SetContainerProperty(ref _componentAppId, value, "ComponentAppId"); }
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace Senparc.Weixin.Open.Containers
         public string ComponentAppSecret
         {
             get { return _componentAppSecret; }
-            set { base.SetContainerProperty(ref _componentAppSecret, value); }
+            set { base.SetContainerProperty(ref _componentAppSecret, value, "ComponentAppSecret"); }
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Senparc.Weixin.Open.Containers
         public string ComponentVerifyTicket
         {
             get { return _componentVerifyTicket; }
-            set { base.SetContainerProperty(ref _componentVerifyTicket, value); }
+            set { base.SetContainerProperty(ref _componentVerifyTicket, value, "ComponentVerifyTicket"); }
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Senparc.Weixin.Open.Containers
         public DateTime ComponentVerifyTicketExpireTime
         {
             get { return _componentVerifyTicketExpireTime; }
-            set { base.SetContainerProperty(ref _componentVerifyTicketExpireTime, value); }
+            set { base.SetContainerProperty(ref _componentVerifyTicketExpireTime, value, "ComponentVerifyTicketExpireTime"); }
 
         }
 
@@ -105,7 +105,7 @@ namespace Senparc.Weixin.Open.Containers
         public ComponentAccessTokenResult ComponentAccessTokenResult
         {
             get { return _componentAccessTokenResult; }
-            set { base.SetContainerProperty(ref _componentAccessTokenResult, value); }
+            set { base.SetContainerProperty(ref _componentAccessTokenResult, value, "ComponentAccessTokenResult"); }
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace Senparc.Weixin.Open.Containers
         public DateTime ComponentAccessTokenExpireTime
         {
             get { return _componentAccessTokenExpireTime; }
-            set { base.SetContainerProperty(ref _componentAccessTokenExpireTime, value); }
+            set { base.SetContainerProperty(ref _componentAccessTokenExpireTime, value, "ComponentAccessTokenExpireTime"); }
         }
 
 
@@ -124,7 +124,7 @@ namespace Senparc.Weixin.Open.Containers
         public PreAuthCodeResult PreAuthCodeResult
         {
             get { return _preAuthCodeResult; }
-            set { base.SetContainerProperty(ref _preAuthCodeResult, value); }
+            set { base.SetContainerProperty(ref _preAuthCodeResult, value, "PreAuthCodeResult"); }
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace Senparc.Weixin.Open.Containers
         public DateTime PreAuthCodeExpireTime
         {
             get { return _preAuthCodeExpireTime; }
-            set { base.SetContainerProperty(ref _preAuthCodeExpireTime, value); }
+            set { base.SetContainerProperty(ref _preAuthCodeExpireTime, value, "PreAuthCodeExpireTime"); }
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace Senparc.Weixin.Open.Containers
         public string AuthorizerAccessToken
         {
             get { return _authorizerAccessToken; }
-            set { base.SetContainerProperty(ref _authorizerAccessToken, value); }
+            set { base.SetContainerProperty(ref _authorizerAccessToken, value, "AuthorizerAccessToken"); }
         }
 
         /// <summary>

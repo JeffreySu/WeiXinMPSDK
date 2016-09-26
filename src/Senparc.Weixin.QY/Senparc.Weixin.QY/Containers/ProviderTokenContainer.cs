@@ -64,7 +64,7 @@ namespace Senparc.Weixin.QY.Containers
         public string CorpId
         {
             get { return _corpId; }
-            set { base.SetContainerProperty(ref _corpId, value); }
+            set { base.SetContainerProperty(ref _corpId, value, "CorpId"); }
         }
         /// <summary>
         /// CorpSecret
@@ -72,7 +72,7 @@ namespace Senparc.Weixin.QY.Containers
         public string CorpSecret
         {
             get { return _corpSecret; }
-            set { base.SetContainerProperty(ref _corpSecret, value); }
+            set { base.SetContainerProperty(ref _corpSecret, value, "CorpSecret"); }
         }
         /// <summary>
         /// 过期时间
@@ -80,7 +80,7 @@ namespace Senparc.Weixin.QY.Containers
         public DateTime ExpireTime
         {
             get { return _expireTime; }
-            set { base.SetContainerProperty(ref _expireTime, value); }
+            set { base.SetContainerProperty(ref _expireTime, value, "ExpireTime"); }
         }
         /// <summary>
         /// ProviderTokenResult
@@ -88,7 +88,7 @@ namespace Senparc.Weixin.QY.Containers
         public ProviderTokenResult ProviderTokenResult
         {
             get { return _providerTokenResult; }
-            set { base.SetContainerProperty(ref _providerTokenResult, value); }
+            set { base.SetContainerProperty(ref _providerTokenResult, value, "ProviderTokenResult"); }
         }
 
         /// <summary>

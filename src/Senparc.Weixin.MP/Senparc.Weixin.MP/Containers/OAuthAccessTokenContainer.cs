@@ -48,24 +48,24 @@ namespace Senparc.Weixin.MP.Containers
         public string AppId
         {
             get { return _appId; }
-            set { base.SetContainerProperty(ref _appId, value); }
+            set { base.SetContainerProperty(ref _appId, value, "AppId"); }
         }
         public string AppSecret
         {
             get { return _appSecret; }
-            set { base.SetContainerProperty(ref _appSecret, value); }
+            set { base.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
         }
 
         public OAuthAccessTokenResult OAuthAccessTokenResult
         {
             get { return _oAuthAccessTokenResult; }
-            set { base.SetContainerProperty(ref _oAuthAccessTokenResult, value); }
+            set { base.SetContainerProperty(ref _oAuthAccessTokenResult, value, "OAuthAccessTokenResult"); }
         }
 
         public DateTime OAuthAccessTokenExpireTime
         {
             get { return _oAuthAccessTokenExpireTime; }
-            set { base.SetContainerProperty(ref _oAuthAccessTokenExpireTime, value); }
+            set { base.SetContainerProperty(ref _oAuthAccessTokenExpireTime, value, "OAuthAccessTokenExpireTime"); }
         }
 
         /// <summary>

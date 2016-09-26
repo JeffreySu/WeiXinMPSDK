@@ -109,7 +109,7 @@ namespace Senparc.Weixin.Containers
         /// <param name="value"></param>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        protected bool SetContainerProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
+        protected bool SetContainerProperty<T>(ref T storage, T value,String propertyName)
         {
             var result = base.SetProperty(ref storage, value, propertyName);
             return result;

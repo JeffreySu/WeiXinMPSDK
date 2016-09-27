@@ -1,9 +1,9 @@
-微信小应用开发资源
+微信小程序开发资源
 =================
 
 服务器端SDK
 ----------
-[Senparc.Weixin.MP.dll](https://github.com/JeffreySu/WeiXinMPSDK) 完全兼容微信小应用开发！
+[Senparc.Weixin.MP.dll](https://github.com/JeffreySu/WeiXinMPSDK) 完全兼容微信小程序开发！
 
 
 QQ群

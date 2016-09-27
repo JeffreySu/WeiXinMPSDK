@@ -51,6 +51,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Redlock.CSharp, Version=0.0.2.35303, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.Cache.Redis.RedLock.0.0.2\lib\net45\Redlock.CSharp.dll</HintPath>
       <Private>True</Private>

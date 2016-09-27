@@ -1,2 +1,3 @@
 language: csharp
 solution: ./src/Senparc.Weixin/Senparc.Weixin.sln
+          ./src/Senparc.Weixin.MP/Senparc.Weixin.MP.sln

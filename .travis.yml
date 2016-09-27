@@ -1,2 +1,2 @@
 language: csharp
-solution: ./src/Senparc.Weixin.Sample/Senparc.Weixin.MP.Sample.sln
+solution: ./src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.sln

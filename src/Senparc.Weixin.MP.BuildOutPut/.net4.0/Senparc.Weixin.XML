@@ -4,38 +4,9 @@
         <name>Senparc.Weixin</name>
     </assembly>
     <members>
-        <member name="T:Senparc.Weixin.Cache.IContainerItemCollection">
+        <member name="T:Senparc.Weixin.Cache.BaseCacheStrategy">
             <summary>
-            IContainerItemCollection，对某个Container下的缓存值ContainerBag进行封装
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.Cache.IContainerItemCollection.CreateTime">
-            <summary>
-            创建时间
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.Cache.IContainerItemCollection.Item(System.String)">
-            <summary>
-            索引器
-            </summary>
-            <param name="key">缓存键（通常为AppId，值和IBaseContainerBag.Key相等）</param>
-            <returns></returns>
-        </member>
-        <member name="T:Senparc.Weixin.Cache.ContainerItemCollection">
-            <summary>
-            储存某个Container下所有ContainerBag的字典集合
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.Cache.ContainerItemCollection.Item(System.String)">
-            <summary>
-            索引器
-            </summary>
-            <param name="key">缓存键（通常为AppId，值和IBaseContainerBag.Key相等）</param>
-            <returns></returns>
-        </member>
-        <member name="P:Senparc.Weixin.Cache.ContainerItemCollection.CreateTime">
-            <summary>
-            创建时间
+            泛型缓存策略基类
             </summary>
         </member>
         <member name="T:Senparc.Weixin.Cache.IContainerCacheStragegy">
@@ -43,12 +14,20 @@
             容器缓存策略接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Cache.IContainerCacheStragegy.UpdateContainerBag(System.String,Senparc.Weixin.Containers.IBaseContainerBag)">
+        <member name="M:Senparc.Weixin.Cache.IContainerCacheStragegy.GetAll``1">
+            <summary>
+            获取所有ContainerBag
+            </summary>
+            <typeparam name="TBag"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.IContainerCacheStragegy.UpdateContainerBag(System.String,Senparc.Weixin.Containers.IBaseContainerBag,System.Boolean)">
             <summary>
             更新ContainerBag
             </summary>
             <param name="key"></param>
             <param name="containerBag"></param>
+            <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
         </member>
         <member name="T:Senparc.Weixin.Cache.LocalCacheHelper">
             <summary>
@@ -70,15 +49,28 @@
             LocalCacheStrategy的构造函数
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.Cache.IBaseCacheStrategy.CacheSetKey">
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy.BeginCacheLock(System.String,System.String,System.Int32,System.TimeSpan)">
             <summary>
-            整个Cache集合的Key
+            创建一个（分布）锁
             </summary>
+            <param name="resourceName"></param>
+            <param name="key"></param>
+            <param name="retryCount"></param>
+            <param name="retryDelay"></param>
+            <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.Cache.IBaseCacheStrategy`2">
             <summary>
             公共缓存策略接口
             </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.GetFinalKey(System.String,System.Boolean)">
+            <summary>
+            获取缓存中最终的键，如Container建议格式： return String.Format("{0}:{1}", "SenparcWeixinContainer", key);
+            </summary>
+            <param name="key"></param>
+            <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
+            <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.InsertToCache(`0,`1)">
             <summary>
@@ -87,17 +79,19 @@
             <param name="key">缓存键</param>
             <param name="value">缓存值</param>
         </member>
-        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.RemoveFromCache(`0)">
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.RemoveFromCache(`0,System.Boolean)">
             <summary>
             移除指定缓存键的对象
             </summary>
             <param name="key">缓存键</param>
+            <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
         </member>
-        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.Get(`0)">
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.Get(`0,System.Boolean)">
             <summary>
             返回指定缓存键的对象
             </summary>
             <param name="key">缓存键</param>
+            <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.GetAll">
@@ -106,11 +100,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.CheckExisted(`0)">
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.CheckExisted(`0,System.Boolean)">
             <summary>
             检查是否存在Key及对象
             </summary>
             <param name="key">缓存键</param>
+            <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.GetCount">
@@ -119,12 +114,44 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.Update(`0,`1)">
+        <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy`2.Update(`0,`1,System.Boolean)">
             <summary>
             更新缓存
             </summary>
             <param name="key">缓存键</param>
             <param name="value">缓存值</param>
+            <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
+        </member>
+        <member name="T:Senparc.Weixin.Cache.ICacheLock">
+            <summary>
+            缓存锁接口
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Cache.ICacheLock.LockSuccessful">
+            <summary>
+            是否成功获得锁
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.ICacheLock.LockNow">
+            <summary>
+            立即开始锁定
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.ICacheLock.Lock(System.String)">
+            <summary>
+            开始锁
+            </summary>
+            <param name="resourceName"></param>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.ICacheLock.Lock(System.String,System.Int32,System.TimeSpan)">
+            <summary>
+            开始锁，并设置重试条件
+            </summary>
+            <param name="resourceName"></param>
+            <param name="retryCount"></param>
+            <param name="retryDelay"></param>
+            <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.Config">
             <summary>
@@ -143,7 +170,13 @@
             </summary>
         </member>
         <member name="F:Senparc.Weixin.Config.MaxJsonLength">
-            <summary>JavaScriptSerializer 类接受的 JSON 字符串的最大长度
+            <summary>
+            JavaScriptSerializer 类接受的 JSON 字符串的最大长度
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Config.DefaultCacheNamespace">
+            <summary>
+            默认缓存键的第一级命名空间，默认值：DefaultCache
             </summary>
         </member>
         <member name="T:Senparc.Weixin.Containers.IBaseContainer">
@@ -168,16 +201,27 @@
             获取符合当前缓存策略配置的缓存的操作对象实例
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.Containers.BaseContainer`1.ItemCollection">
+        <member name="P:Senparc.Weixin.Containers.BaseContainer`1.RegisterFunc">
             <summary>
-            获取当前容器的数据项集合
+            进行注册过程的委托
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.TryReRegister">
+            <summary>
+            如果注册不成功，测尝试重新注册（前提是已经进行过注册），这种情况适用于分布式缓存被清空（重启）的情况。
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.GetFirstOrDefaultAppId">
+            <summary>
+            返回已经注册的第一个AppId
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.GetCacheKey">
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.GetBagCacheKey(System.String)">
             <summary>
-            获取缓存Key
+            获取ItemCollection缓存Key
             </summary>
+            <param name="shortKey">最简短的Key，比如AppId，不需要考虑容器前缀</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Containers.BaseContainer`1.GetAllItems">
@@ -191,14 +235,14 @@
             <summary>
             尝试获取某一项Bag
             </summary>
-            <param name="key"></param>
+            <param name="shortKey"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Containers.BaseContainer`1.TryGetItem``1(System.String,System.Func{`0,``0})">
             <summary>
             尝试获取某一项Bag中的具体某个属性
             </summary>
-            <param name="key"></param>
+            <param name="shortKey"></param>
             <param name="property">具体某个属性</param>
             <returns></returns>
         </member>
@@ -206,21 +250,21 @@
             <summary>
             更新数据项
             </summary>
-            <param name="key"></param>
+            <param name="shortKey"></param>
             <param name="bag">为null时删除该项</param>
         </member>
         <member name="M:Senparc.Weixin.Containers.BaseContainer`1.Update(System.String,System.Action{`0})">
             <summary>
             更新数据项
             </summary>
-            <param name="key"></param>
+            <param name="shortKey"></param>
             <param name="partialUpdate">为null时删除该项</param>
         </member>
         <member name="M:Senparc.Weixin.Containers.BaseContainer`1.CheckRegistered(System.String)">
             <summary>
             检查Key是否已经注册
             </summary>
-            <param name="key"></param>
+            <param name="shortKey"></param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.Containers.IBaseContainerBag">
@@ -228,9 +272,14 @@
             IBaseContainerBag
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.Containers.IBaseContainerBag.Name">
+            <summary>
+            用于标记，方便后台管理
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.Containers.IBaseContainerBag.Key">
             <summary>
-            缓存键
+            缓存键，形如：wx669ef95216eef885，最底层的Key，不考虑命名空间等
             </summary>
         </member>
         <member name="P:Senparc.Weixin.Containers.IBaseContainerBag.CacheTime">
@@ -238,9 +287,19 @@
             当前对象被缓存的时间
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.Containers.IBaseContainerBag_AppId.AppId">
+            <summary>
+            AppId
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.Containers.BaseContainerBag">
             <summary>
             BaseContainer容器中的Value类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Containers.BaseContainerBag.Name">
+            <summary>
+            用于标记，方便后台管理
             </summary>
         </member>
         <member name="P:Senparc.Weixin.Containers.BaseContainerBag.Key">
@@ -532,7 +591,7 @@
         </member>
         <member name="T:Senparc.Weixin.IEncryptPostModel">
             <summary>
-            接收解密信息统一接口
+            接收加密信息统一接口
             </summary>
         </member>
         <member name="T:Senparc.Weixin.EncryptPostModel">
@@ -643,10 +702,34 @@
             微信自定义异常基类
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Helpers.ContainerHelper.GetCacheKey(System.Type)">
+        <member name="M:Senparc.Weixin.Helpers.ContainerHelper.GetCacheKeyNamespace(System.Type)">
             <summary>
-            获取缓存Key
+            获取缓存Key（命名空间，形如：Container:Senparc.Weixin.MP.Containers.AccessTokenBag）
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.ContainerHelper.GetItemCacheKey(System.Type,System.String)">
+            <summary>
+            获取ContainerBag缓存Key，包含命名空间（形如：Container:Senparc.Weixin.MP.Containers.AccessTokenBag:wx669ef95216eef885）
+            </summary>
+            <param name="shortKey">最简短的Key，比如AppId，不需要考虑容器前缀</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.ContainerHelper.GetItemCacheKey(Senparc.Weixin.Containers.IBaseContainerBag)">
+            <summary>
+            获取ContainerBag缓存Key，包含命名空间（形如：Container:Senparc.Weixin.MP.Containers.AccessTokenBag:wx669ef95216eef885）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="bag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.ContainerHelper.GetItemCacheKey(Senparc.Weixin.Containers.IBaseContainerBag,System.String)">
+            <summary>
+            获取ContainerBag缓存Key，包含命名空间（形如：Container:Senparc.Weixin.MP.Containers.AccessTokenBag:wx669ef95216eef885）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="bag"></param>
+            <param name="shortKey"></param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.Helpers.ExpandoJsonConverter">
@@ -674,6 +757,18 @@
             </summary>
             <param name="dateTime">时间</param>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.Helpers.EncryptHelper">
+            
+             安全帮助类，提供SHA-1算法等
+            
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.EncryptHelper.SHA1_Encrypt(System.String)">
+            
+             采用SHA-1算法加密字符串
+            
+             要加密的字符串
+             返回加密后的字符串
         </member>
         <member name="M:Senparc.Weixin.Helpers.FileHelper.GetFileStream(System.String)">
             <summary>
@@ -727,6 +822,16 @@
         <member name="P:Senparc.Weixin.Helpers.JsonSetting.TypesToIgnore">
             <summary>
             指定类型（Class，非Interface）下的为null属性不生成到Json中
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Helpers.JsonSetting.ExcludedAttribute">
+            <summary>
+            例外属性，即不排除的属性值
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Helpers.JsonSetting.EnumStringAttribute">
+            <summary>
+            枚举类型显示字符串
             </summary>
         </member>
         <member name="M:Senparc.Weixin.Helpers.JsonSetting.#ctor(System.Boolean,System.Collections.Generic.List{System.String},System.Collections.Generic.List{System.Type})">
@@ -1482,11 +1587,45 @@
             <param name="doFlush">是否立即更新到缓存</param>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.EntityUtility.EntityUtility.ConvertTo``1(System.IConvertible)">
+            <summary>
+            将对象转换到指定类型
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="convertibleValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.EntityUtility.EntityUtility.FillSystemType``1(``0,System.Reflection.PropertyInfo,System.IConvertible)">
+            <summary>
+            向属性填充值
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entity"></param>
+            <param name="prop"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Senparc.Weixin.EntityUtility.EntityUtility.FillSystemType``1(``0,System.Reflection.PropertyInfo,System.IConvertible,System.Type)">
+            <summary>
+            向属性填充值（强制使用指定的类型）
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="entity"></param>
+            <param name="prop"></param>
+            <param name="value"></param>
+            <param name="specialType"></param>
+        </member>
         <member name="M:Senparc.Weixin.Utilities.WeixinUtility.ApiUtility.IsAppId(System.String)">
             <summary>
             判断accessTokenOrAppId参数是否是AppId
             </summary>
             <param name="accessTokenOrAppId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Utilities.WeixinUtility.ApiUtility.GetExpireTime(System.Int32)">
+            <summary>
+            获取过期时间
+            </summary>
+            <param name="expireInSeconds">有效时间（秒）</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.XmlUtility.XmlUtility.Deserialize``1(System.String)">
@@ -1551,20 +1690,21 @@
             <param name="returnText"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Post.PostFileGetJson``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Int32)">
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostFileGetJson``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Security.Cryptography.X509Certificates.X509Certificate,System.Int32)">
             <summary>
-            发起Post请求
+            发起Post请求，可上传文件
             </summary>
             <typeparam name="T">返回数据类型（Json对应的实体）</typeparam>
             <param name="url">请求Url</param>
             <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
             <param name="encoding"></param>
+            <param name="cer">证书，如果不需要则保留null</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <param name="fileDictionary"></param>
             <param name="postDataDictionary"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJson``1(System.String,System.Net.CookieContainer,System.IO.Stream,System.Text.Encoding,System.Int32,System.Boolean)">
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJson``1(System.String,System.Net.CookieContainer,System.IO.Stream,System.Text.Encoding,System.Security.Cryptography.X509Certificates.X509Certificate,System.Int32,System.Boolean)">
             <summary>
             发起Post请求
             </summary>
@@ -1573,11 +1713,12 @@
             <param name="cookieContainer">CookieContainer，如果不需要则设为null</param>
             <param name="fileStream">文件流</param>
             <param name="encoding"></param>
+            <param name="cer">证书，如果不需要则保留null</param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <param name="checkValidationResult">验证服务器证书回调自动验证</param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJson``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Int32)">
+        <member name="M:Senparc.Weixin.HttpUtility.Post.PostGetJson``1(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Security.Cryptography.X509Certificates.X509Certificate,System.Int32)">
             <summary>
             PostGetJson
             </summary>
@@ -1585,6 +1726,7 @@
             <param name="cookieContainer"></param>
             <param name="formData"></param>
             <param name="encoding"></param>
+            <param name="cer">证书，如果不需要则保留null</param>
             <param name="timeOut"></param>
             <typeparam name="T"></typeparam>
             <returns></returns>
@@ -1618,22 +1760,24 @@
             <param name="url"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpGet(System.String,System.Net.CookieContainer,System.Text.Encoding,System.Int32)">
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpGet(System.String,System.Net.CookieContainer,System.Text.Encoding,System.Security.Cryptography.X509Certificates.X509Certificate,System.Int32)">
             <summary>
             使用Get方法获取字符串结果（加入Cookie）
             </summary>
             <param name="url"></param>
             <param name="cookieContainer"></param>
             <param name="encoding"></param>
+            <param name="cer">证书，如果不需要则保留null</param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Int32)">
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.Collections.Generic.Dictionary{System.String,System.String},System.Text.Encoding,System.Security.Cryptography.X509Certificates.X509Certificate,System.Int32)">
             <summary>
             使用Post方法获取字符串结果，常规提交
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.IO.Stream,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Text.Encoding,System.Int32,System.Boolean)">
+        <member name="M:Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(System.String,System.Net.CookieContainer,System.IO.Stream,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Text.Encoding,System.Security.Cryptography.X509Certificates.X509Certificate,System.Int32,System.Boolean)">
             <summary>
             使用Post方法获取字符串结果
             </summary>
@@ -1642,6 +1786,7 @@
             <param name="postStream"></param>
             <param name="fileDictionary">需要上传的文件，Key：对应要上传的Name，Value：本地文件名</param>
             <param name="encoding"></param>
+            <param name="cer">证书，如果不需要则保留null</param>
             <param name="timeOut"></param>
             <param name="checkValidationResult">验证服务器证书回调自动验证</param>
             <param name="refererUrl"></param>

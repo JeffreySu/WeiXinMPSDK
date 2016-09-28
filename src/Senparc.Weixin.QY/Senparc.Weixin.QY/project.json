@@ -1,7 +1,7 @@
 {
 	"title": "Senparc.Weixin.QY",
 	"copyright": "Senparc Copyright © 2004~2016",
-	"version": "1.2.9-*",
+	"version": "4.1.10-*",
 	"description": "Senparc.Weixin.QY Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植",
 	"authors": [ "算神" ],
 	"packOptions": {
@@ -14,14 +14,14 @@
 		"net461": {}
 	},
 	"dependencies": {
-		"Senparc.Weixin": "4.7.5",
+		"Senparc.Weixin": "4.8.0-*",
 		"Microsoft.AspNetCore.Http": "1.0.0",
 		"System.Collections.NonGeneric": "4.0.1",
 		"System.Xml.XmlDocument": "4.0.1",
 		"System.Xml.XPath.XmlDocument": "4.0.1"
 	},
 	"buildOptions": {
-    "nowarn": [ "CS0168", "CS0169", "CS0108", "CS0162", "CS0618", "CS0162", "CS0414", "CS0114" ],
-    "xmlDoc": true
+		"nowarn": [ "CS0168", "CS0169", "CS0108", "CS0162", "CS0618", "CS0162", "CS0414", "CS0114", "CS1570", "CS1591", "CS1572", "CS1573", "CS1587", "CS1711" ],
+		"xmlDoc": true
 	}
 }

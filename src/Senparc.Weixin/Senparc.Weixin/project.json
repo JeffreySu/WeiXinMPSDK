@@ -1,7 +1,7 @@
 {
 	"title": "Senparc.Weixin",
 	"copyright": "Senparc Copyright © 2004~2016",
-	"version": "1.2.5-*",
+	"version": "4.8.0-*",
 	"description": "Senparc.Weixin Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植",
 	"authors": [ "算神" ],
 	"packOptions": {
@@ -30,7 +30,7 @@
 		"System.Threading.Thread": "4.0.0"
 	},
 	"buildOptions": {
-    "nowarn": [ "CS0168", "CS0169", "CS0108", "CS0162", "CS0618", "CS0162", "CS0414", "CS0114" ],
-    "xmlDoc": true
+		"nowarn": [ "CS0168", "CS0169", "CS0108", "CS0162", "CS0618", "CS0162", "CS0414", "CS0114", "CS1570", "CS1591", "CS1572", "CS1573", "CS1587", "CS1711" ],
+		"xmlDoc": true
 	}
 }

@@ -22,8 +22,8 @@
 		"net461": {}
 	},
 	"dependencies": {
-		"Microsoft.AspNetCore.Mvc": "1.0.0",
-		"Microsoft.AspNetCore.Mvc.Core": "1.0.0",
+		"Microsoft.AspNetCore.Mvc": "1.0.1",
+		"Microsoft.AspNetCore.Mvc.Core": "1.0.1",
 		"Senparc.Weixin": "4.8.0-*"
 	},
 	"buildOptions": {

@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{37524CFB-5238-4C87-8468-23676AC026EF}"
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
+		RunPack.ps1 = RunPack.ps1
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Senparc.Weixin", "src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.xproj", "{D44A38D5-6CDE-4E29-8848-235733261CF2}"

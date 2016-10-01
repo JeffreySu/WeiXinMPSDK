@@ -11,7 +11,7 @@
 * [Senparc.Weixin.MP.Sample中的关键代码说明](#senparcweixinmpsample中的关键代码说明)
     * [/Controllers/WeixinController.cs](#controllersweixincontrollercs)
 * [如何处理微信公众账号请求？](#如何处理微信公众账号请求)
-* [使用Nuget安装到项目中](#使用Nuget安装到项目中)
+* [使用Nuget安装到项目中](#使用nuget安装到项目中)
     * [如何处理微信公众号请求？](#如何处理微信公众号请求)
     * [如何增强 ASP.NET MVC 项目的功能？](#如何增强-aspnet-mvc-项目的功能)
     * [如何处理微信企业号请求？](#如何处理微信企业号请求)

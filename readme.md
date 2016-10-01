@@ -2,6 +2,27 @@
 ===================
 [https://github.com/JeffreySu/WeiXinMPSDK/tree/master/微信小程序](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/微信小程序)
 
+# 目录
+* [微信C# SDK](#微信c-sdk--)
+* [贡献代码](#贡献代码)
+* [资源](#资源)
+* [关注测试账号（SenparcRobot）](#关注测试账号senparcrobot)
+* [项目文件夹说明（src文件夹下）](#项目文件夹说明src文件夹下)
+* [Senparc.Weixin.MP.Sample中的关键代码说明](#senparcweixinmpsample中的关键代码说明)
+    * [/Controllers/WeixinController.cs](#controllersweixincontrollercs)
+* [如何处理微信公众账号请求？](#如何处理微信公众账号请求)
+* [使用Nuget安装到项目中](#使用Nuget安装到项目中)
+    * [如何处理微信公众号请求？](#如何处理微信公众号请求)
+    * [如何增强 ASP.NET MVC 项目的功能？](#如何增强-aspnet-mvc-项目的功能)
+    * [如何处理微信企业号请求？](#如何处理微信企业号请求)
+    * [如何处理微开放平台请求？](#如何处理微开放平台请求)
+    * [如何使用分布式缓存？](#如何使用分布式缓存)
+* [已实现功能](#已实现功能)
+* [捐助](#捐助)
+* [图书众筹](#图书众筹)
+* [License](#License)
+
+
 
 微信C# SDK  [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
 =================

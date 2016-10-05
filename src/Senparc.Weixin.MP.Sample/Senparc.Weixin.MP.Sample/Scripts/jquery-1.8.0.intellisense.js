@@ -1,31 +1,3 @@
-/*!
- * Documentation Content
- * Copyright (c) 2009 Packt Publishing, http://packtpub.com/
- * Copyright (c) 2012 jQuery Foundation, http://jquery.org/
- * 
- * This software consists of voluntary contributions made by many
- * individuals. For exact contribution history, see the revision history
- * and logs, available at http://github.com/jquery/api.jquery.com
- * 
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
- * 
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
- * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-*/
 intellisense.annotate(jQuery, {
   'ajax': function() {
     /// <signature>
@@ -101,7 +73,6 @@ intellisense.annotate(jQuery, {
     ///   <summary>Execute the next function on the queue for the matched element.</summary>
     ///   <param name="element" type="Element">A DOM element from which to remove and execute a queued function.</param>
     ///   <param name="queueName" type="String">A string containing the name of the queue. Defaults to fx, the standard effects queue.</param>
-    ///   <returns type="jQuery" />
     /// </signature>
   },
   'each': function() {
@@ -462,6 +433,7 @@ intellisense.annotate(_object, {
 
 return _object;
 };
+intellisense.redirectDefinition(jQuery.Callbacks, _1228819969);
 
 var _731531622 = jQuery.Deferred;
 jQuery.Deferred = function(func) {
@@ -596,6 +568,7 @@ intellisense.annotate(_object, {
 
 return _object;
 };
+intellisense.redirectDefinition(jQuery.Callbacks, _731531622);
 
 intellisense.annotate(jQuery.Event.prototype, {
   'currentTarget': function() {
@@ -783,7 +756,7 @@ intellisense.annotate(jQuery.fn, {
     /// <signature>
     ///   <summary>Perform a custom animation of a set of CSS properties.</summary>
     ///   <param name="properties" type="Object">A map of CSS properties that the animation will move toward.</param>
-    ///   <param name="options" type="Object">A map of additional options to pass to the method. Supported keys:          duration: A string or number determining how long the animation will run.easing: A string indicating which easing function to use for the transition.complete: A function to call once the animation is complete.step: A function to be called after each step of the animation.queue: A Boolean indicating whether to place the animation in the effects queue. If false, the animation will begin immediately. As of jQuery 1.7, the queue option can also accept a string, in which case the animation is added to the queue represented by that string.specialEasing: A map of one or more of the CSS properties defined by the properties argument and their corresponding easing functions (added 1.4).</param>
+    ///   <param name="options" type="Object">A map of additional options to pass to the method. Supported keys:         duration: A string or number determining how long the animation will run.easing: A string indicating which easing function to use for the transition.complete: A function to call once the animation is complete.step: A function to be called after each step of the animation.queue: A Boolean indicating whether to place the animation in the effects queue. If false, the animation will begin immediately. As of jQuery 1.7, the queue option can also accept a string, in which case the animation is added to the queue represented by that string.specialEasing: A map of one or more of the CSS properties defined by the properties argument and their corresponding easing functions (added 1.4).</param>
     ///   <returns type="jQuery" />
     /// </signature>
   },

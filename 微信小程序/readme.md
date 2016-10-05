@@ -63,11 +63,6 @@ Demo下载
 ---------
 http://pan.baidu.com/s/1o8hJGeQ 密码：wlc4
 
-更多API及介绍
-----------
-http://wxopen.notedown.cn/
-
-https://github.com/gavinkwoe/weapp-ide-crack
 
 说明
 ----------

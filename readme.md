@@ -5,7 +5,7 @@
 # 目录
 * [微信C# SDK](#微信c-sdk--)
 * [贡献代码](#贡献代码)
-* [如何使用.net core开发](#如何使用.net-core)
+* [如何使用.net core开发](#如何使用net-core开发)
 * [资源](#资源)
 * [关注测试账号（SenparcRobot）](#关注测试账号senparcrobot)
 * [项目文件夹说明（src文件夹下）](#项目文件夹说明src文件夹下)

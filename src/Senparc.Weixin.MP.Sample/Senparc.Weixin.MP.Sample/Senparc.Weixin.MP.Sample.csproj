@@ -190,6 +190,10 @@
   <ItemGroup>
     <Content Include="App_Data\Document\Config.xml" />
     <Content Include="App_Readme\Elmah.txt" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\darktooltip.min.css" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\style.css" />
@@ -235,9 +239,31 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Properties\PublishProfiles\Ftp.pubxml" />
     <Content Include="Images\crowdfunding-qrcode.png" />
+    <Content Include="Images\icon_01.png" />
+    <Content Include="Images\icon_02.png" />
+    <Content Include="Images\icon_03.png" />
+    <Content Include="Images\icon_04.png" />
+    <Content Include="Images\icon_05.png" />
+    <Content Include="Images\icon_06.png" />
+    <Content Include="Images\icon_07.png" />
+    <Content Include="Images\icon_08.png" />
+    <Content Include="Images\icon_09.png" />
+    <Content Include="Images\icon_11.png" />
+    <Content Include="Images\icon_12.png" />
+    <Content Include="Images\icon_13.png" />
+    <Content Include="Images\icon_14.png" />
     <Content Include="Images\qrcode.jpg" />
     <Content Include="Images\Logo.jpg" />
     <Content Include="Images\qrcode_for_souidea.jpg" />
@@ -245,6 +271,8 @@
     <Content Include="Images\WeiWeiHiQrCode.jpg" />
     <Content Include="Images\weiweihi_menu.png" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -297,7 +325,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_Layout1.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\OAuth2\Index.cshtml" />
     <Content Include="Views\OAuth2\UserInfoCallback.cshtml" />
@@ -322,6 +350,7 @@
     <Content Include="Views\OpenOAuth\UserInfoCallback.cshtml" />
     <Content Include="Views\Cache\Test.cshtml" />
     <Content Include="Views\Document\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Document\Files\" />

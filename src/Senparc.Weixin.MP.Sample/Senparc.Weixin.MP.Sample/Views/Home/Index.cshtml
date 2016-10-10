@@ -1,295 +1,297 @@
 ﻿@{
-    ViewBag.Title = "微信SDK,微信公众平台SDK - Senparc.Weixin SDK - 公众号 企业号 开放平台 盛派微信号";
+    ViewBag.Title = "首页";
 }
-@section scripts
-{
-    <script>
-        $(function () {
-            $(".test table td:not(:empty)").hover(function () {
-                $(this).addClass('currentTestItem');
-            }, function () {
-                $(this).removeClass('currentTestItem');
-            });
-        });
-    </script>
-}
-
-<div class="wrapper">
-
-    <div class="weixin-bottom">
-        <p class="weixin-item-title">
-            目前Senparc.Weixin SDK已支持微信6.x API中所有接口<br/>
-            以及 <strong>微信小程序</strong>
-            <a href="https://travis-ci.org/JeffreySu/WeiXinMPSDK" target="_blank"></a>
-        </p>
-
-
-        <table class="tbVersion">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>功能模块</th>
-                    <th>Nuget 文件名</th>
-                    <th>Nuget 版本</th>
-                    <th>当前站点运行版本</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>SDK 公共基础库</td>
-                    <td>
-                        <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin" target="_blank">
-                            Senparc.Weixin.dll
-                        </a>
-                    </td>
-                    <td>
-                        <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin" target="_blank">
-                            <img src="https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat" />
-                        </a>
-                    </td>
-                    <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["WeixinVersion"])</a></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>公众号<br />微信支付<br />JSSDK<br />摇一摇周边</td>
-                    <td>
-                        <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">
-                            Senparc.Weixin.MP.dll
-                        </a>
-                    </td>
-                    <td>
-                        <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">
-                            <img src="https://img.shields.io/nuget/v/Senparc.Weixin.MP.svg?style=flat" />
-                        </a>
-                    </td>
-                    <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["MpVersion"])</a></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>开放平台 SDK</td>
-                    <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.Open" target="_blank">Senparc.Weixin.Open.dll</a></td>
-                    <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.Open" target="_blank"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.Open.svg?style=flat" /></a></td>
-                    <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["OpenVersion"])</a></td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>企业号 SDK</td>
-                    <td>
-                        <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.QY" target="_blank">
-                            Senparc.Weixin.QY.dll
-                        </a>
-                    </td>
-                    <td>
-                        <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.QY" target="_blank">
-                            <img src="https://img.shields.io/nuget/v/Senparc.Weixin.QY.svg?style=flat" />
-                        </a>
-                    </td>
-                    <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["QYVersion"])</a></td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>MVC扩展插件</td>
-                    <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP.MVC" target="_blank">Senparc.Weixin.MP.MvcExtentsion.dll</a></td>
-                    <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP.MVC" target="_blank"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.MP.Mvc.svg?style=flat" /></a></td>
-                    <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["ExtensionVersion"])</a></td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>Redis 缓存</td>
-                    <td>
-                        <a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Redis" target="_blank">
-                            Senparc.Weixin.Cached.Redis.dll
-                        </a>
-                    </td>
-                    <td>
-                        <a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Redis" target="_blank">
-                            <img src="https://img.shields.io/nuget/v/Senparc.Weixin.Cache.Redis.svg?style=flat" />
-                        </a>
-                    </td>
-                    <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["RedisCacheVersion"])</a></td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>Memcached 缓存</td>
-                    <td>
-                        <a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Memcached" target="_blank">
-                            Senparc.Weixin.Cached.Memcached.dll
-                        </a>
-                    </td>
-                    <td>
-                        <a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Memcached" target="_blank">
-                            <img src="https://img.shields.io/nuget/v/Senparc.Weixin.Cache.Memcached.svg?style=flat" />
-                        </a>
-                    </td>
-                    <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["MemcachedCacheVersion"])</a></td>
-                </tr>
-        </table>
-
-        <div class="clear"></div>
-
-        <div class="weixin-bottom-buttons">
-
-            <p class="weixin-item-button">
-                <a href="http://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))" class="application" target="_blank">下载 Senparc.Weixin SDK 帮助文档</a>
-
-                &nbsp; &nbsp; &nbsp;
-
-                <a href="https://github.com/JeffreySu/WeiXinMPSDK" class="application" target="_blank">GitHub 源码</a>
-
-                &nbsp; &nbsp; &nbsp;
-
-                @*</p>
-                    <p class="weixin-item-button">*@
-                <a href="http://mp.weixin.qq.com/wiki/index.php?title=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E6%8C%87%E5%8D%97" class="application" target="_blank">微信官方API</a>
-            </p>
-        </div>
-        <div class="clear"></div>
-
+<br />
+<div class="panel panel-default panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">功能介绍</h3>
     </div>
-    <div class="content-weixin">
-        <div class="weixin-item">
-            <p class="weixin-item-title">关注官方微信 进行互动测试</p>
-            <img class="official-img" src="/images/v2/ewm_01.png" alt="微信SDK" />
-        </div>
-        <div class="clear"></div>
-        <table class="tbVersion">
+    <div class="panel-body">
+        <p>目前本公众平台已支持微信6.x API中所有接口，以及 <strong>微信小程序</strong><a href="https://travis-ci.org/JeffreySu/WeiXinMPSDK" target="_blank"></a></p>
+    </div>
+    <table class="table table-bordered table-condensed table-hover table-responsive table-striped">
+        <thead>
             <tr>
-                <td>运行中的缓存框架：@TempData["CacheStrategy"]</td>
-                <td>@Html.ActionLink("测试", "Test", "Cache", null, new { @class = "sdk-version" })</td>
+                <th class="text-center">#</th>
+                <th class="text-center">功能模块</th>
+                <th class="text-center">Nuget 文件名</th>
+                <th class="text-center">Nuget 版本</th>
+                <th class="text-center">当前站点运行版本</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-right">1</td>
+                <td>SDK 公共基础库</td>
+                <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin" target="_blank">Senparc.Weixin.dll</a></td>
+                <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin" target="_blank"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat" /></a></td>
+                <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">本地版本号：@(TempData["WeixinVersion"])</a></td>
             </tr>
             <tr>
-                <td>最新文档版本（MP）：v@(TempData["NewestDocumentVersion"])</td>
-                <td>@Html.ActionLink("下载", "Index", "Document", null, new { @class = "sdk-version" })</td>
+                <td class="text-right">2</td>
+                <td>公众号,微信支付,JSSDK,摇一摇周边</td>
+                <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">Senparc.Weixin.MP.dll</a></td>
+                <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.MP.svg?style=flat" /></a></td>
+                <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">本地版本号：@(TempData["MpVersion"])</a></td>
             </tr>
-
             <tr>
-                <td>GitHub 源码：<img src="https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master"></td>
-                <td>
-                    <a href="https://github.com/JeffreySu/WeiXinMPSDK" class="sdk-version" target="_blank">
-                        查看
+                <td class="text-right">3</td>
+                <td>开放平台 SDK</td>
+                <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.Open" target="_blank">Senparc.Weixin.Open.dll</a></td>
+                <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.Open" target="_blank"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.Open.svg?style=flat" /></a></td>
+                <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">本地版本号：@(TempData["OpenVersion"])</a></td>
+            </tr>
+            <tr>
+                <td class="text-right">4</td>
+                <td>企业号 SDK</td>
+                <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.QY" target="_blank">Senparc.Weixin.QY.dll</a></td>
+                <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.QY" target="_blank"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.QY.svg?style=flat" /></a></td>
+                <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">本地版本号：@(TempData["QYVersion"])</a></td>
+            </tr>
+            <tr>
+                <td class="text-right">5</td>
+                <td>MVC扩展插件</td>
+                <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP.MVC" target="_blank">Senparc.Weixin.MP.MvcExtentsion.dll</a></td>
+                <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP.MVC" target="_blank"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.MP.Mvc.svg?style=flat" /></a></td>
+                <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">本地版本号：@(TempData["ExtensionVersion"])</a></td>
+            </tr>
+            <tr>
+                <td class="text-right">6</td>
+                <td>Redis 缓存</td>
+                <td><a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Redis" target="_blank">Senparc.Weixin.Cached.Redis.dll</a></td>
+                <td><a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Redis" target="_blank"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.Cache.Redis.svg?style=flat" /></a></td>
+                <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">本地版本号：@(TempData["RedisCacheVersion"])</a></td>
+            </tr>
+            <tr>
+                <td class="text-right">7</td>
+                <td>Memcached 缓存</td>
+                <td><a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Memcached" target="_blank">Senparc.Weixin.Cached.Memcached.dll</a></td>
+                <td><a class="sdk-version" href="#https://www.nuget.org/packages/Senparc.Weixin.Cached.Memcached" target="_blank"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.Cache.Memcached.svg?style=flat" /></a></td>
+                <td><a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">本地版本号：@(TempData["MemcachedCacheVersion"])</a></td>
+            </tr>
+    </table>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">文本信息</h3>
+            </div>
+            <div class="panel-body">
+                <div class="media">
+                    <a class="media-left" href="#">
+                        <img src="~/images/icon_01.png" alt="文本信息测试">
                     </a>
-                </td>
-            </tr>
-
-        </table>
-        <div class="clear"></div>
-    </div>
-    <div class="clear"></div>
-    <div class="line"></div>
-    <div class="test">
-        <table>
-            <tr>
-                <td>
-                    <div class="test-item">
-                        <img src="/images/v2/icon_01.png" />
-                        <p class="item-title">文本测试</p>
-                        <p class="item-content">随意输入文本信息，系统将自动回复一条包含原文的文本信息。如果连续发送多条信息，系统会自动记录通讯上的下文，知道超过规定时间记录自动清空。</p>
+                    <div class="media-body">
+                        <h4 class="media-heading">文本信息</h4>
+                        随意输入文本信息，系统将自动回复一条包含原文的文本信息。如果连续发送多条信息，系统会自动记录通讯上的下文，知道超过规定时间记录自动清空。
                     </div>
-                </td>
-                <td>
-                    <div class="test-item">
-                        <img src="/images/v2/icon_02.png" />
-                        <p class="item-title">位置测试</p>
-                        <p class="item-content">发送一条位置信息，系统将自动回复详细的位置信息图片数据及一条图文链接。</p>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="test-item">
-                        <img src="/images/v2/icon_03.png" />
-                        <p class="item-title">图片测试</p>
-                        <p class="item-content">发送一张图片，系统将自动回复一天带链接的图文信息。</p>
-                    </div>
-                </td>
-                <td>
-                    <div class="test-item">
-                        <img src="/images/v2/icon_04.png" />
-                        <p class="item-title">语音测试</p>
-                        <p class="item-content">发送一条语音信息，系统将自动回复一条音乐格式信息。</p>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="test-item">
-                        <img src="/images/v2/icon_05.png" />
-                        <p class="item-title">视频测试</p>
-                        <p class="item-content">发送一条视频信息，系统将自动回复一条带有视频ID的信息。</p>
-                    </div>
-                </td>
-                <td>
-                    <div class="test-item">
-                        <img src="/images/v2/icon_06.png" />
-                        <p class="item-title">订阅测试</p>
-                        <p class="item-content">订阅（关注）账号的第一时间，系统将发送一条欢迎信息（等同于之前的Hello2BizUser）</p>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="test-item">
-                        <img src="/images/v2/icon_07.png" />
-                        <p class="item-title">客服端约束测试</p>
-                        <p class="item-content">发送文字信息【约束】，进行测试。</p>
-                    </div>
-                </td>
-                <td>
-                    <div class="test-item">
-                        <img src="/images/v2/icon_08.png" />
-                        <p class="item-title">自定义菜单测试</p>
-                        <p class="item-content">点击自定菜单进行测试</p>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="test-item">
-                        <img src="/images/v2/icon_09.png" />
-                        <p class="item-title">代理+托管测试</p>
-                        <p class="item-content">1.发送文字信息【代理】或【托管】，或点击菜单【功能体验】【托管】，服务器将从其他微信平台获取“代理”或“托管”文字请求的结果。2.点击菜单【功能体验】>【会员消息】，查看自己的会员信息（来自另外一台 WeiWeiHi 服务器的微信会员系统）</p>
-                    </div>
-                </td>
-                <td>
-                    <div class="test-item">
-                        <img src="/images/v2/icon_12.png" />
-                        <p class="item-title">微信支付测试</p>
-                        <p class="item-content">点击菜单【功能体验】 【微信支付】，体验微信支付整个过程。</p>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="test-item">
-                        <img src="/images/v2/icon_13.png" />
-                        <p class="item-title">微信弹出拍照或相册测试</p>
-                        <p class="item-content">点击菜单【二级菜单】 【拍照或相册】，弹出拍照或从相框选择对话框，发送图片。</p>
-                    </div>
-                </td>
-                <td>
-                    <div class="test-item">
-                        <img src="/images/v2/icon_14.png" />
-                        <p class="item-title">微信扫码测试</p>
-                        <p class="item-content">点击菜单【二级菜单】 【微信扫码】，进入微信扫码界面。</p>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="line"></div>
-    <div class="weixin-weiweihi">
-        <div class="weixin-item">
-            <div class="weixin-item-content">
-                <p class="weixin-item-title">基于 Senparc SDK 开发的“微微嗨云平台”</p>
-                <p class="weixin-item-font">“微微嗨云平台”是在 Senparc.Weixin.MP + Open + Redis 等模块的基础上研发的实时场景互动平台，为各类会议、活动、婚庆、教育等不同场景提供组织管理及多屏实时互动服务。欢迎体验！</p>
-                @*<a href="http://www.weiweihi.com/AgentApply" class="application" target="_blank">申请成为微微嗨代理</a>*@
+                </div>
             </div>
-            <div class="weixin-item-img">
-                <img src="/images/v2/ewm_02.png" width="250" />
-            </div>
-            <a href="javascript:;"></a>
         </div>
-        <div class="clear"></div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">位置信息</h3>
+            </div>
+            <div class="panel-body">
+                <div class="media">
+                    <a class="media-left" href="#">
+                        <img src="~/images/icon_02.png" alt="位置信息测试">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">位置信息</h4>
+                        发送一条位置信息，系统将自动回复详细的位置信息图片数据及一条图文链接。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">图片信息</h3>
+            </div>
+            <div class="panel-body">
+                <div class="media">
+                    <a class="media-left" href="#">
+                        <img src="~/images/icon_03.png" alt="图片信息测试">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">图片信息</h4>
+                        发送一张图片，系统将自动回复一条带链接的图文信息。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">语音信息</h3>
+            </div>
+            <div class="panel-body">
+                <div class="media">
+                    <a class="media-left" href="#">
+                        <img src="~/images/icon_04.png" alt="语音信息测试">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">语音信息</h4>
+                        发送一条语音信息，系统将自动回复一条音乐格式信息。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">视频信息</h3>
+            </div>
+            <div class="panel-body">
+                <div class="media">
+                    <a class="media-left" href="#">
+                        <img src="~/images/icon_05.png" alt="视频信息测试">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">视频信息</h4>
+                        发送一条视频信息，系统将自动回复一条带有视频ID的信息。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">订阅信息</h3>
+            </div>
+            <div class="panel-body">
+                <div class="media">
+                    <a class="media-left" href="#">
+                        <img src="~/images/icon_06.png" alt="订阅信息测试">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">订阅信息</h4>
+                        订阅（关注）账号的第一时间，系统将发送一条欢迎信息（等同于之前的Hello2BizUser）
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">客服端约束信息</h3>
+            </div>
+            <div class="panel-body">
+                <div class="media">
+                    <a class="media-left" href="#">
+                        <img src="~/images/icon_07.png" alt="客服端约束信息测试">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">客服端约束信息</h4>
+                        发送文字信息【约束】，进行测试。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">自定义菜单</h3>
+            </div>
+            <div class="panel-body">
+                <div class="media">
+                    <a class="media-left" href="#">
+                        <img src="~/images/icon_08.png" alt="自定义菜单测试">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">自定义菜单</h4>
+                        点击自定菜单进行测试。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">代理+托管</h3>
+            </div>
+            <div class="panel-body">
+                <div class="media">
+                    <a class="media-left" href="#">
+                        <img src="~/images/icon_09.png" alt="代理+托管测试">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">代理+托管</h4>
+                        1.发送文字信息【代理】或【托管】，或点击菜单【功能体验】【托管】，服务器将从其他微信平台获取“代理”或“托管”文字请求的结果。2.点击菜单【功能体验】>【会员消息】，查看自己的会员信息（来自另外一台 WeiWeiHi 服务器的微信会员系统）
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">微信支付</h3>
+            </div>
+            <div class="panel-body">
+                <div class="media">
+                    <a class="media-left" href="#">
+                        <img src="~/images/icon_12.png" alt="微信支付测试">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">微信支付</h4>
+                        点击菜单【功能体验】 【微信支付】，体验微信支付整个过程。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">微信弹出拍照或相册</h3>
+            </div>
+            <div class="panel-body">
+                <div class="media">
+                    <a class="media-left" href="#">
+                        <img src="~/images/icon_13.png" alt="微信弹出拍照或相册测试">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">微信弹出拍照或相册</h4>
+                        点击菜单【二级菜单】 【拍照或相册】，弹出拍照或从相框选择对话框，发送图片。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">微信扫码</h3>
+            </div>
+            <div class="panel-body">
+                <div class="media">
+                    <a class="media-left" href="#">
+                        <img src="~/images/icon_14.png" alt="微信扫码测试">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">微信扫码</h4>
+                        点击菜单【二级菜单】 【微信扫码】，进入微信扫码界面。
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

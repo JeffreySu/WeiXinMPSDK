@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
     <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -51,8 +51,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Enyim.Caching, Version=2.11.0.0, Culture=neutral, PublicKeyToken=cec98615db04012e, processorArchitecture=MSIL">
-      <HintPath>..\..\Senparc.Weixin.MP.Sample\packages\Membase.2.14\lib\net35\Enyim.Caching.dll</HintPath>
+    <Reference Include="Enyim.Caching, Version=2.16.0.0, Culture=neutral, PublicKeyToken=cec98615db04012e, processorArchitecture=MSIL">
+      <HintPath>..\..\Senparc.Weixin.MP.Sample\packages\EnyimMemcached.2.16.0\lib\net35\Enyim.Caching.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Enyim.Caching.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

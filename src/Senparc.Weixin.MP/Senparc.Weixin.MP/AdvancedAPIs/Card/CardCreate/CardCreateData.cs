@@ -228,6 +228,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// <summary>
         /// 会员信息类目名称。FIELD_NAME_TYPE_LEVEL等级；FIELD_NAME_TYPE_COUPON优惠券；FIELD_NAME_TYPE_STAMP印花；FIELD_NAME_TYPE_DISCOUNT折扣；FIELD_NAME_TYPE_ACHIEVEMEN成就；FIELD_NAME_TYPE_MILEAGE里程。
         /// </summary>
+        [JsonSetting.EnumString]
         public MemberCard_CustomField_NameType name_type { get; set; }
         /// <summary>
         /// 点击类目跳转外链url

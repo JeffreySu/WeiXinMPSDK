@@ -130,7 +130,9 @@ namespace Senparc.Weixin.Helpers
                 //排除的属性
                 bool excludedProp = propertyInfo.IsDefined(typeof(JsonSetting.ExcludedAttribute), true);
                 if (excludedProp)
+                {
                     result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null));
+                }
                 else
                 {
                     if (!this._jsonSetting.PropertiesToIgnore.Contains(propertyInfo.Name))
@@ -150,11 +152,14 @@ namespace Senparc.Weixin.Helpers
 
                         JsonSetting.EnumStringAttribute enumStringAttri = propertyInfo.GetCustomAttribute<JsonSetting.EnumStringAttribute>();
                         if (enumStringAttri != null)
-                        {   //枚举类型显示字符串
+                        {
+                            //枚举类型显示字符串
                             result.Add(propertyInfo.Name, propertyInfo.GetValue(obj).ToString());
                         }
                         else
+                        {
                             result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null));
+                        }
                     }
                 }
             }

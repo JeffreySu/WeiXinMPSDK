@@ -109,7 +109,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 			this.TimeOut = 1 * 60;//5分钟
 
 			this.ResponseCode = 0;
-			this.Charset = "gb2312";
+			//this.Charset = "gb2312";
 			this.Charset = "936";
 
         }

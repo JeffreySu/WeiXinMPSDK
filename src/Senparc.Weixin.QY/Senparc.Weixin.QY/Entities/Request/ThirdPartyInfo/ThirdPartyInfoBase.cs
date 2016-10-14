@@ -23,7 +23,10 @@ namespace Senparc.Weixin.QY.Entities
     public abstract class ThirdPartyInfoBase : RequestMessageBase, IThirdPartyInfoBase
     {
         #region 以下内容为第三方应用授权回调消息服务
-        public virtual ThirdPartyInfo InfoType => ThirdPartyInfo.Unkonwn;
+        public virtual ThirdPartyInfo InfoType
+        {
+            get { return ThirdPartyInfo.Unkonwn; }
+        }
 
         /// <summary>
         /// 应用套件的SuiteId

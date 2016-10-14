@@ -100,7 +100,7 @@ namespace Senparc.Weixin.Helpers
         {
             get
             {
-                var typeList = new List<Type>(new[] { typeof(IJsonIgnoreNull)/*,typeof(JsonIgnoreNull)*/ });
+                var typeList = new List<Type>(new[] { typeof(IJsonIgnoreNull),typeof(IJsonEnumString)/*,typeof(JsonIgnoreNull)*/ });
 
                 if (_jsonSetting.TypesToIgnore.Count > 0)
                 {

@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20161015
+    修改描述：修改GB2312编码为936
 ----------------------------------------------------------------*/
 
 using System;
@@ -67,9 +70,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         protected string Content;
 
-        private string Charset = "gb2312";
+        //private string Charset = "gb2312";
+        private string Charset = "936";
 
-		protected HttpContext HttpContext;
+        protected HttpContext HttpContext;
 
         /// <summary>
         /// 初始化函数

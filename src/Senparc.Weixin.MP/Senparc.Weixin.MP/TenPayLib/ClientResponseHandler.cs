@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2016 Senparc
+    
+    文件名：ClientResponseHandler.cs
+    文件功能描述：获取大写的MD5签名结果
+    
+    
+    创建标识：Senparc - 20160801
+    
+    修改标识：Senparc - 20161015
+    修改描述：修改GB2312编码为936
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections;
 using System.Text;
 using System.Xml;
@@ -43,7 +56,8 @@ namespace Senparc.Weixin.MP.TenPayLib
         /// </summary>
         protected string Content;
 
-        private string Charset = "gb2312";
+        //private string Charset = "gb2312";
+        private string Charset = "936";
 
 
         /// <summary>

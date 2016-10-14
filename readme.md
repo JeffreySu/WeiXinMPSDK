@@ -414,7 +414,7 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
 
 资金捐助：
 
-[![donate]](http://sdk.weixin.senparc.com/)
+[![donate]](http://sdk.weixin.senparc.com#donate)
 [donate]: http://sdk.weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png
 
 

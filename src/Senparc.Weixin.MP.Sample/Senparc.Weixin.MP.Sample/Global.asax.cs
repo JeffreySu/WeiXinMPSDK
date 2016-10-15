@@ -54,6 +54,7 @@ namespace Senparc.Weixin.MP.Sample
         {
             //如果留空，默认为localhost（默认端口）
 
+            #region  Redis配置
             var redisConfiguration = System.Configuration.ConfigurationManager.AppSettings["Cache_Redis_Configuration"];
             RedisManager.ConfigurationOption = redisConfiguration;
 
@@ -63,6 +64,19 @@ namespace Senparc.Weixin.MP.Sample
             {
                 CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
             }
+            #endregion
+
+            #region Memcached 配置
+
+            var memcachedConfig = new Dictionary<string, int>()
+            {
+                { "localhost",9101 }
+            };
+            MemcachedContainerStrategy.RegisterServerList(memcachedConfig);
+
+
+            #endregion
+
             //CacheStrategyFactory.RegisterContainerCacheStrategy(() => MemcachedContainerStrategy.Instance);//Memcached
         }
 

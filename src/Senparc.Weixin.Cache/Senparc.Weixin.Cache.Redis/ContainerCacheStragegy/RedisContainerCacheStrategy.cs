@@ -130,7 +130,7 @@ namespace Senparc.Weixin.Cache.Redis
             var hashKeyAndField = new HashKeyAndField()
             {
                 Key = finalFullKey.Substring(0, index),
-                Field = finalFullKey.Substring(index + 1/*排除:号*/, finalFullKey.Length - index)
+                Field = finalFullKey.Substring(index + 1/*排除:号*/, finalFullKey.Length - index - 1)
             };
             return hashKeyAndField;
         }
@@ -201,13 +201,16 @@ namespace Senparc.Weixin.Cache.Redis
             //}
 
             #endregion
-            var key = ContainerHelper.GetItemCacheKey(typeof(TBag), "");
+
+            var key = ContainerHelper.GetItemCacheKey(typeof (TBag), "");
+            key = key.Substring(0, key.Length - 1);//去掉:号
+            key = GetFinalKey(key);//获取带SenparcWeixin:DefaultCache:前缀的Key（[DefaultCache]可配置）
             var list = _cache.HashGetAll(key);
             var dic = new Dictionary<string, TBag>();
 
             foreach (var hashEntry in list)
             {
-                var fullKey = GetFinalKey(key+":"+ hashEntry.Name);//还原完整Key
+                var fullKey = key + ":" + hashEntry.Name;//最完整的finalKey（可用于LocalCache），还原完整Key，格式：[命名空间]:[Key]
                 dic[fullKey] = StackExchangeRedisExtensions.Deserialize<TBag>(hashEntry.Value);
             }
 

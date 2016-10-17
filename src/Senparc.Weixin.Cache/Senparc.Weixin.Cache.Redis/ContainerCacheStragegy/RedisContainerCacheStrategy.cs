@@ -130,7 +130,7 @@ namespace Senparc.Weixin.Cache.Redis
             var hashKeyAndField = new HashKeyAndField()
             {
                 Key = finalFullKey.Substring(0, index),
-                Field = finalFullKey.Substring(index, finalFullKey.Length - index)
+                Field = finalFullKey.Substring(index + 1/*排除:号*/, finalFullKey.Length - index)
             };
             return hashKeyAndField;
         }
@@ -178,26 +178,39 @@ namespace Senparc.Weixin.Cache.Redis
 
         public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
         {
-            var itemCacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag), "*");
+            #region 旧方法（没有使用Hash之前）
 
-            //var keyPattern = string.Format("*{0}", itemCacheKey);
-            var keyPattern = GetFinalKey(itemCacheKey);
+            //var itemCacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag), "*");   
+            ////var keyPattern = string.Format("*{0}", itemCacheKey);
+            //var keyPattern = GetFinalKey(itemCacheKey);
 
-            var keys = GetServer().Keys(pattern: keyPattern);
+            //var keys = GetServer().Keys(pattern: keyPattern);
+            //var dic = new Dictionary<string, TBag>();
+            //foreach (var redisKey in keys)
+            //{
+            //    try
+            //    {
+            //        var bag = Get(redisKey, true);
+            //        dic[redisKey] = (TBag)bag;
+            //    }
+            //    catch (Exception)
+            //    {
+
+            //    }
+
+            //}
+
+            #endregion
+            var key = ContainerHelper.GetItemCacheKey(typeof(TBag), "");
+            var list = _cache.HashGetAll(key);
             var dic = new Dictionary<string, TBag>();
-            foreach (var redisKey in keys)
+
+            foreach (var hashEntry in list)
             {
-                try
-                {
-                    var bag = Get(redisKey, true);
-                    dic[redisKey] = (TBag)bag;
-                }
-                catch (Exception)
-                {
-
-                }
-
+                var fullKey = GetFinalKey(key+":"+ hashEntry.Name);//还原完整Key
+                dic[fullKey] = StackExchangeRedisExtensions.Deserialize<TBag>(hashEntry.Value);
             }
+
             return dic;
         }
 

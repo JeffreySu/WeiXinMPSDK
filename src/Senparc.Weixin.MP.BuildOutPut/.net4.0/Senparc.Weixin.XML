@@ -9,6 +9,24 @@
             泛型缓存策略基类
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.Cache.BaseCacheStrategy.GetFinalKey(System.String,System.Boolean)">
+            <summary>
+            获取拼装后的FinalKey
+            </summary>
+            <param name="key"></param>
+            <param name="isFullKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.BaseCacheStrategy.BeginCacheLock(System.String,System.String,System.Int32,System.TimeSpan)">
+            <summary>
+            获取一个同步锁
+            </summary>
+            <param name="resourceName"></param>
+            <param name="key"></param>
+            <param name="retryCount"></param>
+            <param name="retryDelay"></param>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.Cache.IContainerCacheStragegy">
             <summary>
             容器缓存策略接口
@@ -547,6 +565,11 @@
         <member name="T:Senparc.Weixin.Entities.IJsonIgnoreNull">
             <summary>
             生成JSON时忽略NULL对象
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Entities.IJsonEnumString">
+            <summary>
+            类中有枚举在序列化的时候，需要转成字符串
             </summary>
         </member>
         <member name="T:Senparc.Weixin.Entities.QyJsonResult">

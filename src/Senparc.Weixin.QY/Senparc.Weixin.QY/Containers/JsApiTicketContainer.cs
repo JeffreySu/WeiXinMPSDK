@@ -33,6 +33,9 @@
     
     修改标识：Senparc - 20160813
     修改描述：v4.1.8 修改命名空间为Senparc.Weixin.QY.Containers
+
+    修改标识：Senparc - 20161003
+    修改描述：v4.1.11 修复GetTicketResult()方法中的CheckRegistered()参数错误（少了appSecret）
 ----------------------------------------------------------------*/
 
 using System;
@@ -166,7 +169,7 @@ namespace Senparc.Weixin.QY.Containers
         /// <returns></returns>
         public static JsApiTicketResult GetTicketResult(string appId,string appSecret, bool getNewTicket = false)
         {
-            if (!CheckRegistered(appId))
+            if (!CheckRegistered(BuildingKey(appId, appSecret)))
             {
                 throw new WeixinQyException(UN_REGISTER_ALERT);
             }

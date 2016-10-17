@@ -13,7 +13,10 @@
     修改标识：Senparc - 20160812
     修改描述：v0.0.3  解决Container无法注册的问题
 
- ----------------------------------------------------------------*/
+    修改标识：Senparc - 20160812
+    修改描述：v0.0.5  添加ServerList配制方法
+
+    ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
@@ -34,6 +37,15 @@ namespace Senparc.Weixin.Cache.Memcached
         internal MemcachedClient _cache;
         private MemcachedClientConfiguration _config;
         private static Dictionary<string, int> _serverlist;// = SiteConfig.MemcachedAddresss; TODO:全局注册配置
+
+        /// <summary>
+        /// 注册列表
+        /// </summary>
+        /// <param name="serverlist">Key：服务器地址（通常为IP），Value：端口</param>
+        public static void RegisterServerList(Dictionary<string, int> serverlist)
+        {
+            _serverlist = serverlist;
+        }
 
         #region 单例
 

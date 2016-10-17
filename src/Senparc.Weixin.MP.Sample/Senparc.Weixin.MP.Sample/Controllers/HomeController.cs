@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
 
             throw new Exception("出错测试，使用Elmah保存错误结果(2)");
-            return View();
+            //return View();
         }
 
 

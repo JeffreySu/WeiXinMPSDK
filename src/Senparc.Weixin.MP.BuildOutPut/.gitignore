@@ -2,6 +2,7 @@
 
 *.dll
 *.xml
+*.XML
 *.pdb
 *.[pdb]
 

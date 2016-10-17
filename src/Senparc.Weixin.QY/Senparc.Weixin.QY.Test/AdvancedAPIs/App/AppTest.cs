@@ -21,7 +21,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         [TestMethod]
         public void GetAppInfoTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = AppApi.GetAppInfo(accessToken, 2);
 
             Assert.IsNotNull(result.agentid);
@@ -31,7 +31,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         [TestMethod]
         public void SetAppTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
 
             SetAppPostData date = new SetAppPostData()
                 {

@@ -19,7 +19,7 @@ namespace Senparc.Weixin.QY.Test.CommonApis
         public void CreateMenuTest()
         {
 
-            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var accessToken = AccessTokenContainer.GetToken(_corpId, _corpSecret);
 
             ButtonGroup bg = new ButtonGroup();
 
@@ -75,7 +75,7 @@ namespace Senparc.Weixin.QY.Test.CommonApis
         public void GetMenuTest()
         {
             //return;//已经通过测试
-            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var accessToken = AccessTokenContainer.GetToken(_corpId, _corpSecret);
 
             var result = CommonApi.GetMenu(accessToken, _agentId);
 
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.QY.Test.CommonApis
         [TestMethod]
         public void DeleteMenuTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var accessToken = AccessTokenContainer.GetToken(_corpId, _corpSecret);
 
             var result = CommonApi.DeleteMenu(accessToken, _agentId);
             Assert.IsNotNull(result);

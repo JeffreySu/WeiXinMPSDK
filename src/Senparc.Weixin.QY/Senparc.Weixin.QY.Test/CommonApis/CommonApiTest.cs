@@ -100,7 +100,7 @@ namespace Senparc.Weixin.QY.Test.CommonApis
         [TestMethod]
         public void GetCallBackIpTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var accessToken = AccessTokenContainer.GetToken(_corpId, _corpSecret);
 
             var result = CommonApi.GetCallBackIp(accessToken);
             Assert.IsNotNull(result);

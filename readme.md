@@ -1,12 +1,37 @@
+插播：微信小程序目录
+===================
+[https://github.com/JeffreySu/WeiXinMPSDK/tree/master/微信小程序](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/微信小程序)
+
+# 目录
+* [微信C# SDK](#微信c-sdk--)
+* [贡献代码](#贡献代码)
+* [如何使用.net core开发](#如何使用net-core开发)
+* [资源](#资源)
+* [关注测试账号（SenparcRobot）](#关注测试账号senparcrobot)
+* [项目文件夹说明（src文件夹下）](#项目文件夹说明src文件夹下)
+* [Senparc.Weixin.MP.Sample中的关键代码说明](#senparcweixinmpsample中的关键代码说明)
+    * [/Controllers/WeixinController.cs](#controllersweixincontrollercs)
+    * [如何处理微信公众账号请求？](#如何处理微信公众账号请求)
+* [使用Nuget安装到项目中](#使用nuget安装到项目中)
+    * [如何处理微信公众号请求？](#如何处理微信公众号请求)
+    * [如何增强 ASP.NET MVC 项目的功能？](#如何增强-aspnet-mvc-项目的功能)
+    * [如何处理微信企业号请求？](#如何处理微信企业号请求)
+    * [如何处理微开放平台请求？](#如何处理微开放平台请求)
+    * [如何使用分布式缓存？](#如何使用分布式缓存)
+* [已实现功能](#已实现功能)
+* [捐助](#捐助)
+* [图书众筹](#图书众筹)
+* [License](#license)
+
+
+
 微信C# SDK  [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
 =================
-
-> .NET Framework 版本及 .NET Core 版本代码分别位于 [master](https://github.com/JeffreySu/WeiXinMPSDK) 和 [DotNET-Core](https://github.com/JeffreySu/WeiXinMPSDK/tree/DotNET-Core) 分支下，结构基本保持一致，以下介绍以 .NET Framework 版本为例。
 
 | # | 模块功能                                            | DLL                               | Nuget                                       |
 |---|----------------------------------------------------|-----------------------------------|---------------------------------------------|
 | 1| 基础库                                               |Senparc.Weixin.dll                 | [![Senparc.Weixin][1.1]][1.2]               |
-| 2| 微信公众号 / 小应用 / 微信支付 / JSSDK / 摇周边 / 等等 |Senparc.Weixin.MP.dll              | [![Senparc.Weixin.MP][2.1]][2.2]            |
+| 2| 微信公众号 / 小程序 / 微信支付 / JSSDK / 摇周边 / 等等 |Senparc.Weixin.MP.dll              | [![Senparc.Weixin.MP][2.1]][2.2]            |
 | 3| ASP.NET MVC 扩展                                     |Senparc.Weixin.MP.MVC.dll          | [![Senparc.Weixin.MP.MVC][3.1]][3.2]        |
 | 4| 微信企业号                                           |Senparc.Weixin.QY.dll              | [![Senparc.Weixin.QY][4.1]][4.2]            |
 | 5| 微信开放平台                                         |Senparc.Weixin.Open.dll            | [![Senparc.Weixin.Open][5.1]][5.2]          |
@@ -39,6 +64,20 @@
 
 目前官方的API都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的[DLLs](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut)。
 
+## 如何使用.NET Core开发
+
+> .NET Framework 版本及 .NET Core 版本代码分别位于 
+[master](https://github.com/JeffreySu/WeiXinMPSDK) 
+和 [DotNET-Core](https://github.com/JeffreySu/WeiXinMPSDK/tree/DotNET-Core) 分支下，
+结构保持了高度一致。
+
+> Senparc.Weixin SDK已经针对.NET Core进行了优化，.NET Core 的开发过程和.NET Framework几乎是一样的，
+所有的接口、方法、命名规则和架构设计也都保持了高度的一致。
+
+> 由于.NET Core对某些特性支持正在完善中，目前SDK暂未提供分布式缓存有关的功能以及Senpar.Weixin.Open.dll。
+除此以外的所有库都已在Nuget包中支持，可以直接使用（同一个Nuget包同时支持.NET 4.0/4.5/Core，安装后程序会自动根据项目环境适配）。
+
+> 以下介绍以 .NET Framework 版本为例。
 
 ## 贡献代码
 
@@ -63,15 +102,15 @@
 9. 源代码及最新更新：https://github.com/JeffreySu/WeiXinMPSDK
 10. 微信开发资源集合：https://github.com/JeffreySu/WeixinResource
 
-* 技术交流QQ群（目前未满可加：3群，其他群均已满）：
+* 技术交流QQ群（目前未满可加：`3群`、`12群`，其他群均已满）：
 
-> 1群：300313885，2群：293958349，3群：342319110，4群：372212092，5群：377815480
+> 1群：300313885，2群：293958349，*`3群：342319110`*，4群：372212092，5群：377815480
 
 > 6群：425898825，7群：482942254，8群：106230270，9群：539061281，11群：553198593
 
 > 10群（Redis / Memcached 分布式缓存群）：只加已经在使用的开发者。发送申请及截图至 zsu@senparc.com 或QQ：498977166，标题：Senparc.Weixin.Cache 加群申请
 
-> 
+> *`12群（微信小程序）：108830388`*
 
 * 业务联系QQ：498977166
 
@@ -80,7 +119,8 @@
 如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！
 
 
-资金捐助： [进入主页](http://weixin.senparc.com)
+资金捐助：[进入](http://sdk.weixin.senparc.com#donate)
+
 
 ###关注测试账号（SenparcRobot）：
 [![qrcode]](http://weixin.senparc.com/)
@@ -374,7 +414,7 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
 
 资金捐助：
 
-[![donate]](http://sdk.weixin.senparc.com/)
+[![donate]](http://sdk.weixin.senparc.com#donate)
 [donate]: http://sdk.weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png
 
 

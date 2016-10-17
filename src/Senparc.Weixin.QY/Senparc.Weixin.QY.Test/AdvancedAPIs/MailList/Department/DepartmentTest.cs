@@ -20,7 +20,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         //[TestMethod]
         public int CreateDepartmentTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MailListApi.CreateDepartment(accessToken, "test", 1, id: 3);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.id > 0);
@@ -30,7 +30,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         //[TestMethod]
         public void UpdateDepartmentTest(string id)
         {
-            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MailListApi.UpdateDepartment(accessToken, id, "更新test", 1);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode ==ReturnCode_QY.请求成功);
@@ -39,7 +39,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         //[TestMethod]
         public void DeleteDepartmentTest(string id)
         {
-            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MailListApi.DeleteDepartment(accessToken, id);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
@@ -48,7 +48,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         //[TestMethod]
         public void GetDepartmentListTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MailListApi.GetDepartmentList(accessToken, 4);
             var result1 = MailListApi.GetDepartmentList(accessToken);
             Assert.IsNotNull(result);

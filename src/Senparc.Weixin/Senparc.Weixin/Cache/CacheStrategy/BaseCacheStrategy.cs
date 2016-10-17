@@ -20,11 +20,25 @@ namespace Senparc.Weixin.Cache
     /// </summary>
     public abstract class BaseCacheStrategy : IBaseCacheStrategy
     {
+        /// <summary>
+        /// 获取拼装后的FinalKey
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="isFullKey"></param>
+        /// <returns></returns>
         public string GetFinalKey(string key, bool isFullKey = false)
         {
             return isFullKey ? key : String.Format("SenparcWeixin:{0}:{1}", Config.DefaultCacheNamespace, key);
         }
 
+        /// <summary>
+        /// 获取一个同步锁
+        /// </summary>
+        /// <param name="resourceName"></param>
+        /// <param name="key"></param>
+        /// <param name="retryCount"></param>
+        /// <param name="retryDelay"></param>
+        /// <returns></returns>
         public abstract ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan());
     }
 }

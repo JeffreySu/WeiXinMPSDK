@@ -6,6 +6,10 @@
     
     
     创建标识：Senparc - 20150722
+
+    修改标识：Senparc - 20161014
+    修改描述：修改TenPayUtil.BuildRandomStr()方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -128,7 +132,7 @@ namespace Senparc.Weixin.QY.TenPayLib
                 int n = length - str.Length;
                 while (n > 0)
                 {
-                    str.Insert(0, "0");
+                    str = str.Insert(0, "0");
                     n--;
                 }
             }

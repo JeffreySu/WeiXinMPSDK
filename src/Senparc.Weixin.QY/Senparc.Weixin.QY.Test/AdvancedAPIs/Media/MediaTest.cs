@@ -22,7 +22,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public void UploadVideoTest()
         {
             string _media = "E:\\test2.mp4";
-            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MediaApi.Upload(accessToken, UploadMediaFileType.video, _media);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
@@ -32,7 +32,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public string UploadImageTest()
         {
             string _media = "E:\\1.jpg";
-            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MediaApi.Upload(accessToken, UploadMediaFileType.image, _media);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
@@ -43,7 +43,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         public void GetImageTest()
         {
             string mediaId = UploadImageTest();
-            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
 
             using (MemoryStream ms = new MemoryStream())
             {
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         [TestMethod]
         public void BatchGetMaterialTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_corpId);
+            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MediaApi.BatchGetMaterial(accessToken, UploadMediaFileType.image, 0, 0, 50);
             Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
         }

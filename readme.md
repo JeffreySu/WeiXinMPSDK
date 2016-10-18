@@ -77,7 +77,7 @@
 > 由于.NET Core对某些特性支持正在完善中，目前.NET Core版本暂未提供分布式缓存有关的功能以及Senpar.Weixin.Open.dll。
 除此以外的所有库都已在Nuget包中支持，可以直接使用（同一个Nuget包同时支持.NET 4.0/4.5/Core，安装后程序会自动根据项目环境适配）。
 
-> 以下介绍以 .NET Framework 版本为例。
+> 以下所有介绍以 .NET Framework 版本为例。
 
 ## 贡献代码
 

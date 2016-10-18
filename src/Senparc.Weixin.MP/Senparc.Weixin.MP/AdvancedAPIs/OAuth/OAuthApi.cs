@@ -57,10 +57,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取AccessToken
         /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="secret"></param>
+        /// <param name="appId">公众号的唯一标识</param>
+        /// <param name="secret">公众号的appsecret</param>
         /// <param name="code">code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。</param>
-        /// <param name="grantType"></param>
+        /// <param name="grantType">填写为authorization_code（请保持默认参数）</param>
         /// <returns></returns>
         public static OAuthAccessTokenResult GetAccessToken(string appId, string secret, string code, string grantType = "authorization_code")
         {

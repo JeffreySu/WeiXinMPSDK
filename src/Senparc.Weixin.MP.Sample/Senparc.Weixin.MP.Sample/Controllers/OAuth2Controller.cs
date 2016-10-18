@@ -24,14 +24,26 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     public class OAuth2Controller : Controller
     {
         //下面换成账号对应的信息，也可以放入web.config等地方方便配置和更换
-        private string appId = ConfigurationManager.AppSettings["TenPayV3_AppId"];
-        private string secret = ConfigurationManager.AppSettings["TenPayV3_AppSecret"];
+        private string appId = ConfigurationManager.AppSettings["WeixinAppId"];
+        private string secret = ConfigurationManager.AppSettings["WeixinAppSecret"];
+
+        public ActionResult Redirect()
+        {
+            var state = "JeffreySu-" + DateTime.Now.Millisecond;
+            Session["State"] = state;
+
+            var url = OAuthApi.GetAuthorizeUrl(appId, "http://sdk.weixin.senparc.com/oauth2/UserInfoCallback", state, OAuthScope.snsapi_userinfo);
+            return Redirect(url);
+        }
 
         public ActionResult Index()
         {
+            var state = "JeffreySu-" + DateTime.Now.Millisecond;//随机数，用于识别请求可靠性
+            Session["State"] = state;//储存随机数到Session
+
             //此页面引导用户点击授权
-            ViewData["UrlUserInfo"] = OAuthApi.GetAuthorizeUrl(appId, "http://sdk.weixin.senparc.com/oauth2/UserInfoCallback", "JeffreySu", OAuthScope.snsapi_userinfo);
-            ViewData["UrlBase"] = OAuthApi.GetAuthorizeUrl(appId, "http://sdk.weixin.senparc.com/oauth2/BaseCallback", "JeffreySu", OAuthScope.snsapi_base);
+            ViewData["UrlUserInfo"] = OAuthApi.GetAuthorizeUrl(appId, "http://sdk.weixin.senparc.com/oauth2/UserInfoCallback", state, OAuthScope.snsapi_userinfo);
+            ViewData["UrlBase"] = OAuthApi.GetAuthorizeUrl(appId, "http://sdk.weixin.senparc.com/oauth2/BaseCallback", state, OAuthScope.snsapi_base);
             return View();
         }
 
@@ -48,9 +60,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("您拒绝了授权！");
             }
 
-            if (state != "JeffreySu")
+            if (state != Session["State"] as string)
             {
-                //这里的state其实是会暴露给客户端的，验证能力很弱，这里只是演示一下
+                //这里的state其实是会暴露给客户端的，验证能力很弱，这里只是演示一下，
+                //建议用完之后就清空，将其一次性使用
                 //实际上可以存任何想传递的数据，比如用户ID，并且需要结合例如下面的Session["OAuthAccessToken"]进行验证
                 return Content("验证失败！请从正规途径进入！");
             }
@@ -100,9 +113,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("您拒绝了授权！");
             }
 
-            if (state != "JeffreySu")
+            if (state != Session["State"] as string)
             {
-                //这里的state其实是会暴露给客户端的，验证能力很弱，这里只是演示一下
+                //这里的state其实是会暴露给客户端的，验证能力很弱，这里只是演示一下，
+                //建议用完之后就清空，将其一次性使用
                 //实际上可以存任何想传递的数据，比如用户ID，并且需要结合例如下面的Session["OAuthAccessToken"]进行验证
                 return Content("验证失败！请从正规途径进入！");
             }

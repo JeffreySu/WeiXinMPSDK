@@ -27,13 +27,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         private string appId = ConfigurationManager.AppSettings["TenPayV3_AppId"];
         private string secret = ConfigurationManager.AppSettings["TenPayV3_AppSecret"];
 
-public ActionResult Index()
-{
-    //此页面引导用户点击授权
-    ViewData["UrlUserInfo"] = OAuthApi.GetAuthorizeUrl(appId, "http://sdk.weixin.senparc.com/oauth2/UserInfoCallback", "JeffreySu", OAuthScope.snsapi_userinfo);
-    ViewData["UrlBase"] = OAuthApi.GetAuthorizeUrl(appId, "http://sdk.weixin.senparc.com/oauth2/BaseCallback", "JeffreySu", OAuthScope.snsapi_base);
-    return View();
-}
+        public ActionResult Index()
+        {
+            //此页面引导用户点击授权
+            ViewData["UrlUserInfo"] = OAuthApi.GetAuthorizeUrl(appId, "http://sdk.weixin.senparc.com/oauth2/UserInfoCallback", "JeffreySu", OAuthScope.snsapi_userinfo);
+            ViewData["UrlBase"] = OAuthApi.GetAuthorizeUrl(appId, "http://sdk.weixin.senparc.com/oauth2/BaseCallback", "JeffreySu", OAuthScope.snsapi_base);
+            return View();
+        }
 
         /// <summary>
         /// OAuthScope.snsapi_userinfo方式回调

@@ -42,7 +42,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static string GetAuthorizeUrl(string appId, string redirectUrl, string state, OAuthScope scope, string responseType = "code", bool addConnectRedirect = true)
         {
-            //TODO:addConnectRedirect测试成功后可以推广到Open和QY
             var url =
                 string.Format("https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type={2}&scope={3}&state={4}{5}#wechat_redirect",
                                 appId.AsUrlData(), redirectUrl.AsUrlData(), responseType.AsUrlData(), scope.ToString("g").AsUrlData(), state.AsUrlData(),

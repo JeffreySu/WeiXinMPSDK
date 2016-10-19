@@ -103,7 +103,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 检验授权凭证（access_token）是否有效
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessToken">调用接口凭证</param>
         /// <param name="openId">用户的唯一标识</param>
         /// <returns></returns>
         public static WxJsonResult Auth(string accessToken, string openId)

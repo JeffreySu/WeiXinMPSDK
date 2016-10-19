@@ -74,17 +74,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 刷新access_token（如果需要）
         /// </summary>
-        /// <param name="appId"></param>
+        /// <param name="appId">公众号的唯一标识</param>
         /// <param name="refreshToken">填写通过access_token获取到的refresh_token参数</param>
-        /// <param name="grantType"></param>
+        /// <param name="grantType">填写refresh_token</param>
         /// <returns></returns>
-        public static OAuthAccessTokenResult RefreshToken(string appId, string refreshToken, string grantType = "refresh_token")
+        public static RefreshTokenResult RefreshToken(string appId, string refreshToken, string grantType = "refresh_token")
         {
             var url =
                 string.Format("https://api.weixin.qq.com/sns/oauth2/refresh_token?appid={0}&grant_type={1}&refresh_token={2}",
                                 appId.AsUrlData(), grantType.AsUrlData(), refreshToken.AsUrlData());
 
-            return CommonJsonSend.Send<OAuthAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<RefreshTokenResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>

@@ -27,14 +27,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         private string appId = ConfigurationManager.AppSettings["WeixinAppId"];
         private string secret = ConfigurationManager.AppSettings["WeixinAppSecret"];
 
-        public ActionResult Redirect()
-        {
-            var state = "JeffreySu-" + DateTime.Now.Millisecond;
-            Session["State"] = state;
-
-            var url = OAuthApi.GetAuthorizeUrl(appId, "http://sdk.weixin.senparc.com/oauth2/UserInfoCallback", state, OAuthScope.snsapi_userinfo);
-            return Redirect(url);
-        }
 
         public ActionResult Index()
         {

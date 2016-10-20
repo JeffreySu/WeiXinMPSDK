@@ -24,3 +24,4 @@ packages/
 packages/
 /src/Senparc.Weixin.QY/Senparc.Weixin.QY.Test/test.config
 /src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/.vscode
+/src/Senparc.Weixin.MP.BuildOutPut/.net4.5

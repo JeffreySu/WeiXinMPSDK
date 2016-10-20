@@ -1,144 +1,143 @@
-/*----------------------------------------------------------------
+ï»¿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
  
-    ÎÄ¼şÃû£ºTenPayV3Util.cs
-    ÎÄ¼ş¹¦ÄÜÃèÊö£ºÎ¢ĞÅÖ§¸¶V3ÅäÖÃÎÄ¼ş
+    æ–‡ä»¶åï¼šTenPayV3Util.cs
+    æ–‡ä»¶åŠŸèƒ½æè¿°ï¼šå¾®ä¿¡æ”¯ä»˜V3é…ç½®æ–‡ä»¶
     
     
-    ´´½¨±êÊ¶£ºSenparc - 20150211
+    åˆ›å»ºæ ‡è¯†ï¼šSenparc - 20150211
     
-    ĞŞ¸Ä±êÊ¶£ºSenparc - 20150303
-    ĞŞ¸ÄÃèÊö£ºÕûÀí½Ó¿Ú
+    ä¿®æ”¹æ ‡è¯†ï¼šSenparc - 20150303
+    ä¿®æ”¹æè¿°ï¼šæ•´ç†æ¥å£
 ----------------------------------------------------------------*/
 
 using System;
 using System.Text;
 using Senparc.Weixin.MP.Helpers;
-using System.Net;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
-	/// <summary>
-	/// TenpayUtil µÄÕªÒªËµÃ÷¡£
-	/// ÅäÖÃÎÄ¼ş
-	/// </summary>
-	public class TenPayV3Util
-	{
-		/// <summary>
-		/// Ëæ»úÉú³ÉNoncestr
-		/// </summary>
-		/// <returns></returns>
-		public static string GetNoncestr()
-		{
-			Random random = new Random();
-			return MD5UtilHelper.GetMD5(random.Next(1000).ToString(), "GBK");
-		}
+    /// <summary>
+    /// TenpayUtil çš„æ‘˜è¦è¯´æ˜ã€‚
+    /// é…ç½®æ–‡ä»¶
+    /// </summary>
+    public class TenPayV3Util
+    {
+        /// <summary>
+        /// éšæœºç”ŸæˆNoncestr
+        /// </summary>
+        /// <returns></returns>
+        public static string GetNoncestr()
+        {
+            Random random = new Random();
+            return MD5UtilHelper.GetMD5(random.Next(1000).ToString(), "936");
+        }
 
-		public static string GetTimestamp()
-		{
-			TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
-			return Convert.ToInt64(ts.TotalSeconds).ToString();
-		}
+        public static string GetTimestamp()
+        {
+            TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            return Convert.ToInt64(ts.TotalSeconds).ToString();
+        }
 
-		/// <summary>
-		/// ¶Ô×Ö·û´®½øĞĞURL±àÂë
-		/// </summary>
-		/// <param name="instr"></param>
-		/// <param name="charset"></param>
-		/// <returns></returns>
-		public static string UrlEncode(string instr, string charset)
-		{
-			//return instr;
-			if (instr == null || instr.Trim() == "")
-				return "";
-			else
-			{
-				string res;
+        ///// <summary>
+        ///// å¯¹å­—ç¬¦ä¸²è¿›è¡ŒURLç¼–ç 
+        ///// </summary>
+        ///// <param name="instr"></param>
+        ///// <param name="charset"></param>
+        ///// <returns></returns>
+        //public static string UrlEncode(string instr, string charset)
+        //{
+        //    //return instr;
+        //    if (instr == null || instr.Trim() == "")
+        //        return "";
+        //    else
+        //    {
+        //        string res;
 
-				try
-				{
-					res = WebUtility.UrlEncode(instr);
+        //        try
+        //        {
+        //            res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
 
-				}
-				catch (Exception ex)
-				{
-					res = WebUtility.UrlEncode(instr);
-				}
-
-
-				return res;
-			}
-		}
-
-		/// <summary>
-		/// ¶Ô×Ö·û´®½øĞĞURL½âÂë
-		/// </summary>
-		/// <param name="instr"></param>
-		/// <param name="charset"></param>
-		/// <returns></returns>
-		public static string UrlDecode(string instr, string charset)
-		{
-			if (instr == null || instr.Trim() == "")
-				return "";
-			else
-			{
-				string res;
-
-				try
-				{
-					res = WebUtility.UrlDecode(instr);
-
-				}
-				catch (Exception ex)
-				{
-					res = WebUtility.UrlDecode(instr);
-				}
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+        //        }
 
 
-				return res;
+        //        return res;
+        //    }
+        //}
 
-			}
-		}
+        ///// <summary>
+        ///// å¯¹å­—ç¬¦ä¸²è¿›è¡ŒURLè§£ç 
+        ///// </summary>
+        ///// <param name="instr"></param>
+        ///// <param name="charset"></param>
+        ///// <returns></returns>
+        //public static string UrlDecode(string instr, string charset)
+        //{
+        //    if (instr == null || instr.Trim() == "")
+        //        return "";
+        //    else
+        //    {
+        //        string res;
+
+        //        try
+        //        {
+        //            res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
+
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
+        //        }
 
 
-		/// <summary>
-		/// È¡Ê±¼ä´ÁÉú³ÉËæ¼´Êı,Ìæ»»½»Ò×µ¥ºÅÖĞµÄºó10Î»Á÷Ë®ºÅ
-		/// </summary>
-		/// <returns></returns>
-		public static UInt32 UnixStamp()
-		{
-			TimeSpan ts = DateTime.Now - new DateTime(1970, 1, 1);
-			return Convert.ToUInt32(ts.TotalSeconds);
-		}
-		/// <summary>
-		/// È¡Ëæ»úÊı
-		/// </summary>
-		/// <param name="length"></param>
-		/// <returns></returns>
-		public static string BuildRandomStr(int length)
-		{
-			Random rand = new Random();
+        //        return res;
 
-			int num = rand.Next();
+        //    }
+        //}
 
-			string str = num.ToString();
 
-			if (str.Length > length)
-			{
-				str = str.Substring(0, length);
-			}
-			else if (str.Length < length)
-			{
-				int n = length - str.Length;
-				while (n > 0)
-				{
-					str.Insert(0, "0");
-					n--;
-				}
-			}
+        ///// <summary>
+        ///// å–æ—¶é—´æˆ³ç”Ÿæˆéšå³æ•°,æ›¿æ¢äº¤æ˜“å•å·ä¸­çš„å10ä½æµæ°´å·
+        ///// </summary>
+        ///// <returns></returns>
+        //public static UInt32 UnixStamp()
+        //{
+        //    TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+        //    return Convert.ToUInt32(ts.TotalSeconds);
+        //}
+        /// <summary>
+        /// å–éšæœºæ•°
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static string BuildRandomStr(int length)
+        {
+            Random rand = new Random();
 
-			return str;
-		}
+            int num = rand.Next();
 
-	}
+            string str = num.ToString();
+
+            if (str.Length > length)
+            {
+                str = str.Substring(0, length);
+            }
+            else if (str.Length < length)
+            {
+                int n = length - str.Length;
+                while (n > 0)
+                {
+                    str.Insert(0, "0");
+                    n--;
+                }
+            }
+
+            return str;
+        }
+
+    }
 }

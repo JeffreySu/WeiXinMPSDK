@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20161015
+    修改描述：修改GB2312编码为936
 ----------------------------------------------------------------*/
 
 using System;
@@ -51,9 +54,10 @@ namespace Senparc.Weixin.MP.Helpers
 			}
 			catch (Exception ex)
 			{
-				inputBye = Encoding.GetEncoding("GB2312").GetBytes(encypStr);
-			}
-			outputBye = m5.ComputeHash(inputBye);
+                //inputBye = Encoding.GetEncoding("GB2312").GetBytes(encypStr);
+                inputBye = Encoding.GetEncoding(936).GetBytes(encypStr);
+            }
+            outputBye = m5.ComputeHash(inputBye);
 
 			retStr = BitConverter.ToString(outputBye);
 			retStr = retStr.Replace("-", "").ToUpper();

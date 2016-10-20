@@ -5,7 +5,10 @@
     /// </summary>
     public class RequestMessageInfo_Create_Auth : ThirdPartyInfoBase, IThirdPartyInfoBase
     {
-        public override ThirdPartyInfo InfoType => ThirdPartyInfo.CREATE_AUTH;
+        public override ThirdPartyInfo InfoType
+        {
+            get { return ThirdPartyInfo.CREATE_AUTH; }
+        }
 
         /// <summary>
         /// 授权的auth_code,用于获取企业的永久授权码

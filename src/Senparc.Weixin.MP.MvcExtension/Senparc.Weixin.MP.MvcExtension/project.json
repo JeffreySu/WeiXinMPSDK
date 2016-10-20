@@ -24,7 +24,7 @@
 	"dependencies": {
 		"Microsoft.AspNetCore.Mvc": "1.0.1",
 		"Microsoft.AspNetCore.Mvc.Core": "1.0.1",
-		"Senparc.Weixin": "4.8.0-*"
+		"Senparc.Weixin": "4.8.1-*"
 	},
 	"buildOptions": {
 		"nowarn": [ "CS0168", "CS0169", "CS0108", "CS0162", "CS0618", "CS0162", "CS0414", "CS0114", "CS1570", "CS1591", "CS1572", "CS1573", "CS1587", "CS1711" ],

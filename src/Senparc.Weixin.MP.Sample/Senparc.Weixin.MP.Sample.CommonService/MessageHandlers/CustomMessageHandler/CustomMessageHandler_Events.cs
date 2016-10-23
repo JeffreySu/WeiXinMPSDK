@@ -173,7 +173,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         strongResponseMessage.Articles.Add(new Article()
                         {
                             Title = "OAuth2.0测试",
-                            Description = "选择下面两种不同的方式进行测试，区别在于授权后最后停留的页面。",
+                            Description = "选择下面两种不同的方式进行测试，区别在于授权成功后，最后停留的页面。",
                             //Url = "http://sdk.weixin.senparc.com/oauth2",
                             //PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
                         });

@@ -15,6 +15,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.CommonAPIs;
@@ -27,15 +28,25 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         private string appId = ConfigurationManager.AppSettings["WeixinAppId"];
         private string secret = ConfigurationManager.AppSettings["WeixinAppSecret"];
 
-
-        public ActionResult Index()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="returnUrl">用户尝试进入的需要登录的页面</param>
+        /// <returns></returns>
+        public ActionResult Index(string returnUrl)
         {
             var state = "JeffreySu-" + DateTime.Now.Millisecond;//随机数，用于识别请求可靠性
             Session["State"] = state;//储存随机数到Session
 
             //此页面引导用户点击授权
-            ViewData["UrlUserInfo"] = OAuthApi.GetAuthorizeUrl(appId, "http://sdk.weixin.senparc.com/oauth2/UserInfoCallback", state, OAuthScope.snsapi_userinfo);
-            ViewData["UrlBase"] = OAuthApi.GetAuthorizeUrl(appId, "http://sdk.weixin.senparc.com/oauth2/BaseCallback", state, OAuthScope.snsapi_base);
+            ViewData["UrlUserInfo"] =
+                OAuthApi.GetAuthorizeUrl(appId,
+                "http://sdk.weixin.senparc.com/oauth2/UserInfoCallback?returnUrl=" + returnUrl.UrlEncode(),
+                state, OAuthScope.snsapi_userinfo);
+            ViewData["UrlBase"] =
+                OAuthApi.GetAuthorizeUrl(appId,
+                "http://sdk.weixin.senparc.com/oauth2/BaseCallback?returnUrl=" + returnUrl.UrlEncode(),
+                state, OAuthScope.snsapi_base);
             return View();
         }
 
@@ -44,8 +55,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// </summary>
         /// <param name="code"></param>
         /// <param name="state"></param>
+        /// <param name="returnUrl">用户最初尝试进入的页面</param>
         /// <returns></returns>
-        public ActionResult UserInfoCallback(string code, string state)
+        public ActionResult UserInfoCallback(string code, string state, string returnUrl)
         {
             if (string.IsNullOrEmpty(code))
             {
@@ -83,6 +95,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //因为第一步选择的是OAuthScope.snsapi_userinfo，这里可以进一步获取用户详细信息
             try
             {
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+
                 OAuthUserInfo userInfo = OAuthApi.GetUserInfo(result.access_token, result.openid);
                 return View(userInfo);
             }
@@ -97,8 +114,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// </summary>
         /// <param name="code"></param>
         /// <param name="state"></param>
+        /// <param name="returnUrl">用户最初尝试进入的页面</param>
         /// <returns></returns>
-        public ActionResult BaseCallback(string code, string state)
+        public ActionResult BaseCallback(string code, string state, string returnUrl)
         {
             if (string.IsNullOrEmpty(code))
             {
@@ -131,6 +149,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 //已关注，可以得到详细信息
                 userInfo = OAuthApi.GetUserInfo(result.access_token, result.openid);
+
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+
+
                 ViewData["ByBase"] = true;
                 return View("UserInfoCallback", userInfo);
             }

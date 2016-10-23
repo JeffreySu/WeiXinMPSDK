@@ -180,7 +180,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //OAuthAccessToken千万千万不能传输到客户端！
 
             msg += "<br /><br />" +
-                   "此页面为returnUrl功能测试页面，可以进行刷新，不会得到code不可用的错误。<br />测试不带returnUrl效果，请" +
+                   "此页面为returnUrl功能测试页面，可以进行刷新（或后退），不会得到code不可用的错误。<br />测试不带returnUrl效果，请" +
                    string.Format("<a href=\"{0}\">点击这里</a>。", Url.Action("Index"));
 
             return Content(msg);

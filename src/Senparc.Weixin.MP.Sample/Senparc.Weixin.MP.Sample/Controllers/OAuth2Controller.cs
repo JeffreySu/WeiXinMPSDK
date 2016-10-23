@@ -38,6 +38,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var state = "JeffreySu-" + DateTime.Now.Millisecond;//随机数，用于识别请求可靠性
             Session["State"] = state;//储存随机数到Session
 
+            ViewData["returnUrl"] = returnUrl;
+
             //此页面引导用户点击授权
             ViewData["UrlUserInfo"] =
                 OAuthApi.GetAuthorizeUrl(appId,
@@ -177,7 +179,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //注意：OAuthAccessTokenStartTime这里只是为了方便识别和演示，
             //OAuthAccessToken千万千万不能传输到客户端！
 
-            msg += "<br /><br />" + "此页面为returnUrl功能测试页面，可以进行刷新，而不会得到code不可用的错误。";
+            msg += "<br /><br />" +
+                   "此页面为returnUrl功能测试页面，可以进行刷新，不会得到code不可用的错误。如果要测试不带returnUrl效果，请" +
+                   string.Format("<a href=\"{0}\">点击这里</a>。", Url.Action("Index"));
+
             return Content(msg);
         }
     }

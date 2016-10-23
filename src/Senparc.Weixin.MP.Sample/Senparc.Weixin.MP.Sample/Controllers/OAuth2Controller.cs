@@ -166,5 +166,19 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("用户已授权，授权Token：" + result);
             }
         }
+
+        /// <summary>
+        /// 测试ReturnUrl
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult TestReturnUrl()
+        {
+            string msg = "OAuthAccessTokenStartTime：" + Session["OAuthAccessTokenStartTime"];
+            //注意：OAuthAccessTokenStartTime这里只是为了方便识别和演示，
+            //OAuthAccessToken千万千万不能传输到客户端！
+
+            msg += "<br /><br />" + "此页面为returnUrl功能测试页面，可以进行刷新，而不会得到code不可用的错误。";
+            return Content(msg);
+        }
     }
 }

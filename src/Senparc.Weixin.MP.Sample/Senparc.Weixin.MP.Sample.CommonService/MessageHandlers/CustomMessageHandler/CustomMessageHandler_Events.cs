@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.Context;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
@@ -170,12 +171,23 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageNews>();
                         strongResponseMessage.Articles.Add(new Article()
                         {
-                            Title = "OAuth2.0测试",
+                            Title = "OAuth2.0测试（不带returnUrl）",
                             Description = "点击【查看全文】进入授权页面。\r\n注意：此页面仅供测试（是专门的一个临时测试账号的授权，并非Senparc.Weixin.MP SDK官方账号，所以如果授权后出现错误页面数正常情况），测试号随时可能过期。请将此DEMO部署到您自己的服务器上，并使用自己的appid和secret。",
                             Url = "http://sdk.weixin.senparc.com/oauth2",
                             PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
                         });
+
+                        var returnUrl = "/OAuth2/TestReturnUrl";
+                        strongResponseMessage.Articles.Add(new Article()
+                        {
+                            Title = "OAuth2.0测试（带returnUrl）",
+                            Description = "点击【查看全文】进入授权页面。\r\n注意：此页面仅供测试（是专门的一个临时测试账号的授权，并非Senparc.Weixin.MP SDK官方账号，所以如果授权后出现错误页面数正常情况），测试号随时可能过期。请将此DEMO部署到您自己的服务器上，并使用自己的appid和secret。",
+                            Url = "http://sdk.weixin.senparc.com/oauth2?returnUrl="+ returnUrl.UrlEncode(),
+                            PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
+                        });
+
                         reponseMessage = strongResponseMessage;
+
                     }
                     break;
                 case "Description":

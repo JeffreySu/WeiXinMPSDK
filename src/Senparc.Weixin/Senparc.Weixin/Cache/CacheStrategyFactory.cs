@@ -24,24 +24,41 @@ namespace Senparc.Weixin.Cache
             ObjectCacheStrateFunc = func;
         }
 
-        public static void RegisterContainerCacheStrategy(Func<IContainerCacheStrategy> func)
-        {
-            ContainerCacheStrateFunc = func;
-        }
 
-        public static IContainerCacheStrategy GetContainerCacheStrategyInstance()
+        public static IObjectCacheStrategy GetObjectCacheStrategyInstance()
         {
-            if (ContainerCacheStrateFunc == null)
+            if (ObjectCacheStrateFunc == null)
             {
                 //默认状态
-                return LocalContainerCacheStrategy.Instance;
+                return LocalObjectCacheStrategy.Instance;
             }
             else
             {
                 //自定义类型
-                var instance = ContainerCacheStrateFunc();
+                var instance = ObjectCacheStrateFunc();
                 return instance;
             }
         }
+
+
+        //public static void RegisterContainerCacheStrategy(Func<IContainerCacheStrategy> func)
+        //{
+        //    ContainerCacheStrateFunc = func;
+        //}
+
+        //public static IContainerCacheStrategy GetContainerCacheStrategyInstance()
+        //{
+        //    if (ContainerCacheStrateFunc == null)
+        //    {
+        //        //默认状态
+        //        return LocalContainerCacheStrategy.Instance;
+        //    }
+        //    else
+        //    {
+        //        //自定义类型
+        //        var instance = ContainerCacheStrateFunc();
+        //        return instance;
+        //    }
+        //}
     }
 }

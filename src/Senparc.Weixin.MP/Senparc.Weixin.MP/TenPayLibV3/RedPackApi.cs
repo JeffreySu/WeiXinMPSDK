@@ -50,7 +50,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="nonceStr">将nonceStr随机字符串返回，开发者可以存到数据库用于校验</param>
         /// <param name="paySign">将支付签名返回，开发者可以存到数据库用于校验</param>
         /// <param name="scene">场景id（非必填）</param>
-        /// <param name="riskInfo">活动信息,String(128)posttime:用户操作的时间戳。
+        /// <param name="riskInfo">活动信息（非必填）,String(128)posttime:用户操作的时间戳。
         /// <para>示例：posttime%3d123123412%26clientversion%3d234134%26mobile%3d122344545%26deviceid%3dIOS</para>
         /// <para>mobile:业务系统账号的手机号，国家代码-手机号。不需要+号</para>
         /// <para>deviceid :mac 地址或者设备唯一标识</para>
@@ -58,7 +58,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <para>把值为非空的信息用key = value进行拼接，再进行urlencode</para>
         /// <para>urlencode(posttime= xx & mobile = xx & deviceid = xx)</para>
         /// </param>
-        /// <param name="consumeMchId">资金授权商户号，服务商替特约商户发放时使用，String(32)。示例：1222000096</param>
+        /// <param name="consumeMchId">资金授权商户号，服务商替特约商户发放时使用（非必填），String(32)。示例：1222000096</param>
         /// <returns></returns>
         public static NormalRedPackResult SendNormalRedPack(string appId, string mchId, string tenPayKey, string tenPayCertPath,
             string openId, string senderName,

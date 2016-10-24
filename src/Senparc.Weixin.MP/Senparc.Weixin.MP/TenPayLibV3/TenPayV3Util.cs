@@ -103,15 +103,15 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         //}
 
 
-        /// <summary>
-        /// 取时间戳生成随即数,替换交易单号中的后10位流水号
-        /// </summary>
-        /// <returns></returns>
-        public static UInt32 UnixStamp()
-        {
-            TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
-            return Convert.ToUInt32(ts.TotalSeconds);
-        }
+        ///// <summary>
+        ///// 取时间戳生成随即数,替换交易单号中的后10位流水号
+        ///// </summary>
+        ///// <returns></returns>
+        //public static UInt32 UnixStamp()
+        //{
+        //    TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+        //    return Convert.ToUInt32(ts.TotalSeconds);
+        //}
 
         /// <summary>
         /// 取随机数

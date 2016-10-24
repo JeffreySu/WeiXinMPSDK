@@ -5871,9 +5871,34 @@
             通过OAuth的获取到的用户信息（snsapi_userinfo=scope）
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthUserInfo.openid">
+            <summary>
+            用户的唯一标识
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthUserInfo.nickname">
+            <summary>
+            用户昵称
+            </summary>
+        </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthUserInfo.sex">
             <summary>
             用户的性别，值为1时是男性，值为2时是女性，值为0时是未知
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthUserInfo.province">
+            <summary>
+            用户个人资料填写的省份
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthUserInfo.city">
+            <summary>
+            普通用户个人资料填写的城市
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthUserInfo.country">
+            <summary>
+            国家，如中国为CN
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthUserInfo.headimgurl">
@@ -5888,15 +5913,20 @@
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "P:Senparc.Weixin.MP.AdvancedAPIs.OAuth.OAuthUserInfo.unionid" -->
+        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.OAuth.RefreshTokenResult">
+            <summary>
+            通过RefreshToken接口返回的结果
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthApi.GetAuthorizeUrl(System.String,System.String,System.String,Senparc.Weixin.MP.OAuthScope,System.String,System.Boolean)">
             <summary>
             获取验证地址
             </summary>
-            <param name="appId"></param>
-            <param name="redirectUrl"></param>
-            <param name="state"></param>
-            <param name="scope"></param>
-            <param name="responseType"></param>
+            <param name="appId">公众号的唯一标识</param>
+            <param name="redirectUrl">授权后重定向的回调链接地址，请使用urlencode对链接进行处理</param>
+            <param name="state">重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节</param>
+            <param name="scope">应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息）</param>
+            <param name="responseType">返回类型，请填写code（或保留默认）</param>
             <param name="addConnectRedirect">加上后可以解决40029-invalid code的问题（测试中）</param>
             <returns></returns>
         </member>
@@ -5904,19 +5934,19 @@
             <summary>
             获取AccessToken
             </summary>
-            <param name="appId"></param>
-            <param name="secret"></param>
+            <param name="appId">公众号的唯一标识</param>
+            <param name="secret">公众号的appsecret</param>
             <param name="code">code作为换取access_token的票据，每次用户授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。</param>
-            <param name="grantType"></param>
+            <param name="grantType">填写为authorization_code（请保持默认参数）</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthApi.RefreshToken(System.String,System.String,System.String)">
             <summary>
             刷新access_token（如果需要）
             </summary>
-            <param name="appId"></param>
+            <param name="appId">公众号的唯一标识</param>
             <param name="refreshToken">填写通过access_token获取到的refresh_token参数</param>
-            <param name="grantType"></param>
+            <param name="grantType">填写refresh_token</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.OAuthApi.GetUserInfo(System.String,System.String,Senparc.Weixin.Language)">
@@ -5932,7 +5962,7 @@
             <summary>
             检验授权凭证（access_token）是否有效
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessToken">调用接口凭证</param>
             <param name="openId">用户的唯一标识</param>
             <returns></returns>
         </member>
@@ -12282,6 +12312,51 @@
             永久的字符串
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.RedPack_Scene">
+            <summary>
+            红包的场景id（scene_id），最中输出为字符串
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.RedPack_Scene.PRODUCT_1">
+            <summary>
+            商品促销
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.RedPack_Scene.PRODUCT_2">
+            <summary>
+            抽奖
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.RedPack_Scene.PRODUCT_3">
+            <summary>
+            虚拟物品兑奖
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.RedPack_Scene.PRODUCT_4">
+            <summary>
+            企业内部福利
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.RedPack_Scene.PRODUCT_5">
+            <summary>
+            渠道分润
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.RedPack_Scene.PRODUCT_6">
+            <summary>
+            保险回馈
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.RedPack_Scene.PRODUCT_7">
+            <summary>
+            彩票派奖
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.MP.RedPack_Scene.PRODUCT_8">
+            <summary>
+            税务刮奖
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.MP.Helpers.EntityHelper.FillEntityWithXml``1(``0,System.Xml.Linq.XDocument)">
             <summary>
             根据XML信息填充实实体
@@ -13118,25 +13193,7 @@
             红包发送和查询Api（暂缺裂变红包发送）
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.MP.TenPayLibV3.RedPackApi.SendNormalRedPack(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String,System.String,System.String@,System.String@)">
-            <summary>
-            普通红包发送
-            </summary>
-            <param name="appId">公众账号AppID</param>
-            <param name="mchId">商户MchID</param>
-            <param name="tenPayKey">支付密钥，微信商户平台(pay.weixin.qq.com)-->账户设置-->API安全-->密钥设置</param>
-            <param name="tenPayCertPath">证书地址（硬盘地址，形如E://cert//apiclient_cert.p12）</param>
-            <param name="openId">要发红包的用户的OpenID</param>
-            <param name="senderName">红包发送者名称，会显示给接收红包的用户</param>
-            <param name="iP">发送红包的服务器地址</param>
-            <param name="redPackAmount">红包金额（单位分）</param>
-            <param name="wishingWord">祝福语</param>
-            <param name="actionName">活动名称</param>
-            <param name="remark">活动描述，用于低版本微信显示</param>
-            <param name="nonceStr">将nonceStr随机字符串返回，开发者可以存到数据库用于校验</param>
-            <param name="paySign">将支付签名返回，开发者可以存到数据库用于校验</param>
-            <returns></returns>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.MP.TenPayLibV3.RedPackApi.SendNormalRedPack(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String,System.String,System.String@,System.String@,System.Nullable{Senparc.Weixin.MP.RedPack_Scene},System.String,System.String)" -->
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.RedPackApi.SearchRedPack(System.String,System.String,System.String,System.String,System.String)">
             <summary>
             查询红包(包括普通红包和裂变红包)
@@ -13145,7 +13202,7 @@
             <param name="mchId">商户MchID</param>
             <param name="tenPayKey">支付密钥，微信商户平台(pay.weixin.qq.com)-->账户设置-->API安全-->密钥设置</param>
             <param name="tenPayCertPath">证书地址（硬盘地址，形如E://cert//apiclient_cert.p12）</param>
-            <param name="MchBillNo">商家订单号</param>
+            <param name="mchBillNo">商家订单号</param>
             <returns></returns>
         </member>
         <!-- Badly formed XML comment ignored for member "T:Senparc.Weixin.MP.TenPayLibV3.RequestHandler" -->
@@ -13401,6 +13458,13 @@
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.BuildRandomStr(System.Int32)">
             <summary>
             取随机数
+            </summary>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.BuildDailyRandomStr(System.Int32)">
+            <summary>
+            创建当天内不会重复的数字
             </summary>
             <param name="length"></param>
             <returns></returns>

@@ -27,35 +27,25 @@
             <param name="retryDelay"></param>
             <returns></returns>
         </member>
-        <member name="T:Senparc.Weixin.Cache.IContainerCacheStragegy">
+        <member name="T:Senparc.Weixin.Cache.IContainerCacheStrategy">
             <summary>
             容器缓存策略接口
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Cache.IContainerCacheStragegy.GetAll``1">
+        <member name="M:Senparc.Weixin.Cache.IContainerCacheStrategy.GetAll``1">
             <summary>
             获取所有ContainerBag
             </summary>
             <typeparam name="TBag"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.Cache.IContainerCacheStragegy.UpdateContainerBag(System.String,Senparc.Weixin.Containers.IBaseContainerBag,System.Boolean)">
+        <member name="M:Senparc.Weixin.Cache.IContainerCacheStrategy.UpdateContainerBag(System.String,Senparc.Weixin.Containers.IBaseContainerBag,System.Boolean)">
             <summary>
             更新ContainerBag
             </summary>
             <param name="key"></param>
             <param name="containerBag"></param>
             <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
-        </member>
-        <member name="T:Senparc.Weixin.Cache.LocalCacheHelper">
-            <summary>
-            全局静态数据源帮助类
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.Cache.LocalCacheHelper.LocalCache">
-            <summary>
-            所有数据集合的列表
-            </summary>
         </member>
         <member name="T:Senparc.Weixin.Cache.LocalContainerCacheStrategy">
             <summary>
@@ -170,6 +160,31 @@
             <param name="retryCount"></param>
             <param name="retryDelay"></param>
             <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.Cache.IObjectCacheStrategy">
+            <summary>
+            所有以String类型为Key的缓存策略接口
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Cache.LocalObjectCacheHelper">
+            <summary>
+            全局静态数据源帮助类
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Cache.LocalObjectCacheHelper.LocalObjectCache">
+            <summary>
+            所有数据集合的列表
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Cache.LocalObjectCacheStrategy">
+            <summary>
+            本地容器缓存策略
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Cache.LocalObjectCacheStrategy.Instance">
+            <summary>
+            LocalCacheStrategy的构造函数
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.Config">
             <summary>

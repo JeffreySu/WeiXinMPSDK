@@ -68,12 +68,11 @@ namespace Senparc.Weixin.MP.Sample
 
             #region Memcached 配置
 
-            var memcachedConfig = new Dictionary<string, int>()
-            {
-                { "localhost",9101 }
-            };
-            MemcachedObjectCacheStrategy.RegisterServerList(memcachedConfig);
-
+            //var memcachedConfig = new Dictionary<string, int>()
+            //{
+            //    { "localhost",9101 }
+            //};
+            //MemcachedObjectCacheStrategy.RegisterServerList(memcachedConfig);
 
             #endregion
 

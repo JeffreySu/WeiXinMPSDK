@@ -92,8 +92,8 @@
     <Compile Include="Cache\CacheStrategyFactory.cs" />
     <Compile Include="Cache\Lock\BaseCacheLock.cs" />
     <Compile Include="Cache\Lock\ICacheLock.cs" />
-    <Compile Include="Cache\ObjectCacheStrategy\Local\IObjectCacheStrategy.cs" />
-    <Compile Include="Cache\ObjectCacheStrategy\LocalObjectCacheStrategy.cs" />
+    <Compile Include="Cache\ObjectCacheStrategy\IObjectCacheStrategy.cs" />
+    <Compile Include="Cache\ObjectCacheStrategy\Local\LocalObjectCacheStrategy.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Containers\BaseContainer.cs" />
     <Compile Include="Containers\BaseContainerBag.cs" />

@@ -115,7 +115,6 @@ namespace Senparc.WeixinTests.Cache.Lock
 
                     Console.WriteLine("线程 {0} / {1} : {2} 进入，准备尝试锁。Cache实例：{3}", Thread.CurrentThread.GetHashCode(), resourceName, appId,cache.GetHashCode());
 
-
                     DateTime dt1 = DateTime.Now;
                     using (var cacheLock = cache.BeginCacheLock(resourceName, appId, (int)retryTimes, new TimeSpan(0, 0, 0, 0, 20)))
                     {

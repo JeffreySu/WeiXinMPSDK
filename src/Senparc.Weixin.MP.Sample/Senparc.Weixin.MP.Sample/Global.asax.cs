@@ -72,7 +72,7 @@ namespace Senparc.Weixin.MP.Sample
             {
                 { "localhost",9101 }
             };
-            MemcachedContainerStrategy.RegisterServerList(memcachedConfig);
+            MemcachedObjectCacheStrategy.RegisterServerList(memcachedConfig);
 
 
             #endregion

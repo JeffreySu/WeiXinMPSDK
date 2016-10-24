@@ -10,8 +10,8 @@ namespace Senparc.Weixin.Cache.Memcached
 {
     public class MemcachedCacheLock : BaseCacheLock
     {
-        private MemcachedContainerStrategy _mamcachedStrategy;
-        public MemcachedCacheLock(MemcachedContainerStrategy strategy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
+        private MemcachedObjectCacheStrategy _mamcachedStrategy;
+        public MemcachedCacheLock(MemcachedObjectCacheStrategy strategy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
             : base(strategy, resourceName, key, retryCount, retryDelay)
         {
             _mamcachedStrategy = strategy;

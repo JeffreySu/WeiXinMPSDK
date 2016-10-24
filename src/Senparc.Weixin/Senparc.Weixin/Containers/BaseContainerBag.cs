@@ -93,7 +93,8 @@ namespace Senparc.Weixin.Containers
             SenparcMessageQueue mq = new SenparcMessageQueue();
             mq.Add(mqKey, () =>
             {
-                var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
+                //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
+                var containerCacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
                 var itemCacheKey = ContainerHelper.GetItemCacheKey(containerBag);
                 containerBag.CacheTime = DateTime.Now;//记录缓存时间
 

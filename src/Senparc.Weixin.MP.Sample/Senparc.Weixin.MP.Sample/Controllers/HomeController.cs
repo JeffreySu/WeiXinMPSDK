@@ -44,7 +44,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             TempData["MemcachedCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Memcached.dll"));
 
             //缓存
-            var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
+            //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
+            var containerCacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
             TempData["CacheStrategy"] = containerCacheStrategy.GetType().Name.Replace("ContainerCacheStrategy","");
 
             //文档下载版本

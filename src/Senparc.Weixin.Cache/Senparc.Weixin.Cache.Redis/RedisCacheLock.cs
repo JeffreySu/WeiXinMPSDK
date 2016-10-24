@@ -13,9 +13,9 @@ namespace Senparc.Weixin.Cache.Redis
         private Redlock.CSharp.Redlock _dlm;
         private Lock _lockObject;
 
-        private RedisContainerCacheStrategy _redisStrategy;
+        private RedisObjectCacheStrategy _redisStrategy;
 
-        public RedisCacheLock(RedisContainerCacheStrategy strategy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
+        public RedisCacheLock(RedisObjectCacheStrategy strategy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
             :base(strategy,resourceName,key,retryCount,retryDelay)
         {
             _redisStrategy = strategy;

@@ -60,10 +60,10 @@ namespace Senparc.Weixin.MP.Sample
 
             //////如果不执行下面的注册过程，则默认使用本地缓存
 
-            //if (redisConfiguration != "Redis配置")
-            //{
-            //    CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
-            //}
+            if (!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置")
+            {
+                CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
+            }
             #endregion
 
             #region Memcached 配置

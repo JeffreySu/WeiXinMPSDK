@@ -2,17 +2,15 @@
 @{
     Layout = null;
 }
-
-<!DOCTYPE html>
-
 @*
     使用JSSDK，首先要到微信公众平台【公众号设置】下的【功能设置】里面设置“JS接口安全域名”
 *@
-
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>公众号JSSDK演示</title>
+    <!--jQuery非JS-SDK必须-->
     <script src="~/Scripts/jquery-1.7.1.min.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script>
@@ -65,39 +63,7 @@
             alert('验证失败');
         });
 
-        wx.ready(function () {
-            var url = 'http://sdk.weixin.senparc.com';
-            var link = url + '@(Request.Url.PathAndQuery)';
-            var imgUrl = url + '/images/v2/ewm_01.png';
-
-            //转发到朋友圈
-            wx.onMenuShareTimeline({
-                title: 'JSSDK朋友圈转发测试',
-                link: link,
-                imgUrl: imgUrl,
-                success: function () {
-                    alert('转发成功！');
-                },
-                cancel: function () {
-                    alert('转发失败！');
-                }
-            });
-            //转发给朋友
-            wx.onMenuShareAppMessage({
-                title: 'JSSDK朋友圈转发测试',
-                desc: '转发给朋友',
-                link: link,
-                imgUrl: imgUrl,
-                type: 'link',
-                dataUrl: '',
-                success: function () {
-                    alert('转发成功！');
-                },
-                cancel: function () {
-                    alert('转发失败！');
-                }
-            });
-        });
+ 
     </script>
 
 </head>

@@ -22,6 +22,7 @@ using System.Text;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using Senparc.Weixin.BrowserUtility;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.Sample.Models;
@@ -44,6 +45,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return true;
             return false;
         }
+
 
         public static TenPayV3Info TenPayV3Info
         {
@@ -526,64 +528,27 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult SendRedPack()
         {
-            string mchbillno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
+            string nonceStr;//随机字符串
+            string paySign;//签名
+            var sendNormalRedPackResult = RedPackApi.SendNormalRedPack(
+                TenPayV3Info.AppId, TenPayV3Info.MchId, TenPayV3Info.Key,
+                @"F:\apiclient_cert.p12",     //证书物理地址
+                "接受收红包的用户的openId",   //接受收红包的用户的openId
+                "红包发送者名称",             //红包发送者名称
+                Request.UserHostAddress,      //IP
+                100,                          //付款金额，单位分
+                "红包祝福语",                 //红包祝福语
+                "活动名称",                   //活动名称
+                "备注信息",                   //备注信息
+                out nonceStr,
+                out paySign,
+                null,                         //场景id（非必填）
+                null,                         //活动信息（非必填）
+                null                          //资金授权商户号，服务商替特约商户发放时使用（非必填）
+                );
 
-            string nonceStr = TenPayV3Util.GetNoncestr();
-            RequestHandler packageReqHandler = new RequestHandler(null);
-
-            //设置package订单参数
-            packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
-            packageReqHandler.SetParameter("wxappid", TenPayV3Info.AppId);		  //公众账号ID
-            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
-            packageReqHandler.SetParameter("mch_billno", mchbillno);                 //填入商家订单号
-            packageReqHandler.SetParameter("send_name", "红包发送者名称");                 //红包发送者名称
-            packageReqHandler.SetParameter("re_openid", "接受收红包的用户的openId");                 //接受收红包的用户的openId
-            packageReqHandler.SetParameter("total_amount", "100");                //付款金额，单位分
-            packageReqHandler.SetParameter("total_num", "1");               //红包发放总人数
-            packageReqHandler.SetParameter("wishing", "红包祝福语");               //红包祝福语
-            packageReqHandler.SetParameter("client_ip", Request.UserHostAddress);               //调用接口的机器Ip地址
-            packageReqHandler.SetParameter("act_name", "活动名称");   //活动名称
-            packageReqHandler.SetParameter("remark", "备注信息");   //备注信息
-            string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
-            packageReqHandler.SetParameter("sign", sign);	                    //签名
-
-            //最新的官方文档中将以下三个字段去除了
-            //packageReqHandler.SetParameter("nick_name", "提供方名称");                 //提供方名称
-            //packageReqHandler.SetParameter("max_value", "100");                //最大红包金额，单位分
-            //packageReqHandler.SetParameter("min_value", "100");                //最小红包金额，单位分
-
-
-            //发红包需要post的数据
-            string data = packageReqHandler.ParseXML();
-
-            //发红包接口地址
-            string url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
-            //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
-            string cert = @"F:\apiclient_cert.p12";
-            //私钥（在安装证书时设置）
-            string password = "";
-            ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
-            //调用证书
-            X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
-
-            #region 发起post请求
-            HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
-            webrequest.ClientCertificates.Add(cer);
-            webrequest.Method = "post";
-
-            byte[] postdatabyte = Encoding.UTF8.GetBytes(data);
-            webrequest.ContentLength = postdatabyte.Length;
-            Stream stream;
-            stream = webrequest.GetRequestStream();
-            stream.Write(postdatabyte, 0, postdatabyte.Length);
-            stream.Close();
-
-            HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
-            StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
-            string responseContent = streamReader.ReadToEnd();
-            #endregion
-
-            return Content(responseContent);
+            SerializerHelper serializerHelper=new SerializerHelper();
+            return Content(serializerHelper.GetJsonString(sendNormalRedPackResult));
         }
         #endregion
 

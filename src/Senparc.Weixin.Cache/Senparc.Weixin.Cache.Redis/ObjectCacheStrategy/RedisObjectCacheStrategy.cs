@@ -1,54 +1,43 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
 
-    文件名：RedisContainerCacheStrategy.cs
-    文件功能描述：Redis 容器缓存策略。
+    文件名：RedisObjectCacheStrategy.cs
+    文件功能描述：Redis的Object类型容器缓存（Key为String类型）。
 
 
-    创建标识：Senparc - 20160308
+    创建标识：Senparc - 20161024
 
-    修改标识：Senparc - 20160808
-    修改描述：v0.2.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
-    
-    修改标识：Senparc - 20160812
-    修改描述：v0.2.1  解决Container无法注册的问题
-
-----------------------------------------------------------------*/
+ ----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Redlock.CSharp;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MessageQueue;
 using StackExchange.Redis;
 
-
 namespace Senparc.Weixin.Cache.Redis
 {
     /// <summary>
-    /// Hash储存的Key和Field集合
+    /// Redis的Object类型容器缓存（Key为String类型）
     /// </summary>
-    class HashKeyAndField
+    public class RedisObjectCacheStrategy : BaseCacheStrategy, IObjectCacheStrategy
+    //where TContainerBag : class, IBaseContainerBag, new()
     {
-        public string Key { get; set; }
-        public string Field { get; set; }
-    }
-
-
-    /// <summary>
-    /// Redis容器缓存策略
-    /// </summary>
-    public sealed class RedisContainerCacheStrategy : BaseCacheStrategy, IContainerCacheStragegy
-    {
-        internal ConnectionMultiplexer _client;
-        private IDatabase _cache;
+        /// <summary>
+        /// Hash储存的Key和Field集合
+        /// </summary>
+      protected  class HashKeyAndField
+        {
+            public string Key { get; set; }
+            public string Field { get; set; }
+        }
 
         #region 单例
 
         //静态SearchCache
-        public static RedisContainerCacheStrategy Instance
+        public static RedisObjectCacheStrategy Instance
         {
             get
             {
@@ -62,12 +51,15 @@ namespace Senparc.Weixin.Cache.Redis
             {
             }
             //将instance设为一个初始化的BaseCacheStrategy新实例
-            internal static readonly RedisContainerCacheStrategy instance = new RedisContainerCacheStrategy();
+            internal static readonly RedisObjectCacheStrategy instance = new RedisObjectCacheStrategy();
         }
 
         #endregion
 
-        static RedisContainerCacheStrategy()
+        internal ConnectionMultiplexer _client;
+        protected IDatabase _cache;
+
+        static RedisObjectCacheStrategy()
         {
             var manager = RedisManager.Manager;
             var cache = manager.GetDatabase();
@@ -86,7 +78,7 @@ namespace Senparc.Weixin.Cache.Redis
         /// <summary>
         /// Redis 缓存策略
         /// </summary>
-        public RedisContainerCacheStrategy()
+        public RedisObjectCacheStrategy()
         {
             _client = RedisManager.Manager;
             _cache = _client.GetDatabase();
@@ -95,7 +87,7 @@ namespace Senparc.Weixin.Cache.Redis
         /// <summary>
         /// Redis 缓存策略析构函数，用于 _client 资源回收
         /// </summary>
-        ~RedisContainerCacheStrategy()
+        ~RedisObjectCacheStrategy()
         {
             _client.Dispose();//释放
         }
@@ -104,7 +96,7 @@ namespace Senparc.Weixin.Cache.Redis
         /// 获取 Server 对象
         /// </summary>
         /// <returns></returns>
-        private IServer GetServer()
+        protected IServer GetServer()
         {
             //https://github.com/StackExchange/StackExchange.Redis/blob/master/Docs/KeysScan.md
             var server = _client.GetServer(_client.GetEndPoints()[0]);
@@ -117,7 +109,7 @@ namespace Senparc.Weixin.Cache.Redis
         /// <param name="key"></param>
         /// <param name="isFullKey"></param>
         /// <returns></returns>
-        private HashKeyAndField GetHashKeyAndField(string key, bool isFullKey = false)
+        protected HashKeyAndField GetHashKeyAndField(string key, bool isFullKey = false)
         {
             var finalFullKey = base.GetFinalKey(key, isFullKey);
             var index = finalFullKey.LastIndexOf(":");
@@ -135,10 +127,15 @@ namespace Senparc.Weixin.Cache.Redis
             return hashKeyAndField;
         }
 
-
-        #region 实现 IContainerCacheStragegy 接口
+        #region 实现 IObjectCacheStrategy 接口
 
         //public string CacheSetKey { get; set; }
+
+        public IContainerCacheStrategy ContainerCacheStrategy
+        {
+            get { return RedisContainerCacheStrategy.Instance; }
+        }
+
 
         /// <summary>
         /// 
@@ -155,7 +152,7 @@ namespace Senparc.Weixin.Cache.Redis
             return _cache.HashExists(hashKeyAndField.Key, hashKeyAndField.Field);
         }
 
-        public IBaseContainerBag Get(string key, bool isFullKey = false)
+        public object Get(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -173,7 +170,7 @@ namespace Senparc.Weixin.Cache.Redis
 
             //var value = _cache.StringGet(cacheKey);
             var value = _cache.HashGet(hashKeyAndField.Key, hashKeyAndField.Field);
-            return StackExchangeRedisExtensions.Deserialize<IBaseContainerBag>(value);
+            return value;
         }
 
         public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
@@ -202,9 +199,10 @@ namespace Senparc.Weixin.Cache.Redis
 
             #endregion
 
-            var key = ContainerHelper.GetItemCacheKey(typeof (TBag), "");
+            var key = ContainerHelper.GetItemCacheKey(typeof(TBag), "");
             key = key.Substring(0, key.Length - 1);//去掉:号
             key = GetFinalKey(key);//获取带SenparcWeixin:DefaultCache:前缀的Key（[DefaultCache]可配置）
+
             var list = _cache.HashGetAll(key);
             var dic = new Dictionary<string, TBag>();
 
@@ -217,20 +215,38 @@ namespace Senparc.Weixin.Cache.Redis
             return dic;
         }
 
-        public IDictionary<string, IBaseContainerBag> GetAll()
+        /// <summary>
+        /// 注意：此方法获取的object为直接储存在缓存中，序列化之后的Value
+        /// </summary>
+        /// <returns></returns>
+        public IDictionary<string, object> GetAll()
         {
-            //尽量不要用此方法！
-            return GetAll<IBaseContainerBag>();
+            var keyPrefix = GetFinalKey("");//获取带SenparcWeixin:DefaultCache:前缀的Key（[DefaultCache]可配置）
+            var dic = new Dictionary<string, object>();
+
+            var hashKeys = GetServer().Keys(pattern: keyPrefix + "*");
+            foreach (var redisKey in hashKeys)
+            {
+                var list = _cache.HashGetAll(redisKey);
+
+                foreach (var hashEntry in list)
+                {
+                    var fullKey = redisKey.ToString() + ":" + hashEntry.Name;//最完整的finalKey（可用于LocalCache），还原完整Key，格式：[命名空间]:[Key]
+                    dic[fullKey] = hashEntry.Value;
+                }
+            }
+            return dic;
         }
 
 
         public long GetCount()
         {
-            var count = GetServer().Keys().Count();
+            var keyPattern = GetFinalKey("*");//获取带SenparcWeixin:DefaultCache:前缀的Key（[DefaultCache]         
+            var count = GetServer().Keys(pattern: keyPattern).Count();
             return count;
         }
 
-        public void InsertToCache(string key, IBaseContainerBag value)
+        public void InsertToCache(string key, object value)
         {
             if (string.IsNullOrEmpty(key) || value == null)
             {
@@ -268,7 +284,7 @@ namespace Senparc.Weixin.Cache.Redis
             _cache.HashDelete(hashKeyAndField.Key, hashKeyAndField.Field);//删除项
         }
 
-        public void Update(string key, IBaseContainerBag value, bool isFullKey = false)
+        public void Update(string key, object value, bool isFullKey = false)
         {
             //var cacheKey = GetFinalKey(key, isFullKey);
             var hashKeyAndField = this.GetHashKeyAndField(key);
@@ -278,14 +294,6 @@ namespace Senparc.Weixin.Cache.Redis
             //_cache.StringSet(cacheKey, value.Serialize());
 
             _cache.HashSet(hashKeyAndField.Key, hashKeyAndField.Field, value.Serialize());
-        }
-
-        public void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false)
-        {
-            if (this.CheckExisted(key, isFullKey))
-            {
-                Update(key, containerBag, isFullKey);
-            }
         }
 
         #endregion

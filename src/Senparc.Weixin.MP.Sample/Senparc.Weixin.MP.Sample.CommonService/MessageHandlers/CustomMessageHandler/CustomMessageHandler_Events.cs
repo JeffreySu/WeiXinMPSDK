@@ -14,6 +14,7 @@ using System.Linq;
 using System.Web;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.Context;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
@@ -31,7 +32,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             //获取Senparc.Weixin.MP.dll版本信息
             var fileVersionInfo = FileVersionInfo.GetVersionInfo(HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll"));
-            var version = string.Format("{0}.{1}", fileVersionInfo.FileMajorPart, fileVersionInfo.FileMinorPart);
+            var version = string.Format("{0}.{1}.{2}", fileVersionInfo.FileMajorPart, fileVersionInfo.FileMinorPart, fileVersionInfo.FileBuildPart);
             return string.Format(
 @"欢迎关注【Senparc.Weixin.MP 微信公众平台SDK】，当前运行版本：v{0}。
 您可以发送【文字】【位置】【图片】【语音】等不同类型的信息，查看不同格式的回复。
@@ -39,12 +40,16 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 您也可以直接点击菜单查看各种类型的回复。
 还可以点击菜单体验微信支付。
 
-SDK官方地址：http://sdk.weixin.senparc.com
+SDK官方地址：http://weixin.senparc.com
+SDK Demo：http://sdk.weixin.senparc.com
 源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK
 Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
 
 ===============
-更多有关第三方开放平台（Senparc.Weixin.Open）的内容，请回复文字：open
+更多：
+1、有关第三方开放平台（Senparc.Weixin.Open）的内容，请回复文字：open
+
+2、JSSDK测试：http://sdk.weixin.senparc.com/WeixinJSSDK
 ",
                 version);
         }
@@ -167,14 +172,34 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                 case "OAuth"://OAuth授权测试
                     {
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageNews>();
+
                         strongResponseMessage.Articles.Add(new Article()
                         {
                             Title = "OAuth2.0测试",
-                            Description = "点击【查看全文】进入授权页面。\r\n注意：此页面仅供测试（是专门的一个临时测试账号的授权，并非Senparc.Weixin.MP SDK官方账号，所以如果授权后出现错误页面数正常情况），测试号随时可能过期。请将此DEMO部署到您自己的服务器上，并使用自己的appid和secret。",
+                            Description = "选择下面两种不同的方式进行测试，区别在于授权成功后，最后停留的页面。",
+                            //Url = "http://sdk.weixin.senparc.com/oauth2",
+                            //PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
+                        });
+
+                        strongResponseMessage.Articles.Add(new Article()
+                        {
+                            Title = "OAuth2.0测试（不带returnUrl），测试环境可使用",
+                            Description = "OAuth2.0测试（不带returnUrl）",
                             Url = "http://sdk.weixin.senparc.com/oauth2",
                             PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
                         });
+
+                        var returnUrl = "/OAuth2/TestReturnUrl";
+                        strongResponseMessage.Articles.Add(new Article()
+                        {
+                            Title = "OAuth2.0测试（带returnUrl），生产环境强烈推荐使用",
+                            Description = "OAuth2.0测试（带returnUrl）",
+                            Url = "http://sdk.weixin.senparc.com/oauth2?returnUrl="+ returnUrl.UrlEncode(),
+                            PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
+                        });
+
                         reponseMessage = strongResponseMessage;
+
                     }
                     break;
                 case "Description":

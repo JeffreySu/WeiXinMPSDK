@@ -9,8 +9,9 @@ namespace Senparc.Weixin.Cache
 {
     public class CacheStrategyFactory
     {
-        internal static Func<IContainerCacheStragegy> ContainerCacheStrageFunc;
+        internal static Func<IContainerCacheStrategy> ContainerCacheStrateFunc;
 
+        internal static Func<IObjectCacheStrategy> ObjectCacheStrateFunc;
         //internal static IBaseCacheStrategy<TKey, TValue> GetContainerCacheStrategy<TKey, TValue>()
         //    where TKey : class
         //    where TValue : class
@@ -18,24 +19,46 @@ namespace Senparc.Weixin.Cache
         //    return;
         //}
 
-        public static void RegisterContainerCacheStrategy(Func<IContainerCacheStragegy> func)
+        public static void RegisterObjectCacheStrategy(Func<IObjectCacheStrategy> func)
         {
-            ContainerCacheStrageFunc = func;
+            ObjectCacheStrateFunc = func;
         }
 
-        public static IContainerCacheStragegy GetContainerCacheStragegyInstance()
+
+        public static IObjectCacheStrategy GetObjectCacheStrategyInstance()
         {
-            if (ContainerCacheStrageFunc == null)
+            if (ObjectCacheStrateFunc == null)
             {
                 //默认状态
-                return LocalContainerCacheStrategy.Instance;
+                return LocalObjectCacheStrategy.Instance;
             }
             else
             {
                 //自定义类型
-                var instance = ContainerCacheStrageFunc();
+                var instance = ObjectCacheStrateFunc();
                 return instance;
             }
         }
+
+
+        //public static void RegisterContainerCacheStrategy(Func<IContainerCacheStrategy> func)
+        //{
+        //    ContainerCacheStrateFunc = func;
+        //}
+
+        //public static IContainerCacheStrategy GetContainerCacheStrategyInstance()
+        //{
+        //    if (ContainerCacheStrateFunc == null)
+        //    {
+        //        //默认状态
+        //        return LocalContainerCacheStrategy.Instance;
+        //    }
+        //    else
+        //    {
+        //        //自定义类型
+        //        var instance = ContainerCacheStrateFunc();
+        //        return instance;
+        //    }
+        //}
     }
 }

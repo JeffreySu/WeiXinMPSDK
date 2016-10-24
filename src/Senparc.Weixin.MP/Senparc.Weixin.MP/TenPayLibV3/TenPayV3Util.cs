@@ -112,6 +112,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
             return Convert.ToUInt32(ts.TotalSeconds);
         }
+
         /// <summary>
         /// 取随机数
         /// </summary>
@@ -140,6 +141,18 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             }
 
             return str;
+        }
+
+        /// <summary>
+        /// 创建当天内不会重复的数字
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static string BuildDailyRandomStr(int length)
+        {
+            var stringFormat = DateTime.Now.ToString("HHmmss0000");//共10位
+
+            return stringFormat;
         }
 
     }

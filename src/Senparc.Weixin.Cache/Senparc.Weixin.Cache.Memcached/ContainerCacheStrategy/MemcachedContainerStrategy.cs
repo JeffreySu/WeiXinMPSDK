@@ -32,7 +32,7 @@ using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache.Memcached
 {
-    public class MemcachedContainerStrategy : BaseCacheStrategy, IContainerCacheStragegy
+    public class MemcachedContainerStrategy : BaseCacheStrategy, IContainerCacheStrategy
     {
         internal MemcachedClient _cache;
         private MemcachedClientConfiguration _config;
@@ -59,7 +59,7 @@ namespace Senparc.Weixin.Cache.Memcached
         }
 
         //静态LocalCacheStrategy
-        public static IContainerCacheStragegy Instance
+        public static IContainerCacheStrategy Instance
         {
             get
             {
@@ -148,7 +148,7 @@ namespace Senparc.Weixin.Cache.Memcached
 
         #endregion
 
-        #region IContainerCacheStragegy 成员
+        #region IContainerCacheStrategy 成员
 
         public void InsertToCache(string key, IBaseContainerBag value)//TODO:添加Timeout参数
         {

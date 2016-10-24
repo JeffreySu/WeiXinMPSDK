@@ -136,7 +136,7 @@ namespace Senparc.Weixin.Cache.Redis
         }
 
 
-        #region 实现 IContainerCacheStragegy 接口
+        #region 实现 IContainerCacheStrategy 接口
 
         //public string CacheSetKey { get; set; }
 

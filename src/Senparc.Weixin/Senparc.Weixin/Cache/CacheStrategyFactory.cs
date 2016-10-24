@@ -9,9 +9,9 @@ namespace Senparc.Weixin.Cache
 {
     public class CacheStrategyFactory
     {
-        internal static Func<IContainerCacheStrategy> ContainerCacheStrageFunc;
+        internal static Func<IContainerCacheStrategy> ContainerCacheStrateFunc;
 
-        internal static Func<IObjectCacheStrategy> ObjectCacheStrageFunc;
+        internal static Func<IObjectCacheStrategy> ObjectCacheStrateFunc;
         //internal static IBaseCacheStrategy<TKey, TValue> GetContainerCacheStrategy<TKey, TValue>()
         //    where TKey : class
         //    where TValue : class
@@ -21,17 +21,17 @@ namespace Senparc.Weixin.Cache
 
         public static void RegisterObjectCacheStrategy(Func<IObjectCacheStrategy> func)
         {
-            ObjectCacheStrageFunc = func;
+            ObjectCacheStrateFunc = func;
         }
 
         public static void RegisterContainerCacheStrategy(Func<IContainerCacheStrategy> func)
         {
-            ContainerCacheStrageFunc = func;
+            ContainerCacheStrateFunc = func;
         }
 
-        public static IContainerCacheStrategy GetContainerCacheStragegyInstance()
+        public static IContainerCacheStrategy GetContainerCacheStrategyInstance()
         {
-            if (ContainerCacheStrageFunc == null)
+            if (ContainerCacheStrateFunc == null)
             {
                 //默认状态
                 return LocalContainerCacheStrategy.Instance;
@@ -39,7 +39,7 @@ namespace Senparc.Weixin.Cache
             else
             {
                 //自定义类型
-                var instance = ContainerCacheStrageFunc();
+                var instance = ContainerCacheStrateFunc();
                 return instance;
             }
         }

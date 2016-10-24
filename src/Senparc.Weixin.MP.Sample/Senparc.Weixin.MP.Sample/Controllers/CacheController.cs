@@ -70,8 +70,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             var sb = new StringBuilder();
             //var cacheKey = TestContainer1.GetContainerCacheKey();
-            var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
-            var itemCollection = containerCacheStragegy.GetAll<TestContainerBag1>();
+            var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
+            var itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
 
             sb.AppendFormat("Count1：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
 
@@ -84,7 +84,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             };
             TestContainer1.Update(bagKey, bag);//更新到缓存（列队）
 
-            itemCollection = containerCacheStragegy.GetAll<TestContainerBag1>();
+            itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
 
             sb.AppendFormat("Count2：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
 
@@ -102,15 +102,15 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public ActionResult RunTest()
         {
             var sb = new StringBuilder();
-            var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
-            sb.AppendFormat("{0}：{1}<br />", "当前缓存策略", containerCacheStragegy.GetType().Name);
+            var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
+            sb.AppendFormat("{0}：{1}<br />", "当前缓存策略", containerCacheStrategy.GetType().Name);
 
             var finalExisted = false;
             for (int i = 0; i < 3; i++)
             {
                 sb.AppendFormat("<br />====== {0}：{1} ======<br /><br />", "开始一轮测试", i + 1);
                 var shortBagKey = DateTime.Now.Ticks.ToString();
-                var finalBagKey = containerCacheStragegy.GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
+                var finalBagKey = containerCacheStrategy.GetFinalKey(ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortBagKey));//获取最终缓存中的键
                 var bag = new TestContainerBag1()
                 {
                     Key = shortBagKey,
@@ -133,7 +133,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 sb.AppendFormat("{0}：{1}<br />", "已经加入列队", mqItem != null);
                 sb.AppendFormat("{0}：{1}<br />", "当前消息列队数量（未更新缓存）", mq.GetCount());
 
-                var itemCollection = containerCacheStragegy.GetAll<TestContainerBag1>();
+                var itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
                 var existed = itemCollection.ContainsKey(finalBagKey);
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);
                 sb.AppendFormat("{0}：{1}<br />", "插入缓存时间",
@@ -144,7 +144,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 Thread.Sleep(waitSeconds * 1000); //线程默认轮询等待时间为2秒
                 sb.AppendFormat("{0}：{1}<br />", "当前消息列队数量（未更新缓存）", mq.GetCount());
 
-                itemCollection = containerCacheStragegy.GetAll<TestContainerBag1>();
+                itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
                 existed = itemCollection.ContainsKey(finalBagKey);
                 finalExisted = existed;
                 sb.AppendFormat("{0}：{1}<br />", "当前缓存是否存在", existed);

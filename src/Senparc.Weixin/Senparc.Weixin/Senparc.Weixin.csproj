@@ -87,12 +87,12 @@
     <Compile Include="Cache\CacheStrategy\BaseCacheStrategy.cs" />
     <Compile Include="Cache\ContainerCacheStrategy\IContainerCacheStragegy.cs" />
     <Compile Include="Cache\Lock\LocalCacheLock.cs" />
-    <Compile Include="Cache\ContainerCacheStrategy\LocalContainerCacheStrategy\LocalContainerCacheStrategy.cs" />
+    <Compile Include="Cache\ContainerCacheStrategy\Local\LocalContainerCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategy\IBaseCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategyFactory.cs" />
     <Compile Include="Cache\Lock\BaseCacheLock.cs" />
     <Compile Include="Cache\Lock\ICacheLock.cs" />
-    <Compile Include="Cache\ObjectCacheStrategy\IObjectCacheStrategy.cs" />
+    <Compile Include="Cache\ObjectCacheStrategy\Local\IObjectCacheStrategy.cs" />
     <Compile Include="Cache\ObjectCacheStrategy\LocalObjectCacheStrategy.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Containers\BaseContainer.cs" />

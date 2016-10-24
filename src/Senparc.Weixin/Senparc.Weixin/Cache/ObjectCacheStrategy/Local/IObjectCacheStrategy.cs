@@ -11,6 +11,6 @@ namespace Senparc.Weixin.Cache
     /// </summary>
     public interface IObjectCacheStrategy : IBaseCacheStrategy<string, object>
     {
-
+        IContainerCacheStrategy ContainerCacheStrategy { get; }
     }
 }

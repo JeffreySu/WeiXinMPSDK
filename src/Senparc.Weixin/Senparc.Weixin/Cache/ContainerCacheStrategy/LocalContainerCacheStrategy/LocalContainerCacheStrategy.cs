@@ -11,7 +11,7 @@
     修改描述：v4.7.4  解决Container无法注册的问题
 
     修改标识：Senparc - 20161024
-    修改描述：v4.8.3  重命名LocalCacheHelper为LocalContainerCacheHelper
+    修改描述：v4.8.3  废除LocalCacheHelper类，将LocalObjectCacheStrategy做为基类
 
  ----------------------------------------------------------------*/
 
@@ -47,7 +47,7 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 本地容器缓存策略
     /// </summary>
-    public sealed class LocalContainerCacheStrategy : LocalObjectCacheStrategy, IContainerCacheStragegy
+    public sealed class LocalContainerCacheStrategy : LocalObjectCacheStrategy, IContainerCacheStrategy
     //where TContainerBag : class, IBaseContainerBag, new()
     {
         #region 数据源
@@ -66,7 +66,7 @@ namespace Senparc.Weixin.Cache
         }
 
         //静态LocalCacheStrategy
-        public static IContainerCacheStragegy Instance
+        public static IContainerCacheStrategy Instance
         {
             get
             {
@@ -82,7 +82,6 @@ namespace Senparc.Weixin.Cache
             //将instance设为一个初始化的LocalCacheStrategy新实例
             internal static readonly LocalContainerCacheStrategy instance = new LocalContainerCacheStrategy();
         }
-
 
         #endregion
 

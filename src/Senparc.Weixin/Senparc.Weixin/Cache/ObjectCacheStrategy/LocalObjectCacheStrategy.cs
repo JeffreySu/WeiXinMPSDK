@@ -44,7 +44,7 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 本地容器缓存策略
     /// </summary>
-    public class LocalObjectCacheStrategy : BaseCacheStrategy, IBaseCacheStrategy<string, object>
+    public class LocalObjectCacheStrategy : BaseCacheStrategy, IObjectCacheStrategy
     //where TContainerBag : class, IBaseContainerBag, new()
     {
         #region 数据源

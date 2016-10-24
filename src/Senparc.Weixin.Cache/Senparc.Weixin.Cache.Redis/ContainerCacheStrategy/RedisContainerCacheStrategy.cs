@@ -40,7 +40,7 @@ namespace Senparc.Weixin.Cache.Redis
     /// <summary>
     /// Redis容器缓存策略
     /// </summary>
-    public sealed class RedisContainerCacheStrategy : BaseCacheStrategy, IContainerCacheStragegy
+    public sealed class RedisContainerCacheStrategy : BaseCacheStrategy, IContainerCacheStrategy
     {
         internal ConnectionMultiplexer _client;
         private IDatabase _cache;

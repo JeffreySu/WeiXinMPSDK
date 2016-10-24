@@ -54,7 +54,7 @@ namespace Senparc.Weixin.Containers
         /// <summary>
         /// 获取符合当前缓存策略配置的缓存的操作对象实例
         /// </summary>
-        protected static IContainerCacheStragegy /*IBaseCacheStrategy<string,Dictionary<string, TBag>>*/ Cache
+        protected static IContainerCacheStrategy /*IBaseCacheStrategy<string,Dictionary<string, TBag>>*/ Cache
         {
             get
             {

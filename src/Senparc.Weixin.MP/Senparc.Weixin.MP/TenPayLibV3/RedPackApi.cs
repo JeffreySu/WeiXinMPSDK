@@ -23,6 +23,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// </summary>
     public class RedPackApi
     {
+        private static string GetNewBillNo(string mchId)
+        {
+            return string.Format("{0}{1}{2}",mchId,DateTime.Now.ToString("yyyyMMdd"), TenPayV3Util.BuildRandomStr(10));
+        }
+
         /// <summary>
         /// 普通红包发送
         /// </summary>
@@ -45,7 +50,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             string iP, int redPackAmount, string wishingWord, string actionName, string remark, 
             out string nonceStr, out string paySign)
         {
-            string mchbillno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
+            string mchbillno = GetNewBillNo(mchId);
 
             nonceStr = TenPayV3Util.GetNoncestr();
             //RequestHandler packageReqHandler = new RequestHandler(null);

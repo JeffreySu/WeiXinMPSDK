@@ -37,6 +37,9 @@
     修改标识：Senparc - 20160901
     修改描述：v14.3.7 增加QrCode_ActionName枚举
 
+    修改标识：Senparc - 20161024
+    修改描述：v14.3.1024 添加RedPack_Scene枚举
+
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;
@@ -840,5 +843,44 @@ namespace Senparc.Weixin.MP
         /// 永久的字符串
         /// </summary>
         QR_LIMIT_STR_SCENE
+    }
+
+    /// <summary>
+    /// 红包的场景id（scene_id），最中输出为字符串
+    /// </summary>
+    public enum RedPack_Scene
+    {
+        /// <summary>
+        /// 商品促销
+        /// </summary>
+        PRODUCT_1,
+        /// <summary>
+        /// 抽奖
+        /// </summary>
+        PRODUCT_2,
+        /// <summary>
+        /// 虚拟物品兑奖
+        /// </summary>
+        PRODUCT_3,
+        /// <summary>
+        /// 企业内部福利
+        /// </summary>
+        PRODUCT_4,
+        /// <summary>
+        /// 渠道分润
+        /// </summary>
+        PRODUCT_5,
+        /// <summary>
+        /// 保险回馈
+        /// </summary>
+        PRODUCT_6,
+        /// <summary>
+        /// 彩票派奖
+        /// </summary>
+        PRODUCT_7,
+        /// <summary>
+        /// 税务刮奖
+        /// </summary>
+        PRODUCT_8
     }
 }

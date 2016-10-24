@@ -59,7 +59,8 @@ namespace Senparc.Weixin.Containers
             get
             {
                 //使用工厂模式或者配置进行动态加载
-                return CacheStrategyFactory.GetContainerCacheStragegyInstance();
+                //return CacheStrategyFactory.GetContainerCacheStrategyInstance();
+                return CacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
             }
         }
 
@@ -82,16 +83,16 @@ namespace Senparc.Weixin.Containers
         //            //直接执行
         //            //{
         //            //}
-        //            //var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
-        //            //containerCacheStragegy.InsertToCache(cacheKey, itemCollection);//插入到缓存
+        //            //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
+        //            //containerCacheStrategy.InsertToCache(cacheKey, itemCollection);//插入到缓存
 
         //            //保存到缓存列队，等待执行
         //            SenparcMessageQueue mq = new SenparcMessageQueue();
         //            var mqKey = SenparcMessageQueue.GenerateKey("ContainerItemCollection", typeof(BaseContainer<TBag>), cacheKey, "InsertItemCollection");
         //            mq.Add(mqKey, () =>
         //            {
-        //                var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
-        //                containerCacheStragegy.InsertToCache(cacheKey, itemCollection);//插入到缓存
+        //                var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
+        //                containerCacheStrategy.InsertToCache(cacheKey, itemCollection);//插入到缓存
         //            });
         //        }
         //        else

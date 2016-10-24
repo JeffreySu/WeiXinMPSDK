@@ -62,7 +62,7 @@ namespace Senparc.Weixin.MP.Sample
 
             if (!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置")
             {
-                CacheStrategyFactory.RegisterContainerCacheStrategy(() => RedisContainerCacheStrategy.Instance);//Redis
+                CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
             }
             #endregion
 

@@ -9,14 +9,14 @@ namespace Senparc.Weixin.Cache
     public abstract class BaseCacheLock : ICacheLock
     {
         protected string _resourceName;
-        protected IBaseCacheStrategy _cacheStragegy;
+        protected IBaseCacheStrategy _cacheStrategy;
         protected int _retryCount;
         protected TimeSpan _retryDelay;
         public bool LockSuccessful { get; set; }
 
-        protected BaseCacheLock(IBaseCacheStrategy stragegy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
+        protected BaseCacheLock(IBaseCacheStrategy strategy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
         {
-            _cacheStragegy = stragegy;
+            _cacheStrategy = strategy;
             _resourceName = resourceName + key;/*加上Key可以针对某个AppId加锁*/
             _retryCount = retryCount;
             _retryDelay = retryDelay;

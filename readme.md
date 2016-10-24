@@ -74,6 +74,14 @@
 > Senparc.Weixin SDK已经针对.NET Core进行了优化，.NET Core 的开发过程和.NET Framework几乎是一样的，
 所有的接口、方法、命名规则和架构设计也都保持了高度的一致。
 
+> 由于.NET Core对某些特性支持正在完善中，目前.NET Core版本暂未提供分布式缓存有关的功能以及Senpar.Weixin.Open.dll。
+除此以外的所有库都已在Nuget包中支持，可以直接使用（同一个Nuget包同时支持.NET 4.0/4.5/Core，安装后程序会自动根据项目环境适配）。
+
+> 以下所有介绍以 .NET Framework 版本为例。
+
+> Senparc.Weixin SDK已经针对.NET Core进行了优化，.NET Core 的开发过程和.NET Framework几乎是一样的，
+所有的接口、方法、命名规则和架构设计也都保持了高度的一致。
+
 > 由于.NET Core对某些特性支持正在完善中，目前SDK暂未提供分布式缓存有关的功能以及Senpar.Weixin.Open.dll。
 除此以外的所有库都已在Nuget包中支持，可以直接使用（同一个Nuget包同时支持.NET 4.0/4.5/Core，安装后程序会自动根据项目环境适配）。
 

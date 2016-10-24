@@ -9,11 +9,11 @@ namespace Senparc.Weixin.Cache
 {
     public class LocalCacheLock : BaseCacheLock
     {
-        private LocalContainerCacheStrategy _localStrategy;
-        public LocalCacheLock(LocalContainerCacheStrategy stragegy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
-            :base(stragegy,resourceName,key,retryCount,retryDelay)
+        private IBaseCacheStrategy _localStrategy;
+        public LocalCacheLock(IBaseCacheStrategy strategy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
+            :base(strategy,resourceName,key,retryCount,retryDelay)
         {
-            _localStrategy = stragegy;
+            _localStrategy = strategy;
         }
 
         private static Dictionary<string, object> LockPool = new Dictionary<string, object>();

@@ -46,8 +46,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public static class CustomApi
     {
         private const string URL_FORMAT = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={0}";
-        #region 同步请求
 
+        #region 同步请求
 
         /// <summary>
         /// 发送文本信息
@@ -819,13 +819,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         card_ext = cardExt
                     }
                 };
-                //JsonSetting jsonSetting = new JsonSetting()
-                //{
-                //    TypesToIgnore = new List<System.Type>() { typeof(CardExt) }
-                //};
+                JsonSetting jsonSetting = new JsonSetting()
+                {
+                    TypesToIgnore = new List<System.Type>() { typeof(CardExt) }
+                };
 
-                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut
-                   /* , jsonSetting: jsonSetting*/);
+                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut, jsonSetting: jsonSetting);
 
             }, accessTokenOrAppId);
         }

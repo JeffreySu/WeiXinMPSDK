@@ -19,8 +19,9 @@ namespace Senparc.Weixin.MP.Test.RedPackApiTest
             string paySign = "";
             var result = RedPackApi.SendNormalRedPack(_appId, _mchId, _tenPayKey, _tenPayCertPath, _testOpenId, "测试红包发送者", "127.0.0.1",
                 100, "祝福", "活动", "备注", out nonceStr, out paySign);
-            Console.Write(result);
             Assert.IsNotNull(result);
+            Console.Write(result);
+            Console.Write(result.mch_billno);
             Assert.IsNotNull(nonceStr);
             Assert.IsNotNull(paySign);
         }

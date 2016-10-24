@@ -33,7 +33,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             //获取Senparc.Weixin.MP.dll版本信息
             var fileVersionInfo = FileVersionInfo.GetVersionInfo(HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll"));
-            var version = string.Format("{0}.{1}", fileVersionInfo.FileMajorPart, fileVersionInfo.FileMinorPart);
+            var version = string.Format("{0}.{1}.{2}", fileVersionInfo.FileMajorPart, fileVersionInfo.FileMinorPart, fileVersionInfo.FileBuildPart);
             return string.Format(
 @"欢迎关注【Senparc.Weixin.MP 微信公众平台SDK】，当前运行版本：v{0}。
 您可以发送【文字】【位置】【图片】【语音】等不同类型的信息，查看不同格式的回复。
@@ -41,12 +41,16 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 您也可以直接点击菜单查看各种类型的回复。
 还可以点击菜单体验微信支付。
 
-SDK官方地址：http://sdk.weixin.senparc.com
+SDK官方地址：http://weixin.senparc.com
+SDK Demo：http://sdk.weixin.senparc.com
 源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK
 Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
 
 ===============
-更多有关第三方开放平台（Senparc.Weixin.Open）的内容，请回复文字：open
+更多：
+1、有关第三方开放平台（Senparc.Weixin.Open）的内容，请回复文字：open
+
+2、JSSDK测试：http://sdk.weixin.senparc.com/WeixinJSSDK
 ",
                 version);
         }

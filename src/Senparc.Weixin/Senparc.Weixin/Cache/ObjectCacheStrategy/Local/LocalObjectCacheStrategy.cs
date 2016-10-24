@@ -83,8 +83,12 @@ namespace Senparc.Weixin.Cache
 
         #endregion
 
-        #region ILocalCacheStrategy 成员
+        #region IObjectCacheStrategy 成员
 
+        public IContainerCacheStrategy ContainerCacheStrategy
+        {
+            get { return LocalContainerCacheStrategy.Instance; }
+        }
 
         public void InsertToCache(string key, object value)
         {

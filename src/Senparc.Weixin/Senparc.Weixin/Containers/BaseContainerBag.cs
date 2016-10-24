@@ -93,12 +93,13 @@ namespace Senparc.Weixin.Containers
             SenparcMessageQueue mq = new SenparcMessageQueue();
             mq.Add(mqKey, () =>
             {
-                var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
+                //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
+                var containerCacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
                 var itemCacheKey = ContainerHelper.GetItemCacheKey(containerBag);
                 containerBag.CacheTime = DateTime.Now;//记录缓存时间
 
                 //cacheKey形如:Container:Senparc.Weixin.MP.Containers.AccessTokenBag:wx669ef95216eef885
-                containerCacheStragegy.UpdateContainerBag(itemCacheKey, containerBag);
+                containerCacheStrategy.UpdateContainerBag(itemCacheKey, containerBag);
             });
         }
 

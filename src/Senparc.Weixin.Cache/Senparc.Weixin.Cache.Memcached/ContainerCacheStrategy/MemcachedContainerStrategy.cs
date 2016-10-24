@@ -148,7 +148,7 @@ namespace Senparc.Weixin.Cache.Memcached
 
         #endregion
 
-        #region IContainerCacheStragegy 成员
+        #region IContainerCacheStrategy 成员
 
         public void InsertToCache(string key, IBaseContainerBag value)//TODO:添加Timeout参数
         {

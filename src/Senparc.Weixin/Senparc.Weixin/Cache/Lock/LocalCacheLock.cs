@@ -9,8 +9,8 @@ namespace Senparc.Weixin.Cache
 {
     public class LocalCacheLock : BaseCacheLock
     {
-        private LocalContainerCacheStrategy _localStrategy;
-        public LocalCacheLock(LocalContainerCacheStrategy stragegy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
+        private IBaseCacheStrategy _localStrategy;
+        public LocalCacheLock(IBaseCacheStrategy stragegy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
             :base(stragegy,resourceName,key,retryCount,retryDelay)
         {
             _localStrategy = stragegy;

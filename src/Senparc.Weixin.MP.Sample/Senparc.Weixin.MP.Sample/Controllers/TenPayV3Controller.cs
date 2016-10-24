@@ -528,8 +528,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult SendRedPack()
         {
-            string nonceStr;
-            string paySign;
+            string nonceStr;//随机字符串
+            string paySign;//签名
             var sendNormalRedPackResult = RedPackApi.SendNormalRedPack(
                 TenPayV3Info.AppId, TenPayV3Info.MchId, TenPayV3Info.Key,
                 @"F:\apiclient_cert.p12",     //证书物理地址

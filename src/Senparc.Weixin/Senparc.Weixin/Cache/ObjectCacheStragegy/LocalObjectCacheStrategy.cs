@@ -10,9 +10,6 @@
     修改标识：Senparc - 20160812
     修改描述：v4.7.4  解决Container无法注册的问题
 
-    修改标识：Senparc - 20161024
-    修改描述：v4.8.3  重命名LocalCacheHelper为LocalContainerCacheHelper
-
  ----------------------------------------------------------------*/
 
 using System;
@@ -31,28 +28,28 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 全局静态数据源帮助类
     /// </summary>
-    public static class LocalContainerCacheHelper
+    public static class LocalObjectCacheHelper
     {
         /// <summary>
         /// 所有数据集合的列表
         /// </summary>
-        internal static IDictionary<string, IBaseContainerBag> LocalContainerCache { get; set; }
+        internal static IDictionary<string, object> LocalObjectCache { get; set; }
 
-        static LocalContainerCacheHelper()
+        static LocalObjectCacheHelper()
         {
-            LocalContainerCache = new Dictionary<string, IBaseContainerBag>(StringComparer.OrdinalIgnoreCase);
+            LocalObjectCache = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
         }
     }
 
     /// <summary>
     /// 本地容器缓存策略
     /// </summary>
-    public sealed class LocalContainerCacheStrategy : BaseCacheStrategy, IContainerCacheStragegy
+    public sealed class LocalObjectCacheStrategy : BaseCacheStrategy, IBaseCacheStrategy<string, object>
     //where TContainerBag : class, IBaseContainerBag, new()
     {
         #region 数据源
 
-        private IDictionary<string, IBaseContainerBag> _cache = LocalContainerCacheHelper.LocalContainerCache;
+        private IDictionary<string, object> _cache = LocalObjectCacheHelper.LocalObjectCache;
 
         #endregion
 
@@ -61,12 +58,12 @@ namespace Senparc.Weixin.Cache
         /// <summary>
         /// LocalCacheStrategy的构造函数
         /// </summary>
-        LocalContainerCacheStrategy()
+        LocalObjectCacheStrategy()
         {
         }
 
         //静态LocalCacheStrategy
-        public static IContainerCacheStragegy Instance
+        public static LocalObjectCacheStrategy Instance
         {
             get
             {
@@ -80,7 +77,7 @@ namespace Senparc.Weixin.Cache
             {
             }
             //将instance设为一个初始化的LocalCacheStrategy新实例
-            internal static readonly LocalContainerCacheStrategy instance = new LocalContainerCacheStrategy();
+            internal static readonly LocalObjectCacheStrategy instance = new LocalObjectCacheStrategy();
         }
 
 
@@ -89,7 +86,7 @@ namespace Senparc.Weixin.Cache
         #region ILocalCacheStrategy 成员
 
 
-        public void InsertToCache(string key, IBaseContainerBag value)
+        public void InsertToCache(string key, object value)
         {
             if (key == null || value == null)
             {
@@ -104,7 +101,7 @@ namespace Senparc.Weixin.Cache
             _cache.Remove(cacheKey);
         }
 
-        public IBaseContainerBag Get(string key, bool isFullKey = false)
+        public object Get(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -121,22 +118,21 @@ namespace Senparc.Weixin.Cache
             return _cache[cacheKey];
         }
 
+        //public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
+        //{
+        //    var dic = new Dictionary<string, TBag>();
+        //    var cacheList = GetAll();
+        //    foreach (var baseContainerBag in cacheList)
+        //    {
+        //        if (baseContainerBag.Value is TBag)
+        //        {
+        //            dic[baseContainerBag.Key] = (TBag)baseContainerBag.Value;
+        //        }
+        //    }
+        //    return dic;
+        //}
 
-        public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
-        {
-            var dic = new Dictionary<string, TBag>();
-            var cacheList = GetAll();
-            foreach (var baseContainerBag in cacheList)
-            {
-                if (baseContainerBag.Value is TBag)
-                {
-                    dic[baseContainerBag.Key] = (TBag)baseContainerBag.Value;
-                }
-            }
-            return dic;
-        }
-
-        public IDictionary<string, IBaseContainerBag> GetAll()
+        public IDictionary<string, object> GetAll()
         {
             return _cache;
         }
@@ -152,13 +148,13 @@ namespace Senparc.Weixin.Cache
             return _cache.Count;
         }
 
-        public void Update(string key, IBaseContainerBag value, bool isFullKey = false)
+        public void Update(string key, object value, bool isFullKey = false)
         {
             var cacheKey = GetFinalKey(key, isFullKey);
             _cache[cacheKey] = value;
         }
 
-        public void UpdateContainerBag(string key, IBaseContainerBag bag, bool isFullKey = false)
+        public void UpdateContainerBag(string key, object bag, bool isFullKey = false)
         {
             Update(key, bag, isFullKey);
         }

@@ -74,6 +74,10 @@ namespace Senparc.Weixin.Cache.Memcached
             }
 
             base.InsertToCache(key, value);
+#if DEBUG
+            var cacheKey = GetFinalKey(key);
+            value = _cache.Get(cacheKey) as IBaseContainerBag;
+#endif
         }
 
         public void RemoveFromCache(string key, bool isFullKey = false)

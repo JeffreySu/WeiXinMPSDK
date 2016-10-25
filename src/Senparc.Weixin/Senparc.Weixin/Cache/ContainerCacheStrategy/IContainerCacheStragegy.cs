@@ -1,7 +1,7 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
 
-    文件名：IContainerCacheStragegy.cs
+    文件名：IContainerCacheStrategy.cs
     文件功能描述：容器缓存策略基类。
 
 
@@ -24,8 +24,7 @@ namespace Senparc.Weixin.Cache
     /// <summary>
     /// 容器缓存策略接口
     /// </summary>
-    public interface IContainerCacheStragegy : IBaseCacheStrategy<string, IBaseContainerBag>
-
+    public interface IContainerCacheStrategy : IBaseCacheStrategy<string, IBaseContainerBag>
     {
         /// <summary>
         /// 获取所有ContainerBag

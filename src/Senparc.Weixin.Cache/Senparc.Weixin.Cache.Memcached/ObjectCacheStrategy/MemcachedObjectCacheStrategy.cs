@@ -1,53 +1,43 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
-
-    文件名：MemcachedContainerStrategy.cs
-    文件功能描述：Memcached 容器缓存策略。
-
-
-    创建标识：Senparc - 20160308
-
-    修改标识：Senparc - 20160808
-    修改描述：v0.0.2 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
-
-    修改标识：Senparc - 20160812
-    修改描述：v0.0.3  解决Container无法注册的问题
-
- ----------------------------------------------------------------*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Enyim.Caching;
 using Enyim.Caching.Configuration;
 using Enyim.Caching.Memcached;
-using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache.Memcached
 {
-    public class MemcachedContainerStrategy : BaseCacheStrategy, IContainerCacheStragegy
+    public class MemcachedObjectCacheStrategy : BaseCacheStrategy, IObjectCacheStrategy
     {
         internal MemcachedClient _cache;
         private MemcachedClientConfiguration _config;
         private static Dictionary<string, int> _serverlist;// = SiteConfig.MemcachedAddresss; TODO:全局注册配置
+
+        /// <summary>
+        /// 注册列表
+        /// </summary>
+        /// <param name="serverlist">Key：服务器地址（通常为IP），Value：端口</param>
+        public static void RegisterServerList(Dictionary<string, int> serverlist)
+        {
+            _serverlist = serverlist;
+        }
 
         #region 单例
 
         /// <summary>
         /// LocalCacheStrategy的构造函数
         /// </summary>
-        MemcachedContainerStrategy()
+        public MemcachedObjectCacheStrategy()
         {
             _config = GetMemcachedClientConfiguration();
             _cache = new MemcachedClient(_config);
         }
 
         //静态LocalCacheStrategy
-        public static IContainerCacheStragegy Instance
+        public static IObjectCacheStrategy Instance
         {
             get
             {
@@ -61,7 +51,7 @@ namespace Senparc.Weixin.Cache.Memcached
             {
             }
             //将instance设为一个初始化的LocalCacheStrategy新实例
-            internal static readonly MemcachedContainerStrategy instance = new MemcachedContainerStrategy();
+            internal static readonly MemcachedObjectCacheStrategy instance = new MemcachedObjectCacheStrategy();
         }
 
         #endregion
@@ -81,7 +71,7 @@ namespace Senparc.Weixin.Cache.Memcached
             return config;
         }
 
-        static MemcachedContainerStrategy()
+        static MemcachedObjectCacheStrategy()
         {
             // //初始化memcache服务器池
             //SockIOPool pool = SockIOPool.GetInstance();
@@ -136,9 +126,15 @@ namespace Senparc.Weixin.Cache.Memcached
 
         #endregion
 
-        #region IContainerCacheStragegy 成员
 
-        public void InsertToCache(string key, IBaseContainerBag value)//TODO:添加Timeout参数
+        #region IContainerCacheStrategy 成员
+
+        public IContainerCacheStrategy ContainerCacheStrategy
+        {
+            get { return MemcachedContainerStrategy.Instance; }
+        }
+
+        public void InsertToCache(string key, object value)//TODO:添加Timeout参数
         {
             if (string.IsNullOrEmpty(key) || value == null)
             {
@@ -165,7 +161,7 @@ namespace Senparc.Weixin.Cache.Memcached
             _cache.Remove(cacheKey);
         }
 
-        public IBaseContainerBag Get(string key, bool isFullKey = false)
+        public object Get(string key, bool isFullKey = false)
         {
             if (string.IsNullOrEmpty(key))
             {
@@ -173,15 +169,10 @@ namespace Senparc.Weixin.Cache.Memcached
             }
 
             var cacheKey = GetFinalKey(key, isFullKey);
-            return _cache.Get<IBaseContainerBag>(cacheKey);
+            return _cache.Get<object>(cacheKey);
         }
 
-        public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDictionary<string, IBaseContainerBag> GetAll()
+        public IDictionary<string, object> GetAll()
         {
             throw new NotImplementedException();
         }
@@ -202,23 +193,14 @@ namespace Senparc.Weixin.Cache.Memcached
             throw new NotImplementedException();//TODO:需要定义二级缓存键，从池中获取
         }
 
-        public void Update(string key, IBaseContainerBag value, bool isFullKey = false)
+        public void Update(string key, object value, bool isFullKey = false)
         {
             var cacheKey = GetFinalKey(key, isFullKey);
             _cache.Store(StoreMode.Set, cacheKey, value, DateTime.Now.AddDays(1));
         }
 
-        public void UpdateContainerBag(string key, IBaseContainerBag containerBag, bool isFullKey = false)
-        {
-            var cacheKey = GetFinalKey(key, isFullKey);
-            object value;
-            if (_cache.TryGet(cacheKey, out value))
-            {
-                Update(cacheKey, containerBag, true);
-            }
-        }
-
         #endregion
+
 
         public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {

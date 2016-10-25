@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20161014
+    修改描述：修改TenPayUtil.BuildRandomStr()方法
 ----------------------------------------------------------------*/
 
 using System;
@@ -109,6 +112,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         //    TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
         //    return Convert.ToUInt32(ts.TotalSeconds);
         //}
+
         /// <summary>
         /// 取随机数
         /// </summary>
@@ -131,12 +135,24 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 int n = length - str.Length;
                 while (n > 0)
                 {
-                    str.Insert(0, "0");
+                   str = str.Insert(0, "0");
                     n--;
                 }
             }
 
             return str;
+        }
+
+        /// <summary>
+        /// 创建当天内不会重复的数字
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
+        public static string BuildDailyRandomStr(int length)
+        {
+            var stringFormat = DateTime.Now.ToString("HHmmss0000");//共10位
+
+            return stringFormat;
         }
 
     }

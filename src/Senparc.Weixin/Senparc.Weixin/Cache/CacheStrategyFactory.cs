@@ -9,7 +9,7 @@ namespace Senparc.Weixin.Cache
 {
     public class CacheStrategyFactory
     {
-        internal static Func<IContainerCacheStrategy> ContainerCacheStrateFunc;
+        //internal static Func<IContainerCacheStrategy> ContainerCacheStrateFunc;
 
         internal static Func<IObjectCacheStrategy> ObjectCacheStrateFunc;
         //internal static IBaseCacheStrategy<TKey, TValue> GetContainerCacheStrategy<TKey, TValue>()

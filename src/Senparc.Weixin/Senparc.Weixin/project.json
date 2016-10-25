@@ -24,8 +24,8 @@
 		}
 	},
 	"dependencies": {
-		"Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
-		"NETStandard.Library": "1.6.0",
+		"Microsoft.AspNetCore.Http.Abstractions": "1.1.0-preview1-final",
+		"NETStandard.Library": "1.6.1-preview1-24530-04",
 		"Newtonsoft.Json": "9.0.1",
 		"System.Threading.Thread": "4.0.0"
 	},

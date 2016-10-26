@@ -47,7 +47,7 @@ namespace Senparc.Weixin.HttpUtility
         public static T GetResult<T>(string returnText)
         {
             JavaScriptSerializer js = new JavaScriptSerializer();
-
+            
             if (returnText.Contains("errcode"))
             {
                 //可能发生错误

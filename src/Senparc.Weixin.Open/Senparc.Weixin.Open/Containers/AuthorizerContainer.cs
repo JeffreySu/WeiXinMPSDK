@@ -34,6 +34,9 @@
     修改标识：Senparc - 20160813
     修改描述：v2.2.2 完善getNewToken参数传递
 
+    修改标识：Senparc - 20161027
+    修改描述：v2.3.1 为GetAuthorizerInfoResult方法添加authorizerBag.AuthorizationInfo更新
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -305,6 +308,10 @@ namespace Senparc.Weixin.Open.Containers
 
                     //AuthorizerInfo
                     authorizerBag.AuthorizerInfo = getAuthorizerInfoResult.authorizer_info;
+
+                    //AuthorizationInfo
+                    var getAuthorizationInfoResult = GetAuthorizationInfo(componentAppId, authorizerAppid, getNewTicket);
+                    authorizerBag.AuthorizationInfo = getAuthorizationInfoResult;
 
                     //var componentBag = ComponentContainer.TryGetItem(componentAppId);
                     //if (string.IsNullOrEmpty(authorizerBag.AuthorizerInfoResult.authorization_info.authorizer_access_token))

@@ -10,14 +10,16 @@
 		"licenseUrl": ""
 	},
 	"frameworks": {
-		"netstandard1.6": {},
-		"net461": {}
+			"netstandard1.6": {
+				"System.Xml.XmlDocument": "4.3.0-preview1-24530-04"
+			},
+			"net461": {
+			}
 	},
 	"dependencies": {
 		"Senparc.Weixin": "4.9.0",
 		"Microsoft.AspNetCore.Http": "1.1.0-preview1-final",
 		"System.Collections.NonGeneric": "4.0.1",
-		"System.Xml.XmlDocument": "4.0.1",
 		"System.Xml.XPath.XmlDocument": "4.0.1"
 	},
 	"buildOptions": {

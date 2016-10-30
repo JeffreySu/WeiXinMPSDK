@@ -24,11 +24,10 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.HttpUtility
 {
-    public static class RequestUtility
+	public static class RequestUtility
     {
         #region 代理
         /*

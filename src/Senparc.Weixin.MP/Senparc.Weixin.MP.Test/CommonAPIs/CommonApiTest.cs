@@ -27,9 +27,9 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             {
                 if (_appConfig == null)
                 {
-                    if (File.Exists("../../test.config"))
+                    if (File.Exists("../../Config/test.config"))
                     {
-                        var doc = XDocument.Load("../../test.config");
+                        var doc = XDocument.Load("../../Config/test.config");
                         _appConfig = new
                         {
                             AppId = doc.Root.Element("AppId").Value,

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Cache;
@@ -106,6 +108,33 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             }
             return _testOpenId;
         }
+
+        protected Dictionary<Thread,bool> AsyncThreadsCollection = new Dictionary<Thread, bool>();
+
+        /// <summary>
+        /// 异步多线程测试方法
+        /// </summary>
+        /// <param name="maxThreadsCount"></param>
+        /// <param name="openId"></param>
+        /// <param name="threadAction"></param>
+        protected void TestAyncMethod(int maxThreadsCount, string openId, ThreadStart threadAction)
+        {
+            List<Thread> threadList = new List<Thread>();
+            //int finishThreadsCount = 0;
+            for (int i = 0; i < maxThreadsCount; i++)
+            {
+                Thread thread = new Thread(threadAction);
+                threadList.Add(thread);
+            }
+
+            threadList.ForEach(z => z.Start());
+
+            while (threadList.Count > 0)
+            {
+                Thread.Sleep(100);
+            }
+        }
+
 
         public CommonApiTest()
         {

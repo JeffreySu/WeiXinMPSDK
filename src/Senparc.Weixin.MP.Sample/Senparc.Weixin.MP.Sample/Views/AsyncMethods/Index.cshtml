@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "异步方法测试页面";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section HeaderContent
+{
+    <style>
+        .asyncWapper {
+            text-align: center;
+            padding: 30px 30px;
+        }
+
+            .asyncWapper h1 {
+                font-size: 200%;
+            }
+
+            .asyncWapper p {
+                line-height: 200%;
+            }
+    </style>
+}
+<div class="wrapper asyncWapper">
+    <h1>异步方法测试</h1>
+    <hr />
+    <p>
+        点击下方链接进行测试：
+    </p>
+    <p>
+        <table>
+            <thead>
+                <tr>
+                    <th>方法</th>
+                    <th>说明</th>
+                    <th>测试方法</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>临时二维码（QrCodeApi.CreateAsync）</td>
+                    <td>打开后会显示最新获取的二维码，使用微信扫一扫，会得到随机的场景值</td>
+                    <td>@Html.ActionLink("点击测试", "QrCodeTest", null, new { @class = "txtButton" })</td>
+                </tr>
+                <tr>
+                    <td>模板消息（TemplateApi.SendTemplateMessageAsync）</td>
+                    <td>点击后会在“盛派网络小助手”公众号收到推送消息（必须先关注）</td>
+                    <td>打开“盛派网络小助手”，输入关键字“TM”，查看返回</td>
+                </tr>
+            </tbody>
+        </table>
+    </p>
+</div>
+<div class="clear"></div>

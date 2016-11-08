@@ -89,7 +89,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         */
         private string _access_token = null;
 
-        protected string _testOpenId = "oIb08txj1En8hGXzHRvAjf-3X9Oc";//换成实际关注者的OpenId
+        protected string _testOpenId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//换成实际关注者的OpenId
 
         /// <summary>
         /// 自动获取Openid

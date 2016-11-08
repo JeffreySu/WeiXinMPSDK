@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
@@ -111,5 +112,42 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
             Assert.IsTrue(templates.FirstOrDefault(z => z.template_id == templateId) == null);
         }
 
+        #region 异步方法测试
+        [TestMethod()]
+        public void SendTemplateMessageAsyncTest()
+        {
+            List<Thread> threadList = new List<Thread>();
+            var openId = base._testOpenId;
+            var templateId = "cCh2CTTJIbVZkcycDF08n96FP-oBwyMVrro8C2nfVo4";
+            int finishThreadsCount = 0;
+            var maxThreadsCount = 1;
+            for (int i = 0; i < maxThreadsCount; i++)
+            {
+                var testData = new //TestTemplateData()
+                {
+                    first = new TemplateDataItem("【测试】您好，审核通过。"),
+                    keyword1 = new TemplateDataItem(openId),
+                    keyword2 = new TemplateDataItem("单元测试"),
+                    keyword3 = new TemplateDataItem(DateTime.Now.ToString()),
+                    remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
+                };
+
+                Thread thread = new Thread(() =>
+                {
+                    var result = TemplateApi.SendTemplateMessageAsync(base._appId, openId, templateId, null, testData).Result;
+                    finishThreadsCount++;
+                    Console.WriteLine("线程{0},结果：{1}", Thread.CurrentThread.GetHashCode(), result.errmsg);
+                });
+                threadList.Add(thread);
+            }
+
+            threadList.ForEach(z => z.Start());
+
+            while (finishThreadsCount < threadList.Count)
+            {
+                Thread.Sleep(100);
+            }
+        }
+        #endregion
     }
 }

@@ -91,7 +91,6 @@
     <Compile Include="AdvancedAPIs\Poi\PoiTest.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticTest.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundTest.cs" />
-    <Compile Include="AdvancedAPIs\TemplateMessage\TemplateApiTests.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateTest.cs" />
     <Compile Include="Containers\AccessTokenContainerAsyncTest.cs" />
     <Compile Include="Containers\AccessTokenContainerLockTest.cs" />

@@ -71,7 +71,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     };
 
                     var result = TemplateApi.SendTemplateMessageAsync(appId, openId, templateId, null, testData).Result;
-                    return Content("异步模板消息已经发送到【盛派网络小助手】公众号，请查看");
+                    return Content("异步模板消息已经发送到【盛派网络小助手】公众号，请查看。此前的验证码已失效，如需继续测试，请重新获取验证码。");
                 }
             }).ContinueWith<ActionResult>(task => task.Result);
         }

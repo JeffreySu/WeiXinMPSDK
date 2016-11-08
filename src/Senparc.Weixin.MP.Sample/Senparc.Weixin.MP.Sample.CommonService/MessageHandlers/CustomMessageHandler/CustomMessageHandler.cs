@@ -9,6 +9,7 @@
 ----------------------------------------------------------------*/
 
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -52,6 +53,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
         private string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
         private string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
+
+        /// <summary>
+        /// 模板消息集合（Key：checkCode，Value：OpenId）
+        /// </summary>
+        public static Dictionary<string, string> TemplateMessageCollection = new Dictionary<string, string>();
 
         public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, postModel, maxRecordCount)
@@ -256,6 +262,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 faultTolerantResponseMessage.Content = string.Format("测试容错，MsgId：{0}，Ticks：{1}", requestMessage.MsgId,
                     DateTime.Now.Ticks);
                 return faultTolerantResponseMessage;
+            }
+            else if (requestMessage.Content.ToUpper() == "TM")//异步模板消息设置
+            {
+                var openId = requestMessage.FromUserName;
+                var checkCode = Guid.NewGuid().ToString("n").Substring(0, 3);//为了防止openId泄露造成骚扰，这里启用验证码
+                TemplateMessageCollection[checkCode] = openId;
+                responseMessage.Content = string.Format(@"新的验证码为：{0}，请在网页上输入。网址：http://sdk.weixin.senparc.com/AsyncMethods", checkCode);
             }
             else
             {

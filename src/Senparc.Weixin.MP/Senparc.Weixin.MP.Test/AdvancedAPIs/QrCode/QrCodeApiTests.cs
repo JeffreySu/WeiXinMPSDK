@@ -23,12 +23,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Tests
         {
             var openId = base._testOpenId;
 
-            base.TestAyncMethod(2, openId, () =>
+            base.TestAyncMethod(1, openId, () =>
             {
-                var result = QrCodeApi.CreateAsync(base._appId, 100, 999999, QrCode_ActionName.QR_LIMIT_SCENE, "QrTest").Result;
+                var result = QrCodeApi.CreateAsync(base._appId, 100, 999999, QrCode_ActionName.QR_SCENE, "QrTest").Result;
                 //Assert.AreEqual(ReturnCode.请求成功,result.errcode);
 
-                Console.WriteLine("Result（{0}）：{1}", Thread.CurrentThread.GetHashCode(), result.BaseResult.ToString());
+                Console.WriteLine("Result（T-{0}）：{1}", Thread.CurrentThread.GetHashCode(), result.BaseResult.ToString());
 
 
                 //发送消息

@@ -32,8 +32,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Tests
 
                 Console.WriteLine("Result（T-{0}）：{1}", Thread.CurrentThread.GetHashCode(), result.BaseResult.ToString());
 
-
-                //发送消息
+                //发送消息通知生成状态
                 var testData = new //TestTemplateData()
                 {
                     first = new TemplateDataItem(string.Format("【测试-{0}】QrCode单元测试完成一个线程。", DateTime.Now.ToString("T"))),

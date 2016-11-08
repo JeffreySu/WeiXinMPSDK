@@ -45,6 +45,23 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Tests
                     (result.url)
                     , testData).Result;
 
+                if (result.errcode == ReturnCode.请求成功)
+                {
+                    //下载并获得二维码
+                    try
+                    {
+                        
+
+                        var mediaResult = MediaApi.UploadTemporaryMedia(base._appId, UploadMediaFileType.image, )
+                        CustomApi.SendImage(base._appId,openId)
+                    }
+                    catch
+                    {
+                        
+                        throw;
+                    }
+                }
+
                 base.AsyncThreadsCollection.Remove(Thread.CurrentThread);//必须要加
 
             });

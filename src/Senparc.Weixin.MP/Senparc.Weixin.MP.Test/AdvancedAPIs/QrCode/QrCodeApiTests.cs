@@ -34,7 +34,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Tests
                 //发送消息
                 var testData = new //TestTemplateData()
                 {
-                    first = new TemplateDataItem("【测试】QrCode单元测试完成一个线程。"),
+                    first = new TemplateDataItem(string.Format("【测试-{0}】QrCode单元测试完成一个线程。",DateTime.Now.ToString("T"))),
                     keyword1 = new TemplateDataItem(openId),
                     keyword2 = new TemplateDataItem("QrCode测试"),
                     keyword3 = new TemplateDataItem(DateTime.Now.ToString("O")),

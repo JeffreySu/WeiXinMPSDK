@@ -109,7 +109,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             return _testOpenId;
         }
 
-        protected Dictionary<Thread,bool> AsyncThreadsCollection = new Dictionary<Thread, bool>();
+        protected Dictionary<Thread, bool> AsyncThreadsCollection = new Dictionary<Thread, bool>();
 
         /// <summary>
         /// 异步多线程测试方法
@@ -119,17 +119,16 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         /// <param name="threadAction"></param>
         protected void TestAyncMethod(int maxThreadsCount, string openId, ThreadStart threadAction)
         {
-            List<Thread> threadList = new List<Thread>();
             //int finishThreadsCount = 0;
             for (int i = 0; i < maxThreadsCount; i++)
             {
                 Thread thread = new Thread(threadAction);
-                threadList.Add(thread);
+                AsyncThreadsCollection.Add(thread, false);
             }
 
-            threadList.ForEach(z => z.Start());
+            AsyncThreadsCollection.Keys.ToList().ForEach(z => z.Start());
 
-            while (threadList.Count > 0)
+            while (AsyncThreadsCollection.Count > 0)
             {
                 Thread.Sleep(100);
             }

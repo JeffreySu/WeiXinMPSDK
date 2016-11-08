@@ -130,7 +130,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
                 */
                 var testData = new //TestTemplateData()
                 {
-                    first = new TemplateDataItem("【测试】您好，审核通过。"),
+                    first = new TemplateDataItem(string.Format("【模板消息测试-{0}】您好，审核通过。", DateTime.Now.ToString("T"))),
                     keyword1 = new TemplateDataItem(openId),
                     keyword2 = new TemplateDataItem("单元测试"),
                     keyword3 = new TemplateDataItem(DateTime.Now.ToString("O")),

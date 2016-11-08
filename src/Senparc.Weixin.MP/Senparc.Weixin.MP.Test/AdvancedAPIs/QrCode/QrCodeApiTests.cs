@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 
@@ -50,7 +51,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Tests
                     //下载并获得二维码
                     try
                     {
-                        
+                        var tempFile = FileHelper.GetFileStream()
 
                         var mediaResult = MediaApi.UploadTemporaryMedia(base._appId, UploadMediaFileType.image, )
                         CustomApi.SendImage(base._appId,openId)

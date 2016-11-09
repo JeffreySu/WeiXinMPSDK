@@ -30,7 +30,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Tests
                 var result = QrCodeApi.CreateAsync(base._appId, 100, 999999, QrCode_ActionName.QR_SCENE, "QrTest").Result;
                 //Assert.AreEqual(ReturnCode.请求成功,result.errcode);
 
-                Console.WriteLine("Result（T-{0}）：{1}", Thread.CurrentThread.GetHashCode(), result.BaseResult.ToString());
+                Console.WriteLine("Result（T-{0}）：{1}", Thread.CurrentThread.GetHashCode(), result.ToString());
 
                 //发送消息通知生成状态
                 var testData = new //TestTemplateData()

@@ -64,7 +64,7 @@ namespace Senparc.Weixin.QY.Containers
         public string CorpId
         {
             get { return _corpId; }
-            set { base.SetContainerProperty(ref _corpId, value); }
+            set { base.SetContainerProperty(ref _corpId, value, "CorpId"); }
         }
         /// <summary>
         /// CorpSecret
@@ -72,7 +72,7 @@ namespace Senparc.Weixin.QY.Containers
         public string CorpSecret
         {
             get { return _corpSecret; }
-            set { base.SetContainerProperty(ref _corpSecret, value); }
+            set { base.SetContainerProperty(ref _corpSecret, value, "CorpSecret"); }
         }
         /// <summary>
         /// 过期时间
@@ -80,7 +80,7 @@ namespace Senparc.Weixin.QY.Containers
         public DateTime ExpireTime
         {
             get { return _expireTime; }
-            set { base.SetContainerProperty(ref _expireTime, value); }
+            set { base.SetContainerProperty(ref _expireTime, value, "ExpireTime"); }
         }
         /// <summary>
         /// ProviderTokenResult
@@ -88,7 +88,7 @@ namespace Senparc.Weixin.QY.Containers
         public ProviderTokenResult ProviderTokenResult
         {
             get { return _providerTokenResult; }
-            set { base.SetContainerProperty(ref _providerTokenResult, value); }
+            set { base.SetContainerProperty(ref _providerTokenResult, value, "ProviderTokenResult"); }
         }
 
         /// <summary>
@@ -210,64 +210,5 @@ namespace Senparc.Weixin.QY.Containers
         //}
         #endregion
 
-        #region 异步方法
-        /// <summary>
-        /// 【异步方法】使用完整的应用凭证获取Token，如果不存在将自动注册
-        /// </summary>
-        /// <param name="corpId"></param>
-        /// <param name="corpSecret"></param>
-        /// <param name="getNewToken"></param>
-        /// <returns></returns>
-        public static async Task<string> TryGetTokenAsync(string corpId, string corpSecret, bool getNewToken = false)
-        {
-            if (!CheckRegistered(BuildingKey(corpId, corpSecret)) || getNewToken)
-            {
-                Register(corpId, corpSecret);
-            }
-            return await GetTokenAsync(corpId,corpSecret);
-        }
-
-        /// <summary>
-        /// 【异步方法】获取可用Token
-        /// </summary>
-        /// <param name="corpId"></param>
-        /// <param name="getNewToken">是否强制重新获取新的Token</param>
-        /// <returns></returns>
-        public static async Task<string> GetTokenAsync(string corpId,string corpSecret, bool getNewToken = false)
-        {
-            var result = await GetTokenResultAsync(corpId,corpSecret,getNewToken);
-            return result.provider_access_token;
-        }
-
-        /// <summary>
-        /// 【异步方法】获取可用Token
-        /// </summary>
-        /// <param name="corpId"></param>
-        /// <param name="getNewToken">是否强制重新获取新的Token</param>
-        /// <returns></returns>
-        public static async Task<ProviderTokenResult> GetTokenResultAsync(string corpId,string corpSecret,bool getNewToken = false)
-        {
-            if (!CheckRegistered(BuildingKey(corpId, corpSecret)))
-            {
-                throw new WeixinQyException(UN_REGISTER_ALERT);
-            }
-
-            var providerTokenBag = TryGetItem(BuildingKey(corpId, corpSecret));
-            //lock (providerTokenBag.Lock)
-            {
-                if (getNewToken || providerTokenBag.ExpireTime <= DateTime.Now)
-                {
-                    //已过期，重新获取
-                    var providerTokenResult = await CommonApi.GetProviderTokenAsync(providerTokenBag.CorpId,
-                        providerTokenBag.CorpSecret);
-                    providerTokenBag.ProviderTokenResult = providerTokenResult;
-                    //providerTokenBag.ProviderTokenResult = CommonApi.GetProviderToken(providerTokenBag.CorpId,
-                    //    providerTokenBag.CorpSecret);
-                    providerTokenBag.ExpireTime = ApiUtility.GetExpireTime(providerTokenBag.ProviderTokenResult.expires_in);
-                }
-            }
-            return providerTokenBag.ProviderTokenResult;
-        }
-        #endregion
     }
 }

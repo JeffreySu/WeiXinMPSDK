@@ -44,19 +44,6 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
-
-        /// <summary>
-        /// 【异步方法】二次验证
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="userId">员工UserID</param>
-        /// <returns></returns>
-        public static async Task<QyJsonResult> TwoVerificationAsync(string accessToken, string userId)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
-            return await Get.GetJsonAsync<QyJsonResult>(url);
-        }
-        #endregion
+        
     }
 }

@@ -427,20 +427,6 @@ namespace Senparc.Weixin.QY.CommonAPIs
         }
         #endregion
 
-        #region 异步请求
-
-        /// <summary>
-        /// 【异步方法】删除菜单
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="agentId">企业应用的id，整型。可在应用的设置页面查看</param>
-        /// <returns></returns>
-        public static async Task<QyJsonResult> DeleteMenuAsync(string accessToken, int agentId)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
-            var result = await Get.GetJsonAsync<QyJsonResult>(url);
-            return result;
-        }
-        #endregion
+        
     }
 }

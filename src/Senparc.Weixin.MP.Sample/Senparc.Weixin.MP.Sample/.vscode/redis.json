@@ -1,0 +1,7 @@
+{
+    "databases": [
+        {
+            "name": "local",
+            "url": "http://localhost:6379"
+        },
+    ]

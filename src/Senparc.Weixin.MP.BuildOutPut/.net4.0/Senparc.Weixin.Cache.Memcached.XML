@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Senparc.Weixin.Cache.Memcached</name>
+    </assembly>
+    <members>
+        <member name="M:Senparc.Weixin.Cache.Memcached.MemcachedContainerStrategy.#ctor">
+            <summary>
+            LocalCacheStrategy的构造函数
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.Memcached.MemcachedObjectCacheStrategy.RegisterServerList(System.Collections.Generic.Dictionary{System.String,System.Int32})">
+            <summary>
+            注册列表
+            </summary>
+            <param name="serverlist">Key：服务器地址（通常为IP），Value：端口</param>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.Memcached.MemcachedObjectCacheStrategy.#ctor">
+            <summary>
+            LocalCacheStrategy的构造函数
+            </summary>
+        </member>
+    </members>
+</doc>

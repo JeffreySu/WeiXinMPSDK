@@ -6,7 +6,6 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using Senparc.Weixin.Cache;
-using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MessageQueue;
@@ -21,7 +20,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public DateTime DateTime
         {
             get { return _dateTime; }
-            set { this.SetContainerProperty(ref _dateTime, value); }
+            set { this.SetContainerProperty(ref _dateTime, value, "DateTime"); }
         }
     }
 
@@ -32,7 +31,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public DateTime DateTime
         {
             get { return _dateTime; }
-            set { this.SetContainerProperty(ref _dateTime, value); }
+            set { this.SetContainerProperty(ref _dateTime, value, "DateTime"); }
 
         }
     }
@@ -57,45 +56,46 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         public ActionResult Redis(int id = 1)
         {
+            return Content(".NET 4.0版本不支持Redis！");
             //测试Redis ItemCollection缓存更新功能
 
-            if (id == 1)
-            {
-                CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
-            }
-            else
-            {
-                CacheStrategyFactory.RegisterObjectCacheStrategy(() => null);
-            }
+            //if (id == 1)
+            //{
+            //    CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);
+            //}
+            //else
+            //{
+            //    CacheStrategyFactory.RegisterObjectCacheStrategy(() => null);
+            //}
 
-            var sb = new StringBuilder();
-            //var cacheKey = TestContainer1.GetContainerCacheKey();
-            var containerCacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
-            var itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
+            //var sb = new StringBuilder();
+            ////var cacheKey = TestContainer1.GetContainerCacheKey();
+            //var containerCacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
+            //var itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
 
-            sb.AppendFormat("Count1：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
+            //sb.AppendFormat("Count1：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
 
 
-            var bagKey = "Redis." + DateTime.Now.ToString();
-            var bag = new TestContainerBag1()
-            {
-                Key = bagKey,
-                DateTime = DateTime.Now
-            };
-            TestContainer1.Update(bagKey, bag);//更新到缓存（列队）
+            //var bagKey = "Redis." + DateTime.Now.ToString();
+            //var bag = new TestContainerBag1()
+            //{
+            //    Key = bagKey,
+            //    DateTime = DateTime.Now
+            //};
+            //TestContainer1.Update(bagKey, bag);//更新到缓存（列队）
 
-            itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
+            //itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
 
-            sb.AppendFormat("Count2：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
+            //sb.AppendFormat("Count2：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
 
-            if (itemCollection != null)
-            {
-                itemCollection[DateTime.Now.Ticks.ToString()] = bag;
-            }
+            //if (itemCollection != null)
+            //{
+            //    itemCollection[DateTime.Now.Ticks.ToString()] = bag;
+            //}
 
-            sb.AppendFormat("Count3：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
+            //sb.AppendFormat("Count3：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
 
-            return Content(sb.ToString());
+            //return Content(sb.ToString());
         }
 
         [HttpPost]

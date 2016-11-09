@@ -42,22 +42,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return json;
         }
         #endregion
-        #region 异步请求
-        public static async Task<PictureResult> UploadImgAsync(string accessToken, string fileName)
-        {
-            var urlFormat = "https://api.weixin.qq.com/merchant/common/upload_img?access_token={0}&filename={1}";
-            var url = string.IsNullOrEmpty(accessToken) ? urlFormat : string.Format(urlFormat, accessToken.AsUrlData(), fileName.AsUrlData());
-
-            var json = new PictureResult();
-
-            using (var fs = FileHelper.GetFileStream(fileName))
-            {
-                var jsonText = await RequestUtility.HttpPostAsync( url, null, fs);
-                json = Post.GetResult<PictureResult>(jsonText);
-            }
-            return json;
-        }
-        #endregion
 
     }
 }

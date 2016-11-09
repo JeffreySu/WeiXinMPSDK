@@ -48,22 +48,5 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
-         
-        /// <summary>
-        /// 【异步方法】标记客户的投诉处理状态
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="openId">支付该笔订单的用户 ID</param>
-        /// <param name="feedBackId">投诉单号</param>
-        /// <returns></returns>
-        public static async Task<WxJsonResult> UpDateFeedBackAsync(string accessToken, string openId, string feedBackId)
-        {
-            var urlFormat = "https://api.weixin.qq.com/payfeedback/update?access_token={0}&openid={1}&feedbackid={2}";
-            var url = string.Format(urlFormat, accessToken.AsUrlData(), openId.AsUrlData(), feedBackId.AsUrlData());
-
-            return await Get.GetJsonAsync<WxJsonResult>(url);
-        }
-        #endregion
     }
 }

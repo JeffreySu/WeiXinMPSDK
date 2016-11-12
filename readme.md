@@ -37,6 +37,7 @@ https://github.com/JeffreySu/WxOpen
 | 5| 微信开放平台                                         |Senparc.Weixin.Open.dll            | [![Senparc.Weixin.Open][5.1]][5.2]          |
 | 6| Redis 分布式缓存                                     |Senparc.Weixin.Cache.Redis.dll     | [![Senparc.Weixin.Cache.Redis][6.1]][6.2]   |
 | 7| Memcached 分布式缓存                                 |Senparc.Weixin.Cache.Memcached.dll |[![Senparc.Weixin.Cache.Memcached][7.1]][7.2]| 
+| 8| [微信小程序](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll		  |[![Senparc.Weixin.WxOpen][7.1]][7.2]| 
 
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
 [1.2]: https://www.nuget.org/packages/Senparc.Weixin
@@ -52,6 +53,8 @@ https://github.com/JeffreySu/WxOpen
 [6.2]: https://www.nuget.org/packages/Senparc.Weixin.Cache.Redis
 [7.1]: https://img.shields.io/nuget/v/Senparc.Weixin.Cache.Memcached.svg?style=flat
 [7.2]: https://www.nuget.org/packages/Senparc.Weixin.Cache.Memcached
+[8.1]: https://www.nuget.org/packages/Senparc.Weixin.WxOpen.svg?style=flat
+[8.2]: https://www.nuget.org/packages/Senparc.Weixin.WxOpen
 
 
 

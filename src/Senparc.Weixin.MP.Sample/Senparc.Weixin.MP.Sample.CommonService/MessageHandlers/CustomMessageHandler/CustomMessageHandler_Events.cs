@@ -51,6 +51,8 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
 1、有关第三方开放平台（Senparc.Weixin.Open）的内容，请回复文字：open
 
 2、JSSDK测试：http://sdk.weixin.senparc.com/WeixinJSSDK
+
+3、测试异步模板消息，请回复文字：tm
 ",
                 version);
         }

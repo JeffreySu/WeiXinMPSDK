@@ -1,6 +1,6 @@
-插播：微信小程序目录
+插播：微信小程序类库
 ===================
-[https://github.com/JeffreySu/WeiXinMPSDK/tree/master/微信小程序](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/微信小程序)
+https://github.com/JeffreySu/WxOpen
 
 # 目录
 * [微信C# SDK](#微信c-sdk--)

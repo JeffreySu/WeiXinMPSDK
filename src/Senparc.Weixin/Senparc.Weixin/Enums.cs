@@ -12,6 +12,9 @@
 
     修改标识：Senparc - 20150303
     修改描述：添加企业号返回码
+
+    修改标识：Senparc - 20161112
+    修改描述：v4.9.3 添加小程序返回码添加小程序返回码
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin
@@ -176,6 +179,10 @@ namespace Senparc.Weixin
         不合法的UserID列表长度 = 40032,
         不合法的请求字符_不能包含uxxxx格式的字符 = 40033,
         不合法的参数 = 40035,
+
+        //小程序
+        template_id不正确 = 40037,
+
         不合法的请求格式 = 40038,
         不合法的URL长度 = 40039,
         不合法的插件token = 40040,
@@ -235,6 +242,13 @@ namespace Senparc.Weixin
         缺少suiteticket = 41023,
         缺少suitesecret = 41024,
         缺少永久授权码 = 41025,
+
+        //小程序
+        form_id不正确_或者过期 = 41028,
+        form_id已被使用 = 41029,
+        page不正确 = 41030,
+
+
         access_token超时 = 42001,
         refresh_token超时 = 42002,
         oauth_code超时 = 42003,

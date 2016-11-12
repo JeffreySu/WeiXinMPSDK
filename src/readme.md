@@ -16,7 +16,7 @@
 |Senparc.Weixin.MP.Sample|可以直接发布使用的Demo（ASP.NET MVC 4.0）|
 |Senparc.Weixin.MP.Sample.WebForms|可以直接发布使用的Demo（ASP.NET WebForms）|
 |Senparc.Weixin.MP|Senparc.Weixin.MP.dll 微信公众账号SDK源代码|
-|Senparc.Weixin.QY|Senparc.Weixin.QY.dll 微信企业号SDK源代码|
 |Senparc.Weixin.Open|Senparc.Weixin.Open.dll 第三方开放平台SDK源代码|
+|Senparc.Weixin.QY|Senparc.Weixin.QY.dll 微信企业号SDK源代码|
 |Senparc.Wiexin.WxOpen|微信小程序，已独立到库：https://github.com/JeffreySu/WxOpen|
 |Senparc.Wiexin|所有Senparc.Weixin.[x].dll 基础类库源代码|

@@ -8,7 +8,10 @@
     创建标识：Yu XiaoChou - 20160107
         
     修改标识：Senparc - 20161024
-    修改描述：v14.3.1024 重新整理红包发送方法
+    修改描述：v14.3.102 重新整理红包发送方法
+
+    修改标识：Senparc - 20161112
+    修改描述：v14.3.107 SearchRedPack方法修改证书初始化方法
 ----------------------------------------------------------------*/
 
 using System;
@@ -298,7 +301,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
         public static NormalRedPackResult SendNGroupRedPack(string appId, string mchId, string tenPayKey, string tenPayCertPath,
             string openId, string senderName,
             string iP, int redPackAmount, string wishingWord, string actionName, string remark,
-            out string nonceStr, out string paySign, RedPack_Scene? scene = null, string riskInfo = null, string consumeMchId = null, string amtType= "ALL_RAND")
+            out string nonceStr, out string paySign, RedPack_Scene? scene = null, string riskInfo = null, string consumeMchId = null, string amtType = "ALL_RAND")
         {
             string mchbillno = GetNewBillNo(mchId);
 
@@ -510,9 +513,9 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             string password = mchId;
 
             //调用证书
-            //X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+            //X509Certificate cer = new X509Certificate(cert, password);
+            X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
-            X509Certificate cer = new X509Certificate(cert, password);
 
             #region 发起post请求
             HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);

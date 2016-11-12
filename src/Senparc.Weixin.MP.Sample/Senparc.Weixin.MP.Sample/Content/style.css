@@ -109,16 +109,15 @@
 }
 .contatc-img a{display:block;}
 .catalog {
-	height:94px;
 	background:#E7EEF1;
 	text-align:center;
 }
 .catalog a {
-	line-height: 98px;
+	line-height: 68px;
 	font-size: 22px;
-	color:#BCBFBF;
+	color:#799999;
 	letter-spacing:2px;
-	padding-right:88px;
+	padding-right:48px;
 }
 .catalog a:hover,.catalog a.active {
 	color:#0781CD;

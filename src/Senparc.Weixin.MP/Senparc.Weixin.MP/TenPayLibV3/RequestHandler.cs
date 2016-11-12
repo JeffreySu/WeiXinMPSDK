@@ -11,9 +11,12 @@
     修改描述：整理接口
 
     修改标识：Yu XiaoChou - 20160107
-    修改描述：增加一个不需要HttpContext的初始化方法，避免使用这个类的时候，还要必须从页面初始化一个对象过来，可以在基类里直接使用这个类，
-                相应的，将GetCharset方法中，不存在HttpContext时，默认使用UTF-8
-----------------------------------------------------------------*/
+    修改描述：增加一个不需要HttpContext的初始化方法，避免使用这个类的时候，还要必须从页面初始化一个对象过来，可以在基类里直接使用这个类，相应的，将GetCharset方法中，不存在HttpContext时，默认使用UTF-8
+
+    修改标识：Senparc - 20161112
+    修改描述：为ParseXML()方法添加v==null的判断
+
+    ----------------------------------------------------------------*/
 
 using System;
 using System.Collections;
@@ -163,7 +166,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             foreach (string k in Parameters.Keys)
             {
                 string v = (string)Parameters[k];
-                if (Regex.IsMatch(v, @"^[0-9.]$"))
+                if (v != null && Regex.IsMatch(v, @"^[0-9.]$"))
                 {
 
                     sb.Append("<" + k + ">" + v + "</" + k + ">");

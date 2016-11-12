@@ -42,6 +42,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             TempData["QYVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.QY.dll"));
             TempData["RedisCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Redis.dll"));
             TempData["MemcachedCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Memcached.dll"));
+            TempData["WxOpenVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.WxOpen.dll"));
 
             //缓存
             //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();

@@ -53,7 +53,7 @@ https://github.com/JeffreySu/WxOpen
 [6.2]: https://www.nuget.org/packages/Senparc.Weixin.Cache.Redis
 [7.1]: https://img.shields.io/nuget/v/Senparc.Weixin.Cache.Memcached.svg?style=flat
 [7.2]: https://www.nuget.org/packages/Senparc.Weixin.Cache.Memcached
-[8.1]: https://www.nuget.org/packages/Senparc.Weixin.WxOpen.svg?style=flat
+[8.1]: https://img.shields.io/nuget/v/Senparc.Weixin.WxOpen.svg?style=flat
 [8.2]: https://www.nuget.org/packages/Senparc.Weixin.WxOpen
 
 

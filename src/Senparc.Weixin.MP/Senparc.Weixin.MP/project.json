@@ -1,7 +1,7 @@
 {
 	"title": "Senparc.Weixin.MP",
 	"copyright": "Senparc Copyright © 2004~2016",
-	"version": "14.3.104-*",
+	"version": "14.3.107-*",
 	"description": "Senparc.Weixin.MP Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植",
 	"authors": [ "算神" ],
 	"packOptions": {
@@ -14,7 +14,7 @@
 		"net461": {}
 	},
 	"dependencies": {
-		"Senparc.Weixin": "4.9.0",
+		"Senparc.Weixin": "4.9.3",
 		"Microsoft.AspNetCore.Http": "1.1.0",
 		"NETStandard.Library": "1.6.1",
 		"System.Collections.NonGeneric": "4.3.0",

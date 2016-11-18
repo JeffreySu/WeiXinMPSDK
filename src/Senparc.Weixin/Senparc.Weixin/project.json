@@ -1,7 +1,7 @@
 {
 	"title": "Senparc.Weixin",
 	"copyright": "Senparc Copyright © 2004~2016",
-	"version": "4.9.0-*",
+	"version": "4.9.3-*",
 	"description": "Senparc.Weixin Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植",
 	"authors": [ "算神" ],
 	"packOptions": {

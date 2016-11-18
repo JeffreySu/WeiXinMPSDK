@@ -41,10 +41,11 @@ namespace Senparc.Weixin.Entities
 	/// </summary>
 	public class WxJsonResult : IWxJsonResult
 	{
-		public WxJsonResult BaseResult
-		{
-			get { return this; }
-		}
+		//会造成循环引用
+		//public WxJsonResult BaseResult
+		//{
+		//	get { return this; }
+		//}
 
 		public ReturnCode errcode { get; set; }
 		public string errmsg { get; set; }

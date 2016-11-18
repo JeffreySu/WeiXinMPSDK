@@ -11,16 +11,16 @@
 	},
 	"frameworks": {
 			"netstandard1.6": {
-				"System.Xml.XmlDocument": "4.3.0-preview1-24530-04"
+				"System.Xml.XmlDocument": "4.3.0"
 			},
 			"net461": {
 			}
 	},
 	"dependencies": {
 		"Senparc.Weixin": "4.9.0",
-		"Microsoft.AspNetCore.Http": "1.1.0-preview1-final",
-		"System.Collections.NonGeneric": "4.0.1",
-		"System.Xml.XPath.XmlDocument": "4.0.1"
+		"Microsoft.AspNetCore.Http": "1.1.0",
+		"System.Collections.NonGeneric": "4.3.0",
+		"System.Xml.XPath.XmlDocument": "4.3.0"
 	},
 	"buildOptions": {
 		"nowarn": [ "CS0168", "CS0169", "CS0108", "CS0162", "CS0618", "CS0162", "CS0414", "CS0114", "CS1570", "CS1591", "CS1572", "CS1573", "CS1587", "CS1711" ],

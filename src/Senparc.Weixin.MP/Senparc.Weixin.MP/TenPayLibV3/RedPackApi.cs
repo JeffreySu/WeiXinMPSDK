@@ -611,7 +611,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 						{
 							RedPackHBInfo wechatHBInfo = new RedPackHBInfo();
 							wechatHBInfo.openid = hbinfo.SelectSingleNode("openid").InnerText;
-							wechatHBInfo.status = hbinfo.SelectSingleNode("status").InnerText;
+							//wechatHBInfo.status = hbinfo.SelectSingleNode("status").InnerText;
 							wechatHBInfo.amount = hbinfo.SelectSingleNode("amount").InnerText;
 							wechatHBInfo.rcv_time = hbinfo.SelectSingleNode("rcv_time").InnerText;
 

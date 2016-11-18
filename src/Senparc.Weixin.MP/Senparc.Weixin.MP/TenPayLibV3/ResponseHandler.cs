@@ -94,7 +94,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 			this.HttpContext = httpContext ?? new DefaultHttpContext();
 			IFormCollection collection;
 			//post data
-			if (this.HttpContext.Request.Method.ToUpper() == "POST")
+			if (this.HttpContext.Request.Method.ToUpper() == "POST" && this.HttpContext.Request.HasFormContentType)
 			{
 				collection = this.HttpContext.Request.Form;
 				foreach (var k in collection)

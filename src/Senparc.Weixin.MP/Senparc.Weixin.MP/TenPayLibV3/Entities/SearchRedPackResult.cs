@@ -136,7 +136,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <summary>
         /// 红包状态，SENDING:发放中，SENT:已发放待领取，FAILED：发放失败，RECEIVED:已领取，REFUND:已退款 
         /// </summary>
-        public string status { get; set; }
+        //public string status { get; set; }
 
         /// <summary>
         /// 领取金额

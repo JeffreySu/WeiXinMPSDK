@@ -162,8 +162,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             foreach (string k in Parameters.Keys)
             {
                 string v = (string)Parameters[k];
-                if (Regex.IsMatch(v, @"^[0-9.]$"))
-                {
+				if (v != null && Regex.IsMatch(v, @"^[0-9.]$"))
+				{
 
                     sb.Append("<" + k + ">" + v + "</" + k + ">");
                 }

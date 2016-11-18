@@ -503,11 +503,10 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 			string password = mchId;
 
 			//调用证书
-			//X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+			X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 #if NET461
 			ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
 #endif
-			X509Certificate cer = new X509Certificate(cert, password);
 
 			#region 发起post请求
 			HttpClientHandler handler = new HttpClientHandler();

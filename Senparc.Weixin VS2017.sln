@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		global.json = global.json
 		RunPack.ps1 = RunPack.ps1
+		RunRestore.ps1 = RunRestore.ps1
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin", "src\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj", "{D44A38D5-6CDE-4E29-8848-235733261CF2}"

@@ -30,7 +30,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="data">微信支付需要post的xml数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static string Transfers(string data, int timeOut = Config.TIME_OUT)
+        public static string Transfers(string data, int timeOut = Config.TIME_OUT, string certificatePath = "", string certificatePassword = "")
         {
             var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
 
@@ -38,7 +38,8 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut,
+                checkValidationResult: true, certificatePath: certificatePath, certificatePassword: certificatePassword);
         }
 
         /// <summary>

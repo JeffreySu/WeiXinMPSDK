@@ -160,13 +160,16 @@ namespace Senparc.Weixin.HttpUtility
 
             if (checkValidationResult)
             {
-                X509Certificate cert = new X509Certificate();
-                cert.Import(certificatePath, certificatePassword, X509KeyStorageFlags.DefaultKeySet);
-
                 ServicePointManager.ServerCertificateValidationCallback =
                   new RemoteCertificateValidationCallback(CheckValidationResult);
 
-                request.ClientCertificates.Add(cert);
+                if (!string.IsNullOrEmpty(certificatePath) && !string.IsNullOrEmpty(certificatePassword))
+                {
+                    X509Certificate cert = new X509Certificate();
+                    cert.Import(certificatePath, certificatePassword, X509KeyStorageFlags.DefaultKeySet);
+
+                    request.ClientCertificates.Add(cert);
+                }                
             }
 
             #region 处理Form表单文件上传

@@ -88,7 +88,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //实际上可以存任何想传递的数据，比如用户ID，并且需要结合例如下面的Session["OAuthAccessToken"]进行验证
                 return Content("验证失败！请从正规途径进入！1001");
             }
+            try
+            {
 
+          
             //获取产品信息
             var stateData = state.Split('|');
             int productId = 0;
@@ -178,6 +181,17 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             ViewData["paySign"] = paySign;
 
             return View();
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message;
+                msg += ex.StackTrace;
+                if (ex.InnerException!=null)
+                {
+                    msg += "<br>===InnerException===<br>" + ex.InnerException.Message;
+                }
+                return Content(msg);
+            }
         }
 
         /// <summary>

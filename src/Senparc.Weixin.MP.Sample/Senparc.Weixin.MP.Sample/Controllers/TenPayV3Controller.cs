@@ -130,7 +130,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 if (string.IsNullOrEmpty(sp_billno))
                 {
                     //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                    sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
+                    sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId, DateTime.Now.ToString("yyyyMMdd"),
+                        TenPayV3Util.BuildRandomStr(10));
                 }
                 else
                 {
@@ -164,6 +165,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 var result = TenPayV3.Unifiedorder(data);
                 var res = XDocument.Parse(result);
+
+                if (res.Element("xml").Element("prepay_id")==null)
+                {
+                    throw new Exception(res.ToString().HtmlEncode());
+                }
+
                 //throw new Exception(res.ToString().HtmlEncode());
                 string prepayId = res.Element("xml").Element("prepay_id").Value;
 

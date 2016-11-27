@@ -115,8 +115,6 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             packageReqHandler.SetParameter("client_ip", iP);               //调用接口的机器Ip地址
             packageReqHandler.SetParameter("act_name", actionName);   //活动名称
             packageReqHandler.SetParameter("remark", remark);   //备注信息
-            paySign = packageReqHandler.CreateMd5Sign("key", tenPayKey);
-            packageReqHandler.SetParameter("sign", paySign);	                    //签名
 
             if (scene.HasValue)
             {
@@ -130,6 +128,10 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             {
                 packageReqHandler.SetParameter("consume_mch_id", consumeMchId);//活动信息	
             }
+
+            paySign = packageReqHandler.CreateMd5Sign("key", tenPayKey);
+            packageReqHandler.SetParameter("sign", paySign);	                    //签名
+
 
             //最新的官方文档中将以下三个字段去除了
             //packageReqHandler.SetParameter("nick_name", "提供方名称");                 //提供方名称

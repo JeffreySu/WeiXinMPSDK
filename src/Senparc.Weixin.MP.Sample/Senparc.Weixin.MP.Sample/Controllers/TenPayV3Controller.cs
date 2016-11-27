@@ -74,6 +74,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return Redirect(url);
         }
 
+        public ActionResult BankCode()
+        {
+            return View();
+        }
+
         #region JsApi支付
 
         public ActionResult JsApi(string code, string state)

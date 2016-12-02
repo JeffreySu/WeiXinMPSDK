@@ -16,6 +16,8 @@
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
               
+    修改标识：Senparc - 20161202
+    修改描述：v14.3.109 命名空间由Senparc.Weixin.MP.AdvancedAPIs改为Senparc.Weixin.MP.TenPayLibV3
 ----------------------------------------------------------------*/
 
 /*
@@ -28,7 +30,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.MP.AdvancedAPIs
+namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /// <summary>
     /// 微信支付接口，官方API：https://mp.weixin.qq.com/paymch/readtemplate?t=mp/business/course2_tmpl&lang=zh_CN&token=25857919#4

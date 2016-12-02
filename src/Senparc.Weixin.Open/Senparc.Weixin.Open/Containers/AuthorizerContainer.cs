@@ -36,7 +36,9 @@
 
     修改标识：Senparc - 20161027
     修改描述：v2.3.1 为GetAuthorizerInfoResult方法添加authorizerBag.AuthorizationInfo更新
-
+    
+    修改标识：Senparc - 20161203
+    修改描述：v2.3.3 解决同步锁死锁的问题
 ----------------------------------------------------------------*/
 
 using System;

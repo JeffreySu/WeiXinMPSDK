@@ -99,12 +99,13 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="tradeType"></param>
         /// <param name="openid"></param>
         /// <param name="key"></param>
-        public TenPayV3XmlDataInfo(string appId, string mchId, string body, string outTradeNo, decimal totalFee, string spbillCreateIp, string notifyUrl, TenPayV3Type tradeType, string openid, string key)
+        /// <param name="nonceStr"></param>
+        public TenPayV3XmlDataInfo(string appId, string mchId, string body, string outTradeNo, decimal totalFee, string spbillCreateIp, string notifyUrl, TenPayV3Type tradeType, string openid, string key,string nonceStr)
         {
             AppId = appId;
             MchId = mchId;
-            NonceStr = TenPayV3Util.GetNoncestr();
-            Body = body;
+            NonceStr = nonceStr;
+            Body = body ?? "test";
             OutTradeNo = outTradeNo;
             TotalFee = totalFee;
             SpbillCreateIP = spbillCreateIp;
@@ -164,7 +165,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             packageReqHandler.SetParameter("nonce_str", dataInfo.NonceStr);                    //随机字符串
             packageReqHandler.SetParameter("body", dataInfo.NonceStr);    //商品信息
             packageReqHandler.SetParameter("out_trade_no", dataInfo.OutTradeNo);      //商家订单号
-            packageReqHandler.SetParameter("total_fee", (dataInfo.TotalFee * 100).ToString());                    //商品金额,以分为单位(money * 100).ToString()
+            packageReqHandler.SetParameter("total_fee", dataInfo.TotalFee.ToString());                    //商品金额,以分为单位(money * 100).ToString()
             packageReqHandler.SetParameter("spbill_create_ip", dataInfo.SpbillCreateIP);   //用户的公网ip，不是商户服务器IP
             packageReqHandler.SetParameter("notify_url", dataInfo.NotifyUrl);          //接收财付通通知的URL
             packageReqHandler.SetParameter("trade_type", dataInfo.TradeType.ToString());                        //交易类型

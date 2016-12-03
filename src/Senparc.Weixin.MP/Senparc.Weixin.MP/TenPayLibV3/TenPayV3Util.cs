@@ -36,6 +36,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return MD5UtilHelper.GetMD5(random.Next(1000).ToString(), "GBK");
         }
 
+        /// <summary>
+        /// 获取微信时间格式
+        /// </summary>
+        /// <returns></returns>
         public static string GetTimestamp()
         {
             TimeSpan ts = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, 0);
@@ -135,7 +139,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 int n = length - str.Length;
                 while (n > 0)
                 {
-                   str = str.Insert(0, "0");
+                    str = str.Insert(0, "0");
                     n--;
                 }
             }

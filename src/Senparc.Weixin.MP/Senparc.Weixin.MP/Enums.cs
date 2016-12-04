@@ -341,14 +341,6 @@ namespace Senparc.Weixin.MP
         NATIVE,
         APP
     }
-    /// <summary>
-    /// 统一订单接口返回状态
-    /// </summary>
-    public enum TenPayV3CodeState
-    {
-        SUCCESS,
-        FAIL
-    }
 
     public enum GroupMessageType
     {

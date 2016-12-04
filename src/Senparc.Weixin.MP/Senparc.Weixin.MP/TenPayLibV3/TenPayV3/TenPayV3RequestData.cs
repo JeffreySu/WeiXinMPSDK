@@ -9,7 +9,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 微信支付提交的XML Data数据[统一下单]
     /// </summary>
-    public class TenPayV3XmlDataInfo
+    public class TenPayV3RequestData
     {
         /// <summary>
         /// 公众账号ID
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="openid"></param>
         /// <param name="key"></param>
         /// <param name="nonceStr"></param>
-        public TenPayV3XmlDataInfo(string appId, string mchId, string body, string outTradeNo, decimal totalFee, string spbillCreateIp, string notifyUrl, TenPayV3Type tradeType, string openid, string key, string nonceStr)
+        public TenPayV3RequestData(string appId, string mchId, string body, string outTradeNo, decimal totalFee, string spbillCreateIp, string notifyUrl, TenPayV3Type tradeType, string openid, string key, string nonceStr)
         {
             AppId = appId;
             MchId = mchId;

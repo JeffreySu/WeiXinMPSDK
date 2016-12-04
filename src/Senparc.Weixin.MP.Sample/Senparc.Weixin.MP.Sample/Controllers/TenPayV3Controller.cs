@@ -175,7 +175,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //string data = packageReqHandler.ParseXML();
                 var body = product == null ? "test" : product.Name;
                 var price = product == null ? 100 : product.Price * 100;
-                var xmlDataInfo = new TenPayV3XmlDataInfo(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openIdResult.openid, TenPayV3Info.Key, nonceStr);
+                var xmlDataInfo = new TenPayV3RequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openIdResult.openid, TenPayV3Info.Key, nonceStr);
 
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);
                 //var res = XDocument.Parse(result);
@@ -200,7 +200,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 ViewData["appId"] = TenPayV3Info.AppId;
                 ViewData["timeStamp"] = timeStamp;
                 ViewData["nonceStr"] = nonceStr;
-                ViewData["package"] = string.Format("prepay_id={0}", result.ResultData.SuccessData.PrepayId);
+                ViewData["package"] = string.Format("prepay_id={0}", result.prepay_id);
                 ViewData["paySign"] = paySign;
 
                 return View();
@@ -294,7 +294,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //string data = packageReqHandler.ParseXML();
 
-            var xmlDataInfo = new TenPayV3XmlDataInfo(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, productId, TenPayV3Info.Key, nonceStr);
+            var xmlDataInfo = new TenPayV3RequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, productId, TenPayV3Info.Key, nonceStr);
 
 
             try
@@ -305,17 +305,17 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //string prepayId = unifiedorderRes.Element("xml").Element("prepay_id").Value;
 
                 //创建应答信息返回给微信
-                res.SetParameter("return_code", result.ReturnCode.ToString());
-                res.SetParameter("return_msg", result.ReturnMsg ?? "OK");
-                res.SetParameter("appid", result.ResultData.AppId);
-                res.SetParameter("mch_id", result.ResultData.MchId);
-                res.SetParameter("nonce_str", result.ResultData.NonceStr);
-                res.SetParameter("prepay_id", result.ResultData.SuccessData.PrepayId);
-                res.SetParameter("result_code", result.ResultData.ResultCode.ToString());
+                res.SetParameter("return_code", result.return_code);
+                res.SetParameter("return_msg", result.return_msg ?? "OK");
+                res.SetParameter("appid", result.appid);
+                res.SetParameter("mch_id", result.mch_id);
+                res.SetParameter("nonce_str", result.nonce_str);
+                res.SetParameter("prepay_id", result.prepay_id);
+                res.SetParameter("result_code", result.result_code);
                 res.SetParameter("err_code_des", "OK");
 
                 string nativeReqSign = res.CreateMd5Sign("key", TenPayV3Info.Key);
-                res.SetParameter("sign", result.ResultData.Sign);
+                res.SetParameter("sign", result.sign);
             }
             catch (Exception)
             {
@@ -359,12 +359,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //packageReqHandler.SetParameter("sign", sign);
 
             //string data = packageReqHandler.ParseXML();
-            var xmlDataInfo = new TenPayV3XmlDataInfo(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.NATIVE, productId, TenPayV3Info.Key, nonceStr);
+            var xmlDataInfo = new TenPayV3RequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.NATIVE, productId, TenPayV3Info.Key, nonceStr);
             //调用统一订单接口
             var result = TenPayV3.Unifiedorder(xmlDataInfo);
             //var unifiedorderRes = XDocument.Parse(result);
             //string codeUrl = unifiedorderRes.Element("xml").Element("code_url").Value;
-            string codeUrl = result.ResultData.SuccessData.CodeUrl;
+            string codeUrl = result.code_url;
             BitMatrix bitMatrix;
             bitMatrix = new MultiFormatWriter().encode(codeUrl, BarcodeFormat.QR_CODE, 600, 600);
             BarcodeWriter bw = new BarcodeWriter();

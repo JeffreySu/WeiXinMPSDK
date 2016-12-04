@@ -73,7 +73,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="dataInfo">微信支付需要post的Data数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static UnifiedorderResult Unifiedorder(TenPayV3XmlDataInfo dataInfo, int timeOut = Config.TIME_OUT)
+        public static UnifiedorderResult Unifiedorder(TenPayV3RequestData dataInfo, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/unifiedorder";
             var data = dataInfo.GetRequestHandler().ParseXML();//获取XML
@@ -86,37 +86,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
             return new UnifiedorderResult(resultXml);
         }
-
-        /// <summary>
-        /// 解析统一支付接口返回的Xml数据
-        /// </summary>
-        /// <param name="resultXml">统一订单接口返回的Xml数据</param>
-        /// <returns></returns>
-        private static TenPayV3ReturnData AnalyUnifiedorderXmlData(string resultXml)
-        {
-            try
-            {
-
-                var data = new TenPayV3ReturnData(resultXml);
-
-                var data = new TenPayV3ReturnData(res.Element("xml").Element("return_code").Value);
-                if (!data.IsSuccess())
-                {
-                    data.ReturnMsg = res.Element("xml").Element("return_msg").Value;
-                    return data;
-                }
-              
-
-               
-                return data;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(resultXml);
-            }
-        }
-
-
 
         /// <summary>
         /// Native

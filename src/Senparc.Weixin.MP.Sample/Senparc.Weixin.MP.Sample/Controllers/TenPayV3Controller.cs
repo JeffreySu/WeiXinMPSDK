@@ -32,6 +32,7 @@ using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
+using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.Sample.Models;
 using Senparc.Weixin.MP.TenPayLibV3;
 using ZXing;
@@ -149,14 +150,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var price = product == null ? 100 : product.Price * 100;
                 var xmlDataInfo = new TenPayV3RequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openIdResult.openid, TenPayV3Info.Key, nonceStr);
 
-               
-                var result = TenPayV3.Unifiedorder(xmlDataInfo);
+                var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
+
+                //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
+                var package = string.Format("prepay_id={0}", result.prepay_id);
 
                 ViewData["appId"] = TenPayV3Info.AppId;
                 ViewData["timeStamp"] = timeStamp;
                 ViewData["nonceStr"] = nonceStr;
-                ViewData["package"] = string.Format("prepay_id={0}", result.prepay_id);
-                ViewData["paySign"] = xmlDataInfo.Sign;
+                ViewData["package"] = package;
+                ViewData["paySign"] = TenPayV3.GetJsPaySign(TenPayV3Info.AppId, timeStamp, nonceStr, package, TenPayV3Info.Key);
 
                 return View();
             }

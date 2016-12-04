@@ -79,7 +79,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             AppId = appId;
             MchId = mchId;
             NonceStr = nonceStr;
-            Body = body ?? "test";
+            Body = body ?? "Senparc TenpayV3";
             OutTradeNo = outTradeNo;
             TotalFee = totalFee;
             SpbillCreateIP = spbillCreateIp;

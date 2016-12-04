@@ -88,6 +88,29 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
 
         /// <summary>
+        /// 获取UI使用的JS支付签名
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="timeStamp"></param>
+        /// <param name="nonceStr"></param>
+        /// <param name="package">格式：prepay_id={0}</param>
+        /// <param name="signType"></param>
+        /// <returns></returns>
+        public static string GetJsPaySign(string appId, string timeStamp, string nonceStr, string package,string key,
+            string signType = "MD5")
+        {
+            //设置支付参数
+            RequestHandler paySignReqHandler = new RequestHandler(null);
+            paySignReqHandler.SetParameter("appId", appId);
+            paySignReqHandler.SetParameter("timeStamp", timeStamp);
+            paySignReqHandler.SetParameter("nonceStr", nonceStr);
+            paySignReqHandler.SetParameter("package", package);
+            paySignReqHandler.SetParameter("signType", "MD5");
+            var paySign = paySignReqHandler.CreateMd5Sign("key", key);
+            return paySign;
+        }
+
+        /// <summary>
         /// Native
         /// </summary>
         /// <param name="appId">开放平台账户的唯一标识</param>

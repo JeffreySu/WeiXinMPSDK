@@ -49,7 +49,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <returns></returns>
         public string GetXmlValue(string nodeName)
         {
-            if (_resultXml == null || _resultXml.Element("xml") == null)
+            if (_resultXml == null || _resultXml.Element("xml") == null 
+                || _resultXml.Element("xml").Element(nodeName)==null)
             {
                 return null;
             }

@@ -57,6 +57,9 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public string Key { get; set; }
 
+        public readonly RequestHandler PackageRequestHandler;
+        public readonly string Sign;
+
         /// <summary>
         /// 
         /// </summary>
@@ -84,36 +87,28 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             TradeType = tradeType;
             OpenId = openid;
             Key = key;
-        }
 
-        /// <summary>
-        /// 获取拼接好的XML以及签名
-        /// </summary>
-        /// <returns></returns>
-        public RequestHandler GetRequestHandler()
-        {
+            #region 设置RequestHandler
+
             //创建支付应答对象
-            RequestHandler packageReqHandler = new RequestHandler(null);
+            PackageRequestHandler = new RequestHandler(null);
             //初始化
-            packageReqHandler.Init();
-
-            var dataInfo = this;
+            PackageRequestHandler.Init();
 
             //设置package订单参数
-            packageReqHandler.SetParameter("appid", dataInfo.AppId);          //公众账号ID
-            packageReqHandler.SetParameter("mch_id", dataInfo.MchId);         //商户号
-            packageReqHandler.SetParameter("nonce_str", dataInfo.NonceStr);                    //随机字符串
-            packageReqHandler.SetParameter("body", dataInfo.NonceStr);    //商品信息
-            packageReqHandler.SetParameter("out_trade_no", dataInfo.OutTradeNo);      //商家订单号
-            packageReqHandler.SetParameter("total_fee", dataInfo.TotalFee.ToString());                    //商品金额,以分为单位(money * 100).ToString()
-            packageReqHandler.SetParameter("spbill_create_ip", dataInfo.SpbillCreateIP);   //用户的公网ip，不是商户服务器IP
-            packageReqHandler.SetParameter("notify_url", dataInfo.NotifyUrl);          //接收财付通通知的URL
-            packageReqHandler.SetParameter("trade_type", dataInfo.TradeType.ToString());                        //交易类型
-            packageReqHandler.SetParameter("openid", dataInfo.OpenId);                      //用户的openId
-            var sign = packageReqHandler.CreateMd5Sign("key", dataInfo.Key);
-            packageReqHandler.SetParameter("sign", sign);                       //签名
-            //string data = packageReqHandler.ParseXML();
-            return packageReqHandler;
+            PackageRequestHandler.SetParameter("appid", this.AppId);          //公众账号ID
+            PackageRequestHandler.SetParameter("mch_id", this.MchId);         //商户号
+            PackageRequestHandler.SetParameter("nonce_str", this.NonceStr);                    //随机字符串
+            PackageRequestHandler.SetParameter("body", this.NonceStr);    //商品信息
+            PackageRequestHandler.SetParameter("out_trade_no", this.OutTradeNo);      //商家订单号
+            PackageRequestHandler.SetParameter("total_fee", this.TotalFee.ToString());                    //商品金额,以分为单位(money * 100).ToString()
+            PackageRequestHandler.SetParameter("spbill_create_ip", this.SpbillCreateIP);   //用户的公网ip，不是商户服务器IP
+            PackageRequestHandler.SetParameter("notify_url", this.NotifyUrl);          //接收财付通通知的URL
+            PackageRequestHandler.SetParameter("trade_type", this.TradeType.ToString());                        //交易类型
+            PackageRequestHandler.SetParameter("openid", this.OpenId);                      //用户的openId
+            Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
+            PackageRequestHandler.SetParameter("sign", Sign);                       //签名
+            #endregion
         }
     }
 }

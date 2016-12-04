@@ -76,7 +76,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public static UnifiedorderResult Unifiedorder(TenPayV3RequestData dataInfo, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/unifiedorder";
-            var data = dataInfo.GetRequestHandler().ParseXML();//获取XML
+            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
 
             MemoryStream ms = new MemoryStream();
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);

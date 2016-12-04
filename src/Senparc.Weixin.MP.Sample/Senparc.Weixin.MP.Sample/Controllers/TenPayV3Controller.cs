@@ -130,14 +130,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     return Content("错误：" + openIdResult.errmsg);
                 }
 
-                string timeStamp = "";
-                string nonceStr = "";
-                string paySign = "";
-
                 string sp_billno = Request["order_no"];
-                //当前时间 yyyyMMdd
-                string date = DateTime.Now.ToString("yyyyMMdd");
-
                 if (string.IsNullOrEmpty(sp_billno))
                 {
                     //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
@@ -149,14 +142,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     sp_billno = Request["order_no"];
                 }
 
-                timeStamp = TenPayV3Util.GetTimestamp();
-                nonceStr = TenPayV3Util.GetNoncestr();
+                var timeStamp = TenPayV3Util.GetTimestamp();
+                var nonceStr = TenPayV3Util.GetNoncestr();
 
                 var body = product == null ? "test" : product.Name;
                 var price = product == null ? 100 : product.Price * 100;
                 var xmlDataInfo = new TenPayV3RequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openIdResult.openid, TenPayV3Info.Key, nonceStr);
 
-
+               
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);
 
                 ViewData["appId"] = TenPayV3Info.AppId;

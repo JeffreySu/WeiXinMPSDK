@@ -34,10 +34,11 @@ https://github.com/JeffreySu/WxOpen
 | 2| 微信公众号 / 小程序 / 微信支付 / JSSDK / 摇周边 / 等等 |Senparc.Weixin.MP.dll            | [![Senparc.Weixin.MP][2.1]][2.2]            |
 | 3| ASP.NET MVC 扩展                                     |Senparc.Weixin.MP.MVC.dll          | [![Senparc.Weixin.MP.MVC][3.1]][3.2]        |
 | 4| 微信企业号                                           |Senparc.Weixin.QY.dll              | [![Senparc.Weixin.QY][4.1]][4.2]            |
-| 5| 微信开放平台                                         |Senparc.Weixin.Open.dll            | [![Senparc.Weixin.Open][5.1]][5.2]          |
-| 6| Redis 分布式缓存                                     |Senparc.Weixin.Cache.Redis.dll     | [![Senparc.Weixin.Cache.Redis][6.1]][6.2]   |
-| 7| Memcached 分布式缓存                                 |Senparc.Weixin.Cache.Memcached.dll |[![Senparc.Weixin.Cache.Memcached][7.1]][7.2]| 
-| 8| [微信小程序](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll		  |[![Senparc.Weixin.WxOpen][8.1]][8.2]         | 
+| 5| 企业微信（准备中）                                             |Senparc.Weixin.Work.dll              | [![Senparc.Weixin.Work][5.1]][5.2]            |
+| 6| 微信开放平台                                         |Senparc.Weixin.Open.dll            | [![Senparc.Weixin.Open][6.1]][6.2]          |
+| 7| Redis 分布式缓存                                     |Senparc.Weixin.Cache.Redis.dll     | [![Senparc.Weixin.Cache.Redis][7.1]][7.2]   |
+| 8| Memcached 分布式缓存                                 |Senparc.Weixin.Cache.Memcached.dll |[![Senparc.Weixin.Cache.Memcached][8.1]][8.2]| 
+| 9| [微信小程序](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll		  |[![Senparc.Weixin.WxOpen][9.1]][9.2]         | 
 
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
 [1.2]: https://www.nuget.org/packages/Senparc.Weixin
@@ -47,14 +48,16 @@ https://github.com/JeffreySu/WxOpen
 [3.2]: https://www.nuget.org/packages/Senparc.Weixin.MP.MVC
 [4.1]: https://img.shields.io/nuget/v/Senparc.Weixin.QY.svg?style=flat
 [4.2]: https://www.nuget.org/packages/Senparc.Weixin.QY
-[5.1]: https://img.shields.io/nuget/v/Senparc.Weixin.Open.svg?style=flat
-[5.2]: https://www.nuget.org/packages/Senparc.Weixin.Open
-[6.1]: https://img.shields.io/nuget/v/Senparc.Weixin.Cache.Redis.svg?style=flat
-[6.2]: https://www.nuget.org/packages/Senparc.Weixin.Cache.Redis
-[7.1]: https://img.shields.io/nuget/v/Senparc.Weixin.Cache.Memcached.svg?style=flat
-[7.2]: https://www.nuget.org/packages/Senparc.Weixin.Cache.Memcached
-[8.1]: https://img.shields.io/nuget/v/Senparc.Weixin.WxOpen.svg?style=flat
-[8.2]: https://www.nuget.org/packages/Senparc.Weixin.WxOpen
+[5.1]: https://img.shields.io/nuget/v/Senparc.Weixin.Work.svg?style=flat
+[5.2]: https://www.nuget.org/packages/Senparc.Weixin.Work
+[6.1]: https://img.shields.io/nuget/v/Senparc.Weixin.Open.svg?style=flat
+[6.2]: https://www.nuget.org/packages/Senparc.Weixin.Open
+[7.1]: https://img.shields.io/nuget/v/Senparc.Weixin.Cache.Redis.svg?style=flat
+[7.2]: https://www.nuget.org/packages/Senparc.Weixin.Cache.Redis
+[8.1]: https://img.shields.io/nuget/v/Senparc.Weixin.Cache.Memcached.svg?style=flat
+[8.2]: https://www.nuget.org/packages/Senparc.Weixin.Cache.Memcached
+[9.1]: https://img.shields.io/nuget/v/Senparc.Weixin.WxOpen.svg?style=flat
+[9.2]: https://www.nuget.org/packages/Senparc.Weixin.WxOpen
 
 
 
@@ -142,9 +145,9 @@ https://github.com/JeffreySu/WxOpen
 |Senparc.Weixin.MP.Sample.WebForms|可以直接发布使用的Demo（ASP.NET WebForms）|
 |Senparc.Weixin.MP|Senparc.Weixin.MP.dll 微信公众账号SDK源代码|
 |Senparc.Weixin.QY|Senparc.Weixin.QY.dll 微信企业号SDK源代码|
+|Senparc.Weixin.Work|Senparc.Weixin.Work.dll 企业微信SDK源代码|
 |Senparc.Weixin.Open|Senparc.Weixin.Open.dll 第三方开放平台SDK源代码|
 |Senparc.Wiexin|所有Senparc.Weixin.[x].dll 基础类库源代码|
-
 
 Senparc.Weixin.MP.Sample中的关键代码说明
 --------------

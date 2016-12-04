@@ -12,8 +12,13 @@
 
     修改标识：Senparc - 20161202
     修改描述：v14.3.109 命名空间由Senparc.Weixin.MP.AdvancedAPIs改为Senparc.Weixin.MP.TenPayLibV3
+    
+    修改标识：Senparc - 20161205
+    修改描述：v14.3.110 完善XML转换信息
 
 ----------------------------------------------------------------*/
+
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -24,6 +29,38 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     {
         public string return_code { get; set; }
         public string return_msg { get; set; }
+
+        protected XDocument _resultXml;
+
+        public TenPayV3Result(string resultXml)
+        {
+            _resultXml = XDocument.Parse(resultXml);
+            return_code = GetXmlValue("return_code");// res.Element("xml").Element
+            if (!IsReturnCodeSuccess())
+            {
+                return_msg = GetXmlValue("return_msg");// res.Element("xml").Element
+            }
+        }
+
+        /// <summary>
+        /// 获取Xml结果中对应节点的值
+        /// </summary>
+        /// <param name="nodeName"></param>
+        /// <returns></returns>
+        public string GetXmlValue(string nodeName)
+        {
+            if (_resultXml == null || _resultXml.Element("xml") == null 
+                || _resultXml.Element("xml").Element(nodeName)==null)
+            {
+                return null;
+            }
+            return _resultXml.Element("xml").Element(nodeName).Value;
+        }
+
+        public bool IsReturnCodeSuccess()
+        {
+            return return_code == "SUCCESS";
+        }
     }
     /// <summary>
     /// 统一支付接口在 return_code为 SUCCESS的时候有返回
@@ -56,6 +93,28 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public string result_code { get; set; }
         public string err_code { get; set; }
         public string err_code_des { get; set; }
+
+        public Result(string resultXml)
+            : base(resultXml)
+        {
+            result_code = GetXmlValue("result_code");// res.Element("xml").Element
+
+            if (base.IsReturnCodeSuccess())
+            {
+                appid = GetXmlValue("appid") ?? "";
+                mch_id = GetXmlValue("mch_id") ?? "";
+                device_info = GetXmlValue("device_info") ?? "";
+                nonce_str = GetXmlValue("nonce_str") ?? "";
+                sign = GetXmlValue("sign") ?? "";
+                err_code = GetXmlValue("err_code") ?? "";
+                err_code_des = GetXmlValue("err_code_des") ?? "";
+            }
+        }
+
+        public bool IsResultCodeSuccess()
+        {
+            return result_code == "SUCCESS";
+        }
     }
 
     /// <summary>
@@ -75,5 +134,16 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// trade_type为NATIVE时有返回，此参数可直接生成二维码展示出来进行扫码支付
         /// </summary>
         public string code_url { get; set; }
+
+        public UnifiedorderResult(string resultXml)
+            : base(resultXml)
+        {
+            if (base.IsReturnCodeSuccess() && base.IsReturnCodeSuccess())
+            {
+                trade_type = GetXmlValue("trade_type") ?? "";
+                prepay_id = GetXmlValue("prepay_id") ?? "";
+                code_url = GetXmlValue("code_url") ?? "";
+            }
+        }
     }
 }

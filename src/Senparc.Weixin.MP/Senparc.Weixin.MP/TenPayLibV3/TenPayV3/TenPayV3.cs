@@ -21,6 +21,9 @@
 
     修改标识：Senparc - 20161203
     修改描述：v14.3.110 增加Unifiedorder方法重载和TenPayV3XmlDataInfo类
+
+    修改标识：Senparc - 20161204
+    修改描述：v14.3.111 启用TenPayV3Result用于解析统一下单返回Xml数据
 ----------------------------------------------------------------*/
 
 /*
@@ -31,92 +34,11 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
-    /// <summary>
-    /// 微信支付XMLData数据
-    /// </summary>
-    public class TenPayV3XmlDataInfo
-    {
-        /// <summary>
-        /// 公众账号ID
-        /// </summary>
-        public string AppId { get; set; }
-        /// <summary>
-        /// 商户号
-        /// </summary>
-        public string MchId { get; set; }
-        /// <summary>
-        /// 随机字符串
-        /// </summary>
-        public string NonceStr { get; set; }
-        /// <summary>
-        /// 商品信息
-        /// </summary>
-        public string Body { get; set; }
-        /// <summary>
-        /// 商家订单号
-        /// </summary>
-        public string OutTradeNo { get; set; }
-        /// <summary>
-        /// 商品金额,以分为单位(money * 100).ToString()
-        /// </summary>
-        public decimal TotalFee { get; set; }
-        /// <summary>
-        /// 用户的公网ip，不是商户服务器IP
-        /// </summary>
-        public string SpbillCreateIP { get; set; }
-        /// <summary>
-        /// 接收财付通通知的URL
-        /// </summary>
-        public string NotifyUrl { get; set; }
-        /// <summary>
-        /// 交易类型
-        /// </summary>
-        public TenPayV3Type TradeType { get; set; }
-        /// <summary>
-        /// 用户的openId
-        /// </summary>
-        public string OpenId { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Key { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="mchId"></param>
-        /// <param name="body"></param>
-        /// <param name="outTradeNo"></param>
-        /// <param name="totalFee"></param>
-        /// <param name="spbillCreateIp"></param>
-        /// <param name="notifyUrl"></param>
-        /// <param name="tradeType"></param>
-        /// <param name="openid"></param>
-        /// <param name="key"></param>
-        /// <param name="nonceStr"></param>
-        public TenPayV3XmlDataInfo(string appId, string mchId, string body, string outTradeNo, decimal totalFee, string spbillCreateIp, string notifyUrl, TenPayV3Type tradeType, string openid, string key,string nonceStr)
-        {
-            AppId = appId;
-            MchId = mchId;
-            NonceStr = nonceStr;
-            Body = body ?? "test";
-            OutTradeNo = outTradeNo;
-            TotalFee = totalFee;
-            SpbillCreateIP = spbillCreateIp;
-            NotifyUrl = notifyUrl;
-            TradeType = tradeType;
-            OpenId = openid;
-            Key = key;
-        }
-    }
-
-
     /// <summary>
     /// 微信支付接口，官方API：https://mp.weixin.qq.com/paymch/readtemplate?t=mp/business/course2_tmpl&lang=zh_CN&token=25857919#4
     /// </summary>
@@ -132,7 +54,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="data">微信支付需要post的xml数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        [Obsolete("此方法已过期建议使用 Unifiedorder(TenPayV3XmlDataInfo dataInfo, int timeOut = Config.TIME_OUT)")]
+        [Obsolete("此方法已过期，建议使用 Unifiedorder(TenPayV3XmlDataInfo dataInfo, int timeOut = Config.TIME_OUT)")]
         public static string Unifiedorder(string data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/unifiedorder";
@@ -151,37 +73,42 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="dataInfo">微信支付需要post的Data数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static string Unifiedorder(TenPayV3XmlDataInfo dataInfo, int timeOut = Config.TIME_OUT)
+        public static UnifiedorderResult Unifiedorder(TenPayV3RequestData dataInfo, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/unifiedorder";
-            //创建支付应答对象
-            RequestHandler packageReqHandler = new RequestHandler(null);
-            //初始化
-            packageReqHandler.Init();
+            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
 
-            //设置package订单参数
-            packageReqHandler.SetParameter("appid", dataInfo.AppId);          //公众账号ID
-            packageReqHandler.SetParameter("mch_id", dataInfo.MchId);         //商户号
-            packageReqHandler.SetParameter("nonce_str", dataInfo.NonceStr);                    //随机字符串
-            packageReqHandler.SetParameter("body", dataInfo.NonceStr);    //商品信息
-            packageReqHandler.SetParameter("out_trade_no", dataInfo.OutTradeNo);      //商家订单号
-            packageReqHandler.SetParameter("total_fee", dataInfo.TotalFee.ToString());                    //商品金额,以分为单位(money * 100).ToString()
-            packageReqHandler.SetParameter("spbill_create_ip", dataInfo.SpbillCreateIP);   //用户的公网ip，不是商户服务器IP
-            packageReqHandler.SetParameter("notify_url", dataInfo.NotifyUrl);          //接收财付通通知的URL
-            packageReqHandler.SetParameter("trade_type", dataInfo.TradeType.ToString());                        //交易类型
-            packageReqHandler.SetParameter("openid", dataInfo.OpenId);                      //用户的openId
-            string sign = packageReqHandler.CreateMd5Sign("key", dataInfo.Key);
-            packageReqHandler.SetParameter("sign", sign);                       //签名
-            string data = packageReqHandler.ParseXML();
-
-            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+
+            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return new UnifiedorderResult(resultXml);
         }
 
-
+        /// <summary>
+        /// 获取UI使用的JS支付签名
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="timeStamp"></param>
+        /// <param name="nonceStr"></param>
+        /// <param name="package">格式：prepay_id={0}</param>
+        /// <param name="signType"></param>
+        /// <returns></returns>
+        public static string GetJsPaySign(string appId, string timeStamp, string nonceStr, string package,string key,
+            string signType = "MD5")
+        {
+            //设置支付参数
+            RequestHandler paySignReqHandler = new RequestHandler(null);
+            paySignReqHandler.SetParameter("appId", appId);
+            paySignReqHandler.SetParameter("timeStamp", timeStamp);
+            paySignReqHandler.SetParameter("nonceStr", nonceStr);
+            paySignReqHandler.SetParameter("package", package);
+            paySignReqHandler.SetParameter("signType", "MD5");
+            var paySign = paySignReqHandler.CreateMd5Sign("key", key);
+            return paySign;
+        }
 
         /// <summary>
         /// Native

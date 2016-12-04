@@ -20,10 +20,14 @@
     修改描述：v14.3.109 命名空间由Senparc.Weixin.MP.AdvancedAPIs改为Senparc.Weixin.MP.TenPayLibV3
 
     修改标识：Senparc - 20161203
-    修改描述：v14.3.110 增加Unifiedorder方法重载和TenPayV3XmlDataInfo类
+    修改描述：v14.3.110 增加Unifiedorder方法重载和TenPayV3RequestData类
 
     修改标识：Senparc - 20161204
     修改描述：v14.3.111 启用TenPayV3Result用于解析统一下单返回Xml数据
+
+    修改标识：Senparc - 20161205
+    修改描述：v14.3.110 增加UnifiedorderAsync方法重载
+    
 ----------------------------------------------------------------*/
 
 /*
@@ -96,7 +100,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="package">格式：prepay_id={0}</param>
         /// <param name="signType"></param>
         /// <returns></returns>
-        public static string GetJsPaySign(string appId, string timeStamp, string nonceStr, string package,string key,
+        public static string GetJsPaySign(string appId, string timeStamp, string nonceStr, string package, string key,
             string signType = "MD5")
         {
             //设置支付参数
@@ -265,6 +269,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="data">微信支付需要post的xml数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用 Unifiedorder(TenPayV3XmlDataInfo dataInfo, int timeOut = Config.TIME_OUT)")]
         public static async Task<string> UnifiedorderAsync(string data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/unifiedorder";
@@ -274,6 +279,26 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
+        }
+
+
+        /// <summary>
+        /// 【异步方法】统一支付接口
+        /// 统一支付接口，可接受JSAPI/NATIVE/APP 下预支付订单，返回预支付订单号。NATIVE 支付返回二维码code_url。
+        /// </summary>
+        /// <param name="dataInfo">微信支付需要post的xml数据</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<UnifiedorderResult> UnifiedorderAsync(TenPayV3RequestData dataInfo, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
+            return new UnifiedorderResult(resultXml);
         }
 
         /// <summary>

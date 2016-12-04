@@ -40,6 +40,9 @@
     修改标识：Senparc - 20161024
     修改描述：v14.3.1024 添加RedPack_Scene枚举
 
+    修改标识：Senparc - 20161204
+    修改描述：v14.3.1025 添加TenPayV3CodeState枚举[统一订单返回状态]
+
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;
@@ -337,6 +340,14 @@ namespace Senparc.Weixin.MP
         JSAPI,
         NATIVE,
         APP
+    }
+    /// <summary>
+    /// 统一订单接口返回状态
+    /// </summary>
+    public enum TenPayV3CodeState
+    {
+        SUCCESS,
+        FAIL
     }
 
     public enum GroupMessageType

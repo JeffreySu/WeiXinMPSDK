@@ -21,6 +21,9 @@
 
     修改标识：Senparc - 20161203
     修改描述：v14.3.110 增加Unifiedorder方法重载和TenPayV3XmlDataInfo类
+
+    修改标识：Senparc - 20161204
+    修改描述：v14.3.111 增加AnalyUnifiedorderXmlData用于解析统一下单返回Xml数据
 ----------------------------------------------------------------*/
 
 /*
@@ -31,12 +34,13 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /// <summary>
-    /// 微信支付XMLData数据
+    /// 微信支付XMLData数据[统一下单]
     /// </summary>
     public class TenPayV3XmlDataInfo
     {
@@ -100,7 +104,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="openid"></param>
         /// <param name="key"></param>
         /// <param name="nonceStr"></param>
-        public TenPayV3XmlDataInfo(string appId, string mchId, string body, string outTradeNo, decimal totalFee, string spbillCreateIp, string notifyUrl, TenPayV3Type tradeType, string openid, string key,string nonceStr)
+        public TenPayV3XmlDataInfo(string appId, string mchId, string body, string outTradeNo, decimal totalFee, string spbillCreateIp, string notifyUrl, TenPayV3Type tradeType, string openid, string key, string nonceStr)
         {
             AppId = appId;
             MchId = mchId;
@@ -116,6 +120,108 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
     }
 
+    /// <summary>
+    ///  微信支付ReturnData[统一下单]
+    /// </summary>
+    public class TenPayV3ReturnData
+    {
+        /// <summary>
+        /// 返回状态码
+        /// </summary>
+        public TenPayV3CodeState ReturnCode { get; set; }
+        /// <summary>
+        /// 返回信息
+        /// </summary>
+        public string ReturnMsg { get; set; }
+
+        public TenPayV3ResultCode ResultData { get; set; }
+
+        public TenPayV3ReturnData(TenPayV3CodeState returnCode, string returnMsg = null, TenPayV3ResultCode resultData = null)
+        {
+            ReturnCode = returnCode;
+            ReturnMsg = returnMsg;
+            ResultData = resultData;
+        }
+    }
+    /// <summary>
+    ///  微信支付ResultData[统一下单]
+    /// </summary>
+    public class TenPayV3ResultCode
+    {
+        /// <summary>
+        /// 公众账号ID
+        /// </summary>
+        public string AppId { get; set; }
+        /// <summary>
+        /// 商户号
+        /// </summary>
+        public string MchId { get; set; }
+        /// <summary>
+        /// 随机字符串
+        /// </summary>
+        public string NonceStr { get; set; }
+        /// <summary>
+        /// 终端设备号[非必填]
+        /// </summary>
+        public string DeviceInfo { get; set; }
+        /// <summary>
+        /// 签名
+        /// </summary>
+        public string Sign { get; set; }
+        /// <summary>
+        /// 业务结果[SUCCESS/FAIL]
+        /// </summary>
+        public TenPayV3CodeState ResultCode { get; set; }
+        /// <summary>
+        /// 错误代码[非必填]
+        /// </summary>
+        public string ErrCode { get; set; }
+        /// <summary>
+        /// 错误代码描述[非必填]
+        /// </summary>
+        public string ErrCodeDes { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public TenPayV3SuccessData SuccessData { get; set; }
+        public TenPayV3ResultCode(string appId, string mchId, string nonceStr, string sign, TenPayV3CodeState resultCode, string errCode = null, string errCodeDes = null, string deviceInfo = null, TenPayV3SuccessData successData = null)
+        {
+            AppId = appId;
+            MchId = mchId;
+            NonceStr = nonceStr;
+            DeviceInfo = deviceInfo;
+            Sign = sign;
+            ResultCode = resultCode;
+            ErrCode = errCode;
+            ErrCodeDes = errCodeDes;
+            SuccessData = successData;
+        }
+    }
+    /// <summary>
+    /// 微信支付Success数据[统一下单]
+    /// </summary>
+    public class TenPayV3SuccessData
+    {
+        /// <summary>
+        /// 交易类型
+        /// </summary>
+        public TenPayV3Type TradeType { get; set; }
+        /// <summary>
+        /// 微信生成的预支付回话标识
+        /// </summary>
+        public string PrepayId { get; set; }
+        /// <summary>
+        /// 交易类型
+        /// </summary>
+        public string CodeUrl { get; set; }
+
+        public TenPayV3SuccessData(TenPayV3Type tradeType, string prepayId, string codeUrl = null)
+        {
+            TradeType = tradeType;
+            PrepayId = prepayId;
+            CodeUrl = codeUrl;
+        }
+    }
 
     /// <summary>
     /// 微信支付接口，官方API：https://mp.weixin.qq.com/paymch/readtemplate?t=mp/business/course2_tmpl&lang=zh_CN&token=25857919#4
@@ -151,7 +257,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="dataInfo">微信支付需要post的Data数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static string Unifiedorder(TenPayV3XmlDataInfo dataInfo, int timeOut = Config.TIME_OUT)
+        public static TenPayV3ReturnData Unifiedorder(TenPayV3XmlDataInfo dataInfo, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/unifiedorder";
             //创建支付应答对象
@@ -178,7 +284,53 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return AnalyUnifiedorderXmlData(resultXml);
+        }
+
+        /// <summary>
+        /// 解析统一支付接口返回的Xml数据
+        /// </summary>
+        /// <param name="resultXml">统一订单接口返回的Xml数据</param>
+        /// <returns></returns>
+        public static TenPayV3ReturnData AnalyUnifiedorderXmlData(string resultXml)
+        {
+            try
+            {
+                var res = XDocument.Parse(resultXml);
+                var returnCode =
+                   (TenPayV3CodeState)Enum.Parse(typeof(TenPayV3CodeState), res.Element("xml").Element("return_code").Value);
+                var data = new TenPayV3ReturnData(returnCode);
+                if (returnCode == TenPayV3CodeState.FAIL)
+                {
+                    data.ReturnMsg = res.Element("xml").Element("return_msg").Value;
+                    return data;
+                }
+                var appId = res.Element("xml").Element("appid").Value;
+                var mchId = res.Element("xml").Element("mch_id").Value;
+                var deviceInfo = res.Element("xml").Element("device_info").Value ?? "";
+                var nonceStr = res.Element("xml").Element("nonce_str").Value;
+                var sign = res.Element("xml").Element("sign").Value;
+                var errCode = res.Element("xml").Element("err_code").Value ?? "";
+                var errCodeDes = res.Element("xml").Element("err_code_des").Value ?? "";
+
+                var resultCode = (TenPayV3CodeState)Enum.Parse(typeof(TenPayV3CodeState), res.Element("xml").Element("result_code").Value);
+                var result = new TenPayV3ResultCode(appId, mchId, nonceStr, sign, resultCode, errCode, errCodeDes, deviceInfo);
+                if (returnCode == TenPayV3CodeState.SUCCESS)
+                {
+                    var tradetype =
+               (TenPayV3Type)Enum.Parse(typeof(TenPayV3Type), res.Element("xml").Element("trade_type").Value);
+                    var prepayId = res.Element("xml").Element("prepay_id").Value;
+                    var codeurl = tradetype == TenPayV3Type.NATIVE ? res.Element("xml").Element("code_url").Value : "";
+                    result.SuccessData = new TenPayV3SuccessData(tradetype, prepayId, codeurl);
+                }
+                data.ResultData = result;
+                return data;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(resultXml);
+            }
         }
 
 

@@ -23,7 +23,7 @@
     修改描述：v14.3.110 增加Unifiedorder方法重载和TenPayV3XmlDataInfo类
 
     修改标识：Senparc - 20161204
-    修改描述：v14.3.111 增加AnalyUnifiedorderXmlData用于解析统一下单返回Xml数据
+    修改描述：v14.3.111 启用TenPayV3Result用于解析统一下单返回Xml数据
 ----------------------------------------------------------------*/
 
 /*

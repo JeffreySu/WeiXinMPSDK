@@ -14,7 +14,7 @@
     修改描述：调用新版Unifiedorder方法
 
     修改标识：Senparc - 20161204
-    修改描述：调用新版Unifiedorder方法 [返回TenPayV3ReturnData对象]
+    修改描述：调用新版Unifiedorder方法
 ----------------------------------------------------------------*/
 
 using System;

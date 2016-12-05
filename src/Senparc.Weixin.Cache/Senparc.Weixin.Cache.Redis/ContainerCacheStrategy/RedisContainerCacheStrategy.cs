@@ -74,8 +74,6 @@ namespace Senparc.Weixin.Cache.Redis
         {
         }
 
-
-
         #region 实现 IContainerCacheStrategy 接口
 
         //public string CacheSetKey { get; set; }
@@ -184,6 +182,5 @@ namespace Senparc.Weixin.Cache.Redis
         {
             return new RedisCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
         }
-
     }
 }

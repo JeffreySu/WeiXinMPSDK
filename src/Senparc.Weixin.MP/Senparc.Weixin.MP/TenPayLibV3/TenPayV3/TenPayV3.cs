@@ -295,7 +295,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
             return new UnifiedorderResult(resultXml);

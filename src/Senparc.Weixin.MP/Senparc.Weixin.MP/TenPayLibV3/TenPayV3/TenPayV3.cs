@@ -50,7 +50,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     {
         #region 同步请求
 
-
         /// <summary>
         /// 统一支付接口
         /// 统一支付接口，可接受JSAPI/NATIVE/APP 下预支付订单，返回预支付订单号。NATIVE 支付返回二维码code_url。
@@ -295,7 +294,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            await ms.WriteAsync(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
             return new UnifiedorderResult(resultXml);

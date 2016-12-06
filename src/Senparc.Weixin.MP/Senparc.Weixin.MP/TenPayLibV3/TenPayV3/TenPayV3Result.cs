@@ -16,6 +16,9 @@
     修改标识：Senparc - 20161205
     修改描述：v14.3.110 完善XML转换信息
 
+    修改标识：Senparc - 20161206
+    修改描述：v14.3.111 处理UnifiedorderResult数据处理问题
+
 ----------------------------------------------------------------*/
 
 using System.Xml.Linq;
@@ -111,6 +114,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             }
         }
 
+        /// <summary>
+        /// result_code == "SUCCESS"
+        /// </summary>
+        /// <returns></returns>
         public bool IsResultCodeSuccess()
         {
             return result_code == "SUCCESS";
@@ -138,7 +145,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public UnifiedorderResult(string resultXml)
             : base(resultXml)
         {
-            if (base.IsReturnCodeSuccess() && base.IsReturnCodeSuccess())
+            if (base.IsReturnCodeSuccess() && base.IsResultCodeSuccess())
             {
                 trade_type = GetXmlValue("trade_type") ?? "";
                 prepay_id = GetXmlValue("prepay_id") ?? "";

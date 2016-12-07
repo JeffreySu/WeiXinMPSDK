@@ -39,6 +39,10 @@
     
     修改标识：Senparc - 20161203
     修改描述：v2.3.3 解决同步锁死锁的问题
+
+    修改标识：Senparc - 20161203
+    修改描述：v2.3.4 优化TryGetAuthorizerAccessToken方法，避免authorization_info.authorizer_access_token值为空
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -280,7 +284,11 @@ namespace Senparc.Weixin.Open.Containers
         {
             TryRegister(componentAppId, authorizerAppid);
 
-            return GetAuthorizerInfoResult(componentAppId, authorizerAppid, getNewTicket).authorization_info.authorizer_access_token;
+            var authorizationInfo = GetAuthorizationInfo(componentAppId, authorizerAppid, getNewTicket);
+            return authorizationInfo.authorizer_access_token;
+
+            //v2.3.4 改用以上方法，避免authorization_info.authorizer_access_token值为空
+            //return GetAuthorizerInfoResult(componentAppId, authorizerAppid, getNewTicket).authorization_info.authorizer_access_token;
         }
 
         /// <summary>
@@ -474,6 +482,14 @@ namespace Senparc.Weixin.Open.Containers
         #endregion
 
         #region 异步方法
+
+        #region 授权信息
+
+
+
+        #endregion
+
+
         /// <summary>
         /// 【异步方法】获取可用AuthorizerAccessToken
         /// </summary>
@@ -484,8 +500,16 @@ namespace Senparc.Weixin.Open.Containers
         public static async Task<string> TryGetAuthorizerAccessTokenAsync(string componentAppId, string authorizerAppid, bool getNewTicket = false)
         {
             TryRegister(componentAppId, authorizerAppid);
-            var result = await GetAuthorizerInfoResultAsync(componentAppId, authorizerAppid, getNewTicket);
 
+            var authorizationInfo = GetAuthorizationInfo(componentAppId, authorizerAppid, getNewTicket);
+            return authorizationInfo.authorizer_access_token;
+
+            //v2.3.4 改用以上方法，避免authorization_info.authorizer_access_token值为空
+            //return GetAuthorizerInfoResult(componentAppId, authorizerAppid, getNewTicket).authorization_info.authorizer_access_token;
+
+
+
+            var result = await GetAuthorizerInfoResultAsync(componentAppId, authorizerAppid, getNewTicket);
             return result.authorization_info.authorizer_access_token;
         }
 
@@ -609,6 +633,8 @@ namespace Senparc.Weixin.Open.Containers
         }
 
         #endregion
+
+
         #endregion
     }
 }

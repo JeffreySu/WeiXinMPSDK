@@ -306,7 +306,6 @@ namespace Senparc.Weixin.Open.Containers
             var authorizerBag = TryGetItem(authorizerAppid);
             using (Cache.BeginCacheLock(LockResourceName + ".GetAuthorizerInfoResult", authorizerAppid))//同步锁
             {
-
                 //更新AuthorizerInfo
                 if (getNewTicket || authorizerBag.AuthorizerInfo.user_name == null)
                 {

@@ -403,7 +403,6 @@ namespace Senparc.Weixin.Open.Containers
 
         /// <summary>
         /// 刷新AuthorizerToken
-        ///
         /// </summary>
         /// <param name="componentAccessToken"></param>
         /// <param name="componentAppId"></param>
@@ -485,10 +484,46 @@ namespace Senparc.Weixin.Open.Containers
 
         #region 授权信息
 
+        /// <summary>
+        /// 【异步方法】获取或更新AuthorizationInfo。
+        /// 如果读取refreshToken失败，则返回null。
+        /// </summary>
+        /// <param name="componentAppId"></param>
+        /// <param name="authorizerAppid"></param>
+        /// <param name="getNewTicket"></param>
+        /// <returns></returns>
+        public static async Task<AuthorizationInfo> GetAuthorizationInfoAsync(string componentAppId, string authorizerAppid,
+    bool getNewTicket = false)
+        {
+            TryRegister(componentAppId, authorizerAppid);
 
+            var authorizerBag = TryGetItem(authorizerAppid);
+            using (Cache.BeginCacheLock(LockResourceName + ".GetAuthorizationInfo", authorizerAppid))//同步锁
+            {
+                //更新Authorization
+                if (getNewTicket || authorizerBag.AuthorizationInfoExpireTime <= DateTime.Now)
+                {
+                    var componentVerifyTicket = ComponentContainer.TryGetComponentVerifyTicket(componentAppId);
+                    var componentAccessToken = await ComponentContainer.GetComponentAccessTokenAsync(componentAppId, componentVerifyTicket);
 
-        #endregion
+                    //获取新的AuthorizerAccessToken
+                    var refreshToken = ComponentContainer.GetAuthorizerRefreshTokenFunc(authorizerAppid);
 
+                    if (refreshToken == null)
+                    {
+                        return null;
+                    }
+
+                    var refreshResult =await RefreshAuthorizerTokenAsync(componentAccessToken, componentAppId, authorizerAppid,
+                        refreshToken);
+
+                    //更新数据
+                    TryUpdateAuthorizationInfo(componentAppId, authorizerAppid,
+                        refreshResult.authorizer_access_token, refreshResult.authorizer_refresh_token, refreshResult.expires_in);
+                }
+            }
+            return authorizerBag.AuthorizationInfo;
+        }
 
         /// <summary>
         /// 【异步方法】获取可用AuthorizerAccessToken
@@ -501,16 +536,14 @@ namespace Senparc.Weixin.Open.Containers
         {
             TryRegister(componentAppId, authorizerAppid);
 
-            var authorizationInfo = GetAuthorizationInfo(componentAppId, authorizerAppid, getNewTicket);
+            var authorizationInfo = await GetAuthorizationInfoAsync(componentAppId, authorizerAppid, getNewTicket);
             return authorizationInfo.authorizer_access_token;
 
             //v2.3.4 改用以上方法，避免authorization_info.authorizer_access_token值为空
             //return GetAuthorizerInfoResult(componentAppId, authorizerAppid, getNewTicket).authorization_info.authorizer_access_token;
 
-
-
-            var result = await GetAuthorizerInfoResultAsync(componentAppId, authorizerAppid, getNewTicket);
-            return result.authorization_info.authorizer_access_token;
+            //var result = await GetAuthorizerInfoResultAsync(componentAppId, authorizerAppid, getNewTicket);
+            //return result.authorization_info.authorizer_access_token;
         }
 
         /// <summary>
@@ -556,7 +589,6 @@ namespace Senparc.Weixin.Open.Containers
 
         /// <summary>
         /// 【异步方法】刷新AuthorizerToken
-        ///
         /// </summary>
         /// <param name="componentAccessToken"></param>
         /// <param name="componentAppId"></param>
@@ -573,10 +605,9 @@ namespace Senparc.Weixin.Open.Containers
             return refreshResult;
         }
 
-
+        #endregion
 
         #region JSTicket
-
 
         /// <summary>
         /// 【异步方法】使用完整的应用凭证获取Ticket，如果不存在将自动注册
@@ -633,7 +664,6 @@ namespace Senparc.Weixin.Open.Containers
         }
 
         #endregion
-
 
         #endregion
     }

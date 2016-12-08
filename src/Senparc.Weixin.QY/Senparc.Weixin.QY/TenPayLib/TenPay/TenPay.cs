@@ -15,6 +15,7 @@
     官方API：https://pay.weixin.qq.com/wiki/doc/api/mch_pay.php?chapter=14_2
  */
 
+using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;

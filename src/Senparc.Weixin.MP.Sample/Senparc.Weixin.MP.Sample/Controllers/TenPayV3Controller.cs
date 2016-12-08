@@ -54,7 +54,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return false;
         }
 
-
         public static TenPayV3Info TenPayV3Info
         {
             get
@@ -729,5 +728,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
 
         #endregion
+
     }
 }

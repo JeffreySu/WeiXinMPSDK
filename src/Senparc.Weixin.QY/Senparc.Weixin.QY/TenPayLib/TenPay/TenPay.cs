@@ -9,6 +9,9 @@
  
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
+
+    修改标识：Ritazh - 20161207
+    修改描述：v14.3.112 迁移企业支付方法
 ----------------------------------------------------------------*/
 
 /*
@@ -26,10 +29,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     /// <summary>
     /// 企业号微信支付接口
     /// </summary>
+    
     public static class TenPay
     {
         #region 同步请求
-        
+
         /// <summary>
         /// 用于企业向微信用户个人付款 
         /// 目前支持向指定微信用户的openid付款
@@ -37,6 +41,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="data">微信支付需要post的xml数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("请使用Senparc.Weixin.MP.TenPayLibV3.Transfers()")]
         public static string Transfers(string data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
@@ -54,6 +59,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("请使用Senparc.Weixin.MP.TenPayLibV3.GetTransferInfo()")]
         public static string GetTransferInfo(string data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
@@ -67,13 +73,14 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         #endregion
 
         #region 异步请求
-         /// <summary>
+        /// <summary>
         ///【异步方法】 用于企业向微信用户个人付款 
         /// 目前支持向指定微信用户的openid付款
         /// </summary>
         /// <param name="data">微信支付需要post的xml数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("请使用Senparc.Weixin.MP.TenPayLibV3.TransfersAsync()")]
         public static async Task<string> TransfersAsync(string data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
@@ -91,6 +98,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("请使用Senparc.Weixin.MP.TenPayLibV3.GetTransferInfoAsync()")]
         public static async Task<string> GetTransferInfoAsync(string data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";

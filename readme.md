@@ -1,7 +1,3 @@
-插播：微信小程序类库
-===================
-https://github.com/JeffreySu/WxOpen
-
 # 目录
 * [微信C# SDK](#微信c-sdk--)
 * [贡献代码](#贡献代码)
@@ -38,7 +34,7 @@ https://github.com/JeffreySu/WxOpen
 | 6| 微信开放平台                                         |Senparc.Weixin.Open.dll            | [![Senparc.Weixin.Open][6.1]][6.2]          |
 | 7| Redis 分布式缓存                                     |Senparc.Weixin.Cache.Redis.dll     | [![Senparc.Weixin.Cache.Redis][7.1]][7.2]   |
 | 8| Memcached 分布式缓存                                 |Senparc.Weixin.Cache.Memcached.dll |[![Senparc.Weixin.Cache.Memcached][8.1]][8.2]| 
-| 9| [微信小程序](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll		  |[![Senparc.Weixin.WxOpen][9.1]][9.2]         | 
+| 9| [微信小程序（独立项目）](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll		  |[![Senparc.Weixin.WxOpen][9.1]][9.2]         | 
 
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
 [1.2]: https://www.nuget.org/packages/Senparc.Weixin

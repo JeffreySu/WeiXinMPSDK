@@ -29,7 +29,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     {
         public ActionResult Index()
         {
-            Func<string, FileVersionInfo> getFileVersionInfo = dllFileName => 
+            Func<string, FileVersionInfo> getFileVersionInfo = dllFileName =>
                 FileVersionInfo.GetVersionInfo(Server.MapPath("~/bin/" + dllFileName));
 
             Func<FileVersionInfo, string> getDisplayVersion = fileVersionInfo =>
@@ -47,12 +47,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //缓存
             //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
             var containerCacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
-            TempData["CacheStrategy"] = containerCacheStrategy.GetType().Name.Replace("ContainerCacheStrategy","");
+            TempData["CacheStrategy"] = containerCacheStrategy.GetType().Name.Replace("ContainerCacheStrategy", "");
 
             //文档下载版本
             var configHelper = new ConfigHelper(this.HttpContext);
             var config = configHelper.GetConfig();
             TempData["NewestDocumentVersion"] = config.Versions.First();
+
+            Weixin.WeixinTrace.Log("首页被访问");
 
             return View();
         }

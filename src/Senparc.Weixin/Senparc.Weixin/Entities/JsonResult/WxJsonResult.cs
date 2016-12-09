@@ -25,7 +25,7 @@ using System;
 
 namespace Senparc.Weixin.Entities
 {
-    public interface IJsonResult
+    public interface IJsonResult: IJsonResultCallback
     {
         string errmsg { get; set; }
         object P2PData { get; set; }
@@ -75,5 +75,24 @@ namespace Senparc.Weixin.Entities
         //        }
         //    }
         //}
+        public void SerializingCallback(string json)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SrializedCallback(string json)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeserializingCallback(string json)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeserializedCallback(string json)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

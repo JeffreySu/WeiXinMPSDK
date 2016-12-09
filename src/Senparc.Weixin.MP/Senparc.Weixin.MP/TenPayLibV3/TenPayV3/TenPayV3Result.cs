@@ -22,6 +22,7 @@
 ----------------------------------------------------------------*/
 
 using System.Xml.Linq;
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -124,7 +125,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     #endregion
 
     /// <summary>
-    /// 统一支付接口在return_code 和result_code 都为SUCCESS 的时候有返回
+    /// 统一支付接口在return_code 和result_code 都为SUCCESS 的时候有返回详细信息
     /// </summary>
     public class UnifiedorderResult : Result
     {
@@ -170,6 +171,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public OrderQueryResult(string resultXml)
             : base(resultXml)
         {
+
         }
     }
 }

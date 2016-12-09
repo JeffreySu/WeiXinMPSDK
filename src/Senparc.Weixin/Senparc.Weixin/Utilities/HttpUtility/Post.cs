@@ -64,6 +64,10 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             T result = js.Deserialize<T>(returnText);
+
+            //TODO:加入特殊情况下的回调处理
+            
+
             return result;
         }
 

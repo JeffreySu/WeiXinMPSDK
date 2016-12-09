@@ -25,6 +25,8 @@ using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
+    #region 基类
+    
     /// <summary>
     /// 基础返回结果
     /// </summary>
@@ -79,10 +81,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public string mch_id { get; set; }
         /// <summary>
-        /// 微信支付分配的终端设备号
-        /// </summary>
-        public string device_info { get; set; }
-        /// <summary>
         /// 随机字符串，不长于32 位
         /// </summary>
         public string nonce_str { get; set; }
@@ -106,7 +104,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             {
                 appid = GetXmlValue("appid") ?? "";
                 mch_id = GetXmlValue("mch_id") ?? "";
-                device_info = GetXmlValue("device_info") ?? "";
                 nonce_str = GetXmlValue("nonce_str") ?? "";
                 sign = GetXmlValue("sign") ?? "";
                 err_code = GetXmlValue("err_code") ?? "";
@@ -124,11 +121,17 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
     }
 
+    #endregion
+
     /// <summary>
     /// 统一支付接口在return_code 和result_code 都为SUCCESS 的时候有返回
     /// </summary>
     public class UnifiedorderResult : Result
     {
+        /// <summary>
+        /// 微信支付分配的终端设备号
+        /// </summary>
+        public string device_info { get; set; }
         /// <summary>
         /// 交易类型:JSAPI、NATIVE、APP
         /// </summary>
@@ -145,12 +148,28 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public UnifiedorderResult(string resultXml)
             : base(resultXml)
         {
-            if (base.IsReturnCodeSuccess() && base.IsResultCodeSuccess())
+            if (base.IsReturnCodeSuccess())
             {
-                trade_type = GetXmlValue("trade_type") ?? "";
-                prepay_id = GetXmlValue("prepay_id") ?? "";
-                code_url = GetXmlValue("code_url") ?? "";
+                device_info = GetXmlValue("device_info") ?? "";
+
+                if (base.IsResultCodeSuccess())
+                {
+                    trade_type = GetXmlValue("trade_type") ?? "";
+                    prepay_id = GetXmlValue("prepay_id") ?? "";
+                    code_url = GetXmlValue("code_url") ?? "";
+                }
             }
+        }
+    }
+
+    /// <summary>
+    /// 查询订单接口返回结果
+    /// </summary>
+    public class OrderQueryResult : Result
+    {
+        public OrderQueryResult(string resultXml)
+            : base(resultXml)
+        {
         }
     }
 }

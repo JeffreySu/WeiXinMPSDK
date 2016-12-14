@@ -1,24 +1,22 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：SimulateToolController.cs
     文件功能描述：消息模拟工具
-    
-    
+
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.MP.Agent;
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Xml.Linq;
-using Senparc.Weixin.MP.Agent;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -39,6 +37,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         Content = Request.Form["Content"],
                     };
                     break;
+
                 case RequestMsgType.Location:
                     requestMessaage = new RequestMessageLocation()
                     {
@@ -48,12 +47,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         Scale = int.Parse(Request.Form["Scale"])
                     };
                     break;
+
                 case RequestMsgType.Image:
                     requestMessaage = new RequestMessageImage()
                     {
                         PicUrl = Request.Form["PicUrl"],
                     };
                     break;
+
                 case RequestMsgType.Voice:
                     requestMessaage = new RequestMessageVoice()
                     {
@@ -61,6 +62,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         Recognition = Request.Form["Recognition"],
                     };
                     break;
+
                 case RequestMsgType.Video:
                     requestMessaage = new RequestMessageVideo()
                     {
@@ -86,6 +88,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                     Precision = double.Parse(Request.Form["Event.Precision"])
                                 };
                                 break;
+
                             case Event.subscribe:
                                 requestMessageEvent = new RequestMessageEvent_Subscribe()
                                 {
@@ -93,26 +96,29 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                     Ticket = Request.Form["Event.Ticket"]
                                 };
                                 break;
+
                             case Event.unsubscribe:
                                 requestMessageEvent = new RequestMessageEvent_Unsubscribe();
                                 break;
+
                             case Event.CLICK:
                                 requestMessageEvent = new RequestMessageEvent_Click()
-                                   {
-                                       EventKey = Request.Form["Event.EventKey"]
-                                   };
+                                {
+                                    EventKey = Request.Form["Event.EventKey"]
+                                };
                                 break;
+
                             case Event.scan:
                                 requestMessageEvent = new RequestMessageEvent_Scan()
-                                 {
-                                     EventKey = Request.Form["Event.EventKey"],
-                                     Ticket = Request.Form["Event.Ticket"]
-                                 }; break;
+                                {
+                                    EventKey = Request.Form["Event.EventKey"],
+                                    Ticket = Request.Form["Event.Ticket"]
+                                }; break;
                             case Event.VIEW:
                                 requestMessageEvent = new RequestMessageEvent_View()
-                                 {
-                                     EventKey = Request.Form["Event.EventKey"]
-                                 }; break;
+                                {
+                                    EventKey = Request.Form["Event.EventKey"]
+                                }; break;
                             case Event.MASSSENDJOBFINISH:
                                 requestMessageEvent = new RequestMessageEvent_MassSendJobFinish()
                                 {
@@ -136,10 +142,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                     FromUserName = "mphelper",//系统指定
                                     EventKey = Request.Form["Event.EventKey"],
                                     ScanCodeInfo = new ScanCodeInfo()
-                                        {
-                                            ScanResult = Request.Form["Event.ScanResult"],
-                                            ScanType = Request.Form["Event.ScanType"],
-                                        }
+                                    {
+                                        ScanResult = Request.Form["Event.ScanResult"],
+                                        ScanType = Request.Form["Event.ScanType"],
+                                    }
                                 }; break;
                             case Event.scancode_waitmsg:
                                 requestMessageEvent = new RequestMessageEvent_Scancode_Waitmsg()
@@ -155,24 +161,24 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                             case Event.pic_sysphoto:
                                 var sysphotoPicMd5Sum = Request.Form["Event.PicMd5Sum"];
                                 PicItem sysphotoPicItem = new PicItem()
+                                {
+                                    item = new Md5Sum()
                                     {
-                                        item = new Md5Sum()
-                                            {
-                                                PicMd5Sum = sysphotoPicMd5Sum
-                                            }
-                                    };
+                                        PicMd5Sum = sysphotoPicMd5Sum
+                                    }
+                                };
                                 List<PicItem> sysphotoPicItems = new List<PicItem>();
                                 sysphotoPicItems.Add(sysphotoPicItem);
                                 requestMessageEvent = new RequestMessageEvent_Pic_Sysphoto()
-                            {
-                                FromUserName = "mphelper",//系统指定
-                                EventKey = Request.Form["Event.EventKey"],
-                                SendPicsInfo = new SendPicsInfo()
                                 {
-                                    Count = Request.Form["Event.Count"],
-                                    PicList = sysphotoPicItems
-                                }
-                            }; break;
+                                    FromUserName = "mphelper",//系统指定
+                                    EventKey = Request.Form["Event.EventKey"],
+                                    SendPicsInfo = new SendPicsInfo()
+                                    {
+                                        Count = Request.Form["Event.Count"],
+                                        PicList = sysphotoPicItems
+                                    }
+                                }; break;
                             case Event.pic_photo_or_album:
                                 var photoOrAlbumPicMd5Sum = Request.Form["Event.PicMd5Sum"];
                                 PicItem photoOrAlbumPicItem = new PicItem()
@@ -221,13 +227,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                                     FromUserName = "mphelper",//系统指定
                                     EventKey = Request.Form["Event.EventKey"],
                                     SendLocationInfo = new SendLocationInfo()
-                                        {
-                                            Label = Request.Form["Event.Label"],
-                                            Location_X = Request.Form["Event.Location_X"],
-                                            Location_Y = Request.Form["Event.Location_Y"],
-                                            Poiname = Request.Form["Event.Poiname"],
-                                            Scale = Request.Form["Event.Scale"],
-                                        }
+                                    {
+                                        Label = Request.Form["Event.Label"],
+                                        Location_X = Request.Form["Event.Location_X"],
+                                        Location_Y = Request.Form["Event.Location_Y"],
+                                        Poiname = Request.Form["Event.Poiname"],
+                                        Scale = Request.Form["Event.Scale"],
+                                    }
                                 }; break;
                             default:
                                 throw new ArgumentOutOfRangeException("eventType");
@@ -239,6 +245,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         throw new ArgumentOutOfRangeException("eventType");
                     }
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException("requestType");
             }
@@ -326,7 +333,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 {
                     var msg = string.Format("{0}\r\n{1}\r\n{2}", ex.Message, null, ex.InnerException != null ? ex.InnerException.Message : null);
                     return Json(new { Success = false, Result = msg });
-
                 }
             }
         }

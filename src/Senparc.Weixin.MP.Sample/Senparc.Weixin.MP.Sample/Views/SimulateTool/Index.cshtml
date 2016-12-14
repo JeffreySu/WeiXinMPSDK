@@ -7,47 +7,454 @@
     var echostr = DateTime.Now.Ticks.ToString();
     var token = ViewData["Token"] as string;
 }
-@section HeaderContent
-{
-    <style>
-        .param {
-            display: none;
-        }
-
-        .messageXmlArea {
-            width: 100%;
-        }
-
-            .messageXmlArea textarea {
-                width: 100%;
-                height: 200px;
-            }
-
-        .paramAreaLeft {
-            float: left;
-            width: 45%;
-            margin-right: 6%;
-        }
-
-        .paramArearight {
-            width: 45%;
-            float: left;
-        }
-
-        #requestType, #eventType {
-            padding: 5px;
-        }
-
-        label.checkbox {
-            line-height: 28px;
-            padding-left: 85px;
-            overflow: hidden;
-        }
-
-        #loadResult_Loading, #loadResult_Result {
-            display: none;
-        }
-    </style>
+<br />
+<div class="panel panel-default panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">消息模拟器</h3>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">消息发送</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            <fieldset>
+                                <legend>接口设置</legend>
+                                <div class="form-group">
+                                    <label for="Url" class="col-sm-2 control-label">URL:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="Url" name="Url" value="@Url.Action("Index", "Weixin", null, "http", Request.Url.Host)" readonly />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" checked> 使用异步Controller
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Token" class="col-sm-2 control-label">Token:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="Token" value="@ViewData["Token"]" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>发送参数</legend>
+                                <div class="form-group">
+                                    <label for="requestType" class="col-sm-2 control-label">信息类型:</label>
+                                    <div class="col-sm-10">
+                                        <select id="requestType" class="form-control">
+                                            <option value="Text">文本</option>
+                                            <option value="Location">地理位置</option>
+                                            <option value="Image">图片</option>
+                                            <option value="Voice">语音</option>
+                                            <option value="Video">视频</option>
+                                            <option value="Event">事件推送</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend>参数</legend>
+                                <div class="form-group" id="paramText">
+                                    <label for="Content" class="col-sm-2 control-label">Content：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="Content" name="Content" />
+                                    </div>
+                                </div>
+                                <div id="paramLocation" class="hidden">
+                                    <div class="form-group">
+                                        <label for="Label" class="col-sm-2 control-label">Label：</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="Label" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Location_X" class="col-sm-2 control-label">Location_X：</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="Location_X" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Location_Y" class="col-sm-2 control-label">Location_Y：</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="Location_Y" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Scale" class="col-sm-2 control-label">Scale：</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="Scale" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group hidden" id="paramImage">
+                                    <label for="PicUrl" class="col-sm-2 control-label">PicUrl：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="PicUrl" />
+                                    </div>
+                                </div>
+                                <div id="paramVoice" class="hidden">
+                                    <div class="form-group">
+                                        <label for="Format" class="col-sm-2 control-label">Format：</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="Format" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Recognition" class="col-sm-2 control-label">Recognition：</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="Recognition" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="paramVideo" class="hidden">
+                                    <div class="form-group">
+                                        <label for="MsgId" class="col-sm-2 control-label">MsgId：</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="MsgId" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ThumbMediaId" class="col-sm-2 control-label">ThumbMediaId：</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" id="ThumbMediaId" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group hidden" id="paramEvent">
+                                    <label for="eventType" class="col-sm-2 control-label">事件类型:</label>
+                                    <div class="col-sm-10">
+                                        <select id="eventType" class="form-control">
+                                            <option value="LOCATION">地理位置</option>
+                                            <option value="subscribe">订阅</option>
+                                            <option value="unsubscribe">取消订阅</option>
+                                            <option value="CLICK">自定义菜单点击事件</option>
+                                            <option value="scan">二维码扫描</option>
+                                            <option value="VIEW">URL跳转</option>
+                                            <option value="MASSSENDJOBFINISH">事件推送群发结果</option>
+                                            <option value="TEMPLATESENDJOBFINISH">模板信息发送完成</option>
+                                            <option value="scancode_push">扫码推事件</option>
+                                            <option value="scancode_waitmsg">扫码推事件且弹出“消息接收中”提示框</option>
+                                            <option value="pic_sysphoto">弹出系统拍照发图</option>
+                                            <option value="pic_photo_or_album">弹出拍照或者相册发图</option>
+                                            <option value="pic_weixin">弹出微信相册发图器</option>
+                                            <option value="location_select">弹出地理位置选择器</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="eventLOCATION" class="hidden">
+                                    <div class="form-group">
+                                        <label for="Event.Latitude" class="col-sm-2 control-label">Latitude：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.Latitude" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.Longitude" class="col-sm-2 control-label">Longitude：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.Longitude" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.Precision" class="col-sm-2 control-label">Precision：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.Precision" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group hidden" id="eventsubscribe">
+                                    <label for="Event.EventKey" class="col-sm-2 control-label">EventKey：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="Event.EventKey" />
+                                    </div>
+                                </div>
+                                <div id="eventCLICK" class="hidden">
+                                    <div class="form-group">
+                                        <label for="Event.EventKey" class="col-sm-2 control-label">EventKey：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.EventKey" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.Ticket" class="col-sm-2 control-label">Ticket：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.Ticket" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="eventscan" class="hidden">
+                                    <div class="form-group">
+                                        <label for="Event.EventKey" class="col-sm-2 control-label">EventKey：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.EventKey" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.Ticket" class="col-sm-2 control-label">Ticket：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.Ticket" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group hidden" id="eventVIEW">
+                                    <label for="Event.EventKey" class="col-sm-2 control-label">EventKey：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="Event.EventKey" value="http://" />
+                                    </div>
+                                </div>
+                                <div id="eventMASSSENDJOBFINISH" class="hidden">
+                                    <div class="form-group">
+                                        <label for="Event.ErrorCount" class="col-sm-2 control-label">ErrorCount：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.ErrorCount" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.FilterCount" class="col-sm-2 control-label">FilterCount：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.FilterCount" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.SendCount" class="col-sm-2 control-label">SendCount：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.SendCount" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.Status" class="col-sm-2 control-label">Status：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.Status" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.TotalCount" class="col-sm-2 control-label">TotalCount：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.TotalCount" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="eventTEMPLATESENDJOBFINISH" class="hidden">
+                                    <div class="form-group">
+                                        <label for="Event.MsgID" class="col-sm-2 control-label">MsgID：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.MsgID" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.Status" class="col-sm-2 control-label">Status：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.Status" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="eventscancode_push" class="hidden">
+                                    <div class="form-group">
+                                        <label for="Event.EventKey" class="col-sm-2 control-label">EventKey：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.EventKey" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.ScanResult" class="col-sm-2 control-label">ScanResult：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.ScanResult" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.ScanType" class="col-sm-2 control-label">ScanType：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.ScanType" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="eventscancode_waitmsg" class="hidden">
+                                    <div class="form-group">
+                                        <label for="Event.EventKey" class="col-sm-2 control-label">EventKey：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.EventKey" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.ScanResult" class="col-sm-2 control-label">ScanResult：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.ScanResult" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.ScanType" class="col-sm-2 control-label">ScanType：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.ScanType" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="eventpic_sysphoto" class="hidden">
+                                    <div class="form-group">
+                                        <label for="Event.EventKey" class="col-sm-2 control-label">EventKey：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.EventKey" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.Count" class="col-sm-2 control-label">Count：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.Count" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.PicMd5Sum" class="col-sm-2 control-label">PicMd5Sum：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.PicMd5Sum" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="eventpic_photo_or_album" class="hidden">
+                                    <div class="form-group">
+                                        <label for="Event.EventKey" class="col-sm-2 control-label">EventKey：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.EventKey" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.Count" class="col-sm-2 control-label">Count：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.Count" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.PicMd5Sum" class="col-sm-2 control-label">PicMd5Sum：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.PicMd5Sum" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="eventpic_weixin" class="hidden">
+                                    <div class="form-group">
+                                        <label for="Event.EventKey" class="col-sm-2 control-label">EventKey：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.EventKey" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.Count" class="col-sm-2 control-label">Count：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.Count" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.PicMd5Sum" class="col-sm-2 control-label">PicMd5Sum：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.PicMd5Sum" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="eventlocation_select" class="hidden">
+                                    <div class="form-group">
+                                        <label for="Event.EventKey" class="col-sm-2 control-label">EventKey：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.EventKey" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.Label" class="col-sm-2 control-label">Label：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.Label" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.Location_X" class="col-sm-2 control-label">Location_X：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.Location_X" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.Location_Y" class="col-sm-2 control-label">Location_Y：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.Location_Y" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.Poiname" class="col-sm-2 control-label">Poiname：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.Poiname" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Event.Scale" class="col-sm-2 control-label">Scale：</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" id="Event.Scale" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Token" class="col-sm-2 control-label">MagId:</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="txtMsgId" name="MsgId" value="@DateTime.Now.Ticks" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" id="TestConcurrence"> 测试并发性能
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input id="TestConcurrenceRange" type="range" min="2" max="30" value="10">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="panel-footer text-right">
+                        <button class="btn btn-default btn-primary" onclick="sendMessage()">提交</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">发送内容（根据参数自动生成）</h3>
+                    </div>
+                    <div class="panel-body">
+                        <textarea id="requestMessageXML" class="col-md-12" rows="14" readonly="readonly"></textarea>
+                    </div>
+                </div>
+                <div class="panel panel-default panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">接收内容</h3>
+                    </div>
+                    <div class="panel-body">
+                        <textarea id="responseMessageXML" class="col-md-12" rows="14" readonly="readonly"></textarea>
+                    </div>
+                    <div class="panel-footer text-right">
+                        <label class="control-title send" id="loadResult_Loading">模拟并发请求中……</label>
+                        <label class="control-title send" id="loadResult_Result">
+                            模拟并发响应时间：<span id="loadTime"></span> ms<br />
+                            由于后台代理转发暂时没有使用异步请求，结果可能会受影响
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
     <script>
         $(function () {
             $('#requestType').change(checkRequestType);
@@ -160,179 +567,3 @@
     </script>
 }
 
-<div class="wrapper">
-    <div class="form-control">
-        <ul>
-            <li>
-                <label class="control-title">接口设置</label>
-            </li>
-            <li>
-                <label class="control-label">URL:</label>
-                @Html.TextBox("Url", Url.Action("Index", "Weixin", null, "http", Request.Url.Host), new { @class = "control-input" })
-            </li>
-            <li>
-                <label class="checkbox">@Html.CheckBox("UseAsyncController", true)使用异步Controller</label>
-            </li>
-            <li>
-                <label class="control-label">Token:</label>
-                @Html.TextBox("Token", token, new { @class = "control-input" })
-            </li>
-            <li>
-                <label class="control-title">发送参数</label>
-            </li>
-            <li>
-                <label class="control-label">类型:</label>
-                <select id="requestType" class="control-select">
-                    <option value="Text">文本</option>
-                    <option value="Location">地理位置</option>
-                    <option value="Image">图片</option>
-                    <option value="Voice">语音</option>
-                    <option value="Video">视频</option>
-                    @*<option value="Link">连接信息</option>*@
-                    <option value="Event">事件推送</option>
-                </select>
-                @*<input class="control-input" type="text" />*@
-            </li>
-            <li>
-                <label class="control-title">参数：</label>
-                <br />
-                <div id="paramText" class="param">
-                    <label class="control-label">Content：</label><input name="Content" class="control-input" />
-                </div>
-                <div id="paramLocation" class="param">
-                    <label class="control-label">Label：</label><input name="Label" class="control-input" /><br />
-                    <label class="control-label">Location_X：</label><input name="Location_X" type="number" value="0" class="control-input" /><br />
-                    <label class="control-label">Location_Y：</label><input name="Location_Y" type="number" value="0" class="control-input" /><br />
-                    <label class="control-label">Scale：</label><input name="Scale" type="number" value="0" step="1" class="control-input" /><br />
-                </div>
-                <div id="paramImage" class="param">
-                    <label class="control-label">PicUrl：</label><input name="PicUrl" class="control-input" /><br />
-                </div>
-                <div id="paramVoice" class="param">
-                    <label class="control-label">Format：</label><input name="Format" value="arm" class="control-input" /><br />
-                    <label class="control-label">Recognition：</label><input name="Recognition" class="control-input" /><br />
-                </div>
-                <div id="paramVideo" class="param">
-                    <label class="control-label">MsgId：</label><input class="control-input" name="MsgId" type="number" value="@DateTime.Now.Ticks" step="1" /><br />
-                    <label class="control-label">ThumbMediaId：</label><input name="ThumbMediaId" class="control-input" /><br />
-                </div>
-                @*<div id="paramLink" class="param"></div>*@
-                <div id="paramEvent" class="param">
-                    <label class="control-label">事件类型：</label><select id="eventType" class="control-select">
-                        @*<option value="ENTER">进入会话</option>*@
-                        <option value="LOCATION">地理位置</option>
-                        <option value="subscribe">订阅</option>
-                        <option value="unsubscribe">取消订阅</option>
-                        <option value="CLICK">自定义菜单点击事件</option>
-                        <option value="scan">二维码扫描</option>
-                        <option value="VIEW">URL跳转</option>
-                        <option value="MASSSENDJOBFINISH">事件推送群发结果</option>
-                        <option value="TEMPLATESENDJOBFINISH">模板信息发送完成</option>
-                        <option value="scancode_push">扫码推事件</option>
-                        <option value="scancode_waitmsg">扫码推事件且弹出“消息接收中”提示框</option>
-                        <option value="pic_sysphoto">弹出系统拍照发图</option>
-                        <option value="pic_photo_or_album">弹出拍照或者相册发图</option>
-                        <option value="pic_weixin">弹出微信相册发图器</option>
-                        <option value="location_select">弹出地理位置选择器</option>
-                    </select>
-                    @*<div id="eventENTER" class="param"></div>*@
-                    <div id="eventLOCATION" class="param">
-                        <label class="control-label">Latitude：</label><input class="control-input" name="Event.Latitude" type="number" value="0" /><br />
-                        <label class="control-label">Longitude：</label><input class="control-input" name="Event.Longitude" type="number" value="0" /><br />
-                        <label class="control-label">Precision：</label><input class="control-input" name="Event.Precision" type="number" value="0" /><br />
-                    </div>
-                    <div id="eventsubscribe" class="param">
-                        <label class="control-label">EventKey：</label><input name="Event.EventKey" class="control-input" /><br />
-                    </div>
-                    <div id="eventunsubscribe" class="param"></div>
-                    <div id="eventCLICK" class="param">
-                        <label class="control-label">EventKey：</label><input name="Event.EventKey" class="control-input" /><br />
-                        <label class="control-label">Ticket：</label><input class="control-input" name="Event.Ticket" /><br />
-                    </div>
-                    <div id="eventscan" class="param">
-                        <label class="control-label">EventKey：</label><input name="Event.EventKey" class="control-input" /><br />
-                        <label class="control-label">Ticket：</label><input class="control-input" name="Event.Ticket" /><br />
-                    </div>
-                    <div id="eventVIEW" class="param">
-                        <label class="control-label">EventKey：</label><input name="Event.EventKey" class="control-input" value="http://" /><br />
-                    </div>
-                    <div id="eventMASSSENDJOBFINISH" class="param">
-                        <label class="control-label">ErrorCount：</label><input class="control-input" name="Event.ErrorCount" type="number" value="0" /><br />
-                        <label class="control-label">FilterCount：</label><input class="control-input" name="Event.FilterCount" type="number" value="0" /><br />
-                        <label class="control-label">SendCount：</label><input class="control-input" name="Event.SendCount" type="number" value="0" /><br />
-                        <label class="control-label">Status：</label><input class="control-input" name="Event.Status" /><br />
-                        <label class="control-label">TotalCount：</label><input class="control-input" name="Event.TotalCount" type="number" value="0" /><br />
-                    </div>
-                    <div id="eventTEMPLATESENDJOBFINISH" class="param">
-                        <label class="control-label">MsgID：</label><input class="control-input" name="Event.MsgID" /><br />
-                        <label class="control-label">Status：</label><input class="control-input" name="Event.Status" /><br />
-                    </div>
-                    <div id="eventscancode_push" class="param">
-                        <label class="control-label">EventKey：</label><input class="control-input" name="Event.EventKey" /><br />
-                        <label class="control-label">ScanResult：</label><input class="control-input" name="Event.ScanResult" /><br />
-                        <label class="control-label">ScanType：</label><input class="control-input" name="Event.ScanType" /><br />
-                    </div>
-                    <div id="eventscancode_waitmsg" class="param">
-                        <label class="control-label">EventKey：</label><input class="control-input" name="Event.EventKey" /><br />
-                        <label class="control-label">ScanResult：</label><input class="control-input" name="Event.ScanResult" /><br />
-                        <label class="control-label">ScanType：</label><input class="control-input" name="Event.ScanType" /><br />
-                    </div>
-                    <div id="eventpic_sysphoto" class="param">
-                        <label class="control-label">EventKey：</label><input class="control-input" name="Event.EventKey" /><br />
-                        <label class="control-label">Count：</label><input class="control-input" name="Event.Count" /><br />
-                        <label class="control-label">PicMd5Sum：</label><input class="control-input" name="Event.PicMd5Sum" /><br />
-                    </div>
-                    <div id="eventpic_photo_or_album" class="param">
-                        <label class="control-label">EventKey：</label><input class="control-input" name="Event.EventKey" /><br />
-                        <label class="control-label">Count：</label><input class="control-input" name="Event.Count" /><br />
-                        <label class="control-label">PicMd5Sum：</label><input class="control-input" name="Event.PicMd5Sum" /><br />
-                    </div>
-                    <div id="eventpic_weixin" class="param">
-                        <label class="control-label">EventKey：</label><input class="control-input" name="Event.EventKey" /><br />
-                        <label class="control-label">Count：</label><input class="control-input" name="Event.Count" /><br />
-                        <label class="control-label">PicMd5Sum：</label><input class="control-input" name="Event.PicMd5Sum" /><br />
-                    </div>
-                    <div id="eventlocation_select" class="param">
-                        <label class="control-label">EventKey：</label><input class="control-input" name="Event.EventKey" /><br />
-                        <label class="control-label">Label：</label><input class="control-input" name="Event.Label" /><br />
-                        <label class="control-label">Location_X：</label><input class="control-input" name="Event.Location_X" /><br />
-                        <label class="control-label">Location_Y：</label><input class="control-input" name="Event.Location_Y" /><br />
-                        <label class="control-label">Poiname：</label><input class="control-input" name="Event.Poiname" /><br />
-                        <label class="control-label">Scale：</label><input class="control-input" name="Event.Scale" /><br />
-                    </div>
-                </div>
-            </li>
-            <li>
-                <label class="control-label">MagId:</label>
-                <input class="control-input" id="txtMsgId" name="MsgId" type="number" value="@DateTime.Now.Ticks" />
-            </li>
-            <li>
-                <label class="checkbox">@Html.CheckBox("TestConcurrence", true)测试并发性能</label>
-                <input id="TestConcurrenceRange" type="range" min="2" max="30" value="10" />
-            </li>
-            <li>
-                <button class="control-btn" onclick="sendMessage()">提交</button>
-            </li>
-        </ul>
-    </div>
-    <div class="form-control">
-        <ul>
-            <li>
-                <label class="control-title send">发送内容（根据参数自动生成）</label>
-                <textarea class="control-text" id="requestMessageXML" readonly="readonly"></textarea>
-            </li>
-            <li>
-                <label class="control-title send">接收内容</label>
-                <textarea class="control-text" id="responseMessageXML"></textarea>
-            </li>
-            <li>
-                <label class="control-title send" id="loadResult_Loading">模拟并发请求中……</label>
-                <label class="control-title send" id="loadResult_Result">模拟并发响应时间：<span id="loadTime"></span> ms<br/>
-                由于后台代理转发暂时没有使用异步请求，结果可能会受影响
-                </label>
-            </li>
-            <li></li>
-        </ul>
-    </div>
-    <div class="clear"></div>
-</div>

@@ -333,7 +333,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout2.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\OAuth2\Index.cshtml" />
     <Content Include="Views\OAuth2\UserInfoCallback.cshtml" />

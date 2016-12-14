@@ -64,6 +64,7 @@ namespace Senparc.Weixin.MP.Sample
             {
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
             }
+
             #endregion
 
             #region Memcached 配置

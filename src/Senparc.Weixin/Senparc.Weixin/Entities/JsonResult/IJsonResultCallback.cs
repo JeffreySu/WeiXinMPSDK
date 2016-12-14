@@ -9,8 +9,6 @@
 
 ----------------------------------------------------------------*/
 
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,8 +25,7 @@ namespace Senparc.Weixin.Entities
         /// <summary>
         /// 序列化前回调
         /// </summary>
-        /// <param name="json"></param>
-        void SerializingCallback(string json);
+        void SerializingCallback();
         /// <summary>
         /// 序列化后回调
         /// </summary>

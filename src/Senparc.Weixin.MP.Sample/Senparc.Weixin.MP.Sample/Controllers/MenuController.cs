@@ -17,6 +17,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
+using System.Web.Configuration;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -67,8 +68,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         [HttpPost]
         public ActionResult CreateMenu(string token, GetMenuResultFull resultFull, MenuMatchRule menuMatchRule)
         {
-                var useAddCondidionalApi = menuMatchRule != null && !menuMatchRule.CheckAllNull();
+            var useAddCondidionalApi = menuMatchRule != null && !menuMatchRule.CheckAllNull();
             var apiName = string.Format("使用接口：{0}。" , (useAddCondidionalApi ? "个性化菜单接口" : "普通自定义菜单接口"));
+
+            if (string.IsNullOrWhiteSpace(token))
+                token = TokenGet();
+
             try
             {
                 //重新整理按钮信息
@@ -107,6 +112,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         public ActionResult GetMenu(string token)
         {
+            if (string.IsNullOrWhiteSpace(token))
+                token = TokenGet();
+
             var result = CommonAPIs.CommonApi.GetMenu(token);
             if (result == null)
             {
@@ -115,8 +123,20 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        private string TokenGet()
+        {
+            string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
+            string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
+            var token = CommonApi.GetToken(appId, appSecret);
+
+            return token.access_token.ToString().Trim();
+        }
+
         public ActionResult DeleteMenu(string token)
         {
+            if (string.IsNullOrWhiteSpace(token))
+                token = TokenGet();
+
             try
             {
                 var result = CommonAPIs.CommonApi.DeleteMenu(token);

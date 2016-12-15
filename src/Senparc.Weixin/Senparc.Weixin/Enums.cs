@@ -15,6 +15,9 @@
 
     修改标识：Senparc - 20161112
     修改描述：v4.9.3 添加小程序返回码添加小程序返回码
+
+    修改标识：Senparc - 20161215
+    修改描述：v4.9.5 添加Sex枚举
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin
@@ -390,5 +393,15 @@ namespace Senparc.Weixin
         /// 退出App状态（临时传输状态，退出后即为None）
         /// </summary>
         Exit = 4
+    }
+
+    /// <summary>
+    /// 用户信息中的性别（sex）
+    /// </summary>
+    public enum Sex
+    {
+        未知=0,
+        男=1,
+        女=2
     }
 }

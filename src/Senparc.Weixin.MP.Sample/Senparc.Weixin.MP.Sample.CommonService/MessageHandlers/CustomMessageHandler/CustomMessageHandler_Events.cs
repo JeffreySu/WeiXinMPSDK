@@ -45,14 +45,22 @@ SDK官方地址：http://weixin.senparc.com
 SDK Demo：http://sdk.weixin.senparc.com
 源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK
 Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
+QQ群：342319110
 
 ===============
 更多：
-1、有关第三方开放平台（Senparc.Weixin.Open）的内容，请回复文字：open
 
-2、JSSDK测试：http://sdk.weixin.senparc.com/WeixinJSSDK
+1、JSSDK测试：http://sdk.weixin.senparc.com/WeixinJSSDK
 
-3、测试异步模板消息，请回复文字：tm
+2、开放平台测试（建议PC上打开）：http://sdk.weixin.senparc.com/OpenOAuth/JumpToMpOAuth
+
+3、回复关键字：
+
+【open】   进入第三方开放平台（Senparc.Weixin.Open）测试
+
+【tm】     测试异步模板消息
+
+【openid】 获取OpenId等用户信息
 ",
                 version);
         }

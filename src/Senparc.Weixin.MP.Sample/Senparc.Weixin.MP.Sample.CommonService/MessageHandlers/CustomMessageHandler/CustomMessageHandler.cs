@@ -19,6 +19,7 @@ using System.Web;
 using System.Web.Configuration;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.Context;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
@@ -234,7 +235,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                         t2 - t1
                         );
             }
-            else if (requestMessage.Content == "open")
+            else if (requestMessage.Content.ToUpper() == "OPEN")
             {
                 var openResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageNews>();
                 openResponseMessage.Articles.Add(new Article()
@@ -269,6 +270,15 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 var checkCode = Guid.NewGuid().ToString("n").Substring(0, 3);//为了防止openId泄露造成骚扰，这里启用验证码
                 TemplateMessageCollection[checkCode] = openId;
                 responseMessage.Content = string.Format(@"新的验证码为：{0}，请在网页上输入。网址：http://sdk.weixin.senparc.com/AsyncMethods", checkCode);
+            }
+            else if (requestMessage.Content.ToUpper() == "OPENID") //返回OpenId及用户信息
+            {
+                var openId = requestMessage.FromUserName;//获取OpenId
+                var userInfo = AdvancedAPIs.UserApi.Info(appId, openId, Language.zh_CN);
+
+                responseMessage.Content = string.Format(
+                    "您的OpenID为：{0}\r\n昵称：{1}\r\n性别：{2}\r\n地区（国家/省/市）：{3}/{4}/{5}\r\n关注时间：{6}\r\n关注状态：{7}",
+                    requestMessage.FromUserName, userInfo.nickname,(Sex)userInfo.sex,userInfo.country,userInfo.province,userInfo.city, DateTimeHelper.GetDateTimeFromXml(userInfo.subscribe_time),userInfo.subscribe);
             }
             else
             {

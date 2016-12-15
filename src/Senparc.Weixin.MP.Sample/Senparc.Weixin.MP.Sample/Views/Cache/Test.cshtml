@@ -2,52 +2,54 @@
     ViewBag.Title = "微信分布式缓存策略测试";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@section HeaderContent
-{
-    <style>
-        .result {
-            padding: 0px 0px 0px 30px;
-            font-size: 110%;
-            float: right;
-            width: 50%;
-        }
+@*
+    @section HeaderContent
+    {
+        <style>
+            .result {
+                padding: 0px 0px 0px 30px;
+                font-size: 110%;
+                float: right;
+                width: 50%;
+            }
 
-        .result h1 {
-            margin: 30px;
-            font-weight: bold;
-            font-size: 120%;
-        }
+            .result h1 {
+                margin: 30px;
+                font-weight: bold;
+                font-size: 120%;
+            }
 
-        #resultText { border: 1px solid #66cdaa; padding:10px;}
+            #resultText { border: 1px solid #66cdaa; padding:10px;}
 
-        .description {
-            float: left;
-            width: 50%;
-            padding: 40px 0;
-        }
+            .description {
+                float: left;
+                width: 50%;
+                padding: 40px 0;
+            }
 
-        .description h1 {
-            font-weight: bold;
-            font-size: 120%;
-            padding-bottom: 30px;
-        }
+            .description h1 {
+                font-weight: bold;
+                font-size: 120%;
+                padding-bottom: 30px;
+            }
 
-        .description ol, .description li { list-style: decimal; }
+            .description ol, .description li { list-style: decimal; }
 
-        .description ol { padding-left: 25px; }
-        .description li {
-            line-height: 200%;
-            font-size: 120%;
-        }
-    </style>
-    <script>
-        $(function() {
-            $.post('@Url.Action("RunTest")', function(html) {
-                $('#resultText').html(html);
+            .description ol { padding-left: 25px; }
+            .description li {
+                line-height: 200%;
+                font-size: 120%;
+            }
+        </style>
+        <script>
+            $(function() {
+                $.post('@Url.Action("RunTest")', function(html) {
+                    $('#resultText').html(html);
+                });
             });
-        });
-    </script>
-}
+        </script>
+    }
+*@
 <div class="wrapper">
     <div class="description">
         <h1>Senparc.Weixin缓存列队原理</h1>

@@ -6,9 +6,13 @@
     
     
     创建标识：Senparc - 20150712
-
+    
+    修改标识：Senparc - 20161216
+    修改描述：v2.3.5 添加序列化特性
+    
 ----------------------------------------------------------------*/
 
+using System;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Open.OAuthAPIs
@@ -17,6 +21,7 @@ namespace Senparc.Weixin.Open.OAuthAPIs
     /// 获取OAuth AccessToken的结果
     /// 如果错误，返回结果{"errcode":40029,"errmsg":"invalid code"}
     /// </summary>
+    [Serializable]
     public class OAuthAccessTokenResult : WxJsonResult
     {
         /// <summary>

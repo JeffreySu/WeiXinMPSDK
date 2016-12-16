@@ -1,17 +1,16 @@
-﻿using System;
-using System.Linq;
-using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
+using System;
+using System.Linq;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.Test
 {
     [TestClass]
     public class RequestMessageFactoryTest
     {
-        string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
+        private string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
     <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
@@ -22,7 +21,7 @@ namespace Senparc.Weixin.MP.Test
 </xml>
 ";
 
-        string xmlLocation = @"<?xml version=""1.0"" encoding=""utf-8""?>
+        private string xmlLocation = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
   <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
   <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
@@ -76,17 +75,17 @@ namespace Senparc.Weixin.MP.Test
 <MsgId>1234567890123456</MsgId>
 </xml>";
 
-//        @"<?xml version=""1.0"" encoding=""utf-8""?>
-//<xml>
-//  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
-//  <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
-//  <CreateTime>1361430302</CreateTime>
-//  <MsgType><![CDATA[video]]></MsgType>
-//  <Video>
-//    <MediaId><![CDATA[mediaId]]></MediaId>
-//    <ThumbMediaId><![CDATA[thumbMediaId]]></ThumbMediaId>
-//  </Video> 
-//</xml>";
+        //        @"<?xml version=""1.0"" encoding=""utf-8""?>
+        //<xml>
+        //  <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
+        //  <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
+        //  <CreateTime>1361430302</CreateTime>
+        //  <MsgType><![CDATA[video]]></MsgType>
+        //  <Video>
+        //    <MediaId><![CDATA[mediaId]]></MediaId>
+        //    <ThumbMediaId><![CDATA[thumbMediaId]]></ThumbMediaId>
+        //  </Video>
+        //</xml>";
 
         private string xmlLink = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
@@ -277,7 +276,7 @@ namespace Senparc.Weixin.MP.Test
 <CardId><![CDATA[cardid]]></CardId>
 </xml>";
 
-           private string xmlEvent_Card_Not_Pass_Check=@"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
+        private string xmlEvent_Card_Not_Pass_Check = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
 <FromUserName><![CDATA[FromUser]]></FromUserName>
 <CreateTime>123456789</CreateTime>
 <MsgType><![CDATA[event]]></MsgType>
@@ -345,11 +344,11 @@ namespace Senparc.Weixin.MP.Test
 <Msg><![CDATA[xxxxxx]]></Msg>
 </xml>";
 
-        private string xmlEvent_WifiConnected = @"<xml> 
-<ToUserName><![CDATA[toUser]]></ToUserName> 
-<FromUserName><![CDATA[FromUser]]></FromUserName> 
-<CreateTime>123456789</CreateTime> 
-<MsgType><![CDATA[event]]></MsgType> 
+        private string xmlEvent_WifiConnected = @"<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
 <Event><![CDATA[WifiConnected]]></Event>
 <ConnectTime>0</ConnectTime>
 <ExpireTime>0</ExpireTime>
@@ -358,31 +357,31 @@ namespace Senparc.Weixin.MP.Test
 <DeviceNo><![CDATA[DeviceNo]]></DeviceNo>
 </xml>";
 
-        private string xmlEvent_User_Consume_Card = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName> 
-<FromUserName><![CDATA[FromUser]]></FromUserName> 
-<CreateTime>123456789</CreateTime> 
-<MsgType><![CDATA[event]]></MsgType> 
-<Event><![CDATA[user_consume_card]]></Event> 
-<CardId><![CDATA[cardid]]></CardId> 
+        private string xmlEvent_User_Consume_Card = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[user_consume_card]]></Event>
+<CardId><![CDATA[cardid]]></CardId>
 <UserCardCode><![CDATA[12312312]]></UserCardCode>
 <ConsumeSource><![CDATA[(FROM_API)]]></ConsumeSource>
 </xml>";
 
-        private string xmlEvent_User_Enter_Session_From_Card = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName> 
-<FromUserName><![CDATA[FromUser]]></FromUserName> 
-<CreateTime>123456789</CreateTime> 
-<MsgType><![CDATA[event]]></MsgType> 
-<Event><![CDATA[user_enter_session_from_card]]></Event> 
-<CardId><![CDATA[cardid]]></CardId> 
+        private string xmlEvent_User_Enter_Session_From_Card = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[user_enter_session_from_card]]></Event>
+<CardId><![CDATA[cardid]]></CardId>
 <UserCardCode><![CDATA[12312312]]></UserCardCode>
 </xml>";
 
-        private string xmlEvent_User_View_Card = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName> 
-<FromUserName><![CDATA[FromUser]]></FromUserName> 
-<CreateTime>123456789</CreateTime> 
-<MsgType><![CDATA[event]]></MsgType> 
-<Event><![CDATA[user_view_card]]></Event> 
-<CardId><![CDATA[cardid]]></CardId> 
+        private string xmlEvent_User_View_Card = @"<xml> <ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[user_view_card]]></Event>
+<CardId><![CDATA[cardid]]></CardId>
 <UserCardCode><![CDATA[12312312]]></UserCardCode>
 </xml>";
 
@@ -584,7 +583,7 @@ namespace Senparc.Weixin.MP.Test
                 Assert.AreEqual(new DateTime(2014, 3, 14), result.CreateTime.Date);
                 Assert.AreEqual("http://sdk.weixin.senparc.com", result.EventKey);
             }
-            
+
             {
                 //Event-Scancode_Push
                 var doc = XDocument.Parse(xmlEvent_Scancode_Push);

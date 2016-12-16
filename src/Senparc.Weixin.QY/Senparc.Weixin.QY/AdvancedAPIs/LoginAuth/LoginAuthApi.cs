@@ -4,7 +4,6 @@
     文件名：LoginAuthApi.cs
     文件功能描述：企业号登录授权接口
 
-
     创建标识：Senparc - 20150325
 
     修改标识：zeje - 20150507
@@ -18,19 +17,19 @@
     接口文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%99%BB%E5%BD%95%E6%8E%88%E6%9D%83%E6%B5%81%E7%A8%8B%E8%AF%B4%E6%98%8E
  */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.LoginAuth;
 using Senparc.Weixin.QY.CommonAPIs;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     public static class LoginAuthApi
     {
         #region 同步请求
-        
-       
+
         /*此接口不提供异步方法*/
+
         /// <summary>
         /// 服务商引导用户进入登录授权页
         /// 1、用户进入服务商网站 用户进入服务商网站，如www.ABC.com。
@@ -69,6 +68,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             return CommonJsonSend.Send<GetLoginInfoResult>(providerAccessToken, url, data, CommonJsonSendType.POST,
                                                            timeOut);
         }
+
         /// <summary>
         /// 获取企业号管理员登录信息
         /// </summary>
@@ -78,7 +78,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="agentid">授权方应用id</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static GetLoginUrlResult GetLoginUrl(string providerAccessToken, string loginTicket,string target,int agentid,int timeOut = Config.TIME_OUT)
+        public static GetLoginUrlResult GetLoginUrl(string providerAccessToken, string loginTicket, string target, int agentid, int timeOut = Config.TIME_OUT)
         {
             string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_url?provider_access_token={0}";
 
@@ -92,10 +92,12 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             return CommonJsonSend.Send<GetLoginUrlResult>(providerAccessToken, url, data, CommonJsonSendType.POST,
                                                            timeOut);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
-         /// <summary>
+
+        /// <summary>
         /// 【异步方法】获取企业号管理员登录信息
         /// </summary>
         /// <param name="providerAccessToken">服务提供商的accesstoken</param>
@@ -111,9 +113,10 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 auth_code = authCode
             };
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<GetLoginInfoResult>(providerAccessToken, url, data, CommonJsonSendType.POST,
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetLoginInfoResult>(providerAccessToken, url, data, CommonJsonSendType.POST,
                                                            timeOut);
         }
+
         /// <summary>
         /// 【异步方法】获取企业号管理员登录信息
         /// </summary>
@@ -123,7 +126,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="agentid">授权方应用id</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<GetLoginUrlResult> GetLoginUrlAsync(string providerAccessToken, string loginTicket,string target,int agentid,int timeOut = Config.TIME_OUT)
+        public static async Task<GetLoginUrlResult> GetLoginUrlAsync(string providerAccessToken, string loginTicket, string target, int agentid, int timeOut = Config.TIME_OUT)
         {
             string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_url?provider_access_token={0}";
 
@@ -137,7 +140,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetLoginUrlResult>(providerAccessToken, url, data, CommonJsonSendType.POST,
                                                            timeOut);
         }
-        #endregion
 
+        #endregion 异步请求
     }
 }

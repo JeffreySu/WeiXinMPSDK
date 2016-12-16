@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.QY.Entities;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.QY.Test
 {
@@ -29,7 +24,7 @@ namespace Senparc.Weixin.QY.Test
 
         private string xml_Text = @"<xml>
    <ToUserName><![CDATA[toUser]]></ToUserName>
-   <FromUserName><![CDATA[fromUser]]></FromUserName> 
+   <FromUserName><![CDATA[fromUser]]></FromUserName>
    <CreateTime>1348831860</CreateTime>
    <MsgType><![CDATA[text]]></MsgType>
    <Content><![CDATA[this is a test]]></Content>
@@ -226,7 +221,7 @@ namespace Senparc.Weixin.QY.Test
         private string xml_Change_Auth = @"<xml>
 		<SuiteId><![CDATA[wxfc918a2d200c9a4c]]></SuiteId>
 		<InfoType><![CDATA[change_auth]]></InfoType>
-		<TimeStamp>1403610513</TimeStamp> 
+		<TimeStamp>1403610513</TimeStamp>
 		<AuthCorpId><![CDATA[wxf8b4f85f3a794e77]]></AuthCorpId>
 	</xml>	";
 
@@ -311,7 +306,7 @@ namespace Senparc.Weixin.QY.Test
                 Assert.AreEqual("media_id", result.MediaId);
                 Assert.AreEqual(1, result.AgentID);
             }
-            
+
             {
                 //Event_Location
                 var doc = XDocument.Parse(xmlEvent_Location);

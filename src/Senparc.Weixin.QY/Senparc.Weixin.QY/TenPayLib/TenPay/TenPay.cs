@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
- 
+
     文件名：TenPay.cs
     文件功能描述：企业号微信支付接口
-    
-    
+
     创建标识：Senparc - 20150722
- 
+
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
 
@@ -18,24 +17,24 @@
     官方API：https://pay.weixin.qq.com/wiki/doc/api/mch_pay.php?chapter=14_2
  */
 
+using Senparc.Weixin.HttpUtility;
 using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     /// <summary>
     /// 企业号微信支付接口
     /// </summary>
-    
+
     public static class TenPay
     {
         #region 同步请求
 
         /// <summary>
-        /// 用于企业向微信用户个人付款 
+        /// 用于企业向微信用户个人付款
         /// 目前支持向指定微信用户的openid付款
         /// </summary>
         /// <param name="data">微信支付需要post的xml数据</param>
@@ -70,11 +69,13 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
+
         /// <summary>
-        ///【异步方法】 用于企业向微信用户个人付款 
+        ///【异步方法】 用于企业向微信用户个人付款
         /// 目前支持向指定微信用户的openid付款
         /// </summary>
         /// <param name="data">微信支付需要post的xml数据</param>
@@ -89,7 +90,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return await RequestUtility.HttpPostAsync( urlFormat, null, ms, timeOut: timeOut);
+            return await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
         }
 
         /// <summary>
@@ -107,8 +108,9 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return await RequestUtility.HttpPostAsync( urlFormat, null, ms, timeOut: timeOut);
+            return await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

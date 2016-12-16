@@ -1,24 +1,19 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：OAuth2Controller.cs
     文件功能描述：提供OAuth2.0授权测试（关注微信公众号：盛派网络小助手，点击菜单【功能体验】 【OAuth2.0授权测试】即可体验）
-    
-    
+
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
-using Senparc.Weixin.MP.CommonAPIs;
+using System;
+using System.Configuration;
+using System.Web.Mvc;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -26,10 +21,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     {
         //下面换成账号对应的信息，也可以放入web.config等地方方便配置和更换
         private string appId = ConfigurationManager.AppSettings["WeixinAppId"];
+
         private string secret = ConfigurationManager.AppSettings["WeixinAppSecret"];
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="returnUrl">用户尝试进入的需要登录的页面</param>
         /// <returns></returns>
@@ -156,7 +152,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 {
                     return Redirect(returnUrl);
                 }
-
 
                 ViewData["ByBase"] = true;
                 return View("UserInfoCallback", userInfo);

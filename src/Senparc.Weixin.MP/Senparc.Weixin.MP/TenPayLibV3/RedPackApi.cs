@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-  
+
     文件名：RedPackApi.cs
     文件功能描述：普通红包发送和红包查询Api（暂缺裂变红包发送）
-    
-    
+
     创建标识：Yu XiaoChou - 20160107
-        
+
     修改标识：Senparc - 20161024
     修改描述：v14.3.102 重新整理红包发送方法
 
@@ -59,7 +58,7 @@ SYSTEMERROR	系统繁忙，请再试。	可用同一商户单号再次调用，�
 PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十分钟后查询,按照查询结果成功失败进行处理
              */
 
-        #endregion
+        #endregion 错误码
 
         /// <summary>
         /// 普通红包发送
@@ -122,16 +121,15 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             }
             if (riskInfo != null)
             {
-                packageReqHandler.SetParameter("risk_info", riskInfo);//活动信息	
+                packageReqHandler.SetParameter("risk_info", riskInfo);//活动信息
             }
             if (consumeMchId != null)
             {
-                packageReqHandler.SetParameter("consume_mch_id", consumeMchId);//活动信息	
+                packageReqHandler.SetParameter("consume_mch_id", consumeMchId);//活动信息
             }
 
             paySign = packageReqHandler.CreateMd5Sign("key", tenPayKey);
             packageReqHandler.SetParameter("sign", paySign);	                    //签名
-
 
             //最新的官方文档中将以下三个字段去除了
             //packageReqHandler.SetParameter("nick_name", "提供方名称");                 //提供方名称
@@ -154,10 +152,10 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             //X509Certificate cer = new X509Certificate(cert, password);
 
             #region 发起post请求
+
             HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
             webrequest.ClientCertificates.Add(cer);
             webrequest.Method = "post";
-
 
             byte[] postdatabyte = Encoding.UTF8.GetBytes(data);
             webrequest.ContentLength = postdatabyte.Length;
@@ -168,7 +166,8 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
             StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
             string responseContent = streamReader.ReadToEnd();
-            #endregion
+
+            #endregion 发起post请求
 
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(responseContent);
@@ -262,7 +261,6 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
                     {
                         normalReturn.total_amount = doc.SelectSingleNode("/xml/total_amount").InnerText;
                     }
-
                 }
             }
 
@@ -339,11 +337,11 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             }
             if (riskInfo != null)
             {
-                packageReqHandler.SetParameter("risk_info", riskInfo);//活动信息	
+                packageReqHandler.SetParameter("risk_info", riskInfo);//活动信息
             }
             if (consumeMchId != null)
             {
-                packageReqHandler.SetParameter("consume_mch_id", consumeMchId);//活动信息	
+                packageReqHandler.SetParameter("consume_mch_id", consumeMchId);//活动信息
             }
 
             //最新的官方文档中将以下三个字段去除了
@@ -367,10 +365,10 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             //X509Certificate cer = new X509Certificate(cert, password);
 
             #region 发起post请求
+
             HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
             webrequest.ClientCertificates.Add(cer);
             webrequest.Method = "post";
-
 
             byte[] postdatabyte = Encoding.UTF8.GetBytes(data);
             webrequest.ContentLength = postdatabyte.Length;
@@ -381,7 +379,8 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
             StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
             string responseContent = streamReader.ReadToEnd();
-            #endregion
+
+            #endregion 发起post请求
 
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(responseContent);
@@ -480,8 +479,8 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 
             return normalReturn;
         }
-        #endregion
 
+        #endregion v14.3.105中将发布
 
         /// <summary>
         /// 查询红包(包括普通红包和裂变红包)
@@ -501,7 +500,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             packageReqHandler.SetParameter("appid", appId);		  //公众账号ID
             packageReqHandler.SetParameter("mch_id", mchId);		  //商户号
             packageReqHandler.SetParameter("mch_billno", mchBillNo);                 //填入商家订单号
-            packageReqHandler.SetParameter("bill_type", "MCHT");                 //MCHT:通过商户订单号获取红包信息。 
+            packageReqHandler.SetParameter("bill_type", "MCHT");                 //MCHT:通过商户订单号获取红包信息。
             string sign = packageReqHandler.CreateMd5Sign("key", tenPayKey);
             packageReqHandler.SetParameter("sign", sign);	                    //签名
             //发红包需要post的数据
@@ -520,6 +519,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
 
             #region 发起post请求
+
             HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
             webrequest.ClientCertificates.Add(cer);
             webrequest.Method = "post";
@@ -534,7 +534,8 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
             StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
             string responseContent = streamReader.ReadToEnd();
-            #endregion
+
+            #endregion 发起post请求
 
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(responseContent);
@@ -651,13 +652,11 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             return searchReturn;
         }
 
-
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {
             if (errors == SslPolicyErrors.None)
                 return true;
             return false;
         }
-
     }
 }

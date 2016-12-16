@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.MP.Test
@@ -11,7 +6,7 @@ namespace Senparc.Weixin.MP.Test
     [TestClass]
     public class WeixinExceptionTest
     {
-        string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
+        private string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
     <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
@@ -21,6 +16,7 @@ namespace Senparc.Weixin.MP.Test
     <MsgId>5832509444155992350</MsgId>
 </xml>
 ";
+
         [TestMethod]
         public void ThrowTest()
         {

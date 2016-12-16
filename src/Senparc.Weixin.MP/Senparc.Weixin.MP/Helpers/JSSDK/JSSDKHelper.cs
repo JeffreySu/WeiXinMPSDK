@@ -1,24 +1,22 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：JSSDKHelper.cs
     文件功能描述：JSSDK生成签名的方法等
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
+
     修改标识：HADB - 20150512
     修改描述：将方法调用改为静态方式
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.MP.Containers;
 using System;
 using System.Collections;
 using System.Text;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Containers;
 
 namespace Senparc.Weixin.MP.Helpers
 {
@@ -93,23 +91,25 @@ namespace Senparc.Weixin.MP.Helpers
             }
             return SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
         }
-		/// <summary>
-		/// 添加卡券Ext参数的签名加密方法
-		/// </summary>
-		/// <param name="parameters"></param>
-		/// <returns></returns>
-		private static string CreateNonekeySha1(Hashtable parameters)
-		{
-			var sb = new StringBuilder();
-			var aValues = new ArrayList(parameters.Values);
-			aValues.Sort();
 
-			foreach (var v in aValues)
-			{
-				sb.Append(v);
-			}
-			return SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
-		}
+        /// <summary>
+        /// 添加卡券Ext参数的签名加密方法
+        /// </summary>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        private static string CreateNonekeySha1(Hashtable parameters)
+        {
+            var sb = new StringBuilder();
+            var aValues = new ArrayList(parameters.Values);
+            aValues.Sort();
+
+            foreach (var v in aValues)
+            {
+                sb.Append(v);
+            }
+            return SHA1UtilHelper.GetSha1(sb.ToString()).ToString().ToLower();
+        }
+
         /// <summary>
         /// 获取JS-SDK权限验证的签名Signature
         /// </summary>
@@ -173,27 +173,27 @@ namespace Senparc.Weixin.MP.Helpers
             return CreateCardSha1(parameters);
         }
 
-		/// <summary>
-		///获取添加卡券时Ext参数内的签名 
-		/// </summary>
-		/// <param name="api_ticket"></param>
-		/// <param name="timestamp"></param>
-		/// <param name="card_id"></param>
-		/// <param name="nonce_str"></param>
-		/// <param name="code"></param>
-		/// <param name="openid"></param>
-		/// <returns></returns>
-		public static string GetcardExtSign(string api_ticket, string timestamp, string card_id, string nonce_str, string code = "", string openid = "")
-		{
-			var parameters = new Hashtable();
-			parameters.Add("api_ticket", api_ticket);
-			parameters.Add("timestamp", timestamp);
-			parameters.Add("card_id", card_id);
-			parameters.Add("code", code);
-			parameters.Add("openid", openid);
-			parameters.Add("nonce_str", nonce_str);
-			return CreateNonekeySha1(parameters);
-		}
+        /// <summary>
+        ///获取添加卡券时Ext参数内的签名
+        /// </summary>
+        /// <param name="api_ticket"></param>
+        /// <param name="timestamp"></param>
+        /// <param name="card_id"></param>
+        /// <param name="nonce_str"></param>
+        /// <param name="code"></param>
+        /// <param name="openid"></param>
+        /// <returns></returns>
+        public static string GetcardExtSign(string api_ticket, string timestamp, string card_id, string nonce_str, string code = "", string openid = "")
+        {
+            var parameters = new Hashtable();
+            parameters.Add("api_ticket", api_ticket);
+            parameters.Add("timestamp", timestamp);
+            parameters.Add("card_id", card_id);
+            parameters.Add("code", code);
+            parameters.Add("openid", openid);
+            parameters.Add("nonce_str", nonce_str);
+            return CreateNonekeySha1(parameters);
+        }
 
         /// <summary>
         /// 获取给UI使用的JSSDK信息包
@@ -202,17 +202,17 @@ namespace Senparc.Weixin.MP.Helpers
         /// <param name="appSecret"></param>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static JsSdkUiPackage GetJsSdkUiPackage(string appId ,string appSecret,string url)
+        public static JsSdkUiPackage GetJsSdkUiPackage(string appId, string appSecret, string url)
         {
             //获取时间戳
             var timestamp = GetTimestamp();
             //获取随机码
             string nonceStr = GetNoncestr();
-            string ticket = JsApiTicketContainer.TryGetJsApiTicket(appId,appSecret);
+            string ticket = JsApiTicketContainer.TryGetJsApiTicket(appId, appSecret);
             //获取签名
             string signature = JSSDKHelper.GetSignature(ticket, nonceStr, timestamp, url);
             //返回信息包
-            return new JsSdkUiPackage(appId,timestamp,nonceStr,signature);
+            return new JsSdkUiPackage(appId, timestamp, nonceStr, signature);
         }
     }
 }

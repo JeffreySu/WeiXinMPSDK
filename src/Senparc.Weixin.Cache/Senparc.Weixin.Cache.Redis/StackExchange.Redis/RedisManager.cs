@@ -12,11 +12,6 @@
 
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using StackExchange.Redis;
 
 namespace Senparc.Weixin.Cache.Redis
@@ -39,22 +34,22 @@ namespace Senparc.Weixin.Cache.Redis
             }
         }
 
-        class NestedRedis
+        private class NestedRedis
         {
             static NestedRedis()
             {
             }
+
             //将instance设为一个初始化的ConnectionMultiplexer新实例
             internal static readonly ConnectionMultiplexer instance = GetManager();
         }
 
-        #endregion
+        #endregion ConnectionMultiplexer 单例
 
         /// <summary>
         /// 链接设置字符串
         /// </summary>
         public static string ConfigurationOption { get; set; }
-
 
         /// <summary>
         /// ConnectionMultiplexer

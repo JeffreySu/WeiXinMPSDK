@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.AdvancedAPIs.User;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
-using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.Threads;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.Test.CommonAPIs
 {
@@ -23,6 +20,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
     public partial class CommonApiTest
     {
         private dynamic _appConfig;
+
         protected dynamic AppConfig
         {
             get
@@ -82,7 +80,6 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             get { return AppConfig.TenPayCertPath; }
         }
 
-
         protected readonly bool _userRedis = true;//是否使用Reids
 
         /* 由于获取accessToken有次数限制，为了节约请求，
@@ -133,7 +130,6 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                 Thread.Sleep(100);
             }
         }
-
 
         public CommonApiTest()
         {

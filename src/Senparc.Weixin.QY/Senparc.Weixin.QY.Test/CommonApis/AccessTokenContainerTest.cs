@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.QY.Entities;
-using System.Threading.Tasks;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.QY.Containers;
 using Senparc.Weixin.QY.Test.CommonApis;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.QY.Test.CommonAPIs
 {
@@ -22,7 +19,7 @@ namespace Senparc.Weixin.QY.Test.CommonAPIs
             AccessTokenContainer.Register(base._corpId, base._corpSecret);
 
             //获取Token完整结果（包括当前过期秒数）
-            var tokenResult = AccessTokenContainer.GetTokenResult(base._corpId,base._corpSecret);
+            var tokenResult = AccessTokenContainer.GetTokenResult(base._corpId, base._corpSecret);
             Assert.IsNotNull(tokenResult);
 
             //只获取Token字符串

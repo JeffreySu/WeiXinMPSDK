@@ -4,7 +4,6 @@
     文件名：JsApiTicketContainer.cs
     文件功能描述：通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
 
-
     创建标识：Senparc - 20160206
 
     修改标识：Senparc - 20160206
@@ -15,38 +14,34 @@
 
     修改标识：Senparc - 20160717
     修改描述：v13.8.11 添加注册过程中的Name参数
-    
+
     修改标识：Senparc - 20160801
     修改描述：v14.2.1 转移到Senparc.Weixin.MP.Containers命名空间下
 
     修改标识：Senparc - 20160803
     修改描述：v14.2.3 使用ApiUtility.GetExpireTime()方法处理过期
- 
+
     修改标识：Senparc - 20160804
     修改描述：v14.2.4 增加TryGetJsApiTicketAsync，GetJsApiTicketAsync，GetJsApiTicketResultAsync的异步方法
 
-
     修改标识：Senparc - 20160808
     修改描述：v14.3.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
-    
+
     修改标识：Senparc - 20160813
     修改描述：v14.3.4 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
-    
+
     修改标识：Senparc - 20160813
     修改描述：v14.3.6 完善getNewToken参数传递
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Senparc.Weixin.Cache;
+using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.Containers
 {
@@ -61,6 +56,7 @@ namespace Senparc.Weixin.MP.Containers
             get { return _appId; }
             set { base.SetContainerProperty(ref _appId, value); }
         }
+
         public string AppSecret
         {
             get { return _appSecret; }
@@ -95,10 +91,9 @@ namespace Senparc.Weixin.MP.Containers
     /// </summary>
     public class JsApiTicketContainer : BaseContainer<JsApiTicketBag>
     {
-        const string LockResourceName = "MP.JsApiTicketContainer";
+        private const string LockResourceName = "MP.JsApiTicketContainer";
 
         #region 同步方法
-
 
         //static Dictionary<string, JsApiTicketBag> JsApiTicketCollection =
         //   new Dictionary<string, JsApiTicketBag>(StringComparer.OrdinalIgnoreCase);
@@ -110,6 +105,7 @@ namespace Senparc.Weixin.MP.Containers
         /// <param name="appSecret"></param>
         /// <param name="name">标记JsApiTicket名称（如微信公众号名称），帮助管理员识别</param>
         /*此接口不提供异步方法*/
+
         public static void Register(string appId, string appSecret, string name = null)
         {
             //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
@@ -130,9 +126,7 @@ namespace Senparc.Weixin.MP.Containers
                 }
             };
             RegisterFunc();
-
         }
-
 
         #region JsApiTicket
 
@@ -189,11 +183,12 @@ namespace Senparc.Weixin.MP.Containers
             return jsApiTicketBag.JsApiTicketResult;
         }
 
-        #endregion
+        #endregion JsApiTicket
 
-        #endregion
+        #endregion 同步方法
 
         #region 异步方法
+
         #region JsApiTicket
 
         /// <summary>
@@ -252,7 +247,8 @@ namespace Senparc.Weixin.MP.Containers
             return jsApiTicketBag.JsApiTicketResult;
         }
 
-        #endregion
-        #endregion
+        #endregion JsApiTicket
+
+        #endregion 异步方法
     }
 }

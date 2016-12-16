@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Helpers;
 using Senparc.Weixin.QY.MessageHandlers;
+using System;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.QY.Test.MessageHandlers
 {
@@ -26,11 +21,10 @@ namespace Senparc.Weixin.QY.Test.MessageHandlers
             public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
             {
                 var responseMessage = RequestMessage.CreateResponseMessage<ResponseMessageText>();
-               
+
                 responseMessage.Content = "文字信息";
                 return responseMessage;
             }
-
 
             /// <summary>
             /// 默认消息
@@ -49,8 +43,6 @@ namespace Senparc.Weixin.QY.Test.MessageHandlers
 <Encrypt><![CDATA[h3z+AK9zKP4dYs8j1FmthAILbJghEmdo2Y1U9Pdghzann6H2KJOpepaDT1zcp09/1/e/6ta48aUXebkHlu0rhzk4GW+cvVUHzbEiQVFlIvD+q4T/NLIm8E8BM+gO+DHslM7aXmYjvgMw6AYiBx80D+nZKNyJD3I8lRT3aHCq/hez0c+HTAnZyuCi5TfUAw0c6jWSfAq61VesRw4lhV925vJUOBXT/zOw760CEsYXSr2IAr/n4aPfDgRs2Ww2h/HPiVOQ2Ms1f/BOtFiKVWMqZCxbmJ7cyPHH7+uOSAS6DtXiQAdwpEZwHz+A5QTsmK6V0C6Ifgr7zrStb7ygM7kmcrAJctPhCfG7WlfrWrFNLdtx9Q2F7d6/soinswdoYF8g56s8UWguOVkM7UFGr8H2QqrUJm5S5iFP/XNcBwvPWYA=]]></Encrypt>
 <AgentID><![CDATA[2]]></AgentID>
 </xml>";
-
-
 
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethod]
         public void TextTest()
@@ -75,7 +67,6 @@ namespace Senparc.Weixin.QY.Test.MessageHandlers
 
             Assert.IsNotNull(messageHandler.ResponseDocument);
             Assert.IsNotNull(messageHandler.ResponseMessage);
-
 
             Console.WriteLine(messageHandler.RequestDocument);
         }

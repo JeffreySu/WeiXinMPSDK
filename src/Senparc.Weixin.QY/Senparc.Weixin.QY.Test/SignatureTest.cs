@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Senparc.Weixin.QY.Test
 {
@@ -35,8 +33,7 @@ namespace Senparc.Weixin.QY.Test
 
             var replyEchoStr = Signature.VerifyURL(token, encodingAESKey, corpId, msgSignature, timeStamp, nonce, echostr);
             Assert.IsNotNull(replyEchoStr);
-            Assert.AreEqual("2009497178386364159",replyEchoStr);
+            Assert.AreEqual("2009497178386364159", replyEchoStr);
         }
     }
 }
-

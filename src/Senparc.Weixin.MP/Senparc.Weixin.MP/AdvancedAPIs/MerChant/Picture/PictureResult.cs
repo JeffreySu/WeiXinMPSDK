@@ -13,4 +13,3 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         public string image_url { get; set; }
     }
 }
-

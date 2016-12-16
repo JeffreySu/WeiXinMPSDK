@@ -1,10 +1,9 @@
 /*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
- 
+
     文件名：TenPayUtil.cs
     文件功能描述：微信支付配置文件
-    
-    
+
     创建标识：Senparc - 20150722
 
     修改标识：Senparc - 20161014
@@ -12,9 +11,9 @@
 
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.QY.Helpers;
 using System;
 using System.Text;
-using Senparc.Weixin.QY.Helpers;
 
 namespace Senparc.Weixin.QY.TenPayLib
 {
@@ -58,13 +57,11 @@ namespace Senparc.Weixin.QY.TenPayLib
                 try
                 {
                     res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
-
                 }
                 catch (Exception ex)
                 {
                     res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
                 }
-
 
                 return res;
             }
@@ -87,19 +84,15 @@ namespace Senparc.Weixin.QY.TenPayLib
                 try
                 {
                     res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
-
                 }
                 catch (Exception ex)
                 {
                     res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
                 }
 
-
                 return res;
-
             }
         }
-
 
         /// <summary>
         /// 取时间戳生成随即数,替换交易单号中的后10位流水号
@@ -110,6 +103,7 @@ namespace Senparc.Weixin.QY.TenPayLib
             TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
             return Convert.ToUInt32(ts.TotalSeconds);
         }
+
         /// <summary>
         /// 取随机数
         /// </summary>
@@ -139,6 +133,5 @@ namespace Senparc.Weixin.QY.TenPayLib
 
             return str;
         }
-
     }
 }

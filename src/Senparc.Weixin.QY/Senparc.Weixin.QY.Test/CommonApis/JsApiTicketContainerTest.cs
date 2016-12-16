@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.QY.CommonAPIs;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.QY.Containers;
 using Senparc.Weixin.QY.Test.CommonApis;
+using System;
 
 namespace Senparc.Weixin.QY.Test.CommonAPIs
 {
@@ -20,7 +16,7 @@ namespace Senparc.Weixin.QY.Test.CommonAPIs
             JsApiTicketContainer.Register(base._corpId, base._corpSecret);
 
             //获取Ticket完整结果（包括当前过期秒数）
-            var ticketResult = JsApiTicketContainer.GetTicketResult(base._corpId,base._corpSecret);
+            var ticketResult = JsApiTicketContainer.GetTicketResult(base._corpId, base._corpSecret);
             Assert.IsNotNull(ticketResult);
             Console.WriteLine(ticketResult.ticket);
 
@@ -37,7 +33,6 @@ namespace Senparc.Weixin.QY.Test.CommonAPIs
                 Assert.AreEqual(ticketResult.ticket, ticket);//现在微信服务器有Ticket缓存，短时间内一致
                 Console.WriteLine(ticketResult.ticket);
             }
-
         }
     }
 }

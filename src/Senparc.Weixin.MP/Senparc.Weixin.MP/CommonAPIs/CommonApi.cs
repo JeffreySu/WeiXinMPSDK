@@ -1,24 +1,23 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CommonApi.cs
     文件功能描述：通用接口(用于和微信服务器通讯，一般不涉及自有网站服务器的通讯)
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150330
     修改描述：获取调用微信JS接口的临时票据中的AccessToken添加缓存
-    
+
     修改标识：Senparc - 20150401
     修改描述：添加公众号第三方平台获取授权码接口
-    
+
     修改标识：Senparc - 20150430
     修改描述：公众号第三方平台分离
- 
+
     修改标识：Senparc - 20160721
     修改描述：增加其接口的异步方法
 
@@ -29,13 +28,13 @@
 
 /*
     API：http://mp.weixin.qq.com/wiki/index.php?title=%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3&oldid=103
-    
+
  */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Entities;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
@@ -78,10 +77,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
                                         accessToken.AsUrlData(), openId.AsUrlData());
                 WeixinUserInfoResult result = Get.GetJson<WeixinUserInfoResult>(url);
                 return result;
-
             }, accessTokenOrAppId);
         }
-
 
         /// <summary>
         /// 获取调用微信JS接口的临时票据
@@ -111,10 +108,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
                 JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
                 return result;
-
             }, accessTokenOrAppId);
         }
-
 
         /// <summary>
         /// 获取微信服务器的ip段
@@ -128,11 +123,10 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 var url = string.Format("https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
 
                 return Get.GetJson<GetCallBackIpResult>(url);
-
             }, accessTokenOrAppId);
         }
 
-        #endregion
+        #endregion 同步方法
 
         #region 异步方法
 
@@ -167,10 +161,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
                                        accessToken.AsUrlData(), openId.AsUrlData());
                var result = Get.GetJsonAsync<WeixinUserInfoResult>(url);
                return result;
-
            }, accessTokenOrAppId);
         }
-
 
         /// <summary>
         /// 【异步方法】获取调用微信JS接口的临时票据
@@ -200,7 +192,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
 
                 var result = Get.GetJsonAsync<JsApiTicketResult>(url);
                 return result;
-
             }, accessTokenOrAppId);
         }
 
@@ -216,10 +207,9 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 var url = string.Format("https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token={0}", accessToken.AsUrlData());
 
                 return Get.GetJsonAsync<GetCallBackIpResult>(url);
-
             }, accessTokenOrAppId);
         }
 
-        #endregion
+        #endregion 异步方法
     }
 }

@@ -4,7 +4,6 @@
     文件名：WeixinContainer.cs
     文件功能描述：微信容器（如Ticket、AccessToken）
 
-
     创建标识：Senparc - 20151003
 
     修改标识：Senparc - 20160321
@@ -18,14 +17,11 @@
 
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Cache;
+using Senparc.Weixin.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Senparc.Weixin.Cache;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MessageQueue;
 
 namespace Senparc.Weixin.Containers
 {
@@ -104,8 +100,6 @@ namespace Senparc.Weixin.Containers
         //    }
         //}
 
-
-
         ///// <summary>
         ///// 获取Container缓存Key
         ///// </summary>
@@ -114,8 +108,6 @@ namespace Senparc.Weixin.Containers
         //{
         //    return ContainerHelper.GetCacheKey(typeof(TBag));
         //}
-
-
 
         /// <summary>
         /// 进行注册过程的委托
@@ -150,7 +142,6 @@ namespace Senparc.Weixin.Containers
         {
             return ContainerHelper.GetItemCacheKey(typeof(TBag), shortKey);
         }
-
 
         ///// <summary>
         ///// 获取完整的数据集合的列表，包括所有的Container数据在内（建议不要进行任何修改操作）
@@ -284,6 +275,5 @@ namespace Senparc.Weixin.Containers
 
             return Cache.CheckExisted(cacheKey);
         }
-
     }
 }

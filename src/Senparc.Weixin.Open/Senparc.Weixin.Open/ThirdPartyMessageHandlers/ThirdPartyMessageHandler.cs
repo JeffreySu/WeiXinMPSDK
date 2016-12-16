@@ -1,10 +1,9 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-  
+
     文件名：ThirdPartyMessageHandler.cs
     文件功能描述：开放平台消息处理器
-    
-    
+
     创建标识：Senparc - 20150211
 
     修改标识：Senparc - 20160813
@@ -12,12 +11,11 @@
 
 ----------------------------------------------------------------*/
 
-
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Open.Entities.Request;
 using System;
 using System.IO;
 using System.Xml.Linq;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Open.Entities.Request;
 using Tencent;
 
 namespace Senparc.Weixin.Open.MessageHandlers
@@ -25,14 +23,17 @@ namespace Senparc.Weixin.Open.MessageHandlers
     public abstract class ThirdPartyMessageHandler
     {
         private PostModel _postModel;
+
         /// <summary>
         /// 加密（原始）的XML
         /// </summary>
         public XDocument EcryptRequestDocument { get; set; }
+
         /// <summary>
         /// 解密之后的XML
         /// </summary>
         public XDocument RequestDocument { get; set; }
+
         /// <summary>
         /// 请求消息，对应解密之之后的XML数据
         /// </summary>
@@ -112,28 +113,31 @@ namespace Senparc.Weixin.Open.MessageHandlers
                             ResponseMessageText = OnComponentVerifyTicketRequest(requestMessage);
                         }
                         break;
+
                     case RequestInfoType.unauthorized:
                         {
                             var requestMessage = RequestMessage as RequestMessageUnauthorized;
                             ResponseMessageText = OnUnauthorizedRequest(requestMessage);
                         }
                         break;
+
                     case RequestInfoType.authorized:
                         {
                             var requestMessage = RequestMessage as RequestMessageAuthorized;
                             ResponseMessageText = OnAuthorizedRequest(requestMessage);
                         }
                         break;
+
                     case RequestInfoType.updateauthorized:
                         {
                             var requestMessage = RequestMessage as RequestMessageUpdateAuthorized;
                             ResponseMessageText = OnUpdateAuthorizedRequest(requestMessage);
                         }
                         break;
+
                     default:
                         throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
                 }
-
             }
             catch (Exception ex)
             {
@@ -152,8 +156,6 @@ namespace Senparc.Weixin.Open.MessageHandlers
         public virtual void OnExecuted()
         {
         }
-
-
 
         /// <summary>
         /// 推送component_verify_ticket协议

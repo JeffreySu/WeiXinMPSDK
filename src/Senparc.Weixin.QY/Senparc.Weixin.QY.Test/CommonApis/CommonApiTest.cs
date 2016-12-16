@@ -1,14 +1,11 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.IO;
-using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Containers;
+using System.IO;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.QY.Test.CommonApis
 {
@@ -19,6 +16,7 @@ namespace Senparc.Weixin.QY.Test.CommonApis
     public partial class CommonApiTest
     {
         private dynamic _appConfig;
+
         protected dynamic AppConfig
         {
             get
@@ -57,7 +55,6 @@ namespace Senparc.Weixin.QY.Test.CommonApis
             get { return AppConfig.CorpSecret; }
         }
 
-
         protected readonly bool _userRedis = true;//是否使用Reids
 
         public CommonApiTest()
@@ -68,7 +65,6 @@ namespace Senparc.Weixin.QY.Test.CommonApis
                 RedisManager.ConfigurationOption = redisConfiguration;
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
             }
-
 
             //全局只需注册一次
             AccessTokenContainer.Register(_corpId, _corpSecret);

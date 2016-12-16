@@ -1,23 +1,21 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：EntityHelper.cs
     文件功能描述：实体与xml相互转换
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Helpers;
+using Senparc.Weixin.MP.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.Utilities;
 
 namespace Senparc.Weixin.MP.Helpers
 {
@@ -55,6 +53,7 @@ namespace Senparc.Weixin.MP.Helpers
                         case "Nullable`1": //可为空对象
                             EntityUtility.EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value);
                             break;
+
                         case "Boolean":
                             if (propName == "FuncFlag")
                             {
@@ -71,10 +70,12 @@ namespace Senparc.Weixin.MP.Helpers
                             //已设为只读
                             //prop.SetValue(entity, MsgTypeHelper.GetRequestMsgType(root.Element(propName).Value), null);
                             break;
+
                         case "ResponseMsgType": //Response适用
                             //已设为只读
                             //prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
                             break;
+
                         case "Event":
                             //已设为只读
                             //prop.SetValue(entity, EventHelper.GetEventType(root.Element(propName).Value), null);
@@ -137,46 +138,55 @@ namespace Senparc.Weixin.MP.Helpers
                             FillEntityWithXml(music, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, music, null);
                             break;
+
                         case "Image"://ResponseMessageImage适用
                             Image image = new Image();
                             FillEntityWithXml(image, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, image, null);
                             break;
+
                         case "Voice"://ResponseMessageVoice适用
                             Voice voice = new Voice();
                             FillEntityWithXml(voice, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, voice, null);
                             break;
+
                         case "Video"://ResponseMessageVideo适用
                             Video video = new Video();
                             FillEntityWithXml(video, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, video, null);
                             break;
+
                         case "ScanCodeInfo"://扫码事件中的ScanCodeInfo适用
                             ScanCodeInfo scanCodeInfo = new ScanCodeInfo();
                             FillEntityWithXml(scanCodeInfo, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, scanCodeInfo, null);
                             break;
+
                         case "SendLocationInfo"://弹出地理位置选择器的事件推送中的SendLocationInfo适用
                             SendLocationInfo sendLocationInfo = new SendLocationInfo();
                             FillEntityWithXml(sendLocationInfo, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, sendLocationInfo, null);
                             break;
+
                         case "SendPicsInfo"://系统拍照发图中的SendPicsInfo适用
                             SendPicsInfo sendPicsInfo = new SendPicsInfo();
                             FillEntityWithXml(sendPicsInfo, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, sendPicsInfo, null);
                             break;
+
                         case "ChosenBeacon"://摇一摇事件通知
                             ChosenBeacon chosenBeacon = new ChosenBeacon();
                             FillEntityWithXml(chosenBeacon, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, chosenBeacon, null);
                             break;
+
                         case "AroundBeacon"://摇一摇事件通知
                             AroundBeacon aroundBeacon = new AroundBeacon();
                             FillEntityWithXml(aroundBeacon, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, aroundBeacon, null);
                             break;
+
                         default:
                             prop.SetValue(entity, root.Element(propName).Value, null);
                             break;
@@ -297,11 +307,13 @@ namespace Senparc.Weixin.MP.Helpers
                             root.Add(new XElement(propName,
                                              new XCData(prop.GetValue(entity, null) as string ?? "")));
                             break;
+
                         case "DateTime":
                             root.Add(new XElement(propName,
                                                   DateTimeHelper.GetWeixinDateTime(
                                                       (DateTime)prop.GetValue(entity, null))));
                             break;
+
                         case "Boolean":
                             if (propName == "FuncFlag")
                             {
@@ -312,15 +324,19 @@ namespace Senparc.Weixin.MP.Helpers
                                 goto default;
                             }
                             break;
+
                         case "ResponseMsgType":
                             root.Add(new XElement(propName, new XCData(prop.GetValue(entity, null).ToString().ToLower())));
                             break;
+
                         case "Article":
                             root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
                             break;
+
                         case "TransInfo":
                             root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
                             break;
+
                         default:
                             if (prop.PropertyType.IsClass && prop.PropertyType.IsPublic)
                             {
@@ -332,7 +348,6 @@ namespace Senparc.Weixin.MP.Helpers
                             else
                             {
                                 root.Add(new XElement(propName, prop.GetValue(entity, null)));
-
                             }
                             break;
                     }

@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：RelationSearchResultJson.cs
     文件功能描述：查询设备与页面的关联关系返回结果
-    
-    
+
     创建标识：Senparc - 20160216
 ----------------------------------------------------------------*/
 
-using System.Collections.Generic;
 using Senparc.Weixin.Entities;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
 {

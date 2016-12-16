@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.Test.Containers.Tests
 {
@@ -18,7 +17,6 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
         [TestMethod]
         public void ContainerAsyncTest()
         {
-
             bool useRedis = true;
 
             if (useRedis)
@@ -27,7 +25,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
                 RedisManager.ConfigurationOption = redisConfiguration;
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
             }
-            
+
             //注册
             AccessTokenContainer.Register(base._appId, base._appSecret);
 
@@ -112,11 +110,11 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             int round = 10;//测试多少轮
 
             //同步
-            TimeSpan syncTime =new TimeSpan();
+            TimeSpan syncTime = new TimeSpan();
             var dt1 = DateTime.Now;
             for (int j = 0; j < round; j++)
             {
-                Console.WriteLine("同步第{0}轮", j+1);
+                Console.WriteLine("同步第{0}轮", j + 1);
                 Parallel.For(0, threadsCount, (i) =>
                 {
                     var dts = DateTime.Now;
@@ -129,19 +127,18 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
                     //Console.WriteLine(accessTokenResult.access_token);
                 });
             }
-          
+
             var dt2 = DateTime.Now;
             Console.WriteLine("线程用时总和：{0}ms", syncTime.TotalMilliseconds);
-            Console.WriteLine("{0}线程{1}轮同步时间：{2}ms", threadsCount, round,(dt2 - dt1).TotalMilliseconds);
+            Console.WriteLine("{0}线程{1}轮同步时间：{2}ms", threadsCount, round, (dt2 - dt1).TotalMilliseconds);
             Console.WriteLine("=================");
 
-
             //异步
-            TimeSpan asyncTime =new TimeSpan();
+            TimeSpan asyncTime = new TimeSpan();
             var dt3 = DateTime.Now;
             for (int j = 0; j < round; j++)
             {
-                Console.WriteLine("异步第{0}轮", j+1);
+                Console.WriteLine("异步第{0}轮", j + 1);
                 Parallel.For(0, threadsCount, (i) =>
                 {
                     var dts = DateTime.Now;
@@ -156,8 +153,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             }
             var dt4 = DateTime.Now;
             Console.WriteLine("线程用时总和：{0}ms", asyncTime.TotalMilliseconds);
-            Console.WriteLine("{0}个线程{1}轮异步时间：{2}ms", threadsCount, round,(dt4 - dt3).TotalMilliseconds);
-
+            Console.WriteLine("{0}个线程{1}轮异步时间：{2}ms", threadsCount, round, (dt4 - dt3).TotalMilliseconds);
         }
 
         [TestMethod]

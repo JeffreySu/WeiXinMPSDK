@@ -1,21 +1,20 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CommonApi.Menu.Common.cs
     文件功能描述：通用自定义菜单接口（公共方法）
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
- 
+
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
- 
+
     修改标识：Senparc - 201503232
     修改描述：修改字符串是否为空判断方式（感谢dusdong）
- 
+
     修改标识：Senparc - 20150703
     修改描述：改用accessTokenOrAppId参数
 
@@ -27,16 +26,12 @@
     API：http://mp.weixin.qq.com/wiki/13/43de8269be54a0a6f64413e4dfa94f39.html
  */
 
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Entities.Menu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Web.Script.Serialization;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Entities.Menu;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
@@ -172,7 +167,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
                             throw new WeixinMenuException("单击按钮的key不能为空！");
                         }
 
-
                         if (subSubButton.type.Equals("CLICK", StringComparison.OrdinalIgnoreCase))
                         {
                             //点击
@@ -286,7 +280,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 };
 
                 //设置个性化菜单列表
-                if (resultFull.conditionalmenu!=null)
+                if (resultFull.conditionalmenu != null)
                 {
                     var conditionalMenuList = new List<ConditionalButtonGroup>();
                     foreach (var conditionalMenu in resultFull.conditionalmenu)

@@ -1,21 +1,21 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-  
+
     文件名：ApiConnection.cs
     文件功能描述：API链接
-    
-    
+
     创建标识：Senparc - 20150319
 ----------------------------------------------------------------*/
 
-using System;
 using Senparc.Weixin.Exceptions;
+using System;
 
 namespace Senparc.Weixin.MP.AppStore.Api
 {
     public class ApiConnection
     {
         private Passport _passport;
+
         public ApiConnection(Passport passport)
         {
             if (passport == null)

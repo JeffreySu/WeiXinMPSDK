@@ -4,19 +4,18 @@
     文件名：CommonJsonSend.cs
     文件功能描述：通过CommonJsonSend中的方法调用接口
 
-
     创建标识：Senparc - 20151012
 
 ----------------------------------------------------------------*/
 
-using System;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
+using System;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.CommonAPIs
 {
@@ -64,6 +63,7 @@ namespace Senparc.Weixin.CommonAPIs
                 {
                     case CommonJsonSendType.GET:
                         return Get.GetJson<T>(url);
+
                     case CommonJsonSendType.POST:
                         SerializerHelper serializerHelper = new SerializerHelper();
                         var jsonString = serializerHelper.GetJsonString(data, jsonSetting);
@@ -88,7 +88,7 @@ namespace Senparc.Weixin.CommonAPIs
             }
         }
 
-        #endregion
+        #endregion 同步请求
 
         #region 异步请求
 
@@ -128,6 +128,7 @@ namespace Senparc.Weixin.CommonAPIs
                 {
                     case CommonJsonSendType.GET:
                         return await Get.GetJsonAsync<T>(url);
+
                     case CommonJsonSendType.POST:
                         SerializerHelper serializerHelper = new SerializerHelper();
                         var jsonString = serializerHelper.GetJsonString(data, jsonSetting);
@@ -153,6 +154,6 @@ namespace Senparc.Weixin.CommonAPIs
             }
         }
 
-        #endregion
+        #endregion 异步请求
     }
 }

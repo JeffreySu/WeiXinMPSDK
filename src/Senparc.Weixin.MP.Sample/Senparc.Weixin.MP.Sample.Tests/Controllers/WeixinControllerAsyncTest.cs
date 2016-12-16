@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 {
     [TestClass]
     public class WeixinControllerAsyncTest
     {
-        int requestNum = 100;
-        ManualResetEvent allDone = new ManualResetEvent(false);
+        private int requestNum = 100;
+        private ManualResetEvent allDone = new ManualResetEvent(false);
 
         private void RequestUrl(string address)
         {
@@ -34,14 +31,12 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 
                     finished++;
                 });
-
             }
 
             while (finished < requestNum)
             {
                 //等待所有请求都返回结果
             }
-
         }
 
         [TestMethod]

@@ -1,11 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Cache;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Senparc.Weixin.Containers.Tests;
 
 namespace Senparc.Weixin.Cache.Tests
 {
@@ -55,7 +49,6 @@ namespace Senparc.Weixin.Cache.Tests
             //    Console.WriteLine(c2.Count);//1（位注册的时候已经注册过一个TestContainer1）
             //    var c2Strategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
             //    Assert.IsNotNull(c2Strategy);
-
 
             //    var data = c2Strategy.Get(key);
             //    Assert.IsNotNull(data);

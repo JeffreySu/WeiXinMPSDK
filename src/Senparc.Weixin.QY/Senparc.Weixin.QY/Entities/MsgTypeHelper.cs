@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：MsgTypeHelper.cs
     文件功能描述：根据xml信息返回MsgType、ThirdPartyInfo、RequestInfoType
-    
-    
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -19,6 +18,7 @@ namespace Senparc.Weixin.QY.Helpers
     public static class MsgTypeHelper
     {
         #region RequestMsgType
+
         /// <summary>
         /// 根据xml信息，返回RequestMsgType
         /// </summary>
@@ -27,6 +27,7 @@ namespace Senparc.Weixin.QY.Helpers
         {
             return GetRequestMsgType(doc.Root.Element("MsgType").Value);
         }
+
         /// <summary>
         /// 根据xml信息，返回RequestMsgType
         /// </summary>
@@ -36,9 +37,10 @@ namespace Senparc.Weixin.QY.Helpers
             return (RequestMsgType)Enum.Parse(typeof(RequestMsgType), str, true);
         }
 
-        #endregion
+        #endregion RequestMsgType
 
         #region ThirdPartyInfo
+
         /// <summary>
         /// 根据xml信息，返回ThirdPartyInfo
         /// </summary>
@@ -47,6 +49,7 @@ namespace Senparc.Weixin.QY.Helpers
         {
             return GetThirdPartyInfo(doc.Root.Element("InfoType").Value);
         }
+
         /// <summary>
         /// 根据xml信息，返回RequestInfoType
         /// </summary>
@@ -56,9 +59,10 @@ namespace Senparc.Weixin.QY.Helpers
             return (ThirdPartyInfo)Enum.Parse(typeof(ThirdPartyInfo), str, true);
         }
 
-        #endregion
+        #endregion ThirdPartyInfo
 
         #region ResponseMsgType
+
         /// <summary>
         /// 根据xml信息，返回ResponseMsgType
         /// </summary>
@@ -67,6 +71,7 @@ namespace Senparc.Weixin.QY.Helpers
         {
             return GetResponseMsgType(doc.Root.Element("MsgType").Value);
         }
+
         /// <summary>
         /// 根据xml信息，返回ResponseMsgType
         /// </summary>
@@ -76,6 +81,6 @@ namespace Senparc.Weixin.QY.Helpers
             return (ResponseMsgType)Enum.Parse(typeof(ResponseMsgType), str, true);
         }
 
-        #endregion
+        #endregion ResponseMsgType
     }
 }

@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：UploadResultJson.cs
     文件功能描述：上传媒体文件返回结果
-    
-    
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150703
     修改描述：增加获取OpenId
 
@@ -21,20 +20,19 @@
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=OAuth2%E9%AA%8C%E8%AF%81%E6%8E%A5%E5%8F%A3
  */
 
-using System;
-using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.OAuth2;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
-
     public static class OAuth2Api
     {
         #region 同步请求
-        
-        
+
         /*此接口不提供异步方法*/
+
         /// <summary>
         /// 企业获取code
         /// </summary>
@@ -81,10 +79,12 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return Get.GetJson<GetUserInfoResult>(url);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
-         /// <summary>
+
+        /// <summary>
         ///【异步方法】 获取成员信息
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
@@ -112,6 +112,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return await Get.GetJsonAsync<GetUserInfoResult>(url);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

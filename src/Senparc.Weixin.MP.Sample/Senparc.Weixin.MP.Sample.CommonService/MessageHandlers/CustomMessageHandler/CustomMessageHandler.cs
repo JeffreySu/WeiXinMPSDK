@@ -4,26 +4,22 @@
     文件名：CustomMessageHandler.cs
     文件功能描述：微信公众号自定义MessageHandler
 
-
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.MP.Agent;
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Entities.Request;
+using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Web;
 using System.Web.Configuration;
-using Senparc.Weixin.MP.Agent;
-using Senparc.Weixin.Context;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Entities.Request;
-using Senparc.Weixin.MP.MessageHandlers;
-using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
@@ -39,11 +35,10 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
          * 其中所有原OnXX的抽象方法已经都改为虚方法，可以不必每个都重写。若不重写，默认返回DefaultResponseMessage方法中的结果。
          */
 
-
 #if DEBUG
-        string agentUrl = "http://localhost:12222/App/Weixin/4";
-        string agentToken = "27C455F496044A87";
-        string wiweihiKey = "CNadjJuWzyX5bz5Gn+/XoyqiqMa5DjXQ";
+        private string agentUrl = "http://localhost:12222/App/Weixin/4";
+        private string agentToken = "27C455F496044A87";
+        private string wiweihiKey = "CNadjJuWzyX5bz5Gn+/XoyqiqMa5DjXQ";
 #else
         //下面的Url和Token可以用其他平台的消息，或者到www.weiweihi.com注册微信用户，将自动在“微信营销工具”下得到
         private string agentUrl = WebConfigurationManager.AppSettings["WeixinAgentUrl"];//这里使用了www.weiweihi.com微信自动托管平台
@@ -133,8 +128,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //    //...
             //}
 
-
-
             //方法一（v0.1），此方法调用太过繁琐，已过时（但仍是所有方法的核心基础），建议使用方法二到四
             //var responseMessage =
             //    ResponseMessageBase.CreateFromRequestMessage(RequestMessage, ResponseMsgType.Text) as
@@ -153,7 +146,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
             if (requestMessage.Content == null)
             {
-
             }
             else if (requestMessage.Content == "约束")
             {
@@ -370,6 +362,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             responseMessage.Music.ThumbMediaId = uploadResult.media_id;
             return responseMessage;
         }
+
         /// <summary>
         /// 处理视频请求
         /// </summary>

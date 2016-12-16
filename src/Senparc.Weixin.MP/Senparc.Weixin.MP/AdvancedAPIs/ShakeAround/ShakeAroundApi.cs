@@ -4,7 +4,6 @@
     文件名：ShakeAroundApi.cs
     文件功能描述：摇一摇周边接口
 
-
     创建标识：Senparc - 20150512
 
     修改标识：Senparc - 20160216
@@ -12,7 +11,7 @@
 
     修改标识：Senparc - 20160424
     修改描述：v13.7.5 添加 ShakeAroundApi.DeviceApplyStatus 接口
- 
+
     修改标识：Senparc - 20160520
     修改描述：添加批量查询页面统计数据接口，新增分组接口，编辑分组信息接口，删除分组接口，查询分组列表接口，
               查询分组详情接口，添加设备到分组接口，从分组中移除设备接口，创建红包活动接口，录入红包信息接口，
@@ -22,22 +21,21 @@
 
     修改标识：20160719
     修改描述：增加其接口的异步方法
- 
+
     修改标识：20160823
-    修改描述：modify DeletePage,DeletePageAsync中的方法中的参数，即longn []pageIds改为long pageId 
+    修改描述：modify DeletePage,DeletePageAsync中的方法中的参数，即longn []pageIds改为long pageId
 ----------------------------------------------------------------*/
 
 /*
     API：http://mp.weixin.qq.com/wiki/15/b9e012f917e3484b7ed02771156411f3.html
  */
 
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.ShakeAround;
 using Senparc.Weixin.MP.CommonAPIs;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -64,7 +62,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 data.industry_id = RegisterData.ConvertIndustryId(industry_Id);
                 return CommonJsonSend.Send<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -80,7 +77,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 string url = string.Format("https://api.weixin.qq.com/shakearound/account/auditstatus?access_token={0}", accessToken.AsUrlData());
 
                 return Get.GetJson<GetAuditStatusResultJson>(url);
-
             }, accessTokenOrAppId);
         }
 
@@ -109,10 +105,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<DeviceApplyResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
-
 
         /// <summary>
         /// 查询设备ID申请审核状态
@@ -134,7 +128,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<GetDeviceStatusResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -170,7 +163,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -221,9 +213,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         poi_id = poiId
                     } as object;
 
-
                 return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -260,7 +250,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -290,7 +279,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<DeviceSearchResultJson>(accessToken, searchDeviceUrl, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -313,7 +301,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<DeviceSearchResultJson>(accessToken, searchDeviceUrl, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -338,11 +325,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<DeviceSearchResultJson>(accessToken, searchDeviceUrl, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
-        #endregion
+        #endregion 查询设备列表
 
         /// <summary>
         /// 上传图片素材
@@ -360,7 +346,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
                 return Post.PostFileGetJson<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -392,7 +377,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<AddPageResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -426,7 +410,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<UpdatePageResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -454,7 +437,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 return CommonJsonSend.Send<SearchPagesResultJson>(accessToken, searchPageUrl, data, CommonJsonSendType.POST,
                     timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -479,11 +461,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 return CommonJsonSend.Send<SearchPagesResultJson>(accessToken, searchPageUrl, data, CommonJsonSendType.POST,
                     timeOut);
-
             }, accessTokenOrAppId);
         }
 
-        #endregion
+        #endregion 查询页面列表
 
         /// <summary>
         /// 删除页面
@@ -504,7 +485,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -536,7 +516,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -560,7 +539,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<RelationSearchResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -588,7 +566,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<RelationSearchResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -614,7 +591,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<GetShakeInfoResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -645,7 +621,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<StatisticsResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -674,9 +649,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<StatisticsResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 批量查询设备统计数据接口
         /// </summary>
@@ -695,13 +670,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     date = date,
                     page_index = pageIndex
-
                 };
 
                 return CommonJsonSend.Send<DeviceListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 批量查询页面统计数据接口
         /// </summary>
@@ -720,13 +694,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     date = date,
                     page_index = pageIndex
-
                 };
 
                 return CommonJsonSend.Send<PageListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 新增分组
         /// </summary>
@@ -743,14 +716,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     group_name = groupName
-
-
                 };
 
                 return CommonJsonSend.Send<GroupAddResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 编辑分组信息
         /// </summary>
@@ -769,14 +740,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     group_id = groupid,
                     group_name = groupName
-
-
                 };
 
                 return CommonJsonSend.Send<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 删除分组
         /// </summary>
@@ -797,9 +766,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 查询分组列表
         /// </summary>
@@ -820,9 +789,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<GroupGetListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 查询分组详情
         /// </summary>
@@ -845,9 +814,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<GroupGetDetailResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 添加设备到分组
         /// </summary>
@@ -870,7 +839,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         uuid = deviceIdentifier.uuid,
                         major = deviceIdentifier.major,
                         minor = deviceIdentifier.minor
-
                     };
                 }
                 else
@@ -883,9 +851,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 }
 
                 return CommonJsonSend.Send<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 从分组中移除设备
         /// </summary>
@@ -908,7 +876,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         uuid = deviceIdentifier.uuid,
                         major = deviceIdentifier.major,
                         minor = deviceIdentifier.minor
-
                     };
                 }
                 else
@@ -920,9 +887,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     };
                 }
 
-
                 return CommonJsonSend.Send<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -961,9 +926,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<AddLotteryInfoResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 录入红包信息
         /// </summary>
@@ -987,14 +952,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     mchid = mchid,
                     sponsorapp_id = sponsorAppid,
                     prizeinfolist = prizeInfoList
-
-
                 };
 
                 return CommonJsonSend.Send<SetPrizeBucketResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///设置红包活动抽奖开关
         /// </summary>
@@ -1016,9 +979,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.GET, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///红包查询接口
         /// </summary>
@@ -1038,12 +1001,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<QueryLotteryJsonResult>(null, url, data, CommonJsonSendType.GET, timeOut);
-
             }, accessTokenOrAppId);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
+
         /// <summary>
         /// 【异步方法】申请开通功能
         /// </summary>
@@ -1060,7 +1024,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 data.industry_id = RegisterData.ConvertIndustryId(industry_Id);
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1076,7 +1039,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 string url = string.Format("https://api.weixin.qq.com/shakearound/account/auditstatus?access_token={0}", accessToken.AsUrlData());
 
                 return Get.GetJsonAsync<GetAuditStatusResultJson>(url);
-
             }, accessTokenOrAppId);
         }
 
@@ -1105,10 +1067,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<DeviceApplyResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
-
 
         /// <summary>
         /// 【异步方法】查询设备ID申请审核状态
@@ -1130,7 +1090,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetDeviceStatusResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1166,7 +1125,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1217,9 +1175,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         poi_id = poiId
                     } as object;
 
-
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1256,7 +1212,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1286,7 +1241,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<DeviceSearchResultJson>(accessToken, searchDeviceUrl, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1309,7 +1263,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<DeviceSearchResultJson>(accessToken, searchDeviceUrl, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1334,11 +1287,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<DeviceSearchResultJson>(accessToken, searchDeviceUrl, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
-        #endregion
+        #endregion 查询设备列表
 
         /// <summary>
         /// 【异步方法】上传图片素材
@@ -1356,7 +1308,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
                 return Post.PostFileGetJsonAsync<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1388,7 +1339,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddPageResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1422,7 +1372,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UpdatePageResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1449,7 +1398,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SearchPagesResultJson>(accessToken, searchPageUrl, data, CommonJsonSendType.POST,
                     timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1474,11 +1422,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SearchPagesResultJson>(accessToken, searchPageUrl, data, CommonJsonSendType.POST,
                     timeOut);
-
             }, accessTokenOrAppId);
         }
 
-        #endregion
+        #endregion 查询页面列表
 
         /// <summary>
         /// 【异步方法】删除页面
@@ -1499,7 +1446,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1531,7 +1477,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1555,7 +1500,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<RelationSearchResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1583,7 +1527,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<RelationSearchResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1609,7 +1552,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetShakeInfoResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1640,7 +1582,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<StatisticsResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1669,9 +1610,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<StatisticsResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】批量查询设备统计数据接口
         /// </summary>
@@ -1690,13 +1631,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     date = date,
                     page_index = pageIndex
-
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<DeviceListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】批量查询页面统计数据接口
         /// </summary>
@@ -1715,13 +1655,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     date = date,
                     page_index = pageIndex
-
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<PageListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】新增分组
         /// </summary>
@@ -1738,14 +1677,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     group_name = groupName
-
-
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GroupAddResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】编辑分组信息
         /// </summary>
@@ -1764,14 +1701,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     group_id = groupid,
                     group_name = groupName
-
-
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】删除分组
         /// </summary>
@@ -1792,9 +1727,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】查询分组列表
         /// </summary>
@@ -1815,9 +1750,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GroupGetListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】查询分组详情
         /// </summary>
@@ -1840,9 +1775,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GroupGetDetailResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】添加设备到分组
         /// </summary>
@@ -1852,34 +1787,33 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<RegisterResultJson> GroupGetAdddeviceAsync(string accessTokenOrAppId, string groupId, DeviceApply_Data_Device_Identifiers deviceIdentifier, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/adddevice?access_token={0}", accessToken.AsUrlData());
-                object data = null;
-                if (string.IsNullOrEmpty(((long)deviceIdentifier.device_id).ToString()))
-                {
-                    data = new
-                    {
-                        group_id = groupId,
-                        uuid = deviceIdentifier.uuid,
-                        major = deviceIdentifier.major,
-                        minor = deviceIdentifier.minor
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/adddevice?access_token={0}", accessToken.AsUrlData());
+               object data = null;
+               if (string.IsNullOrEmpty(((long)deviceIdentifier.device_id).ToString()))
+               {
+                   data = new
+                   {
+                       group_id = groupId,
+                       uuid = deviceIdentifier.uuid,
+                       major = deviceIdentifier.major,
+                       minor = deviceIdentifier.minor
+                   };
+               }
+               else
+               {
+                   data = new
+                   {
+                       group_id = groupId,
+                       device_id = deviceIdentifier.device_id
+                   };
+               }
 
-                    };
-                }
-                else
-                {
-                    data = new
-                    {
-                        group_id = groupId,
-                        device_id = deviceIdentifier.device_id
-                    };
-                }
-
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
-            }, accessTokenOrAppId);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+           }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】从分组中移除设备
         /// </summary>
@@ -1890,34 +1824,31 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<RegisterResultJson> GroupDeleteDeviceAsync(string accessTokenOrAppId, string groupId, DeviceApply_Data_Device_Identifiers deviceIdentifier, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/deletedevice?access_token={0}", accessToken.AsUrlData());
-                var data = new object();
-                if (!deviceIdentifier.device_id.HasValue)
-                {
-                    data = new
-                    {
-                        group_id = groupId,
-                        uuid = deviceIdentifier.uuid,
-                        major = deviceIdentifier.major,
-                        minor = deviceIdentifier.minor
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var url = string.Format("https://api.weixin.qq.com/shakearound/device/group/deletedevice?access_token={0}", accessToken.AsUrlData());
+               var data = new object();
+               if (!deviceIdentifier.device_id.HasValue)
+               {
+                   data = new
+                   {
+                       group_id = groupId,
+                       uuid = deviceIdentifier.uuid,
+                       major = deviceIdentifier.major,
+                       minor = deviceIdentifier.minor
+                   };
+               }
+               else
+               {
+                   data = new
+                   {
+                       group_id = groupId,
+                       device_id = deviceIdentifier.device_id.Value
+                   };
+               }
 
-                    };
-                }
-                else
-                {
-                    data = new
-                    {
-                        group_id = groupId,
-                        device_id = deviceIdentifier.device_id.Value
-                    };
-                }
-
-
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
-            }, accessTokenOrAppId);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<RegisterResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -1937,27 +1868,27 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<AddLotteryInfoResultJson> AddLotteryInfoAsync(string accessTokenOrAppId, string title, string desc, int onoff, long beginTime, long expireTime, string sponsorAppid, long total, string jumpUrl, string key, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/addlotteryinfo?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/addlotteryinfo?access_token={0}", accessToken.AsUrlData());
 
-                var data = new
-                {
-                    title = title,
-                    desc = desc,
-                    onoff = onoff,
-                    begin_time = beginTime,
-                    expire_time = expireTime,
-                    sponsor_appid = sponsorAppid,
-                    total = total,
-                    jumpurl = jumpUrl,
-                    key = key
-                };
+               var data = new
+               {
+                   title = title,
+                   desc = desc,
+                   onoff = onoff,
+                   begin_time = beginTime,
+                   expire_time = expireTime,
+                   sponsor_appid = sponsorAppid,
+                   total = total,
+                   jumpurl = jumpUrl,
+                   key = key
+               };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddLotteryInfoResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
-            }, accessTokenOrAppId);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddLotteryInfoResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+           }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】录入红包信息
         /// </summary>
@@ -1971,24 +1902,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<SetPrizeBucketResultJson> SetPrizeBucketAsync(string accessTokenOrAppId, string lotteryId, string mchid, string sponsorAppid, PrizeInfoList prizeInfoList, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/setprizebucket?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/setprizebucket?access_token={0}", accessToken.AsUrlData());
 
-                var data = new
-                {
-                    lottery_id = lotteryId,
-                    mchid = mchid,
-                    sponsorapp_id = sponsorAppid,
-                    prizeinfolist = prizeInfoList
+               var data = new
+               {
+                   lottery_id = lotteryId,
+                   mchid = mchid,
+                   sponsorapp_id = sponsorAppid,
+                   prizeinfolist = prizeInfoList
+               };
 
-
-                };
-
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SetPrizeBucketResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
-            }, accessTokenOrAppId);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SetPrizeBucketResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+           }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///【异步方法】设置红包活动抽奖开关
         /// </summary>
@@ -1999,20 +1928,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> SetLotterySwitchAsync(string accessTokenOrAppId, string lotteryId, int onOff, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/setlotteryswitch?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/setlotteryswitch?access_token={0}", accessToken.AsUrlData());
 
-                var data = new
-                {
-                    lottery_id = lotteryId,
-                    onoff = onOff
-                };
+               var data = new
+               {
+                   lottery_id = lotteryId,
+                   onoff = onOff
+               };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.GET, timeOut);
-
-            }, accessTokenOrAppId);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.GET, timeOut);
+           }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///【异步方法】红包查询接口
         /// </summary>
@@ -2022,20 +1951,19 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<QueryLotteryJsonResult> QueryLotteryAsync(string accessTokenOrAppId, string lotteryId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/querylottery?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var url = string.Format("https://api.weixin.qq.com/shakearound/lottery/querylottery?access_token={0}", accessToken.AsUrlData());
 
-                var data = new
-                {
-                    lottery_id = lotteryId
-                };
+               var data = new
+               {
+                   lottery_id = lotteryId
+               };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QueryLotteryJsonResult>(null, url, data, CommonJsonSendType.GET, timeOut);
-
-            }, accessTokenOrAppId);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QueryLotteryJsonResult>(null, url, data, CommonJsonSendType.GET, timeOut);
+           }, accessTokenOrAppId);
         }
-        #endregion
-    }
 
+        #endregion 异步请求
+    }
 }

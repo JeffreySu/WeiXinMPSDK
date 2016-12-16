@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：ActivateUserFormSetData.cs
     文件功能描述：会员卡设置开卡字段需要的数据
-    
-    
+
     创建标识：Senparc - 20150910
- 
+
     修改标识：Senparc - 20160808
     修改描述：修改BaseForm
 ----------------------------------------------------------------*/
@@ -24,10 +23,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 卡券ID
         /// </summary>
         public string card_id { get; set; }
+
         /// <summary>
         /// 会员卡激活时的必填选项
         /// </summary>
         public BaseForm required_form { get; set; }
+
         /// <summary>
         /// 会员卡激活时的选填项
         /// </summary>
@@ -51,6 +52,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// USER_FORM_INFO_FLAG_HABIT	兴趣爱好
         /// </summary>
         public string[] common_field_id_list { get; set; }
+
         /// <summary>
         /// 自定义选项名称
         /// </summary>
@@ -72,10 +74,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     public class RichField
     {
         public RichFieldType type { get; set; }
+
         /// <summary>
         /// 否 string(32)  职业  字段名
         /// </summary>
         public string name { get; set; }
+
         /// <summary>
         /// 否 arry    见上述示例 选择项
         /// </summary>
@@ -91,10 +95,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 自定义单选
         /// </summary>
         FORM_FIELD_RADIO = 0,
+
         /// <summary>
         /// 自定义选择项
         /// </summary>
         FORM_FIELD_SELECT = 1,
+
         /// <summary>
         /// 自定义多选
         /// </summary>

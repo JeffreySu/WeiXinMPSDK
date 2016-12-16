@@ -4,7 +4,6 @@
     文件名：WxJsonResult.cs
     文件功能描述：JSON返回结果基类（用于菜单接口等）
 
-
     创建标识：Senparc - 20150211
 
     修改标识：Senparc - 20150303
@@ -15,7 +14,7 @@
 
     修改标识：Senparc - 20150706
     修改描述：调整位置，去除MP下的WxJsonResult
-    
+
     修改标识：Senparc - 20161108
     修改描述：重写ToString()方法，快捷输出结果
 
@@ -50,6 +49,7 @@ namespace Senparc.Weixin.Entities
 
         public ReturnCode errcode { get; set; }
         public string errmsg { get; set; }
+
         /// <summary>
         /// 为P2P返回结果做准备
         /// </summary>

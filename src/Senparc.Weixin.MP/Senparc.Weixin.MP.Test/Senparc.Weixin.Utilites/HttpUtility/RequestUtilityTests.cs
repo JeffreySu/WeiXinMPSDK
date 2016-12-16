@@ -1,10 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Net;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.HttpUtility;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.AdvancedAPIs.Media;
+using System;
+using System.IO;
+using System.Net;
 
 namespace Senparc.Weixin.HttpUtility.Tests
 {
@@ -17,7 +16,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
             return;//已经通过，但需要连接远程测试，太耗时，常规测试时暂时忽略。
             var url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
             var exceptResult = @"{""errcode"":40013,""errmsg"":""invalid appid""}";
-            var actualResult = RequestUtility.HttpGet(url,null);
+            var actualResult = RequestUtility.HttpGet(url, null);
             Assert.AreEqual(exceptResult, actualResult);
         }
 

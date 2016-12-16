@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.MP.CommonAPIs;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using System;
 
 namespace Senparc.Weixin.MP.Test.Containers
 {
-
     //已测试通过
     [TestClass]
     public class JsApiTicketContainerTest : CommonApiTest
@@ -42,7 +37,6 @@ namespace Senparc.Weixin.MP.Test.Containers
 
                 Console.WriteLine(ticket);
             }
-
         }
     }
 }

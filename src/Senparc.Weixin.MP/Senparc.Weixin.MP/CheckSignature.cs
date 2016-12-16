@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-  
+
     文件名：CheckSignature.cs
     文件功能描述：检测签名
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20151005
     修改描述：v13.3.1 提供带PostModel参数的方法
 
@@ -18,10 +17,10 @@
 
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.MP.Entities.Request;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using Senparc.Weixin.MP.Entities.Request;
 
 //using System.Web.Security;
 

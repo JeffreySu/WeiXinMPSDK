@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：DateTimeHelper.cs
     文件功能描述：时间处理
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -28,6 +27,7 @@ namespace Senparc.Weixin.Helpers
         {
             return BaseTime.AddTicks((dateTimeFromXml + 8 * 60 * 60) * 10000000);
         }
+
         /// <summary>
         /// 转换微信DateTime时间到C#时间
         /// </summary>

@@ -4,16 +4,15 @@
     文件名：TenPayInfoCollection.cs
     文件功能描述：微信支付信息集合，Key为商户号（PartnerId）
 
-
     创建标识：Senparc - 20150211
 
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Exceptions;
 using System;
 using System.Collections.Generic;
-using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
@@ -58,7 +57,6 @@ namespace Senparc.Weixin.MP.TenPayLib
         public TenPayInfoCollection()
             : base(StringComparer.OrdinalIgnoreCase)
         {
-
         }
     }
 }

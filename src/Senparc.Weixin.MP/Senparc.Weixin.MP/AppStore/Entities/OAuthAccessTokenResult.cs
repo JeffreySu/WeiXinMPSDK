@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-  
+
     文件名：OAuthAccessTokenResult.cs
     文件功能描述：获取OAuth AccessToken的结果
-    
-    
+
     创建标识：Senparc - 20150319
 ----------------------------------------------------------------*/
 
-using System;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using System;
 
 namespace Senparc.Weixin.MP.AppStore
 {
@@ -18,6 +17,7 @@ namespace Senparc.Weixin.MP.AppStore
         //public int user_id { get; set; }
         //public int user_name { get; set; }
         public int weixin_id { get; set; }
+
         public string weixin_name { get; set; }
     }
 
@@ -28,7 +28,6 @@ namespace Senparc.Weixin.MP.AppStore
     public class OAuthAccessTokenResult : WxJsonResult
     {
         private int _expiresIn;
-
 
         //以下看似不符合C#规范的命名方式参考微信的OAUTH
         public string access_token { get; set; }
@@ -50,6 +49,7 @@ namespace Senparc.Weixin.MP.AppStore
         /// 过期时间Ticks
         /// </summary>
         public long ExpireTimeTicks { get; set; }
+
         /// <summary>
         /// 过期时间
         /// </summary>

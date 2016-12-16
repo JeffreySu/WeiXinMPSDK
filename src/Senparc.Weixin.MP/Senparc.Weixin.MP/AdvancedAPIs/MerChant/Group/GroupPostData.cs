@@ -3,9 +3,9 @@
 namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 {
     public class BaseGroupData
-   {
-       public GroupDetail group_detail { get; set; }
-   }
+    {
+        public GroupDetail group_detail { get; set; }
+    }
 
     public class GroupDetail
     {
@@ -13,6 +13,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// 分组名称
         /// </summary>
         public string group_name { get; set; }
+
         /// <summary>
         /// 商品ID集合
         /// </summary>
@@ -28,6 +29,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// 分组Id
         /// </summary>
         public int group_id { get; set; }
+
         /// <summary>
         /// 分组名称
         /// </summary>
@@ -43,6 +45,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// 分组ID
         /// </summary>
         public int group_id { get; set; }
+
         /// <summary>
         /// 分组的商品集合
         /// </summary>
@@ -55,6 +58,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// 商品ID
         /// </summary>
         public string product_id { get; set; }
+
         /// <summary>
         /// 修改操作(0-删除, 1-增加)
         /// </summary>

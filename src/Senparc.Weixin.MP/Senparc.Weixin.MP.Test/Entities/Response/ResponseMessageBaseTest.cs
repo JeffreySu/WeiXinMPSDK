@@ -1,22 +1,22 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
+using System;
 
 namespace Senparc.Weixin.MP.Test.Entities.Response
 {
     [TestClass]
     public class ResponseMessageBaseTest
     {
-        RequestMessageText requestMessage = new RequestMessageText()
-                                            {
-                                                MsgId = 1,
-                                                CreateTime = DateTime.Now,
-                                                FromUserName = "TNT2",
-                                                ToUserName = "Senparc",
-                                                //MsgType = RequestMsgType.Text,
-                                                Content = "This is a text message."
-                                            };
+        private RequestMessageText requestMessage = new RequestMessageText()
+        {
+            MsgId = 1,
+            CreateTime = DateTime.Now,
+            FromUserName = "TNT2",
+            ToUserName = "Senparc",
+            //MsgType = RequestMsgType.Text,
+            Content = "This is a text message."
+        };
 
         [TestMethod]
         public void CreateFromRequestMessageTest()
@@ -60,7 +60,6 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
                 }
                 catch (WeixinException ex)
                 {
-
                 }
             }
         }
@@ -69,6 +68,7 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
         public void CreateFromResponseXml()
         {
             #region Text
+
             {
                 var responseMessageText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
@@ -87,9 +87,11 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
                 Assert.AreEqual("您点击了底部按钮。", strongResponseMessage.Content);
                 //Assert.AreEqual(false, strongResponseMessage.FuncFlag);
             }
-            #endregion
+
+            #endregion Text
 
             #region Image
+
             {
                 var responseMessageImage = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
@@ -108,9 +110,11 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
                 Assert.AreEqual("gh_a96a4a619366", strongResponseMessage.FromUserName);
                 Assert.AreEqual("media_id", strongResponseMessage.Image.MediaId);
             }
-            #endregion
+
+            #endregion Image
 
             #region Voice
+
             {
                 var responseMessageImage = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
@@ -129,9 +133,11 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
                 Assert.AreEqual("gh_a96a4a619366", strongResponseMessage.FromUserName);
                 Assert.AreEqual("media_id", strongResponseMessage.Voice.MediaId);
             }
-            #endregion
+
+            #endregion Voice
 
             #region Video
+
             {
                 var responseMessageImage = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
@@ -143,7 +149,7 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
     <MediaId><![CDATA[media_id]]></MediaId>
     <Title><![CDATA[title]]></Title>
     <Description><![CDATA[description]]></Description>
-  </Video> 
+  </Video>
 </xml>";
                 var responseMessage = ResponseMessageBase.CreateFromResponseXml(responseMessageImage);
                 Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageVideo));
@@ -154,9 +160,11 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
                 Assert.AreEqual("title", strongResponseMessage.Video.Title);
                 Assert.AreEqual("description", strongResponseMessage.Video.Description);
             }
-            #endregion
+
+            #endregion Video
 
             #region Music
+
             {
                 var responseMessageMusic = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
@@ -182,9 +190,11 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
                 Assert.AreEqual("http://sdk.weixin.senparc.com/Content/music1.mp3", strongResponseMessage.Music.MusicUrl);
                 Assert.AreEqual("", strongResponseMessage.Music.HQMusicUrl);
             }
-            #endregion
+
+            #endregion Music
 
             #region News
+
             {
                 var responseMessageNews = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
@@ -211,8 +221,8 @@ namespace Senparc.Weixin.MP.Test.Entities.Response
                 Assert.AreEqual(1, strongResponseMessage.ArticleCount);
                 Assert.AreEqual("您点击了子菜单图文按钮", strongResponseMessage.Articles[0].Title);
             }
-            #endregion
 
+            #endregion News
         }
     }
 }

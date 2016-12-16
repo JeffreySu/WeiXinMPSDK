@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
+﻿using Senparc.Weixin.Entities;
+using System;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
 {
@@ -16,14 +12,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
         /// 帐号设置的主营行业
         /// </summary>
         public GetIndustry_Item primary_industry { get; set; }
+
         /// <summary>
         /// 帐号设置的副营行业
         /// </summary>
         public GetIndustry_Item secondary_industry { get; set; }
-
-
-        
     }
+
     /// <summary>
     /// GetIndustry_Item
     /// </summary>
@@ -33,6 +28,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
         /// 主行业
         /// </summary>
         public string first_class { get; set; }
+
         /// <summary>
         /// 副行业
         /// </summary>
@@ -48,7 +44,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
             var enumName = string.Format("{0}_{1}", first_class,
                 second_class.Replace("|", "_").Replace("/", "_"));
             IndustryCode code;
-            if (!Enum.TryParse(enumName,true,out code))
+            if (!Enum.TryParse(enumName, true, out code))
             {
                 return IndustryCode.其它_其它;//没有成功，此处也可以抛出异常
             }

@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
-using Senparc.Weixin.Cache;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.Test.Containers.Tests
 {
@@ -128,7 +126,6 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
             //Assert.AreEqual(registeredAppId, appId);
         }
 
-
         [TestMethod]
         public void ReTryRegisterTest()
         {
@@ -140,7 +137,6 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
 
             //第二步：清空注册信息
             var i = 0;
-
 
             //第三步：在不注册的情况下调用接口
             accessTokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId, true);

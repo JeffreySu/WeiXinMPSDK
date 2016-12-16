@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
- 
+
     文件名：TenPayV3.cs
     文件功能描述：微信支付V3接口
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 
@@ -15,7 +14,7 @@
 
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
-              
+
     修改标识：Senparc - 20161202
     修改描述：v14.3.109 命名空间由Senparc.Weixin.MP.AdvancedAPIs改为Senparc.Weixin.MP.TenPayLibV3
 
@@ -37,12 +36,11 @@
     官方API：https://mp.weixin.qq.com/paymch/readtemplate?t=mp/business/course2_tmpl&lang=zh_CN&token=25857919#4
  */
 
+using Senparc.Weixin.HttpUtility;
 using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
-using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -263,7 +261,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
 
         /// <summary>
-        /// 用于企业向微信用户个人付款 
+        /// 用于企业向微信用户个人付款
         /// 目前支持向指定微信用户的openid付款
         /// </summary>
         /// <param name="data">微信支付需要post的xml数据</param>
@@ -296,9 +294,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
+
         /// <summary>
         /// 【异步方法】统一支付接口
         /// 统一支付接口，可接受JSAPI/NATIVE/APP 下预支付订单，返回预支付订单号。NATIVE 支付返回二维码code_url。
@@ -317,7 +317,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
         }
-
 
         /// <summary>
         /// 【异步方法】统一支付接口
@@ -468,7 +467,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
 
         /// <summary>
-        ///【异步方法】 用于企业向微信用户个人付款 
+        ///【异步方法】 用于企业向微信用户个人付款
         /// 目前支持向指定微信用户的openid付款
         /// </summary>
         /// <param name="data">微信支付需要post的xml数据</param>
@@ -501,6 +500,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

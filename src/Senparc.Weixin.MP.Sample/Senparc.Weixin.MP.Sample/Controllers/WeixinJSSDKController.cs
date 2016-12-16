@@ -1,10 +1,5 @@
-﻿using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Helpers;
-using System;
-using System.Collections.Generic;
+﻿using Senparc.Weixin.MP.Helpers;
 using System.Configuration;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
@@ -23,6 +18,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public ActionResult Index()
         {
             #region v13.6.4之前的写法
+
             ////获取时间戳
             //var timestamp = JSSDKHelper.GetTimestamp();
             ////获取随机码
@@ -35,7 +31,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //ViewData["Timestamp"] = timestamp;
             //ViewData["NonceStr"] = nonceStr;
             //ViewData["Signature"] = signature;
-            #endregion
+
+            #endregion v13.6.4之前的写法
 
             var jssdkUiPackage = JSSDKHelper.GetJsSdkUiPackage(appId, secret, Request.Url.AbsoluteUri);
             //ViewData["JsSdkUiPackage"] = jssdkUiPackage;

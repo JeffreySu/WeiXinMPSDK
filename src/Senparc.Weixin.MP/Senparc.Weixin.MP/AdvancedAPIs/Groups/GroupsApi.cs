@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：GroupsAPI.cs
     文件功能描述：用户组接口
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
- 
+
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
 
@@ -17,26 +16,25 @@
     修改描述：增加其接口的异步方法
 ----------------------------------------------------------------*/
 
-/* 
+/*
    API地址：http://mp.weixin.qq.com/wiki/0/56d992c605a97245eb7e617854b169fc.html
 */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.Groups;
 using Senparc.Weixin.MP.CommonAPIs;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
-
-   
     /// <summary>
     /// 用户组接口
     /// </summary>
     public static class GroupsApi
     {
         #region 同步请求
+
         /// <summary>
         /// 创建分组
         /// </summary>
@@ -57,7 +55,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
                 };
                 return CommonJsonSend.Send<CreateGroupResult>(accessToken, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -73,7 +70,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/get?access_token={0}";
                 var url = string.Format(urlFormat, accessToken.AsUrlData());
                 return HttpUtility.Get.GetJson<GroupsJson>(url);
-
             }, accessTokenOrAppId);
         }
 
@@ -91,7 +87,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/getid?access_token={0}";
                 var data = new { openid = openId };
                 return CommonJsonSend.Send<GetGroupIdResult>(accessToken, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -117,7 +112,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
                 };
                 return CommonJsonSend.Send(accessToken, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -140,7 +134,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     to_groupid = toGroupId
                 };
                 return CommonJsonSend.Send(accessToken, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -165,7 +158,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -191,12 +183,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
-    #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
+
         /// <summary>
         /// 【异步方法】创建分组
         /// </summary>
@@ -206,19 +199,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<CreateGroupResult> CreateAsync(string accessTokenOrAppId, string name, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/create?access_token={0}";
-                var data = new
-                {
-                    group = new
-                    {
-                        name = name
-                    }
-                };
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateGroupResult>(accessToken, urlFormat, data, timeOut: timeOut);
-
-            }, accessTokenOrAppId);
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/create?access_token={0}";
+               var data = new
+               {
+                   group = new
+                   {
+                       name = name
+                   }
+               };
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateGroupResult>(accessToken, urlFormat, data, timeOut: timeOut);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -228,13 +220,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GroupsJson> GetAsync(string accessTokenOrAppId)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/get?access_token={0}";
-                var url = string.Format(urlFormat, accessToken.AsUrlData());
-                return HttpUtility.Get.GetJsonAsync<GroupsJson>(url);
-
-            }, accessTokenOrAppId);
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/get?access_token={0}";
+               var url = string.Format(urlFormat, accessToken.AsUrlData());
+               return HttpUtility.Get.GetJsonAsync<GroupsJson>(url);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -246,13 +237,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetGroupIdResult> GetIdAsync(string accessTokenOrAppId, string openId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/getid?access_token={0}";
-                var data = new { openid = openId };
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetGroupIdResult>(accessToken, urlFormat, data, timeOut: timeOut);
-
-            }, accessTokenOrAppId);
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/getid?access_token={0}";
+               var data = new { openid = openId };
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetGroupIdResult>(accessToken, urlFormat, data, timeOut: timeOut);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -265,20 +255,19 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> UpdateAsync(string accessTokenOrAppId, int id, string name, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/update?access_token={0}";
-                var data = new
-                {
-                    group = new
-                    {
-                        id = id,
-                        name = name
-                    }
-                };
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut);
-
-            }, accessTokenOrAppId);
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/update?access_token={0}";
+               var data = new
+               {
+                   group = new
+                   {
+                       id = id,
+                       name = name
+                   }
+               };
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -291,17 +280,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> MemberUpdateAsync(string accessTokenOrAppId, string openId, int toGroupId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/members/update?access_token={0}";
-                var data = new
-                {
-                    openid = openId,
-                    to_groupid = toGroupId
-                };
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut);
-
-            }, accessTokenOrAppId);
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/members/update?access_token={0}";
+               var data = new
+               {
+                   openid = openId,
+                   to_groupid = toGroupId
+               };
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, urlFormat, data, timeOut: timeOut);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -314,19 +302,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> BatchUpdateAsync(string accessTokenOrAppId, int toGroupId, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/members/batchupdate?access_token={0}";
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/members/batchupdate?access_token={0}";
 
-                var data = new
-                {
-                    openid_list = openIds,
-                    to_groupid = toGroupId
-                };
+               var data = new
+               {
+                   openid_list = openIds,
+                   to_groupid = toGroupId
+               };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
-
-            }, accessTokenOrAppId);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -338,22 +325,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> DeleteAsync(string accessTokenOrAppId, int groupId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/delete?access_token={0}";
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = "https://api.weixin.qq.com/cgi-bin/groups/delete?access_token={0}";
 
-                var data = new
-                {
-                    group = new
-                    {
-                        id = groupId
-                    }
-                };
+               var data = new
+               {
+                   group = new
+                   {
+                       id = groupId
+                   }
+               };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
-
-            }, accessTokenOrAppId);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, CommonJsonSendType.POST, timeOut);
+           }, accessTokenOrAppId);
         }
-         #endregion
-        }
- }
+
+        #endregion 异步请求
+    }
+}

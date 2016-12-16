@@ -1,15 +1,13 @@
-﻿using System;
-using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Helpers;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.Helpers;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.Test
 {
     [TestClass]
     public class MsgTypeHelperTest
     {
-        string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+        private string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
     <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
@@ -19,6 +17,7 @@ namespace Senparc.Weixin.MP.Test
     <MsgId>5832509444155992350</MsgId>
 </xml>
 ";
+
         [TestMethod]
         public void GetMsgTypeTest()
         {

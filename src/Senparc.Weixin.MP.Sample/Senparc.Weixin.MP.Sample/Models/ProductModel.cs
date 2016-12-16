@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.Sample.Models
 {
@@ -24,7 +21,6 @@ namespace Senparc.Weixin.MP.Sample.Models
             Name = name;
             Price = price;
         }
-
 
         private static List<ProductModel> ProductList { get; set; }
 

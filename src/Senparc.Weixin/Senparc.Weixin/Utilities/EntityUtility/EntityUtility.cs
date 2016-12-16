@@ -4,18 +4,14 @@
     文件名：EntityUtility.cs
     文件功能描述：实体工具类
 
-
     创建标识：Senparc - 20160808（v4.6.0）
 
 ----------------------------------------------------------------*/
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+
 using Senparc.Weixin.Helpers;
+using System;
+using System.Globalization;
+using System.Reflection;
 
 namespace Senparc.Weixin.EntityUtility
 {
@@ -49,7 +45,6 @@ namespace Senparc.Weixin.EntityUtility
             throw new InvalidCastException(string.Format("Invalid cast from type \"{0}\" to type \"{1}\".", convertibleValue.GetType().FullName, typeof(T).FullName));
         }
 
-
         /// <summary>
         /// 向属性填充值
         /// </summary>
@@ -80,21 +75,27 @@ namespace Senparc.Weixin.EntityUtility
                     case "Boolean":
                         setValue = value.ConvertTo<bool>();
                         break;
+
                     case "DateTime":
                         setValue = DateTimeHelper.GetDateTimeFromXml(value.ToString());
                         break;
+
                     case "Int32":
                         setValue = value.ConvertTo<int>();
                         break;
+
                     case "Int64":
                         setValue = value.ConvertTo<long>();
                         break;
+
                     case "Double":
                         setValue = value.ConvertTo<double>();
                         break;
+
                     case "String":
                         setValue = value.ToString(CultureInfo.InvariantCulture);
                         break;
+
                     default:
                         setValue = value;
                         break;

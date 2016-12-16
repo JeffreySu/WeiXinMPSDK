@@ -4,7 +4,6 @@
     文件名：TenPayV3InfoCollection.cs
     文件功能描述：微信支付V3信息集合，Key为商户号（MchId）
 
-
     创建标识：Senparc - 20150211
 
     修改标识：Senparc - 20150303
@@ -13,9 +12,9 @@
     TODO：升级为Container
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Exceptions;
 using System;
 using System.Collections.Generic;
-using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -60,7 +59,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public TenPayV3InfoCollection()
             : base(StringComparer.OrdinalIgnoreCase)
         {
-
         }
     }
 }

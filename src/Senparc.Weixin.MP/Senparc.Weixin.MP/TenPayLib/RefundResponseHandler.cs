@@ -1,22 +1,21 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
- 
+
     文件名：RefundResponseHandler.cs
     文件功能描述：微信支付退款 响应处理
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.MP.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Text;
 using System.Web;
-using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
@@ -112,7 +111,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         }
 
         /// <summary>
-        /// 是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名 @return boolean 
+        /// 是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名 @return boolean
         /// </summary>
         /// <returns></returns>
         public virtual Boolean IsTenpaySign()
@@ -143,7 +142,7 @@ namespace Senparc.Weixin.MP.TenPayLib
         /// <summary>
         /// 显示处理结果。
         /// @param show_url 显示处</summary>
-        /// @throws IOException 
+        /// @throws IOException
         /// <param name="show_url"></param>
         public void DoShow(string show_url)
         {
@@ -176,7 +175,6 @@ namespace Senparc.Weixin.MP.TenPayLib
         protected virtual string getCharset()
         {
             return this.HttpContext.Request.ContentEncoding.BodyName;
-
         }
 
         /// <summary>

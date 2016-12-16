@@ -1,24 +1,18 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：TenPayController.cs
     文件功能描述：微信支付Controller
-    
-    
+
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.UI;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.TenPayLib;
+using System;
+using System.Web.Mvc;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -129,7 +123,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //TenPay.Delivernotify(TenPayInfo.AppId, "oX99MDgNcgwnz3zFN3DNmo8uwa-w", "111112222233333", sp_billno,
             //                     timeStamp, "1", "ok", "53cca9d47b883bd4a5c85a9300df3da0cb48565c", "sha1");
 
-
             //获取debug信息,建议把请求和debug信息写入日志，方便定位问题
             //string pakcageDebuginfo = packageReqHandler.getDebugInfo();
             //Response.Write("<br/>pakcageDebuginfo:" + pakcageDebuginfo + "<br/>");
@@ -145,7 +138,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             return View();
         }
-
 
         public ActionResult Native()
         {
@@ -164,7 +156,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             sp_billno = TenPayInfo.PartnerId + sp_billno;
-
 
             RequestHandler outParams = new RequestHandler(null);
 
@@ -208,8 +199,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             sp_billno = TenPayInfo.PartnerId + sp_billno;
 
-
-
             //创建RequestHandler实例
             RequestHandler packageReqHandler = new RequestHandler(null);
             //初始化
@@ -246,7 +235,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             payHandler.SetParameter("app_signature", paySign);
             payHandler.SetParameter("sign_method", "SHA1");
 
-
             Response.ContentType = "text/xml";
             Response.Clear();
             ViewData["payHandler"] = payHandler.ParseXML();
@@ -261,13 +249,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         public ActionResult PayNotifyUrl()
         {
-
             ResponseHandler resHandler = new ResponseHandler(null);
             resHandler.Init();
             resHandler.SetKey(TenPayInfo.Key, TenPayInfo.AppKey);
 
             string message;
-            
+
             //判断签名
             if (resHandler.IsTenpaySign())
             {
@@ -314,13 +301,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     //回复服务器处理成功
                     message = "success";
                 }
-
                 else
                 {//SHA1签名失败
                     message = "SHA1签名失败" + resHandler.GetDebugInfo();
                 }
             }
-
             else
             {//md5签名失败
                 message = "md5签名失败" + resHandler.GetDebugInfo();
@@ -394,7 +379,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     //如包格式错误或未确认结果的，请使用原来订单号重新发起，确认结果，避免多次操作
                     Response.Write("业务错误信息或签名错误:" + resHandler.GetParameter("retcode") + "," + resHandler.GetParameter("retmsg") + "<br>");
                 }
-
             }
             else
             {
@@ -403,7 +387,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //有可能因为网络原因，请求已经处理，但未收到应答。
             }
 
-
             //获取debug信息,建议把请求、应答内容、debug信息，通信返回码写入日志，方便定位问题
 
             Response.Write("http res:" + httpClient.GetResponseCode() + "," + httpClient.GetErrInfo() + "<br>");
@@ -411,14 +394,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             Response.Write("req debug:" + reqHandler.GetDebugInfo() + "<br/>");
             Response.Write("res content:" + Server.HtmlEncode(rescontent) + "<br/>");
             Response.Write("res debug:" + Server.HtmlEncode(resHandler.GetDebugInfo()) + "<br/>");
-
         }
 
         public ActionResult Delivernotify()
         {
             string timeStamp = "";
             string appSignature = "";
-            //string appId, string openId, string transId, string out_Trade_No, string deliver_TimesTamp, string deliver_Status, string deliver_Msg, string app_Signature, 
+            //string appId, string openId, string transId, string out_Trade_No, string deliver_TimesTamp, string deliver_Status, string deliver_Msg, string app_Signature,
             string sp_billno = Request["order_no"];
             //当前时间 yyyyMMdd
             string date = DateTime.Now.ToString("yyyyMMdd");

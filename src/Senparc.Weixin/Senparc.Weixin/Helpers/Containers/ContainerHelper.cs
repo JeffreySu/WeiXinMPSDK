@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Senparc.Weixin.Containers;
+﻿using Senparc.Weixin.Containers;
+using System;
 
 namespace Senparc.Weixin.Helpers
 {

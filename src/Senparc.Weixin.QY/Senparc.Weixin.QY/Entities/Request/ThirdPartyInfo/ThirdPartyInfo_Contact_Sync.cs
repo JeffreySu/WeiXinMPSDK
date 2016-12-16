@@ -1,5 +1,4 @@
-﻿
-namespace Senparc.Weixin.QY.Entities
+﻿namespace Senparc.Weixin.QY.Entities
 {
     /// <summary>
     /// 变更授权的通知

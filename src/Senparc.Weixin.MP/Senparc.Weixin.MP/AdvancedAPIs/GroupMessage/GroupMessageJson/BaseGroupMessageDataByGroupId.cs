@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：BaseGroupMessageDataByGroupId.cs
     文件功能描述：根据GroupId群发所需的数据
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -42,7 +41,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
 
     public class GroupMessageByGroupId_VoiceData : BaseGroupMessageDataByGroupId
     {
-        public GroupMessageByGroupId_MediaId voice { get; set; }  
+        public GroupMessageByGroupId_MediaId voice { get; set; }
     }
 
     public class GroupMessageByGroupId_ImageData : BaseGroupMessageDataByGroupId

@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Enyim.Caching.Memcached;
+using System;
 using System.Threading;
-using System.Threading.Tasks;
-using Enyim.Caching.Memcached;
 
 namespace Senparc.Weixin.Cache.Memcached
 {
     public class MemcachedCacheLock : BaseCacheLock
     {
         private MemcachedObjectCacheStrategy _mamcachedStrategy;
+
         public MemcachedCacheLock(MemcachedObjectCacheStrategy strategy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
             : base(strategy, resourceName, key, retryCount, retryDelay)
         {

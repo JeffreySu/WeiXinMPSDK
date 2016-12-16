@@ -4,12 +4,11 @@
     文件名：OAuthAPI.cs
     文件功能描述：OAuth
 
-
     创建标识：Senparc - 20150211
 
     修改标识：Senparc - 20150303
     修改描述：整理接口
- 
+
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
 ----------------------------------------------------------------*/
@@ -18,18 +17,20 @@
     官方文档：http://mp.weixin.qq.com/wiki/index.php?title=%E7%BD%91%E9%A1%B5%E6%8E%88%E6%9D%83%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF#.E7.AC.AC.E4.B8.80.E6.AD.A5.EF.BC.9A.E7.94.A8.E6.88.B7.E5.90.8C.E6.84.8F.E6.8E.88.E6.9D.83.EF.BC.8C.E8.8E.B7.E5.8F.96code
  */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.CommonAPIs;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
     public static class OAuthApi
     {
         #region 同步请求
+
         /*此接口不提供异步方法*/
+
         /// <summary>
         /// 获取验证地址
         /// </summary>
@@ -111,9 +112,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             var url = string.Format("https://api.weixin.qq.com/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
             return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
+
         /// <summary>
         /// 【异步方法】获取AccessToken
         /// </summary>
@@ -171,6 +174,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             var url = string.Format("https://api.weixin.qq.com/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

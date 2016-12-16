@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：RequestMessageEventBase.cs
     文件功能描述：事件基类
-    
-    
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -19,6 +18,7 @@ namespace Senparc.Weixin.QY.Entities
         /// 事件类型
         /// </summary>
         Event Event { get; }
+
         ///// <summary>
         ///// 事件KEY值，与自定义菜单接口中KEY值对应
         ///// </summary>

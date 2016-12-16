@@ -4,7 +4,6 @@
     文件名：Card_BaseInfo_Sku.cs
     文件功能描述：基本的卡券商品信息，所有卡券通用。
 
-
     创建标识：Senparc - 20150211
 
     修改标识：Senparc - 20150303
@@ -26,6 +25,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 必填
         /// </summary>
         public int quantity { get; set; }
+
         /// <summary>
         /// 卡券全部库存的数量，上限为100000000。
         /// </summary>

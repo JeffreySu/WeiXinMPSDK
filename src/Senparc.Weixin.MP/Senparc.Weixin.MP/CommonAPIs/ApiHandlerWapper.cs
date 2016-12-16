@@ -1,28 +1,26 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：ApiHandlerWapper.cs（v12之前原AccessTokenHandlerWapper.cs）
     文件功能描述：使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150703
     修改描述：添加TryCommonApi()方法
- 
+
     修改标识：Senparc
 ----------------------------------------------------------------*/
 
-using System;
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP
 {
@@ -133,9 +131,9 @@ namespace Senparc.Weixin.MP
         //    return result;
         //}
 
-        #endregion
+        #endregion 淘汰方法
 
-        #endregion
+        #endregion 同步方法
 
         #region 异步方法
 
@@ -178,7 +176,6 @@ namespace Senparc.Weixin.MP
                 accessToken = accessTokenOrAppId; //accessToken
             }
 
-
             Task<T> result = null;
 
             try
@@ -211,8 +208,8 @@ namespace Senparc.Weixin.MP
             return result.Result;
         }
 
-
         #region 淘汰方法
+
         ///// <summary>
         ///// 【异步方法】使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
         ///// </summary>
@@ -243,8 +240,9 @@ namespace Senparc.Weixin.MP
         //    }
         //    return result;
         //}
-        #endregion
 
-        #endregion
+        #endregion 淘汰方法
+
+        #endregion 异步方法
     }
 }

@@ -1,10 +1,9 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：RequestMessageBase.cs
     文件功能描述：第三方应用授权回调消息服务
-    
-    
+
     创建标识：Senparc - 20150430
 ----------------------------------------------------------------*/
 
@@ -29,6 +28,7 @@ namespace Senparc.Weixin.Open
     {
         public string AppId { get; set; }
         public DateTime CreateTime { get; set; }
+
         public virtual RequestInfoType InfoType
         {
             get { return RequestInfoType.component_verify_ticket; }

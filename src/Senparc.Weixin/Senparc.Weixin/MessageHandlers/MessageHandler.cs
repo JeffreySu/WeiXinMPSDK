@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：MessageHandler.cs
     文件功能描述：微信请求的集中处理方法
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 
@@ -20,11 +19,11 @@
  * V3.1
  */
 
+using Senparc.Weixin.Context;
+using Senparc.Weixin.Entities;
 using System;
 using System.IO;
 using System.Xml.Linq;
-using Senparc.Weixin.Context;
-using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MessageHandlers
 {
@@ -71,7 +70,7 @@ namespace Senparc.Weixin.MessageHandlers
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Obsolete("UserName属性从v0.6起已过期，建议使用WeixinOpenId")]
         public string UserName
@@ -113,6 +112,7 @@ namespace Senparc.Weixin.MessageHandlers
         /// 请求实体
         /// </summary>
         public virtual TRequest RequestMessage { get; set; }
+
         /// <summary>
         /// 响应实体
         /// 正常情况下只有当执行Execute()方法后才可能有值。
@@ -173,7 +173,7 @@ namespace Senparc.Weixin.MessageHandlers
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="inputStream"></param>
         /// <param name="maxRecordCount"></param>
@@ -213,7 +213,6 @@ namespace Senparc.Weixin.MessageHandlers
             //此方法不执行任何方法，提供给具体的类库进行测试使用，例如Senparc.Weixin.QY
         }
 
-
         /// <summary>
         /// 初始化，获取RequestDocument。
         /// Init中需要对上下文添加当前消息（如果使用上下文）
@@ -222,7 +221,6 @@ namespace Senparc.Weixin.MessageHandlers
         public abstract XDocument Init(XDocument requestDocument, object postData = null);
 
         //public abstract TR CreateResponseMessage<TR>() where TR : ResponseMessageBase;
-
 
         public virtual void OnExecuting()
         {

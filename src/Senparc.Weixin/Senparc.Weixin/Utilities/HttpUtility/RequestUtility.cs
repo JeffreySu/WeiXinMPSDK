@@ -4,7 +4,6 @@
     文件名：RequestUtility.cs
     文件功能描述：获取请求结果
 
-
     创建标识：Senparc - 20150211
 
     修改描述：整理接口
@@ -13,6 +12,7 @@
     修改描述：使用Post方法获取字符串结果 修改表单处理方法
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,7 +22,6 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.HttpUtility
 {
@@ -57,7 +56,7 @@ namespace Senparc.Weixin.HttpUtility
             _webproxy = null;
         }
 
-        #endregion
+        #endregion 代理
 
         #region 同步方法
 
@@ -118,7 +117,7 @@ namespace Senparc.Weixin.HttpUtility
             }
         }
 
-        #endregion
+        #endregion Get
 
         #region Post
 
@@ -126,11 +125,11 @@ namespace Senparc.Weixin.HttpUtility
         /// 使用Post方法获取字符串结果，常规提交
         /// </summary>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null,  X509Certificate cer = null,int timeOut = Config.TIME_OUT)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
         {
             MemoryStream ms = new MemoryStream();
             formData.FillFormDataStream(ms);//填充formData
-            return HttpPost(url, cookieContainer, ms, null, null, encoding,cer, timeOut);
+            return HttpPost(url, cookieContainer, ms, null, null, encoding, cer, timeOut);
         }
 
         /// <summary>
@@ -164,6 +163,7 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             #region 处理Form表单文件上传
+
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
             {
@@ -226,7 +226,8 @@ namespace Senparc.Weixin.HttpUtility
             {
                 request.ContentType = "application/x-www-form-urlencoded";
             }
-            #endregion
+
+            #endregion 处理Form表单文件上传
 
             request.ContentLength = postStream != null ? postStream.Length : 0;
             request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
@@ -244,6 +245,7 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             #region 输入二进制流
+
             if (postStream != null)
             {
                 postStream.Position = 0;
@@ -265,7 +267,8 @@ namespace Senparc.Weixin.HttpUtility
 
                 postStream.Close();//关闭文件访问
             }
-            #endregion
+
+            #endregion 输入二进制流
 
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
@@ -284,7 +287,7 @@ namespace Senparc.Weixin.HttpUtility
             }
         }
 
-        #endregion
+        #endregion Post
 
         /// <summary>
         /// 验证服务器证书
@@ -299,8 +302,7 @@ namespace Senparc.Weixin.HttpUtility
             return true;
         }
 
-
-        #endregion
+        #endregion 同步方法
 
         #region 异步方法
 
@@ -367,9 +369,8 @@ namespace Senparc.Weixin.HttpUtility
         {
             MemoryStream ms = new MemoryStream();
             await formData.FillFormDataStreamAsync(ms);//填充formData
-            return await HttpPostAsync(url, cookieContainer, ms, null, null, encoding,cer, timeOut);
+            return await HttpPostAsync(url, cookieContainer, ms, null, null, encoding, cer, timeOut);
         }
-
 
         /// <summary>
         /// 使用Post方法获取字符串结果
@@ -399,6 +400,7 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             #region 处理Form表单文件上传
+
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
             {
@@ -461,7 +463,8 @@ namespace Senparc.Weixin.HttpUtility
             {
                 request.ContentType = "application/x-www-form-urlencoded";
             }
-            #endregion
+
+            #endregion 处理Form表单文件上传
 
             request.ContentLength = postStream != null ? postStream.Length : 0;
             request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
@@ -479,6 +482,7 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             #region 输入二进制流
+
             if (postStream != null)
             {
                 postStream.Position = 0;
@@ -493,7 +497,6 @@ namespace Senparc.Weixin.HttpUtility
                     await requestStream.WriteAsync(buffer, 0, bytesRead);
                 }
 
-
                 //debug
                 //postStream.Seek(0, SeekOrigin.Begin);
                 //StreamReader sr = new StreamReader(postStream);
@@ -501,7 +504,8 @@ namespace Senparc.Weixin.HttpUtility
 
                 postStream.Close();//关闭文件访问
             }
-            #endregion
+
+            #endregion 输入二进制流
 
             HttpWebResponse response = (HttpWebResponse)(await request.GetResponseAsync());
 
@@ -520,7 +524,6 @@ namespace Senparc.Weixin.HttpUtility
             }
         }
 
-
         /// <summary>
         /// 填充表单信息的Stream
         /// </summary>
@@ -534,7 +537,7 @@ namespace Senparc.Weixin.HttpUtility
             stream.Seek(0, SeekOrigin.Begin);//设置指针读取位置
         }
 
-        #endregion
+        #endregion 异步方法
 
         /// <summary>
         /// 请求是否发起自微信客户端的浏览器
@@ -599,6 +602,7 @@ namespace Senparc.Weixin.HttpUtility
         {
             return System.Web.HttpUtility.HtmlEncode(html);
         }
+
         /// <summary>
         /// 封装System.Web.HttpUtility.HtmlDecode
         /// </summary>
@@ -608,6 +612,7 @@ namespace Senparc.Weixin.HttpUtility
         {
             return System.Web.HttpUtility.HtmlDecode(html);
         }
+
         /// <summary>
         /// 封装System.Web.HttpUtility.UrlEncode
         /// </summary>
@@ -617,6 +622,7 @@ namespace Senparc.Weixin.HttpUtility
         {
             return System.Web.HttpUtility.UrlEncode(url);
         }
+
         /// <summary>
         /// 封装System.Web.HttpUtility.UrlDecode
         /// </summary>

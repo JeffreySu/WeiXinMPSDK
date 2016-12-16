@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Senparc.Weixin.MessageHandlers;
 using System.Web.Mvc;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.MessageHandlers;
 
 namespace Senparc.Weixin.MP.MvcExtension
 {
-
     //public static class WeixinResultExtension
     //{
     //    public WeixinResult WeixinResult()
-    //    { 
-
+    //    {
     //    }
     //}
 

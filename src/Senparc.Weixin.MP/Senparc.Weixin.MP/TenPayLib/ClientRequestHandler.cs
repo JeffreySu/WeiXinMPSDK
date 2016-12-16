@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Senparc.Weixin.MP.Helpers;
+using System;
 using System.Collections;
 using System.Text;
 using System.Web;
-using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
@@ -102,7 +102,6 @@ namespace Senparc.Weixin.MP.TenPayLib
                 else if ("spbill_create_ip".CompareTo(k) == 0)
                 {
                     sb.Append(k + "=" + v.Replace(".", "%2E") + "&");
-
                 }
             }
 

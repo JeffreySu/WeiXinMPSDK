@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
-using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
 
 namespace Senparc.Weixin.MP.Test.CommonAPIs
@@ -61,13 +56,11 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             });
             bg.button.Add(subButton);
 
-
             var result = CommonApi.CreateMenu(accessToken, bg);
 
             Assert.IsNotNull(result);
             Assert.AreEqual("ok", result.errmsg);
         }
-
 
         [TestMethod]
         public void GetMenuTest()

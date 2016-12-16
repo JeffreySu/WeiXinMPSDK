@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.Helpers;
+using System;
 
 namespace Senparc.Weixin.MP.Test.Helpers
 {
@@ -11,7 +11,7 @@ namespace Senparc.Weixin.MP.Test.Helpers
         public void DistanceTest()
         {
             var result = GpsHelper.Distance(31.3131, 120.5815, 31.2751, 120.6497);
-            Assert.IsTrue(result>0);
+            Assert.IsTrue(result > 0);
             Console.WriteLine(result);
         }
 
@@ -19,7 +19,7 @@ namespace Senparc.Weixin.MP.Test.Helpers
         public void GetLatitudeDifferenceTest()
         {
             var result = GpsHelper.GetLatitudeDifference(10);
-            Assert.IsTrue(result>0);
+            Assert.IsTrue(result > 0);
             Console.WriteLine(result);
         }
 

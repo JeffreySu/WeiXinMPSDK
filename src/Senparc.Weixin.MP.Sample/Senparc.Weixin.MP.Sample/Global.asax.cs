@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
-using Senparc.Weixin.Cache;
+﻿using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Memcached;
 using Senparc.Weixin.Cache.Redis;
-using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
-using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
 using Senparc.Weixin.Threads;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Optimization;
+using System.Web.Routing;
 
 namespace Senparc.Weixin.MP.Sample
 {
@@ -54,7 +50,8 @@ namespace Senparc.Weixin.MP.Sample
         {
             //如果留空，默认为localhost（默认端口）
 
-            #region  Redis配置
+            #region Redis配置
+
             var redisConfiguration = System.Configuration.ConfigurationManager.AppSettings["Cache_Redis_Configuration"];
             RedisManager.ConfigurationOption = redisConfiguration;
 
@@ -64,7 +61,8 @@ namespace Senparc.Weixin.MP.Sample
             {
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
             }
-            #endregion
+
+            #endregion Redis配置
 
             #region Memcached 配置
 
@@ -74,8 +72,7 @@ namespace Senparc.Weixin.MP.Sample
             };
             MemcachedObjectCacheStrategy.RegisterServerList(memcachedConfig);
 
-
-            #endregion
+            #endregion Memcached 配置
 
             //CacheStrategyFactory.RegisterContainerCacheStrategy(() => MemcachedContainerStrategy.Instance);//Memcached
         }

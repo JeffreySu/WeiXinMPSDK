@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading;
-using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
@@ -22,7 +22,6 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             : base(requestMessage, postModel, maxRecordCount)
         {
         }
-
 
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
@@ -86,7 +85,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         //    throw new NotImplementedException();
         //}
 
-        #endregion
+        #endregion v1.5之后，所有的OnXX方法均从抽象方法变为虚方法，并都有默认返回消息操作，不需要处理的消息类型无需重写。
 
         /// <summary>
         /// 默认消息
@@ -104,7 +103,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     [TestClass]
     public class MessageHandlersTest
     {
-        string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
+        private string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
     <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
@@ -115,7 +114,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 </xml>
 ";
 
-        string xmlLocation = @"<?xml version=""1.0"" encoding=""utf-8""?>
+        private string xmlLocation = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
   <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
   <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
@@ -169,8 +168,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 ";
             var messageHandlers = new CustomerMessageHandlers(XDocument.Parse(requestXML));
             Assert.IsNotNull(messageHandlers.RequestDocument);
-            Assert.IsInstanceOfType(messageHandlers.RequestMessage,typeof(RequestMessageEvent_Location_Select));
-            Assert.AreEqual("ZBZXC",((RequestMessageEvent_Location_Select)messageHandlers.RequestMessage).EventKey);
+            Assert.IsInstanceOfType(messageHandlers.RequestMessage, typeof(RequestMessageEvent_Location_Select));
+            Assert.AreEqual("ZBZXC", ((RequestMessageEvent_Location_Select)messageHandlers.RequestMessage).EventKey);
 
             messageHandlers.Execute();
             Assert.IsNotNull(messageHandlers.ResponseMessage);
@@ -180,8 +179,8 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 
             Console.WriteLine(messageHandlers.ResponseDocument.ToString());
             Assert.AreEqual("ToUserName", messageHandlers.ResponseMessage.FromUserName);
-            Assert.IsInstanceOfType(messageHandlers.ResponseMessage,typeof(ResponseMessageText));
-            Assert.AreEqual("OnEvent_LocationSelectRequest",((ResponseMessageText)messageHandlers.ResponseMessage).Content);
+            Assert.IsInstanceOfType(messageHandlers.ResponseMessage, typeof(ResponseMessageText));
+            Assert.AreEqual("OnEvent_LocationSelectRequest", ((ResponseMessageText)messageHandlers.ResponseMessage).Content);
         }
 
         [TestMethod]
@@ -216,7 +215,6 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsNotNull(messageHandlers.EcryptRequestDocument);
             Assert.IsTrue(messageHandlers.UsingEcryptMessage);
             Assert.IsTrue(messageHandlers.UsingCompatibilityModelEcryptMessage);
-
 
             //安全模式测试
             ecryptXml = @"<xml>
@@ -262,6 +260,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         private class TestContext
         {
             public static int FinishCount = 0;
+
             public static string RequestXmlFormat = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
@@ -272,6 +271,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     <MsgId>5832509444155992350</MsgId>
 </xml>
 ";
+
             public void Run()
             {
                 for (int i = 0; i < 10; i++)
@@ -370,7 +370,6 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Console.Write(messageHandlers.ResponseDocument);
         }
 
-
         [TestMethod]
         public void DefaultResponseMessageTest()
         {
@@ -378,7 +377,6 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             messageHandler.Execute();
 
             //TestMessageHandlers中没有处理坐标信息的重写方法，将返回默认消息
-
 
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
             Assert.AreEqual("您发送的消息类型暂未被识别。", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
@@ -402,7 +400,6 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             messageHandler.Execute();
 
             //TestMessageHandlers中没有处理坐标信息的重写方法，将返回默认消息
-
 
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
             Assert.AreEqual("文字信息", ((ResponseMessageText)messageHandler.ResponseMessage).Content);

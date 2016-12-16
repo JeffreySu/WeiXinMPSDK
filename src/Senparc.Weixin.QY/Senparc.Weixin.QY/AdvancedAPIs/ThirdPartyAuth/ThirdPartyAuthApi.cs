@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：ThirdPartyAuthApi.cs
     文件功能描述：第三方应用授权接口
-    
-    
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
- 
+
     修改标识：Senparc - 20150313
     修改描述：开放代理请求超时时间
 
@@ -25,18 +24,18 @@
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%94%E7%94%A8%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E
  */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth;
 using Senparc.Weixin.QY.CommonAPIs;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     public static class ThirdPartyAuthApi
     {
         #region 同步请求
-        
+
         /// <summary>
         /// 获取应用套件令牌
         /// </summary>
@@ -50,11 +49,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_suite_token";
 
             var data = new
-                {
-                    suite_id = suiteId,
-                    suite_secret = suiteSecret,
-                    suite_ticket = suiteTicket
-                };
+            {
+                suite_id = suiteId,
+                suite_secret = suiteSecret,
+                suite_ticket = suiteTicket
+            };
 
             return CommonJsonSend.Send<GetSuiteTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
@@ -237,9 +236,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return CommonJsonSend.Send<GetCorpTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
+
         /// <summary>
         ///【异步方法】 获取应用套件令牌
         /// </summary>
@@ -440,6 +441,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCorpTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

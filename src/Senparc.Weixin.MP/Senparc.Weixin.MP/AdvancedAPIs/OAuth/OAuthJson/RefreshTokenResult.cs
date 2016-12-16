@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-/*----------------------------------------------------------------
+﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：RefreshTokenResult.cs
     文件功能描述：通过RefreshToken接口返回的结果
-    
-    
-    创建标识：Senparc - 20161019
-    
-----------------------------------------------------------------*/
 
-using System.Text;
-using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
+    创建标识：Senparc - 20161019
+
+----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.OAuth
 {

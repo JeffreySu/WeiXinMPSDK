@@ -4,7 +4,6 @@
     文件名：Enums.cs
     文件功能描述：枚举类型
 
-
     创建标识：Senparc - 20150313
 
     修改标识：Senparc - 20150313
@@ -160,7 +159,6 @@ namespace Senparc.Weixin.QY
         CONTACT_SYNC
     }
 
-
     /// <summary>
     /// 发送消息类型
     /// </summary>
@@ -187,30 +185,37 @@ namespace Senparc.Weixin.QY
         /// 点击
         /// </summary>
         click,
+
         /// <summary>
         /// Url
         /// </summary>
         view,
+
         /// <summary>
         /// 扫码推事件
         /// </summary>
         scancode_push,
+
         /// <summary>
         /// 扫码推事件且弹出“消息接收中”提示框
         /// </summary>
         scancode_waitmsg,
+
         /// <summary>
         /// 弹出系统拍照发图
         /// </summary>
         pic_sysphoto,
+
         /// <summary>
         /// 弹出拍照或者相册发图
         /// </summary>
         pic_photo_or_album,
+
         /// <summary>
         /// 弹出微信相册发图器
         /// </summary>
         pic_weixin,
+
         /// <summary>
         /// 弹出地理位置选择器
         /// </summary>
@@ -226,14 +231,17 @@ namespace Senparc.Weixin.QY
         /// 图片: 1MB，支持JPG格式
         /// </summary>
         image,
+
         /// <summary>
         /// 语音：2MB，播放长度不超过60s，支持AMR格式
         /// </summary>
         voice,
+
         /// <summary>
         /// 视频：10MB，支持MP4格式
         /// </summary>
         video,
+
         /// <summary>
         /// 普通文件：10MB
         /// </summary>
@@ -335,7 +343,6 @@ namespace Senparc.Weixin.QY
     //    涉嫌其他 = 21000
     //}
 
-
     /// <summary>
     /// 语言
     /// </summary>
@@ -345,10 +352,12 @@ namespace Senparc.Weixin.QY
         /// 中文简体
         /// </summary>
         zh_CN,
+
         /// <summary>
         /// 中文繁体
         /// </summary>
         zh_TW,
+
         /// <summary>
         /// 英文
         /// </summary>
@@ -421,10 +430,12 @@ namespace Senparc.Weixin.QY
         /// 客服
         /// </summary>
         kf,
+
         /// <summary>
         /// 客户，企业员工userid
         /// </summary>
         userid,
+
         /// <summary>
         /// 客户，企业员工openid
         /// </summary>
@@ -440,11 +451,13 @@ namespace Senparc.Weixin.QY
         /// 内部客服
         /// </summary>
         @internal,
+
         /// <summary>
         /// 外部客服
         /// </summary>
         external
     }
+
     /// <summary>redirect_uri支持登录的类型
     /// </summary>
     public enum Login_User_Type
@@ -452,9 +465,11 @@ namespace Senparc.Weixin.QY
         /// <summary>成员登录
         /// </summary>
         member,
+
         /// <summary>管理员登录
         /// </summary>
         admin,
+
         /// <summary>成员或管理员皆可登录
         /// </summary>
         all

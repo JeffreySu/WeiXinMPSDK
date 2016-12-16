@@ -1,24 +1,23 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：WeixinJsonConventer.cs
     文件功能描述：微信JSON字符串转换
-    
-    
+
     创建标识：Senparc - 20150930
-    
+
     修改标识：Senparc - 20160722
     修改描述：增加特性，对json格式的输出内容的控制，对枚举类型字符串输出、默认值不输出、例外属性等，如会员卡卡里面的CodeType
              IDictionary中foreach中的内容的修改
-    
+
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Web.Script.Serialization;
-using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Helpers
 {
@@ -31,10 +30,12 @@ namespace Senparc.Weixin.Helpers
         /// 是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中
         /// </summary>
         public bool IgnoreNulls { get; set; }
+
         /// <summary>
         /// 需要特殊忽略null值的属性名称
         /// </summary>
         public List<string> PropertiesToIgnore { get; set; }
+
         /// <summary>
         /// 指定类型（Class，非Interface）下的为null属性不生成到Json中
         /// </summary>
@@ -42,21 +43,21 @@ namespace Senparc.Weixin.Helpers
 
         #region Add
 
-
         public class IgnoreValueAttribute : Attribute
         {
             public IgnoreValueAttribute(object value)
             {
                 this.Value = value;
             }
+
             public object Value { get; set; }
         }
+
         /// <summary>
         /// 例外属性，即不排除的属性值
         /// </summary>
         public class ExcludedAttribute : Attribute
         {
-
         }
 
         /// <summary>
@@ -64,10 +65,10 @@ namespace Senparc.Weixin.Helpers
         /// </summary>
         public class EnumStringAttribute : Attribute
         {
-
         }
 
-        #endregion
+        #endregion Add
+
         /// <summary>
         /// JSON输出设置 构造函数
         /// </summary>
@@ -100,7 +101,7 @@ namespace Senparc.Weixin.Helpers
         {
             get
             {
-                var typeList = new List<Type>(new[] { typeof(IJsonIgnoreNull),typeof(IJsonEnumString)/*,typeof(JsonIgnoreNull)*/ });
+                var typeList = new List<Type>(new[] { typeof(IJsonIgnoreNull), typeof(IJsonEnumString)/*,typeof(JsonIgnoreNull)*/ });
 
                 if (_jsonSetting.TypesToIgnore.Count > 0)
                 {

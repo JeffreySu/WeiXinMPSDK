@@ -4,7 +4,6 @@
     文件名：AccessTokenContainer.cs
     文件功能描述：通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
 
-
     创建标识：Senparc - 20150211
 
     修改标识：Senparc - 20150303
@@ -21,7 +20,7 @@
 
     修改标识：Senparc - 20160717
     修改描述：v13.8.11 添加注册过程中的Name参数
-  
+
     修改标识：Senparc - 20160721
     修改描述：增加其接口的异步方法
 
@@ -36,7 +35,7 @@
 
     修改标识：Senparc - 20160810
     修改描述：v14.3.3 fix bug
-        
+
     修改标识：Senparc - 20160813
     修改描述：v14.3.4 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
 
@@ -45,18 +44,14 @@
 
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using Senparc.Weixin.Cache;
+using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.MP.CommonAPIs;
+using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.Containers
 {
@@ -101,7 +96,7 @@ namespace Senparc.Weixin.MP.Containers
     /// </summary>
     public class AccessTokenContainer : BaseContainer<AccessTokenBag>
     {
-        const string LockResourceName = "MP.AccessTokenContainer";
+        private const string LockResourceName = "MP.AccessTokenContainer";
 
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token
@@ -136,7 +131,6 @@ namespace Senparc.Weixin.MP.Containers
 
             //OAuthAccessTokenContainer进行自动注册
             OAuthAccessTokenContainer.Register(appId, appSecret, name);
-
         }
 
         #region 同步方法
@@ -197,9 +191,9 @@ namespace Senparc.Weixin.MP.Containers
             return accessTokenBag.AccessTokenResult;
         }
 
-        #endregion
+        #endregion AccessToken
 
-        #endregion
+        #endregion 同步方法
 
         #region 异步方法
 
@@ -261,10 +255,8 @@ namespace Senparc.Weixin.MP.Containers
             return accessTokenBag.AccessTokenResult;
         }
 
+        #endregion AccessToken
 
-        #endregion
-
-
-        #endregion
+        #endregion 异步方法
     }
 }

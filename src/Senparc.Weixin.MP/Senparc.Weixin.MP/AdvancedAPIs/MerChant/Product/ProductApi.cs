@@ -1,23 +1,22 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：ProductApi.cs
     文件功能描述：微小店商品接口
-    
-    
+
     创建标识：Senparc - 20150827
 
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
 ----------------------------------------------------------------*/
 
-/* 
+/*
    微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
 */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 {
@@ -27,6 +26,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     public static class ProductApi
     {
         #region 同步请求
+
         /// <summary>
         /// 增加商品
         /// </summary>
@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         }
 
         /// <summary>
-        /// 删除商品              
+        /// 删除商品
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="productId">商品的Id</param>
@@ -116,7 +116,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="status">商品上下架标识(0-下架, 1-上架)</param>
         /// <param name="productId">商品ID</param>
         /// <returns></returns>
-        public static WxJsonResult ModProductStatus(string accessToken, int status,string productId)
+        public static WxJsonResult ModProductStatus(string accessToken, int status, string productId)
         {
             var urlFormat = "https://api.weixin.qq.com/merchant/modproductstatus?access_token={0}";
 
@@ -182,8 +182,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 
             return CommonJsonSend.Send<GetPropertyResult>(accessToken, urlFormat, data);
         }
-        #endregion
+
+        #endregion 同步请求
+
         #region 异步请求
+
         /// <summary>
         /// 【异步方法】增加商品
         /// </summary>
@@ -198,7 +201,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         }
 
         /// <summary>
-        /// 【异步方法】删除商品              
+        /// 【异步方法】删除商品
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="productId">商品的Id</param>
@@ -339,7 +342,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPropertyResult>(accessToken, urlFormat, data);
         }
-        #endregion
-        
+
+        #endregion 异步请求
     }
 }

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Exceptions;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.QY.AdvancedAPIs;
 using Senparc.Weixin.QY.AdvancedAPIs.App;
-using Senparc.Weixin.QY.AdvancedAPIs.MailList;
-using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Containers;
 using Senparc.Weixin.QY.Test.CommonApis;
 
@@ -34,15 +28,15 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
 
             SetAppPostData date = new SetAppPostData()
-                {
-                    agentid = "1",
-                    description = "test",
-                    isreportenter = 0,
-                    isreportuser = 0,
-                    logo_mediaid = "1muvdK7W8cjLfNqj0hWP89-CEhZNOVsktCE1JHSTSNpzTf7cGOXyDin_ozluwNZqi",
-                    name = "Test",
-                    redirect_domain = "www.weiweihi.com"
-                };
+            {
+                agentid = "1",
+                description = "test",
+                isreportenter = 0,
+                isreportuser = 0,
+                logo_mediaid = "1muvdK7W8cjLfNqj0hWP89-CEhZNOVsktCE1JHSTSNpzTf7cGOXyDin_ozluwNZqi",
+                name = "Test",
+                redirect_domain = "www.weiweihi.com"
+            };
 
             var result = AppApi.SetApp(accessToken, date);
 

@@ -4,7 +4,6 @@
     文件名：CommonApi.Menu.Conditional
     文件功能描述：个性化自定义菜单接口
 
-
     创建标识：Senparc - 20151222
 
     修改标识：Senparc - 20151222
@@ -38,10 +37,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
                  var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token={0}";
                  var jsonSetting = new JsonSetting(true);
                  return CommonJsonSend.Send<CreateMenuConditionalResult>(accessToken, urlFormat, buttonData, timeOut: timeOut, jsonSetting: jsonSetting);
-
              }, accessTokenOrAppId);
         }
-
 
         #region GetMenu
 
@@ -65,11 +62,10 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 };
 
                 return CommonJsonSend.Send<MenuTryMatchResult>(accessToken, url, data, CommonJsonSendType.POST);
-
             }, accessTokenOrAppId);
         }
 
-        #endregion
+        #endregion GetMenu
 
         /// <summary>
         /// 删除菜单
@@ -89,9 +85,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 };
 
                 return CommonJsonSend.Send(accessToken, url, data, CommonJsonSendType.POST);
-
             }, accessTokenOrAppId);
-
         }
 
         /* 使用普通自定义菜单删除接口可以删除所有自定义菜单（包括默认菜单和全部个性化菜单），请见自定义菜单删除接口的说明。 */

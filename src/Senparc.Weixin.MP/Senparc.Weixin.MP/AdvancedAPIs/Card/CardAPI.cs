@@ -4,7 +4,6 @@
     文件名：CardApi.cs
     文件功能描述：卡券高级功能API
 
-
     创建标识：Senparc - 20150211
 
     修改标识：Senparc - 20150212
@@ -26,10 +25,10 @@
               拉取卡券概况数据接口，获取免费券数据接口，拉取会员卡数据接口，设置自助核销接口，创建子商户接口，
               卡券开放类目查询接口，拉取单个子商户信息接口，拉取子商户列表接口，更新子商户接口，拉取单个子商户信息接口 ，
               批量拉取子商户信息接口，母商户资质申请接口，母商户资质审核查询接口，子商户资质申请接口，子商户资质审核查询接口
-    
+
     修改标识：hello2008zj - 20160422
     修改描述：修改CreateQR接口，匹配最新的文档
- 
+
     修改标识：Senparc - 20160718
     修改描述：增加其接口的异步方法
 ----------------------------------------------------------------*/
@@ -39,26 +38,24 @@
    PDF下载：https://mp.weixin.qq.com/zh_CN/htmledition/comm_htmledition/res/cardticket/wx_card_document.zip
 */
 
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
+using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.MP.AdvancedAPIs.Card;
+using Senparc.Weixin.MP.CommonAPIs;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MP.AdvancedAPIs.Card;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
-
-
-
     /// <summary>
     /// 卡券接口
     /// </summary>
     public static class CardApi
     {
         #region 同步请求
+
         /// <summary>
         /// 创建卡券
         /// </summary>
@@ -87,6 +84,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.GROUPON:
                         cardData = new CardCreateInfo()
                         {
@@ -97,6 +95,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.GIFT:
                         cardData = new CardCreateInfo()
                         {
@@ -107,6 +106,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.CASH:
                         cardData = new CardCreateInfo()
                         {
@@ -117,6 +117,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.DISCOUNT:
                         cardData = new CardCreateInfo()
                         {
@@ -127,6 +128,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.MEMBER_CARD:
                         cardData = new CardCreateInfo()
                         {
@@ -137,6 +139,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.SCENIC_TICKET:
                         cardData = new CardCreateInfo()
                         {
@@ -147,6 +150,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.MOVIE_TICKET:
                         cardData = new CardCreateInfo()
                         {
@@ -158,6 +162,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.BOARDING_PASS:
                         cardData = new CardCreateInfo()
                         {
@@ -168,6 +173,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.LUCKY_MONEY:
                         cardData = new CardCreateInfo()
                         {
@@ -178,6 +184,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.MEETING_TICKET:
                         cardData = new CardCreateInfo()
                         {
@@ -188,6 +195,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     default:
                         break;
                 }
@@ -204,7 +212,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     //针对特殊字段的null值进行过滤
                     jsonSetting: jsonSetting);
                 return result;
-
             }, accessTokenOrAppId);
         }
 
@@ -230,9 +237,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var urlFormat = string.Format("https://api.weixin.qq.com/card/pay/activate?access_token={0}", accessToken.AsUrlData());
 
                 return CommonJsonSend.Send<PayActiveResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 对优惠券批价
         /// </summary>
@@ -253,9 +260,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<GetpayPriceResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 查询券点余额接口
         /// </summary>
@@ -270,9 +277,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var urlFormat = string.Format("https://api.weixin.qq.com/card/pay/getcoinsinfo?access_token={0}", accessToken.AsUrlData());
 
                 return CommonJsonSend.Send<GetCoinsInfoResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///确认兑换库存接口
         /// </summary>
@@ -295,9 +302,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///充值券点接口
         /// </summary>
@@ -313,13 +320,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     coin_count = coinCount
-
                 };
 
                 return CommonJsonSend.Send<PayRechargeResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///查询订单详情接口
         /// </summary>
@@ -335,13 +341,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     order_id = orderId
-
                 };
 
                 return CommonJsonSend.Send<PayGetOrderResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///查询券点流水详情接口
         /// </summary>
@@ -369,11 +374,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     sort_info = sortInfo,
                     begin_time = beginTime,
                     end_time = endTime
-
                 };
 
                 return CommonJsonSend.Send<GetOrderListResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -429,7 +432,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                                       });
 
                 return CommonJsonSend.Send<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
-
             }, accessTokenOrAppId);
         }
 
@@ -447,7 +449,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var urlFormat = string.Format("https://api.weixin.qq.com/card/landingpage/create?access_token={0}", accessToken.AsUrlData());
 
                 return CommonJsonSend.Send<ShelfCreateResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -483,7 +484,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -506,7 +506,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<GetDepositCountResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -531,7 +530,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<CheckCodeResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -554,9 +552,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<GetHtmlResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// Mark(占用)Code接口
         /// </summary>
@@ -582,7 +580,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -607,7 +604,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<CardConsumeResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -633,7 +629,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<CardDecryptResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -656,7 +651,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<CardDeleteResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -681,7 +675,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<CardGetResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -706,7 +699,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<CardBatchGetResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -729,7 +721,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<CardDetailGetResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -756,7 +747,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -781,9 +771,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 拉取卡券概况数据接口
         /// </summary>
@@ -803,13 +793,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     begin_date = beginDate,
                     end_date = endDate,
                     cond_source = condSource
-
                 };
 
                 return CommonJsonSend.Send<GetCardBizuinInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 获取免费券数据接口
         /// </summary>
@@ -831,13 +820,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate,
                     cond_source = condSource,
                     card_id = cardId
-
                 };
 
                 return CommonJsonSend.Send<GetCardInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 拉取会员卡数据接口
         /// </summary>
@@ -857,15 +845,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     begin_date = beginDate,
                     end_date = endDate,
                     cond_source = condSource
-
-
                 };
 
                 return CommonJsonSend.Send<GetCardMemberCardInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
-
 
         /// <summary>
         /// 更改卡券信息接口
@@ -894,6 +878,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             member_card = data as Card_MemberCardUpdateData
                         };
                         break;
+
                     case CardType.BOARDING_PASS:
                         cardData = new CardUpdate_BoardingPass()
                         {
@@ -901,6 +886,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             boarding_pass = data as Card_BoardingPassData
                         };
                         break;
+
                     case CardType.MOVIE_TICKET:
                         cardData = new CardUpdate_MovieTicket()
                         {
@@ -908,6 +894,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             movie_ticket = data as Card_MovieTicketData
                         };
                         break;
+
                     case CardType.SCENIC_TICKET:
                         cardData = new CardUpdate_ScenicTicket()
                         {
@@ -915,12 +902,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             scenic_ticket = data as Card_ScenicTicketData
                         };
                         break;
+
                     default:
                         break;
                 }
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -947,7 +934,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -989,7 +975,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1010,7 +995,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     TypesToIgnore = new List<Type>() { typeof(ActivateUserFormSetData), typeof(BaseForm) }
                 };
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1031,7 +1015,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 return CommonJsonSend.Send<UserinfoGetResult>(null, urlFormat, new { card_id = cardId, code = code }, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
-
 
         /// <summary>
         /// 设置跟随推荐接口
@@ -1067,7 +1050,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1094,9 +1076,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 设置自助核销接口
         /// 注意：设置自助核销的card_id必须已经配置了门店，否则会报错。
@@ -1120,7 +1102,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1139,7 +1120,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///   "custom_field_value1": "xxxxx",
         ///  }
         ///  或者直接传入积分、余额的全量值
-        /// 
+        ///
         ///  {
         ///   "code": "12312313",
         ///   "card_id":"p1Pj9jr90_SQRaVqYI239Ka1erkI",
@@ -1177,10 +1158,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     code = code,
                     card_id = cardId,
                     background_pic_url = backgroundPicUrl,
-                   // add_bonus = addBonus,
+                    // add_bonus = addBonus,
                     bonus = bonus,
                     record_bonus = recordBonus,
-                   // add_balance = addBalance,
+                    // add_balance = addBalance,
                     balance = balance,
                     record_balance = recordBalance,
                     custom_field_value1 = customFieldValue1,
@@ -1194,7 +1175,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<UpdateUserResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1227,7 +1207,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<MemberCardDealResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1262,7 +1241,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1299,7 +1277,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1326,7 +1303,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1357,9 +1333,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///  创建子商户接口
         /// </summary>
@@ -1379,9 +1355,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<SubmerChantSubmitJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 卡券开放类目查询接口
         /// </summary>
@@ -1396,10 +1372,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var url = string.Format("https://api.weixin.qq.com/card/getapplyprotocol?access_token={0}", accessToken.AsUrlData());
                 return CommonJsonSend.Send<GetApplyProtocolJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut);
-
             }, accessTokenOrAppId);
-
         }
+
         /// <summary>
         ///拉取单个子商户信息接口
         /// </summary>
@@ -1418,10 +1393,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     appid = appid
                 };
                 return CommonJsonSend.Send<GetCardMerchantJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
-
         }
+
         /// <summary>
         ///拉取子商户列表接口
         /// </summary>
@@ -1440,9 +1414,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     next_get = nextGet
                 };
                 return CommonJsonSend.Send<BatchGetCardMerchantJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
-
         }
 
         /// <summary>
@@ -1464,9 +1436,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<SubmerChantSubmitJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///  拉取单个子商户信息接口
         /// </summary>
@@ -1487,9 +1459,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<SubmerChantSubmitJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///  批量拉取子商户信息接口
         /// </summary>
@@ -1514,9 +1486,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<SubmerChantBatchGetJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///  母商户资质申请接口
         /// </summary>
@@ -1542,9 +1514,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 母商户资质审核查询接口
         /// </summary>
@@ -1559,10 +1531,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var url = string.Format("https://api.weixin.qq.com/cgi-bin/component/check_card_agent_qualification?access_token={0}", accessToken.AsUrlData());
                 return CommonJsonSend.Send<CheckQualificationJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut);
-
             }, accessTokenOrAppId);
-
         }
+
         /// <summary>
         ///  子商户资质申请接口
         /// </summary>
@@ -1596,9 +1567,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 子商户资质审核查询接口
         /// </summary>
@@ -1617,9 +1588,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     appid = appid
                 };
                 return CommonJsonSend.Send<CheckQualificationJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
-
         }
 
         /// <summary>
@@ -1643,7 +1612,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<GetCardListResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -1670,10 +1638,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
 
@@ -1705,6 +1673,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.GROUPON:
                         cardData = new CardCreateInfo()
                         {
@@ -1715,6 +1684,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.GIFT:
                         cardData = new CardCreateInfo()
                         {
@@ -1725,6 +1695,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.CASH:
                         cardData = new CardCreateInfo()
                         {
@@ -1735,6 +1706,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.DISCOUNT:
                         cardData = new CardCreateInfo()
                         {
@@ -1745,6 +1717,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.MEMBER_CARD:
                         cardData = new CardCreateInfo()
                         {
@@ -1755,6 +1728,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.SCENIC_TICKET:
                         cardData = new CardCreateInfo()
                         {
@@ -1765,6 +1739,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.MOVIE_TICKET:
                         cardData = new CardCreateInfo()
                         {
@@ -1776,6 +1751,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.BOARDING_PASS:
                         cardData = new CardCreateInfo()
                         {
@@ -1786,6 +1762,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.LUCKY_MONEY:
                         cardData = new CardCreateInfo()
                         {
@@ -1796,6 +1773,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case CardType.MEETING_TICKET:
                         cardData = new CardCreateInfo()
                         {
@@ -1806,6 +1784,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     default:
                         break;
                 }
@@ -1822,7 +1801,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     //针对特殊字段的null值进行过滤
                     jsonSetting: jsonSetting);
                 return result;
-
             }, accessTokenOrAppId);
         }
 
@@ -1847,9 +1825,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var urlFormat = string.Format("https://api.weixin.qq.com/card/pay/activate?access_token={0}", accessToken.AsUrlData());
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<PayActiveResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】对优惠券批价
         /// </summary>
@@ -1870,9 +1848,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetpayPriceResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】查询券点余额接口
         /// </summary>
@@ -1887,9 +1865,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var urlFormat = string.Format("https://api.weixin.qq.com/card/pay/getcoinsinfo?access_token={0}", accessToken.AsUrlData());
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCoinsInfoResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///【异步方法】确认兑换库存接口
         /// </summary>
@@ -1912,9 +1890,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///【异步方法】充值券点接口
         /// </summary>
@@ -1930,13 +1908,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     coin_count = coinCount
-
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<PayRechargeResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///【异步方法】查询订单详情接口
         /// </summary>
@@ -1952,13 +1929,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     order_id = orderId
-
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<PayGetOrderResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///【异步方法】查询券点流水详情接口
         /// </summary>
@@ -1986,11 +1962,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     sort_info = sortInfo,
                     begin_time = beginTime,
                     end_time = endTime
-
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetOrderListResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2046,7 +2020,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                                       });
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQRResultJson>(null, urlFormat, data, timeOut: timeOut, jsonSetting: jsonSetting);
-
             }, accessTokenOrAppId);
         }
 
@@ -2064,7 +2037,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var urlFormat = string.Format("https://api.weixin.qq.com/card/landingpage/create?access_token={0}", accessToken.AsUrlData());
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ShelfCreateResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2100,7 +2072,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2123,7 +2094,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetDepositCountResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2148,7 +2118,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CheckCodeResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2171,9 +2140,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetHtmlResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】Mark(占用)Code接口
         /// </summary>
@@ -2199,7 +2168,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2224,7 +2192,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardConsumeResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2250,7 +2217,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardDecryptResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2273,7 +2239,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardDeleteResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2298,7 +2263,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardGetResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2323,7 +2287,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardBatchGetResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2346,7 +2309,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CardDetailGetResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2373,7 +2335,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2398,9 +2359,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】拉取卡券概况数据接口
         /// </summary>
@@ -2420,13 +2381,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     begin_date = beginDate,
                     end_date = endDate,
                     cond_source = condSource
-
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardBizuinInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 获取免费券数据接口
         /// </summary>
@@ -2448,13 +2408,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate,
                     cond_source = condSource,
                     card_id = cardId
-
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】拉取会员卡数据接口
         /// </summary>
@@ -2474,15 +2433,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     begin_date = beginDate,
                     end_date = endDate,
                     cond_source = condSource
-
-
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardMemberCardInfoResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
-
 
         /// <summary>
         /// 【异步方法】更改卡券信息接口
@@ -2511,6 +2466,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             member_card = data as Card_MemberCardUpdateData
                         };
                         break;
+
                     case CardType.BOARDING_PASS:
                         cardData = new CardUpdate_BoardingPass()
                         {
@@ -2518,6 +2474,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             boarding_pass = data as Card_BoardingPassData
                         };
                         break;
+
                     case CardType.MOVIE_TICKET:
                         cardData = new CardUpdate_MovieTicket()
                         {
@@ -2525,6 +2482,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             movie_ticket = data as Card_MovieTicketData
                         };
                         break;
+
                     case CardType.SCENIC_TICKET:
                         cardData = new CardUpdate_ScenicTicket()
                         {
@@ -2532,12 +2490,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             scenic_ticket = data as Card_ScenicTicketData
                         };
                         break;
+
                     default:
                         break;
                 }
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2564,7 +2522,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2606,7 +2563,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2624,7 +2580,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var urlFormat = string.Format("https://api.weixin.qq.com/card/membercard/activateuserform/set?access_token={0}", accessToken.AsUrlData());
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2645,7 +2600,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UserinfoGetResult>(null, urlFormat, new { card_id = cardId, code = code }, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
-
 
         /// <summary>
         /// 【异步方法】设置跟随推荐接口
@@ -2681,7 +2635,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2708,9 +2661,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】设置自助核销接口
         /// 注意：设置自助核销的card_id必须已经配置了门店，否则会报错。
@@ -2734,7 +2687,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2753,7 +2705,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///   "custom_field_value1": "xxxxx",
         ///  }
         ///  或者直接传入积分、余额的全量值
-        /// 
+        ///
         ///  {
         ///   "code": "12312313",
         ///   "card_id":"p1Pj9jr90_SQRaVqYI239Ka1erkI",
@@ -2803,7 +2755,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UpdateUserResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2836,7 +2787,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MemberCardDealResultJson>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2871,7 +2821,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2908,7 +2857,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2935,7 +2883,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -2966,9 +2913,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///  【异步方法】创建子商户接口
         /// </summary>
@@ -2988,9 +2935,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SubmerChantSubmitJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】卡券开放类目查询接口
         /// </summary>
@@ -3005,10 +2952,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var url = string.Format("https://api.weixin.qq.com/card/getapplyprotocol?access_token={0}", accessToken.AsUrlData());
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetApplyProtocolJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut);
-
             }, accessTokenOrAppId);
-
         }
+
         /// <summary>
         ///【异步方法】拉取单个子商户信息接口
         /// </summary>
@@ -3027,10 +2973,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     appid = appid
                 };
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardMerchantJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
-
         }
+
         /// <summary>
         ///【异步方法】拉取子商户列表接口
         /// </summary>
@@ -3049,9 +2994,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     next_get = nextGet
                 };
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<BatchGetCardMerchantJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
-
         }
 
         /// <summary>
@@ -3073,9 +3016,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SubmerChantSubmitJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///  【异步方法】拉取单个子商户信息接口
         /// </summary>
@@ -3096,9 +3039,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SubmerChantSubmitJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///  【异步方法】批量拉取子商户信息接口
         /// </summary>
@@ -3123,9 +3066,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SubmerChantBatchGetJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///  【异步方法】母商户资质申请接口
         /// </summary>
@@ -3151,9 +3094,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】母商户资质审核查询接口
         /// </summary>
@@ -3168,10 +3111,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 var url = string.Format("https://api.weixin.qq.com/cgi-bin/component/check_card_agent_qualification?access_token={0}", accessToken.AsUrlData());
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CheckQualificationJsonResult>(null, url, null, CommonJsonSendType.GET, timeOut);
-
             }, accessTokenOrAppId);
-
         }
+
         /// <summary>
         ///  【异步方法】子商户资质申请接口
         /// </summary>
@@ -3205,9 +3147,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】子商户资质审核查询接口
         /// </summary>
@@ -3226,9 +3168,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     appid = appid
                 };
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CheckQualificationJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
-
         }
 
         /// <summary>
@@ -3252,7 +3192,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCardListResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -3279,10 +3218,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
-        #endregion
+
+        #endregion 异步请求
 
         #region 门店接口已过期
 
@@ -3336,6 +3275,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         //    return HttpUtility.Post.PostFileGetJson<Card_UploadLogoResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
         //}
 
-        #endregion
+        #endregion 门店接口已过期
     }
 }

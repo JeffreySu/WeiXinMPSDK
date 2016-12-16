@@ -1,22 +1,17 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：WeixinTrace.cs
     文件功能描述：跟踪日志相关
-    
-    
+
     创建标识：Senparc - 20151012
-    
+
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Exceptions;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin
 {

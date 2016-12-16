@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Senparc.Weixin.Exceptions;
+﻿using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using System.IO;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.OpenTicket
 {

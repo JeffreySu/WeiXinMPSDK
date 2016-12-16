@@ -1,24 +1,22 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：ResponseMessageBase.cs
     文件功能描述：响应回复消息基类
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150505
     修改描述：添加ResponseMessageNoResponse类型处理
 ----------------------------------------------------------------*/
 
-using System;
-using System.Xml.Linq;
-using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Helpers;
+using System;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.Entities
 {
@@ -38,6 +36,7 @@ namespace Senparc.Weixin.MP.Entities
         {
             get { return ResponseMsgType.Text; }
         }
+
         //public string Content { get; set; }
         //public bool FuncFlag { get; set; }
 
@@ -58,27 +57,35 @@ namespace Senparc.Weixin.MP.Entities
                     case ResponseMsgType.Text:
                         responseMessage = new ResponseMessageText();
                         break;
+
                     case ResponseMsgType.News:
                         responseMessage = new ResponseMessageNews();
                         break;
+
                     case ResponseMsgType.Music:
                         responseMessage = new ResponseMessageMusic();
                         break;
+
                     case ResponseMsgType.Image:
                         responseMessage = new ResponseMessageImage();
                         break;
+
                     case ResponseMsgType.Voice:
                         responseMessage = new ResponseMessageVoice();
                         break;
+
                     case ResponseMsgType.Video:
                         responseMessage = new ResponseMessageVideo();
                         break;
+
                     case ResponseMsgType.Transfer_Customer_Service:
                         responseMessage = new ResponseMessageTransfer_Customer_Service();
                         break;
+
                     case ResponseMsgType.NoResponse:
                         responseMessage = new ResponseMessageNoResponse();
                         break;
+
                     default:
                         throw new UnknownRequestMsgTypeException(string.Format("ResponseMsgType没有为 {0} 提供对应处理程序。", msgType), new ArgumentOutOfRangeException());
                 }
@@ -86,7 +93,6 @@ namespace Senparc.Weixin.MP.Entities
                 responseMessage.ToUserName = requestMessage.FromUserName;
                 responseMessage.FromUserName = requestMessage.ToUserName;
                 responseMessage.CreateTime = DateTime.Now; //使用当前最新时间
-
             }
             catch (Exception ex)
             {
@@ -139,21 +145,27 @@ namespace Senparc.Weixin.MP.Entities
                     case ResponseMsgType.Text:
                         responseMessage = new ResponseMessageText();
                         break;
+
                     case ResponseMsgType.Image:
                         responseMessage = new ResponseMessageImage();
                         break;
+
                     case ResponseMsgType.Voice:
                         responseMessage = new ResponseMessageVoice();
                         break;
+
                     case ResponseMsgType.Video:
                         responseMessage = new ResponseMessageVideo();
                         break;
+
                     case ResponseMsgType.Music:
                         responseMessage = new ResponseMessageMusic();
                         break;
+
                     case ResponseMsgType.News:
                         responseMessage = new ResponseMessageNews();
                         break;
+
                     case ResponseMsgType.Transfer_Customer_Service:
                         responseMessage = new ResponseMessageTransfer_Customer_Service();
                         break;

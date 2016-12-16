@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
- 
+
     文件名：TenPayHttpClient.cs
     文件功能描述：微信支付http、https通信类
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -32,7 +31,7 @@ using System.Text.RegularExpressions;
  * setTimeOut($timeOut)， 设置超时时间，单位秒
  * getResponseCode(), 取返回的http状态码
  * call(),真正调用接口
- * 
+ *
  * ============================================================================
  *
  */
@@ -68,17 +67,17 @@ namespace Senparc.Weixin.MP.TenPayLib
         private string CertFile;
 
         /// <summary>
-        /// 证书密码 
+        /// 证书密码
         /// </summary>
         private string CertPasswd;
 
         /// <summary>
-        /// ca证书文件 
+        /// ca证书文件
         /// </summary>
         private string CaFile;
 
         /// <summary>
-        /// 超时时间,以秒为单位 
+        /// 超时时间,以秒为单位
         /// </summary>
         private int TimeOut;
 
@@ -107,7 +106,6 @@ namespace Senparc.Weixin.MP.TenPayLib
 
             this.ResponseCode = 0;
             this.Charset = "gb2312";
-
         }
 
         /// <summary>
@@ -176,7 +174,6 @@ namespace Senparc.Weixin.MP.TenPayLib
             this.TimeOut = timeOut;
         }
 
-
         /// <summary>
         /// 获取http状态码
         /// </summary>
@@ -227,13 +224,11 @@ namespace Senparc.Weixin.MP.TenPayLib
                     {
                         postData = sArray[1];
                     }
-
                 }
                 else
                 {
                     hp = (HttpWebRequest)WebRequest.Create(this.ReqContent);
                 }
-
 
                 ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
                 if (this.CertFile != "")
@@ -259,15 +254,10 @@ namespace Senparc.Weixin.MP.TenPayLib
 
                     ws.Write(data, 0, data.Length);
                     ws.Close();
-
-
                 }
-
 
                 wr = (HttpWebResponse)hp.GetResponse();
                 sr = new StreamReader(wr.GetResponseStream(), encoding);
-
-
 
                 this.ResContent = sr.ReadToEnd();
                 sr.Close();

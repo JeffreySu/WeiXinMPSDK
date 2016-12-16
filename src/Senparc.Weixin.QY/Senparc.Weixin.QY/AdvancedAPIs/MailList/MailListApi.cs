@@ -1,27 +1,26 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：MailListApi.cs
     文件功能描述：通讯录接口
-    
-    
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
- 
+
     修改标识：Senparc - 20150313
     修改描述：开放代理请求超时时间
-  
+
     修改标识：Senparc - 20150319
     修改描述: 去除无效字段（tel、gender）
-  
+
     修改标识：Senparc - 20150408
     修改描述: 添加获取标签列表接口
 
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
- 
+
 ----------------------------------------------------------------*/
 
 /*
@@ -30,18 +29,18 @@
     标签接口：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E6%A0%87%E7%AD%BE
  */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.MailList;
 using Senparc.Weixin.QY.CommonAPIs;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     public static class MailListApi
     {
         #region 同步请求
-        
+
         /// <summary>
         /// 创建部门
         /// </summary>
@@ -320,7 +319,6 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             return CommonJsonSend.Send<InviteMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
-
         /// <summary>
         /// 创建标签
         /// </summary>
@@ -444,10 +442,12 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return Get.GetJson<GetTagListResult>(url);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
-         /// <summary>
+
+        /// <summary>
         /// 【异步方法】创建部门
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
@@ -469,7 +469,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 id = id
             };
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<CreateDepartmentResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateDepartmentResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -722,9 +722,8 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 userid = userId,
             };
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<InviteMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<InviteMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
-
 
         /// <summary>
         /// 【异步方法】创建标签
@@ -849,6 +848,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return await Get.GetJsonAsync<GetTagListResult>(url);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

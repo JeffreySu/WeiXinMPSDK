@@ -1,10 +1,9 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：AutoReplyApi.cs
     文件功能描述：获取自动回复规则接口
-    
-    
+
     创建标识：Senparc - 20150907
 
     修改标识：Senparc - 20160718
@@ -15,9 +14,9 @@
     Api地址：http://mp.weixin.qq.com/wiki/7/7b5789bb1262fb866d01b4b40b0efecb.html
  */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.MP.AdvancedAPIs.AutoReply;
 using Senparc.Weixin.MP.CommonAPIs;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -40,10 +39,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 string urlFormat = "https://api.weixin.qq.com/cgi-bin/get_current_autoreply_info?access_token={0}";
 
                 return CommonJsonSend.Send<GetCurrentAutoreplyInfoResult>(accessToken, urlFormat, null, CommonJsonSendType.GET);
-
             }, accessTokenOrAppId);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
 
@@ -59,9 +58,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 string urlFormat = "https://api.weixin.qq.com/cgi-bin/get_current_autoreply_info?access_token={0}";
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCurrentAutoreplyInfoResult>(accessToken, urlFormat, null, CommonJsonSendType.GET);
-
             }, accessTokenOrAppId);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

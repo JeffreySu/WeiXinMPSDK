@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：QRConnectAPI.cs
     文件功能描述：微信扫码登录
-    
-    
+
     创建标识：Senparc - 20150820
-    
+
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
 
@@ -16,11 +15,11 @@
     官方文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419316505&token=&lang=zh_CN
  */
 
-using System.Linq;
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Open.CommonAPIs;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.QRConnect
 {
@@ -30,9 +29,9 @@ namespace Senparc.Weixin.Open.QRConnect
     public static class QRConnectAPI
     {
         #region 同步请求
-        
-       
+
         /*此接口不提供异步方法*/
+
         /// <summary>
         /// 微信扫码登录网页授权
         /// </summary>
@@ -72,15 +71,15 @@ namespace Senparc.Weixin.Open.QRConnect
                     appId.AsUrlData(), appSecret.AsUrlData(), code.AsUrlData(), grantType.AsUrlData());
 
             /* 期望返回：
-            { 
-            "access_token":"ACCESS_TOKEN", 
-            "expires_in":7200, 
+            {
+            "access_token":"ACCESS_TOKEN",
+            "expires_in":7200,
             "refresh_token":"REFRESH_TOKEN",
-            "openid":"OPENID", 
+            "openid":"OPENID",
             "scope":"SCOPE",
             "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
             }
-            
+
             出错返回：{"errcode":40029,"errmsg":"invalid code"}
             */
             return CommonJsonSend.Send<QRConnectAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
@@ -130,10 +129,12 @@ namespace Senparc.Weixin.Open.QRConnect
             var url = string.Format("https://api.weixin.qq.com/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
             return CommonJsonSend.Send<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
-         /// <summary>
+
+        /// <summary>
         /// 【异步方法】获取AccessToken
         /// </summary>
         /// <param name="appId">应用唯一标识，在微信开放平台提交应用审核通过后获得</param>
@@ -149,18 +150,18 @@ namespace Senparc.Weixin.Open.QRConnect
                     appId.AsUrlData(), appSecret.AsUrlData(), code.AsUrlData(), grantType.AsUrlData());
 
             /* 期望返回：
-            { 
-            "access_token":"ACCESS_TOKEN", 
-            "expires_in":7200, 
+            {
+            "access_token":"ACCESS_TOKEN",
+            "expires_in":7200,
             "refresh_token":"REFRESH_TOKEN",
-            "openid":"OPENID", 
+            "openid":"OPENID",
             "scope":"SCOPE",
             "unionid": "o6_bmasdasdsad6_2sgVt7hMZOPfL"
             }
-            
+
             出错返回：{"errcode":40029,"errmsg":"invalid code"}
             */
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<QRConnectAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QRConnectAccessTokenResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -207,6 +208,7 @@ namespace Senparc.Weixin.Open.QRConnect
             var url = string.Format("https://api.weixin.qq.com/sns/auth?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

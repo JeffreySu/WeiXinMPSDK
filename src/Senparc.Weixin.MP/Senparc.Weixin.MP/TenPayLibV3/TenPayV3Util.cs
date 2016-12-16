@@ -1,12 +1,11 @@
 /*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
- 
+
     文件名：TenPayV3Util.cs
     文件功能描述：微信支付V3配置文件
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 
@@ -14,9 +13,9 @@
     修改描述：修改TenPayUtil.BuildRandomStr()方法
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.MP.Helpers;
 using System;
 using System.Text;
-using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -64,13 +63,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 try
                 {
                     res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
-
                 }
                 catch (Exception ex)
                 {
                     res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
                 }
-
 
                 return res;
             }
@@ -93,19 +90,15 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 try
                 {
                     res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
-
                 }
                 catch (Exception ex)
                 {
                     res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
                 }
 
-
                 return res;
-
             }
         }
-
 
         /// <summary>
         /// 取时间戳生成随即数,替换交易单号中的后10位流水号
@@ -158,6 +151,5 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
             return stringFormat;
         }
-
     }
 }

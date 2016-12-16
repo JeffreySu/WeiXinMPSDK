@@ -1,18 +1,17 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：EventService.cs
     文件功能描述：事件处理程序，此代码的简化MessageHandler方法已由/CustomerMessageHandler/CustomerMessageHandler_Event.cs完成
-    
-    
+
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 using System;
 using System.Diagnostics;
 using System.Web;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.Sample.CommonService
 {
@@ -36,7 +35,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                     }
                 case Event.LOCATION:
                     throw new Exception("暂不可用");
-                    //break;
+                //break;
                 case Event.subscribe://订阅
                     {
                         var strongResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
@@ -62,11 +61,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                 case Event.CLICK://菜单点击事件，根据自己需要修改
                     //这里的CLICK在此DEMO中不会被执行到，因为已经重写了OnEvent_ClickRequest
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            return responseMessage;         
+            return responseMessage;
         }
     }
 }

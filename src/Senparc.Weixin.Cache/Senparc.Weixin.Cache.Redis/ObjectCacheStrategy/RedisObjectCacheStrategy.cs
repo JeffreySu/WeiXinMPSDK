@@ -4,18 +4,17 @@
     文件名：RedisObjectCacheStrategy.cs
     文件功能描述：Redis的Object类型容器缓存（Key为String类型）。
 
-
     创建标识：Senparc - 20161024
 
  ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MessageQueue;
 using StackExchange.Redis;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Senparc.Weixin.Cache.Redis
 {
@@ -28,7 +27,7 @@ namespace Senparc.Weixin.Cache.Redis
         /// <summary>
         /// Hash储存的Key和Field集合
         /// </summary>
-      protected  class HashKeyAndField
+        protected class HashKeyAndField
         {
             public string Key { get; set; }
             public string Field { get; set; }
@@ -45,16 +44,17 @@ namespace Senparc.Weixin.Cache.Redis
             }
         }
 
-        class Nested
+        private class Nested
         {
             static Nested()
             {
             }
+
             //将instance设为一个初始化的BaseCacheStrategy新实例
             internal static readonly RedisObjectCacheStrategy instance = new RedisObjectCacheStrategy();
         }
 
-        #endregion
+        #endregion 单例
 
         internal ConnectionMultiplexer _client;
         protected IDatabase _cache;
@@ -136,9 +136,8 @@ namespace Senparc.Weixin.Cache.Redis
             get { return RedisContainerCacheStrategy.Instance; }
         }
 
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="key"></param>
         /// <param name="isFullKey">是否已经是完整的Key</param>
@@ -177,7 +176,7 @@ namespace Senparc.Weixin.Cache.Redis
         {
             #region 旧方法（没有使用Hash之前）
 
-            //var itemCacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag), "*");   
+            //var itemCacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag), "*");
             ////var keyPattern = string.Format("*{0}", itemCacheKey);
             //var keyPattern = GetFinalKey(itemCacheKey);
 
@@ -192,12 +191,11 @@ namespace Senparc.Weixin.Cache.Redis
             //    }
             //    catch (Exception)
             //    {
-
             //    }
 
             //}
 
-            #endregion
+            #endregion 旧方法（没有使用Hash之前）
 
             var key = ContainerHelper.GetItemCacheKey(typeof(TBag), "");
             key = key.Substring(0, key.Length - 1);//去掉:号
@@ -238,10 +236,9 @@ namespace Senparc.Weixin.Cache.Redis
             return dic;
         }
 
-
         public long GetCount()
         {
-            var keyPattern = GetFinalKey("*");//获取带SenparcWeixin:DefaultCache:前缀的Key（[DefaultCache]         
+            var keyPattern = GetFinalKey("*");//获取带SenparcWeixin:DefaultCache:前缀的Key（[DefaultCache]
             var count = GetServer().Keys(pattern: keyPattern).Count();
             return count;
         }
@@ -255,7 +252,6 @@ namespace Senparc.Weixin.Cache.Redis
 
             //var cacheKey = GetFinalKey(key);
             var hashKeyAndField = this.GetHashKeyAndField(key);
-
 
             //if (value is IDictionary)
             //{
@@ -296,12 +292,11 @@ namespace Senparc.Weixin.Cache.Redis
             _cache.HashSet(hashKeyAndField.Key, hashKeyAndField.Field, value.Serialize());
         }
 
-        #endregion
+        #endregion 实现 IObjectCacheStrategy 接口
 
         public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
             return new RedisCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
         }
-
     }
 }

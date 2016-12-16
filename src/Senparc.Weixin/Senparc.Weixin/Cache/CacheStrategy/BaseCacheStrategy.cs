@@ -4,14 +4,11 @@
     文件名：BaseCacheStrategy.cs
     文件功能描述：泛型缓存策略基类。
 
-
-    创建标识：Senparc - 20160813 v4.7.7 
+    创建标识：Senparc - 20160813 v4.7.7
 
  ----------------------------------------------------------------*/
 
-
 using System;
-using System.Collections.Generic;
 
 namespace Senparc.Weixin.Cache
 {

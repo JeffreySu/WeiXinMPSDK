@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Senparc.Weixin.MP.Helpers;
+using System;
 using System.Collections;
 using System.Text;
 using System.Xml;
-using Senparc.Weixin.MP.Helpers;
 
 /**
  * 后台应答类
@@ -14,7 +14,7 @@ using Senparc.Weixin.MP.Helpers;
  * getAllParameters(),获取所有参数
  * isTenpaySign(),是否财付通签名,true:是 false:否
  * getDebugInfo(),获取debug信息
- * 
+ *
  * ============================================================================
  *
  */
@@ -44,7 +44,6 @@ namespace Senparc.Weixin.MP.TenPayLib
         protected string Content;
 
         private string Charset = "gb2312";
-
 
         /// <summary>
         /// 获取服务器通知数据方式，进行参数获取

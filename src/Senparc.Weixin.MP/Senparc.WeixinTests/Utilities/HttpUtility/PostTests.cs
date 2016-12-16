@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.HttpUtility;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.HttpUtility.Tests
 {
@@ -44,7 +41,6 @@ namespace Senparc.Weixin.HttpUtility.Tests
                             encoding: null);
                 //这里因为参数错误，系统会返回错误信息
                 Assert.Fail(); //上一步就应该已经抛出异常
-
             }
             catch (ErrorJsonResultException ex)
             {
@@ -76,9 +72,6 @@ namespace Senparc.Weixin.HttpUtility.Tests
         [TestMethod]
         public void DownLoadTest()
         {
-
         }
-
-
     }
 }

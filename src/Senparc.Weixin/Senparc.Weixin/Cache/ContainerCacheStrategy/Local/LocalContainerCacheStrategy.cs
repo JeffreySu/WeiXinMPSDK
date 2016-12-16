@@ -4,7 +4,6 @@
     文件名：LocalContainerCacheStrategy.cs
     文件功能描述：本地容器缓存。
 
-
     创建标识：Senparc - 20160308
 
     修改标识：Senparc - 20160812
@@ -15,16 +14,8 @@
 
  ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web.Caching;
 using Senparc.Weixin.Containers;
-using Senparc.Weixin.Cache;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.Cache
 {
@@ -54,14 +45,14 @@ namespace Senparc.Weixin.Cache
 
         private IDictionary<string, object> _cache = LocalObjectCacheHelper.LocalObjectCache;
 
-        #endregion
+        #endregion 数据源
 
         #region 单例
 
         /// <summary>
         /// LocalCacheStrategy的构造函数
         /// </summary>
-        LocalContainerCacheStrategy():base()
+        private LocalContainerCacheStrategy() : base()
         {
         }
 
@@ -74,16 +65,17 @@ namespace Senparc.Weixin.Cache
             }
         }
 
-        class Nested
+        private class Nested
         {
             static Nested()
             {
             }
+
             //将instance设为一个初始化的LocalCacheStrategy新实例
             internal static readonly LocalContainerCacheStrategy instance = new LocalContainerCacheStrategy();
         }
 
-        #endregion
+        #endregion 单例
 
         #region ILocalCacheStrategy 成员
 
@@ -99,9 +91,8 @@ namespace Senparc.Weixin.Cache
 
         public IBaseContainerBag Get(string key, bool isFullKey = false)
         {
-            return base.Get(key,isFullKey) as IBaseContainerBag;
+            return base.Get(key, isFullKey) as IBaseContainerBag;
         }
-
 
         public IDictionary<string, TBag> GetAll<TBag>() where TBag : IBaseContainerBag
         {
@@ -151,6 +142,6 @@ namespace Senparc.Weixin.Cache
             Update(key, bag, isFullKey);
         }
 
-        #endregion
+        #endregion ILocalCacheStrategy 成员
     }
 }

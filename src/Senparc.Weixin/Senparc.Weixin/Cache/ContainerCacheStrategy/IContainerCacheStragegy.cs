@@ -4,7 +4,6 @@
     文件名：IContainerCacheStrategy.cs
     文件功能描述：容器缓存策略基类。
 
-
     创建标识：Senparc - 20160308
 
     修改标识：Senparc - 20160812
@@ -12,12 +11,8 @@
 
  ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Senparc.Weixin.Containers;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.Cache
 {

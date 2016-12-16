@@ -1,15 +1,14 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MP.Helpers;
+using System;
 
 namespace Senparc.Weixin.MP.Test
 {
     [TestClass]
     public class DateTimeHelperTest
     {
-        long timeStamp = 1358061152;
-        DateTime expect = new DateTime(2013, 1, 13, 15, 12, 32);
+        private long timeStamp = 1358061152;
+        private DateTime expect = new DateTime(2013, 1, 13, 15, 12, 32);
 
         /// <summary>
         /// 测试Unix时间（基本方法）
@@ -27,12 +26,11 @@ namespace Senparc.Weixin.MP.Test
             var result = DateTimeHelper.GetDateTimeFromXml(timeStamp);
             Assert.AreEqual(expect, result);
 
-
             var result2 = DateTimeHelper.GetDateTimeFromXml(1432094942);
             Console.WriteLine(result2);
         }
 
-         [TestMethod]
+        [TestMethod]
         public void GetWeixinDateTimeTest()
         {
             var result = DateTimeHelper.GetWeixinDateTime(expect);

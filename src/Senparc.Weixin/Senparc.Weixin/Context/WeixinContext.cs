@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：WeixinContext.cs
     文件功能描述：微信消息上下文（全局）
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -15,10 +14,10 @@
  * V2.0
  */
 
+using Senparc.Weixin.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Context
 {
@@ -30,10 +29,10 @@ namespace Senparc.Weixin.Context
         /// 是否开启上下文记录
         /// </summary>
         public static bool UseWeixinContext = true;
-
     }
 
     #region 废除接口
+
     //public interface IWeixinContext<TM, TRequest, TResponse>
     //    where TM : class, IMessageContext<TRequest, TResponse>, new()
     //    where TRequest : IRequestMessageBase
@@ -61,7 +60,8 @@ namespace Senparc.Weixin.Context
     //    TM GetMessageContext(TRequest requestMessage);
     //    TM GetMessageContext(TResponse responseMessage);
     //}
-    #endregion
+
+    #endregion 废除接口
 
     /// <summary>
     /// 微信消息上下文（全局）
@@ -78,6 +78,7 @@ namespace Senparc.Weixin.Context
         /// 所有MessageContext集合，不要直接操作此对象
         /// </summary>
         public Dictionary<string, TM> MessageCollection { get; set; }
+
         /// <summary>
         /// MessageContext列队（LastActiveTime升序排列）,不要直接操作此对象
         /// </summary>
@@ -92,7 +93,6 @@ namespace Senparc.Weixin.Context
         /// 最大储存上下文数量（分别针对请求和响应信息）
         /// </summary>
         public int MaxRecordCount { get; set; }
-
 
         public WeixinContext()
         {
@@ -140,7 +140,7 @@ namespace Senparc.Weixin.Context
                 }
             }
 
-            /* 
+            /*
              * 全局只有在这里用到MessageCollection.ContainsKey
              * 充分分离MessageCollection内部操作，
              * 为以后变化或扩展MessageCollection留余地

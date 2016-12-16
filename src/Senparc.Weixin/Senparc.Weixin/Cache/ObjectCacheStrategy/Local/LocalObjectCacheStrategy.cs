@@ -4,7 +4,6 @@
     文件名：LocalContainerCacheStrategy.cs
     文件功能描述：本地容器缓存。
 
-
     创建标识：Senparc - 20160308
 
     修改标识：Senparc - 20160812
@@ -14,14 +13,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web.Caching;
-using Senparc.Weixin.Containers;
-using Senparc.Weixin.Cache;
 
 namespace Senparc.Weixin.Cache
 {
@@ -51,7 +42,7 @@ namespace Senparc.Weixin.Cache
 
         private IDictionary<string, object> _cache = LocalObjectCacheHelper.LocalObjectCache;
 
-        #endregion
+        #endregion 数据源
 
         #region 单例
 
@@ -71,17 +62,17 @@ namespace Senparc.Weixin.Cache
             }
         }
 
-        class Nested
+        private class Nested
         {
             static Nested()
             {
             }
+
             //将instance设为一个初始化的LocalCacheStrategy新实例
             internal static readonly LocalObjectCacheStrategy instance = new LocalObjectCacheStrategy();
         }
 
-
-        #endregion
+        #endregion 单例
 
         #region IObjectCacheStrategy 成员
 
@@ -163,15 +154,15 @@ namespace Senparc.Weixin.Cache
             Update(key, bag, isFullKey);
         }
 
-        #endregion
+        #endregion IObjectCacheStrategy 成员
 
         #region ICacheLock
+
         public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
             return new LocalCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
         }
 
-        #endregion
-
+        #endregion ICacheLock
     }
 }

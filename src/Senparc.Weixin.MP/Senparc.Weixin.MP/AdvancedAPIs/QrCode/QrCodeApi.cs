@@ -1,21 +1,20 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：QrCodeAPI.cs
     文件功能描述：二维码接口
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
- 
+
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
- 
+
     修改标识：Senparc - 20150623
     修改描述：添加 用字符串类型创建二维码 接口
- 
+
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
 
@@ -28,12 +27,12 @@
     API：http://mp.weixin.qq.com/wiki/index.php?title=%E7%94%9F%E6%88%90%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E4%BA%8C%E7%BB%B4%E7%A0%81
  */
 
-using System;
-using System.IO;
-using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.QrCode;
 using Senparc.Weixin.MP.CommonAPIs;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -54,7 +53,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="actionName">二维码类型，当actionName为QR_LIMIT_STR_SCENE时，sceneId会被忽略</param>
         /// <returns></returns>
-        public static CreateQrCodeResult Create(string accessTokenOrAppId, int expireSeconds, int sceneId, QrCode_ActionName actionName,string sceneStr =null, int timeOut = Config.TIME_OUT)
+        public static CreateQrCodeResult Create(string accessTokenOrAppId, int expireSeconds, int sceneId, QrCode_ActionName actionName, string sceneStr = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -77,6 +76,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case QrCode_ActionName.QR_LIMIT_SCENE:
                         data = new
                         {
@@ -90,6 +90,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case QrCode_ActionName.QR_LIMIT_STR_SCENE:
                         data = new
                         {
@@ -103,6 +104,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     default:
                         //throw new ArgumentOutOfRangeException(nameof(actionName), actionName, null);
                         throw new ArgumentOutOfRangeException(actionName.GetType().Name, actionName, null);
@@ -163,7 +165,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             Get.Download(url, stream);
         }
 
-        #endregion
+        #endregion 同步请求
 
         #region 异步请求
 
@@ -200,6 +202,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case QrCode_ActionName.QR_LIMIT_SCENE:
                         data = new
                         {
@@ -213,6 +216,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     case QrCode_ActionName.QR_LIMIT_STR_SCENE:
                         data = new
                         {
@@ -226,6 +230,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+
                     default:
                         //throw new ArgumentOutOfRangeException(nameof(actionName), actionName, null);
                         throw new ArgumentOutOfRangeException(actionName.GetType().Name, actionName, null);
@@ -261,7 +266,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         //    }, accessTokenOrAppId);
         //}
 
-
         /// <summary>
         ///【异步方法】 获取二维码（不需要AccessToken）
         /// 错误情况下（如ticket非法）返回HTTP错误码404。
@@ -274,6 +278,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             await Get.DownloadAsync(url, stream);
         }
 
-        #endregion
+        #endregion 异步请求
     }
 }

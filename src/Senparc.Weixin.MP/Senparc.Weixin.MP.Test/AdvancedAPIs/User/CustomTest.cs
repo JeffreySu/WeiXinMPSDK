@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Web.Script.Serialization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.User;
-using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
-using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using System;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
@@ -18,7 +12,6 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
     [TestClass]
     public class UserTest : CommonApiTest
     {
-
         [TestMethod]
         public void InfoTest()
         {
@@ -35,7 +28,6 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         public void GetTest()
         {
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
-
 
             var result = UserApi.Get(accessToken, null);
             Assert.IsNotNull(result);

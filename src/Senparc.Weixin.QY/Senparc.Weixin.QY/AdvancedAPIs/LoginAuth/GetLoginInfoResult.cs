@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：GetLoginInfoResult.cs
     文件功能描述：获取企业号管理员登录信息返回结果
-    
-    
+
     创建标识：Senparc - 20150325
 ----------------------------------------------------------------*/
 
-using System.Collections.Generic;
 using Senparc.Weixin.Entities;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs.LoginAuth
 {
@@ -22,22 +21,27 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.LoginAuth
         /// 是否系统管理员
         /// </summary>
         public bool is_sys { get; set; }
+
         /// <summary>
         /// 是否内部管理员
         /// </summary>
         public bool is_inner { get; set; }
+
         /// <summary>
         /// 登录管理员的信息
         /// </summary>
         public LoginInfo_UserInfo user_info { get; set; }
+
         /// <summary>
         /// 授权方企业信息
         /// </summary>
         public LoginInfo_CorpInfo corp_info { get; set; }
+
         /// <summary>
         /// 该管理员在该提供商中能使用的应用列表
         /// </summary>
         public List<LoginInfo_AgentItem> agent { get; set; }
+
         /// <summary>
         /// 该管理员拥有的通讯录权限
         /// </summary>
@@ -50,18 +54,22 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.LoginAuth
         /// 管理员邮箱
         /// </summary>
         public string email { get; set; }
+
         /// <summary>
         /// 该管理员的userid（仅为内部管理员时展示）
         /// </summary>
         public string userid { get; set; }
+
         /// <summary>
         /// 该管理员的名字（仅为内部管理员时展示）
         /// </summary>
         public string name { get; set; }
+
         /// <summary>
         /// 该管理员的头像（仅为内部管理员时展示）
         /// </summary>
         public string avatar { get; set; }
+
         /// <summary>
         /// 该管理员的手机（仅为内部管理员时展示）
         /// </summary>
@@ -74,26 +82,32 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.LoginAuth
         /// 授权方企业号id
         /// </summary>
         public string corpid { get; set; }
+
         /// <summary>
         /// 授权方企业号名称
         /// </summary>
         public string corp_name { get; set; }
+
         /// <summary>
         /// 授权方企业号类型，认证号：verified, 注册号：unverified，体验号：test
         /// </summary>
         public string corp_type { get; set; }
+
         /// <summary>
         /// 授权方企业号圆形头像
         /// </summary>
         public string corp_round_logo_url { get; set; }
+
         /// <summary>
         /// 授权方企业号方形头像
         /// </summary>
         public string corp_square_logo_url { get; set; }
+
         /// <summary>
         /// 授权方企业号用户规模
         /// </summary>
         public int corp_user_max { get; set; }
+
         /// <summary>
         /// 授权方企业号应用规模
         /// </summary>
@@ -106,6 +120,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.LoginAuth
         /// 应用id
         /// </summary>
         public int agentid { get; set; }
+
         /// <summary>
         /// 该管理员对应用的权限：1.管理权限，0.使用权限
         /// </summary>
@@ -129,6 +144,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.LoginAuth
         /// 登录跳转的url，一次性有效，不可多次使用
         /// </summary>
         public string login_url { get; set; }
+
         /// <summary>
         /// url有效时长，单位为秒
         /// </summary>

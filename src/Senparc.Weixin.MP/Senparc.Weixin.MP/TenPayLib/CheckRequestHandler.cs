@@ -1,20 +1,19 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
- 
+
     文件名：CheckRequestHandler.cs
     文件功能描述：对账单下载接口
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.MP.Helpers;
 using System.Collections;
 using System.Text;
 using System.Web;
-using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
@@ -27,11 +26,8 @@ namespace Senparc.Weixin.MP.TenPayLib
         public CheckRequestHandler(HttpContext httpContext)
             : base(httpContext)
         {
-
             this.SetGateUrl("http://mch.tenpay.com/cgi-bin/mchdown_real_new.cgi");
         }
-
-
 
         protected override void CreateSign()
         {
@@ -43,7 +39,6 @@ namespace Senparc.Weixin.MP.TenPayLib
             akeys.Add("stamp");
             akeys.Add("cft_signtype");
             akeys.Add("mchtype");
-
 
             foreach (string k in akeys)
             {

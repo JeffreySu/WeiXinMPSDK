@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
+﻿using System.IO;
 using System.Web;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
@@ -10,6 +6,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Utilities
     public static class Server
     {
         private static string _appDomainAppPath;
+
         public static string AppDomainAppPath
         {
             get

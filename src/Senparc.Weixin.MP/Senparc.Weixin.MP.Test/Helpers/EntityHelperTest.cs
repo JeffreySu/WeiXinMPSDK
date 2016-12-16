@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Senparc.Weixin.MP.Test
 {
@@ -11,7 +10,7 @@ namespace Senparc.Weixin.MP.Test
     [TestClass]
     public class EntityHelperTest
     {
-        string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+        private string xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
     <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
@@ -33,10 +32,9 @@ namespace Senparc.Weixin.MP.Test
             Assert.AreEqual(RequestMsgType.Text, entity.MsgType);
         }
 
-
         #region 可为空对象测试
 
-        class NullableClass : RequestMessageBase, IResponseMessageBase
+        private class NullableClass : RequestMessageBase, IResponseMessageBase
         {
             public int Id { get; set; }
             public string Name { get; set; }
@@ -48,11 +46,10 @@ namespace Senparc.Weixin.MP.Test
             public DateTime CreateTime { get; set; }
             public ResponseMsgType MsgType { get; }
         }
+
         [TestMethod]
         public void ConvertEntityToXml_NullableTest()
         {
-
-
             var nullableTestXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
   <Id><![CDATA[10]]></Id>
@@ -69,8 +66,8 @@ namespace Senparc.Weixin.MP.Test
             Assert.AreEqual(null, entity.AgentId);
             Assert.AreEqual(123, entity.MchId);
         }
-        #endregion
 
+        #endregion 可为空对象测试
 
         [TestMethod]
         public void ConvertEntityToXmlTest()
@@ -146,13 +143,11 @@ namespace Senparc.Weixin.MP.Test
                 //Console.WriteLine(responseDoc.ToString());
                 //Assert.AreEqual(requestEntity.PicUrl, responseDoc.Root.Element("Articles").Elements("item").First().Element("PicUrl").Value);
 
-
                 //返回图片信息
                 var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageImage>(requestEntity);
                 responseMessage.Image.MediaId = requestEntity.MediaId;
                 var responseDoc = EntityHelper.ConvertEntityToXml(responseMessage);
                 Assert.IsNotNull(responseDoc);
-
             }
 
             //            {

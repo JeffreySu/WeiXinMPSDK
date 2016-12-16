@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.MessageHandlers;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.QY.Test.MessageHandlers
 {
@@ -17,15 +12,15 @@ namespace Senparc.Weixin.QY.Test.MessageHandlers
 
         public OmitRepeatMessageMessageHandlers(XDocument requestDoc)
             : base(requestDoc, new PostModel()
-                                {
-                                    Msg_Signature = "845997ceb6e4fd73edd9a377be227848ce20d34f",
-                                    Timestamp = "1412587525",
-                                    Nonce = "1501543730",
+            {
+                Msg_Signature = "845997ceb6e4fd73edd9a377be227848ce20d34f",
+                Timestamp = "1412587525",
+                Nonce = "1501543730",
 
-                                    Token = "fzBsmSaI8XE1OwBh",
-                                    EncodingAESKey = "9J8CQ7iF9mLtQDZrUM1loOVQ6oNDxVtBi1DBU2oaewl",
-                                    CorpId = "wx7618c0a6d9358622"
-                                })
+                Token = "fzBsmSaI8XE1OwBh",
+                EncodingAESKey = "9J8CQ7iF9mLtQDZrUM1loOVQ6oNDxVtBi1DBU2oaewl",
+                CorpId = "wx7618c0a6d9358622"
+            })
         {
         }
 
@@ -92,7 +87,6 @@ namespace Senparc.Weixin.QY.Test.MessageHandlers
                 messageHandler.Execute();
                 Assert.IsNotNull(messageHandler.ResponseMessage);
                 Assert.AreEqual("末", (messageHandler.ResponseMessage as ResponseMessageText).Content);
-
             }
         }
     }

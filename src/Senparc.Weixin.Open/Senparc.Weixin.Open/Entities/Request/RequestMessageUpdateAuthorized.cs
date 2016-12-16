@@ -1,10 +1,9 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：RequestMessageUpdateAuthorized.cs
     文件功能描述：授权更新通知
-    
-    
+
     创建标识：Senparc - 20160813
 ----------------------------------------------------------------*/
 
@@ -26,10 +25,12 @@ namespace Senparc.Weixin.Open
         /// 公众号appid
         /// </summary>
         public string AuthorizerAppid { get; set; }
+
         /// <summary>
         /// 授权码（code）
         /// </summary>
         public string AuthorizationCode { get; set; }
+
         /// <summary>
         /// 过期时间
         /// </summary>

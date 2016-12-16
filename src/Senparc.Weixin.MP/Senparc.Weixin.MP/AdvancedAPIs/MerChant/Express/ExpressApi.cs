@@ -3,9 +3,9 @@
 修改描述：增加其接口的异步方法
 ----------------------------------------------------------------*/
 
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -15,8 +15,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public static class ExpressApi
     {
         #region 同步请求
-        
-      
+
         /// <summary>
         /// 增加邮费模板
         /// </summary>
@@ -90,9 +89,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             return CommonJsonSend.Send<GetAllExpressResult>(accessToken, urlFormat, null, CommonJsonSendType.GET);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
+
         /// <summary>
         /// 【异步方法】增加邮费模板
         /// </summary>
@@ -166,6 +167,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAllExpressResult>(accessToken, urlFormat, null, CommonJsonSendType.GET);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

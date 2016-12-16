@@ -1,16 +1,14 @@
-﻿using System;
-using System.IO;
-using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Helpers;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Context;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
-using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.Controllers;
 using Senparc.Weixin.MP.Sample.Tests.Mock;
+using System;
+using System.IO;
 
 namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 {
@@ -18,10 +16,10 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
     [TestClass]
     public class WeixinControllerTest : BaseTest
     {
-        WeixinController target;
-        Stream inputStream;
+        private WeixinController target;
+        private Stream inputStream;
 
-        string xmlTextFormat = @"<xml>
+        private string xmlTextFormat = @"<xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
     <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
     <CreateTime>{{0}}</CreateTime>
@@ -31,7 +29,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 </xml>
 ";
 
-        string xmlLocationFormat = @"<xml>
+        private string xmlLocationFormat = @"<xml>
   <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
   <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
   <CreateTime>{0}</CreateTime>
@@ -42,7 +40,6 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
   <Label><![CDATA[中国江苏省苏州市沧浪区桐泾南路251号-309号]]></Label>
   <MsgId>5832828233808572154</MsgId>
 </xml>";
-
 
         private string xmlEvent_ClickFormat = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
@@ -64,7 +61,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
   <Video>
     <MediaId><![CDATA[mediaId]]></MediaId>
     <ThumbMediaId><![CDATA[thumbMediaId]]></ThumbMediaId>
-  </Video> 
+  </Video>
 </xml>";
 
         private string xmlImageFormat = @"<xml>
@@ -112,11 +109,11 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             //这里使用MiniPost，绕过日志记录
 
             var postModel = new PostModel()
-                {
-                    Signature = signature,
-                    Timestamp=timestamp,
-                    Nonce = nonce,
-                };
+            {
+                Signature = signature,
+                Timestamp = timestamp,
+                Nonce = nonce,
+            };
             var actual = target.MiniPost(postModel) as FixWeixinBugWeixinResult;
             DateTime et = DateTime.Now;
 
@@ -139,7 +136,6 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             PostTest(xmlLocationFormat);
         }
 
-
         [TestMethod]
         public void VideoPostTest()
         {
@@ -151,7 +147,6 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         {
             PostTest(xmlImageFormat);
         }
-
 
         [TestMethod]
         public void MessageAgent_TextTest()
@@ -233,14 +228,12 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                 };
                 var actual = target.MiniPost(postModel) as FixWeixinBugWeixinResult; Assert.IsNotNull(actual);
             }
-            Assert.AreEqual(1, MessageHandler<MessageContext<IRequestMessageBase,IResponseMessageBase>>.GlobalWeixinContext.MessageQueue.Count);
+            Assert.AreEqual(1, MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>.GlobalWeixinContext.MessageQueue.Count);
 
             var weixinContext = MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>.GlobalWeixinContext.MessageQueue[0];
             var recordCount = MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>.GlobalWeixinContext.MaxRecordCount;
             Assert.AreEqual(recordCount, weixinContext.RequestMessages.Count);
             Assert.AreEqual(recordCount, weixinContext.ResponseMessages.Count);
         }
-
-       
     }
 }

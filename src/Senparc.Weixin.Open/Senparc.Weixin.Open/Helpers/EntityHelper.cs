@@ -1,5 +1,4 @@
 ﻿using System.Xml.Linq;
-using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.Open.Helpers
 {
@@ -27,6 +26,7 @@ namespace Senparc.Weixin.Open.Helpers
                         case "Nullable`1": //可为空对象
                             EntityUtility.EntityUtility.FillSystemType(entity, prop, root.Element(propName).Value);
                             break;
+
                         case "Boolean":
                             if (propName == "FuncFlag")
                             {
@@ -42,6 +42,7 @@ namespace Senparc.Weixin.Open.Helpers
                         case "RequestInfoType":
                             //已设为只读
                             break;
+
                         default:
                             prop.SetValue(entity, root.Element(propName).Value, null);
                             break;
@@ -49,6 +50,5 @@ namespace Senparc.Weixin.Open.Helpers
                 }
             }
         }
-
     }
 }

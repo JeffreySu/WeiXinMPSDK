@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：Enums.cs
     文件功能描述：枚举类型
-    
-    
+
     创建标识：Senparc - 20150430
- 
+
     修改标识：Senparc - 20160726
     修改描述： RequestInfoType中加了updateauthorized，authorized
 ----------------------------------------------------------------*/
@@ -25,12 +24,14 @@ namespace Senparc.Weixin.Open
         /// 2	每5s上报
         /// </summary>
         location_report,
+
         /// <summary>
         /// 语音识别开关选项
         /// 0	关闭语音识别
         /// 1	开启语音识别
         /// </summary>
         voice_recognize,
+
         /// <summary>
         /// 客服开关选项
         /// 0	关闭多客服
@@ -48,14 +49,17 @@ namespace Senparc.Weixin.Open
         /// 推送component_verify_ticket协议
         /// </summary>
         component_verify_ticket,
+
         /// <summary>
         /// 推送取消授权通知
         /// </summary>
         unauthorized,
+
         /// <summary>
         /// 更新授权
         /// </summary>
         updateauthorized,
+
         /// <summary>
         /// 授权成功通知
         /// </summary>
@@ -71,10 +75,12 @@ namespace Senparc.Weixin.Open
         /// 不弹出授权页面，直接跳转，只能获取用户openid
         /// </summary>
         snsapi_base,
+
         /// <summary>
         /// 弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息
         /// </summary>
         snsapi_userinfo,
+
         /// <summary>
         /// 网站应用授权登录
         /// </summary>

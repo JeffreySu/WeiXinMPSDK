@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-  
+
     文件名：Enums.cs
     文件功能描述：枚举类型
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 
@@ -30,10 +29,10 @@
 
     修改标识：Senparc - 20150512
     修改描述：添加摇一摇周边【关联操作标志位】、【新增操作标志位】枚举类型
- 
+
     修改标识：Senparc - 20160803
     修改描述：将其卡券中的 code_type 定义完整
- 
+
     修改标识：Senparc - 20160901
     修改描述：v14.3.7 增加QrCode_ActionName枚举
 
@@ -63,7 +62,6 @@ namespace Senparc.Weixin.MP
         ShortVideo,//小视频
         Event, //事件推送
     }
-
 
     /// <summary>
     /// 当RequestMsgType类型为Event时，Event属性的类型
@@ -221,7 +219,6 @@ namespace Senparc.Weixin.MP
         ShakearoundUserShake,
     }
 
-
     /// <summary>
     /// 发送消息类型
     /// </summary>
@@ -229,25 +226,34 @@ namespace Senparc.Weixin.MP
     {
         [Description("文本")]
         Text = 0,
+
         [Description("单图文")]
         News = 1,
+
         [Description("音乐")]
         Music = 2,
+
         [Description("图片")]
         Image = 3,
+
         [Description("语音")]
         Voice = 4,
+
         [Description("视频")]
         Video = 5,
+
         [Description("多客服")]
         Transfer_Customer_Service,
+
         //transfer_customer_service
 
         //以下为延伸类型，微信官方并未提供具体的回复类型
         [Description("多图文")]
         MultipleNews = 106,
+
         [Description("位置")]
         LocationMessage = 107,//
+
         [Description("无回复")]
         NoResponse = 110,
     }
@@ -261,30 +267,37 @@ namespace Senparc.Weixin.MP
         /// 点击
         /// </summary>
         click,
+
         /// <summary>
         /// Url
         /// </summary>
         view,
+
         /// <summary>
         /// 扫码推事件
         /// </summary>
         scancode_push,
+
         /// <summary>
         /// 扫码推事件且弹出“消息接收中”提示框
         /// </summary>
         scancode_waitmsg,
+
         /// <summary>
         /// 弹出系统拍照发图
         /// </summary>
         pic_sysphoto,
+
         /// <summary>
         /// 弹出拍照或者相册发图
         /// </summary>
         pic_photo_or_album,
+
         /// <summary>
         /// 弹出微信相册发图器
         /// </summary>
         pic_weixin,
+
         /// <summary>
         /// 弹出地理位置选择器
         /// </summary>
@@ -300,24 +313,27 @@ namespace Senparc.Weixin.MP
         /// 图片: 128K，支持JPG格式
         /// </summary>
         image,
+
         /// <summary>
         /// 语音：256K，播放长度不超过60s，支持AMR\MP3格式
         /// </summary>
         voice,
+
         /// <summary>
         /// 视频：1MB，支持MP4格式
         /// </summary>
         video,
+
         /// <summary>
         /// thumb：64KB，支持JPG格式
         /// </summary>
         thumb,
+
         /// <summary>
         /// 图文消息
         /// </summary>
         news
     }
-
 
     ///// <summary>
     ///// 群发消息返回状态
@@ -348,27 +364,33 @@ namespace Senparc.Weixin.MP
         /// 图文消息
         /// </summary>
         mpnews = 0,
+
         /// <summary>
         /// 文本
         /// </summary>
         text = 1,
+
         /// <summary>
         /// 语音
         /// </summary>
         voice = 2,
+
         /// <summary>
         /// 图片
         /// </summary>
         image = 3,
+
         /// <summary>
         /// 视频
         /// </summary>
         video = 4,
+
         /// <summary>
         /// 卡券
         /// </summary>
         wxcard = 5
     }
+
     /// <summary>
     /// 卡券类型
     /// </summary>
@@ -378,47 +400,58 @@ namespace Senparc.Weixin.MP
         /// 通用券
         /// </summary>
         GENERAL_COUPON = 0,
+
         /// <summary>
         /// 团购券
         /// </summary>
         GROUPON = 1,
+
         /// <summary>
         /// 折扣券
         /// </summary>
         DISCOUNT = 2,
+
         /// <summary>
         /// 礼品券
         /// </summary>
         GIFT = 3,
+
         /// <summary>
         /// 代金券
         /// </summary>
         CASH = 4,
+
         /// <summary>
         /// 会员卡
         /// </summary>
         MEMBER_CARD = 5,
+
         /// <summary>
         /// 门票
         /// </summary>
         SCENIC_TICKET = 6,
+
         /// <summary>
         /// 电影票
         /// </summary>
         MOVIE_TICKET = 7,
+
         /// <summary>
         /// 飞机票
         /// </summary>
         BOARDING_PASS = 8,
+
         /// <summary>
         /// 红包
         /// </summary>
         LUCKY_MONEY = 9,
+
         /// <summary>
         /// 会议门票
         /// </summary>
         MEETING_TICKET = 10,
     }
+
     /// <summary>
     /// 卡券code码展示类型
     /// </summary>
@@ -428,27 +461,33 @@ namespace Senparc.Weixin.MP
         /// 文本
         /// </summary>
         CODE_TYPE_TEXT = 0,
+
         /// <summary>
         /// 一维码
         /// </summary>
         CODE_TYPE_BARCODE = 1,
+
         /// <summary>
         /// 二维码
         /// </summary>
         CODE_TYPE_QRCODE = 2,
+
         ///
         /// 二维码无code显示
         ///
         CODE_TYPE_ONLY_QRCODE = 3,
+
         ///
         /// 一维码无code显示
         ///
         CODE_TYPE_ONLY_BARCODE = 4,
+
         ///
         /// 不显示code和条形码类型
         ///
         CODE_TYPE_NONE = 5
     }
+
     /// <summary>
     /// 卡券 商户自定义cell 名称
     /// </summary>
@@ -458,22 +497,27 @@ namespace Senparc.Weixin.MP
         /// 外卖
         /// </summary>
         URL_NAME_TYPE_TAKE_AWAY = 0,
+
         /// <summary>
         /// 在线预订
         /// </summary>
         URL_NAME_TYPE_RESERVATION = 1,
+
         /// <summary>
         /// 立即使用
         /// </summary>
         URL_NAME_TYPE_USE_IMMEDIATELY = 2,
+
         /// <summary>
         /// 在线预约
         /// </summary>
         URL_NAME_TYPE_APPOINTMENT = 3,
+
         /// <summary>
         /// 在线兑换
         /// </summary>
         URL_NAME_TYPE_EXCHANGE = 4,
+
         /// <summary>
         /// 车辆信息
         /// </summary>
@@ -486,22 +530,27 @@ namespace Senparc.Weixin.MP
         /// 等级
         /// </summary>
         FIELD_NAME_TYPE_LEVEL = 0,
+
         /// <summary>
         /// 优惠券
         /// </summary>
         FIELD_NAME_TYPE_COUPON = 1,
+
         /// <summary>
         /// 印花
         /// </summary>
         FIELD_NAME_TYPE_STAMP = 2,
+
         /// <summary>
         /// 折扣
         /// </summary>
         FIELD_NAME_TYPE_DISCOUNT = 3,
+
         /// <summary>
         /// 成就
         /// </summary>
         FIELD_NAME_TYPE_ACHIEVEMEN = 4,
+
         /// <summary>
         /// 里程
         /// </summary>
@@ -517,6 +566,7 @@ namespace Senparc.Weixin.MP
         /// 不弹出授权页面，直接跳转，只能获取用户openid
         /// </summary>
         snsapi_base,
+
         /// <summary>
         /// 弹出授权页面，可通过openid拿到昵称、性别、所在地。并且，即使在未关注的情况下，只要用户授权，也能获取其信息
         /// </summary>
@@ -550,10 +600,12 @@ namespace Senparc.Weixin.MP
         /// 固定日期区间
         /// </summary>
         DATE_TYPE_FIX_TIME_RANGE = 0,
+
         /// <summary>
         /// 固定时长（自领取后按天算）
         /// </summary>
         DATE_TYPE_FIX_TERM = 1,
+
         /// <summary>
         /// 永久有效
         /// </summary>
@@ -569,18 +621,22 @@ namespace Senparc.Weixin.MP
         /// 文本
         /// </summary>
         text = 0,
+
         /// <summary>
         /// 图片
         /// </summary>
         img = 1,
+
         /// <summary>
         /// 语音
         /// </summary>
         voice = 2,
+
         /// <summary>
         /// 视频
         /// </summary>
         video = 3,
+
         /// <summary>
         /// 图文消息
         /// </summary>
@@ -596,6 +652,7 @@ namespace Senparc.Weixin.MP
         /// 全部回复
         /// </summary>
         reply_all = 0,
+
         /// <summary>
         /// 随机回复其中一条
         /// </summary>
@@ -611,6 +668,7 @@ namespace Senparc.Weixin.MP
         /// 消息中含有该关键词即可
         /// </summary>
         contain = 0,
+
         /// <summary>
         /// 消息内容必须和关键词严格相同
         /// </summary>
@@ -626,26 +684,32 @@ namespace Senparc.Weixin.MP
         /// 附近
         /// </summary>
         SCENE_NEAR_BY = 0,
+
         /// <summary>
         /// 自定义菜单
         /// </summary>
         SCENE_MENU = 1,
+
         /// <summary>
         /// 二维码
         /// </summary>
         SCENE_QRCODE = 2,
+
         /// <summary>
         /// 公众号文章
         /// </summary>
         SCENE_ARTICLE = 3,
+
         /// <summary>
         /// h5页面
         /// </summary>
         SCENE_H5 = 4,
+
         /// <summary>
         /// 自动回复
         /// </summary>
         SCENE_IVR = 5,
+
         /// <summary>
         /// 卡券自定义cell
         /// </summary>
@@ -662,27 +726,31 @@ namespace Senparc.Weixin.MP
         /// </summary>
         NORMAL,
 
-
         /// <summary>
         /// 已过期
         /// </summary>
         EXPIRE,
+
         /// <summary>
         /// 转赠中
         /// </summary>
         GIFTING,
+
         /// <summary>
         /// 转赠成功
         /// </summary>
         GIFT_SUCC,
+
         /// <summary>
         /// 转赠超时
         /// </summary>
         GIFT_TIMEOUT,
+
         /// <summary>
         /// 已删除
         /// </summary>
         DELETE,
+
         /// <summary>
         /// 已失效
         /// </summary>
@@ -743,7 +811,6 @@ namespace Senparc.Weixin.MP
     /// </summary>
     public enum IndustryId
     {
-
         购物_百货商场 = 0101, //不需要资质文件
         购物_超市 = 0102, //需要资质文件
         购物_服饰 = 0103, //需要资质文件
@@ -838,10 +905,12 @@ namespace Senparc.Weixin.MP
         /// 临时
         /// </summary>
         QR_SCENE,
+
         /// <summary>
         /// 永久
         /// </summary>
         QR_LIMIT_SCENE,
+
         /// <summary>
         /// 永久的字符串
         /// </summary>
@@ -857,30 +926,37 @@ namespace Senparc.Weixin.MP
         /// 商品促销
         /// </summary>
         PRODUCT_1,
+
         /// <summary>
         /// 抽奖
         /// </summary>
         PRODUCT_2,
+
         /// <summary>
         /// 虚拟物品兑奖
         /// </summary>
         PRODUCT_3,
+
         /// <summary>
         /// 企业内部福利
         /// </summary>
         PRODUCT_4,
+
         /// <summary>
         /// 渠道分润
         /// </summary>
         PRODUCT_5,
+
         /// <summary>
         /// 保险回馈
         /// </summary>
         PRODUCT_6,
+
         /// <summary>
         /// 彩票派奖
         /// </summary>
         PRODUCT_7,
+
         /// <summary>
         /// 税务刮奖
         /// </summary>

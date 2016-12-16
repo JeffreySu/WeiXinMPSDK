@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：MessageContainer.cs
     文件功能描述：微信消息容器
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -15,8 +14,8 @@ using System.Collections.Generic;
 
 namespace Senparc.Weixin.Context
 {
-    public class MessageContainer<T> : List<T> 
-        //where T : IMessageBase
+    public class MessageContainer<T> : List<T>
+    //where T : IMessageBase
     {
         /// <summary>
         /// 最大记录条数（保留尾部），如果小于等于0则不限制

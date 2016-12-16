@@ -1,21 +1,20 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：DepartmentResult.cs
     文件功能描述：标签接口返回结果
-    
-    
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150409
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System.Collections.Generic;
 using Senparc.Weixin.Entities;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
 {
@@ -39,6 +38,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         /// 成员列表
         /// </summary>
         public List<Tag_UserList> userlist { get; set; }
+
         /// <summary>
         /// 部门列表
         /// </summary>
@@ -51,6 +51,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         /// 员工UserID
         /// </summary>
         public string userid { get; set; }
+
         /// <summary>
         /// 成员名称
         /// </summary>

@@ -1,10 +1,9 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：RegisterData.cs
     文件功能描述：申请开通功能数据
-    
-    
+
     创建标识：Senparc - 20150914
 ----------------------------------------------------------------*/
 
@@ -43,8 +42,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         /// <returns></returns>
         public static string ConvertIndustryId(IndustryId _industry_id)
         {
-             return ((int)_industry_id).ToString("0000");
-
+            return ((int)_industry_id).ToString("0000");
         }
     }
 }

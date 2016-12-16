@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
- 
+
     文件名：RequestHandler.cs
     文件功能描述：微信支付V3 请求处理
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 
@@ -18,12 +17,12 @@
 
     ----------------------------------------------------------------*/
 
+using Senparc.Weixin.MP.Helpers;
 using System;
 using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -39,25 +38,24 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     'CreateSHA1Sign(signParams);创建签名SHA1
     'ParseXML();输出xml
     'GetDebugInfo(),获取debug信息
-     * 
+     *
      * ============================================================================
      */
+
     public class RequestHandler
     {
-
         public RequestHandler()
         {
             Parameters = new Hashtable();
         }
-
 
         public RequestHandler(HttpContext httpContext)
         {
             Parameters = new Hashtable();
 
             this.HttpContext = httpContext ?? HttpContext.Current;
-
         }
+
         /// <summary>
         /// 密钥
         /// </summary>
@@ -81,6 +79,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public virtual void Init()
         {
         }
+
         /// <summary>
         /// 获取debug信息
         /// </summary>
@@ -89,6 +88,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         {
             return DebugInfo;
         }
+
         /// <summary>
         /// 获取密钥
         /// </summary>
@@ -97,6 +97,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         {
             return Key;
         }
+
         /// <summary>
         /// 设置密钥
         /// </summary>
@@ -123,7 +124,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 Parameters.Add(parameter, parameterValue);
             }
         }
-
 
         /// <summary>
         /// 创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
@@ -168,20 +168,16 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 string v = (string)Parameters[k];
                 if (v != null && Regex.IsMatch(v, @"^[0-9.]$"))
                 {
-
                     sb.Append("<" + k + ">" + v + "</" + k + ">");
                 }
                 else
                 {
                     sb.Append("<" + k + "><![CDATA[" + v + "]]></" + k + ">");
                 }
-
             }
             sb.Append("</xml>");
             return sb.ToString();
         }
-
-
 
         /// <summary>
         /// 设置debug信息

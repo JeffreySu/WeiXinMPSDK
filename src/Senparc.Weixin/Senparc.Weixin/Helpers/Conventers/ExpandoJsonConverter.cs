@@ -1,13 +1,13 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：ExpandoJsonConverter.cs
     文件功能描述：Expando-JSON字符串转换
-    
-    
+
     创建标识：Senparc - 20151002
-    
+
 ----------------------------------------------------------------*/
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

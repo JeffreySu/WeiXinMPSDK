@@ -8,14 +8,8 @@
 
 ----------------------------------------------------------------*/
 
-
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Cache.Redis
 {
@@ -24,7 +18,6 @@ namespace Senparc.Weixin.Cache.Redis
     /// </summary>
     public static class StackExchangeRedisExtensions
     {
-
         //public static T Get<T>(string key)
         //{
         //    var connect = AzureredisDb.Cache;
@@ -94,5 +87,4 @@ namespace Senparc.Weixin.Cache.Redis
             }
         }
     }
-
 }

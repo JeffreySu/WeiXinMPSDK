@@ -1,8 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Containers;
-using Senparc.Weixin.Containers.Tests;
-using Senparc.Weixin.MessageQueue;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Senparc.WeixinTests.Threads
 {
@@ -30,7 +26,6 @@ namespace Senparc.WeixinTests.Threads
             //var mqKey = SenparcMessageQueue.GenerateKey("A",typeof(TestContainerBag1), bag.Key,"B");
             //var mqItem = mq.GetItem(mqKey);
             //Assert.IsNotNull(mqItem);
-
         }
     }
 }

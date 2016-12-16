@@ -4,7 +4,6 @@
     文件名：MediaAPI.cs
     文件功能描述：素材管理接口（原多媒体文件接口）
 
-
     创建标识：Senparc - 20150211
 
     修改标识：Senparc - 20150303
@@ -21,28 +20,28 @@
 
     修改标识：Senparc - 20150407
     修改描述：上传永久视频接口修改
-    
+
     修改标识：Senparc - 20160703
     修改描述：修改接口http为https
- 
+
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
-  
+
 ----------------------------------------------------------------*/
 
 /*
     接口详见：http://mp.weixin.qq.com/wiki/index.php?title=%E4%B8%8A%E4%BC%A0%E4%B8%8B%E8%BD%BD%E5%A4%9A%E5%AA%92%E4%BD%93%E6%96%87%E4%BB%B6
  */
 
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
 using Senparc.Weixin.MP.AdvancedAPIs.Media;
 using Senparc.Weixin.MP.CommonAPIs;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -53,8 +52,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     {
         #region 同步处理
 
-
         #region 临时素材
+
         /// <summary>
         /// 新增临时素材（原上传媒体文件）
         /// </summary>
@@ -71,7 +70,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
                 return Post.PostFileGetJson<UploadTemporaryMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -93,7 +91,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     articles = news
                 };
                 return CommonJsonSend.Send<UploadTemporaryMediaResult>(accessToken, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -108,9 +105,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
             HttpUtility.Get.Download(url, stream);
         }
-        #endregion
+
+        #endregion 临时素材
 
         #region 永久素材
+
         /*
          1、新增的永久素材也可以在公众平台官网素材管理模块中看到
          2、永久素材的数量是有上限的，请谨慎新增。图文消息素材和图片素材的上限为5000，其他类型为1000
@@ -135,7 +134,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     articles = news
                 };
                 return CommonJsonSend.Send<UploadForeverMediaResult>(accessToken, urlFormat, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -160,7 +158,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 //fileDictionary["type"] = UploadMediaFileType.image.ToString();//不提供此参数也可以上传成功
                 fileDictionary["media"] = file;
                 return Post.PostFileGetJson<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -183,7 +180,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 fileDictionary["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction);
 
                 return Post.PostFileGetJson<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -204,7 +200,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     media_id = mediaId
                 };
                 return CommonJsonSend.Send<GetNewsResultJson>(accessToken, url, data, CommonJsonSendType.POST, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -243,7 +238,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     media_id = mediaId
                 };
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -269,7 +263,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     articles = news
                 };
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -287,7 +280,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 string url = string.Format("https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token={0}", accessToken.AsUrlData());
 
                 return HttpUtility.Get.GetJson<GetMediaCountResultJson>(url);
-
             }, accessTokenOrAppId);
         }
 
@@ -313,9 +305,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<MediaList_NewsResult>(null, url, date, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
-
         }
 
         /// <summary>
@@ -342,7 +332,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<MediaList_OthersResult>(null, url, date, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -362,15 +351,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
                 return Post.PostFileGetJson<UploadImgResult>(url, null, fileDictionary, null, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
-        #endregion
-        #endregion
+        #endregion 永久素材
+
+        #endregion 同步处理
 
         #region 异步处理
+
         #region 临时素材
+
         /// <summary>
         /// 【异步方法】新增临时素材（原上传媒体文件）
         /// </summary>
@@ -387,7 +378,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                var fileDictionary = new Dictionary<string, string>();
                fileDictionary["media"] = file;
                return Post.PostFileGetJsonAsync<UploadTemporaryMediaResult>(url, null, fileDictionary, null, null, null, timeOut);
-
            }, accessTokenOrAppId);
         }
 
@@ -409,7 +399,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    articles = news
                };
                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UploadTemporaryMediaResult>(accessToken, urlFormat, data, timeOut: timeOut);
-
            }, accessTokenOrAppId);
         }
 
@@ -424,9 +413,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
             await HttpUtility.Get.DownloadAsync(url, stream);
         }
-        #endregion
+
+        #endregion 临时素材
 
         #region 永久素材
+
         /*
          1、新增的永久素材也可以在公众平台官网素材管理模块中看到
          2、永久素材的数量是有上限的，请谨慎新增。图文消息素材和图片素材的上限为5000，其他类型为1000
@@ -451,7 +442,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    articles = news
                };
                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<UploadForeverMediaResult>(accessToken, urlFormat, data, timeOut: timeOut);
-
            }, accessTokenOrAppId);
         }
 
@@ -468,15 +458,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
            {
                var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken.AsUrlData());
 
-                //因为有文件上传，所以忽略dataDictionary，全部改用文件上传格式
-                //var dataDictionary = new Dictionary<string, string>();
-                //dataDictionary["type"] = UploadMediaFileType.image.ToString();
+               //因为有文件上传，所以忽略dataDictionary，全部改用文件上传格式
+               //var dataDictionary = new Dictionary<string, string>();
+               //dataDictionary["type"] = UploadMediaFileType.image.ToString();
 
-                var fileDictionary = new Dictionary<string, string>();
-                //fileDictionary["type"] = UploadMediaFileType.image.ToString();//不提供此参数也可以上传成功
-                fileDictionary["media"] = file;
+               var fileDictionary = new Dictionary<string, string>();
+               //fileDictionary["type"] = UploadMediaFileType.image.ToString();//不提供此参数也可以上传成功
+               fileDictionary["media"] = file;
                return Post.PostFileGetJsonAsync<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
-
            }, accessTokenOrAppId);
         }
 
@@ -499,7 +488,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                fileDictionary["description"] = string.Format("{{\"title\":\"{0}\", \"introduction\":\"{1}\"}}", title, introduction);
 
                return Post.PostFileGetJsonAsync<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
-
            }, accessTokenOrAppId);
         }
 
@@ -520,7 +508,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    media_id = mediaId
                };
                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetNewsResultJson>(accessToken, url, data, CommonJsonSendType.POST, timeOut: timeOut);
-
            }, accessTokenOrAppId);
         }
 
@@ -559,7 +546,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    media_id = mediaId
                };
                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-
            }, accessTokenOrAppId);
         }
 
@@ -585,7 +571,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                    articles = news
                };
                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-
            }, accessTokenOrAppId);
         }
 
@@ -603,7 +588,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                string url = string.Format("https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token={0}", accessToken.AsUrlData());
 
                return HttpUtility.Get.GetJsonAsync<GetMediaCountResultJson>(url);
-
            }, accessTokenOrAppId);
         }
 
@@ -629,9 +613,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                };
 
                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MediaList_NewsResult>(null, url, date, CommonJsonSendType.POST, timeOut);
-
            }, accessTokenOrAppId);
-
         }
 
         /// <summary>
@@ -658,7 +640,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                };
 
                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MediaList_OthersResult>(null, url, date, CommonJsonSendType.POST, timeOut);
-
            }, accessTokenOrAppId);
         }
 
@@ -678,12 +659,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                var fileDictionary = new Dictionary<string, string>();
                fileDictionary["media"] = file;
                return Post.PostFileGetJsonAsync<UploadImgResult>(url, null, fileDictionary, null, timeOut: timeOut);
-
            }, accessTokenOrAppId);
         }
 
-        #endregion
-        #endregion
+        #endregion 永久素材
 
+        #endregion 异步处理
     }
 }

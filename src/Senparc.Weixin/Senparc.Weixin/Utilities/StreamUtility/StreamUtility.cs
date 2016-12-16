@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：StreamUtility.cs
     文件功能描述：流处理公共类
-    
-    
+
     创建标识：Senparc - 20150419
-    
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -68,8 +67,7 @@ namespace Senparc.Weixin.StreamUtility
             }
         }
 
-        #endregion
-
+        #endregion 同步方法
 
         #region 同步方法
 
@@ -122,8 +120,6 @@ namespace Senparc.Weixin.StreamUtility
             }
         }
 
-        #endregion
-
-
+        #endregion 同步方法
     }
 }

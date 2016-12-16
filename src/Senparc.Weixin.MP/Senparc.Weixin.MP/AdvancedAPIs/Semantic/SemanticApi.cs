@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：SemanticApi.cs
     文件功能描述：语意理解接口
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
- 
+
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
 ----------------------------------------------------------------*/
@@ -19,10 +18,10 @@
     文档下载：http://mp.weixin.qq.com/wiki/static/assets/f48efdb46b4bca35caed4f01ca92e7da.zip
  */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.Semantic;
 using Senparc.Weixin.MP.CommonAPIs;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -32,7 +31,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public static class SemanticApi
     {
         #region 同步请求
- 
+
         /// <summary>
         /// 发送语义理解请求
         /// </summary>
@@ -54,12 +53,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 //}
 
                 return CommonJsonSend.Send<T>(accessToken, urlFormat, semanticPostData, timeOut: timeOut);
-
-             }, accessTokenOrAppId);
+            }, accessTokenOrAppId);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
+
         /// <summary>
         /// 【异步方法】发送语义理解请求
         /// </summary>
@@ -70,9 +70,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<T> SemanticSendAsync<T>(string accessTokenOrAppId, SemanticPostData semanticPostData, int timeOut = Config.TIME_OUT) where T : WxJsonResult
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = "https://api.weixin.qq.com/semantic/semproxy/search?access_token={0}";
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = "https://api.weixin.qq.com/semantic/semproxy/search?access_token={0}";
 
                 //switch (semanticPostData.category)
                 //{
@@ -81,9 +81,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 //}
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<T>(accessToken, urlFormat, semanticPostData, timeOut: timeOut);
-
-            }, accessTokenOrAppId);
+           }, accessTokenOrAppId);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

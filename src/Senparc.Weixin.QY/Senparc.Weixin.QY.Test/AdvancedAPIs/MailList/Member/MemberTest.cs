@@ -1,13 +1,9 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Exceptions;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.QY.AdvancedAPIs;
 using Senparc.Weixin.QY.AdvancedAPIs.MailList;
-using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Containers;
 using Senparc.Weixin.QY.Test.CommonApis;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.QY.Test.AdvancedAPIs
 {
@@ -101,7 +97,6 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         {
             string userId = "33";
 
-            
             //var userIds = new string[] { "ceshi1", "ceshi2" };
             // BatchDeleteMemberTest(userIds);
 

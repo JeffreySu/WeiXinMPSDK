@@ -1,26 +1,22 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CustomMessageHandler_Events.cs
     文件功能描述：自定义MessageHandler
-    
-    
+
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.MP.Agent;
+using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Sample.CommonService.Download;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-using Senparc.Weixin.MP.Agent;
-using Senparc.Weixin.Context;
-using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.MessageHandlers;
-using Senparc.Weixin.MP.Sample.CommonService.Download;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
@@ -101,6 +97,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         strongResponseMessage.Content = "您点击了底部按钮。\r\n为了测试微信软件换行bug的应对措施，这里做了一个——\r\n换行";
                     }
                     break;
+
                 case "SubClickRoot_Text":
                     {
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
@@ -108,6 +105,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         strongResponseMessage.Content = "您点击了子菜单按钮。";
                     }
                     break;
+
                 case "SubClickRoot_News":
                     {
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageNews>();
@@ -121,6 +119,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         });
                     }
                     break;
+
                 case "SubClickRoot_Music":
                     {
                         //上传缩略图
@@ -137,6 +136,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         strongResponseMessage.Music.ThumbMediaId = uploadResult.thumb_media_id;
                     }
                     break;
+
                 case "SubClickRoot_Image":
                     {
                         //上传图片
@@ -149,6 +149,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         strongResponseMessage.Image.MediaId = uploadResult.media_id;
                     }
                     break;
+
                 case "SubClickRoot_Agent"://代理消息
                     {
                         //获取返回的XML
@@ -166,12 +167,14 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         }
                     }
                     break;
+
                 case "Member"://托管代理会员信息
                     {
                         //原始方法为：MessageAgent.RequestXml(this,agentUrl, agentToken, RequestDocument.ToString());//获取返回的XML
                         reponseMessage = this.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
                     }
                     break;
+
                 case "OAuth"://OAuth授权测试
                     {
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageNews>();
@@ -197,14 +200,14 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         {
                             Title = "OAuth2.0测试（带returnUrl），生产环境强烈推荐使用",
                             Description = "OAuth2.0测试（带returnUrl）",
-                            Url = "http://sdk.weixin.senparc.com/oauth2?returnUrl="+ returnUrl.UrlEncode(),
+                            Url = "http://sdk.weixin.senparc.com/oauth2?returnUrl=" + returnUrl.UrlEncode(),
                             PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
                         });
 
                         reponseMessage = strongResponseMessage;
-
                     }
                     break;
+
                 case "Description":
                     {
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
@@ -212,6 +215,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         reponseMessage = strongResponseMessage;
                     }
                     break;
+
                 case "SubClickRoot_PicPhotoOrAlbum":
                     {
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
@@ -219,6 +223,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         strongResponseMessage.Content = "您点击了【微信拍照】按钮。系统将会弹出拍照或者相册发图。";
                     }
                     break;
+
                 case "SubClickRoot_ScancodePush":
                     {
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
@@ -226,6 +231,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         strongResponseMessage.Content = "您点击了【微信扫码】按钮。";
                     }
                     break;
+
                 case "ConditionalMenu_Male":
                     {
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
@@ -233,6 +239,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         strongResponseMessage.Content = "您点击了个性化菜单按钮，您的微信性别设置为：男。";
                     }
                     break;
+
                 case "ConditionalMenu_Femle":
                     {
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
@@ -240,6 +247,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         strongResponseMessage.Content = "您点击了个性化菜单按钮，您的微信性别设置为：女。";
                     }
                     break;
+
                 default:
                     {
                         var strongResponseMessage = CreateResponseMessage<ResponseMessageText>();
@@ -280,7 +288,6 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                 var codeRecord =
                     ConfigHelper.CodeCollection.Values.FirstOrDefault(z => z.QrCodeTicket != null && z.QrCodeId == sceneId);
 
-
                 if (codeRecord != null)
                 {
                     //确认可以下载
@@ -290,8 +297,6 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
             }
 
             responseMessage.Content = responseMessage.Content ?? string.Format("通过扫描二维码进入，场景值：{0}", requestMessage.EventKey);
-
-
 
             return responseMessage;
         }
@@ -347,7 +352,6 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                     }
                 }
             }
-
 
             return responseMessage;
         }

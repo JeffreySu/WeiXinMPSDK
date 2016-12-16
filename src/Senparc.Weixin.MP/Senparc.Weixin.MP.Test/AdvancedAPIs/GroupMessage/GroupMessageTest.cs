@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
-using Senparc.Weixin.MP.AdvancedAPIs.Media;
-using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 
@@ -24,7 +17,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var mediaId = MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image, file).media_id;
 
-            var result = GroupMessageApi.SendGroupMessageByGroupId(accessToken, groupId, mediaId,GroupMessageType.image,false);
+            var result = GroupMessageApi.SendGroupMessageByGroupId(accessToken, groupId, mediaId, GroupMessageType.image, false);
 
             Assert.IsTrue(result.msg_id.Length > 0);
         }

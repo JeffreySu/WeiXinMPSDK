@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Senparc.Weixin.BrowserUtility;
+using System;
 using System.Web.Mvc;
-using Senparc.Weixin.BrowserUtility;
 
 namespace Senparc.Weixin.MP.MvcExtension
 {
@@ -22,16 +19,15 @@ namespace Senparc.Weixin.MP.MvcExtension
         public string RedirectUrl { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="message">错误提示信息</param>
         /// <param name="ignoreParameter">如果地址栏中提供改参数，则忽略浏览器判断，建议设置得复杂一些。如?abc=[任意字符]</param>
-        public WeixinInternalRequestAttribute(string message,string ignoreParameter = null)
+        public WeixinInternalRequestAttribute(string message, string ignoreParameter = null)
         {
             _message = message;
             _ignoreParameter = ignoreParameter;
         }
-
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {

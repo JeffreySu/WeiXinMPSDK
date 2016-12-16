@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：BaseGroupMessageDataByOpenId.cs
     文件功能描述：根据OpenId群发所需的数据
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -43,7 +42,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
 
     public class GroupMessageByOpenId_VoiceData : BaseGroupMessageDataByOpenId
     {
-        public GroupMessageByOpenId_MediaId voice { get; set; }  
+        public GroupMessageByOpenId_MediaId voice { get; set; }
     }
 
     public class GroupMessageByOpenId_ImageData : BaseGroupMessageDataByOpenId

@@ -1,20 +1,17 @@
-﻿using System;
+﻿using Moq;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Moq;
 
 namespace Senparc.Weixin.MP.Sample.Tests.Mock
 {
     public static class MvcMockHelpers
     {
-        public static HttpContextBase FakeHttpContext(Stream inputStream = null,string userAgent=null)
+        public static HttpContextBase FakeHttpContext(Stream inputStream = null, string userAgent = null)
         {
             var context = new Mock<HttpContextBase>();
             var request = new Mock<HttpRequestBase>();
@@ -42,19 +39,19 @@ namespace Senparc.Weixin.MP.Sample.Tests.Mock
 
         public static HttpContextBase FakeHttpContext(string url, Stream inputStream = null, string userAgent = null)
         {
-            HttpContextBase context = FakeHttpContext(inputStream,userAgent);
+            HttpContextBase context = FakeHttpContext(inputStream, userAgent);
             context.Request.SetupRequestUrl(url);
             return context;
         }
 
         public static void SetFakeControllerContext(this Controller controller, Stream inputStream = null, string userAgent = null)
         {
-            var httpContext = FakeHttpContext(inputStream,userAgent);
+            var httpContext = FakeHttpContext(inputStream, userAgent);
             ControllerContext context = new ControllerContext(new RequestContext(httpContext, new RouteData()), controller);
             controller.ControllerContext = context;
         }
 
-        static string GetUrlFileName(string url)
+        private static string GetUrlFileName(string url)
         {
             if (url.Contains("?"))
                 return url.Substring(0, url.IndexOf("?"));
@@ -62,7 +59,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Mock
                 return url;
         }
 
-        static NameValueCollection GetQueryStringParameters(string url)
+        private static NameValueCollection GetQueryStringParameters(string url)
         {
             if (url.Contains("?"))
             {

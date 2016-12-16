@@ -1,23 +1,19 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：WeixinAsyncController.cs
     文件功能描述：此Controller为异步Controller（Action），使用异步线程处理并发请求。
-    
-    
+
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Configuration;
-using System.Web.Mvc;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
+using System;
+using System.Threading.Tasks;
+using System.Web.Configuration;
+using System.Web.Mvc;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -36,7 +32,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
         }
 
-
         [HttpGet]
         [ActionName("Index")]
         public Task<ActionResult> Index(string signature, string timestamp, string nonce, string echostr)
@@ -54,7 +49,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                      }
                  }).ContinueWith<ActionResult>(task => Content(task.Result));
         }
-
 
         /// <summary>
         /// 最简化的处理流程
@@ -79,7 +73,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 messageHandler.Execute(); //执行微信处理过程
 
                 return new FixWeixinBugWeixinResult(messageHandler);
-
             }).ContinueWith<ActionResult>(task => task.Result);
         }
 

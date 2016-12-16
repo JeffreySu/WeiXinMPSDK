@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Senparc.Weixin.Entities;
+﻿using Senparc.Weixin.Entities;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -31,6 +31,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 分组ID
         /// </summary>
         public int group_id { get; set; }
+
         /// <summary>
         /// 分组名称
         /// </summary>
@@ -51,15 +52,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 分组ID
         /// </summary>
         public int group_id { get; set; }
+
         /// <summary>
         /// 分组名称
         /// </summary>
         public string group_name { get; set; }
+
         /// <summary>
         /// 商品ID集合
         /// </summary>
         public string[] product_list { get; set; }
     }
 }
-
-

@@ -4,7 +4,6 @@
     文件名：RequestMessageEvent_UserGetCard.cs
     文件功能描述：事件之领取卡券
 
-
     创建标识：Senparc - 20150211
 
     修改标识：Senparc - 20150303
@@ -53,7 +52,6 @@ namespace Senparc.Weixin.MP.Entities
         /// 领取场景值，用于领取渠道数据统计。可在生成二维码接口及添加JS API 接口中自定义该字段的整型值。
         /// </summary>
         public int OuterId { get; set; }
-
 
         /// <summary>
         /// 是否为删除后重新领取卡，1 代表是，0 代表否。

@@ -1,28 +1,22 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：WeixinController_OldPost.cs
     文件功能描述：用户发送消息后，微信平台自动Post一个请求到这里，并等待响应XML
-    
-    
+
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.MP.Sample.CommonService;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
-using Senparc.Weixin.MP.MessageHandlers;
-using Senparc.Weixin.MP.Sample.CommonService;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
     using Senparc.Weixin.MP.Entities;
-    using Senparc.Weixin.MP.Helpers;
+
     //using Senparc.Weixin.MP.Sample.Service;
     //using Senparc.Weixin.MP.Sample.CustomerMessageHandler;
 
@@ -203,7 +197,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         <ArticleCount>" + articleCount + @"</ArticleCount>
                         <Articles>
                         <item>
-                        <Title><![CDATA[" + title + @"]]></Title> 
+                        <Title><![CDATA[" + title + @"]]></Title>
                         <Description><![CDATA[" + description + @"]]></Description>
                         <PicUrl><![CDATA[" + picUrl + @"]]></PicUrl>
                         <Url><![CDATA[" + url + @"]]></Url>
@@ -220,10 +214,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         //...
                     }
                     break;
+
                 case "image":
                     //处理图片消息
                     //...
                     break;
+
                 case "event":
                     //这里会有更加复杂的事件类型处理
                     //...

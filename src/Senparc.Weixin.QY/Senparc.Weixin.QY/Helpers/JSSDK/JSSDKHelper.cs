@@ -1,18 +1,16 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：JSSDKHelper.cs
     文件功能描述：JSSDK生成签名的方法等
-    
-    
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections;
 using System.Text;
 
 namespace Senparc.Weixin.QY.Helpers
@@ -59,7 +57,5 @@ namespace Senparc.Weixin.QY.Helpers
              .Append("url=").Append(url.IndexOf("#") >= 0 ? url.Substring(0, url.IndexOf("#")) : url);
             return SHA1UtilHelper.GetSha1(sb.ToString()).ToLower();
         }
-
-
     }
 }

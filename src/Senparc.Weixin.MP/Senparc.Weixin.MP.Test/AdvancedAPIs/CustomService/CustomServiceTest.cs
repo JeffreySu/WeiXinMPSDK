@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.AdvancedAPIs.CustomService;
-using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using System;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
@@ -47,7 +42,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var result = CustomServiceApi.AddCustom(accessToken, "zcc@SenparcRobot", "zcc", _custonPassWord);
-            Assert.AreEqual(result.errcode,ReturnCode.请求成功);
+            Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
 
         [TestMethod]
@@ -115,7 +110,5 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var result = CustomServiceApi.GetWaitCase(accessToken);
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
         }
-
-        
     }
 }

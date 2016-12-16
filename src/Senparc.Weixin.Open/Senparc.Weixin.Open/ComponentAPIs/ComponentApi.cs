@@ -1,17 +1,17 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：OAuthJoinAPI.cs
     文件功能描述：公众号授权给第三方平台
-    
+
     修改标识：Senparc - 20160520
     修改描述：添加“确认授权”接口
-    
+
     创建标识：Senparc - 20150430
- 
+
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
- 
+
     修改标识：Senparc - 20161027
     修改描述：v2.3.2 修复：GetAuthorizerOption方法中option_name需要传入字符串。 感谢 @bingohanet
 
@@ -21,11 +21,11 @@
     官方文档：https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318587&lang=zh_CN
  */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.Entities;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.ComponentAPIs
 {
@@ -35,8 +35,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
     public static class ComponentApi
     {
         #region 同步请求
-        
-      
+
         /// <summary>
         /// 获取第三方平台access_token
         /// </summary>
@@ -82,6 +81,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         }
 
         /*此接口不提供异步方法*/
+
         /// <summary>
         /// 获取授权地址
         /// </summary>
@@ -148,7 +148,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 authorizer_appid = authorizerAppid,
                 funscope_category_id = funscopeCategoryId,
                 confirm_value = confirmValue
-
             };
 
             return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
@@ -277,10 +276,12 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             JsApiTicketResult result = Get.GetJson<JsApiTicketResult>(url);
             return result;
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
-         /// <summary>
+
+        /// <summary>
         /// 【异步方法】获取第三方平台access_token
         /// </summary>
         /// <param name="componentAppId">第三方平台appid</param>
@@ -299,7 +300,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 component_verify_ticket = componentVerifyTicket
             };
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<ComponentAccessTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ComponentAccessTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -321,11 +322,8 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 component_appid = componentAppId
             };
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<PreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<PreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
-
-
-      
 
         /// <summary>
         /// 【异步方法】使用授权码换取公众号的授权信息
@@ -372,7 +370,6 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 authorizer_appid = authorizerAppid,
                 funscope_category_id = funscopeCategoryId,
                 confirm_value = confirmValue
-
             };
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
@@ -427,7 +424,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
                 authorizer_appid = authorizerAppId,
             };
 
-            return await Senparc.Weixin .CommonAPIs.CommonJsonSend.SendAsync<GetAuthorizerInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAuthorizerInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -501,7 +498,9 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             JsApiTicketResult result = await Get.GetJsonAsync<JsApiTicketResult>(url);
             return result;
         }
-        #endregion
+
+        #endregion 异步请求
+
         //////////////////////////////////////////////////////////////////////////////////
     }
 }

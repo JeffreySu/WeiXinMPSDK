@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：PageManageResultJson.cs
     文件功能描述：页面管理返回结果
-    
-    
+
     创建标识：Senparc - 20150512
 ----------------------------------------------------------------*/
 
-using System.Collections.Generic;
 using Senparc.Weixin.Entities;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
 {
@@ -37,7 +36,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
     /// </summary>
     public class AddPageResultJson : BasePageResultJson
     {
-        
     }
 
     /// <summary>
@@ -45,7 +43,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
     /// </summary>
     public class UpdatePageResultJson : BasePageResultJson
     {
-
     }
 
     /// <summary>
@@ -65,6 +62,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         /// 页面基本信息
         /// </summary>
         public List<SearchPages_Data_Page> pages { get; set; }
+
         /// <summary>
         /// 商户名下的页面总数
         /// </summary>
@@ -77,22 +75,27 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.ShakeAround
         /// 页面的备注信息
         /// </summary>
         public string comment { get; set; }
+
         /// <summary>
         /// 在摇一摇页面展示的副标题
         /// </summary>
         public string description { get; set; }
+
         /// <summary>
         /// 在摇一摇页面展示的图片
         /// </summary>
         public string icon_url { get; set; }
+
         /// <summary>
         /// 摇周边页面唯一ID
         /// </summary>
         public long page_id { get; set; }
+
         /// <summary>
         /// 跳转链接
         /// </summary>
         public string page_url { get; set; }
+
         /// <summary>
         /// 在摇一摇页面展示的主标题
         /// </summary>

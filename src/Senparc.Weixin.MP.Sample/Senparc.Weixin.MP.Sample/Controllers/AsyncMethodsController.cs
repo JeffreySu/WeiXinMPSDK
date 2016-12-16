@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
+﻿using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
+using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
+using System;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
-using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
-using ZXing.Aztec.Internal;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -24,8 +18,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return View();
         }
 
-
-
         public Task<ActionResult> QrCodeTest()
         {
             return Task.Factory.StartNew<ActionResult>(() =>
@@ -37,7 +29,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var qrCodeUrl = QrCodeApi.GetShowQrCodeUrl(qrResult.ticket);
 
                 return Redirect(qrCodeUrl);
-
             }).ContinueWith<ActionResult>(task => task.Result);
         }
 
@@ -49,8 +40,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     ? CustomMessageHandler.TemplateMessageCollection[checkcode]
                     : null;
 
-
-
                 if (openId == null)
                 {
                     return Content("验证码已过期或不存在！请在“盛派网络小助手”公众号输入“tm”获取验证码。");
@@ -59,8 +48,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 {
                     CustomMessageHandler.TemplateMessageCollection.Remove(checkcode);
 
-
-                       var templateId = "cCh2CTTJIbVZkcycDF08n96FP-oBwyMVrro8C2nfVo4";
+                    var templateId = "cCh2CTTJIbVZkcycDF08n96FP-oBwyMVrro8C2nfVo4";
                     var testData = new //TestTemplateData()
                     {
                         first = new TemplateDataItem("【异步模板消息测试】"),

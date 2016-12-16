@@ -1,13 +1,12 @@
-﻿using System;
-using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.MessageHandlers;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
-    public class CancelMessageHandlers : MessageHandler<MessageContext<IRequestMessageBase,IResponseMessageBase>>
+    public class CancelMessageHandlers : MessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
     {
         public string RunStep { get; set; }
 
@@ -53,7 +52,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     [TestClass]
     public class MessageHandlers_CancelTest
     {
-        string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
+        private string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
     <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>

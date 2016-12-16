@@ -1,24 +1,16 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using System;
+using System.IO;
+using System.Threading;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Tests
 {
     [TestClass()]
     public class QrCodeApiTests : CommonApiTest
     {
-
         #region 异步方法
-
 
         [TestMethod()]
         public void CreateAsyncTest()
@@ -51,7 +43,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Tests
                     //下载并获得二维码
                     try
                     {
-
                         var fileName = Path.Combine(System.Environment.CurrentDirectory, "..\\", string.Format("qrcode-{0}.jpg", DateTime.Now.ToString("yyyy-MM-dd HH_mm_ss")));
                         using (FileStream fs = new FileStream(fileName, FileMode.OpenOrCreate))
                         {
@@ -67,11 +58,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Tests
                 }
 
                 base.AsyncThreadsCollection.Remove(Thread.CurrentThread);//必须要加
-
             });
         }
 
-        #endregion
-
+        #endregion 异步方法
     }
 }

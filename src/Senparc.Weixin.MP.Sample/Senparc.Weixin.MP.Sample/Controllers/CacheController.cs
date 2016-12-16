@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Web;
-using System.Web.Mvc;
-using Senparc.Weixin.Cache;
+﻿using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MessageQueue;
+using System;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Web.Mvc;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -29,17 +27,18 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     internal class TestContainerBag2 : BaseContainerBag
     {
         private DateTime _dateTime;
+
         public DateTime DateTime
         {
             get { return _dateTime; }
             set { this.SetContainerProperty(ref _dateTime, value); }
-
         }
     }
 
     internal class TestContainer1 : BaseContainer<TestContainerBag1>
     {
     }
+
     internal class TestContainer2 : BaseContainer<TestContainerBag2>
     {
     }
@@ -49,7 +48,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     /// </summary>
     public class CacheController : BaseController
     {
-
         public ActionResult Test()
         {
             return View();
@@ -74,7 +72,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
 
             sb.AppendFormat("Count1：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
-
 
             var bagKey = "Redis." + DateTime.Now.ToString();
             var bag = new TestContainerBag1()
@@ -152,7 +149,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "插入缓存时间",
                     !existed ? "不存在" : itemCollection[finalBagKey].CacheTime.ToLongTimeString(),
                     !existed ? "不存在" : itemCollection[finalBagKey].CacheTime.Ticks.ToString()); //应为当前加入到缓存的最新时间
-
             }
 
             sb.AppendFormat("<br />============<br /><br />");

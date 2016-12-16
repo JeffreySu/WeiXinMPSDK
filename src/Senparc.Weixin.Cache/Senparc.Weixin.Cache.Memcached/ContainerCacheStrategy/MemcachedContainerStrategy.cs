@@ -4,7 +4,6 @@
     文件名：MemcachedContainerStrategy.cs
     文件功能描述：Memcached 容器缓存策略。
 
-
     创建标识：Senparc - 20160308
 
     修改标识：Senparc - 20160808
@@ -18,17 +17,9 @@
 
     ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Containers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Enyim.Caching;
-using Enyim.Caching.Configuration;
-using Enyim.Caching.Memcached;
-using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache.Memcached
 {
@@ -39,7 +30,7 @@ namespace Senparc.Weixin.Cache.Memcached
         /// <summary>
         /// LocalCacheStrategy的构造函数
         /// </summary>
-        MemcachedContainerStrategy()
+        private MemcachedContainerStrategy()
         {
         }
 
@@ -52,17 +43,17 @@ namespace Senparc.Weixin.Cache.Memcached
             }
         }
 
-        class Nested
+        private class Nested
         {
             static Nested()
             {
             }
+
             //将instance设为一个初始化的LocalCacheStrategy新实例
             internal static readonly MemcachedContainerStrategy instance = new MemcachedContainerStrategy();
         }
 
-        #endregion
-
+        #endregion 单例
 
         #region IContainerCacheStrategy 成员
 
@@ -131,7 +122,6 @@ namespace Senparc.Weixin.Cache.Memcached
             }
         }
 
-        #endregion
-
+        #endregion IContainerCacheStrategy 成员
     }
 }

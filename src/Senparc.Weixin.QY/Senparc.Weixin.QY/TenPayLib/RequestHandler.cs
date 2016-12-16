@@ -1,19 +1,18 @@
 /*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
- 
+
     文件名：RequestHandler.cs
     文件功能描述：微信支付 请求处理
-    
-    
+
     创建标识：Senparc - 20150722
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.QY.Helpers;
 using System;
 using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-using Senparc.Weixin.QY.Helpers;
 
 namespace Senparc.Weixin.QY.TenPayLib
 {
@@ -29,19 +28,19 @@ namespace Senparc.Weixin.QY.TenPayLib
     'CreateSHA1Sign(signParams);创建签名SHA1
     'ParseXML();输出xml
     'GetDebugInfo(),获取debug信息
-     * 
+     *
      * ============================================================================
      */
+
     public class RequestHandler
     {
-
         public RequestHandler(HttpContext httpContext)
         {
             Parameters = new Hashtable();
 
             this.HttpContext = httpContext ?? HttpContext.Current;
-
         }
+
         /// <summary>
         /// 密钥
         /// </summary>
@@ -65,6 +64,7 @@ namespace Senparc.Weixin.QY.TenPayLib
         public virtual void Init()
         {
         }
+
         /// <summary>
         /// 获取debug信息
         /// </summary>
@@ -73,6 +73,7 @@ namespace Senparc.Weixin.QY.TenPayLib
         {
             return DebugInfo;
         }
+
         /// <summary>
         /// 获取密钥
         /// </summary>
@@ -81,6 +82,7 @@ namespace Senparc.Weixin.QY.TenPayLib
         {
             return Key;
         }
+
         /// <summary>
         /// 设置密钥
         /// </summary>
@@ -107,7 +109,6 @@ namespace Senparc.Weixin.QY.TenPayLib
                 Parameters.Add(parameter, parameterValue);
             }
         }
-
 
         /// <summary>
         /// 创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
@@ -152,20 +153,16 @@ namespace Senparc.Weixin.QY.TenPayLib
                 string v = (string)Parameters[k];
                 if (Regex.IsMatch(v, @"^[0-9.]$"))
                 {
-
                     sb.Append("<" + k + ">" + v + "</" + k + ">");
                 }
                 else
                 {
                     sb.Append("<" + k + "><![CDATA[" + v + "]]></" + k + ">");
                 }
-
             }
             sb.Append("</xml>");
             return sb.ToString();
         }
-
-
 
         /// <summary>
         /// 设置debug信息

@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-  
+
     文件名：Signature.cs
     文件功能描述：检测签名
-    
-    
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -21,10 +20,12 @@ namespace Senparc.Weixin.QY
         /// 在网站没有提供Token（或传入为null）的情况下的默认Token，建议在网站中进行配置。
         /// </summary>
         public const string Token = "weixin";
+
         /// <summary>
         /// 在网站没有提供EncodingAESKey（或传入为null）的情况下的默认Token，建议在网站中进行配置。
         /// </summary>
         public const string EncodingAESKey = "8eKaVU1Ei6M3c3kGY21LKNObvepQuIyQLCLKIt5Zc8u";
+
         /// <summary>
         /// 在网站没有提供CorpId（或传入为null）的情况下的默认Token，建议在网站中进行配置。
         /// </summary>

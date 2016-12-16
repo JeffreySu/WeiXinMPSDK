@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：MessageHandler.Event.cs
     文件功能描述：微信请求的集中处理方法：Message相关
-    
-    
+
     创建标识：Senparc - 20150924
-    
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.MP.Entities;
@@ -21,6 +20,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
         /// </summary>
         public abstract IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage);
+
         //{
         //    例如可以这样实现：
         //    var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
@@ -73,7 +73,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
-
         /// <summary>
         /// 视频类型请求
         /// </summary>
@@ -81,7 +80,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
-
 
         /// <summary>
         /// 链接消息类型请求
@@ -99,7 +97,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
-        #endregion
-
+        #endregion 接收消息方法
     }
 }

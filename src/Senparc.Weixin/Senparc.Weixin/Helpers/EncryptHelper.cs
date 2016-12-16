@@ -1,15 +1,12 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
- 
+
     创建标识：Senparc - 20160808
     创建描述：安全帮助类，提供SHA-1算法等
 ----------------------------------------------------------------*/
-using System;
-using System.Collections.Generic;
-using System.Linq;
+
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Helpers
 {

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using Enyim.Caching;
+﻿using Enyim.Caching;
 using Enyim.Caching.Configuration;
 using Enyim.Caching.Memcached;
+using System;
+using System.Collections.Generic;
+using System.Net;
 
 namespace Senparc.Weixin.Cache.Memcached
 {
@@ -45,16 +42,17 @@ namespace Senparc.Weixin.Cache.Memcached
             }
         }
 
-        class Nested
+        private class Nested
         {
             static Nested()
             {
             }
+
             //将instance设为一个初始化的LocalCacheStrategy新实例
             internal static readonly MemcachedObjectCacheStrategy instance = new MemcachedObjectCacheStrategy();
         }
 
-        #endregion
+        #endregion 单例
 
         #region 配置
 
@@ -124,8 +122,7 @@ namespace Senparc.Weixin.Cache.Memcached
             }
         }
 
-        #endregion
-
+        #endregion 配置
 
         #region IContainerCacheStrategy 成员
 
@@ -195,8 +192,7 @@ namespace Senparc.Weixin.Cache.Memcached
             _cache.Store(StoreMode.Set, cacheKey, value, DateTime.Now.AddDays(1));
         }
 
-        #endregion
-
+        #endregion IContainerCacheStrategy 成员
 
         public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {

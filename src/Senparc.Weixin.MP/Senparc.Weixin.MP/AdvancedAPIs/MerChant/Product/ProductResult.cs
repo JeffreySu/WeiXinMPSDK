@@ -4,20 +4,18 @@
     文件名：ProductResult.cs
     文件功能描述：商品结果
 
-
     创建标识：Senparc - 20150827
 
     修改标识：Senparc - 20160610
     修改描述：修改PropertyValue的id类型为int
-  
+
     修改标识：Senparc - 20160825
     修改描述;将Sku和Value中的id的int类型改为string类型
 
 ----------------------------------------------------------------*/
 
-
-using System.Collections.Generic;
 using Senparc.Weixin.Entities;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 {
@@ -74,6 +72,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// 子分类ID
         /// </summary>
         public int id { get; set; }
+
         /// <summary>
         /// 子分类名称
         /// </summary>
@@ -94,10 +93,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// sku id 将int类型修改为string类型
         /// </summary>
         public string id { get; set; }
+
         /// <summary>
         /// sku 名称
         /// </summary>
         public string name { get; set; }
+
         /// <summary>
         /// sku vid列表
         /// </summary>
@@ -111,6 +112,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// 将id的int类型改为string类型
         /// </summary>
         public string id { get; set; }
+
         /// <summary>
         /// vid名称
         /// </summary>
@@ -131,10 +133,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// 属性id
         /// </summary>
         public string id { get; set; }
+
         /// <summary>
         /// 属性名称
         /// </summary>
         public string name { get; set; }
+
         /// <summary>
         /// 属性值
         /// </summary>
@@ -147,6 +151,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// 属性值id
         /// </summary>
         public string id { get; set; }
+
         /// <summary>
         /// 属性值名称
         /// </summary>

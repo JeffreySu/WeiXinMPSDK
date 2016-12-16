@@ -1,24 +1,22 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：BaseContainerBag.cs
     文件功能描述：微信容器接口中的封装Value（如Ticket、AccessToken等数据集合）
-    
-    
+
     创建标识：Senparc - 20151003
 
     修改标识：Senparc - 20160717
     修改描述：v4.5.21 添加BaseContainerBag.Name属性
-    
+
 ----------------------------------------------------------------*/
 
-using System;
-using System.Runtime.CompilerServices;
-using Senparc.Weixin.Annotations;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MessageQueue;
+using System;
+using System.Runtime.CompilerServices;
 
 namespace Senparc.Weixin.Containers
 {
@@ -31,10 +29,12 @@ namespace Senparc.Weixin.Containers
         /// 用于标记，方便后台管理
         /// </summary>
         string Name { get; set; }
+
         /// <summary>
         /// 缓存键，形如：wx669ef95216eef885，最底层的Key，不考虑命名空间等
         /// </summary>
         string Key { get; set; }
+
         /// <summary>
         /// 当前对象被缓存的时间
         /// </summary>
@@ -81,7 +81,6 @@ namespace Senparc.Weixin.Containers
         /// </summary>
         public DateTime CacheTime { get; set; }
 
-
         private void BaseContainerBag_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             var containerBag = (IBaseContainerBag)sender;
@@ -102,7 +101,6 @@ namespace Senparc.Weixin.Containers
                 containerCacheStrategy.UpdateContainerBag(itemCacheKey, containerBag);
             });
         }
-
 
         /// <summary>
         /// 设置Container属性

@@ -1,28 +1,27 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：AppApi.cs
     文件功能描述：管理企业号应用接口
-    
-    
+
     创建标识：Senparc - 20150316
-  
+
     增加功能：获取应用概况列表
-    修改标识：Bemguin - 20150614 
- 
+    修改标识：Bemguin - 20150614
+
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
- 
+
 ----------------------------------------------------------------*/
 
 /*
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E4%BC%81%E4%B8%9A%E5%8F%B7%E5%BA%94%E7%94%A8
  */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.App;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
@@ -32,8 +31,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     public static class AppApi
     {
         #region 同步请求
-        
-        
+
         /// <summary>
         /// 获取企业号应用信息
         /// </summary>
@@ -75,9 +73,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return Get.GetJson<GetAppListResult>(url);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
+
         /// <summary>
         /// 【异步方法】获取企业号应用信息
         /// </summary>
@@ -119,6 +119,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return await Get.GetJsonAsync<GetAppListResult>(url);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

@@ -1,12 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Helpers;
+using Senparc.Weixin.Entities;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Helpers.Tests
 {
@@ -14,6 +10,7 @@ namespace Senparc.Weixin.Helpers.Tests
     public class SerializerHelperTests
     {
         #region 微信JSON的忽略null值测试
+
         [TestMethod()]
         public void GetJsonStringTest_Null()
         {
@@ -102,8 +99,8 @@ namespace Senparc.Weixin.Helpers.Tests
             public string B { get; set; }
             public RootClass RootClass { get; set; }
         }
-        #endregion
 
+        #endregion 微信JSON的忽略null值测试
 
         #region ExpandoObject类型转换测试
 
@@ -121,10 +118,8 @@ namespace Senparc.Weixin.Helpers.Tests
             Console.WriteLine(json);
 
             Console.WriteLine((DateTime.Now - dt1).TotalMilliseconds);
-
         }
 
-        #endregion
+        #endregion ExpandoObject类型转换测试
     }
-
 }

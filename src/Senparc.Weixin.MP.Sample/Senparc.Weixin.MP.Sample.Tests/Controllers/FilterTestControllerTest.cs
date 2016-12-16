@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using System.Web.Mvc.Async;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.Controllers;
 using Senparc.Weixin.MP.Sample.Tests.Mock;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using System.Web.Mvc.Async;
 
 namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 {
     [TestClass]
     public class FilterTestControllerTest
     {
-        FilterTestController target;
+        private FilterTestController target;
 
         private string weixinUserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) MicroMessenger Chrome/26.0.1410.64 Safari/537.31";
         private string outsideUserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31";
@@ -41,7 +40,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                 filter.OnActionExecuting(aec);
 
                 Assert.IsNull(aec.Result);
-                
+
                 //下面的测试和UserAgent无关，只要Index可以被调用，都会有同样的结果
                 ContentResult actual = target.Index();
                 Assert.IsTrue(actual.Content.Contains("访问正常"));

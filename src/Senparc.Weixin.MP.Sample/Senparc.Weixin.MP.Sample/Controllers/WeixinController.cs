@@ -4,15 +4,14 @@
     文件名：WeixinController.cs
     文件功能描述：用于处理微信回调的信息
 
-
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.MP.Entities.Request;
 using System;
 using System.IO;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using Senparc.Weixin.MP.Entities.Request;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -25,11 +24,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public static readonly string EncodingAESKey = WebConfigurationManager.AppSettings["WeixinEncodingAESKey"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string AppId = WebConfigurationManager.AppSettings["WeixinAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
-        readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
+        private readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
         public WeixinController()
         {
-
         }
 
         /// <summary>
@@ -80,7 +78,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //自定义MessageHandler，对微信请求的详细判断操作都在这里面。
             var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
 
-
             try
             {
                 //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
@@ -93,7 +90,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 /* 如果需要添加消息去重功能，只需打开OmitRepeatedMessage功能，SDK会自动处理。
                  * 收到重复消息通常是因为微信服务器没有及时收到响应，会持续发送2-5条不等的相同内容的RequestMessage*/
                 messageHandler.OmitRepeatedMessage = true;
-
 
                 //执行微信处理过程
                 messageHandler.Execute();
@@ -148,7 +144,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("");
             }
         }
-
 
         /// <summary>
         /// 最简化的处理流程（不加密）

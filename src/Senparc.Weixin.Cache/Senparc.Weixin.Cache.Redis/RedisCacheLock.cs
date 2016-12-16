@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Redlock.CSharp;
+﻿using Redlock.CSharp;
+using System;
 
 namespace Senparc.Weixin.Cache.Redis
 {
@@ -16,7 +11,7 @@ namespace Senparc.Weixin.Cache.Redis
         private RedisObjectCacheStrategy _redisStrategy;
 
         public RedisCacheLock(RedisObjectCacheStrategy strategy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
-            :base(strategy,resourceName,key,retryCount,retryDelay)
+            : base(strategy, resourceName, key, retryCount, retryDelay)
         {
             _redisStrategy = strategy;
         }

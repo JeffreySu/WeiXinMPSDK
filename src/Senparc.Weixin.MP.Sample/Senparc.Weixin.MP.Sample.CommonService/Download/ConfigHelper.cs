@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Xml.Linq;
 
@@ -80,7 +77,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
             doc.Save(GetDatabaseFilePath());
         }
 
-        public string Download(string version,bool isWebVersion)
+        public string Download(string version, bool isWebVersion)
         {
             lock (Lock)
             {
@@ -92,7 +89,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.Download
             //打包下载文件
             //FileStream fs = new FileStream(_context.Server.MapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin-v{0}.rar", version)), FileMode.Open);
             //return fs;
-            return _context.Server.MapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin{0}-v{1}.rar",isWebVersion?"-Web":"", version));
+            return _context.Server.MapPath(string.Format("~/App_Data/Document/Files/Senparc.Weixin{0}-v{1}.rar", isWebVersion ? "-Web" : "", version));
         }
     }
 }

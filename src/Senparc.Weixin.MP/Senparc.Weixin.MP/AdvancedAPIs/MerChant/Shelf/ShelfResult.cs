@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Senparc.Weixin.Entities;
+﻿using Senparc.Weixin.Entities;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 {
@@ -22,14 +22,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     public class ShelfItem
     {
         public ShelfInfo shelf_info { get; set; }
+
         /// <summary>
         /// 货架banner
         /// </summary>
         public string shelf_banner { get; set; }
+
         /// <summary>
         /// 货架名称
         /// </summary>
         public string shelf_name { get; set; }
+
         /// <summary>
         /// 货架ID
         /// </summary>
@@ -71,18 +74,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     public class GetByIdShelfResult : WxJsonResult
     {
         public ShelfInfo shelf_info { get; set; }
+
         /// <summary>
         /// 货架banner
         /// </summary>
         public string shelf_banner { get; set; }
+
         /// <summary>
         /// 货架名称
         /// </summary>
         public string shelf_name { get; set; }
+
         /// <summary>
         /// 货架ID
         /// </summary>
         public int shelf_id { get; set; }
     }
 }
-

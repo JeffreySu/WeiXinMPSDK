@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CommonApi.cs
     文件功能描述：通用基础API
-    
-    
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150703
     修改描述：添加userid转换成openid接口
 
@@ -28,10 +27,10 @@
     userid转换成openid API地址:http://qydev.weixin.qq.com/wiki/index.php?title=Userid%E4%B8%8Eopenid%E4%BA%92%E6%8D%A2%E6%8E%A5%E5%8F%A3
  */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.Containers;
 using Senparc.Weixin.QY.Entities;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.QY.CommonAPIs
 {
@@ -52,6 +51,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         public static AccessTokenResult GetToken(string corpId, string corpSecret)
         {
             #region 主动调用的频率限制
+
             /*
 当你获取到AccessToken时，你的应用就可以成功调用企业号后台所提供的各种接口以管理或访问企业号后台的资源或给企业号成员发消息。
 
@@ -72,7 +72,8 @@ namespace Senparc.Weixin.QY.CommonAPIs
 创建帐号频率
 每企业创建帐号数不可超过帐号上限数*3/月
 */
-            #endregion
+
+            #endregion 主动调用的频率限制
 
             var url = string.Format(API_URL + "/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
             var result = Get.GetJson<AccessTokenResult>(url);
@@ -170,9 +171,11 @@ namespace Senparc.Weixin.QY.CommonAPIs
 
             return CommonJsonSend.Send<ConvertToUserIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
+
         /// 【异步方法】<summary>
         /// 获取AccessToken
         /// </summary>
@@ -181,6 +184,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         public static async Task<AccessTokenResult> GetTokenAsync(string corpId, string corpSecret)
         {
             #region 主动调用的频率限制
+
             /*
 当你获取到AccessToken时，你的应用就可以成功调用企业号后台所提供的各种接口以管理或访问企业号后台的资源或给企业号成员发消息。
 
@@ -201,7 +205,8 @@ namespace Senparc.Weixin.QY.CommonAPIs
 创建帐号频率
 每企业创建帐号数不可超过帐号上限数*3/月
 */
-            #endregion
+
+            #endregion 主动调用的频率限制
 
             var url = string.Format(API_URL + "/gettoken?corpid={0}&corpsecret={1}", corpId.AsUrlData(), corpSecret.AsUrlData());
             var result = await Get.GetJsonAsync<AccessTokenResult>(url);
@@ -299,6 +304,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ConvertToUserIdResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

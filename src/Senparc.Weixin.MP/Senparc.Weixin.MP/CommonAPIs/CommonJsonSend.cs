@@ -1,27 +1,25 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CommonJsonSend.cs
     文件功能描述：向需要AccessToken的API发送消息的公共方法
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
- 
+
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
+using Senparc.Weixin.HttpUtility;
 using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Helpers;
-using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
@@ -60,7 +58,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
             //        }
             //        else if (retry40001ErrorTimes == 1)
             //        {
-                        
             //        }
 
             //    }
@@ -89,7 +86,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<T>(accessToken, urlFormat, data, sendType, timeOut, checkValidationResult, jsonSetting);
         }
 
-        #endregion
+        #endregion 同步请求
 
         #region 异步请求
 
@@ -129,6 +126,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 case CommonJsonSendType.GET:
                     return await Get.GetJsonAsync<T>(url);
+
                 case CommonJsonSendType.POST:
                     SerializerHelper serializerHelper = new SerializerHelper();
                     var jsonString = serializerHelper.GetJsonString(data, jsonSetting);
@@ -145,6 +143,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
             }
         }
 
-        #endregion
+        #endregion 异步请求
     }
 }

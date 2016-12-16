@@ -4,38 +4,32 @@
     文件名：OAuthContainer.cs
     文件功能描述：用户OAuth容器，用于自动管理OAuth的AccessToken，如果过期会重新获取
 
-
     创建标识：Senparc - 20160801
 
     修改标识：Senparc - 20160803
     修改描述：v14.2.3 使用ApiUtility.GetExpireTime()方法处理过期
- 
+
     修改标识：Senparc - 20160804
     修改描述：v14.2.4 增加TryGetOAuthAccessTokenAsync，GetOAuthAccessTokenAsync，GetOAuthAccessTokenResultAsync的异步方法
 
     修改标识：Senparc - 20160808
     修改描述：v14.3.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
-        
+
     修改标识：Senparc - 20160813
     修改描述：v14.3.4 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
-    
+
     修改标识：Senparc - 20160813
     修改描述：v14.3.6 完善getNewToken参数传递
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Senparc.Weixin.Cache;
+using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
-using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.Containers
 {
@@ -50,6 +44,7 @@ namespace Senparc.Weixin.MP.Containers
             get { return _appId; }
             set { base.SetContainerProperty(ref _appId, value); }
         }
+
         public string AppSecret
         {
             get { return _appSecret; }
@@ -84,10 +79,9 @@ namespace Senparc.Weixin.MP.Containers
     /// </summary>
     public class OAuthAccessTokenContainer : BaseContainer<OAuthAccessTokenBag>
     {
-        const string LockResourceName = "MP.OAuthAccessTokenContainer";
+        private const string LockResourceName = "MP.OAuthAccessTokenContainer";
 
         #region 同步方法
-
 
         //static Dictionary<string, JsApiTicketBag> JsApiTicketCollection =
         //   new Dictionary<string, JsApiTicketBag>(StringComparer.OrdinalIgnoreCase);
@@ -179,10 +173,12 @@ namespace Senparc.Weixin.MP.Containers
             return oAuthAccessTokenBag.OAuthAccessTokenResult;
         }
 
-        #endregion
-        #endregion
+        #endregion OAuthAccessToken
+
+        #endregion 同步方法
 
         #region 异步方法
+
         #region OAuthAccessToken
 
         /// <summary>
@@ -245,7 +241,8 @@ namespace Senparc.Weixin.MP.Containers
             return oAuthAccessTokenBag.OAuthAccessTokenResult;
         }
 
-        #endregion
-        #endregion
+        #endregion OAuthAccessToken
+
+        #endregion 异步方法
     }
 }

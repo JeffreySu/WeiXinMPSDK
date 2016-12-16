@@ -1,12 +1,12 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：KFResult.cs
     文件功能描述：客服返回结果
-    
-    
+
     创建标识：Senparc - 2015060309
 ----------------------------------------------------------------*/
+
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs.KF

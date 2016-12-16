@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：RequestMessageEvent_Location.cs
     文件功能描述：事件之获取用户地理位置
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -32,10 +31,12 @@ namespace Senparc.Weixin.MP.Entities
         /// 地理位置维度，事件类型为LOCATION的时存在
         /// </summary>
         public double Latitude { get; set; }
+
         /// <summary>
         /// 地理位置经度，事件类型为LOCATION的时存在
         /// </summary>
         public double Longitude { get; set; }
+
         /// <summary>
         /// 地理位置精度，事件类型为LOCATION的时存在
         /// </summary>

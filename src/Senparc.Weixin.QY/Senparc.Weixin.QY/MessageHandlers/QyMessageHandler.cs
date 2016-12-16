@@ -1,18 +1,17 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：QyMessageHandler.cs
     文件功能描述：企业号请求的集中处理方法
-    
-    
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150507
     修改描述：添加 事件 异步任务完成事件推送
- 
+
     修改标识：Senparc - 20160802
     修改描述：将其AgentID类型改为int?
 
@@ -21,14 +20,14 @@
 
 ----------------------------------------------------------------*/
 
-using System;
-using System.IO;
-using System.Xml.Linq;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MessageHandlers;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Helpers;
+using System;
+using System.IO;
+using System.Xml.Linq;
 using Tencent;
 
 namespace Senparc.Weixin.QY.MessageHandlers
@@ -39,6 +38,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
         /// 原始加密信息
         /// </summary>
         EncryptPostData EncryptPostData { get; set; }
+
         new IRequestMessageBase RequestMessage { get; set; }
         new IResponseMessageBase ResponseMessage { get; set; }
     }
@@ -147,8 +147,6 @@ namespace Senparc.Weixin.QY.MessageHandlers
             }
         }
 
-
-
         private PostModel _postModel;
 
         public QyMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
@@ -160,7 +158,6 @@ namespace Senparc.Weixin.QY.MessageHandlers
             : base(requestDocument, maxRecordCount, postModel)
         {
         }
-
 
         public override XDocument Init(XDocument postDataDocument, object postData)
         {
@@ -219,7 +216,6 @@ namespace Senparc.Weixin.QY.MessageHandlers
             return RequestMessage.CreateResponseMessage<TR>();
         }
 
-
         public override void Execute()
         {
             if (CancelExcute)
@@ -263,27 +259,34 @@ namespace Senparc.Weixin.QY.MessageHandlers
                             ResponseMessage = OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage);
                         }
                         break;
+
                     case RequestMsgType.Location:
                         ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
                         break;
+
                     case RequestMsgType.Image:
                         ResponseMessage = OnImageRequest(RequestMessage as RequestMessageImage);
                         break;
+
                     case RequestMsgType.Voice:
                         ResponseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
                         break;
+
                     case RequestMsgType.Video:
                         ResponseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
                         break;
+
                     case RequestMsgType.ShortVideo:
                         ResponseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
                         break;
+
                     case RequestMsgType.Event:
                         {
                             var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
                             ResponseMessage = OnTextOrEventRequest(requestMessageText) ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
                         }
                         break;
+
                     default:
                         throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
                 }
@@ -303,7 +306,6 @@ namespace Senparc.Weixin.QY.MessageHandlers
                 OnExecuted();
             }
         }
-
 
         public virtual void OnExecuting()
         {
@@ -381,7 +383,6 @@ namespace Senparc.Weixin.QY.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
-
         /// <summary>
         /// 视频类型请求
         /// </summary>
@@ -398,7 +399,6 @@ namespace Senparc.Weixin.QY.MessageHandlers
             return DefaultResponseMessage(requestMessage);
         }
 
-
         /// <summary>
         /// Event事件类型请求
         /// </summary>
@@ -411,42 +411,55 @@ namespace Senparc.Weixin.QY.MessageHandlers
                 case Event.CLICK://菜单点击
                     responseMessage = OnEvent_ClickRequest(RequestMessage as RequestMessageEvent_Click);
                     break;
+
                 case Event.VIEW://URL跳转（view视图）
                     responseMessage = OnEvent_ViewRequest(RequestMessage as RequestMessageEvent_View);
                     break;
+
                 case Event.PIC_PHOTO_OR_ALBUM://弹出拍照或者相册发图
                     responseMessage = OnEvent_PicPhotoOrAlbumRequest(RequestMessage as RequestMessageEvent_Pic_Photo_Or_Album);
                     break;
+
                 case Event.SCANCODE_PUSH://扫码推事件
                     responseMessage = OnEvent_ScancodePushRequest(RequestMessage as RequestMessageEvent_Scancode_Push);
                     break;
+
                 case Event.SCANCODE_WAITMSG://扫码推事件且弹出“消息接收中”提示框
                     responseMessage = OnEvent_ScancodeWaitmsgRequest(RequestMessage as RequestMessageEvent_Scancode_Waitmsg);
                     break;
+
                 case Event.LOCATION_SELECT://弹出地理位置选择器
                     responseMessage = OnEvent_LocationSelectRequest(RequestMessage as RequestMessageEvent_Location_Select);
                     break;
+
                 case Event.PIC_WEIXIN://弹出微信相册发图器
                     responseMessage = OnEvent_PicWeixinRequest(RequestMessage as RequestMessageEvent_Pic_Weixin);
                     break;
+
                 case Event.PIC_SYSPHOTO://弹出系统拍照发图
                     responseMessage = OnEvent_PicSysphotoRequest(RequestMessage as RequestMessageEvent_Pic_Sysphoto);
                     break;
+
                 case Event.subscribe://订阅
                     responseMessage = OnEvent_SubscribeRequest(RequestMessage as RequestMessageEvent_Subscribe);
                     break;
+
                 case Event.unsubscribe://取消订阅
                     responseMessage = OnEvent_UnSubscribeRequest(RequestMessage as RequestMessageEvent_UnSubscribe);
                     break;
+
                 case Event.LOCATION://上报地理位置事件
                     responseMessage = OnEvent_LocationRequest(RequestMessage as RequestMessageEvent_Location);
                     break;
+
                 case Event.ENTER_AGENT://用户进入应用的事件推送(enter_agent)
                     responseMessage = OnEvent_EnterAgentRequest(RequestMessage as RequestMessageEvent_Enter_Agent);
                     break;
+
                 case Event.BATCH_JOB_RESULT://异步任务完成事件推送(batch_job_result)
                     responseMessage = OnEvent_BatchJobResultRequest(RequestMessage as RequestMessageEvent_Batch_Job_Result);
                     break;
+
                 default:
                     throw new UnknownRequestMsgTypeException("未知的Event下属请求信息", null);
             }
@@ -454,7 +467,6 @@ namespace Senparc.Weixin.QY.MessageHandlers
         }
 
         #region Event 下属分类
-
 
         /// <summary>
         /// Event事件类型请求之CLICK
@@ -572,27 +584,34 @@ namespace Senparc.Weixin.QY.MessageHandlers
         {
             return DefaultResponseMessage(requestMessage);
         }
-        #endregion
 
+        #endregion Event 下属分类
 
-        #endregion
+        #endregion 接收消息方法
 
         #region 第三方回调事件
+
         public const string ThirdPartyEventSuccessResult = "success";
+
         private string OnThirdPartyEvent(IThirdPartyInfoBase thirdPartyInfo)
         {
             switch (thirdPartyInfo.InfoType)
             {
                 case ThirdPartyInfo.SUITE_TICKET:
                     return OnThirdPartyEvent_Suite_Ticket((RequestMessageInfo_Suite_Ticket)thirdPartyInfo);
+
                 case ThirdPartyInfo.CHANGE_AUTH:
                     return OnThirdPartyEvent_Change_Auth((RequestMessageInfo_Change_Auth)thirdPartyInfo);
+
                 case ThirdPartyInfo.CANCEL_AUTH:
                     return OnThirdPartyEvent_Cancel_Auth((RequestMessageInfo_Cancel_Auth)thirdPartyInfo);
+
                 case ThirdPartyInfo.CREATE_AUTH:
                     return OnThirdPartyEvent_Create_Auth((RequestMessageInfo_Create_Auth)thirdPartyInfo);
+
                 case ThirdPartyInfo.CONTACT_SYNC:
                     return OnThirdPartyEvent_Contact_Sync((RequestMessageInfo_Contact_Sync)thirdPartyInfo);
+
                 default:
                     throw new UnknownRequestMsgTypeException("未知的InfoType请求类型", null);
             }
@@ -623,6 +642,6 @@ namespace Senparc.Weixin.QY.MessageHandlers
             return ThirdPartyEventSuccessResult;
         }
 
-        #endregion
+        #endregion 第三方回调事件
     }
 }

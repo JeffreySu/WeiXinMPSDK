@@ -4,7 +4,6 @@
     文件名：ProviderTokenContainer.cs
     文件功能描述：通用接口ProviderToken容器，用于自动管理ProviderToken，如果过期会重新获取
 
-
     创建标识：Senparc - 20150313
 
     修改标识：Senparc - 20150313
@@ -21,13 +20,13 @@
 
     修改标识：Senparc - 20160717
     修改描述：v3.3.8 添加注册过程中的Name参数
-    
+
     修改标识：Senparc - 20160803
     修改描述：v4.1.2 使用ApiUtility.GetExpireTime()方法处理过期
- 
+
     修改标识：Senparc - 20160804
     修改描述：v4.1.3 增加TryGetTokenAsync，GetTokenAsync，GetTokenResultAsync的异步方法
-    
+
     修改标识：Senparc - 20160813
     修改描述：v4.1.5 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
 
@@ -39,16 +38,14 @@
 
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
-using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.QY.Containers
 {
@@ -66,6 +63,7 @@ namespace Senparc.Weixin.QY.Containers
             get { return _corpId; }
             set { base.SetContainerProperty(ref _corpId, value); }
         }
+
         /// <summary>
         /// CorpSecret
         /// </summary>
@@ -74,6 +72,7 @@ namespace Senparc.Weixin.QY.Containers
             get { return _corpSecret; }
             set { base.SetContainerProperty(ref _corpSecret, value); }
         }
+
         /// <summary>
         /// 过期时间
         /// </summary>
@@ -82,6 +81,7 @@ namespace Senparc.Weixin.QY.Containers
             get { return _expireTime; }
             set { base.SetContainerProperty(ref _expireTime, value); }
         }
+
         /// <summary>
         /// ProviderTokenResult
         /// </summary>
@@ -109,7 +109,6 @@ namespace Senparc.Weixin.QY.Containers
     {
         private const string UN_REGISTER_ALERT = "此CorpId尚未注册，ProviderTokenContainer.Register完成注册（全局执行一次即可）！";
 
-
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
         /// </summary>
@@ -120,6 +119,7 @@ namespace Senparc.Weixin.QY.Containers
         {
             return corpId + corpSecret;
         }
+
         public static void Register(string corpId, string corpSecret, string name = null)
         {
             RegisterFunc = () =>
@@ -134,13 +134,12 @@ namespace Senparc.Weixin.QY.Containers
                         ExpireTime = DateTime.MinValue,
                         ProviderTokenResult = new ProviderTokenResult()
                     };
-                    Update(BuildingKey(corpId,corpSecret), bag);
+                    Update(BuildingKey(corpId, corpSecret), bag);
                     return bag;
                 }
             };
             RegisterFunc();
         }
-
 
         #region 同步方法
 
@@ -157,7 +156,7 @@ namespace Senparc.Weixin.QY.Containers
             {
                 Register(corpId, corpSecret);
             }
-            return GetToken(corpId,corpSecret,getNewToken);
+            return GetToken(corpId, corpSecret, getNewToken);
         }
 
         /// <summary>
@@ -166,9 +165,9 @@ namespace Senparc.Weixin.QY.Containers
         /// <param name="corpId"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static string GetToken(string corpId,string corpSecret,bool getNewToken = false)
+        public static string GetToken(string corpId, string corpSecret, bool getNewToken = false)
         {
-            return GetTokenResult(corpId,corpSecret,getNewToken).provider_access_token;
+            return GetTokenResult(corpId, corpSecret, getNewToken).provider_access_token;
         }
 
         /// <summary>
@@ -177,7 +176,7 @@ namespace Senparc.Weixin.QY.Containers
         /// <param name="corpId"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static ProviderTokenResult GetTokenResult(string corpId,string corpSecret, bool getNewToken = false)
+        public static ProviderTokenResult GetTokenResult(string corpId, string corpSecret, bool getNewToken = false)
         {
             if (!CheckRegistered(BuildingKey(corpId, corpSecret)))
             {
@@ -208,9 +207,11 @@ namespace Senparc.Weixin.QY.Containers
         //{
         //    return Cache.CheckExisted(corpId);
         //}
-        #endregion
+
+        #endregion 同步方法
 
         #region 异步方法
+
         /// <summary>
         /// 【异步方法】使用完整的应用凭证获取Token，如果不存在将自动注册
         /// </summary>
@@ -224,7 +225,7 @@ namespace Senparc.Weixin.QY.Containers
             {
                 Register(corpId, corpSecret);
             }
-            return await GetTokenAsync(corpId,corpSecret);
+            return await GetTokenAsync(corpId, corpSecret);
         }
 
         /// <summary>
@@ -233,9 +234,9 @@ namespace Senparc.Weixin.QY.Containers
         /// <param name="corpId"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static async Task<string> GetTokenAsync(string corpId,string corpSecret, bool getNewToken = false)
+        public static async Task<string> GetTokenAsync(string corpId, string corpSecret, bool getNewToken = false)
         {
-            var result = await GetTokenResultAsync(corpId,corpSecret,getNewToken);
+            var result = await GetTokenResultAsync(corpId, corpSecret, getNewToken);
             return result.provider_access_token;
         }
 
@@ -245,7 +246,7 @@ namespace Senparc.Weixin.QY.Containers
         /// <param name="corpId"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static async Task<ProviderTokenResult> GetTokenResultAsync(string corpId,string corpSecret,bool getNewToken = false)
+        public static async Task<ProviderTokenResult> GetTokenResultAsync(string corpId, string corpSecret, bool getNewToken = false)
         {
             if (!CheckRegistered(BuildingKey(corpId, corpSecret)))
             {
@@ -268,6 +269,7 @@ namespace Senparc.Weixin.QY.Containers
             }
             return providerTokenBag.ProviderTokenResult;
         }
-        #endregion
+
+        #endregion 异步方法
     }
 }

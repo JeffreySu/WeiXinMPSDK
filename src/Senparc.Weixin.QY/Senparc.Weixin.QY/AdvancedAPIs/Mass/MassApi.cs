@@ -1,18 +1,17 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：MailListApi.cs
     文件功能描述：发送消息接口
-    
-    
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
- 
+
     修改标识：Senparc - 20150313
     修改描述：开放代理请求超时时间
- 
+
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
 ----------------------------------------------------------------*/
@@ -21,12 +20,12 @@
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF
  */
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Senparc.Weixin.QY.AdvancedAPIs.Mass;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Entities;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
@@ -38,8 +37,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         private const string URL_FORMAT = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={0}";
 
         #region 同步请求
-        
-        
+
         /// <summary>
         /// 发送文本信息
         /// </summary>
@@ -218,12 +216,12 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 news = new
                 {
                     articles = articles.Select(z => new
-                                {
-                                    title = z.Title,
-                                    description = z.Description,
-                                    url = z.Url,
-                                    picurl = z.PicUrl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
-                                }).ToList()
+                    {
+                        title = z.Title,
+                        description = z.Description,
+                        url = z.Url,
+                        picurl = z.PicUrl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
+                    }).ToList()
                 }
             };
             return CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
@@ -268,9 +266,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             };
             return CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
+
         /// <summary>
         /// 【异步方法】发送文本信息
         /// </summary>
@@ -298,7 +298,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 },
                 safe = safe
             };
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -449,12 +449,12 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 news = new
                 {
                     articles = articles.Select(z => new
-                                {
-                                    title = z.Title,
-                                    description = z.Description,
-                                    url = z.Url,
-                                    picurl = z.PicUrl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
-                                }).ToList()
+                    {
+                        title = z.Title,
+                        description = z.Description,
+                        url = z.Url,
+                        picurl = z.PicUrl//图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
+                    }).ToList()
                 }
             };
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
@@ -499,6 +499,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             };
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

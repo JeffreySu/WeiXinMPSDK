@@ -1,32 +1,31 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：StoreApi.cs
     文件功能描述：门店管理接口
-    
-    
+
     创建标识：Senparc - 20150513
-    
+
     修改标识：Senparc - 201501018
     修改描述：修改UploadImage()方法bug
 
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
- 
+
     修改标识：Senparc - 20160812
     修改描述：修改获取门店类目接口地址
 ----------------------------------------------------------------*/
 
-/* 
+/*
    开发文档下载地址：https://mp.weixin.qq.com/zh_CN/htmledition/comm_htmledition/res/store_manage/store_manage_file.zip
 */
 
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs.Poi;
 using Senparc.Weixin.MP.CommonAPIs;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -49,8 +48,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         终决定是否生效（有可能更新字段不被采纳）；
      */
 
-    #endregion
-
+    #endregion 商户在使用门店管理接口时需注意以下几个问题：
 
     /// <summary>
     /// 门店管理接口
@@ -58,8 +56,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public static class PoiApi
     {
         #region 同步请求
-        
-     
+
         /// <summary>
         /// 上传图片
         /// </summary>
@@ -76,7 +73,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var fileDictionary = new Dictionary<string, string>();
                 fileDictionary["media"] = file;
                 return Post.PostFileGetJson<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -95,7 +91,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token={0}", accessToken.AsUrlData());
 
                 return CommonJsonSend.Send<WxJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -118,7 +113,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<GetStoreResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -143,7 +137,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<GetStoreListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -166,7 +159,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -187,7 +179,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/updatepoi?access_token={0}", accessToken.AsUrlData());
 
                 return CommonJsonSend.Send<WxJsonResult>(null, url, updateStoreData, CommonJsonSendType.POST, timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -203,13 +194,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getwxcategory?access_token={0}", accessToken.AsUrlData());
 
                 return CommonJsonSend.Send<GetCategoryResult>(null, url, null, CommonJsonSendType.GET);
-
             }, accessTokenOrAppId);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
-         /// <summary>
+
+        /// <summary>
         /// 【异步方法】上传图片
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
@@ -218,15 +210,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<UploadImageResultJson> UploadImageAsync(string accessTokenOrAppId, string file, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}", accessToken.AsUrlData());
 
-                var fileDictionary = new Dictionary<string, string>();
-                fileDictionary["media"] = file;
-                return Post.PostFileGetJsonAsync<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
-
-            }, accessTokenOrAppId);
+               var fileDictionary = new Dictionary<string, string>();
+               fileDictionary["media"] = file;
+               return Post.PostFileGetJsonAsync<UploadImageResultJson>(url, null, fileDictionary, null, timeOut: timeOut);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -239,13 +230,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<WxJsonResult> AddPoiAsync(string accessTokenOrAppId, CreateStoreData createStoreData,
             int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token={0}", accessToken.AsUrlData());
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut);
-
-            }, accessTokenOrAppId);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, createStoreData, CommonJsonSendType.POST, timeOut);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -257,18 +247,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetStoreResultJson> GetPoiAsync(string accessTokenOrAppId, string poiId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token={0}", accessToken.AsUrlData());
 
-                var data = new
-                {
-                    poi_id = poiId
-                };
+               var data = new
+               {
+                   poi_id = poiId
+               };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetStoreResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
-            }, accessTokenOrAppId);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetStoreResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -281,19 +270,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetStoreListResultJson> GetPoiListAsync(string accessTokenOrAppId, int begin, int limit = 20, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/getpoilist?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/getpoilist?access_token={0}", accessToken.AsUrlData());
 
-                var data = new
-                {
-                    begin = begin,
-                    limit = limit
-                };
+               var data = new
+               {
+                   begin = begin,
+                   limit = limit
+               };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetStoreListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
-
-            }, accessTokenOrAppId);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetStoreListResultJson>(null, url, data, CommonJsonSendType.POST, timeOut);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -305,18 +293,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> DeletePoiAsync(string accessTokenOrAppId, string poiId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/delpoi?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/delpoi?access_token={0}", accessToken.AsUrlData());
 
-                var data = new
-                {
-                    poi_id = poiId
-                };
+               var data = new
+               {
+                   poi_id = poiId
+               };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-
-            }, accessTokenOrAppId);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -331,13 +318,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> UpdatePoiAsync(string accessTokenOrAppId, UpdateStoreData updateStoreData, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/updatepoi?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var url = string.Format("https://api.weixin.qq.com/cgi-bin/poi/updatepoi?access_token={0}", accessToken.AsUrlData());
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, updateStoreData, CommonJsonSendType.POST, timeOut);
-
-            }, accessTokenOrAppId);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, url, updateStoreData, CommonJsonSendType.POST, timeOut);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -347,14 +333,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetCategoryResult> GetCategoryAsync(string accessTokenOrAppId)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getwxcategory?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var url = string.Format("http://api.weixin.qq.com/cgi-bin/poi/getwxcategory?access_token={0}", accessToken.AsUrlData());
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCategoryResult>(null, url, null, CommonJsonSendType.GET);
-
-            }, accessTokenOrAppId);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCategoryResult>(null, url, null, CommonJsonSendType.GET);
+           }, accessTokenOrAppId);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

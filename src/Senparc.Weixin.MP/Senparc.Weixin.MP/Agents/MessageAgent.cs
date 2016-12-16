@@ -1,26 +1,25 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：MessageAgent.cs
     文件功能描述：代理请求
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
- 
+
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
 ----------------------------------------------------------------*/
 
-using System;
-using System.IO;
-using System.Xml.Linq;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
+using System;
+using System.IO;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.Agent
 {
@@ -30,7 +29,7 @@ namespace Senparc.Weixin.MP.Agent
     ///       因此建议准备至少2-3秒的延迟时间的准备，
     ///       如果增加2-3秒后远远超过5秒的微信服务器等待时间，
     ///       需要慎重使用，否则可能导致用户无法收到消息。
-    /// 
+    ///
     /// 此外这个类中的方法也可以用于模拟服务器发送消息到自己的服务器进行测试。
     /// </summary>
     public static class MessageAgent

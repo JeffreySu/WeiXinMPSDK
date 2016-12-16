@@ -1,28 +1,24 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：MessageHandler.cs
     文件功能描述：微信请求的集中处理方法
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150327
     修改描述：添加接收小视频消息方法
 
     修改标识：Senparc - 20151205
     修改描述：v13.4.5 提供OmitRepeatedMessageFunc方法增强消息去重灵活性
-  
+
     修改标识：Senparc - 20160722
     修改描述： 记录上下文，此处修改
 ----------------------------------------------------------------*/
 
-using System;
-using System.IO;
-using System.Xml.Linq;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MessageHandlers;
@@ -30,6 +26,9 @@ using Senparc.Weixin.MP.AppStore;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Helpers;
+using System;
+using System.IO;
+using System.Xml.Linq;
 using Tencent;
 
 namespace Senparc.Weixin.MP.MessageHandlers
@@ -46,8 +45,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 上下文（仅限于当前MessageHandler基类内）
         /// </summary>
         public static WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>();
-        //TODO:这里如果用一个MP自定义的WeixinContext，继承WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>，在下面的WeixinContext中将无法转换成基类要求的类型
 
+        //TODO:这里如果用一个MP自定义的WeixinContext，继承WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>，在下面的WeixinContext中将无法转换成基类要求的类型
 
         /// <summary>
         /// 全局消息上下文
@@ -110,7 +109,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
             }
         }
 
-
         /// <summary>
         /// 请求实体
         /// </summary>
@@ -159,7 +157,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// 微微嗨开发者信息
         /// </summary>
         public DeveloperInfo DeveloperInfo { get; set; }
-
 
         /// <summary>
         /// 动态去重判断委托，仅当返回值为false时，不使用消息去重功能
@@ -210,7 +207,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
             base.CommonInitialize(postDataDocument, maxRecordCount, postModel);
         }
 
-
         public override XDocument Init(XDocument postDataDocument, object postData = null)
         {
             //进行加密判断并处理
@@ -251,7 +247,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
             {
                 RequestMessage.Encrypt = postDataDocument.Root.Element("Encrypt").Value;
             }
-
 
             //记录上下文
             if (WeixinContextGlobal.UseWeixinContext)
@@ -309,31 +304,39 @@ namespace Senparc.Weixin.MP.MessageHandlers
                             ResponseMessage = OnTextOrEventRequest(requestMessage) ?? OnTextRequest(requestMessage);
                         }
                         break;
+
                     case RequestMsgType.Location:
                         ResponseMessage = OnLocationRequest(RequestMessage as RequestMessageLocation);
                         break;
+
                     case RequestMsgType.Image:
                         ResponseMessage = OnImageRequest(RequestMessage as RequestMessageImage);
                         break;
+
                     case RequestMsgType.Voice:
                         ResponseMessage = OnVoiceRequest(RequestMessage as RequestMessageVoice);
                         break;
+
                     case RequestMsgType.Video:
                         ResponseMessage = OnVideoRequest(RequestMessage as RequestMessageVideo);
                         break;
+
                     case RequestMsgType.Link:
                         ResponseMessage = OnLinkRequest(RequestMessage as RequestMessageLink);
                         break;
+
                     case RequestMsgType.ShortVideo:
                         ResponseMessage = OnShortVideoRequest(RequestMessage as RequestMessageShortVideo);
                         break;
+
                     case RequestMsgType.Event:
                         {
                             var requestMessageText = (RequestMessage as IRequestMessageEventBase).ConvertToRequestMessageText();
-                            ResponseMessage = OnTextOrEventRequest(requestMessageText) 
+                            ResponseMessage = OnTextOrEventRequest(requestMessageText)
                                                 ?? OnEventRequest(RequestMessage as IRequestMessageEventBase);
                         }
                         break;
+
                     default:
                         throw new UnknownRequestMsgTypeException("未知的MsgType请求类型", null);
                 }
@@ -358,7 +361,7 @@ namespace Senparc.Weixin.MP.MessageHandlers
         public virtual void OnExecuting()
         {
             //消息去重
-            if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true) 
+            if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true)
                 && OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1
                 //&& !(RequestMessage is RequestMessageEvent_Merchant_Order)批量订单的MsgId可能会相同
                 )
@@ -367,8 +370,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                 if ((lastMessage.MsgId != 0 && lastMessage.MsgId == RequestMessage.MsgId)//使用MsgId去重
                     ||
                     //使用CreateTime去重（OpenId对象已经是同一个）
-                    ((lastMessage.MsgId == RequestMessage.MsgId 
-                        && lastMessage.CreateTime == RequestMessage.CreateTime 
+                    ((lastMessage.MsgId == RequestMessage.MsgId
+                        && lastMessage.CreateTime == RequestMessage.CreateTime
                         && lastMessage.MsgType == RequestMessage.MsgType))
                     )
                 {
@@ -383,7 +386,6 @@ namespace Senparc.Weixin.MP.MessageHandlers
             if (DeveloperInfo != null || CurrentMessageContext.AppStoreState == AppStoreState.Enter)
             {
                 //优先请求云端应用商店资源
-
             }
         }
 
@@ -391,6 +393,5 @@ namespace Senparc.Weixin.MP.MessageHandlers
         {
             base.OnExecuted();
         }
-
     }
 }

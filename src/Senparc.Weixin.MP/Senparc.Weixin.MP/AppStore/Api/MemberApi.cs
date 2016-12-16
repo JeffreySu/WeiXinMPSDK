@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-  
+
     文件名：MemberApi.cs
     文件功能描述：获取用户信息Api
-    
-    
+
     创建标识：Senparc - 20150319
 ----------------------------------------------------------------*/
 
-using System.Collections.Generic;
 using Senparc.Weixin.HttpUtility;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AppStore.Api
 {

@@ -4,26 +4,21 @@
     文件名：RedisContainerCacheStrategy.cs
     文件功能描述：Redis 容器缓存策略。
 
-
     创建标识：Senparc - 20160308
 
     修改标识：Senparc - 20160808
     修改描述：v0.2.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
-    
+
     修改标识：Senparc - 20160812
     修改描述：v0.2.1  解决Container无法注册的问题
 
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Redlock.CSharp;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.MessageQueue;
 using StackExchange.Redis;
-
+using System;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.Cache.Redis
 {
@@ -32,8 +27,6 @@ namespace Senparc.Weixin.Cache.Redis
     /// </summary>
     public sealed class RedisContainerCacheStrategy : RedisObjectCacheStrategy, IContainerCacheStrategy
     {
-
-
         #region 单例
 
         //静态SearchCache
@@ -45,16 +38,17 @@ namespace Senparc.Weixin.Cache.Redis
             }
         }
 
-        class Nested
+        private class Nested
         {
             static Nested()
             {
             }
+
             //将instance设为一个初始化的BaseCacheStrategy新实例
             internal static readonly RedisContainerCacheStrategy instance = new RedisContainerCacheStrategy();
         }
 
-        #endregion
+        #endregion 单例
 
         static RedisContainerCacheStrategy()
         {
@@ -79,7 +73,7 @@ namespace Senparc.Weixin.Cache.Redis
         //public string CacheSetKey { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="key"></param>
         /// <param name="isFullKey">是否已经是完整的Key</param>
@@ -91,7 +85,7 @@ namespace Senparc.Weixin.Cache.Redis
 
         public IBaseContainerBag Get(string key, bool isFullKey = false)
         {
-            var value =base.Get(key, isFullKey);
+            var value = base.Get(key, isFullKey);
             if (value == null)
             {
                 return null;
@@ -104,7 +98,7 @@ namespace Senparc.Weixin.Cache.Redis
         {
             #region 旧方法（没有使用Hash之前）
 
-            //var itemCacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag), "*");   
+            //var itemCacheKey = ContainerHelper.GetItemCacheKey(typeof(TBag), "*");
             ////var keyPattern = string.Format("*{0}", itemCacheKey);
             //var keyPattern = GetFinalKey(itemCacheKey);
 
@@ -119,12 +113,11 @@ namespace Senparc.Weixin.Cache.Redis
             //    }
             //    catch (Exception)
             //    {
-
             //    }
 
             //}
 
-            #endregion
+            #endregion 旧方法（没有使用Hash之前）
 
             var key = ContainerHelper.GetItemCacheKey(typeof(TBag), "");
             key = key.Substring(0, key.Length - 1);//去掉:号
@@ -146,7 +139,6 @@ namespace Senparc.Weixin.Cache.Redis
             //尽量不要用此方法！
             return GetAll<IBaseContainerBag>();
         }
-
 
         public long GetCount()
         {
@@ -176,7 +168,7 @@ namespace Senparc.Weixin.Cache.Redis
             }
         }
 
-        #endregion
+        #endregion 实现 IContainerCacheStrategy 接口
 
         public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {

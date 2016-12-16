@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Configuration;
-using System.Web.Mvc;
-using System.Xml;
-using System.Xml.Linq;
-using Senparc.Weixin.MP.MessageHandlers;
+﻿using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler;
-using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
-using Senparc.Weixin.Open;
-using Senparc.Weixin.Open.MessageHandlers;
 using Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
 using Senparc.Weixin.Open.Entities.Request;
+using System;
+using System.IO;
+using System.Web.Configuration;
+using System.Web.Mvc;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {

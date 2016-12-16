@@ -1,9 +1,8 @@
-﻿using System;
-using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.MessageHandlers;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.Test.MessageHandlers
 {
@@ -44,7 +43,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
     [TestClass]
     public class MessageHandlers_OmitRepeatMessage
     {
-        string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
+        private string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
     <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
@@ -100,7 +99,6 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
                 messageHandler.Execute();
                 Assert.IsNotNull(messageHandler.ResponseMessage);
                 Assert.AreEqual("Su", (messageHandler.ResponseMessage as ResponseMessageText).Content);
-
             }
         }
     }

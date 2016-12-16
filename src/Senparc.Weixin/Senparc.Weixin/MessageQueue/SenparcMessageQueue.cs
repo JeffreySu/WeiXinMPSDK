@@ -4,7 +4,6 @@
     文件名：SenparcMessageQueue.cs
     文件功能描述：SenparcMessageQueue消息列队
 
-
     创建标识：Senparc - 20151226
 
     修改标识：Senparc - 20160210
@@ -15,9 +14,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MessageQueue
 {
@@ -35,6 +31,7 @@ namespace Senparc.Weixin.MessageQueue
         /// 同步执行锁
         /// </summary>
         private static object MessageQueueSyncLock = new object();
+
         /// <summary>
         /// 立即同步所有缓存执行锁（给OperateQueue()使用）
         /// </summary>
@@ -155,6 +152,5 @@ namespace Senparc.Weixin.MessageQueue
                 return MessageQueueDictionary.Count;
             }
         }
-
     }
 }

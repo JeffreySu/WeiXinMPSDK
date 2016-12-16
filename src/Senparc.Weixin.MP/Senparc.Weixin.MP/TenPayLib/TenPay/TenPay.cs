@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
- 
+
     文件名：TenPay.cs
     文件功能描述：微信支付接口
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 
@@ -18,10 +17,10 @@
     官方API：https://mp.weixin.qq.com/paymch/readtemplate?t=mp/business/course2_tmpl&lang=zh_CN&token=25857919#4
  */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -31,8 +30,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public static class TenPay
     {
         #region 同步处理
-        
-       /*此接口不提供异步方法*/
+
+        /*此接口不提供异步方法*/
+
         /// <summary>
         /// Native
         /// </summary>
@@ -110,9 +110,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             return CommonJsonSend.Send<OrderqueryResult>(accessToken, urlFormat, data);
         }
-        #endregion
+
+        #endregion 同步处理
 
         #region 异步处理
+
         /// <summary>
         /// 【异步方法】发货通知
         /// </summary>
@@ -127,7 +129,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="sign_Method">签名方法</param>
         public static async Task<WxJsonResult> DelivernotifyAsync(string appId, string openId, string transId, string out_Trade_No, string deliver_TimesTamp, string deliver_Status, string deliver_Msg, string app_Signature, string sign_Method = "sha1")
         {
-            var accessToken = await AccessTokenContainer.GetAccessTokenAsync( appId);
+            var accessToken = await AccessTokenContainer.GetAccessTokenAsync(appId);
 
             var urlFormat = "https://api.weixin.qq.com/pay/delivernotify?access_token={0}";
 
@@ -158,7 +160,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="sign_Method">签名方法</param>
         public static async Task<OrderqueryResult> OrderqueryAsync(string appId, string package, string timesTamp, string app_Signature, string sign_Method)
         {
-            var accessToken = await AccessTokenContainer.GetAccessTokenAsync( appId);
+            var accessToken = await AccessTokenContainer.GetAccessTokenAsync(appId);
 
             var urlFormat = "https://api.weixin.qq.com/pay/orderquery?access_token={0}";
 
@@ -174,6 +176,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<OrderqueryResult>(accessToken, urlFormat, data);
         }
-        #endregion
+
+        #endregion 异步处理
     }
 }

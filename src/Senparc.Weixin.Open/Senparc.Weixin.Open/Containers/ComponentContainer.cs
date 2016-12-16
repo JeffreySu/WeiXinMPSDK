@@ -4,7 +4,6 @@
     文件名：ComponentContainer.cs
     文件功能描述：通用接口ComponentAccessToken容器，用于自动管理ComponentAccessToken，如果过期会重新获取
 
-
     创建标识：Senparc - 20150430
 
     修改标识：Senparc - 20151004
@@ -24,10 +23,10 @@
 
     修改标识：Senparc - 20160717
     修改描述：1.6.6 添加注册过程中的Name参数
-    
+
     修改标识：Senparc - 20160803
     修改描述：v2.1.3 使用ApiUtility.GetExpireTime()方法处理过期
- 
+
     修改标识：Senparc - 20160804
     修改描述：v2.1.4 增加了TryGetComponentAccessTokenAsync，GetComponentAccessTokenAsync，
               GetComponentAccessTokenResultAsync，TryGetPreAuthCodeAsync，GetPreAuthCodeAsync，GetPreAuthCodeResultAsync，GetQueryAuthResultAsync的异步方法
@@ -46,17 +45,14 @@
 
 ----------------------------------------------------------------*/
 
-using System;
-using System.Threading.Tasks;
-using Senparc.Weixin.Cache;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
-using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Open.CommonAPIs;
+using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.Open.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
-using Senparc.Weixin.Open.ComponentAPIs;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.Containers
 {
@@ -100,7 +96,6 @@ namespace Senparc.Weixin.Open.Containers
         {
             get { return _componentVerifyTicketExpireTime; }
             set { base.SetContainerProperty(ref _componentVerifyTicketExpireTime, value); }
-
         }
 
         /// <summary>
@@ -120,7 +115,6 @@ namespace Senparc.Weixin.Open.Containers
             get { return _componentAccessTokenExpireTime; }
             set { base.SetContainerProperty(ref _componentAccessTokenExpireTime, value); }
         }
-
 
         /// <summary>
         /// PreAuthCodeResult 预授权码结果
@@ -183,13 +177,13 @@ namespace Senparc.Weixin.Open.Containers
     public class ComponentContainer : BaseContainer<ComponentBag>
     {
         private const string UN_REGISTER_ALERT = "此appId尚未注册，ComponentContainer.Register完成注册（全局执行一次即可）！";
+
         /// <summary>
         /// ComponentVerifyTicket服务器推送更新时间（分钟）
         /// </summary>
         private const int COMPONENT_VERIFY_TICKET_UPDATE_MINUTES = 10;
 
-        const string LockResourceName = "Open.ComponentContainer";
-
+        private const string LockResourceName = "Open.ComponentContainer";
 
         #region 同步方法
 
@@ -222,7 +216,6 @@ namespace Senparc.Weixin.Open.Containers
         /// AuthorizerAccessToken更新后的回调
         /// </summary>
         public static Action<string, RefreshAuthorizerTokenResult> AuthorizerTokenRefreshedFunc = null;
-
 
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Token，并将清空之前的Token，
@@ -304,7 +297,7 @@ namespace Senparc.Weixin.Open.Containers
             });
         }
 
-        #endregion
+        #endregion component_verify_ticket
 
         #region component_access_token
 
@@ -364,7 +357,8 @@ namespace Senparc.Weixin.Open.Containers
             }
             return accessTokenBag.ComponentAccessTokenResult;
         }
-        #endregion
+
+        #endregion component_access_token
 
         #region pre_auth_code
 
@@ -418,7 +412,6 @@ namespace Senparc.Weixin.Open.Containers
                     var preAuthCodeResult = ComponentApi.GetPreAuthCode(componentBag.ComponentAppId, accessToken);
                     componentBag.PreAuthCodeExpireTime = ApiUtility.GetExpireTime(preAuthCodeResult.expires_in);
 
-
                     componentBag.PreAuthCodeResult = preAuthCodeResult;
 
                     ////TODO:这里有出现expires_in=0的情况，导致始终处于过期状态（也可能是因为参数过期等原因没有返回正确的数据，待观察）
@@ -430,7 +423,8 @@ namespace Senparc.Weixin.Open.Containers
             }
             return componentBag.PreAuthCodeResult;
         }
-        #endregion
+
+        #endregion pre_auth_code
 
         #region api_query_auth
 
@@ -465,10 +459,13 @@ namespace Senparc.Weixin.Open.Containers
                 return queryAuthResult;
             }
         }
-        #endregion
-        #endregion
+
+        #endregion api_query_auth
+
+        #endregion 同步方法
 
         #region 异步方法
+
         #region component_access_token
 
         /// <summary>
@@ -529,7 +526,8 @@ namespace Senparc.Weixin.Open.Containers
             }
             return accessTokenBag.ComponentAccessTokenResult;
         }
-        #endregion
+
+        #endregion component_access_token
 
         #region pre_auth_code
 
@@ -584,7 +582,6 @@ namespace Senparc.Weixin.Open.Containers
                     var preAuthCodeResult = await ComponentApi.GetPreAuthCodeAsync(componentBag.ComponentAppId, accessToken);
                     componentBag.PreAuthCodeExpireTime = ApiUtility.GetExpireTime(preAuthCodeResult.expires_in);
 
-
                     componentBag.PreAuthCodeResult = preAuthCodeResult;
 
                     ////TODO:这里有出现expires_in=0的情况，导致始终处于过期状态（也可能是因为参数过期等原因没有返回正确的数据，待观察）
@@ -596,7 +593,8 @@ namespace Senparc.Weixin.Open.Containers
             }
             return componentBag.PreAuthCodeResult;
         }
-        #endregion
+
+        #endregion pre_auth_code
 
         #region api_query_auth
 
@@ -631,7 +629,9 @@ namespace Senparc.Weixin.Open.Containers
                 return queryAuthResult;
             }
         }
-        #endregion
-        #endregion
+
+        #endregion api_query_auth
+
+        #endregion 异步方法
     }
 }

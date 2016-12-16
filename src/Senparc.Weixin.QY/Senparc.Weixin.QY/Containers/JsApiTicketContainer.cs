@@ -4,7 +4,6 @@
     文件名：JsApiTicketContainer.cs
     文件功能描述：通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
 
-
     创建标识：Senparc - 20150313
 
     修改标识：Senparc - 20150313
@@ -18,19 +17,19 @@
 
     修改标识：Senparc - 20160717
     修改描述：v3.3.8 添加注册过程中的Name参数
-    
+
     修改标识：Senparc - 20160803
     修改描述：v4.1.2 使用ApiUtility.GetExpireTime()方法处理过期
- 
+
     修改标识：Senparc - 20160804
     修改描述：v4.1.3 增加TryGetTicketAsync，GetTicketAsync，GetTicketResultAsync的异步方法
-    
+
     修改标识：Senparc - 20160813
     修改描述：v4.1.5 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
 
     修改标识：Senparc - 20160813
     修改描述：v4.1.6 完善GetToken()方法
-    
+
     修改标识：Senparc - 20160813
     修改描述：v4.1.8 修改命名空间为Senparc.Weixin.QY.Containers
 
@@ -38,16 +37,14 @@
     修改描述：v4.1.11 修复GetTicketResult()方法中的CheckRegistered()参数错误（少了appSecret）
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
-using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.QY.Containers
 {
@@ -62,6 +59,7 @@ namespace Senparc.Weixin.QY.Containers
             get { return _appId; }
             set { base.SetContainerProperty(ref _appId, value); }
         }
+
         public string AppSecret
         {
             get { return _appSecret; }
@@ -109,6 +107,7 @@ namespace Senparc.Weixin.QY.Containers
         {
             return corpId + corpSecret;
         }
+
         public static void Register(string appId, string appSecret, string name = null)
         {
             //记录注册信息，RegisterFunc委托内的过程会在缓存丢失之后自动重试
@@ -124,7 +123,7 @@ namespace Senparc.Weixin.QY.Containers
                         ExpireTime = DateTime.MinValue,
                         JsApiTicketResult = new JsApiTicketResult()
                     };
-                    Update(BuildingKey(appId,appSecret), bag);
+                    Update(BuildingKey(appId, appSecret), bag);
                     return bag;
                 }
             };
@@ -132,7 +131,6 @@ namespace Senparc.Weixin.QY.Containers
         }
 
         #region 同步方法
-
 
         /// <summary>
         /// 使用完整的应用凭证获取Ticket，如果不存在将自动注册
@@ -147,7 +145,7 @@ namespace Senparc.Weixin.QY.Containers
             {
                 Register(appId, appSecret);
             }
-            return GetTicket(appId,appSecret,getNewTicket);
+            return GetTicket(appId, appSecret, getNewTicket);
         }
 
         /// <summary>
@@ -156,9 +154,9 @@ namespace Senparc.Weixin.QY.Containers
         /// <param name="appId"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        public static string GetTicket(string appId,string appSecret, bool getNewTicket = false)
+        public static string GetTicket(string appId, string appSecret, bool getNewTicket = false)
         {
-            return GetTicketResult(appId,appSecret,getNewTicket).ticket;
+            return GetTicketResult(appId, appSecret, getNewTicket).ticket;
         }
 
         /// <summary>
@@ -167,7 +165,7 @@ namespace Senparc.Weixin.QY.Containers
         /// <param name="appId"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        public static JsApiTicketResult GetTicketResult(string appId,string appSecret, bool getNewTicket = false)
+        public static JsApiTicketResult GetTicketResult(string appId, string appSecret, bool getNewTicket = false)
         {
             if (!CheckRegistered(BuildingKey(appId, appSecret)))
             {
@@ -198,9 +196,10 @@ namespace Senparc.Weixin.QY.Containers
         //    return Cache.CheckExisted(appId);
         //}
 
-        #endregion
+        #endregion 同步方法
 
         #region 异步方法
+
         /// <summary>
         /// 【异步方法】使用完整的应用凭证获取Ticket，如果不存在将自动注册
         /// </summary>
@@ -214,7 +213,7 @@ namespace Senparc.Weixin.QY.Containers
             {
                 Register(appId, appSecret);
             }
-            return await GetTicketAsync(appId,appSecret,getNewTicket);
+            return await GetTicketAsync(appId, appSecret, getNewTicket);
         }
 
         /// <summary>
@@ -223,9 +222,9 @@ namespace Senparc.Weixin.QY.Containers
         /// <param name="appId"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        public static async Task<string> GetTicketAsync(string appId,string appSecret, bool getNewTicket = false)
+        public static async Task<string> GetTicketAsync(string appId, string appSecret, bool getNewTicket = false)
         {
-            var result = await GetTicketResultAsync(appId, appSecret,getNewTicket);
+            var result = await GetTicketResultAsync(appId, appSecret, getNewTicket);
             return result.ticket;
         }
 
@@ -235,7 +234,7 @@ namespace Senparc.Weixin.QY.Containers
         /// <param name="appId"></param>
         /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
         /// <returns></returns>
-        public static async Task<JsApiTicketResult> GetTicketResultAsync(string appId,string appSecret,bool getNewTicket = false)
+        public static async Task<JsApiTicketResult> GetTicketResultAsync(string appId, string appSecret, bool getNewTicket = false)
         {
             if (!CheckRegistered(BuildingKey(appId, appSecret)))
             {
@@ -256,6 +255,7 @@ namespace Senparc.Weixin.QY.Containers
             }
             return jsApiTicketBag.JsApiTicketResult;
         }
-        #endregion
+
+        #endregion 异步方法
     }
 }

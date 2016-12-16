@@ -1,10 +1,9 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：ShakeAroundApi.cs
     文件功能描述：摇一摇周边接口
-    
-    
+
     创建标识：Senparc - 20150921
 ----------------------------------------------------------------*/
 
@@ -12,17 +11,17 @@
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E8%8E%B7%E5%8F%96%E8%AE%BE%E5%A4%87%E5%8F%8A%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF
  */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.ShakeAround;
 using Senparc.Weixin.QY.CommonAPIs;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     public static class ShakeAroundApi
     {
         #region 同步请求
-        
+
         /// <summary>
         /// 获取设备及用户信息
         /// </summary>
@@ -41,9 +40,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return CommonJsonSend.Send<GetShakeInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
+
         /// <summary>
         /// 【异步方法】获取设备及用户信息
         /// </summary>
@@ -60,8 +61,9 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 ticket = ticket
             };
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<GetShakeInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetShakeInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

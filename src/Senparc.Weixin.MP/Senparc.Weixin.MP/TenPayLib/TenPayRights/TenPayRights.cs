@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
- 
+
     文件名：TenPayRights.cs
     文件功能描述：微信支付维权接口
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 
@@ -18,9 +17,9 @@
     官方API：https://mp.weixin.qq.com/htmledition/res/bussiness-course2/wxm-payment-kf-api.pdf
  */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -30,8 +29,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public static class TenPayRights
     {
         #region 同步请求
-        
-        
+
         /// <summary>
         /// 标记客户的投诉处理状态
         /// </summary>
@@ -46,10 +44,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             return Get.GetJson<WxJsonResult>(url);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
-         
+
         /// <summary>
         /// 【异步方法】标记客户的投诉处理状态
         /// </summary>
@@ -64,6 +63,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             return await Get.GetJsonAsync<WxJsonResult>(url);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

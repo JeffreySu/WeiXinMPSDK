@@ -4,18 +4,13 @@
     文件名：SenparcMessageQueueThreadUtility.cs
     文件功能描述：SenparcMessageQueue消息列队线程处理
 
-
     创建标识：Senparc - 20160210
 
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Senparc.Weixin.MessageQueue;
+using System;
+using System.Threading;
 
 namespace Senparc.Weixin.Threads
 {
@@ -25,7 +20,6 @@ namespace Senparc.Weixin.Threads
     public class SenparcMessageQueueThreadUtility
     {
         private readonly int _sleepMilliSeconds;
-
 
         public SenparcMessageQueueThreadUtility(int sleepMilliSeconds = 1000)
         {

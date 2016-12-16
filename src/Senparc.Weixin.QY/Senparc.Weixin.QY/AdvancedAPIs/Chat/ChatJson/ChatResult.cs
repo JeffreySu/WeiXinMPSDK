@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：ChatResult.cs
     文件功能描述：会话接口返回结果
-    
-    
+
     创建标识：Senparc - 20150728
 ----------------------------------------------------------------*/
 
-using System.Collections.Generic;
 using Senparc.Weixin.Entities;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs.Chat
 {
@@ -30,14 +29,17 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Chat
         /// 会话id
         /// </summary>
         public string chatid { get; set; }
+
         /// <summary>
         /// 会话标题
         /// </summary>
         public string name { get; set; }
+
         /// <summary>
         /// 管理员userid
         /// </summary>
         public string owner { get; set; }
+
         /// <summary>
         /// 会话成员列表，成员用userid来标识
         /// </summary>

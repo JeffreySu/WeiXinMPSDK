@@ -1,20 +1,15 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CommonJsonSend.cs
     文件功能描述：向需要AccessToken的API发送消息的公共方法
-    
-    
+
     创建标识：Senparc - 20150430
 ----------------------------------------------------------------*/
 
-using System;
-using System.IO;
-using System.Text;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.HttpUtility;
+using System;
 
 namespace Senparc.Weixin.Open.CommonAPIs
 {

@@ -1,28 +1,24 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：KFApi.cs
     文件功能描述：发送客服消息
-    
-    
+
     创建标识：Senparc - 20160309
- 
+
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
- 
+
 ----------------------------------------------------------------*/
 
 /*
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E4%BC%81%E4%B8%9A%E5%AE%A2%E6%9C%8D%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E
  */
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.QY.AdvancedAPIs.KF;
 using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.QY.Entities;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
@@ -32,9 +28,9 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     public static class KFApi
     {
         private const string URL_FORMAT = "https://qyapi.weixin.qq.com/cgi-bin/kf/send?access_token={0}";
+
         #region 同步请求
-        
-        
+
         /// <summary>
         /// 发送文本信息
         /// </summary>
@@ -188,10 +184,12 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return CommonJsonSend.Send<GetKFListResult>(null, url, null, CommonJsonSendType.GET, timeOut);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
-         /// <summary>
+
+        /// <summary>
         /// 【异步方法】发送文本信息
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
@@ -223,7 +221,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                     content = content
                 }
             };
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -344,6 +342,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetKFListResult>(null, url, null, CommonJsonSendType.GET, timeOut);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

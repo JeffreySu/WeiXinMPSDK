@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CommonApi.Menu.cs
     文件功能描述：自定义菜单API
-    
-    
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
- 
+
     修改标识：Senparc - 20150313
     修改描述：开放代理请求超时时间
 
@@ -21,24 +20,24 @@
     获取AccessToken API地址：http://qydev.weixin.qq.com/wiki/index.php?title=%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95
  */
 
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.HttpUtility;
+using Senparc.Weixin.QY.Entities;
+using Senparc.Weixin.QY.Entities.Menu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.QY.Entities;
-using Senparc.Weixin.QY.Entities.Menu;
 
 namespace Senparc.Weixin.QY.CommonAPIs
 {
     public partial class CommonApi
     {
         #region 同步请求
-        
+
         /// <summary>
         /// 创建菜单
         /// </summary>
@@ -84,7 +83,6 @@ namespace Senparc.Weixin.QY.CommonAPIs
             };
             return sb;
         }
-
 
         /// <summary>
         /// 从JSON字符串获取菜单对象
@@ -150,7 +148,6 @@ namespace Senparc.Weixin.QY.CommonAPIs
             }
             return finalResult;
         }
-
 
         /// <summary>
         /// 获取当前菜单，如果菜单不存在，将返回null
@@ -314,7 +311,6 @@ namespace Senparc.Weixin.QY.CommonAPIs
                                 throw new WeixinMenuException("单击按钮的key不能为空！");
                             }
 
-
                             if (subSubButton.type.Equals("CLICK", StringComparison.OrdinalIgnoreCase))
                             {
                                 //点击
@@ -411,7 +407,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
             return result;
         }
 
-        #endregion
+        #endregion GetMenu
 
         /// <summary>
         /// 删除菜单
@@ -425,7 +421,8 @@ namespace Senparc.Weixin.QY.CommonAPIs
             var result = Get.GetJson<QyJsonResult>(url);
             return result;
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
 
@@ -441,6 +438,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
             var result = await Get.GetJsonAsync<QyJsonResult>(url);
             return result;
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

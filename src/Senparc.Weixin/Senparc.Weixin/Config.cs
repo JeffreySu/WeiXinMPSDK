@@ -1,23 +1,17 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：Config.cs
     文件功能描述：全局设置
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 
     修改标识：Senparc - 20160813
     修改描述：v4.7.7 添加DefaultCacheNamespace
 ----------------------------------------------------------------*/
-
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Threading;
 
 namespace Senparc.Weixin
 {

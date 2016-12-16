@@ -1,21 +1,20 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：TemplateAPI.cs
     文件功能描述：模板消息接口
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
- 
+
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
- 
+
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
- 
+
     修改标识：Senparc - 20160808
     修改描述：去掉SendTemplateMessage，SendTemplateMessageAsync中的topcolor参数
 ----------------------------------------------------------------*/
@@ -24,11 +23,10 @@
     API：http://mp.weixin.qq.com/wiki/17/304c1885ea66dbedf7dc170d84999a9d.html
  */
 
-using System;
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 using Senparc.Weixin.MP.CommonAPIs;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -63,7 +61,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     data = data
                 };
                 return CommonJsonSend.Send<SendTemplateMessageResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -87,7 +84,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     industry_id2 = ((int)industry_id2).ToString()
                 };
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -104,9 +100,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/get_industry?access_token={0}";
                 return CommonJsonSend.Send<GetIndustryJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 获得模板ID
         /// </summary>
@@ -122,12 +118,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var msgData = new
                 {
                     template_id_short = template_id_short
-
                 };
                 return CommonJsonSend.Send<AddtemplateJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 获取模板列表
         /// </summary>
@@ -141,9 +136,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/get_all_private_template?access_token={0}";
                 return CommonJsonSend.Send<GetPrivateTemplateJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 删除模板
         /// </summary>
@@ -162,13 +157,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
-        #endregion
+        #endregion 同步请求
 
         #region 异步请求
+
         /// <summary>
         /// 【异步方法】模板消息接口
         /// </summary>
@@ -188,12 +183,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     touser = openId,
                     template_id = templateId,
-                   // topcolor = topcolor,
+                    // topcolor = topcolor,
                     url = url,
                     data = data
                 };
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendTemplateMessageResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -217,7 +211,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     industry_id2 = ((int)industry_id2).ToString()
                 };
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -234,9 +227,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/get_industry?access_token={0}";
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetIndustryJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】获得模板ID
         /// </summary>
@@ -252,12 +245,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var msgData = new
                 {
                     template_id_short = template_id_short
-
                 };
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddtemplateJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         ///【异步办法】 获取模板列表
         /// </summary>
@@ -271,9 +263,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/template/get_all_private_template?access_token={0}";
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPrivateTemplateJsonResult>(accessToken, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】删除模板
         /// </summary>
@@ -292,13 +284,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, msgData, CommonJsonSendType.POST, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
-        #endregion
-
-
-
+        #endregion 异步请求
     }
 }

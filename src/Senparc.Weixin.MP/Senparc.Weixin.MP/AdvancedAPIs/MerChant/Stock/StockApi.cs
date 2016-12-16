@@ -1,23 +1,22 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：ProductApi.cs
     文件功能描述：微小店商品接口
-    
-    
+
     创建标识：Senparc - 20150827
 
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
 ----------------------------------------------------------------*/
 
-/* 
+/*
    微小店接口，官方API：http://mp.weixin.qq.com/wiki/index.php?title=%E5%BE%AE%E4%BF%A1%E5%B0%8F%E5%BA%97%E6%8E%A5%E5%8F%A3
 */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 {
@@ -27,6 +26,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
     public static class StockApi
     {
         #region 同步请求
+
         /// <summary>
         /// 增加库存
         /// </summary>
@@ -52,8 +52,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, reduceStockData);
         }
-        #endregion
+
+        #endregion 同步请求
+
         #region 异步请求
+
         /// <summary>
         /// 【异步方法】增加库存
         /// </summary>
@@ -79,7 +82,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, reduceStockData);
         }
-        #endregion
-        
+
+        #endregion 异步请求
     }
 }

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
-using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using System;
+using System.Linq;
+using System.Threading;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
 {
@@ -19,7 +16,6 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
         public TemplateDataItem ip_list { get; set; }
         public TemplateDataItem sec_type { get; set; }
         public TemplateDataItem remark { get; set; }
-
     }
 
     [TestClass]
@@ -44,7 +40,6 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
         }
 
-
         [TestMethod]
         public void SetIndustryTest()
         {
@@ -67,7 +62,6 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
 
             Assert.AreEqual(IndustryCode.IT科技_互联网_电子商务, result.primary_industry.ConvertToIndustryCode());
             Assert.AreEqual(IndustryCode.IT科技_IT软件与服务, result.secondary_industry.ConvertToIndustryCode());
-
         }
 
         [TestMethod]
@@ -79,6 +73,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
             Assert.IsNotNull(result.template_id);
             Console.WriteLine(result.template_id);
         }
+
         [TestMethod]
         public void GetPrivateTemplateTest()
         {
@@ -89,6 +84,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
             Assert.IsNotNull(result.template_list);
             Assert.AreEqual("cCh2CTTJIbVZkcycDF08n96FP-oBwyMVrro8C2nfVo4", result.template_list[0].template_id);
         }
+
         [TestMethod]
         public void DelPrivateTemplateTest()
         {
@@ -113,6 +109,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
         }
 
         #region 异步方法测试
+
         [TestMethod()]
         public void SendTemplateMessageAsyncTest()
         {
@@ -143,6 +140,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
                 base.AsyncThreadsCollection.Remove(Thread.CurrentThread);//必须要加
             });
         }
-        #endregion
+
+        #endregion 异步方法测试
     }
 }

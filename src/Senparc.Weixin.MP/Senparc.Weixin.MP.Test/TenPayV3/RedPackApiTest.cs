@@ -2,15 +2,11 @@
 using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.Test.RedPackApiTest
 {
     [TestClass]
-    class RedPackApiTest : CommonApiTest
+    internal class RedPackApiTest : CommonApiTest
     {
         [TestMethod]
         public void SendNormalRedPackTest()

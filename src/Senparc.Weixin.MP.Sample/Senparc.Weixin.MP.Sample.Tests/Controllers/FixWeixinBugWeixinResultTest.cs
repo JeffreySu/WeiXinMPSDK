@@ -1,16 +1,12 @@
-﻿using System;
-using System.IO;
-using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Helpers;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
-using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.Controllers;
-using Senparc.Weixin.MP.Sample.Tests.Mock;
+using System;
+using System.IO;
 
 namespace Senparc.Weixin.MP.Sample.Tests.Controllers
 {
@@ -24,7 +20,6 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             WeixinContext.ExpireMinutes = 3;
         }
 
-
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
@@ -33,7 +28,6 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             return responseMessage;
         }
 
-
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
@@ -41,15 +35,14 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
         }
     }
 
-
     //已通过测试
     [TestClass]
     public class FixWeixinBugWeixinResultTest : BaseTest
     {
-        WeixinController target;
-        Stream inputStream;
+        private WeixinController target;
+        private Stream inputStream;
 
-        string xmlTextFormat = @"<xml>
+        private string xmlTextFormat = @"<xml>
     <ToUserName><![CDATA[gh_a96a4a619366]]></ToUserName>
     <FromUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></FromUserName>
     <CreateTime>{0}</CreateTime>
@@ -78,7 +71,6 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             {
                 using (StreamWriter sw = new StreamWriter(ms))
                 {
-
                     string xml = InitXml(xmlTextFormat, "Hi, Senparc!");
                     sw.Write(xml);
                     sw.Flush();
@@ -89,7 +81,7 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
                     messageHandler.Execute();
 
                     var result = new FixWeixinBugWeixinResult(messageHandler);
-                    Assert.AreEqual("success",result.Content);
+                    Assert.AreEqual("success", result.Content);
                 }
             }
         }

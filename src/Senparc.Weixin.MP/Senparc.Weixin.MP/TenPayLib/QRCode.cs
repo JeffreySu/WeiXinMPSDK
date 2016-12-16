@@ -19,6 +19,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             UrlEncode = UrlEncode.Replace("+", "%20");
             return UrlEncode;
         }
+
         //' * google api 二维码生成【QRcode可以存储最多4296个字母数字类型的任意文本，具体可以查看二维码数据格式】
         //' * @param string $chl 二维码包含的信息，可以是数字、字符、二进制信息、汉字。不能混合数据类型，数据必须经过UTF-8 URL-encoded.如果需要传递的信息超过2K个字节请使用POST方式
         //' * @param int $widhtHeight 生成二维码的尺寸设置

@@ -1,10 +1,9 @@
 ﻿/*----------------------------------------------------------------
     文件名：WXBizMsgCrypt.cs
     文件功能描述：加解密算法
-    
-    
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -14,6 +13,7 @@ using System.Collections;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
+
 //using System.Web;
 
 //-40001 ： 签名验证错误
@@ -28,12 +28,13 @@ using System.Xml;
 //-40010 :  base64解密异常
 namespace Tencent
 {
-   public class WXBizMsgCrypt
+    public class WXBizMsgCrypt
     {
-        string m_sToken;
-        string m_sEncodingAESKey;
-        string m_sCorpID;
-        enum WXBizMsgCryptErrorCode
+        private string m_sToken;
+        private string m_sEncodingAESKey;
+        private string m_sCorpID;
+
+        private enum WXBizMsgCryptErrorCode
         {
             WXBizMsgCrypt_OK = 0,
             WXBizMsgCrypt_ValidateSignature_Error = -40001,
@@ -49,9 +50,9 @@ namespace Tencent
         };
 
         //构造函数
-	    // @param sToken: 公众平台上，开发者设置的Token
-	    // @param sEncodingAESKey: 公众平台上，开发者设置的EncodingAESKey
-	    // @param sCorpID: 企业号的CorpID
+        // @param sToken: 公众平台上，开发者设置的Token
+        // @param sEncodingAESKey: 公众平台上，开发者设置的EncodingAESKey
+        // @param sCorpID: 企业号的CorpID
         public WXBizMsgCrypt(string sToken, string sEncodingAESKey, string sCorpID)
         {
             m_sToken = sToken;
@@ -69,10 +70,10 @@ namespace Tencent
         public int VerifyURL(string sMsgSignature, string sTimeStamp, string sNonce, string sEchoStr, ref string sReplyEchoStr)
         {
             int ret = 0;
-			if (m_sEncodingAESKey.Length!=43)
-			{
-				return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
-			}
+            if (m_sEncodingAESKey.Length != 43)
+            {
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
+            }
             ret = VerifySignature(m_sToken, sTimeStamp, sNonce, sEchoStr, sMsgSignature);
             if (0 != ret)
             {
@@ -106,10 +107,10 @@ namespace Tencent
         // @return: 成功0，失败返回对应的错误码
         public int DecryptMsg(string sMsgSignature, string sTimeStamp, string sNonce, string sPostData, ref string sMsg)
         {
-			if (m_sEncodingAESKey.Length!=43)
-			{
-				return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
-			}
+            if (m_sEncodingAESKey.Length != 43)
+            {
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
+            }
             XmlDocument doc = new XmlDocument();
             XmlNode root;
             string sEncryptMsg;
@@ -158,10 +159,10 @@ namespace Tencent
         // return：成功0，失败返回对应的错误码
         public int EncryptMsg(string sReplyMsg, string sTimeStamp, string sNonce, ref string sEncryptMsg)
         {
-			if (m_sEncodingAESKey.Length!=43)
-			{
-				return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
-			}
+            if (m_sEncodingAESKey.Length != 43)
+            {
+                return (int)WXBizMsgCryptErrorCode.WXBizMsgCrypt_IllegalAesKey;
+            }
             string raw = "";
             try
             {
@@ -213,9 +214,9 @@ namespace Tencent
                         index++;
                 }
                 return iLeftLength - iRightLength;
-
             }
         }
+
         //Verify Signature
         private static int VerifySignature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt, string sSigture)
         {
@@ -232,7 +233,7 @@ namespace Tencent
             }
         }
 
-        public static int GenarateSinature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt ,ref string sMsgSignature)
+        public static int GenarateSinature(string sToken, string sTimeStamp, string sNonce, string sMsgEncrypt, ref string sMsgSignature)
         {
             ArrayList AL = new ArrayList();
             AL.Add(sToken);

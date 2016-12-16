@@ -1,18 +1,17 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：ThirdPartyAuthResult.cs
     文件功能描述：第三方应用授权返回结果
-    
-    
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System.Collections.Generic;
 using Senparc.Weixin.Entities;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth
 {
@@ -292,11 +291,10 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth
         /// 授权方（企业）access_token
         /// </summary>
         public string access_token { get; set; }
+
         /// <summary>
         /// 授权方（企业）access_token超时时间
         /// </summary>
         public int expires_in { get; set; }
     }
 }
-
-

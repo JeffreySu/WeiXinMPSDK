@@ -1,12 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.HttpUtility;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.HttpUtility.Tests
 {
@@ -30,7 +27,6 @@ namespace Senparc.Weixin.HttpUtility.Tests
                 string base64Img = Convert.ToBase64String(ms.ToArray());//输出图片base64编码
             }
         }
-
 
         [TestMethod]
         public void GetJsonTest()
@@ -61,9 +57,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
                     //实际返回的信息（错误信息）
                     Assert.AreEqual(ex.JsonResult.errcode, ReturnCode.不合法的APPID);
                 }
-
             }
-
         }
 
         [TestMethod]

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Senparc.Weixin.MessageHandlers;
+using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Web.Mvc;
-using System.Xml.Linq;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.MessageHandlers;
 
 namespace Senparc.Weixin.MP.MvcExtension
 {
@@ -28,7 +24,6 @@ namespace Senparc.Weixin.MP.MvcExtension
             //_content = content;
             base.Content = content;
         }
-
 
         new public string Content
         {
@@ -84,8 +79,8 @@ namespace Senparc.Weixin.MP.MvcExtension
                     context.HttpContext.Response.ClearContent();
                     context.HttpContext.Response.ContentType = "text/xml";
 
-                    var xml = _messageHandlerDocument.FinalResponseDocument == null 
-                                ? "" 
+                    var xml = _messageHandlerDocument.FinalResponseDocument == null
+                                ? ""
                                 : _messageHandlerDocument.FinalResponseDocument
                                                          .ToString().Replace("\r\n", "\n"); //腾
 

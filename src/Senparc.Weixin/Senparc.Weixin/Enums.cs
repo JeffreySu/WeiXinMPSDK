@@ -4,7 +4,6 @@
     文件名：Enums.cs
     文件功能描述：枚举类型
 
-
     创建标识：Senparc - 20150211
 
     修改标识：Senparc - 20150303
@@ -118,18 +117,22 @@ namespace Senparc.Weixin
         参数错误invalid_parameter = 61451,
         无效客服账号invalid_kf_account = 61452,
         客服帐号已存在kf_account_exsited = 61453,
+
         /// <summary>
         /// 客服帐号名长度超过限制(仅允许10个英文字符，不包括@及@后的公众号的微信号)(invalid kf_acount length)
         /// </summary>
         客服帐号名长度超过限制 = 61454,
+
         /// <summary>
         /// 客服帐号名包含非法字符(仅允许英文+数字)(illegal character in kf_account)
         /// </summary>
         客服帐号名包含非法字符 = 61455,
+
         /// <summary>
         ///  	客服帐号个数超过限制(10个客服账号)(kf_account count exceeded)
         /// </summary>
         客服帐号个数超过限制 = 61456,
+
         无效头像文件类型invalid_file_type = 61457,
         系统错误system_error = 61450,
         日期格式错误 = 61500,
@@ -137,11 +140,10 @@ namespace Senparc.Weixin
 
         //新加入的一些类型，以下文字根据P2P项目格式组织，非官方文字
         发送消息失败_48小时内用户未互动 = 10706,
+
         发送消息失败_该用户已被加入黑名单_无法向此发送消息 = 62751,
         发送消息失败_对方关闭了接收消息 = 10703,
         对方不是粉丝 = 10700
-
-
     }
 
     /// <summary>
@@ -245,9 +247,9 @@ namespace Senparc.Weixin
 
         //小程序
         form_id不正确_或者过期 = 41028,
+
         form_id已被使用 = 41029,
         page不正确 = 41030,
-
 
         access_token超时 = 42001,
         refresh_token超时 = 42002,
@@ -352,8 +354,6 @@ namespace Senparc.Weixin
         不合法的TagID列表长度 = 82003,
     }
 
-
-
     /// <summary>
     /// 语言
     /// </summary>
@@ -363,10 +363,12 @@ namespace Senparc.Weixin
         /// 中文简体
         /// </summary>
         zh_CN,
+
         /// <summary>
         /// 中文繁体
         /// </summary>
         zh_TW,
+
         /// <summary>
         /// 英文
         /// </summary>
@@ -382,10 +384,12 @@ namespace Senparc.Weixin
         /// 无状态
         /// </summary>
         None = 1,
+
         /// <summary>
         /// 已进入应用状态
         /// </summary>
         Enter = 2,
+
         /// <summary>
         /// 退出App状态（临时传输状态，退出后即为None）
         /// </summary>

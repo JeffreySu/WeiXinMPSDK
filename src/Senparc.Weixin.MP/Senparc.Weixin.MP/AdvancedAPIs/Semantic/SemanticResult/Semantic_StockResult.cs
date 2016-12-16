@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：Semantic_StockResult.cs
     文件功能描述：语意理解接口股票服务（stock）返回信息
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -36,14 +35,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Semantic
         /// 股票名称
         /// </summary>
         public string name { get; set; }
+
         /// <summary>
         /// 标准股票代码
         /// </summary>
         public string code { get; set; }
+
         /// <summary>
         /// 市场：sz,sh,hk,us
         /// </summary>
         public string category { get; set; }
+
         /// <summary>
         /// 时间
         /// </summary>
@@ -56,38 +58,47 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Semantic
         /// 股票代码
         /// </summary>
         public string cd { get; set; }
+
         /// <summary>
         /// 当前价
         /// </summary>
         public string np { get; set; }
+
         /// <summary>
         /// 涨幅
         /// </summary>
         public string ap { get; set; }
+
         /// <summary>
         /// 涨幅比例
         /// </summary>
         public string apn { get; set; }
+
         /// <summary>
         /// 最高价
         /// </summary>
         public string tp_max { get; set; }
+
         /// <summary>
         /// 最低价
         /// </summary>
         public string tp_min { get; set; }
+
         /// <summary>
         /// 成交量(单位：万)
         /// </summary>
         public string dn { get; set; }
+
         /// <summary>
         /// 成交额(单位：亿)
         /// </summary>
         public string de { get; set; }
+
         /// <summary>
         /// 市盈率
         /// </summary>
         public string pe { get; set; }
+
         /// <summary>
         /// 市值(单位：亿)
         /// </summary>

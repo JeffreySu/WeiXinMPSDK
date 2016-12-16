@@ -1,18 +1,17 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CardCreateData.cs
     文件功能描述：所有类型的卡券数据
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150323
     修改描述：添加会议门票类型
-    
+
     修改标识：hello2008zj - 20160502
     修改描述：v13.7.8 添加 Card_MemberCardData.background_pic_url
 ----------------------------------------------------------------*/
@@ -23,7 +22,6 @@ using Senparc.Weixin.Helpers;
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
     /* 所有类型的卡券数据 */
-
 
     /// <summary>
     /// 通用券数据
@@ -86,6 +84,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public decimal least_cost { get; set; }
+
         /// <summary>
         /// 代金券专用，表示减免金额（单位为分）
         /// 必填
@@ -108,7 +107,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 必填
         /// </summary>
         public float discount { get; set; }
-       
+
         public Card_DisCountData()
             : base(CardType.DISCOUNT)
         {
@@ -126,82 +125,98 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         [JsonSetting.IgnoreValueAttribute(false)]
         public bool supply_bonus { get; set; }
+
         /// <summary>
         /// 是否支持储值，填写true 或false。
         /// 必填
         /// </summary>
         [JsonSetting.IgnoreValueAttribute(false)]
         public bool supply_balance { get; set; }
+
         /// <summary>
         /// 设置为true时用户领取会员卡后系统自动将其激活，无需调用激活接口。
         /// 非必填
         /// </summary>
         [JsonSetting.IgnoreValueAttribute(false)]
         public bool auto_activate { get; set; }
+
         /// <summary>
         /// 设置为true时会员卡支持一键激活，不允许同时传入activate_url字段，否则设置wx_activate失效。
         /// 非必填
         /// </summary>
         [JsonSetting.IgnoreValueAttribute(false)]
         public bool wx_activate { get; set; }
+
         /// <summary>
         /// 积分清零规则
         /// 非必填
         /// </summary>
         public string bonus_cleared { get; set; }
+
         /// <summary>
         /// 积分规则
         /// 非必填
         /// </summary>
         public string bonus_rules { get; set; }
+
         /// <summary>
         /// 储值说明
         /// 非必填
         /// </summary>
         public string balance_rules { get; set; }
+
         /// <summary>
         /// 特权说明
         /// 必填
         /// </summary>
         public string prerogative { get; set; }
+
         /// <summary>
         /// 绑定旧卡的url，与“activate_url”字段二选一必填。
         /// </summary>
         public string bind_old_card_url { get; set; }
+
         /// <summary>
         /// 激活会员卡的url，与“bind_old_card_url”字段二选一必填。
         /// </summary>
         public string activate_url { get; set; }
+
         /// <summary>
         /// 设置跳转外链查看积分详情。仅适用于积分无法通过激活接口同步的情况下使用该字段。
         /// 非必填
         /// </summary>
         public string bonus_url { get; set; }
+
         /// <summary>
         /// 设置跳转外链查看余额详情。仅适用于余额无法通过激活接口同步的情况下使用该字段。
         /// 非必填
         /// </summary>
         public string balance_url { get; set; }
+
         /// <summary>
         /// 自定义会员信息类目，会员卡激活后显示。
         /// 非必填
         /// </summary>
         public CustomField custom_field1 { get; set; }
+
         /// <summary>
         /// 自定义会员信息类目，会员卡激活后显示。
         /// 非必填
         /// </summary>
         public CustomField custom_field2 { get; set; }
+
         /// <summary>
         /// 自定义会员信息类目，会员卡激活后显示。
         /// 非必填
         /// </summary>
         public CustomField custom_field3 { get; set; }
+
         /// <summary>
         /// 自定义会员信息类目，会员卡激活后显示
         /// 非必填
         /// </summary>
         public CustomCell custom_cell1 { get; set; }
+
         /// <summary>
         /// 会员卡背景图片，非必填
         /// </summary>
@@ -212,6 +227,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 积分规则结构体
         /// </summary>
         public BonusRule bonus_rule { get; set; }
+
         /// <summary>
         /// 折扣
         /// </summary>
@@ -224,13 +240,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         }
     }
 
-    public class CustomField: IJsonEnumString
+    public class CustomField : IJsonEnumString
     {
         /// <summary>
         /// 会员信息类目名称。FIELD_NAME_TYPE_LEVEL等级；FIELD_NAME_TYPE_COUPON优惠券；FIELD_NAME_TYPE_STAMP印花；FIELD_NAME_TYPE_DISCOUNT折扣；FIELD_NAME_TYPE_ACHIEVEMEN成就；FIELD_NAME_TYPE_MILEAGE里程。
         /// </summary>
         [JsonSetting.EnumString]
         public MemberCard_CustomField_NameType name_type { get; set; }
+
         /// <summary>
         /// 点击类目跳转外链url
         /// </summary>
@@ -244,17 +261,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 必填
         /// </summary>
         public string name { get; set; }
+
         /// <summary>
         /// 入口右侧提示语，6个汉字内
         /// 必填
         /// </summary>
         public string tips { get; set; }
+
         /// <summary>
         /// 入口跳转链接
         /// 必填
         /// </summary>
         public string url { get; set; }
     }
+
     /// <summary>
     /// 积分规则，新增加
     /// </summary>
@@ -262,18 +282,25 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     {
         [JsonSetting.IgnoreValueAttribute(0)]
         public int cost_money_unit { get; set; }
+
         [JsonSetting.IgnoreValueAttribute(0)]
         public int increase_bonus { get; set; }
+
         [JsonSetting.IgnoreValueAttribute(0)]
         public int max_increase_bonus { get; set; }
+
         [JsonSetting.IgnoreValueAttribute(0)]
         public int init_increase_bonus { get; set; }
+
         [JsonSetting.IgnoreValueAttribute(0)]
         public int cost_bonus_unit { get; set; }
+
         [JsonSetting.IgnoreValueAttribute(0)]
         public int reduce_money { get; set; }
+
         [JsonSetting.IgnoreValueAttribute(0)]
         public int least_money_to_use_bonus { get; set; }
+
         [JsonSetting.IgnoreValueAttribute(0)]
         public int max_reduce_bonus { get; set; }
     }
@@ -288,6 +315,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public string ticket_class { get; set; }
+
         /// <summary>
         /// 导览图url
         /// 非必填
@@ -327,39 +355,47 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 必填
         /// </summary>
         public string from { get; set; }
+
         /// <summary>
         /// 终点，上限为18 个汉字
         /// 必填
         /// </summary>
         public string to { get; set; }
+
         /// <summary>
         /// 航班
         /// 必填
         /// </summary>
         public string flight { get; set; }
+
         /// <summary>
         /// 起飞时间，上限为17 个汉字
         /// 非必填
         /// </summary>
         public string departure_time { get; set; }
+
         /// <summary>
         /// 降落时间，上限为17 个汉字
         /// 非必填
         /// </summary>
         public string landing_time { get; set; }
+
         /// <summary>
         /// 在线值机的链接
         /// 非必填
         /// </summary>
         public string check_in_url { get; set; }
+
         /// <summary>
         /// 登机口。如发生登机口变更，建议商家实时调用该接口变更
         /// </summary>
         public string gate { get; set; }
+
         /// <summary>
         /// 登机时间，只显示“时分”不显示日期，按时间戳格式填写。如发生登机时间变更，建议商家实时调用该接口变更
         /// </summary>
         public string boarding_time { get; set; }
+
         /// <summary>
         /// 机型，上限为8 个汉字
         /// 非必填

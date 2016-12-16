@@ -4,7 +4,6 @@
     文件名：Post.cs
     文件功能描述：Post
 
-
     创建标识：Senparc - 20150211
 
     修改标识：Senparc - 20150303
@@ -18,12 +17,13 @@
 
     修改标识：Senparc - 20150407
     修改描述：发起Post请求方法修改，为了上传永久视频素材
- 
+
     修改标识：Senparc - 20160720
     修改描述：增加了PostFileGetJsonAsync的异步方法（与之前的方法多一个参数）
 ----------------------------------------------------------------*/
 
-using System;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.Exceptions;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -31,8 +31,6 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.HttpUtility
 {
@@ -47,7 +45,7 @@ namespace Senparc.Weixin.HttpUtility
         public static T GetResult<T>(string returnText)
         {
             JavaScriptSerializer js = new JavaScriptSerializer();
-            
+
             if (returnText.Contains("errcode"))
             {
                 //可能发生错误
@@ -66,7 +64,6 @@ namespace Senparc.Weixin.HttpUtility
             T result = js.Deserialize<T>(returnText);
             return result;
         }
-
 
         #region 同步方法
 
@@ -149,10 +146,9 @@ namespace Senparc.Weixin.HttpUtility
             }
         }
 
-        #endregion
+        #endregion 同步方法
 
         #region 异步方法
-
 
         /// <summary>
         /// 【异步方法】发起Post请求，可上传文件
@@ -177,7 +173,6 @@ namespace Senparc.Weixin.HttpUtility
             }
         }
 
-
         /// <summary>
         /// 【异步方法】PostGetJson的异步版本
         /// </summary>
@@ -199,7 +194,6 @@ namespace Senparc.Weixin.HttpUtility
             var result = GetResult<T>(returnText);
             return result;
         }
-
 
         /// <summary>
         /// PostGetJson的异步版本
@@ -237,8 +231,6 @@ namespace Senparc.Weixin.HttpUtility
         //    return result;
         //}
 
-
-
         /// <summary>
         /// 使用Post方法上传数据并下载文件或结果
         /// </summary>
@@ -253,6 +245,6 @@ namespace Senparc.Weixin.HttpUtility
             await stream.WriteAsync(fileBytes, 0, fileBytes.Length);//也可以分段写入
         }
 
-        #endregion
+        #endregion 异步方法
     }
 }

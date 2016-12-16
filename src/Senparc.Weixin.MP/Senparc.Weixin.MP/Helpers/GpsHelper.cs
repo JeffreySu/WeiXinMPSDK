@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：GpsHelper.cs
     文件功能描述：处理坐标距离
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -28,7 +27,7 @@ namespace Senparc.Weixin.MP.Helpers
         public static double Distance(double n1, double e1, double n2, double e2)
         {
             double jl_jd = 102834.74258026089786013677476285;//每经度单位米;
-            double jl_wd = 111712.69150641055729984301412873;//每纬度单位米; 
+            double jl_wd = 111712.69150641055729984301412873;//每纬度单位米;
             double b = Math.Abs((e1 - e2) * jl_jd);
             double a = Math.Abs((n1 - n2) * jl_wd);
             return Math.Sqrt((a * a + b * b));

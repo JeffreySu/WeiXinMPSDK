@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Containers;
+using System;
 
 namespace Senparc.Weixin.Cache.Redis.Tests
 {
@@ -20,6 +20,7 @@ namespace Senparc.Weixin.Cache.Redis.Tests
     public class RedisContainerCacheStrategyTest
     {
         private RedisContainerCacheStrategy cache;
+
         public RedisContainerCacheStrategyTest()
         {
             cache = RedisContainerCacheStrategy.Instance;
@@ -80,7 +81,6 @@ namespace Senparc.Weixin.Cache.Redis.Tests
             var count = cache.GetCount();
             cache.InsertToCache(key, new TestContainerBag1()
             {
-
             });
 
             var item = cache.Get(key);

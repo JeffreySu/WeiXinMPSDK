@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-  
+
     文件名：RequestMessageFactory.cs
     文件功能描述：获取XDocument转换后的IRequestMessageBase实例
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150327
     修改描述：添加小视频类型
 
@@ -18,13 +17,13 @@
 
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Open.Entities.Request;
+using Senparc.Weixin.Open.Helpers;
 using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Open.Entities.Request;
-using Senparc.Weixin.Open.Helpers;
 
 namespace Senparc.Weixin.Open
 {
@@ -61,6 +60,7 @@ namespace Senparc.Weixin.Open
                     case RequestInfoType.component_verify_ticket:
                         requestMessage = new RequestMessageComponentVerifyTicket();
                         break;
+
                     case RequestInfoType.unauthorized:
                         /*
                          * <xml>
@@ -72,6 +72,7 @@ namespace Senparc.Weixin.Open
                         */
                         requestMessage = new RequestMessageUnauthorized();
                         break;
+
                     case RequestInfoType.authorized:
                         /*
                         <xml>
@@ -85,6 +86,7 @@ namespace Senparc.Weixin.Open
                         */
                         requestMessage = new RequestMessageAuthorized();
                         break;
+
                     case RequestInfoType.updateauthorized:
                         requestMessage = new RequestMessageUpdateAuthorized();
                         break;
@@ -101,7 +103,6 @@ namespace Senparc.Weixin.Open
             return requestMessage;
         }
 
-
         /// <summary>
         /// 获取XDocument转换后的IRequestMessageBase实例。
         /// 如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
@@ -111,7 +112,6 @@ namespace Senparc.Weixin.Open
         {
             return GetRequestEntity(XDocument.Parse(xml));
         }
-
 
         /// <summary>
         /// 获取XDocument转换后的IRequestMessageBase实例。

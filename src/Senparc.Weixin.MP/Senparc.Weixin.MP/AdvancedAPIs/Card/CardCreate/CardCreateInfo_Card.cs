@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CardCreateInfo_Card.cs
     文件功能描述：卡券信息数据中的card字段
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
-    
+
     修改标识：Senparc - 20150323
     修改描述：添加会议门票
 ----------------------------------------------------------------*/
@@ -23,7 +22,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     {
         public string card_type { get; set; }
     }
-
 
     #region 不同卡券类型对应的信息
 
@@ -114,8 +112,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     {
         public Card_MeetingTicketData meeting_ticket { get; set; }
     }
-    #endregion
 
+    #endregion 不同卡券类型对应的信息
 
     public abstract class BaseCardInfo
     {
@@ -123,6 +121,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 基本的卡券数据
         /// </summary>
         public Card_BaseInfoBase base_info { get; set; }
+
         /// <summary>
         /// 卡类型（不在Json数据中）
         /// </summary>

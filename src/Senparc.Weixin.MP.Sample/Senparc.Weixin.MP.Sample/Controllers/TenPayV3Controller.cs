@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：TenPayV3Controller.cs
     文件功能描述：微信支付V3Controller
-    
-    
+
     创建标识：Senparc - 20150312
- 
+
     修改标识：Senparc - 20150419
     修改描述：添加产品相关
 
@@ -17,6 +16,11 @@
     修改描述：调用新版Unifiedorder方法
 ----------------------------------------------------------------*/
 
+using Senparc.Weixin.BrowserUtility;
+using Senparc.Weixin.Helpers;
+using Senparc.Weixin.MP.AdvancedAPIs;
+using Senparc.Weixin.MP.Sample.Models;
+using Senparc.Weixin.MP.TenPayLibV3;
 using System;
 using System.Drawing.Imaging;
 using System.IO;
@@ -27,14 +31,6 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Web.Mvc;
 using System.Xml.Linq;
-using Senparc.Weixin.BrowserUtility;
-using Senparc.Weixin.Helpers;
-using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
-using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.Sample.Models;
-using Senparc.Weixin.MP.TenPayLibV3;
 using ZXing;
 using ZXing.Common;
 
@@ -102,8 +98,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             try
             {
-
-
                 //获取产品信息
                 var stateData = state.Split('|');
                 int productId = 0;
@@ -253,7 +247,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             var xmlDataInfo = new TenPayV3RequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, productId, TenPayV3Info.Key, nonceStr);
 
-
             try
             {
                 //调用统一订单接口
@@ -402,7 +395,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return Content(xml, "text/xml");
         }
 
-        #endregion
+        #endregion JsApi支付
 
         #region 订单及退款
 
@@ -418,7 +411,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //设置package订单参数
             packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		  //公众账号ID
             packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
-            packageReqHandler.SetParameter("transaction_id", "");       //填入微信订单号 
+            packageReqHandler.SetParameter("transaction_id", "");       //填入微信订单号
             packageReqHandler.SetParameter("out_trade_no", "");         //填入商家订单号
             packageReqHandler.SetParameter("nonce_str", nonceStr);             //随机字符串
             string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
@@ -493,6 +486,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
             #region 发起post请求
+
             HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
             webrequest.ClientCertificates.Add(cer);
             webrequest.Method = "post";
@@ -507,14 +501,16 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
             StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
             string responseContent = streamReader.ReadToEnd();
-            #endregion
+
+            #endregion 发起post请求
 
             var res = XDocument.Parse(responseContent);
             string openid = res.Element("xml").Element("out_refund_no").Value;
 
             return Content(openid);
         }
-        #endregion
+
+        #endregion 订单及退款
 
         #region 红包
 
@@ -549,7 +545,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             SerializerHelper serializerHelper = new SerializerHelper();
             return Content(serializerHelper.GetJsonString(sendNormalRedPackResult));
         }
-        #endregion
+
+        #endregion 红包
 
         #region 裂变红包
 
@@ -596,6 +593,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
             #region 发起post请求
+
             HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
             webrequest.ClientCertificates.Add(cer);
             webrequest.Method = "post";
@@ -610,11 +608,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
             StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
             string responseContent = streamReader.ReadToEnd();
-            #endregion
+
+            #endregion 发起post请求
 
             return Content(responseContent);
         }
-        #endregion
+
+        #endregion 裂变红包
 
         #region 红包查询接口
 
@@ -644,6 +644,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
 
             #region 发起post请求
+
             HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
             webrequest.ClientCertificates.Add(cer);
             webrequest.Method = "post";
@@ -658,12 +659,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
             StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
             string responseContent = streamReader.ReadToEnd();
-            #endregion
+
+            #endregion 发起post请求
 
             return Content(responseContent);
         }
 
-        #endregion
+        #endregion 红包查询接口
 
         #region 产品展示
 
@@ -726,8 +728,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return null;
         }
 
-
-        #endregion
-
+        #endregion 产品展示
     }
 }

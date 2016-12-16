@@ -1,25 +1,24 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：AsynchronousApi.cs
     文件功能描述：异步任务接口
-    
-    
+
     创建标识：Senparc - 20150408
 
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
- 
+
 ----------------------------------------------------------------*/
 
 /*
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%E6%8E%A5%E5%8F%A3
  */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.Asynchronous;
 using Senparc.Weixin.QY.CommonAPIs;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
@@ -29,7 +28,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     public static class AsynchronousApi
     {
         #region 同步请求
-      
+
         /// <summary>
         /// 邀请成员关注
         /// </summary>
@@ -59,13 +58,13 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             var url = "https://qyapi.weixin.qq.com/cgi-bin/batch/inviteuser?access_token={0}";
 
             var data = new
-                {
-                    touser = toUser,
-                    toparty = toParty,
-                    totag = toTag,
-                    invite_tips = inviteTips,
-                    callback = callBack
-                };
+            {
+                touser = toUser,
+                toparty = toParty,
+                totag = toTag,
+                invite_tips = inviteTips,
+                callback = callBack
+            };
 
             return CommonJsonSend.Send<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
         }
@@ -116,10 +115,10 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             var url = "https://qyapi.weixin.qq.com/cgi-bin/batch/syncuser?access_token={0}";
 
             var data = new
-                {
-                    media_id = mediaId,
-                    callback = callBack
-                };
+            {
+                media_id = mediaId,
+                callback = callBack
+            };
 
             return CommonJsonSend.Send<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
         }
@@ -240,10 +239,12 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             return Get.GetJson<AsynchronousReplacePartyResult>(url);
         }
 
-        #endregion
-        #endregion
+        #endregion 通讯录更新
+
+        #endregion 同步请求
 
         #region 异步请求
+
         /// <summary>
         /// 【异步方法】邀请成员关注
         /// </summary>
@@ -281,7 +282,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 callback = callBack
             };
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         #region 通讯录更新
@@ -454,7 +455,8 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             return await Get.GetJsonAsync<AsynchronousReplacePartyResult>(url);
         }
 
-        #endregion
-        #endregion
+        #endregion 通讯录更新
+
+        #endregion 异步请求
     }
 }

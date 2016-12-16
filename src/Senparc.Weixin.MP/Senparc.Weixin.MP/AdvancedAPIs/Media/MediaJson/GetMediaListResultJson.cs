@@ -1,16 +1,15 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：GetMediaListResultJson.cs
     文件功能描述：获取素材列表返回结果
-    
-    
+
     创建标识：Senparc - 20150324
 ----------------------------------------------------------------*/
 
-using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.AdvancedAPIs.GroupMessage;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Media
 {
@@ -23,6 +22,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
         /// 该类型的素材的总数
         /// </summary>
         public int total_count { get; set; }
+
         /// <summary>
         /// 本次调用获取的素材的数量
         /// </summary>
@@ -41,6 +41,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
     {
         public string media_id { get; set; }
         public Media_News_Content content { get; set; }
+
         /// <summary>
         /// 这个素材的最后更新时间
         /// </summary>
@@ -49,7 +50,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
 
     public class Media_News_Content
     {
-        public List<Media_News_Content_Item> news_item { get; set; } 
+        public List<Media_News_Content_Item> news_item { get; set; }
     }
 
     public class Media_News_Content_Item : NewsModel
@@ -73,14 +74,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Media
     public class MediaList_Others_Item
     {
         public string media_id { get; set; }
+
         /// <summary>
         /// 文件名称
         /// </summary>
         public string name { get; set; }
+
         /// <summary>
         /// 这个素材的最后更新时间
         /// </summary>
         public long update_time { get; set; }
+
         /// <summary>
         /// 图文页的URL，或者，当获取的列表是图片素材列表时，该字段是图片的URL
         /// </summary>

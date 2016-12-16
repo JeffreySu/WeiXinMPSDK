@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.Configuration;
-using System.Web.Mvc;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
-using Senparc.Weixin.Open.CommonAPIs;
+﻿using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
+using System;
+using System.Web.Configuration;
+using System.Web.Mvc;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
-
     public class OpenOAuthController : BaseController
     {
         private string component_AppId = WebConfigurationManager.AppSettings["Component_Appid"];
@@ -33,7 +26,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             try
             {
-
                 #region 直接调用API
 
                 //string openTicket = OpenTicketHelper.GetOpenTicket(component_AppId);
@@ -45,7 +37,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //var authInfoResult = Open.ComponentAPIs.ComponentApi.GetAuthorizerInfo(component_access_token, component_AppId,
                 //     oauthResult.authorization_info.authorizer_appid);
 
-                #endregion
+                #endregion 直接调用API
 
                 #region 使用ComponentContainer
 
@@ -59,7 +51,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 {
                     throw new Exception("QueryAuthResult：" + ex.Message);
                 }
-                #endregion
+
+                #endregion 使用ComponentContainer
 
                 var authorizerInfoResult = AuthorizerContainer.GetAuthorizerInfoResult(component_AppId,
                     queryAuthResult.authorization_info.authorizer_appid);
@@ -75,7 +68,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
         }
 
-
         /// <summary>
         /// 公众号授权页入口
         /// </summary>
@@ -85,7 +77,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return View();
         }
 
-        #endregion
+        #endregion 开放平台入口及回调
 
         #region 微信用户授权相关
 
@@ -204,7 +196,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
         }
 
-        #endregion
+        #endregion 微信用户授权相关
 
         #region 授权信息
 
@@ -229,7 +221,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        #endregion
+        #endregion 授权信息
     }
 }
-

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Redis;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Senparc.WeixinTests.Cache.Lock
 {
@@ -29,7 +28,7 @@ namespace Senparc.WeixinTests.Cache.Lock
             Console.WriteLine("测试Threads");
 
             List<Thread> list = new List<Thread>();
-            int[] runThreads = {0};
+            int[] runThreads = { 0 };
 
             for (int i = 0; i < 100; i++)
             {
@@ -67,7 +66,7 @@ namespace Senparc.WeixinTests.Cache.Lock
              *             2、不同的ResourceName、appId之间任意组合相互干扰；
              *             3、出现死锁；
              *             4、某线程始终无法获得锁（超时或一直运行）
-             *             
+             *
              * 注意：超时导致的失败可能是由于设置的最大等待时间现对于测试的Thread.sleep太短。
              */
 
@@ -79,7 +78,6 @@ namespace Senparc.WeixinTests.Cache.Lock
                 RedisManager.ConfigurationOption = redisConfiguration;
                 CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
             }
-
 
             Random rnd = new Random();
             var threadsCount = 20M;
@@ -101,7 +99,7 @@ namespace Senparc.WeixinTests.Cache.Lock
             Console.WriteLine("=====================");
 
             List<Thread> list = new List<Thread>();
-            int[] runThreads = {0};
+            int[] runThreads = { 0 };
 
             for (int i = 0; i < (int)threadsCount; i++)
             {
@@ -113,7 +111,7 @@ namespace Senparc.WeixinTests.Cache.Lock
                     var resourceName = "Test-" + rnd.Next(0, 2);//调整这里的随机数，可以改变锁的个数
                     var cache = CacheStrategyFactory.GetObjectCacheStrategyInstance();//每次重新获取实例（因为单例模式，所以其实是同一个）
 
-                    Console.WriteLine("线程 {0} / {1} : {2} 进入，准备尝试锁。Cache实例：{3}", Thread.CurrentThread.GetHashCode(), resourceName, appId,cache.GetHashCode());
+                    Console.WriteLine("线程 {0} / {1} : {2} 进入，准备尝试锁。Cache实例：{3}", Thread.CurrentThread.GetHashCode(), resourceName, appId, cache.GetHashCode());
 
                     DateTime dt1 = DateTime.Now;
                     using (var cacheLock = cache.BeginCacheLock(resourceName, appId, (int)retryTimes, new TimeSpan(0, 0, 0, 0, 20)))

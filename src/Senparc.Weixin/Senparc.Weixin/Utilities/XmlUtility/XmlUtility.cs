@@ -8,7 +8,6 @@ namespace Senparc.Weixin.XmlUtility
 {
     public static class XmlUtility
     {
-
         #region 反序列化
 
         /// <summary>
@@ -29,7 +28,6 @@ namespace Senparc.Weixin.XmlUtility
             }
             catch (Exception e)
             {
-
                 return null;
             }
         }
@@ -46,7 +44,7 @@ namespace Senparc.Weixin.XmlUtility
             return xmldes.Deserialize(stream);
         }
 
-        #endregion
+        #endregion 反序列化
 
         #region 序列化
 
@@ -80,8 +78,7 @@ namespace Senparc.Weixin.XmlUtility
             return str;
         }
 
-        #endregion
-
+        #endregion 序列化
 
         /// <summary>
         /// 序列化将流转成XML字符串
@@ -96,6 +93,5 @@ namespace Senparc.Weixin.XmlUtility
                 return XDocument.Load(xr);
             }
         }
-
     }
 }

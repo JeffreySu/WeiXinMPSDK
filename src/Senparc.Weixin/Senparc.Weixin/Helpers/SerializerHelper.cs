@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：SerializerHelper.cs
     文件功能描述：unicode解码
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -60,7 +59,5 @@ namespace Senparc.Weixin.Helpers
             var json = Regex.Replace(jsonString, @"\\u[0123456789abcdef]{4}", evaluator);//或：[\\u007f-\\uffff]，\对应为\u000a，但一般情况下会保持\
             return json;
         }
-
     }
-
 }

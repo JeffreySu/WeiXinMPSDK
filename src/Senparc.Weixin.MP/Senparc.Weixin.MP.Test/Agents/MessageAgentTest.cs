@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.MP.Entities;
+using System;
 
 namespace Senparc.Weixin.MP.Test.Agents
 {
@@ -31,7 +27,7 @@ namespace Senparc.Weixin.MP.Test.Agents
             var xml = MessageAgent.RequestXml(null, url, token, requestXml);
             var responseMessage = ResponseMessageBase.CreateFromResponseXml(xml);
             Assert.IsNotNull(responseMessage);
-            Assert.IsInstanceOfType(responseMessage, typeof (ResponseMessageText));
+            Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageText));
             var strongResponseMessage = responseMessage as ResponseMessageText;
             Assert.IsTrue(strongResponseMessage.Content.Contains("您点击了底部按钮。"));
 

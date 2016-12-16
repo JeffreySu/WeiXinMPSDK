@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Xml.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.Test
 {
     [TestClass]
     public class ResponseMessageFactoryTest
     {
-        string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
+        private string xmlText = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
   <ToUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></ToUserName>
   <FromUserName><![CDATA[gh_a96a4a619366]]></FromUserName>
@@ -21,7 +17,7 @@ namespace Senparc.Weixin.MP.Test
   <FuncFlag>0</FuncFlag>
 </xml>";
 
-        string xmlNews = @"<?xml version=""1.0"" encoding=""utf-8""?>
+        private string xmlNews = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
   <ToUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></ToUserName>
   <FromUserName><![CDATA[gh_a96a4a619366]]></FromUserName>
@@ -46,7 +42,7 @@ namespace Senparc.Weixin.MP.Test
   <FuncFlag>0</FuncFlag>
 </xml>";
 
-        string xmlMusic = @"<?xml version=""1.0"" encoding=""utf-8""?>
+        private string xmlMusic = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <xml>
   <ToUserName><![CDATA[olPjZjsXuQPJoV0HlruZkNzKc91E]]></ToUserName>
   <FromUserName><![CDATA[gh_a96a4a619366]]></FromUserName>
@@ -67,14 +63,14 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Text
                 ResponseMessageText exceptResult = new ResponseMessageText()
-                                              {
-                                                  ToUserName = "olPjZjsXuQPJoV0HlruZkNzKc91E",
-                                                  FromUserName = "gh_a96a4a619366",
-                                                  CreateTime = DateTimeHelper.GetDateTimeFromXml(63497820384),
-                                                  //MsgType = ResponseMsgType.Text,
-                                                  Content = "文字信息",
-                                                  //FuncFlag = false
-                                              };
+                {
+                    ToUserName = "olPjZjsXuQPJoV0HlruZkNzKc91E",
+                    FromUserName = "gh_a96a4a619366",
+                    CreateTime = DateTimeHelper.GetDateTimeFromXml(63497820384),
+                    //MsgType = ResponseMsgType.Text,
+                    Content = "文字信息",
+                    //FuncFlag = false
+                };
                 var result = ResponseMessageFactory.GetResponseEntity(xmlText) as ResponseMessageText;
                 Assert.AreEqual(exceptResult.ToUserName, result.ToUserName);
                 Assert.AreEqual(exceptResult.CreateTime, result.CreateTime);
@@ -84,14 +80,14 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Image
                 ResponseMessageNews exceptResult = new ResponseMessageNews()
-                                                     {
-                                                         //Articles = new List<Article>(),
-                                                         CreateTime = DateTimeHelper.GetDateTimeFromXml(63497821905),
-                                                         FromUserName = "gh_a96a4a619366",
-                                                         ToUserName = "olPjZjsXuQPJoV0HlruZkNzKc91E",
-                                                         //FuncFlag = false,
-                                                         //MsgType = ResponseMsgType.News
-                                                     };
+                {
+                    //Articles = new List<Article>(),
+                    CreateTime = DateTimeHelper.GetDateTimeFromXml(63497821905),
+                    FromUserName = "gh_a96a4a619366",
+                    ToUserName = "olPjZjsXuQPJoV0HlruZkNzKc91E",
+                    //FuncFlag = false,
+                    //MsgType = ResponseMsgType.News
+                };
                 var result = ResponseMessageFactory.GetResponseEntity(xmlNews) as ResponseMessageNews;
                 Assert.AreEqual(exceptResult.ToUserName, result.ToUserName);
                 Assert.AreEqual(exceptResult.CreateTime, result.CreateTime);
@@ -104,20 +100,20 @@ namespace Senparc.Weixin.MP.Test
             {
                 //Music
                 ResponseMessageMusic exceptResult = new ResponseMessageMusic()
-                                                        {
-                                                            Music = new Music()
-                                                                        {
-                                                                            Title = "标题",
-                                                                            Description = "说明",
-                                                                            MusicUrl = "http://sdk.weixin.senparc.com/Content/music1.mp3",
-                                                                            HQMusicUrl = ""
-                                                                        },
-                                                            CreateTime = DateTimeHelper.GetDateTimeFromXml(63497823450),
-                                                            FromUserName = "gh_a96a4a619366",
-                                                            ToUserName = "olPjZjsXuQPJoV0HlruZkNzKc91E",
-                                                            //FuncFlag = false,
-                                                            //MsgType = ResponseMsgType.Music
-                                                        };
+                {
+                    Music = new Music()
+                    {
+                        Title = "标题",
+                        Description = "说明",
+                        MusicUrl = "http://sdk.weixin.senparc.com/Content/music1.mp3",
+                        HQMusicUrl = ""
+                    },
+                    CreateTime = DateTimeHelper.GetDateTimeFromXml(63497823450),
+                    FromUserName = "gh_a96a4a619366",
+                    ToUserName = "olPjZjsXuQPJoV0HlruZkNzKc91E",
+                    //FuncFlag = false,
+                    //MsgType = ResponseMsgType.Music
+                };
                 var result = ResponseMessageFactory.GetResponseEntity(xmlMusic) as ResponseMessageMusic;
                 Assert.AreEqual(exceptResult.ToUserName, result.ToUserName);
                 Assert.AreEqual(exceptResult.CreateTime, result.CreateTime);

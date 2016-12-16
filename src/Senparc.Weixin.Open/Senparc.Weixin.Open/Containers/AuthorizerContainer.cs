@@ -4,7 +4,6 @@
     文件名：AuthorizerContainer.cs
     文件功能描述：通用接口JsApiTicket容器，用于OPEN第三方JSSDK自动管理JsApiTicket，如果过期会重新获取
 
-
     创建标识：Senparc - 20150211
 
     修改标识：renny - 20150921
@@ -21,10 +20,10 @@
 
     修改标识：Senparc - 20160717
     修改描述：1.6.6 添加注册过程中的Name参数
-    
+
     修改标识：Senparc - 20160803
     修改描述：v2.1.3 使用ApiUtility.GetExpireTime()方法处理过期
-   
+
     修改标识：Senparc - 20160804
     修改描述：v2.1.5 增加异步方法
 
@@ -36,7 +35,7 @@
 
     修改标识：Senparc - 20161027
     修改描述：v2.3.1 为GetAuthorizerInfoResult方法添加authorizerBag.AuthorizationInfo更新
-    
+
     修改标识：Senparc - 20161203
     修改描述：v2.3.3 解决同步锁死锁的问题
 
@@ -45,15 +44,14 @@
 
 ----------------------------------------------------------------*/
 
-using System;
-using System.Threading.Tasks;
-using Senparc.Weixin.Cache;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Entities;
 using Senparc.Weixin.Open.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using System;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Open.Containers
 {
@@ -102,7 +100,6 @@ namespace Senparc.Weixin.Open.Containers
             }
         }
 
-
         public JsApiTicketResult JsApiTicketResult
         {
             get { return _jsApiTicketResult; }
@@ -145,7 +142,6 @@ namespace Senparc.Weixin.Open.Containers
 
         //public DateTime AuthorizerInfoExpireTime { get; set; }
 
-
         /// <summary>
         /// 只针对这个AppId的锁
         /// </summary>
@@ -166,7 +162,7 @@ namespace Senparc.Weixin.Open.Containers
     /// </summary>
     public class AuthorizerContainer : BaseContainer<AuthorizerBag>
     {
-        const string LockResourceName = "Open.AuthorizerContainer";
+        private const string LockResourceName = "Open.AuthorizerContainer";
 
         /// <summary>
         /// 注册应用凭证信息，此操作只是注册，不会马上获取Ticket，并将清空之前的Ticket，
@@ -211,9 +207,7 @@ namespace Senparc.Weixin.Open.Containers
             //TODO：这里也可以考虑尝试进行授权（会影响速度）
         }
 
-
         #region 同步方法
-
 
         /// <summary>
         /// 尝试注册
@@ -271,7 +265,6 @@ namespace Senparc.Weixin.Open.Containers
             }
             return authorizerBag.AuthorizationInfo;
         }
-
 
         /// <summary>
         /// 获取可用AuthorizerAccessToken
@@ -418,10 +411,9 @@ namespace Senparc.Weixin.Open.Containers
             return refreshResult;
         }
 
-        #endregion
+        #endregion 授权信息
 
         #region JSTicket
-
 
         /// <summary>
         /// 使用完整的应用凭证获取Ticket，如果不存在将自动注册
@@ -476,8 +468,9 @@ namespace Senparc.Weixin.Open.Containers
             return accessTicketBag.JsApiTicketResult;
         }
 
-        #endregion
-        #endregion
+        #endregion JSTicket
+
+        #endregion 同步方法
 
         #region 异步方法
 
@@ -513,7 +506,7 @@ namespace Senparc.Weixin.Open.Containers
                         return null;
                     }
 
-                    var refreshResult =await RefreshAuthorizerTokenAsync(componentAccessToken, componentAppId, authorizerAppid,
+                    var refreshResult = await RefreshAuthorizerTokenAsync(componentAccessToken, componentAppId, authorizerAppid,
                         refreshToken);
 
                     //更新数据
@@ -560,7 +553,6 @@ namespace Senparc.Weixin.Open.Containers
             var authorizerBag = TryGetItem(authorizerAppid);
             using (Cache.BeginCacheLock(LockResourceName + ".GetAuthorizerInfoResult", authorizerAppid))//同步锁
             {
-
                 //更新AuthorizerInfo
                 if (getNewTicket || authorizerBag.AuthorizerInfo.user_name == null)
                 {
@@ -584,8 +576,6 @@ namespace Senparc.Weixin.Open.Containers
             return authorizerBag.FullAuthorizerInfoResult;
         }
 
-
-
         /// <summary>
         /// 【异步方法】刷新AuthorizerToken
         /// </summary>
@@ -604,7 +594,7 @@ namespace Senparc.Weixin.Open.Containers
             return refreshResult;
         }
 
-        #endregion
+        #endregion 授权信息
 
         #region JSTicket
 
@@ -662,8 +652,8 @@ namespace Senparc.Weixin.Open.Containers
             return accessTicketBag.JsApiTicketResult;
         }
 
-        #endregion
+        #endregion JSTicket
 
-        #endregion
+        #endregion 异步方法
     }
 }

@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：SendResult.cs
     文件功能描述：群发结果
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -31,7 +30,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         public string msg_id { get; set; }
     }
 
-    public class GetSendResult:WxJsonResult
+    public class GetSendResult : WxJsonResult
     {
         /// <summary>
         /// 消息ID

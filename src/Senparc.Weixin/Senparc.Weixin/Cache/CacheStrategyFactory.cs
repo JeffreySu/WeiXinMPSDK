@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache
 {
@@ -24,7 +19,6 @@ namespace Senparc.Weixin.Cache
             ObjectCacheStrateFunc = func;
         }
 
-
         public static IObjectCacheStrategy GetObjectCacheStrategyInstance()
         {
             if (ObjectCacheStrateFunc == null)
@@ -39,7 +33,6 @@ namespace Senparc.Weixin.Cache
                 return instance;
             }
         }
-
 
         //public static void RegisterContainerCacheStrategy(Func<IContainerCacheStrategy> func)
         //{

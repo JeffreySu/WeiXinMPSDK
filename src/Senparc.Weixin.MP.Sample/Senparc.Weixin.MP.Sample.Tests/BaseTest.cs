@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Senparc.Weixin.MP.Sample.Tests
 {
@@ -28,7 +24,8 @@ namespace Senparc.Weixin.MP.Sample.Tests
         }
 
         #region Additional test attributes
-        // 
+
+        //
         //You can use the following additional attributes as you write your tests:
         //
         //Use ClassInitialize to run code before running the first test in the class
@@ -55,7 +52,8 @@ namespace Senparc.Weixin.MP.Sample.Tests
         //{
         //}
         //
-        #endregion
+
+        #endregion Additional test attributes
 
         public BaseTest()
         {

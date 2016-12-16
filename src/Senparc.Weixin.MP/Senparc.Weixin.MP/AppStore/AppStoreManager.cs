@@ -1,17 +1,16 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-  
+
     文件名：AppStoreManager.cs
     文件功能描述：AppStoreOAuth
-    
-    
+
     创建标识：Senparc - 20150319
 ----------------------------------------------------------------*/
 
-using System.Collections.Generic;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AppStore.Api;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AppStore
 {
@@ -22,6 +21,7 @@ namespace Senparc.Weixin.MP.AppStore
         //private static string _appKey;
         //private static string _secret;
         private static PassportCollection _passportCollection;
+
         public static PassportCollection PassportCollection
         {
             get

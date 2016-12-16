@@ -4,7 +4,6 @@
     文件名：Get.cs
     文件功能描述：Get
 
-
     创建标识：Senparc - 20150211
 
     修改标识：Senparc - 20150303
@@ -14,14 +13,13 @@
     修改描述：v4.5.19 为GetJson方法添加maxJsonLength参数
 ----------------------------------------------------------------*/
 
-using System;
+using Senparc.Weixin.Entities;
+using Senparc.Weixin.Exceptions;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.HttpUtility
 {
@@ -88,7 +86,7 @@ namespace Senparc.Weixin.HttpUtility
             }
         }
 
-        #endregion
+        #endregion 同步方法
 
         #region 异步方法
 
@@ -149,6 +147,6 @@ namespace Senparc.Weixin.HttpUtility
             //}
         }
 
-        #endregion
+        #endregion 异步方法
     }
 }

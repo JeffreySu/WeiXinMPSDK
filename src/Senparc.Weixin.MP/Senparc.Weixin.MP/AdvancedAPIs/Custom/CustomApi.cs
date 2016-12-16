@@ -1,42 +1,41 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CustomAPI.cs
     文件功能描述：客服接口
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
- 
+
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
- 
+
     修改标识：Senparc - 20160718
     修改描述：增加其接口的异步方法
- 
+
     修改标识：Senparc - 20160722
     修改描述：将其SendText方法增加了kfAccount的参数
-   
+
     修改标识：Senparc - 20160802
     修改描述：将其Send方法增加了kfAccount的参数
- 
+
     创建标识：Senparc - 20160808
     创建描述：增加SendCard
 ----------------------------------------------------------------*/
 
-/* 
+/*
    API地址：http://mp.weixin.qq.com/wiki/1/70a29afed17f56d537c833f89be979c9.html
 */
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
@@ -65,14 +64,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             if (string.IsNullOrWhiteSpace(kfAccount))
             {
                 data = new
-                 {
-                     touser = openId,
-                     msgtype = "text",
-                     text = new
-                     {
-                         content = content
-                     }
-                 };
+                {
+                    touser = openId,
+                    msgtype = "text",
+                    text = new
+                    {
+                        content = content
+                    }
+                };
             }
             else
             {
@@ -88,14 +87,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     {
                         kf_account = kfAccount
                     }
-
                 };
             }
 
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -110,7 +107,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static WxJsonResult SendImage(string accessTokenOrAppId, string openId, string mediaId, int timeOut = Config.TIME_OUT, string kfAccount = "")
         {
-
             object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
             {
@@ -122,7 +118,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     {
                         media_id = mediaId
                     }
-
                 };
             }
             else
@@ -144,7 +139,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -162,7 +156,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
             {
-
                 data = new
                 {
                     touser = openId,
@@ -171,7 +164,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     {
                         media_id = mediaId
                     }
-
                 };
             }
             else
@@ -192,9 +184,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -246,11 +236,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 发送音乐消息
         /// </summary>
@@ -282,7 +271,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         hqmusicurl = hqMusicUrl,
                         thumb_media_id = thumbMediaId
                     }
-
                 };
             }
             else
@@ -303,13 +291,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     {
                         kf_account = kfAccount
                     }
-
                 };
             }
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -363,13 +349,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     {
                         kf_account = kfAccount
                     }
-
                 };
             }
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -416,12 +400,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
 
@@ -447,7 +430,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     {
                         content = content
                     }
-
                 };
             }
             else
@@ -464,18 +446,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     {
                         kf_account = kfAccount
                     }
-
                 };
             }
 
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
-
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
-
 
         /// <summary>
         /// 【异步方法】发送图片消息
@@ -519,9 +497,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
-
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -567,9 +543,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
-
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -621,11 +595,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
-
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 【异步方法】发送音乐消息
         /// </summary>
@@ -657,7 +630,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         hqmusicurl = hqMusicUrl,
                         thumb_media_id = thumbMediaId
                     }
-
                 };
             }
             else
@@ -678,14 +650,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     {
                         kf_account = kfAccount
                     }
-
                 };
             }
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
-
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
@@ -717,7 +686,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             picurl = z.PicUrl //图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
                         }).ToList()
                     }
-
                 };
             }
             else
@@ -740,17 +708,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     {
                         kf_account = kfAccount
                     }
-
                 };
             }
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
-
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
-
 
         /// <summary>
         /// 【异步方法】发送图文消息（点击跳转到图文消息页面）
@@ -795,15 +759,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
-
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
-        #endregion
+
+        #endregion 异步请求
 
         ///
-        /// 发送卡券 查看card_ext字段详情及签名规则，特别注意客服消息接口投放卡券仅支持非自定义Code码的卡券。 
+        /// 发送卡券 查看card_ext字段详情及签名规则，特别注意客服消息接口投放卡券仅支持非自定义Code码的卡券。
         ///
         public static WxJsonResult SendCard(string accessTokenOrAppId, string openId, string cardId, CardExt cardExt, int timeOut = Config.TIME_OUT)
         {
@@ -825,7 +788,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut, jsonSetting: jsonSetting);
-
             }, accessTokenOrAppId);
         }
     }

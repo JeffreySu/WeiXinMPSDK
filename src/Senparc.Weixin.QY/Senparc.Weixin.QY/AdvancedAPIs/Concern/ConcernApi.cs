@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：ConcernApi.cs
     文件功能描述：二次验证接口
-    
-    
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：MysticBoy - 20150414
     修改描述：TwoVerification接口没有参数
- 
+
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
 ----------------------------------------------------------------*/
@@ -18,9 +17,9 @@
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E5%85%B3%E6%B3%A8%E4%B8%8E%E5%8F%96%E6%B6%88%E5%85%B3%E6%B3%A8
  */
 
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
@@ -30,7 +29,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     public static class ConcernApi
     {
         #region 同步请求
-       
+
         /// <summary>
         /// 二次验证
         /// </summary>
@@ -39,10 +38,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static QyJsonResult TwoVerification(string accessToken, string userId)
         {
-            var url =string.Format ( "https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}",accessToken.AsUrlData(), userId.AsUrlData());
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
             return Get.GetJson<QyJsonResult>(url);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
 
@@ -57,6 +57,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
             return await Get.GetJsonAsync<QyJsonResult>(url);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

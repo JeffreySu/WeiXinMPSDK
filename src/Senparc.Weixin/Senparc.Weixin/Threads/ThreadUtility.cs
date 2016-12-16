@@ -4,18 +4,13 @@
     文件名：ThreadUtility.cs
     文件功能描述：线程工具类
 
-
     创建标识：Senparc - 20151226
 
 ----------------------------------------------------------------*/
 
-
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Threads
 {
@@ -34,7 +29,7 @@ namespace Senparc.Weixin.Threads
         /// </summary>
         public static void Register()
         {
-            if (AsynThreadCollection.Count==0)
+            if (AsynThreadCollection.Count == 0)
             {
                 {
                     SenparcMessageQueueThreadUtility senparcMessageQueue = new SenparcMessageQueueThreadUtility();
@@ -47,7 +42,6 @@ namespace Senparc.Weixin.Threads
                     z.IsBackground = true;
                     z.Start();
                 });//全部运行
-
             }
         }
     }

@@ -52,9 +52,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         public M2(int[] groupIds)
         {
             group_infos = new M2_GroupInfos()
-                {
-                    groups = new List<Group>()
-                };
+            {
+                groups = new List<Group>()
+            };
 
             for (int i = 0; i < groupIds.Length; i++)
             {
@@ -110,12 +110,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         /// <param name="groupIds">groups/[group_id]</param>
         /// <param name="imgs">groups/[img]</param>
         /// 注意groupIds和imgs要对应
-        public M4(int[] groupIds,string[] imgs)
+        public M4(int[] groupIds, string[] imgs)
         {
             group_infos = new M4_GroupInfos()
-                {
-                    groups = new List<GroupInfo>()
-                };
+            {
+                groups = new List<GroupInfo>()
+            };
 
             for (int i = 0; i < groupIds.Length; i++)
             {
@@ -161,4 +161,3 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
         public string img_background { get; set; }
     }
 }
-

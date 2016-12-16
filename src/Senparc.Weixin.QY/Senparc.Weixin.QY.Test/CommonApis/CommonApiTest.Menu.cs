@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.QY.CommonAPIs;
 using Senparc.Weixin.QY.Containers;
 using Senparc.Weixin.QY.Entities.Menu;
@@ -18,7 +12,6 @@ namespace Senparc.Weixin.QY.Test.CommonApis
         [TestMethod]
         public void CreateMenuTest()
         {
-
             var accessToken = AccessTokenContainer.GetToken(_corpId, _corpSecret);
 
             ButtonGroup bg = new ButtonGroup();
@@ -63,13 +56,11 @@ namespace Senparc.Weixin.QY.Test.CommonApis
             });
             bg.button.Add(subButton);
 
-
             var result = CommonApi.CreateMenu(accessToken, _agentId, bg);
 
             Assert.IsNotNull(result);
             Assert.AreEqual("ok", result.errmsg);
         }
-
 
         [TestMethod]
         public void GetMenuTest()

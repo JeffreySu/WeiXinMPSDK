@@ -1,14 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-  
+
     文件名：SendRedPackResult.cs
     文件功能描述：获取普通现金红包发送接口的结果
-    
-    
+
     创建标识：Yu XiaoChou - 20160107
 ----------------------------------------------------------------*/
-
-using System;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {

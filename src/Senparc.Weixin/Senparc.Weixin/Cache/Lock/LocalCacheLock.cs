@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Cache
 {
     public class LocalCacheLock : BaseCacheLock
     {
         private IBaseCacheStrategy _localStrategy;
+
         public LocalCacheLock(IBaseCacheStrategy strategy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
-            :base(strategy,resourceName,key,retryCount,retryDelay)
+            : base(strategy, resourceName, key, retryCount, retryDelay)
         {
             _localStrategy = strategy;
         }

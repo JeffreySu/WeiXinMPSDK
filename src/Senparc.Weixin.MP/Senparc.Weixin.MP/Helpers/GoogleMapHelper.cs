@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：GoogleMapHelper.cs
     文件功能描述：获取谷歌今天静态地图Url
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -15,9 +14,9 @@
      API介绍：https://developers.google.com/maps/documentation/staticmaps/?hl=zh-CN
  */
 
+using Senparc.Weixin.MP.Entities.GoogleMap;
 using System.Collections.Generic;
 using System.Text;
-using Senparc.Weixin.MP.Entities.GoogleMap;
 
 namespace Senparc.Weixin.MP.Helpers
 {
@@ -27,7 +26,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// 获取谷歌今天静态地图Url。API介绍：https://developers.google.com/maps/documentation/staticmaps/?hl=zh-CN
         /// </summary>
         /// <returns></returns>
-        public static string GetGoogleStaticMap(int scale,  IList<GoogleMapMarkers> markersList, string size = "640x640")
+        public static string GetGoogleStaticMap(int scale, IList<GoogleMapMarkers> markersList, string size = "640x640")
         {
             markersList = markersList ?? new List<GoogleMapMarkers>();
             StringBuilder markersStr = new StringBuilder();
@@ -49,8 +48,8 @@ namespace Senparc.Weixin.MP.Helpers
                 }
                 markersStr.AppendFormat("{0},{1}", markers.X, markers.Y);
             }
-            string parameters = string.Format("center=&zoom=&size={0}&maptype=roadmap&format=jpg&sensor=false&language=zh&{1}", 
-                                             size,markersStr.ToString());
+            string parameters = string.Format("center=&zoom=&size={0}&maptype=roadmap&format=jpg&sensor=false&language=zh&{1}",
+                                             size, markersStr.ToString());
             string url = "http://maps.googleapis.com/maps/api/staticmap?" + parameters;
             return url;
         }

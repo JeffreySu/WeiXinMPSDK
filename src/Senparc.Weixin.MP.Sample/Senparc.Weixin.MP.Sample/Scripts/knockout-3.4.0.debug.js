@@ -1410,7 +1410,6 @@ if (ko.utils.canSetPrototype) {
 
 ko.subscribable['fn'] = ko_subscribable_fn;
 
-
 ko.isSubscribable = function (instance) {
     return instance != null && typeof instance.subscribe == "function" && typeof instance["notifySubscribers"] == "function";
 };
@@ -2961,7 +2960,6 @@ ko.exportSymbol('bindingProvider', ko.bindingProvider);
     // The ko.bindingContext constructor is only called directly to create the root context. For child
     // contexts, use bindingContext.createChildContext or bindingContext.extend.
     ko.bindingContext = function(dataItemOrAccessor, parentContext, dataItemAlias, extendCallback) {
-
         // The binding context object includes static properties for the current, parent, and root view models.
         // If a view model is actually stored in an observable, the corresponding binding context object, and
         // any child contexts, must be updated when the view model is changed.
@@ -3179,7 +3177,6 @@ ko.exportSymbol('bindingProvider', ko.bindingProvider);
     }
 
     var boundElementDomDataKey = ko.utils.domData.nextKey();
-
 
     function topologicalSortBindings(bindings) {
         // Depth-first sort
@@ -3548,7 +3545,6 @@ ko.exportSymbol('bindingProvider', ko.bindingProvider);
     ko.exportSymbol('components.clearCachedDefinition', ko.components.clearCachedDefinition);
 })();
 (function(undefined) {
-
     // The default loader is responsible for two things:
     // 1. Maintaining the default in-memory registry of component configuration objects
     //    (i.e., the thing you're writing to when you call ko.components.register(someName, ...))
@@ -3888,7 +3884,6 @@ ko.exportSymbol('bindingProvider', ko.bindingProvider);
         })(document.createDocumentFragment);
     }
 })();(function(undefined) {
-
     var componentLoadingOperationUniqueId = 0;
 
     ko.bindingHandlers['component'] = {
@@ -3970,7 +3965,6 @@ ko.exportSymbol('bindingProvider', ko.bindingProvider);
             ? componentViewModelFactory.call(componentDefinition, componentParams, { 'element': element, 'templateNodes': originalChildNodes })
             : componentParams; // Template-only component
     }
-
 })();
 var attrHtmlToJavascriptMap = { 'class': 'className', 'for': 'htmlFor' };
 ko.bindingHandlers['attr'] = {
@@ -4011,7 +4005,6 @@ ko.bindingHandlers['attr'] = {
     }
 };
 (function() {
-
 ko.bindingHandlers['checked'] = {
     'after': ['value', 'attr'],
     'init': function (element, valueAccessor, allBindings) {
@@ -4123,7 +4116,6 @@ ko.bindingHandlers['checkedValue'] = {
         element.value = ko.utils.unwrapObservable(valueAccessor());
     }
 };
-
 })();var classesWrittenByBindingKey = '__ko__cssValue';
 ko.bindingHandlers['css'] = {
     'update': function (element, valueAccessor) {
@@ -4605,7 +4597,6 @@ ko.bindingHandlers['text'] = {
 };
 ko.virtualElements.allowedBindings['text'] = true;
 (function () {
-
 if (window && window.navigator) {
     var parseVersion = function (matches) {
         if (matches) {
@@ -4648,7 +4639,6 @@ if (ko.utils.ieVersion < 10) {
 
 ko.bindingHandlers['textInput'] = {
     'init': function (element, valueAccessor, allBindings) {
-
         var previousElementValue = element.value,
             timeoutHandle,
             elementValueBeforeEvent;
@@ -4784,7 +4774,6 @@ ko.bindingHandlers['textinput'] = {
         addBinding('textInput', value);
     }
 };
-
 })();ko.bindingHandlers['uniqueName'] = {
     'init': function (element, valueAccessor) {
         if (valueAccessor()) {
@@ -5046,7 +5035,6 @@ ko.templateRewriting = (function () {
         }
     }
 })();
-
 
 // Exported only because it has to be referenced by string lookup from within rewritten template
 ko.exportSymbol('__tr_ambtns', ko.templateRewriting.applyMemoizedBindingsToNextSibling);
@@ -5380,7 +5368,6 @@ ko.exportSymbol('__tr_ambtns', ko.templateRewriting.applyMemoizedBindingsToNextS
             // Call setDomNodeChildrenFromArrayMapping, ignoring any observables unwrapped within (most likely from a callback function).
             // If the array items are observables, though, they will be unwrapped in executeTemplateForArrayItem and managed within setDomNodeChildrenFromArrayMapping.
             ko.dependencyDetection.ignore(ko.utils.setDomNodeChildrenFromArrayMapping, null, [targetNode, filteredArray, executeTemplateForArrayItem, options, activateBindingsCallback]);
-
         }, null, { disposeWhenNodeIsRemoved: targetNode });
     };
 

@@ -1,18 +1,17 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CardManageResultJson.cs
     文件功能描述：管理卡券返回结果
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using System.Collections.Generic;
 using Senparc.Weixin.Entities;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.Card
 {
@@ -32,6 +31,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 用户openid
         /// </summary>
         public string openid { get; set; }
+
         public Get_Card card { get; set; }
     }
 
@@ -41,10 +41,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 卡券ID
         /// </summary>
         public string card_id { get; set; }
+
         /// <summary>
         /// 起始使用时间
         /// </summary>
         public string begin_time { get; set; }
+
         /// <summary>
         /// 结束时间
         /// </summary>
@@ -85,10 +87,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 当前用户积分总额
         /// </summary>
         public decimal result_bonus { get; set; }
+
         /// <summary>
         /// 当前用户预存总金额
         /// </summary>
         public decimal result_balance { get; set; }
+
         /// <summary>
         /// 用户openid
         /// </summary>
@@ -121,10 +125,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 当前用户积分总额。
         /// </summary>
         public int result_bonus { get; set; }
+
         /// <summary>
         /// 当前用户预存总金额。
         /// </summary>
         public int result_balance { get; set; }
+
         /// <summary>
         /// 用户openid。
         /// </summary>
@@ -141,6 +147,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         public string content { get; set; }
     }
+
     /// <summary>
     /// 拉取卡券返回结果
     /// </summary>
@@ -155,42 +162,52 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 日期信息
         /// </summary>
         public string ref_date { get; set; }
+
         /// <summary>
         /// 浏览次数
         /// </summary>
         public int view_cnt { get; set; }
+
         /// <summary>
         /// 浏览人数
         /// </summary>
         public int view_user { get; set; }
+
         /// <summary>
         /// 领取次数
         /// </summary>
         public int receive_cnt { get; set; }
+
         /// <summary>
         /// 领取人数
         /// </summary>
         public int receive_user { get; set; }
+
         /// <summary>
         /// 使用次数
         /// </summary>
         public int verify_cnt { get; set; }
+
         /// <summary>
         /// 使用人数
         /// </summary>
         public int verify_user { get; set; }
+
         /// <summary>
         /// 转赠次数
         /// </summary>
         public int given_cnt { get; set; }
+
         /// <summary>
         /// 转赠人数
         /// </summary>
         public int given_user { get; set; }
+
         /// <summary>
         /// 过期次数
         /// </summary>
         public int expire_cnt { get; set; }
+
         /// <summary>
         /// 过期人数
         /// </summary>
@@ -208,61 +225,72 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 日期信息
         /// </summary>
         public string ref_date { get; set; }
+
         /// <summary>
         /// 卡券ID
         /// </summary>
         public string card_id { get; set; }
+
         /// <summary>
         /// cardtype:0：折扣券，1：代金券，2：礼品券，3：优惠券，4：团购券（暂不支持拉取特殊票券类型数据，电影票、飞机票、会议门票、景区门票）
         /// </summary>
         public int card_type { get; set; }
+
         /// <summary>
         /// 浏览次数
         /// </summary>
         public int view_cnt { get; set; }
+
         /// <summary>
         /// 浏览人数
         /// </summary>
         public int view_user { get; set; }
+
         /// <summary>
         /// 领取次数
         /// </summary>
         public int receive_cnt { get; set; }
+
         /// <summary>
         /// 领取人数
         /// </summary>
         public int receive_user { get; set; }
+
         /// <summary>
         /// 使用次数
         /// </summary>
         public int verify_cnt { get; set; }
+
         /// <summary>
         /// 使用人数
         /// </summary>
         public int verify_user { get; set; }
+
         /// <summary>
         /// 转赠次数
         /// </summary>
         public int given_cnt { get; set; }
+
         /// <summary>
         /// 转赠人数
         /// </summary>
         public int given_user { get; set; }
+
         /// <summary>
         /// 过期次数
         /// </summary>
         public int expire_cnt { get; set; }
+
         /// <summary>
         /// 过期人数
         /// </summary>
         public int expire_user { get; set; }
-
     }
 
     public class GetCardMemberCardInfoResultJson : WxJsonResult
     {
         public List<GetCardMemberCardInfoItem> GetCardMemberCardInfo { get; set; }
-     }
+    }
 
     public class GetCardMemberCardInfoItem
     {
@@ -270,38 +298,47 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 日期信息
         /// </summary>
         public string ref_date { get; set; }
+
         /// <summary>
         /// 浏览次数
         /// </summary>
         public int view_cnt { get; set; }
+
         /// <summary>
         /// 浏览人数
         /// </summary>
         public int view_user { get; set; }
+
         /// <summary>
         /// 领取次数
         /// </summary>
         public int receive_cnt { get; set; }
+
         /// <summary>
         /// 领取人数
         /// </summary>
         public int receive_user { get; set; }
+
         /// <summary>
         /// 使用次数
         /// </summary>
         public int active_user { get; set; }
+
         /// <summary>
         /// 使用人数
         /// </summary>
         public int verify_cnt { get; set; }
+
         /// <summary>
         /// 激活人数
         /// </summary>
         public int verify_user { get; set; }
+
         /// <summary>
         /// 有效会员总人数
         /// </summary>
         public int total_user { get; set; }
+
         /// <summary>
         /// 历史领取会员卡总人数
         /// </summary>

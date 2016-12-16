@@ -1,17 +1,15 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-  
+
     文件名：SendRedPackResult.cs
     文件功能描述：获取查询红包接口的结果，既可以查询普通红包，也可以查询裂变红包
-    
-    
+
     创建标识：Yu XiaoChou - 20160107
-    
+
     修改标识：Senparc - 20161112
     修改描述：RedPackHBInfo去除status属性
 ----------------------------------------------------------------*/
 
-using System;
 using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
@@ -22,12 +20,12 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     public class SearchRedPackResult
     {
         /// <summary>
-        /// 返回状态码,SUCCESS/FAIL,此字段是通信标识，非交易标识，交易是否成功需要查看result_code来判断 
+        /// 返回状态码,SUCCESS/FAIL,此字段是通信标识，非交易标识，交易是否成功需要查看result_code来判断
         /// </summary>
         public bool return_code { get; set; }
 
         /// <summary>
-        /// 返回信息，如非空，为错误原因,签名失败,参数格式校验错误 
+        /// 返回信息，如非空，为错误原因,签名失败,参数格式校验错误
         /// </summary>
         public string return_msg { get; set; }
 
@@ -62,16 +60,17 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public string detail_id { get; set; }
 
         /// <summary>
-        /// 红包状态，SENDING:发放中，SENT:已发放待领取，FAILED：发放失败，RECEIVED:已领取，REFUND:已退款 
+        /// 红包状态，SENDING:发放中，SENT:已发放待领取，FAILED：发放失败，RECEIVED:已领取，REFUND:已退款
         /// </summary>
         public string status { get; set; }
 
         /// <summary>
-        /// 发放类型,API:通过API接口发放,UPLOAD:通过上传文件方式发放,ACTIVITY:通过活动方式发放 
+        /// 发放类型,API:通过API接口发放,UPLOAD:通过上传文件方式发放,ACTIVITY:通过活动方式发放
         /// </summary>
         public string send_type { get; set; }
+
         /// <summary>
-        /// 红包类型,GROUP:裂变红包,NORMAL:普通红包 
+        /// 红包类型,GROUP:裂变红包,NORMAL:普通红包
         /// </summary>
         public string hb_type { get; set; }
 
@@ -79,8 +78,9 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 红包个数
         /// </summary>
         public string total_num { get; set; }
+
         /// <summary>
-        /// 红包总金额（单位分） 
+        /// 红包总金额（单位分）
         /// </summary>
         public string total_amount { get; set; }
 
@@ -110,7 +110,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public string reason { get; set; }
 
         /// <summary>
-        /// 红包的退款时间（如果其未领取的退款）  
+        /// 红包的退款时间（如果其未领取的退款）
         /// </summary>
         public string refund_time { get; set; }
 
@@ -123,7 +123,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 红包领取列表,普通红包只有一项，列表红包可以有很多项
         /// </summary>
         public ICollection<RedPackHBInfo> hblist { get; set; }
-
     }
 
     /// <summary>
@@ -137,7 +136,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public string openid { get; set; }
 
         ///// <summary>
-        ///// 红包状态，SENDING:发放中，SENT:已发放待领取，FAILED：发放失败，RECEIVED:已领取，REFUND:已退款 
+        ///// 红包状态，SENDING:发放中，SENT:已发放待领取，FAILED：发放失败，RECEIVED:已领取，REFUND:已退款
         ///// </summary>
         //public string status { get; set; }
 
@@ -150,6 +149,5 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 领取时间
         /// </summary>
         public string rcv_time { get; set; }
-
     }
 }

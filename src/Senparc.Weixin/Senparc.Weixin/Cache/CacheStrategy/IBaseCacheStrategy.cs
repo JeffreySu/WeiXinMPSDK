@@ -4,7 +4,6 @@
     文件名：IBaseCacheStrategy.cs
     文件功能描述：缓存策略接口。
 
-
     创建标识：Senparc - 20160308
 
     修改标识：Senparc - 20160812
@@ -12,14 +11,8 @@
 
  ----------------------------------------------------------------*/
 
-
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Caching;
-using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache
 {
@@ -45,7 +38,7 @@ namespace Senparc.Weixin.Cache
     /// 公共缓存策略接口
     /// </summary>
     public interface IBaseCacheStrategy<TKey, TValue> : IBaseCacheStrategy
-        //where TValue : class
+    //where TValue : class
     {
         /// <summary>
         /// 获取缓存中最终的键，如Container建议格式： return String.Format("{0}:{1}", "SenparcWeixinContainer", key);
@@ -54,7 +47,6 @@ namespace Senparc.Weixin.Cache
         /// <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
         /// <returns></returns>
         string GetFinalKey(string key, bool isFullKey = false);
-
 
         /// <summary>
         /// 添加指定ID的对象

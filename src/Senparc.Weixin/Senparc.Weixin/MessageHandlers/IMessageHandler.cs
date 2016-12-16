@@ -1,12 +1,11 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：RequestUtility.cs
     文件功能描述：微信请求集中处理接口
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -37,6 +36,7 @@ namespace Senparc.Weixin.MessageHandlers
         /// 请求实体
         /// </summary>
         TRequest RequestMessage { get; set; }
+
         /// <summary>
         /// 响应实体
         /// 只有当执行Execute()方法后才可能有值
@@ -52,7 +52,6 @@ namespace Senparc.Weixin.MessageHandlers
         /// 忽略重复发送的同一条消息（通常因为微信服务器没有收到及时的响应）
         /// </summary>
         bool OmitRepeatedMessage { get; set; }
-
 
         /// <summary>
         /// 执行微信请求前触发

@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Script.Serialization;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.MP.AdvancedAPIs;
-using Senparc.Weixin.MP.CommonAPIs;
-using Senparc.Weixin.MP.Entities;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.Test.CommonAPIs;
-using Senparc.Weixin.MP.TenPayLib;
+using System;
 
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
@@ -16,7 +8,6 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
     [TestClass]
     public class TenPayV3Test : CommonApiTest
     {
-
         protected string data = @"<xml><spbill_create_ip><![CDATA[8.8.8.8]]></spbill_create_ip>
 <notify_url><![CDATA[www.weiweihi.com]]></notify_url>
 <out_trade_no><![CDATA[1833431771763549]]></out_trade_no>

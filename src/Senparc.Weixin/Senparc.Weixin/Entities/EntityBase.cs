@@ -4,15 +4,12 @@
     文件名：EntityBase.cs
     文件功能描述：EntityBase
 
-
     创建标识：Senparc - 20150928
 
     修改标识：Senparc - 20161012
     修改描述：v4.8.1 添加IJsonEnumString
 
 ----------------------------------------------------------------*/
-
-
 
 namespace Senparc.Weixin.Entities
 {
@@ -25,7 +22,6 @@ namespace Senparc.Weixin.Entities
 
     //public class EntityBase : IEntityBase
     //{
-
     //}
 
     /// <summary>
@@ -33,12 +29,10 @@ namespace Senparc.Weixin.Entities
     /// </summary>
     public interface IJsonIgnoreNull : IEntityBase
     {
-
     }
 
     public class JsonIgnoreNull : IJsonIgnoreNull
     {
-
     }
 
     /// <summary>
@@ -46,7 +40,5 @@ namespace Senparc.Weixin.Entities
     /// </summary>
     public interface IJsonEnumString : IEntityBase
     {
-
     }
-
 }

@@ -1,21 +1,20 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：CommonApi.Menu.Custom.cs
     文件功能描述：通用自定义菜单接口（自定义接口）
-    
-    
+
     创建标识：Senparc - 20150211
-    
+
     修改标识：Senparc - 20150303
     修改描述：整理接口
- 
+
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
- 
+
     修改标识：Senparc - 201503232
     修改描述：修改字符串是否为空判断方式（感谢dusdong）
- 
+
     修改标识：Senparc - 20150703
     修改描述：改用accessTokenOrAppId参数
 
@@ -27,16 +26,15 @@
     API：http://mp.weixin.qq.com/wiki/13/43de8269be54a0a6f64413e4dfa94f39.html
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Web.Script.Serialization;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
@@ -78,10 +76,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
                  //    }
                  //}
                  return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, buttonData, timeOut: timeOut);
-
              }, accessTokenOrAppId);
         }
-
 
         /// <summary>
         /// 创建菜单
@@ -95,11 +91,11 @@ namespace Senparc.Weixin.MP.CommonAPIs
             {
                 var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token={0}";
                 return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, buttonData, timeOut: timeOut);
-
             }, accessTokenOrAppId);
         }
 
         #region GetMenu
+
         /// <summary>
         /// 获取单击按钮
         /// </summary>
@@ -116,7 +112,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
             };
             return sb;
         }
-
 
         /// <summary>
         /// 从JSON字符串获取菜单对象
@@ -183,7 +178,6 @@ namespace Senparc.Weixin.MP.CommonAPIs
             return finalResult;
         }
 
-
         /// <summary>
         /// 获取当前菜单，如果菜单不存在，将返回null
         /// </summary>
@@ -216,11 +210,10 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 }
 
                 return finalResult;
-
             }, accessTokenOrAppId);
         }
 
-        #endregion
+        #endregion GetMenu
 
         /// <summary>
         /// 删除菜单
@@ -234,9 +227,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 var url = string.Format("https://api.weixin.qq.com/cgi-bin/menu/delete?access_token={0}", accessToken.AsUrlData());
 
                 return Get.GetJson<WxJsonResult>(url);
-
             }, accessTokenOrAppId);
-
         }
     }
 }

@@ -1,12 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Containers.Tests;
+using System;
 
 namespace Senparc.Weixin.Helpers.Tests
 {
@@ -27,7 +22,7 @@ namespace Senparc.Weixin.Helpers.Tests
         {
             //var obj = new TestContainerBag1() as IBaseContainerBag;//使用接口或基类
             var shortKey = "abc123";
-            var result = ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1),shortKey);
+            var result = ContainerHelper.GetItemCacheKey(typeof(TestContainerBag1), shortKey);
             Assert.AreEqual("Container:Senparc.Weixin.Containers.Tests.TestContainerBag1:" + shortKey, result);
         }
 

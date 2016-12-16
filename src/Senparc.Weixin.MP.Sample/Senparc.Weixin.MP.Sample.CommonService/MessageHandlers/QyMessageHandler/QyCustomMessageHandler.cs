@@ -1,21 +1,16 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：QyCustomMessageHandler.cs
     文件功能描述：自定义QyMessageHandler
-    
-    
+
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using Senparc.Weixin.MP.Sample.CommonService.QyMessageHandler;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.MessageHandlers;
+using System.IO;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.QyMessageHandlers
 {

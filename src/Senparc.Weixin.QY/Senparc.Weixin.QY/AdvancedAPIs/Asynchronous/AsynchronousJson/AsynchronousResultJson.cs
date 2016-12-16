@@ -1,15 +1,14 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：AsynchronousPostData.cs
     文件功能描述：异步任务接口提交数据Json
-    
-    
+
     创建标识：Senparc - 20150408
 ----------------------------------------------------------------*/
 
-using System.Collections.Generic;
 using Senparc.Weixin.Entities;
+using System.Collections.Generic;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs.Asynchronous
 {
@@ -30,6 +29,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Asynchronous
         /// 任务状态，整型，1表示任务开始，2表示任务进行中，3表示任务已完成
         /// </summary>
         public int status { get; set; }
+
         /// <summary>
         /// 操作类型，字符串，目前分别有：
         /// 1. sync_user(增量更新成员)
@@ -38,14 +38,17 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Asynchronous
         /// 4. replace_party(全量覆盖部门)
         /// </summary>
         public string type { get; set; }
+
         /// <summary>
         /// 任务运行总条数
         /// </summary>
         public int total { get; set; }
+
         /// <summary>
         /// 目前运行百分比，当任务完成时为100
         /// </summary>
         public int percentage { get; set; }
+
         /// <summary>
         /// 预估剩余时间（单位：分钟），当任务完成时为0
         /// </summary>
@@ -66,6 +69,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Asynchronous
         /// 成员UserID。对应管理端的帐号
         /// </summary>
         public string userid { get; set; }
+
         /// <summary>
         /// 邀请类型：0 没有邀请方式或未邀请 1 微信邀请 2 邮件邀请
         /// </summary>
@@ -86,6 +90,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Asynchronous
         /// 成员UserID。对应管理端的帐号
         /// </summary>
         public string userid { get; set; }
+
         /// <summary>
         /// 操作类型（按位或）：1 表示修改，2 表示新增
         /// </summary>
@@ -106,6 +111,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Asynchronous
         /// 部门ID
         /// </summary>
         public string partyid { get; set; }
+
         /// <summary>
         /// 操作类型（按位或）：1 新建部门 ，2 更改部门名称， 4 移动部门， 8 修改部门排序
         /// </summary>

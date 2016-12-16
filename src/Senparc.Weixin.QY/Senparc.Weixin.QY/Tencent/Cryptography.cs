@@ -1,10 +1,9 @@
 ﻿/*----------------------------------------------------------------
     文件名：Cryptography.cs
     文件功能描述：加解密算法
-    
-    
+
     创建标识：Senparc - 20150313
-    
+
     修改标识：Senparc - 20150313
     修改描述：整理接口
 ----------------------------------------------------------------*/
@@ -17,7 +16,7 @@ using System.Text;
 
 namespace Tencent
 {
-    class Cryptography
+    internal class Cryptography
     {
         public static UInt32 HostToNetworkOrder(UInt32 inval)
         {
@@ -34,13 +33,14 @@ namespace Tencent
                 outval = (outval << 8) + ((inval >> (i * 8)) & 255);
             return outval;
         }
+
         /// <summary>
         /// 解密方法
         /// </summary>
         /// <param name="Input">密文</param>
         /// <param name="EncodingAESKey"></param>
         /// <returns></returns>
-        /// 
+        ///
         public static string AES_decrypt(String Input, string EncodingAESKey, ref string corpid)
         {
             byte[] Key;
@@ -52,15 +52,13 @@ namespace Tencent
             int len = BitConverter.ToInt32(btmpMsg, 16);
             len = IPAddress.NetworkToHostOrder(len);
 
-
             byte[] bMsg = new byte[len];
             byte[] bCorpid = new byte[btmpMsg.Length - 20 - len];
             Array.Copy(btmpMsg, 20, bMsg, 0, len);
-            Array.Copy(btmpMsg, 20+len , bCorpid, 0, btmpMsg.Length - 20 - len);
+            Array.Copy(btmpMsg, 20 + len, bCorpid, 0, btmpMsg.Length - 20 - len);
             string oriMsg = Encoding.UTF8.GetString(bMsg);
             corpid = Encoding.UTF8.GetString(bCorpid);
 
-            
             return oriMsg;
         }
 
@@ -81,10 +79,10 @@ namespace Tencent
             Array.Copy(bMsgLen, 0, bMsg, bRand.Length, bMsgLen.Length);
             Array.Copy(btmpMsg, 0, bMsg, bRand.Length + bMsgLen.Length, btmpMsg.Length);
             Array.Copy(bCorpid, 0, bMsg, bRand.Length + bMsgLen.Length + btmpMsg.Length, bCorpid.Length);
-   
-            return AES_encrypt(bMsg, Iv, Key);
 
+            return AES_encrypt(bMsg, Iv, Key);
         }
+
         private static string CreateRandCode(int codeLen)
         {
             string codeSerial = "2,3,4,5,6,7,a,c,d,e,f,h,i,j,k,m,n,p,r,s,t,A,C,D,E,F,G,H,J,K,M,N,P,Q,R,S,U,V,W,X,Y,Z";
@@ -149,16 +147,20 @@ namespace Tencent
             byte[] xBuff = null;
 
             #region 自己进行PKCS7补位，用系统自己带的不行
+
             byte[] msg = new byte[Input.Length + 32 - Input.Length % 32];
             Array.Copy(Input, msg, Input.Length);
             byte[] pad = KCS7Encoder(Input.Length);
             Array.Copy(pad, 0, msg, Input.Length, pad.Length);
-            #endregion
+
+            #endregion 自己进行PKCS7补位，用系统自己带的不行
 
             #region 注释的也是一种方法，效果一样
+
             //ICryptoTransform transform = aes.CreateEncryptor();
             //byte[] xBuff = transform.TransformFinalBlock(msg, 0, msg.Length);
-            #endregion
+
+            #endregion 注释的也是一种方法，效果一样
 
             using (var ms = new MemoryStream())
             {
@@ -191,18 +193,20 @@ namespace Tencent
             }
             return Encoding.UTF8.GetBytes(tmp);
         }
+
         /**
          * 将数字转化成ASCII码对应的字符，用于对明文进行补码
-         * 
+         *
          * @param a 需要转化的数字
          * @return 转化得到的字符
          */
-        static char chr(int a)
-        {
 
+        private static char chr(int a)
+        {
             byte target = (byte)(a & 0xFF);
             return (char)target;
         }
+
         private static byte[] AES_decrypt(String Input, byte[] Iv, byte[] Key)
         {
             RijndaelManaged aes = new RijndaelManaged();
@@ -227,6 +231,7 @@ namespace Tencent
             }
             return xBuff;
         }
+
         private static byte[] decode2(byte[] decrypted)
         {
             int pad = (int)decrypted[decrypted.Length - 1];

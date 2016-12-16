@@ -1,37 +1,34 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
-    
+
     文件名：ChatApi.cs
     文件功能描述：企业号消息接口
-    
-    
+
     创建标识：Senparc - 20150728
 
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
- 
+
 ----------------------------------------------------------------*/
 
 /*
     官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E4%BC%81%E4%B8%9A%E5%8F%B7%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E
  */
 
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.QY.AdvancedAPIs.Chat;
 using Senparc.Weixin.QY.CommonAPIs;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.QY.AdvancedAPIs
 {
-
     public static class ChatApi
     {
         #region 同步请求
-        
-        
+
         /// <summary>
         /// 创建会话
         /// </summary>
@@ -181,6 +178,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                         }
                     };
                     break;
+
                 case ChatMsgType.image:
                     data = new SendImageMessageData()
                     {
@@ -197,6 +195,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                         }
                     };
                     break;
+
                 case ChatMsgType.file:
                     data = new SendFileMessageData()
                     {
@@ -213,6 +212,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                         }
                     };
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException("msgType");
             }
@@ -220,19 +220,19 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
-//{
-//    "text":
-//        {
-//            "content":"111"
-//        },
-//    "receiver":
-//        {
-//            "type":"group",
-//            "id":"1"
-//        },
-//    "sender":"005",
-//    "msgtype":"text"
-//}
+        //{
+        //    "text":
+        //        {
+        //            "content":"111"
+        //        },
+        //    "receiver":
+        //        {
+        //            "type":"group",
+        //            "id":"1"
+        //        },
+        //    "sender":"005",
+        //    "msgtype":"text"
+        //}
 
         /// <summary>
         /// 设置成员新消息免打扰
@@ -252,9 +252,11 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return CommonJsonSend.Send<SetMuteResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
-        #endregion
+
+        #endregion 同步请求
 
         #region 异步请求
+
         /// <summary>
         /// 【异步方法】创建会话
         /// </summary>
@@ -277,7 +279,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 userlist = userlist
             };
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -319,7 +321,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 del_user_list = delUserList
             };
 
-            return await Senparc.Weixin .CommonAPIs .CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -404,6 +406,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                         }
                     };
                     break;
+
                 case ChatMsgType.image:
                     data = new SendImageMessageData()
                     {
@@ -420,6 +423,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                         }
                     };
                     break;
+
                 case ChatMsgType.file:
                     data = new SendFileMessageData()
                     {
@@ -436,6 +440,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                         }
                     };
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException("msgType");
             }
@@ -443,19 +448,19 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
-//{
-//    "text":
-//        {
-//            "content":"111"
-//        },
-//    "receiver":
-//        {
-//            "type":"group",
-//            "id":"1"
-//        },
-//    "sender":"005",
-//    "msgtype":"text"
-//}
+        //{
+        //    "text":
+        //        {
+        //            "content":"111"
+        //        },
+        //    "receiver":
+        //        {
+        //            "type":"group",
+        //            "id":"1"
+        //        },
+        //    "sender":"005",
+        //    "msgtype":"text"
+        //}
 
         /// <summary>
         /// 【异步方法】设置成员新消息免打扰
@@ -475,6 +480,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SetMuteResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
-        #endregion
+
+        #endregion 异步请求
     }
 }

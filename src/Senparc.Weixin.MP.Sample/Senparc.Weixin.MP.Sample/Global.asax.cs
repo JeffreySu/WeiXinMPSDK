@@ -150,7 +150,13 @@ namespace Senparc.Weixin.MP.Sample
         {
             Func<string, string> getComponentVerifyTicketFunc = componentAppId =>
             {
-                var file = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\OpenTicket", string.Format("{0}.txt", componentAppId));
+                var dir = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\OpenTicket");
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+
+                var file = Path.Combine(dir, string.Format("{0}.txt", componentAppId));
                 using (var fs = new FileStream(file, FileMode.Open))
                 {
                     using (var sr = new StreamReader(fs))
@@ -163,7 +169,13 @@ namespace Senparc.Weixin.MP.Sample
 
             Func<string, string> getAuthorizerRefreshTokenFunc = auhtorizerId =>
             {
-                var file = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo", string.Format("{0}.bin", auhtorizerId));
+                var dir = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo");
+                if (!Directory.Exists(dir))
+                {
+                    Directory.CreateDirectory(dir);
+                }
+
+                var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
                 if (!File.Exists(file))
                 {
                     return null;
@@ -179,13 +191,13 @@ namespace Senparc.Weixin.MP.Sample
 
             Action<string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc = (auhtorizerId, refreshResult) =>
              {
-                 var filePath = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo");
-                 if (!Directory.Exists(filePath))
+                 var dir = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo");
+                 if (!Directory.Exists(dir))
                  {
-                     Directory.CreateDirectory(filePath);
+                     Directory.CreateDirectory(dir);
                  }
 
-                 var file = Path.Combine(filePath, string.Format("{0}.bin", auhtorizerId));
+                 var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
                  using (Stream fs = new FileStream(file, FileMode.Create))
                  {
                      //这里存了整个对象，实际上只存RefreshToken也可以，有了RefreshToken就能刷新到最新的AccessToken

@@ -18,8 +18,8 @@ namespace Senparc.Weixin.BrowserUtility
         /// <summary>
         /// 判断是否在微信内置浏览器中
         /// </summary>
-        /// <param name="httpContext"></param>
-        /// <returns></returns>
+        /// <param name="httpContext">HttpContextBase对象</param>
+        /// <returns>true：在微信内置浏览器内。false：不在微信内置浏览器内。</returns>
         public static bool SideInWeixinBroswer(this HttpContextBase httpContext)
         {
             var userAgent = httpContext.Request.UserAgent;

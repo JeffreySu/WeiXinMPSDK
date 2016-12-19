@@ -684,7 +684,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //判断是否正在微信端
             var userAgent = Request.UserAgent;
-            if (BroswerUtility.SideInWeixinBroswer(HttpContext))
+            if (BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext))
             {
                 //正在微信端，直接跳转到微信支付页面
                 return RedirectToAction("Index", new { productId = productId, hc = hc });

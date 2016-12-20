@@ -277,7 +277,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="imgId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult GetQrcode(string accessTokenOrAppId, long shopId, int imgId,
+        public static GetQrcodeResult GetQrcode(string accessTokenOrAppId, long shopId, int imgId,
             int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -290,7 +290,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     img_id = imgId
                 };
 
-                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<GetQrcodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

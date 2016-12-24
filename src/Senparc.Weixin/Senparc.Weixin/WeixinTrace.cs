@@ -6,7 +6,11 @@
     
     
     创建标识：Senparc - 20151012
-    
+
+    修改标识：Senparc - 20161225
+    修改描述：v4.9.7 1、使用同步锁
+                     2、修改日志储存路径，新路径为/App_Data/WeixinTraceLog/SenparcWeixinTrace-yyyyMMdd.log
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -16,6 +20,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.Weixin.Cache;
 using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin
@@ -26,7 +31,18 @@ namespace Senparc.Weixin
     public static class WeixinTrace
     {
         private static TraceListener _traceListener = null;
-        private static readonly object TraceLock = new object();
+        //private static readonly object TraceLock = new object();
+
+        const string LockName = "WeixinTraceLock";
+
+        private static IObjectCacheStrategy Cache
+        {
+            get
+            {
+                //使用工厂模式或者配置进行动态加载
+                return CacheStrategyFactory.GetObjectCacheStrategyInstance();
+            }
+        }
 
         /// <summary>
         /// 记录ErrorJsonResultException日志时需要执行的任务
@@ -41,10 +57,18 @@ namespace Senparc.Weixin
         internal static void Open()
         {
             Close();
-            lock (TraceLock)
+
+            using (Cache.BeginCacheLock(LockName, ""))
             {
-                var logDir = System.AppDomain.CurrentDomain.BaseDirectory + "App_Data";
-                string logFile = Path.Combine(logDir, "SenparcWeixinTrace.log");
+                var logDir = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "App_Data", "WeixinTraceLog");
+
+                if (!Directory.Exists(logDir))
+                {
+                    Directory.CreateDirectory(logDir);
+                }
+
+                string logFile = Path.Combine(logDir, string.Format("SenparcWeixinTrace-{0}.log", DateTime.Now.ToString("yyyyMMdd")));
+
                 System.IO.TextWriter logWriter = new System.IO.StreamWriter(logFile, true);
                 _traceListener = new TextWriterTraceListener(logWriter);
                 System.Diagnostics.Trace.Listeners.Add(_traceListener);
@@ -54,7 +78,7 @@ namespace Senparc.Weixin
 
         internal static void Close()
         {
-            lock (TraceLock)
+            using (Cache.BeginCacheLock(LockName, ""))
             {
                 if (_traceListener != null && System.Diagnostics.Trace.Listeners.Contains(_traceListener))
                 {
@@ -74,7 +98,7 @@ namespace Senparc.Weixin
 
         private static void Unindent()
         {
-            lock (TraceLock)
+            using (Cache.BeginCacheLock(LockName, ""))
             {
                 System.Diagnostics.Trace.Unindent();
             }
@@ -82,7 +106,7 @@ namespace Senparc.Weixin
 
         private static void Indent()
         {
-            lock (TraceLock)
+            using (Cache.BeginCacheLock(LockName, ""))
             {
                 System.Diagnostics.Trace.Indent();
             }
@@ -90,7 +114,7 @@ namespace Senparc.Weixin
 
         private static void Flush()
         {
-            lock (TraceLock)
+            using (Cache.BeginCacheLock(LockName, ""))
             {
                 System.Diagnostics.Trace.Flush();
             }
@@ -114,7 +138,7 @@ namespace Senparc.Weixin
         /// <param name="message"></param>
         public static void Log(string message)
         {
-            lock (TraceLock)
+            using (Cache.BeginCacheLock(LockName, ""))
             {
                 System.Diagnostics.Trace.WriteLine(message);
             }

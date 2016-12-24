@@ -50,9 +50,6 @@ using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
-
-
-
     /// <summary>
     /// 卡券接口
     /// </summary>

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Cache
 {
+    /// <summary>
+    /// 缓存同步锁基类
+    /// </summary>
     public abstract class BaseCacheLock : ICacheLock
     {
         protected string _resourceName;

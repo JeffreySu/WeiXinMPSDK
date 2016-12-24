@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20161225
+    修改描述：v4.9.7 完善日志记录
 ----------------------------------------------------------------*/
 
 using System;
@@ -23,7 +26,7 @@ namespace Senparc.Weixin.Exceptions
     {
         public WxJsonResult JsonResult { get; set; }
         public string Url { get; set; }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -32,7 +35,7 @@ namespace Senparc.Weixin.Exceptions
         /// <param name="jsonResult"></param>
         /// <param name="url"></param>
         public ErrorJsonResultException(string message, Exception inner, WxJsonResult jsonResult, string url = null)
-            : base(message, inner)
+            : base(message, inner, true)
         {
             JsonResult = jsonResult;
             Url = url;

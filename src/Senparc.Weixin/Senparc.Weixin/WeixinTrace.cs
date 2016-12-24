@@ -10,7 +10,7 @@
     修改标识：Senparc - 20161225
     修改描述：v4.9.7 1、使用同步锁
                      2、修改日志储存路径，新路径为/App_Data/WeixinTraceLog/SenparcWeixinTrace-yyyyMMdd.log
-
+                     3、添加WeixinExceptionLog方法
 ----------------------------------------------------------------*/
 
 using System;
@@ -93,7 +93,7 @@ namespace Senparc.Weixin
         /// </summary>
         private static void TimeLog()
         {
-            Log(string.Format("[{0}]", DateTime.Now));
+            Log("[{0}]", DateTime.Now);
         }
 
         private static void Unindent()
@@ -126,7 +126,7 @@ namespace Senparc.Weixin
             Log("");
             if (title != null)
             {
-                Log(String.Format("[{0}]", title));
+                Log("[{0}]", title);
             }
             TimeLog();
             Indent();
@@ -135,12 +135,25 @@ namespace Senparc.Weixin
         /// <summary>
         /// 记录日志
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">日志内容</param>
         public static void Log(string message)
         {
             using (Cache.BeginCacheLock(LockName, ""))
             {
                 System.Diagnostics.Trace.WriteLine(message);
+            }
+        }
+
+        /// <summary>
+        /// 记录日志
+        /// </summary>
+        /// <param name="messageFormat">日志内容格式</param>
+        /// <param name="args">日志内容参数</param>
+        public static void Log(string messageFormat, params object[] args)
+        {
+            using (Cache.BeginCacheLock(LockName, ""))
+            {
+                System.Diagnostics.Trace.WriteLine(string.Format(messageFormat, args));
             }
         }
 
@@ -169,9 +182,35 @@ namespace Senparc.Weixin
             }
 
             LogBegin("接口调用");
-            Log(string.Format("URL：{0}", url));
-            Log(string.Format("Result：\r\n{0}", returnText));
+            Log("URL：{0}", url);
+            Log("Result：\r\n{0}", returnText);
             LogEnd();
+        }
+
+
+        #region WeixinException 相关日志
+
+        /// <summary>
+        /// WeixinException 日志
+        /// </summary>
+        /// <param name="ex"></param>
+        public static void WeixinExceptionLog(WeixinException ex)
+        {
+            if (!Config.IsDebug)
+            {
+                return;
+            }
+
+            LogBegin(ex.GetType().Name);
+            Log("Message", ex.Message);
+            Log("StackTrace", ex.StackTrace);
+            if (ex.InnerException != null)
+            {
+                Log("InnerException", ex.InnerException.Message);
+                Log("InnerException", ex.InnerException.StackTrace);
+            }
+            LogEnd();
+
         }
 
         /// <summary>
@@ -186,9 +225,9 @@ namespace Senparc.Weixin
             }
 
             LogBegin("ErrorJsonResultException");
-            Log(string.Format("URL：{0}", ex.Url));
-            Log(string.Format("errcode：{0}", ex.JsonResult.errcode));
-            Log(string.Format("errmsg：{0}", ex.JsonResult.errmsg));
+            Log("URL：{0}", ex.Url);
+            Log("errcode：{0}", ex.JsonResult.errcode);
+            Log("errmsg：{0}", ex.JsonResult.errmsg);
             LogEnd();
 
             if (OnErrorJsonResultExceptionFunc != null)
@@ -196,5 +235,7 @@ namespace Senparc.Weixin
                 OnErrorJsonResultExceptionFunc(ex);
             }
         }
+
+        #endregion
     }
 }

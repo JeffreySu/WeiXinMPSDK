@@ -122,7 +122,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="appId">批次ID，申请设备ID时所返回的批次ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetDeviceStatusResultJson DeviceApplyStatus(string accessTokenOrAppId, int appId, int timeOut = Config.TIME_OUT)
+        public static GetDeviceStatusResultJson DeviceApplyStatus(string accessTokenOrAppId, long appId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -326,7 +326,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="count"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static DeviceSearchResultJson SearchDeviceByApplyId(string accessTokenOrAppId, long applyId, int begin, int count, int timeOut = Config.TIME_OUT)
+        public static DeviceSearchResultJson SearchDeviceByApplyId(string accessTokenOrAppId, long applyId, long begin, int count, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {

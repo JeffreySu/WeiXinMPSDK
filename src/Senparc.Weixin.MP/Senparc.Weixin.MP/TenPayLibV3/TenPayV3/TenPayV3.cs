@@ -27,6 +27,10 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
+using System.Security.Cryptography.X509Certificates;
+using System.Net;
+using System.Net.Security;
+using System.Xml;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {

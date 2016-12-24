@@ -24,6 +24,9 @@
  
     创建标识：Senparc - 20160808
     创建描述：增加SendCard
+
+    创建标识：Senparc - 20161224
+    创建描述：SendVideo方法添加thumb_media_id参数 感谢 @hello2008zj 
 ----------------------------------------------------------------*/
 
 /* 
@@ -208,8 +211,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="description"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="kfAccount">客服</param>
+        /// <param name="thumb_media_id"></param>
         /// <returns></returns>
-        public static WxJsonResult SendVideo(string accessTokenOrAppId, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT, string kfAccount = "")
+        public static WxJsonResult SendVideo(string accessTokenOrAppId, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT, string kfAccount = "", string thumb_media_id = "")
         {
             object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
@@ -221,6 +225,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     video = new
                     {
                         media_id = mediaId,
+                        thumb_media_id = thumb_media_id,
                         title = title,
                         description = description
                     }
@@ -235,6 +240,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     video = new
                     {
                         media_id = mediaId,
+                        thumb_media_id = thumb_media_id,
                         title = title,
                         description = description
                     },
@@ -583,8 +589,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="description"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <param name="kfAccount">客服</param>
+        /// <param name="thumb_media_id"></param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> SendVideoAsync(string accessTokenOrAppId, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT, string kfAccount = "")
+        public static async Task<WxJsonResult> SendVideoAsync(string accessTokenOrAppId, string openId, string mediaId, string title, string description, int timeOut = Config.TIME_OUT, string kfAccount = "", string thumb_media_id = "")
         {
             object data = null;
             if (string.IsNullOrWhiteSpace(kfAccount))
@@ -596,6 +603,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     video = new
                     {
                         media_id = mediaId,
+                        thumb_media_id = thumb_media_id,
                         title = title,
                         description = description
                     }
@@ -610,6 +618,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     video = new
                     {
                         media_id = mediaId,
+                        thumb_media_id = thumb_media_id,
                         title = title,
                         description = description
                     },

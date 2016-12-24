@@ -37,6 +37,7 @@ namespace Senparc.Weixin.MP.Sample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            //建议按照以下顺序进行注册，尤其须将缓存放在第一位！
             RegisterWeixinCache();//注册分布式缓存
             RegisterWeixinThreads();//激活微信缓存（必须）
             RegisterSenparcWeixin();//注册Demo所用微信公众号的账号信息

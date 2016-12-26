@@ -28,6 +28,9 @@
     修改标识：Senparc - 20161205
     修改描述：v14.3.110 增加UnifiedorderAsync方法重载
 
+    修改标识：Senparc - 20161226
+    修改描述：v14.3.111 增加OrderQuery,CloseOrder方法重载
+
 ----------------------------------------------------------------*/
 
 /*
@@ -135,6 +138,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用 OrderQuery(TenPayV3OrderQueryData dataInfo)")]
         public static string OrderQuery(string data)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/orderquery";
@@ -146,11 +150,31 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return RequestUtility.HttpPost(urlFormat, null, ms);
         }
 
+
+        /// <summary>
+        /// 订单查询接口
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+        public static OrderQueryResult OrderQuery(TenPayV3OrderQueryData dataInfo)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/pay/orderquery";
+            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            return new OrderQueryResult(resultXml);
+        }
+
+
         /// <summary>
         /// 关闭订单接口
         /// </summary>
         /// <param name="data">关闭订单需要post的xml数据</param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用 CloseOrder(TenPayV3CloseOrderData dataInfo)")]
         public static string CloseOrder(string data)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/closeorder";
@@ -161,6 +185,26 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return RequestUtility.HttpPost(urlFormat, null, ms);
         }
+
+
+        /// <summary>
+        /// 关闭订单接口
+        /// </summary>
+        /// <param name="dataInfo">关闭订单需要post的xml数据</param>
+        /// <returns></returns>
+        public static CloseOrderResult CloseOrder(TenPayV3CloseOrderData dataInfo)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/pay/closeorder";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            return new CloseOrderResult(resultXml);
+        }
+
+
 
         /// <summary>
         /// 撤销订单接口
@@ -305,6 +349,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用 OrderQueryAsync(TenPayV3OrderQueryData dataInfo)")]
         public static async Task<string> OrderQueryAsync(string data)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/orderquery";
@@ -316,11 +361,34 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return await RequestUtility.HttpPostAsync(urlFormat, null, ms);
         }
 
+
+        /// <summary>
+        /// 【异步方法】订单查询接口
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+
+        public static async Task<OrderQueryResult> OrderQueryAsync(TenPayV3OrderQueryData dataInfo)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/pay/orderquery";
+            var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            return new OrderQueryResult(resultXml);
+        }
+
+
+
+
         /// <summary>
         /// 【异步方法】关闭订单接口
         /// </summary>
         /// <param name="data">关闭订单需要post的xml数据</param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用 CloseOrderAsync(TenPayV3CloseOrderData dataInfo)")]
         public static async Task<string> CloseOrderAsync(string data)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/closeorder";
@@ -331,6 +399,26 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return await RequestUtility.HttpPostAsync(urlFormat, null, ms);
         }
+
+
+        /// <summary>
+        /// 【异步方法】关闭订单接口
+        /// </summary>
+        /// <param name="dataInfo">关闭订单需要post的xml数据</param>
+        /// <returns></returns>
+
+        public static async Task<CloseOrderResult> CloseOrderAsync(TenPayV3CloseOrderData dataInfo)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/pay/closeorder";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            return new CloseOrderResult(resultXml);
+        }
+
 
         /// <summary>
         /// 【异步方法】撤销订单接口

@@ -2,22 +2,19 @@
     Copyright (C) 2016 Senparc
   
     文件名：TenPayV3CloseOrderData.cs
-    文件功能描述：微信支付关闭订单请求参数
+    文件功能描述：微信支付查询订单请求参数
     
     创建标识：Senparc - 20161226
-----------------------------------------------------------------*/
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
+    修改标识：Senparc - 20161227
+    修改描述：v14.3.100 修改类名为TenPayV3OrderQueryRequestData.cs
+----------------------------------------------------------------*/
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /// <summary>
-    /// 微信支付提交的XML Data数据[关闭订单]
+    /// 微信支付提交的XML Data数据[查询订单]
     /// </summary>
-    public class TenPayV3CloseOrderData
+    public class TenPayV3OrderQueryRequestData
     {
         /// <summary>
         /// 公众账号ID
@@ -30,14 +27,19 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public string MchId { get; set; }
 
         /// <summary>
+        /// 微信的订单号，建议优先使用
+        /// </summary>
+        public string TransactionId { get; set; }
+
+        /// <summary>
+        ///商户系统内部的订单号，请确保在同一商户号下唯一
+        /// </summary>
+        public string OutTradeNo { get; set; }
+
+        /// <summary>
         /// 随机字符串
         /// </summary>
         public string NonceStr { get; set; }
-
-        /// <summary>
-        /// 商家订单号
-        /// </summary>
-        public string OutTradeNo { get; set; }
 
         /// <summary>
         /// 签名类型
@@ -53,39 +55,39 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public readonly string Sign;
 
         /// <summary>
-        /// 
+        /// 查询订单 请求参数
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="mchId"></param>
         /// <param name="outTradeNo"></param>
-        /// <param name="key"></param>
-        /// <param name="nonceStr"></param>
         /// <param name="signType"></param>
-        public TenPayV3CloseOrderData(string appId, string mchId, string outTradeNo, string key, string nonceStr,
-            string signType = "MD5")
+        /// <param name="key"></param>
+        /// <param name="transactionId"></param>
+        /// <param name="nonceStr"></param>
+        public TenPayV3OrderQueryRequestData(string appId, string mchId, string transactionId, string nonceStr,
+            string outTradeNo, string key, string signType = "MD5")
         {
             AppId = appId;
             MchId = mchId;
             NonceStr = nonceStr;
+            TransactionId = transactionId;
             OutTradeNo = outTradeNo;
             SignType = signType;
             Key = key;
 
             #region 设置RequestHandler
 
-            //创建支付应答对象
             PackageRequestHandler = new RequestHandler(null);
-            //初始化
-            PackageRequestHandler.Init();
 
             //设置package订单参数
             PackageRequestHandler.SetParameter("appid", this.AppId); //公众账号ID
             PackageRequestHandler.SetParameter("mch_id", this.MchId); //商户号
-            PackageRequestHandler.SetParameter("out_trade_no", this.OutTradeNo); //填入商家订单号
+            PackageRequestHandler.SetParameter("transaction_id", this.TransactionId); //微信的订单号
+            PackageRequestHandler.SetParameter("out_trade_no", this.OutTradeNo); //商户系统内部的订单号
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr); //随机字符串
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
             PackageRequestHandler.SetParameter("sign", Sign); //签名
-
+            PackageRequestHandler.SetParameter("sign_type", this.SignType); //签名类型
             #endregion
         }
     }

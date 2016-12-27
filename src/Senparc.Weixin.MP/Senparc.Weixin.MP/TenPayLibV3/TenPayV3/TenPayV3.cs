@@ -31,6 +31,9 @@
     修改标识：Senparc - 20161226
     修改描述：v14.3.111 增加OrderQuery,CloseOrder方法重载
 
+    修改标识：Senparc - 20161226
+    修改描述：v14.3.112 增加Reverse,RefundQuery,ShortUrl,MicroPay方法重载
+
 ----------------------------------------------------------------*/
 
 /*
@@ -79,7 +82,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="dataInfo">微信支付需要post的Data数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static UnifiedorderResult Unifiedorder(TenPayV3RequestData dataInfo, int timeOut = Config.TIME_OUT)
+        public static UnifiedorderResult Unifiedorder(TenPayV3UnifiedorderRequestData dataInfo, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/unifiedorder";
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
@@ -156,7 +159,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         /// <param name="dataInfo"></param>
         /// <returns></returns>
-        public static OrderQueryResult OrderQuery(TenPayV3OrderQueryData dataInfo)
+        public static OrderQueryResult OrderQuery(TenPayV3OrderQueryRequestData dataInfo)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/orderquery";
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
@@ -167,7 +170,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
             return new OrderQueryResult(resultXml);
         }
-
 
         /// <summary>
         /// 关闭订单接口
@@ -186,13 +188,12 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return RequestUtility.HttpPost(urlFormat, null, ms);
         }
 
-
         /// <summary>
         /// 关闭订单接口
         /// </summary>
         /// <param name="dataInfo">关闭订单需要post的xml数据</param>
         /// <returns></returns>
-        public static CloseOrderResult CloseOrder(TenPayV3CloseOrderData dataInfo)
+        public static CloseOrderResult CloseOrder(TenPayV3CloseOrderRequestData dataInfo)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/closeorder";
             var data = dataInfo.PackageRequestHandler.ParseXML();
@@ -204,13 +205,12 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return new CloseOrderResult(resultXml);
         }
 
-
-
         /// <summary>
         /// 撤销订单接口
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用 Reverse(TenPayV3ReverseRequestData dataInfo)")]
         public static string Reverse(string data)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/reverse";
@@ -219,6 +219,24 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return RequestUtility.HttpPost(urlFormat, null, ms);
+        }
+
+
+        /// <summary>
+        /// 撤销订单接口
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+        public static ReverseResult Reverse(TenPayV3ReverseRequestData dataInfo)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/reverse";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            return new ReverseResult(resultXml);
         }
 
         //退款申请请直接参考Senparc.Weixin.MP.Sample中的退款demo
@@ -243,6 +261,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用 RefundQuery(TenPayV3RefundQueryRequestData dataInfo)")]
         public static string RefundQuery(string data)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/refundquery";
@@ -253,6 +272,24 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return RequestUtility.HttpPost(urlFormat, null, ms);
         }
+
+        /// <summary>
+        /// 退款查询接口
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+        public static RefundQueryResult RefundQuery(TenPayV3RefundQueryRequestData dataInfo)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/pay/refundquery";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            return new RefundQueryResult(resultXml);
+        }
+
 
         /// <summary>
         /// 对账单接口
@@ -275,6 +312,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用 ShortUrl(TenPayV3ShortUrlRequestData dataInfo)")]
         public static string ShortUrl(string data)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/tools/shorturl";
@@ -287,11 +325,29 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
 
         /// <summary>
+        /// 短链接转换接口
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+        public static ShortUrlResult ShortUrl(TenPayV3ShortUrlRequestData dataInfo)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/tools/shorturl";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            return new ShortUrlResult(resultXml);
+        }
+
+        /// <summary>
         /// 刷卡支付
         /// 提交被扫支付
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用 MicroPay(TenPayV3MicroPayRequestData dataInfo)")]
         public static string MicroPay(string data)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/micropay";
@@ -301,6 +357,24 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return RequestUtility.HttpPost(urlFormat, null, ms);
+        }
+
+        /// <summary>
+        /// 刷卡支付
+        /// 提交被扫支付
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+        public static MicropayResult MicroPay(TenPayV3MicroPayRequestData dataInfo)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/pay/micropay";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
+            return new MicropayResult(resultXml);
         }
         #endregion
 
@@ -332,7 +406,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="dataInfo">微信支付需要post的xml数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<UnifiedorderResult> UnifiedorderAsync(TenPayV3RequestData dataInfo, int timeOut = Config.TIME_OUT)
+        public static async Task<UnifiedorderResult> UnifiedorderAsync(TenPayV3UnifiedorderRequestData dataInfo, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/unifiedorder";
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
@@ -368,7 +442,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="dataInfo"></param>
         /// <returns></returns>
 
-        public static async Task<OrderQueryResult> OrderQueryAsync(TenPayV3OrderQueryData dataInfo)
+        public static async Task<OrderQueryResult> OrderQueryAsync(TenPayV3OrderQueryRequestData dataInfo)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/orderquery";
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
@@ -379,9 +453,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
             return new OrderQueryResult(resultXml);
         }
-
-
-
 
         /// <summary>
         /// 【异步方法】关闭订单接口
@@ -407,7 +478,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="dataInfo">关闭订单需要post的xml数据</param>
         /// <returns></returns>
 
-        public static async Task<CloseOrderResult> CloseOrderAsync(TenPayV3CloseOrderData dataInfo)
+        public static async Task<CloseOrderResult> CloseOrderAsync(TenPayV3CloseOrderRequestData dataInfo)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/closeorder";
             var data = dataInfo.PackageRequestHandler.ParseXML();
@@ -425,6 +496,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用  ReverseAsync(TenPayV3ReverseRequestData dataInfo)")]
         public static async Task<string> ReverseAsync(string data)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/reverse";
@@ -434,6 +506,25 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return await RequestUtility.HttpPostAsync(urlFormat, null, ms);
         }
+
+
+        /// <summary>
+        /// 【异步方法】撤销订单接口
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+        public static async Task<ReverseResult> ReverseAsync(TenPayV3ReverseRequestData dataInfo)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/reverse";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resutlXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            return new ReverseResult(resutlXml);
+        }
+
 
         //退款申请请直接参考Senparc.Weixin.MP.Sample中的退款demo
         ///// <summary>
@@ -457,6 +548,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用  RefundQueryAsync(TenPayV3RefundQueryRequestData dataInfo)")]
         public static async Task<string> RefundQueryAsync(string data)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/refundquery";
@@ -466,6 +558,23 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+        }
+
+        /// <summary>
+        /// 【异步方法】退款查询接口
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+        public static async Task<RefundQueryResult> RefundQueryAsync(TenPayV3RefundQueryRequestData dataInfo)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/pay/refundquery";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            return new RefundQueryResult(resultXml);
         }
 
         /// <summary>
@@ -489,6 +598,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用  ShortUrlAsync(TenPayV3ShortUrlRequestData dataInfo)")]
         public static async Task<string> ShortUrlAsync(string data)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/tools/shorturl";
@@ -501,11 +611,29 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
 
         /// <summary>
+        /// 【异步方法】短链接转换接口
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+        public static async Task<ShortUrlResult> ShortUrlAsync(TenPayV3ShortUrlRequestData dataInfo)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/tools/shorturl";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            return new ShortUrlResult(resultXml);
+        }
+
+        /// <summary>
         /// 【异步方法】刷卡支付
         /// 提交被扫支付
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用  MicroPayAsync(TenPayV3MicroPayRequestData dataInfo)")]
         public static async Task<string> MicroPayAsync(string data)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/micropay";
@@ -516,6 +644,26 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return await RequestUtility.HttpPostAsync(urlFormat, null, ms);
         }
+
+        /// <summary>
+        /// 【异步方法】刷卡支付
+        /// 提交被扫支付
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+        public static async Task<MicropayResult> MicroPayAsync(TenPayV3MicroPayRequestData dataInfo)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/pay/micropay";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+            return new MicropayResult(resultXml);
+        }
+
+
         #endregion
     }
 }

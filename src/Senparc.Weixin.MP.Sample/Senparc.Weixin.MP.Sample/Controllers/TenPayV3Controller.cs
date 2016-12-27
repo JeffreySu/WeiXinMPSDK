@@ -147,8 +147,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 var body = product == null ? "test" : product.Name;
                 var price = product == null ? 100 : product.Price * 100;
-                var xmlDataInfo = new TenPayV3RequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openIdResult.openid, TenPayV3Info.Key, nonceStr);
-
+                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openIdResult.openid, TenPayV3Info.Key, nonceStr);
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
 
                 //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
@@ -251,7 +250,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //string data = packageReqHandler.ParseXML();
 
-            var xmlDataInfo = new TenPayV3RequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, productId, TenPayV3Info.Key, nonceStr);
+            var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, productId, TenPayV3Info.Key, nonceStr);
 
 
             try
@@ -316,7 +315,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //packageReqHandler.SetParameter("sign", sign);
 
             //string data = packageReqHandler.ParseXML();
-            var xmlDataInfo = new TenPayV3RequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.NATIVE, productId, TenPayV3Info.Key, nonceStr);
+            var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.NATIVE, productId, TenPayV3Info.Key, nonceStr);
             //调用统一订单接口
             var result = TenPayV3.Unifiedorder(xmlDataInfo);
             //var unifiedorderRes = XDocument.Parse(result);

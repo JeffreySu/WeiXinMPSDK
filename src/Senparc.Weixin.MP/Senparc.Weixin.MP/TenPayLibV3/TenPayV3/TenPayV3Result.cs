@@ -349,7 +349,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// <summary>
     /// 退款查询接口
     /// </summary>
-    public class RefundQuery : Result
+    public class RefundQueryResult : Result
     {
         /// <summary>
         /// 终端设备号
@@ -472,7 +472,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         //public string refund_recv_accout_$n { get; set; }
 
 
-        public RefundQuery(string resultXml) : base(resultXml)
+        public RefundQueryResult(string resultXml) : base(resultXml)
         {
             if (base.IsResultCodeSuccess())
             {

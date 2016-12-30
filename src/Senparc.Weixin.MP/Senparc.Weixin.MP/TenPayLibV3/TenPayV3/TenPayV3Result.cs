@@ -24,6 +24,8 @@
 
 ----------------------------------------------------------------*/
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using Senparc.Weixin.Entities;
 
@@ -66,6 +68,34 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             }
             return _resultXml.Element("xml").Element(nodeName).Value;
         }
+
+        /// <summary>
+        /// 获取Xml结果中对应节点的集合值
+        /// </summary>
+        /// <param name="nodeName"></param>
+        /// <returns></returns>
+        public IList<T> GetXmlValues<T>(string nodeName)
+        {
+            var result = new List<T>();
+            try
+            {
+                if (_resultXml != null)
+                {
+                    var xElement = _resultXml.Element("xml");
+                    if (xElement != null)
+                    {
+                        var nodeList = xElement.Elements().Where(z => z.Name.ToString().StartsWith(nodeName));
+                        result = nodeList.Cast<T>().ToList();
+                    }
+                }
+            }
+            catch (System.Exception)
+            {
+                result = null;
+            }
+            return result;
+        }
+
 
         public bool IsReturnCodeSuccess()
         {
@@ -254,20 +284,23 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         /// <summary>
         /// CASH--充值代金券 
-        //NO_CASH---非充值代金券
-        //订单使用代金券时有返回（取值：CASH、NO_CASH）。$n为下标,从0开始编号，举例：coupon_type_$0
+        ///NO_CASH---非充值代金券
+        ///订单使用代金券时有返回（取值：CASH、NO_CASH）。$n为下标,从0开始编号，举例：coupon_type_$0
+        ///coupon_type_$n
         /// </summary>
-        //public string coupon_type_$n { get; set;}
+        public IList<string> coupon_type_values { get; set; }
 
         /// <summary>
         /// 代金券ID, $n为下标，从0开始编号
+        /// coupon_id_$n
         /// </summary>
-        //public string coupon_id_$n { get; set; }
+        public IList<string> coupon_id_values { get; set; }
 
         /// <summary>
         /// 单个代金券支付金额, $n为下标，从0开始编号
+        /// coupon_fee_$n
         /// </summary>
-        //public string coupon_fee_$n { get; set; }   
+        public IList<int> coupon_fee_values { get; set; }
 
         /// <summary>
         /// 微信支付订单号
@@ -314,9 +347,15 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                     cash_fee_type = GetXmlValue("cash_fee_type") ?? "";
                     coupon_fee = GetXmlValue("coupon_fee") ?? "";
                     coupon_count = GetXmlValue("coupon_count") ?? "";
-                    //coupon_type_$n = GetXmlValue("coupon_type_$n") ?? "";
-                    //coupon_id_$n = GetXmlValue("coupon_id_$n") ?? "";
-                    //coupon_fee_$n = GetXmlValue("coupon_fee_$n") ?? "";
+
+                    #region 特殊"$n"
+
+                    coupon_type_values = GetXmlValues<string>("coupon_type_") ?? new List<string>();
+                    coupon_id_values = GetXmlValues<string>("coupon_id_") ?? new List<string>();
+                    coupon_fee_values = GetXmlValues<int>("coupon_fee_") ?? new List<int>();
+
+                    #endregion
+
                     transaction_id = GetXmlValue("transaction_id") ?? "";
                     out_trade_no = GetXmlValue("out_trade_no") ?? "";
                     attach = GetXmlValue("attach") ?? "";
@@ -395,28 +434,23 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 商户退款单号
         /// </summary>
         ///public string out_refund_no_$n { get; set; }
-
         /// <summary>
         /// 微信退款单号
         /// </summary>
         //public string refund_id_$n { get; set; }
-
         /// <summary>
         /// ORIGINAL—原路退款
         //BALANCE—退回到余额
         /// </summary>
         //public string refund_channel_$n { get; set; }
-
         /// <summary>
         /// 退款总金额,单位为分,可以做部分退款
         /// </summary>
         //public string refund_fee_$n { get; set; }
-
         /// <summary>
         /// 退款金额=申请退款金额-非充值代金券退款金额，退款金额<=申请退款金额
         /// </summary>
         //public string settlement_refund_fee_$n { get; set; }
-
         /// <summary>
         /// REFUND_SOURCE_RECHARGE_FUNDS---可用余额退款/基本账户
         //REFUND_SOURCE_UNSETTLED_FUNDS---未结算资金退款
@@ -429,28 +463,22 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         //订单使用代金券时有返回（取值：CASH、NO_CASH）。$n为下标,从0开始编号，举例：coupon_type_$0
         /// </summary>
         //public string coupon_type_$n { get; set; }
-
-
         /// <summary>
         /// 代金券退款金额<=退款金额，退款金额-代金券或立减优惠退款金额为现金
         /// </summary>
         //public string coupon_refund_fee_$n { get; set; }
-
         /// <summary>
         /// 退款代金券使用数量 ,$n为下标,从0开始编号
         /// </summary>
         //public string coupon_refund_count_$n { get; set; }
-
         /// <summary>
         /// 退款代金券ID, $n为下标，$m为下标，从0开始编号
         /// </summary>
         //public string coupon_refund_id_$n_$m { get; set; }
-
         /// <summary>
         /// 单个退款代金券支付金额, $n为下标，$m为下标，从0开始编号
         /// </summary>
         ///public string coupon_refund_fee_$n_$m { get; set; }
-
         /// <summary>
         /// 退款状态：
         ///SUCCESS—退款成功
@@ -459,7 +487,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         ///CHANGE—转入代发，退款到银行发现用户的卡作废或者冻结了，导致原路退款银行卡失败，资金回流到商户的现金帐号，需要商户人工干预，通过线下或者财付通转账的方式进行退款。
         /// </summary>
         //public string refund_status_$n { get; set; }
-
         /// <summary>
         /// 取当前退款单的退款入账方
         ///1）退回银行卡：
@@ -470,8 +497,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         ///支付用户零钱
         /// </summary>
         //public string refund_recv_accout_$n { get; set; }
-
-
         public RefundQueryResult(string resultXml) : base(resultXml)
         {
             if (base.IsResultCodeSuccess())
@@ -510,6 +535,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 转换后的URL
         /// </summary>
         public string short_url { get; set; }
+
         public ShortUrlResult(string resultXml) : base(resultXml)
         {
             if (base.IsReturnCodeSuccess())
@@ -529,8 +555,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
     //    }
     //}
-
-
     /// <summary>
     /// 撤销订单接口
     /// </summary>
@@ -540,6 +564,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 是否需要继续调用撤销，Y-需要，N-不需要
         /// </summary>
         public string recall { get; set; }
+
         public ReverseResult(string resultXml) : base(resultXml)
         {
             if (base.IsReturnCodeSuccess())
@@ -559,6 +584,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 调用接口提交的终端设备号
         /// </summary>
         public string device_info { get; set; }
+
         /// <summary>
         /// 用户在商户appid 下的唯一标识
         /// </summary>

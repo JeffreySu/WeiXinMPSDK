@@ -18,12 +18,8 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Exceptions;
 
@@ -35,7 +31,6 @@ namespace Senparc.Weixin
     public static class WeixinTrace
     {
         private static TraceListener _traceListener = null;
-        //private static readonly object TraceLock = new object();
 
         const string LockName = "WeixinTraceLock";
 
@@ -92,6 +87,8 @@ namespace Senparc.Weixin
             }
         }
 
+        #region 私有方法
+
         /// <summary>
         /// 统一时间格式
         /// </summary>
@@ -137,18 +134,6 @@ namespace Senparc.Weixin
         }
 
         /// <summary>
-        /// 记录日志（建议使用SendXXLog()方法，以符合统一的记录规则）
-        /// </summary>
-        /// <param name="message">日志内容</param>
-        public static void Log(string message)
-        {
-            using (Cache.BeginCacheLock(LockName, ""))
-            {
-                System.Diagnostics.Trace.WriteLine(message);
-            }
-        }
-
-        /// <summary>
         /// 记录日志
         /// </summary>
         /// <param name="messageFormat">日志内容格式</param>
@@ -173,12 +158,28 @@ namespace Senparc.Weixin
             }
         }
 
+        #endregion
+
+        #region 日志记录
+
+        /// <summary>
+        /// 记录日志（建议使用SendXXLog()方法，以符合统一的记录规则）
+        /// </summary>
+        /// <param name="message">日志内容</param>
+        public static void Log(string message)
+        {
+            using (Cache.BeginCacheLock(LockName, ""))
+            {
+                System.Diagnostics.Trace.WriteLine(message);
+            }
+        }
+
 
         /// <summary>
         /// 自定义请求日志
         /// </summary>
-        /// <param name="typeName"></param>
-        /// <param name="content"></param>
+        /// <param name="typeName">日志类型</param>
+        /// <param name="content">日志内容</param>
         public static void SendCustomLog(string typeName, string content)
         {
             if (!Config.IsDebug)
@@ -209,6 +210,7 @@ namespace Senparc.Weixin
             LogEnd();
         }
 
+        #endregion
 
         #region WeixinException 相关日志
 

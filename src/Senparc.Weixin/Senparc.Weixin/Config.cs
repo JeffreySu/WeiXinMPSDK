@@ -30,9 +30,9 @@ namespace Senparc.Weixin
         /// 请求超时设置（以毫秒为单位），默认为10秒。
         /// 说明：此处常量专为提供给方法的参数的默认值，不是方法内所有请求的默认超时时间。
         /// </summary>
-        public const int TIME_OUT = 10000;
+        public const int TIME_OUT = 10000;//TODO:需要考虑分布式的情况，后期需要储存在缓存中
 
-        private static bool _isDebug = false;
+        private static bool _isDebug = false;//TODO:需要考虑分布式的情况，后期需要储存在缓存中
 
         /// <summary>
         /// 指定是否是Debug状态，如果是，系统会自动输出日志

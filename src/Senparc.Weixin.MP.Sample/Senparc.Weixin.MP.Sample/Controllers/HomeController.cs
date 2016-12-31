@@ -54,7 +54,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var config = configHelper.GetConfig();
             TempData["NewestDocumentVersion"] = config.Versions.First();
 
-            Weixin.WeixinTrace.SendLog(Request.Url.ToString() ,"首页被访问");
+            Weixin.WeixinTrace.SendCustomLog("首页被访问", string.Format("Url：{0}\r\nIP：{1}",Request.Url,Request.UserHostName));
 
             return View();
         }

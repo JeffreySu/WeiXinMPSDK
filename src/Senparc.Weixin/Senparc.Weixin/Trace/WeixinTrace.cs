@@ -11,6 +11,10 @@
     修改描述：v4.9.7 1、使用同步锁
                      2、修改日志储存路径，新路径为/App_Data/WeixinTraceLog/SenparcWeixinTrace-yyyyMMdd.log
                      3、添加WeixinExceptionLog方法
+
+    修改标识：Senparc - 20161231
+    修改描述：v4.9.8 将SendLog方法改名为SendApiLog，添加SendCustomLog方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -133,7 +137,7 @@ namespace Senparc.Weixin
         }
 
         /// <summary>
-        /// 记录日志
+        /// 记录日志（建议使用SendXXLog()方法，以符合统一的记录规则）
         /// </summary>
         /// <param name="message">日志内容</param>
         public static void Log(string message)
@@ -169,19 +173,37 @@ namespace Senparc.Weixin
             }
         }
 
+
         /// <summary>
-        /// API请求日志
+        /// 自定义请求日志
         /// </summary>
-        /// <param name="url"></param>
-        /// <param name="returnText"></param>
-        public static void SendLog(string url, string returnText)
+        /// <param name="typeName"></param>
+        /// <param name="content"></param>
+        public static void SendCustomLog(string typeName, string content)
         {
             if (!Config.IsDebug)
             {
                 return;
             }
 
-            LogBegin("接口调用");
+            LogBegin(string.Format("[[{0}]]", typeName));
+            Log(content);
+            LogEnd();
+        }
+
+        /// <summary>
+        /// API请求日志
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="returnText"></param>
+        public static void SendApiLog(string url, string returnText)
+        {
+            if (!Config.IsDebug)
+            {
+                return;
+            }
+
+            LogBegin("[[接口调用]]");
             Log("URL：{0}", url);
             Log("Result：\r\n{0}", returnText);
             LogEnd();

@@ -150,7 +150,7 @@
     <Compile Include="Entities\Request\RequestMessageBase.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Utilities\StreamUtility\StreamUtility.cs" />
-    <Compile Include="WeixinTrace.cs" />
+    <Compile Include="Trace\WeixinTrace.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagrams\MessageHandler.cd" />

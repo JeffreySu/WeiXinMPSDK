@@ -176,7 +176,7 @@ namespace Senparc.Weixin
 
 
         /// <summary>
-        /// 自定义请求日志
+        /// 自定义日志
         /// </summary>
         /// <param name="typeName">日志类型</param>
         /// <param name="content">日志内容</param>

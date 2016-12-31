@@ -47,6 +47,7 @@ namespace Senparc.Weixin.MP.Sample
 
             //这里设为Debug状态时，/App_Data/WeixinTraceLog/目录下会生成日志文件记录所有的API请求日志，正式发布版本建议关闭
             Senparc.Weixin.Config.IsDebug = true;
+            Senparc.Weixin.WeixinTrace.SendCustomLog("系统日志","系统启动");//只在Senparc.Weixin.Config.IsDebug = true的情况下生效
         }
 
         /// <summary>

@@ -36,6 +36,10 @@
 
     修改标识：Ritazh - 20161207
     修改描述：v14.3.112 迁移企业支付方法
+
+    修改标识：Ritazh - 20161207
+    修改描述：v14.3.112 迁移企业支付方法
+
 ----------------------------------------------------------------*/
 
 /*
@@ -413,6 +417,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             var resultXml = RequestUtility.HttpPost(urlFormat, null, ms);
             return new MicropayResult(resultXml);
         }
+
         #endregion
 
         #region 异步请求
@@ -734,7 +739,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms);
             return new MicropayResult(resultXml);
         }
-
 
         #endregion
     }

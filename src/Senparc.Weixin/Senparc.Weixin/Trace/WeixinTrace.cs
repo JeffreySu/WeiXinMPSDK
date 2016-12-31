@@ -176,7 +176,7 @@ namespace Senparc.Weixin
 
 
         /// <summary>
-        /// 自定义请求日志
+        /// 自定义日志
         /// </summary>
         /// <param name="typeName">日志类型</param>
         /// <param name="content">日志内容</param>
@@ -225,13 +225,14 @@ namespace Senparc.Weixin
                 return;
             }
 
+            LogBegin("[[WeixinException]]");
             LogBegin(ex.GetType().Name);
-            Log("Message", ex.Message);
-            Log("StackTrace", ex.StackTrace);
+            Log("Message：{0}", ex.Message);
+            Log("StackTrace：{0}", ex.StackTrace);
             if (ex.InnerException != null)
             {
-                Log("InnerException", ex.InnerException.Message);
-                Log("InnerException", ex.InnerException.StackTrace);
+                Log("InnerException：{0}", ex.InnerException.Message);
+                Log("InnerException.StackTrace：{0}", ex.InnerException.StackTrace);
             }
             LogEnd();
 
@@ -248,6 +249,7 @@ namespace Senparc.Weixin
                 return;
             }
 
+            LogBegin("[[ErrorJsonResultException]]");
             LogBegin("ErrorJsonResultException");
             Log("URL：{0}", ex.Url);
             Log("errcode：{0}", ex.JsonResult.errcode);

@@ -34,6 +34,9 @@
     修改标识：Senparc - 20161226
     修改描述：v14.3.112 增加Reverse,RefundQuery,ShortUrl,MicroPay方法重载
 
+    修改标识：Ritazh - 20161207
+    修改描述：v14.3.112 迁移企业支付方法
+
 ----------------------------------------------------------------*/
 
 /*
@@ -360,6 +363,41 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
 
         /// <summary>
+        /// 用于企业向微信用户个人付款 
+        /// 目前支持向指定微信用户的openid付款
+        /// </summary>
+        /// <param name="data">微信支付需要post的xml数据</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static string Transfers(string data, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
+
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+        }
+
+        /// <summary>
+        /// 用于商户的企业付款操作进行结果查询，返回付款操作详细结果。
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static string GetTransferInfo(string data, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
+
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+        }
+
+        /// <summary>
         /// 刷卡支付
         /// 提交被扫支付
         /// </summary>
@@ -643,6 +681,41 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+        }
+
+        /// <summary>
+        ///【异步方法】 用于企业向微信用户个人付款 
+        /// 目前支持向指定微信用户的openid付款
+        /// </summary>
+        /// <param name="data">微信支付需要post的xml数据</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<string> TransfersAsync(string data, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
+
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
+        }
+
+        /// <summary>
+        /// 【异步方法】用于商户的企业付款操作进行结果查询，返回付款操作详细结果。
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<string> GetTransferInfoAsync(string data, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
+
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
         }
 
         /// <summary>

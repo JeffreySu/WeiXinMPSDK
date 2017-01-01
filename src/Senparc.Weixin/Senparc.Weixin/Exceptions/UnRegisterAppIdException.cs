@@ -13,6 +13,9 @@ using System;
 
 namespace Senparc.Weixin.Exceptions
 {
+    /// <summary>
+    /// 未注册AppId异常
+    /// </summary>
     public class UnRegisterAppIdException : WeixinException
     {
         public string AppId { get; set; }

@@ -272,12 +272,13 @@ namespace Senparc.Weixin.MP.Sample
                         }
 
                         var data = new WeixinTemplate_ExceptionAlert("微信发生异常", host, service, status, message, remark);
-                        await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
-                            url, data);
+                        var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
+                              url, data);
                     });
                 }
-                catch
+                catch (Exception e)
                 {
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("OnWeixinExceptionFunc过程错误",e.Message);
                 }
             };
         }

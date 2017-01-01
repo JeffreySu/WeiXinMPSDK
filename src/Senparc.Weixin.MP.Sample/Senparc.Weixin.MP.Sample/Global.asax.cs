@@ -251,7 +251,7 @@ namespace Senparc.Weixin.MP.Sample
                     Task.Factory.StartNew(async () =>
                     {
                         var appId = ConfigurationManager.AppSettings["WeixinAppId"];
-                        var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";
+                        string openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";
                         var host = "A1";
                         string service = null;
                         string message = null;
@@ -267,6 +267,10 @@ namespace Senparc.Weixin.MP.Sample
                         }
                         else
                         {
+                            if (ex.Message.StartsWith("openid:"))
+                            {
+                                openId = ex.Message.Split(':')[1];
+                            }
                             service = "WeixinException";
                             message = ex.Message;
                         }
@@ -278,7 +282,7 @@ namespace Senparc.Weixin.MP.Sample
                 }
                 catch (Exception e)
                 {
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("OnWeixinExceptionFunc过程错误",e.Message);
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("OnWeixinExceptionFunc过程错误", e.Message);
                 }
             };
         }

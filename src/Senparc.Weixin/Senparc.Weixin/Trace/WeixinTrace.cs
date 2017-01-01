@@ -185,7 +185,13 @@ namespace Senparc.Weixin
 
             if (OnLogFunc != null)
             {
-                OnLogFunc();
+                try
+                {
+                    OnLogFunc();
+                }
+                catch
+                {
+                }
             }
         }
 
@@ -268,7 +274,13 @@ namespace Senparc.Weixin
 
             if (OnWeixinExceptionFunc != null)
             {
-                OnWeixinExceptionFunc(ex);
+                try
+                {
+                    OnWeixinExceptionFunc(ex);
+                }
+                catch
+                {
+                }
             }
 
             LogEnd();
@@ -294,7 +306,13 @@ namespace Senparc.Weixin
 
             if (OnWeixinExceptionFunc != null)
             {
-                OnWeixinExceptionFunc(ex);
+                try
+                {
+                    OnWeixinExceptionFunc(ex);
+                }
+                catch
+                {
+                }
             }
 
             LogEnd();

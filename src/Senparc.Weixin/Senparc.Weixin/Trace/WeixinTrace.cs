@@ -15,6 +15,9 @@
     修改标识：Senparc - 20161231
     修改描述：v4.9.8 将SendLog方法改名为SendApiLog，添加SendCustomLog方法
 
+    修改标识：Senparc - 20170101
+    修改描述：v4.9.9 优化日志记录方法（围绕OnWeixinExceptionFunc为主）
+
 ----------------------------------------------------------------*/
 
 using System;

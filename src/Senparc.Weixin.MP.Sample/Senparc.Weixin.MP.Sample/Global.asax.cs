@@ -37,17 +37,20 @@ namespace Senparc.Weixin.MP.Sample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //建议按照以下顺序进行注册，尤其须将缓存放在第一位！
-            RegisterWeixinCache();      //注册分布式缓存（按需）
+            /* 微信配置开始
+             * 
+             * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
+             */
+
+            RegisterWeixinCache();      //注册分布式缓存（按需，如果需要，必须放在第一个）
             RegisterWeixinThreads();    //激活微信缓存及队列线程（必须）
             RegisterSenparcWeixin();    //注册Demo所用微信公众号的账号信息（按需）
             RegisterSenparcQyWeixin();  //注册Demo所用微信企业号的账号信息（按需）
             RegisterWeixinPay();        //注册微信支付（按需）
             RegisterWeixinThirdParty(); //注册微信第三方平台（按需）
+            ConfigWeixinTraceLog();        //配置微信跟踪日志（按需）
 
-            //这里设为Debug状态时，/App_Data/WeixinTraceLog/目录下会生成日志文件记录所有的API请求日志，正式发布版本建议关闭
-            Senparc.Weixin.Config.IsDebug = true;
-            Senparc.Weixin.WeixinTrace.SendCustomLog("系统日志","系统启动");//只在Senparc.Weixin.Config.IsDebug = true的情况下生效
+            /* 微信配置结束 */
         }
 
         /// <summary>
@@ -218,6 +221,36 @@ namespace Senparc.Weixin.MP.Sample
                 getAuthorizerRefreshTokenFunc,
                 authorizerTokenRefreshedFunc,
                 "【盛派网络】开放平台");
+        }
+
+        /// <summary>
+        /// 配置微信跟踪日志
+        /// </summary>
+        private void ConfigWeixinTraceLog()
+        {
+            //这里设为Debug状态时，/App_Data/WeixinTraceLog/目录下会生成日志文件记录所有的API请求日志，正式发布版本建议关闭
+            Senparc.Weixin.Config.IsDebug = true;
+            Senparc.Weixin.WeixinTrace.SendCustomLog("系统日志", "系统启动");//只在Senparc.Weixin.Config.IsDebug = true的情况下生效
+
+            //自定义日志记录回调
+            Senparc.Weixin.WeixinTrace.OnLogFunc = () =>
+            {
+                //加入每次触发Log后需要执行的代码
+            };
+
+            Senparc.Weixin.WeixinTrace.OnWeixinExceptionFunc = ex =>
+            {
+                //加入每次触发WeixinExceptionLog后需要执行的代码
+
+                //发送模板消息给管理员
+                try
+                {
+                    
+                }
+                catch
+                {
+                }
+            };
         }
     }
 }

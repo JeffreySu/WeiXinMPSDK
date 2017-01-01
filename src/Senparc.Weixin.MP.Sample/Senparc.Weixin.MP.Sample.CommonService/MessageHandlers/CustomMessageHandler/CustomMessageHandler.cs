@@ -284,7 +284,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             else if (requestMessage.Content.ToUpper() == "EX")
             {
                 var ex = new WeixinException("openid:" + requestMessage.FromUserName + ":这是一条测试异常信息");//回调过程在global的ConfigWeixinTraceLog()方法中
-                responseMessage.Content = "请等待异步模板消息发送到此界面上。";
+                responseMessage.Content = "请等待异步模板消息发送到此界面上。\r\n当前时间：" + DateTime.Now.ToString();
             }
             else
             {

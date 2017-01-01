@@ -263,10 +263,8 @@ namespace Senparc.Weixin.MP.Sample
 
                         var sendTemplateMessage = true;
 
-
                         if (ex is ErrorJsonResultException)
                         {
-
                             var jsonEx = (ErrorJsonResultException)ex;
                             service = jsonEx.Url;
                             message = jsonEx.Message;
@@ -287,8 +285,6 @@ namespace Senparc.Weixin.MP.Sample
                             service = "WeixinException";
                             message = ex.Message;
                         }
-
-
 
                         if (sendTemplateMessage)
                         {

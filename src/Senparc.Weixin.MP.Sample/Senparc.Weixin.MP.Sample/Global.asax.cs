@@ -253,7 +253,7 @@ namespace Senparc.Weixin.MP.Sample
                     Task.Factory.StartNew(async () =>
                     {
                         var appId = ConfigurationManager.AppSettings["WeixinAppId"];
-                        string openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";
+                        string openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//收到通知的管理员OpenId
                         var host = "A1";
                         string service = null;
                         string message = null;
@@ -263,17 +263,15 @@ namespace Senparc.Weixin.MP.Sample
 
                         var sendTemplateMessage = true;
 
-
                         if (ex is ErrorJsonResultException)
                         {
-
                             var jsonEx = (ErrorJsonResultException)ex;
                             service = jsonEx.Url;
                             message = jsonEx.Message;
 
                             if (jsonEx.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
                             {
-                                sendTemplateMessage = false;
+                                sendTemplateMessage = false;//防止无限递归，这种请款那个下不发送消息
                             }
 
                             //TODO:防止更多的接口自身错误导致的无限递归。
@@ -288,15 +286,13 @@ namespace Senparc.Weixin.MP.Sample
                             message = ex.Message;
                         }
 
-
-
                         if (sendTemplateMessage)
                         {
                             int sleepSeconds = 3;
                             Thread.Sleep(sleepSeconds * 1000);
                             var data = new WeixinTemplate_ExceptionAlert(string.Format("微信发生异常（延时{0}秒）", sleepSeconds), host, service, status, message, remark);
                             var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
-                                  url, data);
+                                    url, data);
                         }
                     });
                 }

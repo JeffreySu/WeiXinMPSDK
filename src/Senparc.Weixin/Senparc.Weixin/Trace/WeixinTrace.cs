@@ -44,9 +44,9 @@ namespace Senparc.Weixin
         }
 
         /// <summary>
-        /// 记录ErrorJsonResultException日志时需要执行的任务
+        /// 记录WeixinException日志时需要执行的任务
         /// </summary>
-        public static Action<ErrorJsonResultException> OnErrorJsonResultExceptionFunc;
+        public static Action<WeixinException> OnWeixinExceptionFunc;
 
         /// <summary>
         /// 执行所有日志记录操作时执行的任务（发生在Senparc.Weixin记录日志之后）
@@ -234,6 +234,12 @@ namespace Senparc.Weixin
                 Log("InnerException：{0}", ex.InnerException.Message);
                 Log("InnerException.StackTrace：{0}", ex.InnerException.StackTrace);
             }
+
+            if (OnWeixinExceptionFunc != null)
+            {
+                OnWeixinExceptionFunc(ex);
+            }
+
             LogEnd();
 
         }
@@ -254,12 +260,13 @@ namespace Senparc.Weixin
             Log("URL：{0}", ex.Url);
             Log("errcode：{0}", ex.JsonResult.errcode);
             Log("errmsg：{0}", ex.JsonResult.errmsg);
-            LogEnd();
 
-            if (OnErrorJsonResultExceptionFunc != null)
+            if (OnWeixinExceptionFunc != null)
             {
-                OnErrorJsonResultExceptionFunc(ex);
+                OnWeixinExceptionFunc(ex);
             }
+
+            LogEnd();
         }
 
         #endregion

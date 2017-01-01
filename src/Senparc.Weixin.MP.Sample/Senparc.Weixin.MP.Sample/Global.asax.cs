@@ -4,6 +4,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -12,8 +13,10 @@ using System.Web.Routing;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Memcached;
 using Senparc.Weixin.Cache.Redis;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.Open.CommonAPIs;
@@ -245,7 +248,33 @@ namespace Senparc.Weixin.MP.Sample
                 //发送模板消息给管理员
                 try
                 {
-                    
+                    Task.Factory.StartNew(async () =>
+                    {
+                        var appId = ConfigurationManager.AppSettings["WeixinAppId"];
+                        var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";
+                        var host = "A1";
+                        string service = null;
+                        string message = null;
+                        var status = ex.GetType().Name;
+                        var remark = "请及时处理";
+                        string url = null;//需要点击打开的URL
+
+                        if (ex is ErrorJsonResultException)
+                        {
+                            var jsonEx = (ErrorJsonResultException)ex;
+                            service = jsonEx.Url;
+                            message = jsonEx.Message;
+                        }
+                        else
+                        {
+                            service = "WeixinException";
+                            message = ex.Message;
+                        }
+
+                        var data = new WeixinTemplate_ExceptionAlert("微信发生异常", host, service, status, message, remark);
+                        await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
+                            url, data);
+                    });
                 }
                 catch
                 {

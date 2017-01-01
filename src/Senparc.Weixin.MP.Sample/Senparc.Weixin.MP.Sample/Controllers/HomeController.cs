@@ -77,7 +77,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //使用AccessToken请求接口
             var apiResult = Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenu("你的AppId");
 
-
             throw new Exception("出错测试，使用Elmah保存错误结果(2)");
             //return View();
         }

@@ -253,7 +253,7 @@ namespace Senparc.Weixin.MP.Sample
                     Task.Factory.StartNew(async () =>
                     {
                         var appId = ConfigurationManager.AppSettings["WeixinAppId"];
-                        string openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";
+                        string openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//收到通知的管理员OpenId
                         var host = "A1";
                         string service = null;
                         string message = null;

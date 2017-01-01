@@ -33,7 +33,7 @@ namespace Senparc.Weixin.Exceptions
         /// <param name="message">异常消息</param>
         /// <param name="logged">是否已经使用WeixinTrace记录日志，如果没有，WeixinException会进行概要记录</param>
         public WeixinException(string message, bool logged = false)
-            : base(message, null)
+            : this(message, null, logged)
         {
         }
 

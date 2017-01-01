@@ -248,44 +248,37 @@ namespace Senparc.Weixin.MP.Sample
                 //发送模板消息给管理员
                 try
                 {
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("OnWeixinExceptionFunc过程开始1", "");
-                    //Task.Factory.StartNew(async () =>
-                    //{
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("OnWeixinExceptionFunc过程开始2", "");
-
-                    var appId = ConfigurationManager.AppSettings["WeixinAppId"];
-                    var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";
-                    var host = "A1";
-                    string service = null;
-                    string message = null;
-                    var status = ex.GetType().Name;
-                    var remark = "请及时处理";
-                    string url = null;//需要点击打开的URL
-
-                    if (ex is ErrorJsonResultException)
+                    Task.Factory.StartNew(async () =>
                     {
-                        var jsonEx = (ErrorJsonResultException)ex;
-                        service = jsonEx.Url;
-                        message = jsonEx.Message;
-                    }
-                    else
-                    {
-                        service = "WeixinException";
-                        message = ex.Message;
-                    }
+                        var appId = ConfigurationManager.AppSettings["WeixinAppId"];
+                        var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";
+                        var host = "A1";
+                        string service = null;
+                        string message = null;
+                        var status = ex.GetType().Name;
+                        var remark = "这是一条通过OnWeixinExceptionFunc事件发送的异步模板消息";
+                        string url = null;//需要点击打开的URL
 
-                    var data = new WeixinTemplate_ExceptionAlert("微信发生异常", host, service, status, message, remark);
-                    //var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
-                    //      url, data);
+                        if (ex is ErrorJsonResultException)
+                        {
+                            var jsonEx = (ErrorJsonResultException)ex;
+                            service = jsonEx.Url;
+                            message = jsonEx.Message;
+                        }
+                        else
+                        {
+                            service = "WeixinException";
+                            message = ex.Message;
+                        }
 
-                    var result = Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(appId, openId, data.TemplateId,
-      url, data);
-
-                    //});
+                        var data = new WeixinTemplate_ExceptionAlert("微信发生异常", host, service, status, message, remark);
+                        var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
+                              url, data);
+                    });
                 }
                 catch (Exception e)
                 {
-                    Senparc.Weixin.WeixinTrace.SendCustomLog("OnWeixinExceptionFunc过程错误", e.Message);
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("OnWeixinExceptionFunc过程错误",e.Message);
                 }
             };
         }

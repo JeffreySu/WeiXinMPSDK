@@ -48,7 +48,7 @@ namespace Senparc.Weixin.Exceptions
         {
             if (!logged)
             {
-                WeixinTrace.Log(string.Format("WeixinException（{0}）：{1}", this.GetType().Name, message));
+                //WeixinTrace.Log(string.Format("WeixinException（{0}）：{1}", this.GetType().Name, message));
                 WeixinTrace.WeixinExceptionLog(this);
             }
         }

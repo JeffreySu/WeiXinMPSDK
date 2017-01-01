@@ -28,12 +28,12 @@ namespace Senparc.Weixin.Exceptions
         public string Url { get; set; }
 
         /// <summary>
-        /// 
+        /// ErrorJsonResultException
         /// </summary>
-        /// <param name="message"></param>
-        /// <param name="inner"></param>
-        /// <param name="jsonResult"></param>
-        /// <param name="url"></param>
+        /// <param name="message">异常消息</param>
+        /// <param name="inner">内部异常</param>
+        /// <param name="jsonResult">WxJsonResult</param>
+        /// <param name="url">API地址</param>
         public ErrorJsonResultException(string message, Exception inner, WxJsonResult jsonResult, string url = null)
             : base(message, inner, true)
         {

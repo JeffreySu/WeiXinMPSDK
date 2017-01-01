@@ -258,14 +258,25 @@ namespace Senparc.Weixin.MP.Sample
                         string service = null;
                         string message = null;
                         var status = ex.GetType().Name;
-                        var remark = "这是一条通过OnWeixinExceptionFunc事件发送的异步模板消息";
-                        string url = "http://weixin.senparc.com";//需要点击打开的URL
+                        var remark = "\r\n这是一条通过OnWeixinExceptionFunc事件发送的异步模板消息";
+                        string url = "https://github.com/JeffreySu/WeiXinMPSDK/blob/24aca11630bf833f6a4b6d36dce80c5b171281d3/src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/Global.asax.cs#L246";//需要点击打开的URL
+
+                        var sendTemplateMessage = true;
+
 
                         if (ex is ErrorJsonResultException)
                         {
+
                             var jsonEx = (ErrorJsonResultException)ex;
                             service = jsonEx.Url;
                             message = jsonEx.Message;
+
+                            if (jsonEx.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
+                            {
+                                sendTemplateMessage = false;
+                            }
+
+                            //TODO:防止更多的接口自身错误导致的无限递归。
                         }
                         else
                         {
@@ -277,12 +288,16 @@ namespace Senparc.Weixin.MP.Sample
                             message = ex.Message;
                         }
 
-                        int sleepSeconds = 3;
-                        Thread.Sleep(sleepSeconds * 1000);
 
-                        var data = new WeixinTemplate_ExceptionAlert(string.Format("微信发生异常（延时{0}秒）", sleepSeconds), host, service, status, message, remark);
-                        var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
-                              url, data);
+
+                        if (sendTemplateMessage)
+                        {
+                            int sleepSeconds = 3;
+                            Thread.Sleep(sleepSeconds * 1000);
+                            var data = new WeixinTemplate_ExceptionAlert(string.Format("微信发生异常（延时{0}秒）", sleepSeconds), host, service, status, message, remark);
+                            var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
+                                  url, data);
+                        }
                     });
                 }
                 catch (Exception e)

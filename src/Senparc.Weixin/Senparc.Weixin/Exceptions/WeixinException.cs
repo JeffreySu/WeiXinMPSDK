@@ -12,6 +12,10 @@
 
     修改标识：Senparc - 20161225
     修改描述：v4.9.7 完善日志记录
+
+    修改标识：Senparc - 20170101
+    修改描述：v4.9.9 优化WeixinTrace
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -45,6 +49,7 @@ namespace Senparc.Weixin.Exceptions
             if (!logged)
             {
                 WeixinTrace.Log(string.Format("WeixinException（{0}）：{1}", this.GetType().Name, message));
+                WeixinTrace.WeixinExceptionLog(this);
             }
         }
     }

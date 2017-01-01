@@ -248,8 +248,11 @@ namespace Senparc.Weixin.MP.Sample
                 //发送模板消息给管理员
                 try
                 {
+                    Senparc.Weixin.WeixinTrace.SendCustomLog("OnWeixinExceptionFunc过程开始1", null);
                     Task.Factory.StartNew(async () =>
                     {
+                        Senparc.Weixin.WeixinTrace.SendCustomLog("OnWeixinExceptionFunc过程开始2",null);
+
                         var appId = ConfigurationManager.AppSettings["WeixinAppId"];
                         var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";
                         var host = "A1";

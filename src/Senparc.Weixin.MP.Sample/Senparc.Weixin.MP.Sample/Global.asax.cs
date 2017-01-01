@@ -271,7 +271,7 @@ namespace Senparc.Weixin.MP.Sample
 
                             if (jsonEx.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
                             {
-                                sendTemplateMessage = false;
+                                sendTemplateMessage = false;//防止无限递归，这种请款那个下不发送消息
                             }
 
                             //TODO:防止更多的接口自身错误导致的无限递归。
@@ -292,7 +292,7 @@ namespace Senparc.Weixin.MP.Sample
                             Thread.Sleep(sleepSeconds * 1000);
                             var data = new WeixinTemplate_ExceptionAlert(string.Format("微信发生异常（延时{0}秒）", sleepSeconds), host, service, status, message, remark);
                             var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
-                                  url, data);
+                                    url, data);
                         }
                     });
                 }

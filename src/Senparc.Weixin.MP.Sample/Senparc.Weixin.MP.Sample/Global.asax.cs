@@ -242,6 +242,7 @@ namespace Senparc.Weixin.MP.Sample
                 //加入每次触发Log后需要执行的代码
             };
 
+            //当发生基于WeixinException的异常时触发
             Senparc.Weixin.WeixinTrace.OnWeixinExceptionFunc = ex =>
             {
                 //加入每次触发WeixinExceptionLog后需要执行的代码
@@ -258,7 +259,7 @@ namespace Senparc.Weixin.MP.Sample
                         string message = null;
                         var status = ex.GetType().Name;
                         var remark = "这是一条通过OnWeixinExceptionFunc事件发送的异步模板消息";
-                        string url = null;//需要点击打开的URL
+                        string url = "http://weixin.senparc.com";//需要点击打开的URL
 
                         if (ex is ErrorJsonResultException)
                         {
@@ -270,13 +271,13 @@ namespace Senparc.Weixin.MP.Sample
                         {
                             if (ex.Message.StartsWith("openid:"))
                             {
-                                openId = ex.Message.Split(':')[1];
+                                openId = ex.Message.Split(':')[1];//发送给指定OpenId
                             }
                             service = "WeixinException";
                             message = ex.Message;
                         }
 
-                        int sleepSeconds = 5;
+                        int sleepSeconds = 3;
                         Thread.Sleep(sleepSeconds * 1000);
 
                         var data = new WeixinTemplate_ExceptionAlert(string.Format("微信发生异常（延时{0}秒）", sleepSeconds), host, service, status, message, remark);

@@ -30,10 +30,19 @@ namespace Senparc.Weixin
     /// </summary>
     public static class WeixinTrace
     {
+        /// <summary>
+        /// TraceListener
+        /// </summary>
         private static TraceListener _traceListener = null;
 
+        /// <summary>
+        /// 统一日志锁名称
+        /// </summary>
         const string LockName = "WeixinTraceLock";
 
+        /// <summary>
+        /// Senparc.Weixin全局统一的缓存策略
+        /// </summary>
         private static IObjectCacheStrategy Cache
         {
             get
@@ -44,15 +53,18 @@ namespace Senparc.Weixin
         }
 
         /// <summary>
-        /// 记录ErrorJsonResultException日志时需要执行的任务
+        /// 记录WeixinException日志时需要执行的任务
         /// </summary>
-        public static Action<ErrorJsonResultException> OnErrorJsonResultExceptionFunc;
+        public static Action<WeixinException> OnWeixinExceptionFunc;
 
         /// <summary>
         /// 执行所有日志记录操作时执行的任务（发生在Senparc.Weixin记录日志之后）
         /// </summary>
         public static Action OnLogFunc;
 
+        /// <summary>
+        /// 打开日志开始记录
+        /// </summary>
         internal static void Open()
         {
             Close();
@@ -75,6 +87,9 @@ namespace Senparc.Weixin
             }
         }
 
+        /// <summary>
+        /// 关闭日志记录
+        /// </summary>
         internal static void Close()
         {
             using (Cache.BeginCacheLock(LockName, ""))
@@ -97,6 +112,9 @@ namespace Senparc.Weixin
             Log("[{0}]", DateTime.Now);
         }
 
+        /// <summary>
+        /// 退回一次缩进
+        /// </summary>
         private static void Unindent()
         {
             using (Cache.BeginCacheLock(LockName, ""))
@@ -105,6 +123,9 @@ namespace Senparc.Weixin
             }
         }
 
+        /// <summary>
+        /// 缩进一次
+        /// </summary>
         private static void Indent()
         {
             using (Cache.BeginCacheLock(LockName, ""))
@@ -113,6 +134,9 @@ namespace Senparc.Weixin
             }
         }
 
+        /// <summary>
+        /// 写入缓存到系统Trace
+        /// </summary>
         private static void Flush()
         {
             using (Cache.BeginCacheLock(LockName, ""))
@@ -121,6 +145,10 @@ namespace Senparc.Weixin
             }
         }
 
+        /// <summary>
+        /// 开始记录日志
+        /// </summary>
+        /// <param name="title"></param>
         private static void LogBegin(string title = null)
         {
             Open();
@@ -146,6 +174,9 @@ namespace Senparc.Weixin
             }
         }
 
+        /// <summary>
+        /// 结束日志记录
+        /// </summary>
         private static void LogEnd()
         {
             Unindent();
@@ -154,7 +185,13 @@ namespace Senparc.Weixin
 
             if (OnLogFunc != null)
             {
-                OnLogFunc();
+                try
+                {
+                    OnLogFunc();
+                }
+                catch
+                {
+                }
             }
         }
 
@@ -234,6 +271,18 @@ namespace Senparc.Weixin
                 Log("InnerException：{0}", ex.InnerException.Message);
                 Log("InnerException.StackTrace：{0}", ex.InnerException.StackTrace);
             }
+
+            if (OnWeixinExceptionFunc != null)
+            {
+                try
+                {
+                    OnWeixinExceptionFunc(ex);
+                }
+                catch
+                {
+                }
+            }
+
             LogEnd();
 
         }
@@ -254,12 +303,19 @@ namespace Senparc.Weixin
             Log("URL：{0}", ex.Url);
             Log("errcode：{0}", ex.JsonResult.errcode);
             Log("errmsg：{0}", ex.JsonResult.errmsg);
-            LogEnd();
 
-            if (OnErrorJsonResultExceptionFunc != null)
+            if (OnWeixinExceptionFunc != null)
             {
-                OnErrorJsonResultExceptionFunc(ex);
+                try
+                {
+                    OnWeixinExceptionFunc(ex);
+                }
+                catch
+                {
+                }
             }
+
+            LogEnd();
         }
 
         #endregion

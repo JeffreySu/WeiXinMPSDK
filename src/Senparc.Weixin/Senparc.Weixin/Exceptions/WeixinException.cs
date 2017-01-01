@@ -12,6 +12,10 @@
 
     修改标识：Senparc - 20161225
     修改描述：v4.9.7 完善日志记录
+
+    修改标识：Senparc - 20170101
+    修改描述：v4.9.9 优化WeixinTrace
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -29,7 +33,7 @@ namespace Senparc.Weixin.Exceptions
         /// <param name="message">异常消息</param>
         /// <param name="logged">是否已经使用WeixinTrace记录日志，如果没有，WeixinException会进行概要记录</param>
         public WeixinException(string message, bool logged = false)
-            : base(message, null)
+            : this(message, null, logged)
         {
         }
 
@@ -45,6 +49,7 @@ namespace Senparc.Weixin.Exceptions
             if (!logged)
             {
                 WeixinTrace.Log(string.Format("WeixinException（{0}）：{1}", this.GetType().Name, message));
+                WeixinTrace.WeixinExceptionLog(this);
             }
         }
     }

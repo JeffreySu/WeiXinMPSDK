@@ -15,6 +15,9 @@
 
     修改标识：Senparc - 20170101
     修改描述：v4.9.9 优化WeixinTrace
+    
+    修改标识：Senparc - 20170102
+    修改描述：v4.9.10 添加AccessTokenOrAppId属性
 
 ----------------------------------------------------------------*/
 
@@ -27,6 +30,11 @@ namespace Senparc.Weixin.Exceptions
     /// </summary>
     public class WeixinException : ApplicationException
     {
+        /// <summary>
+        /// 当前正在请求的公众号AccessToken或AppId
+        /// </summary>
+        public string AccessTokenOrAppId { get; set; }
+
         /// <summary>
         /// WeixinException
         /// </summary>

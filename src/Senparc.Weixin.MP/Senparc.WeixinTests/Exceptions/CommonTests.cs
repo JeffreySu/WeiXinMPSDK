@@ -18,30 +18,37 @@ namespace Senparc.WeixinTests.Exceptions
         {
             try
             {
-                throw new ErrorJsonResultException("测试", null, new WxJsonResult());
-            }
-            catch (ErrorJsonResultException ex)
-            {
-                Console.WriteLine("ErrorJsonResultException:" + ex.Message);
-                throw;
-            }
-            catch (WeixinMenuException)
-            {
-                Assert.Fail();
+                try
+                {
+                    throw new ErrorJsonResultException("测试", null, new WxJsonResult());
+                }
+                catch (WeixinMenuException)
+                {
+                    Assert.Fail();
+                }
+                catch (ErrorJsonResultException ex)
+                {
+                    ex.AccessTokenOrAppId = "APPID-ErrorJsonResultException";
+                    Console.WriteLine("ErrorJsonResultException:" + ex.Message);
+                    throw;
+                }
+                catch (WeixinException ex)
+                {
+                    ex.AccessTokenOrAppId = "APPID-WeixinException";
+                    Console.WriteLine("WeixinException:" + ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Exception:" + ex.Message);
+                }
+                finally
+                {
+                    Console.WriteLine("这应该是第2行");
+                }
             }
             catch (WeixinException ex)
             {
-                Console.WriteLine("WeixinException:" + ex.Message);
-                throw;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception:" + ex.Message);
-                throw;
-            }
-            finally
-            {
-                Console.WriteLine("这应该是第3行");
+                Console.WriteLine("AppID:" + ex.AccessTokenOrAppId);
             }
         }
     }

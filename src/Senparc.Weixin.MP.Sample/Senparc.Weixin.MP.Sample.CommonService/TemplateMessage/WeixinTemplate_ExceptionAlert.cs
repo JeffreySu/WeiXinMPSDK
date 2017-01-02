@@ -19,7 +19,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage
 
     public class WeixinTemplate_ExceptionAlert : WeixinTemplateBase
     {
-        const string TEMPLATE_ID = "ur6TqESOo-32FEUk4qJxeWZZVt4KEOPjqbAFDGWw6gg";//每个公众号都不同，需要根据实际情况修改
+        const string TEMPLATE_ID = " ";//每个公众号都不同，需要根据实际情况修改
 
         public TemplateDataItem first { get; set; }
         /// <summary>

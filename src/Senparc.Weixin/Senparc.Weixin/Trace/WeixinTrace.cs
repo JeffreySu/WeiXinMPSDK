@@ -245,6 +245,7 @@ namespace Senparc.Weixin
             }
 
             LogBegin("[[接口调用]]");
+            //TODO:从源头加入AppId
             Log("URL：{0}", url);
             Log("Result：\r\n{0}", returnText);
             LogEnd();

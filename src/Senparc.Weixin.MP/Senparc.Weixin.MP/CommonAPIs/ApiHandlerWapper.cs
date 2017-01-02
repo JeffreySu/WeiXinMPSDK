@@ -14,7 +14,7 @@
     修改描述：添加TryCommonApi()方法
  
     修改标识：Senparc - 20170102
-    修改描述：v14.3.116 TryCommonApi抛出ErrorJsonResultException异常时加入了accessTokenOrAppId参数
+    修改描述：v14.3.116 TryCommonApi抛出ErrorJsonResultException、WeixinException异常时加入了accessTokenOrAppId参数
 
 ----------------------------------------------------------------*/
 
@@ -90,7 +90,8 @@ namespace Senparc.Weixin.MP
                     && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
                 {
                     //尝试重新验证
-                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(appId, true);//强制获取并刷新最新的AccessToken
+                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(appId, true);
+                        //强制获取并刷新最新的AccessToken
                     accessToken = accessTokenResult.access_token;
                     result = TryCommonApi(fun, appId, false);
                 }
@@ -99,6 +100,11 @@ namespace Senparc.Weixin.MP
                     ex.AccessTokenOrAppId = accessTokenOrAppId;
                     throw;
                 }
+            }
+            catch (WeixinException ex)
+            {
+                ex.AccessTokenOrAppId = accessTokenOrAppId;
+                throw;
             }
 
             return result;

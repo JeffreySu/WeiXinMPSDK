@@ -16,7 +16,8 @@
     修改描述：v4.9.8 将SendLog方法改名为SendApiLog，添加SendCustomLog方法
 
     修改标识：Senparc - 20170101
-    修改描述：v4.9.9 优化日志记录方法（围绕OnWeixinExceptionFunc为主）
+    修改描述：v4.9.9 1、优化日志记录方法（围绕OnWeixinExceptionFunc为主）
+                     2、输出AccessTokenOrAppId
 
 ----------------------------------------------------------------*/
 
@@ -268,6 +269,7 @@ namespace Senparc.Weixin
 
             LogBegin("[[WeixinException]]");
             LogBegin(ex.GetType().Name);
+            Log("AccessTokenOrAppId：{0}", ex.AccessTokenOrAppId);
             Log("Message：{0}", ex.Message);
             Log("StackTrace：{0}", ex.StackTrace);
             if (ex.InnerException != null)

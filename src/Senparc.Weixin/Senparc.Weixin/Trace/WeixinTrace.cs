@@ -303,6 +303,7 @@ namespace Senparc.Weixin
 
             LogBegin("[[ErrorJsonResultException]]");
             LogBegin("ErrorJsonResultException");
+            Log("AccessTokenOrAppId：{0}", ex.AccessTokenOrAppId ?? "null");
             Log("URL：{0}", ex.Url);
             Log("errcode：{0}", ex.JsonResult.errcode);
             Log("errmsg：{0}", ex.JsonResult.errmsg);

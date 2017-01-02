@@ -13,7 +13,9 @@
     修改标识：Senparc - 20150703
     修改描述：添加TryCommonApi()方法
  
-    修改标识：Senparc
+    修改标识：Senparc - 20170102
+    修改描述：v14.3.116 TryCommonApi抛出ErrorJsonResultException异常时加入了accessTokenOrAppId参数
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -94,6 +96,7 @@ namespace Senparc.Weixin.MP
                 }
                 else
                 {
+                    ex.AccessTokenOrAppId = accessTokenOrAppId;
                     throw;
                 }
             }

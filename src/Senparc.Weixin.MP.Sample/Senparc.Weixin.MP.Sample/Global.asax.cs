@@ -254,7 +254,7 @@ namespace Senparc.Weixin.MP.Sample
                     {
                         var appId = ConfigurationManager.AppSettings["WeixinAppId"];
                         string openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//收到通知的管理员OpenId
-                        var host = "A1";
+                        var host = "A1 / AccessTokenOrAppId：" + ex.AccessTokenOrAppId;
                         string service = null;
                         string message = null;
                         var status = ex.GetType().Name;

@@ -269,7 +269,19 @@ namespace Senparc.Weixin.MP.Sample
                             service = jsonEx.Url;
                             message = jsonEx.Message;
 
-                            if (jsonEx.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
+                            //需要忽略的类型
+                            var ignoreErrorCodes = new[]
+                            {
+                                ReturnCode.获取access_token时AppSecret错误或者access_token无效,
+                                ReturnCode.template_id不正确,
+                                ReturnCode.缺少access_token参数,
+                                ReturnCode.api功能未授权,
+                                ReturnCode.用户未授权该api,
+                                ReturnCode.参数错误invalid_parameter,
+                                ReturnCode.接口调用超过限制,
+                                //其他更多可能的情况
+                            };
+                            if (ignoreErrorCodes.Contains(jsonEx.JsonResult.errcode))
                             {
                                 sendTemplateMessage = false;//防止无限递归，这种请款那个下不发送消息
                             }

@@ -105,10 +105,17 @@ namespace Senparc.Weixin.MP.Sample
         /// </summary>
         private void RegisterSenparcWeixin()
         {
+            //注册公众号
             AccessTokenContainer.Register(
                 System.Configuration.ConfigurationManager.AppSettings["WeixinAppId"],
                 System.Configuration.ConfigurationManager.AppSettings["WeixinAppSecret"],
                 "【盛派网络小助手】公众号");
+
+            //注册小程序（完美兼容）
+            AccessTokenContainer.Register(
+                System.Configuration.ConfigurationManager.AppSettings["WxOpenAppId"],
+                System.Configuration.ConfigurationManager.AppSettings["WxOpenAppSecret"],
+                "【盛派互动】小程序");
         }
 
         /// <summary>

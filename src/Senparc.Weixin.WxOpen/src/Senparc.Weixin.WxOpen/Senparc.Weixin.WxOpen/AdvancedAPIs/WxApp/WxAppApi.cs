@@ -17,7 +17,7 @@ using Senparc.Weixin.MP;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson;
 
-namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
+namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 {
     /* 
     tip：通过该接口，仅能生成已发布的小程序的二维码。

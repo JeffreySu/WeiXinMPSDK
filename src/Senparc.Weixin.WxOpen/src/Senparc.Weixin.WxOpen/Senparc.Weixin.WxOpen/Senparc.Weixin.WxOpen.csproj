@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\Sns\SnsApi.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateApi.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateJson\TempleteModel.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppApi.cs" />

@@ -112,9 +112,9 @@
     display: block;
 }
 
-.contact {
+/*.contact {
     margin-top: 100px;
-}
+}*/
 
 .contatc-name {
     font-size: 16px;
@@ -142,10 +142,10 @@
 
     .catalog a {
         line-height: 68px;
-        font-size: 22px;
+        /*font-size: 22px;*/
         color: #799999;
         letter-spacing: 2px;
-        padding-right: 48px;
+        /*padding-right: 48px;*/
     }
 
         .catalog a:hover, .catalog a.active {
@@ -637,6 +637,15 @@ img.official-img {
     .tbVersion {
         width: 100%;
     }
+
+    .contact {
+        margin-top: 100px;
+    }
+
+    .catalog a{
+        font-size: 22px;
+        padding-right: 48px;
+    }
 }
 
 @media screen and (min-width:932px) and (max-width:999px) {
@@ -719,12 +728,21 @@ img.official-img {
         text-align: left;
     }
 
-    .tbVersion_bootstrap td{   /*其他屏幕可能不需要*/
-        width: 270px;
+        .tbVersion_bootstrap td { /*其他屏幕可能不需要*/
+            width: 270px;
+        }
+
+    .contact {
+        margin-top: 100px;
+    }
+
+    .catalog a{
+        font-size: 22px;
+        padding-right: 48px;
     }
 }
 
-@media screen and (min-width:900px) and (max-width:931px) {
+@media screen and (min-width:838px) and (max-width:931px) {
     .content {
         max-width: 100%;
     }
@@ -747,7 +765,7 @@ img.official-img {
     }
 
     .nav-catalog li {
-        padding-left: 40px;
+        padding-left: 33px;
     }
 
     .wrapper {
@@ -758,7 +776,7 @@ img.official-img {
 
     .container-left {
         margin-left: 15px;
-        width: 245px;
+        width: 233px;
     }
 
     .container-right {
@@ -804,7 +822,126 @@ img.official-img {
         text-align: left;
     }
 
-    .tbVersion_bootstrap td{   /*其他屏幕可能不需要*/
-        width: 270px;
+        .tbVersion_bootstrap td { /*其他屏幕可能不需要*/
+            width: 270px;
+        }
+
+    .contact {
+        margin-top: 100px;
+    }
+
+    .catalog a{
+        font-size: 22px;
+        padding-right: 48px;
+    }
+}
+
+@media screen and (min-width:768px) and (max-width:837px) {
+    .content {
+        max-width: 100%;
+    }
+
+    .logo {
+        float: none;
+    }
+
+        .logo img {
+            margin-left: 15px;
+        }
+
+    .header-title {
+        margin-left: 25px;
+        font-size: 18px;
+    }
+
+    .navbar-collapse {
+        width: 100%;
+    }
+
+    .nav-catalog li {
+        padding-left: 26px;
+    }
+
+    .wrapper {
+        width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+        /*padding-bottom:10px;*/
+    }
+
+    .container-left {
+        margin-left: 15px;
+        width: 100%;
+    }
+
+    .container-right {
+        /*padding-left: 30px;*/
+        width: 100%;
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .container-span {
+        font-size: 24px;
+    }
+
+    .container-p {
+        font-size: 16px;
+    }
+
+    .weixin-bottom {
+        width: 94%;
+        margin: 0 3%;
+    }
+
+    .content-weixin {
+        float: none;
+    }
+
+    .weixin-item-bs { /*其他屏幕可能不需要*/
+        float: left;
+        width: 50% !important;
+        text-align: left;
+        padding-left: 45px;
+    }
+
+    img.official-img {
+        margin: 0;
+    }
+
+    .tbVersion {
+        width: 100%;
+    }
+
+    .tbVersion_bootstrap {
+        float: left;
+        width: 50% !important;
+        margin-top: 105px;
+        text-align: left;
+    }
+
+        .tbVersion_bootstrap td { /*其他屏幕可能不需要*/
+            width: 270px;
+        }
+
+    .container-left li {
+        width: 34%;
+        margin: 0 8% 20px;
+        float: left;
+    }
+
+    .contact {
+        margin-top: 50px;
+        margin-bottom: 28px;
+        margin-left: 110px;
+    }
+
+    .contatc-name{
+        margin-bottom:5px;
+    }
+
+    .catalog a{
+        font-size: 20px;
+        padding:0 16px;
     }
 }

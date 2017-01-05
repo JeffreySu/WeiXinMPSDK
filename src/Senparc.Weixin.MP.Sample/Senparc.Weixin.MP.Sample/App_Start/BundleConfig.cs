@@ -29,6 +29,7 @@ namespace Senparc.Weixin.MP.Sample
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/reset.css",
                 "~/Content/style.css"
+                //"~/Content/bootstrap/css/bootstrap.css"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(

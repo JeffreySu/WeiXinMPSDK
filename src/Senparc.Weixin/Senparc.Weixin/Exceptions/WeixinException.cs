@@ -9,6 +9,16 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20161225
+    修改描述：v4.9.7 完善日志记录
+
+    修改标识：Senparc - 20170101
+    修改描述：v4.9.9 优化WeixinTrace
+    
+    修改标识：Senparc - 20170102
+    修改描述：v4.9.10 添加AccessTokenOrAppId属性
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -20,14 +30,35 @@ namespace Senparc.Weixin.Exceptions
     /// </summary>
     public class WeixinException : ApplicationException
     {
-        public WeixinException(string message)
-            : base(message, null)
+        /// <summary>
+        /// 当前正在请求的公众号AccessToken或AppId
+        /// </summary>
+        public string AccessTokenOrAppId { get; set; }
+
+        /// <summary>
+        /// WeixinException
+        /// </summary>
+        /// <param name="message">异常消息</param>
+        /// <param name="logged">是否已经使用WeixinTrace记录日志，如果没有，WeixinException会进行概要记录</param>
+        public WeixinException(string message, bool logged = false)
+            : this(message, null, logged)
         {
         }
 
-        public WeixinException(string message, Exception inner)
+        /// <summary>
+        /// WeixinException
+        /// </summary>
+        /// <param name="message">异常消息</param>
+        /// <param name="inner">内部异常信息</param>
+        /// <param name="logged">是否已经使用WeixinTrace记录日志，如果没有，WeixinException会进行概要记录</param>
+        public WeixinException(string message, Exception inner, bool logged = false)
             : base(message, inner)
         {
+            if (!logged)
+            {
+                //WeixinTrace.Log(string.Format("WeixinException（{0}）：{1}", this.GetType().Name, message));
+                WeixinTrace.WeixinExceptionLog(this);
+            }
         }
     }
 }

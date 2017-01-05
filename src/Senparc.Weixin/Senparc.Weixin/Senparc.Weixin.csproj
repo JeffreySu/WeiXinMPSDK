@@ -105,6 +105,7 @@
     <Compile Include="Context\WeixinContextRemovedEventArgs.cs" />
     <Compile Include="Entities\BindableBase.cs" />
     <Compile Include="Entities\EntityBase.cs" />
+    <Compile Include="Entities\JsonResult\IJsonResultCallback.cs" />
     <Compile Include="Entities\JsonResult\QyJsonResult.cs" />
     <Compile Include="Entities\MessageBase.cs">
       <SubType>
@@ -132,7 +133,7 @@
     <Compile Include="Threads\SenparcMessageQueueThreadUtility.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Threads\ThreadUtility.cs" />
-    <Compile Include="Utilities\BrowserUtility\BroswerUtility.cs" />
+    <Compile Include="Utilities\BrowserUtility\BrowserUtility.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Utilities\CacheUtility\CacheUtility.cs" />
     <Compile Include="Utilities\CacheUtility\FlushCache.cs" />
@@ -150,7 +151,7 @@
     <Compile Include="Entities\Request\RequestMessageBase.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Utilities\StreamUtility\StreamUtility.cs" />
-    <Compile Include="WeixinTrace.cs" />
+    <Compile Include="Trace\WeixinTrace.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagrams\MessageHandler.cd" />

@@ -45,7 +45,7 @@ namespace Senparc.Weixin.HttpUtility
         {
             string returnText = RequestUtility.HttpGet(url, encoding);
 
-            WeixinTrace.SendLog(url, returnText);
+            WeixinTrace.SendApiLog(url, returnText);
 
             JavaScriptSerializer js = new JavaScriptSerializer();
             if (maxJsonLength.HasValue)

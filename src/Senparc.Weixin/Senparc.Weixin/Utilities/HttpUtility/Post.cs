@@ -64,6 +64,10 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             T result = js.Deserialize<T>(returnText);
+
+            //TODO:加入特殊情况下的回调处理
+            
+
             return result;
         }
 
@@ -109,7 +113,7 @@ namespace Senparc.Weixin.HttpUtility
         {
             string returnText = RequestUtility.HttpPost(url, cookieContainer, fileStream, null, null, encoding, cer, timeOut, checkValidationResult);
 
-            WeixinTrace.SendLog(url, returnText);
+            WeixinTrace.SendApiLog(url, returnText);
 
             var result = GetResult<T>(returnText);
             return result;
@@ -194,7 +198,7 @@ namespace Senparc.Weixin.HttpUtility
         {
             string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, fileStream, null, null, encoding, cer, timeOut, checkValidationResult);
 
-            WeixinTrace.SendLog(url, returnText);
+            WeixinTrace.SendApiLog(url, returnText);
 
             var result = GetResult<T>(returnText);
             return result;

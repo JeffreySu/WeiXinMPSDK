@@ -25,12 +25,18 @@ using System;
 
 namespace Senparc.Weixin.Entities
 {
-    public interface IJsonResult
+    /// <summary>
+    /// 所有JSON格式返回值的API返回结果接口
+    /// </summary>
+    public interface IJsonResult// : IJsonResultCallback
     {
         string errmsg { get; set; }
         object P2PData { get; set; }
     }
 
+    /// <summary>
+    /// 包含errorcode的Json返回结果接口
+    /// </summary>
     public interface IWxJsonResult : IJsonResult
     {
         ReturnCode errcode { get; set; }
@@ -74,6 +80,24 @@ namespace Senparc.Weixin.Entities
         //            return ReturnCode.系统繁忙;//如果有“其他错误”的话可以指向其他错误
         //        }
         //    }
+        //}
+        //public void SerializingCallback()
+        //{
+        //}
+
+        //public void SrializedCallback(string json)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public void DeserializingCallback(string json)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public void DeserializedCallback(string json)
+        //{
+        //    throw new NotImplementedException();
         //}
     }
 }

@@ -14,6 +14,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
@@ -107,12 +108,23 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         public ActionResult GetMenu(string token)
         {
-            var result = CommonAPIs.CommonApi.GetMenu(token);
-            if (result == null)
+            try
             {
-                return Json(new { error = "菜单不存在或验证失败！" }, JsonRequestBehavior.AllowGet);
+                var result = CommonAPIs.CommonApi.GetMenu(token);
+                if (result == null)
+                {
+                    return Json(new {error = "菜单不存在或验证失败！"}, JsonRequestBehavior.AllowGet);
+                }
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
-            return Json(result, JsonRequestBehavior.AllowGet);
+            catch (WeixinMenuException ex)
+            {
+                return Json(new {error = "菜单不存在或验证失败：" + ex.Message}, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = "菜单不存在或验证失败：" + ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult DeleteMenu(string token)

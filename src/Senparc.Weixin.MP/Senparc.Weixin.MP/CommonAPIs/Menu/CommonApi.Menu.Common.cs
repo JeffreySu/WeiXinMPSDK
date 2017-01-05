@@ -291,8 +291,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     var conditionalMenuList = new List<ConditionalButtonGroup>();
                     foreach (var conditionalMenu in resultFull.conditionalmenu)
                     {
-                        var conditionalButtonGroup = new ConditionalButtonGroup()
-                            ;
+                        var conditionalButtonGroup = new ConditionalButtonGroup();
+
                         //fix bug 16030701  https://github.com/JeffreySu/WeiXinMPSDK/issues/169
                         conditionalButtonGroup.matchrule = conditionalMenu.matchrule;
                         conditionalButtonGroup.menuid = conditionalMenu.menuid;

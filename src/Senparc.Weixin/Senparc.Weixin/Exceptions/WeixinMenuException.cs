@@ -9,16 +9,22 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20170101
+    修改描述：整理接口
 ----------------------------------------------------------------*/
 
 using System;
 
 namespace Senparc.Weixin.Exceptions
 {
+    /// <summary>
+    /// 菜单异常
+    /// </summary>
     public class WeixinMenuException : WeixinException
     {
         public WeixinMenuException(string message)
-            : base(message, null)
+            : this(message, null)
         {
         }
 

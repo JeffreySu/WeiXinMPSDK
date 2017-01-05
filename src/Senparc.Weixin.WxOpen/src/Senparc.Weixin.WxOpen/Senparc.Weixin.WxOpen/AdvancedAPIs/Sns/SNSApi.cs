@@ -41,18 +41,21 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
         /// <param name="grantType">保持默认：authorization_code</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static WxJsonResult JsCode2Json(string appId, string secret, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
+        public static JsCode2JsonResult JsCode2Json(string appId, string secret, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
         {
-            var urlFormat =
+            const string urlFormat =
                 "https://api.weixin.qq.com/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type={3}";
 
-            return null;
+            var url = string.Format(urlFormat, appId, secret, jsCode, grantType);
+
+            var result = Get.GetJson<JsCode2JsonResult>(url);
+            return result;
         }
 
         #endregion
 
         #region 异步请求
-       
+
         #endregion
     }
 }

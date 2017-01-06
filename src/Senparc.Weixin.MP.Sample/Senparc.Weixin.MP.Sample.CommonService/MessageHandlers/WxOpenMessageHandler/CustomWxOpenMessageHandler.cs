@@ -65,59 +65,75 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
         }
 
         public override void OnExecuting()
-    {
-        //测试MessageContext.StorageData
-        if (CurrentMessageContext.StorageData == null)
         {
-            CurrentMessageContext.StorageData = 0;
-        }
-        base.OnExecuting();
-    }
-
-    public override void OnExecuted()
-    {
-        base.OnExecuted();
-        CurrentMessageContext.StorageData = ((int)CurrentMessageContext.StorageData) + 1;
-    }
-
-
-    /// <summary>
-    /// 处理文字请求
-    /// </summary>
-    /// <returns></returns>
-    public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
-    {
-        //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
-
-        //这里可以进行数据库记录或处理
-
-        //发送一条客服消息回复用户
-
-        var result = new StringBuilder();
-        result.AppendFormat("您刚才发送了文字信息：{0}\r\n\r\n", requestMessage.Content);
-
-        if (CurrentMessageContext.RequestMessages.Count > 1)
-        {
-            result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count,
-                CurrentMessageContext.StorageData);
-            for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
+            //测试MessageContext.StorageData
+            if (CurrentMessageContext.StorageData == null)
             {
-                var historyMessage = CurrentMessageContext.RequestMessages[i];
-                result.AppendFormat("{0} 【{1}】{2}\r\n",
-                    historyMessage.CreateTime.ToShortTimeString(),
-                    historyMessage.MsgType.ToString(),
-                    (historyMessage is RequestMessageText)
-                        ? (historyMessage as RequestMessageText).Content
-                        : "[非文字类型]"
-                    );
+                CurrentMessageContext.StorageData = 0;
             }
-            result.AppendLine("\r\n");
+            base.OnExecuting();
         }
 
-        Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, requestMessage.FromUserName, result.ToString());
+        public override void OnExecuted()
+        {
+            base.OnExecuted();
+            CurrentMessageContext.StorageData = ((int)CurrentMessageContext.StorageData) + 1;
+        }
 
-        return new SuccessResponseMessage();
-    }
+
+        /// <summary>
+        /// 处理文字请求
+        /// </summary>
+        /// <returns></returns>
+        public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+        {
+            //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
+
+            //这里可以进行数据库记录或处理
+
+            //发送一条客服消息回复用户
+
+            var result = new StringBuilder();
+            result.AppendFormat("您刚才发送了文字信息：{0}\r\n\r\n", requestMessage.Content);
+
+            if (CurrentMessageContext.RequestMessages.Count > 1)
+            {
+                result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count,
+                    CurrentMessageContext.StorageData);
+                for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
+                {
+                    var historyMessage = CurrentMessageContext.RequestMessages[i];
+                    string content = null;
+                    if (historyMessage is RequestMessageText)
+                    {
+                        content = (historyMessage as RequestMessageText).Content;
+                    }
+                    else if (historyMessage is RequestMessageEvent_UserEnterTempSession)
+                    {
+                        content = "[进入客服]";
+                    }
+                    else
+                    {
+                        content = string.Format("[非文字信息:{0}]", historyMessage.GetType().Name);
+                    }
+
+                    result.AppendFormat("{0} 【{1}】{2}\r\n",
+                        historyMessage.CreateTime.ToShortTimeString(),
+                        historyMessage.MsgType.ToString(),
+                        content
+                        );
+                }
+                result.AppendLine("\r\n");
+            }
+
+            //处理微信换行符识别问题
+            var msg = result.ToString().Replace("\r\n", "\n");
+
+            //使用微信公众号的接口，完美兼容
+            Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, requestMessage.FromUserName, msg);
+
+            return new SuccessResponseMessage();
+        }
 
         public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
         {
@@ -129,21 +145,21 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
         public override IResponseMessageBase OnEvent_UserEnterTempSessionRequest(RequestMessageEvent_UserEnterTempSession requestMessage)
         {
             //进入客服
-            var msg = "欢迎您！这条消息来自Senparc.Weixin事件。";
+            var msg = "欢迎您！这条消息来自Senparc.Weixin进入客服事件。";
             Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, requestMessage.FromUserName, msg);
 
             return DefaultResponseMessage(requestMessage);
         }
 
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
-    {
-        //所有没有被处理的消息会默认返回这里的结果
+        {
+            //所有没有被处理的消息会默认返回这里的结果
 
-        return new SuccessResponseMessage();
+            return new SuccessResponseMessage();
 
-        //return new SuccessResponseMessage();等效于：
-        //base.TextResponseMessage = "success";
-        //return null;
+            //return new SuccessResponseMessage();等效于：
+            //base.TextResponseMessage = "success";
+            //return null;
+        }
     }
-}
 }

@@ -8,25 +8,11 @@
     创建标识：Senparc - 20150312
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Web;
 using System.Web.Configuration;
-using Senparc.Weixin.MP.Agent;
-using Senparc.Weixin.Context;
-using Senparc.Weixin.Entities;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
-using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using IRequestMessageBase = Senparc.Weixin.MP.Entities.IRequestMessageBase;
 using IResponseMessageBase = Senparc.Weixin.MP.Entities.IResponseMessageBase;
 
@@ -106,3 +92,4 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
         }
     }
 }
+"

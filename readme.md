@@ -349,7 +349,7 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
 --------------
 小程序的后端架构和公众号保持了高度一致，
 只需要使用Nuget安装[Senparc.Weixin.WxOpen](https://www.nuget.org/packages/Senparc.Weixin.WxOpen)库即可开始使用小程序。
-Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理、AccessToken管理、模板消息、二维码生成等功能。
+Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理、AccessToken管理、模板消息、二维码生成等全套功能。
 
 
 已实现功能

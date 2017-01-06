@@ -9,12 +9,7 @@
     
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.MP.AppStore;
@@ -33,10 +28,10 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <summary>
         /// 小程序MessageHandler构造函数
         /// </summary>
-        /// <param name="inputStream"></param>
-        /// <param name="postModel"></param>
-        /// <param name="maxRecordCount"></param>
-        /// <param name="developerInfo"></param>
+        /// <param name="inputStream">XML流（后期会支持JSON）</param>
+        /// <param name="postModel">PostModel</param>
+        /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
+        /// <param name="developerInfo">开发者信息（非必填）</param>
         public WxOpenMessageHandler(Stream inputStream, PostModel postModel = null, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
             : base(inputStream, postModel, maxRecordCount, developerInfo)
         {
@@ -45,10 +40,10 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <summary>
         /// 小程序MessageHandler构造函数
         /// </summary>
-        /// <param name="requestDocument"></param>
-        /// <param name="postModel"></param>
-        /// <param name="maxRecordCount"></param>
-        /// <param name="developerInfo"></param>
+        /// <param name="requestDocument">XML格式的请求</param>
+        /// <param name="postModel">PostModel</param>
+        /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
+        /// <param name="developerInfo">开发者信息（非必填）</param>
         public WxOpenMessageHandler(XDocument requestDocument, PostModel postModel = null, int maxRecordCount = 0, DeveloperInfo developerInfo = null)
             : base(requestDocument, postModel, maxRecordCount, developerInfo)
         {
@@ -57,10 +52,10 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <summary>
         /// 小程序MessageHandler构造函数
         /// </summary>
-        /// <param name="requestMessageBase"></param>
-        /// <param name="postModel"></param>
-        /// <param name="maxRecordCount"></param>
-        /// <param name="developerInfo"></param>
+        /// <param name="requestMessageBase">RequestMessageBase</param>
+        /// <param name="postModel">PostModel</param>
+        /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
+        /// <param name="developerInfo">开发者信息（非必填）</param>
         public WxOpenMessageHandler(RequestMessageBase requestMessageBase, PostModel postModel = null, int maxRecordCount = 0, DeveloperInfo developerInfo = null) :
             base(requestMessageBase, postModel, maxRecordCount, developerInfo)
         {

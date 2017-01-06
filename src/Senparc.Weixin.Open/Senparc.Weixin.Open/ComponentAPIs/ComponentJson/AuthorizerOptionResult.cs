@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：AuthorizerOptionResult.cs
     文件功能描述：获取授权方的选项设置信息返回结果

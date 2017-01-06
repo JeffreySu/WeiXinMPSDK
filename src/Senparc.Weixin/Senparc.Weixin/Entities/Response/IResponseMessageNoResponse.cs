@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：IResponseMessageNoResponse.cs
     文件功能描述：无需响应（回复空字符串）的响应类型接口

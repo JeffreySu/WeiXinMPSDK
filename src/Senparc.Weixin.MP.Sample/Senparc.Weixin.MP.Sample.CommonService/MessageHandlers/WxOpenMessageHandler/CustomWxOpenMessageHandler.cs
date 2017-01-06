@@ -10,6 +10,7 @@
 
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web.Configuration;
 using System.Xml.Linq;
 using Senparc.Weixin.WxOpen;
@@ -133,12 +134,29 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
             Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, requestMessage.FromUserName, msg);
 
             return new SuccessResponseMessage();
+
+            //和公众号一样回复XML是无效的：
+//            return new SuccessResponseMessage()
+//            {
+//                ReturnText = string.Format(@"<?xml version=""1.0"" encoding=""utf-8""?>
+//<xml>
+//    <ToUserName><![CDATA[{0}]]></ToUserName>
+//    <FromUserName><![CDATA[{1}]]></FromUserName>
+//    <CreateTime>1357986928</CreateTime>
+//    <MsgType><![CDATA[text]]></MsgType>
+//    <Content><![CDATA[TNT2]]></Content>
+//</xml>",requestMessage.FromUserName,requestMessage.ToUserName)
+//            };
         }
 
         public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
         {
             //发来图片
-
+            Task.Factory.StartNew(async () =>
+            {
+              await  Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, requestMessage.FromUserName, "刚才您发送了这张图片：");
+              await  Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImageAsync(appId, requestMessage.FromUserName, requestMessage.MediaId);
+            });
             return DefaultResponseMessage(requestMessage);
         }
 

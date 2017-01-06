@@ -12,8 +12,6 @@ using System.IO;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.MP;
-using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns

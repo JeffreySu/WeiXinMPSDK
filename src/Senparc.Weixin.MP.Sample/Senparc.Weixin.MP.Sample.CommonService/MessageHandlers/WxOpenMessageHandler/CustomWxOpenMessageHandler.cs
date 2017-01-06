@@ -77,6 +77,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
 
             //这里可以进行数据库记录或处理
 
+            //发送一条客服消息回复用户
+
+
             return new SuccessResponseMessage();
         }
 

@@ -5,13 +5,10 @@
     文件功能描述：事件基类
     
     
-    创建标识：Senparc - 20150211
-    
-    修改标识：Senparc - 20150303
-    修改描述：整理接口
+    创建标识：Senparc - 20170106
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.MP.Entities
+namespace Senparc.Weixin.WxOpen.Entities
 {
     /// <summary>
     /// IRequestMessageEventBase
@@ -43,7 +40,7 @@ namespace Senparc.Weixin.MP.Entities
         /// </summary>
         public virtual Event Event
         {
-            get { return Event.ENTER; }
+            get { return Event.user_enter_tempsession; }
         }
     }
 }

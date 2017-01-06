@@ -9,12 +9,15 @@
 ----------------------------------------------------------------*/
 
 using System.IO;
+using System.Text;
 using System.Web.Configuration;
-using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Entities.Request;
-using Senparc.Weixin.MP.MessageHandlers;
-using IRequestMessageBase = Senparc.Weixin.MP.Entities.IRequestMessageBase;
-using IResponseMessageBase = Senparc.Weixin.MP.Entities.IResponseMessageBase;
+using System.Xml.Linq;
+using Senparc.Weixin.WxOpen;
+using Senparc.Weixin.WxOpen.MessageHandlers;
+using Senparc.Weixin.WxOpen.Entities;
+using Senparc.Weixin.WxOpen.Entities.Request;
+using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
+using IResponseMessageBase = Senparc.Weixin.WxOpen.Entities.IResponseMessageBase;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
 {
@@ -22,7 +25,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
     /// 自定义MessageHandler
     /// 把MessageHandler作为基类，重写对应请求的处理方法
     /// </summary>
-    public partial class CustomWxOpenMessageHandler : MessageHandler<CustomWxOpenMessageContext>
+    public partial class CustomWxOpenMessageHandler : WxOpenMessageHandler<CustomWxOpenMessageContext>
     {
         private string appId = WebConfigurationManager.AppSettings["WxOpenAppId"];
         private string appSecret = WebConfigurationManager.AppSettings["WxOpenAppSecret"];
@@ -51,47 +54,80 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
             };
         }
 
+        public override XDocument ResponseDocument
+        {
+            get { return new XDocument(); }//暂时没有需要输出的XML格式内容
+        }
+
+        public override XDocument FinalResponseDocument
+        {
+            get { return new XDocument(); }//暂时没有需要输出的XML格式内容
+        }
+
         public override void OnExecuting()
+    {
+        //测试MessageContext.StorageData
+        if (CurrentMessageContext.StorageData == null)
         {
-            //测试MessageContext.StorageData
-            if (CurrentMessageContext.StorageData == null)
-            {
-                CurrentMessageContext.StorageData = 0;
-            }
-            base.OnExecuting();
+            CurrentMessageContext.StorageData = 0;
         }
-
-        public override void OnExecuted()
-        {
-            base.OnExecuted();
-            CurrentMessageContext.StorageData = ((int)CurrentMessageContext.StorageData) + 1;
-        }
-
-        /// <summary>
-        /// 处理文字请求
-        /// </summary>
-        /// <returns></returns>
-        public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
-        {
-            //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
-
-            //这里可以进行数据库记录或处理
-
-            //发送一条客服消息回复用户
-
-
-            return new SuccessResponseMessage();
-        }
-
-        public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
-        {
-            //所有没有被处理的消息会默认返回这里的结果
-
-            return new SuccessResponseMessage();
-
-            //return new SuccessResponseMessage();等效于：
-            //base.TextResponseMessage = "success";
-            //return null;
-        }
+        base.OnExecuting();
     }
+
+    public override void OnExecuted()
+    {
+        base.OnExecuted();
+        CurrentMessageContext.StorageData = ((int)CurrentMessageContext.StorageData) + 1;
+    }
+
+
+    /// <summary>
+    /// 处理文字请求
+    /// </summary>
+    /// <returns></returns>
+    public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+    {
+        //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
+
+        //这里可以进行数据库记录或处理
+
+        //发送一条客服消息回复用户
+
+        var result = new StringBuilder();
+        result.AppendFormat("您刚才发送了文字信息：{0}\r\n\r\n", requestMessage.Content);
+
+        if (CurrentMessageContext.RequestMessages.Count > 1)
+        {
+            result.AppendFormat("您刚才还发送了如下消息（{0}/{1}）：\r\n", CurrentMessageContext.RequestMessages.Count,
+                CurrentMessageContext.StorageData);
+            for (int i = CurrentMessageContext.RequestMessages.Count - 2; i >= 0; i--)
+            {
+                var historyMessage = CurrentMessageContext.RequestMessages[i];
+                result.AppendFormat("{0} 【{1}】{2}\r\n",
+                    historyMessage.CreateTime.ToShortTimeString(),
+                    historyMessage.MsgType.ToString(),
+                    (historyMessage is RequestMessageText)
+                        ? (historyMessage as RequestMessageText).Content
+                        : "[非文字类型]"
+                    );
+            }
+            result.AppendLine("\r\n");
+        }
+
+        Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, requestMessage.FromUserName, result.ToString());
+
+        return new SuccessResponseMessage();
+    }
+
+    public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
+    {
+        //所有没有被处理的消息会默认返回这里的结果
+
+        return new SuccessResponseMessage();
+
+        //return new SuccessResponseMessage();等效于：
+        //base.TextResponseMessage = "success";
+        //return null;
+    }
+}
 }

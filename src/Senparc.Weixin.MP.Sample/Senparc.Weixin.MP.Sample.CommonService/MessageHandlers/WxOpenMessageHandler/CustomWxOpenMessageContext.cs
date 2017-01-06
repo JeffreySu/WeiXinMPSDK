@@ -14,7 +14,7 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using Senparc.Weixin.Context;
-using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.WxOpen.Entities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
 {

@@ -15,7 +15,11 @@ namespace Senparc.Weixin.WxOpen.Entities
     /// <summary>
     /// 只返回"success"等指定字符串的响应信息
     /// </summary>
-    public class SuccessResponseMessage : SuccessResponseMessageBase
+    public class SuccessResponseMessage : SuccessResponseMessageBase, IResponseMessageBase
     {
+        public ResponseMsgType MsgType
+        {
+            get { return ResponseMsgType.SuccessResponse;}
+        }
     }
 }

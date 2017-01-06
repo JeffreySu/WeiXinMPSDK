@@ -2,7 +2,7 @@
 using System.IO;
 using System.Web.Configuration;
 using System.Web.Mvc;
-using Senparc.Weixin.MP.Entities.Request;
+using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
 

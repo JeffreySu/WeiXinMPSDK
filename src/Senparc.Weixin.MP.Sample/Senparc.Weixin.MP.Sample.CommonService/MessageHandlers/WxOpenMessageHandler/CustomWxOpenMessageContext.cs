@@ -18,9 +18,9 @@ using Senparc.Weixin.MP.Entities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
 {
-    public class WxOpenMessageContext : MessageContext<IRequestMessageBase,IResponseMessageBase>
+    public class CustomWxOpenMessageContext : MessageContext<IRequestMessageBase,IResponseMessageBase>
     {
-        public WxOpenMessageContext()
+        public CustomWxOpenMessageContext()
         {
             base.MessageContextRemoved += CustomMessageContext_MessageContextRemoved;
         }
@@ -36,7 +36,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
              * 为了提高效率，根据WeixinContext中的算法，这里的过期消息会在过期后下一条请求执行之前被清除
              */
 
-            var messageContext = e.MessageContext as WxOpenMessageContext;
+            var messageContext = e.MessageContext as CustomWxOpenMessageContext;
             if (messageContext == null)
             {
                 return;//如果是正常的调用，messageContext不会为null

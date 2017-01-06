@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：RedisObjectCacheStrategy.cs
     文件功能描述：Redis的Object类型容器缓存（Key为String类型）。

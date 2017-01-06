@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：RequestMessageEventBase.cs
     文件功能描述：事件基类
@@ -13,6 +13,9 @@
 
 namespace Senparc.Weixin.MP.Entities
 {
+    /// <summary>
+    /// IRequestMessageEventBase
+    /// </summary>
     public interface IRequestMessageEventBase : IRequestMessageBase
     {
         /// <summary>

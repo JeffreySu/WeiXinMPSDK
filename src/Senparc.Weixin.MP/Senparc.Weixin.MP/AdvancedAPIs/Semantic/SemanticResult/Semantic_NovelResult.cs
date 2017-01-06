@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：Semantic_NovelResult.cs
     文件功能描述：语意理解接口小说服务（novel）返回信息

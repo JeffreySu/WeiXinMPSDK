@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
   
     文件名：SendRedPackResult.cs
     文件功能描述：获取普通现金红包发送接口的结果

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：Card_BaseInfoBase.cs
     文件功能描述：基本的卡券数据，所有卡券通用。作为 Card_BaseInfo和 的基类

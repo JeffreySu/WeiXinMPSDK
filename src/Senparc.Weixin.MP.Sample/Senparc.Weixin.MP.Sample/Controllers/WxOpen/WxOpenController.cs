@@ -57,8 +57,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             postModel.EncodingAESKey = EncodingAESKey;//根据自己后台的设置保持一致
             postModel.AppId = AppId;//根据自己后台的设置保持一致
 
-            //v4.2.2之后的版本，可以设置每个人上下文消息储存的最大数量，防止内存占用过多，如果该参数小于等于0，则不限制
-            var maxRecordCount = 10;
+            var maxRecordCount = 50;
 
             var logPath = Server.MapPath(string.Format("~/App_Data/WxOpen/{0}/", DateTime.Now.ToString("yyyy-MM-dd")));
             if (!Directory.Exists(logPath))
@@ -111,7 +110,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             }
             catch (Exception ex)
             {
-                using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_" + _getRandomFileName() + ".txt")))
+                using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_WxOpen_" + _getRandomFileName() + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);
                     tw.WriteLine(ex.Source);

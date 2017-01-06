@@ -92,4 +92,3 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
         }
     }
 }
-"

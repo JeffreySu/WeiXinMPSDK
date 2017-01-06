@@ -19,6 +19,7 @@ using System.Web;
 using System.Web.Configuration;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.Context;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
@@ -26,6 +27,8 @@ using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using IRequestMessageBase = Senparc.Weixin.MP.Entities.IRequestMessageBase;
+using IResponseMessageBase = Senparc.Weixin.MP.Entities.IResponseMessageBase;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
 {
@@ -86,24 +89,20 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
         {
             //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
 
-            var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
+            //这里可以进行数据库记录或处理
 
-            //TODO:进行数据库记录或处理
-
-            return responseMessage;
+            return new SuccessResponseMessage();
         }
 
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {
-            /* 所有没有被处理的消息会默认返回这里的结果，
-            * 因此，如果想把整个微信请求委托出去（例如需要使用分布式或从其他服务器获取请求），
-            * 只需要在这里统一发出委托请求，如：
-            * var responseMessage = MessageAgent.RequestResponseMessage(agentUrl, agentToken, RequestDocument.ToString());
-            * return responseMessage;
-            */
+            //所有没有被处理的消息会默认返回这里的结果
 
-            base.TextResponseMessage = "success";
-            return null;
+            return new SuccessResponseMessage();
+
+            //return new SuccessResponseMessage();等效于：
+            //base.TextResponseMessage = "success";
+            //return null;
         }
     }
 }

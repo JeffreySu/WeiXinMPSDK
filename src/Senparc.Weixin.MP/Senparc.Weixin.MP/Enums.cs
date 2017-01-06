@@ -43,6 +43,9 @@
     修改标识：Senparc - 20161204
     修改描述：v14.3.1025 添加TenPayV3CodeState枚举[统一订单返回状态]
 
+    修改标识：Senparc - 20170106
+    修改描述：v14.3.117 ResponseMsgType添加SuccessResponse枚举
+
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;
@@ -250,6 +253,8 @@ namespace Senparc.Weixin.MP
         LocationMessage = 107,//
         [Description("无回复")]
         NoResponse = 110,
+        [Description("success")]
+        SuccessResponse = 200
     }
 
     /// <summary>

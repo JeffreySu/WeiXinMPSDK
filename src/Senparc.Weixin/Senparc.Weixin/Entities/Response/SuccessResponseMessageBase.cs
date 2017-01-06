@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.Entities
 {
     /// <summary>
-    /// 只返回"success"成功字符串的响应信息基类
+    /// 只返回"success"等指定字符串的响应信息基类
     /// </summary>
-    public class SuccessResponseMessageBase : ResponseMessageBase
+    public abstract class SuccessResponseMessageBase : ResponseMessageBase
     {
         /// <summary>
         /// 返回字符串内容，默认为"success"

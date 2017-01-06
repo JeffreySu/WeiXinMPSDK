@@ -119,7 +119,23 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
         return new SuccessResponseMessage();
     }
 
-    public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
+        public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
+        {
+            //发来图片
+
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        public override IResponseMessageBase OnEvent_UserEnterTempSessionRequest(RequestMessageEvent_UserEnterTempSession requestMessage)
+        {
+            //进入客服
+            var msg = "欢迎您！这条消息来自Senparc.Weixin事件。";
+            Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, requestMessage.FromUserName, msg);
+
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
     {
         //所有没有被处理的消息会默认返回这里的结果
 

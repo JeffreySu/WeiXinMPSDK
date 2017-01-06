@@ -126,7 +126,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
                 result.AppendLine("\r\n");
             }
 
-            Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, requestMessage.FromUserName, result.ToString());
+            //处理微信换行符识别问题
+            var msg = result.ToString().Replace("\r\n", "\n");
+
+            //使用微信公众号的接口，完美兼容
+            Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, requestMessage.FromUserName, msg);
 
             return new SuccessResponseMessage();
         }
@@ -141,7 +145,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
         public override IResponseMessageBase OnEvent_UserEnterTempSessionRequest(RequestMessageEvent_UserEnterTempSession requestMessage)
         {
             //进入客服
-            var msg = "欢迎您！这条消息来自Senparc.Weixin事件。";
+            var msg = "欢迎您！这条消息来自Senparc.Weixin进入客服事件。";
             Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, requestMessage.FromUserName, msg);
 
             return DefaultResponseMessage(requestMessage);

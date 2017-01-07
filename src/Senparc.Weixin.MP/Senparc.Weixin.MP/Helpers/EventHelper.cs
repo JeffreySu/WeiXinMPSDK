@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：EventHelper.cs
     文件功能描述：xml中的Event字段转换为Event枚举

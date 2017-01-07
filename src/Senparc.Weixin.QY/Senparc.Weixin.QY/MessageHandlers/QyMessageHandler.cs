@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：QyMessageHandler.cs
     文件功能描述：企业号请求的集中处理方法

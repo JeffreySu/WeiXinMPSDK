@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：IJsonResultCallback.cs
     文件功能描述：JSON数据（序列化）回调接口

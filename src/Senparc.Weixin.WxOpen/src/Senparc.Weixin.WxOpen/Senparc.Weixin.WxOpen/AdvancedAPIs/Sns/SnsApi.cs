@@ -4,7 +4,6 @@
     文件名：SnsApi.cs
     文件功能描述：小程序Sns下接口
     
-    
     创建标识：Senparc - 20170105
 ----------------------------------------------------------------*/
 
@@ -13,8 +12,6 @@ using System.IO;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.MP;
-using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson;
 
 namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
@@ -41,18 +38,41 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
         /// <param name="grantType">保持默认：authorization_code</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static WxJsonResult JsCode2Json(string appId, string secret, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
+        public static JsCode2JsonResult JsCode2Json(string appId, string secret, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
         {
-            var urlFormat =
+            const string urlFormat =
                 "https://api.weixin.qq.com/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type={3}";
 
-            return null;
+            var url = string.Format(urlFormat, appId, secret, jsCode, grantType);
+
+            var result = Get.GetJson<JsCode2JsonResult>(url);
+            return result;
         }
 
         #endregion
 
         #region 异步请求
-       
+
+        /// <summary>
+        /// 【异步方法】code 换取 session_key
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="secret"></param>
+        /// <param name="jsCode"></param>
+        /// <param name="grantType">保持默认：authorization_code</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        public static async Task<JsCode2JsonResult> JsCode2JsonAsync(string appId, string secret, string jsCode, string grantType = "authorization_code", int timeOut = Config.TIME_OUT)
+        {
+            const string urlFormat =
+                "https://api.weixin.qq.com/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type={3}";
+
+            var url = string.Format(urlFormat, appId, secret, jsCode, grantType);
+
+            var result = await Get.GetJsonAsync<JsCode2JsonResult>(url);
+            return result;
+        }
+
         #endregion
     }
 }

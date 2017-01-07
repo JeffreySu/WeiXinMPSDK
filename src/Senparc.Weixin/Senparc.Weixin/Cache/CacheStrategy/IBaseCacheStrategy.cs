@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：IBaseCacheStrategy.cs
     文件功能描述：缓存策略接口。

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：Get.cs
     文件功能描述：Get
@@ -17,6 +17,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
@@ -87,7 +88,27 @@ namespace Senparc.Weixin.HttpUtility
                 stream.WriteByte(b);
             }
         }
-
+        static System.Net.Http.HttpClient httpClient = new HttpClient();
+        public static string Download(string url, string dir)
+        {
+            Directory.CreateDirectory(dir);
+            using (var responseMessage = httpClient.GetAsync(url).Result)
+            {
+                if (responseMessage.StatusCode == HttpStatusCode.OK)
+                {
+                    var fullName = Path.Combine(dir, responseMessage.Content.Headers.ContentDisposition.FileName.Trim('"'));
+                    using (var fs = File.Open(fullName, FileMode.Create))
+                    {
+                        using (var responseStream = responseMessage.Content.ReadAsStreamAsync().Result)
+                        {
+                            responseStream.CopyTo(fs);
+                            return fullName;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
         #endregion
 
         #region 异步方法
@@ -150,5 +171,7 @@ namespace Senparc.Weixin.HttpUtility
         }
 
         #endregion
+
+
     }
 }

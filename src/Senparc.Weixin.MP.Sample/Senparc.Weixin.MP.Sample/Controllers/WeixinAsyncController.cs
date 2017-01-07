@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：WeixinAsyncController.cs
     文件功能描述：此Controller为异步Controller（Action），使用异步线程处理并发请求。

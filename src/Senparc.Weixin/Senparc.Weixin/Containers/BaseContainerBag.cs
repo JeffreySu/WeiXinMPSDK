@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：BaseContainerBag.cs
     文件功能描述：微信容器接口中的封装Value（如Ticket、AccessToken等数据集合）

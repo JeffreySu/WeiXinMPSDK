@@ -340,6 +340,7 @@ img.official-img {
 .footer-icon {
     font-size: 14px;
     color: #fff;
+    letter-spacing: 1px;
 }
 
 .clear {
@@ -413,6 +414,7 @@ img.official-img {
     height: 190px;
     padding: 5px;
     margin: 10px 0;
+    border: 0.2px solid #BFBDBD;
 }
 
 .control-head {
@@ -582,9 +584,18 @@ img.official-img {
     font-size: 16px;
 }
 
+#tm_checkcode {
+    border: 1px solid #A09D9D;
+}
 
-.navbar-inverse {
-    background-color: #fff !important;
+.asyncWapper_con {
+    overflow-x: scroll;
+}
+
+.container-span span {
+    display: block;
+    color: #fff;
+    margin-bottom: 10px;
 }
 
 @media screen and (min-width:1000px) {
@@ -642,7 +653,7 @@ img.official-img {
         margin-top: 100px;
     }
 
-    .catalog a{
+    .catalog a {
         font-size: 22px;
         padding-right: 48px;
     }
@@ -700,6 +711,7 @@ img.official-img {
     .weixin-bottom {
         width: 94%;
         margin: 0 3%;
+        padding-bottom: 20px;
     }
 
     .content-weixin {
@@ -711,6 +723,7 @@ img.official-img {
         width: 50% !important;
         text-align: left;
         padding-left: 45px;
+        margin-bottom:0;
     }
 
     img.official-img {
@@ -736,9 +749,25 @@ img.official-img {
         margin-top: 100px;
     }
 
-    .catalog a{
+    .catalog a {
         font-size: 22px;
         padding-right: 48px;
+    }
+
+    .control-text {
+        width: 330px;
+    }
+
+    #resultText {
+        margin-right: 10px;
+    }
+
+    .result h1 {
+        margin: 40px 30px 20px !important;
+    }
+
+    .feedback{
+        margin-top:0;
     }
 }
 
@@ -794,6 +823,7 @@ img.official-img {
     .weixin-bottom {
         width: 94%;
         margin: 0 3%;
+        padding-bottom: 20px;
     }
 
     .content-weixin {
@@ -805,6 +835,7 @@ img.official-img {
         width: 50% !important;
         text-align: left;
         padding-left: 45px;
+        margin-bottom:0;
     }
 
     img.official-img {
@@ -830,9 +861,38 @@ img.official-img {
         margin-top: 100px;
     }
 
-    .catalog a{
+    .catalog a {
         font-size: 22px;
-        padding-right: 48px;
+        padding-right: 35px;
+    }
+
+    .form-control {
+        width: 46%;
+        margin: 0 2%;
+    }
+
+    .control-label {
+        width: 70px;
+    }
+
+    .control-btn {
+        margin-left: 70px;
+    }
+
+    .control-text {
+        width: 330px;
+    }
+
+    #resultText {
+        margin-right: 10px;
+    }
+
+    .result h1 {
+        margin: 40px 30px 20px !important;
+    }
+
+    .feedback{
+        margin-top:0;
     }
 }
 
@@ -847,6 +907,7 @@ img.official-img {
 
         .logo img {
             margin-left: 15px;
+            margin-top: 12px;
         }
 
     .header-title {
@@ -875,23 +936,33 @@ img.official-img {
     }
 
     .container-right {
-        /*padding-left: 30px;*/
         width: 100%;
-        text-align: center;
-        margin-top: 25px;
+        text-align: left;
+        margin-top: 35px;
     }
 
     .container-span {
         font-size: 24px;
+        margin-left: 110px;
     }
+
+    .container-span-title {
+        text-align: center !important;
+    }
+
+    /*.container-span span:first-child{
+        text-align:left;
+    }*/
 
     .container-p {
         font-size: 16px;
+        margin-left: 110px;
     }
 
     .weixin-bottom {
         width: 94%;
         margin: 0 3%;
+        padding-bottom: 20px;
     }
 
     .content-weixin {
@@ -903,6 +974,7 @@ img.official-img {
         width: 50% !important;
         text-align: left;
         padding-left: 45px;
+        margin-bottom:0;
     }
 
     img.official-img {
@@ -931,17 +1003,933 @@ img.official-img {
     }
 
     .contact {
-        margin-top: 50px;
+        margin-top: 26px;
         margin-bottom: 28px;
         margin-left: 110px;
     }
 
-    .contatc-name{
-        margin-bottom:5px;
+    .contatc-name {
+        margin-bottom: 5px;
     }
 
-    .catalog a{
+    .catalog a {
         font-size: 20px;
-        padding:0 16px;
+        padding: 0 16px;
+    }
+
+    .form-control {
+        width: 46%;
+        margin: 0 2%;
+    }
+
+    .control-label {
+        width: 70px;
+    }
+
+    .control-input {
+        width: 260px;
+    }
+
+    .control-btn {
+        margin-left: 70px;
+        width: 272px;
+        margin-top: 6px;
+    }
+
+    .control-p {
+        width: 97%;
+    }
+
+    .up-experience p {
+        font-size: 18px;
+    }
+
+    .control-title {
+        padding-left: 70px;
+    }
+
+    .control-select {
+        width: 270px;
+    }
+
+    .control-text {
+        width: 330px;
+    }
+
+    #resultText {
+        margin-right: 10px;
+    }
+
+    .result h1 {
+        margin: 40px 30px 20px !important;
+    }
+
+    .description h1{
+        padding-left: 12px;
+    }
+
+    #downloadArea h2 {
+        font-size: 180%;
+    }
+
+    #downloadArea img {
+        width: 190px;
+    }
+
+    .weixin-bottom-buttons{
+        margin-top: 30px;
+    }
+
+    .weixin-item-button{
+        margin-bottom: 15px;
+    }
+
+    .feedback{
+        margin-top:0;
+    }
+
+}
+
+@media screen and (min-width:375px) and (max-width:767px) {
+    .content {
+        max-width: 100%;
+    }
+
+    .logo {
+        float: none;
+    }
+
+        .logo img {
+            margin-left: 8px;
+            width: 130px;
+            margin-top: 12px;
+        }
+
+    .header-title {
+        font-size: 14px;
+        margin: 0 8px 12px 15px;
+        line-height: 24px;
+    }
+
+    .navbar-collapse {
+        width: 100%;
+        border-top: 1px solid #044D7B;
+    }
+
+    .nav-catalog li {
+        line-height: 35px;
+        padding: 0 13px;
+        width: 33.33%;
+        text-align: center;
+    }
+
+    .wrapper {
+        width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+        /*padding-bottom:10px;*/
+    }
+
+    .container-left {
+        width: 100%;
+    }
+
+    .container-right {
+        padding: 0 3%;
+        width: 100%;
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .container-span {
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .container-span-title {
+        text-align: center !important;
+    }
+
+    .container-p {
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .weixin-bottom {
+        width: 94%;
+        margin: 0 3%;
+        padding-bottom: 20px;
+        /*overflow-x: scroll;*/
+    }
+
+    .weixin-bottom-table {
+        overflow-x: scroll;
+    }
+
+    .content-weixin {
+        float: none;
+        margin-left: 0;
+    }
+
+    .weixin-item-bs { /*其他屏幕可能不需要*/
+        margin-bottom:0;
+        /*float: left;
+        width: 50% !important;
+        text-align: left;
+        padding-left: 45px;*/
+    }
+
+    img.official-img {
+        margin: 0;
+        width: 218px;
+    }
+
+    .tbVersion {
+        width: 100%;
+    }
+
+    .tbVersion_bootstrap {
+        width: 56%;
+        margin: 0 22%;
+        text-align: left;
+        margin-top: 10px;
+        /*float: left;
+        width: 50% !important;
+        margin-top: 105px;
+        text-align: left;*/
+    }
+
+        .tbVersion_bootstrap td { /*其他屏幕可能不需要*/
+            /*width: 270px;*/
+        }
+
+    .container-left li {
+        width: 40%;
+        margin: 0 5% 20px;
+        float: left;
+        font-size: 15px;
+    }
+
+    .contact {
+        margin-top: 26px;
+        margin-bottom: 28px;
+        /*margin-left: 110px;*/
+    }
+
+    .contatc-name {
+        margin-bottom: 5px;
+    }
+
+    .catalog {
+        width: 100%;
+        padding: 15px 0;
+    }
+
+        .catalog a {
+            font-size: 16px;
+            padding: 0 25px;
+            line-height: 35px;
+        }
+
+    .nav-catalog {
+        margin: 12px 0 10px;
+        overflow: auto;
+        padding-right: 0;
+    }
+
+    #contact-content li img {
+        width: 22px;
+        margin-bottom: 5px;
+    }
+
+    .weixin-item-title {
+        font-size: 15px;
+        text-align: center;
+    }
+
+    .tbVersion th {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .tbVersion td {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .application {
+        padding: 5px 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+
+    .test_bs img {
+        width: 70px;
+    }
+
+    .test_bs .item-title {
+        font-size: 16px;
+    }
+
+    .test_bs .item-content {
+        font-size: 13px;
+        text-align: left;
+    }
+
+    .weixin-weiweihi {
+        width: 100%;
+        padding: 0 3%;
+    }
+
+    .weixin-item-font {
+        padding-right: 0;
+        font-size: 15px;
+    }
+
+    .weixin-item-content {
+        width: 100%;
+        float: none;
+    }
+
+    .weixin-item-img {
+        text-align: center;
+        margin-bottom: -25px;
+    }
+
+        .weixin-item-img img {
+            width: 185px;
+        }
+
+    #donate {
+        padding: 20px 3%;
+    }
+
+        #donate .feedback-info {
+            width: 100%;
+            float: none;
+        }
+
+            #donate .feedback-info p {
+                font-size: 15px;
+                padding-left: 0px;
+                line-height:25px;
+            }
+
+        #donate .feedback-action {
+            width: 100%;
+            float: none;
+        }
+
+            #donate .feedback-action img {
+                margin-top: 10px;
+            }
+
+        #donate .feedback-info-bs {
+            padding-left: 42px;
+            margin-top: 15px;
+        }
+
+    .form-control {
+        width: 96%;
+        margin: 0 2%;
+        padding: 36px 0 0;
+    }
+
+    .form-control:last-child{
+        padding: 36px 0 25px;
+    }
+
+    .control-label {
+        width: 70px;
+    }
+
+    .control-input {
+        width: 260px;
+    }
+
+    .control-btn {
+        margin-left: 70px;
+        width: 272px;
+        margin-top: 6px;
+    }
+
+    .control-p {
+        width: 100%;
+        text-align: justify;
+        text-justify: inter-ideograph;
+    }
+
+        .control-p:first-child {
+            margin-top: 15px;
+        }
+
+    .up-experience {
+        padding-bottom: 0;
+    }
+
+        .up-experience p {
+            font-size: 17px;
+        }
+
+    .control-head {
+        width: 100%;
+    }
+
+    .control-title {
+        padding-left: 0;
+        font-size: 16px;
+    }
+
+    .control-select {
+        width: 270px;
+    }
+
+    .up-experience a {
+        font-size: 16px;
+    }
+
+    .control-text {
+        width: 96%;
+    }
+
+    #resultText {
+        margin: 0 10px;
+    }
+
+    .result {
+        width: 100% !important;
+        float: none;
+        padding: 0 0 15px 0 !important;
+    }
+
+        .result h1 {
+            margin: 33px 30px 20px 10px !important;
+        }
+
+    .description {
+        width: 100% !important;
+        padding: 26px 3% 0px !important;
+        float: none;
+    }
+
+    .description h1{
+        padding-bottom: 18px;
+    }
+
+        .description li {
+            font-size: 110% !important;
+        }
+
+    .asyncWapper {
+        padding: 30px 0px !important;
+    }
+
+    .asyncWapper_con {
+        margin: 0 3%;
+    }
+
+        .asyncWapper_con table {
+            width: 300%;
+        }
+
+            .asyncWapper_con table th {
+                padding: 6px 0;
+                border: 1px solid #eee;
+            }
+
+            .asyncWapper_con table td {
+                border: 1px solid #eee;
+            }
+
+            .asyncWapper_con table ol li {
+                margin-left: 20px;
+            }
+
+    .asyncWapper h1 {
+        font-size: 160% !important;
+    }
+
+    #downloadArea {
+        padding: 50px 3%;
+    }
+
+        #downloadArea h2 {
+            font-size: 160%;
+        }
+
+        #downloadArea img {
+            width: 190px;
+        }
+
+    .footer {
+        padding: 8px 5px 0;
+    }
+
+    .weixin-bottom-buttons{
+        margin-top: 30px;
+    }
+
+    .weixin-item-button{
+        margin-bottom: 15px;
+    }
+
+    .weixin-item-button a:first-child{
+        margin-left: 15px;
+    }
+
+    .segregate{
+        margin: 30px auto;
+    }
+
+    .feedback{
+        margin-top:0;
+    }
+}
+
+@media screen and (min-width:200px) and (max-width:374px) {
+    .content {
+        max-width: 100%;
+    }
+
+    .logo {
+        float: none;
+    }
+
+        .logo img {
+            margin-left: 8px;
+            width: 130px;
+            margin-top: 12px;
+        }
+
+    .header-title {
+        font-size: 12px;
+        margin: 0 8px 12px 15px;
+        line-height: 20px;
+    }
+
+    .navbar-collapse {
+        width: 100%;
+        border-top: 1px solid #044D7B;
+    }
+
+    .nav-catalog li {
+        line-height: 35px;
+        padding: 0;
+        width: 33.33%;
+        text-align: center;
+    }
+
+    .nav-catalog a {
+        font-size: 14px;
+    }
+
+    .wrapper {
+        width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+        /*padding-bottom:10px;*/
+    }
+
+    .container-left {
+        width: 100%;
+    }
+
+        .container-left a {
+            font-size: 14px;
+        }
+
+    .container-right {
+        padding: 0 3%;
+        width: 100%;
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .container-span {
+        font-size: 14px;
+    }
+
+    .container-p {
+        font-size: 14px;
+        text-align: left;
+    }
+
+    .weixin-bottom {
+        width: 94%;
+        margin: 0 3%;
+        padding-bottom: 20px;
+        /*overflow-x: scroll;*/
+    }
+
+    .content-weixin {
+        float: none;
+        margin-left: 0;
+    }
+
+    .weixin-item-bs { /*其他屏幕可能不需要*/
+        margin-bottom:0;
+        /*float: left;
+        width: 50% !important;
+        text-align: left;
+        padding-left: 45px;*/
+    }
+
+    img.official-img {
+        margin: 0;
+        width: 220px;
+    }
+
+    .tbVersion {
+        width: 100%;
+    }
+
+    .tbVersion_bootstrap {
+        width: 56%;
+        margin: 0 14%;
+        text-align: left;
+        margin-top: 10px;
+        /*float: left;
+        width: 50% !important;
+        margin-top: 105px;
+        text-align: left;*/
+    }
+
+        .tbVersion_bootstrap td { /*其他屏幕可能不需要*/
+            /*width: 270px;*/
+        }
+
+    .container-left li {
+        width: 44%;
+        margin: 0 3% 20px;
+        float: left;
+        font-size: 14px;
+        line-height: 26px;
+    }
+
+    .contact {
+        margin-top: 26px;
+        margin-bottom: 28px;
+        /*margin-left: 110px;*/
+    }
+
+    .contatc-name {
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+
+    .catalog {
+        width: 100%;
+        padding: 12px 0;
+    }
+
+        .catalog a {
+            font-size: 14px;
+            padding: 0 16px;
+            line-height: 30px;
+        }
+
+    .nav-catalog {
+        margin: 12px 0 10px;
+        overflow: auto;
+        padding-right: 0;
+    }
+
+    #contact-content li img {
+        width: 20px;
+        margin-bottom: 5px;
+    }
+
+    .weixin-item-title {
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .weixin-bottom-table {
+        overflow-x: scroll;
+    }
+
+    .tbVersion th {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .tbVersion td {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .application {
+        font-size: 14px;
+        padding: 5px 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+
+    .test_bs img {
+        width: 65px;
+    }
+
+    .test_bs .item-title {
+        font-size: 14px;
+    }
+
+    .test_bs .item-content {
+        font-size: 12px;
+        text-align: left;
+    }
+
+    .weixin-weiweihi {
+        width: 100%;
+        padding: 0 3%;
+    }
+
+    .weixin-item-font {
+        padding-right: 0;
+        font-size: 13px;
+    }
+
+    .weixin-item-content {
+        width: 100%;
+        float: none;
+    }
+
+    .weixin-item-img {
+        text-align: center;
+        margin-bottom: -25px;
+    }
+
+        .weixin-item-img img {
+            width: 176px;
+        }
+
+    #donate {
+        padding: 20px 3%;
+    }
+
+        #donate .feedback-info {
+            width: 100%;
+            float: none;
+        }
+
+            #donate .feedback-info p {
+                font-size: 14px;
+                padding-left: 0px;
+                line-height:25px;
+            }
+
+        #donate .feedback-action {
+            width: 100%;
+            float: none;
+        }
+
+            #donate .feedback-action img {
+                margin-top: 10px;
+                width: 176px;
+            }
+
+        #donate .feedback-info-bs {
+            padding-left: 42px;
+            margin-top: 15px;
+        }
+
+        #donate .feedback-action p {
+            font-size: 13px;
+        }
+
+    .container-span {
+        text-align: left;
+        padding-bottom: 20px;
+    }
+
+    .container-span-title {
+        text-align: center !important;
+    }
+
+    .footer-contact {
+        font-size: 14px;
+    }
+
+    .form-control {
+        width: 96%;
+        margin: 0 2%;
+        padding: 36px 0 0;
+    }
+
+    .form-control:last-child{
+        padding: 36px 0 25px;
+    }
+
+    .control-label {
+        width: 78px;
+    }
+
+    .control-input {
+        width: 60%;
+        height: 20px;
+    }
+
+    .control-btn {
+        font-size: 14px;
+        margin-left: 77px;
+        width: 64%;
+        margin-top: 6px;
+    }
+
+    .control-p {
+        font-size: 12px;
+        width: 100%;
+        text-align: justify;
+        text-justify: inter-ideograph;
+    }
+
+        .control-p:first-child {
+            margin-top: 15px;
+        }
+
+    .up-experience {
+        padding-bottom: 0;
+    }
+
+        .up-experience p {
+            font-size: 14px;
+            line-height: 24px;
+        }
+
+        .up-experience img {
+            padding: 18px 0;
+        }
+
+        .up-experience a {
+            font-size: 14px;
+        }
+
+    .control-head {
+        width: 100%;
+    }
+
+    .control-title {
+        padding-left: 0;
+        font-size: 15px;
+    }
+
+    .control-select {
+        width: 64%;
+    }
+
+    .checkbox_test {
+        padding-left: 36px !important;
+    }
+
+    .control-text {
+        width: 96%;
+    }
+
+    #resultText {
+        margin: 0 10px;
+    }
+
+    .result {
+        width: 100% !important;
+        float: none;
+        padding: 0 0 15px 0 !important;
+    }
+
+        .result h1 {
+            font-size: 110% !important;
+            margin: 33px 30px 20px 10px !important;
+        }
+
+    .asyncWapper {
+        padding: 30px 0px !important;
+    }
+
+        .asyncWapper h1 {
+            font-size: 140% !important;
+        }
+
+    .asyncWapper_con {
+        margin: 0 3%;
+    }
+
+        .asyncWapper_con table {
+            width: 300%;
+        }
+
+            .asyncWapper_con table th {
+                padding: 6px 0;
+                border: 1px solid #eee;
+            }
+
+            .asyncWapper_con table td {
+                border: 1px solid #eee;
+            }
+
+            .asyncWapper_con table ol li {
+                margin-left: 20px;
+            }
+
+    #downloadArea {
+        padding: 50px 3%;
+    }
+
+        #downloadArea .versionSelector-title {
+            font-size: 15px;
+        }
+
+        #downloadArea h2 {
+            font-size: 130%;
+        }
+
+        #downloadArea img {
+            width: 180px;
+            margin: 15px;
+        }
+
+    .description {
+        width: 100% !important;
+        padding: 26px 3% 0px !important;
+        float: none;
+    }
+
+    .description h1{
+        padding-bottom: 18px;
+    }
+
+        .description li {
+            font-size: 110% !important;
+        }
+
+    .description ol{
+        padding-left:15px;
+    }
+
+    .document_help {
+        font-size: 13px;
+    }
+
+    .footer {
+        padding: 8px 5px 0;
+    }
+
+    .weixin-bottom-buttons{
+        margin-top: 30px;
+    }
+
+    .weixin-item-button{
+        margin-bottom: 15px;
+    }
+
+    .weixin-item-button a:first-child{
+        margin-left: 15px;
+    }
+
+    .segregate{
+        margin: 30px auto;
+    }
+
+    .feedback{
+        margin-top:0;
     }
 }

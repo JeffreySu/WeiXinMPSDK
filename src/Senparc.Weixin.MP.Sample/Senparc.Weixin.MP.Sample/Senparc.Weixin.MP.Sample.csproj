@@ -178,18 +178,6 @@
   <ItemGroup>
     <Content Include="App_Data\Document\Config.xml" />
     <Content Include="App_Readme\Elmah.txt" />
-    <Content Include="Content\bootstrap\answer-down.png" />
-    <Content Include="Content\bootstrap\answer-up.png" />
-    <Content Include="Content\bootstrap\css\bootstrap-responsive.css" />
-    <Content Include="Content\bootstrap\css\bootstrap.css" />
-    <Content Include="Content\bootstrap\css\bootstrap.min.css" />
-    <Content Include="Content\bootstrap\css\common.css" />
-    <Content Include="Content\bootstrap\down.png" />
-    <Content Include="Content\bootstrap\img\glyphicons-halflings-white.png" />
-    <Content Include="Content\bootstrap\img\glyphicons-halflings.png" />
-    <Content Include="Content\bootstrap\js\bootstrap.js" />
-    <Content Include="Content\bootstrap\js\bootstrap.min.js" />
-    <Content Include="Content\bootstrap\up.png" />
     <Content Include="Content\darktooltip.min.css" />
     <Content Include="Content\reset.css" />
     <Content Include="Content\style.css" />

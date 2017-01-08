@@ -44,7 +44,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
                 "https://api.weixin.qq.com/sns/jscode2session?appid={0}&secret={1}&js_code={2}&grant_type={3}";
 
             var url = string.Format(urlFormat, appId, secret, jsCode, grantType);
-
             var result = Get.GetJson<JsCode2JsonResult>(url);
             return result;
         }

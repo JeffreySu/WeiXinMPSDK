@@ -89,6 +89,7 @@
     <Compile Include="AdvancedAPIs\Media\MediaTest.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthTest.cs" />
     <Compile Include="AdvancedAPIs\Poi\PoiTest.cs" />
+    <Compile Include="AdvancedAPIs\QrCode\QrCodeApiTests.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticTest.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundTest.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateTest.cs" />

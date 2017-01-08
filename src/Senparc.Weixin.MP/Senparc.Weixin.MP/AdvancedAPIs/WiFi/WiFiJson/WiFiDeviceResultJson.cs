@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：WiFiDeviceResultJson.cs
     文件功能描述：WiFi设备接口返回结果

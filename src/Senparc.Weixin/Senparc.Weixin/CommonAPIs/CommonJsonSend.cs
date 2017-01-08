@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：CommonJsonSend.cs
     文件功能描述：通过CommonJsonSend中的方法调用接口

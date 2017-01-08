@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
@@ -111,5 +112,37 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
             Assert.IsTrue(templates.FirstOrDefault(z => z.template_id == templateId) == null);
         }
 
+        #region 异步方法测试
+        [TestMethod()]
+        public void SendTemplateMessageAsyncTest()
+        {
+            var openId = base._testOpenId;
+            var templateId = "cCh2CTTJIbVZkcycDF08n96FP-oBwyMVrro8C2nfVo4";
+            base.TestAyncMethod(2, base._testOpenId, () =>
+            {
+                /*
+                * 详细内容
+                {{first.DATA}}
+                用户名：{{keyword1.DATA}}
+                标题：{{keyword2.DATA}}
+                时间：{{keyword3.DATA}}
+                {{remark.DATA}}
+                */
+                var testData = new //TestTemplateData()
+                {
+                    first = new TemplateDataItem(string.Format("【模板消息测试-{0}】您好，审核通过。", DateTime.Now.ToString("T"))),
+                    keyword1 = new TemplateDataItem(openId),
+                    keyword2 = new TemplateDataItem("单元测试"),
+                    keyword3 = new TemplateDataItem(DateTime.Now.ToString("O")),
+                    remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！\r\n运行线程：" + Thread.CurrentThread.GetHashCode())
+                };
+
+                var result = TemplateApi.SendTemplateMessageAsync(base._appId, openId, templateId, null, testData).Result;
+                Console.WriteLine("线程{0},结果：{1}", Thread.CurrentThread.GetHashCode(), result.errmsg);
+
+                base.AsyncThreadsCollection.Remove(Thread.CurrentThread);//必须要加
+            });
+        }
+        #endregion
     }
 }

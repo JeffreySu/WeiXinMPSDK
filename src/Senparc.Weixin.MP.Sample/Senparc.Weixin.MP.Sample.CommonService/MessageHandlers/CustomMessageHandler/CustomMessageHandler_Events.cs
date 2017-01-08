@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：CustomMessageHandler_Events.cs
     文件功能描述：自定义MessageHandler
@@ -44,12 +44,32 @@ SDK官方地址：http://weixin.senparc.com
 SDK Demo：http://sdk.weixin.senparc.com
 源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK
 Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
+QQ群：342319110
 
 ===============
 更多：
-1、有关第三方开放平台（Senparc.Weixin.Open）的内容，请回复文字：open
 
-2、JSSDK测试：http://sdk.weixin.senparc.com/WeixinJSSDK
+1、JSSDK测试：http://sdk.weixin.senparc.com/WeixinJSSDK
+
+2、开放平台测试（建议PC上打开）：http://sdk.weixin.senparc.com/OpenOAuth/JumpToMpOAuth
+
+3、回复关键字：
+
+【open】   进入第三方开放平台（Senparc.Weixin.Open）测试
+
+【tm】     测试异步模板消息
+
+【openid】 获取OpenId等用户信息
+
+【约束】   测试微信浏览器约束
+
+【AsyncTest】 异步并发测试
+
+【错误】    体验发生错误无法返回正确信息
+
+【容错】    体验去重容错
+
+【ex】      体验错误日志推送提醒
 ",
                 version);
         }

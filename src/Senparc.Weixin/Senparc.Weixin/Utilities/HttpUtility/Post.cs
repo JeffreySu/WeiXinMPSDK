@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：Post.cs
     文件功能描述：Post
@@ -47,7 +47,7 @@ namespace Senparc.Weixin.HttpUtility
         public static T GetResult<T>(string returnText)
         {
             JavaScriptSerializer js = new JavaScriptSerializer();
-
+            
             if (returnText.Contains("errcode"))
             {
                 //可能发生错误
@@ -64,6 +64,10 @@ namespace Senparc.Weixin.HttpUtility
             }
 
             T result = js.Deserialize<T>(returnText);
+
+            //TODO:加入特殊情况下的回调处理
+            
+
             return result;
         }
 
@@ -109,7 +113,7 @@ namespace Senparc.Weixin.HttpUtility
         {
             string returnText = RequestUtility.HttpPost(url, cookieContainer, fileStream, null, null, encoding, cer, timeOut, checkValidationResult);
 
-            WeixinTrace.SendLog(url, returnText);
+            WeixinTrace.SendApiLog(url, returnText);
 
             var result = GetResult<T>(returnText);
             return result;

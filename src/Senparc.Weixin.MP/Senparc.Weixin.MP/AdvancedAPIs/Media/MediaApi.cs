@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：MediaAPI.cs
     文件功能描述：素材管理接口（原多媒体文件接口）
@@ -107,6 +107,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
             HttpUtility.Get.Download(url, stream);
+        }
+        public static string Get(string accessToken, string mediaId, string dir)
+        {
+            var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+            return HttpUtility.Get.Download(url, dir);
         }
         #endregion
 

@@ -145,10 +145,6 @@ namespace Senparc.Weixin.Cache.Memcached
 
             //TODO：加了绝对过期时间就会立即失效（再次获取后为null），memcache低版本的bug
             _cache.Store(StoreMode.Set, cacheKey, value, DateTime.Now.AddDays(1));
-
-#if DEBUG
-            value = _cache.Get(cacheKey) as IBaseContainerBag;
-#endif
         }
 
         public void RemoveFromCache(string key, bool isFullKey = false)

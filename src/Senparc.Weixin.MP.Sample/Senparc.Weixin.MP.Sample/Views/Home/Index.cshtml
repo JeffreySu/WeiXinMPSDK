@@ -13,12 +13,10 @@
         });
     </script>
 }
-
 <div class="wrapper">
-
     <div class="weixin-bottom">
         <p class="weixin-item-title">
-            目前Senparc.Weixin SDK已支持微信6.x API中所有接口<br/>
+            目前Senparc.Weixin SDK已支持微信6.x API中所有接口<br />
             以及 <strong>微信小程序</strong>
             <a href="https://travis-ci.org/JeffreySu/WeiXinMPSDK" target="_blank"></a>
         </p>
@@ -127,16 +125,12 @@
         </table>
 
         <div class="clear"></div>
-
         <div class="weixin-bottom-buttons">
-
             <p class="weixin-item-button">
                 <a href="http://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))" class="application" target="_blank">下载 Senparc.Weixin SDK 帮助文档</a>
-
                 &nbsp; &nbsp; &nbsp;
 
                 <a href="https://github.com/JeffreySu/WeiXinMPSDK" class="application" target="_blank">GitHub 源码</a>
-
                 &nbsp; &nbsp; &nbsp;
 
                 @*</p>
@@ -145,15 +139,14 @@
             </p>
         </div>
         <div class="clear"></div>
-
     </div>
     <div class="content-weixin">
-        <div class="weixin-item">
+        <div class="weixin-item weixin-item-bs">
             <p class="weixin-item-title">关注官方微信 进行互动测试</p>
             <img class="official-img" src="/images/v2/ewm_01.png" alt="微信SDK" />
         </div>
-        <div class="clear"></div>
-        <table class="tbVersion">
+        @*<div class="clear"></div>*@
+        <table class="tbVersion tbVersion_bootstrap">
             <tr>
                 <td>运行中的缓存框架：@TempData["CacheStrategy"]</td>
                 <td>@Html.ActionLink("测试", "Test", "Cache", null, new { @class = "sdk-version" })</td>
@@ -162,7 +155,6 @@
                 <td>最新文档版本（MP）：v@(TempData["NewestDocumentVersion"])</td>
                 <td>@Html.ActionLink("下载", "Index", "Document", null, new { @class = "sdk-version" })</td>
             </tr>
-
             <tr>
                 <td>GitHub 源码：<img src="https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master"></td>
                 <td>
@@ -171,13 +163,20 @@
                     </a>
                 </td>
             </tr>
-
+            <tr>
+                <td>小程序：<img src="https://travis-ci.org/JeffreySu/WxOpen.svg?branch=master"></td>
+                <td>
+                    <a href="https://github.com/JeffreySu/WxOpen" class="sdk-version" target="_blank">
+                        查看
+                    </a>
+                </td>
+            </tr>
         </table>
         <div class="clear"></div>
     </div>
     <div class="clear"></div>
     <div class="line"></div>
-    <div class="test">
+    <div class="test test_bs">
         <table>
             <tr>
                 <td>
@@ -293,3 +292,4 @@
         <div class="clear"></div>
     </div>
 </div>
+

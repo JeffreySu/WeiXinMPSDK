@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：CommonApi.Menu.Custom.cs
     文件功能描述：通用自定义菜单接口（自定义接口）
@@ -187,7 +187,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <summary>
         /// 获取当前菜单，如果菜单不存在，将返回null
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <returns></returns>
         public static GetMenuResult GetMenu(string accessTokenOrAppId)
         {
@@ -205,14 +205,19 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     var jsonResult = js.Deserialize<GetMenuResultFull>(jsonString);
                     if (jsonResult.menu == null || jsonResult.menu.button.Count == 0)
                     {
-                        throw new WeixinException(jsonResult.errmsg);
+                        throw new WeixinMenuException(jsonResult.errmsg);
                     }
 
                     finalResult = GetMenuFromJsonResult(jsonResult, new ButtonGroup());
                 }
-                catch (WeixinException ex)
+                catch (WeixinMenuException)
                 {
-                    finalResult = null;
+                    throw;
+                    //finalResult = null;
+                }
+                catch (Exception)
+                {
+                    throw; 
                 }
 
                 return finalResult;

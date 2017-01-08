@@ -1,11 +1,14 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
   
     文件名：SendRedPackResult.cs
     文件功能描述：获取查询红包接口的结果，既可以查询普通红包，也可以查询裂变红包
     
     
     创建标识：Yu XiaoChou - 20160107
+    
+    修改标识：Senparc - 20161112
+    修改描述：RedPackHBInfo去除status属性
 ----------------------------------------------------------------*/
 
 using System;
@@ -133,10 +136,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public string openid { get; set; }
 
-        /// <summary>
-        /// 红包状态，SENDING:发放中，SENT:已发放待领取，FAILED：发放失败，RECEIVED:已领取，REFUND:已退款 
-        /// </summary>
-        public string status { get; set; }
+        ///// <summary>
+        ///// 红包状态，SENDING:发放中，SENT:已发放待领取，FAILED：发放失败，RECEIVED:已领取，REFUND:已退款 
+        ///// </summary>
+        //public string status { get; set; }
 
         /// <summary>
         /// 领取金额

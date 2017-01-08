@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：RequestUtility.cs
     文件功能描述：获取请求结果
@@ -308,7 +308,7 @@ namespace Senparc.Weixin.HttpUtility
         /// </summary>
         /// <param name="httpContext"></param>
         /// <returns></returns>
-        [Obsolete("请使用Senparc.Weixin.BrowserUtility.BroswerUtility.SideInWeixinBroswer()方法")]
+        [Obsolete("请使用Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser()方法")]
         public static bool IsWeixinClientRequest(this HttpContext httpContext)
         {
             return !string.IsNullOrEmpty(httpContext.Request.UserAgent) &&

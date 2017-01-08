@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：MD5UtilHelper.cs
     文件功能描述：获取大写的MD5签名结果

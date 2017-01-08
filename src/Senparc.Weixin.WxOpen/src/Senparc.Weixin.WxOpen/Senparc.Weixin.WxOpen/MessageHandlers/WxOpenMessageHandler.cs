@@ -25,7 +25,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
     /// <summary>
     /// 小程序MessageHandler
     /// </summary>
-    /// <typeparam name="TC"></typeparam>
+    /// <typeparam name="TC">上下文MessageContext类型</typeparam>
     public abstract partial class WxOpenMessageHandler<TC> : MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IWxOpenMessageHandler
         where TC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
@@ -34,7 +34,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// </summary>
         public static WeixinContext<TC, IRequestMessageBase, IResponseMessageBase> GlobalWeixinContext = new WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>();
         //TODO:这里如果用一个MP自定义的WeixinContext，继承WeixinContext<TC, IRequestMessageBase, IResponseMessageBase>，在下面的WeixinContext中将无法转换成基类要求的类型
-
 
         /// <summary>
         /// 全局消息上下文
@@ -123,7 +122,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="requestDocument">XML格式的请求</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        /// <param name="developerInfo">开发者信息（非必填）</param>
         public WxOpenMessageHandler(XDocument requestDocument, PostModel postModel = null, int maxRecordCount = 0)
             : base(requestDocument, maxRecordCount, postModel)
         {
@@ -135,7 +133,6 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
         /// <param name="requestMessageBase">RequestMessageBase</param>
         /// <param name="postModel">PostModel</param>
         /// <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
-        /// <param name="developerInfo">开发者信息（非必填）</param>
         public WxOpenMessageHandler(RequestMessageBase requestMessageBase, PostModel postModel = null, int maxRecordCount = 0)
             : base(requestMessageBase, maxRecordCount, postModel)
         {
@@ -145,6 +142,12 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
         #region 消息处理
 
+        /// <summary>
+        /// 初始化数据
+        /// </summary>
+        /// <param name="postDataDocument"></param>
+        /// <param name="postData"></param>
+        /// <returns></returns>
         public override XDocument Init(XDocument postDataDocument, object postData = null)
         {
             //进行加密判断并处理

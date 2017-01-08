@@ -39,7 +39,7 @@ namespace Senparc.Weixin.WxOpen.MessageHandlers
 
 
         /// <summary>
-        /// Event事件类型请求之进入会员卡
+        /// 进入客服会话事件
         /// </summary>
         public virtual IResponseMessageBase OnEvent_UserEnterTempSessionRequest(RequestMessageEvent_UserEnterTempSession requestMessage)
         {

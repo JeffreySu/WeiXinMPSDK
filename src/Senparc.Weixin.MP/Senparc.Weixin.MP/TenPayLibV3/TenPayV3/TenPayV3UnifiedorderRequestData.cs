@@ -1,4 +1,18 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
+  
+    文件名：TenPayV3UnifiedorderRequestData.cs
+    文件功能描述：微信支付提交的XML Data数据[统一下单]
+    
+    创建标识：Senparc - 20161227
+
+    修改标识：Senparc - 20170108
+    修改描述：v14.3.117 修复微信支付“商品详情”显示bug
+
+----------------------------------------------------------------*/
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -99,7 +113,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("appid", this.AppId);          //公众账号ID
             PackageRequestHandler.SetParameter("mch_id", this.MchId);         //商户号
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr);                    //随机字符串
-            PackageRequestHandler.SetParameter("body", this.NonceStr);    //商品信息
+            PackageRequestHandler.SetParameter("body", this.Body);    //商品信息
             PackageRequestHandler.SetParameter("out_trade_no", this.OutTradeNo);      //商家订单号
             PackageRequestHandler.SetParameter("total_fee", this.TotalFee.ToString());                    //商品金额,以分为单位(money * 100).ToString()
             PackageRequestHandler.SetParameter("spbill_create_ip", this.SpbillCreateIP);   //用户的公网ip，不是商户服务器IP

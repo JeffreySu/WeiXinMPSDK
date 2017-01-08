@@ -131,7 +131,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
             var msg = result.ToString().Replace("\r\n", "\n");
 
             //使用微信公众号的接口，完美兼容
-            Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, requestMessage.FromUserName, msg);
+            Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, WeixinOpenId, msg);
 
             return new SuccessResponseMessage();
 
@@ -149,25 +149,25 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
 //            };
         }
 
-        public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
-        {
-            //发来图片
-            Task.Factory.StartNew(async () =>
-            {
-              await  Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, requestMessage.FromUserName, "刚才您发送了这张图片：");
-              await  Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImageAsync(appId, requestMessage.FromUserName, requestMessage.MediaId);
-            });
-            return DefaultResponseMessage(requestMessage);
-        }
+public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
+{
+    //发来图片，进行处理
+    Task.Factory.StartNew(async () =>
+    {
+        await  Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, WeixinOpenId, "刚才您发送了这张图片：");
+        await  Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImageAsync(appId, WeixinOpenId, requestMessage.MediaId);
+    });
+    return DefaultResponseMessage(requestMessage);
+}
 
-        public override IResponseMessageBase OnEvent_UserEnterTempSessionRequest(RequestMessageEvent_UserEnterTempSession requestMessage)
-        {
-            //进入客服
-            var msg = "欢迎您！这条消息来自Senparc.Weixin进入客服事件。";
-            Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, requestMessage.FromUserName, msg);
+public override IResponseMessageBase OnEvent_UserEnterTempSessionRequest(RequestMessageEvent_UserEnterTempSession requestMessage)
+{
+    //进入客服
+    var msg = "欢迎您！这条消息来自Senparc.Weixin进入客服事件。";
+    Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, WeixinOpenId, msg);
 
-            return DefaultResponseMessage(requestMessage);
-        }
+    return DefaultResponseMessage(requestMessage);
+}
 
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {

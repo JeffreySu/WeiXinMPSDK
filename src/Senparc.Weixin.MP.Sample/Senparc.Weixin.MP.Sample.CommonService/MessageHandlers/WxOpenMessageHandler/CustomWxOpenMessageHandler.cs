@@ -160,14 +160,14 @@ public override IResponseMessageBase OnImageRequest(RequestMessageImage requestM
     return DefaultResponseMessage(requestMessage);
 }
 
-        public override IResponseMessageBase OnEvent_UserEnterTempSessionRequest(RequestMessageEvent_UserEnterTempSession requestMessage)
-        {
-            //进入客服
-            var msg = "欢迎您！这条消息来自Senparc.Weixin进入客服事件。";
-            Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, requestMessage.FromUserName, msg);
+public override IResponseMessageBase OnEvent_UserEnterTempSessionRequest(RequestMessageEvent_UserEnterTempSession requestMessage)
+{
+    //进入客服
+    var msg = "欢迎您！这条消息来自Senparc.Weixin进入客服事件。";
+    Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, WeixinOpenId, msg);
 
-            return DefaultResponseMessage(requestMessage);
-        }
+    return DefaultResponseMessage(requestMessage);
+}
 
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {

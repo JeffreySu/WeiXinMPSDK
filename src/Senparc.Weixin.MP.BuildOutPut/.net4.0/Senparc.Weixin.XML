@@ -130,6 +130,11 @@
             <param name="value">缓存值</param>
             <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
         </member>
+        <member name="T:Senparc.Weixin.Cache.BaseCacheLock">
+            <summary>
+            缓存同步锁基类
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.Cache.ICacheLock">
             <summary>
             缓存锁接口
@@ -587,6 +592,34 @@
             类中有枚举在序列化的时候，需要转成字符串
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.Entities.IJsonResultCallback">
+            <summary>
+            JSON数据（序列化）回调接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Entities.IJsonResultCallback.SerializingCallback">
+            <summary>
+            序列化前回调
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Entities.IJsonResultCallback.SrializedCallback(System.String)">
+            <summary>
+            序列化后回调
+            </summary>
+            <param name="json"></param>
+        </member>
+        <member name="M:Senparc.Weixin.Entities.IJsonResultCallback.DeserializingCallback(System.String)">
+            <summary>
+            反序列化前回调
+            </summary>
+            <param name="json"></param>
+        </member>
+        <member name="M:Senparc.Weixin.Entities.IJsonResultCallback.DeserializedCallback(System.String)">
+            <summary>
+            反序列化后回调
+            </summary>
+            <param name="json"></param>
+        </member>
         <member name="T:Senparc.Weixin.Entities.QyJsonResult">
             <summary>
             企业号JSON返回结果
@@ -605,6 +638,31 @@
         <member name="T:Senparc.Weixin.Entities.IResponseMessageNoResponse">
             <summary>
             当MessageHandler接收到IResponseNothing的返回类型参数时，只会向微信服务器返回空字符串，等同于return null
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Entities.SuccessResponseMessageBase">
+            <summary>
+            只返回"success"等指定字符串的响应信息基类
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Entities.SuccessResponseMessageBase.ReturnText">
+            <summary>
+            返回字符串内容，默认为"success"
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Entities.SuccessResponseMessageBase.#ctor">
+            <summary>
+            SuccessResponseMessage构造函数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Entities.IJsonResult">
+            <summary>
+            所有JSON格式返回值的API返回结果接口
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Entities.IWxJsonResult">
+            <summary>
+            包含errorcode的Json返回结果接口
             </summary>
         </member>
         <member name="T:Senparc.Weixin.Entities.WxJsonResult">
@@ -716,19 +774,29 @@
             退出App状态（临时传输状态，退出后即为None）
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.Sex">
+            <summary>
+            用户信息中的性别（sex）
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.Exceptions.ErrorJsonResultException">
             <summary>
-            JSON返回错误代码（比如token_access相关操作中使用）。
+            JSON返回错误代码（比如access_token相关操作中使用）。
             </summary>
         </member>
         <member name="M:Senparc.Weixin.Exceptions.ErrorJsonResultException.#ctor(System.String,System.Exception,Senparc.Weixin.Entities.WxJsonResult,System.String)">
             <summary>
-            
+            ErrorJsonResultException
             </summary>
-            <param name="message"></param>
-            <param name="inner"></param>
-            <param name="jsonResult"></param>
-            <param name="url"></param>
+            <param name="message">异常消息</param>
+            <param name="inner">内部异常</param>
+            <param name="jsonResult">WxJsonResult</param>
+            <param name="url">API地址</param>
+        </member>
+        <member name="T:Senparc.Weixin.Exceptions.MessageHandlerException">
+            <summary>
+            MessageHandler异常
+            </summary>
         </member>
         <member name="T:Senparc.Weixin.Exceptions.UnknownRequestMsgTypeException">
             <summary>
@@ -738,6 +806,36 @@
         <member name="T:Senparc.Weixin.Exceptions.WeixinException">
             <summary>
             微信自定义异常基类
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Exceptions.WeixinException.AccessTokenOrAppId">
+            <summary>
+            当前正在请求的公众号AccessToken或AppId
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.Exceptions.WeixinException.#ctor(System.String,System.Boolean)">
+            <summary>
+            WeixinException
+            </summary>
+            <param name="message">异常消息</param>
+            <param name="logged">是否已经使用WeixinTrace记录日志，如果没有，WeixinException会进行概要记录</param>
+        </member>
+        <member name="M:Senparc.Weixin.Exceptions.WeixinException.#ctor(System.String,System.Exception,System.Boolean)">
+            <summary>
+            WeixinException
+            </summary>
+            <param name="message">异常消息</param>
+            <param name="inner">内部异常信息</param>
+            <param name="logged">是否已经使用WeixinTrace记录日志，如果没有，WeixinException会进行概要记录</param>
+        </member>
+        <member name="T:Senparc.Weixin.Exceptions.UnRegisterAppIdException">
+            <summary>
+            未注册AppId异常
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Exceptions.WeixinMenuException">
+            <summary>
+            菜单异常
             </summary>
         </member>
         <member name="M:Senparc.Weixin.Helpers.ContainerHelper.GetCacheKeyNamespace(System.Type)">
@@ -814,6 +912,13 @@
             </summary>
             <param name="fileName"></param>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.FileHelper.DownLoadFileFromUrl(System.String,System.String)">
+            <summary>
+            从Url下载文件
+            </summary>
+            <param name="url"></param>
+            <param name="fullFilePathAndName"></param>
         </member>
         <!-- Badly formed XML comment ignored for member "T:Senparc.Weixin.Helpers.IDictionaryExtensions" -->
         <member name="M:Senparc.Weixin.Helpers.IDictionaryExtensions.ToExpando(System.Collections.Generic.IDictionary{System.String,System.Object})">
@@ -1555,12 +1660,12 @@
             The attribute must be mentioned in your member reordering patterns
             </remarks>
         </member>
-        <member name="M:Senparc.Weixin.BrowserUtility.BroswerUtility.SideInWeixinBroswer(System.Web.HttpContextBase)">
+        <member name="M:Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser(System.Web.HttpContextBase)">
             <summary>
             判断是否在微信内置浏览器中
             </summary>
-            <param name="httpContext"></param>
-            <returns></returns>
+            <param name="httpContext">HttpContextBase对象</param>
+            <returns>true：在微信内置浏览器内。false：不在微信内置浏览器内。</returns>
         </member>
         <member name="T:Senparc.Weixin.CommonAPIs.CommonJsonSend">
             <summary>
@@ -2119,9 +2224,24 @@
             微信日志跟踪
             </summary>
         </member>
-        <member name="F:Senparc.Weixin.WeixinTrace.OnErrorJsonResultExceptionFunc">
+        <member name="F:Senparc.Weixin.WeixinTrace._traceListener">
             <summary>
-            记录ErrorJsonResultException日志时需要执行的任务
+            TraceListener
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.WeixinTrace.LockName">
+            <summary>
+            统一日志锁名称
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WeixinTrace.Cache">
+            <summary>
+            Senparc.Weixin全局统一的缓存策略
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.WeixinTrace.OnWeixinExceptionFunc">
+            <summary>
+            记录WeixinException日志时需要执行的任务
             </summary>
         </member>
         <member name="F:Senparc.Weixin.WeixinTrace.OnLogFunc">
@@ -2129,23 +2249,79 @@
             执行所有日志记录操作时执行的任务（发生在Senparc.Weixin记录日志之后）
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.WeixinTrace.Open">
+            <summary>
+            打开日志开始记录
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WeixinTrace.Close">
+            <summary>
+            关闭日志记录
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.WeixinTrace.TimeLog">
             <summary>
             统一时间格式
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.WeixinTrace.Log(System.String)">
+        <member name="M:Senparc.Weixin.WeixinTrace.Unindent">
+            <summary>
+            退回一次缩进
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WeixinTrace.Indent">
+            <summary>
+            缩进一次
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WeixinTrace.Flush">
+            <summary>
+            写入缓存到系统Trace
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WeixinTrace.LogBegin(System.String)">
+            <summary>
+            开始记录日志
+            </summary>
+            <param name="title"></param>
+        </member>
+        <member name="M:Senparc.Weixin.WeixinTrace.Log(System.String,System.Object[])">
             <summary>
             记录日志
             </summary>
-            <param name="message"></param>
+            <param name="messageFormat">日志内容格式</param>
+            <param name="args">日志内容参数</param>
         </member>
-        <member name="M:Senparc.Weixin.WeixinTrace.SendLog(System.String,System.String)">
+        <member name="M:Senparc.Weixin.WeixinTrace.LogEnd">
+            <summary>
+            结束日志记录
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WeixinTrace.Log(System.String)">
+            <summary>
+            记录日志（建议使用SendXXLog()方法，以符合统一的记录规则）
+            </summary>
+            <param name="message">日志内容</param>
+        </member>
+        <member name="M:Senparc.Weixin.WeixinTrace.SendCustomLog(System.String,System.String)">
+            <summary>
+            自定义日志
+            </summary>
+            <param name="typeName">日志类型</param>
+            <param name="content">日志内容</param>
+        </member>
+        <member name="M:Senparc.Weixin.WeixinTrace.SendApiLog(System.String,System.String)">
             <summary>
             API请求日志
             </summary>
             <param name="url"></param>
             <param name="returnText"></param>
+        </member>
+        <member name="M:Senparc.Weixin.WeixinTrace.WeixinExceptionLog(Senparc.Weixin.Exceptions.WeixinException)">
+            <summary>
+            WeixinException 日志
+            </summary>
+            <param name="ex"></param>
         </member>
         <member name="M:Senparc.Weixin.WeixinTrace.ErrorJsonResultExceptionLog(Senparc.Weixin.Exceptions.ErrorJsonResultException)">
             <summary>

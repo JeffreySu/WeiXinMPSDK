@@ -80,7 +80,6 @@
     <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageContext.cs" />
     <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageHandler.cs" />
     <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageHandler_Events.cs" />
-    <Compile Include="MessageHandlers\CustomThirdPartyMessageHandlers\CustomThirdPartyMessageHandler.cs" />
     <Compile Include="MessageHandlers\OpenMessageHandler\OpenCheckMessageHandler.cs" />
     <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageContext.cs" />
     <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageHandler.cs" />

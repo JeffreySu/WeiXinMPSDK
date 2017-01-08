@@ -56,6 +56,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
         #endregion
 
+#if NET45
+
         #region 异步请求
         /// <summary>
         /// 【异步方法】获取小程序页面二维码
@@ -81,5 +83,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         }
 
         #endregion
+#endif
     }
 }

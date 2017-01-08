@@ -4073,7 +4073,7 @@
             <param name="kfAccount"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendVideo(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendVideo(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String)">
             <summary>
             发送视频消息
             </summary>
@@ -4084,6 +4084,7 @@
             <param name="description"></param>
             <param name="timeOut">代理请求超时时间（毫秒）</param>
             <param name="kfAccount">客服</param>
+            <param name="thumb_media_id"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendMusic(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.String)">
@@ -7529,7 +7530,7 @@
             <param name="timeOut"></param>
             <returns></returns>
         </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.DeviceApplyStatus(System.String,System.Int32,System.Int32)">
+        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.ShakeAroundApi.DeviceApplyStatus(System.String,System.Int64,System.Int32)">
             <summary>
             查询设备ID申请审核状态
             接口说明 查询设备ID申请的审核状态。若单次申请的设备ID数量小于等于500个，系统会进行快速审核；若单次申请的设备ID数量大于500个，则在三个工作日内完成审核。
@@ -7608,8 +7609,8 @@
             根据分页查询或者指定范围查询设备列表
             </summary>
             <param name="accessTokenOrAppId"></param>
-            <param name="begin"></param>
-            <param name="count"></param>
+            <param name="lastSeen">前一次查询列表末尾的设备ID，第一次查询lastSeen为0</param>
+            <param name="count">待查询的设备数量，不能超过50个</param>
             <param name="timeOut"></param>
             <returns></returns>
         </member>
@@ -7618,9 +7619,9 @@
             根据批次ID查询设备列表
             </summary>
             <param name="accessTokenOrAppId"></param>
-            <param name="applyId"></param>
-            <param name="begin"></param>
-            <param name="count"></param>
+            <param name="applyId">批次ID，申请设备ID时所返回的批次ID</param>
+            <param name="lastSeen">前一次查询列表末尾的设备ID，第一次查询lastSeen为0</param>
+            <param name="count">待查询的设备数量，不能超过50个</param>
             <param name="timeOut"></param>
             <returns></returns>
         </member>
@@ -9693,137 +9694,6 @@
             无线MAC地址
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3" -->
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.Unifiedorder(System.String,System.Int32)">
-            <summary>
-            统一支付接口
-            统一支付接口，可接受JSAPI/NATIVE/APP 下预支付订单，返回预支付订单号。NATIVE 支付返回二维码code_url。
-            </summary>
-            <param name="data">微信支付需要post的xml数据</param>
-            <param name="timeOut"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.NativePay(System.String,System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            Native
-            </summary>
-            <param name="appId">开放平台账户的唯一标识</param>
-            <param name="timesTamp">时间戳</param>
-            <param name="mchId">商户Id</param>
-            <param name="nonceStr">32 位内的随机串，防重发</param>
-            <param name="productId">商品唯一id</param>
-            <param name="sign">签名</param>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.OrderQuery(System.String)">
-            <summary>
-            订单查询接口
-            </summary>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.CloseOrder(System.String)">
-            <summary>
-            关闭订单接口
-            </summary>
-            <param name="data">关闭订单需要post的xml数据</param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.Reverse(System.String)">
-            <summary>
-            撤销订单接口
-            </summary>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.RefundQuery(System.String)">
-            <summary>
-            退款查询接口
-            </summary>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.DownloadBill(System.String)">
-            <summary>
-            对账单接口
-            </summary>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.ShortUrl(System.String)">
-            <summary>
-            短链接转换接口
-            </summary>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3.MicroPay(System.String)">
-            <summary>
-            刷卡支付
-            提交被扫支付
-            </summary>
-            <param name="data"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.TenPayV3Result">
-            <summary>
-            基础返回结果
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.Result">
-            <summary>
-            统一支付接口在 return_code为 SUCCESS的时候有返回
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Result.appid">
-            <summary>
-            微信分配的公众账号ID
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Result.mch_id">
-            <summary>
-            微信支付分配的商户号
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Result.device_info">
-            <summary>
-            微信支付分配的终端设备号
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Result.nonce_str">
-            <summary>
-            随机字符串，不长于32 位
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Result.sign">
-            <summary>
-            签名
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.Result.result_code">
-            <summary>
-            SUCCESS/FAIL
-            </summary>
-        </member>
-        <member name="T:Senparc.Weixin.MP.AdvancedAPIs.UnifiedorderResult">
-            <summary>
-            统一支付接口在return_code 和result_code 都为SUCCESS 的时候有返回
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UnifiedorderResult.trade_type">
-            <summary>
-            交易类型:JSAPI、NATIVE、APP
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UnifiedorderResult.prepay_id">
-            <summary>
-            微信生成的预支付ID，用于后续接口调用中使用
-            </summary>
-        </member>
-        <member name="P:Senparc.Weixin.MP.AdvancedAPIs.UnifiedorderResult.code_url">
-            <summary>
-            trade_type为NATIVE时有返回，此参数可直接生成二维码展示出来进行扫码支付
-            </summary>
-        </member>
         <!-- Badly formed XML comment ignored for member "T:Senparc.Weixin.MP.AdvancedAPIs.TenPay" -->
         <member name="M:Senparc.Weixin.MP.AdvancedAPIs.TenPay.NativePay(System.String,System.String,System.String,System.String,System.String)">
             <summary>
@@ -10327,7 +10197,7 @@
             <summary>
             获取当前菜单，如果菜单不存在，将返回null
             </summary>
-            <param name="accessToken"></param>
+            <param name="accessTokenOrAppId"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.DeleteMenu(System.String)">
@@ -10360,7 +10230,7 @@
             </summary>
             <param name="appId"></param>
             <param name="secret"></param>
-            <param name="type"></param>
+            <param name="type">默认为jsapi，当作为卡券接口使用时，应当为wx_card</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetTicketByAccessToken(System.String,System.String)">
@@ -10368,7 +10238,7 @@
             获取调用微信JS接口的临时票据
             </summary>
             <param name="accessTokenOrAppId"></param>
-            <param name="type"></param>
+            <param name="type">默认为jsapi，当作为卡券接口使用时，应当为wx_card</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.CommonAPIs.CommonApi.GetCallBackIp(System.String)">
@@ -11124,6 +10994,11 @@
             当MessageHandler接收到IResponseNothing的返回类型参数时，只会向微信服务器返回空字符串，等同于return null
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.MP.Entities.SuccessResponseMessage">
+            <summary>
+            只返回"success"等指定字符串的响应信息
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.Entities.BaiduMap.BaiduMarkerSize">
             <summary>
             标记大小
@@ -11323,6 +11198,11 @@
         <member name="T:Senparc.Weixin.MP.Entities.RequestMessageBase">
             <summary>
             接收到请求的消息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.Entities.IRequestMessageEventBase">
+            <summary>
+            IRequestMessageEventBase
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MP.Entities.IRequestMessageEventBase.Event">
@@ -13173,11 +13053,6 @@
             领取红包的Openid
             </summary>
         </member>
-        <member name="P:Senparc.Weixin.MP.TenPayLibV3.RedPackHBInfo.status">
-            <summary>
-            红包状态，SENDING:发放中，SENT:已发放待领取，FAILED：发放失败，RECEIVED:已领取，REFUND:已退款 
-            </summary>
-        </member>
         <member name="P:Senparc.Weixin.MP.TenPayLibV3.RedPackHBInfo.amount">
             <summary>
             领取金额
@@ -13188,12 +13063,73 @@
             领取时间
             </summary>
         </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TransfersResult.return_code">
+            <summary>
+            返回状态码,SUCCESS/FAIL,此字段是通信标识，非交易标识，交易是否成功需要查看result_code来判断 
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TransfersResult.return_msg">
+            <summary>
+            返回信息，如非空，为错误原因,签名失败,参数格式校验错误 
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TransfersResult.result_code">
+            <summary>
+            业务结果,SUCCESS/FAIL
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TransfersResult.err_code">
+            <summary>
+            错误代码
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TransfersResult.err_code_des">
+            <summary>
+            错误代码描述
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TransfersResult.mch_appid">
+            <summary>
+            微信分配的公众账号ID（企业号corpid即为此appId）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TransfersResult.mchid">
+            <summary>
+            商户号，微信支付分配的商户号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TransfersResult.device_info">
+            <summary>
+            微信支付分配的终端设备号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TransfersResult.nonce_str">
+            <summary>
+            随机字符串，不长于32位
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TransfersResult.partner_trade_no">
+            <summary>
+            商户订单号，需保持唯一性
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TransfersResult.payment_no">
+            <summary>
+            企业付款成功，返回的微信订单号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TransfersResult.payment_time">
+            <summary>
+            企业付款成功时间
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.MP.TenPayLibV3.RedPackApi">
             <summary>
             红包发送和查询Api（暂缺裂变红包发送）
             </summary>
         </member>
         <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.MP.TenPayLibV3.RedPackApi.SendNormalRedPack(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String,System.String,System.String@,System.String@,System.Nullable{Senparc.Weixin.MP.RedPack_Scene},System.String,System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:Senparc.Weixin.MP.TenPayLibV3.RedPackApi.SendNGroupRedPack(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.String,System.String,System.String,System.String@,System.String@,System.Nullable{Senparc.Weixin.MP.RedPack_Scene},System.String,System.String,System.String)" -->
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.RedPackApi.SearchRedPack(System.String,System.String,System.String,System.String,System.String)">
             <summary>
             查询红包(包括普通红包和裂变红包)
@@ -13433,6 +13369,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.GetTimestamp">
+            <summary>
+            获取微信时间格式
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Util.UrlEncode(System.String,System.String)">
             <summary>
             对字符串进行URL编码
@@ -13467,6 +13409,1006 @@
             创建当天内不会重复的数字
             </summary>
             <param name="length"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3" -->
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.Unifiedorder(System.String,System.Int32)">
+            <summary>
+            统一支付接口
+            统一支付接口，可接受JSAPI/NATIVE/APP 下预支付订单，返回预支付订单号。NATIVE 支付返回二维码code_url。
+            </summary>
+            <param name="data">微信支付需要post的xml数据</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.Unifiedorder(Senparc.Weixin.MP.TenPayLibV3.TenPayV3UnifiedorderRequestData,System.Int32)">
+            <summary>
+            统一支付接口
+            统一支付接口，可接受JSAPI/NATIVE/APP 下预支付订单，返回预支付订单号。NATIVE 支付返回二维码code_url。
+            </summary>
+            <param name="dataInfo">微信支付需要post的Data数据</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.GetJsPaySign(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            获取UI使用的JS支付签名
+            </summary>
+            <param name="appId"></param>
+            <param name="timeStamp"></param>
+            <param name="nonceStr"></param>
+            <param name="package">格式：prepay_id={0}</param>
+            <param name="signType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.NativePay(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Native
+            </summary>
+            <param name="appId">开放平台账户的唯一标识</param>
+            <param name="timesTamp">时间戳</param>
+            <param name="mchId">商户Id</param>
+            <param name="nonceStr">32 位内的随机串，防重发</param>
+            <param name="productId">商品唯一id</param>
+            <param name="sign">签名</param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.OrderQuery(System.String)">
+            <summary>
+            订单查询接口
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.OrderQuery(Senparc.Weixin.MP.TenPayLibV3.TenPayV3OrderQueryRequestData)">
+            <summary>
+            订单查询接口
+            </summary>
+            <param name="dataInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.CloseOrder(System.String)">
+            <summary>
+            关闭订单接口
+            </summary>
+            <param name="data">关闭订单需要post的xml数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.CloseOrder(Senparc.Weixin.MP.TenPayLibV3.TenPayV3CloseOrderRequestData)">
+            <summary>
+            关闭订单接口
+            </summary>
+            <param name="dataInfo">关闭订单需要post的xml数据</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.Reverse(System.String)">
+            <summary>
+            撤销订单接口
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.Reverse(Senparc.Weixin.MP.TenPayLibV3.TenPayV3ReverseRequestData)">
+            <summary>
+            撤销订单接口
+            </summary>
+            <param name="dataInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.RefundQuery(System.String)">
+            <summary>
+            退款查询接口
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.RefundQuery(Senparc.Weixin.MP.TenPayLibV3.TenPayV3RefundQueryRequestData)">
+            <summary>
+            退款查询接口
+            </summary>
+            <param name="dataInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.DownloadBill(System.String)">
+            <summary>
+            对账单接口
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.ShortUrl(System.String)">
+            <summary>
+            短链接转换接口
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.ShortUrl(Senparc.Weixin.MP.TenPayLibV3.TenPayV3ShortUrlRequestData)">
+            <summary>
+            短链接转换接口
+            </summary>
+            <param name="dataInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.MicroPay(System.String)">
+            <summary>
+            刷卡支付
+            提交被扫支付
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.Transfers(System.String,System.Int32)">
+            <summary>
+            用于企业向微信用户个人付款 
+            目前支持向指定微信用户的openid付款
+            </summary>
+            <param name="data">微信支付需要post的xml数据</param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.GetTransferInfo(System.String,System.Int32)">
+            <summary>
+            用于商户的企业付款操作进行结果查询，返回付款操作详细结果。
+            </summary>
+            <param name="data"></param>
+            <param name="timeOut"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3.MicroPay(Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData)">
+            <summary>
+            刷卡支付
+            提交被扫支付
+            </summary>
+            <param name="dataInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RefundQueryRequestData">
+            <summary>
+            微信支付提交的XML Data数据[查询退款]
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RefundQueryRequestData.AppId">
+            <summary>
+            公众账号ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RefundQueryRequestData.MchId">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RefundQueryRequestData.NonceStr">
+            <summary>
+            随机字符串
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RefundQueryRequestData.DeviceInfo">
+            <summary>
+            商户自定义的终端设备号，如门店编号、设备的ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RefundQueryRequestData.TransactionId">
+            <summary>
+            微信订单号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RefundQueryRequestData.OutTradeNo">
+            <summary>
+            商户系统内部的订单号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RefundQueryRequestData.OutRefundNo">
+            <summary>
+            商户侧传给微信的退款单号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RefundQueryRequestData.RefundId">
+            <summary>
+            微信生成的退款单号，在申请退款接口有返回
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RefundQueryRequestData.SignType">
+            <summary>
+            商品信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RefundQueryRequestData.Key">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RefundQueryRequestData.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            查询退款 请求参数
+            </summary>
+            <param name="appId"></param>
+            <param name="mchId"></param>
+            <param name="key"></param>
+            <param name="nonceStr"></param>
+            <param name="deviceInfo"></param>
+            <param name="transactionId"></param>
+            <param name="outTradeNo"></param>
+            <param name="outRefundNo"></param>
+            <param name="refundId"></param>
+            <param name="signType"></param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData">
+            <summary>
+            微信支付提交的XML Data数据[提交刷卡支付]
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData.AppId">
+            <summary>
+            公众账号ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData.MchId">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData.NonceStr">
+            <summary>
+            随机字符串
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData.DeviceInfo">
+            <summary>
+            终端设备号(商户自定义，如门店编号)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData.Body">
+            <summary>
+            商品简单描述，该字段须严格按照规范传递
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData.Detail">
+            <summary>
+            商品详细列表
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData.Attach">
+            <summary>
+            附加数据，在查询API和支付通知中原样返回，该字段主要用于商户携带订单的自定义数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData.OutTradeNo">
+            <summary>
+            商户系统内部的订单号,32个字符内、可包含字母
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData.TotalFee">
+            <summary>
+            订单总金额，单位为分，只能为整数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData.FeeType">
+            <summary>
+            符合ISO4217标准的三位字母代码，默认人民币：CNY
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData.SpbillCreateIp">
+            <summary>
+            调用微信支付API的机器IP
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData.GoodsTag">
+            <summary>
+            商品标记
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData.AuthCode">
+            <summary>
+            扫码支付授权码
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData.SignType">
+            <summary>
+            签名类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData.Key">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3MicroPayRequestData.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            提交刷卡支付 请求参数
+            </summary>
+            <param name="appId"></param>
+            <param name="mchId"></param>
+            <param name="key"></param>
+            <param name="nonceStr"></param>
+            <param name="deviceInfo"></param>
+            <param name="body"></param>
+            <param name="detail"></param>
+            <param name="attach"></param>
+            <param name="outTradeNo"></param>
+            <param name="totalFee"></param>
+            <param name="feeType"></param>
+            <param name="spbillCreateIp"></param>
+            <param name="goodsTag"></param>
+            <param name="authCode"></param>
+            <param name="signType"></param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ShortUrlRequestData">
+            <summary>
+            微信支付提交的XML Data数据[转换短链接]
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ShortUrlRequestData.AppId">
+            <summary>
+            公众账号ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ShortUrlRequestData.MchId">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ShortUrlRequestData.NonceStr">
+            <summary>
+            随机字符串
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ShortUrlRequestData.LongUrl">
+            <summary>
+            需要转换的URL，签名用原串，传输需URLencode
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ShortUrlRequestData.SignType">
+            <summary>
+            签名类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ShortUrlRequestData.Key">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ShortUrlRequestData.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            转换短链接 请求参数
+            </summary>
+            <param name="appId"></param>
+            <param name="mchId"></param>
+            <param name="signType"></param>
+            <param name="longUrl"></param>
+            <param name="key"></param>
+            <param name="nonceStr"></param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3UnifiedorderRequestData">
+            <summary>
+            微信支付提交的XML Data数据[统一下单]
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3UnifiedorderRequestData.AppId">
+            <summary>
+            公众账号ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3UnifiedorderRequestData.MchId">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3UnifiedorderRequestData.NonceStr">
+            <summary>
+            随机字符串
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3UnifiedorderRequestData.Body">
+            <summary>
+            商品信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3UnifiedorderRequestData.OutTradeNo">
+            <summary>
+            商家订单号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3UnifiedorderRequestData.TotalFee">
+            <summary>
+            商品金额,以分为单位(money * 100).ToString()
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3UnifiedorderRequestData.SpbillCreateIP">
+            <summary>
+            用户的公网ip，不是商户服务器IP
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3UnifiedorderRequestData.NotifyUrl">
+            <summary>
+            接收财付通通知的URL
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3UnifiedorderRequestData.TradeType">
+            <summary>
+            交易类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3UnifiedorderRequestData.OpenId">
+            <summary>
+            用户的openId
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3UnifiedorderRequestData.Key">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3UnifiedorderRequestData.#ctor(System.String,System.String,System.String,System.String,System.Decimal,System.String,System.String,Senparc.Weixin.MP.TenPayV3Type,System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="appId"></param>
+            <param name="mchId"></param>
+            <param name="body"></param>
+            <param name="outTradeNo"></param>
+            <param name="totalFee"></param>
+            <param name="spbillCreateIp"></param>
+            <param name="notifyUrl"></param>
+            <param name="tradeType"></param>
+            <param name="openid"></param>
+            <param name="key"></param>
+            <param name="nonceStr"></param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ReverseRequestData">
+            <summary>
+            微信支付提交的XML Data数据[撤销订单]
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ReverseRequestData.AppId">
+            <summary>
+            公众账号ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ReverseRequestData.MchId">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ReverseRequestData.NonceStr">
+            <summary>
+            随机字符串
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ReverseRequestData.TransactionId">
+            <summary>
+            微信的订单号，建议优先使用
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ReverseRequestData.OutTradeNo">
+            <summary>
+            商家订单号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ReverseRequestData.SignType">
+            <summary>
+            签名类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ReverseRequestData.Key">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3ReverseRequestData.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            撤销订单 请求参数
+            </summary>
+            <param name="appId"></param>
+            <param name="mchId"></param>
+            <param name="outTradeNo"></param>
+            <param name="signType"></param>
+            <param name="key"></param>
+            <param name="transactionId"></param>
+            <param name="nonceStr"></param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3OrderQueryRequestData">
+            <summary>
+            微信支付提交的XML Data数据[查询订单]
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3OrderQueryRequestData.AppId">
+            <summary>
+            公众账号ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3OrderQueryRequestData.MchId">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3OrderQueryRequestData.TransactionId">
+            <summary>
+            微信的订单号，建议优先使用
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3OrderQueryRequestData.OutTradeNo">
+             <summary>
+            商户系统内部的订单号，请确保在同一商户号下唯一
+             </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3OrderQueryRequestData.NonceStr">
+            <summary>
+            随机字符串
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3OrderQueryRequestData.SignType">
+            <summary>
+            签名类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3OrderQueryRequestData.Key">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3OrderQueryRequestData.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            查询订单 请求参数
+            </summary>
+            <param name="appId"></param>
+            <param name="mchId"></param>
+            <param name="outTradeNo"></param>
+            <param name="signType"></param>
+            <param name="key"></param>
+            <param name="transactionId"></param>
+            <param name="nonceStr"></param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3CloseOrderRequestData">
+            <summary>
+            微信支付提交的XML Data数据[关闭订单]
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3CloseOrderRequestData.AppId">
+            <summary>
+            公众账号ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3CloseOrderRequestData.MchId">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3CloseOrderRequestData.NonceStr">
+            <summary>
+            随机字符串
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3CloseOrderRequestData.OutTradeNo">
+            <summary>
+            商家订单号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3CloseOrderRequestData.SignType">
+            <summary>
+            签名类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3CloseOrderRequestData.Key">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3CloseOrderRequestData.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            关闭订单 请求参数
+            </summary>
+            <param name="appId"></param>
+            <param name="mchId"></param>
+            <param name="outTradeNo"></param>
+            <param name="key"></param>
+            <param name="nonceStr"></param>
+            <param name="signType"></param>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Result">
+            <summary>
+            基础返回结果
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Result.GetXmlValue(System.String)">
+            <summary>
+            获取Xml结果中对应节点的值
+            </summary>
+            <param name="nodeName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3Result.GetXmlValues``1(System.String)">
+            <summary>
+            获取Xml结果中对应节点的集合值
+            </summary>
+            <param name="nodeName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.Result">
+            <summary>
+            统一支付接口在 return_code为 SUCCESS的时候有返回
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.Result.appid">
+            <summary>
+            微信分配的公众账号ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.Result.mch_id">
+            <summary>
+            微信支付分配的商户号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.Result.nonce_str">
+            <summary>
+            随机字符串，不长于32 位
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.Result.sign">
+            <summary>
+            签名
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.Result.result_code">
+            <summary>
+            SUCCESS/FAIL
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.Result.IsResultCodeSuccess">
+            <summary>
+            result_code == "SUCCESS"
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.UnifiedorderResult">
+            <summary>
+            统一支付接口在return_code 和result_code 都为SUCCESS 的时候有返回详细信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.UnifiedorderResult.device_info">
+            <summary>
+            微信支付分配的终端设备号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.UnifiedorderResult.trade_type">
+            <summary>
+            交易类型:JSAPI、NATIVE、APP
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.UnifiedorderResult.prepay_id">
+            <summary>
+            微信生成的预支付ID，用于后续接口调用中使用
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.UnifiedorderResult.code_url">
+            <summary>
+            trade_type为NATIVE时有返回，此参数可直接生成二维码展示出来进行扫码支付
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult">
+            <summary>
+            查询订单接口返回结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.device_info">
+            <summary>
+            微信支付分配的终端设备号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.openid">
+            <summary>
+            用户在商户appid下的唯一标识
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.is_subscribe">
+            <summary>
+            用户是否关注公众账号，Y-关注，N-未关注，仅在公众账号类型支付有效
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.trade_type">
+            <summary>
+            调用接口提交的交易类型，取值如下：JSAPI，NATIVE，APP，MICROPAY
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.trade_state">
+             <summary>
+            SUCCESS—支付成功
+            REFUND—转入退款
+            NOTPAY—未支付
+            CLOSED—已关闭
+            REVOKED—已撤销（刷卡支付）
+            USERPAYING--用户支付中
+            PAYERROR--支付失败(其他原因，如银行返回失败)
+             </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.bank_type">
+            <summary>
+            银行类型，采用字符串类型的银行标识
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.total_fee">
+            <summary>
+            订单总金额，单位为分
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.settlement_total_fee" -->
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.fee_type">
+            <summary>
+            货币类型，符合ISO 4217标准的三位字母代码，默认人民币：CNY
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.cash_fee">
+            <summary>
+            现金支付金额订单现金支付金额
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.cash_fee_type">
+            <summary>
+            货币类型，符合ISO 4217标准的三位字母代码，默认人民币：CNY
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.coupon_fee" -->
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.coupon_count">
+            <summary>
+            代金券使用数量
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.coupon_type_values">
+             <summary>
+             CASH--充值代金券 
+            NO_CASH---非充值代金券
+            订单使用代金券时有返回（取值：CASH、NO_CASH）。$n为下标,从0开始编号，举例：coupon_type_$0
+            coupon_type_$n
+             </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.coupon_id_values">
+            <summary>
+            代金券ID, $n为下标，从0开始编号
+            coupon_id_$n
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.coupon_fee_values">
+            <summary>
+            单个代金券支付金额, $n为下标，从0开始编号
+            coupon_fee_$n
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.transaction_id">
+            <summary>
+            微信支付订单号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.out_trade_no">
+            <summary>
+            商户系统的订单号，与请求一致。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.attach">
+            <summary>
+            附加数据，原样返回
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.time_end">
+            <summary>
+            订单支付时间，格式为yyyyMMddHHmmss，如2009年12月25日9点10分10秒表示为20091225091010
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.OrderQueryResult.trade_state_desc">
+            <summary>
+            对当前查询订单状态的描述和下一步操作的指引
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.CloseOrderResult">
+            <summary>
+            关闭订单接口
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.CloseOrderResult.result_msg">
+            <summary>
+            对于业务执行的详细描述
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.RefundQueryResult">
+            <summary>
+            退款查询接口
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.RefundQueryResult.device_info">
+            <summary>
+            终端设备号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.RefundQueryResult.transaction_id">
+            <summary>
+            微信订单号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.RefundQueryResult.out_trade_no">
+            <summary>
+            商户系统内部的订单号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.RefundQueryResult.total_fee">
+            <summary>
+            订单总金额，单位为分，只能为整数
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Senparc.Weixin.MP.TenPayLibV3.RefundQueryResult.settlement_total_fee" -->
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.RefundQueryResult.fee_type">
+            <summary>
+            订单金额货币类型，符合ISO 4217标准的三位字母代码，默认人民币：CNY
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.RefundQueryResult.cash_fee">
+            <summary>
+            现金支付金额，单位为分，只能为整数
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.RefundQueryResult.refund_count">
+            <summary>
+            退款记录数
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Senparc.Weixin.MP.TenPayLibV3.RefundQueryResult.refund_account" -->
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.RefundQueryResult.#ctor(System.String)">
+             <summary>
+             取当前退款单的退款入账方
+            1）退回银行卡：
+            {银行名称
+                }{卡类型
+            }{卡尾号}
+            2）退回支付用户零钱:
+            支付用户零钱
+             </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.ShortUrlResult">
+            <summary>
+            短链接转换接口
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.ShortUrlResult.short_url">
+            <summary>
+            转换后的URL
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.ReverseResult">
+            <summary>
+            撤销订单接口
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.ReverseResult.recall">
+            <summary>
+            是否需要继续调用撤销，Y-需要，N-不需要
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.MicropayResult">
+            <summary>
+            刷卡支付
+            提交被扫支付
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.MicropayResult.device_info">
+            <summary>
+            调用接口提交的终端设备号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.MicropayResult.openid">
+            <summary>
+            用户在商户appid 下的唯一标识
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.MicropayResult.is_subscribe">
+            <summary>
+            用户是否关注公众账号，仅在公众账号类型支付有效，取值范围：Y或N;Y-关注;N-未关注
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.MicropayResult.trade_type">
+            <summary>
+            支付类型为MICROPAY(即扫码支付)
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.MicropayResult.bank_type">
+            <summary>
+            银行类型，采用字符串类型的银行标识
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.MicropayResult.fee_type">
+            <summary>
+            符合ISO 4217标准的三位字母代码，默认人民币：CNY
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.MicropayResult.total_fee">
+            <summary>
+            订单总金额，单位为分，只能为整数
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Senparc.Weixin.MP.TenPayLibV3.MicropayResult.settlement_total_fee" -->
+        <!-- Badly formed XML comment ignored for member "P:Senparc.Weixin.MP.TenPayLibV3.MicropayResult.coupon_fee" -->
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.MicropayResult.cash_fee_type">
+            <summary>
+            符合ISO 4217标准的三位字母代码，默认人民币：CNY
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.MicropayResult.cash_fee">
+            <summary>
+            订单现金支付金额
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.MicropayResult.transaction_id">
+            <summary>
+            微信支付订单号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.MicropayResult.out_trade_no">
+            <summary>
+            商户系统的订单号，与请求一致
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.MicropayResult.attach">
+            <summary>
+            商家数据包，原样返回
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.MicropayResult.time_end">
+            <summary>
+            订单生成时间，格式为yyyyMMddHHmmss，如2009年12月25日9点10分10秒表示为20091225091010
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RequestData">
+            <summary>
+            微信支付提交的XML Data数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RequestData.AppId">
+            <summary>
+            公众账号ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RequestData.MchId">
+            <summary>
+            商户号
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RequestData.NonceStr">
+            <summary>
+            随机字符串
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RequestData.Key">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TenPayV3RequestData.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="appId"></param>
+            <param name="mchId"></param>
+            <param name="key"></param>
+            <param name="nonceStr"></param>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TransferApi.Transfer(System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            企业向个人付款
+            </summary>
+            <param name="appId">公众账号AppID</param>
+            <param name="mchId">商户MchID</param>
+            <param name="tenPayKey">支付密钥，微信商户平台(pay.weixin.qq.com)-->账户设置-->API安全-->密钥设置</param>
+            <param name="tenPayCertPath">证书地址（硬盘地址，形如E://cert//apiclient_cert.p12）</param>
+            <param name="openId">要转账的用户的OpenID</param>
+            <param name="reUserName">转账用户的实名认证的姓名</param>
+            <param name="iP">调用接口的机器Ip地址</param>
+            <param name="amount">企业付款金额，单位为分</param>
+            <param name="desc">企业付款操作说明信息。必填。</param>
+            <param name="nonceStr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.MP.TenPayLibV3.TransferApi.GetTransferInfo(System.String,System.Int32)">
+            <summary>
+            用于商户的企业付款操作进行结果查询，返回付款操作详细结果。
+            </summary>
+            <param name="data"></param>
+            <param name="timeOut"></param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.MP.TenPayLib.CheckRequestHandler.#ctor(System.Web.HttpContext)">

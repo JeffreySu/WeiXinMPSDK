@@ -67,17 +67,17 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 accessToken.AsUrlData(), mediaId.AsUrlData());
             HttpUtility.Get.Download(url, stream);//todo 异常处理
         }
-        /// <summary>
-        /// 获取临时媒体文件并保存到指定目录中
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="mediaId"></param>
-        /// <param name="dir">保存目录</param>
-        public static string Get(string accessToken, string mediaId, string dir)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
-            return HttpUtility.Get.Download(url, dir);
-        }
+        ///// <summary>
+        ///// 获取临时媒体文件并保存到指定目录中
+        ///// </summary>
+        ///// <param name="accessToken"></param>
+        ///// <param name="mediaId"></param>
+        ///// <param name="dir">保存目录</param>
+        //public static string Get(string accessToken, string mediaId, string dir)
+        //{
+        //    var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+        //    return HttpUtility.Get.Download(url, dir);
+        //}
         /// <summary>
         /// 上传永久图文素材
         /// </summary>

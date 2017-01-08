@@ -108,11 +108,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
             HttpUtility.Get.Download(url, stream);
         }
-        public static string Get(string accessToken, string mediaId, string dir)
-        {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
-            return HttpUtility.Get.Download(url, dir);
-        }
+        //public static string Get(string accessToken, string mediaId, string dir)
+        //{
+        //    var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+        //    return HttpUtility.Get.Download(url, dir);
+        //}
         #endregion
 
         #region 永久素材

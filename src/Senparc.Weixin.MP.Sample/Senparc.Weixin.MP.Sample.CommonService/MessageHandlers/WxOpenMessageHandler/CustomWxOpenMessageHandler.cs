@@ -136,38 +136,43 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
             return new SuccessResponseMessage();
 
             //和公众号一样回复XML是无效的：
-//            return new SuccessResponseMessage()
-//            {
-//                ReturnText = string.Format(@"<?xml version=""1.0"" encoding=""utf-8""?>
-//<xml>
-//    <ToUserName><![CDATA[{0}]]></ToUserName>
-//    <FromUserName><![CDATA[{1}]]></FromUserName>
-//    <CreateTime>1357986928</CreateTime>
-//    <MsgType><![CDATA[text]]></MsgType>
-//    <Content><![CDATA[TNT2]]></Content>
-//</xml>",requestMessage.FromUserName,requestMessage.ToUserName)
-//            };
+            //            return new SuccessResponseMessage()
+            //            {
+            //                ReturnText = string.Format(@"<?xml version=""1.0"" encoding=""utf-8""?>
+            //<xml>
+            //    <ToUserName><![CDATA[{0}]]></ToUserName>
+            //    <FromUserName><![CDATA[{1}]]></FromUserName>
+            //    <CreateTime>1357986928</CreateTime>
+            //    <MsgType><![CDATA[text]]></MsgType>
+            //    <Content><![CDATA[TNT2]]></Content>
+            //</xml>",requestMessage.FromUserName,requestMessage.ToUserName)
+            //            };
         }
 
-public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
-{
-    //发来图片，进行处理
-    Task.Factory.StartNew(async () =>
-    {
-        await  Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, WeixinOpenId, "刚才您发送了这张图片：");
-        await  Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImageAsync(appId, WeixinOpenId, requestMessage.MediaId);
-    });
-    return DefaultResponseMessage(requestMessage);
-}
+        public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
+        {
+            //发来图片，进行处理
 
-public override IResponseMessageBase OnEvent_UserEnterTempSessionRequest(RequestMessageEvent_UserEnterTempSession requestMessage)
-{
-    //进入客服
-    var msg = "欢迎您！这条消息来自Senparc.Weixin进入客服事件。";
-    Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, WeixinOpenId, msg);
+            //Task.Factory.StartNew(async () =>
+            //{
+            //    await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, WeixinOpenId, "刚才您发送了这张图片：");
+            //    await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImageAsync(appId, WeixinOpenId, requestMessage.MediaId);
+            //});
 
-    return DefaultResponseMessage(requestMessage);
-}
+            Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, WeixinOpenId, "刚才您发送了这张图片：");
+            Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImage(appId, WeixinOpenId, requestMessage.MediaId);
+
+            return DefaultResponseMessage(requestMessage);
+        }
+
+        public override IResponseMessageBase OnEvent_UserEnterTempSessionRequest(RequestMessageEvent_UserEnterTempSession requestMessage)
+        {
+            //进入客服
+            var msg = "欢迎您！这条消息来自Senparc.Weixin进入客服事件。";
+            Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, WeixinOpenId, msg);
+
+            return DefaultResponseMessage(requestMessage);
+        }
 
         public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
         {

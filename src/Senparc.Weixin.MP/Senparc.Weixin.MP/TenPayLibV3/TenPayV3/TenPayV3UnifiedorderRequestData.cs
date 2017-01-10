@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="mchId"></param>
         /// <param name="body"></param>
         /// <param name="outTradeNo"></param>
-        /// <param name="totalFee"></param>
+        /// <param name="totalFee">单位：分</param>
         /// <param name="spbillCreateIp"></param>
         /// <param name="notifyUrl"></param>
         /// <param name="tradeType"></param>

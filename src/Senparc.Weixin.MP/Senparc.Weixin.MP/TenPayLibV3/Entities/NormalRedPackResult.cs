@@ -27,6 +27,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public string return_code { get; set; }
 
         /// <summary>
+        /// 判断return_code是否为SUCCESS返回值
+        /// </summary>
+        public bool ReturnCodeSuccess { get { return return_code.ToUpper() == "SUCCESS"; } }
+
+        /// <summary>
         /// 返回信息，返回信息，如非空，为错误原因，签名失败，参数格式校验错误
         /// </summary>
         public string return_msg { get; set; }
@@ -35,6 +40,12 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 业务结果,SUCCESS/FAIL
         /// </summary>
         public string result_code { get; set; }
+
+        /// <summary>
+        /// 判断result_code是否为SUCCESS返回值
+        /// </summary>
+        public bool ResultCodeSuccess { get { return result_code.ToUpper() == "SUCCESS"; } }
+
 
         /// <summary>
         /// 错误代码

@@ -23,6 +23,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -183,22 +184,22 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 
             if (doc.SelectSingleNode("/xml/return_code") != null)
             {
-                normalReturn.return_code = (doc.SelectSingleNode("/xml/return_code").InnerText.ToUpper() == "SUCCESS");
+                normalReturn.return_code = doc.SelectSingleNode("/xml/return_code").InnerText;
             }
             if (doc.SelectSingleNode("/xml/return_msg") != null)
             {
                 normalReturn.return_msg = doc.SelectSingleNode("/xml/return_msg").InnerText;
             }
 
-            if (normalReturn.return_code == true)
+            if (normalReturn.ReturnCodeSuccess)
             {
                 //redReturn.sign = doc.SelectSingleNode("/xml/sign").InnerText;
                 if (doc.SelectSingleNode("/xml/result_code") != null)
                 {
-                    normalReturn.result_code = (doc.SelectSingleNode("/xml/result_code").InnerText.ToUpper() == "SUCCESS");
+                    normalReturn.result_code = doc.SelectSingleNode("/xml/result_code").InnerText;
                 }
 
-                if (normalReturn.result_code == true)
+                if (normalReturn.ResultCodeSuccess)
                 {
                     if (doc.SelectSingleNode("/xml/mch_billno") != null)
                     {
@@ -388,6 +389,11 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 
             XDocument xDoc = XDocument.Load(responseContent);
 
+            //if (xDoc==null)
+            //{
+            //    throw new WeixinException("微信支付XML响应格式错误");
+            //}
+
             NormalRedPackResult normalReturn = new NormalRedPackResult
             {
                 err_code = "",
@@ -396,22 +402,22 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
 
             if (doc.SelectSingleNode("/xml/return_code") != null)
             {
-                normalReturn.return_code = (doc.SelectSingleNode("/xml/return_code").InnerText.ToUpper() == "SUCCESS");
+                normalReturn.return_code = doc.SelectSingleNode("/xml/return_code").InnerText;
             }
             if (doc.SelectSingleNode("/xml/return_msg") != null)
             {
                 normalReturn.return_msg = doc.SelectSingleNode("/xml/return_msg").InnerText;
             }
 
-            if (normalReturn.return_code == true)
+            if (normalReturn.ReturnCodeSuccess)
             {
                 //redReturn.sign = doc.SelectSingleNode("/xml/sign").InnerText;
                 if (doc.SelectSingleNode("/xml/result_code") != null)
                 {
-                    normalReturn.result_code = (doc.SelectSingleNode("/xml/result_code").InnerText.ToUpper() == "SUCCESS");
+                    normalReturn.result_code = doc.SelectSingleNode("/xml/result_code").InnerText;
                 }
 
-                if (normalReturn.result_code == true)
+                if (normalReturn.ResultCodeSuccess)
                 {
                     if (doc.SelectSingleNode("/xml/mch_billno") != null)
                     {

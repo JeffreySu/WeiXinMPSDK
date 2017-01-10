@@ -6,6 +6,9 @@
     
     
     创建标识：Yu XiaoChou - 20160107
+
+    修改标识：Senparc - 20170110
+    修改描述：v14.3.118 修改return_code和result_code的数据类型
 ----------------------------------------------------------------*/
 
 using System;
@@ -21,7 +24,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 返回状态码
         /// SUCCESS/FAIL，此字段是通信标识，非交易标识，交易是否成功需要查看result_code来判断
         /// </summary>
-        public bool return_code { get; set; }
+        public string return_code { get; set; }
 
         /// <summary>
         /// 返回信息，返回信息，如非空，为错误原因，签名失败，参数格式校验错误
@@ -31,7 +34,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <summary>
         /// 业务结果,SUCCESS/FAIL
         /// </summary>
-        public bool result_code { get; set; }
+        public string result_code { get; set; }
 
         /// <summary>
         /// 错误代码

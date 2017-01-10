@@ -12,6 +12,9 @@
 
     修改标识：Senparc - 20161112
     修改描述：v14.3.107 SearchRedPack方法修改证书初始化方法
+
+    修改标识：Senparc - 20170110
+    修改描述：v14.3.118  
 ----------------------------------------------------------------*/
 
 using System;
@@ -78,6 +81,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
         /// <param name="remark">活动描述，用于低版本微信显示</param>
         /// <param name="nonceStr">将nonceStr随机字符串返回，开发者可以存到数据库用于校验</param>
         /// <param name="paySign">将支付签名返回，开发者可以存到数据库用于校验</param>
+        /// <param name="mchBillNo">商户订单号，新的订单号可以从RedPackApi.GetNewBillNo(mchId)方法获得，如果传入null，则系统自动生成</param>
         /// <param name="scene">场景id（非必填）</param>
         /// <param name="riskInfo">活动信息（非必填）,String(128)posttime:用户操作的时间戳。
         /// <para>示例：posttime%3d123123412%26clientversion%3d234134%26mobile%3d122344545%26deviceid%3dIOS</para>
@@ -92,9 +96,9 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
         public static NormalRedPackResult SendNormalRedPack(string appId, string mchId, string tenPayKey, string tenPayCertPath,
             string openId, string senderName,
             string iP, int redPackAmount, string wishingWord, string actionName, string remark,
-            out string nonceStr, out string paySign, RedPack_Scene? scene = null, string riskInfo = null, string consumeMchId = null)
+            out string nonceStr, out string paySign, string mchBillNo, RedPack_Scene? scene = null, string riskInfo = null, string consumeMchId = null)
         {
-            string mchbillno = GetNewBillNo(mchId);
+            mchBillNo = mchBillNo ?? GetNewBillNo(mchId);
 
             nonceStr = TenPayV3Util.GetNoncestr();
             //RequestHandler packageReqHandler = new RequestHandler(null);
@@ -107,7 +111,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
             packageReqHandler.SetParameter("wxappid", appId);		  //公众账号ID
             packageReqHandler.SetParameter("mch_id", mchId);		  //商户号
-            packageReqHandler.SetParameter("mch_billno", mchbillno);                 //填入商家订单号
+            packageReqHandler.SetParameter("mch_billno", mchBillNo);                 //填入商家订单号
             packageReqHandler.SetParameter("send_name", senderName);                //红包发送者名称
             packageReqHandler.SetParameter("re_openid", openId);                 //接受收红包的用户的openId
             packageReqHandler.SetParameter("total_amount", redPackAmount.ToString());                //付款金额，单位分
@@ -289,6 +293,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
         /// <param name="remark">活动描述，用于低版本微信显示</param>
         /// <param name="nonceStr">将nonceStr随机字符串返回，开发者可以存到数据库用于校验</param>
         /// <param name="paySign">将支付签名返回，开发者可以存到数据库用于校验</param>
+        /// <param name="mchBillNo">商户订单号，新的订单号可以从RedPackApi.GetNewBillNo(mchId)方法获得，如果传入null，则系统自动生成</param>
         /// <param name="scene">场景id（非必填）</param>
         /// <param name="riskInfo">活动信息（非必填）,String(128)posttime:用户操作的时间戳。
         /// <para>示例：posttime%3d123123412%26clientversion%3d234134%26mobile%3d122344545%26deviceid%3dIOS</para>
@@ -304,9 +309,9 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
         public static NormalRedPackResult SendNGroupRedPack(string appId, string mchId, string tenPayKey, string tenPayCertPath,
             string openId, string senderName,
             string iP, int redPackAmount, string wishingWord, string actionName, string remark,
-            out string nonceStr, out string paySign, RedPack_Scene? scene = null, string riskInfo = null, string consumeMchId = null, string amtType = "ALL_RAND")
+            out string nonceStr, out string paySign, string mchBillNo, RedPack_Scene? scene = null, string riskInfo = null, string consumeMchId = null, string amtType = "ALL_RAND")
         {
-            string mchbillno = GetNewBillNo(mchId);
+            mchBillNo = mchBillNo ?? GetNewBillNo(mchId);
 
             nonceStr = TenPayV3Util.GetNoncestr();
             //RequestHandler packageReqHandler = new RequestHandler(null);
@@ -319,7 +324,7 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
             packageReqHandler.SetParameter("wxappid", appId);		  //公众账号ID
             packageReqHandler.SetParameter("mch_id", mchId);		  //商户号
-            packageReqHandler.SetParameter("mch_billno", mchbillno);                 //填入商家订单号
+            packageReqHandler.SetParameter("mch_billno", mchBillNo);                 //填入商家订单号
             packageReqHandler.SetParameter("send_name", senderName);                //红包发送者名称
             packageReqHandler.SetParameter("re_openid", openId);                 //接受收红包的用户的openId
             packageReqHandler.SetParameter("total_amount", redPackAmount.ToString());                //付款金额，单位分

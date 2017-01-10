@@ -46,7 +46,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public bool ResultCodeSuccess { get { return result_code.ToUpper() == "SUCCESS"; } }
 
-
         /// <summary>
         /// 错误代码
         /// </summary>

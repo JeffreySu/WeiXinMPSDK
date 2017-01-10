@@ -30,7 +30,6 @@
     创建标识：Senparc - 20170110
     创建描述：CreateQRResultJson添加url和show_qrcode_url属性
 
-
 ----------------------------------------------------------------*/
 
 using System.CodeDom;
@@ -264,6 +263,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     }
     /// <summary>
     /// 生成卡券二维码返回结果
+    /// API：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025062&token=&lang=zh_CN
     /// </summary>
     public class CreateQRResultJson : WxJsonResult
     {

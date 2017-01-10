@@ -229,7 +229,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //创建支付应答对象
             //RequestHandler packageReqHandler = new RequestHandler(null);
 
-            var sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
+            var sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(26);//32位
             var nonceStr = TenPayV3Util.GetNoncestr();
 
             //创建请求统一订单接口参数

@@ -81,7 +81,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="mchId"></param>
         /// <param name="body"></param>
         /// <param name="outTradeNo"></param>
-        /// <param name="totalFee"></param>
+        /// <param name="totalFee">单位：分</param>
         /// <param name="spbillCreateIp"></param>
         /// <param name="notifyUrl"></param>
         /// <param name="tradeType"></param>
@@ -115,7 +115,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr);                    //随机字符串
             PackageRequestHandler.SetParameter("body", this.Body);    //商品信息
             PackageRequestHandler.SetParameter("out_trade_no", this.OutTradeNo);      //商家订单号
-            PackageRequestHandler.SetParameter("total_fee", this.TotalFee.ToString());                    //商品金额,以分为单位(money * 100).ToString()
+            PackageRequestHandler.SetParameter("total_fee", this.TotalFee.ToString("0"));                    //商品金额,以分为单位(money * 100).ToString()
             PackageRequestHandler.SetParameter("spbill_create_ip", this.SpbillCreateIP);   //用户的公网ip，不是商户服务器IP
             PackageRequestHandler.SetParameter("notify_url", this.NotifyUrl);          //接收财付通通知的URL
             PackageRequestHandler.SetParameter("trade_type", this.TradeType.ToString());                        //交易类型

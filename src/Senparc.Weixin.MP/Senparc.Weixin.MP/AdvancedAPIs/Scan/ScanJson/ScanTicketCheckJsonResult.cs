@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：ScanTicketCheckJsonResult.cs
     文件功能描述： 检查wxticket参数的返回结果

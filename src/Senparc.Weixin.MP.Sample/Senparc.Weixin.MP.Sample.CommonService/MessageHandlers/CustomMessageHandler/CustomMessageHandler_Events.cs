@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：CustomMessageHandler_Events.cs
     文件功能描述：自定义MessageHandler
@@ -69,6 +69,8 @@ QQ群：342319110
 【错误】    体验发生错误无法返回正确信息
 
 【容错】    体验去重容错
+
+【ex】      体验错误日志推送提醒
 ",
                 version);
         }

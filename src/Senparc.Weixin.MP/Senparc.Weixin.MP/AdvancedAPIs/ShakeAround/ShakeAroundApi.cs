@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：ShakeAroundApi.cs
     文件功能描述：摇一摇周边接口
@@ -20,11 +20,14 @@
     修改标识：Senparc - 20160520
     修改描述：修改批量查询设备统计数据接口
 
-    修改标识：20160719
+    修改标识：Senparc 20160719
     修改描述：增加其接口的异步方法
  
-    修改标识：20160823
+    修改标识：Senparc 20160823
     修改描述：modify DeletePage,DeletePageAsync中的方法中的参数，即longn []pageIds改为long pageId 
+
+    修改标识：Senparc 20170110
+    修改描述：将lastSeen参数调整为long类型
 ----------------------------------------------------------------*/
 
 /*
@@ -122,7 +125,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="appId">批次ID，申请设备ID时所返回的批次ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetDeviceStatusResultJson DeviceApplyStatus(string accessTokenOrAppId, int appId, int timeOut = Config.TIME_OUT)
+        public static GetDeviceStatusResultJson DeviceApplyStatus(string accessTokenOrAppId, long appId, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -298,17 +301,17 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 根据分页查询或者指定范围查询设备列表
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="begin"></param>
-        /// <param name="count"></param>
+        /// <param name="lastSeen">前一次查询列表末尾的设备ID，第一次查询lastSeen为0</param>
+        /// <param name="count">待查询的设备数量，不能超过50个</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static DeviceSearchResultJson SearchDeviceByRange(string accessTokenOrAppId, int begin, int count, int timeOut = Config.TIME_OUT)
+        public static DeviceSearchResultJson SearchDeviceByRange(string accessTokenOrAppId, int lastSeen, int count, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var data = new
                 {
-                    begin = begin,
+                    last_seen = lastSeen,
                     count = count
                 };
 
@@ -321,19 +324,19 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 根据批次ID查询设备列表
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="applyId"></param>
-        /// <param name="begin"></param>
-        /// <param name="count"></param>
+        /// <param name="applyId">批次ID，申请设备ID时所返回的批次ID</param>
+        /// <param name="lastSeen">前一次查询列表末尾的设备ID，第一次查询lastSeen为0</param>
+        /// <param name="count">待查询的设备数量，不能超过50个</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static DeviceSearchResultJson SearchDeviceByApplyId(string accessTokenOrAppId, long applyId, int begin, int count, int timeOut = Config.TIME_OUT)
+        public static DeviceSearchResultJson SearchDeviceByApplyId(string accessTokenOrAppId, long applyId, long lastSeen, int count, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var data = new
                 {
                     apply_id = applyId,
-                    begin = begin,
+                    last_seen = lastSeen,
                     count = count
                 };
 
@@ -1118,7 +1121,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="appId">批次ID，申请设备ID时所返回的批次ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<GetDeviceStatusResultJson> DeviceApplyStatusAsync(string accessTokenOrAppId, int appId, int timeOut = Config.TIME_OUT)
+        public static async Task<GetDeviceStatusResultJson> DeviceApplyStatusAsync(string accessTokenOrAppId, long appId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
@@ -1457,18 +1460,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】根据分页或者指定范围查询页面列表
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="begin"></param>
+        /// <param name="lastSeen"></param>
         /// <param name="count"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<SearchPagesResultJson> SearchPagesByRangeAsync(string accessTokenOrAppId, int begin, int count,
+        public static async Task<SearchPagesResultJson> SearchPagesByRangeAsync(string accessTokenOrAppId, long lastSeen, int count,
             int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 var data = new
                 {
-                    begin = begin,
+                    last_seen = lastSeen,
                     count = count
                 };
 

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：CustomMessageHandler.cs
     文件功能描述：微信公众号自定义MessageHandler
@@ -19,6 +19,7 @@ using System.Web;
 using System.Web.Configuration;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.Context;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Request;
@@ -278,7 +279,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                 responseMessage.Content = string.Format(
                     "您的OpenID为：{0}\r\n昵称：{1}\r\n性别：{2}\r\n地区（国家/省/市）：{3}/{4}/{5}\r\n关注时间：{6}\r\n关注状态：{7}",
-                    requestMessage.FromUserName, userInfo.nickname,(Sex)userInfo.sex,userInfo.country,userInfo.province,userInfo.city, DateTimeHelper.GetDateTimeFromXml(userInfo.subscribe_time),userInfo.subscribe);
+                    requestMessage.FromUserName, userInfo.nickname, (Sex)userInfo.sex, userInfo.country, userInfo.province, userInfo.city, DateTimeHelper.GetDateTimeFromXml(userInfo.subscribe_time), userInfo.subscribe);
+            }
+            else if (requestMessage.Content.ToUpper() == "EX")
+            {
+                var ex = new WeixinException("openid:" + requestMessage.FromUserName + ":这是一条测试异常信息");//回调过程在global的ConfigWeixinTraceLog()方法中
+                responseMessage.Content = "请等待异步模板消息发送到此界面上（自动延时数秒）。\r\n当前时间：" + DateTime.Now.ToString();
             }
             else
             {

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：WiFiQrcodeResultJson.cs
     文件功能描述：获取物料二维码返回结果
@@ -17,7 +17,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.WiFi
     /// </summary>
     public class GetQrcodeResult : WxJsonResult
     {
-        public GetQrcode_Data date { get; set; }
+        public GetQrcode_Data data { get; set; }
     }
 
     public class GetQrcode_Data

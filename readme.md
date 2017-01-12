@@ -10,10 +10,12 @@
     * [如何处理微信公众账号请求？](#如何处理微信公众账号请求)
 * [使用Nuget安装到项目中](#使用nuget安装到项目中)
     * [如何处理微信公众号请求？](#如何处理微信公众号请求)
+    * [如何处理微信小程序请求？](#如何处理微信小程序请求)
     * [如何增强 ASP.NET MVC 项目的功能？](#如何增强-aspnet-mvc-项目的功能)
     * [如何处理微信企业号请求？](#如何处理微信企业号请求)
-    * [如何处理微开放平台请求？](#如何处理微开放平台请求)
+    * [如何处理微信开放平台请求？](#如何处理微信开放平台请求)
     * [如何使用分布式缓存？](#如何使用分布式缓存)
+* [如何开发小程序](#如何开发小程序)
 * [已实现功能](#已实现功能)
 * [捐助](#捐助)
 * [图书众筹](#图书众筹)
@@ -140,9 +142,10 @@
 |Senparc.Weixin.MP.Sample|可以直接发布使用的Demo（ASP.NET MVC 4.0）|
 |Senparc.Weixin.MP.Sample.WebForms|可以直接发布使用的Demo（ASP.NET WebForms）|
 |Senparc.Weixin.MP|Senparc.Weixin.MP.dll 微信公众账号SDK源代码|
+|Senparc.Weixin.Open|Senparc.Weixin.Open.dll 第三方开放平台SDK源代码|
 |Senparc.Weixin.QY|Senparc.Weixin.QY.dll 微信企业号SDK源代码|
 |Senparc.Weixin.Work|Senparc.Weixin.Work.dll 企业微信SDK源代码|
-|Senparc.Weixin.Open|Senparc.Weixin.Open.dll 第三方开放平台SDK源代码|
+|Senparc.Weixin.WxOpen|Senparc.Weixin.WxOpen.dll 微信小程序SDK源代码|
 |Senparc.Wiexin|所有Senparc.Weixin.[x].dll 基础类库源代码|
 
 Senparc.Weixin.MP.Sample中的关键代码说明
@@ -280,6 +283,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 
 从v0.4.0开始，MessageHandler增加了对用户会话上下文的支持，用于解决服务器上无法使用Session管理用户会话的缺陷。详见：[用户上下文WeixinContext和MessageContext](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E7%94%A8%E6%88%B7%E4%B8%8A%E4%B8%8B%E6%96%87WeixinContext%E5%92%8CMessageContext)
 
+
 使用Nuget安装到项目中
 --------------
 ###如何处理微信公众号请求？
@@ -288,6 +292,18 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 * 命令：
 ```
 PM> Install-Package Senparc.Weixin.MP
+```
+
+
+###如何处理微信小程序请求？
+
+Senparc.Weixin.WxOpen对微信小程序的消息、API进行了封装，保持了公众号处理请求一致的开发过程。
+
+* Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.WxOpen
+
+* 命令：
+```
+PM> Install-Package Senparc.Weixin.WxOpen
 ```
 
 ###如何增强 ASP.NET MVC 项目的功能？
@@ -309,7 +325,7 @@ Senparc.Weixin.QY.dll对企业号相关功能进行了封装，操作过程和�
 PM> Install-Package Senparc.Weixin.QY
 ```
 
-###如何处理微开放平台请求？
+###如何处理微信开放平台请求？
 Senparc.Weixin.Open.dll对目前所有的开放平台API进行了封装，消息处理过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致，其他一些特殊的消息流程请先阅读官方的文档，然后对照Senparc.Weixin.MP.Sample中有关Open的Demo进行开发。
 
 * Nuget 地址为https://www.nuget.org/packages/Senparc.Weixin.Open
@@ -334,6 +350,14 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Redis
 ```
 PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
 ```
+
+
+如何开发小程序
+--------------
+小程序的后端架构和公众号保持了高度一致，
+只需要使用Nuget安装[Senparc.Weixin.WxOpen](https://www.nuget.org/packages/Senparc.Weixin.WxOpen)库即可开始使用小程序。
+Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理、AccessToken管理、模板消息、二维码生成等全套功能。
+
 
 已实现功能
 -------------

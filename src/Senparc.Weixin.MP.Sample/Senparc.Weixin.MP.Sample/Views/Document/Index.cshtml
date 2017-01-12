@@ -85,21 +85,20 @@
         </h2>
         <div class="qrcode">
             <div class="versionSelector-title">帮助文档已累计下载 @ViewData["DownloadCount"] 次</div>
-
             <p>&nbsp;</p>
-            <p>【<a href="http://doc.weixin.senparc.com" target="_blank">点击这里 查看在线帮助文档</a>】
-                
-            【<a href="https://github.com/JeffreySu/WeixinResource/tree/master/SDK%E6%96%87%E6%A1%A3/C%23" target="_blank">点击这里 查看在线文档源代码</a>】</p>
+            <p>
+                【<a href="http://doc.weixin.senparc.com" target="_blank" class="document_help">点击这里 查看在线帮助文档</a>】
 
+                【<a href="https://github.com/JeffreySu/WeixinResource/tree/master/SDK%E6%96%87%E6%A1%A3/C%23" target="_blank" class="document_help">点击这里 查看在线文档源代码</a>】
+            </p>
             <div id="versionSelector">
                 <p>
                     <img src="@ViewData["QrCodeUrl"]" />
                 </p>
-
                 <div class="versionSelector-title">请选择下载版本：</div>
                 <h3>.chm帮助文档：</h3>
                 @foreach (var version in ViewData["Versions"] as List<string>)
-            {
+                {
                     <p>
                         <label for="@version.Replace(".", "_")"><input id="@version.Replace(".", "_")" value="@version" type="radio" name="version" />v@(version)</label>
                     </p>
@@ -107,7 +106,7 @@
                 <p>&nbsp;</p>
                 <h3>网页版帮助文档：</h3>
                 @foreach (var version in ViewData["WebVersions"] as List<string>)
-            {
+                {
                     <p>
                         <label for="W@(version.Replace(".", "_"))"><input id="W@(version.Replace(".", "_"))" value="W@(version)" type="radio" name="version" />v@(version)</label>
                     </p>
@@ -118,7 +117,6 @@
                     审核通过，下载已开始，如果10秒内没有开始下载，请 @Html.ActionLink("点击这里", "Download", new { guid = ViewData["Guid"] }, new { target = "_blank", id = "linkDownload" }) 下载。
                 </p>
                 <p>如果您需要重新下载，请刷新此页面。</p>
-
             </div>
         </div>
     </div>

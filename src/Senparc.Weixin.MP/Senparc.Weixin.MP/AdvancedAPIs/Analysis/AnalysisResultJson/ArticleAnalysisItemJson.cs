@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：ArticleAnalysisItemJson.cs
     文件功能描述：获取图文群发每日数据返回结果 单条数据类

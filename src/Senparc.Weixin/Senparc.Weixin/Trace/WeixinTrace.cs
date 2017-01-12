@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：WeixinTrace.cs
     文件功能描述：跟踪日志相关
@@ -11,15 +11,19 @@
     修改描述：v4.9.7 1、使用同步锁
                      2、修改日志储存路径，新路径为/App_Data/WeixinTraceLog/SenparcWeixinTrace-yyyyMMdd.log
                      3、添加WeixinExceptionLog方法
+
+    修改标识：Senparc - 20161231
+    修改描述：v4.9.8 将SendLog方法改名为SendApiLog，添加SendCustomLog方法
+
+    修改标识：Senparc - 20170101
+    修改描述：v4.9.9 1、优化日志记录方法（围绕OnWeixinExceptionFunc为主）
+                     2、输出AccessTokenOrAppId
+
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Exceptions;
 
@@ -30,11 +34,19 @@ namespace Senparc.Weixin
     /// </summary>
     public static class WeixinTrace
     {
+        /// <summary>
+        /// TraceListener
+        /// </summary>
         private static TraceListener _traceListener = null;
-        //private static readonly object TraceLock = new object();
 
+        /// <summary>
+        /// 统一日志锁名称
+        /// </summary>
         const string LockName = "WeixinTraceLock";
 
+        /// <summary>
+        /// Senparc.Weixin全局统一的缓存策略
+        /// </summary>
         private static IObjectCacheStrategy Cache
         {
             get
@@ -45,15 +57,18 @@ namespace Senparc.Weixin
         }
 
         /// <summary>
-        /// 记录ErrorJsonResultException日志时需要执行的任务
+        /// 记录WeixinException日志时需要执行的任务
         /// </summary>
-        public static Action<ErrorJsonResultException> OnErrorJsonResultExceptionFunc;
+        public static Action<WeixinException> OnWeixinExceptionFunc;
 
         /// <summary>
         /// 执行所有日志记录操作时执行的任务（发生在Senparc.Weixin记录日志之后）
         /// </summary>
         public static Action OnLogFunc;
 
+        /// <summary>
+        /// 打开日志开始记录
+        /// </summary>
         internal static void Open()
         {
             Close();
@@ -76,6 +91,9 @@ namespace Senparc.Weixin
             }
         }
 
+        /// <summary>
+        /// 关闭日志记录
+        /// </summary>
         internal static void Close()
         {
             using (Cache.BeginCacheLock(LockName, ""))
@@ -88,6 +106,8 @@ namespace Senparc.Weixin
             }
         }
 
+        #region 私有方法
+
         /// <summary>
         /// 统一时间格式
         /// </summary>
@@ -96,6 +116,9 @@ namespace Senparc.Weixin
             Log("[{0}]", DateTime.Now);
         }
 
+        /// <summary>
+        /// 退回一次缩进
+        /// </summary>
         private static void Unindent()
         {
             using (Cache.BeginCacheLock(LockName, ""))
@@ -104,6 +127,9 @@ namespace Senparc.Weixin
             }
         }
 
+        /// <summary>
+        /// 缩进一次
+        /// </summary>
         private static void Indent()
         {
             using (Cache.BeginCacheLock(LockName, ""))
@@ -112,6 +138,9 @@ namespace Senparc.Weixin
             }
         }
 
+        /// <summary>
+        /// 写入缓存到系统Trace
+        /// </summary>
         private static void Flush()
         {
             using (Cache.BeginCacheLock(LockName, ""))
@@ -120,6 +149,10 @@ namespace Senparc.Weixin
             }
         }
 
+        /// <summary>
+        /// 开始记录日志
+        /// </summary>
+        /// <param name="title"></param>
         private static void LogBegin(string title = null)
         {
             Open();
@@ -135,18 +168,6 @@ namespace Senparc.Weixin
         /// <summary>
         /// 记录日志
         /// </summary>
-        /// <param name="message">日志内容</param>
-        public static void Log(string message)
-        {
-            using (Cache.BeginCacheLock(LockName, ""))
-            {
-                System.Diagnostics.Trace.WriteLine(message);
-            }
-        }
-
-        /// <summary>
-        /// 记录日志
-        /// </summary>
         /// <param name="messageFormat">日志内容格式</param>
         /// <param name="args">日志内容参数</param>
         public static void Log(string messageFormat, params object[] args)
@@ -157,6 +178,9 @@ namespace Senparc.Weixin
             }
         }
 
+        /// <summary>
+        /// 结束日志记录
+        /// </summary>
         private static void LogEnd()
         {
             Unindent();
@@ -165,8 +189,48 @@ namespace Senparc.Weixin
 
             if (OnLogFunc != null)
             {
-                OnLogFunc();
+                try
+                {
+                    OnLogFunc();
+                }
+                catch
+                {
+                }
             }
+        }
+
+        #endregion
+
+        #region 日志记录
+
+        /// <summary>
+        /// 记录日志（建议使用SendXXLog()方法，以符合统一的记录规则）
+        /// </summary>
+        /// <param name="message">日志内容</param>
+        public static void Log(string message)
+        {
+            using (Cache.BeginCacheLock(LockName, ""))
+            {
+                System.Diagnostics.Trace.WriteLine(message);
+            }
+        }
+
+
+        /// <summary>
+        /// 自定义日志
+        /// </summary>
+        /// <param name="typeName">日志类型</param>
+        /// <param name="content">日志内容</param>
+        public static void SendCustomLog(string typeName, string content)
+        {
+            if (!Config.IsDebug)
+            {
+                return;
+            }
+
+            LogBegin(string.Format("[[{0}]]", typeName));
+            Log(content);
+            LogEnd();
         }
 
         /// <summary>
@@ -174,19 +238,21 @@ namespace Senparc.Weixin
         /// </summary>
         /// <param name="url"></param>
         /// <param name="returnText"></param>
-        public static void SendLog(string url, string returnText)
+        public static void SendApiLog(string url, string returnText)
         {
             if (!Config.IsDebug)
             {
                 return;
             }
 
-            LogBegin("接口调用");
+            LogBegin("[[接口调用]]");
+            //TODO:从源头加入AppId
             Log("URL：{0}", url);
             Log("Result：\r\n{0}", returnText);
             LogEnd();
         }
 
+        #endregion
 
         #region WeixinException 相关日志
 
@@ -201,14 +267,28 @@ namespace Senparc.Weixin
                 return;
             }
 
+            LogBegin("[[WeixinException]]");
             LogBegin(ex.GetType().Name);
-            Log("Message", ex.Message);
-            Log("StackTrace", ex.StackTrace);
+            Log("AccessTokenOrAppId：{0}", ex.AccessTokenOrAppId);
+            Log("Message：{0}", ex.Message);
+            Log("StackTrace：{0}", ex.StackTrace);
             if (ex.InnerException != null)
             {
-                Log("InnerException", ex.InnerException.Message);
-                Log("InnerException", ex.InnerException.StackTrace);
+                Log("InnerException：{0}", ex.InnerException.Message);
+                Log("InnerException.StackTrace：{0}", ex.InnerException.StackTrace);
             }
+
+            if (OnWeixinExceptionFunc != null)
+            {
+                try
+                {
+                    OnWeixinExceptionFunc(ex);
+                }
+                catch
+                {
+                }
+            }
+
             LogEnd();
 
         }
@@ -224,16 +304,25 @@ namespace Senparc.Weixin
                 return;
             }
 
+            LogBegin("[[ErrorJsonResultException]]");
             LogBegin("ErrorJsonResultException");
+            Log("AccessTokenOrAppId：{0}", ex.AccessTokenOrAppId ?? "null");
             Log("URL：{0}", ex.Url);
             Log("errcode：{0}", ex.JsonResult.errcode);
             Log("errmsg：{0}", ex.JsonResult.errmsg);
-            LogEnd();
 
-            if (OnErrorJsonResultExceptionFunc != null)
+            if (OnWeixinExceptionFunc != null)
             {
-                OnErrorJsonResultExceptionFunc(ex);
+                try
+                {
+                    OnWeixinExceptionFunc(ex);
+                }
+                catch
+                {
+                }
             }
+
+            LogEnd();
         }
 
         #endregion

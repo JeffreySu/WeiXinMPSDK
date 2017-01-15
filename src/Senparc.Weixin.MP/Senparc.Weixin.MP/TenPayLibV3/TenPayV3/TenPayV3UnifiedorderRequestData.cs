@@ -142,6 +142,15 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="openid"></param>
         /// <param name="key"></param>
         /// <param name="nonceStr"></param>
+        /// <param name="deviceInfo">自定义参数，可以为终端设备号(门店号或收银设备ID)，PC网页或公众号内支付可以传"WEB"，String(32)如：013467007045764</param>
+        /// <param name="timeStart">订单生成时间，如果为空，则默认为当前服务器时间</param>
+        /// <param name="timeExpire">订单失效时间，留空则不设置失效时间</param>
+        /// <param name="detail">商品详细列表</param>
+        /// <param name="attach">附加数据</param>
+        /// <param name="feeType">符合ISO 4217标准的三位字母代码，默认人民币：CNY</param>
+        /// <param name="goodsTag">商品标记，使用代金券或立减优惠功能时需要的参数，说明详见代金券或立减优惠。String(32)，如：WXG</param>
+        /// <param name="productId">trade_type=NATIVE时（即扫码支付），此参数必传。此参数为二维码中包含的商品ID，商户自行定义。String(32)，如：12235413214070356458058</param>
+        /// <param name="limitPay">是否限制用户不能使用信用卡支付</param>
         public TenPayV3UnifiedorderRequestData(string appId, string mchId, string body, string outTradeNo, decimal totalFee, string spbillCreateIp,
             string notifyUrl, TenPayV3Type tradeType, string openid, string key, string nonceStr,
             string deviceInfo = null, DateTime? timeStart = null, DateTime? timeExpire = null,

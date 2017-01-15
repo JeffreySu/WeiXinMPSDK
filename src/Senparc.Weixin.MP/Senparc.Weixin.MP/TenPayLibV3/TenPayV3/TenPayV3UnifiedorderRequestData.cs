@@ -197,7 +197,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameterWhenNotNull("attach", this.Attach);          //附加数据
             PackageRequestHandler.SetParameter("out_trade_no", this.OutTradeNo);           //商家订单号
             PackageRequestHandler.SetParameterWhenNotNull("fee_type", this.FeeType);       //符合ISO 4217标准的三位字母代码，默认人民币：CNY
-            PackageRequestHandler.SetParameter("total_fee", this.TotalFee.ToString("0"));  //商品金额,以分为单位(money * 100).ToString()
+            PackageRequestHandler.SetParameter("total_fee", this.TotalFee.ToString());  //商品金额,以分为单位(money * 100).ToString()
             PackageRequestHandler.SetParameter("spbill_create_ip", this.SpbillCreateIP);   //用户的公网ip，不是商户服务器IP
             PackageRequestHandler.SetParameterWhenNotNull("time_start", this.TimeStart);   //订单生成时间
             PackageRequestHandler.SetParameterWhenNotNull("time_expire", this.TimeStart);  //订单失效时间
@@ -206,7 +206,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("trade_type", this.TradeType.ToString());   //交易类型
             PackageRequestHandler.SetParameterWhenNotNull("product_id", this.ProductId);   //trade_type=NATIVE时（即扫码支付），此参数必传。
             PackageRequestHandler.SetParameterWhenNotNull("limit_pay", this.LimitPay);     //上传此参数no_credit--可限制用户不能使用信用卡支付
-            PackageRequestHandler.SetParameterWhenNotNull("openid", this.OpenId);          //用户的openId，trade_type=JSAPI时（即公众号支付），此参数必传
+            PackageRequestHandler.SetParameter("openid", this.OpenId);          //用户的openId，trade_type=JSAPI时（即公众号支付），此参数必传
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
             PackageRequestHandler.SetParameter("sign", Sign);                              //签名
             #endregion

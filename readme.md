@@ -1,8 +1,8 @@
 # 目录
 * [微信C# SDK](#微信c-sdk--)
+* [资源](#资源)
 * [贡献代码](#贡献代码)
 * [如何使用.net core开发](#如何使用net-core开发)
-* [资源](#资源)
 * [关注测试账号（SenparcRobot）](#关注测试账号senparcrobot)
 * [项目文件夹说明（src文件夹下）](#项目文件夹说明src文件夹下)
 * [Senparc.Weixin.MP.Sample中的关键代码说明](#senparcweixinmpsample中的关键代码说明)
@@ -68,30 +68,6 @@
 
 目前官方的API都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的[DLLs](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut)。
 
-## 如何使用.NET Core开发
-
-> .NET Framework 版本及 .NET Core 版本代码分别位于 
-[master](https://github.com/JeffreySu/WeiXinMPSDK) 
-和 [DotNET-Core](https://github.com/JeffreySu/WeiXinMPSDK/tree/DotNET-Core) 分支下，
-结构保持了高度一致。
-
-> Senparc.Weixin SDK已经针对.NET Core进行了优化，.NET Core 的开发过程和.NET Framework几乎是一样的，
-所有的接口、方法、命名规则和架构设计也都保持了高度的一致。
-
-> 由于.NET Core对某些特性支持正在完善中，目前.NET Core版本暂未提供分布式缓存有关的功能以及Senpar.Weixin.Open.dll。
-除此以外的所有库都已在Nuget包中支持，可以直接使用（同一个Nuget包同时支持.NET 4.0/4.5/Core，安装后程序会自动根据项目环境适配）。
-
-> 以下所有介绍以 .NET Framework 版本为例。
-
-## 贡献代码
-
-> 如果需要使用或修改此项目的源代码，建议先Fork。也欢迎将您修改的通用版本Pull Request过来。
-
-1. Fork
-2. 创建您的特性分支 (`git checkout -b my-new-feature`)
-3. 提交您的改动 (`git commit -am 'Added some feature'`)
-4. 将您的修改记录提交到远程 `git` 仓库 (`git push origin my-new-feature`)
-5. 然后到 github 网站的该 `git` 远程仓库的 `my-new-feature` 分支下发起 Pull Request
 
 资源
 ----------------
@@ -129,6 +105,34 @@
 ###关注测试账号（SenparcRobot）：
 [![qrcode]](http://weixin.senparc.com/)
 [qrcode]: http://sdk.weixin.senparc.com/Images/qrcode.jpg
+
+
+
+## 如何使用.NET Core开发
+
+> .NET Framework 版本及 .NET Core 版本代码分别位于 
+[master](https://github.com/JeffreySu/WeiXinMPSDK) 
+和 [DotNET-Core](https://github.com/JeffreySu/WeiXinMPSDK/tree/DotNET-Core) 分支下，
+结构保持了高度一致。
+
+> Senparc.Weixin SDK已经针对.NET Core进行了优化，.NET Core 的开发过程和.NET Framework几乎是一样的，
+所有的接口、方法、命名规则和架构设计也都保持了高度的一致。
+
+> 由于.NET Core对某些特性支持正在完善中，目前.NET Core版本暂未提供分布式缓存有关的功能以及Senpar.Weixin.Open.dll。
+除此以外的所有库都已在Nuget包中支持，可以直接使用（同一个Nuget包同时支持.NET 4.0/4.5/Core，安装后程序会自动根据项目环境适配）。
+
+> 以下所有介绍以 .NET Framework 版本为例。
+
+## 贡献代码
+
+> 如果需要使用或修改此项目的源代码，建议先Fork。也欢迎将您修改的通用版本Pull Request过来。
+
+1. Fork
+2. 创建您的特性分支 (`git checkout -b my-new-feature`)
+3. 提交您的改动 (`git commit -am 'Added some feature'`)
+4. 将您的修改记录提交到远程 `git` 仓库 (`git push origin my-new-feature`)
+5. 然后到 github 网站的该 `git` 远程仓库的 `my-new-feature` 分支下发起 Pull Request
+
 
 
 项目文件夹说明（src文件夹下）

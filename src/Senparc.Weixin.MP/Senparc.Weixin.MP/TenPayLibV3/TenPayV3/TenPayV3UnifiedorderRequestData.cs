@@ -169,7 +169,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             TotalFee = totalFee;
             SpbillCreateIP = spbillCreateIp;
             TimeStart = (timeStart ?? DateTime.Now).ToString("yyyyMMddHHmmss");
-            TimeExpire = timeExpire.HasValue ? timeExpire.Value.ToString("yyyyMMddHHmmss") : "";
+            TimeExpire = timeExpire.HasValue ? timeExpire.Value.ToString("yyyyMMddHHmmss") : null;
             GoodsTag = goodsTag;
             NotifyUrl = notifyUrl;
             TradeType = tradeType;
@@ -200,7 +200,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("total_fee", this.TotalFee.ToString());  //商品金额,以分为单位(money * 100).ToString()
             PackageRequestHandler.SetParameter("spbill_create_ip", this.SpbillCreateIP);   //用户的公网ip，不是商户服务器IP
             PackageRequestHandler.SetParameterWhenNotNull("time_start", this.TimeStart);   //订单生成时间
-            PackageRequestHandler.SetParameterWhenNotNull("time_expire", this.TimeStart);  //订单失效时间
+            PackageRequestHandler.SetParameterWhenNotNull("time_expire", this.TimeExpire);  //订单失效时间
             PackageRequestHandler.SetParameterWhenNotNull("goods_tag", this.GoodsTag);     //商品标记
             PackageRequestHandler.SetParameter("notify_url", this.NotifyUrl);              //接收财付通通知的URL
             PackageRequestHandler.SetParameter("trade_type", this.TradeType.ToString());   //交易类型

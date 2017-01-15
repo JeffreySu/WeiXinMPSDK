@@ -134,7 +134,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="parameter"></param>
         /// <param name="parameterValue"></param>
         public void SetParameterWhenNotNull(string parameter, string parameterValue)
-        {return;
+        {
             if (!string.IsNullOrEmpty(parameterValue))
             {
                 SetParameter(parameter, parameterValue);

@@ -134,7 +134,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("trade_type", this.TradeType.ToString());                        //交易类型
             PackageRequestHandler.SetParameter("openid", this.OpenId);                      //用户的openId
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
-            PackageRequestHandler.SetParameter("sign", Sign);                       //签名                         //签名
+            PackageRequestHandler.SetParameter("sign", Sign);                       //签名                         
             #endregion
         }
     }

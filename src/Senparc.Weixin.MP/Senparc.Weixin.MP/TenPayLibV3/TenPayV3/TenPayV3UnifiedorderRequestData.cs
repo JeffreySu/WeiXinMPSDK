@@ -13,8 +13,10 @@
 
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -88,7 +90,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="openid"></param>
         /// <param name="key"></param>
         /// <param name="nonceStr"></param>
-        public TenPayV3UnifiedorderRequestData(string appId, string mchId, string body, string outTradeNo, decimal totalFee, string spbillCreateIp, string notifyUrl, TenPayV3Type tradeType, string openid, string key, string nonceStr)
+        public TenPayV3UnifiedorderRequestData(string appId, string mchId, string body, string outTradeNo, decimal totalFee, string spbillCreateIp, string notifyUrl, TenPayV3Type tradeType, string openid, string key, string nonceStr, TenPayV3UnifiedorderRequestOptionalData optionalParams = null)
         {
             AppId = appId;
             MchId = mchId;
@@ -109,6 +111,18 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             //初始化
             PackageRequestHandler.Init();
 
+            //添加可选参数
+            if (optionalParams != null)
+            {
+                PropertyInfo[] ps = typeof(TenPayV3UnifiedorderRequestOptionalData).GetProperties();
+                foreach (PropertyInfo param in ps)
+                {
+                    var v = (string)param.GetValue(optionalParams, null);
+                    if (!string.IsNullOrEmpty(v))
+                        PackageRequestHandler.SetParameter(param.Name, v);
+                }
+            }
+
             //设置package订单参数
             PackageRequestHandler.SetParameter("appid", this.AppId);          //公众账号ID
             PackageRequestHandler.SetParameter("mch_id", this.MchId);         //商户号
@@ -124,5 +138,28 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("sign", Sign);                       //签名
             #endregion
         }
+    }
+
+    public class TenPayV3UnifiedorderRequestOptionalData
+    {
+        public string device_info { get; set; }
+        /// <summary>
+        /// 默认值"MD5"
+        /// </summary>
+        public string sign_type { get; set; } = "MD5";
+        public string detail { get; set; }
+        public string attach { get; set; }
+        /// <summary>
+        /// 默认值"CNY"
+        /// </summary>
+        public string fee_type { get; set; } = "CNY";
+        public string time_start { get; set; }
+        public string time_expire { get; set; }
+        public string goods_tag { get; set; }
+        /// <summary>
+        /// APP支付中不存在
+        /// </summary>
+        public string product_id { get; set; }
+        public string limit_pay { get; set; }
     }
 }

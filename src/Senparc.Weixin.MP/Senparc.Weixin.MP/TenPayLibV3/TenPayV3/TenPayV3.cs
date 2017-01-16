@@ -92,7 +92,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/unifiedorder";
             var data = dataInfo.PackageRequestHandler.ParseXML();//获取XML
-
+            //throw new Exception(data.HtmlEncode());
             MemoryStream ms = new MemoryStream();
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             ms.Write(formDataBytes, 0, formDataBytes.Length);

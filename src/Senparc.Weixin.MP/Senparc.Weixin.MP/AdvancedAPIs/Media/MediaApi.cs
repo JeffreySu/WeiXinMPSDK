@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：MediaAPI.cs
     文件功能描述：素材管理接口（原多媒体文件接口）
@@ -107,6 +107,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         {
             var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
             HttpUtility.Get.Download(url, stream);
+        }
+        public static string Get(string accessToken, string mediaId, string dir)
+        {
+            var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+            return HttpUtility.Get.Download(url, dir);
         }
         #endregion
 
@@ -468,13 +473,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
            {
                var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken.AsUrlData());
 
-                //因为有文件上传，所以忽略dataDictionary，全部改用文件上传格式
-                //var dataDictionary = new Dictionary<string, string>();
-                //dataDictionary["type"] = UploadMediaFileType.image.ToString();
+               //因为有文件上传，所以忽略dataDictionary，全部改用文件上传格式
+               //var dataDictionary = new Dictionary<string, string>();
+               //dataDictionary["type"] = UploadMediaFileType.image.ToString();
 
-                var fileDictionary = new Dictionary<string, string>();
-                //fileDictionary["type"] = UploadMediaFileType.image.ToString();//不提供此参数也可以上传成功
-                fileDictionary["media"] = file;
+               var fileDictionary = new Dictionary<string, string>();
+               //fileDictionary["type"] = UploadMediaFileType.image.ToString();//不提供此参数也可以上传成功
+               fileDictionary["media"] = file;
                return Post.PostFileGetJsonAsync<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
 
            }, accessTokenOrAppId);

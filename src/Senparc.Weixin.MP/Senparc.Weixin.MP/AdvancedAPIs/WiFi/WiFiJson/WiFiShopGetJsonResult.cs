@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：WiFiShopGetJsonResult.cs
     文件功能描述：查询门店Wi-Fi信息的返回结果

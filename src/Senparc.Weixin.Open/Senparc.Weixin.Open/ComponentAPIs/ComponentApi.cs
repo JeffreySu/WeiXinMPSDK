@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：OAuthJoinAPI.cs
     文件功能描述：公众号授权给第三方平台
@@ -11,6 +11,10 @@
  
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
+ 
+    修改标识：Senparc - 20161027
+    修改描述：v2.3.2 修复：GetAuthorizerOption方法中option_name需要传入字符串。 感谢 @bingohanet
+
 ----------------------------------------------------------------*/
 
 /*
@@ -222,7 +226,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
             {
                 component_appid = componentAppId,
                 authorizer_appid = authorizerAppId,
-                option_name = optionName
+                option_name = optionName.ToString()
             };
 
             return CommonJsonSend.Send<AuthorizerOptionResult>(null, url, data, CommonJsonSendType.POST, timeOut);

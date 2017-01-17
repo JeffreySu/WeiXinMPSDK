@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -12,6 +12,15 @@
 
     修改标识：Senparc - 20150303
     修改描述：添加企业号返回码
+
+    修改标识：Senparc - 20161112
+    修改描述：v4.9.3 添加小程序返回码添加小程序返回码
+
+    修改标识：Senparc - 20161215
+    修改描述：v4.9.5 添加Sex枚举
+
+    修改标识：Senparc - 20161215
+    修改描述：v4.9.9 添加【ReturnCode.template_id】不正确枚举
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin
@@ -67,6 +76,8 @@ namespace Senparc.Weixin
         不合法的openid列表长度 = 40032,
         不合法的请求字符不能包含uxxxx格式的字符 = 40033,
         不合法的参数 = 40035,
+        //小程序、 公众号都有
+        template_id不正确 = 40037,
         不合法的请求格式 = 40038,
         不合法的URL长度 = 40039,
         不合法的分组id = 40050,
@@ -176,6 +187,10 @@ namespace Senparc.Weixin
         不合法的UserID列表长度 = 40032,
         不合法的请求字符_不能包含uxxxx格式的字符 = 40033,
         不合法的参数 = 40035,
+
+        //小程序、 公众号都有
+        template_id不正确 = 40037,
+
         不合法的请求格式 = 40038,
         不合法的URL长度 = 40039,
         不合法的插件token = 40040,
@@ -235,6 +250,13 @@ namespace Senparc.Weixin
         缺少suiteticket = 41023,
         缺少suitesecret = 41024,
         缺少永久授权码 = 41025,
+
+        //小程序
+        form_id不正确_或者过期 = 41028,
+        form_id已被使用 = 41029,
+        page不正确 = 41030,
+
+
         access_token超时 = 42001,
         refresh_token超时 = 42002,
         oauth_code超时 = 42003,
@@ -376,5 +398,15 @@ namespace Senparc.Weixin
         /// 退出App状态（临时传输状态，退出后即为None）
         /// </summary>
         Exit = 4
+    }
+
+    /// <summary>
+    /// 用户信息中的性别（sex）
+    /// </summary>
+    public enum Sex
+    {
+        未知=0,
+        男=1,
+        女=2
     }
 }

@@ -21,7 +21,7 @@ namespace Senparc.Weixin.Cache.Tests
             //    //不注册，使用默认
             //    var c1 = TestContainer1.GetCollectionList();
             //    Console.WriteLine(c1.Count);//0
-            //    var c1Strategy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
+            //    var c1Strategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
             //    Assert.IsNotNull(c1Strategy);
 
             //    var key = typeof(TestContainer1).ToString();
@@ -46,14 +46,14 @@ namespace Senparc.Weixin.Cache.Tests
             //    //进行注册
             //    CacheStrategyFactory.RegisterContainerCacheStrategy(() =>
             //    {
-            //        return LocalContainerCacheStrategy.Instance as IContainerCacheStragegy;
+            //        return LocalContainerCacheStrategy.Instance as IContainerCacheStrategy;
             //    });
 
             //    var key = typeof(TestContainer2).ToString();
 
             //    var c2 = TestContainer2.GetCollectionList();
             //    Console.WriteLine(c2.Count);//1（位注册的时候已经注册过一个TestContainer1）
-            //    var c2Strategy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
+            //    var c2Strategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
             //    Assert.IsNotNull(c2Strategy);
 
 

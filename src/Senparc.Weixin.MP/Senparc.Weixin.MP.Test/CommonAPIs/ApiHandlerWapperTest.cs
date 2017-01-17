@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.MP.Test.CommonAPIs
 {
@@ -30,10 +31,17 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                 var accessToken = MP.Containers.AccessTokenContainer.GetAccessToken(appId);
                 Console.WriteLine("当前AccessToken：" + accessToken);
 
-                var result = ApiHandlerWapper.TryCommonApi(Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenu, "12345678901234567890这是错误的AccessToken");
-                Console.WriteLine("当前AccessToken：" + accessToken);
-
-                Assert.IsNull(result);//如果传的是AccessToken，并且AccessToken，不会重新自动获取（因为AppId未知）。
+                try
+                {
+                    var result = ApiHandlerWapper.TryCommonApi(Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenu, "12345678901234567890这是错误的AccessToken");
+                    Assert.Fail();//不应该执行到这里
+                    Console.WriteLine("当前AccessToken：" + accessToken);
+                }
+                catch (WeixinMenuException ex)
+                {
+                    //应该执行到这里
+                    Console.WriteLine(ex.Message);//如果传的是AccessToken，并且AccessToken，不会重新自动获取（因为AppId未知）。
+                }
             }
         }
     }

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：OAuth2Controller.cs
     文件功能描述：提供OAuth2.0授权测试（关注微信公众号：盛派网络小助手，点击菜单【功能体验】 【OAuth2.0授权测试】即可体验）
@@ -15,6 +15,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
 using Senparc.Weixin.MP.CommonAPIs;
@@ -24,14 +25,30 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     public class OAuth2Controller : Controller
     {
         //下面换成账号对应的信息，也可以放入web.config等地方方便配置和更换
-        private string appId = ConfigurationManager.AppSettings["TenPayV3_AppId"];
-        private string secret = ConfigurationManager.AppSettings["TenPayV3_AppSecret"];
+        private string appId = ConfigurationManager.AppSettings["WeixinAppId"];
+        private string secret = ConfigurationManager.AppSettings["WeixinAppSecret"];
 
-        public ActionResult Index()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="returnUrl">用户尝试进入的需要登录的页面</param>
+        /// <returns></returns>
+        public ActionResult Index(string returnUrl)
         {
+            var state = "JeffreySu-" + DateTime.Now.Millisecond;//随机数，用于识别请求可靠性
+            Session["State"] = state;//储存随机数到Session
+
+            ViewData["returnUrl"] = returnUrl;
+
             //此页面引导用户点击授权
-            ViewData["UrlUserInfo"] = OAuthApi.GetAuthorizeUrl(appId, "http://sdk.weixin.senparc.com/oauth2/UserInfoCallback", "JeffreySu", OAuthScope.snsapi_userinfo);
-            ViewData["UrlBase"] = OAuthApi.GetAuthorizeUrl(appId, "http://sdk.weixin.senparc.com/oauth2/BaseCallback", "JeffreySu", OAuthScope.snsapi_base);
+            ViewData["UrlUserInfo"] =
+                OAuthApi.GetAuthorizeUrl(appId,
+                "http://sdk.weixin.senparc.com/oauth2/UserInfoCallback?returnUrl=" + returnUrl.UrlEncode(),
+                state, OAuthScope.snsapi_userinfo);
+            ViewData["UrlBase"] =
+                OAuthApi.GetAuthorizeUrl(appId,
+                "http://sdk.weixin.senparc.com/oauth2/BaseCallback?returnUrl=" + returnUrl.UrlEncode(),
+                state, OAuthScope.snsapi_base);
             return View();
         }
 
@@ -40,17 +57,19 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// </summary>
         /// <param name="code"></param>
         /// <param name="state"></param>
+        /// <param name="returnUrl">用户最初尝试进入的页面</param>
         /// <returns></returns>
-        public ActionResult UserInfoCallback(string code, string state)
+        public ActionResult UserInfoCallback(string code, string state, string returnUrl)
         {
             if (string.IsNullOrEmpty(code))
             {
                 return Content("您拒绝了授权！");
             }
 
-            if (state != "JeffreySu")
+            if (state != Session["State"] as string)
             {
-                //这里的state其实是会暴露给客户端的，验证能力很弱，这里只是演示一下
+                //这里的state其实是会暴露给客户端的，验证能力很弱，这里只是演示一下，
+                //建议用完之后就清空，将其一次性使用
                 //实际上可以存任何想传递的数据，比如用户ID，并且需要结合例如下面的Session["OAuthAccessToken"]进行验证
                 return Content("验证失败！请从正规途径进入！");
             }
@@ -78,6 +97,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //因为第一步选择的是OAuthScope.snsapi_userinfo，这里可以进一步获取用户详细信息
             try
             {
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+
                 OAuthUserInfo userInfo = OAuthApi.GetUserInfo(result.access_token, result.openid);
                 return View(userInfo);
             }
@@ -92,17 +116,19 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// </summary>
         /// <param name="code"></param>
         /// <param name="state"></param>
+        /// <param name="returnUrl">用户最初尝试进入的页面</param>
         /// <returns></returns>
-        public ActionResult BaseCallback(string code, string state)
+        public ActionResult BaseCallback(string code, string state, string returnUrl)
         {
             if (string.IsNullOrEmpty(code))
             {
                 return Content("您拒绝了授权！");
             }
 
-            if (state != "JeffreySu")
+            if (state != Session["State"] as string)
             {
-                //这里的state其实是会暴露给客户端的，验证能力很弱，这里只是演示一下
+                //这里的state其实是会暴露给客户端的，验证能力很弱，这里只是演示一下，
+                //建议用完之后就清空，将其一次性使用
                 //实际上可以存任何想传递的数据，比如用户ID，并且需要结合例如下面的Session["OAuthAccessToken"]进行验证
                 return Content("验证失败！请从正规途径进入！");
             }
@@ -125,6 +151,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             {
                 //已关注，可以得到详细信息
                 userInfo = OAuthApi.GetUserInfo(result.access_token, result.openid);
+
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+
+
                 ViewData["ByBase"] = true;
                 return View("UserInfoCallback", userInfo);
             }
@@ -134,6 +167,23 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //这里的 ex.JsonResult 可能为："{\"errcode\":40003,\"errmsg\":\"invalid openid\"}"
                 return Content("用户已授权，授权Token：" + result);
             }
+        }
+
+        /// <summary>
+        /// 测试ReturnUrl
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult TestReturnUrl()
+        {
+            string msg = "OAuthAccessTokenStartTime：" + Session["OAuthAccessTokenStartTime"];
+            //注意：OAuthAccessTokenStartTime这里只是为了方便识别和演示，
+            //OAuthAccessToken千万千万不能传输到客户端！
+
+            msg += "<br /><br />" +
+                   "此页面为returnUrl功能测试页面，可以进行刷新（或后退），不会得到code不可用的错误。<br />测试不带returnUrl效果，请" +
+                   string.Format("<a href=\"{0}\">点击这里</a>。", Url.Action("Index"));
+
+            return Content(msg);
         }
     }
 }

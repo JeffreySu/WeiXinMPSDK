@@ -19,3 +19,10 @@ applicationhost.config
 packages/
 /src/Senparc.Weixin.QY/Senparc.Weixin.QY.Test/test.config
 /src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/.vscode
+/src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.MP.BuildOutPut/.net4.5/Senparc.Weixin.xml
+/src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.MP.BuildOutPut/.net4.5/Senparc.Weixin.WxOpen.XML
+/src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.MP.BuildOutPut/.net4.5/Senparc.Weixin.WxOpen.dll
+/src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.MP.BuildOutPut/.net4.5/Senparc.Weixin.MP.xml
+/src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.MP.BuildOutPut/.net4.5/Senparc.Weixin.MP.dll
+/src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.MP.BuildOutPut/.net4.5/Senparc.Weixin.dll
+/src/src/Senparc.Weixin.MP.BuildOutPut/.net4.5/Senparc.Weixin.WxOpen.XML

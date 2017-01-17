@@ -167,6 +167,7 @@
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthAccessTokenResult.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthApi.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthJson\OAuthUserInfo.cs" />
+    <Compile Include="AdvancedAPIs\OAuth\OAuthJson\RefreshTokenResult.cs" />
     <Compile Include="AdvancedAPIs\QrCode\CreateQrCodeResult.cs" />
     <Compile Include="AdvancedAPIs\QrCode\QrCodeApi.cs" />
     <Compile Include="AdvancedAPIs\Scan\ScanJson\BrandInfo.cs" />
@@ -322,6 +323,7 @@
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Entities\Response\ResponseMessageNoResponse.cs" />
+    <Compile Include="Entities\Response\SuccessResponseMessage.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\EventHelper.cs" />
@@ -346,7 +348,15 @@
     <Compile Include="TenPayLibV3\TenPayV3Info.cs" />
     <Compile Include="TenPayLibV3\TenPayV3Util.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3RefundQueryRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3MicroPayRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3ShortUrlRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3UnifiedorderRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3ReverseRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3OrderQueryRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3CloseOrderRequestData.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3Result.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3RequestData.cs" />
     <Compile Include="TenPayLib\CheckRequestHandler.cs" />
     <Compile Include="TenPayLib\RefundQueryRequestHandler.cs" />
     <Compile Include="TenPayLib\ClientRequestHandler.cs" />

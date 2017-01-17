@@ -73,8 +73,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContainerCacheStragegy\MemcachedContainerStrategy.cs" />
+    <Compile Include="ContainerCacheStrategy\MemcachedContainerStrategy.cs" />
     <Compile Include="MamcachedCacheLock.cs" />
+    <Compile Include="ObjectCacheStrategy\MemcachedObjectCacheStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

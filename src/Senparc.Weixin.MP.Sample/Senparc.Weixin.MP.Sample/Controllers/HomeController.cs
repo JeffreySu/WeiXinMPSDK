@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：HomeController.cs
     文件功能描述：首页Controller
@@ -29,7 +29,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     {
         public ActionResult Index()
         {
-            Func<string, FileVersionInfo> getFileVersionInfo = dllFileName => 
+            Func<string, FileVersionInfo> getFileVersionInfo = dllFileName =>
                 FileVersionInfo.GetVersionInfo(Server.MapPath("~/bin/" + dllFileName));
 
             Func<FileVersionInfo, string> getDisplayVersion = fileVersionInfo =>
@@ -42,15 +42,19 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             TempData["QYVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.QY.dll"));
             TempData["RedisCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Redis.dll"));
             TempData["MemcachedCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Memcached.dll"));
+            TempData["WxOpenVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.WxOpen.dll"));
 
             //缓存
-            var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
-            TempData["CacheStrategy"] = containerCacheStragegy.GetType().Name.Replace("ContainerCacheStrategy","");
+            //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
+            var containerCacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
+            TempData["CacheStrategy"] = containerCacheStrategy.GetType().Name.Replace("ContainerCacheStrategy", "");
 
             //文档下载版本
             var configHelper = new ConfigHelper(this.HttpContext);
             var config = configHelper.GetConfig();
             TempData["NewestDocumentVersion"] = config.Versions.First();
+
+            Weixin.WeixinTrace.SendCustomLog("首页被访问", string.Format("Url：{0}\r\nIP：{1}",Request.Url,Request.UserHostName));
 
             return View();
         }
@@ -73,9 +77,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //使用AccessToken请求接口
             var apiResult = Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenu("你的AppId");
 
-
             throw new Exception("出错测试，使用Elmah保存错误结果(2)");
-            return View();
+            //return View();
         }
 
 

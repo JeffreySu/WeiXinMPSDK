@@ -57,6 +57,26 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
                 promotion_url = "http://www.qq.com",
             };
 
+
+        [TestMethod]
+        public void TestSerialzeEnumString()
+        {
+            //测试序列化枚举为字符串
+            CustomField customField = new CustomField
+            {
+                 name_type = MemberCard_CustomField_NameType.FIELD_NAME_TYPE_ACHIEVEMEN,
+                 url = "http://weixin.senparc.com"
+            };
+
+            SerializerHelper serializerHelper = new SerializerHelper();
+            JsonSetting jsonSetting = new JsonSetting();
+            var jsonString = serializerHelper.GetJsonString(customField, jsonSetting);
+            Console.WriteLine(jsonString);
+            Assert.IsTrue(jsonString.Contains("FIELD_NAME_TYPE_ACHIEVEMEN"));
+            Assert.IsTrue(jsonString.Contains("http://weixin.senparc.com"));
+
+        }
+
         [TestMethod]
         public void CreateCardTest()
         {

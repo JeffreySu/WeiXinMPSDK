@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
  
     文件名：TenPayUtil.cs
     文件功能描述：微信支付配置文件
@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+ 
+    修改标识：Senparc - 20161014
+    修改描述：修改TenPayUtil.BuildRandomStr()方法
 ----------------------------------------------------------------*/
 
 using System;
@@ -131,7 +134,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                 int n = length - str.Length;
                 while (n > 0)
                 {
-                    str.Insert(0, "0");
+                    str = str.Insert(0, "0");
                     n--;
                 }
             }

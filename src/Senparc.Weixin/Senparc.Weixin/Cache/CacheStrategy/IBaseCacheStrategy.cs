@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：IBaseCacheStrategy.cs
     文件功能描述：缓存策略接口。
@@ -45,7 +45,7 @@ namespace Senparc.Weixin.Cache
     /// 公共缓存策略接口
     /// </summary>
     public interface IBaseCacheStrategy<TKey, TValue> : IBaseCacheStrategy
-        where TValue : class
+        //where TValue : class
     {
         /// <summary>
         /// 获取缓存中最终的键，如Container建议格式： return String.Format("{0}:{1}", "SenparcWeixinContainer", key);

@@ -89,6 +89,7 @@
     <Compile Include="AdvancedAPIs\Media\MediaTest.cs" />
     <Compile Include="AdvancedAPIs\OAuth\OAuthTest.cs" />
     <Compile Include="AdvancedAPIs\Poi\PoiTest.cs" />
+    <Compile Include="AdvancedAPIs\QrCode\QrCodeApiTests.cs" />
     <Compile Include="AdvancedAPIs\Semantic\SemanticTest.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundTest.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateTest.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="MessageHandlers\MessageHandlers_OmitRepeatMessageTest.cs" />
     <Compile Include="RequestMessageFactoryTest.cs" />
     <Compile Include="Senparc.Weixin.Utilites\HttpUtility\RequestUtilityTests.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3UtilTests.cs" />
     <Compile Include="TenPayV3\RedPackApiTest.cs" />
     <Compile Include="TenPay\TenPayRightsTest.cs" />
     <Compile Include="AdvancedAPIs\User\CustomTest.cs" />

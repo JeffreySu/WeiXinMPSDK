@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：TenPayV3Controller.cs
     文件功能描述：微信支付V3Controller
@@ -9,6 +9,12 @@
  
     修改标识：Senparc - 20150419
     修改描述：添加产品相关
+
+    修改标识：Senparc - 20161203
+    修改描述：调用新版Unifiedorder方法
+
+    修改标识：Senparc - 20161204
+    修改描述：调用新版Unifiedorder方法
 ----------------------------------------------------------------*/
 
 using System;
@@ -22,8 +28,11 @@ using System.Text;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using Senparc.Weixin.BrowserUtility;
+using Senparc.Weixin.Helpers;
+using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.OAuth;
+using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.Sample.Models;
 using Senparc.Weixin.MP.TenPayLibV3;
 using ZXing;
@@ -71,6 +80,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return Redirect(url);
         }
 
+        public ActionResult BankCode()
+        {
+            return View();
+        }
+
         #region JsApi支付
 
         public ActionResult JsApi(string code, string state)
@@ -86,96 +100,80 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //实际上可以存任何想传递的数据，比如用户ID，并且需要结合例如下面的Session["OAuthAccessToken"]进行验证
                 return Content("验证失败！请从正规途径进入！1001");
             }
-
-            //获取产品信息
-            var stateData = state.Split('|');
-            int productId = 0;
-            ProductModel product = null;
-            if (int.TryParse(stateData[0], out productId))
+            try
             {
-                int hc = 0;
-                if (int.TryParse(stateData[1], out hc))
+
+
+                //获取产品信息
+                var stateData = state.Split('|');
+                int productId = 0;
+                ProductModel product = null;
+                if (int.TryParse(stateData[0], out productId))
                 {
-                    var products = ProductModel.GetFakeProductList();
-                    product = products.FirstOrDefault(z => z.Id == productId);
-                    if (product == null || product.GetHashCode() != hc)
+                    int hc = 0;
+                    if (int.TryParse(stateData[1], out hc))
                     {
-                        return Content("商品信息不存在，或非法进入！1002");
+                        var products = ProductModel.GetFakeProductList();
+                        product = products.FirstOrDefault(z => z.Id == productId);
+                        if (product == null || product.GetHashCode() != hc)
+                        {
+                            return Content("商品信息不存在，或非法进入！1002");
+                        }
+                        ViewData["product"] = product;
                     }
-                    ViewData["product"] = product;
                 }
-            }
 
-            //通过，用code换取access_token
-            var openIdResult = OAuthApi.GetAccessToken(TenPayV3Info.AppId, TenPayV3Info.AppSecret, code);
-            if (openIdResult.errcode != ReturnCode.请求成功)
+                //通过，用code换取access_token
+                var openIdResult = OAuthApi.GetAccessToken(TenPayV3Info.AppId, TenPayV3Info.AppSecret, code);
+                if (openIdResult.errcode != ReturnCode.请求成功)
+                {
+                    return Content("错误：" + openIdResult.errmsg);
+                }
+
+                string sp_billno = Request["order_no"];
+                if (string.IsNullOrEmpty(sp_billno))
+                {
+                    //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
+                    sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, DateTime.Now.ToString("yyyyMMddHHmmss"),
+                        TenPayV3Util.BuildRandomStr(6));
+                }
+                //else
+                //{
+                //    sp_billno = Request["order_no"];
+                //}
+
+                var timeStamp = TenPayV3Util.GetTimestamp();
+                var nonceStr = TenPayV3Util.GetNoncestr();
+
+                var body = product == null ? "test" : product.Name;
+                var price = product == null ? 100 : product.Price * 100;
+                var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openIdResult.openid, TenPayV3Info.Key, nonceStr);
+
+                var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
+
+                //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
+                var package = string.Format("prepay_id={0}", result.prepay_id);
+
+                ViewData["appId"] = TenPayV3Info.AppId;
+                ViewData["timeStamp"] = timeStamp;
+                ViewData["nonceStr"] = nonceStr;
+                ViewData["package"] = package;
+                ViewData["paySign"] = TenPayV3.GetJsPaySign(TenPayV3Info.AppId, timeStamp, nonceStr, package, TenPayV3Info.Key);
+
+                return View();
+            }
+            catch (Exception ex)
             {
-                return Content("错误：" + openIdResult.errmsg);
+                var msg = ex.Message;
+                msg += "<br>" + ex.StackTrace;
+                msg += "<br>==Source==<br>" + ex.Source;
+
+                if (ex.InnerException != null)
+                {
+                    msg += "<br>===InnerException===<br>" + ex.InnerException.Message;
+                }
+                return Content(msg);
             }
-
-            string timeStamp = "";
-            string nonceStr = "";
-            string paySign = "";
-
-            string sp_billno = Request["order_no"];
-            //当前时间 yyyyMMdd
-            string date = DateTime.Now.ToString("yyyyMMdd");
-
-            if (null == sp_billno)
-            {
-                //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
-                sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
-            }
-            else
-            {
-                sp_billno = Request["order_no"].ToString();
-            }
-
-            //创建支付应答对象
-            RequestHandler packageReqHandler = new RequestHandler(null);
-            //初始化
-            packageReqHandler.Init();
-
-            timeStamp = TenPayV3Util.GetTimestamp();
-            nonceStr = TenPayV3Util.GetNoncestr();
-
-            //设置package订单参数
-            packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		  //公众账号ID
-            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
-            packageReqHandler.SetParameter("nonce_str", nonceStr);                    //随机字符串
-            packageReqHandler.SetParameter("body", product == null ? "test" : product.Name);    //商品信息
-            packageReqHandler.SetParameter("out_trade_no", sp_billno);		//商家订单号
-            packageReqHandler.SetParameter("total_fee", product == null ? "100" : (product.Price * 100).ToString());			        //商品金额,以分为单位(money * 100).ToString()
-            packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);   //用户的公网ip，不是商户服务器IP
-            packageReqHandler.SetParameter("notify_url", TenPayV3Info.TenPayV3Notify);		    //接收财付通通知的URL
-            packageReqHandler.SetParameter("trade_type", TenPayV3Type.JSAPI.ToString());	                    //交易类型
-            packageReqHandler.SetParameter("openid", openIdResult.openid);	                    //用户的openId
-
-            string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
-            packageReqHandler.SetParameter("sign", sign);	                    //签名
-
-            string data = packageReqHandler.ParseXML();
-
-            var result = TenPayV3.Unifiedorder(data);
-            var res = XDocument.Parse(result);
-            string prepayId = res.Element("xml").Element("prepay_id").Value;
-
-            //设置支付参数
-            RequestHandler paySignReqHandler = new RequestHandler(null);
-            paySignReqHandler.SetParameter("appId", TenPayV3Info.AppId);
-            paySignReqHandler.SetParameter("timeStamp", timeStamp);
-            paySignReqHandler.SetParameter("nonceStr", nonceStr);
-            paySignReqHandler.SetParameter("package", string.Format("prepay_id={0}", prepayId));
-            paySignReqHandler.SetParameter("signType", "MD5");
-            paySign = paySignReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
-
-            ViewData["appId"] = TenPayV3Info.AppId;
-            ViewData["timeStamp"] = timeStamp;
-            ViewData["nonceStr"] = nonceStr;
-            ViewData["package"] = string.Format("prepay_id={0}", prepayId);
-            ViewData["paySign"] = paySign;
-
-            return View();
         }
 
         /// <summary>
@@ -230,48 +228,51 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             //创建支付应答对象
-            RequestHandler packageReqHandler = new RequestHandler(null);
+            //RequestHandler packageReqHandler = new RequestHandler(null);
 
-            var sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
+            var sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(26);//最多32位
             var nonceStr = TenPayV3Util.GetNoncestr();
 
             //创建请求统一订单接口参数
-            packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);	
-            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);	
-            packageReqHandler.SetParameter("nonce_str", nonceStr);          
-            packageReqHandler.SetParameter("body", "test");    
-            packageReqHandler.SetParameter("out_trade_no", sp_billno);		
-            packageReqHandler.SetParameter("total_fee", "1");			    
-            packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);
-            packageReqHandler.SetParameter("notify_url", TenPayV3Info.TenPayV3Notify);
-            packageReqHandler.SetParameter("trade_type", TenPayV3Type.NATIVE.ToString());
-            packageReqHandler.SetParameter("openid", openId);	                    
-            packageReqHandler.SetParameter("product_id", productId);
+            //packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);
+            //packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);
+            //packageReqHandler.SetParameter("nonce_str", nonceStr);
+            //packageReqHandler.SetParameter("body", "test");
+            //packageReqHandler.SetParameter("out_trade_no", sp_billno);
+            //packageReqHandler.SetParameter("total_fee", "1");
+            //packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);
+            //packageReqHandler.SetParameter("notify_url", TenPayV3Info.TenPayV3Notify);
+            //packageReqHandler.SetParameter("trade_type", TenPayV3Type.NATIVE.ToString());
+            //packageReqHandler.SetParameter("openid", openId);
+            //packageReqHandler.SetParameter("product_id", productId);
 
-            string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
-            packageReqHandler.SetParameter("sign", sign);	                    
+            //string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+            //packageReqHandler.SetParameter("sign", sign);
 
-            string data = packageReqHandler.ParseXML();
+            //string data = packageReqHandler.ParseXML();
+
+            var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
+
 
             try
             {
                 //调用统一订单接口
-                var result = TenPayV3.Unifiedorder(data);
-                var unifiedorderRes = XDocument.Parse(result);
-                string prepayId = unifiedorderRes.Element("xml").Element("prepay_id").Value;
+                var result = TenPayV3.Unifiedorder(xmlDataInfo);
+                //var unifiedorderRes = XDocument.Parse(result);
+                //string prepayId = unifiedorderRes.Element("xml").Element("prepay_id").Value;
 
                 //创建应答信息返回给微信
-                res.SetParameter("return_code", "SUCCESS");
-                res.SetParameter("return_msg", "OK");
-                res.SetParameter("appid", TenPayV3Info.AppId);
-                res.SetParameter("mch_id", TenPayV3Info.MchId);
-                res.SetParameter("nonce_str", nonceStr);
-                res.SetParameter("prepay_id", prepayId);
-                res.SetParameter("result_code", "SUCCESS");
+                res.SetParameter("return_code", result.return_code);
+                res.SetParameter("return_msg", result.return_msg ?? "OK");
+                res.SetParameter("appid", result.appid);
+                res.SetParameter("mch_id", result.mch_id);
+                res.SetParameter("nonce_str", result.nonce_str);
+                res.SetParameter("prepay_id", result.prepay_id);
+                res.SetParameter("result_code", result.result_code);
                 res.SetParameter("err_code_des", "OK");
 
                 string nativeReqSign = res.CreateMd5Sign("key", TenPayV3Info.Key);
-                res.SetParameter("sign", nativeReqSign);
+                res.SetParameter("sign", result.sign);
             }
             catch (Exception)
             {
@@ -291,7 +292,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public ActionResult NativeByCodeUrl()
         {
             //创建支付应答对象
-            RequestHandler packageReqHandler = new RequestHandler(null);
+            //RequestHandler packageReqHandler = new RequestHandler(null);
 
             var sp_billno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
             var nonceStr = TenPayV3Util.GetNoncestr();
@@ -300,27 +301,27 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             string productId = DateTime.Now.ToString("yyyyMMddHHmmss");
 
             //创建请求统一订单接口参数
-            packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);
-            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);
-            packageReqHandler.SetParameter("nonce_str", nonceStr);
-            packageReqHandler.SetParameter("body", "test");
-            packageReqHandler.SetParameter("out_trade_no", sp_billno);
-            packageReqHandler.SetParameter("total_fee", "1");
-            packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);
-            packageReqHandler.SetParameter("notify_url", TenPayV3Info.TenPayV3Notify);
-            packageReqHandler.SetParameter("trade_type", TenPayV3Type.NATIVE.ToString());
-            packageReqHandler.SetParameter("product_id", productId);
+            //packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);
+            //packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);
+            //packageReqHandler.SetParameter("nonce_str", nonceStr);
+            //packageReqHandler.SetParameter("body", "test");
+            //packageReqHandler.SetParameter("out_trade_no", sp_billno);
+            //packageReqHandler.SetParameter("total_fee", "1");
+            //packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);
+            //packageReqHandler.SetParameter("notify_url", TenPayV3Info.TenPayV3Notify);
+            //packageReqHandler.SetParameter("trade_type", TenPayV3Type.NATIVE.ToString());
+            //packageReqHandler.SetParameter("product_id", productId);
 
-            string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
-            packageReqHandler.SetParameter("sign", sign);
+            //string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+            //packageReqHandler.SetParameter("sign", sign);
 
-            string data = packageReqHandler.ParseXML();
-
+            //string data = packageReqHandler.ParseXML();
+            var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, "test", sp_billno, 1, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.NATIVE, productId, TenPayV3Info.Key, nonceStr);
             //调用统一订单接口
-            var result = TenPayV3.Unifiedorder(data);
-            var unifiedorderRes = XDocument.Parse(result);
-            string codeUrl = unifiedorderRes.Element("xml").Element("code_url").Value;
-
+            var result = TenPayV3.Unifiedorder(xmlDataInfo);
+            //var unifiedorderRes = XDocument.Parse(result);
+            //string codeUrl = unifiedorderRes.Element("xml").Element("code_url").Value;
+            string codeUrl = result.code_url;
             BitMatrix bitMatrix;
             bitMatrix = new MultiFormatWriter().encode(codeUrl, BarcodeFormat.QR_CODE, 600, 600);
             BarcodeWriter bw = new BarcodeWriter();
@@ -526,64 +527,27 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult SendRedPack()
         {
-            string mchbillno = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
+            string nonceStr;//随机字符串
+            string paySign;//签名
+            var sendNormalRedPackResult = RedPackApi.SendNormalRedPack(
+                TenPayV3Info.AppId, TenPayV3Info.MchId, TenPayV3Info.Key,
+                @"F:\apiclient_cert.p12",     //证书物理地址
+                "接受收红包的用户的openId",   //接受收红包的用户的openId
+                "红包发送者名称",             //红包发送者名称
+                Request.UserHostAddress,      //IP
+                100,                          //付款金额，单位分
+                "红包祝福语",                 //红包祝福语
+                "活动名称",                   //活动名称
+                "备注信息",                   //备注信息
+                out nonceStr,
+                out paySign,
+                null,                         //场景id（非必填）
+                null,                         //活动信息（非必填）
+                null                          //资金授权商户号，服务商替特约商户发放时使用（非必填）
+                );
 
-            string nonceStr = TenPayV3Util.GetNoncestr();
-            RequestHandler packageReqHandler = new RequestHandler(null);
-
-            //设置package订单参数
-            packageReqHandler.SetParameter("nonce_str", nonceStr);              //随机字符串
-            packageReqHandler.SetParameter("wxappid", TenPayV3Info.AppId);		  //公众账号ID
-            packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		  //商户号
-            packageReqHandler.SetParameter("mch_billno", mchbillno);                 //填入商家订单号
-            packageReqHandler.SetParameter("send_name", "红包发送者名称");                 //红包发送者名称
-            packageReqHandler.SetParameter("re_openid", "接受收红包的用户的openId");                 //接受收红包的用户的openId
-            packageReqHandler.SetParameter("total_amount", "100");                //付款金额，单位分
-            packageReqHandler.SetParameter("total_num", "1");               //红包发放总人数
-            packageReqHandler.SetParameter("wishing", "红包祝福语");               //红包祝福语
-            packageReqHandler.SetParameter("client_ip", Request.UserHostAddress);               //调用接口的机器Ip地址
-            packageReqHandler.SetParameter("act_name", "活动名称");   //活动名称
-            packageReqHandler.SetParameter("remark", "备注信息");   //备注信息
-            string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
-            packageReqHandler.SetParameter("sign", sign);	                    //签名
-
-            //最新的官方文档中将以下三个字段去除了
-            //packageReqHandler.SetParameter("nick_name", "提供方名称");                 //提供方名称
-            //packageReqHandler.SetParameter("max_value", "100");                //最大红包金额，单位分
-            //packageReqHandler.SetParameter("min_value", "100");                //最小红包金额，单位分
-
-
-            //发红包需要post的数据
-            string data = packageReqHandler.ParseXML();
-
-            //发红包接口地址
-            string url = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
-            //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
-            string cert = @"F:\apiclient_cert.p12";
-            //私钥（在安装证书时设置）
-            string password = "";
-            ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
-            //调用证书
-            X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
-
-            #region 发起post请求
-            HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
-            webrequest.ClientCertificates.Add(cer);
-            webrequest.Method = "post";
-
-            byte[] postdatabyte = Encoding.UTF8.GetBytes(data);
-            webrequest.ContentLength = postdatabyte.Length;
-            Stream stream;
-            stream = webrequest.GetRequestStream();
-            stream.Write(postdatabyte, 0, postdatabyte.Length);
-            stream.Close();
-
-            HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
-            StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
-            string responseContent = streamReader.ReadToEnd();
-            #endregion
-
-            return Content(responseContent);
+            SerializerHelper serializerHelper = new SerializerHelper();
+            return Content(serializerHelper.GetJsonString(sendNormalRedPackResult));
         }
         #endregion
 
@@ -720,7 +684,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             //判断是否正在微信端
             var userAgent = Request.UserAgent;
-            if (BroswerUtility.SideInWeixinBroswer(HttpContext))
+            if (BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext))
             {
                 //正在微信端，直接跳转到微信支付页面
                 return RedirectToAction("Index", new { productId = productId, hc = hc });
@@ -764,5 +728,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
 
         #endregion
+
     }
 }

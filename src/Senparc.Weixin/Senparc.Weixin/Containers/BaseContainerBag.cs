@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：BaseContainerBag.cs
     文件功能描述：微信容器接口中的封装Value（如Ticket、AccessToken等数据集合）
@@ -93,12 +93,13 @@ namespace Senparc.Weixin.Containers
             SenparcMessageQueue mq = new SenparcMessageQueue();
             mq.Add(mqKey, () =>
             {
-                var containerCacheStragegy = CacheStrategyFactory.GetContainerCacheStragegyInstance();
+                //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
+                var containerCacheStrategy = CacheStrategyFactory.GetObjectCacheStrategyInstance().ContainerCacheStrategy;
                 var itemCacheKey = ContainerHelper.GetItemCacheKey(containerBag);
                 containerBag.CacheTime = DateTime.Now;//记录缓存时间
 
                 //cacheKey形如:Container:Senparc.Weixin.MP.Containers.AccessTokenBag:wx669ef95216eef885
-                containerCacheStragegy.UpdateContainerBag(itemCacheKey, containerBag);
+                containerCacheStrategy.UpdateContainerBag(itemCacheKey, containerBag);
             });
         }
 

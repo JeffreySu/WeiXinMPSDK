@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
  
     文件名：RequestHandler.cs
     文件功能描述：微信支付V3 请求处理
@@ -11,9 +11,15 @@
     修改描述：整理接口
 
     修改标识：Yu XiaoChou - 20160107
-    修改描述：增加一个不需要HttpContext的初始化方法，避免使用这个类的时候，还要必须从页面初始化一个对象过来，可以在基类里直接使用这个类，
-                相应的，将GetCharset方法中，不存在HttpContext时，默认使用UTF-8
-----------------------------------------------------------------*/
+    修改描述：增加一个不需要HttpContext的初始化方法，避免使用这个类的时候，还要必须从页面初始化一个对象过来，可以在基类里直接使用这个类，相应的，将GetCharset方法中，不存在HttpContext时，默认使用UTF-8
+
+    修改标识：Senparc - 20161112
+    修改描述：为ParseXML()方法添加v==null的判断
+
+    修改标识：Senparc - 20170115
+    修改描述：v14.3.120 添加SetParameterWhenNotNull()方法
+
+    ----------------------------------------------------------------*/
 
 using System;
 using System.Collections;
@@ -123,6 +129,19 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
 
         /// <summary>
+        /// 当参数不为null或空字符串时，设置参数值
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <param name="parameterValue"></param>
+        public void SetParameterWhenNotNull(string parameter, string parameterValue)
+        {
+            if (!string.IsNullOrEmpty(parameterValue))
+            {
+                SetParameter(parameter, parameterValue);
+            }
+        }
+
+        /// <summary>
         /// 创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
         /// </summary>
         /// <param name="key">参数名</param>
@@ -163,7 +182,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             foreach (string k in Parameters.Keys)
             {
                 string v = (string)Parameters[k];
-                if (Regex.IsMatch(v, @"^[0-9.]$"))
+                if (v != null && Regex.IsMatch(v, @"^[0-9.]$"))
                 {
 
                     sb.Append("<" + k + ">" + v + "</" + k + ">");

@@ -16,7 +16,7 @@ namespace Senparc.Weixin.Cache.Redis
         private RedisObjectCacheStrategy _redisStrategy;
 
         public RedisCacheLock(RedisObjectCacheStrategy strategy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
-            :base(strategy,resourceName,key,retryCount,retryDelay)
+            : base(strategy, resourceName, key, retryCount, retryDelay)
         {
             _redisStrategy = strategy;
         }
@@ -28,15 +28,7 @@ namespace Senparc.Weixin.Cache.Redis
 
         public override bool Lock(string resourceName, int retryCount, TimeSpan retryDelay)
         {
-            if (retryCount != 0)
-            {
-                _dlm = new Redlock.CSharp.Redlock(retryCount, retryDelay, _redisStrategy._client);
-            }
-            else if (_dlm == null)
-            {
-                _dlm = new Redlock.CSharp.Redlock(_redisStrategy._client);
-            }
-
+            _dlm = new Redlock.CSharp.Redlock(_redisStrategy._client);
             var successfull = _dlm.Lock(resourceName, new TimeSpan(0, 0, 10), out _lockObject);
             return successfull;
         }

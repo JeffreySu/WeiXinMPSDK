@@ -6,15 +6,16 @@
 
 ##### 发现问题的模块
 
-- [ ] Senparc.Weixin
-- [ ] Senparc.Weixin.MP
-- [ ] Senparc.Weixin.MP.MVC
-- [ ] Senparc.Weixin.Open
-- [ ] Senparc.Weixin.QY
-- [ ] Senparc.Weixin.Work
-- [ ] Senparc.Weixin.OpenWx
-- [ ] Senparc.Weixin.Cache.Redis
-- [ ] Senparc.Weixin.Cache.Memcached
+- [ ] Senparc.Weixin 版本：
+- [ ] Senparc.Weixin.MP 版本：
+- [ ] Senparc.Weixin.MP.MVC 版本：
+- [ ] Senparc.Weixin.Open 版本：
+- [ ] Senparc.Weixin.QY 版本：
+- [ ] Senparc.Weixin.Work 版本：
+- [ ] Senparc.Weixin.OpenWx 版本：
+- [ ] Senparc.Weixin.Cache.Redis 版本：
+- [ ] Senparc.Weixin.Cache.Memcached 版本：
+
 
 ##### 模块对应的.net版本
 
@@ -35,7 +36,7 @@
 
 ##### 缓存环境
 
-- [ ] 服务器内存缓存（默认）
+- [X] 服务器内存缓存（默认）
 - [ ] Redis 版本：
 - [ ] Memcached 版本：
 - [ ] 其他

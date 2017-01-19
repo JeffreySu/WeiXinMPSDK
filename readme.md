@@ -132,7 +132,7 @@
 3. 提交您的改动 (`git commit -am 'Added some feature'`)
 4. 将您的修改记录提交到远程 `git` 仓库 (`git push origin my-new-feature`)
 5. 然后到 github 网站的该 `git` 远程仓库的 `my-new-feature` 分支下发起 Pull Request
-
+（请提交到 `Developer` 分支，不要直接提交到 `master` 分支）
 
 
 项目文件夹说明（src文件夹下）

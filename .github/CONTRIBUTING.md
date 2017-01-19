@@ -23,7 +23,7 @@
 1. 确保您已经注册了Github账号
 2. 点击右上角的Fork按钮，Fork到您自己的账号下
 3. 修改您自己库中的代码，并提交
-4. 提交一个Pull Request，不要包含和本次修改无关的文件或内容
+4. 提交一个Pull Request，不要包含和本次修改无关的文件或内容（请提交到 `Developer` 分支，不要直接提交到 `master` 分支）
 
 ### 命令行操作
 
@@ -32,3 +32,4 @@
 3. 提交您的改动 (`git commit -am 'Added some feature'`)
 4. 将您的修改记录提交到远程 `git` 仓库 (`git push origin my-new-feature`)
 5. 然后到 github 网站的该 `git` 远程仓库的 `my-new-feature` 分支下发起 Pull Request
+（请提交到 `Developer` 分支，不要直接提交到 `master` 分支）

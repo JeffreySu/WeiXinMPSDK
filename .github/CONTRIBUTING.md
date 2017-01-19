@@ -1,7 +1,7 @@
 # 说明
 
 ### issue模块专用于反馈Senparc.Weixin SDK项目本身存在的问题（bug）以及您的需求。
-如果您需要其他方面的帮助，请移步[问答社区](http://weixin.senparc.com/QA)
+如果您需要其他方面的帮助，请移步`问答社区`：http://weixin.senparc.com/QA。
 
 # Bugs
 

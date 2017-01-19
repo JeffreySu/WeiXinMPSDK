@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             data.Add(new BatchGetUserInfoData()
             {
                 openid = "",
-                lang = Language.zh_CN
+                lang = (int)Language.zh_CN
             });
 
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);

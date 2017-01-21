@@ -18,7 +18,7 @@ using Senparc.Weixin.MessageHandlers;
 using Senparc.Weixin.WxOpen.Entities;
 using Senparc.Weixin.WxOpen.Entities.Request;
 using Tencent;
-using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
+//using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 
 namespace Senparc.Weixin.WxOpen.MessageHandlers
 {

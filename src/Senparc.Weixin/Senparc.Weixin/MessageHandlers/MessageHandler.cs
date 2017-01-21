@@ -139,7 +139,7 @@ namespace Senparc.Weixin.MessageHandlers
         {
             get
             {
-                if (ResponseMessage!=null && ResponseMessage is SuccessResponseMessageBase)
+                if (ResponseMessage != null && ResponseMessage is SuccessResponseMessageBase)
                 {
                     _textResponseMessage = (ResponseMessage as SuccessResponseMessageBase).ReturnText;//返回"success"
                 }

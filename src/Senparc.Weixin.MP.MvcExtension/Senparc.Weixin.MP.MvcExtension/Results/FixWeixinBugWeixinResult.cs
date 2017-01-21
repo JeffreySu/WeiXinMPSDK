@@ -40,22 +40,24 @@ namespace Senparc.Weixin.MP.MvcExtension
                 }
                 else if (_messageHandlerDocument != null && _messageHandlerDocument.TextResponseMessage != null)
                 {
-                    if (_messageHandlerDocument.TextResponseMessage.Equals(String.Empty))
-                    {
-                        //无需响应，开发者返回了ResponseNoResponse
-                        return null;
-                    }
+                    return _messageHandlerDocument.TextResponseMessage.Replace("\r\n", "\n");
 
-                    if (_messageHandlerDocument.ResponseDocument != null)
-                    {
-                        //返回XML响应信息
-                        return _messageHandlerDocument.TextResponseMessage.Replace("\r\n", "\n");
-                    }
-                    else
-                    {
-                        //返回XML响应信息或用户指定的文本内容
-                        return _messageHandlerDocument.TextResponseMessage;
-                    }
+                    //if (_messageHandlerDocument.TextResponseMessage.Equals(String.Empty))
+                    //{
+                    //    //无需响应，开发者返回了ResponseNoResponse
+                    //    return null;
+                    //}
+
+                    //if (_messageHandlerDocument.ResponseDocument != null)
+                    //{
+                    //    //返回XML响应信息
+                    //    return _messageHandlerDocument.TextResponseMessage.Replace("\r\n", "\n");
+                    //}
+                    //else
+                    //{
+                    //    //返回XML响应信息或用户指定的文本内容
+                    //    return _messageHandlerDocument.TextResponseMessage;
+                    //}
                 }
                 else
                 {
@@ -84,8 +86,8 @@ namespace Senparc.Weixin.MP.MvcExtension
                     context.HttpContext.Response.ClearContent();
                     context.HttpContext.Response.ContentType = "text/xml";
 
-                    var xml = _messageHandlerDocument.FinalResponseDocument == null 
-                                ? "" 
+                    var xml = _messageHandlerDocument.FinalResponseDocument == null
+                                ? ""
                                 : _messageHandlerDocument.FinalResponseDocument
                                                          .ToString().Replace("\r\n", "\n"); //腾
 

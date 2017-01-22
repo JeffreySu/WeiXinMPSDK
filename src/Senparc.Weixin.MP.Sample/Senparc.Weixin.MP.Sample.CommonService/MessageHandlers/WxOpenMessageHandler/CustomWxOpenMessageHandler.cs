@@ -131,7 +131,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
             var msg = result.ToString().Replace("\r\n", "\n");
 
             //使用微信公众号的接口，完美兼容
-            //Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, WeixinOpenId, msg);
+            Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, WeixinOpenId, msg);
 
             return new SuccessResponseMessage();
 
@@ -164,7 +164,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
         {
             //进入客服
             var msg = "欢迎您！这条消息来自Senparc.Weixin进入客服事件。";
-            //Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, WeixinOpenId, msg);
+            Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, WeixinOpenId, msg);
 
             return DefaultResponseMessage(requestMessage);
         }

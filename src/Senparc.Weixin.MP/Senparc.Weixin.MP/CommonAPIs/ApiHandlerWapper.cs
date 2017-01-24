@@ -16,6 +16,8 @@
     修改标识：Senparc - 20170102
     修改描述：v14.3.116 TryCommonApi抛出ErrorJsonResultException、WeixinException异常时加入了accessTokenOrAppId参数
 
+    修改标识：Senparc - 20170123
+    修改描述：v14.3.121 TryCommonApiAsync方法返回代码改为return await result;避免死锁。
 ----------------------------------------------------------------*/
 
 using System;
@@ -217,7 +219,7 @@ namespace Senparc.Weixin.MP
                 }
             }
 
-            return result.Result;
+            return await result;
         }
 
 

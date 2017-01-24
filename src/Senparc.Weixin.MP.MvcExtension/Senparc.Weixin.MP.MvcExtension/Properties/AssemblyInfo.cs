@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Senparc.Weixin.MP.MvcExtension")]
-[assembly: AssemblyCopyright("Copyright © Senparc 2015")]
+[assembly: AssemblyCopyright("Copyright © Senparc 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

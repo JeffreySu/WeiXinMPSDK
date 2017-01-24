@@ -11,6 +11,9 @@
 
     修改标识：Senparc - 20150407
     修改描述：使用Post方法获取字符串结果 修改表单处理方法
+
+    修改标识：Senparc - 20170122
+    修改描述：v4.9.14 为AsUrlData方法添加null判断
 ----------------------------------------------------------------*/
 
 using System;
@@ -126,11 +129,11 @@ namespace Senparc.Weixin.HttpUtility
         /// 使用Post方法获取字符串结果，常规提交
         /// </summary>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null,  X509Certificate cer = null,int timeOut = Config.TIME_OUT)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
         {
             MemoryStream ms = new MemoryStream();
             formData.FillFormDataStream(ms);//填充formData
-            return HttpPost(url, cookieContainer, ms, null, null, encoding,cer, timeOut);
+            return HttpPost(url, cookieContainer, ms, null, null, encoding, cer, timeOut);
         }
 
         /// <summary>
@@ -301,7 +304,241 @@ namespace Senparc.Weixin.HttpUtility
 
 
         #endregion
+#if NET45
+#region 异步方法
 
+        /// <summary>
+        /// 使用Get方法获取字符串结果（没有加入Cookie）
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static async Task<string> HttpGetAsync(string url, Encoding encoding = null)
+        {
+            WebClient wc = new WebClient();
+            wc.Proxy = _webproxy;
+            wc.Encoding = encoding ?? Encoding.UTF8;
+            return await wc.DownloadStringTaskAsync(url);
+        }
+
+        /// <summary>
+        /// 使用Get方法获取字符串结果（加入Cookie）
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="cookieContainer"></param>
+        /// <param name="encoding"></param>
+        /// <param name="cer">证书，如果不需要则保留null</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<string> HttpGetAsync(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            request.Timeout = timeOut;
+            request.Proxy = _webproxy;
+            if (cer != null)
+            {
+                request.ClientCertificates.Add(cer);
+            }
+
+            if (cookieContainer != null)
+            {
+                request.CookieContainer = cookieContainer;
+            }
+
+            HttpWebResponse response = (HttpWebResponse)(await request.GetResponseAsync());
+
+            if (cookieContainer != null)
+            {
+                response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
+            }
+
+            using (Stream responseStream = response.GetResponseStream())
+            {
+                using (StreamReader myStreamReader = new StreamReader(responseStream, encoding ?? Encoding.GetEncoding("utf-8")))
+                {
+                    string retString = await myStreamReader.ReadToEndAsync();
+                    return retString;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 使用Post方法获取字符串结果，常规提交
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
+        {
+            MemoryStream ms = new MemoryStream();
+            await formData.FillFormDataStreamAsync(ms);//填充formData
+            return await HttpPostAsync(url, cookieContainer, ms, null, null, encoding, cer, timeOut);
+        }
+
+
+        /// <summary>
+        /// 使用Post方法获取字符串结果
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="cookieContainer"></param>
+        /// <param name="postStream"></param>
+        /// <param name="fileDictionary">需要上传的文件，Key：对应要上传的Name，Value：本地文件名</param>
+        /// <param name="timeOut"></param>
+        /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
+        /// <returns></returns>
+        public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "POST";
+            request.Timeout = timeOut;
+            request.Proxy = _webproxy;
+            if (cer != null)
+            {
+                request.ClientCertificates.Add(cer);
+            }
+
+            if (checkValidationResult)
+            {
+                ServicePointManager.ServerCertificateValidationCallback =
+                  new RemoteCertificateValidationCallback(CheckValidationResult);
+            }
+
+#region 处理Form表单文件上传
+            var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
+            if (formUploadFile)
+            {
+                //通过表单上传文件
+                postStream = postStream ?? new MemoryStream();
+
+                string boundary = "----" + DateTime.Now.Ticks.ToString("x");
+                //byte[] boundarybytes = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
+                string fileFormdataTemplate = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: application/octet-stream\r\n\r\n";
+                string dataFormdataTemplate = "\r\n--" + boundary +
+                                              "\r\nContent-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
+                foreach (var file in fileDictionary)
+                {
+                    try
+                    {
+                        var fileName = file.Value;
+                        //准备文件流
+                        using (var fileStream = FileHelper.GetFileStream(fileName))
+                        {
+                            string formdata = null;
+                            if (fileStream != null)
+                            {
+                                //存在文件
+                                formdata = string.Format(fileFormdataTemplate, file.Key, /*fileName*/ Path.GetFileName(fileName));
+                            }
+                            else
+                            {
+                                //不存在文件或只是注释
+                                formdata = string.Format(dataFormdataTemplate, file.Key, file.Value);
+                            }
+
+                            //统一处理
+                            var formdataBytes = Encoding.UTF8.GetBytes(postStream.Length == 0 ? formdata.Substring(2, formdata.Length - 2) : formdata);//第一行不需要换行
+                            await postStream.WriteAsync(formdataBytes, 0, formdataBytes.Length);
+
+                            //写入文件
+                            if (fileStream != null)
+                            {
+                                byte[] buffer = new byte[1024];
+                                int bytesRead = 0;
+                                while ((bytesRead = await fileStream.ReadAsync(buffer, 0, buffer.Length)) != 0)
+                                {
+                                    await postStream.WriteAsync(buffer, 0, bytesRead);
+                                }
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+                //结尾
+                var footer = Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
+                await postStream.WriteAsync(footer, 0, footer.Length);
+
+                request.ContentType = string.Format("multipart/form-data; boundary={0}", boundary);
+            }
+            else
+            {
+                request.ContentType = "application/x-www-form-urlencoded";
+            }
+#endregion
+
+            request.ContentLength = postStream != null ? postStream.Length : 0;
+            request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+            request.KeepAlive = true;
+
+            if (!string.IsNullOrEmpty(refererUrl))
+            {
+                request.Referer = refererUrl;
+            }
+            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36";
+
+            if (cookieContainer != null)
+            {
+                request.CookieContainer = cookieContainer;
+            }
+
+#region 输入二进制流
+            if (postStream != null)
+            {
+                postStream.Position = 0;
+
+                //直接写入流
+                Stream requestStream = await request.GetRequestStreamAsync();
+
+                byte[] buffer = new byte[1024];
+                int bytesRead = 0;
+                while ((bytesRead = await postStream.ReadAsync(buffer, 0, buffer.Length)) != 0)
+                {
+                    await requestStream.WriteAsync(buffer, 0, bytesRead);
+                }
+
+
+                //debug
+                //postStream.Seek(0, SeekOrigin.Begin);
+                //StreamReader sr = new StreamReader(postStream);
+                //var postStr = await sr.ReadToEndAsync();
+
+                postStream.Close();//关闭文件访问
+            }
+#endregion
+
+            HttpWebResponse response = (HttpWebResponse)(await request.GetResponseAsync());
+
+            if (cookieContainer != null)
+            {
+                response.Cookies = cookieContainer.GetCookies(response.ResponseUri);
+            }
+
+            using (Stream responseStream = response.GetResponseStream())
+            {
+                using (StreamReader myStreamReader = new StreamReader(responseStream, encoding ?? Encoding.GetEncoding("utf-8")))
+                {
+                    string retString = await myStreamReader.ReadToEndAsync();
+                    return retString;
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// 填充表单信息的Stream
+        /// </summary>
+        /// <param name="formData"></param>
+        /// <param name="stream"></param>
+        public static async Task FillFormDataStreamAsync(this Dictionary<string, string> formData, Stream stream)
+        {
+            string dataString = GetQueryString(formData);
+            var formDataBytes = formData == null ? new byte[0] : Encoding.UTF8.GetBytes(dataString);
+            await stream.WriteAsync(formDataBytes, 0, formDataBytes.Length);
+            stream.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+        }
+
+#endregion
+#endif
 
         /// <summary>
         /// 请求是否发起自微信客户端的浏览器
@@ -403,6 +640,10 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static string AsUrlData(this string data)
         {
+            if (data == null)
+            {
+                return null;
+            }
             return Uri.EscapeDataString(data);
         }
     }

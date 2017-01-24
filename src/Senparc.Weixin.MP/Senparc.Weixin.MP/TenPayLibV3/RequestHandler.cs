@@ -16,6 +16,9 @@
     修改标识：Senparc - 20161112
     修改描述：为ParseXML()方法添加v==null的判断
 
+    修改标识：Senparc - 20170115
+    修改描述：v14.3.120 添加SetParameterWhenNotNull()方法
+
     ----------------------------------------------------------------*/
 
 using System;
@@ -124,6 +127,19 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             }
         }
 
+
+        /// <summary>
+        /// 当参数不为null或空字符串时，设置参数值
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <param name="parameterValue"></param>
+        public void SetParameterWhenNotNull(string parameter, string parameterValue)
+        {
+            if (!string.IsNullOrEmpty(parameterValue))
+            {
+                SetParameter(parameter, parameterValue);
+            }
+        }
 
         /// <summary>
         /// 创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名

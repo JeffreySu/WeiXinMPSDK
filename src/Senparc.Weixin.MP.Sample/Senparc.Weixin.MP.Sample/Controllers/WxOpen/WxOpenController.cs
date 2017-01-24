@@ -135,5 +135,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             }
         }
 
+        [HttpPost]
+        public ActionResult RequestData(string nickName)
+        {
+            var data = new
+            {
+                msg = string.Format("服务器时间：{0}，昵称：{1}", DateTime.Now, nickName)
+            };
+            return Json(data);
+        }
     }
 }

@@ -1,8 +1,8 @@
 # 目录
 * [微信C# SDK](#微信c-sdk--)
+* [资源](#资源)
 * [贡献代码](#贡献代码)
 * [如何使用.net core开发](#如何使用net-core开发)
-* [资源](#资源)
 * [关注测试账号（SenparcRobot）](#关注测试账号senparcrobot)
 * [项目文件夹说明（src文件夹下）](#项目文件夹说明src文件夹下)
 * [Senparc.Weixin.MP.Sample中的关键代码说明](#senparcweixinmpsample中的关键代码说明)
@@ -10,9 +10,10 @@
     * [如何处理微信公众账号请求？](#如何处理微信公众账号请求)
 * [使用Nuget安装到项目中](#使用nuget安装到项目中)
     * [如何处理微信公众号请求？](#如何处理微信公众号请求)
+    * [如何处理微信小程序请求？](#如何处理微信小程序请求)
     * [如何增强 ASP.NET MVC 项目的功能？](#如何增强-aspnet-mvc-项目的功能)
     * [如何处理微信企业号请求？](#如何处理微信企业号请求)
-    * [如何处理微开放平台请求？](#如何处理微开放平台请求)
+    * [如何处理微信开放平台请求？](#如何处理微信开放平台请求)
     * [如何使用分布式缓存？](#如何使用分布式缓存)
 * [如何开发小程序](#如何开发小程序)
 * [已实现功能](#已实现功能)
@@ -67,30 +68,6 @@
 
 目前官方的API都已完美集成，除非有特殊说明，所有升级都会尽量确保向下兼容，所以已经发布的版本请放心使用或直接升级（覆盖）最新的[DLLs](https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut)。
 
-## 如何使用.NET Core开发
-
-> .NET Framework 版本及 .NET Core 版本代码分别位于 
-[master](https://github.com/JeffreySu/WeiXinMPSDK) 
-和 [DotNET-Core](https://github.com/JeffreySu/WeiXinMPSDK/tree/DotNET-Core) 分支下，
-结构保持了高度一致。
-
-> Senparc.Weixin SDK已经针对.NET Core进行了优化，.NET Core 的开发过程和.NET Framework几乎是一样的，
-所有的接口、方法、命名规则和架构设计也都保持了高度的一致。
-
-> 由于.NET Core对某些特性支持正在完善中，目前.NET Core版本暂未提供分布式缓存有关的功能以及Senpar.Weixin.Open.dll。
-除此以外的所有库都已在Nuget包中支持，可以直接使用（同一个Nuget包同时支持.NET 4.0/4.5/Core，安装后程序会自动根据项目环境适配）。
-
-> 以下所有介绍以 .NET Framework 版本为例。
-
-## 贡献代码
-
-> 如果需要使用或修改此项目的源代码，建议先Fork。也欢迎将您修改的通用版本Pull Request过来。
-
-1. Fork
-2. 创建您的特性分支 (`git checkout -b my-new-feature`)
-3. 提交您的改动 (`git commit -am 'Added some feature'`)
-4. 将您的修改记录提交到远程 `git` 仓库 (`git push origin my-new-feature`)
-5. 然后到 github 网站的该 `git` 远程仓库的 `my-new-feature` 分支下发起 Pull Request
 
 资源
 ----------------
@@ -130,6 +107,34 @@
 [qrcode]: http://sdk.weixin.senparc.com/Images/qrcode.jpg
 
 
+
+## 如何使用.NET Core开发
+
+> .NET Framework 版本及 .NET Core 版本代码分别位于 
+[master](https://github.com/JeffreySu/WeiXinMPSDK) 
+和 [DotNET-Core](https://github.com/JeffreySu/WeiXinMPSDK/tree/DotNET-Core) 分支下，
+结构保持了高度一致。
+
+> Senparc.Weixin SDK已经针对.NET Core进行了优化，.NET Core 的开发过程和.NET Framework几乎是一样的，
+所有的接口、方法、命名规则和架构设计也都保持了高度的一致。
+
+> 由于.NET Core对某些特性支持正在完善中，目前.NET Core版本暂未提供分布式缓存有关的功能以及Senpar.Weixin.Open.dll。
+除此以外的所有库都已在Nuget包中支持，可以直接使用（同一个Nuget包同时支持.NET 4.0/4.5/Core，安装后程序会自动根据项目环境适配）。
+
+> 以下所有介绍以 .NET Framework 版本为例。
+
+## 贡献代码
+
+> 如果需要使用或修改此项目的源代码，建议先Fork。也欢迎将您修改的通用版本Pull Request过来。
+
+1. Fork
+2. 创建您的特性分支 (`git checkout -b my-new-feature`)
+3. 提交您的改动 (`git commit -am 'Added some feature'`)
+4. 将您的修改记录提交到远程 `git` 仓库 (`git push origin my-new-feature`)
+5. 然后到 github 网站的该 `git` 远程仓库的 `my-new-feature` 分支下发起 Pull Request
+（请提交到 `Developer` 分支，不要直接提交到 `master` 分支）
+
+
 项目文件夹说明（src文件夹下）
 --------------
 
@@ -141,9 +146,10 @@
 |Senparc.Weixin.MP.Sample|可以直接发布使用的Demo（ASP.NET MVC 4.0）|
 |Senparc.Weixin.MP.Sample.WebForms|可以直接发布使用的Demo（ASP.NET WebForms）|
 |Senparc.Weixin.MP|Senparc.Weixin.MP.dll 微信公众账号SDK源代码|
+|Senparc.Weixin.Open|Senparc.Weixin.Open.dll 第三方开放平台SDK源代码|
 |Senparc.Weixin.QY|Senparc.Weixin.QY.dll 微信企业号SDK源代码|
 |Senparc.Weixin.Work|Senparc.Weixin.Work.dll 企业微信SDK源代码|
-|Senparc.Weixin.Open|Senparc.Weixin.Open.dll 第三方开放平台SDK源代码|
+|Senparc.Weixin.WxOpen|Senparc.Weixin.WxOpen.dll 微信小程序SDK源代码|
 |Senparc.Wiexin|所有Senparc.Weixin.[x].dll 基础类库源代码|
 
 Senparc.Weixin.MP.Sample中的关键代码说明
@@ -292,7 +298,11 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 PM> Install-Package Senparc.Weixin.MP
 ```
 
+
 ###如何处理微信小程序请求？
+
+Senparc.Weixin.WxOpen对微信小程序的消息、API进行了封装，保持了公众号处理请求一致的开发过程。
+
 * Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.WxOpen
 
 * 命令：
@@ -319,7 +329,7 @@ Senparc.Weixin.QY.dll对企业号相关功能进行了封装，操作过程和�
 PM> Install-Package Senparc.Weixin.QY
 ```
 
-###如何处理微开放平台请求？
+###如何处理微信开放平台请求？
 Senparc.Weixin.Open.dll对目前所有的开放平台API进行了封装，消息处理过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致，其他一些特殊的消息流程请先阅读官方的文档，然后对照Senparc.Weixin.MP.Sample中有关Open的Demo进行开发。
 
 * Nuget 地址为https://www.nuget.org/packages/Senparc.Weixin.Open
@@ -344,6 +354,7 @@ PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Redis
 ```
 PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
 ```
+
 
 如何开发小程序
 --------------

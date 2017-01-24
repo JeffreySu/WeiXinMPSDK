@@ -146,7 +146,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AsyncMethodsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />

@@ -93,7 +93,6 @@
     <Compile Include="AdvancedAPIs\Semantic\SemanticTest.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundTest.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateTest.cs" />
-    <Compile Include="Containers\AccessTokenContainerAsyncTest.cs" />
     <Compile Include="Containers\AccessTokenContainerLockTest.cs" />
     <Compile Include="Containers\JsApiTicketContainerTest.cs" />
     <Compile Include="Entities\Request\PostModelTest.cs" />

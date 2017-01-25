@@ -20,7 +20,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             context = new HttpContextWrapper(HttpContext.Current);
         }
 
-        public Task App()
+        public string App()
         {
             //Checks if the query is WebSocket request. 
             if (context.IsWebSocketRequest)

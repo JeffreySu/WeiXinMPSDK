@@ -27,7 +27,7 @@ Page({
 
    //连接 Websocket
     wx.connectSocket({
-      url: 'wss://sdk.weixin.senparc.com/WxWebSocket/App',
+      url: 'wss://sdk.weixin.senparc.com/api/WxWebSocket/App',
       header:{ 
         'content-type': 'application/json'
       },

@@ -10,7 +10,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.WebSockets;
 
-namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
+namespace Senparc.Weixin.MP.Sample.Controllers
 {
     public class WxWebSocketController : ApiController
     {
@@ -20,6 +20,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             context = new HttpContextWrapper(HttpContext.Current);
         }
 
+        [HttpGet]
         public string App()
         {
             //Checks if the query is WebSocket request. 

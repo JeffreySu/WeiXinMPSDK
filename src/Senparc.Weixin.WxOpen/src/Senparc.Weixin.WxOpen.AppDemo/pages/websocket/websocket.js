@@ -1,0 +1,69 @@
+var app = getApp()
+var socketOpen = false;
+Page({
+  data: {
+    messageTip: '',
+    messageValue:'',
+    messageTextArr:[],
+    userinfo:{}
+  },
+  //事件处理函数
+  sendMessage: function() {
+    var that = this;
+    var msg = that.data.messageValue;
+    console.log('send message:' +messageValue );
+     if (socketOpen) {
+      wx.sendSocketMessage({
+      data:msg
+      })
+    } else {
+      that.setData({
+        messageTip:'WebSocket 链接失败，请重新连接！'
+      })
+    }
+  },
+  onLoad: function () {
+    console.log('onLoad')
+    var that = this
+
+   //连接 Websocket
+    wx.connectSocket({
+      url: 'wss://12311231.net/WebSocketHandler.ashx',
+      // url: 'wss://12311231.net/api/WebSocket/connect',
+      // data:{
+      //   x: '',
+      //   y: ''
+      // },
+      header:{ 
+        'content-type': 'application/json'
+      },
+      method:"GET"
+    });
+
+    wx.onSocketOpen(function(res) {
+      console.log('WebSocket 连接成功！')
+      socketOpen = true;
+      that.setData({
+        messageTip:'WebSocket 连接成功！'
+      })
+    })
+
+    wx.onSocketClose(function(res) {
+      console.log('WebSocket 已关闭！')
+      socketOpen = false;
+    })
+
+    wx.onSocketError(function(res){
+      console.log('WebSocket连接打开失败，请检查！')
+        // console.log(res);
+    })
+
+    //调用应用实例的方法获取全局数据
+    app.getUserInfo(function(userInfo){
+      //更新数据
+      that.setData({
+        userInfo:userInfo
+      })
+    })
+  }
+})

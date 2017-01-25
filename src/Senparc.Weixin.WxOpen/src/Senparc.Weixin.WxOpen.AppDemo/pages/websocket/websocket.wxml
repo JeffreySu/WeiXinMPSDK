@@ -1,0 +1,18 @@
+<view class="container">
+<text>{{messageTip}}</text>
+
+ <scroll-view scroll-y="true" style="height: 200px;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
+ <view wx:for="{{messageTextArr}}" wx:for-index="{{index}}" wx:for-item="item">
+<text class="messageContent">{{item.content}}</text>
+<text class="messageTime">{{item.time}}</text>
+ </view>
+  </scroll-view>
+</view>
+
+<view>
+<input placeholder="输入聊天内容" bindtap="bindInputTap" />
+  <button type="primary" bindtap="sendMessage" >
+  发送
+  </button>
+
+</view>

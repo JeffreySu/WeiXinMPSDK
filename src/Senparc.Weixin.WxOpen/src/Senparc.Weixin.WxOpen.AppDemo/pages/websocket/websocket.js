@@ -3,15 +3,14 @@ var socketOpen = false;
 Page({
   data: {
     messageTip: '',
-    messageValue:'',
     messageTextArr:[],
     userinfo:{}
   },
-  //事件处理函数
-  sendMessage: function() {
+  //sendMessage
+  formSubmit: function(e) {
     var that = this;
-    var msg = that.data.messageValue;
-    console.log('send message:' +messageValue );
+    var msg =  e.detail.value.messageContent;
+    console.log('send message:' +msg );
      if (socketOpen) {
       wx.sendSocketMessage({
       data:msg
@@ -28,12 +27,7 @@ Page({
 
    //连接 Websocket
     wx.connectSocket({
-      url: 'wss://12311231.net/WebSocketHandler.ashx',
-      // url: 'wss://12311231.net/api/WebSocket/connect',
-      // data:{
-      //   x: '',
-      //   y: ''
-      // },
+      url: 'wss://sdk.weixin.senparc.com/WxWebSocket/App',
       header:{ 
         'content-type': 'application/json'
       },

@@ -2,10 +2,14 @@
 <text>{{messageTip}}</text>
 
  <scroll-view scroll-y="true" style="height: 200px;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
- <view wx:for="{{messageTextArr}}" wx:key="{{index}}" wx:for-item="item">
-<text class="messageContent">{{item.content}}</text>
-<text class="messageTime">{{item.time}}</text>
- </view>
+ <block wx:for="{{messageTextArr}}"
+        wx:for-index="index"
+        wx:key="{{index}}" 
+        wx:for-item="msgItem">
+<text class="messageContent">{{msgItem.index}}.</text>
+<text class="messageContent">{{msgItem.content}}</text>
+<text class="messageTime">{{msgItem.time}}</text>
+ </block>
   </scroll-view>
 </view>
 

@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.WebSockets;
+using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.MP.Sample
 {
@@ -60,15 +61,27 @@ namespace Senparc.Weixin.MP.Sample
                 }
                 else
                 {
-                    byte[] payloadData = receivedDataBuffer.Array.Where(b => b != 0).ToArray();
+                    
+
+                    byte[] payloadData = receivedDataBuffer.Array
+                        .Where(b => b != 0)
+                        .Take(webSocketReceiveResult.Count)
+                        .ToArray();
 
                     //Because we know that is a string, we convert it.
                     string receiveString =
+                      //System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
                       System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
 
                     //Converts string to byte array.
-                    var newString =
-                      String.Format("Hello, " + receiveString + " ! Time {0}", DateTime.Now.ToString());
+                    var data = new
+                    {
+                        content = receiveString,
+                        time = DateTime.Now.ToString()
+                    };
+                    SerializerHelper serializerHelper = new SerializerHelper();
+                    var newString = serializerHelper.GetJsonString(data);
+                      //String.Format("Hello, " + receiveString + " ! Time {0}", DateTime.Now.ToString());
                     Byte[] bytes = System.Text.Encoding.UTF8.GetBytes(newString);
 
                     //Sends data back.

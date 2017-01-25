@@ -44,7 +44,28 @@ Page({
     })
 
     wx.onSocketMessage(function(res) {
+      console.log(that,res);
       console.log('收到服务器内容：' + res.data)
+      var jsonResult = JSON.parse(res.data);
+      var currentIndex= that.data.messageTextArr.length+1;
+      var newArr = that.data.messageTextArr;
+      newArr.push(
+        {
+          index:currentIndex,
+          content:jsonResult.content,
+          time:jsonResult.time
+        });
+        console.log(that);
+      that.setData({
+        messageTextArr:newArr
+      });
+      // that.data.messageTextArr.push(
+      //   {
+      //     index:currentIndex,
+      //     content:jsonResult.content,
+      //     time:jsonResult.time
+      //   });
+      //console.log(that.data.messageTextArr);
     })
 
     wx.onSocketClose(function(res) {

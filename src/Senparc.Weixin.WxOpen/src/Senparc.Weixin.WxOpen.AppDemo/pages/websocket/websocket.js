@@ -27,7 +27,8 @@ Page({
 
    //连接 Websocket
     wx.connectSocket({
-      url: 'wss://sdk.weixin.senparc.com/api/WxWebSocket/App',
+      //url: 'wss://sdk.weixin.senparc.com/api/WxWebSocket/App',
+      url: 'wss://sdk.weixin.senparc.com/WxWebSocket.ashx',
       header:{ 
         'content-type': 'application/json'
       },
@@ -40,6 +41,10 @@ Page({
       that.setData({
         messageTip:'WebSocket 连接成功！'
       })
+    })
+
+    wx.onSocketMessage(function(res) {
+      console.log('收到服务器内容：' + res.data)
     })
 
     wx.onSocketClose(function(res) {

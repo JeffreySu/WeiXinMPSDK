@@ -1,35 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Http;
 using System.Web.WebSockets;
 
-namespace Senparc.Weixin.MP.Sample.Controllers
+namespace Senparc.Weixin.MP.Sample
 {
-    public class WxWebSocketController : ApiController
+    /// <summary>
+    /// WxWebSocket 的摘要说明
+    /// </summary>
+    public class WxWebSocket : IHttpHandler
     {
-        HttpContextBase context;
-        public WxWebSocketController()
-        {
-            context = new HttpContextWrapper(HttpContext.Current);
-        }
 
-        [HttpGet]
-        public string App()
+        public void ProcessRequest(HttpContext context)
         {
+            //context.Response.ContentType = "text/plain";
+            //context.Response.Write("Hello World");
+
             //Checks if the query is WebSocket request. 
             if (context.IsWebSocketRequest)
             {
                 //If yes, we attach the asynchronous handler.
                 context.AcceptWebSocketRequest(WebSocketRequestHandler);
             }
-            return "";
         }
 
         public async Task WebSocketRequestHandler(AspNetWebSocketContext webSocketContext)
@@ -82,31 +78,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
         }
 
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        public bool IsReusable
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<controller>/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
+            get
+            {
+                return false;
+            }
         }
     }
 }

@@ -35,7 +35,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         public async Task WebSocketRequestHandler(AspNetWebSocketContext webSocketContext)
         {
             //Gets the current WebSocket object.
-            WebSocket webSocket = webSocketContext.WebSocket;
+            System.Net.WebSockets.WebSocket webSocket = webSocketContext.WebSocket;
 
             /*We define a certain constant which will represent
             size of received data. It is established by us and 

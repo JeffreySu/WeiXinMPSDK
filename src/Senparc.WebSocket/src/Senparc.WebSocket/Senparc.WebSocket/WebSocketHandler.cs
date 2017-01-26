@@ -27,7 +27,6 @@ namespace Senparc.WebSocket
     /// </summary>
     public class WebSocketHandler : IHttpHandler
     {
-
         public WebSocketHandler(RequestContext context)
         {
             ProcessRequest(context);
@@ -89,10 +88,18 @@ namespace Senparc.WebSocket
                       //System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
                       System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
 
+                    string replyString = receiveString;
+
+                    if (receiveString == "你好")
+                    {
+                        replyString +=  " >> Hello";
+                    }
+                 
+
                     //Converts string to byte array.
                     var data = new
                     {
-                        content = receiveString,
+                        content = replyString,
                         time = DateTime.Now.ToString()
                     };
 
@@ -104,6 +111,8 @@ namespace Senparc.WebSocket
                     //Sends data back.
                     await webSocket.SendAsync(new ArraySegment<byte>(bytes),
                       WebSocketMessageType.Text, true, cancellationToken);
+
+
                 }
             }
         }

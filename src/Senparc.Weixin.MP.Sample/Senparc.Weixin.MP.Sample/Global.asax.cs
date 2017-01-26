@@ -100,7 +100,21 @@ namespace Senparc.Weixin.MP.Sample
         /// </summary>
         private void RegisterWebSocket()
         {
-            Senparc.WebSocket.WebSocketRouteConfig.RegisterRoutes(RouteTable.Routes);
+            Senparc.WebSocket.WebSocketConfig.RegisterRoutes(RouteTable.Routes);
+
+            Senparc.WebSocket.WebSocketConfig.OnReceiveMessage = (message) =>
+            {
+                string replyString = message;
+                if (message == "你好")
+                {
+                    replyString += " >> Hello";
+                }
+                else if (message == "Hello")
+                {
+                    replyString += " >> 你好";
+                }
+                return replyString;
+            };
         }
 
         /// <summary>

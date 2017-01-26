@@ -46,6 +46,11 @@ namespace Senparc.WebSocket
             }
         }
 
+        /// <summary>
+        /// 部分Handler过程参考：http://www.cnblogs.com/lookbs/p/MVC-IMG.html
+        /// </summary>
+        /// <param name="webSocketContext"></param>
+        /// <returns></returns>
         public static async Task WebSocketRequestHandler(AspNetWebSocketContext webSocketContext)
         {
             //Gets the current WebSocket object.
@@ -88,31 +93,30 @@ namespace Senparc.WebSocket
                       //System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
                       System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
 
-                    string replyString = receiveString;
+                    string replyString = null;
 
-                    if (receiveString == "你好")
+                    if (WebSocketConfig.OnReceiveMessage!=null)
                     {
-                        replyString +=  " >> Hello";
+                        replyString = WebSocketConfig.OnReceiveMessage.Invoke(receiveString);
+                        if (replyString!=null)
+                        {
+                            //Converts string to byte array.
+                            var data = new
+                            {
+                                content = replyString,
+                                time = DateTime.Now.ToString()
+                            };
+
+                            var newString = Newtonsoft.Json.JsonConvert.SerializeObject(data);
+                            //String.Format("Hello, " + receiveString + " ! Time {0}", DateTime.Now.ToString());
+
+                            Byte[] bytes = System.Text.Encoding.UTF8.GetBytes(newString);
+
+                            //Sends data back.
+                            await webSocket.SendAsync(new ArraySegment<byte>(bytes),
+                              WebSocketMessageType.Text, true, cancellationToken);
+                        }
                     }
-                 
-
-                    //Converts string to byte array.
-                    var data = new
-                    {
-                        content = replyString,
-                        time = DateTime.Now.ToString()
-                    };
-
-                    var newString = Newtonsoft.Json.JsonConvert.SerializeObject(data);
-                    //String.Format("Hello, " + receiveString + " ! Time {0}", DateTime.Now.ToString());
-
-                    Byte[] bytes = System.Text.Encoding.UTF8.GetBytes(newString);
-
-                    //Sends data back.
-                    await webSocket.SendAsync(new ArraySegment<byte>(bytes),
-                      WebSocketMessageType.Text, true, cancellationToken);
-
-
                 }
             }
         }

@@ -19,8 +19,6 @@ using System.Web.Routing;
 
 namespace Senparc.WebSocket
 {
-    /*Handler参考：http://www.cnblogs.com/lookbs/p/MVC-IMG.html */
-
     /// <summary>
     /// WebSocketHansler，处理WebSocket请求
     /// </summary>

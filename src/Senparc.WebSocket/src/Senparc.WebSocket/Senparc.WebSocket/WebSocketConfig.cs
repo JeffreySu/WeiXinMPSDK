@@ -18,8 +18,10 @@ using System.Web.Routing;
 
 namespace Senparc.WebSocket
 {
-    public class WebSocketRouteConfig
+    public class WebSocketConfig
     {
+        public static Func<string,string> OnReceiveMessage; 
+
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.Add("SenparcWebSocketRoute",new Route("SenparcWebSocket",new WebSocketRouteHandler()));//SenparcWebSocket/{app}

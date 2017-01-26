@@ -63,7 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WebSocketRouteConfig.cs" />
+    <Compile Include="WebSocketConfig.cs" />
     <Compile Include="WebSocketHandler.cs" />
     <Compile Include="WebSocketRouteHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

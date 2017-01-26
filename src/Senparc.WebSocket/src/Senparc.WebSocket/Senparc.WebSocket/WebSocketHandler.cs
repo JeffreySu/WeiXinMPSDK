@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
+
+    文件名：WebSocketHandler.cs
+    文件功能描述：WebSocket处理程序
+
+
+    创建标识：Senparc - 20170126
+
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.WebSockets;
@@ -11,6 +22,9 @@ using System.Web.WebSockets;
 
 namespace Senparc.WebSocket
 {
+    /// <summary>
+    /// WebSocket处理程序
+    /// </summary>
     public class WebSocketHandler : IHttpHandler
     {
 

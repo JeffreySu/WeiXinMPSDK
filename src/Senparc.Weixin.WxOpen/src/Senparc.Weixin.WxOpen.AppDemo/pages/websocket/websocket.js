@@ -4,7 +4,9 @@ Page({
   data: {
     messageTip: '',
     messageTextArr:[],
+    messageContent:'',
     userinfo:{}
+
   },
   //sendMessage
   formSubmit: function(e) {
@@ -14,6 +16,9 @@ Page({
      if (socketOpen) {
       wx.sendSocketMessage({
       data:msg
+      });
+      that.setData({
+        messageContent:''
       })
     } else {
       that.setData({

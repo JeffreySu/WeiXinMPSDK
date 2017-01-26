@@ -1,26 +1,28 @@
 /* pages/websocket/websocket.wxss */
-input{
+.submitContent{
+    width:60%;
+    float:left;
+}
+
+.submitButton{
+    width: 20%;
+    float:right;
+}
+
+
+input.txtContent{
     border:1px solid green;
-    padding:5px;
-    height:30px;
+
+    height:20px;
+    line-height: 30px;
 }
 
 button.btnSubmit
 {
    line-height: 30px;
    height:30px;
-   width:20%;
 }
 
-.submitContent{
-    width:80%;
-    padding:5px;
-}
-
-.submitButton{
-    width: 20%;
-    padding:5px;
-}
 
 .messageItem{
     clear:both;

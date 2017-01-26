@@ -17,9 +17,15 @@
 
 <view>
 <form bindsubmit="formSubmit">
-<input placeholder="输入聊天内容" name="messageContent" />
-<button type="primary" formType="submit" class="btnSubmit">
-发送
-</button>
+<view class="flex-wrp" style="flex-direction:column;">
+  <view class="flex-item submitContent">
+    <input placeholder="输入聊天内容" name="messageContent" class="txtContent" value="{{messageContent}}" />
+  </view>
+  <view class="flex-item submitButton">
+    <button type="primary" formType="submit" class="btnSubmit">
+    发送
+    </button>
+  </view>
+</view>
 </form>
 </view>

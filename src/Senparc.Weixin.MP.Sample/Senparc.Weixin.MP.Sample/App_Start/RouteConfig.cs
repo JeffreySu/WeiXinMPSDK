@@ -12,7 +12,7 @@ namespace Senparc.Weixin.MP.Sample
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            routes.IgnoreRoute(".well-known/acme-challenge/{filename}");
 
             routes.MapRoute(
                 name: "Open",

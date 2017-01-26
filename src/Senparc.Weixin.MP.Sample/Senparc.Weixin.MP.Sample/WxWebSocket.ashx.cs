@@ -61,8 +61,6 @@ namespace Senparc.Weixin.MP.Sample
                 }
                 else
                 {
-                    
-
                     byte[] payloadData = receivedDataBuffer.Array
                         .Where(b => b != 0)
                         .Take(webSocketReceiveResult.Count)

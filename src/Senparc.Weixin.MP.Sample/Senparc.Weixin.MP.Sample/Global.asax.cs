@@ -37,6 +37,9 @@ namespace Senparc.Weixin.MP.Sample
         {
             AreaRegistration.RegisterAllAreas();
 
+            RegisterWebSocket();        //微信注册WebSocket模块（按需，必须执行在RouteConfig.RegisterRoutes()之前）
+
+
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -49,7 +52,6 @@ namespace Senparc.Weixin.MP.Sample
 
             RegisterWeixinCache();      //注册分布式缓存（按需，如果需要，必须放在第一个）
             ConfigWeixinTraceLog();     //配置微信跟踪日志（按需）
-            RegisterWebSocket();        //注册WebSocket模块（按需）
             RegisterWeixinThreads();    //激活微信缓存及队列线程（必须）
             RegisterSenparcWeixin();    //注册Demo所用微信公众号的账号信息（按需）
             RegisterSenparcQyWeixin();  //注册Demo所用微信企业号的账号信息（按需）

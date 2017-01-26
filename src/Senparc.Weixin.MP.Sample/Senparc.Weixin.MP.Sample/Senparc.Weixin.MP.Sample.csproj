@@ -180,15 +180,11 @@
     <Compile Include="Controllers\WeixinController_OldPost.cs" />
     <Compile Include="Controllers\TenPayController.cs" />
     <Compile Include="Controllers\WxOpen\WxOpenController.cs" />
-    <Compile Include="Controllers\WxOpen\WxWebSocketController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WxWebSocket.ashx.cs">
-      <DependentUpon>WxWebSocket.ashx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Document\Config.xml" />
@@ -336,7 +332,6 @@
     <Content Include="Views\Cache\Test.cshtml" />
     <Content Include="Views\Document\Index.cshtml" />
     <Content Include="Views\AsyncMethods\Index.cshtml" />
-    <Content Include="WxWebSocket.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Document\Files\" />

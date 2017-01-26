@@ -13,6 +13,12 @@
   <text>{{time}}</text>
   </view>
 
+  
+  <!-- WebSocket -->
+  <button type="devalut" bindtap="bindWebsocketTap">
+  WebSocket
+  </button>
+
   <!-- 进入客服 -->
    <view class="btn-contact">
       <contact-button 

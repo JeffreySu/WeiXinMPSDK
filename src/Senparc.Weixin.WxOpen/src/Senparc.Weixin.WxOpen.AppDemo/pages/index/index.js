@@ -12,6 +12,13 @@ Page({
       url: '../logs/logs'
     })
   },
+
+  bindWebsocketTap: function(){
+    wx.navigateTo({
+      url: '../websocket/websocket'
+    })
+  },
+
   //处理wx.request请求
   doRequest:function(){
     var that = this;

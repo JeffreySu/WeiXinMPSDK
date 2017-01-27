@@ -20,11 +20,16 @@ namespace Senparc.WebSocket
 {
     public class WebSocketConfig
     {
-        public static Func<string,string> OnReceiveMessage; 
+        internal static Func<WebSocketMessageHandler> WebSocketMessageHandlerFunc { get; set; }
 
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.Add("SenparcWebSocketRoute",new Route("SenparcWebSocket",new WebSocketRouteHandler()));//SenparcWebSocket/{app}
+            routes.Add("SenparcWebSocketRoute", new Route("SenparcWebSocket", new WebSocketRouteHandler()));//SenparcWebSocket/{app}
+        }
+
+        public static void RegisterMessageHandler<T>() where T : WebSocketMessageHandler, new()
+        {
+            WebSocketMessageHandlerFunc = () => new T();
         }
     }
 }

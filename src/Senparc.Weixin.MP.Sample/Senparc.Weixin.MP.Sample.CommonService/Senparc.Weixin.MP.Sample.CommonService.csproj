@@ -72,6 +72,7 @@
     <Compile Include="MessageHandlers\OpenMessageHandler\OpenCheckMessageHandler.cs" />
     <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageContext.cs" />
     <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageHandler.cs" />
+    <Compile Include="MessageHandlers\WebSocket\CustomWebSocketMessageHandler.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler\CustomWxOpenMessageHandler.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler\CustomWxOpenMessageContext.cs" />
     <Compile Include="OpenTicket\OpenTicketHelper.cs" />
@@ -82,6 +83,10 @@
     <Compile Include="Utilities\Server.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.csproj">
+      <Project>{b745f5f5-9120-4d56-a86d-ed34eadb703c}</Project>
+      <Name>Senparc.WebSocket</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
       <Project>{1d815fbf-451c-4e23-939c-cb80172f445c}</Project>
       <Name>Senparc.Weixin.MP</Name>
@@ -109,6 +114,7 @@
   <ItemGroup>
     <Content Include="Download\readme.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

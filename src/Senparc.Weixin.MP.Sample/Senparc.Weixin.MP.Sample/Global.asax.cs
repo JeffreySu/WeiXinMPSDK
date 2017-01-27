@@ -18,7 +18,9 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Sample.CommonService;
+using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
+using Senparc.Weixin.MP.Sample.CommonService.WebSocket;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.Open.CommonAPIs;
@@ -101,20 +103,7 @@ namespace Senparc.Weixin.MP.Sample
         private void RegisterWebSocket()
         {
             Senparc.WebSocket.WebSocketConfig.RegisterRoutes(RouteTable.Routes);
-
-            Senparc.WebSocket.WebSocketConfig.OnReceiveMessage = (message) =>
-            {
-                string replyString = message;
-                if (message == "你好")
-                {
-                    replyString += " >> Hello";
-                }
-                else if (message == "Hello")
-                {
-                    replyString += " >> 你好";
-                }
-                return replyString;
-            };
+            Senparc.WebSocket.WebSocketConfig.RegisterMessageHandler<CustomWebSocketMessageHandler>();
         }
 
         /// <summary>

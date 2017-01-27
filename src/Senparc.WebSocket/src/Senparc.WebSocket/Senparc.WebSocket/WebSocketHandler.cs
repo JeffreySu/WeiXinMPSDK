@@ -27,8 +27,10 @@ namespace Senparc.WebSocket
     /// </summary>
     public class WebSocketHandler : IHttpHandler
     {
+        private RequestContext _requestContext;
         public WebSocketHandler(RequestContext context)
         {
+            _requestContext = context;
             ProcessRequest(context);
         }
 
@@ -55,7 +57,6 @@ namespace Senparc.WebSocket
         {
             //Gets the current WebSocket object.
             System.Net.WebSockets.WebSocket webSocket = webSocketContext.WebSocket;
-
             /*We define a certain constant which will represent
             size of received data. It is established by us and 
             we can set any value. We know that in this case the size of the sent
@@ -88,34 +89,17 @@ namespace Senparc.WebSocket
                         .Take(webSocketReceiveResult.Count)
                         .ToArray();
 
-                    //Because we know that is a string, we convert it.
-                    string receiveString =
-                      //System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
-                      System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
-
-                    string replyString = null;
-
-                    if (WebSocketConfig.OnReceiveMessage!=null)
+                    if (WebSocketConfig.WebSocketMessageHandlerFunc != null)
                     {
-                        replyString = WebSocketConfig.OnReceiveMessage.Invoke(receiveString);
-                        if (replyString!=null)
-                        {
-                            //Converts string to byte array.
-                            var data = new
-                            {
-                                content = replyString,
-                                time = DateTime.Now.ToString()
-                            };
+                        //Because we know that is a string, we convert it.
+                        string receiveString =
+                          //System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
+                          System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
 
-                            var newString = Newtonsoft.Json.JsonConvert.SerializeObject(data);
-                            //String.Format("Hello, " + receiveString + " ! Time {0}", DateTime.Now.ToString());
+                        WebSocketHelper webSocketHandler = new WebSocketHelper(webSocketContext, cancellationToken);
+                        var messageHandler = WebSocketConfig.WebSocketMessageHandlerFunc.Invoke();
 
-                            Byte[] bytes = System.Text.Encoding.UTF8.GetBytes(newString);
-
-                            //Sends data back.
-                            await webSocket.SendAsync(new ArraySegment<byte>(bytes),
-                              WebSocketMessageType.Text, true, cancellationToken);
-                        }
+                        await messageHandler.OnMessageReceiced(webSocketHandler, receiveString);
                     }
                 }
             }

@@ -37,6 +37,7 @@
 | 7| Redis 分布式缓存                                     |Senparc.Weixin.Cache.Redis.dll     | [![Senparc.Weixin.Cache.Redis][7.1]][7.2]   |
 | 8| Memcached 分布式缓存                                 |Senparc.Weixin.Cache.Memcached.dll |[![Senparc.Weixin.Cache.Memcached][8.1]][8.2]| 
 | 9| [微信小程序（独立项目）](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll		  |[![Senparc.Weixin.WxOpen][9.1]][9.2]         | 
+|10| [WebSocket（独立项目）](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll		  |[![Senparc.WebSocket][10.1]][10.2]         | 
 
 [1.1]: https://img.shields.io/nuget/v/Senparc.Weixin.svg?style=flat
 [1.2]: https://www.nuget.org/packages/Senparc.Weixin
@@ -56,7 +57,8 @@
 [8.2]: https://www.nuget.org/packages/Senparc.Weixin.Cache.Memcached
 [9.1]: https://img.shields.io/nuget/v/Senparc.Weixin.WxOpen.svg?style=flat
 [9.2]: https://www.nuget.org/packages/Senparc.Weixin.WxOpen
-
+[10.1]: https://img.shields.io/nuget/v/Senparc.WebSocket.svg?style=flat
+[10.2]: https://www.nuget.org/packages/Senparc.WebSocket
 
 
 本库为.NET4.5，其他.NET版本请看各自分支（DotNET-Core、.NET 4.0等）。
@@ -140,6 +142,7 @@
 
 | 文件夹 | 说明 |
 |--------|--------|
+|Senparc.WebSocket|WebSocket 模块|
 |Senparc.Weixin.Cache|Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis.dll 等分布式缓存扩展方案|
 |Senparc.Weixin.MP.BuildOutPut|所有最新版本DLL发布文件夹|
 |Senparc.Weixin.MP.MvcExtension|Senparc.Weixin.MP.MvcExtension.dll源码，为MVC4.0项目提供的扩展包。|

@@ -1,23 +1,31 @@
 <view class="container">
 <text>{{messageTip}}</text>
 
- <scroll-view scroll-y="true" style="height: 200px;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
+ <scroll-view scroll-y="true" style="height: 260px;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
  <block wx:for="{{messageTextArr}}"
         wx:for-index="index"
         wx:key="{{index}}" 
         wx:for-item="msgItem">
-<text class="messageContent">{{msgItem.index}}.</text>
-<text class="messageContent">{{msgItem.content}}</text>
-<text class="messageTime">{{msgItem.time}}</text>
+  <view class="messageItem">
+    <!--<text class="messageIndex">{{msgItem.index}}.</text>-->
+    <text class="messageTime">{{msgItem.time}}</text>
+    <text class="messageContext">{{msgItem.content}}</text>
+  </view>
  </block>
   </scroll-view>
 </view>
 
 <view>
 <form bindsubmit="formSubmit">
-<input placeholder="输入聊天内容" name="messageContent" />
-  <button type="primary" formType="submit">
-  发送
-  </button>
+<view class="flex-wrp" style="flex-direction:column;">
+  <view class="flex-item submitContent">
+    <input placeholder="输入聊天内容" name="messageContent" class="txtContent" value="{{messageContent}}" />
+  </view>
+  <view class="flex-item submitButton">
+    <button type="primary" formType="submit" class="btnSubmit">
+    发送
+    </button>
+  </view>
+</view>
 </form>
 </view>

@@ -4,7 +4,9 @@ Page({
   data: {
     messageTip: '',
     messageTextArr:[],
+    messageContent:'',
     userinfo:{}
+
   },
   //sendMessage
   formSubmit: function(e) {
@@ -14,6 +16,9 @@ Page({
      if (socketOpen) {
       wx.sendSocketMessage({
       data:msg
+      });
+      that.setData({
+        messageContent:''
       })
     } else {
       that.setData({
@@ -28,7 +33,8 @@ Page({
    //连接 Websocket
     wx.connectSocket({
       //url: 'wss://sdk.weixin.senparc.com/api/WxWebSocket/App',
-      url: 'wss://sdk.weixin.senparc.com/WxWebSocket.ashx',
+      //url: 'wss://sdk.weixin.senparc.com/WxWebSocket.ashx',
+      url: 'wss://sdk.weixin.senparc.com/SenparcWebSocket',
       header:{ 
         'content-type': 'application/json'
       },

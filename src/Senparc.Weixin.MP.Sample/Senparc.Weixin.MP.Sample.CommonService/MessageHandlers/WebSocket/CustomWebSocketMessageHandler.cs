@@ -14,10 +14,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
     {
         public override Task OnConnecting(WebSocketHelper webSocketHandler)
         {
+            return null;
         }
 
         public override Task OnDisConnected(WebSocketHelper webSocketHandler)
         {
+            return null;
         }
 
         public override async Task OnMessageReceiced(WebSocketHelper webSocketHandler, string message)

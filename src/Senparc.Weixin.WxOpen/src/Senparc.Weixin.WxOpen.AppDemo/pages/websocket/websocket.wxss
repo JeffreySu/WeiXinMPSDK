@@ -1,4 +1,8 @@
 /* pages/websocket/websocket.wxss */
+.container{
+    padding-top:10px;
+}
+
 .submitContent{
     width:60%;
     float:left;

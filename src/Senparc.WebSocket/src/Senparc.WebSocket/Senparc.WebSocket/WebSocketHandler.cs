@@ -69,6 +69,18 @@ namespace Senparc.WebSocket
 
             var cancellationToken = new CancellationToken();
 
+
+            WebSocketHelper webSocketHandler = new WebSocketHelper(webSocketContext, cancellationToken);
+            var messageHandler = WebSocketConfig.WebSocketMessageHandlerFunc.Invoke();
+
+            if (webSocket.State == WebSocketState.Connecting)
+            {
+                if (WebSocketConfig.WebSocketMessageHandlerFunc != null)
+                {
+                    await messageHandler.OnConnecting(webSocketHandler);//调用MessageHandler
+                }
+            }
+
             //Checks WebSocket state.
             while (webSocket.State == WebSocketState.Open)
             {
@@ -79,6 +91,11 @@ namespace Senparc.WebSocket
                 //If input frame is cancelation frame, send close command.
                 if (webSocketReceiveResult.MessageType == WebSocketMessageType.Close)
                 {
+                    if (WebSocketConfig.WebSocketMessageHandlerFunc != null)
+                    {
+                        await messageHandler.OnDisConnected(webSocketHandler);//调用MessageHandler
+                    }
+
                     await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure,
                       String.Empty, cancellationToken);
                 }
@@ -96,10 +113,7 @@ namespace Senparc.WebSocket
                           //System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
                           System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
 
-                        WebSocketHelper webSocketHandler = new WebSocketHelper(webSocketContext, cancellationToken);
-                        var messageHandler = WebSocketConfig.WebSocketMessageHandlerFunc.Invoke();
-
-                        await messageHandler.OnMessageReceiced(webSocketHandler, receiveString);
+                        await messageHandler.OnMessageReceiced(webSocketHandler, receiveString);//调用MessageHandler
                     }
                 }
             }

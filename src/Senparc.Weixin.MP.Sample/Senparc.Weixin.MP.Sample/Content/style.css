@@ -66,6 +66,13 @@
     padding: 28px 0 0 0;
 }
 
+#noticearea {
+    background-color: #ffff00;
+    color:#4D4D4D;
+    line-height: 30px;
+    text-align: center;
+}
+
 .senparc-container {
 }
 

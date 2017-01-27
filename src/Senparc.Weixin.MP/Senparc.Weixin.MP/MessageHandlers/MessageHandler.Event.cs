@@ -7,10 +7,14 @@
     
     创建标识：Senparc - 20150924
     
+    修改标识：Senparc - 20170114
+    修改描述：v14.3.119 OnEvent_ShakearoundUserShake接口默认返回ResponseMessageNoResponse信息
+    
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
+using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.MessageHandlers
 {
@@ -377,7 +381,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
         /// </summary>
         public virtual IResponseMessageBase OnEvent_ShakearoundUserShake(RequestMessageEvent_ShakearoundUserShake requestMessage)
         {
-            return DefaultResponseMessage(requestMessage);
+            return requestMessage.CreateResponseMessage<ResponseMessageNoResponse>();
+            //return DefaultResponseMessage(requestMessage);
         }
 
         #endregion

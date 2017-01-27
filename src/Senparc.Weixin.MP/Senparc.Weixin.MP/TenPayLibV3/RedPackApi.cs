@@ -96,7 +96,8 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
         public static NormalRedPackResult SendNormalRedPack(string appId, string mchId, string tenPayKey, string tenPayCertPath,
             string openId, string senderName,
             string iP, int redPackAmount, string wishingWord, string actionName, string remark,
-            out string nonceStr, out string paySign, string mchBillNo, RedPack_Scene? scene = null, string riskInfo = null, string consumeMchId = null)
+            out string nonceStr, out string paySign, 
+            string mchBillNo, RedPack_Scene? scene = null, string riskInfo = null, string consumeMchId = null)
         {
             mchBillNo = mchBillNo ?? GetNewBillNo(mchId);
 

@@ -90,7 +90,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                     string openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//收到通知的管理员OpenId
                     var host = "A1 / AccessTokenOrAppId：" + (ex.AccessTokenOrAppId ?? "null");
                     string service = null;
-                    string message = null;
+                    string message = ex.Message;
                     var status = ex.GetType().Name;
                     var remark = "\r\n这是一条通过OnWeixinExceptionFunc事件发送的异步模板消息";
                     string url = "https://github.com/JeffreySu/WeiXinMPSDK/blob/24aca11630bf833f6a4b6d36dce80c5b171281d3/src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/Global.asax.cs#L246";//需要点击打开的URL

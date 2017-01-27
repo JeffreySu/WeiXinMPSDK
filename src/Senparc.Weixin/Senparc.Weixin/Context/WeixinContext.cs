@@ -24,7 +24,7 @@ namespace Senparc.Weixin.Context
 {
     public static class WeixinContextGlobal
     {
-        public static object Lock = new object();
+        public static object Lock = new object();//TODO:转为同步锁
 
         /// <summary>
         /// 是否开启上下文记录

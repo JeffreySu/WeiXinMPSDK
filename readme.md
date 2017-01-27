@@ -29,7 +29,7 @@
 | # | 模块功能                                            | DLL                               | Nuget                                       |
 |---|----------------------------------------------------|-----------------------------------|---------------------------------------------|
 | 1| 基础库                                               |Senparc.Weixin.dll                 | [![Senparc.Weixin][1.1]][1.2]               |
-| 2| 微信公众号 / 小程序 / 微信支付 / JSSDK / 摇周边 / 等等 |Senparc.Weixin.MP.dll            | [![Senparc.Weixin.MP][2.1]][2.2]            |
+| 2| 微信公众号 / 微信支付 / JSSDK / 摇周边 / 等等 |Senparc.Weixin.MP.dll            | [![Senparc.Weixin.MP][2.1]][2.2]            |
 | 3| ASP.NET MVC 扩展                                     |Senparc.Weixin.MP.MVC.dll          | [![Senparc.Weixin.MP.MVC][3.1]][3.2]        |
 | 4| 微信企业号                                           |Senparc.Weixin.QY.dll              | [![Senparc.Weixin.QY][4.1]][4.2]            |
 | 5| 企业微信（准备中）                                             |Senparc.Weixin.Work.dll              | [![Senparc.Weixin.Work][5.1]][5.2]            |

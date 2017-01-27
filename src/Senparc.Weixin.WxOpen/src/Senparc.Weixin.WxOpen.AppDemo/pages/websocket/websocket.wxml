@@ -1,7 +1,7 @@
 <view class="container">
 <text>{{messageTip}}</text>
 
- <scroll-view scroll-y="true" style="height: 200px;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
+ <scroll-view scroll-y="true" style="height: 300px;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
  <block wx:for="{{messageTextArr}}"
         wx:for-index="index"
         wx:key="{{index}}" 

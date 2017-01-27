@@ -20,7 +20,6 @@ using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Sample.CommonService;
 using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
-using Senparc.Weixin.MP.Sample.CommonService.WebSocket;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
 using Senparc.Weixin.Open.CommonAPIs;
@@ -40,7 +39,6 @@ namespace Senparc.Weixin.MP.Sample
             AreaRegistration.RegisterAllAreas();
 
             RegisterWebSocket();        //微信注册WebSocket模块（按需，必须执行在RouteConfig.RegisterRoutes()之前）
-
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

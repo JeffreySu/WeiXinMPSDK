@@ -74,7 +74,6 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Console.WriteLine(jsonString);
             Assert.IsTrue(jsonString.Contains("FIELD_NAME_TYPE_ACHIEVEMEN"));
             Assert.IsTrue(jsonString.Contains("https://weixin.senparc.com"));
-
         }
 
         [TestMethod]

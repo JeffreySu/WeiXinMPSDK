@@ -19,10 +19,11 @@
             <div class="wrapper">
                 <div class="logo">
                     <a href="http://www.senparc.com">
-                        <img src="/images/v2/logo .png" alt="微信SDK"/>
+                        <img src="/images/v2/logo .png" alt="微信SDK" />
                     </a>
                 </div>
-                <div class="header-title"><a href="@Url.Action("Index", "Home")" title="微信SDK（公众平台/小程序/企业号/开放平/微信支付/JSSDK/摇一摇周边）">微信SDK（公众平台/小程序/企业号/开放平台/微信支付/JSSDK/摇一摇周边）</a>
+                <div class="header-title">
+                    <a href="@Url.Action("Index", "Home")" title="微信SDK（公众平台/小程序/企业号/开放平/微信支付/JSSDK/摇一摇周边）">微信SDK（公众平台/小程序/企业号/开放平台/微信支付/JSSDK/摇一摇周边）</a>
                 </div>
                 <div class="navbar-collapse">
                     <ul class="nav-catalog">
@@ -33,7 +34,7 @@
                         <li><a href="@Url.Action("Test", "Cache")">缓存测试</a></li>
                         <li><a href="http://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))">帮助文档</a></li>
                         <li><a href="http://www.cnblogs.com/szw/archive/2013/05/14/weixin-course-index.html" target="_blank">教程</a></li>
-                        <li><a href="http://weixin.senparc.com/QA" target="_blank">问答社区</a></li>
+                        <li><a href="https://weixin.senparc.com/QA" target="_blank">问答社区</a></li>
                         <li><a href="https://github.com/JeffreySu/WeixinResource" target="_blank">更多开发资源</a></li>
                     </ul>
                     <div class="clear"></div>
@@ -43,16 +44,24 @@
         </div>
         <div id="noticearea">
             <div class="wrapper">
-                重要公告（2017-1-22）：Senparc.Weixin.MP.MVC v4.1.4 有重要更新，建议立即更新！ @*更多*@
+                @if ((DateTime.Now - DateTime.Parse("2017-2-6")).TotalDays < 0)
+                {
+                    <span>盛派网络祝各位朋友新年快乐，吉祥安康！</span>
+                }
+                else
+                {
+                    <span>重要公告（2017-1-22）：Senparc.Weixin.MP.MVC v4.1.4 有重要更新，建议立即更新！ @*更多*@</span>
+                }
+
             </div>
         </div>
         <div class="senparc-jumbotron">
             <div class="wrapper">
                 <div class="container-left">
                     <ul>
-                        <li><a href="http://weixin.senparc.com">Senparc.Weixin SDK 官网</a></li>
+                        <li><a href="https://weixin.senparc.com">Senparc.Weixin SDK 官网</a></li>
                         <li><a href="https://github.com/JeffreySu/WeiXinMPSDK" target="_blank">源代码及示例下载</a></li>
-                        <li><a href="http://weixin.senparc.com/QA" target="_blank">微信技术交流社区</a></li>
+                        <li><a href="https://weixin.senparc.com/QA" target="_blank">微信技术交流社区</a></li>
                         <li><a href="http://www.cnblogs.com/szw/archive/2013/01/13/senparc-weixin-mp-sdk.html" target="_blank">更多使用说明</a></li>
                         <li><a href="https://www.nuget.org/packages/Senparc.Weixin.MP" target="_blank">Nuget项目</a></li>
                         <li><a href="http://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))">下载帮助文档</a></li>
@@ -64,7 +73,7 @@
                     <span class="container-span container-span-title">微信公众平台SDK</span>
                     <span class="container-span">
                         @*全面支持：<br />
-                        微信公众号、小程序、微信支付、企业号、开放平台*@
+                            微信公众号、小程序、微信支付、企业号、开放平台*@
                         <span>全面支持：</span>
                         <span>微信公众号、小程序、微信支付、企业号、开放平台</span>
                     </span>
@@ -86,15 +95,15 @@
             </div>
         </div>
         @if (!IsSectionDefined("catalog"))
-                    {
-                            <div class="catalog">
-                                <a href="@Url.Action("Index", "Menu")">自定义菜单设置工具</a>
-                                <a href="@Url.Action("Index", "SimulateTool")">消息模拟工具</a>
-                                <a href="@Url.Action("Test", "Cache")">缓存测试</a>
-                                <a href="@Url.Action("Index", "AsyncMethods")">异步方法</a>
-                                <a href="http://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))">帮助文档</a>
-                            </div>
-                    }
+        {
+            <div class="catalog">
+                <a href="@Url.Action("Index", "Menu")">自定义菜单设置工具</a>
+                <a href="@Url.Action("Index", "SimulateTool")">消息模拟工具</a>
+                <a href="@Url.Action("Test", "Cache")">缓存测试</a>
+                <a href="@Url.Action("Index", "AsyncMethods")">异步方法</a>
+                <a href="http://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))">帮助文档</a>
+            </div>
+        }
         @RenderBody()
         <div id="donate" class="feedback">
             <div class="wrapper">
@@ -138,37 +147,37 @@
         @RenderSection("scripts", required: false)
         <div style="display: none;">
             <script>
-                            var _hmt = _hmt || [];
-                            (function () {
-                                var hm = document.createElement("script");
-                                hm.src = "//hm.baidu.com/hm.js?a8ad9ff7b9dd4cbb5510f6a929ba085f";
-                                var s = document.getElementsByTagName("script")[0];
-                                s.parentNode.insertBefore(hm, s);
-                            })();
+                var _hmt = _hmt || [];
+                (function () {
+                    var hm = document.createElement("script");
+                    hm.src = "//hm.baidu.com/hm.js?a8ad9ff7b9dd4cbb5510f6a929ba085f";
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(hm, s);
+                })();
 
-                            $(function () {
-                                loadQQGroups();
+                $(function () {
+                    loadQQGroups();
+                });
+
+                function loadQQGroups() {
+                    $.ajax({
+                        type: "get",
+                        async: false,
+                        url: "https://weixin.senparc.com/WeixinSdk/GetSdkQqGroupListJson",
+                        dataType: "jsonp",
+                        jsonp: "callbackparam", //服务端用于接收callback调用的function名的参数
+                        jsonpCallback: "success_jsonpCallback", //callback的function名称
+                        success: function (json) {
+                            $('#qqGroups').html(json[0].html);
+                            $('#contact-content li.contact-qq').darkTooltip({
+                                theme: 'light'
                             });
-
-                            function loadQQGroups() {
-                                $.ajax({
-                                    type: "get",
-                                    async: false,
-                                    url: "http://weixin.senparc.com/WeixinSdk/GetSdkQqGroupListJson",
-                                    dataType: "jsonp",
-                                    jsonp: "callbackparam", //服务端用于接收callback调用的function名的参数
-                                    jsonpCallback: "success_jsonpCallback", //callback的function名称
-                                    success: function (json) {
-                                        $('#qqGroups').html(json[0].html);
-                                        $('#contact-content li.contact-qq').darkTooltip({
-                                            theme: 'light'
-                                        });
-                                    },
-                                    error: function () {
-                                        //alert('fail');
-                                    }
-                                });
-                            }
+                        },
+                        error: function () {
+                            //alert('fail');
+                        }
+                    });
+                }
             </script>
         </div>
     </div>

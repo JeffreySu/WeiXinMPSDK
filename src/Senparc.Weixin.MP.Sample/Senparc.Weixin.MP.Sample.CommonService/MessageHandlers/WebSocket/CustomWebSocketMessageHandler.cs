@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Senparc.WebSocket;
 
@@ -14,12 +11,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
     {
         public override Task OnConnecting(WebSocketHelper webSocketHandler)
         {
-            return null;
+            //TODO:处理连接时的逻辑
+            return base.OnConnecting(webSocketHandler);
         }
 
         public override Task OnDisConnected(WebSocketHelper webSocketHandler)
         {
-            return null;
+            //TODO:处理断开连接时的逻辑
+            return base.OnDisConnected(webSocketHandler);
         }
 
         public override async Task OnMessageReceiced(WebSocketHelper webSocketHandler, string message)
@@ -29,7 +28,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
                 return;
             }
 
-            await webSocketHandler.SendMessage("您发送了文字："+message);
+            await webSocketHandler.SendMessage("您发送了文字：" + message);
             await webSocketHandler.SendMessage("正在处理中...");
 
             await Task.Delay(1000);

@@ -9,6 +9,7 @@
     修改标识：Senparc - 20161227
     修改描述：v14.3.100 修改类名为TenPayV3OrderQueryRequestData.cs
 ----------------------------------------------------------------*/
+
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /// <summary>

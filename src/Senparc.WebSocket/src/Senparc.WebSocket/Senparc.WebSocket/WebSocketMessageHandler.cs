@@ -19,10 +19,37 @@ using System.Web.WebSockets;
 
 namespace Senparc.WebSocket
 {
+    /// <summary>
+    /// WebSocket 处理程序
+    /// </summary>
     public abstract class WebSocketMessageHandler
     {
-        public abstract Task OnConnecting(WebSocketHelper webSocketHandler);
-        public abstract Task OnDisConnected(WebSocketHelper webSocketHandler);
+        /// <summary>
+        /// 连接时触发事件
+        /// </summary>
+        /// <param name="webSocketHandler"></param>
+        /// <returns></returns>
+        public virtual Task OnConnecting(WebSocketHelper webSocketHandler)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// 断开连接时触发事件
+        /// </summary>
+        /// <param name="webSocketHandler"></param>
+        /// <returns></returns>
+        public virtual Task OnDisConnected(WebSocketHelper webSocketHandler)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// 收到消息时触发事件
+        /// </summary>
+        /// <param name="webSocketHandler"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public abstract Task OnMessageReceiced(WebSocketHelper webSocketHandler, string message);
     }
 }

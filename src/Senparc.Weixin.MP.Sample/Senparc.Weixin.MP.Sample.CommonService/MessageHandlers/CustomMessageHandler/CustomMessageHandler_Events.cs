@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 您也可以直接点击菜单查看各种类型的回复。
 还可以点击菜单体验微信支付。
 
-SDK官方地址：http://weixin.senparc.com
+SDK官方地址：https://weixin.senparc.com
 SDK Demo：http://sdk.weixin.senparc.com
 源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK
 Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP

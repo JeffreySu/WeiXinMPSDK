@@ -53,7 +53,7 @@ namespace Senparc.Weixin.QY.Test.CommonApis
             });
             subButton.sub_button.Add(new SingleViewButton()
             {
-                url = "http://weixin.senparc.com",
+                url = "https://weixin.senparc.com",
                 name = "Url跳转"
             });
             subButton.sub_button.Add(new SinglePicPhotoOrAlbumButton()

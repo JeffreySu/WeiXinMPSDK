@@ -34,11 +34,15 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
             }
 
             Assert.IsTrue(File.Exists(filePath));
+            var dt2 = DateTime.Now;
+            Console.WriteLine("执行时间：{0}ms",(dt2-dt1).TotalMilliseconds);
         }
 
         [TestMethod()]
         public void CreateWxaQrCodeAsyncTest()
         {
+            var dt1 = DateTime.Now;
+            var filePath = "../../Config/qr-async.jpg";
             Task.Factory.StartNew(async () =>
             {
                 var ms = new MemoryStream();
@@ -47,7 +51,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
 
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
-                var filePath = "../../Config/qr-async.jpg";
                 File.Delete(filePath);
                 using (var fs = new FileStream(filePath, FileMode.CreateNew))
                 {
@@ -57,6 +60,16 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
 
                 Assert.IsTrue(File.Exists(filePath));
             });
+            var dt2 = DateTime.Now;
+
+            while (!File.Exists(filePath))
+            {
+
+            }
+            var dt3 = DateTime.Now;
+            Console.WriteLine("执行时间：{0}ms", (dt2 - dt1).TotalMilliseconds);
+            Console.WriteLine("等待时间：{0}ms", (dt3 - dt2).TotalMilliseconds);
+
         }
     }
 }

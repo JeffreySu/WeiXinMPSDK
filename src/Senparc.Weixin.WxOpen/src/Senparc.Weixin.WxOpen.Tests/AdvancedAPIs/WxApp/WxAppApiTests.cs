@@ -17,8 +17,9 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
         [TestMethod()]
         public void CreateWxaQrCodeTest()
         {
+            var dt1 = DateTime.Now;
             var ms = new MemoryStream();
-            var result = WxAppApi.CreateWxaQrCode(base._appId, ms, "pages/websocket", 400);
+            var result = WxAppApi.CreateWxaQrCode(base._appId, ms, "pages/websocket", 100);
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
 
             ms.Seek(0, SeekOrigin.Begin);
@@ -33,6 +34,29 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
             }
 
             Assert.IsTrue(File.Exists(filePath));
+        }
+
+        [TestMethod()]
+        public void CreateWxaQrCodeAsyncTest()
+        {
+            Task.Factory.StartNew(async () =>
+            {
+                var ms = new MemoryStream();
+                var result = await WxAppApi.CreateWxaQrCodeAsync(base._appId, ms, "pages/websocket", 100);
+                Assert.AreEqual(ReturnCode.请求成功, result.errcode);
+
+                ms.Seek(0, SeekOrigin.Begin);
+                //储存图片
+                var filePath = "../../Config/qr-async.jpg";
+                File.Delete(filePath);
+                using (var fs = new FileStream(filePath, FileMode.CreateNew))
+                {
+                    await ms.CopyToAsync(fs);
+                    await fs.FlushAsync();
+                }
+
+                Assert.IsTrue(File.Exists(filePath));
+            });
         }
     }
 }

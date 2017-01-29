@@ -158,6 +158,10 @@
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.csproj">
+      <Project>{9a4e286b-fe2c-4985-afbc-fa1a598f97c1}</Project>
+      <Name>Senparc.Weixin.MP.Sample</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

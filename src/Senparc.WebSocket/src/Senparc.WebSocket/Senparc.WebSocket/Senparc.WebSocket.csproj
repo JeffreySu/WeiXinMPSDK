@@ -65,10 +65,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="WebSocketConfig.cs" />
-    <Compile Include="WebSocketHandler.cs" />
-    <Compile Include="WebSocketHelper.cs" />
-    <Compile Include="WebSocketMessageHandler.cs" />
-    <Compile Include="WebSocketRouteHandler.cs" />
+    <Compile Include="Routes\WebSocketHandler.cs" />
+    <Compile Include="Helpers\WebSocketHelper.cs" />
+    <Compile Include="MessageHandlers\WebSocketMessageHandler.cs" />
+    <Compile Include="Routes\WebSocketRoute.cs" />
+    <Compile Include="Routes\WebSocketRouteHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

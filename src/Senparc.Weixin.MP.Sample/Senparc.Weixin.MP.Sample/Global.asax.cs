@@ -38,12 +38,14 @@ namespace Senparc.Weixin.MP.Sample
         {
             AreaRegistration.RegisterAllAreas();
 
+
             RegisterWebSocket();        //微信注册WebSocket模块（按需，必须执行在RouteConfig.RegisterRoutes()之前）
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
 
             /* 微信配置开始
              * 

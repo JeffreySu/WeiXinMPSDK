@@ -158,14 +158,6 @@
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.Sample.CommonService.csproj">
-      <Project>{CCD291E9-16FA-4B53-B032-EBD3F659567B}</Project>
-      <Name>Senparc.Weixin.MP.Sample.CommonService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.csproj">
-      <Project>{9A4E286B-FE2C-4985-AFBC-FA1A598F97C1}</Project>
-      <Name>Senparc.Weixin.MP.Sample</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

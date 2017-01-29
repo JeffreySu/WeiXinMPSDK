@@ -62,9 +62,36 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 获取小程序页面二维码
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="filePath">储存图片的物理路径</param>
+        /// <param name="path">不能为空，最大长度 128 字节（如：pages/index?query=1。注：pages/index 需要在 app.json 的 pages 中定义）</param>
+        /// <param name="width">二维码的宽度</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        public static WxJsonResult CreateWxQRCode(string accessTokenOrAppId, string filePath, string path, int width = 430, int timeOut = Config.TIME_OUT)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var result = WxAppApi.CreateWxaQrCode(accessTokenOrAppId, ms, path, width);
+                ms.Seek(0, SeekOrigin.Begin);
+                //储存图片
+                File.Delete(filePath);
+                using (var fs = new FileStream(filePath, FileMode.CreateNew))
+                {
+                    ms.CopyTo(fs);
+                    fs.Flush();
+                }
+                return result;
+            }
+        }
+
         #endregion
 
         #region 异步请求
+
         /// <summary>
         /// 【异步方法】获取小程序页面二维码
         /// </summary>
@@ -91,6 +118,33 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
                 };
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 【异步方法】获取小程序页面二维码
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="filePath">储存图片的物理路径</param>
+        /// <param name="path">不能为空，最大长度 128 字节（如：pages/index?query=1。注：pages/index 需要在 app.json 的 pages 中定义）</param>
+        /// <param name="width">二维码的宽度</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> CreateWxQRCodeAsync(string accessTokenOrAppId, string filePath, string path, int width = 430, int timeOut = Config.TIME_OUT)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var result = await WxAppApi.CreateWxaQrCodeAsync(accessTokenOrAppId, ms, path, width);
+                ms.Seek(0, SeekOrigin.Begin);
+                //储存图片
+                File.Delete(filePath);
+                using (var fs = new FileStream(filePath, FileMode.CreateNew))
+                {
+                    await ms.CopyToAsync(fs);
+                    await fs.FlushAsync();
+                }
+                return result;
+            }
+        }
+
 
         #endregion
     }

@@ -18,24 +18,27 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
         public void CreateWxaQrCodeTest()
         {
             var dt1 = DateTime.Now;
-            var ms = new MemoryStream();
-            var result = WxAppApi.CreateWxaQrCode(base._appId, ms, "pages/websocket", 100);
-            Assert.AreEqual(ReturnCode.请求成功, result.errcode);
+using (var ms = new MemoryStream())
+{
 
-            ms.Seek(0, SeekOrigin.Begin);
-            //储存图片
+    var result = WxAppApi.CreateWxaQrCode(base._appId, ms, "pages/websocket", 100);
+    Assert.AreEqual(ReturnCode.请求成功, result.errcode);
 
-            var filePath = "../../Config/qr.jpg";
-            File.Delete(filePath);
-            using (var fs = new FileStream(filePath, FileMode.CreateNew))
-            {
-                ms.CopyTo(fs);
-                fs.Flush();
-            }
+    ms.Seek(0, SeekOrigin.Begin);
+    //储存图片
 
-            Assert.IsTrue(File.Exists(filePath));
+    var filePath = "../../Config/qr.jpg";
+    File.Delete(filePath);
+    using (var fs = new FileStream(filePath, FileMode.CreateNew))
+    {
+        ms.CopyTo(fs);
+        fs.Flush();
+    }
+    Assert.IsTrue(File.Exists(filePath));
+}
+
             var dt2 = DateTime.Now;
-            Console.WriteLine("执行时间：{0}ms",(dt2-dt1).TotalMilliseconds);
+            Console.WriteLine("执行时间：{0}ms", (dt2 - dt1).TotalMilliseconds);
         }
 
         [TestMethod()]

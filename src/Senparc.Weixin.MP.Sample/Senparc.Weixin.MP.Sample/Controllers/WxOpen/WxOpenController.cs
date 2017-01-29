@@ -151,8 +151,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
         public ActionResult OnLogin(string code)
         {
             var jsonResult = SnsApi.JsCode2Json(AppId, AppSecret, code);
-            Session["WxOpenUser"] = jsonResult;
-            return Json(new {msg = "OK"});
+            Session["WxOpenUser"] = jsonResult;//保存登陆信息
+            return Json(new { msg = "OK" });
         }
     }
 }

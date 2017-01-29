@@ -68,6 +68,7 @@
     <Compile Include="WebSocketHandler.cs" />
     <Compile Include="WebSocketHelper.cs" />
     <Compile Include="WebSocketMessageHandler.cs" />
+    <Compile Include="WebSocketRoute.cs" />
     <Compile Include="WebSocketRouteHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

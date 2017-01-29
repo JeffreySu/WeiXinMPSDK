@@ -18,15 +18,27 @@ using System.Web.Routing;
 
 namespace Senparc.WebSocket
 {
+    /// <summary>
+    /// WebSocket 配置
+    /// </summary>
     public class WebSocketConfig
     {
         internal static Func<WebSocketMessageHandler> WebSocketMessageHandlerFunc { get; set; }
 
+        /// <summary>
+        /// 注册WebSocket路由规则
+        /// </summary>
+        /// <param name="routes"></param>
         public static void RegisterRoutes(RouteCollection routes)
         {
-            routes.Add("SenparcWebSocketRoute", new Route("SenparcWebSocket", new WebSocketRouteHandler()));//SenparcWebSocket/{app}
+            var route = new WebSocketRoute("SenparcWebSocket", new WebSocketRouteHandler());
+            routes.Add("SenparcWebSocketRoute", route);//SenparcWebSocket/{app}
         }
 
+        /// <summary>
+        /// 注册WebSocketMessageHandler
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         public static void RegisterMessageHandler<T>() where T : WebSocketMessageHandler, new()
         {
             WebSocketMessageHandlerFunc = () => new T();

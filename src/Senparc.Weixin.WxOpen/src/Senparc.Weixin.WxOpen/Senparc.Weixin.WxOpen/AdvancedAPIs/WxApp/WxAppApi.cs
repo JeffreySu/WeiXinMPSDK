@@ -101,7 +101,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">二维码的宽度</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> CreateWxaQrCodeAsync(string accessTokenOrAppId, Stream stream, string path, int width = 430, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> CreateWxQrCodeAsync(string accessTokenOrAppId, Stream stream, string path, int width = 430, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -132,7 +132,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         {
             using (var ms = new MemoryStream())
             {
-                var result = await WxAppApi.CreateWxaQrCodeAsync(accessTokenOrAppId, ms, path, width);
+                var result = await WxAppApi.CreateWxQrCodeAsync(accessTokenOrAppId, ms, path, width);
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
                 File.Delete(filePath);

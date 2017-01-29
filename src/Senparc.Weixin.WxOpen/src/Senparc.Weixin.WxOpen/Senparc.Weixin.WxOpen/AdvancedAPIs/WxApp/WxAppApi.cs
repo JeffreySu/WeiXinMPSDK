@@ -6,12 +6,16 @@
     
     
     创建标识：Senparc - 20170103
+    
+    修改标识：Senparc - 20170129
+    修改描述：v1.0.1 完善CreateWxaQrCode方法
 ----------------------------------------------------------------*/
 
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson;
@@ -46,7 +50,11 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
-                Get.Download(url, stream);
+
+                var data = new { path = path, width = width };
+                SerializerHelper serializerHelper = new SerializerHelper();
+                Post.Download(url, serializerHelper.GetJsonString(data), stream);
+
                 return new WxJsonResult()
                 {
                     errcode = ReturnCode.请求成功
@@ -72,7 +80,11 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
-                await Get.DownloadAsync(url, stream);
+
+                var data = new { path = path, width = width };
+                SerializerHelper serializerHelper = new SerializerHelper();
+                await Post.DownloadAsync(url, serializerHelper.GetJsonString(data), stream);
+
                 return new WxJsonResult()
                 {
                     errcode = ReturnCode.请求成功

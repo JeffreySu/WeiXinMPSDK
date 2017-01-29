@@ -44,7 +44,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">二维码的宽度</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static WxJsonResult CreateWxaQrCode(string accessTokenOrAppId, Stream stream, string path, int width = 430, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult CreateWxQrCode(string accessTokenOrAppId, Stream stream, string path, int width = 430, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -71,11 +71,11 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">二维码的宽度</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static WxJsonResult CreateWxQRCode(string accessTokenOrAppId, string filePath, string path, int width = 430, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult CreateWxQrCode(string accessTokenOrAppId, string filePath, string path, int width = 430, int timeOut = Config.TIME_OUT)
         {
             using (var ms = new MemoryStream())
             {
-                var result = WxAppApi.CreateWxaQrCode(accessTokenOrAppId, ms, path, width);
+                var result = WxAppApi.CreateWxQrCode(accessTokenOrAppId, ms, path, width);
                 ms.Seek(0, SeekOrigin.Begin);
                 //储存图片
                 File.Delete(filePath);
@@ -128,7 +128,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">二维码的宽度</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> CreateWxQRCodeAsync(string accessTokenOrAppId, string filePath, string path, int width = 430, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> CreateWxQrCodeAsync(string accessTokenOrAppId, string filePath, string path, int width = 430, int timeOut = Config.TIME_OUT)
         {
             using (var ms = new MemoryStream())
             {

@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 
 namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 {
@@ -16,6 +17,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
         public static readonly string Token = WebConfigurationManager.AppSettings["WxOpenToken"];//与微信公众账号后台的Token设置保持一致，区分大小写。
         public static readonly string EncodingAESKey = WebConfigurationManager.AppSettings["WxOpenEncodingAESKey"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string AppId = WebConfigurationManager.AppSettings["WxOpenAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string AppSecret = WebConfigurationManager.AppSettings["WxOpenAppSecret"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
@@ -143,6 +145,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 msg = string.Format("服务器时间：{0}，昵称：{1}", DateTime.Now, nickName)
             };
             return Json(data);
+        }
+
+        [HttpPost]
+        public ActionResult OnLogin(string code)
+        {
+            var jsonResult = SnsApi.JsCode2Json(AppId, AppSecret, code);
+            Session["WxOpenUser"] = jsonResult;
+            return Json(new {msg = "OK"});
         }
     }
 }

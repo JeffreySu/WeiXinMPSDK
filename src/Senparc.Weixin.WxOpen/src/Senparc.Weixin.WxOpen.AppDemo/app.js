@@ -14,8 +14,18 @@ App({
       //调用登录接口
       wx.login({
         success: function () {
+          //换取session_key
+          wx.request({
+            url: 'https://sdk.weixin.senparc.com/WxOpen/OnLogin',
+            method: 'POST',
+            data: {
+              code: res.code
+            }
+          })
+
           wx.getUserInfo({
             success: function (res) {
+              console.log('get userinfo',res);
               that.globalData.userInfo = res.userInfo
               typeof cb == "function" && cb(that.globalData.userInfo)
             }

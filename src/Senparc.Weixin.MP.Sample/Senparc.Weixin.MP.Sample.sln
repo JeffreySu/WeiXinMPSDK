@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.WxOpen", "..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.WebSocket", "..\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.csproj", "{B745F5F5-9120-4D56-A86D-ED34EADB703C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.WxOpen.Tests", "..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen.Tests\Senparc.Weixin.WxOpen.Tests.csproj", "{3580B469-C847-457F-8C44-65C26CBB1001}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -236,6 +238,16 @@ Global
 		{B745F5F5-9120-4D56-A86D-ED34EADB703C}.Test|Any CPU.Build.0 = Release|Any CPU
 		{B745F5F5-9120-4D56-A86D-ED34EADB703C}.Test|x86.ActiveCfg = Release|Any CPU
 		{B745F5F5-9120-4D56-A86D-ED34EADB703C}.Test|x86.Build.0 = Release|Any CPU
+		{3580B469-C847-457F-8C44-65C26CBB1001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3580B469-C847-457F-8C44-65C26CBB1001}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3580B469-C847-457F-8C44-65C26CBB1001}.Debug|x86.Build.0 = Debug|Any CPU
+		{3580B469-C847-457F-8C44-65C26CBB1001}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3580B469-C847-457F-8C44-65C26CBB1001}.Release|x86.ActiveCfg = Release|Any CPU
+		{3580B469-C847-457F-8C44-65C26CBB1001}.Release|x86.Build.0 = Release|Any CPU
+		{3580B469-C847-457F-8C44-65C26CBB1001}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{3580B469-C847-457F-8C44-65C26CBB1001}.Test|Any CPU.Build.0 = Release|Any CPU
+		{3580B469-C847-457F-8C44-65C26CBB1001}.Test|x86.ActiveCfg = Release|Any CPU
+		{3580B469-C847-457F-8C44-65C26CBB1001}.Test|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -258,5 +270,6 @@ Global
 		{9D9E0AE5-47E4-4B48-8FC4-8F251E0590EB} = {960A6EDE-5C79-4122-99D9-5351BA8E8BE3}
 		{379D8C97-4F96-45AF-9F91-6BD160514495} = {2E87002F-2664-4D69-9834-2C6E720556BE}
 		{B745F5F5-9120-4D56-A86D-ED34EADB703C} = {2E87002F-2664-4D69-9834-2C6E720556BE}
+		{3580B469-C847-457F-8C44-65C26CBB1001} = {960A6EDE-5C79-4122-99D9-5351BA8E8BE3}
 	EndGlobalSection
 EndGlobal

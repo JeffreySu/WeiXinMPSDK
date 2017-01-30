@@ -160,8 +160,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             if (jsonResult.errcode == ReturnCode.请求成功)
             {
                 //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息
-                SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key);
-                return Json(new { success = true, msg = "OK" });
+                //使用SessionContainer管理登录信息
+                var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key);
+                return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key });
             }
             else
             {

@@ -2,9 +2,12 @@
 using System.IO;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
+using Senparc.Weixin.WxOpen.Containers;
 
 namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 {
@@ -16,6 +19,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
         public static readonly string Token = WebConfigurationManager.AppSettings["WxOpenToken"];//与微信公众账号后台的Token设置保持一致，区分大小写。
         public static readonly string EncodingAESKey = WebConfigurationManager.AppSettings["WxOpenEncodingAESKey"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
         public static readonly string AppId = WebConfigurationManager.AppSettings["WxOpenAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string AppSecret = WebConfigurationManager.AppSettings["WxOpenAppSecret"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
 
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
@@ -144,5 +148,57 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             };
             return Json(data);
         }
+
+        /// <summary>
+        /// wx.login登陆成功之后发送的请求
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult OnLogin(string code)
+        {
+            var jsonResult = SnsApi.JsCode2Json(AppId, AppSecret, code);
+            if (jsonResult.errcode == ReturnCode.请求成功)
+            {
+                //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息
+                //使用SessionContainer管理登录信息
+                var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key);
+
+                //不会为nul
+                //if (sessionBag == null)
+                //{
+                //    return Json(new { success = false, msg = "sessionId is not exist or expired.", sessionId = "" });
+                //}
+
+                return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey });
+            }
+            else
+            {
+                return Json(new { success = false, msg = jsonResult.errmsg });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CheckWxOpenSignature(string sessionId, string rawData, string signature)
+        {
+            try
+            {
+                var checkSuccess = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.CheckSignature(sessionId, rawData, signature);
+                return Json(new { success = checkSuccess, msg = checkSuccess ? "校验成功" : "校验失败" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult DecodeEncryptedData(string sessionId, string encryptedData, string iv)
+        {
+            var result = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeEncryptedDataBySessionId(sessionId,
+                encryptedData, iv);
+            //注意：此处仅为演示，敏感信息请勿传递到客户端！
+            return Json(new { success = true, msg = result });
     }
+}
 }

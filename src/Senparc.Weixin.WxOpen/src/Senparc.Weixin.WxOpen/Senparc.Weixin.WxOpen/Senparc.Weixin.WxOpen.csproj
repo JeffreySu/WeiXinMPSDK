@@ -47,6 +47,7 @@
     <Compile Include="AdvancedAPIs\Template\TemplateApi.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateJson\TempleteModel.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppApi.cs" />
+    <Compile Include="Containers\SessionContainer.cs" />
     <Compile Include="Entities\Request\PostModel.cs" />
     <Compile Include="Entities\Request\RequestMessageBase.cs" />
     <Compile Include="Entities\Request\RequestMessageImage.cs" />
@@ -56,7 +57,10 @@
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Entities\Response\SuccessResponseMessage.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Exceptions\WxOpenException.cs" />
+    <Compile Include="Helpers\EncryptHelper.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
+    <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="MessageHandlers\IWxOpenMessageHandler.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.Message.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler.Event.cs" />

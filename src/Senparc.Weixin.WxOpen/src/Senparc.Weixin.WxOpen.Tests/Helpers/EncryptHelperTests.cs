@@ -27,8 +27,8 @@ namespace Senparc.Weixin.WxOpen.Helpers.Tests
             var rawData =
     "{\"nickName\":\"苏震巍\",\"gender\":1,\"language\":\"zh_CN\",\"city\":\"Suzhou\",\"province\":\"Jiangsu\",\"country\":\"CN\",\"avatarUrl\":\"http://wx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEKXyjX4N6I5Vx1aeiaBeJ2iaTLy15n0HgvjNbWEpKA3ZbdgXkOhWK7OH8iar3iaLxsZia5Ha4DnRPlMerw/0\"}";
 
-            var sessionKey = "X9SEb3ICAtmCHw2ouHD9Gg==";
-            var compareSignature = "4d2b94bb94a41eb6c9a33dc79445c468140ae852";
+            var sessionKey = "jCdFs2HMx+A9Dr9lhMJKxA==";
+            var compareSignature = "2d65ebea7c7f500bfb874b71569a591047452d38";
 
             var signature = EncryptHelper.GetSignature(rawData, sessionKey);
             Assert.AreEqual(compareSignature, signature);

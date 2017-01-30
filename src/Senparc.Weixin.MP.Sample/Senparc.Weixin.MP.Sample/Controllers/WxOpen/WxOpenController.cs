@@ -172,6 +172,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 //    return Json(new { success = false, msg = "sessionId is not exist or expired.", sessionId = "" });
                 //}
 
+                //注意：开发环境下SessionKey属于敏感信息，不能进行传输！
                 return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey });
             }
             else

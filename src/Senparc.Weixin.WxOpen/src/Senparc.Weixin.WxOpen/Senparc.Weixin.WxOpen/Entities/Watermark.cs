@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.WxOpen.Entities
 {
@@ -14,6 +15,11 @@ namespace Senparc.Weixin.WxOpen.Entities
     public class Watermark
     {
         public string appid { get; set; }
-        public string timestamp { get; set; }
+        public long timestamp { get; set; }
+
+        public DateTime TimeStamp
+        {
+            get { return DateTimeHelper.GetDateTimeFromXml(timestamp); }
+        }
     }
 }

@@ -162,6 +162,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息
                 //使用SessionContainer管理登录信息
                 var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key);
+
+                //if (sessionBag == null)
+                //{
+                //    return Json(new { success = false, msg = "sessionId is not exist or expired.", sessionId = "" });
+                //}
+
                 return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key });
             }
             else
@@ -169,5 +175,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 return Json(new { success = false, msg = jsonResult.errmsg });
             }
         }
+
+
+
     }
 }

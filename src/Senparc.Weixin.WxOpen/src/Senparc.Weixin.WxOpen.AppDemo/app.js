@@ -20,6 +20,16 @@ wx.login({
       method: 'POST',
       data: {
         code: res.code
+      },
+      success:function(json){
+        var result = json.data;
+        if(result.success)
+        {
+          wx.setStorageSync('sessionId', result.sessionId);
+          console.log('sessionId:',wx.getStorageSync('sessionId'));
+        }else{
+          console.log('储存session失败！',json);
+        }
       }
     })
 

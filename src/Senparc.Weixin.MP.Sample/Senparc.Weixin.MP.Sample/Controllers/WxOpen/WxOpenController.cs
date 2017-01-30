@@ -170,7 +170,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 //    return Json(new { success = false, msg = "sessionId is not exist or expired.", sessionId = "" });
                 //}
 
-                return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key,sessionKey=sessionBag.SessionKey });
+                return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey });
             }
             else
             {
@@ -192,5 +192,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             }
         }
 
+        [HttpPost]
+        public ActionResult DecodeEncryptedData(string sessionId, string encryptedData, string iv)
+        {
+            var result = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeEncryptedDataBySessionId(sessionId,
+                encryptedData, iv);
+            //注意：此处仅为演示，敏感信息请勿传递到客户端！
+            return Json(new { success = true, msg = result });
     }
+}
 }

@@ -92,22 +92,40 @@ namespace Senparc.Weixin.WxOpen.Helpers
         /// <returns></returns>
         public static string DecodeEncryptedData(string sessionKey, string encryptedData, string iv)
         {
-            //var sessionBag = SessionContainer.GetSession(sessionId);
-            //if (sessionBag == null)
-            //{
-            //    throw new WxOpenException("SessionId无效");
-            //}
-
-            //if (string.IsNullOrEmpty(sessionBag.SessionKey))
-            //{
-            //    throw new WxOpenException("SessionKey无效");
-            //}
-
             var aesCipher = Convert.FromBase64String(encryptedData);
             var aesKey = Convert.FromBase64String(sessionKey);
             var aesIV = Convert.FromBase64String(iv);
 
-            var result = Senparc.Weixin.Helpers.EncryptHelper.AES_PKCS7_Encrypt(Encoding.UTF8.GetString(aesCipher), aesIV,aesKey);
+            var result = Senparc.Weixin.Helpers.EncryptHelper.AES_PKCS7_Encrypt(Encoding.UTF8.GetString(aesCipher), aesIV, aesKey);
+            return result;
+        }
+
+        /// <summary>
+        /// 解密消息（通过SessionId获取）
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <exception cref="WxOpenException">当SessionId或SessionKey无效时抛出异常</exception>
+        /// <returns></returns>
+        public static string DecodeEncryptedDataBySessionId(string sessionId, string encryptedData, string iv)
+        {
+            var sessionBag = SessionContainer.GetSession(sessionId);
+            if (sessionBag == null)
+            {
+                throw new WxOpenException("SessionId无效");
+            }
+
+            if (string.IsNullOrEmpty(sessionBag.SessionKey))
+            {
+                throw new WxOpenException("SessionKey无效");
+            }
+
+            var aesCipher = Convert.FromBase64String(encryptedData);
+            var aesKey = Convert.FromBase64String(sessionBag.SessionKey);
+            var aesIV = Convert.FromBase64String(iv);
+
+            var result = Senparc.Weixin.Helpers.EncryptHelper.AES_PKCS7_Encrypt(Encoding.UTF8.GetString(aesCipher), aesIV, aesKey);
             return result;
         }
 

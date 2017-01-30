@@ -48,6 +48,20 @@ App({
                         console.log(json.data);
                       }
                     });
+
+                    //解密数据（建议放到校验success回调函数中，此处仅为演示）
+                    wx.request({
+                      url: 'https://sdk.weixin.senparc.com/WxOpen/DecodeEncryptedData',
+                      method: 'POST',
+                      data: {
+                        sessionId: wx.getStorageSync('sessionId'),
+                        encryptedData:userInfoRes.encryptedData,
+                        iv:userInfoRes.iv
+                      },
+                      success:function(json){
+                        console.log(json.data);
+                      }
+                    });
                   }
                 })
         }else{

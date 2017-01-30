@@ -26,13 +26,13 @@ App({
               if(result.success)
               {
                 wx.setStorageSync('sessionId', result.sessionId);
-                console.log('sessionId:',wx.getStorageSync('sessionId'));
+                console.log('saved sessionId:',wx.getStorageSync('sessionId'),'got sessionId:',result.sessionId);
 
                 //获取userInfo并校验
                 wx.getUserInfo({
-                  success: function (res) {
-                    console.log('get userinfo',res);
-                    that.globalData.userInfo = res.userInfo
+                  success: function (userInfoRes) {
+                    console.log('get userinfo',userInfoRes);
+                    that.globalData.userInfo = userInfoRes.userInfo
                     typeof cb == "function" && cb(that.globalData.userInfo)
 
                     //校验
@@ -41,8 +41,8 @@ App({
                       method: 'POST',
                       data: {
                         sessionId: wx.getStorageSync('sessionId'),
-                        rawData:res.rawData,
-                        signature:res.signature
+                        rawData:userInfoRes.rawData,
+                        signature:userInfoRes.signature
                       },
                       success:function(json){
                         console.log(json.data);

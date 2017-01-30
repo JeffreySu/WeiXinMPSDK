@@ -39,6 +39,9 @@ namespace Senparc.Weixin.WxOpen.Helpers
         //    return Convert.ToBase64String(str2);
         //}
 
+        #region 签名
+
+
         /// <summary>
         /// 获得签名
         /// </summary>
@@ -75,5 +78,39 @@ namespace Senparc.Weixin.WxOpen.Helpers
             var signature = GetSignature(rawData, sessionBag.SessionKey);
             return signature == compareSignature;
         }
+
+        #endregion
+
+        #region 解密
+
+        /// <summary>
+        /// 解密消息
+        /// </summary>
+        /// <param name="sessionKey"></param>
+        /// <param name="encryptedData"></param>
+        /// <param name="iv"></param>
+        /// <returns></returns>
+        public static string DecodeEncryptedData(string sessionKey, string encryptedData, string iv)
+        {
+            //var sessionBag = SessionContainer.GetSession(sessionId);
+            //if (sessionBag == null)
+            //{
+            //    throw new WxOpenException("SessionId无效");
+            //}
+
+            //if (string.IsNullOrEmpty(sessionBag.SessionKey))
+            //{
+            //    throw new WxOpenException("SessionKey无效");
+            //}
+
+            var aesCipher = Convert.FromBase64String(encryptedData);
+            var aesKey = Convert.FromBase64String(sessionKey);
+            var aesIV = Convert.FromBase64String(iv);
+
+            var result = Senparc.Weixin.Helpers.EncryptHelper.AES_PKCS7_Encrypt(Encoding.UTF8.GetString(aesCipher), aesIV,aesKey);
+            return result;
+        }
+
+        #endregion
     }
 }

@@ -16,7 +16,7 @@ namespace Senparc.Weixin.WxOpen.Containers
     public class SessionBag : BaseContainerBag
     {
         /// <summary>
-        /// Session的Key
+        /// Session的Key（3rd_session / sessionId）
         /// </summary>
         public string Key
         {
@@ -101,8 +101,11 @@ namespace Senparc.Weixin.WxOpen.Containers
                 return null;
             }
 
-            bag.ExpireTime = GetExpireTime();//滚动过期时间
-            Cache.UpdateContainerBag(key, bag);
+            using (FlushCache.CreateInstance())
+            {
+                bag.ExpireTime = GetExpireTime();//滚动过期时间
+                Update(key, bag);
+            }
             return bag;
         }
 

@@ -59,7 +59,7 @@ Page({
       that.setData({
         userInfo:userInfo
       })
-      console.log(userInfo);
+      //console.log(userInfo);
     })
 
     var interval = setInterval(function() {

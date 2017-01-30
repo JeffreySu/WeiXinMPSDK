@@ -170,7 +170,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 //    return Json(new { success = false, msg = "sessionId is not exist or expired.", sessionId = "" });
                 //}
 
-                return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key });
+                return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key,sessionKey=sessionBag.SessionKey });
             }
             else
             {

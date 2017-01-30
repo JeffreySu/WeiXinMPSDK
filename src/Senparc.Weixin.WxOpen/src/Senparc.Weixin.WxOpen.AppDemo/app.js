@@ -26,7 +26,6 @@ App({
               if(result.success)
               {
                 wx.setStorageSync('sessionId', result.sessionId);
-                console.log('saved sessionId:',wx.getStorageSync('sessionId'),'got sessionId:',result.sessionId);
 
                 //获取userInfo并校验
                 wx.getUserInfo({
@@ -45,7 +44,7 @@ App({
                         signature:userInfoRes.signature
                       },
                       success:function(json){
-                        console.log(json.data);
+                        //console.log(json.data);
                       }
                     });
 
@@ -54,6 +53,7 @@ App({
                       url: 'https://sdk.weixin.senparc.com/WxOpen/DecodeEncryptedData',
                       method: 'POST',
                       data: {
+                        'type':"userInfo",
                         sessionId: wx.getStorageSync('sessionId'),
                         encryptedData:userInfoRes.encryptedData,
                         iv:userInfoRes.iv

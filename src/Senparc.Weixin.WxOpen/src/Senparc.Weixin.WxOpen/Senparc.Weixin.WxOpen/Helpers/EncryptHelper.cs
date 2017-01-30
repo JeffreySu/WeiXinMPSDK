@@ -87,6 +87,8 @@ namespace Senparc.Weixin.WxOpen.Helpers
 
         #region 解密
 
+        #region 私有方法
+
         private static byte[] AES_Decrypt(String Input, byte[] Iv, byte[] Key)
         {
             RijndaelManaged aes = new RijndaelManaged();
@@ -128,12 +130,14 @@ namespace Senparc.Weixin.WxOpen.Helpers
             return res;
         }
 
+        #endregion
+
         /// <summary>
-        /// 解密消息
+        /// 解密所有消息的基础方法
         /// </summary>
-        /// <param name="sessionKey"></param>
-        /// <param name="encryptedData"></param>
-        /// <param name="iv"></param>
+        /// <param name="sessionKey">储存在 SessionBag 中的当前用户 会话 SessionKey</param>
+        /// <param name="encryptedData">接口返回数据中的 encryptedData 参数</param>
+        /// <param name="iv">接口返回数据中的 iv 参数，对称解密算法初始向量</param>
         /// <returns></returns>
         public static string DecodeEncryptedData(string sessionKey, string encryptedData, string iv)
         {

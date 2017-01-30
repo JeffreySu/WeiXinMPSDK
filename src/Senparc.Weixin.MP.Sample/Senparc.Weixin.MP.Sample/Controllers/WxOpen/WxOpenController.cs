@@ -184,7 +184,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             try
             {
                 var checkSuccess = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.CheckSignature(sessionId, rawData, signature);
-                return Json(new { success = checkSuccess, msg = checkSuccess ? "校验成功", "校验失败" });
+                return Json(new { success = checkSuccess, msg = checkSuccess ? "校验成功" : "校验失败" });
             }
             catch (Exception ex)
             {

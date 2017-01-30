@@ -22,7 +22,7 @@ namespace Senparc.Weixin.WxOpen.Entities
     }
     */
 
-    public class DecodedUserInfo: WatermarkBase
+    public class DecodedUserInfo: DecodeEntityBase
     {
         public string openId { get; set; }
         public string nickName { get; set; }

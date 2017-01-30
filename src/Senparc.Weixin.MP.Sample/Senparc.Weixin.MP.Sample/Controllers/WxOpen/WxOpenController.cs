@@ -8,6 +8,8 @@ using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
+using Senparc.Weixin.WxOpen.Entities;
+using Senparc.Weixin.WxOpen.Helpers;
 
 namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 {
@@ -193,12 +195,36 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
         }
 
         [HttpPost]
-        public ActionResult DecodeEncryptedData(string sessionId, string encryptedData, string iv)
+        public ActionResult DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
         {
             var result = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeEncryptedDataBySessionId(sessionId,
                 encryptedData, iv);
+
+            DecodeEntityBase decodedEntity = null;
+            switch (type.ToUpper())
+            {
+                case "USERINFO":
+                    decodedEntity = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(
+                        sessionId,
+                        encryptedData, iv);
+                    break;
+                default:
+                    break;
+            }
+
+            var checkWartmark = false;
+            if (decodedEntity != null)
+            {
+                checkWartmark = decodedEntity.CheckWatermark(AppId);
+            }
+
             //注意：此处仅为演示，敏感信息请勿传递到客户端！
-            return Json(new { success = true, msg = result });
+            return Json(new
+            {
+                success = checkWartmark,
+                msg = string.Format("水印验证：{0}", 
+                        checkWartmark ? "通过" : "不通过")
+            });
+        }
     }
-}
 }

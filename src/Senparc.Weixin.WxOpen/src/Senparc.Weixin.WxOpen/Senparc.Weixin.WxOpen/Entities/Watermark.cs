@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.WxOpen.Entities
 {
-    public class WatermarkBase
+    public class DecodeEntityBase
     {
         public Watermark watermark { get; set; }
     }

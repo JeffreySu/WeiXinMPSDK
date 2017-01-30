@@ -26,7 +26,7 @@ namespace Senparc.Weixin.WxOpen.Helpers
     /// <summary>
     /// EncryptHelper
     /// </summary>
-    public class EncryptHelper
+    public static class EncryptHelper
     {
         ///// <summary>
         ///// SHA1加密
@@ -185,6 +185,21 @@ namespace Senparc.Weixin.WxOpen.Helpers
             JavaScriptSerializer js = new JavaScriptSerializer();
             var userInfo = js.Deserialize<DecodedUserInfo>(jsonStr);
             return userInfo;
+        }
+
+        /// <summary>
+        /// 检查解密消息水印
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="appId"></param>
+        /// <returns>entity为null时也会返回false</returns>
+        public static bool CheckWatermark(this DecodeEntityBase entity, string appId)
+        {
+            if (entity == null)
+            {
+                return false;
+            }
+            return entity.watermark.appid == appId;
         }
 
         #endregion

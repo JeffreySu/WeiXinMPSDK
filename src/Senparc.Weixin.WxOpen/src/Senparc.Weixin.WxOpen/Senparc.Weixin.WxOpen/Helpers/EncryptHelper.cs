@@ -101,7 +101,9 @@ namespace Senparc.Weixin.WxOpen.Helpers
             //Console.WriteLine(Encoding.UTF8.GetString(aesKey));
             //Console.WriteLine(aesKey.Length);
 
-            var result = Senparc.Weixin.Helpers.EncryptHelper.AESDecrypt(aesCipher, aesIV, aesKey);
+            var result = Senparc.Weixin.Helpers.EncryptHelper.AES_decrypt(encryptedData, aesIV, aesKey);
+            Console.WriteLine("MMM");
+
             return Encoding.UTF8.GetString(result);
         }
 

@@ -206,13 +206,29 @@ namespace Senparc.Weixin.Helpers
             byte target = (byte)(a & 0xFF);
             return (char)target;
         }
-        private static byte[] AES_decrypt(String Input, byte[] Iv, byte[] Key)
+        public static byte[] AES_decrypt(String Input, byte[] Iv, byte[] Key)
         {
+            //SymmetricAlgorithm des = Rijndael.Create();
+            //des.Key = strKey;//Encoding.UTF8.GetBytes(strKey);//.Substring(0, 7)
+            //des.IV = iv;
+            //byte[] decryptBytes = new byte[inputdata.Length];
+            //using (MemoryStream ms = new MemoryStream(inputdata))
+            //{
+            //    using (CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(), CryptoStreamMode.Read))
+            //    {
+            //        cs.Read(decryptBytes, 0, decryptBytes.Length);
+            //        cs.Close();
+            //        ms.Close();
+            //    }
+            //}
+            //return decryptBytes;
+
+
             RijndaelManaged aes = new RijndaelManaged();
-            aes.KeySize = 256;
+            aes.KeySize = 128;//原始：256
             aes.BlockSize = 128;
             aes.Mode = CipherMode.CBC;
-            aes.Padding = PaddingMode.None;
+            aes.Padding = PaddingMode.PKCS7;
             aes.Key = Key;
             aes.IV = Iv;
             var decrypt = aes.CreateDecryptor(aes.Key, aes.IV);
@@ -221,6 +237,10 @@ namespace Senparc.Weixin.Helpers
             {
                 using (var cs = new CryptoStream(ms, decrypt, CryptoStreamMode.Write))
                 {
+                    //        cs.Read(decryptBytes, 0, decryptBytes.Length);
+                    //        cs.Close();
+                    //        ms.Close();
+
                     byte[] xXml = Convert.FromBase64String(Input);
                     byte[] msg = new byte[xXml.Length + 32 - xXml.Length % 32];
                     Array.Copy(xXml, msg, xXml.Length);

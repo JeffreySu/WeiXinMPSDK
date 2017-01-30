@@ -44,7 +44,9 @@ wx.login({
           url: 'https://sdk.weixin.senparc.com/WxOpen/CheckWxOpenSignature',
           method: 'POST',
           data: {
-            rawData:res.rawData,signature:res.signature
+            sessionId: wx.getStorageSync('sessionId'),
+            rawData:res.rawData,
+            signature:res.signature
           },
           success:function(json){
             console.log(json.data);

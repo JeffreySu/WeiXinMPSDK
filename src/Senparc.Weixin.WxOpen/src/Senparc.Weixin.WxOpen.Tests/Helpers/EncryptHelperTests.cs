@@ -62,6 +62,9 @@ namespace Senparc.Weixin.WxOpen.Helpers.Tests
             var iv = "IBAD3Gk1pFRAmUEJCNJ4Gw==";
             var result = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeEncryptedData(sessionKey, encryptedData, iv);
             Console.WriteLine(result);
+
+            var result2 = Convert.FromBase64String(result);
+            Console.WriteLine(Encoding.UTF8.GetString(result2));
         }
     }
 }

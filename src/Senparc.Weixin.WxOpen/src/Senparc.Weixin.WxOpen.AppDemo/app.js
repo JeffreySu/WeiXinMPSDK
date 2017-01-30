@@ -41,7 +41,7 @@ wx.login({
 
         //校验
         wx.request({
-          url: 'https://sdk.weixin.senparc.com/WxOpen/CheckSignature',
+          url: 'https://sdk.weixin.senparc.com/WxOpen/CheckWxOpenSignature',
           method: 'POST',
           data: {
             rawData:res.rawData,signature:res.signature

@@ -179,7 +179,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
         }
 
         [HttpPost]
-        public ActionResult CheckSignature(string sessionId, string rawData, string signature)
+        public ActionResult CheckWxOpenSignature(string sessionId, string rawData, string signature)
         {
             try
             {

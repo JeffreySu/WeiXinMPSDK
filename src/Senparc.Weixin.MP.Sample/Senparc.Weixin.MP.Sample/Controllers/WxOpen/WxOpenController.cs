@@ -198,13 +198,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
         [HttpPost]
         public ActionResult DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
         {
-            var result = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeEncryptedDataBySessionId(sessionId,
-                encryptedData, iv);
-
             DecodeEntityBase decodedEntity = null;
             switch (type.ToUpper())
             {
-                case "USERINFO":
+                case "USERINFO"://wx.getUserInfo()
                     decodedEntity = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(
                         sessionId,
                         encryptedData, iv);

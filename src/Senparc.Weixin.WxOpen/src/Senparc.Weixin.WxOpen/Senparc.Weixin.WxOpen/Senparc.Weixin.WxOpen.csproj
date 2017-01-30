@@ -57,6 +57,8 @@
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Entities\Response\SuccessResponseMessage.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Exceptions\WxOpenException.cs" />
+    <Compile Include="Helpers\EncryptHelper.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="MessageHandlers\IWxOpenMessageHandler.cs" />

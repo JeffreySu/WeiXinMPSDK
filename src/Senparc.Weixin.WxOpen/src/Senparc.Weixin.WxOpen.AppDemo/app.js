@@ -38,6 +38,18 @@ wx.login({
         console.log('get userinfo',res);
         that.globalData.userInfo = res.userInfo
         typeof cb == "function" && cb(that.globalData.userInfo)
+
+        //校验
+        wx.request({
+          url: 'https://sdk.weixin.senparc.com/WxOpen/CheckSignature',
+          method: 'POST',
+          data: {
+            rawData:res.rawData,signature:res.signature
+          },
+          success:function(json){
+            console.log(json.data);
+          }
+        });
       }
     })
   }

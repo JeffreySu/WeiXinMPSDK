@@ -2,6 +2,7 @@
 using System.IO;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
@@ -163,6 +164,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 //使用SessionContainer管理登录信息
                 var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key);
 
+                //不会为nul
                 //if (sessionBag == null)
                 //{
                 //    return Json(new { success = false, msg = "sessionId is not exist or expired.", sessionId = "" });
@@ -176,7 +178,19 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             }
         }
 
-
+        [HttpPost]
+        public ActionResult CheckSignature(string sessionId, string rawData, string signature)
+        {
+            try
+            {
+                var checkSuccess = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.CheckSignature(sessionId, rawData, signature);
+                return Json(new { success = checkSuccess, msg = checkSuccess ? "校验成功", "校验失败" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = ex.Message });
+            }
+        }
 
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.WxOpen.Helpers;
 
@@ -60,7 +61,6 @@ namespace Senparc.Weixin.WxOpen.Containers
         /// </summary>
         public SessionBag()
         {
-            ExpireTime = DateTime.Now.AddDays(2);//有效期2天
         }
     }
 
@@ -70,8 +70,17 @@ namespace Senparc.Weixin.WxOpen.Containers
     /// </summary>
     public class SessionContainer : BaseContainer<SessionBag>
     {
-        #region 同步方法
+        /// <summary>
+        /// 获取最新的过期时间
+        /// </summary>
+        /// <returns></returns>
+        private static DateTime GetExpireTime()
+        {
+            return DateTime.Now.AddDays(2);//有效期2天
+        }
 
+        #region 同步方法
+        
         /// <summary>
         /// 获取Session
         /// </summary>
@@ -92,7 +101,7 @@ namespace Senparc.Weixin.WxOpen.Containers
                 return null;
             }
 
-            bag.ExpireTime = DateTime.Now.AddDays(2);//滚动过期时间
+            bag.ExpireTime = GetExpireTime();//滚动过期时间
             Cache.UpdateContainerBag(key, bag);
             return bag;
         }
@@ -107,15 +116,19 @@ namespace Senparc.Weixin.WxOpen.Containers
         public static SessionBag UpdateSession(string key, string openId, string sessionKey)
         {
             key = key ?? SessionHelper.GetNewThirdSessionName();
-            var sessionBag = new SessionBag()
-            {
-                Key = key,
-                OpenId = openId,
-                SessionKey = sessionKey
-            };
 
-            Cache.InsertToCache(key, sessionBag);
-            return sessionBag;
+            using (FlushCache.CreateInstance())
+            {
+                var sessionBag = new SessionBag()
+                {
+                    Key = key,
+                    OpenId = openId,
+                    SessionKey = sessionKey,
+                    ExpireTime = GetExpireTime()
+                };
+                Update(key, sessionBag);
+                return sessionBag;
+            }
         }
 
         #endregion

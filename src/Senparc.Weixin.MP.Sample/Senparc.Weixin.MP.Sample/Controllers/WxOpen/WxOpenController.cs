@@ -6,6 +6,7 @@ using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
+using Senparc.Weixin.WxOpen.Containers;
 
 namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 {
@@ -147,12 +148,25 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             return Json(data);
         }
 
+        /// <summary>
+        /// wx.login登陆成功之后发送的请求
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult OnLogin(string code)
         {
             var jsonResult = SnsApi.JsCode2Json(AppId, AppSecret, code);
-            Session["WxOpenUser"] = jsonResult;//保存登陆信息
-            return Json(new { msg = "OK" });
+            if (jsonResult.errcode == ReturnCode.请求成功)
+            {
+                //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息
+                SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key);
+                return Json(new { success = true, msg = "OK" });
+            }
+            else
+            {
+                return Json(new { success = false, msg = jsonResult.errmsg });
+            }
         }
     }
 }

@@ -12,46 +12,47 @@ App({
       typeof cb == "function" && cb(this.globalData.userInfo)
     }else{
       //调用登录接口
-wx.login({
-  success: function (res) {
-    //换取openid & session_key
-    wx.request({
-      url: 'https://sdk.weixin.senparc.com/WxOpen/OnLogin',
-      method: 'POST',
-      data: {
-        code: res.code
-      },
-      success:function(json){
-        var result = json.data;
-        if(result.success)
-        {
-          wx.setStorageSync('sessionId', result.sessionId);
-          console.log('sessionId:',wx.getStorageSync('sessionId'));
+      wx.login({
+        success: function (res) {
+          //换取openid & session_key
+          wx.request({
+            url: 'https://sdk.weixin.senparc.com/WxOpen/OnLogin',
+            method: 'POST',
+            data: {
+              code: res.code
+            },
+            success:function(json){
+              var result = json.data;
+              if(result.success)
+              {
+                wx.setStorageSync('sessionId', result.sessionId);
+                console.log('sessionId:',wx.getStorageSync('sessionId'));
+
+                //获取userInfo并校验
+                wx.getUserInfo({
+                  success: function (res) {
+                    console.log('get userinfo',res);
+                    that.globalData.userInfo = res.userInfo
+                    typeof cb == "function" && cb(that.globalData.userInfo)
+
+                    //校验
+                    wx.request({
+                      url: 'https://sdk.weixin.senparc.com/WxOpen/CheckWxOpenSignature',
+                      method: 'POST',
+                      data: {
+                        sessionId: wx.getStorageSync('sessionId'),
+                        rawData:res.rawData,
+                        signature:res.signature
+                      },
+                      success:function(json){
+                        console.log(json.data);
+                      }
+                    });
+                  }
+                })
         }else{
           console.log('储存session失败！',json);
         }
-      }
-    })
-
-    wx.getUserInfo({
-      success: function (res) {
-        console.log('get userinfo',res);
-        that.globalData.userInfo = res.userInfo
-        typeof cb == "function" && cb(that.globalData.userInfo)
-
-        //校验
-        wx.request({
-          url: 'https://sdk.weixin.senparc.com/WxOpen/CheckWxOpenSignature',
-          method: 'POST',
-          data: {
-            sessionId: wx.getStorageSync('sessionId'),
-            rawData:res.rawData,
-            signature:res.signature
-          },
-          success:function(json){
-            console.log(json.data);
-          }
-        });
       }
     })
   }

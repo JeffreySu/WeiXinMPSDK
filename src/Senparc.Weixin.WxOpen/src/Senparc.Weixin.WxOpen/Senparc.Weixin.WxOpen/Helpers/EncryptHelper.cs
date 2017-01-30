@@ -43,11 +43,11 @@ namespace Senparc.Weixin.WxOpen.Helpers
         /// 获得签名
         /// </summary>
         /// <param name="rawData"></param>
-        /// <param name="session_Key"></param>
+        /// <param name="sessionKey"></param>
         /// <returns></returns>
-        public static string GetSignature(string rawData, string session_Key)
+        public static string GetSignature(string rawData, string sessionKey)
         {
-            var signature = Senparc.Weixin.Helpers.EncryptHelper.SHA1_Encrypt(rawData + session_Key);
+            var signature = Senparc.Weixin.Helpers.EncryptHelper.SHA1_Encrypt(rawData + sessionKey);
             return signature;
         }
 
@@ -57,7 +57,7 @@ namespace Senparc.Weixin.WxOpen.Helpers
         /// <param name="sessionId"></param>
         /// <param name="rawData"></param>
         /// <param name="compareSignature"></param>
-        /// <exception cref="WxOpenException">当SessionId无效时抛出异常</exception>
+        /// <exception cref="WxOpenException">当SessionId或SessionKey无效时抛出异常</exception>
         /// <returns></returns>
         public static bool CheckSignature(string sessionId, string rawData, string compareSignature)
         {
@@ -65,6 +65,11 @@ namespace Senparc.Weixin.WxOpen.Helpers
             if (sessionBag == null)
             {
                 throw new WxOpenException("SessionId无效");
+            }
+
+            if (string.IsNullOrEmpty(sessionBag.SessionKey))
+            {
+                throw new WxOpenException("SessionKey无效");
             }
 
             var signature = GetSignature(rawData, sessionBag.SessionKey);

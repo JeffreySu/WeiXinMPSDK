@@ -79,10 +79,10 @@ namespace Senparc.Weixin.Helpers
         /// <param name="iv">向量128</param>
         /// <param name="strKey">key</param>
         /// <returns></returns>
-        public static byte[] AESDecrypt(byte[] inputdata, byte[] iv, string strKey)
+        public static byte[] AESDecrypt(byte[] inputdata, byte[] iv, byte[] strKey)
         {
             SymmetricAlgorithm des = Rijndael.Create();
-            des.Key = Encoding.UTF8.GetBytes(strKey.Substring(0, 7));
+            des.Key = strKey;//Encoding.UTF8.GetBytes(strKey);//.Substring(0, 7)
             des.IV = iv;
             byte[] decryptBytes = new byte[inputdata.Length];
             using (MemoryStream ms = new MemoryStream(inputdata))
@@ -133,6 +133,7 @@ namespace Senparc.Weixin.Helpers
         }
 
 
+
         public static String AES_encrypt(byte[] Input, byte[] Iv, byte[] Key)
         {
             var aes = new RijndaelManaged();
@@ -173,8 +174,6 @@ namespace Senparc.Weixin.Helpers
             String Output = Convert.ToBase64String(xBuff);
             return Output;
         }
-
-
 
         private static byte[] KCS7Encoder(int text_length)
         {

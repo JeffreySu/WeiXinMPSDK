@@ -96,13 +96,13 @@ namespace Senparc.Weixin.WxOpen.Helpers
             var aesKey = Convert.FromBase64String(sessionKey);
             var aesIV = Convert.FromBase64String(iv);
 
-            Console.WriteLine(Encoding.UTF8.GetString(aesCipher));
-            Console.WriteLine(Encoding.UTF8.GetString(aesIV));
-            Console.WriteLine(Encoding.UTF8.GetString(aesKey));
-            Console.WriteLine(aesKey.Length);
+            //Console.WriteLine(Encoding.UTF8.GetString(aesCipher));
+            //Console.WriteLine(Encoding.UTF8.GetString(aesIV));
+            //Console.WriteLine(Encoding.UTF8.GetString(aesKey));
+            //Console.WriteLine(aesKey.Length);
 
-            var result = Senparc.Weixin.Helpers.EncryptHelper.AES_PKCS7_Encrypt(encryptedData, aesIV, aesKey);
-            return result;
+            var result = Senparc.Weixin.Helpers.EncryptHelper.AESDecrypt(aesCipher, aesIV, aesKey);
+            return Encoding.UTF8.GetString(result);
         }
 
         /// <summary>
@@ -126,15 +126,8 @@ namespace Senparc.Weixin.WxOpen.Helpers
                 throw new WxOpenException("SessionKey无效");
             }
 
-            var aesCipher = Convert.FromBase64String(encryptedData);
-            var aesKey = Convert.FromBase64String(sessionBag.SessionKey);
-            var aesIV = Convert.FromBase64String(iv);
-
-            var result = Senparc.Weixin.Helpers.EncryptHelper.AES_encrypt(aesCipher, aesIV, aesKey);
-            return result;
+            return DecodeEncryptedData(sessionBag.SessionKey, encryptedData, iv);
         }
-
-
 
 
         #endregion

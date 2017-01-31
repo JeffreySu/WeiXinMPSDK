@@ -19,7 +19,6 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
         public TemplateDataItem ip_list { get; set; }
         public TemplateDataItem sec_type { get; set; }
         public TemplateDataItem remark { get; set; }
-
     }
 
     [TestClass]
@@ -30,16 +29,41 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
         {
             var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//换成已经关注用户的openId
             var templateId = "cCh2CTTJIbVZkcycDF08n96FP-oBwyMVrro8C2nfVo4";//换成已经在微信后台添加的模板Id
-            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
-            var testData = new //TestTemplateData()
-            {
-                first = new TemplateDataItem("【测试】您好，审核通过。"),
-                keyword1 = new TemplateDataItem(openId),
-                keyword2 = new TemplateDataItem("单元测试"),
-                keyword3 = new TemplateDataItem(DateTime.Now.ToString()),
-                remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
-            };
-            var result = MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(accessToken, openId, templateId, "http://sdk.weixin.senparc.com", testData);
+            //var accessToken = AccessTokenContainer.GetAccessToken(_appId);
+var testData = new //TestTemplateData()
+{
+    first = new TemplateDataItem("【测试】您好，审核通过。"),
+    keyword1 = new TemplateDataItem(openId),
+    keyword2 = new TemplateDataItem("单元测试"),
+    keyword3 = new TemplateDataItem(DateTime.Now.ToString()),
+    remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
+};
+            var result = MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(_appId, openId, templateId, "http://sdk.weixin.senparc.com", testData);
+
+            Assert.AreEqual(ReturnCode.请求成功, result.errcode);
+        }
+
+        [TestMethod]
+        public void SendTemplateMessageTestForBook()
+        {
+var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//消息目标用户的OpenId
+            var templateId = "OYi8VMdCd3uu05lO7c_hNMoP2tCFTwHpChSNxpNJAGs";
+
+//实际生产环境中，用户信息应该从数据库或缓存中读取
+var userInfo = UserApi.Info(_appId,openId);
+
+var data = new
+{
+    first = new TemplateDataItem("您的订单已经支付"),
+    keyword1 = new TemplateDataItem(userInfo.nickname),
+    keyword2 = new TemplateDataItem("1234567890"),
+    keyword3 = new TemplateDataItem(88.ToString("c")),
+    keyword4 = new TemplateDataItem("模板消息测试商品"),
+    remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
+};
+
+
+            var result = TemplateApi.SendTemplateMessage(_appId, openId, templateId, "http://sdk.weixin.senparc.com", data);
 
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
         }
@@ -48,8 +72,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
         [TestMethod]
         public void SetIndustryTest()
         {
-            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
-            var result = TemplateApi.SetIndustry(accessToken, IndustryCode.IT科技_互联网_电子商务, IndustryCode.IT科技_IT软件与服务);
+//var accessToken = AccessTokenContainer.GetAccessToken(_appId);
+var result = TemplateApi.SetIndustry(_appId, IndustryCode.IT科技_互联网_电子商务, IndustryCode.IT科技_IT软件与服务);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
@@ -58,8 +82,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
         [TestMethod]
         public void GetIndustryTest()
         {
-            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
-            var result = TemplateApi.GetIndustry(accessToken);
+            //var accessToken = AccessTokenContainer.GetAccessToken(_appId);
+            var result = TemplateApi.GetIndustry(_appId);
             Assert.AreEqual("IT科技", result.primary_industry.first_class);
             Assert.AreEqual("互联网|电子商务", result.primary_industry.second_class);
             Assert.AreEqual("IT科技", result.secondary_industry.first_class);
@@ -74,7 +98,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
         public void AddtemplateTest()
         {
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
-            var result = TemplateApi.Addtemplate(accessToken, "OPENTM206164559");
+            var result = TemplateApi.Addtemplate(accessToken, "OPENTM207498902");
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
             Assert.IsNotNull(result.template_id);
             Console.WriteLine(result.template_id);
@@ -82,8 +106,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
         [TestMethod]
         public void GetPrivateTemplateTest()
         {
-            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
-            var result = TemplateApi.GetPrivateTemplate(accessToken);
+            //var accessToken = AccessTokenContainer.GetAccessToken(_appId);
+            var result = TemplateApi.GetPrivateTemplate(_appId);
 
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
             Assert.IsNotNull(result.template_list);
@@ -92,23 +116,23 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
         [TestMethod]
         public void DelPrivateTemplateTest()
         {
-            var accessToken = AccessTokenContainer.GetAccessToken(_appId);
+            //var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             //添加模板
-            var addResult = TemplateApi.Addtemplate(accessToken, "OPENTM206164559");
+            var addResult = TemplateApi.Addtemplate(_appId, "OPENTM206164559");
             var templateId = addResult.template_id;
             Assert.IsNotNull(templateId);
 
             //获取模板
-            var templates = TemplateApi.GetPrivateTemplate(accessToken).template_list;
+            var templates = TemplateApi.GetPrivateTemplate(_appId).template_list;
             Assert.IsTrue(templates.FirstOrDefault(z => z.template_id == templateId) != null);
 
             //删除模板
-            var result = TemplateApi.DelPrivateTemplate(accessToken, templateId);
+            var result = TemplateApi.DelPrivateTemplate(_appId, templateId);
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
 
             //验证模板已删除
-            templates = TemplateApi.GetPrivateTemplate(accessToken).template_list;
+            templates = TemplateApi.GetPrivateTemplate(_appId).template_list;
             Assert.IsTrue(templates.FirstOrDefault(z => z.template_id == templateId) == null);
         }
 

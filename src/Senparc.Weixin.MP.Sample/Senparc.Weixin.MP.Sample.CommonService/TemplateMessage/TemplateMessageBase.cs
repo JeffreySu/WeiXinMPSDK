@@ -15,6 +15,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage
     {
         public string TemplateId { get; set; }
         public string TemplateName { get; set; }
+
         public WeixinTemplateBase(string templateId, string templateName)
         {
             TemplateId = templateId;

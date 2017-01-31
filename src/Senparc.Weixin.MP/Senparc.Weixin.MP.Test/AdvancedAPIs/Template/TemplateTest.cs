@@ -29,38 +29,40 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
         {
             var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//换成已经关注用户的openId
             var templateId = "cCh2CTTJIbVZkcycDF08n96FP-oBwyMVrro8C2nfVo4";//换成已经在微信后台添加的模板Id
-            //var accessToken = AccessTokenContainer.GetAccessToken(_appId);
-var testData = new //TestTemplateData()
-{
-    first = new TemplateDataItem("【测试】您好，审核通过。"),
-    keyword1 = new TemplateDataItem(openId),
-    keyword2 = new TemplateDataItem("单元测试"),
-    keyword3 = new TemplateDataItem(DateTime.Now.ToString()),
-    remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
-};
+                                                                           //var accessToken = AccessTokenContainer.GetAccessToken(_appId);
+            var testData = new //TestTemplateData()
+            {
+                first = new TemplateDataItem("【测试】您好，审核通过。"),
+                keyword1 = new TemplateDataItem(openId),
+                keyword2 = new TemplateDataItem("单元测试"),
+                keyword3 = new TemplateDataItem(DateTime.Now.ToString()),
+                remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
+            };
             var result = MP.AdvancedAPIs.TemplateApi.SendTemplateMessage(_appId, openId, templateId, "http://sdk.weixin.senparc.com", testData);
 
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
         }
 
+        public class Template_PayNotice:Templateba
+
         [TestMethod]
         public void SendTemplateMessageTestForBook()
         {
-var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//消息目标用户的OpenId
+            var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//消息目标用户的OpenId
             var templateId = "OYi8VMdCd3uu05lO7c_hNMoP2tCFTwHpChSNxpNJAGs";
 
-//实际生产环境中，用户信息应该从数据库或缓存中读取
-var userInfo = UserApi.Info(_appId,openId);
+            //实际生产环境中，用户信息应该从数据库或缓存中读取
+            var userInfo = UserApi.Info(_appId, openId);
 
-var data = new
-{
-    first = new TemplateDataItem("您的订单已经支付"),
-    keyword1 = new TemplateDataItem(userInfo.nickname),
-    keyword2 = new TemplateDataItem("1234567890"),
-    keyword3 = new TemplateDataItem(88.ToString("c")),
-    keyword4 = new TemplateDataItem("模板消息测试商品"),
-    remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
-};
+            var data = new
+            {
+                first = new TemplateDataItem("您的订单已经支付"),
+                keyword1 = new TemplateDataItem(userInfo.nickname),
+                keyword2 = new TemplateDataItem("1234567890"),
+                keyword3 = new TemplateDataItem(88.ToString("c"), "#ff0000"),//显示为红色
+                keyword4 = new TemplateDataItem("模板消息测试商品"),
+                remark = new TemplateDataItem("更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！")
+            };
 
 
             var result = TemplateApi.SendTemplateMessage(_appId, openId, templateId, "http://sdk.weixin.senparc.com", data);
@@ -72,8 +74,8 @@ var data = new
         [TestMethod]
         public void SetIndustryTest()
         {
-//var accessToken = AccessTokenContainer.GetAccessToken(_appId);
-var result = TemplateApi.SetIndustry(_appId, IndustryCode.IT科技_互联网_电子商务, IndustryCode.IT科技_IT软件与服务);
+            //var accessToken = AccessTokenContainer.GetAccessToken(_appId);
+            var result = TemplateApi.SetIndustry(_appId, IndustryCode.IT科技_互联网_电子商务, IndustryCode.IT科技_IT软件与服务);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);

@@ -211,6 +211,21 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
+
+        /// <summary>
+        /// 【异步方法】模板消息接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId"></param>
+        /// <param name="templateMessageData"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<SendTemplateMessageResult>SendTemplateMessageAsync(string accessTokenOrAppId, string openId, ITemplateMessageBase templateMessageData, int timeOut = Config.TIME_OUT)
+        {
+            return await SendTemplateMessageAsync(accessTokenOrAppId, openId, templateMessageData.TemplateId,
+                templateMessageData.Url, templateMessageData, timeOut);
+        }
+
         /// <summary>
         /// 【异步方法】设置所属行业
         /// </summary>

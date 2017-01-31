@@ -22,53 +22,53 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
         public TemplateDataItem remark { get; set; }
     }
 
-/// <summary>
-/// “订单支付成功通知”模板消息数据定义
-/// </summary>
-public class TemplateMessage_PaySuccessNotice : TemplateMessageBase
-{
-    public TemplateDataItem first { get; set; }
-    public TemplateDataItem keyword1 { get; set; }
-    public TemplateDataItem keyword2 { get; set; }
-    public TemplateDataItem keyword3 { get; set; }
-    public TemplateDataItem keyword4 { get; set; }
-    public TemplateDataItem remark { get; set; }
-
     /// <summary>
-    /// “订单支付成功通知”模板消息数据定义 构造函数
+    /// “订单支付成功通知”模板消息数据定义
     /// </summary>
-    /// <param name="_first">first.Data头部信息</param>
-    /// <param name="userName">用户名</param>
-    /// <param name="orderNumber">订单号</param>
-    /// <param name="orderAmount">订单金额</param>
-    /// <param name="productInfo">商品信息</param>
-    /// <param name="_remark">remark.Data备注</param>
-    /// <param name="url"></param>
-    /// <param name="templateId"></param>
-    public TemplateMessage_PaySuccessNotice(string _first, string userName,
-        string orderNumber, string orderAmount, string productInfo,
-        string _remark,
-        string templateId = "OYi8VMdCd3uu05lO7c_hNMoP2tCFTwHpChSNxpNJAGs",
-        string url = null)
-        : base(templateId, url, "订单支付成功通知")
+    public class TemplateMessage_PaySuccessNotice : TemplateMessageBase
     {
-        /* 模板格式
-            {{first.DATA}}
-            用户名：{{keyword1.DATA}}
-            订单号：{{keyword2.DATA}}
-            订单金额：{{keyword3.DATA}}
-            商品信息：{{keyword4.DATA}}
-            {{remark.DATA}}
-            */
+        public TemplateDataItem first { get; set; }
+        public TemplateDataItem keyword1 { get; set; }
+        public TemplateDataItem keyword2 { get; set; }
+        public TemplateDataItem keyword3 { get; set; }
+        public TemplateDataItem keyword4 { get; set; }
+        public TemplateDataItem remark { get; set; }
 
-        first = new TemplateDataItem(_first);
-        keyword1 = new TemplateDataItem(userName);
-        keyword2 = new TemplateDataItem(orderNumber);
-        keyword3 = new TemplateDataItem(orderAmount, "#ff0000");//显示为红色
-        keyword4 = new TemplateDataItem(productInfo);
-        remark = new TemplateDataItem(_remark);
+        /// <summary>
+        /// “订单支付成功通知”模板消息数据定义 构造函数
+        /// </summary>
+        /// <param name="_first">first.Data头部信息</param>
+        /// <param name="userName">用户名</param>
+        /// <param name="orderNumber">订单号</param>
+        /// <param name="orderAmount">订单金额</param>
+        /// <param name="productInfo">商品信息</param>
+        /// <param name="_remark">remark.Data备注</param>
+        /// <param name="url"></param>
+        /// <param name="templateId"></param>
+        public TemplateMessage_PaySuccessNotice(string _first, string userName,
+            string orderNumber, string orderAmount, string productInfo,
+            string _remark,
+            string templateId = "OYi8VMdCd3uu05lO7c_hNMoP2tCFTwHpChSNxpNJAGs",
+            string url = null)
+            : base(templateId, url, "订单支付成功通知")
+        {
+            /* 模板格式
+                {{first.DATA}}
+                用户名：{{keyword1.DATA}}
+                订单号：{{keyword2.DATA}}
+                订单金额：{{keyword3.DATA}}
+                商品信息：{{keyword4.DATA}}
+                {{remark.DATA}}
+                */
+
+            first = new TemplateDataItem(_first);
+            keyword1 = new TemplateDataItem(userName);
+            keyword2 = new TemplateDataItem(orderNumber);
+            keyword3 = new TemplateDataItem(orderAmount, "#ff0000");//显示为红色
+            keyword4 = new TemplateDataItem(productInfo);
+            remark = new TemplateDataItem(_remark);
+        }
     }
-}
 
     [TestClass]
     public class TemplateTest : CommonApiTest
@@ -121,19 +121,18 @@ public class TemplateMessage_PaySuccessNotice : TemplateMessageBase
         [TestMethod]
         public void SendTemplateMessageTestForBookOptmize()
         {
-var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//消息目标用户的OpenId
+            var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//消息目标用户的OpenId
 
-//实际生产环境中，用户信息应该从数据库或缓存中读取
-var userInfo = UserApi.Info(_appId, openId);
+            //实际生产环境中，用户信息应该从数据库或缓存中读取
+            var userInfo = UserApi.Info(_appId, openId);
 
-var data = new TemplateMessage_PaySuccessNotice(
-    "您的订单已经支付", userInfo.nickname,
-    "1234567890", 88.ToString("c"),
-    "模板消息测试商品",
-    "更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！\r\n这条消息使用的是优化过的方法，且不带Url参数。",
-    url: "");
+            var data = new TemplateMessage_PaySuccessNotice(
+                "您的订单已经支付", userInfo.nickname,
+                "1234567890", 88.ToString("c"),
+                "模板消息测试商品",
+                "更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！\r\n这条消息使用的是优化过的方法，且不带Url参数。");
 
-var result = TemplateApi.SendTemplateMessage(_appId, openId, data);
+            var result = TemplateApi.SendTemplateMessage(_appId, openId, data);
 
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
         }

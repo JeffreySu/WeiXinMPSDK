@@ -27,6 +27,7 @@
 using System;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 using Senparc.Weixin.MP.CommonAPIs;
 
@@ -68,6 +69,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
+        /// 模板消息接口
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="openId"></param>
+        /// <param name="templateMessageData"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static SendTemplateMessageResult SendTemplateMessage(string accessTokenOrAppId, string openId, ITemplateMessageBase templateMessageData, int timeOut = Config.TIME_OUT)
+        {
+            return SendTemplateMessage(accessTokenOrAppId, openId, templateMessageData.TemplateId,
+                templateMessageData.Url, templateMessageData, timeOut);
+        }
+
+        /// <summary>
         /// 设置所属行业
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
@@ -75,7 +90,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="industry_id2">公众号模板消息所属行业编号</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-
         public static WxJsonResult SetIndustry(string accessTokenOrAppId, IndustryCode industry_id1, IndustryCode industry_id2, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>

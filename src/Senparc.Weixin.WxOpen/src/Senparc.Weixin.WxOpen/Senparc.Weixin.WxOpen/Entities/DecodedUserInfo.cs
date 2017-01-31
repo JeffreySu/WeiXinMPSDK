@@ -22,6 +22,7 @@ namespace Senparc.Weixin.WxOpen.Entities
     }
     */
 
+    [Serializable]
     public class DecodedUserInfo: DecodeEntityBase
     {
         public string openId { get; set; }

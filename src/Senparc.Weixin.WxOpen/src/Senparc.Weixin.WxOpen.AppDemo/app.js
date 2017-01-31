@@ -44,7 +44,7 @@ App({
                         signature:userInfoRes.signature
                       },
                       success:function(json){
-                        console.log(json.data);
+                        //console.log(json.data);
                       }
                     });
 

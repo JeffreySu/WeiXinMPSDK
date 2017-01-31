@@ -210,6 +210,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                     break;
             }
 
+            //检验水印
             var checkWartmark = false;
             if (decodedEntity != null)
             {
@@ -220,7 +221,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             return Json(new
             {
                 success = checkWartmark,
-                msg = string.Format("水印验证：{0}", 
+                decodedEntity = decodedEntity,
+                msg = string.Format("水印验证：{0}",
                         checkWartmark ? "通过" : "不通过")
             });
         }

@@ -7,11 +7,13 @@ using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.WxOpen.Entities
 {
+    [Serializable]
     public class DecodeEntityBase
     {
         public Watermark watermark { get; set; }
     }
 
+    [Serializable]
     public class Watermark
     {
         public string appid { get; set; }

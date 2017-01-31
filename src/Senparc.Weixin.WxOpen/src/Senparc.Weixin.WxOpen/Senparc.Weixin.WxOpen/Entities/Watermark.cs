@@ -19,7 +19,7 @@ namespace Senparc.Weixin.WxOpen.Entities
         public string appid { get; set; }
         public long timestamp { get; set; }
 
-        public DateTime TimeStamp
+        public DateTime DateTimeStamp
         {
             get { return DateTimeHelper.GetDateTimeFromXml(timestamp); }
         }

@@ -8,6 +8,8 @@ using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
+using Senparc.Weixin.WxOpen.Entities;
+using Senparc.Weixin.WxOpen.Helpers;
 
 namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 {
@@ -170,6 +172,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 //    return Json(new { success = false, msg = "sessionId is not exist or expired.", sessionId = "" });
                 //}
 
+                //注意：开发环境下SessionKey属于敏感信息，不能进行传输！
                 return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey });
             }
             else
@@ -184,7 +187,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             try
             {
                 var checkSuccess = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.CheckSignature(sessionId, rawData, signature);
-                return Json(new { success = checkSuccess, msg = checkSuccess ? "校验成功" : "校验失败" });
+                return Json(new { success = checkSuccess, msg = checkSuccess ? "签名校验成功" : "签名校验失败" });
             }
             catch (Exception ex)
             {
@@ -193,12 +196,35 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
         }
 
         [HttpPost]
-        public ActionResult DecodeEncryptedData(string sessionId, string encryptedData, string iv)
+        public ActionResult DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
         {
-            var result = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeEncryptedDataBySessionId(sessionId,
-                encryptedData, iv);
+            DecodeEntityBase decodedEntity = null;
+            switch (type.ToUpper())
+            {
+                case "USERINFO"://wx.getUserInfo()
+                    decodedEntity = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(
+                        sessionId,
+                        encryptedData, iv);
+                    break;
+                default:
+                    break;
+            }
+
+            //检验水印
+            var checkWartmark = false;
+            if (decodedEntity != null)
+            {
+                checkWartmark = decodedEntity.CheckWatermark(AppId);
+            }
+
             //注意：此处仅为演示，敏感信息请勿传递到客户端！
-            return Json(new { success = true, msg = result });
+            return Json(new
+            {
+                success = checkWartmark,
+                decodedEntity = decodedEntity,
+                msg = string.Format("水印验证：{0}",
+                        checkWartmark ? "通过" : "不通过")
+            });
+        }
     }
-}
 }

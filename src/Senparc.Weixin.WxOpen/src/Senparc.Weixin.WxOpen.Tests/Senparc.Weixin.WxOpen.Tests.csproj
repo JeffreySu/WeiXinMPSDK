@@ -53,7 +53,6 @@
     <Compile Include="AdvancedAPIs\WxApp\WxAppApiTests.cs" />
     <Compile Include="Containers\SessionContainerTests.cs" />
     <Compile Include="Helpers\EncryptHelperTests.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

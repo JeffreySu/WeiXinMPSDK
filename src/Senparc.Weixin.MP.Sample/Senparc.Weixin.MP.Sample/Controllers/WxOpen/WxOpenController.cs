@@ -221,7 +221,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             return Json(new
             {
                 success = checkWartmark,
-                //decodedEntity = decodedEntity,
+                decodedEntity = decodedEntity,
                 msg = string.Format("水印验证：{0}",
                         checkWartmark ? "通过" : "不通过")
             });

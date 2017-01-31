@@ -114,6 +114,7 @@
     <Compile Include="Entities\Request\EncryptPostModel.cs" />
     <Compile Include="Entities\Response\IResponseMessageNoResponse.cs" />
     <Compile Include="Entities\Response\SuccessResponseMessageBase.cs" />
+    <Compile Include="Entities\TemplateMessage\WeixinTemplateBase.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\ErrorJsonResultException.cs" />
     <Compile Include="Exceptions\MessageHandlerException.cs" />

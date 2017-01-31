@@ -162,17 +162,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
             var jsonResult = SnsApi.JsCode2Json(AppId, AppSecret, code);
             if (jsonResult.errcode == ReturnCode.请求成功)
             {
-                //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息
-                //使用SessionContainer管理登录信息
+                //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
+                //使用SessionContainer管理登录信息（推荐）
                 var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key);
 
-                //不会为nul
-                //if (sessionBag == null)
-                //{
-                //    return Json(new { success = false, msg = "sessionId is not exist or expired.", sessionId = "" });
-                //}
-
-                //注意：开发环境下SessionKey属于敏感信息，不能进行传输！
+                //注意：生产环境下SessionKey属于敏感信息，不能进行传输！
                 return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey });
             }
             else

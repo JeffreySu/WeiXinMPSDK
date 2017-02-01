@@ -4,5 +4,7 @@ script:
 #  - ./build/build.mono.sh #执行构建脚本，脚本中通过mcs命令构建项目
 #  - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln #此处通过xbuild以Release模式构建Senparc.Weixin.MP.Sample.sln解决方案
 
+install:
+ - nuget install StackExchange.Redis -version 1.0.488
 
 solution: ./src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln

@@ -108,12 +108,27 @@ namespace Senparc.WebSocket
 
                     if (WebSocketConfig.WebSocketMessageHandlerFunc != null)
                     {
-                        //Because we know that is a string, we convert it.
-                        string receiveString =
-                          //System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
-                          System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
+                        try
+                        {
+                            //Because we know that is a string, we convert it.
+                            string receiveString =
+                              //System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
+                              System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
 
-                        await messageHandler.OnMessageReceiced(webSocketHandler, receiveString);//调用MessageHandler
+                            //var receivedMessage = Newtonsoft.Json.JsonConvert.DeserializeObject<ReceivedMessage>(receiveString);
+
+                            var receivedMessage = new ReceivedMessage()
+                            {
+                                Message = receiveString
+                            };
+
+                            await messageHandler.OnMessageReceiced(webSocketHandler, receivedMessage, receiveString);//调用MessageHandler
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+
                     }
                 }
             }

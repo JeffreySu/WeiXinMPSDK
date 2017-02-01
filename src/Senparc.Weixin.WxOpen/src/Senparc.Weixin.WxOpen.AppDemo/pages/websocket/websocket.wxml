@@ -16,7 +16,7 @@
 </view>
 
 <view>
-<form bindsubmit="formSubmit">
+<form bindsubmit="formSubmit" report-submit="true">
 <view class="flex-wrp" style="flex-direction:column;">
   <view class="flex-item submitContent">
     <input placeholder="输入内容" name="messageContent" class="txtContent" value="{{messageContent}}" />

@@ -48,8 +48,9 @@ namespace Senparc.WebSocket
         /// 收到消息时触发事件
         /// </summary>
         /// <param name="webSocketHandler"></param>
-        /// <param name="message"></param>
+        /// <param name="message">封装好的数据</param>
+        /// <param name="originalData">原始数据字符串</param>
         /// <returns></returns>
-        public abstract Task OnMessageReceiced(WebSocketHelper webSocketHandler, string message);
+        public abstract Task OnMessageReceiced(WebSocketHelper webSocketHandler, ReceivedMessage message,string originalData);
     }
 }

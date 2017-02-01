@@ -76,8 +76,10 @@ namespace Senparc.Weixin
         不合法的openid列表长度 = 40032,
         不合法的请求字符不能包含uxxxx格式的字符 = 40033,
         不合法的参数 = 40035,
+
         //小程序、 公众号都有
         template_id不正确 = 40037,
+
         不合法的请求格式 = 40038,
         不合法的URL长度 = 40039,
         不合法的分组id = 40050,
@@ -91,6 +93,12 @@ namespace Senparc.Weixin
         缺少子菜单数据 = 41007,
         缺少oauth_code = 41008,
         缺少openid = 41009,
+
+        //小程序
+        form_id不正确_或者过期 = 41028,
+        form_id已被使用 = 41029,
+        page不正确 = 41030,
+
         access_token超时 = 42001,
         refresh_token超时 = 42002,
         oauth_code超时 = 42003,

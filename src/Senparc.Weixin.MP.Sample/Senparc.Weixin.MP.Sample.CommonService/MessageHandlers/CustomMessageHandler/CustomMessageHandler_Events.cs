@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.Context;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
@@ -215,7 +216,7 @@ QQ群：342319110
                         {
                             Title = "OAuth2.0测试（带returnUrl），生产环境强烈推荐使用",
                             Description = "OAuth2.0测试（带returnUrl）",
-                            Url = "http://sdk.weixin.senparc.com/oauth2?returnUrl="+ returnUrl.UrlEncode(),
+                            Url = "http://sdk.weixin.senparc.com/oauth2?returnUrl=" + returnUrl.UrlEncode(),
                             PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
                         });
 
@@ -454,6 +455,35 @@ QQ群：342319110
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "事件之弹出地理位置选择器";
             return responseMessage;
+        }
+
+        /// <summary>
+        /// 事件之发送模板消息返回结果
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public override IResponseMessageBase OnEvent_TemplateSendJobFinishRequest(RequestMessageEvent_TemplateSendJobFinish requestMessage)
+        {
+            switch (requestMessage.Status)
+            {
+                case "success":
+                    //发送成功
+                    break;
+                case "failed:user block":
+                    //送达由于用户拒收（用户设置拒绝接收公众号消息）而失败
+                    break;
+                case "failed: system failed":
+                    //送达由于其他原因失败
+                    break;
+                default:
+                    throw new WeixinException("未知模板消息状态：" + requestMessage.Status);
+                    break;
+            }
+
+            //无需回复文字内容
+            //return requestMessage
+            //    .CreateResponseMessage<ResponseMessageNoResponse>();
+            return null;
         }
     }
 }

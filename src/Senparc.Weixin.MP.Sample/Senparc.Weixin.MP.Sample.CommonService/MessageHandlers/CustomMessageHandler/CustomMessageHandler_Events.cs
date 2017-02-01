@@ -477,7 +477,6 @@ QQ群：342319110
                     break;
                 default:
                     throw new WeixinException("未知模板消息状态：" + requestMessage.Status);
-                    break;
             }
 
             //无需回复文字内容

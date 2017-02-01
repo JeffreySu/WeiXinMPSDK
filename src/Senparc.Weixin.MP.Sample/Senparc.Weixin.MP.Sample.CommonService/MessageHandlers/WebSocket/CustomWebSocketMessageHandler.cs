@@ -74,12 +74,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
                 };
 
                 var appId = WebConfigurationManager.AppSettings["WxOpenAppId"];//与微信小程序账号后台的AppId设置保持一致，区分大小写。
-                var tmResult = Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi.SendTemplateMessage(appId, openId, data.TemplateId, data, receivedMessage.FormId, null,
-                         "keyword3.DATA");
+                var tmResult = Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi.SendTemplateMessage(appId, openId, "PZfsad7ijpwmqS1f9UDHW8ZBzXT69mKdzLR9zCFBD-E", data, receivedMessage.FormId, null,
+                         null);
             }
             catch (Exception ex)
             {
-                await webSocketHandler.SendMessage(ex.Message + "\r\n\r\n" + originalData);
+                await webSocketHandler.SendMessage(ex.Message + "\r\n\r\n" + originalData+"\r\n\r\nAPPID:" + WebConfigurationManager.AppSettings["WxOpenAppId"]);
             }
         }
     }

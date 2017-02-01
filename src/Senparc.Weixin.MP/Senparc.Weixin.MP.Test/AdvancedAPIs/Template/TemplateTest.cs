@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
@@ -135,6 +137,37 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
             var result = TemplateApi.SendTemplateMessage(_appId, openId, data);
 
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
+        }
+
+        [TestMethod]
+        public void AsyncSendTemplateMessageTestForBookOptmize()
+        {
+            WxJsonResult finalResult = null;
+Task.Factory.StartNew(async () =>
+{
+    var openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//消息目标用户的OpenId
+
+    //实际生产环境中，用户信息应该从数据库或缓存中读取
+    var userInfo = await UserApi.InfoAsync(_appId, openId);
+
+    var data = new TemplateMessage_PaySuccessNotice(
+        "您的订单已经支付", userInfo.nickname,
+        "1234567890", 88.ToString("c"),
+        "模板消息测试商品",
+        "更详细信息，请到Senparc.Weixin SDK官方网站（http://sdk.weixin.senparc.com）查看！\r\n这条消息使用的是优化过的方法，且不带Url参数。使用异步方法。");
+
+    var  result = await TemplateApi.SendTemplateMessageAsync(_appId, openId, data);
+
+    //调用客服接口显示msgId
+    finalResult = await CustomApi.SendTextAsync(_appId, openId, "上一条模板消息的MsgID：" + result.msgid);
+
+    Assert.AreEqual(ReturnCode.请求成功, result.errcode);
+
+});
+            while (finalResult == null)
+            {
+
+            }
         }
 
         [TestMethod]

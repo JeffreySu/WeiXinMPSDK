@@ -43,12 +43,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage
         /// Message
         /// </summary>
         public TemplateDataItem keyword5 { get; set; }
-      
+
         public TemplateDataItem remark { get; set; }
 
         public WeixinTemplate_ExceptionAlert(string _first, string host, string service, string status, string message,
-            string _remark, string templateId = TEMPLATE_ID)
-            : base(templateId, "系统异常告警通知")
+            string _remark, string url = null, string templateId = TEMPLATE_ID)
+            : base(templateId, url, "系统异常告警通知")
         {
             first = new TemplateDataItem(_first);
             keyword1 = new TemplateDataItem(DateTime.Now.ToString());

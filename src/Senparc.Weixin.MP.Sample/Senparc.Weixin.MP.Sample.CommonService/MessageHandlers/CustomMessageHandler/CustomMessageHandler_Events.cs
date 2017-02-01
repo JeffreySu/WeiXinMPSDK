@@ -479,6 +479,8 @@ QQ群：342319110
                     throw new WeixinException("未知模板消息状态：" + requestMessage.Status);
             }
 
+            //注意：此方法内不能再发送模板消息，否则会造成无限循环！
+
             //无需回复文字内容
             //return requestMessage
             //    .CreateResponseMessage<ResponseMessageNoResponse>();

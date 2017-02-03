@@ -22,7 +22,6 @@
   <!-- 进入客服 -->
    <view class="btn-contact">
       <contact-button 
-        type="default-light" 
         size="20"
         session-from="Senparc.Weixin">进入客服，查看消息接口</contact-button>
   </view>
@@ -32,4 +31,12 @@
   hover-class="other-button-hover" class="btn-DoRequest">
   获取数据
   </button>
+
+    <!-- 模板消息 -->
+  <form report-submit="true" bindsubmit="formTemplateMessageSubmit">
+  <button formType="submit" type="primary"
+  hover-class="other-button-hover" class="btn-DoRequest">
+  测试模板消息
+  </button>
+  </form>
 </view>

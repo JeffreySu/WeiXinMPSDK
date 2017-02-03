@@ -20,7 +20,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.Tests
             var dt1 = DateTime.Now;
             using (var ms = new MemoryStream())
             {
-
                 var result = WxAppApi.CreateWxQrCode(base._appId, ms, "pages/websocket", 100);
                 Assert.AreEqual(ReturnCode.请求成功, result.errcode);
 

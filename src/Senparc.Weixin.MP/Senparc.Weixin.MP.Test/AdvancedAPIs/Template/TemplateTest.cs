@@ -75,6 +75,8 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs.Template
     [TestClass]
     public class TemplateTest : CommonApiTest
     {
+        #region SendTemplateMessage API
+
         [TestMethod]
         public void SendTemplateMessageTest()
         {
@@ -180,6 +182,9 @@ Task.Factory.StartNew(async () =>
             Assert.AreEqual(ReturnCode.请求成功, result.errcode);
         }
 
+        #endregion
+
+
         [TestMethod]
         public void GetIndustryTest()
         {
@@ -204,6 +209,7 @@ Task.Factory.StartNew(async () =>
             Assert.IsNotNull(result.template_id);
             Console.WriteLine(result.template_id);
         }
+
         [TestMethod]
         public void GetPrivateTemplateTest()
         {

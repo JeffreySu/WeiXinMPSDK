@@ -64,8 +64,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Routes\WebSocketHandler\ReceivedMessage.cs" />
     <Compile Include="WebSocketConfig.cs" />
-    <Compile Include="Routes\WebSocketHandler.cs" />
+    <Compile Include="Routes\WebSocketHandler\WebSocketHandler.cs" />
     <Compile Include="Helpers\WebSocketHelper.cs" />
     <Compile Include="MessageHandlers\WebSocketMessageHandler.cs" />
     <Compile Include="Routes\WebSocketRoute.cs" />

@@ -39,6 +39,9 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                             MchId = doc.Root.Element("MchId").Value,
                             TenPayKey = doc.Root.Element("TenPayKey").Value,
                             TenPayCertPath = doc.Root.Element("TenPayCertPath").Value,
+
+                            //WxOpenAppId= doc.Root.Element("WxOpenAppId").Value,
+                            //WxOpenSecret = doc.Root.Element("WxOpenSecret").Value
                         };
                     }
                     else
@@ -50,6 +53,8 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                             MchId = "YourMchId",//换成你的信息
                             TenPayKey = "YourTenPayKey",//换成你的信息
                             TenPayCertPath = "YourTenPayCertPath",//换成你的信息
+                            //WxOpenAppId="YourWxOpenAppId",//换成你的小程序AppId
+                            //WxOpenSecret= "YourWxOpenSecret",//换成你的小程序Secret
                         };
                     }
                 }
@@ -82,6 +87,15 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             get { return AppConfig.TenPayCertPath; }
         }
 
+        //protected string _wxOpenAppId
+        //{
+        //    get { return AppConfig.WxOpenAppId; }
+        //}
+
+        //protected string _wxOpenSecret
+        //{
+        //    get { return AppConfig.WxOpenSecret; }
+        //}
 
         protected readonly bool _userRedis = true;//是否使用Reids
 
@@ -146,6 +160,12 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
             //全局只需注册一次
             AccessTokenContainer.Register(_appId, _appSecret);
+
+            ////注册小程序
+            //if (!string.IsNullOrEmpty(_wxOpenAppId))
+            //{
+            //    AccessTokenContainer.Register(_wxOpenAppId, _wxOpenSecret);
+            //}
 
             ThreadUtility.Register();
 

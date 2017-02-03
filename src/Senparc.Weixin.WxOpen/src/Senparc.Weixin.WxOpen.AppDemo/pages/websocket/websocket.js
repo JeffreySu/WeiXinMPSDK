@@ -10,11 +10,20 @@ Page({
   //sendMessage
   formSubmit: function(e) {
     var that = this;
+    console.log('formSubmit',e);
     var msg =  e.detail.value.messageContent;//获得输入文字
     console.log('send message:' +msg );
      if (socketOpen) {
+
+       //如果使用Senparc.WebSocket，必须严格按照以下data数据字段发送（只能多不能少）
+       var submitData = JSON.stringify({
+          messsage:msg,//必填
+          sessionId:wx.getStorageSync("sessionId"),//选填，不需要可输入''
+          formId:e.detail.formId//选填formId用于发送模板消息，不需要可输入''
+        });
+
       wx.sendSocketMessage({
-        data:msg
+        data:submitData
       });
       that.setData({
         messageContent:''

@@ -50,6 +50,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AdvancedAPIs\Template\TemplateApiTests.cs" />
     <Compile Include="AdvancedAPIs\WxApp\WxAppApiTests.cs" />
     <Compile Include="Containers\SessionContainerTests.cs" />
     <Compile Include="Helpers\EncryptHelperTests.cs" />

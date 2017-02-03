@@ -50,6 +50,32 @@ Page({
       }
     })
   },
+  //测试模板消息提交form
+  formTemplateMessageSubmit:function(e)
+  {
+       var submitData = JSON.stringify({
+          sessionId:wx.getStorageSync("sessionId"),
+          formId:e.detail.formId
+        });
+
+        wx.request({
+          url: 'https://sdk.weixin.senparc.com/WxOpen/TemplateTest',
+          data: submitData,
+          method: 'POST', 
+          success: function(res){
+            // success
+            var json = res.data;
+            console.log(res.data);
+            //模组对话框
+            wx.showModal({
+              title: '已尝试发送模板消息',
+              content: json.msg,
+              showCancel:false
+            });
+          }
+        })
+  },
+
   onLoad: function () {
     console.log('onLoad')
     var that = this

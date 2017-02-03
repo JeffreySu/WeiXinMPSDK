@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.MP.MvcExtension;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
@@ -20,8 +21,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
     {
         public static readonly string Token = WebConfigurationManager.AppSettings["WxOpenToken"];//与微信公众账号后台的Token设置保持一致，区分大小写。
         public static readonly string EncodingAESKey = WebConfigurationManager.AppSettings["WxOpenEncodingAESKey"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
-        public static readonly string AppId = WebConfigurationManager.AppSettings["WxOpenAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
-        public static readonly string AppSecret = WebConfigurationManager.AppSettings["WxOpenAppSecret"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string AppId = WebConfigurationManager.AppSettings["WxOpenAppId"];//与微信小程序账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string AppSecret = WebConfigurationManager.AppSettings["WxOpenAppSecret"];//与微信小程序账号后台的AppId设置保持一致，区分大小写。
 
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
@@ -219,6 +220,31 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 msg = string.Format("水印验证：{0}",
                         checkWartmark ? "通过" : "不通过")
             });
+        }
+
+        [HttpPost]
+        public ActionResult TemplateTest(string sessionId, string formId)
+        {
+            var sessionBag = SessionContainer.GetSession(sessionId);
+            var openId = sessionBag != null ? sessionBag.OpenId : "用户未正确登陆";
+
+            var data = new WxOpenTemplateMessage_PaySuccessNotice(
+                "在线购买", DateTime.Now, "图书众筹", "1234567890",
+                100, "400-9939-858", "http://sdk.senparc.weixin.com");
+
+            try
+            {
+                Senparc.Weixin.WxOpen.AdvancedAPIs
+                    .Template.TemplateApi
+                    .SendTemplateMessage(
+                        AppId, openId, data.TemplateId, data, formId);
+
+                return Json(new { success = true, msg = "发送成功" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, openId = openId, formId = formId, msg = ex.Message });
+            }
         }
     }
 }

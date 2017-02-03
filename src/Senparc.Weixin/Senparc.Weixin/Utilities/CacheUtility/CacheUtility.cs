@@ -24,5 +24,4 @@ namespace Senparc.Weixin.CacheUtility
     public class CacheUtility
     {
     }
-
 }

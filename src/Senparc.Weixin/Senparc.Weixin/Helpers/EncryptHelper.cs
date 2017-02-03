@@ -23,14 +23,14 @@ namespace Senparc.Weixin.Helpers
     ///
     public class EncryptHelper
     {
-        ///
-        /// 采用SHA-1算法加密字符串
-        ///
-        /// 要加密的字符串
-        /// 返回加密后的字符串
-        public static string GetSha1(string sourceStr)
+        /// <summary>
+        /// 采用SHA-1算法加密字符串（小写）
+        /// </summary>
+        /// <param name="encypStr">需要加密的字符串</param>
+        /// <returns></returns>
+        public static string GetSha1(string encypStr)
         {
-            byte[] strRes = Encoding.Default.GetBytes(sourceStr);
+            byte[] strRes = Encoding.Default.GetBytes(encypStr);
             HashAlgorithm iSHA = new SHA1CryptoServiceProvider();
             strRes = iSHA.ComputeHash(strRes);
             StringBuilder enText = new StringBuilder();
@@ -43,11 +43,11 @@ namespace Senparc.Weixin.Helpers
 
         /// <summary>
         /// 获取大写的MD5签名结果
-		/// </summary>
-		/// <param name="encypStr"></param>
-		/// <param name="charset"></param>
-		/// <returns></returns>
-		public static string GetMD5(string encypStr, string charset)
+        /// </summary>
+        /// <param name="encypStr">需要加密的字符串</param>
+        /// <param name="charset">编码</param>
+        /// <returns></returns>
+        public static string GetMD5(string encypStr, string charset)
         {
             string retStr;
             MD5CryptoServiceProvider m5 = new MD5CryptoServiceProvider();
@@ -74,10 +74,11 @@ namespace Senparc.Weixin.Helpers
 
         #region AES
 
+        /// <summary>
         /// AES加密
         /// </summary>
         /// <param name="inputdata">输入的数据</param>
-        /// <param name="iv">向量128位</param>
+        /// <param name="iv">向量</param>
         /// <param name="strKey">加密密钥</param>
         /// <returns></returns>
         public static byte[] AESEncrypt(byte[] inputdata, byte[] iv, string strKey)
@@ -107,7 +108,7 @@ namespace Senparc.Weixin.Helpers
         /// AES解密
         /// </summary>
         /// <param name="inputdata">输入的数据</param>
-        /// <param name="iv">向量128</param>
+        /// <param name="iv">向量</param>
         /// <param name="strKey">key</param>
         /// <returns></returns>
         public static byte[] AESDecrypt(byte[] inputdata, byte[] iv, byte[] strKey)

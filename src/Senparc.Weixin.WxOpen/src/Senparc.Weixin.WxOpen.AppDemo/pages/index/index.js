@@ -57,33 +57,35 @@ Page({
           sessionId:wx.getStorageSync("sessionId"),//选填，不需要可输入''
           formId:e.detail.formId//选填formId用于发送模板消息，不需要可输入''
         });
-wx.request({
-      url: 'https://sdk.weixin.senparc.com/WxOpen/RequestData',
-      data: { nickName : that.data.userInfo.nickName},
-      method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {}, // 设置请求的 header
-      success: function(res){
-        // success
-        var json = res.data;
-        //模组对话框
-        wx.showModal({
-          title: '收到消息',
-          content: json.msg,
-          showCancel:false,
-          success: function(res) {
-            if (res.confirm) {
-              console.log('用户点击确定')
-            }
+
+        wx.request({
+          url: 'https://sdk.weixin.senparc.com/WxOpen/TemplateTest',
+          data: submitData,
+          method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+          // header: {}, // 设置请求的 header
+          success: function(res){
+            // success
+            var json = res.data;
+            console.log(res.data);
+            //模组对话框
+            wx.showModal({
+              title: '已经发送模板消息',
+              content: json.msg,
+              showCancel:false,
+              success: function(res) {
+                if (res.confirm) {
+                  console.log('用户点击确定')
+                }
+              }
+            });
+          },
+          fail: function() {
+            // fail
+          },
+          complete: function() {
+            // complete
           }
-        });
-      },
-      fail: function() {
-        // fail
-      },
-      complete: function() {
-        // complete
-      }
-    })
+        })
   },
 
   onLoad: function () {

@@ -34,7 +34,7 @@
 
     <!-- 模板消息 -->
   <form report-submit="true" bindsubmit="formTemplateMessageSubmit">
-  <button formType="submit" type="primary" bindtap="doRequest" 
+  <button formType="submit" type="primary"
   hover-class="other-button-hover" class="btn-DoRequest">
   测试模板消息
   </button>

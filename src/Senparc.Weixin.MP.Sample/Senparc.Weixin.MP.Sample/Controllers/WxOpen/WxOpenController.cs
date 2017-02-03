@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.MP.MvcExtension;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
 using Senparc.Weixin.WxOpen.Containers;
@@ -219,6 +220,32 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 msg = string.Format("水印验证：{0}",
                         checkWartmark ? "通过" : "不通过")
             });
+        }
+
+        [HttpPost]
+        public ActionResult TemplateTest(string sessionId, string formId)
+        {
+            var sessionBag = SessionContainer.GetSession(sessionId);
+            var openId = sessionBag != null ? sessionBag.OpenId : "用户未正确登陆";
+
+            var data = new WxOpenTemplateMessage_PaySuccessNotice(
+                "在线购买", DateTime.Now, "图书众筹", "1234567890",
+                100, "400-9939-858", "http://sdk.senparc.weixin.com");
+
+            try
+            {
+                Senparc.Weixin.WxOpen.AdvancedAPIs
+                    .Template.TemplateApi
+                    .SendTemplateMessage(
+                        AppId, openId,
+                       data.TemplateId, data, formId);
+
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, openId = openId, formId = formId, msg = ex.Message });
+            }
         }
     }
 }

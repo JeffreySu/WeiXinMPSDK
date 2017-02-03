@@ -7,16 +7,15 @@ script:
 install:
  - nuget install StackExchange.Redis -version 1.0.488
 
-#solution: ./src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln
+solution: ./src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln
 #solution: ./src/Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc.Weixin.MP.csproj
 
-script:
- - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin/Senparc.Weixin.csproj
- - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc.Weixin.MP.csproj
- - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.MP.MvcExtension/Senparc.Weixin.MP.MvcExtension.csproj
- - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.Open/Senparc.Weixin.Open.csproj
- - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.QY/Senparc.Weixin.QY.csproj
+#script:
+# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc.Weixin.MP.csproj
+# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.MP.MvcExtension/Senparc.Weixin.MP.MvcExtension.csproj
+# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.Open/Senparc.Weixin.Open.csproj
+# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.QY/Senparc.Weixin.QY.csproj
 # - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.Work/Senparc.Weixin.Work.csproj
- - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.QY/Senparc.Weixin.WxOpen.csproj
+# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.QY/Senparc.Weixin.WxOpen.csproj
 # - xbuild /p:Configuration=Release ./src/Senparc.Weixin.Cache/Senparc.Weixin.Cache.Redis/Senparc.Weixin.Cache.Redis.csproj
 # - xbuild /p:Configuration=Release ./src/Senparc.Weixin.Cache/Senparc.Weixin.Cache.Memcached/Senparc.Weixin.Cache.Memcached.csproj 

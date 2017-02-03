@@ -125,6 +125,42 @@ namespace Senparc.Weixin.Helpers.Tests
         }
 
         #endregion
-    }
 
+
+        #region 常规序列化、反序列化
+
+        [Serializable]
+        public class Data
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
+
+        [TestMethod()]
+        public void GetJsonStringTest()
+        {
+            var data = new Data()
+            {
+                Id = 1,
+                Name = "Senparc"
+            };
+            SerializerHelper js = new SerializerHelper();
+            string json = js.GetJsonString(data);
+            Assert.AreEqual("{\"Id\":1,\"Name\":\"Senparc\"}", json);
+            Console.WriteLine(json);
+        }
+
+
+        #endregion
+
+        [TestMethod()]
+        public void GetObjectTest()
+        {
+            SerializerHelper js = new SerializerHelper();
+            Data data = js.GetObject<Data>("{\"Id\":1,\"Name\":\"Senparc\"}");
+
+            Assert.AreEqual(1, data.Id);
+            Assert.AreEqual("Senparc", data.Name);
+        }
+    }
 }

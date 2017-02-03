@@ -62,7 +62,7 @@ namespace Senparc.Weixin.Helpers
         }
 
         /// <summary>
-        /// 反序列化对象
+        /// 反序列化到对象
         /// </summary>
         /// <typeparam name="T">反序列化对象类型</typeparam>
         /// <param name="jsonString">JSON字符串</param>

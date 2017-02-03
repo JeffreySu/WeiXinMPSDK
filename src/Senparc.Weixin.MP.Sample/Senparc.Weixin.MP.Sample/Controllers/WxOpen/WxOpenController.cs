@@ -237,10 +237,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 Senparc.Weixin.WxOpen.AdvancedAPIs
                     .Template.TemplateApi
                     .SendTemplateMessage(
-                        AppId, openId,
-                       data.TemplateId, data, formId);
+                        AppId, openId, data.TemplateId, data, formId);
 
-                return Json(new { success = true });
+                return Json(new { success = true, msg = "发送成功" });
             }
             catch (Exception ex)
             {

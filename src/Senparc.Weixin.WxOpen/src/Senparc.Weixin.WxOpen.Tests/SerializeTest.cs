@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Cache.Redis;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 using Senparc.Weixin.WxOpen.Containers;
 
@@ -44,8 +46,8 @@ namespace Senparc.WeixinTests.Cache
                 return sessionBag;
             };
 
-            var testCycle = 100000;
-            //使用 Newtonsoft.Json 进行 10 万次序列化并计算时间
+            var testCycle = 50;
+            //使用 Newtonsoft.Json 进行 1 万次序列化并计算时间
             DateTime dt1 = DateTime.Now;
             for (int i = 0; i < testCycle; i++)
             {
@@ -54,30 +56,73 @@ namespace Senparc.WeixinTests.Cache
                 //序列化
                 var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(sessionBag);
                 var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<SessionBag>(jsonString);
+
+                if (i==0)
+                {
+                    Console.WriteLine("Newtonsoft.JSON:");
+                    Console.WriteLine(jsonString);//输出字符串
+                    Console.WriteLine(obj.CacheTime);//输出反序列化后的参数
+                    Console.WriteLine("==============");
+                    dt1=DateTime.Now;//过滤启动时间，Newtonsoft启动时间需要200多ms
+                }
             }
             DateTime dt2 = DateTime.Now;
 
-            //使用 二进制方式序列化
+            DateTime dt3 = DateTime.Now;
+            //使用 Newtonsoft.Json 进行 1 万次序列化并计算时间
             for (int i = 0; i < testCycle; i++)
             {
                 //获取一个 SessionBag 对象
                 var sessionBag = getNewEntity();
                 //序列化
+                SerializerHelper serializerHelper=new SerializerHelper();
+                var jsonString = serializerHelper.GetJsonString(sessionBag);
+                var obj = serializerHelper.GetObject<SessionBag>(jsonString);
+
+                if (i == 0)
+                {
+                    Console.WriteLine(".NET Serializer:");
+                    Console.WriteLine(jsonString);//输出字符串
+                    Console.WriteLine(obj.CacheTime);//输出反序列化后的参数
+                    Console.WriteLine("==============");
+                    dt3=DateTime.Now;//过滤启动时间
+                }
+            }
+            DateTime dt4 = DateTime.Now;
+
+            DateTime dt5 = DateTime.Now;
+            //使用 .NET 内置 JSON 序列化
+            for (int i = 0; i < testCycle; i++)
+            {
+                //获取一个 SessionBag 对象
+                var sessionBag = getNewEntity();
                 BinaryFormatter binaryFormatter = new BinaryFormatter();
                 MemoryStream memoryStream = new MemoryStream();
                 {
+                    //序列化
                     binaryFormatter.Serialize(memoryStream, sessionBag);
                     byte[] objectDataAsStream = memoryStream.ToArray();
+
                     //反序列化
                     var obj = StackExchangeRedisExtensions.Deserialize<SessionBag>(objectDataAsStream);
+
+                    if (i == 0)
+                    {
+                        Console.WriteLine(".NET Serializer:");
+                        Console.WriteLine(Encoding.UTF8.GetString(objectDataAsStream));//输出字符串
+                        Console.WriteLine(obj.CacheTime);//输出反序列化后的参数
+                    Console.WriteLine("==============");
+                    dt5=DateTime.Now;//过滤启动时间
+                    }
                 }
             }
-            DateTime dt3 = DateTime.Now;
+            DateTime dt6 = DateTime.Now;
 
-            Console.WriteLine("JSON 序列化 {0} 次，耗时：{1}ms", testCycle, (dt2 - dt1).TotalMilliseconds);
-            Console.WriteLine("二进制 序列化 {0} 次，耗时：{1}ms", testCycle, (dt3 - dt2).TotalMilliseconds);
+            Console.WriteLine("Newtonsoft JSON 序列化 {0} 次，耗时：{1}ms", testCycle, (dt2 - dt1).TotalMilliseconds);
+            Console.WriteLine(".NET 内置 JSON 序列化 {0} 次，耗时：{1}ms", testCycle, (dt4 - dt3).TotalMilliseconds);
+            Console.WriteLine("二进制 序列化 {0} 次，耗时：{1}ms", testCycle, (dt6 - dt5).TotalMilliseconds);
 
-            //结果：Newtonsoft.JSON 效率更高
+            //结果：Newtonsoft.JSON 效率更高，三个结果时间基本上1:2:3
         }
     }
 }

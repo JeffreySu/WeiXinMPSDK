@@ -73,7 +73,6 @@
   <ItemGroup>
     <Compile Include="Cache\CacheStrategyFactoryTests.cs" />
     <Compile Include="Cache\Lock\CacheLockTest.cs" />
-    <Compile Include="Cache\UnitTest1.cs" />
     <Compile Include="Containers\BaseContainerTests.cs" />
     <Compile Include="Exceptions\CommonTests.cs" />
     <Compile Include="Helpers\Containers\ContainerHelperTests.cs" />

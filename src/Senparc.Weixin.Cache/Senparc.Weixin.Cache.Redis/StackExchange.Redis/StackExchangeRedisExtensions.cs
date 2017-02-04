@@ -6,8 +6,10 @@
 
     创建标识：Senparc - 20160309
 
-----------------------------------------------------------------*/
+    修改标识：Senparc - 20170204
+    修改描述：v1.2.0 序列化方式改为 JSON
 
+----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;
@@ -16,6 +18,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.Cache.Redis
 {
@@ -64,13 +67,19 @@ namespace Senparc.Weixin.Cache.Redis
                 return null;
             }
 
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                binaryFormatter.Serialize(memoryStream, o);
-                byte[] objectDataAsStream = memoryStream.ToArray();
-                return objectDataAsStream;
-            }
+            //二进制序列化方案
+            //BinaryFormatter binaryFormatter = new BinaryFormatter();
+            //using (MemoryStream memoryStream = new MemoryStream())
+            //{
+            //    binaryFormatter.Serialize(memoryStream, o);
+            //    byte[] objectDataAsStream = memoryStream.ToArray();
+            //    return objectDataAsStream;
+            //}
+
+            //JSON序列化方案
+            SerializerHelper serializerHelper = new SerializerHelper();
+            var jsonSetting = serializerHelper.GetJsonString(o);
+            return Encoding.UTF8.GetBytes(jsonSetting);
         }
 
         /// <summary>
@@ -86,13 +95,18 @@ namespace Senparc.Weixin.Cache.Redis
                 return default(T);
             }
 
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            using (MemoryStream memoryStream = new MemoryStream(stream))
-            {
-                T result = (T)binaryFormatter.Deserialize(memoryStream);
-                return result;
-            }
+            //二进制序列化方案
+            //BinaryFormatter binaryFormatter = new BinaryFormatter();
+            //using (MemoryStream memoryStream = new MemoryStream(stream))
+            //{
+            //    T result = (T)binaryFormatter.Deserialize(memoryStream);
+            //    return result;
+            //}
+
+            //JSON序列化方案
+            SerializerHelper serializerHelper = new SerializerHelper();
+            T result = serializerHelper.GetObject<T>(Encoding.UTF8.GetString(stream));
+            return result;
         }
     }
-
 }

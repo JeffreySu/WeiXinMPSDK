@@ -44,7 +44,7 @@ namespace Senparc.Weixin.Context
     //    /// </summary>
     //    Dictionary<string, TM> MessageCollection { get; set; }
     //    /// <summary>
-    //    /// MessageContext列队（LastActiveTime升序排列）,不要直接操作此对象
+    //    /// MessageContext队列（LastActiveTime升序排列）,不要直接操作此对象
     //    /// </summary>
     //    MessageQueue<TM, TRequest, TResponse> MessageQueue { get; set; }
 
@@ -79,7 +79,7 @@ namespace Senparc.Weixin.Context
         /// </summary>
         public Dictionary<string, TM> MessageCollection { get; set; }
         /// <summary>
-        /// MessageContext列队（LastActiveTime升序排列）,不要直接操作此对象
+        /// MessageContext队列（LastActiveTime升序排列）,不要直接操作此对象
         /// </summary>
         public MessageQueue<TM, TRequest, TResponse> MessageQueue { get; set; }
 
@@ -124,7 +124,7 @@ namespace Senparc.Weixin.Context
                 var timeSpan = DateTime.Now - firstMessageContext.LastActiveTime;
                 //确定对话过期时间
                 var expireMinutes = firstMessageContext.ExpireMinutes.HasValue
-                    ? firstMessageContext.ExpireMinutes.Value //列队自定义事件
+                    ? firstMessageContext.ExpireMinutes.Value //队列自定义事件
                     : this.ExpireMinutes;//全局统一默认时间
                 if (timeSpan.TotalMinutes >= expireMinutes)
                 {
@@ -176,7 +176,7 @@ namespace Senparc.Weixin.Context
                     };
 
                     messageContext = GetMessageContext(userName);
-                    //插入列队
+                    //插入队列
                     MessageQueue.Add(messageContext); //最新的排到末尾
                 }
                 else

@@ -86,7 +86,7 @@ namespace Senparc.Weixin.Containers
         //            //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
         //            //containerCacheStrategy.InsertToCache(cacheKey, itemCollection);//插入到缓存
 
-        //            //保存到缓存列队，等待执行
+        //            //保存到缓存队列，等待执行
         //            SenparcMessageQueue mq = new SenparcMessageQueue();
         //            var mqKey = SenparcMessageQueue.GenerateKey("ContainerItemCollection", typeof(BaseContainer<TBag>), cacheKey, "InsertItemCollection");
         //            mq.Add(mqKey, () =>

@@ -12,7 +12,7 @@ namespace Senparc.WeixinTests.Threads
         [TestMethod]
         public void RunTest()
         {
-            //默认情况下ThreadUtility应该已经将SenparcMessageQueueThreadUtility加入列队
+            //默认情况下ThreadUtility应该已经将SenparcMessageQueueThreadUtility加入队列
             //下面对Container进行测试
 
             //var c1 = TestContainer1.GetCollectionList();
@@ -25,7 +25,7 @@ namespace Senparc.WeixinTests.Threads
             //TestContainer1.Update(key, bag);
             //bag.DateTime = DateTime.MinValue;//进行修改
 
-            ////读取列队
+            ////读取队列
             //var mq = new SenparcMessageQueue();
             //var mqKey = SenparcMessageQueue.GenerateKey("A",typeof(TestContainerBag1), bag.Key,"B");
             //var mqItem = mq.GetItem(mqKey);

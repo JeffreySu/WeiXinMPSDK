@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Senparc.Weixin.MP.Sample\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -55,8 +59,13 @@
     <Compile Include="Containers\SessionContainerTests.cs" />
     <Compile Include="Helpers\EncryptHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerializeTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj">
+      <Project>{51ac27b4-11ae-4f59-b82a-0bb3afa5f62b}</Project>
+      <Name>Senparc.Weixin.Cache.Redis</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP.Test\Senparc.Weixin.MP.Test.csproj">
       <Project>{6313dc35-40ab-4b24-81bb-2f742e2e915e}</Project>
       <Name>Senparc.Weixin.MP.Test</Name>
@@ -73,6 +82,9 @@
       <Project>{379D8C97-4F96-45AF-9F91-6BD160514495}</Project>
       <Name>Senparc.Weixin.WxOpen</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

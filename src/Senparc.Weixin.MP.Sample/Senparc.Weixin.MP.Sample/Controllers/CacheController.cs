@@ -40,6 +40,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     internal class TestContainer1 : BaseContainer<TestContainerBag1>
     {
     }
+
     internal class TestContainer2 : BaseContainer<TestContainerBag2>
     {
     }

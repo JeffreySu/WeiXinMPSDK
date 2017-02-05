@@ -31,7 +31,7 @@ namespace Senparc.Weixin.Cache.Redis
         /// <summary>
         /// Hash储存的Key和Field集合
         /// </summary>
-      protected  class HashKeyAndField
+        protected class HashKeyAndField
         {
             public string Key { get; set; }
             public string Field { get; set; }

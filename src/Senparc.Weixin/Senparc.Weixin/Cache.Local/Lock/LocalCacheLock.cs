@@ -96,7 +96,10 @@ namespace Senparc.Weixin.Cache
 
         public override void UnLock(string resourceName)
         {
-            LockPool.Remove(resourceName);
+            lock (lookPoolLock)
+            {
+                LockPool.Remove(resourceName);
+            }
         }
     }
 }

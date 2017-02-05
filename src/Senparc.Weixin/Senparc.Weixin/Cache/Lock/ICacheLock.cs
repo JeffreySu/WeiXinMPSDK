@@ -16,11 +16,11 @@ namespace Senparc.Weixin.Cache
         /// </summary>
         bool LockSuccessful { get; set; }
 
-        /// <summary>
-        /// 立即开始锁定
-        /// </summary>
-        /// <returns></returns>
-        ICacheLock LockNow();
+        ///// <summary>
+        ///// 立即开始锁定
+        ///// </summary>
+        ///// <returns></returns>
+        //ICacheLock LockNow();
 
         /// <summary>
         /// 开始锁

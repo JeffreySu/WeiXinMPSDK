@@ -1,4 +1,19 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
+
+    文件名：RedisCacheLock.cs
+    文件功能描述：本地锁
+
+
+    创建标识：Senparc - 20160810
+
+    修改标识：Senparc - 20170205
+    修改描述：v0.2.0 重构分布式锁
+
+----------------------------------------------------------------*/
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +30,7 @@ namespace Senparc.Weixin.Cache.Memcached
             : base(strategy, resourceName, key, retryCount, retryDelay)
         {
             _mamcachedStrategy = strategy;
+            LockNow();//立即等待并抢夺锁
         }
 
         private static Random _rnd = new Random();

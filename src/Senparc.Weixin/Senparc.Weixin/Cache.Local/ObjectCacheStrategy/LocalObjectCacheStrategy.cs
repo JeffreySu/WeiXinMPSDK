@@ -10,6 +10,9 @@
     修改标识：Senparc - 20160812
     修改描述：v4.7.4  解决Container无法注册的问题
 
+    修改标识：Senparc - 20170205
+    修改描述：v0.2.0 重构分布式锁
+
  ----------------------------------------------------------------*/
 
 using System;
@@ -168,7 +171,7 @@ namespace Senparc.Weixin.Cache
         #region ICacheLock
         public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
-            return new LocalCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
+            return new LocalCacheLock(this, resourceName, key, retryCount, retryDelay);
         }
 
         #endregion

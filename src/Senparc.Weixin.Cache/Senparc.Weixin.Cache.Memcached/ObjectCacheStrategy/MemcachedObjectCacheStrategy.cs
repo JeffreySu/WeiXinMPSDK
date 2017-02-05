@@ -1,4 +1,18 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
+
+    文件名：MemcachedObjectCacheStrategy.cs
+    文件功能描述：本地锁
+
+
+    创建标识：Senparc - 20161025
+
+    修改标识：Senparc - 20170205
+    修改描述：v0.2.0 重构分布式锁
+
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -200,7 +214,7 @@ namespace Senparc.Weixin.Cache.Memcached
 
         public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
-            return new MemcachedCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
+            return new MemcachedCacheLock(this, resourceName, key, retryCount, retryDelay);
         }
     }
 }

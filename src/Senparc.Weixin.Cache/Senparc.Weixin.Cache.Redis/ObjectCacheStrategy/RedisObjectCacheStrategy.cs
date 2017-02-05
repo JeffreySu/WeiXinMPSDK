@@ -7,6 +7,9 @@
 
     创建标识：Senparc - 20161024
 
+    修改标识：Senparc - 20170205
+    修改描述：v0.2.0 重构分布式锁
+
  ----------------------------------------------------------------*/
 
 using System;
@@ -300,7 +303,7 @@ namespace Senparc.Weixin.Cache.Redis
 
         public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
-            return new RedisCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
+            return new RedisCacheLock(this, resourceName, key, retryCount, retryDelay);
         }
 
     }

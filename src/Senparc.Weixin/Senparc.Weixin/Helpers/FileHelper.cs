@@ -12,6 +12,9 @@
     修改标识：Senparc - 20161108
     修改描述：将Senparc.Weixin.MP中的FileHelper转移到Senparc.Weixin中，并添加DownLoadFileFromUrl方法
 
+    修改标识：Senparc - 20170204
+    修改描述：v4.10.4 优化GetFileStream方法
+
 ----------------------------------------------------------------*/
 
 using System.IO;
@@ -30,7 +33,7 @@ namespace Senparc.Weixin.Helpers
             FileStream fileStream = null;
             if (!string.IsNullOrEmpty(fileName) && File.Exists(fileName))
             {
-                fileStream = new FileStream(fileName, FileMode.Open);
+                fileStream = new FileStream(fileName, FileMode.Open,FileAccess.Read, FileShare.ReadWrite);
             }
             return fileStream;
         }

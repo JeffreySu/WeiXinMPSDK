@@ -23,8 +23,8 @@ namespace Senparc.Weixin.Cache
         /// <summary>
         /// 获取拼装后的FinalKey
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="isFullKey"></param>
+        /// <param name="key">键</param>
+        /// <param name="isFullKey">是否已经是经过拼接的FullKey</param>
         /// <returns></returns>
         public string GetFinalKey(string key, bool isFullKey = false)
         {

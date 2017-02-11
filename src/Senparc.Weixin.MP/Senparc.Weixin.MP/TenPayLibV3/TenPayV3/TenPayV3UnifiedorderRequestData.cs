@@ -12,6 +12,9 @@
     修改标识：Senparc - 20170128
     修改描述：v14.3.122 调整sign_type设置顺序
 
+    修改标识：Senparc - 20170211
+    修改描述：v14.3.125 重新调整sign_type设置顺序，v14.3.122版本中不应该做调整
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -193,6 +196,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("mch_id", this.MchId);                      //商户号
             PackageRequestHandler.SetParameterWhenNotNull("device_info", this.DeviceInfo); //自定义参数
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr);                //随机字符串
+            PackageRequestHandler.SetParameterWhenNotNull("sign_type", this.SignType);     //签名类型，默认为MD5
             PackageRequestHandler.SetParameter("body", this.Body);                         //商品信息
             PackageRequestHandler.SetParameterWhenNotNull("detail", this.Detail);          //商品详细列表
             PackageRequestHandler.SetParameterWhenNotNull("attach", this.Attach);          //附加数据
@@ -210,7 +214,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("openid", this.OpenId);          //用户的openId，trade_type=JSAPI时（即公众号支付），此参数必传
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
             PackageRequestHandler.SetParameter("sign", Sign);                              //签名
-            PackageRequestHandler.SetParameterWhenNotNull("sign_type", this.SignType);     //签名类型，默认为MD5
             #endregion
         }
     }

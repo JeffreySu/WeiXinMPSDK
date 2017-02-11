@@ -58,6 +58,5 @@ namespace Senparc.Weixin.MP.Test.CacheTests
 
             //}).Wait();
         }
-
     }
 }

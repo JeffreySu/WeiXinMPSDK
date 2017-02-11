@@ -23,15 +23,15 @@ namespace Senparc.Weixin.MP.Test.CacheTests
             //测试本地缓存死锁问题
             CacheStrategyFactory.RegisterObjectCacheStrategy(() => LocalObjectCacheStrategy.Instance);//Local
 
-            List<Task> TaskList = new List<Task>();
+            List<Task> taskList = new List<Task>();
             var dt1 = DateTime.Now;
             for (int i = 0; i < 50; i++)
             {
-                var LastTask = new Task(LocalCacheDeadLockTestThreadFun);
-                LastTask.Start();
-                TaskList.Add(LastTask);
+                var lastTask = new Task(LocalCacheDeadLockTestThreadFun);
+                lastTask.Start();
+                taskList.Add(lastTask);
             }
-            Task.WaitAll(TaskList.ToArray());
+            Task.WaitAll(taskList.ToArray());
             var dt2 = DateTime.Now;
             Console.Write("总耗时：{0}ms",(dt2-dt1).TotalMilliseconds);
         }

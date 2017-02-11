@@ -137,8 +137,10 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                         int sleepSeconds = 3;
                         Thread.Sleep(sleepSeconds * 1000);
                         var data = new WeixinTemplate_ExceptionAlert(string.Format("微信发生异常（延时{0}秒）", sleepSeconds), host, service, status, message, remark);
-                        var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
-                                url, data);
+
+                        //修改OpenId、启用以下代码后即可收到模板消息
+                        //var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
+                        //        url, data);
                     }
                 });
             }

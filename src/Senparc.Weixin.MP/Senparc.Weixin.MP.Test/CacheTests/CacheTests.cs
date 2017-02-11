@@ -33,7 +33,27 @@ namespace Senparc.Weixin.MP.Test.CacheTests
             }
             Task.WaitAll(taskList.ToArray());
             var dt2 = DateTime.Now;
-            Console.Write("总耗时：{0}ms",(dt2-dt1).TotalMilliseconds);
+            Console.Write("总耗时：{0}ms", (dt2 - dt1).TotalMilliseconds);
+        }
+
+        [TestMethod]
+        public void LocalCacheDeadLockInGetTest()
+        {
+            //测试死锁发生
+            //Task.Factory.StartNew(() =>
+            //{
+                var dt1 = DateTime.Now;
+                for (int i = 0; i < 10; i++)
+                {
+                    Console.WriteLine("开始循环：{0}", i);
+                    Senparc.Weixin.MP.AdvancedAPIs.UserApi.InfoAsync(base._appId, base._testOpenId);
+                    Console.WriteLine("结束循环：{0}\r\n", i);
+                }
+
+                var dt2 = DateTime.Now;
+                Console.Write("总耗时：{0}ms", (dt2 - dt1).TotalMilliseconds);
+
+            //}).Wait();
         }
 
     }

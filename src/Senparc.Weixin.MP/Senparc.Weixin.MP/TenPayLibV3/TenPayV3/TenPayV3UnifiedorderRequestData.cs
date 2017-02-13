@@ -12,6 +12,9 @@
     修改标识：Senparc - 20170128
     修改描述：v14.3.122 调整sign_type设置顺序
 
+    修改标识：Senparc - 20170213
+    修改描述：v14.3.123 修复微信支付 "TotalFee" 类型错误[decimal→int]
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -80,7 +83,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <summary>
         /// 商品金额,以分为单位(money * 100).ToString()
         /// </summary>
-        public decimal TotalFee { get; set; }
+        public int TotalFee { get; set; }
         /// <summary>
         /// 用户的公网ip，不是商户服务器IP
         /// </summary>
@@ -153,7 +156,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="goodsTag">商品标记，使用代金券或立减优惠功能时需要的参数，说明详见代金券或立减优惠。String(32)，如：WXG</param>
         /// <param name="productId">trade_type=NATIVE时（即扫码支付），此参数必传。此参数为二维码中包含的商品ID，商户自行定义。String(32)，如：12235413214070356458058</param>
         /// <param name="limitPay">是否限制用户不能使用信用卡支付</param>
-        public TenPayV3UnifiedorderRequestData(string appId, string mchId, string body, string outTradeNo, decimal totalFee, string spbillCreateIp,
+        public TenPayV3UnifiedorderRequestData(string appId, string mchId, string body, string outTradeNo, int totalFee, string spbillCreateIp,
             string notifyUrl, TenPayV3Type tradeType, string openid, string key, string nonceStr,
             string deviceInfo = null, DateTime? timeStart = null, DateTime? timeExpire = null,
            string detail = null, string attach = null, string feeType = "CNY", string goodsTag = null, string productId = null, bool limitPay = false)

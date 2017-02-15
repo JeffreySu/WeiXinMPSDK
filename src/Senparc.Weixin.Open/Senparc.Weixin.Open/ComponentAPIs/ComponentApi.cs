@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：OAuthJoinAPI.cs
     文件功能描述：公众号授权给第三方平台
@@ -14,6 +14,9 @@
  
     修改标识：Senparc - 20161027
     修改描述：v2.3.2 修复：GetAuthorizerOption方法中option_name需要传入字符串。 感谢 @bingohanet
+
+    修改标识：Senparc - 20170119
+    修改描述：v2.3.7 修复：ApiConfirmAuth的URL中带空格
 
 ----------------------------------------------------------------*/
 
@@ -140,7 +143,7 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         {
             var url =
                 string.Format(
-                    "https://api.weixin.qq.com/ cgi-bin/component/api_confirm_authorization?component_access_token={0}", componentAccessToken.AsUrlData());
+                    "https://api.weixin.qq.com/cgi-bin/component/api_confirm_authorization?component_access_token={0}", componentAccessToken.AsUrlData());
 
             var data = new
             {

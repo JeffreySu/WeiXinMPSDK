@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：SubmerChantBatchGetJsonResult.cs
     文件功能描述：批量拉取子商户信息的返回结果

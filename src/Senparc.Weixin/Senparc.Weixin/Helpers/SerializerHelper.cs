@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：SerializerHelper.cs
     文件功能描述：unicode解码
@@ -61,6 +61,16 @@ namespace Senparc.Weixin.Helpers
             return json;
         }
 
+        /// <summary>
+        /// 反序列化到对象
+        /// </summary>
+        /// <typeparam name="T">反序列化对象类型</typeparam>
+        /// <param name="jsonString">JSON字符串</param>
+        /// <returns></returns>
+        public T GetObject<T>(string jsonString)
+        {
+            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            return jsSerializer.Deserialize<T>(jsonString);
+        }
     }
-
 }

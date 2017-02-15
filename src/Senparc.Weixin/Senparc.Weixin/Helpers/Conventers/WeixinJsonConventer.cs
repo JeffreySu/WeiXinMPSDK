@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：WeixinJsonConventer.cs
     文件功能描述：微信JSON字符串转换
@@ -100,7 +100,7 @@ namespace Senparc.Weixin.Helpers
         {
             get
             {
-                var typeList = new List<Type>(new[] { typeof(IJsonIgnoreNull),typeof(IJsonEnumString)/*,typeof(JsonIgnoreNull)*/ });
+                var typeList = new List<Type>(new[] { typeof(IJsonIgnoreNull), typeof(IJsonEnumString)/*,typeof(JsonIgnoreNull)*/ });
 
                 if (_jsonSetting.TypesToIgnore.Count > 0)
                 {
@@ -127,6 +127,7 @@ namespace Senparc.Weixin.Helpers
             var properties = obj.GetType().GetProperties();
             foreach (var propertyInfo in properties)
             {
+                        continue;
                 //排除的属性
                 bool excludedProp = propertyInfo.IsDefined(typeof(JsonSetting.ExcludedAttribute), true);
                 if (excludedProp)
@@ -142,6 +143,7 @@ namespace Senparc.Weixin.Helpers
                         {
                             continue;
                         }
+
 
                         //当值匹配时需要忽略的属性
                         JsonSetting.IgnoreValueAttribute attri = propertyInfo.GetCustomAttribute<JsonSetting.IgnoreValueAttribute>();

@@ -1,2 +1,21 @@
 language: csharp
-solution: ./src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.sln
+
+script:
+#  - ./build/build.mono.sh #执行构建脚本，脚本中通过mcs命令构建项目
+#  - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln #此处通过xbuild以Release模式构建Senparc.Weixin.MP.Sample.sln解决方案
+
+install:
+ - nuget install StackExchange.Redis -version 1.0.488
+
+solution: ./src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.sln
+#solution: ./src/Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc.Weixin.MP.csproj
+
+#script:
+# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.MP/Senparc.Weixin.MP.csproj
+# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.MP.MvcExtension/Senparc.Weixin.MP.MvcExtension.csproj
+# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.Open/Senparc.Weixin.Open.csproj
+# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.QY/Senparc.Weixin.QY.csproj
+# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.Work/Senparc.Weixin.Work.csproj
+# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.MP/Senparc.Weixin.QY/Senparc.Weixin.WxOpen.csproj
+# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.Cache/Senparc.Weixin.Cache.Redis/Senparc.Weixin.Cache.Redis.csproj
+# - xbuild /p:Configuration=Release ./src/Senparc.Weixin.Cache/Senparc.Weixin.Cache.Memcached/Senparc.Weixin.Cache.Memcached.csproj 

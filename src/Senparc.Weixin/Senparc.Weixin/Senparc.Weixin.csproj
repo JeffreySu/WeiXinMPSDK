@@ -75,6 +75,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -86,14 +87,14 @@
   <ItemGroup>
     <Compile Include="Cache\CacheStrategy\BaseCacheStrategy.cs" />
     <Compile Include="Cache\ContainerCacheStrategy\IContainerCacheStragegy.cs" />
-    <Compile Include="Cache\Lock\LocalCacheLock.cs" />
-    <Compile Include="Cache\ContainerCacheStrategy\Local\LocalContainerCacheStrategy.cs" />
+    <Compile Include="Cache.Local\Lock\LocalCacheLock.cs" />
+    <Compile Include="Cache.Local\ContainerCacheStragegy\LocalContainerCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategy\IBaseCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategyFactory.cs" />
     <Compile Include="Cache\Lock\BaseCacheLock.cs" />
     <Compile Include="Cache\Lock\ICacheLock.cs" />
     <Compile Include="Cache\ObjectCacheStrategy\IObjectCacheStrategy.cs" />
-    <Compile Include="Cache\ObjectCacheStrategy\Local\LocalObjectCacheStrategy.cs" />
+    <Compile Include="Cache.Local\ObjectCacheStrategy\LocalObjectCacheStrategy.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Containers\BaseContainer.cs" />
     <Compile Include="Containers\BaseContainerBag.cs" />
@@ -112,6 +113,8 @@
     </Compile>
     <Compile Include="Entities\Request\EncryptPostModel.cs" />
     <Compile Include="Entities\Response\IResponseMessageNoResponse.cs" />
+    <Compile Include="Entities\Response\SuccessResponseMessageBase.cs" />
+    <Compile Include="Entities\TemplateMessage\WeixinTemplateBase.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\ErrorJsonResultException.cs" />
     <Compile Include="Exceptions\MessageHandlerException.cs" />

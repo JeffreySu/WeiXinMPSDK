@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
   
     文件名：TenPayV3CloseOrderData.cs
     文件功能描述：微信支付查询订单请求参数
@@ -9,6 +9,7 @@
     修改标识：Senparc - 20161227
     修改描述：v14.3.100 修改类名为TenPayV3OrderQueryRequestData.cs
 ----------------------------------------------------------------*/
+
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /// <summary>

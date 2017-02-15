@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：MpNewsArticle.cs
     文件功能描述：响应回复消息 MpNewsArticle

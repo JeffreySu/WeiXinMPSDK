@@ -1,11 +1,14 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：RedisObjectCacheStrategy.cs
     文件功能描述：Redis的Object类型容器缓存（Key为String类型）。
 
 
     创建标识：Senparc - 20161024
+
+    修改标识：Senparc - 20170205
+    修改描述：v0.2.0 重构分布式锁
 
  ----------------------------------------------------------------*/
 
@@ -28,7 +31,7 @@ namespace Senparc.Weixin.Cache.Redis
         /// <summary>
         /// Hash储存的Key和Field集合
         /// </summary>
-      protected  class HashKeyAndField
+        protected class HashKeyAndField
         {
             public string Key { get; set; }
             public string Field { get; set; }
@@ -300,7 +303,7 @@ namespace Senparc.Weixin.Cache.Redis
 
         public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
-            return new RedisCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
+            return new RedisCacheLock(this, resourceName, key, retryCount, retryDelay);
         }
 
     }

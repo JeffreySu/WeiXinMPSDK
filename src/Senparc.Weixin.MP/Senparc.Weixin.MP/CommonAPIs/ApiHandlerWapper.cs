@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：ApiHandlerWapper.cs（v12之前原AccessTokenHandlerWapper.cs）
     文件功能描述：使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
@@ -16,6 +16,8 @@
     修改标识：Senparc - 20170102
     修改描述：v14.3.116 TryCommonApi抛出ErrorJsonResultException、WeixinException异常时加入了accessTokenOrAppId参数
 
+    修改标识：Senparc - 20170123
+    修改描述：v14.3.121 TryCommonApiAsync方法返回代码改为return await result;避免死锁。
 ----------------------------------------------------------------*/
 
 using System;
@@ -217,7 +219,7 @@ namespace Senparc.Weixin.MP
                 }
             }
 
-            return result.Result;
+            return await result;
         }
 
 

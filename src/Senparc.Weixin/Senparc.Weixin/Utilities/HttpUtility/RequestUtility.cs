@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：RequestUtility.cs
     文件功能描述：获取请求结果
@@ -11,6 +11,9 @@
 
     修改标识：Senparc - 20150407
     修改描述：使用Post方法获取字符串结果 修改表单处理方法
+
+    修改标识：Senparc - 20170122
+    修改描述：v4.9.14 为AsUrlData方法添加null判断
 ----------------------------------------------------------------*/
 
 using System;
@@ -126,11 +129,11 @@ namespace Senparc.Weixin.HttpUtility
         /// 使用Post方法获取字符串结果，常规提交
         /// </summary>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null,  X509Certificate cer = null,int timeOut = Config.TIME_OUT)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
         {
             MemoryStream ms = new MemoryStream();
             formData.FillFormDataStream(ms);//填充formData
-            return HttpPost(url, cookieContainer, ms, null, null, encoding,cer, timeOut);
+            return HttpPost(url, cookieContainer, ms, null, null, encoding, cer, timeOut);
         }
 
         /// <summary>
@@ -367,7 +370,7 @@ namespace Senparc.Weixin.HttpUtility
         {
             MemoryStream ms = new MemoryStream();
             await formData.FillFormDataStreamAsync(ms);//填充formData
-            return await HttpPostAsync(url, cookieContainer, ms, null, null, encoding,cer, timeOut);
+            return await HttpPostAsync(url, cookieContainer, ms, null, null, encoding, cer, timeOut);
         }
 
 
@@ -636,6 +639,10 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static string AsUrlData(this string data)
         {
+            if (data == null)
+            {
+                return null;
+            }
             return Uri.EscapeDataString(data);
         }
     }

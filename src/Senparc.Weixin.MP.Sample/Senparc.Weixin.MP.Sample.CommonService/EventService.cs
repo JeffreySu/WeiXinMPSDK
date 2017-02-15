@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：EventService.cs
     文件功能描述：事件处理程序，此代码的简化MessageHandler方法已由/CustomerMessageHandler/CustomerMessageHandler_Event.cs完成
@@ -90,7 +90,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                     string openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//收到通知的管理员OpenId
                     var host = "A1 / AccessTokenOrAppId：" + (ex.AccessTokenOrAppId ?? "null");
                     string service = null;
-                    string message = null;
+                    string message = ex.Message;
                     var status = ex.GetType().Name;
                     var remark = "\r\n这是一条通过OnWeixinExceptionFunc事件发送的异步模板消息";
                     string url = "https://github.com/JeffreySu/WeiXinMPSDK/blob/24aca11630bf833f6a4b6d36dce80c5b171281d3/src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/Global.asax.cs#L246";//需要点击打开的URL
@@ -137,8 +137,10 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                         int sleepSeconds = 3;
                         Thread.Sleep(sleepSeconds * 1000);
                         var data = new WeixinTemplate_ExceptionAlert(string.Format("微信发生异常（延时{0}秒）", sleepSeconds), host, service, status, message, remark);
-                        var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
-                                url, data);
+
+                        //修改OpenId、启用以下代码后即可收到模板消息
+                        //var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
+                        //        url, data);
                     }
                 });
             }

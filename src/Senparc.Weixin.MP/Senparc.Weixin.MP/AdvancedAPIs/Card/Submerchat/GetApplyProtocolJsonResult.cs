@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：GetApplyProtocolJsonResult.cs
     文件功能描述：卡券开放类目查询的返回结果

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
  
     文件名：RequestHandler.cs
     文件功能描述：微信支付V3 请求处理
@@ -15,6 +15,9 @@
 
     修改标识：Senparc - 20161112
     修改描述：为ParseXML()方法添加v==null的判断
+
+    修改标识：Senparc - 20170115
+    修改描述：v14.3.120 添加SetParameterWhenNotNull()方法
 
     ----------------------------------------------------------------*/
 
@@ -126,6 +129,19 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
 
         /// <summary>
+        /// 当参数不为null或空字符串时，设置参数值
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <param name="parameterValue"></param>
+        public void SetParameterWhenNotNull(string parameter, string parameterValue)
+        {
+            if (!string.IsNullOrEmpty(parameterValue))
+            {
+                SetParameter(parameter, parameterValue);
+            }
+        }
+
+        /// <summary>
         /// 创建md5摘要,规则是:按参数名称a-z排序,遇到空值的参数不参加签名
         /// </summary>
         /// <param name="key">参数名</param>
@@ -143,7 +159,9 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             {
                 string v = (string)Parameters[k];
                 if (null != v && "".CompareTo(v) != 0
-                    && "sign".CompareTo(k) != 0 && "key".CompareTo(k) != 0)
+                    && "sign".CompareTo(k) != 0 
+                    //&& "sign_type".CompareTo(k) != 0
+                    && "key".CompareTo(k) != 0)
                 {
                     sb.Append(k + "=" + v + "&");
                 }

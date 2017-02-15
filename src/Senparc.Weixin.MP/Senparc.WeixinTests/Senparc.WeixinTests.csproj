@@ -71,6 +71,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Cache.Local\Lock\LocalCacheLockTests.cs" />
     <Compile Include="Cache\CacheStrategyFactoryTests.cs" />
     <Compile Include="Cache\Lock\CacheLockTest.cs" />
     <Compile Include="Containers\BaseContainerTests.cs" />

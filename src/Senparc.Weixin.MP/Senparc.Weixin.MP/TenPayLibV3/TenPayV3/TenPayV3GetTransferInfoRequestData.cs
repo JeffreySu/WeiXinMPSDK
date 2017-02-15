@@ -1,43 +1,38 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2016 Senparc
   
-    文件名：TenPayV3ShortUrlRequestData.cs
-    文件功能描述：微信支付撤销订单请求参数
+    文件名：TenPayV3GetTransferInfoRequestData.cs
+    文件功能描述：微信支付查询企业付款请求参数 
     
-    创建标识：Senparc - 20161227
+    创建标识：Senparc - 20170215
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /// <summary>
-    /// 微信支付提交的XML Data数据[转换短链接]
+    ///微信支付提交的XML Data数据[查询企业付款]
     /// </summary>
-    public class TenPayV3ShortUrlRequestData
+    public class TenPayV3GetTransferInfoRequestData
     {
         /// <summary>
-        /// 公众账号ID
+        /// 公众账号ID [appid]
         /// </summary>
         public string AppId { get; set; }
 
         /// <summary>
-        /// 商户号
+        /// 商户号 [mch_id]
         /// </summary>
         public string MchId { get; set; }
 
         /// <summary>
-        /// 随机字符串
+        /// 随机字符串 [nonce_str]
         /// </summary>
         public string NonceStr { get; set; }
 
         /// <summary>
-        /// 需要转换的URL，签名用原串，传输需URLencode
+        /// 商户订单号，[partner_trade_no]
         /// </summary>
-        public string LongUrl { get; set; }
-
-        /// <summary>
-        /// 签名类型
-        /// </summary>
-        public string SignType { get; set; }
+        public string PartnerTradeNo { get; set; }
 
         /// <summary>
         /// 
@@ -48,22 +43,20 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public readonly string Sign;
 
         /// <summary>
-        /// 转换短链接 请求参数
+        /// 查询企业付款
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="mchId"></param>
-        /// <param name="signType"></param>
-        /// <param name="longUrl"></param>
-        /// <param name="key"></param>
         /// <param name="nonceStr"></param>
-        public TenPayV3ShortUrlRequestData(string appId, string mchId, string nonceStr,
-            string longUrl, string key, string signType = "MD5")
+        /// <param name="partnerTradeNo"></param>
+        /// <param name="key"></param>
+        public TenPayV3GetTransferInfoRequestData(string appId, string mchId, string nonceStr,
+            string partnerTradeNo, string key)
         {
             AppId = appId;
             MchId = mchId;
             NonceStr = nonceStr;
-            SignType = signType;
-            LongUrl = longUrl;
+            PartnerTradeNo = partnerTradeNo;
             Key = key;
 
             #region 设置RequestHandler
@@ -73,11 +66,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             //初始化
             PackageRequestHandler.Init();
             //设置package订单参数
-            PackageRequestHandler.SetParameter("appid", this.AppId); //公众账号ID
-            PackageRequestHandler.SetParameter("mch_id", this.MchId); //商户号
-            PackageRequestHandler.SetParameter("long_url", this.LongUrl); //需要转换的URL
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr); //随机字符串
-            PackageRequestHandler.SetParameter("sign_type", this.SignType); //签名类型
+            PackageRequestHandler.SetParameter("partner_trade_no", this.PartnerTradeNo); //商户订单号
+            PackageRequestHandler.SetParameter("mch_id", this.MchId); //商户号
+            PackageRequestHandler.SetParameter("appid", this.AppId); //Appid
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
             PackageRequestHandler.SetParameter("sign", Sign); //签名
 

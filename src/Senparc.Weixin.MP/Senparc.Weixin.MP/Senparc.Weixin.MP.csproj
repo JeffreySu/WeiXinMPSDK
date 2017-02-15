@@ -347,6 +347,9 @@
     <Compile Include="TenPayLibV3\TenPayV3Info.cs" />
     <Compile Include="TenPayLibV3\TenPayV3Util.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3GetTransferInfoRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3DownloadBillRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3TransfersRequestData.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3RefundQueryRequestData.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3MicroPayRequestData.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3ShortUrlRequestData.cs" />

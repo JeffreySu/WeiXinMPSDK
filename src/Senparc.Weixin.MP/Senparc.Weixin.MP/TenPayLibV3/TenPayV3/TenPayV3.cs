@@ -40,6 +40,15 @@
     修改标识：Ritazh - 20161207
     修改描述：v14.3.112 迁移企业支付方法
 
+    修改标识：Senparc - 20170215
+    修改描述：v14.3.113 增加 Transfers和TransfersAsync方法重载
+
+    修改标识：Senparc - 20170215
+    修改描述：v14.3.113 增加 GetTransferInfo和GetTransferInfoAsync方法重载
+
+     修改标识：Senparc - 20170215
+    修改描述：v14.3.113 增加 DownloadBill和DownloadBillAsync方法重载
+    
 ----------------------------------------------------------------*/
 
 /*
@@ -302,10 +311,27 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用 DownloadBill(TenPayV3DownloadBillRequestData dataInfo)")]
         public static string DownloadBill(string data)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/downloadbill";
 
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return RequestUtility.HttpPost(urlFormat, null, ms);
+        }
+
+        /// <summary>
+        /// 对账单接口
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+        public static string DownloadBill(TenPayV3DownloadBillRequestData dataInfo)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/pay/downloadbill";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
@@ -372,6 +398,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="data">微信支付需要post的xml数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用 Transfers(TenPayV3TransfersRequestData dataInfo, int timeOut = Config.TIME_OUT)")]
         public static string Transfers(string data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
@@ -383,12 +410,34 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
         }
 
+
+        /// <summary>
+        /// 用于企业向微信用户个人付款 
+        /// 目前支持向指定微信用户的openid付款
+        /// </summary>
+        /// <param name="dataInfo">微信支付需要post的xml数据</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static TransfersResult Transfers(TenPayV3TransfersRequestData dataInfo, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var result = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return new TransfersResult(result);
+        }
+
+
         /// <summary>
         /// 用于商户的企业付款操作进行结果查询，返回付款操作详细结果。
         /// </summary>
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用 GetTransferInfo(TenPayV3GetTransferInfoRequestData dataInfo, int timeOut = Config.TIME_OUT)")]
         public static string GetTransferInfo(string data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
@@ -399,6 +448,26 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
         }
+
+
+        /// <summary>
+        /// 用于商户的企业付款操作进行结果查询，返回付款操作详细结果。
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static GetTransferInfoResult GetTransferInfo(TenPayV3GetTransferInfoRequestData dataInfo, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var result = RequestUtility.HttpPost(urlFormat, null, ms, timeOut: timeOut);
+            return new GetTransferInfoResult(result);
+        }
+
 
         /// <summary>
         /// 刷卡支付
@@ -624,10 +693,27 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用 DownloadBillAsync(TenPayV3DownloadBillRequestData dataInfo)")]
         public static async Task<string> DownloadBillAsync(string data)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/pay/downloadbill";
 
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return await RequestUtility.HttpPostAsync(urlFormat, null, ms);
+        }
+
+        /// <summary>
+        /// 【异步方法】对账单接口
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <returns></returns>
+        public static async Task<string> DownloadBillAsync(TenPayV3DownloadBillRequestData dataInfo)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/pay/downloadbill";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
             var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
@@ -694,6 +780,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="data">微信支付需要post的xml数据</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用  TransfersAsync(TenPayV3TransfersRequestData dataInfo, int timeOut = Config.TIME_OUT)")]
         public static async Task<string> TransfersAsync(string data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
@@ -706,11 +793,32 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
 
         /// <summary>
+        ///【异步方法】 用于企业向微信用户个人付款 
+        /// 目前支持向指定微信用户的openid付款
+        /// </summary>
+        /// <param name="dataInfo">微信支付需要post的xml数据</param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<TransfersResult> TransfersAsync(TenPayV3TransfersRequestData dataInfo, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers";
+
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var result = await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
+            return new TransfersResult(result);
+        }
+
+        /// <summary>
         /// 【异步方法】用于商户的企业付款操作进行结果查询，返回付款操作详细结果。
         /// </summary>
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
+        [Obsolete("此方法已过期，建议使用GetTransferInfoAsync(TenPayV3GetTransferInfoRequestData dataInfo, int timeOut = Config.TIME_OUT)")]
         public static async Task<string> GetTransferInfoAsync(string data, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
@@ -721,6 +829,25 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             return await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
         }
+
+        /// <summary>
+        /// 【异步方法】用于商户的企业付款操作进行结果查询，返回付款操作详细结果。
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<GetTransferInfoResult> GetTransferInfoAsync(TenPayV3GetTransferInfoRequestData dataInfo, int timeOut = Config.TIME_OUT)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo";
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            var result = await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
+            return new GetTransferInfoResult(result);
+        }
+
 
         /// <summary>
         /// 【异步方法】刷卡支付

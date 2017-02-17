@@ -23,10 +23,10 @@
     修改描述：v14.3.112 增加OrderQueryResult,CloseOrderResult,RefundQuery,ShortUrlResult,ReverseResult,MicropayResult
 
     修改标识：Senparc - 20170215
-    修改描述：v14.3.113 增加TransfersResult类
+    修改描述：v14.3.126 增加TransfersResult类
 
     修改标识：Senparc - 20170215
-    修改描述：v14.3.113 增加GetTransferInfoResult类
+    修改描述：v14.3.126 增加GetTransferInfoResult类
     
 ----------------------------------------------------------------*/
 

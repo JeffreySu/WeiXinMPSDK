@@ -46,7 +46,7 @@
     修改标识：Senparc - 20170215
     修改描述：v14.3.126 增加 GetTransferInfo和GetTransferInfoAsync方法重载
 
-     修改标识：Senparc - 20170215
+    修改标识：Senparc - 20170215
     修改描述：v14.3.126 增加 DownloadBill和DownloadBillAsync方法重载
     
 ----------------------------------------------------------------*/

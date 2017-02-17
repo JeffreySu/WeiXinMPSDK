@@ -95,7 +95,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(responseContent);
 
-            TransfersResult normalReturn = new TransfersResult
+            TransfersResult normalReturn = new TransfersResult(responseContent)
             {
                 err_code = "",
                 err_code_des = ""
@@ -103,21 +103,21 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
             if (doc.SelectSingleNode("/xml/return_code") != null)
             {
-                normalReturn.return_code = (doc.SelectSingleNode("/xml/return_code").InnerText.ToUpper() == "SUCCESS");
+                normalReturn.return_code = doc.SelectSingleNode("/xml/return_code").InnerText.ToUpper(); //(doc.SelectSingleNode("/xml/return_code").InnerText.ToUpper() == "SUCCESS");
             }
             if (doc.SelectSingleNode("/xml/return_msg") != null)
             {
                 normalReturn.return_msg = doc.SelectSingleNode("/xml/return_msg").InnerText;
             }
 
-            if (normalReturn.return_code == true)
+            if (normalReturn.IsReturnCodeSuccess())
             {
                 if (doc.SelectSingleNode("/xml/result_code") != null)
                 {
-                    normalReturn.result_code = (doc.SelectSingleNode("/xml/result_code").InnerText.ToUpper() == "SUCCESS");
+                    normalReturn.result_code = doc.SelectSingleNode("/xml/result_code").InnerText; //(doc.SelectSingleNode("/xml/result_code").InnerText.ToUpper() == "SUCCESS");
                 }
 
-                if (normalReturn.result_code == true)
+                if (normalReturn.IsResultCodeSuccess())
                 {
                     if (doc.SelectSingleNode("/xml/mch_appid") != null)
                     {

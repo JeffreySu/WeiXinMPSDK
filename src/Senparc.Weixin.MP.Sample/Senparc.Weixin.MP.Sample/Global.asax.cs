@@ -17,7 +17,7 @@ using Senparc.Weixin.Cache.Memcached;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Sample.CommonService;
-using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
+//using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
@@ -99,8 +99,10 @@ namespace Senparc.Weixin.MP.Sample
         /// </summary>
         private void RegisterWebSocket()
         {
+#if NET45
             Senparc.WebSocket.WebSocketConfig.RegisterRoutes(RouteTable.Routes);
             Senparc.WebSocket.WebSocketConfig.RegisterMessageHandler<CustomWebSocketMessageHandler>();
+#endif
         }
 
         /// <summary>

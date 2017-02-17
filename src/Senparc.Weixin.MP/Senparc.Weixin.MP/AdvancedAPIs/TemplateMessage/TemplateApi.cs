@@ -183,7 +183,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         #endregion
 
 #if NET45
-#region 异步请求
+        #region 异步请求
         /// <summary>
         /// 【异步方法】模板消息接口
         /// </summary>
@@ -326,8 +326,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
-#endregion
-#rndif
+        #endregion
+#endif
 
 
     }

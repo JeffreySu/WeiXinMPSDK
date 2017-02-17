@@ -13,8 +13,8 @@
             <summary>
             获取拼装后的FinalKey
             </summary>
-            <param name="key"></param>
-            <param name="isFullKey"></param>
+            <param name="key">键</param>
+            <param name="isFullKey">是否已经是经过拼接的FullKey</param>
             <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Cache.BaseCacheStrategy.BeginCacheLock(System.String,System.String,System.Int32,System.TimeSpan)">
@@ -47,6 +47,26 @@
             <param name="containerBag"></param>
             <param name="isFullKey">是否已经是完整的Key，如果不是，则会调用一次GetFinalKey()方法</param>
         </member>
+        <member name="T:Senparc.Weixin.Cache.LocalCacheLock">
+            <summary>
+            本地锁
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Cache.LocalCacheLock.LockPool">
+            <summary>
+            锁存放容器
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Cache.LocalCacheLock._rnd">
+            <summary>
+            随机数
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.Cache.LocalCacheLock.lookPoolLock">
+            <summary>
+            读取LockPool时的锁
+            </summary>
+        </member>
         <member name="T:Senparc.Weixin.Cache.LocalContainerCacheStrategy">
             <summary>
             本地容器缓存策略
@@ -57,14 +77,19 @@
             LocalCacheStrategy的构造函数
             </summary>
         </member>
+        <member name="T:Senparc.Weixin.Cache.IBaseCacheStrategy">
+            <summary>
+            最底层的缓存策略接口
+            </summary>
+        </member>
         <member name="M:Senparc.Weixin.Cache.IBaseCacheStrategy.BeginCacheLock(System.String,System.String,System.Int32,System.TimeSpan)">
             <summary>
             创建一个（分布）锁
             </summary>
-            <param name="resourceName"></param>
-            <param name="key"></param>
-            <param name="retryCount"></param>
-            <param name="retryDelay"></param>
+            <param name="resourceName">资源名称</param>
+            <param name="key">Key标识</param>
+            <param name="retryCount">重试次数</param>
+            <param name="retryDelay">重试延时</param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.Cache.IBaseCacheStrategy`2">
@@ -135,6 +160,12 @@
             缓存同步锁基类
             </summary>
         </member>
+        <member name="M:Senparc.Weixin.Cache.BaseCacheLock.LockNow">
+            <summary>
+            立即开始锁定，需要在子类的构造函数中执行
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Senparc.Weixin.Cache.ICacheLock">
             <summary>
             缓存锁接口
@@ -145,26 +176,26 @@
             是否成功获得锁
             </summary>
         </member>
-        <member name="M:Senparc.Weixin.Cache.ICacheLock.LockNow">
-            <summary>
-            立即开始锁定
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Senparc.Weixin.Cache.ICacheLock.Lock(System.String)">
             <summary>
             开始锁
             </summary>
-            <param name="resourceName"></param>
+            <param name="resourceName">资源名称，即锁的标识，实际值为IBaseCacheStrategy接口中的 BeginCacheLock() 方法中的 [resourceName.key]</param>
         </member>
         <member name="M:Senparc.Weixin.Cache.ICacheLock.Lock(System.String,System.Int32,System.TimeSpan)">
             <summary>
             开始锁，并设置重试条件
             </summary>
-            <param name="resourceName"></param>
-            <param name="retryCount"></param>
-            <param name="retryDelay"></param>
+            <param name="resourceName">资源名称，即锁的标识，实际值为IBaseCacheStrategy接口中的 BeginCacheLock() 方法中的 [resourceName.key]</param>
+            <param name="retryCount">重试次数</param>
+            <param name="retryDelay">每次重试延时</param>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Cache.ICacheLock.UnLock(System.String)">
+            <summary>
+            释放锁
+            </summary>
+            <param name="resourceName">需要释放锁的 Key，即锁的标识，实际值为IBaseCacheStrategy接口中的 BeginCacheLock() 方法中的 [resourceName.key]资源名称，和 Lock() 方法中的 resourceName 对应</param>
         </member>
         <member name="T:Senparc.Weixin.Cache.IObjectCacheStrategy">
             <summary>
@@ -304,6 +335,12 @@
             </summary>
             <param name="shortKey"></param>
             <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Containers.BaseContainer`1.RemoveFromCache(System.String)">
+            <summary>
+            从缓存中删除
+            </summary>
+            <param name="shortKey"></param>
         </member>
         <member name="T:Senparc.Weixin.Containers.IBaseContainerBag">
             <summary>
@@ -447,7 +484,7 @@
         </member>
         <member name="T:Senparc.Weixin.Context.MessageQueue`3">
             <summary>
-            微信消息列队（针对单个账号的往来消息）
+            微信消息队列（针对单个账号的往来消息）
             </summary>
             <typeparam name="TM"></typeparam>
         </member>
@@ -469,7 +506,7 @@
         </member>
         <member name="P:Senparc.Weixin.Context.WeixinContext`3.MessageQueue">
             <summary>
-            MessageContext列队（LastActiveTime升序排列）,不要直接操作此对象
+            MessageContext队列（LastActiveTime升序排列）,不要直接操作此对象
             </summary>
         </member>
         <member name="P:Senparc.Weixin.Context.WeixinContext`3.ExpireMinutes">
@@ -653,6 +690,46 @@
         <member name="M:Senparc.Weixin.Entities.SuccessResponseMessageBase.#ctor">
             <summary>
             SuccessResponseMessage构造函数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Entities.TemplateMessage.ITemplateMessageBase">
+            <summary>
+            模板消息数据基础类接口
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Entities.TemplateMessage.ITemplateMessageBase.TemplateId">
+            <summary>
+            Url，为null时会自动忽略
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Entities.TemplateMessage.ITemplateMessageBase.Url">
+            <summary>
+            Url，为null时会自动忽略
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Entities.TemplateMessage.ITemplateMessageBase.TemplateName">
+            <summary>
+            模板名称
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.Entities.TemplateMessage.TemplateMessageBase">
+            <summary>
+            模板消息数据基础类
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Entities.TemplateMessage.TemplateMessageBase.TemplateId">
+            <summary>
+            每个公众号都不同的templateId
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Entities.TemplateMessage.TemplateMessageBase.Url">
+            <summary>
+            Url，为null时会自动忽略
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.Entities.TemplateMessage.TemplateMessageBase.TemplateName">
+            <summary>
+            模板名称
             </summary>
         </member>
         <member name="T:Senparc.Weixin.Entities.IJsonResult">
@@ -899,12 +976,38 @@
              安全帮助类，提供SHA-1算法等
             
         </member>
-        <member name="M:Senparc.Weixin.Helpers.EncryptHelper.SHA1_Encrypt(System.String)">
-            
-             采用SHA-1算法加密字符串
-            
-             要加密的字符串
-             返回加密后的字符串
+        <member name="M:Senparc.Weixin.Helpers.EncryptHelper.GetSha1(System.String)">
+            <summary>
+            采用SHA-1算法加密字符串（小写）
+            </summary>
+            <param name="encypStr">需要加密的字符串</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.EncryptHelper.GetMD5(System.String,System.String)">
+            <summary>
+            获取大写的MD5签名结果
+            </summary>
+            <param name="encypStr">需要加密的字符串</param>
+            <param name="charset">编码</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.EncryptHelper.AESEncrypt(System.Byte[],System.Byte[],System.String)">
+            <summary>
+            AES加密
+            </summary>
+            <param name="inputdata">输入的数据</param>
+            <param name="iv">向量</param>
+            <param name="strKey">加密密钥</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.EncryptHelper.AESDecrypt(System.Byte[],System.Byte[],System.Byte[])">
+            <summary>
+            AES解密
+            </summary>
+            <param name="inputdata">输入的数据</param>
+            <param name="iv">向量</param>
+            <param name="strKey">key</param>
+            <returns></returns>
         </member>
         <member name="M:Senparc.Weixin.Helpers.FileHelper.GetFileStream(System.String)">
             <summary>
@@ -945,6 +1048,14 @@
             </summary>
             <param name="data">需要生成JSON字符串的数据</param>
             <param name="jsonSetting">JSON输出设置</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.Helpers.SerializerHelper.GetObject``1(System.String)">
+            <summary>
+            反序列化到对象
+            </summary>
+            <typeparam name="T">反序列化对象类型</typeparam>
+            <param name="jsonString">JSON字符串</param>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.Helpers.JsonSetting">
@@ -992,12 +1103,12 @@
         </member>
         <member name="T:Senparc.Weixin.MessageQueue.SenparcMessageQueue">
             <summary>
-            消息列队
+            消息队列
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MessageQueue.SenparcMessageQueue.MessageQueueDictionary">
             <summary>
-            列队数据集合
+            队列数据集合
             </summary>
         </member>
         <member name="F:Senparc.Weixin.MessageQueue.SenparcMessageQueue.MessageQueueSyncLock">
@@ -1014,7 +1125,7 @@
             <summary>
             生成Key
             </summary>
-            <param name="name">列队应用名称，如“ContainerBag”</param>
+            <param name="name">队列应用名称，如“ContainerBag”</param>
             <param name="senderType">操作对象类型</param>
             <param name="identityKey">对象唯一标识Key</param>
             <param name="actionName">操作名称，如“UpdateContainerBag”</param>
@@ -1022,7 +1133,7 @@
         </member>
         <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.OperateQueue">
             <summary>
-            操作列队
+            操作队列
             </summary>
         </member>
         <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.GetCurrentKey">
@@ -1040,36 +1151,36 @@
         </member>
         <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.Add(System.String,System.Action)">
             <summary>
-            添加列队成员
+            添加队列成员
             </summary>
             <param name="key"></param>
             <param name="action"></param>
         </member>
         <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.Remove(System.String)">
             <summary>
-            移除列队成员
+            移除队列成员
             </summary>
             <param name="key"></param>
         </member>
         <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueue.GetCount">
             <summary>
-            获得当前列队数量
+            获得当前队列数量
             </summary>
             <returns></returns>
         </member>
         <member name="T:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem">
             <summary>
-            SenparcMessageQueue消息列队项
+            SenparcMessageQueue消息队列项
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem.Key">
             <summary>
-            列队项唯一标识
+            队列项唯一标识
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem.Action">
             <summary>
-            列队项目命中触发时执行的委托
+            队列项目命中触发时执行的委托
             </summary>
         </member>
         <member name="P:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem.AddTime">
@@ -1084,7 +1195,7 @@
         </member>
         <member name="M:Senparc.Weixin.MessageQueue.SenparcMessageQueueItem.#ctor(System.String,System.Action,System.String)">
             <summary>
-            初始化SenparcMessageQueue消息列队项
+            初始化SenparcMessageQueue消息队列项
             </summary>
             <param name="key"></param>
             <param name="action"></param>
@@ -1097,7 +1208,7 @@
         </member>
         <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.Finalize">
             <summary>
-            析构函数，将未处理的列队处理掉
+            析构函数，将未处理的队列处理掉
             </summary>
         </member>
         <member name="M:Senparc.Weixin.Threads.SenparcMessageQueueThreadUtility.Run">

@@ -19,6 +19,7 @@ using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
+using System.Linq;
 
 namespace Senparc.Weixin.Helpers
 {
@@ -130,7 +131,7 @@ namespace Senparc.Weixin.Helpers
             var properties = obj.GetType().GetProperties();
             foreach (var propertyInfo in properties)
             {
-                        continue;
+                continue;
                 //排除的属性
                 bool excludedProp = propertyInfo.IsDefined(typeof(JsonSetting.ExcludedAttribute), true);
                 if (excludedProp)
@@ -149,17 +150,17 @@ namespace Senparc.Weixin.Helpers
 
 
                         //当值匹配时需要忽略的属性
-                        JsonSetting.IgnoreValueAttribute attri = propertyInfo.GetCustomAttribute<JsonSetting.IgnoreValueAttribute>();
-                        if (attri != null && attri.Value.Equals(propertyInfo.GetValue(obj)))
+                        JsonSetting.IgnoreValueAttribute attri = propertyInfo.GetCustomAttributes(typeof(JsonSetting.IgnoreValueAttribute), false).FirstOrDefault() as JsonSetting.IgnoreValueAttribute;
+                        if (attri != null && attri.Value.Equals(propertyInfo.GetValue(obj, null)))
                         {
                             continue;
                         }
 
-                        JsonSetting.EnumStringAttribute enumStringAttri = propertyInfo.GetCustomAttribute<JsonSetting.EnumStringAttribute>();
+                        JsonSetting.EnumStringAttribute enumStringAttri = propertyInfo.GetCustomAttributes(typeof(JsonSetting.EnumStringAttribute), false).FirstOrDefault() as JsonSetting.EnumStringAttribute;
                         if (enumStringAttri != null)
                         {
                             //枚举类型显示字符串
-                            result.Add(propertyInfo.Name, propertyInfo.GetValue(obj).ToString());
+                            result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null).ToString());
                         }
                         else
                         {
@@ -175,7 +176,7 @@ namespace Senparc.Weixin.Helpers
             JavaScriptSerializer serializer)
         {
             throw new NotImplementedException();
-                //Converter is currently only used for ignoring properties on serialization
+            //Converter is currently only used for ignoring properties on serialization
         }
     }
 }

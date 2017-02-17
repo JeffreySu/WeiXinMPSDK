@@ -191,8 +191,8 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
         #endregion
 
+        #endregion
 #if NET45
-#endregion
 
         #region 异步请求
 

@@ -2,7 +2,7 @@
     Copyright (C) 2017 Senparc
 
     文件名：SenparcMessageQueueThreadUtility.cs
-    文件功能描述：SenparcMessageQueue消息列队线程处理
+    文件功能描述：SenparcMessageQueue消息队列线程处理
 
 
     创建标识：Senparc - 20160210
@@ -33,7 +33,7 @@ namespace Senparc.Weixin.Threads
         }
 
         /// <summary>
-        /// 析构函数，将未处理的列队处理掉
+        /// 析构函数，将未处理的队列处理掉
         /// </summary>
         ~SenparcMessageQueueThreadUtility()
         {
@@ -41,9 +41,9 @@ namespace Senparc.Weixin.Threads
             {
                 var mq = new SenparcMessageQueue();
                 System.Diagnostics.Trace.WriteLine(string.Format("SenparcMessageQueueThreadUtility执行析构函数"));
-                System.Diagnostics.Trace.WriteLine(string.Format("当前列队数量：{0}", mq.GetCount()));
+                System.Diagnostics.Trace.WriteLine(string.Format("当前队列数量：{0}", mq.GetCount()));
 
-                SenparcMessageQueue.OperateQueue();//处理列队
+                SenparcMessageQueue.OperateQueue();//处理队列
             }
             catch (Exception ex)
             {

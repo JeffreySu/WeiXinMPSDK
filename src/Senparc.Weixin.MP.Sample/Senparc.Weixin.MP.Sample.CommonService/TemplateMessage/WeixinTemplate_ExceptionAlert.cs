@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.Weixin.Entities.TemplateMessage;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage
@@ -17,7 +18,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage
         {{remark.DATA}}
       */
 
-    public class WeixinTemplate_ExceptionAlert : WeixinTemplateBase
+    public class WeixinTemplate_ExceptionAlert : TemplateMessageBase
     {
         const string TEMPLATE_ID = "ur6TqESOo-32FEUk4qJxeWZZVt4KEOPjqbAFDGWw6gg";//每个公众号都不同，需要根据实际情况修改
 
@@ -42,12 +43,12 @@ namespace Senparc.Weixin.MP.Sample.CommonService.TemplateMessage
         /// Message
         /// </summary>
         public TemplateDataItem keyword5 { get; set; }
-      
+
         public TemplateDataItem remark { get; set; }
 
         public WeixinTemplate_ExceptionAlert(string _first, string host, string service, string status, string message,
-            string _remark, string templateId = TEMPLATE_ID)
-            : base(templateId, "系统异常告警通知")
+            string _remark, string url = null, string templateId = TEMPLATE_ID)
+            : base(templateId, url, "系统异常告警通知")
         {
             first = new TemplateDataItem(_first);
             keyword1 = new TemplateDataItem(DateTime.Now.ToString());

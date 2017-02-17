@@ -39,6 +39,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
     internal class TestContainer1 : BaseContainer<TestContainerBag1>
     {
     }
+
     internal class TestContainer2 : BaseContainer<TestContainerBag2>
     {
     }
@@ -76,6 +77,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //sb.AppendFormat("Count1：{0}<br />", itemCollection != null ? itemCollection.Count() : -1);
 
 
+            var bagKey = "Redis." + DateTime.Now.ToString();
+            var bag = new TestContainerBag1()
+            {
+                Key = bagKey,
+                DateTime = DateTime.Now
+            };
+            TestContainer1.Update(bagKey, bag);//更新到缓存（队列）
             //var bagKey = "Redis." + DateTime.Now.ToString();
             //var bag = new TestContainerBag1()
             //{
@@ -117,7 +125,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     Key = shortBagKey,
                     DateTime = DateTime.Now
                 };
-                TestContainer1.Update(shortBagKey, bag); //更新到缓存（列队）
+                TestContainer1.Update(shortBagKey, bag); //更新到缓存（队列）
                 sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime.ToLongTimeString(),
                     bag.DateTime.Ticks);
 
@@ -125,14 +133,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 bag.DateTime = DateTime.Now; //进行修改
 
-                //读取列队
+                //读取队列
                 var mq = new SenparcMessageQueue();
                 var mqKey = SenparcMessageQueue.GenerateKey("ContainerBag", bag.GetType(), bag.Key, "UpdateContainerBag");
                 var mqItem = mq.GetItem(mqKey);
                 sb.AppendFormat("{0}：{1}（Ticks：{2}）<br />", "bag.DateTime", bag.DateTime.ToLongTimeString(),
                     bag.DateTime.Ticks);
-                sb.AppendFormat("{0}：{1}<br />", "已经加入列队", mqItem != null);
-                sb.AppendFormat("{0}：{1}<br />", "当前消息列队数量（未更新缓存）", mq.GetCount());
+                sb.AppendFormat("{0}：{1}<br />", "已经加入队列", mqItem != null);
+                sb.AppendFormat("{0}：{1}<br />", "当前消息队列数量（未更新缓存）", mq.GetCount());
 
                 var itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
                 var existed = itemCollection.ContainsKey(finalBagKey);
@@ -143,7 +151,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var waitSeconds = i;
                 sb.AppendFormat("{0}：{1}<br />", "操作", "等待" + waitSeconds + "秒");
                 Thread.Sleep(waitSeconds * 1000); //线程默认轮询等待时间为2秒
-                sb.AppendFormat("{0}：{1}<br />", "当前消息列队数量（未更新缓存）", mq.GetCount());
+                sb.AppendFormat("{0}：{1}<br />", "当前消息队列数量（未更新缓存）", mq.GetCount());
 
                 itemCollection = containerCacheStrategy.GetAll<TestContainerBag1>();
                 existed = itemCollection.ContainsKey(finalBagKey);

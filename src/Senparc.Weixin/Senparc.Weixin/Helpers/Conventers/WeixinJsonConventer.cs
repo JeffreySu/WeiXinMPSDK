@@ -103,7 +103,7 @@ namespace Senparc.Weixin.Helpers
         {
             get
             {
-                var typeList = new List<Type>(new[] { typeof(IJsonIgnoreNull),typeof(IJsonEnumString)/*,typeof(JsonIgnoreNull)*/ });
+                var typeList = new List<Type>(new[] { typeof(IJsonIgnoreNull), typeof(IJsonEnumString)/*,typeof(JsonIgnoreNull)*/ });
 
                 if (_jsonSetting.TypesToIgnore.Count > 0)
                 {
@@ -130,16 +130,42 @@ namespace Senparc.Weixin.Helpers
             var properties = obj.GetType().GetProperties();
             foreach (var propertyInfo in properties)
             {
-                if (!this._jsonSetting.PropertiesToIgnore.Contains(propertyInfo.Name))
-                {
-                    bool ignoreProp = propertyInfo.IsDefined(typeof(ScriptIgnoreAttribute), true);
-
-                    if ((this._jsonSetting.IgnoreNulls || ignoreProp) && propertyInfo.GetValue(obj, null) == null)
-                    {
                         continue;
-                    }
-
+                //排除的属性
+                bool excludedProp = propertyInfo.IsDefined(typeof(JsonSetting.ExcludedAttribute), true);
+                if (excludedProp)
+                {
                     result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null));
+                }
+                else
+                {
+                    if (!this._jsonSetting.PropertiesToIgnore.Contains(propertyInfo.Name))
+                    {
+                        bool ignoreProp = propertyInfo.IsDefined(typeof(ScriptIgnoreAttribute), true);
+                        if ((this._jsonSetting.IgnoreNulls || ignoreProp) && propertyInfo.GetValue(obj, null) == null)
+                        {
+                            continue;
+                        }
+
+
+                        //当值匹配时需要忽略的属性
+                        JsonSetting.IgnoreValueAttribute attri = propertyInfo.GetCustomAttribute<JsonSetting.IgnoreValueAttribute>();
+                        if (attri != null && attri.Value.Equals(propertyInfo.GetValue(obj)))
+                        {
+                            continue;
+                        }
+
+                        JsonSetting.EnumStringAttribute enumStringAttri = propertyInfo.GetCustomAttribute<JsonSetting.EnumStringAttribute>();
+                        if (enumStringAttri != null)
+                        {
+                            //枚举类型显示字符串
+                            result.Add(propertyInfo.Name, propertyInfo.GetValue(obj).ToString());
+                        }
+                        else
+                        {
+                            result.Add(propertyInfo.Name, propertyInfo.GetValue(obj, null));
+                        }
+                    }
                 }
             }
             return result;

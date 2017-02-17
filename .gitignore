@@ -26,3 +26,6 @@ packages/
 /src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.MP.BuildOutPut/.net4.5/Senparc.Weixin.MP.dll
 /src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.MP.BuildOutPut/.net4.5/Senparc.Weixin.dll
 /src/src/Senparc.Weixin.MP.BuildOutPut/.net4.5/Senparc.Weixin.WxOpen.XML
+/src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.VC.VC.opendb
+/src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.VC.db
+/src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.WxOpen.Tests/Config

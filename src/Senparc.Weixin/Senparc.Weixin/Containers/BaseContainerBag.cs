@@ -87,7 +87,7 @@ namespace Senparc.Weixin.Containers
 
             //获取对应Container的缓存相关
 
-            //加入消息列队，每过一段时间进行自动更新，防止属性连续被编辑，短时间内反复更新缓存。
+            //加入消息队列，每过一段时间进行自动更新，防止属性连续被编辑，短时间内反复更新缓存。
             SenparcMessageQueue mq = new SenparcMessageQueue();
             mq.Add(mqKey, () =>
             {

@@ -2,9 +2,15 @@
 using System.IO;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.WxOpen.Entities.Request;
 using Senparc.Weixin.MP.MvcExtension;
+using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage.WxOpen;
 using Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler;
+using Senparc.Weixin.WxOpen.AdvancedAPIs.Sns;
+using Senparc.Weixin.WxOpen.Containers;
+using Senparc.Weixin.WxOpen.Entities;
+using Senparc.Weixin.WxOpen.Helpers;
 
 namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
 {
@@ -15,7 +21,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
     {
         public static readonly string Token = WebConfigurationManager.AppSettings["WxOpenToken"];//与微信公众账号后台的Token设置保持一致，区分大小写。
         public static readonly string EncodingAESKey = WebConfigurationManager.AppSettings["WxOpenEncodingAESKey"];//与微信公众账号后台的EncodingAESKey设置保持一致，区分大小写。
-        public static readonly string AppId = WebConfigurationManager.AppSettings["WxOpenAppId"];//与微信公众账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string AppId = WebConfigurationManager.AppSettings["WxOpenAppId"];//与微信小程序账号后台的AppId设置保持一致，区分大小写。
+        public static readonly string AppSecret = WebConfigurationManager.AppSettings["WxOpenAppSecret"];//与微信小程序账号后台的AppId设置保持一致，区分大小写。
 
         readonly Func<string> _getRandomFileName = () => DateTime.Now.ToString("yyyyMMdd-HHmmss") + Guid.NewGuid().ToString("n").Substring(0, 6);
 
@@ -143,6 +150,101 @@ namespace Senparc.Weixin.MP.Sample.Controllers.WxOpen
                 msg = string.Format("服务器时间：{0}，昵称：{1}", DateTime.Now, nickName)
             };
             return Json(data);
+        }
+
+        /// <summary>
+        /// wx.login登陆成功之后发送的请求
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult OnLogin(string code)
+        {
+            var jsonResult = SnsApi.JsCode2Json(AppId, AppSecret, code);
+            if (jsonResult.errcode == ReturnCode.请求成功)
+            {
+                //Session["WxOpenUser"] = jsonResult;//使用Session保存登陆信息（不推荐）
+                //使用SessionContainer管理登录信息（推荐）
+                var sessionBag = SessionContainer.UpdateSession(null, jsonResult.openid, jsonResult.session_key);
+
+                //注意：生产环境下SessionKey属于敏感信息，不能进行传输！
+                return Json(new { success = true, msg = "OK", sessionId = sessionBag.Key, sessionKey = sessionBag.SessionKey });
+            }
+            else
+            {
+                return Json(new { success = false, msg = jsonResult.errmsg });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CheckWxOpenSignature(string sessionId, string rawData, string signature)
+        {
+            try
+            {
+                var checkSuccess = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.CheckSignature(sessionId, rawData, signature);
+                return Json(new { success = checkSuccess, msg = checkSuccess ? "签名校验成功" : "签名校验失败" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, msg = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult DecodeEncryptedData(string type, string sessionId, string encryptedData, string iv)
+        {
+            DecodeEntityBase decodedEntity = null;
+            switch (type.ToUpper())
+            {
+                case "USERINFO"://wx.getUserInfo()
+                    decodedEntity = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(
+                        sessionId,
+                        encryptedData, iv);
+                    break;
+                default:
+                    break;
+            }
+
+            //检验水印
+            var checkWartmark = false;
+            if (decodedEntity != null)
+            {
+                checkWartmark = decodedEntity.CheckWatermark(AppId);
+            }
+
+            //注意：此处仅为演示，敏感信息请勿传递到客户端！
+            return Json(new
+            {
+                success = checkWartmark,
+                decodedEntity = decodedEntity,
+                msg = string.Format("水印验证：{0}",
+                        checkWartmark ? "通过" : "不通过")
+            });
+        }
+
+        [HttpPost]
+        public ActionResult TemplateTest(string sessionId, string formId)
+        {
+            var sessionBag = SessionContainer.GetSession(sessionId);
+            var openId = sessionBag != null ? sessionBag.OpenId : "用户未正确登陆";
+
+            var data = new WxOpenTemplateMessage_PaySuccessNotice(
+                "在线购买", DateTime.Now, "图书众筹", "1234567890",
+                100, "400-9939-858", "http://sdk.senparc.weixin.com");
+
+            try
+            {
+                Senparc.Weixin.WxOpen.AdvancedAPIs
+                    .Template.TemplateApi
+                    .SendTemplateMessage(
+                        AppId, openId, data.TemplateId, data, formId);
+
+                return Json(new { success = true, msg = "发送成功" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, openId = openId, formId = formId, msg = ex.Message });
+            }
         }
     }
 }

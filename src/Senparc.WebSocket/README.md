@@ -25,4 +25,4 @@
 PM> Install-Package Senparc.WebSocket
 ```
 
-> PS：[Senparc.WxOpen（小程序）](https://www.nuget.org/packages/Senparc.WxOpen) 项目已经自动依赖Senparc.WebSocket
+> PS：[Senparc.Weixin.WxOpen（小程序）](https://www.nuget.org/packages/Senparc.Weixin.WxOpen) 项目已经自动依赖Senparc.WebSocket

@@ -1,6 +1,6 @@
 BSD 3-Clause License
 
-Copyright (c) 2017, Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+Copyright (c) 2017, Jeffrey Su
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

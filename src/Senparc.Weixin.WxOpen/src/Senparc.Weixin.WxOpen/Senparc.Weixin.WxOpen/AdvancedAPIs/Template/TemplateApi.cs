@@ -4,6 +4,9 @@
     文件名：TemplateAPI.cs
     文件功能描述：小程序的模板消息接口
 
+    修改标识：Senparc - 20170225
+    修改描述：v1.2.1 修改模板消息URL
+
 ----------------------------------------------------------------*/
 
 /*
@@ -42,7 +45,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}";
+                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token={0}";
                 var msgData = new TempleteModel()
                 {
                     touser = openId,
@@ -108,7 +111,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         {
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
-                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={0}";
+                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token={0}";
                 var msgData = new TempleteModel()
                 {
                     touser = openId,

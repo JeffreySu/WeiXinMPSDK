@@ -335,7 +335,6 @@
   <ItemGroup>
     <Folder Include="App_Data\Document\Files\" />
     <Folder Include="App_Data\OpenTickets\" />
-    <Folder Include="Controllers\AppStore\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

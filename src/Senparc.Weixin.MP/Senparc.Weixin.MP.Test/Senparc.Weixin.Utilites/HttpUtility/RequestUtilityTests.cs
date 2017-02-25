@@ -34,7 +34,7 @@ namespace Senparc.Weixin.HttpUtility.Tests
             //随便找一个存在的测试图片
             var file = "..\\..\\..\\..\\Senparc.Weixin.MP.Sample\\Senparc.Weixin.MP.Sample\\Images\\qrcode.jpg";
 
-            var url = "http://localhost:18666/TestUploadMediaFile/?token={0}&type={1}&contentLength={2}";
+            var url = "http://localhost:18666/Media/TestUploadMediaFile/?token={0}&type={1}&contentLength={2}";
 
             using (FileStream fs = new FileStream(file, FileMode.Open))
             {

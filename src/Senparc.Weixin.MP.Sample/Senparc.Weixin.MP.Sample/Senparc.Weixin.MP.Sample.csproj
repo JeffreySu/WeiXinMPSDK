@@ -174,7 +174,6 @@
     <Compile Include="Controllers\TenPayV3Controller.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controllers\TestUploadMediaFileController.cs" />
     <Compile Include="Controllers\WeixinAsyncController.cs" />
     <Compile Include="Controllers\WeixinController.cs" />
     <Compile Include="Controllers\WeixinController_OldPost.cs" />

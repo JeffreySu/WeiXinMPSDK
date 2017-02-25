@@ -98,7 +98,7 @@ namespace Senparc.Weixin.MP.Sample
         }
 
         /// <summary>
-        /// 注册WebSocket模块（可用于小程序或独立WebSocket英勇）
+        /// 注册WebSocket模块（可用于小程序或独立WebSocket应用）
         /// </summary>
         private void RegisterWebSocket()
         {

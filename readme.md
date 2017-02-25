@@ -146,7 +146,7 @@
 |Senparc.Weixin.Cache|Senparc.Weixin.Cache.Memcached.dll 、 Senparc.Weixin.Cache.Redis.dll 等分布式缓存扩展方案|
 |Senparc.Weixin.MP.BuildOutPut|所有最新版本DLL发布文件夹|
 |Senparc.Weixin.MP.MvcExtension|Senparc.Weixin.MP.MvcExtension.dll源码，为MVC4.0项目提供的扩展包。|
-|Senparc.Weixin.MP.Sample|可以直接发布使用的Demo（ASP.NET MVC 4.0）|
+|Senparc.Weixin.MP.Sample|可以直接发布使用的Demo（ASP.NET MVC 4.5）|
 |Senparc.Weixin.MP.Sample.WebForms|可以直接发布使用的Demo（ASP.NET WebForms）|
 |Senparc.Weixin.MP|Senparc.Weixin.MP.dll 微信公众账号SDK源代码|
 |Senparc.Weixin.Open|Senparc.Weixin.Open.dll 第三方开放平台SDK源代码|
@@ -475,4 +475,4 @@ License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF 
 either express or implied. See the License for the specific language governing permissions 
 and limitations under the License.
 ```
-via https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md

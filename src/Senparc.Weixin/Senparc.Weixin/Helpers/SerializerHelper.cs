@@ -46,15 +46,15 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public string GetJsonString(object data)
         {
-			JsonSerializerSettings settings = new JsonSerializerSettings()
-			{
-				NullValueHandling = NullValueHandling.Ignore,
-			};
+            JsonSerializerSettings settings = new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+            };
 
-			var jsonString = JsonConvert.SerializeObject(data, settings);
+            var jsonString = JsonConvert.SerializeObject(data, settings);
 
-			//解码Unicode，也可以通过设置App.Config（Web.Config）设置来做，这里只是暂时弥补一下，用到的地方不多
-			MatchEvaluator evaluator = new MatchEvaluator(DecodeUnicode);
+            //解码Unicode，也可以通过设置App.Config（Web.Config）设置来做，这里只是暂时弥补一下，用到的地方不多
+            MatchEvaluator evaluator = new MatchEvaluator(DecodeUnicode);
             var json = Regex.Replace(jsonString, @"\\u[0123456789abcdef]{4}", evaluator);//或：[\\u007f-\\uffff]，\对应为\u000a，但一般情况下会保持\
             return json;
         }
@@ -67,8 +67,9 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public T GetObject<T>(string jsonString)
         {
-            JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-            return jsSerializer.Deserialize<T>(jsonString);
+            return (T)Newtonsoft.Json.JsonConvert.DeserializeObject(jsonString, typeof(T));
+            //JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            //return jsSerializer.Deserialize<T>(jsonString);
         }
     }
 }

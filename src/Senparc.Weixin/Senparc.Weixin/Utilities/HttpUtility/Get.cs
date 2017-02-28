@@ -14,7 +14,6 @@
     修改描述：v4.5.19 为GetJson方法添加maxJsonLength参数
 ----------------------------------------------------------------*/
 
-using System;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -23,14 +22,13 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Newtonsoft.Json;
-using System.Net.Http;
 
 namespace Senparc.Weixin.HttpUtility
 {
-	/// <summary>
-	/// Get请求处理
-	/// </summary>
-	public static class Get
+    /// <summary>
+    /// Get请求处理
+    /// </summary>
+    public static class Get
 	{
 		#region 同步方法
 
@@ -46,7 +44,7 @@ namespace Senparc.Weixin.HttpUtility
 		{
 			string returnText = RequestUtility.HttpGet(url, encoding);
 
-			WeixinTrace.SendLog(url, returnText);
+			WeixinTrace.SendApiLog(url, returnText);
 
 			if (returnText.Contains("errcode"))
 			{

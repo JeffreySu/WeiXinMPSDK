@@ -27,6 +27,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.HttpUtility
 {
@@ -446,8 +447,8 @@ namespace Senparc.Weixin.HttpUtility
         [Obsolete("请使用Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser()方法")]
         public static bool IsWeixinClientRequest(this HttpContext httpContext)
         {
-            return !string.IsNullOrEmpty(httpContext.Request.UserAgent) &&
-                   httpContext.Request.UserAgent.Contains("MicroMessenger");
+            return httpContext.Request.Headers.ContainsKey("User-Agent") &&
+                   httpContext.Request.Headers["User-Agent"].ToString().Contains("MicroMessenger");
         }
 
         /// <summary>

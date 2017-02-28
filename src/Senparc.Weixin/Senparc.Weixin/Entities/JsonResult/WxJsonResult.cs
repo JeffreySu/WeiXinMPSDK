@@ -45,7 +45,9 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// 公众号JSON返回结果（用于菜单接口等）
     /// </summary>
+#if NET461
     [Serializable]
+#endif
     public class WxJsonResult : IWxJsonResult
     {
         //会造成循环引用

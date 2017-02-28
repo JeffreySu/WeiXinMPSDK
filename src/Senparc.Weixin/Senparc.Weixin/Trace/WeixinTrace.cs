@@ -1,31 +1,23 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+    Copyright (C) 2016 Senparc
     
     文件名：WeixinTrace.cs
     文件功能描述：跟踪日志相关
     
     
     创建标识：Senparc - 20151012
-
-    修改标识：Senparc - 20161225
-    修改描述：v4.9.7 1、使用同步锁
-                     2、修改日志储存路径，新路径为/App_Data/WeixinTraceLog/SenparcWeixinTrace-yyyyMMdd.log
-                     3、添加WeixinExceptionLog方法
-
-    修改标识：Senparc - 20161231
-    修改描述：v4.9.8 将SendLog方法改名为SendApiLog，添加SendCustomLog方法
-
-    修改标识：Senparc - 20170101
-    修改描述：v4.9.9 1、优化日志记录方法（围绕OnWeixinExceptionFunc为主）
-                     2、输出AccessTokenOrAppId
-
+    
 ----------------------------------------------------------------*/
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using Senparc.Weixin.Cache;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Senparc.Weixin.Exceptions;
+using Senparc.Weixin.Cache;
 
 namespace Senparc.Weixin
 {
@@ -37,7 +29,7 @@ namespace Senparc.Weixin
         /// <summary>
         /// TraceListener
         /// </summary>
-        private static TraceListener _traceListener = null;
+        private static System.Diagnostics.Tracing.EventListener _traceListener = null;
 
         /// <summary>
         /// 统一日志锁名称
@@ -75,19 +67,24 @@ namespace Senparc.Weixin
 
             using (Cache.BeginCacheLock(LockName, ""))
             {
+#if NET461
                 var logDir = System.IO.Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "App_Data", "WeixinTraceLog");
-
+#else
+                var logDir = System.IO.Path.Combine(System.AppContext.BaseDirectory, "App_Data", "WeixinTraceLog");
+#endif
                 if (!Directory.Exists(logDir))
                 {
                     Directory.CreateDirectory(logDir);
                 }
 
-                string logFile = Path.Combine(logDir, string.Format("SenparcWeixinTrace-{0}.log", DateTime.Now.ToString("yyyyMMdd")));
+                //string logFile = Path.Combine(logDir, string.Format("SenparcWeixinTrace-{0}.log", DateTime.Now.ToString("yyyyMMdd")));
 
-                System.IO.TextWriter logWriter = new System.IO.StreamWriter(logFile, true);
-                _traceListener = new TextWriterTraceListener(logWriter);
-                System.Diagnostics.Trace.Listeners.Add(_traceListener);
-                System.Diagnostics.Trace.AutoFlush = true;
+                //Stream fileStream = new System.IO.FileStream(logFile,FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite);
+
+                //System.IO.TextWriter logWriter = new System.IO.StreamWriter(fileStream);
+                //_traceListener = new TextWriterTraceListener(logWriter);
+                //System.Diagnostics.Trace.Listeners.Add(_traceListener);
+                //System.Diagnostics.Trace.AutoFlush = true;
             }
         }
 
@@ -98,11 +95,11 @@ namespace Senparc.Weixin
         {
             using (Cache.BeginCacheLock(LockName, ""))
             {
-                if (_traceListener != null && System.Diagnostics.Trace.Listeners.Contains(_traceListener))
-                {
-                    _traceListener.Close();
-                    System.Diagnostics.Trace.Listeners.Remove(_traceListener);
-                }
+                //if (_traceListener != null && System.Diagnostics.Trace.Listeners.Contains(_traceListener))
+                //{
+                //    _traceListener.Close();
+                //    System.Diagnostics.Trace.Listeners.Remove(_traceListener);
+                //}
             }
         }
 
@@ -123,7 +120,7 @@ namespace Senparc.Weixin
         {
             using (Cache.BeginCacheLock(LockName, ""))
             {
-                System.Diagnostics.Trace.Unindent();
+                //System.Diagnostics.Trace.Unindent();
             }
         }
 
@@ -134,7 +131,7 @@ namespace Senparc.Weixin
         {
             using (Cache.BeginCacheLock(LockName, ""))
             {
-                System.Diagnostics.Trace.Indent();
+                //System.Diagnostics.Trace.Indent();
             }
         }
 
@@ -145,7 +142,7 @@ namespace Senparc.Weixin
         {
             using (Cache.BeginCacheLock(LockName, ""))
             {
-                System.Diagnostics.Trace.Flush();
+                //System.Diagnostics.Trace.Flush();
             }
         }
 
@@ -174,7 +171,7 @@ namespace Senparc.Weixin
         {
             using (Cache.BeginCacheLock(LockName, ""))
             {
-                System.Diagnostics.Trace.WriteLine(string.Format(messageFormat, args));
+                //System.Diagnostics.Trace.WriteLine(string.Format(messageFormat, args));
             }
         }
 
@@ -211,7 +208,7 @@ namespace Senparc.Weixin
         {
             using (Cache.BeginCacheLock(LockName, ""))
             {
-                System.Diagnostics.Trace.WriteLine(message);
+                //System.Diagnostics.Trace.WriteLine(message);
             }
         }
 

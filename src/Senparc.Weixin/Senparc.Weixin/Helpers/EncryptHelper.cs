@@ -15,6 +15,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+//using System.Security.Cryptography.Hashing.Algorithms;
 
 namespace Senparc.Weixin.Helpers
 {
@@ -51,7 +52,8 @@ namespace Senparc.Weixin.Helpers
         public static string GetMD5(string encypStr, string charset)
         {
             string retStr;
-            MD5CryptoServiceProvider m5 = new MD5CryptoServiceProvider();
+
+            MD5 m5 = MD5.Create();
 
             //创建md5对象
             byte[] inputBye;
@@ -85,7 +87,7 @@ namespace Senparc.Weixin.Helpers
         public static byte[] AESEncrypt(byte[] inputdata, byte[] iv, string strKey)
         {
             //分组加密算法   
-            SymmetricAlgorithm des = Rijndael.Create();
+            SymmetricAlgorithm des = Aes.Create();
             byte[] inputByteArray = inputdata;//得到需要加密的字节数组       
                                               //设置密钥及密钥向量
             des.Key = Encoding.UTF8.GetBytes(strKey.Substring(0, 32));
@@ -97,8 +99,8 @@ namespace Senparc.Weixin.Helpers
                     cs.Write(inputByteArray, 0, inputByteArray.Length);
                     cs.FlushFinalBlock();
                     byte[] cipherBytes = ms.ToArray();//得到加密后的字节数组   
-                    cs.Close();
-                    ms.Close();
+                    //cs.Close();
+                    //ms.Close();
                     return cipherBytes;
                 }
             }
@@ -114,20 +116,21 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public static byte[] AESDecrypt(byte[] inputdata, byte[] iv, byte[] strKey)
         {
-            SymmetricAlgorithm des = Rijndael.Create();
-            des.Key = strKey;//Encoding.UTF8.GetBytes(strKey);//.Substring(0, 7)
-            des.IV = iv;
-            byte[] decryptBytes = new byte[inputdata.Length];
-            using (MemoryStream ms = new MemoryStream(inputdata))
-            {
-                using (CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(), CryptoStreamMode.Read))
-                {
-                    cs.Read(decryptBytes, 0, decryptBytes.Length);
-                    cs.Close();
-                    ms.Close();
-                }
-            }
-            return decryptBytes;
+            throw new Exception(".net core中尚未支持");
+            //SymmetricAlgorithm des = Rijndael.Create();
+            //des.Key = strKey;//Encoding.UTF8.GetBytes(strKey);//.Substring(0, 7)
+            //des.IV = iv;
+            //byte[] decryptBytes = new byte[inputdata.Length];
+            //using (MemoryStream ms = new MemoryStream(inputdata))
+            //{
+            //    using (CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(), CryptoStreamMode.Read))
+            //    {
+            //        cs.Read(decryptBytes, 0, decryptBytes.Length);
+            //        cs.Close();
+            //        ms.Close();
+            //    }
+            //}
+            //return decryptBytes;
         }
 
         #endregion

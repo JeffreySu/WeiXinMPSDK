@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：CardApi.cs
     文件功能描述：卡券高级功能API
@@ -50,9 +50,6 @@ using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
-
-
-
     /// <summary>
     /// 卡券接口
     /// </summary>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 /*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：RefreshTokenResult.cs
     文件功能描述：通过RefreshToken接口返回的结果

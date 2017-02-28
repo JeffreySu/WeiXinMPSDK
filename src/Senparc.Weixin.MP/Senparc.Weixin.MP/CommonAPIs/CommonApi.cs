@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：CommonApi.cs
     文件功能描述：通用接口(用于和微信服务器通讯，一般不涉及自有网站服务器的通讯)
@@ -21,6 +21,10 @@
  
     修改标识：Senparc - 20160721
     修改描述：增加其接口的异步方法
+
+    修改标识：Senparc - 20161110
+    修改描述：完善GetTicket系列方法备注
+
 ----------------------------------------------------------------*/
 
 /*
@@ -84,7 +88,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="secret"></param>
-        /// <param name="type"></param>
+        /// <param name="type">默认为jsapi，当作为卡券接口使用时，应当为wx_card</param>
         /// <returns></returns>
         public static JsApiTicketResult GetTicket(string appId, string secret, string type = "jsapi")
         {
@@ -96,7 +100,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// 获取调用微信JS接口的临时票据
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="type"></param>
+        /// <param name="type">默认为jsapi，当作为卡券接口使用时，应当为wx_card</param>
         /// <returns></returns>
         public static JsApiTicketResult GetTicketByAccessToken(string accessTokenOrAppId, string type = "jsapi")
         {
@@ -173,7 +177,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="secret"></param>
-        /// <param name="type"></param>
+        /// <param name="type">默认为jsapi，当作为卡券接口使用时，应当为wx_card</param>
         /// <returns></returns>
         public static async Task<JsApiTicketResult> GetTicketAsync(string appId, string secret, string type = "jsapi")
         {
@@ -185,7 +189,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// 【异步方法】获取调用微信JS接口的临时票据
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="type"></param>
+        /// <param name="type">默认为jsapi，当作为卡券接口使用时，应当为wx_card</param>
         /// <returns></returns>
         public static async Task<JsApiTicketResult> GetTicketByAccessTokenAsync(string accessTokenOrAppId, string type = "jsapi")
         {

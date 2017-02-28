@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：RequestUtility.cs
     文件功能描述：获取请求结果
@@ -11,6 +11,9 @@
 
     修改标识：Senparc - 20150407
     修改描述：使用Post方法获取字符串结果 修改表单处理方法
+
+    修改标识：Senparc - 20170122
+    修改描述：v4.9.14 为AsUrlData方法添加null判断
 ----------------------------------------------------------------*/
 
 using System;
@@ -24,6 +27,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Http;
 
 namespace Senparc.Weixin.HttpUtility
 {
@@ -436,6 +440,18 @@ namespace Senparc.Weixin.HttpUtility
         #endregion
 
         /// <summary>
+        /// 请求是否发起自微信客户端的浏览器
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
+        [Obsolete("请使用Senparc.Weixin.BrowserUtility.BrowserUtility.SideInWeixinBrowser()方法")]
+        public static bool IsWeixinClientRequest(this HttpContext httpContext)
+        {
+            return httpContext.Request.Headers.ContainsKey("User-Agent") &&
+                   httpContext.Request.Headers["User-Agent"].ToString().Contains("MicroMessenger");
+        }
+
+        /// <summary>
         /// 组装QueryString的方法
         /// 参数之间用&amp;连接，首位没有符号，如：a=1&amp;b=2&amp;c=3
         /// </summary>
@@ -523,6 +539,10 @@ namespace Senparc.Weixin.HttpUtility
         /// <returns></returns>
         public static string AsUrlData(this string data)
         {
+            if (data == null)
+            {
+                return null;
+            }
             return Uri.EscapeDataString(data);
         }
     }

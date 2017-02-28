@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：VideoMediaIdResult.cs
     文件功能描述：群发视频文件调用接口获取视频群发用的MediaId

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：MessageHandler.cs
     文件功能描述：微信请求的集中处理方法
@@ -139,6 +139,11 @@ namespace Senparc.Weixin.MessageHandlers
         {
             get
             {
+                if (ResponseMessage != null && ResponseMessage is SuccessResponseMessageBase)
+                {
+                    _textResponseMessage = (ResponseMessage as SuccessResponseMessageBase).ReturnText;//返回"success"
+                }
+
                 if (_textResponseMessage != null
                     && (ResponseMessage == null || ResponseMessage is IResponseMessageNoResponse))
                 {

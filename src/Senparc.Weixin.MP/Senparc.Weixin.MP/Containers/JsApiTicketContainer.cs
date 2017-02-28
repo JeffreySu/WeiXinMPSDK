@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：JsApiTicketContainer.cs
     文件功能描述：通用接口JsApiTicket容器，用于自动管理JsApiTicket，如果过期会重新获取
@@ -34,6 +34,7 @@
     
     修改标识：Senparc - 20160813
     修改描述：v14.3.6 完善getNewToken参数传递
+
 ----------------------------------------------------------------*/
 
 using System;

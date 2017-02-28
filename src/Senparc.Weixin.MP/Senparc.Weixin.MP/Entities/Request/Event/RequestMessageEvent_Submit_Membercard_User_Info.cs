@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：RequestMessageEvent_Submit_Membercard_User_Info.cs
     文件功能描述：事件之接收会员信息事件通知（submit_membercard_user_info）

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：RedisContainerCacheStrategy.cs
     文件功能描述：Redis 容器缓存策略。
@@ -12,6 +12,9 @@
     
     修改标识：Senparc - 20160812
     修改描述：v0.2.1  解决Container无法注册的问题
+
+    修改标识：Senparc - 20170205
+    修改描述：v0.2.0 重构分布式锁
 
 ----------------------------------------------------------------*/
 
@@ -73,8 +76,6 @@ namespace Senparc.Weixin.Cache.Redis
         ~RedisContainerCacheStrategy()
         {
         }
-
-
 
         #region 实现 IContainerCacheStrategy 接口
 
@@ -182,8 +183,7 @@ namespace Senparc.Weixin.Cache.Redis
 
         public override ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan())
         {
-            return new RedisCacheLock(this, resourceName, key, retryCount, retryDelay).LockNow();
+            return new RedisCacheLock(this, resourceName, key, retryCount, retryDelay);
         }
-
     }
 }

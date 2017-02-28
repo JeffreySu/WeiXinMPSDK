@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：SerializerHelper.cs
     文件功能描述：unicode解码
@@ -46,19 +46,30 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public string GetJsonString(object data)
         {
-			JsonSerializerSettings settings = new JsonSerializerSettings()
-			{
-				NullValueHandling = NullValueHandling.Ignore,
-			};
+            JsonSerializerSettings settings = new JsonSerializerSettings()
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+            };
 
-			var jsonString = JsonConvert.SerializeObject(data, settings);
+            var jsonString = JsonConvert.SerializeObject(data, settings);
 
-			//解码Unicode，也可以通过设置App.Config（Web.Config）设置来做，这里只是暂时弥补一下，用到的地方不多
-			MatchEvaluator evaluator = new MatchEvaluator(DecodeUnicode);
+            //解码Unicode，也可以通过设置App.Config（Web.Config）设置来做，这里只是暂时弥补一下，用到的地方不多
+            MatchEvaluator evaluator = new MatchEvaluator(DecodeUnicode);
             var json = Regex.Replace(jsonString, @"\\u[0123456789abcdef]{4}", evaluator);//或：[\\u007f-\\uffff]，\对应为\u000a，但一般情况下会保持\
             return json;
         }
 
+        /// <summary>
+        /// 反序列化到对象
+        /// </summary>
+        /// <typeparam name="T">反序列化对象类型</typeparam>
+        /// <param name="jsonString">JSON字符串</param>
+        /// <returns></returns>
+        public T GetObject<T>(string jsonString)
+        {
+            return (T)Newtonsoft.Json.JsonConvert.DeserializeObject(jsonString, typeof(T));
+            //JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
+            //return jsSerializer.Deserialize<T>(jsonString);
+        }
     }
-
 }

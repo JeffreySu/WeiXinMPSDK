@@ -1,11 +1,11 @@
 ﻿/*----------------------------------------------------------------
-	Copyright (C) 2016 Senparc
-	
-	文件名：CommonJsonSend.cs
-	文件功能描述：向需要AccessToken的API发送消息的公共方法
-	
-	
-	创建标识：Senparc - 20150313
+    Copyright (C) 2017 Senparc
+    
+    文件名：CommonJsonSend.cs
+    文件功能描述：向需要AccessToken的API发送消息的公共方法
+    
+    
+    创建标识：Senparc - 20150313
  
 	修改标识：Senparc - 20150313
 	修改描述：开放代理请求超时时间

@@ -1,11 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
+
+    文件名：LocalCacheLock.cs
+    文件功能描述：本地锁
+
+
+    创建标识：Senparc - 20160810
+
+    修改标识：Senparc - 20170205
+    修改描述：v4.11.0 重构分布式锁
+
+----------------------------------------------------------------*/
+
+using System;
 
 namespace Senparc.Weixin.Cache
 {
+    /// <summary>
+    /// 缓存同步锁基类
+    /// </summary>
     public abstract class BaseCacheLock : ICacheLock
     {
         protected string _resourceName;
@@ -22,12 +35,11 @@ namespace Senparc.Weixin.Cache
             _retryDelay = retryDelay;
         }
 
-        public void Dispose()
-        {
-            UnLock(_resourceName);
-        }
-
-        public ICacheLock LockNow()
+        /// <summary>
+        /// 立即开始锁定，需要在子类的构造函数中执行
+        /// </summary>
+        /// <returns></returns>
+        protected ICacheLock LockNow()
         {
             if (_retryCount != 0 && _retryDelay.Ticks != 0)
             {
@@ -38,6 +50,11 @@ namespace Senparc.Weixin.Cache
                 LockSuccessful = Lock(_resourceName);
             }
             return this;
+        }
+
+        public void Dispose()
+        {
+            UnLock(_resourceName);
         }
 
         public abstract bool Lock(string resourceName);

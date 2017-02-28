@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Cache;
@@ -27,9 +29,9 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             {
                 if (_appConfig == null)
                 {
-                    if (File.Exists("../../test.config"))
+                    if (File.Exists("../../Config/test.config"))
                     {
-                        var doc = XDocument.Load("../../test.config");
+                        var doc = XDocument.Load("../../Config/test.config");
                         _appConfig = new
                         {
                             AppId = doc.Root.Element("AppId").Value,
@@ -37,6 +39,9 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                             MchId = doc.Root.Element("MchId").Value,
                             TenPayKey = doc.Root.Element("TenPayKey").Value,
                             TenPayCertPath = doc.Root.Element("TenPayCertPath").Value,
+
+                            //WxOpenAppId= doc.Root.Element("WxOpenAppId").Value,
+                            //WxOpenSecret = doc.Root.Element("WxOpenSecret").Value
                         };
                     }
                     else
@@ -48,6 +53,8 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
                             MchId = "YourMchId",//换成你的信息
                             TenPayKey = "YourTenPayKey",//换成你的信息
                             TenPayCertPath = "YourTenPayCertPath",//换成你的信息
+                            //WxOpenAppId="YourWxOpenAppId",//换成你的小程序AppId
+                            //WxOpenSecret= "YourWxOpenSecret",//换成你的小程序Secret
                         };
                     }
                 }
@@ -80,6 +87,15 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             get { return AppConfig.TenPayCertPath; }
         }
 
+        //protected string _wxOpenAppId
+        //{
+        //    get { return AppConfig.WxOpenAppId; }
+        //}
+
+        //protected string _wxOpenSecret
+        //{
+        //    get { return AppConfig.WxOpenSecret; }
+        //}
 
         protected readonly bool _userRedis = true;//是否使用Reids
 
@@ -89,7 +105,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         */
         private string _access_token = null;
 
-        protected string _testOpenId = "oIb08txj1En8hGXzHRvAjf-3X9Oc";//换成实际关注者的OpenId
+        protected string _testOpenId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//换成实际关注者的OpenId
 
         /// <summary>
         /// 自动获取Openid
@@ -107,6 +123,32 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
             return _testOpenId;
         }
 
+        protected Dictionary<Thread, bool> AsyncThreadsCollection = new Dictionary<Thread, bool>();
+
+        /// <summary>
+        /// 异步多线程测试方法
+        /// </summary>
+        /// <param name="maxThreadsCount"></param>
+        /// <param name="openId"></param>
+        /// <param name="threadAction"></param>
+        protected void TestAyncMethod(int maxThreadsCount, string openId, ThreadStart threadAction)
+        {
+            //int finishThreadsCount = 0;
+            for (int i = 0; i < maxThreadsCount; i++)
+            {
+                Thread thread = new Thread(threadAction);
+                AsyncThreadsCollection.Add(thread, false);
+            }
+
+            AsyncThreadsCollection.Keys.ToList().ForEach(z => z.Start());
+
+            while (AsyncThreadsCollection.Count > 0)
+            {
+                Thread.Sleep(100);
+            }
+        }
+
+
         public CommonApiTest()
         {
             if (_userRedis)
@@ -118,6 +160,12 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
             //全局只需注册一次
             AccessTokenContainer.Register(_appId, _appSecret);
+
+            ////注册小程序
+            //if (!string.IsNullOrEmpty(_wxOpenAppId))
+            //{
+            //    AccessTokenContainer.Register(_wxOpenAppId, _wxOpenSecret);
+            //}
 
             ThreadUtility.Register();
 

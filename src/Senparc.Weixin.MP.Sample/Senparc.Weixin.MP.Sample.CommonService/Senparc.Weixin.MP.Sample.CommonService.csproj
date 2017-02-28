@@ -4,4 +4,17 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="MessageHandlers\CustomMessageHandler\CustomMessageHandler_Events.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MessageHandlers\CustomMessageHandler\" />
+    <Folder Include="Utilities\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj" />
+  </ItemGroup>
+
 </Project>

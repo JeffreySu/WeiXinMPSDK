@@ -20,7 +20,10 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.0-msbuild3-final" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj" />
+    <ProjectReference Include="..\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.Sample.CommonService.csproj" />
+    <ProjectReference Include="..\Senparc.Weixin.MP.Sample.MySQL\Senparc.Weixin.MP.Sample.MySQL.csproj" />
   </ItemGroup>
 
 </Project>

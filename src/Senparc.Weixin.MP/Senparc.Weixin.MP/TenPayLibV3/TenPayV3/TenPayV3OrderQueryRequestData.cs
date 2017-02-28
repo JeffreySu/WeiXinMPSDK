@@ -12,6 +12,9 @@
     修改标识：Senparc - 20170225
     修改描述：v14.3.129 设置TransactionId和OutTradeNo时判断是否为null，如果是则提供空字符串""
 
+    修改标识：Senparc - 20170301
+    修改描述：v14.3.130 修改TenPayV3OrderQueryRequestData()中的sign_type设置位置
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.TenPayLibV3

@@ -27,6 +27,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
+using System.Net.Http;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -155,29 +156,23 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             string password = mchId;
 
             //调用证书
-            X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
-            ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
+            var cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+
+            //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             //X509Certificate cer = new X509Certificate(cert, password);
 
             #region 发起post请求
-            HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
-            webrequest.ClientCertificates.Add(cer);
-            webrequest.Method = "post";
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ClientCertificates.Add(cer);
 
-
-            byte[] postdatabyte = Encoding.UTF8.GetBytes(data);
-            webrequest.ContentLength = postdatabyte.Length;
-            Stream stream = webrequest.GetRequestStream();
-            stream.Write(postdatabyte, 0, postdatabyte.Length);
-            stream.Close();
-
-            HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
-            StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
-            string responseContent = streamReader.ReadToEnd();
+            HttpClient client = new HttpClient(handler);
+            HttpContent hc = new StringContent(data);
+            var request = client.PostAsync(url, hc).Result;
+            var response = request.Content.ReadAsStreamAsync().Result;
             #endregion
 
             XmlDocument doc = new XmlDocument();
-            doc.LoadXml(responseContent);
+            doc.Load(response);
 
             //XDocument xDoc = XDocument.Load(responseContent);
 
@@ -369,31 +364,25 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             string password = mchId;
 
             //调用证书
-            X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
-            ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
+            var cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+
+            //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             //X509Certificate cer = new X509Certificate(cert, password);
 
             #region 发起post请求
-            HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
-            webrequest.ClientCertificates.Add(cer);
-            webrequest.Method = "post";
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ClientCertificates.Add(cer);
 
-
-            byte[] postdatabyte = Encoding.UTF8.GetBytes(data);
-            webrequest.ContentLength = postdatabyte.Length;
-            Stream stream = webrequest.GetRequestStream();
-            stream.Write(postdatabyte, 0, postdatabyte.Length);
-            stream.Close();
-
-            HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
-            StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
-            string responseContent = streamReader.ReadToEnd();
+            HttpClient client = new HttpClient(handler);
+            HttpContent hc = new StringContent(data);
+            var request = client.PostAsync(url, hc).Result;
+            var response = request.Content.ReadAsStreamAsync().Result;
             #endregion
 
             XmlDocument doc = new XmlDocument();
-            doc.LoadXml(responseContent);
+            doc.Load(response);
 
-            XDocument xDoc = XDocument.Load(responseContent);
+            //XDocument xDoc = XDocument.Load(responseContent);
 
             //if (xDoc==null)
             //{
@@ -527,29 +516,23 @@ PROCESSING	请求已受理，请稍后使用原单号查询发放结果	二十�
             string password = mchId;
 
             //调用证书
+            var cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+
+            //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             //X509Certificate cer = new X509Certificate(cert, password);
-            X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
-            ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
 
             #region 发起post请求
-            HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
-            webrequest.ClientCertificates.Add(cer);
-            webrequest.Method = "post";
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ClientCertificates.Add(cer);
 
-            byte[] postdatabyte = Encoding.UTF8.GetBytes(data);
-            webrequest.ContentLength = postdatabyte.Length;
-            Stream stream;
-            stream = webrequest.GetRequestStream();
-            stream.Write(postdatabyte, 0, postdatabyte.Length);
-            stream.Close();
-
-            HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
-            StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
-            string responseContent = streamReader.ReadToEnd();
+            HttpClient client = new HttpClient(handler);
+            HttpContent hc = new StringContent(data);
+            var request = client.PostAsync(url, hc).Result;
+            var response = request.Content.ReadAsStreamAsync().Result;
             #endregion
 
             XmlDocument doc = new XmlDocument();
-            doc.LoadXml(responseContent);
+            doc.Load(response);
 
             SearchRedPackResult searchReturn = new SearchRedPackResult
             {

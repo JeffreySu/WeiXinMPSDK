@@ -116,21 +116,20 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public static byte[] AESDecrypt(byte[] inputdata, byte[] iv, byte[] strKey)
         {
-            throw new Exception(".net core中尚未支持");
-            //SymmetricAlgorithm des = Rijndael.Create();
-            //des.Key = strKey;//Encoding.UTF8.GetBytes(strKey);//.Substring(0, 7)
-            //des.IV = iv;
-            //byte[] decryptBytes = new byte[inputdata.Length];
-            //using (MemoryStream ms = new MemoryStream(inputdata))
-            //{
-            //    using (CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(), CryptoStreamMode.Read))
-            //    {
-            //        cs.Read(decryptBytes, 0, decryptBytes.Length);
-            //        cs.Close();
-            //        ms.Close();
-            //    }
-            //}
-            //return decryptBytes;
+            SymmetricAlgorithm des = Aes.Create();
+            des.Key = strKey;//Encoding.UTF8.GetBytes(strKey);//.Substring(0, 7)
+            des.IV = iv;
+            byte[] decryptBytes = new byte[inputdata.Length];
+            using (MemoryStream ms = new MemoryStream(inputdata))
+            {
+                using (CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(), CryptoStreamMode.Read))
+                {
+                    cs.Read(decryptBytes, 0, decryptBytes.Length);
+                    //cs.Close();
+                    //ms.Close();
+                }
+            }
+            return decryptBytes;
         }
 
         #endregion

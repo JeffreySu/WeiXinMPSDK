@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：BaseGroupMessageDataByGroupId.cs
     文件功能描述：根据GroupId群发所需的数据

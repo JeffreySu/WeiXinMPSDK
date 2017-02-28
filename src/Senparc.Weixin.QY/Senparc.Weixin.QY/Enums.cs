@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -15,6 +15,10 @@
 
     修改标识：zeje - 20150507
     修改描述：v3.3.5 添加Login_User_Type枚举
+
+    修改标识：Senparc - 20150507
+    修改描述：v4.2.1 ResponseMsgType添加SuccessResponse枚举
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.QY
@@ -175,7 +179,8 @@ namespace Senparc.Weixin.QY
         MpNews,
 
         //以下类型为Senparc.Weixin自用类型
-        NoResponse
+        NoResponse,
+        SuccessResponse
     }
 
     /// <summary>

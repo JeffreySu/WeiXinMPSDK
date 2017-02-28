@@ -31,60 +31,42 @@ namespace Senparc.Weixin.MP.MvcExtension
 		}
 
 
-		new public string Content
-		{
-			get
-			{
-				if (base.Content != null)
-				{
-					return base.Content;
-				}
-				else if (_messageHandlerDocument != null && _messageHandlerDocument.TextResponseMessage != null)
-				{
-					if (_messageHandlerDocument.TextResponseMessage.Equals(String.Empty))
-					{
-						//无需响应，开发者返回了ResponseNoResponse
-						return null;
-					}
+        new public string Content
+        {
+            get
+            {
+                if (base.Content != null)
+                {
+                    return base.Content;
+                }
+                else if (_messageHandlerDocument != null && _messageHandlerDocument.TextResponseMessage != null)
+                {
+                    return _messageHandlerDocument.TextResponseMessage.Replace("\r\n", "\n");
 
-					if (_messageHandlerDocument.ResponseDocument != null)
-					{
-						//返回XML响应信息
-						return _messageHandlerDocument.TextResponseMessage.Replace("\r\n", "\n");
-					}
-					else
-					{
-						//返回XML响应信息或用户指定的文本内容
-						return _messageHandlerDocument.TextResponseMessage;
-					}
+                    //if (_messageHandlerDocument.TextResponseMessage.Equals(String.Empty))
+                    //{
+                    //    //无需响应，开发者返回了ResponseNoResponse
+                    //    return null;
+                    //}
 
-				}
-				else
-				{
-					return null;
-				}
-			}
-			set { base.Content = value; }
-		}
-
-		public override async Task ExecuteResultAsync(ActionContext context)
-		{
-			if (base.Content == null)
-			{
-				//使用IMessageHandler输出
-				if (_messageHandlerDocument == null)
-				{
-					throw new Exceptions.WeixinException("执行WeixinResult时提供的MessageHandler不能为Null！", null);
-				}
-
-				if (_messageHandlerDocument.FinalResponseDocument == null)
-				{
-					//throw new Senparc.Weixin.MP.WeixinException("FinalResponseDocument不能为Null！", null);
-				}
-				else
-				{
-					//context.HttpContext.Response.ClearContent();
-					context.HttpContext.Response.ContentType = "text/xml";
+                    //if (_messageHandlerDocument.ResponseDocument != null)
+                    //{
+                    //    //返回XML响应信息
+                    //    return _messageHandlerDocument.TextResponseMessage.Replace("\r\n", "\n");
+                    //}
+                    //else
+                    //{
+                    //    //返回XML响应信息或用户指定的文本内容
+                    //    return _messageHandlerDocument.TextResponseMessage;
+                    //}
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set { base.Content = value; }
+        }
 
 					var xml = _messageHandlerDocument.FinalResponseDocument == null
 								? ""
@@ -121,10 +103,10 @@ namespace Senparc.Weixin.MP.MvcExtension
 					//context.HttpContext.Response.ClearContent();
 					context.HttpContext.Response.ContentType = "text/xml";
 
-					var xml = _messageHandlerDocument.FinalResponseDocument == null
-								? ""
-								: _messageHandlerDocument.FinalResponseDocument
-														 .ToString().Replace("\r\n", "\n"); //腾
+                    var xml = _messageHandlerDocument.FinalResponseDocument == null
+                                ? ""
+                                : _messageHandlerDocument.FinalResponseDocument
+                                                         .ToString().Replace("\r\n", "\n"); //腾
 
 					using (MemoryStream ms = new MemoryStream())//迅
 					{//真

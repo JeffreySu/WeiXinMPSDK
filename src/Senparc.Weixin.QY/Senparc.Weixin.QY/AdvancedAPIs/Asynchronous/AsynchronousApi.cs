@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：AsynchronousApi.cs
     文件功能描述：异步任务接口
@@ -10,6 +10,9 @@
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
  
+    修改标识：Senparc - 20170215
+    修改描述：增加其接口的异步方法
+
 ----------------------------------------------------------------*/
 
 /*
@@ -30,46 +33,6 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     {
         #region 同步请求
       
-        /// <summary>
-        /// 邀请成员关注
-        /// </summary>
-        /// <param name="accessToken">企业的access_token</param>
-        /// <param name="toUser">成员ID列表，多个接收者用‘|’分隔，最多支持1000个。</param>
-        /// <param name="toParty">部门ID列表，多个接收者用‘|’分隔，最多支持100个。</param>
-        /// <param name="toTag">标签ID列表，多个接收者用‘|’分隔。</param>
-        /// <param name="inviteTips">推送到微信上的提示语（只有认证号可以使用）。当使用微信推送时，该字段默认为“请关注XXX企业号”，邮件邀请时，该字段无效。</param>
-        /// <param name="callBack">回调信息。任务完成后，通过callback推送事件给企业。具体请参考应用回调模式中的相应选项</param>
-        /// <param name="timeOut"></param>
-        /// post数据格式：
-        /// {
-        ///     "touser":"xxx|xxx",
-        ///     "toparty":"xxx|xxx",
-        ///     "totag":"xxx|xxx",
-        ///     "invite_tips":"xxx",
-        ///     "callback":
-        ///     {
-        ///         "url": "xxx",
-        ///         "token": "xxx",
-        ///         "encodingaeskey": "xxx"
-        ///     }
-        /// }
-        /// <returns></returns>
-        public static AsynchronousJobId BatchInviteUser(string accessToken, string toUser, string toParty, string toTag, string inviteTips, Asynchronous_CallBack callBack, int timeOut = Config.TIME_OUT)
-        {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/batch/inviteuser?access_token={0}";
-
-            var data = new
-                {
-                    touser = toUser,
-                    toparty = toParty,
-                    totag = toTag,
-                    invite_tips = inviteTips,
-                    callback = callBack
-                };
-
-            return CommonJsonSend.Send<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-        }
-
         #region 通讯录更新
 
         /*通讯录更新接口提供三种更新方法：1) 增量更新成员 2）全量覆盖成员 3) 全量覆盖部门。如果企业要做到与企业号通讯录完全一致，可先调用全量覆盖部门接口，再调用全量覆盖成员接口，即可保持通讯录完全一致。
@@ -199,20 +162,6 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         }
 
         /// <summary>
-        /// 获取异步邀请成员关注结果
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="jobId"></param>
-        /// <returns></returns>
-        public static AsynchronousInviteUserResult GetInviteUserResult(string accessToken, string jobId)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
-                                    accessToken.AsUrlData(), jobId.AsUrlData());
-
-            return Get.GetJson<AsynchronousInviteUserResult>(url);
-        }
-
-        /// <summary>
         /// 获取异步更新或全面覆盖成员结果
         /// </summary>
         /// <param name="accessToken"></param>
@@ -244,46 +193,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         #endregion
 
         #region 异步请求
-        /// <summary>
-        /// 【异步方法】邀请成员关注
-        /// </summary>
-        /// <param name="accessToken">企业的access_token</param>
-        /// <param name="toUser">成员ID列表，多个接收者用‘|’分隔，最多支持1000个。</param>
-        /// <param name="toParty">部门ID列表，多个接收者用‘|’分隔，最多支持100个。</param>
-        /// <param name="toTag">标签ID列表，多个接收者用‘|’分隔。</param>
-        /// <param name="inviteTips">推送到微信上的提示语（只有认证号可以使用）。当使用微信推送时，该字段默认为“请关注XXX企业号”，邮件邀请时，该字段无效。</param>
-        /// <param name="callBack">回调信息。任务完成后，通过callback推送事件给企业。具体请参考应用回调模式中的相应选项</param>
-        /// <param name="timeOut"></param>
-        /// post数据格式：
-        /// {
-        ///     "touser":"xxx|xxx",
-        ///     "toparty":"xxx|xxx",
-        ///     "totag":"xxx|xxx",
-        ///     "invite_tips":"xxx",
-        ///     "callback":
-        ///     {
-        ///         "url": "xxx",
-        ///         "token": "xxx",
-        ///         "encodingaeskey": "xxx"
-        ///     }
-        /// }
-        /// <returns></returns>
-        public static async Task<AsynchronousJobId> BatchInviteUserAsync(string accessToken, string toUser, string toParty, string toTag, string inviteTips, Asynchronous_CallBack callBack, int timeOut = Config.TIME_OUT)
-        {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/batch/inviteuser?access_token={0}";
-
-            var data = new
-            {
-                touser = toUser,
-                toparty = toParty,
-                totag = toTag,
-                invite_tips = inviteTips,
-                callback = callBack
-            };
-
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-        }
-
+        
         #region 通讯录更新
 
         /*通讯录更新接口提供三种更新方法：1) 增量更新成员 2）全量覆盖成员 3) 全量覆盖部门。如果企业要做到与企业号通讯录完全一致，可先调用全量覆盖部门接口，再调用全量覆盖成员接口，即可保持通讯录完全一致。
@@ -410,20 +320,6 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             };
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-        }
-
-        /// <summary>
-        /// 【异步方法】获取异步邀请成员关注结果
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="jobId"></param>
-        /// <returns></returns>
-        public static async Task<AsynchronousInviteUserResult> GetInviteUserResultAsync(string accessToken, string jobId)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/batch/getresult?access_token={0}&jobid={1}",
-                                    accessToken.AsUrlData(), jobId.AsUrlData());
-
-            return await Get.GetJsonAsync<AsynchronousInviteUserResult>(url);
         }
 
         /// <summary>

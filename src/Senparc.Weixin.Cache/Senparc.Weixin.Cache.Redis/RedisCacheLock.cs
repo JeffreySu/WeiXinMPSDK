@@ -1,9 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
+
+    文件名：RedisCacheLock.cs
+    文件功能描述：本地锁
+
+
+    创建标识：Senparc - 20160810
+
+    修改标识：Senparc - 20170205
+    修改描述：v1.2.0 重构分布式锁
+
+----------------------------------------------------------------*/
+
+using System;
 using Redlock.CSharp;
 
 namespace Senparc.Weixin.Cache.Redis
@@ -16,9 +25,10 @@ namespace Senparc.Weixin.Cache.Redis
         private RedisObjectCacheStrategy _redisStrategy;
 
         public RedisCacheLock(RedisObjectCacheStrategy strategy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
-            :base(strategy,resourceName,key,retryCount,retryDelay)
+            : base(strategy, resourceName, key, retryCount, retryDelay)
         {
             _redisStrategy = strategy;
+            LockNow();//立即等待并抢夺锁
         }
 
         public override bool Lock(string resourceName)
@@ -37,7 +47,12 @@ namespace Senparc.Weixin.Cache.Redis
                 _dlm = new Redlock.CSharp.Redlock(_redisStrategy._client);
             }
 
-            var successfull = _dlm.Lock(resourceName, new TimeSpan(0, 0, 10), out _lockObject);
+            var ttl = (retryDelay.TotalMilliseconds > 0 ? retryDelay.TotalMilliseconds : 10)
+                       *
+                      (retryCount > 0 ? retryCount : 10);
+
+
+            var successfull = _dlm.Lock(resourceName, TimeSpan.FromMilliseconds(ttl), out _lockObject);
             return successfull;
         }
 

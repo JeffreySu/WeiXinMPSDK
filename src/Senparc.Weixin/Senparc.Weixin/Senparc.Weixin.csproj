@@ -75,6 +75,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -86,14 +87,14 @@
   <ItemGroup>
     <Compile Include="Cache\CacheStrategy\BaseCacheStrategy.cs" />
     <Compile Include="Cache\ContainerCacheStrategy\IContainerCacheStragegy.cs" />
-    <Compile Include="Cache\Lock\LocalCacheLock.cs" />
-    <Compile Include="Cache\ContainerCacheStrategy\Local\LocalContainerCacheStrategy.cs" />
+    <Compile Include="Cache.Local\Lock\LocalCacheLock.cs" />
+    <Compile Include="Cache.Local\ContainerCacheStragegy\LocalContainerCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategy\IBaseCacheStrategy.cs" />
     <Compile Include="Cache\CacheStrategyFactory.cs" />
     <Compile Include="Cache\Lock\BaseCacheLock.cs" />
     <Compile Include="Cache\Lock\ICacheLock.cs" />
     <Compile Include="Cache\ObjectCacheStrategy\IObjectCacheStrategy.cs" />
-    <Compile Include="Cache\ObjectCacheStrategy\Local\LocalObjectCacheStrategy.cs" />
+    <Compile Include="Cache.Local\ObjectCacheStrategy\LocalObjectCacheStrategy.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Containers\BaseContainer.cs" />
     <Compile Include="Containers\BaseContainerBag.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Context\WeixinContextRemovedEventArgs.cs" />
     <Compile Include="Entities\BindableBase.cs" />
     <Compile Include="Entities\EntityBase.cs" />
+    <Compile Include="Entities\JsonResult\IJsonResultCallback.cs" />
     <Compile Include="Entities\JsonResult\QyJsonResult.cs" />
     <Compile Include="Entities\MessageBase.cs">
       <SubType>
@@ -111,6 +113,8 @@
     </Compile>
     <Compile Include="Entities\Request\EncryptPostModel.cs" />
     <Compile Include="Entities\Response\IResponseMessageNoResponse.cs" />
+    <Compile Include="Entities\Response\SuccessResponseMessageBase.cs" />
+    <Compile Include="Entities\TemplateMessage\WeixinTemplateBase.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\ErrorJsonResultException.cs" />
     <Compile Include="Exceptions\MessageHandlerException.cs" />
@@ -131,7 +135,7 @@
     <Compile Include="Threads\SenparcMessageQueueThreadUtility.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Threads\ThreadUtility.cs" />
-    <Compile Include="Utilities\BrowserUtility\BroswerUtility.cs" />
+    <Compile Include="Utilities\BrowserUtility\BrowserUtility.cs" />
     <Compile Include="CommonAPIs\CommonJsonSend.cs" />
     <Compile Include="Utilities\CacheUtility\CacheUtility.cs" />
     <Compile Include="Utilities\CacheUtility\FlushCache.cs" />
@@ -149,7 +153,7 @@
     <Compile Include="Entities\Request\RequestMessageBase.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Utilities\StreamUtility\StreamUtility.cs" />
-    <Compile Include="WeixinTrace.cs" />
+    <Compile Include="Trace\WeixinTrace.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagrams\MessageHandler.cd" />

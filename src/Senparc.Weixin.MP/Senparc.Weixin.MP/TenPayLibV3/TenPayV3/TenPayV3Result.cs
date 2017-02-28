@@ -22,6 +22,12 @@
     修改标识：Senparc - 20161226
     修改描述：v14.3.112 增加OrderQueryResult,CloseOrderResult,RefundQuery,ShortUrlResult,ReverseResult,MicropayResult
 
+    修改标识：Senparc - 20170215
+    修改描述：v14.3.126 增加TransfersResult类
+
+    修改标识：Senparc - 20170215
+    修改描述：v14.3.126 增加GetTransferInfoResult类
+    
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
@@ -678,6 +684,187 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                     time_end = GetXmlValue("time_end") ?? "";
                 }
             }
+        }
+    }
+
+
+    /// <summary>
+    /// 企业付款
+    /// </summary>
+    public class TransfersResult : TenPayV3Result
+    {
+        /// <summary>
+        /// 商户appid
+        /// </summary>
+        public string mch_appid { get; set; }
+
+        /// <summary>
+        /// 商户号
+        /// </summary>
+        public string mchid { get; set; }
+
+        /// <summary>
+        /// 设备号
+        /// </summary>
+        public string device_info { get; set; }
+
+
+        /// <summary>
+        /// 随机字符串
+        /// </summary>
+        public string nonce_str { get; set; }
+
+        /// <summary>
+        ///业务结果 SUCCESS/FAIL
+        /// </summary>
+        public string result_code { get; set; }
+
+        /// <summary>
+        /// 错误代码
+        /// </summary>
+        public string err_code { get; set; }
+
+        /// <summary>
+        /// 错误代码描述
+        /// </summary>
+        public string err_code_des { get; set; }
+
+        /// <summary>
+        ///商户订单号
+        /// </summary>
+        public string partner_trade_no { get; set; }
+
+        /// <summary>
+        /// 微信订单号
+        /// </summary>
+        public string payment_no { get; set; }
+
+        /// <summary>
+        /// 微信支付成功时间 
+        /// </summary>
+        public string payment_time { get; set; }
+
+        public TransfersResult(string resultXml) : base(resultXml)
+        {
+            if (base.IsReturnCodeSuccess())
+            {
+                mch_appid = GetXmlValue("mch_appid") ?? "";
+                mchid = GetXmlValue("mchid") ?? "";
+                device_info = GetXmlValue("device_info") ?? "";
+                nonce_str = GetXmlValue("nonce_str") ?? "";
+                result_code = GetXmlValue("result_code") ?? "";
+                err_code = GetXmlValue("err_code") ?? "";
+                err_code_des = GetXmlValue("err_code_des") ?? "";
+                if (IsResultCodeSuccess())
+                {
+                    partner_trade_no = GetXmlValue("partner_trade_no") ?? "";
+                    payment_no = GetXmlValue("payment_no") ?? "";
+                    payment_time = GetXmlValue("payment_time") ?? "";
+                }
+            }
+        }
+        public bool IsResultCodeSuccess()
+        {
+            return result_code == "SUCCESS";
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public class GetTransferInfoResult : TenPayV3Result
+    {
+
+        /// <summary>
+        ///业务结果 SUCCESS/FAIL
+        /// </summary>
+        public string result_code { get; set; }
+
+        /// <summary>
+        /// 错误代码
+        /// </summary>
+        public string err_code { get; set; }
+
+        /// <summary>
+        /// 错误代码描述
+        /// </summary>
+        public string err_code_des { get; set; }
+
+        /// <summary>
+        ///商户单号
+        /// </summary>
+        public string partner_trade_no { get; set; }
+
+        /// <summary>
+        /// 商户号
+        /// </summary>
+        public string mch_id { get; set; }
+
+        /// <summary>
+        /// 付款单号
+        /// </summary>
+        public string detail_id { get; set; }
+
+        /// <summary>
+        ///转账状态
+        /// </summary>
+        public string status { get; set; }
+
+        /// <summary>
+        /// 失败原因
+        /// </summary>
+        public string reason { get; set; }
+
+        /// <summary>
+        /// 收款用户openid
+        /// </summary>
+        public string openid { get; set; }
+
+        /// <summary>
+        /// 收款用户姓名
+        /// </summary>
+        public string transfer_name { get; set; }
+
+        /// <summary>
+        ///付款金额
+        /// </summary>
+        public int payment_amount { get; set; }
+
+        /// <summary>
+        /// 转账时间
+        /// </summary>
+        public string transfer_time { get; set; }
+
+        /// <summary>
+        /// 付款描述
+        /// </summary>
+        public string desc { get; set; }
+
+        public GetTransferInfoResult(string resultXml) : base(resultXml)
+        {
+            if (base.IsReturnCodeSuccess())
+            {
+                result_code = GetXmlValue("result_code") ?? "";
+                err_code = GetXmlValue("err_code") ?? "";
+                err_code_des = GetXmlValue("err_code_des") ?? "";
+                if (IsResultCodeSuccess())
+                {
+                    partner_trade_no = GetXmlValue("partner_trade_no") ?? "";
+                    mch_id = GetXmlValue("mch_id") ?? "";
+                    detail_id = GetXmlValue("detail_id") ?? "";
+                    status = GetXmlValue("status") ?? "";
+                    reason = GetXmlValue("reason") ?? "";
+                    openid = GetXmlValue("openid") ?? "";
+                    transfer_name = GetXmlValue("transfer_name") ?? "";
+                    payment_amount = int.Parse(GetXmlValue("payment_amount"));
+                    transfer_time = GetXmlValue("transfer_time") ?? "";
+                    desc = GetXmlValue("desc") ?? "";
+                }
+            }
+        }
+        public bool IsResultCodeSuccess()
+        {
+            return result_code == "SUCCESS";
         }
     }
 }

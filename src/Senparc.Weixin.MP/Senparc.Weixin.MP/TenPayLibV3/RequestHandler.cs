@@ -159,7 +159,9 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             {
                 string v = (string)Parameters[k];
                 if (null != v && "".CompareTo(v) != 0
-                    && "sign".CompareTo(k) != 0 && "key".CompareTo(k) != 0)
+                    && "sign".CompareTo(k) != 0 
+                    //&& "sign_type".CompareTo(k) != 0
+                    && "key".CompareTo(k) != 0)
                 {
                     sb.Append(k + "=" + v + "&");
                 }

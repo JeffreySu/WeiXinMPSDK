@@ -235,7 +235,7 @@ namespace Senparc.Weixin.Open.Containers
         /// <param name="name">标记Authorizer名称（如微信公众号名称），帮助管理员识别</param>
         public static void Register(string componentAppId, string componentAppSecret, Func<string, string> getComponentVerifyTicketFunc, Func<string, string> getAuthorizerRefreshTokenFunc, Action<string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc, string name = null)
         {
-            //激活消息列队线程
+            //激活消息队列线程
 
             if (GetComponentVerifyTicketFunc == null)
             {

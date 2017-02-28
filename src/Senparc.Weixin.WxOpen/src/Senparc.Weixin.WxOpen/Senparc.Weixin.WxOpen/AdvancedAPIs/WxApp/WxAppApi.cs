@@ -6,12 +6,16 @@
     
     
     创建标识：Senparc - 20170103
+    
+    修改标识：Senparc - 20170129
+    修改描述：v1.0.1 完善CreateWxaQrCode方法
 ----------------------------------------------------------------*/
 
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP;
 using Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson;
@@ -40,13 +44,17 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">二维码的宽度</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static WxJsonResult CreateWxaQrCode(string accessTokenOrAppId, Stream stream, string path, int width = 430, int timeOut = Config.TIME_OUT)
+        public static WxJsonResult CreateWxQrCode(string accessTokenOrAppId, Stream stream, string path, int width = 430, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
-                Get.Download(url, stream);
+
+                var data = new { path = path, width = width };
+                SerializerHelper serializerHelper = new SerializerHelper();
+                Post.Download(url, serializerHelper.GetJsonString(data), stream);
+
                 return new WxJsonResult()
                 {
                     errcode = ReturnCode.请求成功
@@ -54,9 +62,36 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
             }, accessTokenOrAppId);
         }
 
+        /// <summary>
+        /// 获取小程序页面二维码
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="filePath">储存图片的物理路径</param>
+        /// <param name="path">不能为空，最大长度 128 字节（如：pages/index?query=1。注：pages/index 需要在 app.json 的 pages 中定义）</param>
+        /// <param name="width">二维码的宽度</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        public static WxJsonResult CreateWxQrCode(string accessTokenOrAppId, string filePath, string path, int width = 430, int timeOut = Config.TIME_OUT)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var result = WxAppApi.CreateWxQrCode(accessTokenOrAppId, ms, path, width);
+                ms.Seek(0, SeekOrigin.Begin);
+                //储存图片
+                File.Delete(filePath);
+                using (var fs = new FileStream(filePath, FileMode.CreateNew))
+                {
+                    ms.CopyTo(fs);
+                    fs.Flush();
+                }
+                return result;
+            }
+        }
+
         #endregion
 
         #region 异步请求
+
         /// <summary>
         /// 【异步方法】获取小程序页面二维码
         /// </summary>
@@ -66,19 +101,50 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <param name="width">二维码的宽度</param>
         /// <param name="timeOut">请求超时时间</param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> CreateWxaQrCodeAsync(string accessTokenOrAppId, Stream stream, string path, int width = 430, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> CreateWxQrCodeAsync(string accessTokenOrAppId, Stream stream, string path, int width = 430, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token={0}";
                 var url = string.Format(urlFormat, accessToken);
-                await Get.DownloadAsync(url, stream);
+
+                var data = new { path = path, width = width };
+                SerializerHelper serializerHelper = new SerializerHelper();
+                await Post.DownloadAsync(url, serializerHelper.GetJsonString(data), stream);
+
                 return new WxJsonResult()
                 {
                     errcode = ReturnCode.请求成功
                 };
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 【异步方法】获取小程序页面二维码
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="filePath">储存图片的物理路径</param>
+        /// <param name="path">不能为空，最大长度 128 字节（如：pages/index?query=1。注：pages/index 需要在 app.json 的 pages 中定义）</param>
+        /// <param name="width">二维码的宽度</param>
+        /// <param name="timeOut">请求超时时间</param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> CreateWxQrCodeAsync(string accessTokenOrAppId, string filePath, string path, int width = 430, int timeOut = Config.TIME_OUT)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var result = await WxAppApi.CreateWxQrCodeAsync(accessTokenOrAppId, ms, path, width);
+                ms.Seek(0, SeekOrigin.Begin);
+                //储存图片
+                File.Delete(filePath);
+                using (var fs = new FileStream(filePath, FileMode.CreateNew))
+                {
+                    await ms.CopyToAsync(fs);
+                    await fs.FlushAsync();
+                }
+                return result;
+            }
+        }
+
 
         #endregion
     }

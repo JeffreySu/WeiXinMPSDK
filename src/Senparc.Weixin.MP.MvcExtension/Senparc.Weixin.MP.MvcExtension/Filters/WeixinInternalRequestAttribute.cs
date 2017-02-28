@@ -37,7 +37,8 @@ namespace Senparc.Weixin.MP.MvcExtension
         {
             if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.RequestContext.HttpContext.Request.QueryString[_ignoreParameter]))
             {
-                if (!BrowserUtility.BrowserUtility.SideInWeixinBrowser(filterContext.HttpContext))
+                if (filterContext.HttpContext.SideInWeixinBrowser())
+                //if (!BrowserUtility.BrowserUtility.SideInWeixinBrowser(filterContext.HttpContext))
                 {
                     //TODO:判断网页版登陆状态
                     ActionResult actionResult = null;

@@ -18,6 +18,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Sample.CommonService;
+using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
@@ -37,23 +38,27 @@ namespace Senparc.Weixin.MP.Sample
         {
             AreaRegistration.RegisterAllAreas();
 
+
+            RegisterWebSocket();        //微信注册WebSocket模块（按需，必须执行在RouteConfig.RegisterRoutes()之前）
+
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+
             /* 微信配置开始
-             * 
-             * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
-             */
+                * 
+                * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
+                */
 
             RegisterWeixinCache();      //注册分布式缓存（按需，如果需要，必须放在第一个）
+            ConfigWeixinTraceLog();     //配置微信跟踪日志（按需）
             RegisterWeixinThreads();    //激活微信缓存及队列线程（必须）
             RegisterSenparcWeixin();    //注册Demo所用微信公众号的账号信息（按需）
             RegisterSenparcQyWeixin();  //注册Demo所用微信企业号的账号信息（按需）
             RegisterWeixinPay();        //注册微信支付（按需）
             RegisterWeixinThirdParty(); //注册微信第三方平台（按需）
-            ConfigWeixinTraceLog();        //配置微信跟踪日志（按需）
 
             /* 微信配置结束 */
         }
@@ -90,6 +95,15 @@ namespace Senparc.Weixin.MP.Sample
             #endregion
 
             //CacheStrategyFactory.RegisterContainerCacheStrategy(() => MemcachedContainerStrategy.Instance);//Memcached
+        }
+
+        /// <summary>
+        /// 注册WebSocket模块（可用于小程序或独立WebSocket应用）
+        /// </summary>
+        private void RegisterWebSocket()
+        {
+            Senparc.WebSocket.WebSocketConfig.RegisterRoutes(RouteTable.Routes);
+            Senparc.WebSocket.WebSocketConfig.RegisterMessageHandler<CustomWebSocketMessageHandler>();
         }
 
         /// <summary>

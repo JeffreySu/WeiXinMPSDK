@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             //设置package订单参数
             PackageRequestHandler.SetParameter("appid", this.AppId); //公众账号ID
             PackageRequestHandler.SetParameter("mch_id", this.MchId); //商户号
-            PackageRequestHandler.SetParameter("long_url", this.LongUrl); //微信的订单号
+            PackageRequestHandler.SetParameter("long_url", this.LongUrl); //需要转换的URL
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr); //随机字符串
             PackageRequestHandler.SetParameter("sign_type", this.SignType); //签名类型
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);

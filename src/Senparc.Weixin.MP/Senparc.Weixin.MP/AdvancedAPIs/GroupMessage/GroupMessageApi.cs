@@ -51,7 +51,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
-        /// <param name="groupId">群发到的分组的group_id，参加用户管理中用户分组接口，若is_to_all值为true，可不填写group_id</param>
+        /// <param name="groupId">群发到的分组的group_id，参见用户管理中用户分组接口，若is_to_all值为true，可不填写group_id</param>
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
         /// <param name="isToAll">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户</param>

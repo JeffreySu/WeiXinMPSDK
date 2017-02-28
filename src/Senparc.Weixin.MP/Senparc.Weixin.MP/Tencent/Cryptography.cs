@@ -206,7 +206,7 @@ namespace Tencent
         private static byte[] AES_decrypt(String Input, byte[] Iv, byte[] Key)
         {
             RijndaelManaged aes = new RijndaelManaged();
-            aes.KeySize = 256;
+            aes.KeySize = 128;//原始：256
             aes.BlockSize = 128;
             aes.Mode = CipherMode.CBC;
             aes.Padding = PaddingMode.None;

@@ -32,7 +32,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
     public static class AsynchronousApi
     {
         #region 同步请求
-      
+
         #region 通讯录更新
 
         /*通讯录更新接口提供三种更新方法：1) 增量更新成员 2）全量覆盖成员 3) 全量覆盖部门。如果企业要做到与企业号通讯录完全一致，可先调用全量覆盖部门接口，再调用全量覆盖成员接口，即可保持通讯录完全一致。
@@ -79,10 +79,10 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
             var url = "https://qyapi.weixin.qq.com/cgi-bin/batch/syncuser?access_token={0}";
 
             var data = new
-                {
-                    media_id = mediaId,
-                    callback = callBack
-                };
+            {
+                media_id = mediaId,
+                callback = callBack
+            };
 
             return CommonJsonSend.Send<AsynchronousJobId>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
         }
@@ -190,10 +190,12 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         }
 
         #endregion
+
         #endregion
+#if NET45
 
         #region 异步请求
-        
+
         #region 通讯录更新
 
         /*通讯录更新接口提供三种更新方法：1) 增量更新成员 2）全量覆盖成员 3) 全量覆盖部门。如果企业要做到与企业号通讯录完全一致，可先调用全量覆盖部门接口，再调用全量覆盖成员接口，即可保持通讯录完全一致。
@@ -352,5 +354,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
         #endregion
         #endregion
+
+#endif
     }
 }

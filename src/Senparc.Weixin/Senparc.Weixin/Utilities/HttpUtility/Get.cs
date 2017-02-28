@@ -17,7 +17,7 @@
 using System;
 using System.IO;
 using System.Net;
-using System.Net.Http;
+//using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
@@ -88,90 +88,28 @@ namespace Senparc.Weixin.HttpUtility
                 stream.WriteByte(b);
             }
         }
-        static System.Net.Http.HttpClient httpClient = new HttpClient();
-        public static string Download(string url, string dir)
-        {
-            Directory.CreateDirectory(dir);
-            using (var responseMessage = httpClient.GetAsync(url).Result)
-            {
-                if (responseMessage.StatusCode == HttpStatusCode.OK)
-                {
-                    var fullName = Path.Combine(dir, responseMessage.Content.Headers.ContentDisposition.FileName.Trim('"'));
-                    using (var fs = File.Open(fullName, FileMode.Create))
-                    {
-                        using (var responseStream = responseMessage.Content.ReadAsStreamAsync().Result)
-                        {
-                            responseStream.CopyTo(fs);
-                            return fullName;
-                        }
-                    }
-                }
-            }
-            return null;
-        }
+        //static System.Net.Http.HttpClient httpClient = new HttpClient();
+        //public static string Download(string url, string dir)
+        //{
+        //    Directory.CreateDirectory(dir);
+        //    using (var responseMessage = httpClient.GetAsync(url).Result)
+        //    {
+        //        if (responseMessage.StatusCode == HttpStatusCode.OK)
+        //        {
+        //            var fullName = Path.Combine(dir, responseMessage.Content.Headers.ContentDisposition.FileName.Trim('"'));
+        //            using (var fs = File.Open(fullName, FileMode.Create))
+        //            {
+        //                using (var responseStream = responseMessage.Content.ReadAsStreamAsync().Result)
+        //                {
+        //                    responseStream.CopyTo(fs);
+        //                    return fullName;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return null;
+        //}
         #endregion
-
-        #region 异步方法
-
-        /// <summary>
-        /// 异步GetJsonA
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="encoding"></param>
-        /// <param name="maxJsonLength">允许最大JSON长度</param>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        /// <exception cref="ErrorJsonResultException"></exception>
-        public static async Task<T> GetJsonAsync<T>(string url, Encoding encoding = null, int? maxJsonLength = null)
-        {
-            string returnText = await RequestUtility.HttpGetAsync(url, encoding);
-
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            if (maxJsonLength.HasValue)
-            {
-                js.MaxJsonLength = maxJsonLength.Value;
-            }
-
-            if (returnText.Contains("errcode"))
-            {
-                //可能发生错误
-                WxJsonResult errorResult = js.Deserialize<WxJsonResult>(returnText);
-                if (errorResult.errcode != ReturnCode.请求成功)
-                {
-                    //发生错误
-                    throw new ErrorJsonResultException(
-                        string.Format("微信请求发生错误！错误代码：{0}，说明：{1}",
-                                        (int)errorResult.errcode, errorResult.errmsg), null, errorResult, url);
-                }
-            }
-
-            T result = js.Deserialize<T>(returnText);
-
-            return result;
-        }
-
-        /// <summary>
-        /// 异步从Url下载
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="stream"></param>
-        /// <returns></returns>
-        public static async Task DownloadAsync(string url, Stream stream)
-        {
-            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3
-            //ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
-
-            WebClient wc = new WebClient();
-            var data = await wc.DownloadDataTaskAsync(url);
-            await stream.WriteAsync(data, 0, data.Length);
-            //foreach (var b in data)
-            //{
-            //    stream.WriteAsync(b);
-            //}
-        }
-
-        #endregion
-
 
     }
 }

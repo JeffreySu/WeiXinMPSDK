@@ -114,41 +114,41 @@ namespace Senparc.Weixin.MP
 
         #region 淘汰方法
 
-        ///// 使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <param name="appId"></param>
-        ///// <param name="appSecret"></param>
-        ///// <param name="fun">第一个参数为accessToken</param>
-        ///// <param name="retryIfFaild"></param>
-        ///// <returns></returns>
-        //[Obsolete("请使用TryCommonApi()方法")]
-        //public static T Do<T>(Func<string, T> fun, string appId, string appSecret, bool retryIfFaild = true)
-        //    where T : WxJsonResult
-        //{
-        //    T result = null;
-        //    try
-        //    {
-        //        var accessToken = AccessTokenContainer.TryGetAccessToken(appId, appSecret, false);
-        //        result = fun(accessToken);
-        //    }
-        //    catch (ErrorJsonResultException ex)
-        //    {
-        //        if (retryIfFaild && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
-        //        {
-        //            //尝试重新验证
-        //            var accessToken = AccessTokenContainer.TryGetAccessToken(appId, appSecret, true);
-        //            result = Do(fun, appId, appSecret, false);
-        //        }
-        //    }
-        //    return result;
-        //}
+///// 使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
+///// </summary>
+///// <typeparam name="T"></typeparam>
+///// <param name="appId"></param>
+///// <param name="appSecret"></param>
+///// <param name="fun">第一个参数为accessToken</param>
+///// <param name="retryIfFaild"></param>
+///// <returns></returns>
+//[Obsolete("请使用TryCommonApi()方法")]
+//public static T Do<T>(Func<string, T> fun, string appId, string appSecret, bool retryIfFaild = true)
+//    where T : WxJsonResult
+//{
+//    T result = null;
+//    try
+//    {
+//        var accessToken = AccessTokenContainer.TryGetAccessToken(appId, appSecret, false);
+//        result = fun(accessToken);
+//    }
+//    catch (ErrorJsonResultException ex)
+//    {
+//        if (retryIfFaild && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
+//        {
+//            //尝试重新验证
+//            var accessToken = AccessTokenContainer.TryGetAccessToken(appId, appSecret, true);
+//            result = Do(fun, appId, appSecret, false);
+//        }
+//    }
+//    return result;
+//}
 
-        #endregion
+#endregion
 
-        #endregion
-
-        #region 异步方法
+#endregion
+#if NET45
+#region 异步方法
 
         /// <summary>
         /// 【异步方法】使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试。
@@ -223,7 +223,7 @@ namespace Senparc.Weixin.MP
         }
 
 
-        #region 淘汰方法
+#region 淘汰方法
         ///// <summary>
         ///// 【异步方法】使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
         ///// </summary>
@@ -254,8 +254,9 @@ namespace Senparc.Weixin.MP
         //    }
         //    return result;
         //}
-        #endregion
+#endregion
 
-        #endregion
+#endregion
+#endif 
     }
 }

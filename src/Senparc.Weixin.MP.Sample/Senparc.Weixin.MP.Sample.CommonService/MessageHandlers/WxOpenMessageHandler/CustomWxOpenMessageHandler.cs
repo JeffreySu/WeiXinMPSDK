@@ -152,11 +152,16 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
         public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
         {
             //发来图片，进行处理
-            Task.Factory.StartNew(async () =>
-            {
-                await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, WeixinOpenId, "刚才您发送了这张图片：");
-                await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImageAsync(appId, WeixinOpenId, requestMessage.MediaId);
-            });
+
+            //Task.Factory.StartNew(async () =>
+            //{
+            //    await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendTextAsync(appId, WeixinOpenId, "刚才您发送了这张图片：");
+            //    await Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImageAsync(appId, WeixinOpenId, requestMessage.MediaId);
+            //});
+
+            Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendText(appId, WeixinOpenId, "刚才您发送了这张图片：");
+            Senparc.Weixin.MP.AdvancedAPIs.CustomApi.SendImage(appId, WeixinOpenId, requestMessage.MediaId);
+
             return DefaultResponseMessage(requestMessage);
         }
 

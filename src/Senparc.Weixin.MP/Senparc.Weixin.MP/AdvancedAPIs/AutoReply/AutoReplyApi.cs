@@ -45,23 +45,5 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         #endregion
 
-        #region 异步请求
-
-        /// <summary>
-        /// 【异步方法】获取自动回复规则
-        /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
-        /// <returns></returns>
-        public static async Task<GetCurrentAutoreplyInfoResult> GetCurrentAutoreplyInfoAsync(string accessTokenOrAppId)
-        {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
-            {
-                string urlFormat = "https://api.weixin.qq.com/cgi-bin/get_current_autoreply_info?access_token={0}";
-
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCurrentAutoreplyInfoResult>(accessToken, urlFormat, null, CommonJsonSendType.GET);
-
-            }, accessTokenOrAppId);
-        }
-        #endregion
     }
 }

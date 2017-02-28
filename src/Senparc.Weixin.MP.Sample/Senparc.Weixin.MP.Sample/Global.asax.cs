@@ -13,12 +13,11 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Memcached;
-using Senparc.Weixin.Cache.Redis;
-using Senparc.Weixin.Exceptions;
+//using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Sample.CommonService;
-using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
+//using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
@@ -71,26 +70,24 @@ namespace Senparc.Weixin.MP.Sample
             //如果留空，默认为localhost（默认端口）
 
             #region  Redis配置
-            var redisConfiguration = System.Configuration.ConfigurationManager.AppSettings["Cache_Redis_Configuration"];
-            RedisManager.ConfigurationOption = redisConfiguration;
+            //var redisConfiguration = System.Configuration.ConfigurationManager.AppSettings["Cache_Redis_Configuration"];
+            //RedisManager.ConfigurationOption = redisConfiguration;
 
-            //如果不执行下面的注册过程，则默认使用本地缓存
+            //////如果不执行下面的注册过程，则默认使用本地缓存
 
-            if (!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置")
-            {
-                CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
-            }
-
+            //if (!string.IsNullOrEmpty(redisConfiguration) && redisConfiguration != "Redis配置")
+            //{
+            //    CacheStrategyFactory.RegisterObjectCacheStrategy(() => RedisObjectCacheStrategy.Instance);//Redis
+            //}
             #endregion
 
             #region Memcached 配置
 
-            var memcachedConfig = new Dictionary<string, int>()
-            {
-                { "localhost",9101 }
-            };
-            MemcachedObjectCacheStrategy.RegisterServerList(memcachedConfig);
-
+            //var memcachedConfig = new Dictionary<string, int>()
+            //{
+            //    { "localhost",9101 }
+            //};
+            //MemcachedObjectCacheStrategy.RegisterServerList(memcachedConfig);
 
             #endregion
 
@@ -102,8 +99,10 @@ namespace Senparc.Weixin.MP.Sample
         /// </summary>
         private void RegisterWebSocket()
         {
+#if NET45
             Senparc.WebSocket.WebSocketConfig.RegisterRoutes(RouteTable.Routes);
             Senparc.WebSocket.WebSocketConfig.RegisterMessageHandler<CustomWebSocketMessageHandler>();
+#endif
         }
 
         /// <summary>

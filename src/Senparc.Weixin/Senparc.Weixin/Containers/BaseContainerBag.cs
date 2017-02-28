@@ -13,8 +13,6 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Runtime.CompilerServices;
-using Senparc.Weixin.Annotations;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Helpers;
@@ -64,7 +62,7 @@ namespace Senparc.Weixin.Containers
         public string Name
         {
             get { return _name; }
-            set { this.SetContainerProperty(ref _name, value); }
+            set { this.SetContainerProperty(ref _name, value, "Name"); }
         }
 
         /// <summary>
@@ -73,7 +71,7 @@ namespace Senparc.Weixin.Containers
         public string Key
         {
             get { return _key; }
-            set { this.SetContainerProperty(ref _key, value); }
+            set { this.SetContainerProperty(ref _key, value, "Key"); }
         }
 
         /// <summary>
@@ -112,7 +110,7 @@ namespace Senparc.Weixin.Containers
         /// <param name="value"></param>
         /// <param name="propertyName"></param>
         /// <returns></returns>
-        protected bool SetContainerProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
+        protected bool SetContainerProperty<T>(ref T storage, T value,String propertyName)
         {
             var result = base.SetProperty(ref storage, value, propertyName);
             return result;

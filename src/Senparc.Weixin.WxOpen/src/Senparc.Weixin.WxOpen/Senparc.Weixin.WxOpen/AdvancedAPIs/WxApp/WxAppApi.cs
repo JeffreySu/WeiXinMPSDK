@@ -90,6 +90,8 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
         #endregion
 
+#if NET45
+
         #region 异步请求
 
         /// <summary>
@@ -147,5 +149,6 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
 
 
         #endregion
+#endif
     }
 }

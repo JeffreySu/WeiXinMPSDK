@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -26,11 +26,11 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\</OutputPath>
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.0\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.MP.XML</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.0\Senparc.Weixin.MP.XML</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
@@ -360,6 +360,7 @@
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3CloseOrderRequestData.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3Result.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3RequestData.cs" />
+    <Compile Include="TenPayLibV3\TransferApi.cs" />
     <Compile Include="TenPayLib\CheckRequestHandler.cs" />
     <Compile Include="TenPayLib\RefundQueryRequestHandler.cs" />
     <Compile Include="TenPayLib\ClientRequestHandler.cs" />

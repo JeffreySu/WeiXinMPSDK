@@ -160,7 +160,7 @@ namespace Senparc.Weixin.QY.Helpers
                                 AgentType tp;
                                 if (Enum.TryParse(root.Element(propName).Value, out tp))
                                 {
-                                    prop.SetValue(entity, tp);
+                                    prop.SetValue(entity, tp, null);
                                 }
                                 break;
                             }
@@ -168,7 +168,7 @@ namespace Senparc.Weixin.QY.Helpers
                             {
                                 Receiver receiver = new Receiver();
                                 FillEntityWithXml(receiver, new XDocument(root.Element(propName)));
-                                prop.SetValue(entity, receiver);
+                                prop.SetValue(entity, receiver, null);
                                 break;
                             }
                         default:
@@ -220,7 +220,7 @@ namespace Senparc.Weixin.QY.Helpers
                                         case RequestMsgType.Text:
                                             {
                                                 reqItem = new Entities.Request.KF.RequestMessageText();
-                                               
+
                                                 break;
                                             }
                                         case RequestMsgType.Voice:

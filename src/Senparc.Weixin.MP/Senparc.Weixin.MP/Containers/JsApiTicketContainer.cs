@@ -60,24 +60,24 @@ namespace Senparc.Weixin.MP.Containers
         public string AppId
         {
             get { return _appId; }
-            set { base.SetContainerProperty(ref _appId, value); }
+            set { base.SetContainerProperty(ref _appId, value, "AppId"); }
         }
         public string AppSecret
         {
             get { return _appSecret; }
-            set { base.SetContainerProperty(ref _appSecret, value); }
+            set { base.SetContainerProperty(ref _appSecret, value, "AppSecret"); }
         }
 
         public JsApiTicketResult JsApiTicketResult
         {
             get { return _jsApiTicketResult; }
-            set { base.SetContainerProperty(ref _jsApiTicketResult, value); }
+            set { base.SetContainerProperty(ref _jsApiTicketResult, value, "JsApiTicketResult"); }
         }
 
         public DateTime JsApiTicketExpireTime
         {
             get { return _jsApiTicketExpireTime; }
-            set { base.SetContainerProperty(ref _jsApiTicketExpireTime, value); }
+            set { base.SetContainerProperty(ref _jsApiTicketExpireTime, value, "JsApiTicketExpireTime"); }
         }
 
         /// <summary>
@@ -194,66 +194,5 @@ namespace Senparc.Weixin.MP.Containers
 
         #endregion
 
-        #region 异步方法
-        #region JsApiTicket
-
-        /// <summary>
-        /// 【异步方法】使用完整的应用凭证获取Ticket，如果不存在将自动注册
-        /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="appSecret"></param>
-        /// <param name="getNewTicket"></param>
-        /// <returns></returns>
-        public static async Task<string> TryGetJsApiTicketAsync(string appId, string appSecret, bool getNewTicket = false)
-        {
-            if (!CheckRegistered(appId) || getNewTicket)
-            {
-                Register(appId, appSecret);
-            }
-            return await GetJsApiTicketAsync(appId, getNewTicket);
-        }
-
-        /// <summary>
-        ///【异步方法】 获取可用Ticket
-        /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
-        /// <returns></returns>
-        public static async Task<string> GetJsApiTicketAsync(string appId, bool getNewTicket = false)
-        {
-            var result = await GetJsApiTicketResultAsync(appId, getNewTicket);
-            return result.ticket;
-        }
-
-        /// <summary>
-        /// 【异步方法】获取可用Ticket
-        /// </summary>
-        /// <param name="appId"></param>
-        /// <param name="getNewTicket">是否强制重新获取新的Ticket</param>
-        /// <returns></returns>
-        public static async Task<JsApiTicketResult> GetJsApiTicketResultAsync(string appId, bool getNewTicket = false)
-        {
-            if (!CheckRegistered(appId))
-            {
-                throw new UnRegisterAppIdException(null, "此appId尚未注册，请先使用JsApiTicketContainer.Register完成注册（全局执行一次即可）！");
-            }
-
-            var jsApiTicketBag = TryGetItem(appId);
-            using (Cache.BeginCacheLock(LockResourceName, appId))//同步锁
-            {
-                if (getNewTicket || jsApiTicketBag.JsApiTicketExpireTime <= DateTime.Now)
-                {
-                    //已过期，重新获取
-                    var jsApiTicketResult = await CommonApi.GetTicketAsync(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
-                    //jsApiTicketBag.JsApiTicketResult = CommonApi.GetTicket(jsApiTicketBag.AppId, jsApiTicketBag.AppSecret);
-                    jsApiTicketBag.JsApiTicketResult = jsApiTicketResult;
-                    jsApiTicketBag.JsApiTicketExpireTime = DateTime.Now.AddSeconds(jsApiTicketBag.JsApiTicketResult.expires_in);
-                }
-            }
-            return jsApiTicketBag.JsApiTicketResult;
-        }
-
-        #endregion
-        #endregion
     }
 }

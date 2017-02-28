@@ -1045,8 +1045,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
         #endregion
-
-        #region 异步请求
+#if NET45
+#region 异步请求
         /// <summary>
         /// 【异步方法】申请开通功能
         /// </summary>
@@ -1263,7 +1263,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
-        #region 查询设备列表
+#region 查询设备列表
 
         /// <summary>
         /// 【异步方法】查询设备列表Api url
@@ -1341,7 +1341,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
-        #endregion
+#endregion
 
         /// <summary>
         /// 【异步方法】上传图片素材
@@ -1429,7 +1429,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
-        #region 查询页面列表
+#region 查询页面列表
 
         /*private static string searchPageUrl ="https://api.weixin.qq.com/shakearound/page/search?access_token={0}";*/
 
@@ -1481,7 +1481,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
-        #endregion
+#endregion
 
         /// <summary>
         /// 【异步方法】删除页面
@@ -2038,7 +2038,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
-        #endregion
+#endregion
+#endif
     }
 
 }

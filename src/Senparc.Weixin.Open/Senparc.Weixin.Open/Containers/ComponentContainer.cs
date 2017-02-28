@@ -72,7 +72,7 @@ namespace Senparc.Weixin.Open.Containers
         public string ComponentAppId
         {
             get { return _componentAppId; }
-            set { base.SetContainerProperty(ref _componentAppId, value); }
+            set { base.SetContainerProperty(ref _componentAppId, value, "ComponentAppId"); }
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Senparc.Weixin.Open.Containers
         public string ComponentAppSecret
         {
             get { return _componentAppSecret; }
-            set { base.SetContainerProperty(ref _componentAppSecret, value); }
+            set { base.SetContainerProperty(ref _componentAppSecret, value, "ComponentAppSecret"); }
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Senparc.Weixin.Open.Containers
         public string ComponentVerifyTicket
         {
             get { return _componentVerifyTicket; }
-            set { base.SetContainerProperty(ref _componentVerifyTicket, value); }
+            set { base.SetContainerProperty(ref _componentVerifyTicket, value, "ComponentVerifyTicket"); }
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.Open.Containers
         public DateTime ComponentVerifyTicketExpireTime
         {
             get { return _componentVerifyTicketExpireTime; }
-            set { base.SetContainerProperty(ref _componentVerifyTicketExpireTime, value); }
+            set { base.SetContainerProperty(ref _componentVerifyTicketExpireTime, value, "ComponentVerifyTicketExpireTime"); }
 
         }
 
@@ -109,7 +109,7 @@ namespace Senparc.Weixin.Open.Containers
         public ComponentAccessTokenResult ComponentAccessTokenResult
         {
             get { return _componentAccessTokenResult; }
-            set { base.SetContainerProperty(ref _componentAccessTokenResult, value); }
+            set { base.SetContainerProperty(ref _componentAccessTokenResult, value, "ComponentAccessTokenResult"); }
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace Senparc.Weixin.Open.Containers
         public DateTime ComponentAccessTokenExpireTime
         {
             get { return _componentAccessTokenExpireTime; }
-            set { base.SetContainerProperty(ref _componentAccessTokenExpireTime, value); }
+            set { base.SetContainerProperty(ref _componentAccessTokenExpireTime, value, "ComponentAccessTokenExpireTime"); }
         }
 
 
@@ -128,7 +128,7 @@ namespace Senparc.Weixin.Open.Containers
         public PreAuthCodeResult PreAuthCodeResult
         {
             get { return _preAuthCodeResult; }
-            set { base.SetContainerProperty(ref _preAuthCodeResult, value); }
+            set { base.SetContainerProperty(ref _preAuthCodeResult, value, "PreAuthCodeResult"); }
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace Senparc.Weixin.Open.Containers
         public DateTime PreAuthCodeExpireTime
         {
             get { return _preAuthCodeExpireTime; }
-            set { base.SetContainerProperty(ref _preAuthCodeExpireTime, value); }
+            set { base.SetContainerProperty(ref _preAuthCodeExpireTime, value, "PreAuthCodeExpireTime"); }
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace Senparc.Weixin.Open.Containers
         public string AuthorizerAccessToken
         {
             get { return _authorizerAccessToken; }
-            set { base.SetContainerProperty(ref _authorizerAccessToken, value); }
+            set { base.SetContainerProperty(ref _authorizerAccessToken, value, "AuthorizerAccessToken"); }
         }
 
         /// <summary>
@@ -468,170 +468,5 @@ namespace Senparc.Weixin.Open.Containers
         #endregion
         #endregion
 
-        #region 异步方法
-        #region component_access_token
-
-        /// <summary>
-        /// 【异步方法】使用完整的应用凭证获取Token，如果不存在将自动注册
-        /// </summary>
-        /// <param name="componentAppId"></param>
-        /// <param name="componentAppSecret"></param>
-        /// <param name="componentVerifyTicket">如果为null则自动获取</param>
-        /// <param name="getNewToken"></param>
-        /// <returns></returns>
-        public static async Task<string> TryGetComponentAccessTokenAsync(string componentAppId, string componentAppSecret, string componentVerifyTicket = null, bool getNewToken = false)
-        {
-            TryRegister(componentAppId, componentAppSecret, getNewToken);
-            return await GetComponentAccessTokenAsync(componentAppId, componentVerifyTicket, getNewToken);
-        }
-
-        /// <summary>
-        /// 【异步方法】获取可用AccessToken
-        /// </summary>
-        /// <param name="componentAppId"></param>
-        /// <param name="componentVerifyTicket">如果为null则自动获取</param>
-        /// <param name="getNewToken">是否强制重新获取新的Token</param>
-        /// <returns></returns>
-        public static async Task<string> GetComponentAccessTokenAsync(string componentAppId, string componentVerifyTicket = null, bool getNewToken = false)
-        {
-            var result = await GetComponentAccessTokenResultAsync(componentAppId, componentVerifyTicket, getNewToken);
-
-            return result.component_access_token;
-        }
-
-        /// <summary>
-        /// 【异步方法】获取可用AccessToken
-        /// </summary>
-        /// <param name="componentAppId"></param>
-        /// <param name="componentVerifyTicket">如果为null则自动获取</param>
-        /// <param name="getNewToken">是否强制重新获取新的Token</param>
-        /// <returns></returns>
-        public static async Task<ComponentAccessTokenResult> GetComponentAccessTokenResultAsync(string componentAppId, string componentVerifyTicket = null, bool getNewToken = false)
-        {
-            if (!CheckRegistered(componentAppId))
-            {
-                throw new WeixinOpenException(UN_REGISTER_ALERT);
-            }
-
-            var accessTokenBag = TryGetItem(componentAppId);
-            using (Cache.BeginCacheLock(LockResourceName + ".GetComponentAccessTokenResult", componentAppId))//同步锁
-            {
-                if (getNewToken || accessTokenBag.ComponentAccessTokenExpireTime <= DateTime.Now)
-                {
-                    //已过期，重新获取
-                    componentVerifyTicket = componentVerifyTicket ?? TryGetComponentVerifyTicket(componentAppId);
-
-                    var componentAccessTokenResult = await ComponentApi.GetComponentAccessTokenAsync(accessTokenBag.ComponentAppId, accessTokenBag.ComponentAppSecret, componentVerifyTicket);
-
-                    accessTokenBag.ComponentAccessTokenResult = componentAccessTokenResult;
-                    accessTokenBag.ComponentAccessTokenExpireTime = ApiUtility.GetExpireTime(componentAccessTokenResult.expires_in);
-                }
-            }
-            return accessTokenBag.ComponentAccessTokenResult;
-        }
-        #endregion
-
-        #region pre_auth_code
-
-        /// <summary>
-        /// 【异步方法】使用完整的应用凭证获取Token，如果不存在将自动注册
-        /// </summary>
-        /// <param name="componentAppId"></param>
-        /// <param name="componentAppSecret"></param>
-        /// <param name="getNewToken"></param>
-        /// <returns></returns>
-        public static async Task<string> TryGetPreAuthCodeAsync(string componentAppId, string componentAppSecret, bool getNewToken = false)
-        {
-            TryRegister(componentAppId, componentAppSecret, getNewToken);
-            return await GetPreAuthCodeAsync(componentAppId, getNewToken);
-        }
-
-        /// <summary>
-        /// 【异步方法】获取可用Token
-        /// </summary>
-        /// <param name="componentAppId"></param>
-        /// <param name="getNewToken">是否强制重新获取新的Token</param>
-        /// <returns></returns>
-        public static async Task<string> GetPreAuthCodeAsync(string componentAppId, bool getNewToken = false)
-        {
-            var result = await GetPreAuthCodeResultAsync(componentAppId, getNewToken);
-            return result.pre_auth_code;
-        }
-
-        /// <summary>
-        ///【异步方法】获取可用Token
-        /// </summary>
-        /// <param name="componentAppId"></param>
-        /// <param name="getNewToken">是否强制重新获取新的Token</param>
-        /// <returns></returns>
-        public static async Task<PreAuthCodeResult> GetPreAuthCodeResultAsync(string componentAppId, bool getNewToken = false)
-        {
-            if (!CheckRegistered(componentAppId))
-            {
-                throw new WeixinOpenException(UN_REGISTER_ALERT);
-            }
-
-            var componentBag = TryGetItem(componentAppId);
-            using (Cache.BeginCacheLock(LockResourceName + ".GetPreAuthCodeResult", componentAppId))//同步锁
-            {
-                if (getNewToken || componentBag.PreAuthCodeExpireTime <= DateTime.Now)
-                {
-                    //已过期，重新获取
-                    var componentVerifyTicket = TryGetComponentVerifyTicket(componentAppId);
-
-                    var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret, componentVerifyTicket);
-
-                    var preAuthCodeResult = await ComponentApi.GetPreAuthCodeAsync(componentBag.ComponentAppId, accessToken);
-                    componentBag.PreAuthCodeExpireTime = ApiUtility.GetExpireTime(preAuthCodeResult.expires_in);
-
-
-                    componentBag.PreAuthCodeResult = preAuthCodeResult;
-
-                    ////TODO:这里有出现expires_in=0的情况，导致始终处于过期状态（也可能是因为参数过期等原因没有返回正确的数据，待观察）
-                    //var expiresIn = componentBag.PreAuthCodeResult.expires_in > 0
-                    //    ? componentBag.PreAuthCodeResult.expires_in
-                    //    : 60 * 20;//默认为20分钟
-                    //componentBag.PreAuthCodeExpireTime = DateTime.Now.AddSeconds(expiresIn);
-                }
-            }
-            return componentBag.PreAuthCodeResult;
-        }
-        #endregion
-
-        #region api_query_auth
-
-        /// <summary>
-        /// 【异步方法】获取QueryAuthResult（此方法每次都会发出请求，不缓存）
-        /// </summary>
-        /// <param name="componentAppId"></param>
-        /// <param name="authorizationCode"></param>
-        /// <param name="updateToAuthorizerContanier">是否将Authorization更新到AuthorizerContanier</param>
-        /// <param name="getNewToken"></param>
-        /// <returns></returns>
-        /// <exception cref="WeixinOpenException"></exception>
-        public static async Task<QueryAuthResult> GetQueryAuthResultAsync(string componentAppId, string authorizationCode, bool updateToAuthorizerContanier = true, bool getNewToken = false)
-        {
-            if (!CheckRegistered(componentAppId))
-            {
-                throw new WeixinOpenException(UN_REGISTER_ALERT);
-            }
-
-            var componentBag = TryGetItem(componentAppId);
-            using (Cache.BeginCacheLock(LockResourceName + ".GetQueryAuthResult", componentAppId))//同步锁
-            {
-                var accessToken = TryGetComponentAccessToken(componentAppId, componentBag.ComponentAppSecret, null, getNewToken);
-                var queryAuthResult = await ComponentApi.QueryAuthAsync(accessToken, componentAppId, authorizationCode);
-
-                if (updateToAuthorizerContanier)
-                {
-                    //更新到AuthorizerContainer
-                    AuthorizerContainer.TryUpdateAuthorizationInfo(componentAppId, queryAuthResult.authorization_info.authorizer_appid, queryAuthResult.authorization_info);
-                }
-
-                return queryAuthResult;
-            }
-        }
-        #endregion
-        #endregion
     }
 }

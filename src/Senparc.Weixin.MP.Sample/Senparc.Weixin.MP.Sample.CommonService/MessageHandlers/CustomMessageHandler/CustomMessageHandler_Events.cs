@@ -11,7 +11,6 @@
 using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.Context;
@@ -79,13 +78,13 @@ QQ群：342319110
         public string GetDownloadInfo(CodeRecord codeRecord)
         {
             return string.Format(@"您已通过二维码验证，浏览器即将开始下载 Senparc.Weixin SDK 帮助文档。
-当前选择的版本：v{0}（{1}）
+当前选择的版本：v{0}
 
 我们期待您的意见和建议，客服热线：400-031-8816。
 
 感谢您对盛派网络的支持！
 
-© 2016 Senparc", codeRecord.Version, codeRecord.IsWebVersion ? "网页版" : ".chm文档版");
+© 2016 Senparc", codeRecord.Version);
         }
 
         public override IResponseMessageBase OnTextOrEventRequest(RequestMessageText requestMessage)
@@ -354,16 +353,9 @@ QQ群：342319110
 
                 if (codeRecord != null)
                 {
-                    if (codeRecord.AllowDownload)
-                    {
-                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, WeixinOpenId, "下载已经开始，如需下载其他版本，请刷新页面后重新扫一扫。"));
-                    }
-                    else
-                    {
-                        //确认可以下载
-                        codeRecord.AllowDownload = true;
-                        Task.Factory.StartNew(() => AdvancedAPIs.CustomApi.SendTextAsync(null, WeixinOpenId, GetDownloadInfo(codeRecord)));
-                    }
+                    //确认可以下载
+                    codeRecord.AllowDownload = true;
+                    AdvancedAPIs.CustomApi.SendText(null, WeixinOpenId, GetDownloadInfo(codeRecord));
                 }
             }
 

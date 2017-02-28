@@ -21,7 +21,7 @@ namespace Senparc.Weixin.WxOpen.Containers
         public string Key
         {
             get { return _key; }
-            set { base.SetContainerProperty(ref _key, value); }
+            set { base.SetContainerProperty(ref _key, value, "Key"); }
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Senparc.Weixin.WxOpen.Containers
         public string OpenId
         {
             get { return _openId; }
-            set { base.SetContainerProperty(ref _openId, value); }
+            set { base.SetContainerProperty(ref _openId, value, "OpenId"); }
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Senparc.Weixin.WxOpen.Containers
         public string SessionKey
         {
             get { return _sessionKey; }
-            set { base.SetContainerProperty(ref _sessionKey, value); }
+            set { base.SetContainerProperty(ref _sessionKey, value, "SessionKey"); }
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Senparc.Weixin.WxOpen.Containers
         public DateTime ExpireTime
         {
             get { return _expireTime; }
-            set { base.SetContainerProperty(ref _expireTime, value); }
+            set { base.SetContainerProperty(ref _expireTime, value, "ExpireTime"); }
         }
 
         private string _key;

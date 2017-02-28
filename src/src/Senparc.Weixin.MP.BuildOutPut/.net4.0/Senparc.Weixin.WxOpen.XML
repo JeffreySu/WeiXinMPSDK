@@ -1,0 +1,525 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Senparc.Weixin.WxOpen</name>
+    </assembly>
+    <members>
+        <member name="T:Senparc.Weixin.WxOpen.AdvancedAPIs.Sns.SnsApi">
+            <summary>
+            WxApp接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.AdvancedAPIs.Sns.SnsApi.JsCode2Json(System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            code 换取 session_key
+            </summary>
+            <param name="appId"></param>
+            <param name="secret"></param>
+            <param name="jsCode"></param>
+            <param name="grantType">保持默认：authorization_code</param>
+            <param name="timeOut">请求超时时间</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.AdvancedAPIs.Sns.JsCode2JsonResult">
+            <summary>
+            JsCode2Json接口结果
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.AdvancedAPIs.Sns.JsCode2JsonResult.openid">
+            <summary>
+            用户唯一标识
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.AdvancedAPIs.Sns.JsCode2JsonResult.session_key">
+            <summary>
+            会话密钥
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi">
+            <summary>
+            模板消息接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateApi.SendTemplateMessage(System.String,System.String,System.String,System.Object,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            小程序模板消息接口
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="openId"></param>
+            <param name="templateId"></param>
+            <param name="data"></param>
+            <param name="emphasisKeyword">模板需要放大的关键词，不填则默认无放大</param>
+            <param name="timeOut">代理请求超时时间（毫秒）</param>
+            <param name="formId">表单提交场景下，为 submit 事件带上的 formId；支付场景下，为本次支付的 prepay_id</param>
+            <param name="page">点击模板查看详情跳转页面，不填则模板无跳转</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson.TempleteModel">
+            <summary>
+            模板消息Post数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson.TempleteModel.touser">
+            <summary>
+            目标用户OpenId
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson.TempleteModel.template_id">
+            <summary>
+            模板ID
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson.TempleteModel.page">
+            <summary>
+            点击模板查看详情跳转页面，不填则模板无跳转（非必填）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson.TempleteModel.form_id">
+            <summary>
+            表单提交场景下，为 submit 事件带上的 formId；支付场景下，为本次支付的 prepay_id
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson.TempleteModel.data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson.TempleteModel.emphasis_keyword">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppApi">
+            <summary>
+            WxApp接口
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppApi.CreateWxQrCode(System.String,System.IO.Stream,System.String,System.Int32,System.Int32)">
+            <summary>
+            获取小程序页面二维码
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="stream">储存二维码的流</param>
+            <param name="path">不能为空，最大长度 128 字节（如：pages/index?query=1。注：pages/index 需要在 app.json 的 pages 中定义）</param>
+            <param name="width">二维码的宽度</param>
+            <param name="timeOut">请求超时时间</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp.WxAppApi.CreateWxQrCode(System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            获取小程序页面二维码
+            </summary>
+            <param name="accessTokenOrAppId"></param>
+            <param name="filePath">储存图片的物理路径</param>
+            <param name="path">不能为空，最大长度 128 字节（如：pages/index?query=1。注：pages/index 需要在 app.json 的 pages 中定义）</param>
+            <param name="width">二维码的宽度</param>
+            <param name="timeOut">请求超时时间</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.Containers.SessionBag">
+            <summary>
+            第三方APP信息包
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.Containers.SessionBag.Key">
+            <summary>
+            Session的Key（3rd_session / sessionId）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.Containers.SessionBag.OpenId">
+            <summary>
+            OpenId
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.Containers.SessionBag.SessionKey">
+            <summary>
+            SessionKey
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.Containers.SessionBag.ExpireTime">
+            <summary>
+            过期时间
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.Containers.SessionBag.#ctor">
+            <summary>
+            ComponentBag
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.Containers.SessionContainer">
+            <summary>
+            3rdSession容器
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.Containers.SessionContainer.GetExpireTime">
+            <summary>
+            获取最新的过期时间
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.Containers.SessionContainer.GetSession(System.String)">
+            <summary>
+            获取Session
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.Containers.SessionContainer.UpdateSession(System.String,System.String,System.String)">
+            <summary>
+            更新或插入SessionBag
+            </summary>
+            <param name="key">如果留空，则新建一条记录</param>
+            <param name="openId">OpenId</param>
+            <param name="sessionKey">SessionKey</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.Entities.Request.PostModel">
+            <summary>
+            微信公众服务器Post过来的加密参数集合（不包括PostData）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.Entities.Request.PostModel.SetSecretInfo(System.String,System.String,System.String)">
+            <summary>
+            设置服务器内部保密信息
+            </summary>
+            <param name="token"></param>
+            <param name="encodingAESKey"></param>
+            <param name="appId"></param>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.Entities.RequestMessageBase">
+            <summary>
+            接收到请求的消息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.Entities.RequestMessageImage.MediaId">
+            <summary>
+            图片消息媒体id，可以调用多媒体文件下载接口拉取数据。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.Entities.RequestMessageImage.PicUrl">
+            <summary>
+            图片链接
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.Entities.RequestMessageText.Content">
+            <summary>
+            文本消息内容
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.Entities.IRequestMessageEventBase">
+            <summary>
+            IRequestMessageEventBase
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.Entities.IRequestMessageEventBase.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.Entities.RequestMessageEventBase">
+            <summary>
+            请求消息的事件推送消息基类
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.Entities.RequestMessageEventBase.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.Entities.RequestMessageEvent_UserEnterTempSession">
+            <summary>
+            事件之二维码扫描（关注微信）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.Entities.RequestMessageEvent_UserEnterTempSession.Event">
+            <summary>
+            事件类型
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.Entities.RequestMessageEvent_UserEnterTempSession.SessionFrom">
+            <summary>
+            开发者在客服会话按钮设置的sessionFrom参数
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.Entities.ResponseMessageBase">
+            <summary>
+            微信公众号响应回复消息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.Entities.SuccessResponseMessage">
+            <summary>
+            只返回"success"等指定字符串的响应信息
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.RequestMsgType">
+            <summary>
+            接收消息类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.Event">
+            <summary>
+            当RequestMsgType类型为Event时，Event属性的类型
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.WxOpen.Event.user_enter_tempsession">
+            <summary>
+            进入会话事件
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.ResponseMsgType">
+            <summary>
+            发送消息类型
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.WxOpenException">
+            <summary>
+            WxOpenException
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.Helpers.EncryptHelper">
+            <summary>
+            EncryptHelper
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.Helpers.EncryptHelper.GetSignature(System.String,System.String)">
+            <summary>
+            获得签名
+            </summary>
+            <param name="rawData"></param>
+            <param name="sessionKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.Helpers.EncryptHelper.CheckSignature(System.String,System.String,System.String)">
+            <summary>
+            比较签名是否正确
+            </summary>
+            <param name="sessionId"></param>
+            <param name="rawData"></param>
+            <param name="compareSignature"></param>
+            <exception cref="T:Senparc.Weixin.WxOpen.WxOpenException">当SessionId或SessionKey无效时抛出异常</exception>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeEncryptedData(System.String,System.String,System.String)">
+            <summary>
+            解密所有消息的基础方法
+            </summary>
+            <param name="sessionKey">储存在 SessionBag 中的当前用户 会话 SessionKey</param>
+            <param name="encryptedData">接口返回数据中的 encryptedData 参数</param>
+            <param name="iv">接口返回数据中的 iv 参数，对称解密算法初始向量</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeEncryptedDataBySessionId(System.String,System.String,System.String)">
+            <summary>
+            解密消息（通过SessionId获取）
+            </summary>
+            <param name="sessionId"></param>
+            <param name="encryptedData"></param>
+            <param name="iv"></param>
+            <exception cref="T:Senparc.Weixin.WxOpen.WxOpenException">当SessionId或SessionKey无效时抛出异常</exception>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(System.String,System.String,System.String)">
+            <summary>
+            解密UserInfo消息（通过SessionId获取）
+            </summary>
+            <param name="sessionId"></param>
+            <param name="encryptedData"></param>
+            <param name="iv"></param>
+            <exception cref="T:Senparc.Weixin.WxOpen.WxOpenException">当SessionId或SessionKey无效时抛出异常</exception>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.Helpers.EncryptHelper.CheckWatermark(Senparc.Weixin.WxOpen.Entities.DecodeEntityBase,System.String)">
+            <summary>
+            检查解密消息水印
+            </summary>
+            <param name="entity"></param>
+            <param name="appId"></param>
+            <returns>entity为null时也会返回false</returns>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.Helpers.EntityHelper.FillEntityWithXml``1(``0,System.Xml.Linq.XDocument)">
+            <summary>
+            根据XML信息填充实实体
+            </summary>
+            <typeparam name="T">MessageBase为基类的类型，Response和Request都可以</typeparam>
+            <param name="entity">实体</param>
+            <param name="doc">XML</param>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.Helpers.SessionHelper">
+            <summary>
+            SessionHelper
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.Helpers.SessionHelper.GetNewThirdSessionName(System.Int32)">
+            <summary>
+            获取新的3rdSession名称
+            </summary>
+            <param name="bSize">Session名称长度，单位：B，建议为16的倍数，通常情况下16B已经够用（32位GUID字符串）</param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.Helpers.MsgTypeHelper.GetRequestMsgType(System.Xml.Linq.XDocument)">
+            <summary>
+            根据xml信息，返回RequestMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.Helpers.MsgTypeHelper.GetRequestMsgType(System.String)">
+            <summary>
+            根据xml信息，返回RequestMsgType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1">
+            <summary>
+            小程序MessageHandler
+            </summary>
+            <typeparam name="TC">上下文MessageContext类型</typeparam>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.DefaultResponseMessage(Senparc.Weixin.WxOpen.Entities.IRequestMessageBase)">
+            <summary>
+            默认返回消息（当任何OnXX消息没有被重写，都将自动返回此默认消息）
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.OnTextRequest(Senparc.Weixin.WxOpen.Entities.RequestMessageText)">
+            <summary>
+            文字类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.OnImageRequest(Senparc.Weixin.WxOpen.Entities.RequestMessageImage)">
+            <summary>
+            图片类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.OnEventRequest(Senparc.Weixin.WxOpen.Entities.IRequestMessageEventBase)">
+            <summary>
+            Event事件类型请求
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.OnEvent_UserEnterTempSessionRequest(Senparc.Weixin.WxOpen.Entities.RequestMessageEvent_UserEnterTempSession)">
+            <summary>
+            进入客服会话事件
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.GlobalWeixinContext">
+            <summary>
+            上下文（仅限于当前MessageHandler基类内）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.WeixinContext">
+            <summary>
+            全局消息上下文
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.EcryptRequestDocument">
+            <summary>
+            原始的加密请求（如果不加密则为null）
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.RequestMessage">
+            <summary>
+            请求实体
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.ResponseMessage">
+            <summary>
+            响应实体
+            正常情况下只有当执行Execute()方法后才可能有值。
+            也可以结合Cancel，提前给ResponseMessage赋值。
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.UsingEcryptMessage">
+            <summary>
+            是否使用了加密信息
+            </summary>
+        </member>
+        <member name="P:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.UsingCompatibilityModelEcryptMessage">
+            <summary>
+            是否使用了兼容模式加密信息
+            </summary>
+        </member>
+        <member name="F:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.OmitRepeatedMessageFunc">
+            <summary>
+            动态去重判断委托，仅当返回值为false时，不使用消息去重功能
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.#ctor(System.IO.Stream,Senparc.Weixin.WxOpen.Entities.Request.PostModel,System.Int32)">
+            <summary>
+            小程序MessageHandler构造函数
+            </summary>
+            <param name="inputStream">XML流（后期会支持JSON）</param>
+            <param name="postModel">PostModel</param>
+            <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
+            <param name="developerInfo">开发者信息（非必填）</param>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.#ctor(System.Xml.Linq.XDocument,Senparc.Weixin.WxOpen.Entities.Request.PostModel,System.Int32)">
+            <summary>
+            小程序MessageHandler构造函数
+            </summary>
+            <param name="requestDocument">XML格式的请求</param>
+            <param name="postModel">PostModel</param>
+            <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.#ctor(Senparc.Weixin.WxOpen.Entities.RequestMessageBase,Senparc.Weixin.WxOpen.Entities.Request.PostModel,System.Int32)">
+            <summary>
+            小程序MessageHandler构造函数
+            </summary>
+            <param name="requestMessageBase">RequestMessageBase</param>
+            <param name="postModel">PostModel</param>
+            <param name="maxRecordCount">上下文最多保留消息（0为保存所有）</param>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.Init(System.Xml.Linq.XDocument,System.Object)">
+            <summary>
+            初始化数据
+            </summary>
+            <param name="postDataDocument"></param>
+            <param name="postData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.MessageHandlers.WxOpenMessageHandler`1.Execute">
+            <summary>
+            执行微信请求
+            </summary>
+        </member>
+        <member name="T:Senparc.Weixin.WxOpen.RequestMessageFactory">
+            <summary>
+            RequestMessage消息处理方法工厂类
+            </summary>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.RequestMessageFactory.GetRequestEntity(System.Xml.Linq.XDocument,Senparc.Weixin.WxOpen.Entities.Request.PostModel)">
+            <summary>
+            获取XDocument转换后的IRequestMessageBase实例。
+            如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.RequestMessageFactory.GetRequestEntity(System.String)">
+            <summary>
+            获取XML转换后的IRequestMessageBase实例。
+            如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.Weixin.WxOpen.RequestMessageFactory.GetRequestEntity(System.IO.Stream)">
+            <summary>
+            获取内容为XML的Stream转换后的IRequestMessageBase实例。
+            如果MsgType不存在，抛出UnknownRequestMsgTypeException异常
+            </summary>
+            <param name="stream">如Request.InputStream</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tencent.Cryptography.AES_decrypt(System.String,System.String,System.String@)">
+            <summary>
+            解密方法
+            </summary>
+            <param name="Input">密文</param>
+            <param name="EncodingAESKey"></param>
+            <returns></returns>
+            
+        </member>
+        <member name="M:Tencent.Cryptography.chr(System.Int32)">
+            将数字转化成ASCII码对应的字符，用于对明文进行补码
+            
+            @param a 需要转化的数字
+            @return 转化得到的字符
+        </member>
+    </members>
+</doc>

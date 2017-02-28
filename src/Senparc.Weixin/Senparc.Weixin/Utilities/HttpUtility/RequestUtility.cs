@@ -304,8 +304,8 @@ namespace Senparc.Weixin.HttpUtility
 
 
         #endregion
-
-        #region 异步方法
+#if NET45
+#region 异步方法
 
         /// <summary>
         /// 使用Get方法获取字符串结果（没有加入Cookie）
@@ -401,7 +401,7 @@ namespace Senparc.Weixin.HttpUtility
                   new RemoteCertificateValidationCallback(CheckValidationResult);
             }
 
-            #region 处理Form表单文件上传
+#region 处理Form表单文件上传
             var formUploadFile = fileDictionary != null && fileDictionary.Count > 0;//是否用Form上传文件
             if (formUploadFile)
             {
@@ -464,7 +464,7 @@ namespace Senparc.Weixin.HttpUtility
             {
                 request.ContentType = "application/x-www-form-urlencoded";
             }
-            #endregion
+#endregion
 
             request.ContentLength = postStream != null ? postStream.Length : 0;
             request.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
@@ -481,7 +481,7 @@ namespace Senparc.Weixin.HttpUtility
                 request.CookieContainer = cookieContainer;
             }
 
-            #region 输入二进制流
+#region 输入二进制流
             if (postStream != null)
             {
                 postStream.Position = 0;
@@ -504,7 +504,7 @@ namespace Senparc.Weixin.HttpUtility
 
                 postStream.Close();//关闭文件访问
             }
-            #endregion
+#endregion
 
             HttpWebResponse response = (HttpWebResponse)(await request.GetResponseAsync());
 
@@ -537,7 +537,8 @@ namespace Senparc.Weixin.HttpUtility
             stream.Seek(0, SeekOrigin.Begin);//设置指针读取位置
         }
 
-        #endregion
+#endregion
+#endif
 
         /// <summary>
         /// 请求是否发起自微信客户端的浏览器

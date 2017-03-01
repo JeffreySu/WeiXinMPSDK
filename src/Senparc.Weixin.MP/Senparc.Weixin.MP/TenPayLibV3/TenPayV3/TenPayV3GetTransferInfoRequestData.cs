@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
   
     文件名：TenPayV3GetTransferInfoRequestData.cs
     文件功能描述：微信支付查询企业付款请求参数 

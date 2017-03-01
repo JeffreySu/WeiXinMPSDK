@@ -27,9 +27,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService
     public class EventService
     {
         IHostingEnvironment _hostingEnvironment;
-        public EventService(IHostingEnvironment hostingEnvironment)
+        Microsoft.AspNetCore.Http.HttpContext _context;
+        public EventService(IHostingEnvironment hostingEnvironment, Microsoft.AspNetCore.Http.HttpContext context)
         {
             _hostingEnvironment = hostingEnvironment;
+            _context = context;
         }
 
         /// <summary>
@@ -52,13 +54,14 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                     }
                 case Event.LOCATION:
                     throw new Exception("暂不可用");
-                    //break;
+                //break;
                 case Event.subscribe://订阅
                     {
                         var strongResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
 
                         //获取Senparc.Weixin.MP.dll版本信息
-                        var fileVersionInfo = FileVersionInfo.GetVersionInfo(HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll"));
+                        var dllPath = _hostingEnvironment.ContentRootPath + "Senparc.Weixin.MP.dll";
+                        var fileVersionInfo = System.Diagnostics.FileVersionInfo.GetVersionInfo(dllPath);
                         var version = fileVersionInfo.FileVersion;
                         strongResponseMessage.Content = string.Format(
                             "欢迎关注【Senparc.Weixin.MP 微信公众平台SDK】，当前运行版本：v{0}。\r\n您还可以发送【位置】【图片】【语音】信息，查看不同格式的回复。\r\nSDK官方地址：http://sdk.weixin.senparc.com",
@@ -82,16 +85,16 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                     throw new ArgumentOutOfRangeException();
             }
 
-            return responseMessage;         
+            return responseMessage;
         }
 
-        public void ConfigOnWeixinExceptionFunc(WeixinException ex)
+        public void ConfigOnWeixinExceptionFunc(WeixinException ex, Weixin.Entities.SenparcWeixinSetting senparcWeixinSetting)
         {
             try
             {
                 Task.Factory.StartNew(async () =>
                 {
-                    var appId = ConfigurationManager.AppSettings["WeixinAppId"];
+                    var appId = senparcWeixinSetting.WeixinAppId;
                     string openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//收到通知的管理员OpenId
                     var host = "A1 / AccessTokenOrAppId：" + (ex.AccessTokenOrAppId ?? "null");
                     string service = null;

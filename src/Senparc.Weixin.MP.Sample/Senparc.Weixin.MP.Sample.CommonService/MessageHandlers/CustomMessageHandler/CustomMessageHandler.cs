@@ -26,6 +26,7 @@ using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
@@ -83,6 +84,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 }
                 return true;
             };
+        }
+
+        public CustomMessageHandler(RequestMessageBase requestMessage)
+            : base(requestMessage)
+        {
         }
 
         public override void OnExecuting()
@@ -172,12 +178,28 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                 DateTime dt1 = DateTime.Now; //计时开始
 
-                var responseXml = MessageAgent.RequestXml(this, agentUrl, agentToken, RequestDocument.ToString());
+                var agentXml = RequestDocument.ToString();
+
+                #region 暂时转发到SDK线上Demo
+
+                agentUrl = "http://sdk.weixin.senparc.com/weixin";
+                agentToken = WebConfigurationManager.AppSettings["WeixinToken"];//Token
+
+                //修改内容，防止死循环
+                var agentDoc = XDocument.Parse(agentXml);
+                agentDoc.Root.Element("Content").SetValue("代理转发文字：" + requestMessage.Content);
+                agentDoc.Root.Element("CreateTime").SetValue(DateTimeHelper.GetWeixinDateTime(DateTime.Now));//修改时间，防止去重
+                agentDoc.Root.Element("MsgId").SetValue("123");//防止去重
+                agentXml = agentDoc.ToString();
+
+                #endregion
+
+                var responseXml = MessageAgent.RequestXml(this, agentUrl, agentToken, agentXml);
                 //获取返回的XML
                 //上面的方法也可以使用扩展方法：this.RequestResponseMessage(this,agentUrl, agentToken, RequestDocument.ToString());
 
                 /* 如果有WeiweihiKey，可以直接使用下面的这个MessageAgent.RequestWeiweihiXml()方法。
-                 * WeiweihiKey专门用于对接www.weiweihi.com平台，获取方式见：http://www.weiweihi.com/ApiDocuments/Item/25#51
+                 * WeiweihiKey专门用于对接www.weiweihi.com平台，获取方式见：https://www.weiweihi.com/ApiDocuments/Item/25#51
                  */
                 //var responseXml = MessageAgent.RequestWeiweihiXml(weiweihiKey, RequestDocument.ToString());//获取Weiweihi返回的XML
 
@@ -204,7 +226,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             else if (requestMessage.Content == "测试" || requestMessage.Content == "退出")
             {
                 /*
-                * 这是一个特殊的过程，此请求通常来自于微微嗨（http://www.weiweihi.com）的“盛派网络小助手”应用请求（http://www.weiweihi.com/User/App/Detail/1），
+                * 这是一个特殊的过程，此请求通常来自于微微嗨（http://www.weiweihi.com）的“盛派网络小助手”应用请求（https://www.weiweihi.com/User/App/Detail/1），
                 * 用于演示微微嗨应用商店的处理过程，由于微微嗨的应用内部可以单独设置对话过期时间，所以这里通常不需要考虑对话状态，只要做最简单的响应。
                 */
                 if (requestMessage.Content == "测试")

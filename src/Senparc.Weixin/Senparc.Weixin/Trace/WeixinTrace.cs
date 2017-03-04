@@ -19,6 +19,9 @@
     修改描述：v4.9.9 1、优化日志记录方法（围绕OnWeixinExceptionFunc为主）
                      2、输出AccessTokenOrAppId
 
+    修改标识：Senparc - 20170304
+    修改描述：c
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -26,6 +29,7 @@ using System.Diagnostics;
 using System.IO;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Exceptions;
+using System.Threading;
 
 namespace Senparc.Weixin
 {
@@ -117,6 +121,15 @@ namespace Senparc.Weixin
         }
 
         /// <summary>
+        /// 当前线程记录
+        /// </summary>
+        private static void ThreadLog()
+        {
+            Log("[线程：{0}]", Thread.CurrentThread.GetHashCode());
+        }
+
+
+        /// <summary>
         /// 退回一次缩进
         /// </summary>
         private static void Unindent()
@@ -161,7 +174,8 @@ namespace Senparc.Weixin
             {
                 Log("[{0}]", title);
             }
-            TimeLog();
+            TimeLog();//记录时间
+            ThreadLog();//记录线程
             Indent();
         }
 

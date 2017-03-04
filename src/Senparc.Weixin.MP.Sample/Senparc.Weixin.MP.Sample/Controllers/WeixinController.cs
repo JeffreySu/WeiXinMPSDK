@@ -104,17 +104,17 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //{
                 //    throw new Exception(messageHandler.RequestDocument.ToString());
                 //}
-
                 if (messageHandler.ResponseDocument != null)
                 {
                     messageHandler.ResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
                 }
 
-                if (messageHandler.UsingEcryptMessage)
+                if (messageHandler.UsingEcryptMessage && messageHandler.FinalResponseDocument != null)
                 {
                     //记录加密后的响应信息
                     messageHandler.FinalResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_Final_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
                 }
+
 
                 //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
                 return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0软件换行bug暂时添加的方法，平时用下面一个方法即可
@@ -122,6 +122,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
             catch (Exception ex)
             {
+                WeixinTrace.Log("MessageHandler错误：{0}", ex.Message);
+
                 using (TextWriter tw = new StreamWriter(Server.MapPath("~/App_Data/Error_" + _getRandomFileName() + ".txt")))
                 {
                     tw.WriteLine("ExecptionMessage:" + ex.Message);

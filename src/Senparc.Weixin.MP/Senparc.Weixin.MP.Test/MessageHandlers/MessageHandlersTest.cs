@@ -28,7 +28,14 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
             var responseMessage =
                ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(RequestMessage);
-            responseMessage.Content = "文字信息";
+
+            if (requestMessage.Content=="代理")
+            {
+            }
+            else
+            {
+                responseMessage.Content = "文字信息";
+            }
             return responseMessage;
         }
 
@@ -407,5 +414,7 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
             Assert.AreEqual("文字信息", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
         }
+
+       
     }
 }

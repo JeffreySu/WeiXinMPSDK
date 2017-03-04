@@ -9,12 +9,19 @@
 
     修改标识：Senparc - 20161219
     修改描述：v4.9.6 修改错别字：Browser->Browser
+
+    修改标识：Senparc - 20161219
+    修改描述：v4.11.2 修改SideInWeixinBrowser判断逻辑
+
 ----------------------------------------------------------------*/
 
 using System.Web;
 
 namespace Senparc.Weixin.BrowserUtility
 {
+    /// <summary>
+    /// 浏览器公共类
+    /// </summary>
     public static class BrowserUtility
     {
         /// <summary>
@@ -25,13 +32,15 @@ namespace Senparc.Weixin.BrowserUtility
         public static bool SideInWeixinBrowser(this HttpContextBase httpContext)
         {
             var userAgent = httpContext.Request.UserAgent;
-            if (string.IsNullOrEmpty(userAgent) || (!userAgent.Contains("MicroMessenger") && !userAgent.Contains("Windows Phone")))
+            if (userAgent != null 
+                && (userAgent.Contains("MicroMessenger") || userAgent.Contains("Windows Phone")))
             {
-                //在微信外部
-                return false;
+                return true;//在微信内部
             }
-            //在微信内部
-            return true;
+            else
+            {
+                return false;//在微信外部
+            }
         }
     }
 }

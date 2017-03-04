@@ -186,8 +186,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             messageHandler.Execute();//执行微信处理过程
 
             //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
+            //return new WeixinResult(messageHandler);//v0.8+
             return new FixWeixinBugWeixinResult(messageHandler);//v0.8+
-            return new WeixinResult(messageHandler);//v0.8+
         }
 
         /*

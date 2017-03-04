@@ -180,11 +180,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                 //修改内容，防止死循环
                 var agentDoc = XDocument.Parse(agentXml);
-                var contentElement = agentDoc.Root.Element("Content");
-                if (contentElement == null)
-                {
-                    throw new Exception("contentElement=null");
-                }
                 agentDoc.Root.Element("Content").SetValue("代理转发文字：" + requestMessage.Content);
                 agentXml = agentDoc.ToString();
 
@@ -198,6 +193,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                  * WeiweihiKey专门用于对接www.weiweihi.com平台，获取方式见：https://www.weiweihi.com/ApiDocuments/Item/25#51
                  */
                 //var responseXml = MessageAgent.RequestWeiweihiXml(weiweihiKey, RequestDocument.ToString());//获取Weiweihi返回的XML
+
+                throw new Exception(responseXml);
 
                 DateTime dt2 = DateTime.Now; //计时结束
 

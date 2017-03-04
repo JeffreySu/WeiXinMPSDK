@@ -66,9 +66,9 @@ namespace Senparc.Weixin.MP.Agent
             url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}",
                     url.Contains("?") ? "&" : "?", signature.AsUrlData(), timestamp.AsUrlData(), nonce.AsUrlData());
 
-            //throw new Exception(url);
-
+            stream.Seek(0, SeekOrigin.Begin);
             var responseXml = RequestUtility.HttpPost(url, null, stream, timeOut: timeOut);
+            WeixinTrace.SendApiLog("RequestXmlUrl：" + url, responseXml);
             return responseXml;
         }
 

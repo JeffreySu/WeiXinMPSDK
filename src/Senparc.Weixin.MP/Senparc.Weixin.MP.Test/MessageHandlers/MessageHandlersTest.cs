@@ -28,7 +28,14 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
         {
             var responseMessage =
                ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(RequestMessage);
-            responseMessage.Content = "文字信息";
+
+            if (requestMessage.Content=="代理")
+            {
+            }
+            else
+            {
+                responseMessage.Content = "文字信息";
+            }
             return responseMessage;
         }
 
@@ -407,5 +414,27 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
             Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
             Assert.AreEqual("文字信息", ((ResponseMessageText)messageHandler.ResponseMessage).Content);
         }
+
+        //[TestMethod]
+        //public void MessageAgentTest()
+        //{
+        //    var requestMessage = new RequestMessageText()
+        //    {
+        //        Content = "代理",
+        //        CreateTime = DateTime.Now,
+        //        FromUserName = "FromeUserName",
+        //        ToUserName = "ToUserName",
+        //        MsgId = 123,
+        //    };
+
+        //    var messageHandler = new CustomerMessageHandlers(requestMessage);
+        //    messageHandler.Execute();
+
+        //    Assert.IsInstanceOfType(messageHandler.ResponseMessage, typeof(ResponseMessageText));
+
+        //    Console.WriteLine(((ResponseMessageText)messageHandler.ResponseMessage).Content);
+
+        //    Assert.IsTrue(((ResponseMessageText)messageHandler.ResponseMessage).Content.Contains("代理"));
+        //}
     }
 }

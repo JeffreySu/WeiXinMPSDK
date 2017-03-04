@@ -180,6 +180,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                 //修改内容，防止死循环
                 var agentDoc = XDocument.Parse(agentXml);
+                var contentElement = agentDoc.Root.Element("Content");
+                if (contentElement == null)
+                {
+                    throw new Exception("contentElement=null");
+                }
                 agentDoc.Root.Element("Content").SetValue("代理转发文字：" + requestMessage.Content);
                 agentXml = agentDoc.ToString();
 

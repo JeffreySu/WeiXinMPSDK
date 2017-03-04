@@ -104,30 +104,19 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 //{
                 //    throw new Exception(messageHandler.RequestDocument.ToString());
                 //}
-                try
+                if (messageHandler.ResponseDocument != null)
                 {
-                    if (messageHandler.ResponseDocument != null)
-                    {
-                        messageHandler.ResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
-                    }
-
-                    if (messageHandler.UsingEcryptMessage && messageHandler.FinalResponseDocument != null)
-                    {
-                        //记录加密后的响应信息
-                        messageHandler.FinalResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_Final_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
-                    }
-
-                }
-                catch (Exception e)
-                {
-                    WeixinTrace.Log("ResponseMessage保存出错：{0}", messageHandler.ResponseDocument);
+                    messageHandler.ResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
                 }
 
-                WeixinTrace.SendApiLog("MessageHandler返回消息", string.Format("测试ResponseMessage：{0}", messageHandler.ResponseDocument));
+                if (messageHandler.UsingEcryptMessage && messageHandler.FinalResponseDocument != null)
+                {
+                    //记录加密后的响应信息
+                    messageHandler.FinalResponseDocument.Save(Path.Combine(logPath, string.Format("{0}_Response_Final_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
+                }
 
-                WeixinTrace.SendApiLog("ResponseMessage检查!=null", string.Format("测试ResponseMessage：{0}", messageHandler.ResponseDocument!=null));
 
-                return Content(messageHandler.ResponseDocument.ToString());//v0.7-
+                //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
                 return new FixWeixinBugWeixinResult(messageHandler);//为了解决官方微信5.0软件换行bug暂时添加的方法，平时用下面一个方法即可
                 //return new WeixinResult(messageHandler);//v0.8+
             }

@@ -68,7 +68,7 @@ namespace Senparc.Weixin.MP.Agent
 
             stream.Seek(0, SeekOrigin.Begin);
             var responseXml = RequestUtility.HttpPost(url, null, stream, timeOut: timeOut);
-            WeixinTrace.SendApiLog("RequestXmlUrl：" + url, responseXml);
+            //WeixinTrace.SendApiLog("RequestXmlUrl：" + url, responseXml);
             return responseXml;
         }
 

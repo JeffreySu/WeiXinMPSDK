@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         }
 
         public CustomMessageHandler(RequestMessageBase requestMessage)
-            :base(requestMessage)
+            : base(requestMessage)
         {
         }
 
@@ -179,13 +179,17 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 DateTime dt1 = DateTime.Now; //计时开始
 
                 var agentXml = RequestDocument.ToString();
+
                 #region 暂时转发到SDK线上Demo
+
                 agentUrl = "http://sdk.weixin.senparc.com/weixin";
                 agentToken = WebConfigurationManager.AppSettings["WeixinToken"];//Token
 
                 //修改内容，防止死循环
                 var agentDoc = XDocument.Parse(agentXml);
                 agentDoc.Root.Element("Content").SetValue("代理转发文字：" + requestMessage.Content);
+                agentDoc.Root.Element("CreateTime").SetValue(DateTimeHelper.GetWeixinDateTime(DateTime.Now));//修改时间，防止去重
+                agentDoc.Root.Element("MsgId").SetValue("123");//防止去重
                 agentXml = agentDoc.ToString();
 
                 #endregion

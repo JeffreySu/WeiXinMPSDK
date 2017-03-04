@@ -65,6 +65,9 @@ namespace Senparc.Weixin.MP.Agent
             string signature = CheckSignature.GetSignature(timestamp, nonce, token);
             url += string.Format("{0}signature={1}&timestamp={2}&nonce={3}",
                     url.Contains("?") ? "&" : "?", signature.AsUrlData(), timestamp.AsUrlData(), nonce.AsUrlData());
+
+            //throw new Exception(url);
+
             var responseXml = RequestUtility.HttpPost(url, null, stream, timeOut: timeOut);
             return responseXml;
         }

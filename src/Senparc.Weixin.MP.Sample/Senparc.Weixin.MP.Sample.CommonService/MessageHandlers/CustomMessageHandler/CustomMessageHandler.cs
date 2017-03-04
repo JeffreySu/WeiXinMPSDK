@@ -86,6 +86,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             };
         }
 
+        public CustomMessageHandler(RequestMessageBase requestMessage)
+            :base(requestMessage)
+        {
+        }
+
         public override void OnExecuting()
         {
             //测试MessageContext.StorageData
@@ -193,8 +198,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                  * WeiweihiKey专门用于对接www.weiweihi.com平台，获取方式见：https://www.weiweihi.com/ApiDocuments/Item/25#51
                  */
                 //var responseXml = MessageAgent.RequestWeiweihiXml(weiweihiKey, RequestDocument.ToString());//获取Weiweihi返回的XML
-
-                throw new Exception(responseXml);
 
                 DateTime dt2 = DateTime.Now; //计时结束
 

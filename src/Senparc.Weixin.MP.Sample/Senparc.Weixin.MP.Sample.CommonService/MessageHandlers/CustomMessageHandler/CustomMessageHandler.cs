@@ -419,6 +419,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您发送了一条视频信息，ID：" + requestMessage.MediaId;
 
+            //上传素材
+            MediaApi.Get()
+
             CustomApi.SendVideo(appId, base.WeixinOpenId, requestMessage.MediaId, "这是您刚才发送的视屏", "这是一条视频消息");
 
             return responseMessage;

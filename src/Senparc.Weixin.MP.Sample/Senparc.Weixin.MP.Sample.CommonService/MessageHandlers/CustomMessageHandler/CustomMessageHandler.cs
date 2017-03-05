@@ -420,6 +420,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您发送了一条视频信息，ID：" + requestMessage.MediaId;
 
+            #region 上传素材并推送到客户端
+
             Task.Factory.StartNew(async () =>
              {
                  //上传素材
@@ -435,13 +437,22 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
                      throw;
                  }
-             }).ContinueWith(task =>
+             }).ContinueWith(async task =>
              {
                  if (task.Exception != null)
                  {
                      WeixinTrace.Log("OnVideoRequest()储存Video过程发生错误：", task.Exception.Message);
+
+                     var msg = string.Format("上传素材出错：{0}\r\n{1}",
+                                task.Exception.Message,
+                                task.Exception.InnerException != null
+                                    ? task.Exception.InnerException.Message
+                                    : null);
+                     await CustomApi.SendTextAsync(appId, base.WeixinOpenId, msg);
                  }
              });
+
+            #endregion
 
             return responseMessage;
         }

@@ -27,7 +27,9 @@
  
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
-  
+   
+    修改标识：Senparc - 20170305
+    修改描述：v14.3.131 为MediaApi.Get()方法提供ApiHandlerWapper.TryCommonApi()方法支持，可以传入AppId
 ----------------------------------------------------------------*/
 
 /*
@@ -103,15 +105,32 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
-        public static void Get(string accessToken, string mediaId, Stream stream)
+        public static void Get(string accessTokenOrAppId, string mediaId, Stream stream)
         {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
-            HttpUtility.Get.Download(url, stream);
+            ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+                HttpUtility.Get.Download(url, stream);
+                return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = "ok" };//无实际意义
+            }, accessTokenOrAppId);
         }
-        public static string Get(string accessToken, string mediaId, string dir)
+
+        /// <summary>
+        /// 获取临时素材（原下载媒体文件），保存到指定文件夹
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="mediaId"></param>
+        /// <param name="dir"></param>
+        /// <returns></returns>
+        public static string Get(string accessTokenOrAppId, string mediaId, string dir)
         {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
-            return HttpUtility.Get.Download(url, dir);
+            var result = ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+                var str = HttpUtility.Get.Download(url, dir);
+                return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = str };
+            }, accessTokenOrAppId);
+            return result.errmsg;
         }
         #endregion
 
@@ -421,14 +440,37 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取临时素材（原下载媒体文件）
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
-        public static async Task GetAsync(string accessToken, string mediaId, Stream stream)
+        public static async Task GetAsync(string accessTokenOrAppId, string mediaId, Stream stream)
         {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
-            await HttpUtility.Get.DownloadAsync(url, stream);
+            await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+                await HttpUtility.Get.DownloadAsync(url, stream);
+                return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = "ok" };//无实际意义
+            }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 【异步方法】获取临时素材（原下载媒体文件），保存到指定文件夹
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="mediaId"></param>
+        /// <param name="dir"></param>
+        /// <returns></returns>
+        public static async Task<string> GetAsync(string accessTokenOrAppId, string mediaId, string dir)
+        {
+            var result = await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+                var str = await HttpUtility.Get.DownloadAsync(url, dir);
+                return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = str };
+            }, accessTokenOrAppId);
+            return result.errmsg;
+        }
+
         #endregion
 
         #region 永久素材

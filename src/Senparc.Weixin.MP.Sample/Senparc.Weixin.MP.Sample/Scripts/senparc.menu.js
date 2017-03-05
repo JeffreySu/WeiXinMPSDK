@@ -139,6 +139,11 @@ senparc.menu = {
                 }
             });
         });
+
+        $('#btnResetAccessToken').click(function () {
+            $('#menuEditor').hide();
+            $('#menuLogin').show();
+        });
     },
     typeChanged: function () {
         var val = $('#buttonDetails_type').val();

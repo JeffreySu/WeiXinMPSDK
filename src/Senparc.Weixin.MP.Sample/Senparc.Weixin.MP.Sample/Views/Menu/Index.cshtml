@@ -8,13 +8,14 @@
     <style>
         #menuNotice {
             width: 100%;
-            padding:5px;
+            padding: 5px;
+            margin-top: 5px;
             background-color: #ececec;
         }
 
-        #menuNotice {
-            margin-top: 10px;
-        }
+            #menuNotice ul {
+                margin-top: 10px;
+            }
 
         #menuButtonArea {
             display: inline-block;
@@ -27,6 +28,10 @@
 
         .txtButton {
             width: 120px;
+        }
+
+        #buttonDetails {
+            margin-left: 20px;
         }
 
         select.dllButtonDetails {
@@ -89,6 +94,7 @@
         .menu-state {
             width: 100%;
             padding: 5px;
+            margin-bottom: 6px;
             background-color: #e7f5ff;
         }
 
@@ -97,8 +103,8 @@
             color: #42961e;
         }
 
-        #btnResetAccessToken {
-            font-size: 9px;
+        #menuTable .control-input {
+            width: 140px;
         }
     </style>
 }
@@ -132,7 +138,7 @@
             <ul>
                 <li>
                     <div class="control-head">
-                        <label class="control-title">我有当前可用Token</label>
+                        <label class="control-title">我有当前可用 AccessToken</label>
                     </div>
                 </li>
                 <li>
@@ -143,7 +149,7 @@
                     <button class="control-btn" id="menuLogin_SubmitOldToken">直接使用</button>
                 </li>
                 <li>
-                    <p class="control-p">注：这个Token是通过AppId和AppSecret得到的自动生成的Token。</p>
+                    <p class="control-p">注：通过 AppId 和 AppSecret 得到的自动生成的 AccessToken。</p>
                 </li>
             </ul>
         </div>
@@ -175,10 +181,10 @@
         @using (Html.BeginForm("CreateMenu", "Menu", FormMethod.Post, new { id = "form_Menu" }))
         {
             <p>
-                当前AccessToken:
+                当前 AccessToken:
                 <input id="tokenStr" name="token" class="control-input" style="width: 400px;" type="text" readonly="readonly" />
                 <span id="menuButtonArea">
-                    <input id="btnResetAccessToken" class="control-btn" type="button" value="重设AccessToken" />
+                    <input id="btnResetAccessToken" class="control-btn" type="button" value="重设 Token" />
                     <input id="btnGetMenu" class="control-btn" type="button" value="获取当前菜单" />
                     <input type="button" class="control-btn" value="更新到服务器" id="submitMenu" />
                 </span>
@@ -187,7 +193,7 @@
                 操作状态：<strong id="menuState">-</strong>
             </p>
             <div class="float-left menu-list">
-                <table>
+                <table id="menuTable">
                     <thead>
                         <tr>
                             <th></th>

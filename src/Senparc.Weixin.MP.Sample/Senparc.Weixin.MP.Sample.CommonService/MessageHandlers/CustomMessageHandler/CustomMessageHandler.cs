@@ -425,18 +425,10 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             Task.Factory.StartNew(async () =>
              {
                  //上传素材
-                 try
-                 {
-                     var dir = Server.GetMapPath("~/App_Data/TempVideo/");
-                     var file = await MediaApi.GetAsync(appId, requestMessage.MediaId, dir);
-                     var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, UploadMediaFileType.video, file, 50000);
-                     await CustomApi.SendVideoAsync(appId, base.WeixinOpenId, uploadResult.media_id, "这是您刚才发送的视屏", "这是一条视频消息");
-                 }
-                 catch (Exception e)
-                 {
-
-                     throw;
-                 }
+                 var dir = Server.GetMapPath("~/App_Data/TempVideo/");
+                 var file = await MediaApi.GetAsync(appId, requestMessage.MediaId, dir);
+                 var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, UploadMediaFileType.video, file, 50000);
+                 await CustomApi.SendVideoAsync(appId, base.WeixinOpenId, uploadResult.media_id, "这是您刚才发送的视频", "这是一条视频消息");
              }).ContinueWith(async task =>
              {
                  if (task.Exception != null)

@@ -27,6 +27,7 @@ using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using System.Xml.Linq;
+using Senparc.Weixin.MP.AdvancedAPIs;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
@@ -417,6 +418,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您发送了一条视频信息，ID：" + requestMessage.MediaId;
+
+            CustomApi.SendVideo(appId, base.WeixinOpenId, requestMessage.MediaId, "这是您刚才发送的视屏", "这是一条视频消息");
+
             return responseMessage;
         }
 

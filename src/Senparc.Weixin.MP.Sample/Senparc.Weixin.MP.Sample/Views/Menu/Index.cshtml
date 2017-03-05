@@ -103,8 +103,37 @@
             color: #42961e;
         }
 
+        #menuTable th {
+            text-align: center;
+            line-height: 42px;
+        }
+
+       
+        .currentMenuItem {
+            background-color: #ecf9ff;
+            color: #246ea2;
+            font-weight: bold;
+        }
+
+        .hoverMenuItem {
+            /*background-color: #c7ffaf;*/
+            color: #099f5e;
+            font-weight: bold;
+        }
+
         #menuTable .control-input {
             width: 140px;
+            margin: 5px 3px;
+            border-width: 2px;
+            border-color: #ebebeb;
+        }
+
+            #menuTable .control-input.currentMenuInput {
+                border-color: #246ea2;
+            }
+
+        #menuTable .menuRowTip {
+            padding: 2px;
         }
     </style>
 }
@@ -196,7 +225,7 @@
                 <table id="menuTable">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th style="width:102px;"></th>
                             <th>第一列</th>
                             <th>第二列</th>
                             <th>第三列</th>
@@ -207,7 +236,7 @@
                         {
                             var isRootMenu = i == 5;
                             <tr id="@(isRootMenu ? "subMenuRow_" + i : "rootMenuRow")">
-                                <td>
+                                <td class="menuRowTip">
                                     @(isRootMenu ? "一级菜单按钮" : ("二级菜单No." + (i + 1)))
                                 </td>
                                 @for (int j = 0; j < 3; j++)
@@ -218,7 +247,7 @@
                                         <input type="hidden" class="control-input" name="@(namePrefix).key" id="@(idPrefix)_key" />
                                         <input type="hidden" class="control-input" name="@(namePrefix).type" id="@(idPrefix)_type" value="click" />
                                         <input type="hidden" class="control-input" name="@(namePrefix).url" id="@(idPrefix)_url" />
-                                        <input type="text" class="control-input" name="@(namePrefix).name" id="@(idPrefix)_name" class="txtButton" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
+                                        <input type="text" class="control-input txtButton" name="@(namePrefix).name" id="@(idPrefix)_name" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
                                     </td>
                                 }
                             </tr>

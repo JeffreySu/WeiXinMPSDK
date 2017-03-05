@@ -14,8 +14,8 @@ senparc.menu = {
         $(':input[id^=menu_button]').click(function () {
             $('#buttonDetails').show();
             var idPrefix = $(this).attr('data-root')
-                            ? ('menu_button' + $(this).attr('data-root'))
-                            : ('menu_button' + $(this).attr('data-j') + '_sub_button' + $(this).attr('data-i'));
+                ? ('menu_button' + $(this).attr('data-root'))
+                : ('menu_button' + $(this).attr('data-j') + '_sub_button' + $(this).attr('data-i'));
 
             var keyId = idPrefix + "_key";
             var nameId = idPrefix + "_name";
@@ -47,6 +47,17 @@ senparc.menu = {
             txtDetailsUrl.unbind('blur').blur(function () {
                 hiddenButtonUrl.val($(this).val());
             });
+
+            //修改当前行列样式
+            var row = parseInt($(this).attr('data-i'));
+            var column = parseInt($(this).attr('data-j'));
+            $('#menuTable input').removeClass('currentMenuInput');
+            $('#menuTable thead th').removeClass('currentMenuItem');
+            $('#menuTable tbody td').removeClass('currentMenuItem');
+            $(this).addClass('currentMenuInput');
+            $('#menuTable thead th').eq(column + 1).addClass('currentMenuItem');
+            $('#menuTable tbody tr').eq(row).find('td').eq(0).addClass('currentMenuItem');
+        
         });
 
         $('#menuLogin_Submit').click(function () {
@@ -143,6 +154,20 @@ senparc.menu = {
         $('#btnResetAccessToken').click(function () {
             $('#menuEditor').hide();
             $('#menuLogin').show();
+        });
+
+        $('#menuTable .control-input').hover(function () {
+            var row = parseInt($(this).attr('data-i'));
+            var column = parseInt($(this).attr('data-j'));
+
+            $('#menuTable thead th').removeClass('hoverMenuItem');
+            $('#menuTable tbody td').removeClass('hoverMenuItem');
+
+            $('#menuTable thead th').eq(column + 1).addClass('hoverMenuItem');
+            $('#menuTable tbody tr').eq(row).find('td').eq(0).addClass('hoverMenuItem');
+        }, function () {
+            $('#menuTable thead th').removeClass('hoverMenuItem');
+            $('#menuTable tbody td').removeClass('hoverMenuItem');
         });
     },
     typeChanged: function () {

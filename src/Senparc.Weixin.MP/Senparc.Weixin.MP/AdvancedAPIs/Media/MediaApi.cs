@@ -453,7 +453,23 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
 
-        //TODO:保存到dir的方法未提供异步方法
+        /// <summary>
+        /// 【异步方法】获取临时素材（原下载媒体文件），保存到指定文件夹
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="mediaId"></param>
+        /// <param name="dir"></param>
+        /// <returns></returns>
+        public static async Task<string> GetAsync(string accessTokenOrAppId, string mediaId, string dir)
+        {
+            var result = await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+                var str = await HttpUtility.Get.DownloadAsync(url, dir);
+                return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = str };
+            }, accessTokenOrAppId);
+            return result.errmsg;
+        }
 
         #endregion
 

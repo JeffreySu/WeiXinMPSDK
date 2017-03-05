@@ -28,6 +28,7 @@ using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using System.Xml.Linq;
 using Senparc.Weixin.MP.AdvancedAPIs;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
@@ -419,12 +420,16 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             var responseMessage = CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "您发送了一条视频信息，ID：" + requestMessage.MediaId;
 
-            //上传素材
-            var dir = Server.GetMapPath("~/App_Data/");
-            var file = MediaApi.Get(appId, requestMessage.MediaId, dir);
-            var uploadResult = MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.video, file);
+            Task.Factory.StartNew(async () =>
+            {
+                //上传素材
+                var dir = Server.GetMapPath("~/App_Data/TempVideo/");
+                var file = MediaApi.Get(appId, requestMessage.MediaId, dir);
+                var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, UploadMediaFileType.video, file, 50000);
 
-            CustomApi.SendVideo(appId, base.WeixinOpenId, uploadResult.media_id, "这是您刚才发送的视屏", "这是一条视频消息");
+                await CustomApi.SendVideoAsync(appId, base.WeixinOpenId, uploadResult.media_id, "这是您刚才发送的视屏", "这是一条视频消息");
+            });
+
 
             return responseMessage;
         }

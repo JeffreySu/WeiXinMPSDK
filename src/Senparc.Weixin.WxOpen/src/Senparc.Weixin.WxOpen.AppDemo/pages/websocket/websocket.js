@@ -4,7 +4,7 @@ Page({
   data: {
     messageTip: '',
     messageTextArr:[],
-    messageContent:'',
+    messageContent:'TEST',
     userinfo:{}
   },
   //sendMessage
@@ -60,7 +60,7 @@ wx.onSocketMessage(function(res) {
   var jsonResult = JSON.parse(res.data);
   var currentIndex= that.data.messageTextArr.length+1;
   var newArr = that.data.messageTextArr;
-  newArr.push(
+  newArr.unshift(
     {
       index:currentIndex,
       content:jsonResult.content,

@@ -46,13 +46,13 @@ Page({
       },
       method:"GET"
     });
-    //WebSocket 连接成功
-    wx.onSocketOpen(function(res) {
-      console.log('WebSocket 连接成功！')
-      socketOpen = true;
-      that.setData({
-        messageTip:'WebSocket 连接成功！'
-      })
+//WebSocket 连接成功
+wx.onSocketOpen(function(res) {
+  console.log('WebSocket 连接成功！')
+  socketOpen = true;
+  that.setData({
+    messageTip:'WebSocket 连接成功！'
+  })
     })
     //收到 WebSocket 推送消息
     wx.onSocketMessage(function(res) {

@@ -50,7 +50,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
                 var formId = receivedMessage.FormId;//发送模板消息使用，需要在wxml中设置<form report-submit="true">
 
                 var sessionBag = SessionContainer.GetSession(receivedMessage.SessionId);
-                var openId = sessionBag != null ? sessionBag.OpenId : "用户未正确登陆";
+
+                //临时演示使用固定openId
+                var openId = sessionBag != null ? sessionBag.OpenId : "onh7q0DGM1dctSDbdByIHvX4imxA";// "用户未正确登陆";
 
                 await webSocketHandler.SendMessage("OpenId：" + openId);
 

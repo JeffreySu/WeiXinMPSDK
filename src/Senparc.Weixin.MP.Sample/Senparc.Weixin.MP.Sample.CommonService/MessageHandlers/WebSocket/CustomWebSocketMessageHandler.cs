@@ -55,6 +55,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
                 var openId = sessionBag != null ? sessionBag.OpenId : "onh7q0DGM1dctSDbdByIHvX4imxA";// "用户未正确登陆";
 
                 await webSocketHandler.SendMessage("OpenId：" + openId);
+                //await webSocketHandler.SendMessage("FormId：" + formId);
 
                 if (sessionBag == null)
                 {

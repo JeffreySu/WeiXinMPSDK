@@ -35,6 +35,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket
 
             var message = receivedMessage.Message;
 
+            await webSocketHandler.SendMessage("originalData：" + originalData);
             await webSocketHandler.SendMessage("您发送了文字：" + message);
             await webSocketHandler.SendMessage("正在处理中...");
 

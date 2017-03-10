@@ -117,6 +117,11 @@ namespace Senparc.WebSocket
                             ReceivedMessage receivedMessage;
                             try
                             {
+                                receivedMessage = new ReceivedMessage()
+                                {
+                                    Message = receiveString// + " | 系统错误：" + e.Message
+                                };
+
                                 receivedMessage = Newtonsoft.Json.JsonConvert.DeserializeObject<ReceivedMessage>(receiveString);
                             }
                             catch (Exception e)
@@ -130,7 +135,6 @@ namespace Senparc.WebSocket
                         }
                         catch (Exception ex)
                         {
-
                         }
 
                     }

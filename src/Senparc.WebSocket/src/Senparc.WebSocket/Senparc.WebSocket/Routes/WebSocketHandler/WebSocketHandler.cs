@@ -18,7 +18,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Routing;
-using System.Web.Script.Serialization;
 using System.Web.WebSockets;
 
 namespace Senparc.WebSocket
@@ -123,10 +122,8 @@ namespace Senparc.WebSocket
                                     Message = receiveString// + " | 系统错误：" + e.Message
                                 };
 
-                                //receivedMessage = Newtonsoft.Json.JsonConvert.DeserializeObject<ReceivedMessage>(receiveString);
+                                receivedMessage = Newtonsoft.Json.JsonConvert.DeserializeObject<ReceivedMessage>(receiveString);
 
-                                JavaScriptSerializer jsSerializer = new JavaScriptSerializer();
-                                //receivedMessage  = jsSerializer.Deserialize<ReceivedMessage>(receiveString);
                             }
                             catch (Exception e)
                             {

@@ -63,7 +63,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         {
             string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
 
-            return Post.PostGetJson<QyJsonResult>(url, formData: nul);
+            return Post.PostGetJson<QyJsonResult>(url, formData: null);
         }
 
         /// <summary>

@@ -129,7 +129,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             paySignReqHandler.SetParameter("timeStamp", timeStamp);
             paySignReqHandler.SetParameter("nonceStr", nonceStr);
             paySignReqHandler.SetParameter("package", package);
-            paySignReqHandler.SetParameter("signType", "MD5");
+            paySignReqHandler.SetParameter("signType", signType);
             var paySign = paySignReqHandler.CreateMd5Sign("key", key);
             return paySign;
         }

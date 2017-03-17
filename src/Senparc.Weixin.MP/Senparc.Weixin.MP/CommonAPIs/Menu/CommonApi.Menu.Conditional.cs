@@ -77,7 +77,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         #endregion
 
         /// <summary>
-        /// 删除菜单
+        /// 删除个性化菜单
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="menuId">菜单Id</param>

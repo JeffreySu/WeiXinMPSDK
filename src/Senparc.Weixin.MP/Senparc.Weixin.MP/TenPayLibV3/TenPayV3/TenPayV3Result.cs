@@ -27,6 +27,9 @@
 
     修改标识：Senparc - 20170215
     修改描述：v14.3.126 增加GetTransferInfoResult类
+
+    修改标识：Senparc - 20170316
+    修改描述：v14.3.132 完善UnifiedorderResult 服务商统一订单接口
     
 ----------------------------------------------------------------*/
 
@@ -195,12 +198,24 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public string code_url { get; set; }
 
+        /// <summary>
+        /// 子商户公众账号ID
+        /// </summary>
+        public string sub_appid { get; set; }
+
+        /// <summary>
+        /// 子商户号
+        /// </summary>
+        public string sub_mch_id { get; set; }
+
         public UnifiedorderResult(string resultXml)
             : base(resultXml)
         {
             if (base.IsReturnCodeSuccess())
             {
                 device_info = GetXmlValue("device_info") ?? "";
+                sub_appid = GetXmlValue("sub_appid") ?? "";
+                sub_mch_id = GetXmlValue("sub_mch_id") ?? "";
 
                 if (base.IsResultCodeSuccess())
                 {

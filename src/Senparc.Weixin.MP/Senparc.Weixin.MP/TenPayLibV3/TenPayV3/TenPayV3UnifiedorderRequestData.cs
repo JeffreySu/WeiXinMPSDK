@@ -18,6 +18,9 @@
     修改标识：Senparc - 20170213
     修改描述：v14.3.126 修复微信支付 "TotalFee" 类型错误[decimal→int]
 
+    修改标识：Senparc - 20170316
+    修改描述：v14.3.132 完善UnifiedorderResult 服务商统一订单接口
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -28,6 +31,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
+
     /// <summary>
     /// 微信支付提交的XML Data数据[统一下单]
     /// </summary>
@@ -41,6 +45,21 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 商户号
         /// </summary>
         public string MchId { get; set; }
+
+        #region 服务商
+
+        /// <summary>
+        /// 子商户公众账号ID sub_appid
+        /// </summary>
+        public string SubAppId { get; set; }
+
+        /// <summary>
+        /// 子商户号 sub_mch_id  是 String(32)  1900000109	微信支付分配的子商户号
+        /// </summary>
+        public string SubMchId { get; set; }
+
+        #endregion
+
         /// <summary>
         /// 自定义参数，可以为终端设备号(门店号或收银设备ID)，PC网页或公众号内支付可以传"WEB"，String(32)如：013467007045764
         /// </summary>
@@ -128,6 +147,16 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// </summary>
         public string OpenId { get; set; }
 
+        #region 服务商
+
+        /// <summary>
+        /// 用户子标识
+        /// </summary>
+        public string SubOpenid { get; set; }
+
+        #endregion
+
+
         /// <summary>
         /// 
         /// </summary>
@@ -137,7 +166,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         public readonly string Sign;
 
         /// <summary>
-        /// 
+        /// 普通商户
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="mchId"></param>
@@ -159,10 +188,52 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="goodsTag">商品标记，使用代金券或立减优惠功能时需要的参数，说明详见代金券或立减优惠。String(32)，如：WXG</param>
         /// <param name="productId">trade_type=NATIVE时（即扫码支付），此参数必传。此参数为二维码中包含的商品ID，商户自行定义。String(32)，如：12235413214070356458058</param>
         /// <param name="limitPay">是否限制用户不能使用信用卡支付</param>
-        public TenPayV3UnifiedorderRequestData(string appId, string mchId, string body, string outTradeNo, int totalFee, string spbillCreateIp,
+        public TenPayV3UnifiedorderRequestData(
+            string appId, string mchId, string body, string outTradeNo, int totalFee, string spbillCreateIp,
             string notifyUrl, TenPayV3Type tradeType, string openid, string key, string nonceStr,
             string deviceInfo = null, DateTime? timeStart = null, DateTime? timeExpire = null,
-           string detail = null, string attach = null, string feeType = "CNY", string goodsTag = null, string productId = null, bool limitPay = false)
+            string detail = null, string attach = null, string feeType = "CNY", string goodsTag = null,
+            string productId = null, bool limitPay = false
+             ) : this(appId, mchId, null, null, body, outTradeNo, totalFee, spbillCreateIp, notifyUrl, tradeType, openid, null, key, nonceStr, deviceInfo, timeStart, timeExpire, detail, attach, feeType, goodsTag, productId, limitPay)
+        {
+
+        }
+
+
+
+        /// <summary>
+        /// 服务商
+        /// </summary>
+        /// <param name="appId"></param>
+        /// <param name="mchId"></param>
+        /// <param name="subappid">子商户公众账号ID</param>
+        /// <param name="submchid">子商户号</param>
+        /// <param name="body"></param>
+        /// <param name="outTradeNo"></param>
+        /// <param name="totalFee">单位：分</param>
+        /// <param name="spbillCreateIp"></param>
+        /// <param name="notifyUrl"></param>
+        /// <param name="tradeType"></param>
+        /// <param name="openid"></param>
+        /// <param name="subopenid">用户子标识</param>
+        /// <param name="key"></param>
+        /// <param name="nonceStr"></param>
+        /// <param name="deviceInfo">自定义参数，可以为终端设备号(门店号或收银设备ID)，PC网页或公众号内支付可以传"WEB"，String(32)如：013467007045764</param>
+        /// <param name="timeStart">订单生成时间，如果为空，则默认为当前服务器时间</param>
+        /// <param name="timeExpire">订单失效时间，留空则不设置失效时间</param>
+        /// <param name="detail">商品详细列表</param>
+        /// <param name="attach">附加数据</param>
+        /// <param name="feeType">符合ISO 4217标准的三位字母代码，默认人民币：CNY</param>
+        /// <param name="goodsTag">商品标记，使用代金券或立减优惠功能时需要的参数，说明详见代金券或立减优惠。String(32)，如：WXG</param>
+        /// <param name="productId">trade_type=NATIVE时（即扫码支付），此参数必传。此参数为二维码中包含的商品ID，商户自行定义。String(32)，如：12235413214070356458058</param>
+        /// <param name="limitPay">是否限制用户不能使用信用卡支付</param>
+        public TenPayV3UnifiedorderRequestData(
+            string appId, string mchId, string subappid, string submchid, string body, string outTradeNo, int totalFee, string spbillCreateIp,
+            string notifyUrl, TenPayV3Type tradeType, string openid, string subopenid, string key, string nonceStr,
+            string deviceInfo = null, DateTime? timeStart = null, DateTime? timeExpire = null,
+            string detail = null, string attach = null, string feeType = "CNY", string goodsTag = null,
+            string productId = null, bool limitPay = false
+             )
         {
             AppId = appId;
             MchId = mchId;
@@ -185,6 +256,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             LimitPay = limitPay ? "no_credit" : null;
             OpenId = openid;
             Key = key;
+            SubAppId = subappid;
+            SubMchId = submchid;
+            SubOpenid = subopenid;
+
 
             #region 设置RequestHandler
 
@@ -197,6 +272,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             //以下设置顺序按照官方文档排序，方便维护：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_1
             PackageRequestHandler.SetParameter("appid", this.AppId);                       //公众账号ID
             PackageRequestHandler.SetParameter("mch_id", this.MchId);                      //商户号
+            PackageRequestHandler.SetParameterWhenNotNull("sub_appid", this.SubAppId);     //子商户公众账号ID
+            PackageRequestHandler.SetParameterWhenNotNull("sub_mch_id", this.SubMchId);    //子商户号
             PackageRequestHandler.SetParameterWhenNotNull("device_info", this.DeviceInfo); //自定义参数
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr);                //随机字符串
             PackageRequestHandler.SetParameterWhenNotNull("sign_type", this.SignType);     //签名类型，默认为MD5
@@ -205,7 +282,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameterWhenNotNull("attach", this.Attach);          //附加数据
             PackageRequestHandler.SetParameter("out_trade_no", this.OutTradeNo);           //商家订单号
             PackageRequestHandler.SetParameterWhenNotNull("fee_type", this.FeeType);       //符合ISO 4217标准的三位字母代码，默认人民币：CNY
-            PackageRequestHandler.SetParameter("total_fee", this.TotalFee.ToString());  //商品金额,以分为单位(money * 100).ToString()
+            PackageRequestHandler.SetParameter("total_fee", this.TotalFee.ToString());     //商品金额,以分为单位(money * 100).ToString()
             PackageRequestHandler.SetParameter("spbill_create_ip", this.SpbillCreateIP);   //用户的公网ip，不是商户服务器IP
             PackageRequestHandler.SetParameterWhenNotNull("time_start", this.TimeStart);   //订单生成时间
             PackageRequestHandler.SetParameterWhenNotNull("time_expire", this.TimeExpire);  //订单失效时间
@@ -214,7 +291,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("trade_type", this.TradeType.ToString());   //交易类型
             PackageRequestHandler.SetParameterWhenNotNull("product_id", this.ProductId);   //trade_type=NATIVE时（即扫码支付），此参数必传。
             PackageRequestHandler.SetParameterWhenNotNull("limit_pay", this.LimitPay);     //上传此参数no_credit--可限制用户不能使用信用卡支付
-            PackageRequestHandler.SetParameter("openid", this.OpenId);          //用户的openId，trade_type=JSAPI时（即公众号支付），此参数必传
+            PackageRequestHandler.SetParameter("openid", this.OpenId);                     //用户的openId，trade_type=JSAPI时（即公众号支付），此参数必传
+            PackageRequestHandler.SetParameterWhenNotNull("sub_openid", this.SubOpenid);              //用户子标识
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
             PackageRequestHandler.SetParameter("sign", Sign);                              //签名
             #endregion

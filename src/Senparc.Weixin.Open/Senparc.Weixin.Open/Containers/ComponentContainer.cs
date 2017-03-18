@@ -46,6 +46,7 @@
 
     修改标识：Senparc - 20170318
     修改描述：v2.3.8 将ComponentContainer.GetComponentVerifyTicketFunc和GetAuthorizerRefreshTokenFunc改为属性
+
 ----------------------------------------------------------------*/
 
 using System;

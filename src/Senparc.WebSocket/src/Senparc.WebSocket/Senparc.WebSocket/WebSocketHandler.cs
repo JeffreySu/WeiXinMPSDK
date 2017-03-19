@@ -112,32 +112,8 @@ namespace Senparc.WebSocket
                         string receiveString =
                           //System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
                           System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
-                        try
-                        {
-                            ReceivedMessage receivedMessage;
-                            try
-                            {
-                                receivedMessage = new ReceivedMessage()
-                                {
-                                    Message = receiveString// + " | 系统错误：" + e.Message
-                                };
 
-                                receivedMessage = Newtonsoft.Json.JsonConvert.DeserializeObject<ReceivedMessage>(receiveString);
-
-                            }
-                            catch (Exception e)
-                            {
-                                receivedMessage = new ReceivedMessage()
-                                {
-                                    Message = receiveString// + " | 系统错误：" + e.Message
-                                };
-                            }
-                            await messageHandler.OnMessageReceiced(webSocketHandler, receivedMessage, receiveString);//调用MessageHandler
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-
+                        await messageHandler.OnMessageReceiced(webSocketHandler, receiveString);//调用MessageHandler
                     }
                 }
             }

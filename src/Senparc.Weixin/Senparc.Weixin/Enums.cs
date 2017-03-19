@@ -21,6 +21,9 @@
 
     修改标识：Senparc - 20161215
     修改描述：v4.9.9 添加【ReturnCode.template_id】不正确枚举
+
+    修改标识：Senparc - 20170302
+    修改描述：v4.11.1 添加【ReturnCode.appsecret不正确】枚举类型（invalid appsecret，40125）
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin
@@ -84,6 +87,7 @@ namespace Senparc.Weixin
         不合法的URL长度 = 40039,
         不合法的分组id = 40050,
         分组名字不合法 = 40051,
+        appsecret不正确 = 40125,//invalid appsecret
         缺少access_token参数 = 41001,
         缺少appid参数 = 41002,
         缺少refresh_token参数 = 41003,

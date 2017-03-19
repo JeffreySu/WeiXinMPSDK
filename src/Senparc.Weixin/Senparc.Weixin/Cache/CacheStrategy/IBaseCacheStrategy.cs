@@ -23,32 +23,32 @@ using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Cache
 {
-/// <summary>
-/// 最底层的缓存策略接口
-/// </summary>
-public interface IBaseCacheStrategy
-{
-    ///// <summary>
-    ///// 整个Cache集合的Key
-    ///// </summary>
-    //string CacheSetKey { get; set; }
-
     /// <summary>
-    /// 创建一个（分布）锁
+    /// 最底层的缓存策略接口
     /// </summary>
-    /// <param name="resourceName">资源名称</param>
-    /// <param name="key">Key标识</param>
-    /// <param name="retryCount">重试次数</param>
-    /// <param name="retryDelay">重试延时</param>
-    /// <returns></returns>
-    ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan());
-}
+    public interface IBaseCacheStrategy
+    {
+        ///// <summary>
+        ///// 整个Cache集合的Key
+        ///// </summary>
+        //string CacheSetKey { get; set; }
+
+        /// <summary>
+        /// 创建一个（分布）锁
+        /// </summary>
+        /// <param name="resourceName">资源名称</param>
+        /// <param name="key">Key标识</param>
+        /// <param name="retryCount">重试次数</param>
+        /// <param name="retryDelay">重试延时</param>
+        /// <returns></returns>
+        ICacheLock BeginCacheLock(string resourceName, string key, int retryCount = 0, TimeSpan retryDelay = new TimeSpan());
+    }
 
     /// <summary>
     /// 公共缓存策略接口
     /// </summary>
     public interface IBaseCacheStrategy<TKey, TValue> : IBaseCacheStrategy
-        //where TValue : class
+    //where TValue : class
     {
         /// <summary>
         /// 获取缓存中最终的键，如Container建议格式： return String.Format("{0}:{1}", "SenparcWeixinContainer", key);

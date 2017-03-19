@@ -12,6 +12,9 @@
     修改标识：Senparc - 20170225
     修改描述：v14.3.129 设置TransactionId和OutTradeNo时判断是否为null，如果是则提供空字符串""
 
+    修改标识：Senparc - 20170301
+    修改描述：v14.3.130 修改TenPayV3OrderQueryRequestData()中的sign_type设置位置
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.TenPayLibV3
@@ -90,9 +93,9 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("transaction_id", this.TransactionId ?? ""); //微信的订单号
             PackageRequestHandler.SetParameter("out_trade_no", this.OutTradeNo ?? ""); //商户系统内部的订单号
             PackageRequestHandler.SetParameter("nonce_str", this.NonceStr); //随机字符串
+            PackageRequestHandler.SetParameter("sign_type", this.SignType); //签名类型
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
             PackageRequestHandler.SetParameter("sign", Sign); //签名
-            PackageRequestHandler.SetParameter("sign_type", this.SignType); //签名类型
             #endregion
         }
     }

@@ -31,7 +31,7 @@ namespace Senparc.Weixin.MP.Test.Agents
             var xml = MessageAgent.RequestXml(null, url, token, requestXml);
             var responseMessage = ResponseMessageBase.CreateFromResponseXml(xml);
             Assert.IsNotNull(responseMessage);
-            Assert.IsInstanceOfType(responseMessage, typeof (ResponseMessageText));
+            Assert.IsInstanceOfType(responseMessage, typeof(ResponseMessageText));
             var strongResponseMessage = responseMessage as ResponseMessageText;
             Assert.IsTrue(strongResponseMessage.Content.Contains("您点击了底部按钮。"));
 

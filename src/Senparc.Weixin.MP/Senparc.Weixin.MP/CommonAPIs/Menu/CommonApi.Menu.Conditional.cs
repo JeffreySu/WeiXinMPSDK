@@ -9,6 +9,10 @@
 
     修改标识：Senparc - 20151222
     修改描述：v13.5.1 添加个性化菜单接口
+
+    修改标识：Senparc - 20170317
+    修改描述：v14.3.133 修复CommonApi.CreateMenuConditional()方法调用出现“invalid button size”错误的问题
+    
 ----------------------------------------------------------------*/
 
 /*
@@ -36,7 +40,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
              {
                  var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token={0}";
-                 var jsonSetting = new JsonSetting(true);
+                 //var jsonSetting = new JsonSetting(true);//设置成true会导致发布失败
+                 var jsonSetting = new JsonSetting(false);
                  return CommonJsonSend.Send<CreateMenuConditionalResult>(accessToken, urlFormat, buttonData, timeOut: timeOut, jsonSetting: jsonSetting);
 
              }, accessTokenOrAppId);
@@ -72,7 +77,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         #endregion
 
         /// <summary>
-        /// 删除菜单
+        /// 删除个性化菜单
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="menuId">菜单Id</param>

@@ -44,8 +44,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     public static class CustomServiceApi
     {
         #region 同步请求
-        
-        
+
+
         /// <summary>
         /// 获取用户聊天记录
         /// </summary>
@@ -162,7 +162,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static WxJsonResult InviteWorker(string accessTokenOrAppId, string kfAccount, string inviteWx,int timeOut = Config.TIME_OUT)
+        public static WxJsonResult InviteWorker(string accessTokenOrAppId, string kfAccount, string inviteWx, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -172,7 +172,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     kf_account = kfAccount,
                     invite_wx = inviteWx
-                   
+
                 };
 
                 return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
@@ -360,27 +360,27 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="number">每次获取条数，最多10000条</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetMsgListResultJson GetMsgList(string accessTokenOrAppId, DateTime startTime, DateTime endTime, long msgId, int number,int timeOut = Config .TIME_OUT )
+        public static GetMsgListResultJson GetMsgList(string accessTokenOrAppId, DateTime startTime, DateTime endTime, long msgId, int number, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var urlFormat =string.Format("https://api.weixin.qq.com/customservice/msgrecord/getmsglist?access_token={0}",accessToken.AsUrlData());
+                var urlFormat = string.Format("https://api.weixin.qq.com/customservice/msgrecord/getmsglist?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
-                    starttime = startTime ,
-                    endtime = endTime ,
-                    msgid = msgId ,
-                    number = number 
-                 };
+                    starttime = startTime,
+                    endtime = endTime,
+                    msgid = msgId,
+                    number = number
+                };
                 return CommonJsonSend.Send<GetMsgListResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-            },accessTokenOrAppId );
+            }, accessTokenOrAppId);
 
         }
         #endregion
 
         #region 异步请求
-        
-        
+
+
         /// <summary>
         /// 【异步方法】获取用户聊天记录
         /// </summary>
@@ -393,32 +393,32 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetRecordResult> GetRecordAsync(string accessTokenOrAppId, DateTime startTime, DateTime endTime, int pageSize = 10, int pageIndex = 1, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = "https://api.weixin.qq.com/customservice/msgrecord/getrecord?access_token={0}";
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = "https://api.weixin.qq.com/customservice/msgrecord/getrecord?access_token={0}";
 
                 //规范页码
                 if (pageSize <= 0)
-                {
-                    pageSize = 1;
-                }
-                else if (pageSize > 50)
-                {
-                    pageSize = 50;
-                }
+               {
+                   pageSize = 1;
+               }
+               else if (pageSize > 50)
+               {
+                   pageSize = 50;
+               }
 
                 //组装发送消息
                 var data = new
-                {
-                    starttime = DateTimeHelper.GetWeixinDateTime(startTime),
-                    endtime = DateTimeHelper.GetWeixinDateTime(endTime),
-                    pagesize = pageSize,
-                    pageindex = pageIndex
-                };
+               {
+                   starttime = DateTimeHelper.GetWeixinDateTime(startTime),
+                   endtime = DateTimeHelper.GetWeixinDateTime(endTime),
+                   pagesize = pageSize,
+                   pageindex = pageIndex
+               };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetRecordResult>(accessToken, urlFormat, data, timeOut: timeOut);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetRecordResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
-            }, accessTokenOrAppId);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -429,10 +429,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<CustomInfoJson> GetCustomBasicInfoAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/cgi-bin/customservice/getkflist?access_token={0}", accessToken.AsUrlData());
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CustomInfoJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = string.Format("https://api.weixin.qq.com/cgi-bin/customservice/getkflist?access_token={0}", accessToken.AsUrlData());
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CustomInfoJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
                 //return GetCustomInfoResult<CustomInfoJson>(urlFormat);
 
             }, accessTokenOrAppId);
@@ -446,10 +446,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<CustomOnlineJson> GetCustomOnlineInfoAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist?access_token={0}", accessToken.AsUrlData());
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CustomOnlineJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = string.Format("https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist?access_token={0}", accessToken.AsUrlData());
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CustomOnlineJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
                 //return GetCustomInfoResult<CustomOnlineJson>(urlFormat);
 
             }, accessTokenOrAppId);
@@ -473,20 +473,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> AddCustomAsync(string accessTokenOrAppId, string kfAccount, string nickName, string passWord, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfaccount/add?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfaccount/add?access_token={0}", accessToken.AsUrlData());
 
-                var data = new
-                {
-                    kf_account = kfAccount,
-                    nickname = nickName,
-                    password = passWord
-                };
+               var data = new
+               {
+                   kf_account = kfAccount,
+                   nickname = nickName,
+                   password = passWord
+               };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
 
-            }, accessTokenOrAppId);
+           }, accessTokenOrAppId);
         }
         /// <summary>
         /// 【异步方法】邀请绑定客服帐号
@@ -499,20 +499,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> InviteWorkerAsync(string accessTokenOrAppId, string kfAccount, string inviteWx, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfaccount/inviteworker?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfaccount/inviteworker?access_token={0}", accessToken.AsUrlData());
 
-                var data = new
-                {
-                    kf_account = kfAccount,
-                    invite_wx = inviteWx
+               var data = new
+               {
+                   kf_account = kfAccount,
+                   invite_wx = inviteWx
 
-                };
+               };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
 
-            }, accessTokenOrAppId);
+           }, accessTokenOrAppId);
         }
         /// <summary>
         /// 【异步方法】设置客服信息
@@ -525,20 +525,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> UpdateCustomAsync(string accessTokenOrAppId, string kfAccount, string nickName, string passWord, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfaccount/update?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfaccount/update?access_token={0}", accessToken.AsUrlData());
 
-                var data = new
-                {
-                    kf_account = kfAccount,
-                    nickname = nickName,
-                    password = passWord
-                };
+               var data = new
+               {
+                   kf_account = kfAccount,
+                   nickname = nickName,
+                   password = passWord
+               };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
 
-            }, accessTokenOrAppId);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -551,14 +551,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> UploadCustomHeadimgAsync(string accessTokenOrAppId, string kfAccount, string file, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var url = string.Format("https://api.weixin.qq.com/customservice/kfaccount/uploadheadimg?access_token={0}&kf_account={1}", accessToken.AsUrlData(), kfAccount.AsUrlData());
-                var fileDictionary = new Dictionary<string, string>();
-                fileDictionary["media"] = file;
-                return Post.PostFileGetJsonAsync<WxJsonResult>(url, null, fileDictionary, null, timeOut: timeOut);
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var url = string.Format("https://api.weixin.qq.com/customservice/kfaccount/uploadheadimg?access_token={0}&kf_account={1}", accessToken.AsUrlData(), kfAccount.AsUrlData());
+               var fileDictionary = new Dictionary<string, string>();
+               fileDictionary["media"] = file;
+               return Post.PostFileGetJsonAsync<WxJsonResult>(url, null, fileDictionary, null, timeOut: timeOut);
 
-            }, accessTokenOrAppId);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -570,12 +570,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> DeleteCustomAsync(string accessTokenOrAppId, string kfAccount, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfaccount/del?access_token={0}&kf_account={1}", accessToken.AsUrlData(), kfAccount.AsUrlData());
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfaccount/del?access_token={0}&kf_account={1}", accessToken.AsUrlData(), kfAccount.AsUrlData());
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
 
-            }, accessTokenOrAppId);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -589,20 +589,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> CreateSessionAsync(string accessTokenOrAppId, string openId, string kfAccount, string text = null, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/create?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/create?access_token={0}", accessToken.AsUrlData());
 
-                var data = new
-                {
-                    openid = openId,
-                    kf_account = kfAccount,
-                    text = text
-                };
+               var data = new
+               {
+                   openid = openId,
+                   kf_account = kfAccount,
+                   text = text
+               };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
 
-            }, accessTokenOrAppId);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -616,20 +616,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> CloseSessionAsync(string accessTokenOrAppId, string openId, string kfAccount, string text = null, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/close?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/close?access_token={0}", accessToken.AsUrlData());
 
-                var data = new
-                {
-                    openid = openId,
-                    kf_account = kfAccount,
-                    text = text
-                };
+               var data = new
+               {
+                   openid = openId,
+                   kf_account = kfAccount,
+                   text = text
+               };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
 
-            }, accessTokenOrAppId);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -641,13 +641,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetSessionStateResultJson> GetSessionStateAsync(string accessTokenOrAppId, string openId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/getsession?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/getsession?access_token={0}&openid={1}", accessToken.AsUrlData(), openId.AsUrlData());
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSessionStateResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSessionStateResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
 
-            }, accessTokenOrAppId);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -659,13 +659,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetSessionListResultJson> GetSessionListAsync(string accessTokenOrAppId, string kfAccount, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/getsessionlist?access_token={0}&kf_account={1}", accessToken.AsUrlData(), kfAccount.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/getsessionlist?access_token={0}&kf_account={1}", accessToken.AsUrlData(), kfAccount.AsUrlData());
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSessionListResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSessionListResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
 
-            }, accessTokenOrAppId);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -676,13 +676,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetWaitCaseResultJson> GetWaitCaseAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/getwaitcase?access_token={0}", accessToken.AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = string.Format("https://api.weixin.qq.com/customservice/kfsession/getwaitcase?access_token={0}", accessToken.AsUrlData());
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetWaitCaseResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetWaitCaseResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
 
-            }, accessTokenOrAppId);
+           }, accessTokenOrAppId);
         }
 
         /// <summary>
@@ -695,20 +695,20 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="number">每次获取条数，最多10000条</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<GetMsgListResultJson> GetMsgListAsync(string accessTokenOrAppId, DateTime startTime, DateTime endTime, long msgId, int number, int timeOut = Config .TIME_OUT)
+        public static async Task<GetMsgListResultJson> GetMsgListAsync(string accessTokenOrAppId, DateTime startTime, DateTime endTime, long msgId, int number, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
-            {
-                var urlFormat = string.Format("https://api.weixin.qq.com/customservice/msgrecord/getmsglist?access_token={0}", accessToken.AsUrlData());
-                var data = new
-                {
-                    starttime = startTime,
-                    endtime = endTime,
-                    msgid = msgId,
-                    number = number
-                };
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetMsgListResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
-            }, accessTokenOrAppId);
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+           {
+               var urlFormat = string.Format("https://api.weixin.qq.com/customservice/msgrecord/getmsglist?access_token={0}", accessToken.AsUrlData());
+               var data = new
+               {
+                   starttime = startTime,
+                   endtime = endTime,
+                   msgid = msgId,
+                   number = number
+               };
+               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetMsgListResultJson>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+           }, accessTokenOrAppId);
 
         }
         #endregion

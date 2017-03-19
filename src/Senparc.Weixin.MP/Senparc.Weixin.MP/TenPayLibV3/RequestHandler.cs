@@ -19,6 +19,9 @@
     修改标识：Senparc - 20170115
     修改描述：v14.3.120 添加SetParameterWhenNotNull()方法
 
+    修改标识：Senparc - 20170319
+    修改描述：v14.3.134 修改RequestHandler构造函数
+
     ----------------------------------------------------------------*/
 
 using System;
@@ -49,15 +52,14 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     {
 
         public RequestHandler()
+            : this(null)
         {
-            Parameters = new Hashtable();
         }
 
 
         public RequestHandler(HttpContext httpContext)
         {
             Parameters = new Hashtable();
-
             this.HttpContext = httpContext ?? HttpContext.Current;
 
         }
@@ -159,7 +161,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             {
                 string v = (string)Parameters[k];
                 if (null != v && "".CompareTo(v) != 0
-                    && "sign".CompareTo(k) != 0 
+                    && "sign".CompareTo(k) != 0
                     //&& "sign_type".CompareTo(k) != 0
                     && "key".CompareTo(k) != 0)
                 {

@@ -128,6 +128,7 @@
     <Compile Include="Controllers\WeixinControllerTest.cs" />
     <Compile Include="Controllers\FixWeixinBugWeixinResultTest.cs" />
     <Compile Include="Controllers\WxOpen\WxOpenControllerTests.cs" />
+    <Compile Include="MessageHandlers\CustomMessageHandler\CustomMessageHandlerTests.cs" />
     <Compile Include="Mock\MvcMockHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TemplateMessage\WeixinTemplate_ExceptionAlertTests.cs" />
@@ -162,6 +163,10 @@
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
       <Name>Senparc.Weixin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.Sample.CommonService.csproj">
+      <Project>{CCD291E9-16FA-4B53-B032-EBD3F659567B}</Project>
+      <Name>Senparc.Weixin.MP.Sample.CommonService</Name>
     </ProjectReference>
     <ProjectReference Include="..\Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.csproj">
       <Project>{9a4e286b-fe2c-4985-afbc-fa1a598f97c1}</Project>

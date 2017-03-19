@@ -21,6 +21,9 @@
     修改标识：Senparc - 20170316
     修改描述：v14.3.132 完善UnifiedorderResult 服务商统一订单接口
 
+    修改标识：Senparc - 20170319
+    修改描述：v14.3.135 trade_type=NATIVE时，OpenId允许为null
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -176,7 +179,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="spbillCreateIp"></param>
         /// <param name="notifyUrl"></param>
         /// <param name="tradeType"></param>
-        /// <param name="openid"></param>
+        /// <param name="openid">trade_type=NATIVE时，OpenId应该为null</param>
         /// <param name="key"></param>
         /// <param name="nonceStr"></param>
         /// <param name="deviceInfo">自定义参数，可以为终端设备号(门店号或收银设备ID)，PC网页或公众号内支付可以传"WEB"，String(32)如：013467007045764</param>
@@ -214,8 +217,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="spbillCreateIp"></param>
         /// <param name="notifyUrl"></param>
         /// <param name="tradeType"></param>
-        /// <param name="openid"></param>
-        /// <param name="subopenid">用户子标识</param>
+        /// <param name="openid">trade_type=NATIVE时，OpenId应该为null</param>
+        /// <param name="subOpenid">用户子标识，不需要则填写null</param>
         /// <param name="key"></param>
         /// <param name="nonceStr"></param>
         /// <param name="deviceInfo">自定义参数，可以为终端设备号(门店号或收银设备ID)，PC网页或公众号内支付可以传"WEB"，String(32)如：013467007045764</param>
@@ -229,7 +232,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="limitPay">是否限制用户不能使用信用卡支付</param>
         public TenPayV3UnifiedorderRequestData(
             string appId, string mchId, string subappid, string submchid, string body, string outTradeNo, int totalFee, string spbillCreateIp,
-            string notifyUrl, TenPayV3Type tradeType, string openid, string subopenid, string key, string nonceStr,
+            string notifyUrl, TenPayV3Type tradeType, string openid, string subOpenid, string key, string nonceStr,
             string deviceInfo = null, DateTime? timeStart = null, DateTime? timeExpire = null,
             string detail = null, string attach = null, string feeType = "CNY", string goodsTag = null,
             string productId = null, bool limitPay = false
@@ -258,7 +261,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             Key = key;
             SubAppId = subappid;
             SubMchId = submchid;
-            SubOpenid = subopenid;
+            SubOpenid = subOpenid;
 
 
             #region 设置RequestHandler
@@ -291,7 +294,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("trade_type", this.TradeType.ToString());   //交易类型
             PackageRequestHandler.SetParameterWhenNotNull("product_id", this.ProductId);   //trade_type=NATIVE时（即扫码支付），此参数必传。
             PackageRequestHandler.SetParameterWhenNotNull("limit_pay", this.LimitPay);     //上传此参数no_credit--可限制用户不能使用信用卡支付
-            PackageRequestHandler.SetParameter("openid", this.OpenId);                     //用户的openId，trade_type=JSAPI时（即公众号支付），此参数必传
+            PackageRequestHandler.SetParameterWhenNotNull("openid", this.OpenId);                     //用户的openId，trade_type=JSAPI时（即公众号支付），此参数必传
             PackageRequestHandler.SetParameterWhenNotNull("sub_openid", this.SubOpenid);              //用户子标识
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);
             PackageRequestHandler.SetParameter("sign", Sign);                              //签名

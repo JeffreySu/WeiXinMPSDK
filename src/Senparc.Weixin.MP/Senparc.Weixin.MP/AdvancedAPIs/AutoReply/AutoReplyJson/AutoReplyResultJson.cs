@@ -9,7 +9,7 @@
 
     
     修改标识：Senparc - 20170322
-    修改描述：v14.3.136 增加KeywordAutoReplyInfo_Item.reply_list_info属性
+    修改描述：v14.3.136 增加 KeywordAutoReplyInfo_Item.reply_list_info 属性
   
 ----------------------------------------------------------------*/
 

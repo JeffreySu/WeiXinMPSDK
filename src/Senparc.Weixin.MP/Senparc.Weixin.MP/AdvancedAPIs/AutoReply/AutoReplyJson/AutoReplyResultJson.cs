@@ -6,9 +6,15 @@
     
     
     创建标识：Senparc - 20150907
+
+    
+    修改标识：Senparc - 20170322
+    修改描述：v14.3.136 增加KeywordAutoReplyInfo_Item.reply_list_info属性
+  
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
+using System.Security.AccessControl;
 using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.AutoReply
@@ -87,6 +93,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.AutoReply
         /// 匹配的关键词列表
         /// </summary>
         public List<KeywordListInfoItem> keyword_list_info { get; set; }
+
+        /// <summary>
+        /// 回复内容
+        /// </summary>
+        public List<ReplyListInfoItem> reply_list_info { get; set; }
     }
 
     public class KeywordListInfoItem

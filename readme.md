@@ -447,16 +447,14 @@ Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理�
 
 资金捐助：
 
-[![donate]](http://sdk.weixin.senparc.com#donate)
-[donate]: http://sdk.weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png
+[![donate](http://sdk.weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png)](http://sdk.weixin.senparc.com#donate)
 
 
 图书众筹
 --------------
 扫描下方二维码参与《微信公众平台快速开发》图书众筹
 
-[![CrowdFunding]](http://www.weiweihi.com:8080/CrowdFunding/Home)  
-[CrowdFunding]: http://sdk.weixin.senparc.com/images/crowdfunding-qrcode.png
+[![CrowdFunding](http://sdk.weixin.senparc.com/images/crowdfunding-qrcode.png)](http://www.weiweihi.com:8080/CrowdFunding/Home)  
 
 License
 --------------

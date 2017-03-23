@@ -104,10 +104,8 @@
 资金捐助：[进入](http://sdk.weixin.senparc.com#donate)
 
 
-###关注测试账号（SenparcRobot）：
-[![qrcode]](http://weixin.senparc.com/)
-[qrcode]: http://sdk.weixin.senparc.com/Images/qrcode.jpg
-
+### 关注测试账号（SenparcRobot）：
+[![qrcode](http://sdk.weixin.senparc.com/Images/qrcode.jpg)](http://weixin.senparc.com/)
 
 
 ## 如何使用.NET Core开发
@@ -159,7 +157,7 @@ Senparc.Weixin.MP.Sample中的关键代码说明
 --------------
 >注：这是MVC项目，WebForms项目见对应Demo中的Weixin.aspx。
 
-###/Controllers/WeixinController.cs
+### /Controllers/WeixinController.cs
 
 下面的Token需要和微信公众平台后台设置的Token同步，如果经常更换建议写入Web.config等配置文件（实际使用过程中两列建议使用数字+英文大小写改写Token，Token一旦被破解，微信请求将很容易被伪造！）：
 ```C#
@@ -205,7 +203,7 @@ public ActionResult Post(PostModel postModel)
     ...
 }
 ```
-###如何处理微信公众账号请求？
+### 如何处理微信公众账号请求？
 
 Senparc.Weixin.MP提供了2中处理请求的方式，[传统方法](https://github.com/JeffreySu/WeiXinMPSDK/wiki/处理微信信息的常规方法)及使用[MessageHandler](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)处理方法（推荐）。上面两个方法在wiki中已经有比较详细的说明，这里简单举例MessageHandler的处理方法。
 
@@ -297,7 +295,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
 
 使用Nuget安装到项目中
 --------------
-###如何处理微信公众号请求？
+### 如何处理微信公众号请求？
 
 * Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.MP
 
@@ -307,7 +305,7 @@ PM> Install-Package Senparc.Weixin.MP
 ```
 
 
-###如何处理微信小程序请求？
+### 如何处理微信小程序请求？
 
 Senparc.Weixin.WxOpen对微信小程序的消息、API进行了封装，保持了公众号处理请求一致的开发过程。
 
@@ -318,7 +316,7 @@ Senparc.Weixin.WxOpen对微信小程序的消息、API进行了封装，保持�
 PM> Install-Package Senparc.Weixin.WxOpen
 ```
 
-###如何增强 ASP.NET MVC 项目的功能？
+### 如何增强 ASP.NET MVC 项目的功能？
 
 Senparc.Weixin.MP.MVC 针对 ASP.NET MVC 项目做了更多的优化，包括便捷的浏览器环境判断、官方 bug 修复等。
 * Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.MP.MVC
@@ -328,7 +326,7 @@ Senparc.Weixin.MP.MVC 针对 ASP.NET MVC 项目做了更多的优化，包括便
 PM> Install-Package Senparc.Weixin.MP.MVC
 ```
 
-###如何处理微信企业号请求？
+### 如何处理微信企业号请求？
 
 Senparc.Weixin.QY.dll对企业号相关功能进行了封装，操作过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致。
 
@@ -339,7 +337,7 @@ Senparc.Weixin.QY.dll对企业号相关功能进行了封装，操作过程和�
 PM> Install-Package Senparc.Weixin.QY
 ```
 
-###如何处理微信开放平台请求？
+### 如何处理微信开放平台请求？
 
 Senparc.Weixin.Open.dll对目前所有的开放平台API进行了封装，消息处理过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致，其他一些特殊的消息流程请先阅读官方的文档，然后对照Senparc.Weixin.MP.Sample中有关Open的Demo进行开发。
 
@@ -351,7 +349,7 @@ PM> Install-Package Senparc.Weixin.Open
 ```
 
 
-###如何使用分布式缓存？
+### 如何使用分布式缓存？
 
 Senparc.Weixin SDK 提供了完善的缓存策略接口，默认使用本机缓存实现，同时也提供了 Redis 和 Memcached 两个扩展方案，您也可以根据相同的规则添加自己的缓存策略。
 

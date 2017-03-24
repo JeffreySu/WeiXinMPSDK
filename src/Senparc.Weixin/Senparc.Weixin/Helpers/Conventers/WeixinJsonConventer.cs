@@ -10,6 +10,9 @@
     修改标识：Senparc - 20160722
     修改描述：增加特性，对json格式的输出内容的控制，对枚举类型字符串输出、默认值不输出、例外属性等，如会员卡卡里面的CodeType
              IDictionary中foreach中的内容的修改
+
+    修改标识：Senparc - 20160722
+    修改描述：v4.11.5 修复WeixinJsonConventer.Serialize中的错误。感谢 @jiehanlin
     
 ----------------------------------------------------------------*/
 
@@ -127,7 +130,7 @@ namespace Senparc.Weixin.Helpers
             var properties = obj.GetType().GetProperties();
             foreach (var propertyInfo in properties)
             {
-                        continue;
+                //continue;
                 //排除的属性
                 bool excludedProp = propertyInfo.IsDefined(typeof(JsonSetting.ExcludedAttribute), true);
                 if (excludedProp)

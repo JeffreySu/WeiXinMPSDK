@@ -146,6 +146,7 @@ namespace Senparc.Weixin.MP.Helpers
         /// <returns></returns>
         public static string GetAddrSign(string appId, string appSecret, string noncestr, string timestamp, string url)
         {
+            //TODO:此处的accessToken应该为OAuth的AccessToken
             var accessToken = AccessTokenContainer.TryGetAccessToken(appId, appSecret);
             var parameters = new Hashtable();
             parameters.Add("appId", appId);

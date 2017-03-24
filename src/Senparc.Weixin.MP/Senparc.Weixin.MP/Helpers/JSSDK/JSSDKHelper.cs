@@ -15,6 +15,10 @@
 
     修改标识：Senparc - 20170203
     修改描述：优化代码，更新到最新的Helpers方法调用
+
+    修改标识：Senparc - 20170203
+    修改描述：MP v14.3.137 修改JSSDKHelper.GetAddrSign传入参数，应该传入OAuth的AccessToken
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -139,20 +143,21 @@ namespace Senparc.Weixin.MP.Helpers
         /// 获取位置签名AddrSign
         /// </summary>
         /// <param name="appId"></param>
-        /// <param name="appSecret"></param>
+        /// <param name="oauthAccessToken">必须是OAuth的AccessToken</param>
         /// <param name="noncestr"></param>
         /// <param name="timestamp"></param>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static string GetAddrSign(string appId, string appSecret, string noncestr, string timestamp, string url)
+        public static string GetAddrSign(string appId, string oauthAccessToken, string noncestr, string timestamp, string url)
         {
-            var accessToken = AccessTokenContainer.TryGetAccessToken(appId, appSecret);
+            //TODO:此处的accessToken应该为OAuth的AccessToken
+            //var accessToken = AccessTokenContainer.TryGetAccessToken(appId, appSecret);
             var parameters = new Hashtable();
             parameters.Add("appId", appId);
             parameters.Add("noncestr", noncestr);
             parameters.Add("timestamp", timestamp);
             parameters.Add("url", url);
-            parameters.Add("accesstoken", accessToken);
+            parameters.Add("accesstoken", oauthAccessToken);
             return CreateSha1(parameters);
         }
 

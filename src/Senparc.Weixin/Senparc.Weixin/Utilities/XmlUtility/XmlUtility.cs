@@ -6,6 +6,9 @@ using System.Xml.Serialization;
 
 namespace Senparc.Weixin.XmlUtility
 {
+    /// <summary>
+    /// XML 工具类
+    /// </summary>
     public static class XmlUtility
     {
 
@@ -81,7 +84,6 @@ namespace Senparc.Weixin.XmlUtility
         }
 
         #endregion
-
 
         /// <summary>
         /// 序列化将流转成XML字符串

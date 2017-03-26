@@ -15,6 +15,9 @@ using System;
 
 namespace Senparc.Weixin.Helpers
 {
+    /// <summary>
+    /// 微信日期处理帮助类
+    /// </summary>
     public static class DateTimeHelper
     {
         public static DateTime BaseTime = new DateTime(1970, 1, 1);//Unix起始时间

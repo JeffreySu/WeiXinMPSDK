@@ -72,7 +72,7 @@ namespace Senparc.Weixin.Helpers
 
         #endregion
         /// <summary>
-        /// JSON输出设置 构造函数
+        /// JSON 输出设置 构造函数
         /// </summary>
         /// <param name="ignoreNulls">是否忽略当前类型以及具有IJsonIgnoreNull接口，且为Null值的属性。如果为true，符合此条件的属性将不会出现在Json字符串中</param>
         /// <param name="propertiesToIgnore">需要特殊忽略null值的属性名称</param>
@@ -86,7 +86,7 @@ namespace Senparc.Weixin.Helpers
     }
 
     /// <summary>
-    /// 微信JSON转换器
+    /// 微信 JSON 转换器
     /// </summary>
     public class WeixinJsonConventer : JavaScriptConverter
     {

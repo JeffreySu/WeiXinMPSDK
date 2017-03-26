@@ -7,6 +7,9 @@ using Senparc.Weixin.Containers;
 
 namespace Senparc.Weixin.Helpers
 {
+    /// <summary>
+    /// 容器帮助类
+    /// </summary>
     public class ContainerHelper
     {
         /// <summary>

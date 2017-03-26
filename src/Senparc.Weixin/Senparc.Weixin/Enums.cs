@@ -33,7 +33,13 @@ namespace Senparc.Weixin
     /// </summary>
     public enum CommonJsonSendType
     {
+        /// <summary>
+        /// GET 方法
+        /// </summary>
         GET,
+        /// <summary>
+        /// POST 方法
+        /// </summary>
         POST
     }
 

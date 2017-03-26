@@ -13,6 +13,9 @@ using System;
 
 namespace Senparc.Weixin.Utilities.WeixinUtility
 {
+    /// <summary>
+    /// 微信 API 工具类
+    /// </summary>
     public static class ApiUtility
     {
         /// <summary>

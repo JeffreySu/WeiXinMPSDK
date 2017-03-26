@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.StreamUtility
 {
+    /// <summary>
+    /// 流工具类
+    /// </summary>
     public static class StreamUtility
     {
         #region 同步方法
@@ -69,7 +72,6 @@ namespace Senparc.Weixin.StreamUtility
         }
 
         #endregion
-
 
         #region 同步方法
 

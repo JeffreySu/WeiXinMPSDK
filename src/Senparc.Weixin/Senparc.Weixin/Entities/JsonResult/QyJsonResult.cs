@@ -17,12 +17,18 @@ using System;
 namespace Senparc.Weixin.Entities
 {
     /// <summary>
-    /// 企业号JSON返回结果
+    /// 企业号 JSON 返回结果
     /// </summary>
     [Serializable]
     public class QyJsonResult : IJsonResult
     {
+        /// <summary>
+        /// 返回代码
+        /// </summary>
         public ReturnCode_QY errcode { get; set; }
+        /// <summary>
+        /// 返回消息
+        /// </summary>
         public string errmsg { get; set; }
         /// <summary>
         /// 为P2P返回结果做准备

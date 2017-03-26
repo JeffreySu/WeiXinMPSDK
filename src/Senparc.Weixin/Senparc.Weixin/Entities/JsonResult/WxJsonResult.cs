@@ -26,24 +26,7 @@ using System;
 namespace Senparc.Weixin.Entities
 {
     /// <summary>
-    /// 所有JSON格式返回值的API返回结果接口
-    /// </summary>
-    public interface IJsonResult// : IJsonResultCallback
-    {
-        string errmsg { get; set; }
-        object P2PData { get; set; }
-    }
-
-    /// <summary>
-    /// 包含errorcode的Json返回结果接口
-    /// </summary>
-    public interface IWxJsonResult : IJsonResult
-    {
-        ReturnCode errcode { get; set; }
-    }
-
-    /// <summary>
-    /// 公众号JSON返回结果（用于菜单接口等）
+    /// 公众号 JSON 返回结果（用于菜单接口等）
     /// </summary>
     [Serializable]
     public class WxJsonResult : IWxJsonResult

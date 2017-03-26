@@ -23,7 +23,7 @@ using Senparc.Weixin.MessageQueue;
 namespace Senparc.Weixin.Containers
 {
     /// <summary>
-    /// IBaseContainerBag
+    /// IBaseContainerBag，BaseContainer容器中的Value类型
     /// </summary>
     public interface IBaseContainerBag
     {

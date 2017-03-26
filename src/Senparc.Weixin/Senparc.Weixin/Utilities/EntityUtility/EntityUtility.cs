@@ -19,6 +19,9 @@ using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.EntityUtility
 {
+    /// <summary>
+    /// 实体工具类
+    /// </summary>
     public static class EntityUtility
     {
         /// <summary>

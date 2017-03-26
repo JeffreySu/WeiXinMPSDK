@@ -15,6 +15,10 @@ using System.Collections.Generic;
 
 namespace Senparc.Weixin.Context
 {
+    /// <summary>
+    /// 消息容器（列表）
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class MessageContainer<T> : List<T> 
         //where T : IMessageBase
     {

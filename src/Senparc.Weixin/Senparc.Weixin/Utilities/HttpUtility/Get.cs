@@ -30,7 +30,7 @@ using Senparc.Weixin.Exceptions;
 namespace Senparc.Weixin.HttpUtility
 {
     /// <summary>
-    /// Get请求处理
+    /// Get 请求处理
     /// </summary>
     public static class Get
     {

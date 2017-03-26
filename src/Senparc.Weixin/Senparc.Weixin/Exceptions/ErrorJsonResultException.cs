@@ -20,11 +20,17 @@ using Senparc.Weixin.Entities;
 namespace Senparc.Weixin.Exceptions
 {
     /// <summary>
-    /// JSON返回错误代码（比如access_token相关操作中使用）。
+    /// JSON返回错误代码异常（比如access_token相关操作中使用）
     /// </summary>
     public class ErrorJsonResultException : WeixinException
     {
+        /// <summary>
+        /// JsonResult
+        /// </summary>
         public WxJsonResult JsonResult { get; set; }
+        /// <summary>
+        /// 接口 URL
+        /// </summary>
         public string Url { get; set; }
 
         /// <summary>

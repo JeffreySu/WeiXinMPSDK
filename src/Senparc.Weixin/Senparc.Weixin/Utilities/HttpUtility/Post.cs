@@ -36,6 +36,9 @@ using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.HttpUtility
 {
+    /// <summary>
+    /// Post 请求处理
+    /// </summary>
     public static class Post
     {
         /// <summary>

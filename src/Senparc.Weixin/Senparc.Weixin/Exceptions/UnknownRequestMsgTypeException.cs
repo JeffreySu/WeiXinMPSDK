@@ -17,7 +17,7 @@ using System;
 namespace Senparc.Weixin.Exceptions
 {
     /// <summary>
-    /// 未知请求类型。
+    /// 未知请求类型异常
     /// </summary>
     public class UnknownRequestMsgTypeException : MessageHandlerException //ArgumentOutOfRangeException
     {

@@ -110,7 +110,6 @@ namespace Senparc.WebSocket
                     {
                         //Because we know that is a string, we convert it.
                         string receiveString =
-                          //System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
                           System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
                         try
                         {

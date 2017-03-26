@@ -21,6 +21,9 @@ using System.IO;
 
 namespace Senparc.Weixin.Helpers
 {
+    /// <summary>
+    /// 文件帮助类
+    /// </summary>
     public class FileHelper
     {
         /// <summary>

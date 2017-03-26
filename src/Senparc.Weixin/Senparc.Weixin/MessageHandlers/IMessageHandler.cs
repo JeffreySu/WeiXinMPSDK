@@ -15,6 +15,11 @@ using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.MessageHandlers
 {
+    /// <summary>
+    /// IMessageHandler接口
+    /// </summary>
+    /// <typeparam name="TRequest">IRequestMessageBase</typeparam>
+    /// <typeparam name="TResponse">IResponseMessageBase</typeparam>
     public interface IMessageHandler<TRequest, TResponse> : IMessageHandlerDocument
         where TRequest : IRequestMessageBase
         where TResponse : IResponseMessageBase

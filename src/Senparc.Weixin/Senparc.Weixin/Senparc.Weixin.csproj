@@ -105,6 +105,7 @@
     <Compile Include="Context\WeixinContextRemovedEventArgs.cs" />
     <Compile Include="Entities\BindableBase.cs" />
     <Compile Include="Entities\EntityBase.cs" />
+    <Compile Include="Entities\JsonResult\IJsonResult.cs" />
     <Compile Include="Entities\JsonResult\IJsonResultCallback.cs" />
     <Compile Include="Entities\JsonResult\QyJsonResult.cs" />
     <Compile Include="Entities\MessageBase.cs">

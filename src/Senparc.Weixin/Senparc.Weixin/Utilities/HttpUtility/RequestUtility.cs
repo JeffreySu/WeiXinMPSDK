@@ -29,6 +29,9 @@ using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.HttpUtility
 {
+    /// <summary>
+    /// HTTP 请求工具类
+    /// </summary>
     public static class RequestUtility
     {
         #region 代理

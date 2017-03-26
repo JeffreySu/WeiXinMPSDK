@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.Entities
 {
     /// <summary>
-    /// JSON数据（序列化）回调接口
+    /// JSON 数据（序列化）回调接口
     /// </summary>
     public interface IJsonResultCallback
     {

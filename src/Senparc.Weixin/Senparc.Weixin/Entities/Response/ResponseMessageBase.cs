@@ -13,6 +13,9 @@
 
 namespace Senparc.Weixin.Entities
 {
+    /// <summary>
+    /// 响应回复消息基类接口
+    /// </summary>
 	public interface IResponseMessageBase : IMessageBase
 	{
 		//ResponseMsgType MsgType { get; }
@@ -21,7 +24,7 @@ namespace Senparc.Weixin.Entities
 	}
 
 	/// <summary>
-	/// 响应回复消息
+	/// 响应回复消息基类
 	/// </summary>
 	public abstract class ResponseMessageBase : MessageBase, IResponseMessageBase
 	{

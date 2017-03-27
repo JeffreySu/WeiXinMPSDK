@@ -41,6 +41,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：IsaacXu - 20151222
     修改描述：添加CreateMenu重写方法
+
+    修改标识：IsaacXu - 20170328
+    修改描述：添加小程序按钮
 ----------------------------------------------------------------*/
 
 /*
@@ -108,6 +111,16 @@ namespace Senparc.Weixin.MP.CommonAPIs
                             type = rootButton.type
                         });
                     }
+                    else if (rootButton.type.Equals("MINIPROGRAM", StringComparison.OrdinalIgnoreCase))
+                    {
+                        //小程序
+                        buttonGroup.button.Add(new SingleViewButton()
+                        {
+                            name = rootButton.name,
+                            url = rootButton.url,
+                            type = rootButton.type
+                        });
+                    }
                     else if (rootButton.type.Equals("LOCATION_SELECT", StringComparison.OrdinalIgnoreCase))
                     {
                         //弹出地理位置选择器
@@ -158,7 +171,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                             type = rootButton.type
                         });
                     }
-                    else
+                    else if (rootButton.type.Equals("SCANCODE_WAITMSG", StringComparison.OrdinalIgnoreCase))
                     {
                         //扫码推事件且弹出“消息接收中”提示框
                         buttonGroup.button.Add(new SingleScancodeWaitmsgButton()
@@ -167,6 +180,10 @@ namespace Senparc.Weixin.MP.CommonAPIs
                             key = rootButton.key,
                             type = rootButton.type
                         });
+                    }
+                    else
+                    {
+                        throw new WeixinMenuException("菜单类型无法处理：" + rootButton.type);
                     }
                 }
                 //else if (availableSubButton < 2)

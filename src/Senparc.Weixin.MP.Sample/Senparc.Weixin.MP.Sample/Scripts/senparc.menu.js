@@ -58,6 +58,12 @@ senparc.menu = {
             $('#menuTable thead th').eq(column + 1).addClass('currentMenuItem');
             $('#menuTable tbody tr').eq(row).find('td').eq(0).addClass('currentMenuItem');
 
+            //一级菜单提示
+            if (row == 5) {
+                $('#rootButtonNotice').show()
+            } else {
+                $('#rootButtonNotice').hide()
+            }
         });
 
         $('#menuLogin_Submit').click(function () {
@@ -181,13 +187,13 @@ senparc.menu = {
                 $('#buttonDetails_key_area').slideUp(100);
                 $('#buttonDetails_url_area').slideDown(100);
                 $('#buttonDetails_miniprogram_appid_area').slideUp(100);
-                $('#buttonDetails_miniprogram_page_area').slideUp(100);
+                $('#buttonDetails_miniprogram_pagepath_area').slideUp(100);
                 break;
             case 'CLICK':
                 $('#buttonDetails_key_area').slideDown(100);
                 $('#buttonDetails_url_area').slideUp(100);
                 $('#buttonDetails_miniprogram_appid_area').slideUp(100);
-                $('#buttonDetails_miniprogram_page_area').slideUp(100);
+                $('#buttonDetails_miniprogram_pagepath_area').slideUp(100);
                 break;
             case 'MINIPROGRAM':
                 $('#buttonDetails_key_area').slideUp(100);

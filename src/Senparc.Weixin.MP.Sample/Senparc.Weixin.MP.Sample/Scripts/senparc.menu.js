@@ -90,6 +90,8 @@ senparc.menu = {
                         $('#menu_button' + i + '_key').val(button.key);
                         $('#menu_button' + i + '_type').val(button.type || 'click');
                         $('#menu_button' + i + '_url').val(button.url);
+                        $('#menu_button' + i + '_appid').val(button.appid);
+                        $('#menu_button' + i + '_pagepath').val(button.pagepath);
 
                         if (button.sub_button && button.sub_button.length > 0) {
                             //二级菜单
@@ -100,6 +102,8 @@ senparc.menu = {
                                 $(idPrefix + "_type").val(subButton.type || 'click');
                                 $(idPrefix + "_key").val(subButton.key);
                                 $(idPrefix + "_url").val(subButton.url);
+                                $(idPrefix + "_appid").val(subButton.appid);
+                                $(idPrefix + "_pagepath").val(subButton.pagepath);
                             }
                         } else {
                             //底部菜单
@@ -189,7 +193,7 @@ senparc.menu = {
                 $('#buttonDetails_key_area').slideUp(100);
                 $('#buttonDetails_url_area').slideDown(100);
                 $('#buttonDetails_miniprogram_appid_area').slideDown(100);
-                $('#buttonDetails_miniprogram_page_area').slideDown(100);
+                $('#buttonDetails_miniprogram_pagepath_area').slideDown(100);
                 break;
             default:
                 break;

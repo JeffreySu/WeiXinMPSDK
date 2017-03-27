@@ -247,6 +247,8 @@
                                         <input type="hidden" class="control-input" name="@(namePrefix).key" id="@(idPrefix)_key" />
                                         <input type="hidden" class="control-input" name="@(namePrefix).type" id="@(idPrefix)_type" value="click" />
                                         <input type="hidden" class="control-input" name="@(namePrefix).url" id="@(idPrefix)_url" />
+                                        <input type="hidden" class="control-input" name="@(namePrefix).appid" id="@(idPrefix)_appid" />
+                                        <input type="hidden" class="control-input" name="@(namePrefix).pagepath" id="@(idPrefix)_pagepath" />
                                         <input type="text" class="control-input txtButton" name="@(namePrefix).name" id="@(idPrefix)_name" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
                                     </td>
                                 }

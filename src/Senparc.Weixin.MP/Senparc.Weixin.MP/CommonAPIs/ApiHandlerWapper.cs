@@ -47,6 +47,7 @@ using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using Senparc.Weixin.CommonAPIs;
 
 namespace Senparc.Weixin.MP
 {
@@ -68,68 +69,71 @@ namespace Senparc.Weixin.MP
         /// <returns></returns>
         public static T TryCommonApi<T>(Func<string, T> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : WxJsonResult
         {
-            string appId = null;
-            string accessToken = null;
-
-            if (accessTokenOrAppId == null)
+            return ApiHandlerWapperBase.RunApi(() =>
             {
-                appId = AccessTokenContainer.GetFirstOrDefaultAppId();
-                if (appId == null)
+                string appId = null;
+                string accessToken = null;
+
+                if (accessTokenOrAppId == null)
                 {
-                    throw new UnRegisterAppIdException(null,
-                        "尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
+                    appId = AccessTokenContainer.GetFirstOrDefaultAppId();
+                    if (appId == null)
+                    {
+                        throw new UnRegisterAppIdException(null,
+                            "尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
+                    }
                 }
-            }
-            else if (ApiUtility.IsAppId(accessTokenOrAppId))
-            {
-                if (!AccessTokenContainer.CheckRegistered(accessTokenOrAppId))
+                else if (ApiUtility.IsAppId(accessTokenOrAppId))
                 {
-                    throw new UnRegisterAppIdException(accessTokenOrAppId, string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！", accessTokenOrAppId));
-                }
+                    if (!AccessTokenContainer.CheckRegistered(accessTokenOrAppId))
+                    {
+                        throw new UnRegisterAppIdException(accessTokenOrAppId, string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！", accessTokenOrAppId));
+                    }
 
-                appId = accessTokenOrAppId;
-            }
-            else
-            {
-                accessToken = accessTokenOrAppId;//accessToken
-            }
-
-            T result = null;
-
-            try
-            {
-                if (accessToken == null)
-                {
-                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(appId, false);
-                    accessToken = accessTokenResult.access_token;
-                }
-                result = fun(accessToken);
-            }
-            catch (ErrorJsonResultException ex)
-            {
-                if (retryIfFaild
-                    && appId != null
-                    && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
-                {
-                    //尝试重新验证
-                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(appId, true);
-                        //强制获取并刷新最新的AccessToken
-                    accessToken = accessTokenResult.access_token;
-                    result = TryCommonApi(fun, appId, false);
+                    appId = accessTokenOrAppId;
                 }
                 else
+                {
+                    accessToken = accessTokenOrAppId;//accessToken
+                }
+
+                T result = null;
+
+                try
+                {
+                    if (accessToken == null)
+                    {
+                        var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(appId, false);
+                        accessToken = accessTokenResult.access_token;
+                    }
+                    result = fun(accessToken);
+                }
+                catch (ErrorJsonResultException ex)
+                {
+                    if (retryIfFaild
+                        && appId != null
+                        && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
+                    {
+                        //尝试重新验证
+                        var accessTokenResult = AccessTokenContainer.GetAccessTokenResult(appId, true);
+                        //强制获取并刷新最新的AccessToken
+                        accessToken = accessTokenResult.access_token;
+                        result = TryCommonApi(fun, appId, false);
+                    }
+                    else
+                    {
+                        ex.AccessTokenOrAppId = accessTokenOrAppId;
+                        throw;
+                    }
+                }
+                catch (WeixinException ex)
                 {
                     ex.AccessTokenOrAppId = accessTokenOrAppId;
                     throw;
                 }
-            }
-            catch (WeixinException ex)
-            {
-                ex.AccessTokenOrAppId = accessTokenOrAppId;
-                throw;
-            }
 
-            return result;
+                return result;
+            });
         }
 
         #region 淘汰方法
@@ -181,65 +185,68 @@ namespace Senparc.Weixin.MP
         /// <returns></returns>
         public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : WxJsonResult
         {
-            string appId = null;
-            string accessToken = null;
-
-            if (accessTokenOrAppId == null)
+            return await ApiHandlerWapperBase.RunApiAsync(async () =>
             {
-                appId = AccessTokenContainer.GetFirstOrDefaultAppId();
-                if (appId == null)
+                string appId = null;
+                string accessToken = null;
+
+                if (accessTokenOrAppId == null)
                 {
-                    throw new UnRegisterAppIdException(null,
-                        "尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
+                    appId = AccessTokenContainer.GetFirstOrDefaultAppId();
+                    if (appId == null)
+                    {
+                        throw new UnRegisterAppIdException(null,
+                            "尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
+                    }
                 }
-            }
-            else if (ApiUtility.IsAppId(accessTokenOrAppId))
-            {
-                if (!AccessTokenContainer.CheckRegistered(accessTokenOrAppId))
+                else if (ApiUtility.IsAppId(accessTokenOrAppId))
                 {
-                    throw new UnRegisterAppIdException(accessTokenOrAppId,
-                        string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！",
-                            accessTokenOrAppId));
-                }
+                    if (!AccessTokenContainer.CheckRegistered(accessTokenOrAppId))
+                    {
+                        throw new UnRegisterAppIdException(accessTokenOrAppId,
+                            string.Format("此appId（{0}）尚未注册，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！",
+                                accessTokenOrAppId));
+                    }
 
-                appId = accessTokenOrAppId;
-            }
-            else
-            {
-                accessToken = accessTokenOrAppId; //accessToken
-            }
-
-
-            Task<T> result = null;
-
-            try
-            {
-                if (accessToken == null)
-                {
-                    var accessTokenResult = await AccessTokenContainer.GetAccessTokenResultAsync(appId, false);
-                    accessToken = accessTokenResult.access_token;
-                }
-                result = fun(accessToken);
-            }
-            catch (ErrorJsonResultException ex)
-            {
-                if (retryIfFaild
-                    && appId != null
-                    && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
-                {
-                    //尝试重新验证
-                    var accessTokenResult = AccessTokenContainer.GetAccessTokenResultAsync(appId, true);
-                    //强制获取并刷新最新的AccessToken
-                    accessToken = accessTokenResult.Result.access_token;
-                    result = TryCommonApiAsync(fun, appId, false);
+                    appId = accessTokenOrAppId;
                 }
                 else
                 {
-                    throw;
+                    accessToken = accessTokenOrAppId; //accessToken
                 }
-            }
 
-            return await result;
+
+                Task<T> result = null;
+
+                try
+                {
+                    if (accessToken == null)
+                    {
+                        var accessTokenResult = await AccessTokenContainer.GetAccessTokenResultAsync(appId, false);
+                        accessToken = accessTokenResult.access_token;
+                    }
+                    result = fun(accessToken);
+                }
+                catch (ErrorJsonResultException ex)
+                {
+                    if (retryIfFaild
+                        && appId != null
+                        && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
+                    {
+                        //尝试重新验证
+                        var accessTokenResult = AccessTokenContainer.GetAccessTokenResultAsync(appId, true);
+                        //强制获取并刷新最新的AccessToken
+                        accessToken = accessTokenResult.Result.access_token;
+                        result = TryCommonApiAsync(fun, appId, false);
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return await result;
+            });
         }
 
 

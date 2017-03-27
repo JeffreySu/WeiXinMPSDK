@@ -24,15 +24,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     文件名：FlushCache.cs
     文件功能描述：缓存立即生效方法
 
-/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
-
-    文件名：FlushCache.cs
-    文件功能描述：缓存立即生效方法
-
-    创建标识：Senparc - 20160318
-
-----------------------------------------------------------------*/
 
     创建标识：Senparc - 20160318
 

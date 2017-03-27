@@ -46,6 +46,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v4.11.1 添加【ReturnCode.appsecret不正确】枚举类型（invalid appsecret，40125）
 ----------------------------------------------------------------*/
 
+
+
 namespace Senparc.Weixin
 {
     /// <summary>

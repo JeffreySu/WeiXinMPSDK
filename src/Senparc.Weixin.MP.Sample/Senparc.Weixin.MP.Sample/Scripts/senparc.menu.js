@@ -57,7 +57,7 @@ senparc.menu = {
             $(this).addClass('currentMenuInput');
             $('#menuTable thead th').eq(column + 1).addClass('currentMenuItem');
             $('#menuTable tbody tr').eq(row).find('td').eq(0).addClass('currentMenuItem');
-        
+
         });
 
         $('#menuLogin_Submit').click(function () {
@@ -171,13 +171,28 @@ senparc.menu = {
         });
     },
     typeChanged: function () {
-        var val = $('#buttonDetails_type').val();
-        if (val.toUpperCase() == 'VIEW') {
-            $('#buttonDetails_key_area').slideUp(100);
-            $('#buttonDetails_url_area').slideDown(100);
-        } else {
-            $('#buttonDetails_key_area').slideDown(100);
-            $('#buttonDetails_url_area').slideUp(100);
+        var val = $('#buttonDetails_type').val().toUpperCase();
+        switch (val) {
+            case 'VIEW':
+                $('#buttonDetails_key_area').slideUp(100);
+                $('#buttonDetails_url_area').slideDown(100);
+                $('#buttonDetails_miniprogram_appid_area').slideUp(100);
+                $('#buttonDetails_miniprogram_page_area').slideUp(100);
+                break;
+            case 'CLICK':
+                $('#buttonDetails_key_area').slideDown(100);
+                $('#buttonDetails_url_area').slideUp(100);
+                $('#buttonDetails_miniprogram_appid_area').slideUp(100);
+                $('#buttonDetails_miniprogram_page_area').slideUp(100);
+                break;
+            case 'MINIPROGRAM':
+                $('#buttonDetails_key_area').slideUp(100);
+                $('#buttonDetails_url_area').slideDown(100);
+                $('#buttonDetails_miniprogram_appid_area').slideDown(100);
+                $('#buttonDetails_miniprogram_page_area').slideDown(100);
+                break;
+            default:
+                break;
         }
     },
     setToken: function (token) {

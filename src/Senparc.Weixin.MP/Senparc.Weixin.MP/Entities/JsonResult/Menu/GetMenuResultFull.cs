@@ -63,6 +63,14 @@ namespace Senparc.Weixin.MP
         public string key { get; set; }
         public string name { get; set; }
         public string url { get; set; }
+
+        #region 小程序
+
+        public string appid { get; set; }
+        public string pagepath { get; set; }
+
+        #endregion
+
         public List<MenuFull_RootButton> sub_button { get; set; }
     }
     #endregion

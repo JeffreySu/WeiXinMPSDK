@@ -114,10 +114,12 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     else if (rootButton.type.Equals("MINIPROGRAM", StringComparison.OrdinalIgnoreCase))
                     {
                         //小程序
-                        buttonGroup.button.Add(new SingleViewButton()
+                        buttonGroup.button.Add(new SingleMiniProgramButton()
                         {
                             name = rootButton.name,
                             url = rootButton.url,
+                            appid = rootButton.appid,
+                            pagepath = rootButton.pagepath,
                             type = rootButton.type
                         });
                     }
@@ -227,6 +229,18 @@ namespace Senparc.Weixin.MP.CommonAPIs
                             {
                                 name = subSubButton.name,
                                 url = subSubButton.url,
+                                type = subSubButton.type
+                            });
+                        }
+                        else if (rootButton.type.Equals("MINIPROGRAM", StringComparison.OrdinalIgnoreCase))
+                        {
+                            //小程序
+                            buttonGroup.button.Add(new SingleMiniProgramButton()
+                            {
+                                name = subSubButton.name,
+                                url = subSubButton.url,
+                                appid = subSubButton.appid,
+                                pagepath = subSubButton.pagepath,
                                 type = subSubButton.type
                             });
                         }

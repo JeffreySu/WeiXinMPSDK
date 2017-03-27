@@ -33,6 +33,9 @@ using Senparc.Weixin.MP.Containers;
 
 namespace Senparc.Weixin.MP.Helpers
 {
+    /// <summary>
+    /// JS-SDK 帮助类
+    /// </summary>
     public class JSSDKHelper
     {
         /// <summary>

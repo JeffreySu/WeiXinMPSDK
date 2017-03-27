@@ -21,8 +21,8 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：ApiHandlerWapperBase.cs
-    文件功能描述：针对AccessToken无效或过期的自动处理类（基类）
+    文件名：ApiHandlerWapperFactory.cs
+    文件功能描述：针对AccessToken无效或过期的自动处理方法的工厂
     
     
     创建标识：Senparc - 20170327
@@ -42,7 +42,7 @@ namespace Senparc.Weixin.CommonAPIs
     /// <summary>
     /// 针对AccessToken无效或过期的自动处理类（基类）
     /// </summary>
-    public static class ApiHandlerWapperBase
+    public static class ApiHandlerWapperFactory
     {
         #region 同步方法
 

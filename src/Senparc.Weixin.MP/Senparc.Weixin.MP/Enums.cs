@@ -66,6 +66,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170106
     修改描述：v14.3.117 ResponseMsgType添加SuccessResponse枚举
 
+    修改标识：Senparc - 20170328
+    修改描述：v14.3.139 ButtonType添加小程序类型
+
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;
@@ -290,6 +293,10 @@ namespace Senparc.Weixin.MP
         /// Url
         /// </summary>
         view,
+        /// <summary>
+        /// 小程序
+        /// </summary>
+        miniprogram,
         /// <summary>
         /// 扫码推事件
         /// </summary>

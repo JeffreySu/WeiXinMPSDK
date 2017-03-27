@@ -68,9 +68,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="templateId"></param>
         /// <param name="url"></param>
         /// <param name="data"></param>
+        /// <param name="miniProgram">跳小程序所需数据，不需跳小程序可不用传该数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static SendTemplateMessageResult SendTemplateMessage(string accessTokenOrAppId, string openId, string templateId, string url, object data, int timeOut = Config.TIME_OUT)
+        public static SendTemplateMessageResult SendTemplateMessage(string accessTokenOrAppId, string openId, string templateId, string url, object data, TempleteModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -81,6 +82,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     template_id = templateId,
                     // topcolor = topcolor,
                     url = url,
+                    miniprogram = miniProgram,
                     data = data
                 };
                 return CommonJsonSend.Send<SendTemplateMessageResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
@@ -94,12 +96,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
         /// <param name="templateMessageData"></param>
+        /// <param name="miniProgram">跳小程序所需数据，不需跳小程序可不用传该数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static SendTemplateMessageResult SendTemplateMessage(string accessTokenOrAppId, string openId, ITemplateMessageBase templateMessageData, int timeOut = Config.TIME_OUT)
+        public static SendTemplateMessageResult SendTemplateMessage(string accessTokenOrAppId, string openId, ITemplateMessageBase templateMessageData, TempleteModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
         {
             return SendTemplateMessage(accessTokenOrAppId, openId, templateMessageData.TemplateId,
-                templateMessageData.Url, templateMessageData, timeOut);
+                templateMessageData.Url, templateMessageData, miniProgram, timeOut);
         }
 
         /// <summary>
@@ -211,9 +214,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="templateId"></param>
         /// <param name="url"></param>
         /// <param name="data"></param>
+        /// <param name="miniProgram">跳小程序所需数据，不需跳小程序可不用传该数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<SendTemplateMessageResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, string templateId, string url, object data, int timeOut = Config.TIME_OUT)
+        public static async Task<SendTemplateMessageResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, string templateId, string url, object data, TempleteModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
@@ -222,8 +226,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     touser = openId,
                     template_id = templateId,
-                   // topcolor = topcolor,
+                    // topcolor = topcolor,
                     url = url,
+                    miniprogram = miniProgram,
                     data = data
                 };
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendTemplateMessageResult>(accessToken, urlFormat, msgData, timeOut: timeOut);
@@ -237,13 +242,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
+        /// <param name="miniProgram">跳小程序所需数据，不需跳小程序可不用传该数据</param>
         /// <param name="templateMessageData"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<SendTemplateMessageResult>SendTemplateMessageAsync(string accessTokenOrAppId, string openId, ITemplateMessageBase templateMessageData, int timeOut = Config.TIME_OUT)
+        public static async Task<SendTemplateMessageResult> SendTemplateMessageAsync(string accessTokenOrAppId, string openId, ITemplateMessageBase templateMessageData, TempleteModel_MiniProgram miniProgram = null, int timeOut = Config.TIME_OUT)
         {
             return await SendTemplateMessageAsync(accessTokenOrAppId, openId, templateMessageData.TemplateId,
-                templateMessageData.Url, templateMessageData, timeOut);
+                templateMessageData.Url, templateMessageData, miniProgram, timeOut);
         }
 
         /// <summary>

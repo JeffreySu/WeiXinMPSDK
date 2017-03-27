@@ -57,7 +57,13 @@ senparc.menu = {
             $(this).addClass('currentMenuInput');
             $('#menuTable thead th').eq(column + 1).addClass('currentMenuItem');
             $('#menuTable tbody tr').eq(row).find('td').eq(0).addClass('currentMenuItem');
-        
+
+            //一级菜单提示
+            if (row == 5) {
+                $('#rootButtonNotice').show()
+            } else {
+                $('#rootButtonNotice').hide()
+            }
         });
 
         $('#menuLogin_Submit').click(function () {
@@ -90,6 +96,8 @@ senparc.menu = {
                         $('#menu_button' + i + '_key').val(button.key);
                         $('#menu_button' + i + '_type').val(button.type || 'click');
                         $('#menu_button' + i + '_url').val(button.url);
+                        $('#menu_button' + i + '_appid').val(button.appid);
+                        $('#menu_button' + i + '_pagepath').val(button.pagepath);
 
                         if (button.sub_button && button.sub_button.length > 0) {
                             //二级菜单
@@ -100,6 +108,8 @@ senparc.menu = {
                                 $(idPrefix + "_type").val(subButton.type || 'click');
                                 $(idPrefix + "_key").val(subButton.key);
                                 $(idPrefix + "_url").val(subButton.url);
+                                $(idPrefix + "_appid").val(subButton.appid);
+                                $(idPrefix + "_pagepath").val(subButton.pagepath);
                             }
                         } else {
                             //底部菜单
@@ -171,13 +181,28 @@ senparc.menu = {
         });
     },
     typeChanged: function () {
-        var val = $('#buttonDetails_type').val();
-        if (val.toUpperCase() == 'VIEW') {
-            $('#buttonDetails_key_area').slideUp(100);
-            $('#buttonDetails_url_area').slideDown(100);
-        } else {
-            $('#buttonDetails_key_area').slideDown(100);
-            $('#buttonDetails_url_area').slideUp(100);
+        var val = $('#buttonDetails_type').val().toUpperCase();
+        switch (val) {
+            case 'VIEW':
+                $('#buttonDetails_key_area').slideUp(100);
+                $('#buttonDetails_url_area').slideDown(100);
+                $('#buttonDetails_miniprogram_appid_area').slideUp(100);
+                $('#buttonDetails_miniprogram_pagepath_area').slideUp(100);
+                break;
+            case 'CLICK':
+                $('#buttonDetails_key_area').slideDown(100);
+                $('#buttonDetails_url_area').slideUp(100);
+                $('#buttonDetails_miniprogram_appid_area').slideUp(100);
+                $('#buttonDetails_miniprogram_pagepath_area').slideUp(100);
+                break;
+            case 'MINIPROGRAM':
+                $('#buttonDetails_key_area').slideUp(100);
+                $('#buttonDetails_url_area').slideDown(100);
+                $('#buttonDetails_miniprogram_appid_area').slideDown(100);
+                $('#buttonDetails_miniprogram_pagepath_area').slideDown(100);
+                break;
+            default:
+                break;
         }
     },
     setToken: function (token) {

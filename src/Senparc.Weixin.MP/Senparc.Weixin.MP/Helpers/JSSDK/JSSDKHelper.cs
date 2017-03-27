@@ -17,7 +17,10 @@
     修改描述：优化代码，更新到最新的Helpers方法调用
 
     修改标识：Senparc - 20170203
-    修改描述：MP v14.3.137 修改JSSDKHelper.GetAddrSign传入参数，应该传入OAuth的AccessToken
+    修改描述：MP v14.3.137 修改 JSSDKHelper.GetAddrSign 传入参数，应该传入OAuth的AccessToken
+
+    修改标识：Senparc - 20170327
+    修改描述：MP v14.3.138 修改 JSSDKHelper.GetAddrSign() 方法
 
 ----------------------------------------------------------------*/
 
@@ -30,6 +33,9 @@ using Senparc.Weixin.MP.Containers;
 
 namespace Senparc.Weixin.MP.Helpers
 {
+    /// <summary>
+    /// JS-SDK 帮助类
+    /// </summary>
     public class JSSDKHelper
     {
         /// <summary>
@@ -153,7 +159,7 @@ namespace Senparc.Weixin.MP.Helpers
             //TODO:此处的accessToken应该为OAuth的AccessToken
             //var accessToken = AccessTokenContainer.TryGetAccessToken(appId, appSecret);
             var parameters = new Hashtable();
-            parameters.Add("appId", appId);
+            parameters.Add("appid", appId);
             parameters.Add("noncestr", noncestr);
             parameters.Add("timestamp", timestamp);
             parameters.Add("url", url);

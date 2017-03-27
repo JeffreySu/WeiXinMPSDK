@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+    
+    修改标识：Senparc - 20170328
+    修改描述：添加对小程序的支持
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
@@ -51,16 +54,40 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage
         public string topcolor { get; set; }
 
         /// <summary>
+        /// 模板跳转链接
+        /// </summary>
+        public string url { get; set; }
+
+        /// <summary>
+        /// 跳小程序所需数据，不需跳小程序可不用传该数据
+        /// </summary>
+        public TempleteModel_MiniProgram miniprogram { get; set; }
+
+        /// <summary>
         /// 数据
         /// </summary>
         public object data { get; set; }
-
-        public string url { get; set; }
 
 
         public TempleteModel()
         {
             topcolor = "#FF0000";
         }
+    }
+
+    /// <summary>
+    /// 小程序定义
+    /// </summary>
+    //[Senparc.Weixin.Helpers.JsonSetting.IgnoreValue(false)]
+    public class TempleteModel_MiniProgram
+    {
+        /// <summary>
+        /// 小程序AppId
+        /// </summary>
+        public string appid { get; set; }
+        /// <summary>
+        /// 路径，如：index?foo=bar
+        /// </summary>
+        public string pagepath { get; set; }
     }
 }

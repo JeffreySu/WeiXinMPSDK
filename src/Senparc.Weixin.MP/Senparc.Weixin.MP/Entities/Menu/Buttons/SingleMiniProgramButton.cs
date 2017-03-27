@@ -21,31 +21,39 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：SingleViewButton.cs
-    文件功能描述：Url按钮
+    文件名：SingleMiniProgramButton.cs
+    文件功能描述：小程序按钮
     
     
-    创建标识：Senparc - 20150211
-    
-    修改标识：Senparc - 20150303
-    修改描述：整理接口
+    创建标识：Senparc - 20170327
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.Entities.Menu
 {
     /// <summary>
-    /// Url按钮
+    /// 小程序按钮
     /// </summary>
-    public class SingleViewButton : SingleButton
+    public class SingleMiniProgramButton : SingleButton
     {
         /// <summary>
-        /// 类型为view时必须
-        /// 网页链接，用户点击按钮可打开链接，不超过1024字节
+        /// 类型为miniprogram时必须
+        /// 小程序Url，用户点击按钮可打开小程序，不超过1024字节（不支持小程序的老版本客户端将打开本url）
         /// </summary>
         public string url { get; set; }
 
-        public SingleViewButton()
-            : base(ButtonType.view.ToString())
+        /// <summary>
+        /// 小程序的appid
+        /// </summary>
+        public string appid { get; set; }
+
+        /// <summary>
+        /// 小程序的页面路径
+        /// </summary>
+        public string pagepath { get; set; }
+
+        public SingleMiniProgramButton()
+            : base(ButtonType.miniprogram.ToString())
         {
         }
     }

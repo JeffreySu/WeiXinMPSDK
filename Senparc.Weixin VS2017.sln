@@ -7,7 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{991431A6-4B0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{37524CFB-5238-4C87-8468-23676AC026EF}"
 	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
 		RunPack.ps1 = RunPack.ps1
 		RunRestore.ps1 = RunRestore.ps1
 	EndProjectSection

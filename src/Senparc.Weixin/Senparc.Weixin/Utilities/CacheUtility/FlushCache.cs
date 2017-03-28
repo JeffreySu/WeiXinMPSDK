@@ -1,13 +1,4 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
-
-    文件名：FlushCache.cs
-    文件功能描述：缓存立即生效方法
-
-
-    创建标识：Senparc - 20160318
-
-----------------------------------------------------------------*/#region Apache License Version 2.0
+﻿#region Apache License Version 2.0
 /*----------------------------------------------------------------
 
 Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
@@ -27,6 +18,16 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
+
+    文件名：FlushCache.cs
+    文件功能描述：缓存立即生效方法
+
+
+    创建标识：Senparc - 20160318
+
+----------------------------------------------------------------*/
 
 
 using System;

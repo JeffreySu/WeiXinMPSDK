@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 
+    创建标识：Senparc - 20160318
+
+----------------------------------------------------------------*/
 
 using System;
 using System.Collections.Generic;

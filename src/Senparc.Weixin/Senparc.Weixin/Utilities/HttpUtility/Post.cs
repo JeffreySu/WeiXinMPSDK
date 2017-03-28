@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：Post.cs
     文件功能描述：Post
@@ -108,7 +108,7 @@ namespace Senparc.Weixin.HttpUtility
         {
             string returnText = RequestUtility.HttpPost(url, cookieContainer, fileStream, null, null, encoding, cer, timeOut, checkValidationResult);
 
-			WeixinTrace.SendLog(url, returnText);
+			WeixinTrace.SendApiLog(url, returnText);
 
 			var result = GetResult<T>(returnText);
 			return result;
@@ -198,7 +198,7 @@ namespace Senparc.Weixin.HttpUtility
         {
             string returnText = await RequestUtility.HttpPostAsync(url, cookieContainer, fileStream, null, null, encoding, cer, timeOut, checkValidationResult);
 
-            WeixinTrace.SendLog(url, returnText);
+            WeixinTrace.SendApiLog(url, returnText);
 
             var result = GetResult<T>(returnText);
             return result;

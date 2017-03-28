@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：MessageAnalysisItemJson.cs
     文件功能描述：获取消息发送概况数据返回结果 单条数据类

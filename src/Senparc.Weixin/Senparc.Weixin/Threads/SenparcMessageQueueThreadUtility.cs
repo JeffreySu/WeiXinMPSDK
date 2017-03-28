@@ -1,8 +1,8 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：SenparcMessageQueueThreadUtility.cs
-    文件功能描述：SenparcMessageQueue消息列队线程处理
+    文件功能描述：SenparcMessageQueue消息队列线程处理
 
 
     创建标识：Senparc - 20160210

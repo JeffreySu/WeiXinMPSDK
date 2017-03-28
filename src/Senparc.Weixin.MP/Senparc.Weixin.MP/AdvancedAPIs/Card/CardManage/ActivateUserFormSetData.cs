@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：ActivateUserFormSetData.cs
     文件功能描述：会员卡设置开卡字段需要的数据

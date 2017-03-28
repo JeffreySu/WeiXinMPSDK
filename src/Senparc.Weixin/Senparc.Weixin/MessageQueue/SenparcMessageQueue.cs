@@ -1,8 +1,8 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：SenparcMessageQueue.cs
-    文件功能描述：SenparcMessageQueue消息列队
+    文件功能描述：SenparcMessageQueue消息队列
 
 
     创建标识：Senparc - 20151226
@@ -22,12 +22,12 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.MessageQueue
 {
     /// <summary>
-    /// 消息列队
+    /// 消息队列
     /// </summary>
     public class SenparcMessageQueue
     {
         /// <summary>
-        /// 列队数据集合
+        /// 队列数据集合
         /// </summary>
         private static Dictionary<string, SenparcMessageQueueItem> MessageQueueDictionary = new Dictionary<string, SenparcMessageQueueItem>(StringComparer.OrdinalIgnoreCase);
 
@@ -43,7 +43,7 @@ namespace Senparc.Weixin.MessageQueue
         /// <summary>
         /// 生成Key
         /// </summary>
-        /// <param name="name">列队应用名称，如“ContainerBag”</param>
+        /// <param name="name">队列应用名称，如“ContainerBag”</param>
         /// <param name="senderType">操作对象类型</param>
         /// <param name="identityKey">对象唯一标识Key</param>
         /// <param name="actionName">操作名称，如“UpdateContainerBag”</param>
@@ -56,7 +56,7 @@ namespace Senparc.Weixin.MessageQueue
         }
 
         /// <summary>
-        /// 操作列队
+        /// 操作队列
         /// </summary>
         public static void OperateQueue()
         {
@@ -104,7 +104,7 @@ namespace Senparc.Weixin.MessageQueue
         }
 
         /// <summary>
-        /// 添加列队成员
+        /// 添加队列成员
         /// </summary>
         /// <param name="key"></param>
         /// <param name="action"></param>
@@ -129,7 +129,7 @@ namespace Senparc.Weixin.MessageQueue
         }
 
         /// <summary>
-        /// 移除列队成员
+        /// 移除队列成员
         /// </summary>
         /// <param name="key"></param>
         public void Remove(string key)
@@ -145,7 +145,7 @@ namespace Senparc.Weixin.MessageQueue
         }
 
         /// <summary>
-        /// 获得当前列队数量
+        /// 获得当前队列数量
         /// </summary>
         /// <returns></returns>
         public int GetCount()

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：GetShakeInfoResultJson.cs
     文件功能描述：获取摇周边的设备及用户信息返回结果

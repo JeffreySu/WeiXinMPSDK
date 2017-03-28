@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：PageListResultJson.cs
     文件功能描述：批量查询页面统计数据的返回结果

@@ -1,8 +1,8 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：SenparcMessageQueueItem.cs
-    文件功能描述：SenparcMessageQueue消息列队项
+    文件功能描述：SenparcMessageQueue消息队列项
     
     
     创建标识：Senparc - 20151226
@@ -18,16 +18,16 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.MessageQueue
 {
     /// <summary>
-    /// SenparcMessageQueue消息列队项
+    /// SenparcMessageQueue消息队列项
     /// </summary>
     public class SenparcMessageQueueItem
     {
         /// <summary>
-        /// 列队项唯一标识
+        /// 队列项唯一标识
         /// </summary>
         public string Key { get; set; }
         /// <summary>
-        /// 列队项目命中触发时执行的委托
+        /// 队列项目命中触发时执行的委托
         /// </summary>
         public Action Action { get; set; }
         /// <summary>
@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MessageQueue
         public string Description { get; set; }
 
         /// <summary>
-        /// 初始化SenparcMessageQueue消息列队项
+        /// 初始化SenparcMessageQueue消息队列项
         /// </summary>
         /// <param name="key"></param>
         /// <param name="action"></param>

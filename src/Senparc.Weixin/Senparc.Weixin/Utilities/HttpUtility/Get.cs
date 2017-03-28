@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：Get.cs
     文件功能描述：Get
@@ -14,22 +14,21 @@
     修改描述：v4.5.19 为GetJson方法添加maxJsonLength参数
 ----------------------------------------------------------------*/
 
-using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Newtonsoft.Json;
-using System.Net.Http;
 
 namespace Senparc.Weixin.HttpUtility
 {
-	/// <summary>
-	/// Get请求处理
-	/// </summary>
-	public static class Get
+    /// <summary>
+    /// Get请求处理
+    /// </summary>
+    public static class Get
 	{
 		#region 同步方法
 
@@ -45,7 +44,7 @@ namespace Senparc.Weixin.HttpUtility
 		{
 			string returnText = RequestUtility.HttpGet(url, encoding);
 
-			WeixinTrace.SendLog(url, returnText);
+			WeixinTrace.SendApiLog(url, returnText);
 
 			if (returnText.Contains("errcode"))
 			{
@@ -85,20 +84,42 @@ namespace Senparc.Weixin.HttpUtility
 			}
 		}
 
-		#endregion
+        static System.Net.Http.HttpClient httpClient = new HttpClient();
+        public static string Download(string url, string dir)
+        {
+            Directory.CreateDirectory(dir);
+            using (var responseMessage = httpClient.GetAsync(url).Result)
+            {
+                if (responseMessage.StatusCode == HttpStatusCode.OK)
+                {
+                    var fullName = Path.Combine(dir, responseMessage.Content.Headers.ContentDisposition.FileName.Trim('"'));
+                    using (var fs = File.Open(fullName, FileMode.Create))
+                    {
+                        using (var responseStream = responseMessage.Content.ReadAsStreamAsync().Result)
+                        {
+                            responseStream.CopyTo(fs);
+                            return fullName;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
 
-		#region 异步方法
+        #endregion
 
-		/// <summary>
-		/// 异步GetJsonA
-		/// </summary>
-		/// <param name="url"></param>
-		/// <param name="encoding"></param>
-		/// <param name="maxJsonLength">允许最大JSON长度</param>
-		/// <typeparam name="T"></typeparam>
-		/// <returns></returns>
-		/// <exception cref="ErrorJsonResultException"></exception>
-		public static async Task<T> GetJsonAsync<T>(string url, Encoding encoding = null, int? maxJsonLength = null)
+        #region 异步方法
+
+        /// <summary>
+        /// 异步GetJsonA
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="encoding"></param>
+        /// <param name="maxJsonLength">允许最大JSON长度</param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="ErrorJsonResultException"></exception>
+        public static async Task<T> GetJsonAsync<T>(string url, Encoding encoding = null, int? maxJsonLength = null)
 		{
 			string returnText = await RequestUtility.HttpGetAsync(url, encoding);
 

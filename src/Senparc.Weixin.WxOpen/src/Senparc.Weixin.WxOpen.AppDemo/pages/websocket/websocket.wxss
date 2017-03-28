@@ -1,0 +1,54 @@
+/* pages/websocket/websocket.wxss */
+.container{
+    padding-top:10px;
+}
+
+.submitContent{
+    width:60%;
+    float:left;
+}
+
+.submitButton{
+    width: 20%;
+    float:right;
+}
+
+
+input.txtContent{
+    border:1px solid green;
+
+    height:20px;
+    line-height: 30px;
+}
+
+button.btnSubmit
+{
+   line-height: 30px;
+   height:30px;
+}
+
+
+.messageItem{
+    clear:both;
+    padding:5px 10px;
+    font-size: 12px;
+}
+
+    .messageItem .messageIndex{
+        width: 20px;
+    }
+
+     .messageItem .messageTime{
+         display: block;
+         color:darkgrey;
+         clear: both;
+    }
+
+     .messageItem .messageContext{
+        display: block;
+        clear:both;
+        color:teal;
+        padding-left: 10px;
+        width:100%;
+    }
+

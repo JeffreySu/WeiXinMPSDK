@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：CommonApi.Menu.Common.cs
     文件功能描述：通用自定义菜单接口（公共方法）
@@ -290,8 +290,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
                     var conditionalMenuList = new List<ConditionalButtonGroup>();
                     foreach (var conditionalMenu in resultFull.conditionalmenu)
                     {
-                        var conditionalButtonGroup = new ConditionalButtonGroup()
-                            ;
+                        var conditionalButtonGroup = new ConditionalButtonGroup();
+
                         //fix bug 16030701  https://github.com/JeffreySu/WeiXinMPSDK/issues/169
                         conditionalButtonGroup.matchrule = conditionalMenu.matchrule;
                         conditionalButtonGroup.menuid = conditionalMenu.menuid;

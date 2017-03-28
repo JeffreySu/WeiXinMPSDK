@@ -65,7 +65,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             CustomField customField = new CustomField
             {
                  name_type = MemberCard_CustomField_NameType.FIELD_NAME_TYPE_ACHIEVEMEN,
-                 url = "http://weixin.senparc.com"
+                 url = "https://weixin.senparc.com"
             };
 
             SerializerHelper serializerHelper = new SerializerHelper();
@@ -73,8 +73,7 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var jsonString = serializerHelper.GetJsonString(customField, jsonSetting);
             Console.WriteLine(jsonString);
             Assert.IsTrue(jsonString.Contains("FIELD_NAME_TYPE_ACHIEVEMEN"));
-            Assert.IsTrue(jsonString.Contains("http://weixin.senparc.com"));
-
+            Assert.IsTrue(jsonString.Contains("https://weixin.senparc.com"));
         }
 
         [TestMethod]

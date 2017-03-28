@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：CustomMessageHandler_Events.cs
     文件功能描述：自定义MessageHandler
@@ -12,15 +12,15 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.Context;
+using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.MessageHandlers;
-using Senparc.Weixin.MP.Sample.CommonService.Download;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+//using Senparc.Weixin.MP.Sample.CommonService.Download;
+//using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 {
@@ -41,16 +41,36 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 您也可以直接点击菜单查看各种类型的回复。
 还可以点击菜单体验微信支付。
 
-SDK官方地址：http://weixin.senparc.com
+SDK官方地址：https://weixin.senparc.com
 SDK Demo：http://sdk.weixin.senparc.com
 源代码及Demo下载地址：https://github.com/JeffreySu/WeiXinMPSDK
 Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
+QQ群：342319110
 
 ===============
 更多：
-1、有关第三方开放平台（Senparc.Weixin.Open）的内容，请回复文字：open
 
-2、JSSDK测试：http://sdk.weixin.senparc.com/WeixinJSSDK
+1、JSSDK测试：http://sdk.weixin.senparc.com/WeixinJSSDK
+
+2、开放平台测试（建议PC上打开）：http://sdk.weixin.senparc.com/OpenOAuth/JumpToMpOAuth
+
+3、回复关键字：
+
+【open】   进入第三方开放平台（Senparc.Weixin.Open）测试
+
+【tm】     测试异步模板消息
+
+【openid】 获取OpenId等用户信息
+
+【约束】   测试微信浏览器约束
+
+【AsyncTest】 异步并发测试
+
+【错误】    体验发生错误无法返回正确信息
+
+【容错】    体验去重容错
+
+【ex】      体验错误日志推送提醒
 ",
                 version);
         }
@@ -195,7 +215,7 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
                         {
                             Title = "OAuth2.0测试（带returnUrl），生产环境强烈推荐使用",
                             Description = "OAuth2.0测试（带returnUrl）",
-                            Url = "http://sdk.weixin.senparc.com/oauth2?returnUrl="+ returnUrl.UrlEncode(),
+                            Url = "http://sdk.weixin.senparc.com/oauth2?returnUrl=" + returnUrl.UrlEncode(),
                             PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg"
                         });
 
@@ -434,6 +454,36 @@ Nuget地址：https://www.nuget.org/packages/Senparc.Weixin.MP
             var responseMessage = base.CreateResponseMessage<ResponseMessageText>();
             responseMessage.Content = "事件之弹出地理位置选择器";
             return responseMessage;
+        }
+
+        /// <summary>
+        /// 事件之发送模板消息返回结果
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
+        public override IResponseMessageBase OnEvent_TemplateSendJobFinishRequest(RequestMessageEvent_TemplateSendJobFinish requestMessage)
+        {
+            switch (requestMessage.Status)
+            {
+                case "success":
+                    //发送成功
+                    break;
+                case "failed:user block":
+                    //送达由于用户拒收（用户设置拒绝接收公众号消息）而失败
+                    break;
+                case "failed: system failed":
+                    //送达由于其他原因失败
+                    break;
+                default:
+                    throw new WeixinException("未知模板消息状态：" + requestMessage.Status);
+            }
+
+            //注意：此方法内不能再发送模板消息，否则会造成无限循环！
+
+            //无需回复文字内容
+            //return requestMessage
+            //    .CreateResponseMessage<ResponseMessageNoResponse>();
+            return null;
         }
     }
 }

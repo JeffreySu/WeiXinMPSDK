@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------
-	Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
  
 	文件名：ResponseHandler.cs
 	文件功能描述：微信支付 响应处理

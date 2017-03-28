@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
   
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -39,6 +39,12 @@
 
     修改标识：Senparc - 20161024
     修改描述：v14.3.1024 添加RedPack_Scene枚举
+
+    修改标识：Senparc - 20161204
+    修改描述：v14.3.1025 添加TenPayV3CodeState枚举[统一订单返回状态]
+
+    修改标识：Senparc - 20170106
+    修改描述：v14.3.117 ResponseMsgType添加SuccessResponse枚举
 
 ----------------------------------------------------------------*/
 
@@ -247,6 +253,8 @@ namespace Senparc.Weixin.MP
         LocationMessage = 107,//
         [Description("无回复")]
         NoResponse = 110,
+        [Description("success")]
+        SuccessResponse = 200
     }
 
     /// <summary>

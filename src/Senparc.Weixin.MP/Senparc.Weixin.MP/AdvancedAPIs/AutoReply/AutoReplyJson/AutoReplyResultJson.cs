@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：AutoReplyResultJson.cs
     文件功能描述：获取自动回复规则返回结果

@@ -79,6 +79,7 @@
     <Compile Include="Entities\Request\RequestMessageAuthorized.cs" />
     <Compile Include="Entities\Request\RequestMessageUnauthorized.cs" />
     <Compile Include="Entities\Request\RequestMessageComponentVerifyTicket.cs" />
+    <Compile Include="Entities\Response\SuccessResponseMessage.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Exceptions\WeixinOpenException.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />

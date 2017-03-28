@@ -44,6 +44,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170302
     修改描述：v4.11.1 添加【ReturnCode.appsecret不正确】枚举类型（invalid appsecret，40125）
+
+    修改标识：Senparc - 20170328
+    修改描述：v4.12.1 添加【ReturnCode.小程序Appid不存在】枚举类型（invalid weapp appid，40166）
 ----------------------------------------------------------------*/
 
 
@@ -117,6 +120,9 @@ namespace Senparc.Weixin
         不合法的分组id = 40050,
         分组名字不合法 = 40051,
         appsecret不正确 = 40125,//invalid appsecret
+
+        小程序Appid不存在 = 40166,
+
         缺少access_token参数 = 41001,
         缺少appid参数 = 41002,
         缺少refresh_token参数 = 41003,

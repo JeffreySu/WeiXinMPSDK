@@ -261,6 +261,15 @@ namespace Senparc.Weixin.MP.Sample.Tests.Controllers
             Assert.AreEqual(recordCount, weixinContext.ResponseMessages.Count);
         }
 
-       
+        [TestMethod]
+        public void TextMuteTest()
+        {
+            //测试无返回消息
+            var xml = string.Format(string.Format(xmlEvent_ClickFormat, "mute"), DateTimeHelper.GetWeixinDateTime(DateTime.Now));
+            Init(xml);//初始化
+
+            PostTest(string.Format(xmlTextFormat, "mute"));
+
+        }
     }
 }

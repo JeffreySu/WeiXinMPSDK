@@ -19,7 +19,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
-
 using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;

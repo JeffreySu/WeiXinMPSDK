@@ -55,6 +55,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler.Tests
             Assert.IsTrue(((ResponseMessageText)messageHandler.ResponseMessage).Content.Contains("代理"));
         }
 
-
+      
     }
 }

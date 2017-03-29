@@ -7,7 +7,6 @@ using System.Xml.Linq;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MessageHandlers;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.MvcExtension
 {
@@ -91,7 +90,7 @@ namespace Senparc.Weixin.MP.MvcExtension
 				//使用IMessageHandler输出
 				if (_messageHandlerDocument == null)
 				{
-					throw new Exceptions.WeixinException("执行WeixinResult时提供的MessageHandler不能为Null！", null);
+					throw new Senparc.Weixin.Exceptions.WeixinException("执行WeixinResult时提供的MessageHandler不能为Null！", null);
 				}
 
 				if (_messageHandlerDocument.FinalResponseDocument == null)

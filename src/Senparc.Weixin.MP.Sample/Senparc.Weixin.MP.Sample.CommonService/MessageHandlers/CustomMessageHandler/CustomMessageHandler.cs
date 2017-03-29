@@ -312,7 +312,9 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             }
             else if (requestMessage.Content.ToUpper() == "MUTE")
             {
-                responseMessage.Content = "";
+                return new SuccessResponseMessage();
+                base.TextResponseMessage = "success";
+                responseMessage = null;
             }
             else
             {

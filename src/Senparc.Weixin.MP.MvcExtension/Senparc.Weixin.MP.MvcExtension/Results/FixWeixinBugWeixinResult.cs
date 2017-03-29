@@ -38,9 +38,14 @@ namespace Senparc.Weixin.MP.MvcExtension
                 {
                     return base.Content;
                 }
-                else if (_messageHandlerDocument != null && _messageHandlerDocument.TextResponseMessage != null)
+
+                if (_messageHandlerDocument != null)
                 {
-                    return _messageHandlerDocument.TextResponseMessage.Replace("\r\n", "\n");
+                    var textResponseMessag = _messageHandlerDocument.TextResponseMessage;
+                    if (_messageHandlerDocument.TextResponseMessage != null)
+                    {
+                        return _messageHandlerDocument.TextResponseMessage.Replace("\r\n", "\n");
+                    }
 
                     //if (_messageHandlerDocument.TextResponseMessage.Equals(String.Empty))
                     //{
@@ -59,10 +64,7 @@ namespace Senparc.Weixin.MP.MvcExtension
                     //    return _messageHandlerDocument.TextResponseMessage;
                     //}
                 }
-                else
-                {
-                    return null;
-                }
+                return null;
             }
             set { base.Content = value; }
         }

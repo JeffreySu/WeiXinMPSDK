@@ -310,6 +310,10 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 var ex = new WeixinException("openid:" + requestMessage.FromUserName + ":这是一条测试异常信息");//回调过程在global的ConfigWeixinTraceLog()方法中
                 responseMessage.Content = "请等待异步模板消息发送到此界面上（自动延时数秒）。\r\n当前时间：" + DateTime.Now.ToString();
             }
+            else if (requestMessage.Content.ToUpper() == "MUTE")
+            {
+                responseMessage.Content = "";
+            }
             else
             {
                 var result = new StringBuilder();

@@ -20,6 +20,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Containers;
+using System;
 
 namespace Senparc.Weixin.Cache.Redis.Tests
 {

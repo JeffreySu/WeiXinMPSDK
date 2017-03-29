@@ -71,7 +71,9 @@ namespace Senparc.Weixin.MP.MvcExtension
 
         public override void ExecuteResult(ControllerContext context)
         {
-            if (base.Content == null)
+            var content = this.Content;
+
+            if (content == null)
             {
                 //使用IMessageHandler输出
                 if (_messageHandlerDocument == null)
@@ -85,22 +87,20 @@ namespace Senparc.Weixin.MP.MvcExtension
                 }
                 else
                 {
-                    context.HttpContext.Response.ClearContent();
-                    context.HttpContext.Response.ContentType = "text/xml";
 
-                    var xml = _messageHandlerDocument.FinalResponseDocument == null
+
+                    content = _messageHandlerDocument.FinalResponseDocument == null
                                 ? ""
-                                : _messageHandlerDocument.FinalResponseDocument
-                                                         .ToString().Replace("\r\n", "\n"); //腾
-
-                    using (MemoryStream ms = new MemoryStream())//迅
-                    {//真
-                        var bytes = Encoding.UTF8.GetBytes(xml);//的
-
-                        context.HttpContext.Response.OutputStream.Write(bytes, 0, bytes.Length);//很
-                    }//疼
+                                : _messageHandlerDocument.FinalResponseDocument.ToString();
                 }
             }
+
+            context.HttpContext.Response.ClearContent();
+            context.HttpContext.Response.ContentType = "text/xml";
+            content = (content ?? "").Replace("\r\n", "\n");
+
+            var bytes = Encoding.UTF8.GetBytes(content);
+            context.HttpContext.Response.OutputStream.Write(bytes, 0, bytes.Length);
         }
     }
 }

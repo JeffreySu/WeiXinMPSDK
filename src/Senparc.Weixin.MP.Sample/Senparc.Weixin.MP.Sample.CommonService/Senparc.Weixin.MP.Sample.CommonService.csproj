@@ -10,7 +10,11 @@
 
   <ItemGroup>
     <Folder Include="MessageHandlers\CustomMessageHandler\" />
-    <Folder Include="Utilities\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.0" />
+    <PackageReference Include="System.Diagnostics.FileVersionInfo" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -12,6 +12,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{35139CB3-610E-4922-98AD-08A5D12BFC35}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{FC72CA5A-5DE9-4902-A5AA-00344FA68B37}"
+	ProjectSection(SolutionItems) = preProject
+		Senparc.Weixin.MP.Sample.CommonService\TemplateMessage\WeixinTemplate_ExceptionAlert.cs = Senparc.Weixin.MP.Sample.CommonService\TemplateMessage\WeixinTemplate_ExceptionAlert.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{DCF86D54-CF96-4C69-9385-7AA62B399104}"
 EndProject

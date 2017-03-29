@@ -87,8 +87,6 @@ namespace Senparc.Weixin.MP.MvcExtension
                 }
                 else
                 {
-
-
                     content = _messageHandlerDocument.FinalResponseDocument == null
                                 ? ""
                                 : _messageHandlerDocument.FinalResponseDocument.ToString();

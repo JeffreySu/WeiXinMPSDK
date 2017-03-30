@@ -41,6 +41,9 @@ using Senparc.Weixin.Utilities;
 
 namespace Senparc.Weixin.MP.Helpers
 {
+    /// <summary>
+    /// 实体帮助类
+    /// </summary>
     public static class EntityHelper
     {
         /// <summary>

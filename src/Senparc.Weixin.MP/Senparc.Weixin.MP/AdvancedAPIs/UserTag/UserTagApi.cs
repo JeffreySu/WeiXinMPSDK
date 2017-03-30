@@ -40,6 +40,9 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
+    /// <summary>
+    /// 用户标签接口
+    /// </summary>
     public class UserTagApi
     {
         #region 同步请求

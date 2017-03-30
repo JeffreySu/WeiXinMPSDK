@@ -67,7 +67,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     #region 基类
 
     /// <summary>
-    /// 基础返回结果
+    /// 基础返回结果（微信支付返回结果基类）
     /// </summary>
     public class TenPayV3Result
     {

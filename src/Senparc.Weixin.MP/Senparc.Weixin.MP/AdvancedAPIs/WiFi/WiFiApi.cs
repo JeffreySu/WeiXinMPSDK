@@ -54,6 +54,9 @@ using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class WiFiApi
     {
         #region 同步请求
@@ -382,9 +385,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 设置微信首页欢迎语
-
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="shopId">门店ID</param>
@@ -411,7 +414,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         /// <summary>
         /// 设置连网完成页
-
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="shopId">门店ID</param>

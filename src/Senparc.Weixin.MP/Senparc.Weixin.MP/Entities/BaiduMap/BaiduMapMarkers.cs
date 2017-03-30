@@ -42,6 +42,9 @@ namespace Senparc.Weixin.MP.Entities.BaiduMap
         s = 0, m = 1, l = 2
     }
 
+    /// <summary>
+    /// 百度地图标记
+    /// </summary>
     public class BaiduMarkers
     {
         /// <summary>

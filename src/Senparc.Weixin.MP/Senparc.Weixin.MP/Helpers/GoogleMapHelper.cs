@@ -41,6 +41,9 @@ using Senparc.Weixin.MP.Entities.GoogleMap;
 
 namespace Senparc.Weixin.MP.Helpers
 {
+    /// <summary>
+    /// 谷歌地图帮助类
+    /// </summary>
     public static class GoogleMapHelper
     {
         /// <summary>

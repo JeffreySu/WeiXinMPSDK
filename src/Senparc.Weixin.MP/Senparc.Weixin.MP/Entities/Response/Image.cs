@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 namespace Senparc.Weixin.MP.Entities
 {
+    /// <summary>
+    /// Image
+    /// </summary>
     public class Image
     {
         public string MediaId { get; set; }

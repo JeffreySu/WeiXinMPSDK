@@ -45,6 +45,9 @@ using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {
+    /// <summary>
+    /// 通用 JSON 数据获取
+    /// </summary>
     public static class CommonJsonSend
     {
         #region 同步请求

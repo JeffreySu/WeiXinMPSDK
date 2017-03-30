@@ -35,6 +35,9 @@ using System;
 
 namespace Senparc.Weixin.MP.Helpers
 {
+    /// <summary>
+    /// GPS 帮助类
+    /// </summary>
     public class GpsHelper
     {
         /// <summary>

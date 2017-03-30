@@ -36,6 +36,9 @@ using System.Xml.Linq;
 
 namespace Senparc.Weixin.MP.Helpers
 {
+    /// <summary>
+    /// 事件帮助类
+    /// </summary>
     public class EventHelper
     {
         public static Event GetEventType(XDocument doc)

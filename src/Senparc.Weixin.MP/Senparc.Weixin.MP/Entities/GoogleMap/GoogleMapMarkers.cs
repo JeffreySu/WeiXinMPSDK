@@ -42,6 +42,9 @@ namespace Senparc.Weixin.MP.Entities.GoogleMap
         tiny = 0, mid = 1, small = 2
     }
 
+    /// <summary>
+    /// 谷歌地图标记
+    /// </summary>
     public class GoogleMapMarkers
     {
         /// <summary>

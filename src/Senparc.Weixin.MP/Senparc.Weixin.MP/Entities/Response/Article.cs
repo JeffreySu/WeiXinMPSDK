@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 namespace Senparc.Weixin.MP.Entities
 {
+    /// <summary>
+    /// 文章
+    /// </summary>
     public class Article
     {
         public string Title { get; set; }

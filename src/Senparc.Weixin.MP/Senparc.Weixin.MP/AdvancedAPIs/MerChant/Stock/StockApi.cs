@@ -73,6 +73,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, reduceStockData);
         }
         #endregion
+
         #region 异步请求
         /// <summary>
         /// 【异步方法】增加库存
@@ -100,6 +101,5 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, reduceStockData);
         }
         #endregion
-        
     }
 }

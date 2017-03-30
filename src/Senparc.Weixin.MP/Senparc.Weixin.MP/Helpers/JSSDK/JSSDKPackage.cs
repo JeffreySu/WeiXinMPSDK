@@ -27,7 +27,7 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.MP.Helpers
 {
     /// <summary>
-    /// 为UI输出准备的JSSDK信息包
+    /// 为 UI 输出准备的 JSSDK 信息包
     /// </summary>
     public class JsSdkUiPackage
     {

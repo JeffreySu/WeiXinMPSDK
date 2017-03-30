@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 namespace Senparc.Weixin.MP.Entities
 {
+    /// <summary>
+    /// 实体扩展
+    /// </summary>
     public static class Extensions
     {
         /// <summary>

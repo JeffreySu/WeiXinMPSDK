@@ -43,7 +43,7 @@ using Senparc.Weixin.MP.Helpers;
 namespace Senparc.Weixin.MP
 {
     /// <summary>
-    /// ResponseMessageFactory消息处理方法工厂类
+    /// ResponseMessage 消息处理方法工厂类
     /// </summary>
     public static class ResponseMessageFactory
     {

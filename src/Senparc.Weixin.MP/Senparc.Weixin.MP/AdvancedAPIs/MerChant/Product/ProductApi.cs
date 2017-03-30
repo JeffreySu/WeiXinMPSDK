@@ -42,7 +42,7 @@ using Senparc.Weixin.MP.CommonAPIs;
 namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
 {
     /// <summary>
-    /// 微小店接口
+    /// 微小店商品接口
     /// </summary>
     public static class ProductApi
     {
@@ -203,6 +203,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return CommonJsonSend.Send<GetPropertyResult>(accessToken, urlFormat, data);
         }
         #endregion
+
         #region 异步请求
         /// <summary>
         /// 【异步方法】增加商品
@@ -360,6 +361,5 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.MerChant
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPropertyResult>(accessToken, urlFormat, data);
         }
         #endregion
-        
     }
 }

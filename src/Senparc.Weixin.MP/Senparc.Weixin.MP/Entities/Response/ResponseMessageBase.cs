@@ -50,7 +50,7 @@ namespace Senparc.Weixin.MP.Entities
     }
 
     /// <summary>
-    /// 微信公众号响应回复消息
+    /// 微信公众号响应回复消息基类
     /// </summary>
     public class ResponseMessageBase : Weixin.Entities.ResponseMessageBase, IResponseMessageBase
     {

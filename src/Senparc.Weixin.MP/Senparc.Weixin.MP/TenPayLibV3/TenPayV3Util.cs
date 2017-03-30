@@ -41,8 +41,7 @@ using Senparc.Weixin.MP.Helpers;
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
     /// <summary>
-    /// TenpayUtil 的摘要说明。
-    /// 配置文件
+    /// 微信支付工具类
     /// </summary>
     public class TenPayV3Util
     {

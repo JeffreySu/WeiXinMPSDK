@@ -41,7 +41,7 @@ namespace Senparc.Weixin.MP.Entities
     }
 
     /// <summary>
-    /// 接收到请求的消息
+    /// 接收到请求的消息基类
     /// </summary>
     public class RequestMessageBase : Weixin.Entities.RequestMessageBase, IRequestMessageBase
     {

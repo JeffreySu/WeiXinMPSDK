@@ -33,6 +33,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 namespace Senparc.Weixin.MP.Entities
 {
+    /// <summary>
+    /// Voice
+    /// </summary>
     public class Voice
     {
         public string MediaId { get; set; }

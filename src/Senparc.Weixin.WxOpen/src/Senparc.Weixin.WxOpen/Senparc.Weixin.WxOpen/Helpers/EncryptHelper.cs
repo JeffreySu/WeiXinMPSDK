@@ -44,7 +44,7 @@ using Senparc.Weixin.WxOpen.Entities;
 namespace Senparc.Weixin.WxOpen.Helpers
 {
     /// <summary>
-    /// EncryptHelper
+    /// 签名及加密帮助类
     /// </summary>
     public static class EncryptHelper
     {

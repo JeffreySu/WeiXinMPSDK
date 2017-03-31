@@ -37,7 +37,7 @@ using System.Threading.Tasks;
 namespace Senparc.Weixin.WxOpen.Helpers
 {
     /// <summary>
-    /// SessionHelper
+    /// Session帮助类
     /// </summary>
     public class SessionHelper
     {

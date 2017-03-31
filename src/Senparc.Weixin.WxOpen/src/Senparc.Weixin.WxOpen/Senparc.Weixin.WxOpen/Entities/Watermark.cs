@@ -33,6 +33,9 @@ namespace Senparc.Weixin.WxOpen.Entities
         public Watermark watermark { get; set; }
     }
 
+    /// <summary>
+    /// 水印
+    /// </summary>
     [Serializable]
     public class Watermark
     {

@@ -33,6 +33,9 @@ using System.Xml.Linq;
 
 namespace Senparc.Weixin.WxOpen.Helpers
 {
+    /// <summary>
+    /// 消息类型帮助类
+    /// </summary>
     public static class MsgTypeHelper
     {
         #region RequestMsgType

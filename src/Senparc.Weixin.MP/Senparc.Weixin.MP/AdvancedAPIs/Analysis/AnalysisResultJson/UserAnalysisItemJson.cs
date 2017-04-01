@@ -22,10 +22,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
     public class UserSummaryItem : BaseUpStreamMsgDist
     {
         /// <summary>
-        /// 数据的日期
-        /// </summary>
-        public string ref_date { get; set; }
-        /// <summary>
         /// 用户的渠道，数值代表的含义如下：
         ///0代表其他 30代表扫二维码 17代表名片分享 35代表搜号码（即微信添加朋友页的搜索） 39代表查询微信公众帐号 43代表图文页右上角菜单
         /// </summary>
@@ -45,10 +41,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Analysis
     /// </summary>
     public class UserCumulateItem : BaseUpStreamMsgDist
     {
-        /// <summary>
-        /// 数据的日期
-        /// </summary>
-        public string ref_date { get; set; }
         /// <summary>
         /// 总用户量
         /// </summary>

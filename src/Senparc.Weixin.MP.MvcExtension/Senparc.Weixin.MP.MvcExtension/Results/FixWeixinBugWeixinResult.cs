@@ -10,6 +10,9 @@ using Senparc.Weixin.MessageHandlers;
 
 namespace Senparc.Weixin.MP.MvcExtension
 {
+    /// <summary>
+    /// 修复微信换行 bug
+    /// </summary>
     public class FixWeixinBugWeixinResult : ContentResult
     {
         //private string _content;

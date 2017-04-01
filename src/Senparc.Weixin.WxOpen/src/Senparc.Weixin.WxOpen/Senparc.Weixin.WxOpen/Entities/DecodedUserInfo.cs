@@ -42,8 +42,11 @@ namespace Senparc.Weixin.WxOpen.Entities
     }
     */
 
+    /// <summary>
+    /// 解码后的用户信息
+    /// </summary>
     [Serializable]
-    public class DecodedUserInfo: DecodeEntityBase
+    public class DecodedUserInfo : DecodeEntityBase
     {
         public string openId { get; set; }
         public string nickName { get; set; }

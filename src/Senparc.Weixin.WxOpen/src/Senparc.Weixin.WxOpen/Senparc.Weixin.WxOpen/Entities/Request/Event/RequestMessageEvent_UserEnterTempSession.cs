@@ -21,14 +21,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：RequestMessageEvent_Scan.cs
-    文件功能描述：事件之二维码扫描（关注微信）
+    文件名：RequestMessageEvent_UserEnterTempSession.cs
+    文件功能描述：事件之用户进入客服
     
     
-    创建标识：Senparc - 20150211
+    创建标识：Senparc - 20170107
     
-    修改标识：Senparc - 20150303
-    修改描述：整理接口
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.WxOpen;

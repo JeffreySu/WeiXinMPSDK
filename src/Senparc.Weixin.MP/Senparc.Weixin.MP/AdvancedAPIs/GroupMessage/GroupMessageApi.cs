@@ -379,10 +379,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                     case GroupMessageType.wxcard:
                         throw new Exception("发送卡券息请使用WxCardGroupMessagePreview方法。");
-                        break;
                     default:
                         throw new Exception("参数错误。");
-                        break;
                 }
                 return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 
@@ -813,10 +811,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                     case GroupMessageType.wxcard:
                         throw new Exception("发送卡券息请使用WxCardGroupMessagePreview方法。");
-                        break;
                     default:
                         throw new Exception("参数错误。");
-                        break;
                 }
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 

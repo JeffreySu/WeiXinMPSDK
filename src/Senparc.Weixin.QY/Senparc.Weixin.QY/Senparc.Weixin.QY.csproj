@@ -4,11 +4,13 @@
     <TargetFramework>netstandard1.6</TargetFramework>
     <Company>Senparc</Company>
     <Authors>算神</Authors>
-    <Version>4.2.3.1</Version>
+    <Version>4.2.3.2</Version>
     <Description>Senparc.Weixin.QY Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植</Description>
     <Copyright>Senparc Copyright © 2004~2017</Copyright>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageTags>weixin;wechat;微信;Senparc;ASP.Net Core</PackageTags>
+    <AssemblyVersion>4.2.3.2</AssemblyVersion>
+    <FileVersion>4.2.3.2</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

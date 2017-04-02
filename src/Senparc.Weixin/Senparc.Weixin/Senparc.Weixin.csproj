@@ -4,7 +4,7 @@
     <TargetFramework>netstandard1.6</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <Version>4.11.6.1</Version>
+    <Version>4.11.6.2</Version>
     <Description>Senparc.Weixin Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植</Description>
     <Copyright>Senparc Copyright © 2004~2017</Copyright>
     <Authors>算神</Authors>

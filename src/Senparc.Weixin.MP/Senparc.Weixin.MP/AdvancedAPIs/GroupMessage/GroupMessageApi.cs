@@ -1,24 +1,4 @@
-﻿#region Apache License Version 2.0
-/*----------------------------------------------------------------
-
-Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
-
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
-except in compliance with the License. You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software distributed under the
-License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
-either express or implied. See the License for the specific language governing permissions
-and limitations under the License.
-
-Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
-
-----------------------------------------------------------------*/
-#endregion Apache License Version 2.0
-
-/*----------------------------------------------------------------
+﻿/*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
     文件名：GroupMessageAPI.cs
@@ -35,6 +15,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20160718
     修改描述：增加其接口的异步方法
+    
+    修改标识：Senparc - 20170402
+    修改描述：v14.3.140 1、添加BaseGroupMessageDataByGroupId.send_ignore_reprint属性
+                        2、优化代码
+
 ----------------------------------------------------------------*/
 
 /* 
@@ -57,8 +42,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     {
 
         #region 同步请求
-        
-        
+
+
 
         /// <summary>
         /// 根据分组进行群发【订阅号与服务号认证后均可用】
@@ -75,25 +60,27 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
         /// <param name="isToAll">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户</param>
+        /// <param name="sendIgnoreReprint">待群发的文章被判定为转载时，是否继续群发</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static SendResult SendGroupMessageByGroupId(string accessTokenOrAppId, string groupId, string value, GroupMessageType type, bool isToAll = false, int timeOut = Config.TIME_OUT)
+        public static SendResult SendGroupMessageByGroupId(string accessTokenOrAppId, string groupId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token={0}";
 
                 BaseGroupMessageDataByGroupId baseData = null;
+                var filter = new GroupMessageByGroupId_GroupId()
+                {
+                    group_id = groupId,
+                    is_to_all = isToAll,
+                };
                 switch (type)
                 {
                     case GroupMessageType.image:
                         baseData = new GroupMessageByGroupId_ImageData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             image = new GroupMessageByGroupId_MediaId()
                             {
                                 media_id = value
@@ -104,11 +91,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case GroupMessageType.voice:
                         baseData = new GroupMessageByGroupId_VoiceData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             voice = new GroupMessageByGroupId_MediaId()
                             {
                                 media_id = value
@@ -119,11 +102,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case GroupMessageType.mpnews:
                         baseData = new GroupMessageByGroupId_MpNewsData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             mpnews = new GroupMessageByGroupId_MediaId()
                             {
                                 media_id = value
@@ -134,11 +113,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case GroupMessageType.video:
                         baseData = new GroupMessageByGroupId_MpVideoData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             mpvideo = new GroupMessageByGroupId_MediaId()
                             {
                                 media_id = value
@@ -149,11 +124,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case GroupMessageType.wxcard:
                         baseData = new GroupMessageByGroupId_WxCardData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             wxcard = new GroupMessageByGroupId_WxCard()
                             {
                                 card_id = value
@@ -164,11 +135,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case GroupMessageType.text:
                         baseData = new GroupMessageByGroupId_TextData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             text = new GroupMessageByGroupId_Content()
                             {
                                 content = value
@@ -178,8 +145,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                     default:
                         throw new Exception("参数错误。");
-                        break;
+                        //break;
                 }
+
+                baseData.send_ignore_reprint = sendIgnoreReprint ? 0 : 1;//待群发的文章被判定为转载时，是否继续群发
 
                 return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 
@@ -187,7 +156,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 根据OpenId进行群发
+        /// 根据OpenId进行群发【订阅号不可用，服务号认证后可用】
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
@@ -525,25 +494,27 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
         /// <param name="isToAll">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户</param>
+        /// <param name="sendIgnoreReprint">待群发的文章被判定为转载时，是否继续群发</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<SendResult> SendGroupMessageByGroupIdAsync(string accessTokenOrAppId, string groupId, string value, GroupMessageType type, bool isToAll = false, int timeOut = Config.TIME_OUT)
+        public static async Task<SendResult> SendGroupMessageByGroupIdAsync(string accessTokenOrAppId, string groupId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token={0}";
 
                 BaseGroupMessageDataByGroupId baseData = null;
+                var filter = new GroupMessageByGroupId_GroupId()
+                {
+                    group_id = groupId,
+                    is_to_all = isToAll
+                };
                 switch (type)
                 {
                     case GroupMessageType.image:
                         baseData = new GroupMessageByGroupId_ImageData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             image = new GroupMessageByGroupId_MediaId()
                             {
                                 media_id = value
@@ -554,11 +525,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case GroupMessageType.voice:
                         baseData = new GroupMessageByGroupId_VoiceData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             voice = new GroupMessageByGroupId_MediaId()
                             {
                                 media_id = value
@@ -569,11 +536,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case GroupMessageType.mpnews:
                         baseData = new GroupMessageByGroupId_MpNewsData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             mpnews = new GroupMessageByGroupId_MediaId()
                             {
                                 media_id = value
@@ -584,11 +547,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case GroupMessageType.video:
                         baseData = new GroupMessageByGroupId_MpVideoData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             mpvideo = new GroupMessageByGroupId_MediaId()
                             {
                                 media_id = value
@@ -599,11 +558,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case GroupMessageType.wxcard:
                         baseData = new GroupMessageByGroupId_WxCardData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             wxcard = new GroupMessageByGroupId_WxCard()
                             {
                                 card_id = value
@@ -614,11 +569,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case GroupMessageType.text:
                         baseData = new GroupMessageByGroupId_TextData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             text = new GroupMessageByGroupId_Content()
                             {
                                 content = value
@@ -628,8 +579,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                     default:
                         throw new Exception("参数错误。");
-                        break;
+                        //break;
                 }
+
+                baseData.send_ignore_reprint = sendIgnoreReprint ? 0 : 1;//待群发的文章被判定为转载时，是否继续群发
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 
@@ -637,7 +590,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】根据OpenId进行群发
+        /// 【异步方法】根据OpenId进行群发【订阅号不可用，服务号认证后可用】
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
@@ -647,7 +600,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<SendResult> SendGroupMessageByOpenIdAsync(string accessTokenOrAppId, GroupMessageType type, string value, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
 
@@ -700,7 +653,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                     case GroupMessageType.video:
                         throw new Exception("发送视频信息请使用SendVideoGroupMessageByOpenId方法。");
-                        break;
+                    //break;
                     case GroupMessageType.text:
                         baseData = new GroupMessageByOpenId_TextData()
                         {
@@ -714,7 +667,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                     default:
                         throw new Exception("参数错误。");
-                        break;
+                        //break;
                 }
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 
@@ -734,7 +687,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<SendResult> SendVideoGroupMessageByOpenIdAsync(string accessTokenOrAppId, string title, string description, string mediaId, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
 
@@ -764,7 +717,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> DeleteSendMessageAsync(string accessTokenOrAppId, string msgId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 //官方API地址为https://api.weixin.qq.com//cgi-bin/message/mass/delete?access_token={0}，应该是多了一个/
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/delete?access_token={0}";
@@ -791,7 +744,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<SendResult> SendGroupMessagePreviewAsync(string accessTokenOrAppId, GroupMessageType type, string value, string openId, string wxName = null, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
 
@@ -885,7 +838,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<SendResult> WxCardGroupMessagePreviewAsync(string accessTokenOrAppId, string cardId, string code,
             string openId, string wxName, string timestamp, string signature, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
 
@@ -915,7 +868,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetSendResult> GetGroupMessageResultAsync(string accessTokenOrAppId, string msgId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/get?access_token={0}";
 
@@ -941,7 +894,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<VideoMediaIdResult> GetVideoMediaIdResultAsync(string accessTokenOrAppId, string mediaId, string title,
             string description, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
             {
                 string url = string.Format("https://file.api.weixin.qq.com/cgi-bin/media/uploadvideo?access_token={0}", accessToken.AsUrlData());
 

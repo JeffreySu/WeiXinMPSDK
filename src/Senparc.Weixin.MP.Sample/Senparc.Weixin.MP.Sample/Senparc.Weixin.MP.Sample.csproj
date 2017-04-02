@@ -376,10 +376,6 @@
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.Sample.CommonService.csproj">
-      <Project>{ccd291e9-16fa-4b53-b032-ebd3f659567b}</Project>
-      <Name>Senparc.Weixin.MP.Sample.CommonService</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

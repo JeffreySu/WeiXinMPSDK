@@ -62,6 +62,8 @@ Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/1.txt
 /Senparc.Weixin.Open/Senparc.Weixin.Open.Test/test.config
 /Senparc.Weixin.MP.Sample/UpgradeLog.htm
 *.tmp
+
+
 /Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.xml
 /Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.Open.XML
 /Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.Open.dll
@@ -69,9 +71,14 @@ Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/1.txt
 /Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.MP.MvcExtension.dll
 /Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.MP.dll
 /Senparc.Weixin.MP.BuildOutPut/Senparc.Weixin.dll
+/Senparc.Weixin.MP.BuildOutPut/.net4.5/Senparc.Weixin.WxOpen.XML
 /Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/App_Data/SenparcWeixinTrace.log
 
 /Tools/*
 *.DotSettings
 /Senparc.Weixin.MP.BuildOutPut/chm	
 .vs/*
+
+/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/TestResults/
+/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/App_Data/MP/
+/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample/App_Data/WeixinTraceLog/

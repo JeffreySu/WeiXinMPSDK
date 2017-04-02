@@ -37,7 +37,7 @@ namespace Senparc.Weixin.MP.MvcExtension
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.RequestContext.HttpContext.Request.QueryString[_ignoreParameter]))
+            if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.HttpContext.Request.Query[_ignoreParameter]))
             {
                 if (filterContext.HttpContext.SideInWeixinBrowser())
                 //if (!BrowserUtility.BrowserUtility.SideInWeixinBrowser(filterContext.HttpContext))

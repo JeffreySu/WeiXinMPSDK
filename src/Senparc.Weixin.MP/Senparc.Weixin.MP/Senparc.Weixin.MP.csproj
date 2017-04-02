@@ -1,25 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
     <Description>Senparc.Weixin.MP Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植</Description>
-    <Copyright>Senparc Copyright © 2004~2016</Copyright>
-    <AssemblyTitle>Senparc.Weixin.MP</AssemblyTitle>
-    <VersionPrefix>14.3.107</VersionPrefix>
+    <Copyright>Senparc Copyright © 2004~2017</Copyright>
+    <Version>14.3.139.1</Version>
     <Authors>算神</Authors>
-    <TargetFrameworks>netstandard1.6;net461</TargetFrameworks>
-    <NoWarn>$(NoWarn);CS0168;CS0169;CS0108;CS0162;CS0618;CS0414;CS0114;CS1570;CS1591;CS1572;CS1573;CS1587;CS1711</NoWarn>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyName>Senparc.Weixin.MP</AssemblyName>
-    <PackageId>Senparc.Weixin.MP</PackageId>
+    <Company>Senparc</Company>
     <PackageTags>weixin;wechat;微信;Senparc;ASP.Net Core</PackageTags>
-    <NetStandardImplicitPackageVersion>1.6.1</NetStandardImplicitPackageVersion>
-    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
-    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
-    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <AssemblyVersion>14.3.139.2</AssemblyVersion>
+    <FileVersion>14.3.139.2</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,17 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Http" Version="1.1.0" />
-    <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
-    <PackageReference Include="System.ComponentModel.Primitives" Version="4.3.0" />
+    <Folder Include="Properties\" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
+  <ItemGroup>
+    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="1.1.1" />
   </ItemGroup>
 
 </Project>

@@ -590,6 +590,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             string cert = @"F:\apiclient_cert.p12";
             //私钥（在安装证书时设置）
             string password = "";
+
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             //调用证书
             X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);

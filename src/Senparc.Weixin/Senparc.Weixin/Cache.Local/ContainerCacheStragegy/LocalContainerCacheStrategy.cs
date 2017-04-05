@@ -91,14 +91,9 @@ namespace Senparc.Weixin.Cache
             base.InsertToCache(key, value);
         }
 
-        public void RemoveFromCache(string key, bool isFullKey = false)
+        public new IBaseContainerBag Get(string key, bool isFullKey = false)
         {
-            base.RemoveFromCache(key, isFullKey);
-        }
-
-        public IBaseContainerBag Get(string key, bool isFullKey = false)
-        {
-            return base.Get(key,isFullKey) as IBaseContainerBag;
+            return base.Get(key, isFullKey) as IBaseContainerBag;
         }
 
 
@@ -116,7 +111,7 @@ namespace Senparc.Weixin.Cache
             return dic;
         }
 
-        public IDictionary<string, IBaseContainerBag> GetAll()
+        public new IDictionary<string, IBaseContainerBag> GetAll()
         {
             var dic = new Dictionary<string, IBaseContainerBag>();
             foreach (var item in _cache)
@@ -129,13 +124,13 @@ namespace Senparc.Weixin.Cache
             return dic;
         }
 
-        public bool CheckExisted(string key, bool isFullKey = false)
+        public new bool CheckExisted(string key, bool isFullKey = false)
         {
             var cacheKey = GetFinalKey(key, isFullKey);
             return _cache.ContainsKey(cacheKey);
         }
 
-        public long GetCount()
+        public new long GetCount()
         {
             return GetAll().Count;
         }

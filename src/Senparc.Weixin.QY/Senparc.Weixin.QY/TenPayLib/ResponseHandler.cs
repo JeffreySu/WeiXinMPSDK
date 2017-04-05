@@ -1,11 +1,17 @@
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+	Copyright (C) 2017 Senparc
  
 	文件名：ResponseHandler.cs
-	文件功能描述：微信支付 响应处理
+	文件功能描述：微信支付V3 响应处理
 	
 	
-	创建标识：Senparc - 20150722
+	创建标识：Senparc - 20150211
+	
+	修改标识：Senparc - 20150303
+	修改描述：整理接口
+	
+	修改标识：Senparc - 20161015
+	修改描述：修改GB2312编码为936
 ----------------------------------------------------------------*/
 
 using System;
@@ -15,9 +21,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using Senparc.Weixin.QY.Helpers;
+#if NET461
+using System.Web;
+#else
 using Microsoft.AspNetCore.Http;
+#endif
 
-namespace Senparc.Weixin.QY.TenPayLib
+namespace Senparc.Weixin.QY.TenPayLibV3
 {
 
 	/** 
@@ -54,7 +64,7 @@ namespace Senparc.Weixin.QY.TenPayLib
 		/// 应答的参数
 		/// </summary>
 		protected Hashtable Parameters;
-
+		
 		/// <summary>
 		/// debug信息
 		/// </summary>
@@ -64,7 +74,8 @@ namespace Senparc.Weixin.QY.TenPayLib
 		/// </summary>
 		protected string Content;
 
-		private string Charset = "gb2312";
+		//private string Charset = "gb2312";
+		private string Charset = "936";
 
 		protected HttpContext HttpContext;
 
@@ -74,7 +85,50 @@ namespace Senparc.Weixin.QY.TenPayLib
 		public virtual void Init()
 		{
 		}
+#if NET461
+		/// <summary>
+		/// 获取页面提交的get和post参数
+		/// </summary>
+		/// <param name="httpContext"></param>
+		public ResponseHandler(HttpContext httpContext)
+		{
+			Parameters = new Hashtable();
+			XmlMap = new Hashtable();
 
+			this.HttpContext = httpContext ?? HttpContext.Current;
+			NameValueCollection collection;
+			//post data
+			if (this.HttpContext.Request.HttpMethod == "POST")
+			{
+				collection = this.HttpContext.Request.Form;
+				foreach (string k in collection)
+				{
+					string v = (string)collection[k];
+					this.SetParameter(k, v);
+				}
+			}
+			//query string
+			collection = this.HttpContext.Request.QueryString;
+			foreach (string k in collection)
+			{
+				string v = (string)collection[k];
+				this.SetParameter(k, v);
+			}
+			if (this.HttpContext.Request.InputStream.Length > 0)
+			{
+				XmlDocument xmlDoc = new XmlDocument();
+				xmlDoc.Load(this.HttpContext.Request.InputStream);
+				XmlNode root = xmlDoc.SelectSingleNode("xml");
+				XmlNodeList xnl = root.ChildNodes;
+
+				foreach (XmlNode xnf in xnl)
+				{
+					XmlMap.Add(xnf.Name, xnf.InnerText);
+					this.SetParameter(xnf.Name, xnf.InnerText);
+				}
+			}
+		}
+#else
 		/// <summary>
 		/// 获取页面提交的get和post参数
 		/// </summary>
@@ -87,7 +141,7 @@ namespace Senparc.Weixin.QY.TenPayLib
 			this.HttpContext = httpContext ?? new DefaultHttpContext();
 			IFormCollection collection;
 			//post data
-			if (this.HttpContext.Request.Method.ToUpper() == "POST")
+			if (this.HttpContext.Request.Method.ToUpper() == "POST" && this.HttpContext.Request.HasFormContentType)
 			{
 				collection = this.HttpContext.Request.Form;
 				foreach (var k in collection)
@@ -111,24 +165,23 @@ namespace Senparc.Weixin.QY.TenPayLib
 				foreach (XmlNode xnf in xnl)
 				{
 					XmlMap.Add(xnf.Name, xnf.InnerText);
-					this.SetParameter(xnf.Name, xnf.InnerText);
 				}
 			}
 		}
-
+#endif
 
 		/// <summary>
 		/// 获取密钥
 		/// </summary>
 		/// <returns></returns>
-		public string GetKey()
-		{ return Key; }
+		public string GetKey() 
+		{ return Key;}
 
 		/// <summary>
 		/// 设置密钥
 		/// </summary>
 		/// <param name="key"></param>
-		public void SetKey(string key)
+		public void SetKey(string key) 
 		{
 			this.Key = key;
 		}
@@ -138,7 +191,7 @@ namespace Senparc.Weixin.QY.TenPayLib
 		/// </summary>
 		/// <param name="parameter"></param>
 		/// <returns></returns>
-		public string GetParameter(string parameter)
+		public string GetParameter(string parameter) 
 		{
 			string s = (string)Parameters[parameter];
 			return (null == s) ? "" : s;
@@ -149,16 +202,16 @@ namespace Senparc.Weixin.QY.TenPayLib
 		/// </summary>
 		/// <param name="parameter"></param>
 		/// <param name="parameterValue"></param>
-		public void SetParameter(string parameter, string parameterValue)
+		public void SetParameter(string parameter,string parameterValue) 
 		{
-			if (parameter != null && parameter != "")
+			if(parameter != null && parameter != "")
 			{
-				if (Parameters.Contains(parameter))
+				if(Parameters.Contains(parameter))
 				{
 					Parameters.Remove(parameter);
 				}
-
-				Parameters.Add(parameter, parameterValue);
+	
+				Parameters.Add(parameter,parameterValue);		
 			}
 		}
 
@@ -166,18 +219,18 @@ namespace Senparc.Weixin.QY.TenPayLib
 		/// 是否财付通签名,规则是:按参数名称a-z排序,遇到空值的参数不参加签名。return boolean
 		/// </summary>
 		/// <returns></returns>
-		public virtual Boolean IsTenpaySign()
+		public virtual Boolean IsTenpaySign() 
 		{
 			StringBuilder sb = new StringBuilder();
 
-			ArrayList akeys = new ArrayList(Parameters.Keys);
+			ArrayList akeys=new ArrayList(Parameters.Keys); 
 			akeys.Sort();
 
-			foreach (string k in akeys)
+			foreach(string k in akeys)
 			{
 				string v = (string)Parameters[k];
-				if (null != v && "".CompareTo(v) != 0
-					&& "sign".CompareTo(k) != 0 && "key".CompareTo(k) != 0)
+				if(null != v && "".CompareTo(v) != 0
+					&& "sign".CompareTo(k) != 0 && "key".CompareTo(k) != 0) 
 				{
 					sb.Append(k + "=" + v + "&");
 				}
@@ -187,22 +240,22 @@ namespace Senparc.Weixin.QY.TenPayLib
 			string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToLower();
 			this.SetDebugInfo(sb.ToString() + " &sign=" + sign);
 			//debug信息
-			return GetParameter("sign").ToLower().Equals(sign);
+			return GetParameter("sign").ToLower().Equals(sign); 
 		}
 
 		/// <summary>
 		/// 获取debug信息
 		/// </summary>
 		/// <returns></returns>
-		public string GetDebugInfo()
-		{ return DebugInfo; }
-
+		public string GetDebugInfo() 
+		{ return DebugInfo;}
+				
 		/// <summary>
 		/// 设置debug信息
 		/// </summary>
 		/// <param name="debugInfo"></param>
 		protected void SetDebugInfo(String debugInfo)
-		{ this.DebugInfo = debugInfo; }
+		{ this.DebugInfo = debugInfo;}
 
 		protected virtual string GetCharset()
 		{

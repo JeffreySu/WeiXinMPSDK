@@ -6,7 +6,7 @@
     <Description>Senparc.Weixin.MP.MvcExtension Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植</Description>
     <Authors>算神</Authors>
     <Company>Senparc</Company>
-    <Version>4.2.0</Version>
+    <Version>4.2.0.2</Version>
     <Copyright>Senparc Copyright © 2004~2017</Copyright>
     <PackageTags>weixin;wechat;微信;Senparc;ASP.Net Core</PackageTags>
   </PropertyGroup>
@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Properties\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 

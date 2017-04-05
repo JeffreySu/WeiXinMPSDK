@@ -1,27 +1,36 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFrameworks>netstandard1.6;net461</TargetFrameworks>
     <Company>Senparc</Company>
     <Authors>算神</Authors>
-    <Version>4.2.3</Version>
+    <Version>4.2.3.3</Version>
     <Description>Senparc.Weixin.QY Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植</Description>
     <Copyright>Senparc Copyright © 2004~2017</Copyright>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageTags>weixin;wechat;微信;Senparc;ASP.Net Core</PackageTags>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-
-  <ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
     <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj" />
   </ItemGroup>
 
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+  </PropertyGroup>
 </Project>

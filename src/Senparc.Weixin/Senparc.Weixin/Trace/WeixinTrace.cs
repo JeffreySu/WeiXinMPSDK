@@ -1,13 +1,49 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
     
     文件名：WeixinTrace.cs
     文件功能描述：跟踪日志相关
     
     
     创建标识：Senparc - 20151012
-    
+
+    修改标识：Senparc - 20161225
+    修改描述：v4.9.7 1、使用同步锁
+                     2、修改日志储存路径，新路径为/App_Data/WeixinTraceLog/SenparcWeixinTrace-yyyyMMdd.log
+                     3、添加WeixinExceptionLog方法
+
+    修改标识：Senparc - 20161231
+    修改描述：v4.9.8 将SendLog方法改名为SendApiLog，添加SendCustomLog方法
+
+    修改标识：Senparc - 20170101
+    修改描述：v4.9.9 1、优化日志记录方法（围绕OnWeixinExceptionFunc为主）
+                     2、输出AccessTokenOrAppId
+
+    修改标识：Senparc - 20170304
+    修改描述：c
+
 ----------------------------------------------------------------*/
+
 
 using System;
 using System.Collections.Generic;
@@ -18,6 +54,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Cache;
+using System.Threading;
 
 namespace Senparc.Weixin
 {
@@ -114,6 +151,15 @@ namespace Senparc.Weixin
         }
 
         /// <summary>
+        /// 当前线程记录
+        /// </summary>
+        private static void ThreadLog()
+        {
+            Log("[线程：{0}]", Thread.CurrentThread.GetHashCode());
+        }
+
+
+        /// <summary>
         /// 退回一次缩进
         /// </summary>
         private static void Unindent()
@@ -158,7 +204,8 @@ namespace Senparc.Weixin
             {
                 Log("[{0}]", title);
             }
-            TimeLog();
+            TimeLog();//记录时间
+            ThreadLog();//记录线程
             Indent();
         }
 

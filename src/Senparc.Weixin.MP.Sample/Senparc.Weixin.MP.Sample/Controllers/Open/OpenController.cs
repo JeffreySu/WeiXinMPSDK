@@ -130,7 +130,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             try
             {
-                var checkPublish = false; //是否在“全网发布”阶段
+                var checkPublish = true; //是否在“全网发布”阶段
                 if (checkPublish)
                 {
                     messageHandler = new OpenCheckMessageHandler(Request.InputStream, postModel, 10);
@@ -147,9 +147,17 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                 if (messageHandler.ResponseDocument != null)
                 {
+                    var ticks = DateTime.Now.Ticks;
                     messageHandler.ResponseDocument.Save(Path.Combine(logPath,
-                        string.Format("{0}_Response_{1}.txt", DateTime.Now.Ticks,
+                        string.Format("{0}_Response_{1}.txt", ticks,
                             messageHandler.RequestMessage.FromUserName)));
+
+                    if (messageHandler.UsingEcryptMessage)
+                    {
+                        messageHandler.FinalResponseDocument.Save(Path.Combine(logPath,
+                     string.Format("{0}_Response_Final_{1}.txt", ticks,
+                         messageHandler.RequestMessage.FromUserName)));
+                    }
                 }
                 return new FixWeixinBugWeixinResult(messageHandler);
             }

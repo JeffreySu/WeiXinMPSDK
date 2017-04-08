@@ -83,16 +83,16 @@ namespace Senparc.Weixin.MP.MvcExtension
                 {
                     throw new Senparc.Weixin.Exceptions.WeixinException("执行WeixinResult时提供的MessageHandler不能为Null！", null);
                 }
+                var finalResponseDocument = _messageHandlerDocument.FinalResponseDocument;
 
-                if (_messageHandlerDocument.FinalResponseDocument == null)
+
+                if (finalResponseDocument == null)
                 {
                     //throw new Senparc.Weixin.MP.WeixinException("FinalResponseDocument不能为Null！", null);
                 }
                 else
                 {
-                    content = _messageHandlerDocument.FinalResponseDocument == null
-                                ? ""
-                                : _messageHandlerDocument.FinalResponseDocument.ToString();
+                    content = finalResponseDocument.ToString();
                 }
             }
 

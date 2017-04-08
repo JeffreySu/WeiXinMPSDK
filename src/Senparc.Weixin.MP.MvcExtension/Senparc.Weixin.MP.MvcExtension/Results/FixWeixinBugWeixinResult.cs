@@ -44,7 +44,7 @@ namespace Senparc.Weixin.MP.MvcExtension
 
                 if (_messageHandlerDocument != null)
                 {
-                    var textResponseMessag = _messageHandlerDocument.TextResponseMessage;
+                    //var textResponseMessag = _messageHandlerDocument.TextResponseMessage;
                     if (_messageHandlerDocument.TextResponseMessage != null)
                     {
                         return _messageHandlerDocument.TextResponseMessage.Replace("\r\n", "\n");

@@ -34,12 +34,15 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v4.7.8 修正在ResponseMessage都null的情况下，
               没有对_textResponseMessage做判断就直接返回空字符串的问题
 
+    修改标识：Senparc - 20170409
+    修改描述：v4.11.8 （MessageHandler V3.2）修复 TextResponseMessage 不输出加密信息的问题
+
 ----------------------------------------------------------------*/
 
 
 
 /*
- * V3.1
+ * V3.2
  */
 
 using System;

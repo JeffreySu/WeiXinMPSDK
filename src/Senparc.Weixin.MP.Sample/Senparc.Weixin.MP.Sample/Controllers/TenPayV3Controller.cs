@@ -150,7 +150,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openIdResult.openid, TenPayV3Info.Key, nonceStr);
 
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
-
                 //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
                 var package = string.Format("prepay_id={0}", result.prepay_id);
 
@@ -591,6 +590,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             string cert = @"F:\apiclient_cert.p12";
             //私钥（在安装证书时设置）
             string password = "";
+
             ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
             //调用证书
             X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);

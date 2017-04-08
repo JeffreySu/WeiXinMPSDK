@@ -152,12 +152,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         string.Format("{0}_Response_{1}.txt", ticks,
                             messageHandler.RequestMessage.FromUserName)));
 
-                    if (messageHandler.UsingEcryptMessage)
-                    {
-                        messageHandler.FinalResponseDocument.Save(Path.Combine(logPath,
-                     string.Format("{0}_Response_Final_{1}.txt", ticks,
-                         messageHandler.RequestMessage.FromUserName)));
-                    }
+                    //记录加密后的日志
+                    //if (messageHandler.UsingEcryptMessage)
+                    //{
+                    //    messageHandler.FinalResponseDocument.Save(Path.Combine(logPath,
+                    // string.Format("{0}_Response_Final_{1}.txt", ticks,
+                    //     messageHandler.RequestMessage.FromUserName)));
+                    //}
                 }
                 return new FixWeixinBugWeixinResult(messageHandler);
             }

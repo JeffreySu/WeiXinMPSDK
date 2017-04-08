@@ -174,7 +174,8 @@ namespace Senparc.Weixin.MessageHandlers
 
                 if (_textResponseMessage == null)
                 {
-                    return /*ResponseDocument == null ? null : */ ResponseDocument.ToString();
+                    return /*ResponseDocument == null ? null : */
+                           FinalResponseDocument.ToString(); //ResponseDocument.ToString();
                 }
                 else
                 {

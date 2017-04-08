@@ -158,7 +158,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                      string.Format("{0}_Response_Final_{1}.txt", ticks,
                          messageHandler.RequestMessage.FromUserName)));
                     }
+
                 }
+                //return Content(messageHandler.FinalResponseDocument.ToString());
                 return new FixWeixinBugWeixinResult(messageHandler);
             }
             catch (Exception ex)

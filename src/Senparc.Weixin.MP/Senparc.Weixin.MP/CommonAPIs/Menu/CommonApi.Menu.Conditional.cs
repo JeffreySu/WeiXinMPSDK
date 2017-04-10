@@ -50,7 +50,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
     public partial class CommonApi
     {
         /// <summary>
-        /// 创建个新华菜单
+        /// 创建个性化菜单
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId。当为AppId时，如果AccessToken错误将自动获取一次。当为null时，获取当前注册的第一个AppId。</param>
         /// <param name="buttonData">菜单内容</param>

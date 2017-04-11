@@ -130,7 +130,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
             try
             {
-                var checkPublish = true; //是否在“全网发布”阶段
+                var checkPublish = false; //是否在“全网发布”阶段
                 if (checkPublish)
                 {
                     messageHandler = new OpenCheckMessageHandler(Request.InputStream, postModel, 10);

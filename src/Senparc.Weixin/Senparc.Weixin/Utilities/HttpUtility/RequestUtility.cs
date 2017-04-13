@@ -1,4 +1,24 @@
-﻿/*----------------------------------------------------------------
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
 
     文件名：RequestUtility.cs
@@ -16,6 +36,8 @@
     修改描述：v4.9.14 为AsUrlData方法添加null判断
 ----------------------------------------------------------------*/
 
+
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,6 +51,9 @@ using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.HttpUtility
 {
+    /// <summary>
+    /// HTTP 请求工具类
+    /// </summary>
     public static class RequestUtility
     {
         #region 代理
@@ -88,7 +113,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cer">证书，如果不需要则保留null</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static string HttpGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
+        public static string HttpGet(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
@@ -129,7 +154,7 @@ namespace Senparc.Weixin.HttpUtility
         /// 使用Post方法获取字符串结果，常规提交
         /// </summary>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
         {
             MemoryStream ms = new MemoryStream();
             formData.FillFormDataStream(ms);//填充formData
@@ -149,7 +174,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <param name="refererUrl"></param>
         /// <returns></returns>
-        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+        public static string HttpPost(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";
@@ -329,7 +354,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="cer">证书，如果不需要则保留null</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<string> HttpGetAsync(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
+        public static async Task<string> HttpGetAsync(string url, CookieContainer cookieContainer = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
@@ -366,7 +391,7 @@ namespace Senparc.Weixin.HttpUtility
         /// 使用Post方法获取字符串结果，常规提交
         /// </summary>
         /// <returns></returns>
-        public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT)
+        public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Dictionary<string, string> formData = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT)
         {
             MemoryStream ms = new MemoryStream();
             await formData.FillFormDataStreamAsync(ms);//填充formData
@@ -384,7 +409,7 @@ namespace Senparc.Weixin.HttpUtility
         /// <param name="timeOut"></param>
         /// <param name="checkValidationResult">验证服务器证书回调自动验证</param>
         /// <returns></returns>
-        public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, X509Certificate cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
+        public static async Task<string> HttpPostAsync(string url, CookieContainer cookieContainer = null, Stream postStream = null, Dictionary<string, string> fileDictionary = null, string refererUrl = null, Encoding encoding = null, X509Certificate2 cer = null, int timeOut = Config.TIME_OUT, bool checkValidationResult = false)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "POST";

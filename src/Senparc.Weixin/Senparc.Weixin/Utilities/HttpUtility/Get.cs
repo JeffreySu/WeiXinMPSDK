@@ -1,4 +1,24 @@
-﻿/*----------------------------------------------------------------
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
 
     文件名：Get.cs
@@ -14,8 +34,13 @@
     修改描述：v4.5.19 为GetJson方法添加maxJsonLength参数
 
     修改标识：zeje - 20170305
-    修改描述：v14.3.132 添加Get.DownloadAsync(string url, string dir)方法
+    修改描述：MP v14.3.132 添加Get.DownloadAsync(string url, string dir)方法
+
+    修改标识：Senparc - 20170409
+    修改描述：v4.11.9 修改Download方法
+
 ----------------------------------------------------------------*/
+
 
 using System;
 using System.IO;
@@ -30,7 +55,7 @@ using Senparc.Weixin.Exceptions;
 namespace Senparc.Weixin.HttpUtility
 {
     /// <summary>
-    /// Get请求处理
+    /// Get 请求处理
     /// </summary>
     public static class Get
     {
@@ -86,10 +111,11 @@ namespace Senparc.Weixin.HttpUtility
 
             WebClient wc = new WebClient();
             var data = wc.DownloadData(url);
-            foreach (var b in data)
-            {
-                stream.WriteByte(b);
-            }
+            stream.Write(data, 0, data.Length);
+            //foreach (var b in data)
+            //{
+            //    stream.WriteByte(b);
+            //}
         }
 
         /// <summary>

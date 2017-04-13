@@ -19,6 +19,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHand
     /// </summary>
     public class OpenCheckMessageHandler : MessageHandler<CustomMessageContext>
     {
+        /*
+           https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419318611&lang=zh_CN
+            自动化测试的专用测试公众号的信息如下：
+            （1）appid： wx570bc396a51b8ff8
+            （2）Username： gh_3c884a361561
+        */
+
         //private string testAppId = "wx570bc396a51b8ff8";
         private string componentAppId = WebConfigurationManager.AppSettings["Component_Appid"];
         private string componentSecret = WebConfigurationManager.AppSettings["Component_Secret"];

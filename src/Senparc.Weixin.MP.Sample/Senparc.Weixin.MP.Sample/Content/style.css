@@ -646,6 +646,7 @@ img.official-img {
 
     .content-weixin {
         float: left;
+        clear:both;
     }
 
     img.official-img {

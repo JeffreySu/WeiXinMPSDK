@@ -1,4 +1,22 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
+  
+    文件名：FixWeixinBugWeixinResult.cs
+    文件功能描述：修复微信换行等问题
+    
+    
+    创建标识：Senparc - 20160801
+    
+    修改标识：Senparc - 20170413
+    修改描述：修改 .net core mvc 的ExecuteResult(ActionContext context)方法
+    
+    修改标识：Senparc - 20150507
+    修改描述：添加 事件 异步任务完成事件推送
+----------------------------------------------------------------*/
+
+
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -72,7 +90,12 @@ namespace Senparc.Weixin.MP.MvcExtension
             set { base.Content = value; }
         }
 
-        public override void ExecuteResult(ControllerContext context)
+        //public override void ExecuteResult(ActionContext context)
+        //{
+        //    base.ExecuteResult(context);
+        //}
+
+        public override void ExecuteResult(ActionContext context)
         {
             var content = this.Content;
 
@@ -96,12 +119,12 @@ namespace Senparc.Weixin.MP.MvcExtension
                 }
             }
 
-            context.HttpContext.Response.ClearContent();
             context.HttpContext.Response.ContentType = "text/xml";
             content = (content ?? "").Replace("\r\n", "\n");
 
             var bytes = Encoding.UTF8.GetBytes(content);
-            context.HttpContext.Response.OutputStream.Write(bytes, 0, bytes.Length);
+            context.HttpContext.Response.Body.Seek(0, SeekOrigin.Begin);
+            context.HttpContext.Response.Body.Write(bytes, 0, bytes.Length);
         }
     }
 }

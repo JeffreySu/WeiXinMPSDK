@@ -20,15 +20,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{DCF86D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin", "..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj", "{FF847696-F8DF-4D2A-BFDF-D29529A36D21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.Sample.MySQL", "Senparc.Weixin.MP.Sample.MySQL\Senparc.Weixin.MP.Sample.MySQL.csproj", "{33011B49-D82E-4943-AB71-FB925B422105}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.Sample.MySQL", "Senparc.Weixin.MP.Sample.MySQL\Senparc.Weixin.MP.Sample.MySQL.csproj", "{33011B49-D82E-4943-AB71-FB925B422105}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.Sample.CommonService", "Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.Sample.CommonService.csproj", "{4FE3117E-F860-4603-A79B-7463531F9AE2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.Sample.CommonService", "Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.Sample.CommonService.csproj", "{4FE3117E-F860-4603-A79B-7463531F9AE2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP", "..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj", "{DCB4B78A-E92F-4246-818F-53C98A23783C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cache", "Cache", "{FDC9A3F1-A2EC-4E44-9093-BE0EE1C17093}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.Cache.Redis", "..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj", "{11DDFA44-4964-4276-88D3-49977CCB2FB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Cache.Redis", "..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj", "{11DDFA44-4964-4276-88D3-49977CCB2FB0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.QY", "..\Senparc.Weixin.QY\Senparc.Weixin.QY\Senparc.Weixin.QY.csproj", "{86D40C28-971C-4510-AA09-19BB97F034E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -168,6 +170,24 @@ Global
 		{11DDFA44-4964-4276-88D3-49977CCB2FB0}.Test|x64.Build.0 = Release|x64
 		{11DDFA44-4964-4276-88D3-49977CCB2FB0}.Test|x86.ActiveCfg = Release|x86
 		{11DDFA44-4964-4276-88D3-49977CCB2FB0}.Test|x86.Build.0 = Release|x86
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Debug|x64.ActiveCfg = Debug|x64
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Debug|x64.Build.0 = Debug|x64
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Debug|x86.ActiveCfg = Debug|x86
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Debug|x86.Build.0 = Debug|x86
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Release|x64.ActiveCfg = Release|x64
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Release|x64.Build.0 = Release|x64
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Release|x86.ActiveCfg = Release|x86
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Release|x86.Build.0 = Release|x86
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Test|x64.ActiveCfg = Release|x64
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Test|x64.Build.0 = Release|x64
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Test|x86.ActiveCfg = Release|x86
+		{86D40C28-971C-4510-AA09-19BB97F034E0}.Test|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -181,5 +201,6 @@ Global
 		{DCB4B78A-E92F-4246-818F-53C98A23783C} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
 		{FDC9A3F1-A2EC-4E44-9093-BE0EE1C17093} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
 		{11DDFA44-4964-4276-88D3-49977CCB2FB0} = {FDC9A3F1-A2EC-4E44-9093-BE0EE1C17093}
+		{86D40C28-971C-4510-AA09-19BB97F034E0} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
 	EndGlobalSection
 EndGlobal

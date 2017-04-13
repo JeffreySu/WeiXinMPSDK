@@ -74,11 +74,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 	 */
 	public class RequestHandler
 	{
-
-		public RequestHandler()
-		{
-			Parameters = new Hashtable();
-		}
         public RequestHandler()
             : this(null)
         {

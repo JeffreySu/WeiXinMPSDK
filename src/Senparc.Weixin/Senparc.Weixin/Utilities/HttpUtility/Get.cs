@@ -185,33 +185,33 @@ namespace Senparc.Weixin.HttpUtility
 			//}
 		}
 
-        ///// <summary>
-        ///// 【异步方法】从Url下载，并保存到指定目录
-        ///// </summary>
-        ///// <param name="url"></param>
-        ///// <param name="dir"></param>
-        ///// <returns></returns>
-        //public static async Task<string> DownloadAsync(string url, string dir)
-        //{
-        //    Directory.CreateDirectory(dir);
-        //    System.Net.Http.HttpClient httpClient = new HttpClient();
-        //    using (var responseMessage = await httpClient.GetAsync(url))
-        //    {
-        //        if (responseMessage.StatusCode == HttpStatusCode.OK)
-        //        {
-        //            var fullName = Path.Combine(dir, responseMessage.Content.Headers.ContentDisposition.FileName.Trim('"'));
-        //            using (var fs = File.Open(fullName, FileMode.Create))
-        //            {
-        //                using (var responseStream = await responseMessage.Content.ReadAsStreamAsync())
-        //                {
-        //                    await responseStream.CopyToAsync(fs);
-        //                    return fullName;
-        //                }
-        //            }
-        //        }
-        //    }
-        //    return null;
-        //}
+        /// <summary>
+        /// 【异步方法】从Url下载，并保存到指定目录
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="dir"></param>
+        /// <returns></returns>
+        public static async Task<string> DownloadAsync(string url, string dir)
+        {
+            Directory.CreateDirectory(dir);
+            System.Net.Http.HttpClient httpClient = new HttpClient();
+            using (var responseMessage = await httpClient.GetAsync(url))
+            {
+                if (responseMessage.StatusCode == HttpStatusCode.OK)
+                {
+                    var fullName = Path.Combine(dir, responseMessage.Content.Headers.ContentDisposition.FileName.Trim('"'));
+                    using (var fs = File.Open(fullName, FileMode.Create))
+                    {
+                        using (var responseStream = await responseMessage.Content.ReadAsStreamAsync())
+                        {
+                            await responseStream.CopyToAsync(fs);
+                            return fullName;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
         #endregion
 
 

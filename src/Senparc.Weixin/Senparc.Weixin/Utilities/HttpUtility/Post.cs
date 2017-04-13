@@ -41,6 +41,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
  
     修改标识：Senparc - 20160720
     修改描述：增加了PostFileGetJsonAsync的异步方法（与之前的方法多一个参数）
+
+    修改标识：Senparc - 20170409
+    修改描述：v4.11.9 修改Download方法
 ----------------------------------------------------------------*/
 
 
@@ -172,10 +175,11 @@ namespace Senparc.Weixin.HttpUtility
 			var ft = ht.Result.Content.ReadAsByteArrayAsync();
 			ft.Wait();
 			var file = ft.Result;
-			foreach (var b in file)
-			{
-				stream.WriteByte(b);
-			}
+            stream.Write(file, 0, file.Length);
+            //foreach (var b in file)
+			//{
+			//	stream.WriteByte(b);
+			//}
 		}
 
 		#endregion

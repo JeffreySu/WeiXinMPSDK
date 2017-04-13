@@ -34,7 +34,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v4.5.19 为GetJson方法添加maxJsonLength参数
 
     修改标识：zeje - 20170305
-    修改描述：v14.3.132 添加Get.DownloadAsync(string url, string dir)方法
+    修改描述：MP v14.3.132 添加Get.DownloadAsync(string url, string dir)方法
+
+    修改标识：Senparc - 20170409
+    修改描述：v4.11.9 修改Download方法
+
 ----------------------------------------------------------------*/
 
 using System.IO;
@@ -101,10 +105,11 @@ namespace Senparc.Weixin.HttpUtility
 			var t = httpClient.GetByteArrayAsync(url);
 			t.Wait();
 			var data = t.Result;
-			foreach (var b in data)
-			{
-				stream.WriteByte(b);
-			}
+            stream.Write(data, 0, data.Length);
+			//foreach (var b in data)
+			//{
+			//	stream.WriteByte(b);
+			//}
 		}
 
         static System.Net.Http.HttpClient httpClient = new HttpClient();

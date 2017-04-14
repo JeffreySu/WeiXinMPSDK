@@ -1,10 +1,33 @@
-﻿/*----------------------------------------------------------------
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
   
     文件名：TenPayV3TransfersRequestData.cs
     文件功能描述：微信支付企业付款请求参数
     
     创建标识：Senparc - 20170215
+      
+    修改标识：Senparc - 20170404
+    修改描述：14.3.141 修改amount为decimal类型
 
 ----------------------------------------------------------------*/
 using System;
@@ -63,7 +86,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <summary>
         /// 金额 [amount]
         /// </summary>
-        public int Amount { get; set; }
+        public decimal Amount { get; set; }
 
         /// <summary>
         /// 企业付款描述信息 [desc]
@@ -95,10 +118,10 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="key"></param>
         /// <param name="checkName">校验用户姓名选项</param>
         /// <param name="reUserName">收款用户姓名</param>
-        /// <param name="amount">金额</param>
+        /// <param name="amount">金额（单位：元，小数点后不要超过2位，否则会被四舍五入到分）</param>
         /// <param name="desc">企业付款描述信息</param>
         /// <param name="spbillCreateIP">Ip地址</param>
-        public TenPayV3TransfersRequestData(string mchAppid, string mchId, string deviceInfo, string nonceStr, string outTradeNo, string openId, string key, string checkName, string reUserName, int amount, string desc, string spbillCreateIP)
+        public TenPayV3TransfersRequestData(string mchAppid, string mchId, string deviceInfo, string nonceStr, string outTradeNo, string openId, string key, string checkName, string reUserName, decimal amount, string desc, string spbillCreateIP)
         {
             MchAppId = mchAppid;
             MchId = mchId;
@@ -129,7 +152,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             PackageRequestHandler.SetParameter("openid", this.OpenId); //用户openid
             PackageRequestHandler.SetParameter("check_name", this.CheckName); //校验用户姓名选项
             PackageRequestHandler.SetParameter("re_user_name", this.ReUserName); //收款用户姓名
-            PackageRequestHandler.SetParameter("amount", (this.Amount * 100).ToString()); //金额
+            PackageRequestHandler.SetParameter("amount", ((int)(this.Amount * 100 + 0.5m)).ToString()); //金额
             PackageRequestHandler.SetParameter("desc", this.Desc); //企业付款描述信息
             PackageRequestHandler.SetParameter("spbill_create_ip", this.SpbillCreateIP); //Ip地址
             Sign = PackageRequestHandler.CreateMd5Sign("key", this.Key);

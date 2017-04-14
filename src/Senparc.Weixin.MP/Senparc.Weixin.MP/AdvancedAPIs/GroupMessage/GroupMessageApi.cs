@@ -15,6 +15,11 @@
 
     修改标识：Senparc - 20160718
     修改描述：增加其接口的异步方法
+    
+    修改标识：Senparc - 20170402
+    修改描述：v14.3.140 1、添加BaseGroupMessageDataByGroupId.send_ignore_reprint属性
+                        2、优化代码
+
 ----------------------------------------------------------------*/
 
 /* 
@@ -55,25 +60,27 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
         /// <param name="isToAll">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户</param>
+        /// <param name="sendIgnoreReprint">待群发的文章被判定为转载时，是否继续群发</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static SendResult SendGroupMessageByGroupId(string accessTokenOrAppId, string groupId, string value, GroupMessageType type, bool isToAll = false, int timeOut = Config.TIME_OUT)
+        public static SendResult SendGroupMessageByGroupId(string accessTokenOrAppId, string groupId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token={0}";
 
                 BaseGroupMessageDataByGroupId baseData = null;
+                var filter = new GroupMessageByGroupId_GroupId()
+                {
+                    group_id = groupId,
+                    is_to_all = isToAll,
+                };
                 switch (type)
                 {
                     case GroupMessageType.image:
                         baseData = new GroupMessageByGroupId_ImageData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             image = new GroupMessageByGroupId_MediaId()
                             {
                                 media_id = value
@@ -84,11 +91,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case GroupMessageType.voice:
                         baseData = new GroupMessageByGroupId_VoiceData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             voice = new GroupMessageByGroupId_MediaId()
                             {
                                 media_id = value
@@ -99,11 +102,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case GroupMessageType.mpnews:
                         baseData = new GroupMessageByGroupId_MpNewsData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             mpnews = new GroupMessageByGroupId_MediaId()
                             {
                                 media_id = value
@@ -114,11 +113,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case GroupMessageType.video:
                         baseData = new GroupMessageByGroupId_MpVideoData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             mpvideo = new GroupMessageByGroupId_MediaId()
                             {
                                 media_id = value
@@ -129,11 +124,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case GroupMessageType.wxcard:
                         baseData = new GroupMessageByGroupId_WxCardData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             wxcard = new GroupMessageByGroupId_WxCard()
                             {
                                 card_id = value
@@ -144,11 +135,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     case GroupMessageType.text:
                         baseData = new GroupMessageByGroupId_TextData()
                         {
-                            filter = new GroupMessageByGroupId_GroupId()
-                            {
-                                group_id = groupId,
-                                is_to_all = isToAll
-                            },
+                            filter = filter,
                             text = new GroupMessageByGroupId_Content()
                             {
                                 content = value
@@ -160,13 +147,15 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         throw new Exception("参数错误。");
                 }
 
+                baseData.send_ignore_reprint = sendIgnoreReprint ? 0 : 1;//待群发的文章被判定为转载时，是否继续群发
+
                 return CommonJsonSend.Send<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
 
         /// <summary>
-        /// 根据OpenId进行群发
+        /// 根据OpenId进行群发【订阅号不可用，服务号认证后可用】
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
@@ -500,118 +489,103 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
         /// <param name="isToAll">用于设定是否向全部用户发送，值为true或false，选择true该消息群发给所有用户，选择false可根据group_id发送给指定群组的用户</param>
+        /// <param name="sendIgnoreReprint">待群发的文章被判定为转载时，是否继续群发</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<SendResult> SendGroupMessageByGroupIdAsync(string accessTokenOrAppId, string groupId, string value, GroupMessageType type, bool isToAll = false, int timeOut = Config.TIME_OUT)
+        public static async Task<SendResult> SendGroupMessageByGroupIdAsync(string accessTokenOrAppId, string groupId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
-           {
-               const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token={0}";
+            {
+                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token={0}";
 
-               BaseGroupMessageDataByGroupId baseData = null;
-               switch (type)
-               {
-                   case GroupMessageType.image:
-                       baseData = new GroupMessageByGroupId_ImageData()
-                       {
-                           filter = new GroupMessageByGroupId_GroupId()
-                           {
-                               group_id = groupId,
-                               is_to_all = isToAll
-                           },
-                           image = new GroupMessageByGroupId_MediaId()
-                           {
-                               media_id = value
-                           },
-                           msgtype = "image"
-                       };
-                       break;
-                   case GroupMessageType.voice:
-                       baseData = new GroupMessageByGroupId_VoiceData()
-                       {
-                           filter = new GroupMessageByGroupId_GroupId()
-                           {
-                               group_id = groupId,
-                               is_to_all = isToAll
-                           },
-                           voice = new GroupMessageByGroupId_MediaId()
-                           {
-                               media_id = value
-                           },
-                           msgtype = "voice"
-                       };
-                       break;
-                   case GroupMessageType.mpnews:
-                       baseData = new GroupMessageByGroupId_MpNewsData()
-                       {
-                           filter = new GroupMessageByGroupId_GroupId()
-                           {
-                               group_id = groupId,
-                               is_to_all = isToAll
-                           },
-                           mpnews = new GroupMessageByGroupId_MediaId()
-                           {
-                               media_id = value
-                           },
-                           msgtype = "mpnews"
-                       };
-                       break;
-                   case GroupMessageType.video:
-                       baseData = new GroupMessageByGroupId_MpVideoData()
-                       {
-                           filter = new GroupMessageByGroupId_GroupId()
-                           {
-                               group_id = groupId,
-                               is_to_all = isToAll
-                           },
-                           mpvideo = new GroupMessageByGroupId_MediaId()
-                           {
-                               media_id = value
-                           },
-                           msgtype = "mpvideo"
-                       };
-                       break;
-                   case GroupMessageType.wxcard:
-                       baseData = new GroupMessageByGroupId_WxCardData()
-                       {
-                           filter = new GroupMessageByGroupId_GroupId()
-                           {
-                               group_id = groupId,
-                               is_to_all = isToAll
-                           },
-                           wxcard = new GroupMessageByGroupId_WxCard()
-                           {
-                               card_id = value
-                           },
-                           msgtype = "wxcard"
-                       };
-                       break;
-                   case GroupMessageType.text:
-                       baseData = new GroupMessageByGroupId_TextData()
-                       {
-                           filter = new GroupMessageByGroupId_GroupId()
-                           {
-                               group_id = groupId,
-                               is_to_all = isToAll
-                           },
-                           text = new GroupMessageByGroupId_Content()
-                           {
-                               content = value
-                           },
-                           msgtype = "text"
-                       };
-                       break;
-                   default:
-                       throw new Exception("参数错误。");
-               }
+                BaseGroupMessageDataByGroupId baseData = null;
+                var filter = new GroupMessageByGroupId_GroupId()
+                {
+                    group_id = groupId,
+                    is_to_all = isToAll
+                };
+                switch (type)
+                {
+                    case GroupMessageType.image:
+                        baseData = new GroupMessageByGroupId_ImageData()
+                        {
+                            filter = filter,
+                            image = new GroupMessageByGroupId_MediaId()
+                            {
+                                media_id = value
+                            },
+                            msgtype = "image"
+                        };
+                        break;
+                    case GroupMessageType.voice:
+                        baseData = new GroupMessageByGroupId_VoiceData()
+                        {
+                            filter = filter,
+                            voice = new GroupMessageByGroupId_MediaId()
+                            {
+                                media_id = value
+                            },
+                            msgtype = "voice"
+                        };
+                        break;
+                    case GroupMessageType.mpnews:
+                        baseData = new GroupMessageByGroupId_MpNewsData()
+                        {
+                            filter = filter,
+                            mpnews = new GroupMessageByGroupId_MediaId()
+                            {
+                                media_id = value
+                            },
+                            msgtype = "mpnews"
+                        };
+                        break;
+                    case GroupMessageType.video:
+                        baseData = new GroupMessageByGroupId_MpVideoData()
+                        {
+                            filter = filter,
+                            mpvideo = new GroupMessageByGroupId_MediaId()
+                            {
+                                media_id = value
+                            },
+                            msgtype = "mpvideo"
+                        };
+                        break;
+                    case GroupMessageType.wxcard:
+                        baseData = new GroupMessageByGroupId_WxCardData()
+                        {
+                            filter = filter,
+                            wxcard = new GroupMessageByGroupId_WxCard()
+                            {
+                                card_id = value
+                            },
+                            msgtype = "wxcard"
+                        };
+                        break;
+                    case GroupMessageType.text:
+                        baseData = new GroupMessageByGroupId_TextData()
+                        {
+                            filter = filter,
+                            text = new GroupMessageByGroupId_Content()
+                            {
+                                content = value
+                            },
+                            msgtype = "text"
+                        };
+                        break;
+                    default:
+                        throw new Exception("参数错误。");
+                        //break;
+                }
 
-               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
+                baseData.send_ignore_reprint = sendIgnoreReprint ? 0 : 1;//待群发的文章被判定为转载时，是否继续群发
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 
            }, accessTokenOrAppId);
         }
 
         /// <summary>
-        /// 【异步方法】根据OpenId进行群发
+        /// 【异步方法】根据OpenId进行群发【订阅号不可用，服务号认证后可用】
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
@@ -622,73 +596,75 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<SendResult> SendGroupMessageByOpenIdAsync(string accessTokenOrAppId, GroupMessageType type, string value, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
-           {
-               const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
+            {
+                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
 
-               BaseGroupMessageDataByOpenId baseData = null;
-               switch (type)
-               {
-                   case GroupMessageType.image:
-                       baseData = new GroupMessageByOpenId_ImageData()
-                       {
-                           touser = openIds,
-                           image = new GroupMessageByOpenId_MediaId()
-                           {
-                               media_id = value
-                           },
-                           msgtype = "image"
-                       };
-                       break;
-                   case GroupMessageType.voice:
-                       baseData = new GroupMessageByOpenId_VoiceData()
-                       {
-                           touser = openIds,
-                           voice = new GroupMessageByOpenId_MediaId()
-                           {
-                               media_id = value
-                           },
-                           msgtype = "voice"
-                       };
-                       break;
-                   case GroupMessageType.mpnews:
-                       baseData = new GroupMessageByOpenId_MpNewsData()
-                       {
-                           touser = openIds,
-                           mpnews = new GroupMessageByOpenId_MediaId()
-                           {
-                               media_id = value
-                           },
-                           msgtype = "mpnews"
-                       };
-                       break;
-                   case GroupMessageType.wxcard:
-                       baseData = new GroupMessageByOpenId_WxCardData()
-                       {
-                           touser = openIds,
-                           wxcard = new GroupMessageByOpenId_WxCard()
-                           {
-                               card_id = value
-                           },
-                           msgtype = "wxcard"
-                       };
-                       break;
-                   case GroupMessageType.video:
-                       throw new Exception("发送视频信息请使用SendVideoGroupMessageByOpenId方法。");
-                   case GroupMessageType.text:
-                       baseData = new GroupMessageByOpenId_TextData()
-                       {
-                           touser = openIds,
-                           text = new GroupMessageByOpenId_Content()
-                           {
-                               content = value
-                           },
-                           msgtype = "text"
-                       };
-                       break;
-                   default:
-                       throw new Exception("参数错误。");
-               }
-               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
+                BaseGroupMessageDataByOpenId baseData = null;
+                switch (type)
+                {
+                    case GroupMessageType.image:
+                        baseData = new GroupMessageByOpenId_ImageData()
+                        {
+                            touser = openIds,
+                            image = new GroupMessageByOpenId_MediaId()
+                            {
+                                media_id = value
+                            },
+                            msgtype = "image"
+                        };
+                        break;
+                    case GroupMessageType.voice:
+                        baseData = new GroupMessageByOpenId_VoiceData()
+                        {
+                            touser = openIds,
+                            voice = new GroupMessageByOpenId_MediaId()
+                            {
+                                media_id = value
+                            },
+                            msgtype = "voice"
+                        };
+                        break;
+                    case GroupMessageType.mpnews:
+                        baseData = new GroupMessageByOpenId_MpNewsData()
+                        {
+                            touser = openIds,
+                            mpnews = new GroupMessageByOpenId_MediaId()
+                            {
+                                media_id = value
+                            },
+                            msgtype = "mpnews"
+                        };
+                        break;
+                    case GroupMessageType.wxcard:
+                        baseData = new GroupMessageByOpenId_WxCardData()
+                        {
+                            touser = openIds,
+                            wxcard = new GroupMessageByOpenId_WxCard()
+                            {
+                                card_id = value
+                            },
+                            msgtype = "wxcard"
+                        };
+                        break;
+                    case GroupMessageType.video:
+                        throw new Exception("发送视频信息请使用SendVideoGroupMessageByOpenId方法。");
+                    //break;
+                    case GroupMessageType.text:
+                        baseData = new GroupMessageByOpenId_TextData()
+                        {
+                            touser = openIds,
+                            text = new GroupMessageByOpenId_Content()
+                            {
+                                content = value
+                            },
+                            msgtype = "text"
+                        };
+                        break;
+                    default:
+                        throw new Exception("参数错误。");
+                        //break;
+                }
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 
            }, accessTokenOrAppId);
         }
@@ -707,8 +683,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<SendResult> SendVideoGroupMessageByOpenIdAsync(string accessTokenOrAppId, string title, string description, string mediaId, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
-           {
-               const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
+            {
+                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
 
                BaseGroupMessageDataByOpenId baseData = new GroupMessageByOpenId_MpVideoData()
                {
@@ -737,7 +713,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<WxJsonResult> DeleteSendMessageAsync(string accessTokenOrAppId, string msgId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
-           {
+            {
                 //官方API地址为https://api.weixin.qq.com//cgi-bin/message/mass/delete?access_token={0}，应该是多了一个/
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/delete?access_token={0}";
 
@@ -764,78 +740,78 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<SendResult> SendGroupMessagePreviewAsync(string accessTokenOrAppId, GroupMessageType type, string value, string openId, string wxName = null, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
-           {
-               const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
+            {
+                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
 
-               BaseGroupMessageDataPreview baseData = null;
-               switch (type)
-               {
-                   case GroupMessageType.image:
-                       baseData = new GroupMessagePreview_ImageData()
-                       {
-                           touser = openId,
-                           towxname = wxName,
-                           image = new GroupMessagePreview_MediaId()
-                           {
-                               media_id = value
-                           },
-                           msgtype = "image"
-                       };
-                       break;
-                   case GroupMessageType.voice:
-                       baseData = new GroupMessagePreview_VoiceData()
-                       {
-                           touser = openId,
-                           towxname = wxName,
-                           voice = new GroupMessagePreview_MediaId()
-                           {
-                               media_id = value
-                           },
-                           msgtype = "voice"
-                       };
-                       break;
-                   case GroupMessageType.mpnews:
-                       baseData = new GroupMessagePreview_MpNewsData()
-                       {
-                           touser = openId,
-                           towxname = wxName,
-                           mpnews = new GroupMessagePreview_MediaId()
-                           {
-                               media_id = value
-                           },
-                           msgtype = "mpnews"
-                       };
-                       break;
-                   case GroupMessageType.video:
-                       baseData = new GroupMessagePreview_MpVideoData()
-                       {
-                           touser = openId,
-                           towxname = wxName,
-                           mpvideo = new GroupMessagePreview_MediaId()
-                           {
-                               media_id = value
-                           },
-                           msgtype = "mpvideo"
-                       };
-                       break;
-                   case GroupMessageType.text:
-                       baseData = new GroupMessagePreview_TextData()
-                       {
-                           touser = openId,
-                           towxname = wxName,
-                           text = new GroupMessagePreview_Content()
-                           {
-                               content = value
-                           },
-                           msgtype = "text"
-                       };
-                       break;
-                   case GroupMessageType.wxcard:
-                       throw new Exception("发送卡券息请使用WxCardGroupMessagePreview方法。");
-                   default:
-                       throw new Exception("参数错误。");
-               }
-               return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
+                BaseGroupMessageDataPreview baseData = null;
+                switch (type)
+                {
+                    case GroupMessageType.image:
+                        baseData = new GroupMessagePreview_ImageData()
+                        {
+                            touser = openId,
+                            towxname = wxName,
+                            image = new GroupMessagePreview_MediaId()
+                            {
+                                media_id = value
+                            },
+                            msgtype = "image"
+                        };
+                        break;
+                    case GroupMessageType.voice:
+                        baseData = new GroupMessagePreview_VoiceData()
+                        {
+                            touser = openId,
+                            towxname = wxName,
+                            voice = new GroupMessagePreview_MediaId()
+                            {
+                                media_id = value
+                            },
+                            msgtype = "voice"
+                        };
+                        break;
+                    case GroupMessageType.mpnews:
+                        baseData = new GroupMessagePreview_MpNewsData()
+                        {
+                            touser = openId,
+                            towxname = wxName,
+                            mpnews = new GroupMessagePreview_MediaId()
+                            {
+                                media_id = value
+                            },
+                            msgtype = "mpnews"
+                        };
+                        break;
+                    case GroupMessageType.video:
+                        baseData = new GroupMessagePreview_MpVideoData()
+                        {
+                            touser = openId,
+                            towxname = wxName,
+                            mpvideo = new GroupMessagePreview_MediaId()
+                            {
+                                media_id = value
+                            },
+                            msgtype = "mpvideo"
+                        };
+                        break;
+                    case GroupMessageType.text:
+                        baseData = new GroupMessagePreview_TextData()
+                        {
+                            touser = openId,
+                            towxname = wxName,
+                            text = new GroupMessagePreview_Content()
+                            {
+                                content = value
+                            },
+                            msgtype = "text"
+                        };
+                        break;
+                    case GroupMessageType.wxcard:
+                        throw new Exception("发送卡券息请使用WxCardGroupMessagePreview方法。");
+                    default:
+                        throw new Exception("参数错误。");
+                }
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 
            }, accessTokenOrAppId);
         }
@@ -856,8 +832,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             string openId, string wxName, string timestamp, string signature, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
-           {
-               const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
+            {
+                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
 
                BaseGroupMessageDataPreview baseData = new GroupMessagePreview_WxCardData()
                {
@@ -886,8 +862,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<GetSendResult> GetGroupMessageResultAsync(string accessTokenOrAppId, string msgId, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
-           {
-               const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/get?access_token={0}";
+            {
+                const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/get?access_token={0}";
 
                var data = new
                {
@@ -912,8 +888,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             string description, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
-           {
-               string url = string.Format("https://file.api.weixin.qq.com/cgi-bin/media/uploadvideo?access_token={0}", accessToken.AsUrlData());
+            {
+                string url = string.Format("https://file.api.weixin.qq.com/cgi-bin/media/uploadvideo?access_token={0}", accessToken.AsUrlData());
 
                var data = new
                {

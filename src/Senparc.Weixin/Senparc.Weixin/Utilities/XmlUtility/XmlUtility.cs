@@ -50,9 +50,8 @@ namespace Senparc.Weixin.XmlUtility
                     return xmldes.Deserialize(sr);
                 }
             }
-            catch (Exception e)
+            catch
             {
-
                 return null;
             }
         }

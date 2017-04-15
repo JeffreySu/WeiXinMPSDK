@@ -64,6 +64,9 @@ namespace Senparc.Weixin.Containers
         DateTime CacheTime { get; set; }
     }
 
+    /// <summary>
+    /// 提供给具有 AppId 的 IBaseContainerBag 使用的接口
+    /// </summary>
     public interface IBaseContainerBag_AppId
     {
         /// <summary>

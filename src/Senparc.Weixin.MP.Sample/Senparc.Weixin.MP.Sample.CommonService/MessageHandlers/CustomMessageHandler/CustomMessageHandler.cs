@@ -117,7 +117,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
 
-            //书中例子
+            #region 书中例子
             //if (requestMessage.Content == "你好")
             //{
             //    var responseMessage = base.CreateResponseMessage<ResponseMessageNews>();
@@ -143,7 +143,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //    //...
             //}
 
-
+            #endregion
 
             //方法一（v0.1），此方法调用太过繁琐，已过时（但仍是所有方法的核心基础），建议使用方法二到四
             //var responseMessage =

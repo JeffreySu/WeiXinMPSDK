@@ -71,6 +71,8 @@ QQ群：342319110
 【容错】    体验去重容错
 
 【ex】      体验错误日志推送提醒
+
+【mute】     不返回任何消息，也无出错信息
 ",
                 version);
         }
@@ -105,6 +107,11 @@ QQ群：342319110
             return null;//返回null，则继续执行OnTextRequest或OnEventRequest
         }
 
+        /// <summary>
+        /// 点击事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
         public override IResponseMessageBase OnEvent_ClickRequest(RequestMessageEvent_Click requestMessage)
         {
             IResponseMessageBase reponseMessage = null;
@@ -270,6 +277,11 @@ QQ群：342319110
             return reponseMessage;
         }
 
+        /// <summary>
+        /// 进入事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
         public override IResponseMessageBase OnEvent_EnterRequest(RequestMessageEvent_Enter requestMessage)
         {
             var responseMessage = ResponseMessageBase.CreateFromRequestMessage<ResponseMessageText>(requestMessage);
@@ -277,6 +289,11 @@ QQ群：342319110
             return responseMessage;
         }
 
+        /// <summary>
+        /// 位置事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
         public override IResponseMessageBase OnEvent_LocationRequest(RequestMessageEvent_Location requestMessage)
         {
             //这里是微信客户端（通过微信服务器）自动发送过来的位置信息
@@ -285,6 +302,11 @@ QQ群：342319110
             return responseMessage;//这里也可以返回null（需要注意写日志时候null的问题）
         }
 
+        /// <summary>
+        /// 通过二维码扫描关注扫描事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
         public override IResponseMessageBase OnEvent_ScanRequest(RequestMessageEvent_Scan requestMessage)
         {
             //通过扫描关注
@@ -314,6 +336,11 @@ QQ群：342319110
             return responseMessage;
         }
 
+        /// <summary>
+        /// 打开网页事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
         public override IResponseMessageBase OnEvent_ViewRequest(RequestMessageEvent_View requestMessage)
         {
             //说明：这条消息只作为接收，下面的responseMessage到达不了客户端，类似OnEvent_UnsubscribeRequest
@@ -322,6 +349,11 @@ QQ群：342319110
             return responseMessage;
         }
 
+        /// <summary>
+        /// 群发完成事件
+        /// </summary>
+        /// <param name="requestMessage"></param>
+        /// <returns></returns>
         public override IResponseMessageBase OnEvent_MassSendJobFinishRequest(RequestMessageEvent_MassSendJobFinish requestMessage)
         {
             var responseMessage = CreateResponseMessage<ResponseMessageText>();

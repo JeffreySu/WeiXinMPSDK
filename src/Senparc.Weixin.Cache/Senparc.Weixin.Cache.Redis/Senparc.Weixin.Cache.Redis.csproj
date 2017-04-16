@@ -1,8 +1,42 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFrameworks>netstandard1.6;net461</TargetFrameworks>
+    <Company>Senparc</Company>
+    <Authors>Senparc</Authors>
+    <Version>1.2.0.1</Version>
+    <Description>Senparc.Weixin.Cache.Redis Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植</Description>
+    <Copyright>Senparc Copyright © 2004~2017</Copyright>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <PackageTags>weixin;wechat;微信;Senparc;ASP.Net Core;Redis;cache</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <!--<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
+    <PackageReference Include="System.Dynamic.Runtime" />
+    <PackageReference Include="System.Threading.Thread" />
+    <PackageReference Include="System.Xml.XmlSerializer" />-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="ServiceStack.Redis\**" />
+    <EmbeddedResource Remove="ServiceStack.Redis\**" />
+    <None Remove="ServiceStack.Redis\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="ServiceStack.Redis\**" />
@@ -16,8 +50,12 @@
     <PackageReference Include="StackExchange.Redis" Version="1.2.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj" />
-  </ItemGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\net461\Senparc.Weixin.Cache.Redis.xml</DocumentationFile>
+  </PropertyGroup>
 
 </Project>

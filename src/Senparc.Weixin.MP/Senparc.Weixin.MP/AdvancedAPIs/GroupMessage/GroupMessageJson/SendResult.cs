@@ -9,6 +9,9 @@
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+        
+    修改标识：oppoic - 20170413
+    修改描述：v14.3.142 SendResult添加msg_data_id字段，此字段用于统计分析
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.Entities;
@@ -29,6 +32,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.GroupMessage
         /// 消息ID
         /// </summary>
         public string msg_id { get; set; }
+        
+        /// <summary>
+        /// 消息数据ID
+        /// </summary>
+        public string msg_data_id { get; set; }
     }
 
     public class GetSendResult:WxJsonResult

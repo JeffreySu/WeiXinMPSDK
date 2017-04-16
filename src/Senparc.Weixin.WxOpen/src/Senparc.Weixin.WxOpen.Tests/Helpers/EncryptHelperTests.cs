@@ -1,4 +1,24 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.WxOpen.Helpers;
 using System;
 using System.Collections.Generic;
@@ -18,20 +38,30 @@ namespace Senparc.Weixin.WxOpen.Helpers.Tests
         [TestMethod()]
         public void GetSignatureTest()
         {
-            var rawData =
-                "{\"nickName\":\"Band\",\"gender\":1,\"language\":\"zh_CN\",\"city\":\"Guangzhou\",\"province\":\"Guangdong\",\"country\":\"CN\",\"avatarUrl\":\"http://wx.qlogo.cn/mmopen/vi_32/1vZvI39NWFQ9XM4LtQpFrQJ1xlgZxx3w7bQxKARol6503Iuswjjn6nIGBiaycAjAtpujxyzYsrztuuICqIM5ibXQ/0\"}";
+            {
+                //官方提供的案例
+                var rawData =
+                    "{\"nickName\":\"Band\",\"gender\":1,\"language\":\"zh_CN\",\"city\":\"Guangzhou\",\"province\":\"Guangdong\",\"country\":\"CN\",\"avatarUrl\":\"http://wx.qlogo.cn/mmopen/vi_32/1vZvI39NWFQ9XM4LtQpFrQJ1xlgZxx3w7bQxKARol6503Iuswjjn6nIGBiaycAjAtpujxyzYsrztuuICqIM5ibXQ/0\"}";
 
-            var sessionKey = "HyVFkGl5F5OQWJZZaNzBBg==";
-            var compareSignature = "75e81ceda165f4ffa64f4068af58c64b8f54b88c";
+                var sessionKey = "HyVFkGl5F5OQWJZZaNzBBg==";
+                var compareSignature = "75e81ceda165f4ffa64f4068af58c64b8f54b88c";
 
-            //        var rawData =
-            //"{\"nickName\":\"苏震巍\",\"gender\":1,\"language\":\"zh_CN\",\"city\":\"Suzhou\",\"province\":\"Jiangsu\",\"country\":\"CN\",\"avatarUrl\":\"http://wx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEKXyjX4N6I5Vx1aeiaBeJ2iaTLy15n0HgvjNbWEpKA3ZbdgXkOhWK7OH8iar3iaLxsZia5Ha4DnRPlMerw/0\"}";
+                var signature = EncryptHelper.GetSignature(rawData, sessionKey);
+                Assert.AreEqual(compareSignature, signature);
 
-            //        var sessionKey = "jCdFs2HMx+A9Dr9lhMJKxA==";
-            //        var compareSignature = "2d65ebea7c7f500bfb874b71569a591047452d38";
+            }
 
-            var signature = EncryptHelper.GetSignature(rawData, sessionKey);
-            Assert.AreEqual(compareSignature, signature);
+            {
+                //自定义
+                var rawData =
+        "{\"nickName\":\"苏震巍\",\"gender\":1,\"language\":\"zh_CN\",\"city\":\"Suzhou\",\"province\":\"Jiangsu\",\"country\":\"CN\",\"avatarUrl\":\"http://wx.qlogo.cn/mmopen/vi_32/PiajxSqBRaEKXyjX4N6I5Vx1aeiaBeJ2iaTLy15n0HgvjNbWEpKA3ZbdgXkOhWK7OH8iar3iaLxsZia5Ha4DnRPlMerw/0\"}";
+
+                var sessionKey = "jCdFs2HMx+A9Dr9lhMJKxA==";
+                var compareSignature = "2d65ebea7c7f500bfb874b71569a591047452d38";
+
+                var signature = EncryptHelper.GetSignature(rawData, sessionKey);
+                Assert.AreEqual(compareSignature, signature);
+            }
         }
 
         [TestMethod]
@@ -91,9 +121,9 @@ namespace Senparc.Weixin.WxOpen.Helpers.Tests
             var userInfo = Senparc.Weixin.WxOpen.Helpers.EncryptHelper.DecodeUserInfoBySessionId(sessionId,
                 encryptedData, iv);
             Assert.IsNotNull(userInfo);
-            Assert.AreEqual("wxfcb0a0031394a51c",userInfo.watermark.appid);
+            Assert.AreEqual("wxfcb0a0031394a51c", userInfo.watermark.appid);
 
-            SerializerHelper sh=new SerializerHelper();
+            SerializerHelper sh = new SerializerHelper();
             Console.WriteLine(sh.GetJsonString(userInfo));
         }
     }

@@ -67,8 +67,8 @@ namespace Senparc.Weixin.MP.MvcExtension
         /// 执行该Result
         /// </summary>
         /// <param name="context"></param>
-        /// <remarks>不需要重写Async方法，CoreMVC 总是优先调用异步方法，并且会自动调用同步方法，因此方法不包含Async awit 所以只重写同步方法</remarks>
-		public override void ExecuteResult(ActionContext context)
+        /// <remarks>不需要重写同步方法，CoreMVC 总是优先调用异步方法，并且会自动调用同步方法，无论重写哪一个，都不用都重写</remarks>
+		public override Task ExecuteResultAsync(ActionContext context)
 		{
 			if (base.Content == null)
 			{
@@ -90,7 +90,7 @@ namespace Senparc.Weixin.MP.MvcExtension
 				}
 			}
 
-			base.ExecuteResult(context);
+			return base.ExecuteResultAsync(context);
 		}
 	}
 }

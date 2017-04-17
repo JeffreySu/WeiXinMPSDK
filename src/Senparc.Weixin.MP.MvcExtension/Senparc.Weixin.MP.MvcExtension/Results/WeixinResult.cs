@@ -50,7 +50,7 @@ namespace Senparc.Weixin.MP.MvcExtension
 				{
 					return base.Content;
 				}
-				else if (_messageHandlerDocument != null && _messageHandlerDocument.FinalResponseDocument != null)
+				else if (_messageHandlerDocument?.FinalResponseDocument != null)
 				{
 					return _messageHandlerDocument.FinalResponseDocument.ToString();
 				}
@@ -62,31 +62,12 @@ namespace Senparc.Weixin.MP.MvcExtension
 			set { base.Content = value; }
 		}
 
-		public override Task ExecuteResultAsync(ActionContext context)
-		{
-			if (base.Content == null)
-			{
-				//使用IMessageHandler输出
-				if (_messageHandlerDocument == null)
-				{
-					throw new Exceptions.WeixinException("执行WeixinResult时提供的MessageHandler不能为Null！", null);
-				}
-
-				if (_messageHandlerDocument.FinalResponseDocument == null)
-				{
-					//throw new Senparc.Weixin.MP.WeixinException("ResponseMessage不能为Null！", null);
-				}
-				else
-				{
-					//context.HttpContext.Response.ClearContent();
-					context.HttpContext.Response.ContentType = "text/xml";
-					_messageHandlerDocument.FinalResponseDocument.Save(context.HttpContext.Response.Body);
-				}
-			}
-
-			return base.ExecuteResultAsync(context);
-		}
-
+		
+        /// <summary>
+        /// 执行该Result
+        /// </summary>
+        /// <param name="context"></param>
+        /// <remarks>不需要重写Async方法，CoreMVC 总是优先调用异步方法，并且会自动调用同步方法，因此方法不包含Async awit 所以只重写同步方法</remarks>
 		public override void ExecuteResult(ActionContext context)
 		{
 			if (base.Content == null)

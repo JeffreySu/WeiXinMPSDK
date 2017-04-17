@@ -17,19 +17,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-//using System.Web.Mvc;
-
 using Senparc.Weixin.MP.MvcExtension.BrowserUtility;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
-
-#if NET461
-//using System.Web;
-using Microsoft.AspNetCore.Http;
-#else
-using Microsoft.AspNetCore.Http;
-#endif
-
 
 namespace Senparc.Weixin.MP.MvcExtension
 {
@@ -61,7 +51,7 @@ namespace Senparc.Weixin.MP.MvcExtension
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-#if NET461
+
             if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.HttpContext.Request.Query[_ignoreParameter]))
             {
                 if (!filterContext.HttpContext.SideInWeixinBrowser())
@@ -84,34 +74,6 @@ namespace Senparc.Weixin.MP.MvcExtension
                     filterContext.Result = actionResult;
                 }
             }
-#else
-            if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.HttpContext.Request.Query[_ignoreParameter]))
-            {
-                if (!filterContext.HttpContext.SideInWeixinBrowser())
-                //if (!BrowserUtility.BrowserUtility.SideInWeixinBrowser(filterContext.HttpContext))
-                {
-                    //TODO:判断网页版登陆状态
-                    ActionResult actionResult = null;
-                    if (!string.IsNullOrEmpty(RedirectUrl))
-                    {
-                        actionResult = new RedirectResult(RedirectUrl);
-                    }
-                    else
-                    {
-                        actionResult = new ContentResult()
-                        {
-                            Content = _message
-                        };
-                    }
-
-                    filterContext.Result = actionResult;
-                }
-            }
-#endif
-
-
-
-
 
             base.OnActionExecuting(filterContext);
         }

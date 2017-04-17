@@ -34,12 +34,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v4.11.2 修改SideInWeixinBrowser判断逻辑
 
 ----------------------------------------------------------------*/
-#if NET461
-//using System.Web;
+
 using Microsoft.AspNetCore.Http;
-#else
-using Microsoft.AspNetCore.Http;
-#endif
+
 namespace Senparc.Weixin.MP.MvcExtension.BrowserUtility
 {
     public static class BrowserUtility
@@ -52,16 +49,11 @@ namespace Senparc.Weixin.MP.MvcExtension.BrowserUtility
         public static bool SideInWeixinBrowser(this HttpContext httpContext)
         {
             string ustr = string.Empty;
-#if NET461
-            //ustr = httpContext.Request.UserAgent;
-            var userAgent = httpContext.Request.Headers["User-Agent"];
-            if (userAgent.Count > 0)
-                ustr = userAgent[0];
-#else
+
 			var userAgent = httpContext.Request.Headers["User-Agent"];
 			if (userAgent.Count > 0)
 				ustr = userAgent[0];
-#endif
+
             if (string.IsNullOrEmpty(ustr) || (!ustr.Contains("MicroMessenger") && !ustr.Contains("Windows Phone")))
             {
                 //在微信外部

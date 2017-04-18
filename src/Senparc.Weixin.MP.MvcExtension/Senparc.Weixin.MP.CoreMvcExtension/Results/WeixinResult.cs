@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 //using System.Web.Mvc;
 
-namespace Senparc.Weixin.MP.MvcExtension
+namespace Senparc.Weixin.MP.CoreMvcExtension
 {
 
 	//public static class WeixinResultExtension

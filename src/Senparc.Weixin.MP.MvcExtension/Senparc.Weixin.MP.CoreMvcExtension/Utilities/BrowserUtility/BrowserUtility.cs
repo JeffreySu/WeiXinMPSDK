@@ -37,7 +37,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using Microsoft.AspNetCore.Http;
 
-namespace Senparc.Weixin.MP.MvcExtension.BrowserUtility
+namespace Senparc.Weixin.MP.CoreMvcExtension.BrowserUtility
 {
     public static class BrowserUtility
     {

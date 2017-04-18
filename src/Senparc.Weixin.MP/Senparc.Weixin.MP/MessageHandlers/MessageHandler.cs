@@ -377,7 +377,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
 
         public virtual void OnExecuting()
         {
-            //消息去重
+            #region 消息去重
+
             if ((OmitRepeatedMessageFunc == null || OmitRepeatedMessageFunc(RequestMessage) == true) 
                 && OmitRepeatedMessage && CurrentMessageContext.RequestMessages.Count > 1
                 //&& !(RequestMessage is RequestMessageEvent_Merchant_Order)批量订单的MsgId可能会相同
@@ -396,6 +397,8 @@ namespace Senparc.Weixin.MP.MessageHandlers
                     return;
                 }
             }
+
+            #endregion
 
             base.OnExecuting();
 

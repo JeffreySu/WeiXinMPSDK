@@ -195,4 +195,4 @@ namespace Senparc.Weixin.Open.MessageHandlers
             return "success";
         }
     }
-} 
+}

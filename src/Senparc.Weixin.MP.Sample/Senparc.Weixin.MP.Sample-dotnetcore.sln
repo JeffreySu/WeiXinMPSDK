@@ -36,6 +36,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.MvcExtens
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Open", "..\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.csproj", "{384627CF-27ED-4A25-818F-7E535DA318DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.WxOpen", "..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.csproj", "{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -228,6 +230,24 @@ Global
 		{384627CF-27ED-4A25-818F-7E535DA318DC}.Test|x64.Build.0 = Release|x64
 		{384627CF-27ED-4A25-818F-7E535DA318DC}.Test|x86.ActiveCfg = Release|x86
 		{384627CF-27ED-4A25-818F-7E535DA318DC}.Test|x86.Build.0 = Release|x86
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Debug|x64.ActiveCfg = Debug|x64
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Debug|x64.Build.0 = Debug|x64
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Debug|x86.ActiveCfg = Debug|x86
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Debug|x86.Build.0 = Debug|x86
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Release|x64.ActiveCfg = Release|x64
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Release|x64.Build.0 = Release|x64
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Release|x86.ActiveCfg = Release|x86
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Release|x86.Build.0 = Release|x86
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Test|x64.ActiveCfg = Release|x64
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Test|x64.Build.0 = Release|x64
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Test|x86.ActiveCfg = Release|x86
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Test|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -244,5 +264,6 @@ Global
 		{86D40C28-971C-4510-AA09-19BB97F034E0} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
 		{6B3C8ED0-A3C5-4F46-92B8-90C5965D8B7A} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
 		{384627CF-27ED-4A25-818F-7E535DA318DC} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
+		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
 	EndGlobalSection
 EndGlobal

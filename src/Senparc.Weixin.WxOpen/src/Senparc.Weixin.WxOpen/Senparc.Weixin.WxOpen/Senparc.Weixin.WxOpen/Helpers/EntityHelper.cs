@@ -34,6 +34,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Utilities;
+using System.Reflection;
 
 namespace Senparc.Weixin.WxOpen.Helpers
 {

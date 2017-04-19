@@ -38,6 +38,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Open", "..\S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.WxOpen", "..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.csproj", "{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Cache.Memcached", "..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.csproj", "{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -248,6 +250,24 @@ Global
 		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Test|x64.Build.0 = Release|x64
 		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Test|x86.ActiveCfg = Release|x86
 		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E}.Test|x86.Build.0 = Release|x86
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Debug|x64.ActiveCfg = Debug|x64
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Debug|x64.Build.0 = Debug|x64
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Debug|x86.ActiveCfg = Debug|x86
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Debug|x86.Build.0 = Debug|x86
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Release|x64.ActiveCfg = Release|x64
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Release|x64.Build.0 = Release|x64
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Release|x86.ActiveCfg = Release|x86
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Release|x86.Build.0 = Release|x86
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Test|x64.ActiveCfg = Release|x64
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Test|x64.Build.0 = Release|x64
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Test|x86.ActiveCfg = Release|x86
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB}.Test|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -265,5 +285,6 @@ Global
 		{6B3C8ED0-A3C5-4F46-92B8-90C5965D8B7A} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
 		{384627CF-27ED-4A25-818F-7E535DA318DC} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
 		{DCFC993F-A090-44BE-ADDF-F26AB59CBC9E} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
+		{7B7A54A6-CADB-4A98-A4B7-C423C5A5AEEB} = {FDC9A3F1-A2EC-4E44-9093-BE0EE1C17093}
 	EndGlobalSection
 EndGlobal

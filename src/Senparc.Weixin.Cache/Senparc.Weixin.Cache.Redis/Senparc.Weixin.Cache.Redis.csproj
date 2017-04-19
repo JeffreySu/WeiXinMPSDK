@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard1.6;net461</TargetFrameworks>
     <Company>Senparc</Company>
     <Authors>Senparc</Authors>
-    <Version>1.2.0.1</Version>
+    <Version>1.2.2</Version>
     <Description>Senparc.Weixin.Cache.Redis Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植</Description>
     <Copyright>Senparc Copyright © 2004~2017</Copyright>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -46,7 +46,7 @@
 
   <ItemGroup>
     <PackageReference Include="protobuf-net" Version="2.1.0" />
-    <PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.0.3" />
+    <PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.0.4" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.1" />
   </ItemGroup>
 

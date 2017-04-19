@@ -1,14 +1,32 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
+  
+    文件名：FixWeixinBugWeixinResult.cs
+    文件功能描述：修复微信换行等问题
+    
+    
+    创建标识：Senparc - 20160801
+    
+    修改标识：Senparc - 20170413
+    修改描述：修改 .net core mvc 的ExecuteResult(ActionContext context)方法
+    
+    修改标识：Senparc - 20150507
+    修改描述：添加 事件 异步任务完成事件推送
+----------------------------------------------------------------*/
+
+
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web.Mvc;
 using System.Xml.Linq;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MessageHandlers;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Senparc.Weixin.MP.MvcExtension
+namespace Senparc.Weixin.MP.CoreMvcExtension
 {
     /// <summary>
     /// 修复微信换行 bug
@@ -18,19 +36,19 @@ namespace Senparc.Weixin.MP.MvcExtension
         //private string _content;
         protected IMessageHandlerDocument _messageHandlerDocument;
 
-        /// <summary>
-        /// 这个类型只用于特殊阶段：目前IOS版本微信有换行的bug，\r\n会识别为2行
-        /// </summary>
-        public FixWeixinBugWeixinResult(IMessageHandlerDocument messageHandlerDocument)
-        {
-            _messageHandlerDocument = messageHandlerDocument;
-        }
+		/// <summary>
+		/// 这个类型只用于特殊阶段：目前IOS版本微信有换行的bug，\r\n会识别为2行
+		/// </summary>
+		public FixWeixinBugWeixinResult(IMessageHandlerDocument messageHandlerDocument)
+		{
+			_messageHandlerDocument = messageHandlerDocument;
+		}
 
-        public FixWeixinBugWeixinResult(string content)
-        {
-            //_content = content;
-            base.Content = content;
-        }
+		public FixWeixinBugWeixinResult(string content)
+		{
+			//_content = content;
+			base.Content = content;
+		}
 
 
         new public string Content
@@ -50,11 +68,11 @@ namespace Senparc.Weixin.MP.MvcExtension
                         return _messageHandlerDocument.TextResponseMessage.Replace("\r\n", "\n");
                     }
 
-                    //if (_messageHandlerDocument.TextResponseMessage.Equals(String.Empty))
-                    //{
-                    //    //无需响应，开发者返回了ResponseNoResponse
-                    //    return null;
-                    //}
+					//if (_messageHandlerDocument.TextResponseMessage.Equals(String.Empty))
+					//{
+					//    //无需响应，开发者返回了ResponseNoResponse
+					//    return null;
+					//}
 
                     //if (_messageHandlerDocument.ResponseDocument != null)
                     //{
@@ -72,7 +90,12 @@ namespace Senparc.Weixin.MP.MvcExtension
             set { base.Content = value; }
         }
 
-        public override void ExecuteResult(ControllerContext context)
+        //public override void ExecuteResult(ActionContext context)
+        //{
+        //    base.ExecuteResult(context);
+        //}
+
+        public override void ExecuteResult(ActionContext context)
         {
             var content = this.Content;
 
@@ -96,12 +119,12 @@ namespace Senparc.Weixin.MP.MvcExtension
                 }
             }
 
-            context.HttpContext.Response.ClearContent();
             context.HttpContext.Response.ContentType = "text/xml";
             content = (content ?? "").Replace("\r\n", "\n");
 
             var bytes = Encoding.UTF8.GetBytes(content);
-            context.HttpContext.Response.OutputStream.Write(bytes, 0, bytes.Length);
+            context.HttpContext.Response.Body.Seek(0, SeekOrigin.Begin);
+            context.HttpContext.Response.Body.Write(bytes, 0, bytes.Length);
         }
     }
 }

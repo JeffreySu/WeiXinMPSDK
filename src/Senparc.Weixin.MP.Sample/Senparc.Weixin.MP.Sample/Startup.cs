@@ -28,8 +28,6 @@ namespace Senparc.Weixin.MP.Sample
             builder.AddJsonFile("SenparcWeixin.json", optional: true);
 
             Configuration = builder.Build();
-
-
         }
 
         public IConfigurationRoot Configuration { get; }

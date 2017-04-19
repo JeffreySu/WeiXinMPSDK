@@ -1,6 +1,6 @@
 ﻿{
   "SenparcWeixinSetting": {
-    "WeixinAppId": "",
-    "WeixinAppSecret": ""
+    "WeixinAppId": "YourWeixinAppId",
+    "WeixinAppSecret": "YourWeixinAppSecret"
   }
 }

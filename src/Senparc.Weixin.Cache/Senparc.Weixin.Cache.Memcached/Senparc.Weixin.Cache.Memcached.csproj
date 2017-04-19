@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net461</TargetFrameworks>
   </PropertyGroup>
-  <ProjectReference Include="..\..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj" />
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
     <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
@@ -21,5 +20,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <PackageReference Include="EnyimMemcached">
+      <Version>2.16.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard1.6'">
+    <PackageReference Include="EnyimMemcachedCore">
+      <Version>1.1.1.7</Version>
+    </PackageReference>
   </ItemGroup>
 </Project>

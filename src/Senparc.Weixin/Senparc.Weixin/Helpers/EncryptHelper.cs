@@ -40,7 +40,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-//using System.Security.Cryptography.Hashing.Algorithms;
 
 namespace Senparc.Weixin.Helpers
 {
@@ -56,25 +55,15 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public static string GetSha1(string encypStr)
         {
-            throw new ArgumentException("暂时不可用");
-            //byte[] strRes = Encoding.UTF8.GetBytes(sourceStr);
-            //HashAlgorithm iSHA = new SHA1CryptoServiceProvider();
-            //strRes = iSHA.ComputeHash(strRes);
-            //StringBuilder enText = new StringBuilder();
-            //foreach (byte iByte in strRes)
-            //{
-            //    enText.AppendFormat("{0:x2}", iByte);
-            //}
-            //return enText.ToString();
-
-            //byte[] strRes = Encoding.Default.GetBytes(encypStr);
-            //HashAlgorithm iSHA = new SHA1CryptoServiceProvider();
-            //strRes = iSHA.ComputeHash(strRes);
-            //StringBuilder enText = new StringBuilder();
-            //foreach (byte iByte in strRes)
-            //{
-            //    enText.AppendFormat("{0:x2}", iByte);
-            //}
+            var sha1= SHA1.Create();
+            byte[] strRes = Encoding.UTF8.GetBytes(encypStr);
+            var hash = sha1.ComputeHash(strRes);
+            StringBuilder enText = new StringBuilder();
+            foreach (byte iByte in hash)
+            {
+                enText.AppendFormat("{0:x2}", iByte);
+            }
+            return enText.ToString();
         }
 
         /// <summary>

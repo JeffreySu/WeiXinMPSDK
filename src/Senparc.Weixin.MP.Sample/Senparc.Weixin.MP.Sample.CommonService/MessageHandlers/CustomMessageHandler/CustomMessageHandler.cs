@@ -10,13 +10,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+#if NET461
+using System.Configuration;
 using System.Web;
 using System.Web.Configuration;
+#endif
 using Senparc.Weixin.MP.Agent;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.Exceptions;
@@ -50,14 +52,28 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         string agentToken = "27C455F496044A87";
         string wiweihiKey = "CNadjJuWzyX5bz5Gn+/XoyqiqMa5DjXQ";
 #else
+
+#if NET461
         //下面的Url和Token可以用其他平台的消息，或者到www.weiweihi.com注册微信用户，将自动在“微信营销工具”下得到
         private string agentUrl = WebConfigurationManager.AppSettings["WeixinAgentUrl"];//这里使用了www.weiweihi.com微信自动托管平台
         private string agentToken = WebConfigurationManager.AppSettings["WeixinAgentToken"];//Token
         private string wiweihiKey = WebConfigurationManager.AppSettings["WeixinAgentWeiweihiKey"];//WeiweihiKey专门用于对接www.Weiweihi.com平台，获取方式见：http://www.weiweihi.com/ApiDocuments/Item/25#51
-#endif
 
         private string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
         private string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
+#else
+
+        private string agentUrl = "WeixinAgentUrl";//这里使用了www.weiweihi.com微信自动托管平台
+        private string agentToken = "WeixinAgentToken";//Token
+        private string wiweihiKey = "WeixinAgentWeiweihiKey";//WeiweihiKey专门用于对接www.Weiweihi.com平台，获取方式见：http://www.weiweihi.com/ApiDocuments/Item/25#51
+
+        private string appId = "WeixinAppId";
+        private string appSecret = "WeixinAppSecret";
+
+#endif
+#endif
+
+
 
         /// <summary>
         /// 模板消息集合（Key：checkCode，Value：OpenId）
@@ -185,7 +201,6 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                 #region 暂时转发到SDK线上Demo
 
                 agentUrl = "http://sdk.weixin.senparc.com/weixin";
-                agentToken = WebConfigurationManager.AppSettings["WeixinToken"];//Token
 
                 //修改内容，防止死循环
                 var agentDoc = XDocument.Parse(agentXml);
@@ -245,20 +260,20 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             else if (requestMessage.Content == "AsyncTest")
             {
                 //异步并发测试（提供给单元测试使用）
-                DateTime begin = DateTime.Now;
-                int t1, t2, t3;
-                System.Threading.ThreadPool.GetAvailableThreads(out t1, out t3);
-                System.Threading.ThreadPool.GetMaxThreads(out t2, out t3);
-                System.Threading.Thread.Sleep(TimeSpan.FromSeconds(4));
-                DateTime end = DateTime.Now;
-                var thread = System.Threading.Thread.CurrentThread;
-                responseMessage.Content = string.Format("TId:{0}\tApp:{1}\tBegin:{2:mm:ss,ffff}\tEnd:{3:mm:ss,ffff}\tTPool：{4}",
-                        thread.ManagedThreadId,
-                        HttpContext.Current != null ? HttpContext.Current.ApplicationInstance.GetHashCode() : -1,
-                        begin,
-                        end,
-                        t2 - t1
-                        );
+                //DateTime begin = DateTime.Now;
+                //int t1, t2, t3;
+                //System.Threading.ThreadPool.GetAvailableThreads(out t1, out t3);
+                //System.Threading.ThreadPool.GetMaxThreads(out t2, out t3);
+                //System.Threading.Thread.Sleep(TimeSpan.FromSeconds(4));
+                //DateTime end = DateTime.Now;
+                //var thread = System.Threading.Thread.CurrentThread;
+                //responseMessage.Content = string.Format("TId:{0}\tApp:{1}\tBegin:{2:mm:ss,ffff}\tEnd:{3:mm:ss,ffff}\tTPool：{4}",
+                //        thread.ManagedThreadId,
+                //        HttpContext.Current != null ? HttpContext.Current.ApplicationInstance.GetHashCode() : -1,
+                //        begin,
+                //        end,
+                //        t2 - t1
+                //        );
             }
             else if (requestMessage.Content.ToUpper() == "OPEN")
             {
@@ -329,7 +344,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     {
                         var historyMessage = CurrentMessageContext.RequestMessages[i];
                         result.AppendFormat("{0} 【{1}】{2}\r\n",
-                            historyMessage.CreateTime.ToShortTimeString(),
+                            historyMessage.CreateTime.ToString("HH:mm:ss"),
                             historyMessage.MsgType.ToString(),
                             (historyMessage is RequestMessageText)
                                 ? (historyMessage as RequestMessageText).Content
@@ -395,65 +410,66 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             return responseMessage;
         }
 
-        /// <summary>
-        /// 处理语音请求
-        /// </summary>
-        /// <param name="requestMessage"></param>
-        /// <returns></returns>
-        public override IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
-        {
-            var responseMessage = CreateResponseMessage<ResponseMessageMusic>();
-            //上传缩略图
-            var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
-            var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
-                                                         Server.GetMapPath("~/Images/Logo.jpg"));
+        ///// <summary>
+        ///// 处理语音请求
+        ///// </summary>
+        ///// <param name="requestMessage"></param>
+        ///// <returns></returns>
+        //public override IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
+        //{
+        //    var responseMessage = CreateResponseMessage<ResponseMessageMusic>();
+        //    //上传缩略图
+        //    var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
+        //    var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
+        //                                                 Server.GetMapPath("~/Images/Logo.jpg"));
 
-            //设置音乐信息
-            responseMessage.Music.Title = "天籁之音";
-            responseMessage.Music.Description = "播放您上传的语音";
-            responseMessage.Music.MusicUrl = "http://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
-            responseMessage.Music.HQMusicUrl = "http://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
-            responseMessage.Music.ThumbMediaId = uploadResult.media_id;
-            return responseMessage;
-        }
-        /// <summary>
-        /// 处理视频请求
-        /// </summary>
-        /// <param name="requestMessage"></param>
-        /// <returns></returns>
-        public override IResponseMessageBase OnVideoRequest(RequestMessageVideo requestMessage)
-        {
-            var responseMessage = CreateResponseMessage<ResponseMessageText>();
-            responseMessage.Content = "您发送了一条视频信息，ID：" + requestMessage.MediaId;
+        //    //设置音乐信息
+        //    responseMessage.Music.Title = "天籁之音";
+        //    responseMessage.Music.Description = "播放您上传的语音";
+        //    responseMessage.Music.MusicUrl = "http://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
+        //    responseMessage.Music.HQMusicUrl = "http://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
+        //    responseMessage.Music.ThumbMediaId = uploadResult.media_id;
+        //    return responseMessage;
+        //}
 
-            #region 上传素材并推送到客户端
+        ///// <summary>
+        ///// 处理视频请求
+        ///// </summary>
+        ///// <param name="requestMessage"></param>
+        ///// <returns></returns>
+        //public override IResponseMessageBase OnVideoRequest(RequestMessageVideo requestMessage)
+        //{
+        //    var responseMessage = CreateResponseMessage<ResponseMessageText>();
+        //    responseMessage.Content = "您发送了一条视频信息，ID：" + requestMessage.MediaId;
 
-            Task.Factory.StartNew(async () =>
-             {
-                 //上传素材
-                 var dir = Server.GetMapPath("~/App_Data/TempVideo/");
-                 var file = await MediaApi.GetAsync(appId, requestMessage.MediaId, dir);
-                 var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, UploadMediaFileType.video, file, 50000);
-                 await CustomApi.SendVideoAsync(appId, base.WeixinOpenId, uploadResult.media_id, "这是您刚才发送的视频", "这是一条视频消息");
-             }).ContinueWith(async task =>
-             {
-                 if (task.Exception != null)
-                 {
-                     WeixinTrace.Log("OnVideoRequest()储存Video过程发生错误：", task.Exception.Message);
+        //    #region 上传素材并推送到客户端
 
-                     var msg = string.Format("上传素材出错：{0}\r\n{1}",
-                                task.Exception.Message,
-                                task.Exception.InnerException != null
-                                    ? task.Exception.InnerException.Message
-                                    : null);
-                     await CustomApi.SendTextAsync(appId, base.WeixinOpenId, msg);
-                 }
-             });
+        //    Task.Factory.StartNew(async () =>
+        //     {
+        //         //上传素材
+        //         var dir = Server.GetMapPath("~/App_Data/TempVideo/");
+        //         var file = await MediaApi.GetAsync(appId, requestMessage.MediaId, dir);
+        //         var uploadResult = await MediaApi.UploadTemporaryMediaAsync(appId, UploadMediaFileType.video, file, 50000);
+        //         await CustomApi.SendVideoAsync(appId, base.WeixinOpenId, uploadResult.media_id, "这是您刚才发送的视频", "这是一条视频消息");
+        //     }).ContinueWith(async task =>
+        //     {
+        //         if (task.Exception != null)
+        //         {
+        //             WeixinTrace.Log("OnVideoRequest()储存Video过程发生错误：", task.Exception.Message);
 
-            #endregion
+        //             var msg = string.Format("上传素材出错：{0}\r\n{1}",
+        //                        task.Exception.Message,
+        //                        task.Exception.InnerException != null
+        //                            ? task.Exception.InnerException.Message
+        //                            : null);
+        //             await CustomApi.SendTextAsync(appId, base.WeixinOpenId, msg);
+        //         }
+        //     });
 
-            return responseMessage;
-        }
+        //    #endregion
+
+        //    return responseMessage;
+        //}
 
 
         /// <summary>

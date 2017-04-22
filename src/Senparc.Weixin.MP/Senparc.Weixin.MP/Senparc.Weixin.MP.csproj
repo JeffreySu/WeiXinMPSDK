@@ -4,7 +4,7 @@
     <TargetFrameworks>netstandard1.6;net461</TargetFrameworks>
     <Description>Senparc.Weixin.MP Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植</Description>
     <Copyright>Senparc Copyright © 2004~2017</Copyright>
-    <Version>14.3.139.4</Version>
+    <Version>v14.4.0</Version>
     <Authors>算神</Authors>
     <Company>Senparc</Company>
     <PackageTags>weixin;wechat;微信;Senparc;ASP.Net Core</PackageTags>

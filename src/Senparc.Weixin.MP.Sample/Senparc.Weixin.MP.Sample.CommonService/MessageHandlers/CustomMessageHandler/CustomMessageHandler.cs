@@ -116,7 +116,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         /// <returns></returns>
         public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
         {
-            //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
+            //说明：实际项目中这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
 
             #region 书中例子
             //if (requestMessage.Content == "你好")
@@ -146,6 +146,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
 
             #endregion
 
+            #region 历史方法
+
             //方法一（v0.1），此方法调用太过繁琐，已过时（但仍是所有方法的核心基础），建议使用方法二到四
             //var responseMessage =
             //    ResponseMessageBase.CreateFromRequestMessage(RequestMessage, ResponseMsgType.Text) as
@@ -160,11 +162,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             //方法四（v0.6+），仅适合在HandlerMessage内部使用，本质上是对方法三的封装
             //注意：下面泛型ResponseMessageText即返回给客户端的类型，可以根据自己的需要填写ResponseMessageNews等不同类型。
 
+            #endregion
+
             var defaultResponseMessage = base.CreateResponseMessage<ResponseMessageText>();
 
             var requestHandler =
                 requestMessage.StartHandler()
-                //关键字不区分大小写
+                //关键字不区分大小写，按照顺序匹配成功后将不再运行下面的逻辑
                 .Keyword("约束", () =>
                 {
                     defaultResponseMessage.Content =
@@ -323,7 +327,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     base.TextResponseMessage = "success";
                     return null;
                 })
-                .Keyword("JSSDK", () => {
+                .Keyword("JSSDK", () =>
+                {
                     defaultResponseMessage.Content = "点击打开：http://sdk.weixin.senparc.com/WeixinJsSdk";
                     return defaultResponseMessage;
                 })
@@ -358,6 +363,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                         "您还可以发送【位置】【图片】【语音】【视频】等类型的信息（注意是这几种类型，不是这几个文字），查看不同格式的回复。\r\nSDK官方地址：http://sdk.weixin.senparc.com");
 
                     defaultResponseMessage.Content = result.ToString();
+                    return defaultResponseMessage;
+                })
+                .Regex(@"\d+#\d+", () =>
+                {
+                    defaultResponseMessage.Content = string.Format("您输入了：{0}，符合正则表达式：\\d+#\\d+", requestMessage.Content);
                     return defaultResponseMessage;
                 });
 

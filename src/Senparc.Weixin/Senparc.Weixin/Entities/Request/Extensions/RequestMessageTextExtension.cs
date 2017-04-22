@@ -111,13 +111,13 @@ namespace Senparc.Weixin.Entities.Request
         /// 匹配正则表达式
         /// </summary>
         /// <param name="handler"></param>
-        /// <param name="regex">正则表达式</param>
+        /// <param name="pattern">正则表达式</param>
         /// <param name="func"></param>
         /// <returns></returns>
-        public static RequestMessageTextKeywordHandler Regex(this RequestMessageTextKeywordHandler handler, Regex regex, Func<IResponseMessageBase> func)
+        public static RequestMessageTextKeywordHandler Regex(this RequestMessageTextKeywordHandler handler, string pattern, Func<IResponseMessageBase> func)
         {
             if (!handler.MatchSuccessed
-               && regex.IsMatch(handler.Keyword))
+               && System.Text.RegularExpressions.Regex.IsMatch(handler.Keyword,pattern))
             {
                 handler.MatchSuccessed = true;
                 handler.ResponseMessage = func();

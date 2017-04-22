@@ -84,7 +84,12 @@ namespace Senparc.Weixin.Helpers
         public static string GetMD5(string encypStr, string charset)
         {
             string retStr;
+
+#if NET45
             MD5CryptoServiceProvider m5 = new MD5CryptoServiceProvider();
+#else
+            MD5 m5 = MD5.Create();
+#endif
 
             //创建md5对象
             byte[] inputBye;
@@ -118,7 +123,12 @@ namespace Senparc.Weixin.Helpers
         public static byte[] AESEncrypt(byte[] inputdata, byte[] iv, string strKey)
         {
             //分组加密算法   
+#if NET45
             SymmetricAlgorithm des = Rijndael.Create();
+#else
+            SymmetricAlgorithm des = Aes.Create();
+#endif
+
             byte[] inputByteArray = inputdata;//得到需要加密的字节数组       
                                               //设置密钥及密钥向量
             des.Key = Encoding.UTF8.GetBytes(strKey.Substring(0, 32));
@@ -130,8 +140,8 @@ namespace Senparc.Weixin.Helpers
                     cs.Write(inputByteArray, 0, inputByteArray.Length);
                     cs.FlushFinalBlock();
                     byte[] cipherBytes = ms.ToArray();//得到加密后的字节数组   
-                    cs.Close();
-                    ms.Close();
+                    //cs.Close();
+                    //ms.Close();
                     return cipherBytes;
                 }
             }
@@ -147,7 +157,12 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public static byte[] AESDecrypt(byte[] inputdata, byte[] iv, byte[] strKey)
         {
+#if NET45
             SymmetricAlgorithm des = Rijndael.Create();
+#else
+            SymmetricAlgorithm des = Aes.Create();
+#endif
+
             des.Key = strKey;//Encoding.UTF8.GetBytes(strKey);//.Substring(0, 7)
             des.IV = iv;
             byte[] decryptBytes = new byte[inputdata.Length];
@@ -156,8 +171,8 @@ namespace Senparc.Weixin.Helpers
                 using (CryptoStream cs = new CryptoStream(ms, des.CreateDecryptor(), CryptoStreamMode.Read))
                 {
                     cs.Read(decryptBytes, 0, decryptBytes.Length);
-                    cs.Close();
-                    ms.Close();
+                    //cs.Close();
+                    //ms.Close();
                 }
             }
             return decryptBytes;

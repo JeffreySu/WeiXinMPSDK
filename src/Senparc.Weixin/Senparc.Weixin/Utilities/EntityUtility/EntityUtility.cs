@@ -58,10 +58,20 @@ namespace Senparc.Weixin.EntityUtility
                 return default(T);
             }
 
+#if NET45
             if (!typeof(T).IsGenericType)
             {
                 return (T)Convert.ChangeType(convertibleValue, typeof(T));
             }
+#else
+            var genericTypeArguments = typeof(T).GenericTypeArguments;
+            if (genericTypeArguments != null && genericTypeArguments.Length > 0)
+            {
+                return (T)Convert.ChangeType(convertibleValue, typeof(T));
+            }
+#endif
+
+
             else
             {
                 Type genericTypeDefinition = typeof(T).GetGenericTypeDefinition();

@@ -9,19 +9,19 @@ namespace Senparc.Weixin.Cache
     public class CacheLockWrapper : IDisposable
     {
         private string _resourceName;
-        private IContainerCacheStragegy _containerCacheStragegy;
+        private Senparc.Weixin.Cache.IContainerCacheStrategy _containerCacheStragegy;
         private int retryCount;
         private TimeSpan _retryDelay;
 
         public bool LockSuccessful { get; set; }
 
-        public CacheLockWrapper(IContainerCacheStragegy containerCacheStragegy, string resourceName, string key)
+        public CacheLockWrapper(Senparc.Weixin.Cache.IContainerCacheStragegy containerCacheStragegy, string resourceName, string key)
             : this(containerCacheStragegy, resourceName, key, 0, new TimeSpan())
         {
 
         }
 
-        public CacheLockWrapper(IContainerCacheStragegy containerCacheStragegy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
+        public CacheLockWrapper(Senparc.Weixin.Cache.IContainerCacheStragegy containerCacheStragegy, string resourceName, string key, int retryCount, TimeSpan retryDelay)
         {
             _containerCacheStragegy = containerCacheStragegy;
             _resourceName = resourceName + key;/*加上Key可以针对某个AppId加锁*/

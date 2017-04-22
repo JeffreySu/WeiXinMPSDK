@@ -10,6 +10,8 @@
     <Authors>Jeffrey Su</Authors>
     <Company>Senparc1</Company>
     <PackageTags>weixin;wechat;微信;Senparc;ASP.Net Core</PackageTags>
+    <AssemblyName>Senparc.Weixin</AssemblyName>
+    <RootNamespace>Senparc.Weixin</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -26,9 +28,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net4.5|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\4.5\Senparc.Weixin.xml</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
@@ -40,6 +42,12 @@
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Weixin.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Cache\ContainerCacheStrategy\ContainerItemCollection.cs" />
+    <Compile Remove="Cache\Lock\CacheLockWrapper.cs" />
+    <Compile Remove="Cache\Lock\CacheLockWrapperExtension.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />

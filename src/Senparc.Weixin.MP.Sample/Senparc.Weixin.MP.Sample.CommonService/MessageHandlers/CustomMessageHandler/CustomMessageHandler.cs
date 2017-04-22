@@ -365,6 +365,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
                     defaultResponseMessage.Content = result.ToString();
                     return defaultResponseMessage;
                 })
+                //正则表达式
                 .Regex(@"^\d+#\d+$", () =>
                 {
                     defaultResponseMessage.Content = string.Format("您输入了：{0}，符合正则表达式：^\\d+#\\d+$", requestMessage.Content);

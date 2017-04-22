@@ -64,7 +64,6 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
 
-
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -77,11 +76,11 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
 
-  <!--<ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>-->
-
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
   </ItemGroup>
+
+  <!--<ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>-->
 </Project>

@@ -44,6 +44,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：IsaacXu - 20170328
     修改描述：添加小程序按钮
+    
+    修改标识：Senparc - 20170419
+    修改描述：v14.3.143 修复上一版本造成的菜单获取错误问题
 ----------------------------------------------------------------*/
 
 /*
@@ -231,7 +234,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                                 type = subSubButton.type
                             });
                         }
-                        else if (rootButton.type.Equals("MINIPROGRAM", StringComparison.OrdinalIgnoreCase))
+                        else if (subSubButton.type.Equals("MINIPROGRAM", StringComparison.OrdinalIgnoreCase))
                         {
                             //小程序
                             buttonGroup.button.Add(new SingleMiniProgramButton()

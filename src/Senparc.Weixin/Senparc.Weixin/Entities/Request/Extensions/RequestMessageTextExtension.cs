@@ -20,16 +20,19 @@ namespace Senparc.Weixin.Entities.Request
 
     public class RequestMessageTextKeywordHandler
     {
-        public IRequestMessageText RequestMessage { get; set; }
-
-        public ResponseMessageBase ResponseMessage { get; set; }
-
         internal string Keyword { get; set; }
+
+        internal Func<ResponseMessageBase> DefaultMessage;
+
+        internal IRequestMessageText RequestMessage { get; set; }
+
+        public IResponseMessageBase ResponseMessage { get; set; }
 
         /// <summary>
         /// 是否已经匹配成功
         /// </summary>
-        public bool MatchSuccessed { get { return ResponseMessage != null; } }
+        public bool MatchSuccessed { get; set; }
+
 
         public RequestMessageTextKeywordHandler(IRequestMessageText requestMessage)
         {
@@ -50,42 +53,91 @@ namespace Senparc.Weixin.Entities.Request
         /// <returns></returns>
         public static RequestMessageTextKeywordHandler StartHandler(this IRequestMessageText requestMessage)
         {
-            return new RequestMessageTextKeywordHandler(requestMessage);
+            var handler = new RequestMessageTextKeywordHandler(requestMessage);
+            return handler;
         }
+
+        /// <summary>
+        /// 获取最终响应消息
+        /// </summary>
+        /// <param name="handler"></param>
+        /// <returns></returns>
+        public static IResponseMessageBase GetResponseMessage(this RequestMessageTextKeywordHandler handler)
+        {
+            if (!!handler.MatchSuccessed
+                && handler.DefaultMessage != null)
+            {
+                handler.ResponseMessage = handler.DefaultMessage();
+            }
+            return handler.ResponseMessage;
+        }
+
 
         /// <summary>
         /// 匹配关键词
         /// </summary>
-        /// <param name="requestMessageTextKeywordHandler"></param>
+        /// <param name="handler"></param>
         /// <param name="keyword">关键词</param>
         /// <param name="func"></param>
         /// <returns></returns>
-        public static RequestMessageTextKeywordHandler Keyword(this RequestMessageTextKeywordHandler requestMessageTextKeywordHandler, string keyword, Func<ResponseMessageBase> func)
+        public static RequestMessageTextKeywordHandler Keyword(this RequestMessageTextKeywordHandler handler, string keyword, Func<IResponseMessageBase> func)
         {
-            if (!requestMessageTextKeywordHandler.MatchSuccessed
-                && requestMessageTextKeywordHandler.Keyword == keyword.Trim().ToUpper())
+            if (!handler.MatchSuccessed
+                && handler.Keyword == keyword.Trim().ToUpper())
             {
-                requestMessageTextKeywordHandler.ResponseMessage = func();
+                handler.MatchSuccessed = true;
+                handler.ResponseMessage = func();
             }
-            return requestMessageTextKeywordHandler;
+            return handler;
+        }
+
+        /// <summary>
+        /// 匹配关键词（只要有一个满足即可触发）
+        /// </summary>
+        /// <param name="handler"></param>
+        /// <param name="keywords">多个关键词</param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static RequestMessageTextKeywordHandler Keywords(this RequestMessageTextKeywordHandler handler, string[] keywords, Func<IResponseMessageBase> func)
+        {
+            foreach (var keyword in keywords)
+            {
+                handler.Keyword(keyword, func);
+            }
+            return handler;
         }
 
         /// <summary>
         /// 匹配正则表达式
         /// </summary>
-        /// <param name="requestMessageTextKeywordHandler"></param>
+        /// <param name="handler"></param>
         /// <param name="regex">正则表达式</param>
         /// <param name="func"></param>
         /// <returns></returns>
-        public static RequestMessageTextKeywordHandler Regex(this RequestMessageTextKeywordHandler requestMessageTextKeywordHandler, Regex regex, Func<ResponseMessageBase> func)
+        public static RequestMessageTextKeywordHandler Regex(this RequestMessageTextKeywordHandler handler, Regex regex, Func<IResponseMessageBase> func)
         {
-            if (!requestMessageTextKeywordHandler.MatchSuccessed
-               && regex.IsMatch(requestMessageTextKeywordHandler.Keyword))
+            if (!handler.MatchSuccessed
+               && regex.IsMatch(handler.Keyword))
             {
-                requestMessageTextKeywordHandler.ResponseMessage = func();
+                handler.MatchSuccessed = true;
+                handler.ResponseMessage = func();
             }
-            return requestMessageTextKeywordHandler;
+            return handler;
         }
 
+        /// <summary>
+        /// 默认消息
+        /// </summary>
+        /// <param name="handler"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public static RequestMessageTextKeywordHandler Default(this RequestMessageTextKeywordHandler handler, Func<IResponseMessageBase> func)
+        {
+            if (!handler.MatchSuccessed)
+            {
+                handler.ResponseMessage = func();
+            }
+            return handler;
+        }
     }
 }

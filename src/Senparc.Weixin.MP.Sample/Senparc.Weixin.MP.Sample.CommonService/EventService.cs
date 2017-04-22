@@ -47,7 +47,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                     }
                 case Event.LOCATION:
                     throw new Exception("暂不可用");
-                    //break;
+                //break;
                 case Event.subscribe://订阅
                     {
                         var strongResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
@@ -77,7 +77,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                     throw new ArgumentOutOfRangeException();
             }
 
-            return responseMessage;         
+            return responseMessage;
         }
 
         public void ConfigOnWeixinExceptionFunc(WeixinException ex)
@@ -139,8 +139,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                         var data = new WeixinTemplate_ExceptionAlert(string.Format("微信发生异常（延时{0}秒）", sleepSeconds), host, service, status, message, remark);
 
                         //修改OpenId、启用以下代码后即可收到模板消息
-                        //var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
-                        //        url, data);
+                        if (openId != "olPjZjsXuQPJoV0HlruZkNzKc91E")
+                        {
+                            var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
+                              url, data);
+                        }
                     }
                 });
             }

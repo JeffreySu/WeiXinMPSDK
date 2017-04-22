@@ -51,12 +51,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Entities.Menu;
+
+#if NET45
+using System.Web.Script.Serialization;
+#endif
+
 
 namespace Senparc.Weixin.MP.CommonAPIs
 {

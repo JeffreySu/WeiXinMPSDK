@@ -10,8 +10,8 @@
     <Authors>Jeffrey Su</Authors>
     <Company>Senparc</Company>
     <PackageTags>微信,Senparc,Weixin,SDK,基础库,公众号,WebSocket,分布式</PackageTags>
-    <AssemblyName>Senparc.Weixin</AssemblyName>
-    <RootNamespace>Senparc.Weixin</RootNamespace>
+    <!--<AssemblyName>Senparc.Weixin</AssemblyName>
+    <RootNamespace>Senparc.Weixin</RootNamespace>-->
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

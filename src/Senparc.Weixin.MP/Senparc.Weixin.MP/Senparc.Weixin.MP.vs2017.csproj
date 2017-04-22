@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;net461;net45</TargetFrameworks>
+    <!--<TargetFrameworks>netstandard1.6;net461;net45</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <Version>14.4.1</Version>
@@ -11,7 +11,16 @@
     <Company>Senparc</Company>
     <PackageTags>微信,Senparc,Weixin,SDK,公众号,Senparc,小程序,WebSocket,分布式</PackageTags>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
-    <RootNamespace>Senparc.Weixin.MP</RootNamespace>
+    <RootNamespace>Senparc.Weixin.MP</RootNamespace>-->
+    
+    <TargetFrameworks>netstandard1.6;net461;net45</TargetFrameworks>
+    <Description>Senparc.Weixin.MP Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植</Description>
+    <Copyright>Senparc Copyright © 2004~2017</Copyright>
+    <Version>14.4.1</Version>
+    <Authors>算神</Authors>
+    <Company>Senparc</Company>
+    <PackageTags>weixin;wechat;微信;Senparc;ASP.Net Core</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
 
@@ -22,7 +31,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.MP.XML</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.MP.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <ErrorReport>prompt</ErrorReport>
@@ -43,6 +52,12 @@
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.MP.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="AdvancedAPIs\Card\Store\**" />
+    <EmbeddedResource Remove="AdvancedAPIs\Card\Store\**" />
+    <None Remove="AdvancedAPIs\Card\Store\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />

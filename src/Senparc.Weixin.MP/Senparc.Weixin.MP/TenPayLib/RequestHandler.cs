@@ -35,8 +35,13 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 using Senparc.Weixin.MP.Helpers;
+
+#if NET45 || NET461
+using System.Web;
+#else
+using Microsoft.AspNetCore.Http;
+#endif
 
 namespace Senparc.Weixin.MP.TenPayLib
 {

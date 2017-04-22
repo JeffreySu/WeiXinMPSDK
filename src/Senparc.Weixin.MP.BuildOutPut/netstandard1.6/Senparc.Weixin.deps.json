@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v1.6/",
-    "signature": "39bf5900ae4ff37ff9b0eab43cd5cc6fdf37eee3"
+    "signature": "837b0d31d40f919d4bb18ac5af0a89a80b0edea2"
   },
   "compilationOptions": {},
   "targets": {
@@ -12,6 +12,7 @@
           "Microsoft.AspNetCore.Http.Abstractions": "1.1.1",
           "NETStandard.Library": "1.6.0",
           "Newtonsoft.Json": "10.0.1",
+          "System.Diagnostics.TraceSource": "4.3.0",
           "System.Dynamic.Runtime": "4.3.0",
           "System.Threading.Thread": "4.3.0",
           "System.Xml.XmlSerializer": "4.3.0"
@@ -168,7 +169,7 @@
           "lib/netstandard1.3/Newtonsoft.Json.dll": {}
         }
       },
-      "runtime.native.system/4.0.0": {
+      "runtime.native.system/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
           "Microsoft.NETCore.Targets": "1.1.0"
@@ -338,6 +339,19 @@
           "System.Runtime": "4.3.0"
         }
       },
+      "system.diagnostics.tracesource/4.3.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0",
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Threading": "4.3.0",
+          "runtime.native.System": "4.3.0"
+        }
+      },
       "system.diagnostics.tracing/4.1.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.0",
@@ -414,7 +428,7 @@
           "System.Text.Encoding": "4.3.0",
           "System.Threading": "4.3.0",
           "System.Threading.Tasks": "4.3.0",
-          "runtime.native.System": "4.0.0",
+          "runtime.native.System": "4.3.0",
           "runtime.native.System.IO.Compression": "4.1.0"
         }
       },
@@ -515,7 +529,7 @@
           "System.Text.Encoding": "4.3.0",
           "System.Threading": "4.3.0",
           "System.Threading.Tasks": "4.3.0",
-          "runtime.native.System": "4.0.0",
+          "runtime.native.System": "4.3.0",
           "runtime.native.System.Net.Http": "4.0.1",
           "runtime.native.System.Security.Cryptography": "4.0.0"
         }
@@ -682,7 +696,7 @@
           "System.Runtime": "4.3.0",
           "System.Runtime.InteropServices": "4.3.0",
           "System.Threading": "4.3.0",
-          "runtime.native.System": "4.0.0"
+          "runtime.native.System": "4.3.0"
         }
       },
       "system.runtime.numerics/4.3.0": {
@@ -854,7 +868,7 @@
           "System.Security.Cryptography.Primitives": "4.0.0",
           "System.Text.Encoding": "4.3.0",
           "System.Threading": "4.3.0",
-          "runtime.native.System": "4.0.0",
+          "runtime.native.System": "4.3.0",
           "runtime.native.System.Net.Http": "4.0.1",
           "runtime.native.System.Security.Cryptography": "4.0.0"
         }
@@ -1103,12 +1117,12 @@
       "path": "newtonsoft.json/10.0.1",
       "hashPath": "newtonsoft.json.10.0.1.nupkg.sha512"
     },
-    "runtime.native.system/4.0.0": {
+    "runtime.native.system/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-DEgGGtwGln81Pyyf1U428aOvcTeA9uWco4DmZIOWhXHxhC97Q5iesdK2wEH8str7BsLQxj7616RRVQRHNJHiYA==",
-      "path": "runtime.native.system/4.0.0",
-      "hashPath": "runtime.native.system.4.0.0.nupkg.sha512"
+      "sha512": "sha512-ZJi7DmyEGhneduQL9YxkM6GOwEJl6uNLWI+jULVPuCwc/HyQ8bKjVqu6QLRcK62oRthPiYBHoTZE22nNdpBCvw==",
+      "path": "runtime.native.system/4.3.0",
+      "hashPath": "runtime.native.system.4.3.0.nupkg.sha512"
     },
     "runtime.native.system.io.compression/4.1.0": {
       "type": "package",
@@ -1221,6 +1235,13 @@
       "sha512": "sha512-vJO7RLrifnc77aEbh+l8cGNt/eQDqfYd3ABEb56Q8dtvhPGbzjSk19DQKi2mj8SLLgMOSzDHylz8JyIV3msTAQ==",
       "path": "system.diagnostics.tools/4.3.0",
       "hashPath": "system.diagnostics.tools.4.3.0.nupkg.sha512"
+    },
+    "system.diagnostics.tracesource/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VnYp1NxGx8Ww731y2LJ1vpfb/DKVNKEZ8Jsh5SgQTZREL/YpWRArgh9pI8CDLmgHspZmLL697CaLvH85qQpRiw==",
+      "path": "system.diagnostics.tracesource/4.3.0",
+      "hashPath": "system.diagnostics.tracesource.4.3.0.nupkg.sha512"
     },
     "system.diagnostics.tracing/4.1.0": {
       "type": "package",

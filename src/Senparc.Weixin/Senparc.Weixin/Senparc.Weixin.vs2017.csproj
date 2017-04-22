@@ -8,8 +8,8 @@
     <Description>Senparc.Weixin</Description>
     <Copyright>Senparc Copyright © 2004~2017</Copyright>
     <Authors>Jeffrey Su</Authors>
-    <Company>Senparc1</Company>
-    <PackageTags>weixin;wechat;微信;Senparc;ASP.Net Core</PackageTags>
+    <Company>Senparc</Company>
+    <PackageTags>微信,Senparc,Weixin,SDK,基础库,公众号,WebSocket,分布式</PackageTags>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
   </PropertyGroup>
@@ -28,11 +28,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.xml</DocumentationFile>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Weixin.xml</DocumentationFile>
@@ -42,6 +37,13 @@
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Weixin.xml</DocumentationFile>
   </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.xml</DocumentationFile>
+  </PropertyGroup>
+
+
 
   <ItemGroup>
     <Compile Remove="Cache\ContainerCacheStrategy\ContainerItemCollection.cs" />
@@ -60,7 +62,7 @@
     <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
     <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
     <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
-      <PackageReference Include="Microsoft.Extensions.Logging" Version="4.3.0" />
+      <!--<PackageReference Include="Microsoft.Extensions.Logging" Version="4.3.0" />-->
 </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">

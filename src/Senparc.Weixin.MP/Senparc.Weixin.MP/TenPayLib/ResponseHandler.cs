@@ -118,7 +118,6 @@ namespace Senparc.Weixin.MP.TenPayLib
         public ResponseHandler(HttpContext httpContext)
         {
 #if NET45
-
             Parameters = new Hashtable();
             XmlMap = new Hashtable();
 

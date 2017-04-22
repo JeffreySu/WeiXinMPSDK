@@ -52,6 +52,8 @@ using System.Web;
 #else
 using System.Net.Http;
 using System.Net.Http.Headers;
+#endif
+#if netstandard16
 using Microsoft.AspNetCore.Http;
 #endif
 

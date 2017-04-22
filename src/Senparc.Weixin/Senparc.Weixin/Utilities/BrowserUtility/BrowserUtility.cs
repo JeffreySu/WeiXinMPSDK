@@ -36,6 +36,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 
+#if NET45
 
 using System.Web;
 
@@ -46,6 +47,7 @@ namespace Senparc.Weixin.BrowserUtility
     /// </summary>
     public static class BrowserUtility
     {
+
         /// <summary>
         /// 判断是否在微信内置浏览器中
         /// </summary>
@@ -66,3 +68,4 @@ namespace Senparc.Weixin.BrowserUtility
         }
     }
 }
+#endif

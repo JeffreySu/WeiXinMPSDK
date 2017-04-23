@@ -83,5 +83,8 @@ namespace Senparc.Weixin.Entities.TemplateMessage
             Url = url;
             TemplateName = templateName;
         }
+
+        public TemplateDataItem first { get; set; }
+        public TemplateDataItem remark { get; set; }
     }
 }

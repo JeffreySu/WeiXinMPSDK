@@ -67,8 +67,11 @@ namespace Senparc.Weixin.MP.TenPayLib
         {
             Parameters = new Hashtable();
 
-            this.HttpContext = httpContext ?? HttpContext.Current;
-
+#if NET45 || NET461
+			this.HttpContext = httpContext ?? HttpContext.Current;
+#else
+            this.HttpContext = httpContext ?? new DefaultHttpContext();
+#endif
         }
         /// <summary>
         /// √‹‘ø

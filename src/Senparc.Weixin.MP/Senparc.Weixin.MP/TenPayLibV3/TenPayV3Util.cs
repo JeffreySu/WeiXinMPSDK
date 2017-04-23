@@ -79,12 +79,12 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 return "";
             else
             {
-                string res;
+                //string res;
 
                 try
                 {
 #if (NET45 || NET461)
-                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
+                    return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
 #else
                     return WebUtility.UrlEncode(instr);
 #endif
@@ -92,14 +92,13 @@ namespace Senparc.Weixin.MP.TenPayLibV3
                 catch (Exception ex)
                 {
 #if (NET45 || NET461)
-res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+                    return System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
 #else
                     return WebUtility.UrlEncode(instr);
 #endif
                 }
 
-
-                return res;
+                //return res;
             }
         }
 
@@ -115,26 +114,25 @@ res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
                 return "";
             else
             {
-                string res;
+                //string res;
 
                 try
                 {
 #if (NET45 || NET461)
-                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
+                    return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
 #else
-                    return WebUtility.UrlEncode(instr);
+                    return WebUtility.UrlDecode(instr);
 #endif
                 }
                 catch (Exception ex)
                 {
 #if (NET45 || NET461)
-                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+                    return System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
 #else
-                    return WebUtility.UrlEncode(instr);
+                    return WebUtility.UrlDecode(instr);
 #endif
                 }
-
-                return res;
+                //return res;
 
             }
         }

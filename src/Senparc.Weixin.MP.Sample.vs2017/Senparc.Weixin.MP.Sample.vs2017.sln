@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.MvcExtens
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.MP.CoreMvcExtension.vs2017", "..\Senparc.Weixin.MP.CoreMvcExtension\Senparc.Weixin.MP.CoreMvcExtension\Senparc.Weixin.MP.CoreMvcExtension.vs2017.csproj", "{B4B06CF6-4872-4BA9-A53D-E37E66656FB9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Senparc.Weixin.Cache.Memcached.vs2017", "..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.vs2017.csproj", "{BD32B7FA-0160-4FEA-A049-838256B2DB53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,24 @@ Global
 		{B4B06CF6-4872-4BA9-A53D-E37E66656FB9}.Test|x64.Build.0 = Release|x64
 		{B4B06CF6-4872-4BA9-A53D-E37E66656FB9}.Test|x86.ActiveCfg = Release|x86
 		{B4B06CF6-4872-4BA9-A53D-E37E66656FB9}.Test|x86.Build.0 = Release|x86
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Debug|x64.ActiveCfg = Debug|x64
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Debug|x64.Build.0 = Debug|x64
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Debug|x86.ActiveCfg = Debug|x86
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Debug|x86.Build.0 = Debug|x86
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Release|x64.ActiveCfg = Release|x64
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Release|x64.Build.0 = Release|x64
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Release|x86.ActiveCfg = Release|x86
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Release|x86.Build.0 = Release|x86
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Test|x64.ActiveCfg = Release|x64
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Test|x64.Build.0 = Release|x64
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Test|x86.ActiveCfg = Release|x86
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53}.Test|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -136,5 +156,6 @@ Global
 		{CAF49811-B93B-4D61-9A85-2FB9A33E4544} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
 		{3D747AE4-9646-4D79-8731-2F59473EC5C7} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
 		{B4B06CF6-4872-4BA9-A53D-E37E66656FB9} = {E72ACEC5-2011-41C7-9A48-34F073D1AEE2}
+		{BD32B7FA-0160-4FEA-A049-838256B2DB53} = {FDC9A3F1-A2EC-4E44-9093-BE0EE1C17093}
 	EndGlobalSection
 EndGlobal

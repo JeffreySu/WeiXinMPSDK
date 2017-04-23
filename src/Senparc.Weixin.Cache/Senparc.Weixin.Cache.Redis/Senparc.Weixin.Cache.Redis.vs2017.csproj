@@ -1,16 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;net461</TargetFrameworks>
-    <Company>Senparc</Company>
-    <Authors>Senparc</Authors>
-    <Version>1.2.2</Version>
-    <Description>Senparc.Weixin.Cache.Redis Class Library，基于 Senparc 微信SDK的 ASP.Net Core 移植</Description>
+    <TargetFrameworks>netstandard1.6;net461;net45</TargetFrameworks>
+    <Description>Senparc.Weixin.Cache.Redis</Description>
     <Copyright>Senparc Copyright © 2004~2017</Copyright>
+    <Version>1.2.0</Version>
+    <Authors>Jeffrey Su</Authors>
+    <Company>Senparc</Company>
+    <PackageTags>微信,Cache,Redis,Senparc,Weixin,SDK,公众号,Senparc,小程序,WebSocket,分布式</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <PackageTags>weixin;wechat;微信;Senparc;ASP.Net Core;Redis;cache</PackageTags>
+    <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
+    <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
   </PropertyGroup>
+
+  <!--<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\net461\Senparc.Weixin.Cache.Redis.xml</DocumentationFile>
+  </PropertyGroup>-->
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
@@ -32,6 +41,11 @@
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Cache.Redis.xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Cache.Redis.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
     <!--<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" />
     <PackageReference Include="System.Dynamic.Runtime" />
@@ -46,7 +60,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj" />
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
@@ -57,6 +71,10 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <PackageReference Include="protobuf-net" Version="2.1.0" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <Compile Remove="ServiceStack.Redis\**" />
@@ -65,17 +83,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="protobuf-net" Version="2.1.0" />
+    <Compile Remove="ContainerCacheStrategy\RedisContainerCacheStrategy.RedisUtils.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.0.4" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.1" />
   </ItemGroup>
-
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\net461\Senparc.Weixin.Cache.Redis.xml</DocumentationFile>
-  </PropertyGroup>
 
 </Project>

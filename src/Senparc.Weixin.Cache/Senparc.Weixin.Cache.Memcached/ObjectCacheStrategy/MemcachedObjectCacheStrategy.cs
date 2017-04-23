@@ -47,7 +47,8 @@ namespace Senparc.Weixin.Cache.Memcached
         public MemcachedObjectCacheStrategy()
         {
             _config = GetMemcachedClientConfiguration();
-#if NET461
+
+#if NET45 || NET461
             _cache = new MemcachedClient(_config);
 #else
             _cache = new MemcachedClient(null, _config);
@@ -80,7 +81,7 @@ namespace Senparc.Weixin.Cache.Memcached
         {
             //每次都要新建
 
-#if NET461
+#if NET45 || NET461
             var config = new MemcachedClientConfiguration();
 #else
             var config = new MemcachedClientConfiguration(null, null);
@@ -129,7 +130,7 @@ namespace Senparc.Weixin.Cache.Memcached
                 //var cache = new MemcachedClient(config);'
 
 
-#if NET461
+#if NET45 || NET461
                 var cache = new MemcachedClient(config);
 #else
                 var cache = new MemcachedClient(null, config);

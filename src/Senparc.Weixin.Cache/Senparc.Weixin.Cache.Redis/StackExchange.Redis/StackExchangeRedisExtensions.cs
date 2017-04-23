@@ -20,7 +20,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Helpers;
 
-#if NET461
+#if NET45 || NET461
 using System.Runtime.Serialization.Formatters.Binary;
 #endif
 
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.Cache.Redis
                 return null;
             }
 
-#if NET461
+#if NET45 || NET461
             #region .net core后期可能会重新提供对 BinaryFormatter 的支持
 
             ////二进制序列化方案
@@ -112,7 +112,7 @@ namespace Senparc.Weixin.Cache.Redis
                 return default(T);
             }
 
-#if NET461
+#if NET45 || NET461
             #region .net core后期可能会重新提供对 BinaryFormatter 的支持
 
             //二进制序列化方案

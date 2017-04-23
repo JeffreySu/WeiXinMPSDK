@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;net461;net45</TargetFrameworks>
-    <Description>Senparc.Weixin.MP</Description>
+    <TargetFrameworks>net461;net45</TargetFrameworks>
+    <Description>Senparc.Weixin.MP.MvcExtension</Description>
     <Copyright>Senparc Copyright © 2004~2017</Copyright>
     <Version>4.3.0</Version>
     <Authors>Jeffrey Su</Authors>
@@ -27,10 +27,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
+  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Weixin.MP.xml</DocumentationFile>
-  </PropertyGroup>
+  </PropertyGroup>-->
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
@@ -88,6 +88,10 @@
   <ItemGroup>
     <Folder Include="Properties\" />
     <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="4.0.20710" />
   </ItemGroup>
 
 </Project>

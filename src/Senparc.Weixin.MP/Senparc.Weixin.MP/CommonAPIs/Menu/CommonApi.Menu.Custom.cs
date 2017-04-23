@@ -157,7 +157,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 //@"{""menu"":{""button"":[{""type"":""click"",""name"":""单击测试"",""key"":""OneClick"",""sub_button"":[]},{""name"":""二级菜单"",""sub_button"":[{""type"":""click"",""name"":""返回文本"",""key"":""SubClickRoot_Text"",""sub_button"":[]},{""type"":""click"",""name"":""返回图文"",""key"":""SubClickRoot_News"",""sub_button"":[]},{""type"":""click"",""name"":""返回音乐"",""key"":""SubClickRoot_Music"",""sub_button"":[]}]}]}}"
                 object jsonResult = null;
 
-#if NET45 || NET461
+#if NET45
                 JavaScriptSerializer js = new JavaScriptSerializer();
                 jsonResult = js.Deserialize<object>(jsonString);
 #else
@@ -230,7 +230,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
                 try
                 {
 
-#if NET45 || NET461
+#if NET45
                     JavaScriptSerializer js = new JavaScriptSerializer();
                     var jsonResult = js.Deserialize<GetMenuResultFull>(jsonString);
 #else

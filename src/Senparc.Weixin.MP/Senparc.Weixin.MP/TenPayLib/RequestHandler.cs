@@ -301,7 +301,11 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected virtual string GetCharset()
         {
+#if NET45
             return this.HttpContext.Request.ContentEncoding.BodyName;
+#else
+            return Encoding.UTF8.WebName;
+#endif
         }
     }
 }

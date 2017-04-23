@@ -248,12 +248,22 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         protected virtual string GetCharset()
         {
+#if (NET45 || NET461)
             if (this.HttpContext == null)
             {
                 return Encoding.UTF8.BodyName;
             }
 
             return this.HttpContext.Request.ContentEncoding.BodyName;
+#else
+            if (this.HttpContext == null)
+            {
+                return Encoding.UTF8.WebName;
+            }
+
+            return this.HttpContext.Request.Headers["charset"];
+#endif
+
         }
     }
 }

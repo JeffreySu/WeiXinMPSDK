@@ -37,6 +37,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Text;
 using Senparc.Weixin.MP.Helpers;
+using System.Net;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -69,7 +70,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// 对字符串进行URL编码
         /// </summary>
         /// <param name="instr"></param>
-        /// <param name="charset"></param>
+        /// <param name="charset">在.netstandard1.6无效</param>
         /// <returns></returns>
         public static string UrlEncode(string instr, string charset)
         {
@@ -82,12 +83,19 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
                 try
                 {
+#if (NET45 || NET461)
                     res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
-
+#else
+                    return WebUtility.UrlEncode(instr);
+#endif
                 }
                 catch (Exception ex)
                 {
-                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+#if (NET45 || NET461)
+res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+#else
+                    return WebUtility.UrlEncode(instr);
+#endif
                 }
 
 
@@ -111,14 +119,20 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
                 try
                 {
-                    res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding(charset));
-
+#if (NET45 || NET461)
+                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding(charset));
+#else
+                    return WebUtility.UrlEncode(instr);
+#endif
                 }
                 catch (Exception ex)
                 {
-                    res = System.Web.HttpUtility.UrlDecode(instr, Encoding.GetEncoding("GB2312"));
+#if (NET45 || NET461)
+                    res = System.Web.HttpUtility.UrlEncode(instr, Encoding.GetEncoding("GB2312"));
+#else
+                    return WebUtility.UrlEncode(instr);
+#endif
                 }
-
 
                 return res;
 
@@ -132,7 +146,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <returns></returns>
         public static UInt32 UnixStamp()
         {
+#if (NET45 || NET461)
             TimeSpan ts = DateTime.Now - TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+#else
+            TimeSpan ts = DateTime.Now - new DateTime(1970, 1, 1);
+#endif
             return Convert.ToUInt32(ts.TotalSeconds);
         }
 

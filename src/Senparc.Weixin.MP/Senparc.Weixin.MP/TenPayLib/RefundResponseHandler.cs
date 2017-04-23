@@ -68,6 +68,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected HttpContext HttpContext;
 
+#if NET45 || NET461
         /// <summary>
         /// 获取服务器通知数据方式，进行参数获取
         /// </summary>
@@ -93,6 +94,7 @@ namespace Senparc.Weixin.MP.TenPayLib
                 this.SetParameter(k, v);
             }
         }
+#endif
 
         /// <summary>
         /// 获取密钥
@@ -166,6 +168,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             return GetParameter("sign").ToLower().Equals(sign);
         }
 
+#if (NET45 || NET461)
         /// <summary>
         /// 显示处理结果。
         /// @param show_url 显示处</summary>
@@ -184,7 +187,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
             this.HttpContext.Response.End();
         }
-
+#endif
         /// <summary>
         /// 获取debug信息
         /// </summary>
@@ -201,8 +204,11 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected virtual string getCharset()
         {
+#if (NET45 || NET461)
             return this.HttpContext.Request.ContentEncoding.BodyName;
-
+#else
+            return Encoding.UTF8.WebName;
+#endif
         }
 
         /// <summary>

@@ -22,13 +22,12 @@ using System;
 using System.Collections;
 using System.Text;
 using Senparc.Weixin.MP.Helpers;
+
 #if NET45 || NET461
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;
 #endif
-
-
 
 namespace Senparc.Weixin.MP.TenPayLib
 {
@@ -38,7 +37,11 @@ namespace Senparc.Weixin.MP.TenPayLib
         {
             Parameters = new Hashtable();
 
+#if (NET45 || NET461)
             this.HttpContext = httpContext ?? HttpContext.Current;
+#else
+            this.HttpContext = httpContext ?? new DefaultHttpContext();
+#endif
         }
 
         /// <summary>
@@ -229,7 +232,11 @@ namespace Senparc.Weixin.MP.TenPayLib
 
         protected virtual string GetCharset()
         {
+#if (NET45 || NET461)
             return this.HttpContext.Request.ContentEncoding.BodyName;
+#else
+            return Encoding.UTF8.WebName;
+#endif
         }
     }
 }

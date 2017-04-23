@@ -246,13 +246,12 @@ namespace Tencent
 				raw += AL[i];
 			}
 
-			SHA1 sha;
 			ASCIIEncoding enc;
 			string hash = "";
 			try
 			{
 #if NET45
-            SHA1 sha = new SHA1CryptoServiceProvider();
+                SHA1 sha = new SHA1CryptoServiceProvider();
 #else
                 SHA1 sha = SHA1.Create();
 #endif

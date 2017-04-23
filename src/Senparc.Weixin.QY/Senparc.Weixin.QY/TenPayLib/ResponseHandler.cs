@@ -21,7 +21,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using Senparc.Weixin.QY.Helpers;
-#if NET461
+#if NET45 || NET461
 using System.Web;
 #else
 using Microsoft.AspNetCore.Http;

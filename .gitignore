@@ -30,3 +30,4 @@ packages/
 /src/Senparc.Weixin.MP.Sample/Senparc.Weixin.MP.Sample.Libraries.VC.db
 /src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.WxOpen.Tests/Config
 /src/Senparc.Weixin.MP.BuildOutPut/netstandard1.6
+/src/Senparc.Weixin.MP.BuildOutPut

@@ -44,8 +44,7 @@ namespace Senparc.Weixin.MP.Sample
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
-            IOptions<SenparcWeixinSetting> senparcWeixinSetting)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -70,7 +69,7 @@ namespace Senparc.Weixin.MP.Sample
             });
 
             //Senparc.Weixin SDK 配置
-            SenparcWeixinSetting setting = senparcWeixinSetting.Value;
+            //SenparcWeixinSetting setting = senparcWeixinSetting.Value;
             //app.UseMiddleware()
         }
     }

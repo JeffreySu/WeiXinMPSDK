@@ -40,7 +40,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-//using System.Security.Cryptography.Hashing.Algorithms;
 
 namespace Senparc.Weixin.Helpers
 {
@@ -85,7 +84,7 @@ namespace Senparc.Weixin.Helpers
             {
                 inputBye = Encoding.GetEncoding(charset).GetBytes(encypStr);
             }
-            catch (Exception ex)
+            catch
             {
                 inputBye = Encoding.GetEncoding("GB2312").GetBytes(encypStr);
             }

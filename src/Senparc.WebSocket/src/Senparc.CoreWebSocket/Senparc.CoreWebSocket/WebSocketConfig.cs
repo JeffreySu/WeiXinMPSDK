@@ -26,6 +26,7 @@ namespace Senparc.WebSocket
     {
         internal static Func<WebSocketMessageHandler> WebSocketMessageHandlerFunc { get; set; }
 
+#if NET45
         /// <summary>
         /// 注册WebSocket路由规则
         /// </summary>
@@ -35,6 +36,7 @@ namespace Senparc.WebSocket
             var route = new WebSocketRoute("SenparcWebSocket", new WebSocketRouteHandler());
             routes.Add("SenparcWebSocketRoute", route);//SenparcWebSocket/{app}
         }
+#endif
 
         /// <summary>
         /// 注册WebSocketMessageHandler

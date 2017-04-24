@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Routing;
 
 namespace Senparc.WebSocket
 {
+#if NET45
     /// <summary>
     /// WebSocketHansler，处理WebSocket请求
     /// </summary>
@@ -36,4 +37,5 @@ namespace Senparc.WebSocket
 
         }
     }
+#endif
 }

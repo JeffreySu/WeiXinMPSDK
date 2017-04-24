@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
@@ -26,8 +27,17 @@ namespace Senparc.WebSocket.Routes.WebSocketHandler
 
         async Task EchoLoop()
         {
-            var buffer = new byte[BufferSize];
-            var seg = new ArraySegment<byte>(buffer);
+            const int maxMessageSize = 1024;
+
+            //Buffer for received bits.
+            var receivedDataBuffer = new ArraySegment<Byte>(new Byte[maxMessageSize]);
+
+            var cancellationToken = new CancellationToken();
+
+
+            WebSocketHelper webSocketHandler = new WebSocketHelper(_socket, /*webSocketContext, */cancellationToken);
+            var messageHandler = WebSocketConfig.WebSocketMessageHandlerFunc.Invoke();
+
             while (this._socket.State == WebSocketState.Open)
             {
                 //var incoming = await this._socket.ReceiveAsync(seg, CancellationToken.None);
@@ -35,8 +45,65 @@ namespace Senparc.WebSocket.Routes.WebSocketHandler
                 //await this._socket.SendAsync(outgoing, WebSocketMessageType.Text, true, CancellationToken.None);
 
 
+                //Reads data.
+                WebSocketReceiveResult webSocketReceiveResult =
+                  await _socket.ReceiveAsync(receivedDataBuffer, cancellationToken);
+
+                //If input frame is cancelation frame, send close command.
+                if (webSocketReceiveResult.MessageType == WebSocketMessageType.Close)
+                {
+                    if (WebSocketConfig.WebSocketMessageHandlerFunc != null)
+                    {
+                        await messageHandler.OnDisConnected(webSocketHandler);//调用MessageHandler
+                    }
+
+                    await _socket.CloseAsync(WebSocketCloseStatus.NormalClosure,
+                      String.Empty, cancellationToken);
+                }
+                else
+                {
+                    byte[] payloadData = receivedDataBuffer.Array
+                        .Where(b => b != 0)
+                        .Take(webSocketReceiveResult.Count)
+                        .ToArray();
+
+                    if (WebSocketConfig.WebSocketMessageHandlerFunc != null)
+                    {
+                        //Because we know that is a string, we convert it.
+                        string receiveString =
+                          //System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
+                          System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
+                        try
+                        {
+                            ReceivedMessage receivedMessage;
+                            try
+                            {
+                                receivedMessage = new ReceivedMessage()
+                                {
+                                    Message = receiveString// + " | 系统错误：" + e.Message
+                                };
+
+                                receivedMessage = Newtonsoft.Json.JsonConvert.DeserializeObject<ReceivedMessage>(receiveString);
+
+                            }
+                            catch (Exception e)
+                            {
+                                receivedMessage = new ReceivedMessage()
+                                {
+                                    Message = receiveString// + " | 系统错误：" + e.Message
+                                };
+                            }
+                            await messageHandler.OnMessageReceiced(webSocketHandler, receivedMessage, receiveString);//调用MessageHandler
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+
+                    }
+                }
             }
         }
+
         static async Task Acceptor(HttpContext hc, Func<Task> n)
         {
             if (!hc.WebSockets.IsWebSocketRequest)

@@ -16,12 +16,18 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Routing;
-using System.Web.WebSockets;
+
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.WebSockets;
+
+//using System.Web;
+//using System.Web.Routing;
+//using System.Web.WebSockets;
 
 namespace Senparc.WebSocket
 {
+#if NET45
     /// <summary>
     /// WebSocket处理程序
     /// </summary>
@@ -112,8 +118,32 @@ namespace Senparc.WebSocket
                         string receiveString =
                           //System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
                           System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
+                        try
+                        {
+                            ReceivedMessage receivedMessage;
+                            try
+                            {
+                                receivedMessage = new ReceivedMessage()
+                                {
+                                    Message = receiveString// + " | 系统错误：" + e.Message
+                                };
 
-                        await messageHandler.OnMessageReceiced(webSocketHandler, receiveString);//调用MessageHandler
+                                receivedMessage = Newtonsoft.Json.JsonConvert.DeserializeObject<ReceivedMessage>(receiveString);
+
+                            }
+                            catch (Exception e)
+                            {
+                                receivedMessage = new ReceivedMessage()
+                                {
+                                    Message = receiveString// + " | 系统错误：" + e.Message
+                                };
+                            }
+                            await messageHandler.OnMessageReceiced(webSocketHandler, receivedMessage, receiveString);//调用MessageHandler
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+
                     }
                 }
             }
@@ -126,4 +156,5 @@ namespace Senparc.WebSocket
 
         public bool IsReusable { get; }
     }
+#endif
 }

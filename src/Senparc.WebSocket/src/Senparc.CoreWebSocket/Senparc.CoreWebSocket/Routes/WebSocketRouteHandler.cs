@@ -14,8 +14,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Routing;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 
 namespace Senparc.WebSocket
 {
@@ -24,9 +24,16 @@ namespace Senparc.WebSocket
     /// </summary>
     public class WebSocketRouteHandler: IRouteHandler
     {
-        public IHttpHandler GetHttpHandler(RequestContext requestContext)
+        //public IHttpHandler GetHttpHandler(RequestContext requestContext)
+        //{
+        //    return new WebSocketHandler(requestContext);
+        //}
+
+        public RequestDelegate GetRequestHandler(HttpContext httpContext, RouteData routeData)
         {
+            //throw new NotImplementedException();
             return new WebSocketHandler(requestContext);
+
         }
     }
 }

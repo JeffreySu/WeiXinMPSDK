@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Senparc.WebSocket</name>
+    </assembly>
+    <members>
+        <member name="T:Senparc.WebSocket.WebSocketHelper">
+            <summary>
+            WebSocketHelper
+            </summary>
+        </member>
+        <member name="M:Senparc.WebSocket.WebSocketHelper.#ctor(System.Net.WebSockets.WebSocket,System.Threading.CancellationToken)">
+            <param name="cancellationToken"></param>
+        </member>
+        <member name="M:Senparc.WebSocket.WebSocketHelper.SendMessage(System.String)">
+            <summary>
+            发送消息
+            </summary>
+            <param name="message">文字消息</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.WebSocket.WebSocketMessageHandler">
+            <summary>
+            WebSocket 处理程序
+            </summary>
+        </member>
+        <member name="M:Senparc.WebSocket.WebSocketMessageHandler.OnConnecting(Senparc.WebSocket.WebSocketHelper)">
+            <summary>
+            连接时触发事件
+            </summary>
+            <param name="webSocketHandler"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.WebSocket.WebSocketMessageHandler.OnDisConnected(Senparc.WebSocket.WebSocketHelper)">
+            <summary>
+            断开连接时触发事件
+            </summary>
+            <param name="webSocketHandler"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Senparc.WebSocket.WebSocketMessageHandler.OnMessageReceiced(Senparc.WebSocket.WebSocketHelper,Senparc.WebSocket.ReceivedMessage,System.String)">
+            <summary>
+            收到消息时触发事件
+            </summary>
+            <param name="webSocketHandler"></param>
+            <param name="message">封装好的数据</param>
+            <param name="originalData">原始数据字符串</param>
+            <returns></returns>
+        </member>
+        <member name="T:Senparc.WebSocket.ReceivedMessage">
+            <summary>
+            接收到消息封装的实体
+            </summary>
+        </member>
+        <member name="M:Senparc.WebSocket.WebSocketHandler.Map(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            branches the request pipeline for this SocketHandler usage
+            </summary>
+            <param name="app"></param>
+        </member>
+        <member name="T:Senparc.WebSocket.WebSocketConfig">
+            <summary>
+            WebSocket 配置
+            </summary>
+        </member>
+        <member name="M:Senparc.WebSocket.WebSocketConfig.RegisterMessageHandler``1">
+            <summary>
+            注册WebSocketMessageHandler
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+    </members>
+</doc>

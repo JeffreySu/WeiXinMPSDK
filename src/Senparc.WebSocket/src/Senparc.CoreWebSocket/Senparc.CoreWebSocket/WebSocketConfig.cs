@@ -15,7 +15,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+#if NET45
+using System.Web.Routing;
+#else
 using Microsoft.AspNetCore.Routing;
+#endif
 
 namespace Senparc.WebSocket
 {

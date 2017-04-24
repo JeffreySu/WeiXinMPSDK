@@ -140,10 +140,22 @@ QQ群：342319110
                         strongResponseMessage.Articles.Add(new Article()
                         {
                             Title = "您点击了子菜单图文按钮",
-                            Description = "您点击了子菜单图文按钮，这是一条图文信息。",
+                            Description = "您点击了子菜单图文按钮，这是一条图文信息。这个区域是Description内容\r\n可以使用\\r\\n进行换行。",
                             PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg",
                             Url = "http://sdk.weixin.senparc.com"
                         });
+
+                        //随机添加一条图文，或只输出一条图文信息
+                        if (DateTime.Now.Second % 2 == 0)
+                        {
+                            strongResponseMessage.Articles.Add(new Article()
+                            {
+                                Title = "这是随机产生的第二条图文信息，用于测试多条图文的样式",
+                                Description = "这是随机产生的第二条图文信息，用于测试多条图文的样式",
+                                PicUrl = "http://sdk.weixin.senparc.com/Images/qrcode.jpg",
+                                Url = "http://sdk.weixin.senparc.com"
+                            });
+                        }
                     }
                     break;
                 case "SubClickRoot_Music":

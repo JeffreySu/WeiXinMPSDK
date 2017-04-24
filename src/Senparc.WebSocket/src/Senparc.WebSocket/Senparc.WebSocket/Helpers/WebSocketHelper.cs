@@ -12,12 +12,22 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.WebSockets;
 using System.Text;
+
+
+#if NET461
+using System.Net.WebSockets;
+using System.Web.WebSockets;
+
+#endif
+
+#if NET461
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Routing;
-using System.Web.WebSockets;
+#endif
+
+
 
 namespace Senparc.WebSocket
 {

@@ -55,15 +55,12 @@ namespace Senparc.Weixin.Helpers
         /// <returns></returns>
         public static string GetSha1(string encypStr)
         {
-            var sha1= SHA1.Create();
+            //throw new ArgumentException("暂时不可用");
+            var sha1 = System.Security.Cryptography.SHA1.Create();
             byte[] strRes = Encoding.UTF8.GetBytes(encypStr);
             var hash = sha1.ComputeHash(strRes);
-            StringBuilder enText = new StringBuilder();
-            foreach (byte iByte in hash)
-            {
-                enText.AppendFormat("{0:x2}", iByte);
-            }
-            return enText.ToString();
+            var result = Encoding.UTF8.GetString(hash);
+            return result;
         }
 
         /// <summary>

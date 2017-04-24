@@ -92,8 +92,6 @@ namespace Senparc.Weixin.Context
         where TRequest : IRequestMessageBase
         where TResponse : IResponseMessageBase
     {
-        private int _maxRecordCount;
-
         /// <summary>
         /// 所有MessageContext集合，不要直接操作此对象
         /// </summary>

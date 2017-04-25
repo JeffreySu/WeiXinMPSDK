@@ -123,7 +123,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.0.4" />
+    <!--<PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.1.0" />-->
     <PackageReference Include="StackExchange.Redis" Version="1.2.1" />
   </ItemGroup>
 
@@ -133,6 +133,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj" />
+    <ProjectReference Include="..\Senparc.Weixin.Cache.Redis.RedLock\redlock-cs\src\Senparc.Weixin.Cache.Redis.RedLock.csproj" />
   </ItemGroup>
 
 </Project>

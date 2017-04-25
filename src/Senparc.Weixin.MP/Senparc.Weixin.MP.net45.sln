@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP", "Senparc.Weixin.MP\Senparc.Weixin.MP.csproj", "{1D815FBF-451C-4E23-939C-CB80172F445C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP", "Senparc.Weixin.MP\Senparc.Weixin.MP.net54.csproj", "{1D815FBF-451C-4E23-939C-CB80172F445C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.Test", "Senparc.Weixin.MP.Test\Senparc.Weixin.MP.Test.csproj", "{6313DC35-40AB-4B24-81BB-2F742E2E915E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin", "..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj", "{814092CD-9CD0-4FB7-91E8-D147F476F1FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin", "..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net45.csproj", "{814092CD-9CD0-4FB7-91E8-D147F476F1FB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.WeixinTests", "Senparc.WeixinTests\Senparc.WeixinTests.csproj", "{232A67F2-CD89-4A20-8DA9-DAED76412B33}"
 EndProject

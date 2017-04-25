@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.MvcExtension", "Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.csproj", "{EE8630BC-6191-4C40-9061-12C76342562D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Senparc.Weixin.MP.MvcExtension", "Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.MvcExtension.net45.csproj", "{EE8630BC-6191-4C40-9061-12C76342562D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

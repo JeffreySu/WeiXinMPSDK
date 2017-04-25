@@ -23,7 +23,7 @@
 
 本库为.NET 4.5，其他.NET版本请看各自分支：
 
-* [.NET Core](https://github.com/JeffreySu/WeiXinMPSDK/tree/DotNET-Core)（包含 .NET 4.6.1 版本）
+* [.NET Core + .NET 4.6.1 + .NET 4.5](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer-FullDotNet)
 * [.NET 4.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/NET4.0) 
 
 微信C# SDK  [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)

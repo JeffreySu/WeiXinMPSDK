@@ -63,7 +63,7 @@
 [10.1]: https://img.shields.io/nuget/v/Senparc.WebSocket.svg?style=flat
 [10.2]: https://www.nuget.org/packages/Senparc.WebSocket
 
-[net40Y]]: https://img.shields.io/badge/4.0-Y-brightgreen.svg
+[net40Y]: https://img.shields.io/badge/4.0-Y-brightgreen.svg
 
 
 * 已经支持所有微信6 API，包括自定义菜单/个性化菜单、模板信息接口、素材上传接口、群发接口、多客服接口、支付接口、微小店接口、卡券接口等等。

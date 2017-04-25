@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                 Task.Factory.StartNew(async () =>
                 {
                     var appId = ConfigurationManager.AppSettings["WeixinAppId"];
-                    string openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//收到通知的管理员OpenId
+                    string openId = "";//收到通知的管理员OpenId
                     var host = "A1 / AccessTokenOrAppId：" + (ex.AccessTokenOrAppId ?? "null");
                     string service = null;
                     string message = ex.Message;
@@ -139,7 +139,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                         var data = new WeixinTemplate_ExceptionAlert(string.Format("微信发生异常（延时{0}秒）", sleepSeconds), host, service, status, message, remark);
 
                         //修改OpenId、启用以下代码后即可收到模板消息
-                        if (openId != "olPjZjsXuQPJoV0HlruZkNzKc91E")
+                        if (!string.IsNullOrEmpty(openId))
                         {
                             var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
                               url, data);

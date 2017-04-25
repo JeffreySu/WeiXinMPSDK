@@ -32,7 +32,7 @@
 | # | 模块功能                                            | DLL                               | Nuget                                             | .NET 4.0 			   | .NET 4.5		       | .NET Core
 |---|----------------------------------------------------|-----------------------------------|----------------------------------------------------|----------------------|-----------------------|------------------------
 | 1| 基础库                                               |Senparc.Weixin.dll                 | [![Senparc.Weixin][1.1]][1.2]                     | ![.NET 4.0][net40Y]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY]
-| 2| 微信公众号 / 微信支付 <br> JSSDK / 摇周边 <br> 等等 |Senparc.Weixin.MP.dll               | [![Senparc.Weixin.MP][2.1]][2.2]                  | ![.NET 4.0][net40Y]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY]
+| 2| 微信公众号 <br>/ 微信支付 JSSDK / 摇周边<br> 等等 |Senparc.Weixin.MP.dll               | [![Senparc.Weixin.MP][2.1]][2.2]                  | ![.NET 4.0][net40Y]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY]
 | 3| ASP.NET MVC 扩展                                     |Senparc.Weixin.MP.MVC.dll          | [![Senparc.Weixin.MP.MVC][3.1]][3.2]              | ![.NET 4.0][net40Y]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreN]
 | 4| ASP.NET Core MVC <br> 扩展                                |Senparc.Weixin.MP.CoreMVC.dll      | [![Senparc.Weixin.MP.CoreMVC][11.1]][11.2]     | ![.NET 4.0][net40N]  | ![.NET 4.5][net45N]   | ![.NET Core][coreY]
 | 5| 微信企业号                                           |Senparc.Weixin.QY.dll              | [![Senparc.Weixin.QY][4.1]][4.2]                  | ![.NET 4.0][net40Y]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY]

@@ -34,7 +34,7 @@
 | 1| 基础库                                               |Senparc.Weixin.dll                 | [![Senparc.Weixin][1.1]][1.2]                     | ![.NET 4.0][net40Y]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY]
 | 2| 微信公众号 / 微信支付 <br> JSSDK / 摇周边 <br> 等等 |Senparc.Weixin.MP.dll               | [![Senparc.Weixin.MP][2.1]][2.2]                  | ![.NET 4.0][net40Y]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY]
 | 3| ASP.NET MVC 扩展                                     |Senparc.Weixin.MP.MVC.dll          | [![Senparc.Weixin.MP.MVC][3.1]][3.2]              | ![.NET 4.0][net40Y]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreN]
-| 4| ASP.NET Core MVC <br> 扩展                                |Senparc.Weixin.MP.CoreMVC.dll      | [![Senparc.Weixin.MP.CoreMVC][3.1]][3.2]     | ![.NET 4.0][net40N]  | ![.NET 4.5][net45N]   | ![.NET Core][coreY]
+| 4| ASP.NET Core MVC <br> 扩展                                |Senparc.Weixin.MP.CoreMVC.dll      | [![Senparc.Weixin.MP.CoreMVC][11.1]][11.2]     | ![.NET 4.0][net40N]  | ![.NET 4.5][net45N]   | ![.NET Core][coreY]
 | 5| 微信企业号                                           |Senparc.Weixin.QY.dll              | [![Senparc.Weixin.QY][4.1]][4.2]                  | ![.NET 4.0][net40Y]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY]
 | 6| 企业微信（准备中）                                    |Senparc.Weixin.Work.dll            | [![Senparc.Weixin.Work][5.1]][5.2]               | -					   | -		  	 		   | -		 	  
 | 7| 微信开放平台                                         |Senparc.Weixin.Open.dll            | [![Senparc.Weixin.Open][6.1]][6.2]                | ![.NET 4.0][net40Y]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY]
@@ -63,6 +63,8 @@
 [9.2]: https://www.nuget.org/packages/Senparc.Weixin.WxOpen
 [10.1]: https://img.shields.io/nuget/v/Senparc.WebSocket.svg?style=flat
 [10.2]: https://www.nuget.org/packages/Senparc.WebSocket
+[11.1]: https://img.shields.io/nuget/v/Senparc.Weixin.MP.CoreMVC.svg?style=flat
+[11.2]: https://www.nuget.org/packages/Senparc.Weixin.MP.CoreMVC
 
 [net40Y]: https://img.shields.io/badge/4.0-Y-brightgreen.svg
 [net40N]: https://img.shields.io/badge/4.0-N-lightgrey.svg

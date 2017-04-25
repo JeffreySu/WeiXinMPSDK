@@ -2,18 +2,66 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45</TargetFrameworks>
-    <Description>Senparc.Weixin.MP.MvcExtension</Description>
-    <Copyright>Senparc Copyright © 2004~2017</Copyright>
-    <Version>4.3.0</Version>
-    <Authors>Jeffrey Su</Authors>
-    <Company>Senparc</Company>
-    <PackageTags>微信,Senparc,Weixin,SDK,公众号,Senparc,小程序,WebSocket,分布式</PackageTags>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>4.4.0</Version>
     <AssemblyName>Senparc.Weixin.MP.MvcExtension</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.MvcExtension</RootNamespace>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+    <Description>
+      微信公众账号 - Senparc.Weixin.MP.MvcExtension 模块
+
+      Senparc.Weixin SDK 开源项目：
+      https://github.com/JeffreySu/WeiXinMPSDK
+    </Description>
+    <Copyright>Senparc Copyright © 2004~2017</Copyright>
+    <PackageTags>微信,weixin,公众号,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,MVC,Core,Microsoft.AspNetCore.Http</PackageTags>
+
+
+    <Authors>Jeffrey Su</Authors>
+    <Owners>Senparc</Owners>
+    <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
+    <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
+    <Title>Senparc.Weixin.MP.MvcExtension.dll</Title>
+
+    <Summary>微信公众号SDK for C#</Summary>
+    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+    <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
+    <PackageReleaseNotes>
+      优化部分处理代码
+
+      v2.0 重构Senparc.Weixin.dll代码
+
+      v3.0 优化代码，完全兼容企业号和公众账号
+
+      v3.1.0 升级[WeixinInternalRequest]过滤器，提供了URL重定向参数。
+
+      v3.1.1
+      添加针对加密信息的官方iphone换行bug处理
+
+      v4.0.1 fix bug
+
+      v4.1.0
+      支持.NET Core
+
+      v4.1.2
+      配合Senparc.Weixin v4.9升级
+
+      v4.1.4 优化FixWeixinBugWeixinResult输出逻辑
+
+      v4.2.0 修复浏览器状态判断问题
+
+      v4.3.0
+      优化FixWeixinBugWeixinResult提高效率
+      修改 .net core mvc 的ExecuteResult(ActionContext context)方法
+
+      v4.4.0  支持 .NET Core
+
+    </PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
   </PropertyGroup>
 

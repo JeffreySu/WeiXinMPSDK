@@ -121,13 +121,6 @@
     <PackageReference Include="protobuf-net" Version="2.1.0" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Compile Remove="ServiceStack.Redis\**" />
-    <EmbeddedResource Remove="ServiceStack.Redis\**" />
-    <None Remove="ServiceStack.Redis\**" />
-  </ItemGroup>
-
   <ItemGroup>
     <Compile Remove="ContainerCacheStrategy\RedisContainerCacheStrategy.RedisUtils.cs" />
     <Compile Remove="Properties\AssemblyInfo.cs" />

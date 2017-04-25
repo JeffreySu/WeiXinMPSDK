@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{51AC27B4-11AE-4F59-B82A-0BB3AFA5F62B}</ProjectGuid>
+    <ProjectGuid>{5B729497-5323-41D7-A104-0632119BEDDE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
-    <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
+    <RootNamespace>Senparc.Weixin.Cache.Memcached</RootNamespace>
+    <AssemblyName>Senparc.Weixin.Cache.Memcached</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -29,7 +29,7 @@
     <DefineConstants>TRACE;NET45</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.Cache.Redis.XML</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.Cache.Memcached.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -43,7 +43,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.Cache.Redis.XML</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.Cache.Memcached.XML</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -51,16 +51,19 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Redlock.CSharp, Version=0.0.2.35303, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\Senparc.Weixin.MP.Sample\packages\Senparc.Weixin.Cache.Redis.RedLock.0.0.2\lib\net45\Redlock.CSharp.dll</HintPath>
+    <Reference Include="Enyim.Caching, Version=2.11.0.0, Culture=neutral, PublicKeyToken=cec98615db04012e, processorArchitecture=MSIL">
+      <HintPath>..\..\Senparc.Weixin.MP.Sample\packages\Membase.2.14\lib\net35\Enyim.Caching.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="StackExchange.Redis, Version=1.0.316.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\Senparc.Weixin.MP.Sample\packages\StackExchange.Redis.1.0.488\lib\net45\StackExchange.Redis.dll</HintPath>
+    <Reference Include="Enyim.Caching.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\Senparc.Weixin.MP.Sample\packages\Enyim.Caching.Web.1.0.0.1\lib\net40\Enyim.Caching.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Membase, Version=2.14.0.0, Culture=neutral, PublicKeyToken=cec98615db04012e, processorArchitecture=MSIL">
+      <HintPath>..\..\Senparc.Weixin.MP.Sample\packages\Membase.2.14\lib\net35\Membase.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -70,23 +73,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContainerCacheStrategy\RedisContainerCacheStrategy.cs" />
-    <Compile Include="ObjectCacheStrategy\RedisObjectCacheStrategy.cs" />
-    <Compile Include="RedisCacheLock.cs" />
+    <Compile Include="ContainerCacheStrategy\MemcachedContainerStrategy.cs" />
+    <Compile Include="MamcachedCacheLock.cs" />
+    <Compile Include="ObjectCacheStrategy\MemcachedObjectCacheStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StackExchange.Redis\RedisManager.cs" />
-    <Compile Include="StackExchange.Redis\StackExchangeRedisExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net45.csproj">
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
-      <Name>Senparc.Weixin</Name>
+      <Name>Senparc.Weixin.net45</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

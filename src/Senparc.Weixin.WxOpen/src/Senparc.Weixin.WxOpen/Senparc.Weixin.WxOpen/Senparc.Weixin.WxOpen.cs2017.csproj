@@ -47,7 +47,7 @@
 
       v1.2.1 fix bug：修改模板消息接口URL
       
-      
+      v1.3.0 支持.NET Core
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -56,6 +56,7 @@
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
   </PropertyGroup>
+  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>..\..\..\..\..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>

@@ -101,9 +101,9 @@
     <Compile Include="ComponentAPIs\ComponentJson\QueryAuthResult.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net45.csproj">
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
-      <Name>Senparc.Weixin</Name>
+      <Name>Senparc.Weixin.net45</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

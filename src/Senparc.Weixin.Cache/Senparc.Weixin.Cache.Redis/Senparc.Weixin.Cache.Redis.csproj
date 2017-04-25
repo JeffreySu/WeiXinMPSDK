@@ -105,10 +105,6 @@
     <None Remove="ServiceStack.Redis\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
-  </ItemGroup>
-
   <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
@@ -133,6 +129,10 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj" />
   </ItemGroup>
 
 </Project>

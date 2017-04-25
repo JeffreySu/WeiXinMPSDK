@@ -1,61 +1,114 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net45</TargetFrameworks>
-    <Version>4.4.0</Version>
-    <AssemblyName>Senparc.Weixin.MP.MvcExtension</AssemblyName>
-    <RootNamespace>Senparc.Weixin.MP.MvcExtension</RootNamespace>
+    <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
+    <Version>4.3.0</Version>
+    <AssemblyName>Senparc.Weixin.QY</AssemblyName>
+    <RootNamespace>Senparc.Weixin.QY</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
     <Description>
-      微信公众账号 - Senparc.Weixin.MP.MvcExtension 模块
+      微信公众账号 - 企业号 模块
 
       Senparc.Weixin SDK 开源项目：
       https://github.com/JeffreySu/WeiXinMPSDK
     </Description>
     <Copyright>Senparc Copyright © 2004~2017</Copyright>
-    <PackageTags>微信,weixin,公众号,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,MVC,Core,Microsoft.AspNetCore.Http</PackageTags>
+    <PackageTags>微信,weixin,公众号,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,企业号</PackageTags>
 
 
     <Authors>Jeffrey Su</Authors>
     <Owners>Senparc</Owners>
     <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
     <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
-    <Title>Senparc.Weixin.MP.MvcExtension.dll</Title>
+    <Title>Senparc.Weixin.Cache.Redis.dll</Title>
 
     <Summary>微信公众号SDK for C#</Summary>
     <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
     <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
     <PackageReleaseNotes>
-      优化部分处理代码
+      v0.1.0（beta） 完成基础API
 
-      v2.0 重构Senparc.Weixin.dll代码
+      v1.1.0 完成所有企业号接口，稳定版
 
-      v3.0 优化代码，完全兼容企业号和公众账号
+      v1.1.1 添加AccessTokenContainer等辅助方法
 
-      v3.1.0 升级[WeixinInternalRequest]过滤器，提供了URL重定向参数。
+      v1.1.5 修复部分bug
 
-      v3.1.1
-      添加针对加密信息的官方iphone换行bug处理
+      v1.2.2  修改企业号中命名不当之处（Custom改为Mass）
 
-      v4.0.1 fix bug
+      v1.2.3  企业号群发图文消息修改
+
+      v1.2.4  支持新增的6种自定义菜单的事件推送
+
+      v1.3.0
+      添加消息去重功能
+
+      v1.3.2 解决接收信息无法获取AgentID的问题
+
+      v1.3.3 解决事件响应出错问题
+
+      v1.4.0 添加AccessToken过期获取的Lock
+
+      v2.1.0 接口全面调整优化
+
+      v2.2.0 添加企业号应用管理接口
+
+      v2.3.0 添加异步任务接口
+
+      v2.5.0 修改所有API的命名空间
+
+      v3.2.0 重构
+
+      v3.3.3
+      重构
+      更新API
+      升级Container，全面支持分布式缓存
+      升级AccessToken过期规则
+
+      v3.3.4
+      升级缓存即时生效方案
+
+      v3.3.5
+      更新接口
+
+      v3.3.7
+      更新到20160615最新接口
 
       v4.1.0
-      支持.NET Core
+      为借口添加异步方法
+      完善接口
 
-      v4.1.2
+      v4.1.1
+      支持.NET Core
+      更新部分接口
+
+      v4.1.4
+      更新接口
+
+      v4.1.5
+      添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+
+      v4.1.10
+      更新卡券字段，修改企业号Container
+
+      v4.1.12
+      修改TenPayUtil.BuildRandomStr()方法
+
+      v4.1.13
       配合Senparc.Weixin v4.9升级
 
-      v4.1.4 优化FixWeixinBugWeixinResult输出逻辑
-
-      v4.2.0 修复浏览器状态判断问题
-
-      v4.3.0
-      优化FixWeixinBugWeixinResult提高效率
-      修改 .net core mvc 的ExecuteResult(ActionContext context)方法
-
-      v4.4.0  支持 .NET Core
-
+      v4.2.0
+      增加企业客服实体赋值
+      完善客服功能
+      v4.2.1
+      添加SuccessResponseMessage类型响应信息
+      v4.2.2
+      腾讯已于2016.4.20 下线“邀请成员关注接口”
+      v4.2.3：
+      AppApi.SetApp()方法改为POST请求方式
+      
+      v4.3.0 支持最新 .NET Core 依赖模块
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -64,43 +117,35 @@
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.MP.xml</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.Open.XML</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
-  <!--<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Weixin.MP.xml</DocumentationFile>
-  </PropertyGroup>-->
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Weixin.QY.xml</DocumentationFile>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Weixin.MP.xml</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Weixin.QY.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.MP.xml</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.QY.xml</DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="AdvancedAPIs\Card\Store\**" />
-    <EmbeddedResource Remove="AdvancedAPIs\Card\Store\**" />
-    <None Remove="AdvancedAPIs\Card\Store\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-
-
+  
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
     <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
     <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
@@ -129,17 +174,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.vs2017.csproj" />
-    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
     <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.Mvc" Version="4.0.20710" />
+    <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj" />
   </ItemGroup>
-
 </Project>

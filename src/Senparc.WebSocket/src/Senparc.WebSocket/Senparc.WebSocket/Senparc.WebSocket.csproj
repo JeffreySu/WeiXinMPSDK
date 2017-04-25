@@ -85,6 +85,7 @@ v0.2.0 支持 .NET Core
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Optimization" />
     <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>

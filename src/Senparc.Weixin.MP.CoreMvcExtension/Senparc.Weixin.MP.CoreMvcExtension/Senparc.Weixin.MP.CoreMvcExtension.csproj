@@ -30,6 +30,7 @@
     <PackageReleaseNotes>v1.0.0 支持 .NET Core
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
+    <PackageId>Senparc.Weixin.MP.CoreMvc</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

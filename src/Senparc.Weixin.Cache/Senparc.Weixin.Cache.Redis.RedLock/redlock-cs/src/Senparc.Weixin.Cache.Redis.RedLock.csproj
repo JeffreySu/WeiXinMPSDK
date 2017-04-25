@@ -1,0 +1,109 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
+    <Version>0.1.1</Version>
+    <AssemblyName>Senparc.Weixin.Cache.Redis.RedLock</AssemblyName>
+    <RootNamespace>Senparc.Weixin.Cache.Redis.RedLock</RootNamespace>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+    <Description>
+      Senparc.Weixin.Cache.Redis.RedLock 模块
+
+      redlock-cs 开源项目：https://github.com/JeffreySu/redlock-cs
+
+      Senparc.Weixin SDK 开源项目：
+      https://github.com/JeffreySu/WeiXinMPSDK
+    </Description>
+    <Copyright>Senparc Copyright © 2004~2017</Copyright>
+    <PackageTags>Cache,Redis,RedLock,Senparc</PackageTags>
+
+
+    <Authors>Jeffrey Su</Authors>
+    <Owners>Senparc</Owners>
+    <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
+    <ProjectUrl>https://github.com/JeffreySu/redlock-cs</ProjectUrl>
+    <Title>Senparc.Weixin.Cache.Redis.RedLock.dll</Title>
+
+    <Summary>微信公众号SDK for C#</Summary>
+    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+    <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
+    <PackageReleaseNotes>
+      v0.0.1
+      重写构造函数，提供更加灵活的参数配置。
+
+      v0.0.2
+      调整引用框架
+
+      v0.0.3
+      提供.net core 支持
+
+      v0.0.4
+      提供.net framework 4.6.1 支持
+      
+      v0.1.0
+      提供.NET Core支持
+    
+    </PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\..\..\..\..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    <DocumentationFile>..\..\..\..\..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.Cache.Redis.RedLock.XML</DocumentationFile>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
+    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Weixin.Cache.Redis.RedLock.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
+    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Weixin.Cache.Redis.RedLock.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <OutputPath>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Weixin.Cache.Redis.RedLock.xml</DocumentationFile>
+  </PropertyGroup>
+  
+  <!--<ItemGroup>
+    <PackageReference Include="StackExchange.Redis" Version="1.2.1" />
+  </ItemGroup>-->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <!--<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.1.1" />-->
+    <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
+  </ItemGroup>
+
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <!--<PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XPath.XmlDocument" Version="4.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="1.1.1" />-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StackExchange.Redis" Version="1.2.1" />
+  </ItemGroup>
+</Project>

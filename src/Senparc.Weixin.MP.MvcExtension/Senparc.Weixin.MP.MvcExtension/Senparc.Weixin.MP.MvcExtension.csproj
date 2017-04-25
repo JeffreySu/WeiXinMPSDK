@@ -14,9 +14,9 @@
       https://github.com/JeffreySu/WeiXinMPSDK
     </Description>
     <Copyright>Senparc Copyright © 2004~2017</Copyright>
-    <PackageTags>微信,weixin,公众号,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,MVC,Core,Microsoft.AspNetCore.Http</PackageTags>
+    <PackageTags>微信,weixin,公众号,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,MVC,System.Web.Mvc</PackageTags>
 
-
+    
     <Authors>Jeffrey Su</Authors>
     <Owners>Senparc</Owners>
     <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
@@ -58,6 +58,8 @@
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
+    <PackageId>Senparc.Weixin.MP.MVC</PackageId>
+  
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.6;net461;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
     <Description>Senparc.Weixin.Cache.Memcached</Description>
     <Copyright>Senparc Copyright © 2004~2017</Copyright>
     <Version>0.3.0</Version>

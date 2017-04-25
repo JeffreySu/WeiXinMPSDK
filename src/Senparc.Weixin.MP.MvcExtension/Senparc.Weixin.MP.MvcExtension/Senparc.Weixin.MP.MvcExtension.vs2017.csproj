@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;net45</TargetFrameworks>
+    <TargetFrameworks>net45</TargetFrameworks>
     <Description>Senparc.Weixin.MP.MvcExtension</Description>
     <Copyright>Senparc Copyright © 2004~2017</Copyright>
     <Version>4.3.0</Version>

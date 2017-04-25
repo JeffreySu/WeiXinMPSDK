@@ -16,16 +16,25 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+
+
+//using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.Routing;
+//using Microsoft.AspNetCore.WebSockets;
+
+#if NET45
 using System.Web;
 using System.Web.Routing;
 using System.Web.WebSockets;
+#endif
 
 namespace Senparc.WebSocket
 {
+#if NET45
     /// <summary>
     /// WebSocket处理程序
     /// </summary>
-    public class WebSocketHandler : IHttpHandler
+    public partial class WebSocketHandler : IHttpHandler
     {
         private RequestContext _requestContext;
         public WebSocketHandler(RequestContext context)
@@ -70,7 +79,7 @@ namespace Senparc.WebSocket
             var cancellationToken = new CancellationToken();
 
 
-            WebSocketHelper webSocketHandler = new WebSocketHelper(webSocketContext, cancellationToken);
+            WebSocketHelper webSocketHandler = new WebSocketHelper(webSocket, cancellationToken);
             var messageHandler = WebSocketConfig.WebSocketMessageHandlerFunc.Invoke();
 
             if (webSocket.State == WebSocketState.Connecting)
@@ -82,41 +91,7 @@ namespace Senparc.WebSocket
             }
 
             //Checks WebSocket state.
-            while (webSocket.State == WebSocketState.Open)
-            {
-                //Reads data.
-                WebSocketReceiveResult webSocketReceiveResult =
-                  await webSocket.ReceiveAsync(receivedDataBuffer, cancellationToken);
-
-                //If input frame is cancelation frame, send close command.
-                if (webSocketReceiveResult.MessageType == WebSocketMessageType.Close)
-                {
-                    if (WebSocketConfig.WebSocketMessageHandlerFunc != null)
-                    {
-                        await messageHandler.OnDisConnected(webSocketHandler);//调用MessageHandler
-                    }
-
-                    await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure,
-                      String.Empty, cancellationToken);
-                }
-                else
-                {
-                    byte[] payloadData = receivedDataBuffer.Array
-                        .Where(b => b != 0)
-                        .Take(webSocketReceiveResult.Count)
-                        .ToArray();
-
-                    if (WebSocketConfig.WebSocketMessageHandlerFunc != null)
-                    {
-                        //Because we know that is a string, we convert it.
-                        string receiveString =
-                          //System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
-                          System.Text.Encoding.UTF8.GetString(payloadData, 0, payloadData.Length);
-
-                        await messageHandler.OnMessageReceiced(webSocketHandler, receiveString);//调用MessageHandler
-                    }
-                }
-            }
+            await HandleMessage(webSocket);
         }
 
         public void ProcessRequest(HttpContext context)
@@ -126,4 +101,5 @@ namespace Senparc.WebSocket
 
         public bool IsReusable { get; }
     }
+#endif
 }

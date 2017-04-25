@@ -49,6 +49,7 @@
     <Compile Remove="Cache\ContainerCacheStrategy\ContainerItemCollection.cs" />
     <Compile Remove="Cache\Lock\CacheLockWrapper.cs" />
     <Compile Remove="Cache\Lock\CacheLockWrapperExtension.cs" />
+    <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
   <ItemGroup>

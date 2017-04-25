@@ -2,24 +2,70 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Description>Senparc.Weixin.Cache.Redis</Description>
-    <Copyright>Senparc Copyright © 2004~2017</Copyright>
-    <Version>1.2.0</Version>
-    <Authors>Jeffrey Su</Authors>
-    <Company>Senparc</Company>
-    <PackageTags>微信,Cache,Redis,Senparc,Weixin,SDK,公众号,Senparc,小程序,WebSocket,分布式</PackageTags>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>1.3.0</Version>
     <AssemblyName>Senparc.Weixin.Cache.Redis</AssemblyName>
     <RootNamespace>Senparc.Weixin.Cache.Redis</RootNamespace>
+
+    <Description>
+      微信公众账号 - Redis 模块
+
+      Senparc.Weixin SDK 开源项目：
+      https://github.com/JeffreySu/WeiXinMPSDK
+    </Description>
+    <Copyright>Senparc Copyright © 2004~2017</Copyright>
+    <PackageTags>微信,weixin,公众号,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,Cache,Redis</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+
+    <Authors>Jeffrey Su</Authors>
+    <Owners>Senparc</Owners>
+    <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
+    <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
+    <Title>Senparc.Weixin.Cache.Redis.dll</Title>
+
+    <Summary>微信公众号SDK for C#</Summary>
+    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+    <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
+    <PackageReleaseNotes>
+      v0.1.0
+      提供分布式缓存支持
+      由于StackExchange.Redis库的bug，.NET 4.0版本暂时未提供
+
+      v0.1.1
+      优化缓存策略，改进删除方法。
+
+      v0.2.0
+      重构缓存策略，提供分布锁
+
+      v0.2.1
+      优化方法和接口
+
+      v0.0.2
+      重构缓存键命名空间规则，添加Config.DefaultCacheNamespace
+
+      v0.2.3
+      发布稳定版本
+
+      v1.0.0
+      修改缓存策略，将储存类型由String改为Hash
+
+      v1.1.0
+      重构缓存，添加ObjectCacheStrategy
+
+      v1.2.0 重构分布式锁
+      v1.2.1 提供.net core版本
+      v1.2.2 同时提供.net core及.net 4.6.1版本
+
+      v1.3.0 支持 .NET Core
+    </PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
 
-  <!--<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\net461\Senparc.Weixin.Cache.Redis.xml</DocumentationFile>
-  </PropertyGroup>-->
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
@@ -84,11 +130,16 @@
 
   <ItemGroup>
     <Compile Remove="ContainerCacheStrategy\RedisContainerCacheStrategy.RedisUtils.cs" />
+    <Compile Remove="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Senparc.Weixin.Cache.Redis.RedLock" Version="0.0.4" />
     <PackageReference Include="StackExchange.Redis" Version="1.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

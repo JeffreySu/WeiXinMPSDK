@@ -7,7 +7,7 @@ using System.Net.WebSockets;
 using System.Threading.Tasks;
 
 #if NET45
-
+using System.Web.Script.Serialization;
 #else
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -82,7 +82,15 @@ namespace Senparc.WebSocket
                                     Message = receiveString// + " | 系统错误：" + e.Message
                                 };
 
+
+#if NET45
+                                JavaScriptSerializer js = new JavaScriptSerializer();
+                                receivedMessage = js.Deserialize<ReceivedMessage>(receiveString);
+#else
                                 receivedMessage = Newtonsoft.Json.JsonConvert.DeserializeObject<ReceivedMessage>(receiveString);
+                                #endif
+
+                                
                             }
                             catch (Exception e)
                             {

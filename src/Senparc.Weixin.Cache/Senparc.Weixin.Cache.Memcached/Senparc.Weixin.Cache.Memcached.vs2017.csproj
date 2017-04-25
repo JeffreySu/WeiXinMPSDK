@@ -24,25 +24,28 @@ https://github.com/JeffreySu/WeiXinMPSDK</Description>
     <Summary>微信公众号SDK for C#</Summary>
     <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
     <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
-    <PackageReleaseNotes>v0.0.1
-提供分布式缓存支持
-.NET 4.0版本暂时未提供
+    <PackageReleaseNotes>
+      v0.0.1
+      提供分布式缓存支持
+      .NET 4.0版本暂时未提供
 
-v0.0.2
-重构缓存策略，提供分布锁
+      v0.0.2
+      重构缓存策略，提供分布锁
 
-v0.0.3 优化方法和接口
+      v0.0.3 优化方法和接口
 
-v0.0.4 优化方法和接口
+      v0.0.4 优化方法和接口
 
-v0.0.5  添加ServerList配制方法
+      v0.0.5  添加ServerList配制方法
 
-v0.1.0
-重构缓存，添加ObjectCacheStrategy
+      v0.1.0
+      重构缓存，添加ObjectCacheStrategy
 
-v0.2.0 重构分布式锁
+      v0.2.0 重构分布式锁
 
-v1.0.0 支持 .NET Core</PackageReleaseNotes>
+      v0.3.0 Memcached同步锁改为使用StoreMode.Add方法
+
+      v1.0.0 支持 .NET Core</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <!--<Product>Senparc.Weixin.Cache.Memcached.dll</Product>-->
 

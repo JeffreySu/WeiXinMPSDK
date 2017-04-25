@@ -2,22 +2,121 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Description>Senparc.Weixin.MP</Description>
-    <Copyright>Senparc Copyright © 2004~2017</Copyright>
-    <Version>4.2.3</Version>
-    <Authors>Jeffrey Su</Authors>
-    <Company>Senparc</Company>
-    <PackageTags>微信,Senparc,Weixin,SDK,公众号,Senparc,小程序,WebSocket,分布式</PackageTags>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>4.3.0</Version>
     <AssemblyName>Senparc.Weixin.QY</AssemblyName>
     <RootNamespace>Senparc.Weixin.QY</RootNamespace>
-  </PropertyGroup>
-  
-  
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+    <Description>
+      微信公众账号 - 企业号 模块
+
+      Senparc.Weixin SDK 开源项目：
+      https://github.com/JeffreySu/WeiXinMPSDK
+    </Description>
+    <Copyright>Senparc Copyright © 2004~2017</Copyright>
+    <PackageTags>微信,weixin,公众号,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,企业号</PackageTags>
+
+
+    <Authors>Jeffrey Su</Authors>
+    <Owners>Senparc</Owners>
+    <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
+    <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
+    <Title>Senparc.Weixin.Cache.Redis.dll</Title>
+
+    <Summary>微信公众号SDK for C#</Summary>
+    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+    <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
+    <PackageReleaseNotes>
+      v0.1.0（beta） 完成基础API
+
+      v1.1.0 完成所有企业号接口，稳定版
+
+      v1.1.1 添加AccessTokenContainer等辅助方法
+
+      v1.1.5 修复部分bug
+
+      v1.2.2  修改企业号中命名不当之处（Custom改为Mass）
+
+      v1.2.3  企业号群发图文消息修改
+
+      v1.2.4  支持新增的6种自定义菜单的事件推送
+
+      v1.3.0
+      添加消息去重功能
+
+      v1.3.2 解决接收信息无法获取AgentID的问题
+
+      v1.3.3 解决事件响应出错问题
+
+      v1.4.0 添加AccessToken过期获取的Lock
+
+      v2.1.0 接口全面调整优化
+
+      v2.2.0 添加企业号应用管理接口
+
+      v2.3.0 添加异步任务接口
+
+      v2.5.0 修改所有API的命名空间
+
+      v3.2.0 重构
+
+      v3.3.3
+      重构
+      更新API
+      升级Container，全面支持分布式缓存
+      升级AccessToken过期规则
+
+      v3.3.4
+      升级缓存即时生效方案
+
+      v3.3.5
+      更新接口
+
+      v3.3.7
+      更新到20160615最新接口
+
+      v4.1.0
+      为借口添加异步方法
+      完善接口
+
+      v4.1.1
+      支持.NET Core
+      更新部分接口
+
+      v4.1.4
+      更新接口
+
+      v4.1.5
+      添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+
+      v4.1.10
+      更新卡券字段，修改企业号Container
+
+      v4.1.12
+      修改TenPayUtil.BuildRandomStr()方法
+
+      v4.1.13
+      配合Senparc.Weixin v4.9升级
+
+      v4.2.0
+      增加企业客服实体赋值
+      完善客服功能
+      v4.2.1
+      添加SuccessResponseMessage类型响应信息
+      v4.2.2
+      腾讯已于2016.4.20 下线“邀请成员关注接口”
+      v4.2.3：
+      AppApi.SetApp()方法改为POST请求方式
+      
+      v4.3.0 支持最新 .NET Core 依赖模块
+    </PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
@@ -42,6 +141,10 @@
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
     <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.QY.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.vs2017.csproj" />
@@ -72,5 +175,9 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 </Project>

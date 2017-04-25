@@ -2,21 +2,60 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Description>Senparc.Weixin.WxOpen</Description>
-    <Copyright>Senparc Copyright © 2004~2017</Copyright>
     <Version>1.2.1</Version>
-    <Authors>Jeffrey Su</Authors>
-    <Company>Senparc22</Company>
-    <PackageTags>微信,Senparc,WxOpen,MiniProgram,Weixin,SDK,公众号,Senparc,小程序,WebSocket,分布式</PackageTags>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <AssemblyName>Senparc.Weixin.WxOpen</AssemblyName>
     <RootNamespace>Senparc.Weixin.WxOpen</RootNamespace>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+    <Description>
+      微信公众账号 - 微信小程序 模块
+
+      Senparc.Weixin SDK 开源项目：
+      https://github.com/JeffreySu/WeiXinMPSDK
+    </Description>
+    <Copyright>Senparc Copyright © 2004~2017</Copyright>
+    <PackageTags>微信,weixin,公众号,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,Cache,Redis</PackageTags>
+
+
+    <Authors>Jeffrey Su</Authors>
+    <Owners>Senparc</Owners>
+    <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
+    <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
+    <Title>Senparc.Weixin.WxOpen.dll</Title>
+
+    <Summary>微信公众号SDK for C#</Summary>
+    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+    <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
+    <PackageReleaseNotes>
+      v0.1.0 添加基础解决方案，包括模板消息API
+
+      v0.1.0 添加基础库，已包含模板消息API
+      v0.2.0
+      1、添加WxOpenMessageHandler
+      2、添加SuccessResponseMessage类型响应信息
+      v0.3.0
+      根据MP的架构重构框架
+
+      v1.0.0
+      2017年1月9日，随小程序正式发布
+
+      v1.1.0 添加CreateWxQRCode重写方法，直接保存文件
+      添加SessionContainer，SessionHelper，EncryptHelper
+
+      v1.2.0 添加消息解密方法
+      fix bug：修改模板消息接口URL
+
+      v1.2.1 fix bug：修改模板消息接口URL
+      
+      
+    </PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>..\..\..\..\..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>

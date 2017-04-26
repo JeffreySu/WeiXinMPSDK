@@ -40,7 +40,10 @@ namespace Senparc.Weixin.MP.CoreSample
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
+
+                // Browser Link is not compatible with Kestrel 1.1.0
+                // For details on enabling Browser Link, see https://go.microsoft.com/fwlink/?linkid=840936
+                // app.UseBrowserLink();
             }
             else
             {

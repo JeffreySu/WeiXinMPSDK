@@ -23,7 +23,7 @@ using Senparc.Weixin.MP.MessageHandlers;
 using Senparc.Weixin.MP.Sample.CommonService.Download;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
+namespace Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler
 {
     /// <summary>
     /// 自定义MessageHandler

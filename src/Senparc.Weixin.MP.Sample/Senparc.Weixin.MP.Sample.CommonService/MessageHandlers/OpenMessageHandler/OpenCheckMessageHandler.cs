@@ -12,7 +12,7 @@ using Senparc.Weixin.MP.Entities.Request;
 using Senparc.Weixin.MP.Sample.CommonService.OpenTicket;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.OpenMessageHandler
+namespace Senparc.Weixin.MP.CoreSample.CommonService.MessageHandlers.OpenMessageHandler
 {
     /// <summary>
     /// 开放平台全网发布之前需要做的验证

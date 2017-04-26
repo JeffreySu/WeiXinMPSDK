@@ -16,7 +16,7 @@ using System.Text;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.WxOpen.Entities;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
+namespace Senparc.Weixin.MP.CoreSample.CommonService.WxOpenMessageHandler
 {
     public class CustomWxOpenMessageContext : MessageContext<IRequestMessageBase,IResponseMessageBase>
     {

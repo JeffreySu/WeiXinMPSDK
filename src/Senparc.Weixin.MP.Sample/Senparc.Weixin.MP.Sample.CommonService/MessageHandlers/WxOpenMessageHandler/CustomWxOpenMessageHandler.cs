@@ -20,7 +20,7 @@ using Senparc.Weixin.WxOpen.Entities.Request;
 using IRequestMessageBase = Senparc.Weixin.WxOpen.Entities.IRequestMessageBase;
 using IResponseMessageBase = Senparc.Weixin.WxOpen.Entities.IResponseMessageBase;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.WxOpenMessageHandler
+namespace Senparc.Weixin.MP.CoreSample.CommonService.WxOpenMessageHandler
 {
     /// <summary>
     /// 自定义MessageHandler

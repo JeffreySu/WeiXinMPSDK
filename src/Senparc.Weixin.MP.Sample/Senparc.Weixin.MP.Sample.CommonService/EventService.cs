@@ -20,7 +20,7 @@ using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
 using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 
-namespace Senparc.Weixin.MP.Sample.CommonService
+namespace Senparc.Weixin.MP.CoreSample.CommonService
 {
     /// <summary>
     /// 全局微信事件有关的处理程序

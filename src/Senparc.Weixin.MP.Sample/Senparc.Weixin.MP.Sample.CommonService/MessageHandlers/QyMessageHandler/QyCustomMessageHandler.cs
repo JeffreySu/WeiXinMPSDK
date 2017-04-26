@@ -17,7 +17,7 @@ using Senparc.Weixin.MP.Sample.CommonService.QyMessageHandler;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.MessageHandlers;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.QyMessageHandlers
+namespace Senparc.Weixin.MP.CoreSample.CommonService.QyMessageHandlers
 {
     public class QyCustomMessageHandler : QyMessageHandler<QyCustomMessageContext>
     {

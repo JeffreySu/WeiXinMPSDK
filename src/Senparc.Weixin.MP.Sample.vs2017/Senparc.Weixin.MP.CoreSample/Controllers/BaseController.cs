@@ -21,7 +21,7 @@ using System.Web.Mvc;
 using Microsoft.AspNetCore.Mvc;
 #endif
 
-namespace Senparc.Weixin.MP.Sample.Controllers
+namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     public class BaseController : Controller
     {

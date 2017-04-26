@@ -6,7 +6,7 @@ using System.Text;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.OpenTicket
+namespace Senparc.Weixin.MP.CoreSample.CommonService.OpenTicket
 {
     /// <summary>
     /// OpenTicket即ComponentVerifyTicket

@@ -8,7 +8,7 @@ using System.IO;
 using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 using Senparc.Weixin.Open.Entities.Request;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.ThirdPartyMessageHandlers
+namespace Senparc.Weixin.MP.CoreSample.CommonService.ThirdPartyMessageHandlers
 {
     public class CustomThirdPartyMessageHandler : ThirdPartyMessageHandler
     {

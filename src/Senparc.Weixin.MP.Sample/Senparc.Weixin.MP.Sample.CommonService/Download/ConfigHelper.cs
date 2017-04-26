@@ -4,22 +4,28 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Xml.Linq;
 
-namespace Senparc.Weixin.MP.Sample.CommonService.Download
+#if NET45
+using System.Web;
+#else
+using Microsoft.AspNetCore.Http;
+#endif
+
+
+namespace Senparc.Weixin.MP.CoreSample.CommonService.Download
 {
     public class ConfigHelper
     {
         //Key：guid，Value：<QrCodeId,Version>
         public static Dictionary<string, CodeRecord> CodeCollection = new Dictionary<string, CodeRecord>(StringComparer.OrdinalIgnoreCase);
 
-        private HttpContextBase _context;
+        private HttpContext _context;
 
         public static object Lock = new object();
 
-        public ConfigHelper(HttpContextBase context)
-        {
+        public ConfigHelper(HttpContext context)
+        {System.web
             _context = context;
         }
 

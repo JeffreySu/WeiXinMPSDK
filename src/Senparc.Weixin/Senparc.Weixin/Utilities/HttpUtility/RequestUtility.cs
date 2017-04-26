@@ -233,17 +233,14 @@ namespace Senparc.Weixin.HttpUtility
             {
                 request.ClientCertificates.Add(cer);
             }
-
-            if (checkValidationResult)
-            {
-                ServicePointManager.ServerCertificateValidationCallback =
-                    new RemoteCertificateValidationCallback(CheckValidationResult);
-            }
 #else
             HttpClientHandler handler = new HttpClientHandler();
             handler.CookieContainer = cookieContainer;
 
 #if NETSTANDARD1_6
+            if (checkValidationResult)
+                handler.ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool>(CheckValidationResult);
+
             if (cer != null)
             {
                 handler.ClientCertificates.Add(cer);
@@ -417,9 +414,21 @@ namespace Senparc.Weixin.HttpUtility
         {
             return true;
         }
-
-
-        #endregion
+#if NETSTANDARD1_6
+        /// <summary>
+        /// 验证服务器证书
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="certificate"></param>
+        /// <param name="chain"></param>
+        /// <param name="sslPolicyErrors"></param>
+        /// <returns></returns>
+        private static bool CheckValidationResult(HttpRequestMessage request, X509Certificate2 certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
+        }
+#endif
+#endregion
 
         #region 异步方法
 
@@ -559,16 +568,14 @@ namespace Senparc.Weixin.HttpUtility
                 request.ClientCertificates.Add(cer);
             }
 
-            if (checkValidationResult)
-            {
-                ServicePointManager.ServerCertificateValidationCallback =
-                  new RemoteCertificateValidationCallback(CheckValidationResult);
-            }
 #else
             HttpClientHandler handler = new HttpClientHandler();
             handler.CookieContainer = cookieContainer;
 
 #if NETSTANDARD1_6
+            if (checkValidationResult)
+                handler.ServerCertificateCustomValidationCallback = new Func<HttpRequestMessage, X509Certificate2, X509Chain, SslPolicyErrors, bool>(CheckValidationResult);
+
             if (cer != null)
             {
                 handler.ClientCertificates.Add(cer);

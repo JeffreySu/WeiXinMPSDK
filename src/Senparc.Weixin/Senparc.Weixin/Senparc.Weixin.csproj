@@ -1,172 +1,222 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{814092CD-9CD0-4FB7-91E8-D147F476F1FB}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Senparc.Weixin</RootNamespace>
+    <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
+    <Version>4.12.0</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <RootNamespace>Senparc.Weixin</RootNamespace>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+
+    <Description>
+      微信公众账号 - Senparc.Weixin SDK 基础模块
+
+      Senparc.Weixin SDK 开源项目：
+      https://github.com/JeffreySu/WeiXinMPSDK
+    </Description>
+    <Copyright>Senparc Copyright © 2004~2017</Copyright>
+    <PackageTags>微信,weixin,公众号,Senparc,盛派,SDK,C#,JSSDK,微信支付,分布式,小程序,Cache,Redis</PackageTags>
+
+
+    <Authors>Jeffrey Su</Authors>
+    <Owners>Senparc</Owners>
+    <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
+    <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
+    <Title>Senparc.Weixin.dll</Title>
+
+    <Summary>微信公众号SDK for C#</Summary>
+    <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
+    <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
+    <PackageReleaseNotes>
+      v1.0.0
+      重构代码，从原来的Senparc.Weixin.MP.dll中分离基类代码
+
+      v1.4.0
+      重构代码，完全兼容公众账号及企业号。
+
+      v1.5.0
+      添加统一的消息加密接口
+
+      v1.6.0
+      添加消息去重功能
+
+      v1.6.1
+      完善消息去重功能
+
+      v2.0.0
+      重构代码，加入AppStore接口
+
+      v3.0.0
+      .NET框架升级到4.0
+
+      v 3.3.4
+      区分企业号与公众号的返回码
+      post表单处理修改
+
+      v 3.3.6
+      修改HttpUtility方法
+
+      v3.3.7 添加 验证服务器证书回调自动验证功能
+
+      v3.3.8 稳定版本
+
+      v3.3.9 优化PostModel基类属性，稳定版本
+
+      v4.1.0 添加异步代码，支持.NET 4.5
+
+      v4.2.1 完善异步方法，添加JSON生成过程中null对象的过滤机制。
+
+      v4.2.3 完善底层代码
+
+      v4.3.2 增加统一的Container和Bag管理器
+
+      v4.4.1 重构，增加Debug跟踪功能
+
+      v4.5 添加分布式缓存接口
+      v4.5.6 优化缓存策略
+      v4.5.12 优化缓存策略结构
+      v4.5.14 优化重构
+      v4.5.17 优化列队及缓存方案
+      v4.5.19 优化Http通讯方法
+      v4.5.20 添加消息接口IResponseMessageNoResponse
+      v4.5.22 添加BaseContainerBag.Name
+
+      v4.6.0
+      优化EntityHelper等方法
+
+      v4.7.3
+      重构缓存及Container相关
+
+      v4.7.4 解决Container无法注册的问题
+
+      v4.7.5
+      添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+
+      v4.7.7
+      重构缓存键命名空间规则，添加Config.DefaultCacheNamespace
+
+      v4.8.0
+      修正在ResponseMessage都null的情况下，没有对_textResponseMessage做判断就直接返回空字符串的问题
+
+      v4.9.0 重构缓存，添加ObjectCacheStrategy
+      v4.9.1 重写WxJsonResult.ToString()方法，输出带格式的内容。
+      v4.9.2 Senparc.Weixin v4.9.2 添加FileHelper
+      v4.9.3 添加小程序返回码添加小程序返回码
+      v4.9.5 添加Sex枚举
+      v4.9.6 修改错别字Browser-&gt;Browser，请注意全局替换更新
+      v4.9.7
+      1、WeixinTrace使用同步锁，取代原先的本地锁
+      2、修改日志储存路径，新路径为/App_Data/WeixinTraceLog/SenparcWeixinTrace-yyyyMMdd.log
+      3、完善异常日志记录
+      v4.9.8 将SendLog方法改名为SendApiLog
+      v4.9.9
+      1、优化WeixinTrace
+      2、统一MessageHandlerException、UnknownRequestMsgTypeException的构造函数调用（将第一个构造函数的base改为this）；
+      3、修改UnknownRequestMsgTypeException的基类为MessageHandlerException
+      4、添加【ReturnCode.template_id】不正确枚举
+      5、修改ErrorJsonResultException日志记录格式
+      v4.9.11 添加SuccessResponseMessageBase类型响应信息基类
+
+      v4.9.14
+      为AsUrlData方法添加null判断
+      v4.9.15 添加AES加密、解密算法
+
+      v4.10.0 添加TemplateMessageBase作为所有模板消息数据实体基类
+      Senparc.Weixin v4.10.1 添加SerializerHelper.GetObject方法
+      v4.10.3 BaseContainer添加RemoveFromCache方法
+      v4.10.4 优化FileHelper.GetFileStream方法
+
+      v4.11.0 重构分布式锁
+      v4.11.1 添加【ReturnCode.appsecret不正确】枚举类型（invalid appsecret，40125）
+      v4.11.2 ：
+      修改SideInWeixinBrowser判断逻辑
+      v4.11.3 ：
+      日志中添加对线程的记录
+      v4.11.4 ：
+      修改EncryptHelper.GetSha1(string encypStr)方法算法
+      v4.11.5：修复WeixinJsonConventer.Serialize中的错误。
+      v4.11.6：修改注释，整理文件
+      v4.11.7 请求证书都改为 X509Certificate2 类型
+      v4.11.8 （MessageHandler V3.2）修复 TextResponseMessage 不输出加密信息的问题
+      v4.11.9 修改Download方法
+      v4.11.10 恢复.net core版本中的EncryptHelper.GetSha1()方法可用
+      v4.11.11 添加MessageHandlerExtensions
+      
+      v4.12.0 优化最新 .NET Core 模块
+    </PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.XML</DocumentationFile>
-    <Prefer32Bit>false</Prefer32Bit>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.XML</DocumentationFile>
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.XML</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Test\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard1.6|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\netstandard1.6\Senparc.Weixin.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Test\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net461|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net461\Senparc.Weixin.xml</DocumentationFile>
   </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
+    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\net45\Senparc.Weixin.xml</DocumentationFile>
+  </PropertyGroup>
+
+
+
   <ItemGroup>
+    <Compile Remove="Cache\ContainerCacheStrategy\ContainerItemCollection.cs" />
+    <Compile Remove="Cache\Lock\CacheLockWrapper.cs" />
+    <Compile Remove="Cache\Lock\CacheLockWrapperExtension.cs" />
+    <Compile Remove="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
+  </ItemGroup>
+  
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="1.1.1" />
+    <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
+    <PackageReference Include="System.Xml.XmlSerializer" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
+      <!--<PackageReference Include="Microsoft.Extensions.Logging" Version="4.3.0" />-->
+</ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
     <Reference Include="System" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+    
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Cache\CacheStrategy\BaseCacheStrategy.cs" />
-    <Compile Include="Cache\ContainerCacheStrategy\IContainerCacheStragegy.cs" />
-    <Compile Include="Cache.Local\Lock\LocalCacheLock.cs" />
-    <Compile Include="Cache.Local\ContainerCacheStragegy\LocalContainerCacheStrategy.cs" />
-    <Compile Include="Cache\CacheStrategy\IBaseCacheStrategy.cs" />
-    <Compile Include="Cache\CacheStrategyFactory.cs" />
-    <Compile Include="Cache\Lock\BaseCacheLock.cs" />
-    <Compile Include="Cache\Lock\ICacheLock.cs" />
-    <Compile Include="Cache\ObjectCacheStrategy\IObjectCacheStrategy.cs" />
-    <Compile Include="Cache.Local\ObjectCacheStrategy\LocalObjectCacheStrategy.cs" />
-    <Compile Include="Config.cs" />
-    <Compile Include="Containers\BaseContainer.cs" />
-    <Compile Include="Containers\BaseContainerBag.cs" />
-    <Compile Include="Context\MessageContainer.cs" />
-    <Compile Include="Context\MessageContext.cs" />
-    <Compile Include="Context\MessageQueue.cs" />
-    <Compile Include="Context\WeixinContext.cs" />
-    <Compile Include="Context\WeixinContextRemovedEventArgs.cs" />
-    <Compile Include="Entities\BindableBase.cs" />
-    <Compile Include="Entities\EntityBase.cs" />
-    <Compile Include="Entities\JsonResult\IJsonResult.cs" />
-    <Compile Include="Entities\JsonResult\IJsonResultCallback.cs" />
-    <Compile Include="Entities\JsonResult\QyJsonResult.cs" />
-    <Compile Include="Entities\MessageBase.cs">
-      <SubType>
-      </SubType>
-    </Compile>
-    <Compile Include="Entities\Request\EncryptPostModel.cs" />
-    <Compile Include="Entities\Request\Extensions\RequestMessageTextExtension.cs" />
-    <Compile Include="Entities\Response\IResponseMessageNoResponse.cs" />
-    <Compile Include="Entities\Response\SuccessResponseMessageBase.cs" />
-    <Compile Include="Entities\TemplateMessage\WeixinTemplateBase.cs" />
-    <Compile Include="Enums.cs" />
-    <Compile Include="Exceptions\ErrorJsonResultException.cs" />
-    <Compile Include="Exceptions\MessageHandlerException.cs" />
-    <Compile Include="Exceptions\UnknownRequestMsgTypeException.cs" />
-    <Compile Include="Exceptions\WeixinException.cs" />
-    <Compile Include="Exceptions\UnRegisterAppIdException.cs" />
-    <Compile Include="Exceptions\WeixinMenuException.cs" />
-    <Compile Include="Helpers\Containers\ContainerHelper.cs" />
-    <Compile Include="Helpers\Conventers\ExpandoJsonConverter.cs" />
-    <Compile Include="Helpers\DateTimeHelper.cs" />
-    <Compile Include="Helpers\EncryptHelper.cs" />
-    <Compile Include="Helpers\FileHelper.cs" />
-    <Compile Include="Helpers\Extensions\IDictionaryExtensions.cs" />
-    <Compile Include="Helpers\SerializerHelper.cs" />
-    <Compile Include="Helpers\Conventers\WeixinJsonConventer.cs" />
-    <Compile Include="MessageQueue\SenparcMessageQueue.cs" />
-    <Compile Include="MessageQueue\SenparcMessageQueueItem.cs" />
-    <Compile Include="Threads\SenparcMessageQueueThreadUtility.cs" />
-    <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="Threads\ThreadUtility.cs" />
-    <Compile Include="Utilities\BrowserUtility\BrowserUtility.cs" />
-    <Compile Include="CommonAPIs\CommonJsonSend.cs" />
-    <Compile Include="Utilities\CacheUtility\CacheUtility.cs" />
-    <Compile Include="Utilities\CacheUtility\FlushCache.cs" />
-    <Compile Include="Utilities\EntityUtility\EntityUtility.cs" />
-    <Compile Include="Utilities\WeixinUtility\ApiUtility.cs" />
-    <Compile Include="Utilities\XmlUtility\XmlUtility.cs" />
-    <Compile Include="Utilities\HttpUtility\Get.cs" />
-    <Compile Include="Utilities\HttpUtility\Post.cs" />
-    <Compile Include="Utilities\HttpUtility\RequestUtility.cs" />
-    <Compile Include="Entities\JsonResult\WxJsonResult.cs" />
-    <Compile Include="MessageHandlers\IMessageHandler.cs" />
-    <Compile Include="MessageHandlers\IMessageHandlerDocument.cs" />
-    <Compile Include="MessageHandlers\MessageHandler.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entities\Request\RequestMessageBase.cs" />
-    <Compile Include="Entities\Response\ResponseMessageBase.cs" />
-    <Compile Include="Utilities\StreamUtility\StreamUtility.cs" />
-    <Compile Include="Trace\WeixinTrace.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagrams\MessageHandler.cd" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>

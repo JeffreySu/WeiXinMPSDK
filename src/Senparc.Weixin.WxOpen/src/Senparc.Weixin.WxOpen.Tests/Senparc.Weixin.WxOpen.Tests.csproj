@@ -62,25 +62,25 @@
     <Compile Include="SerializeTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj">
+    <ProjectReference Include="..\..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.net45.csproj">
       <Project>{51ac27b4-11ae-4f59-b82a-0bb3afa5f62b}</Project>
-      <Name>Senparc.Weixin.Cache.Redis</Name>
+      <Name>Senparc.Weixin.Cache.Redis.net45</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP.Test\Senparc.Weixin.MP.Test.csproj">
       <Project>{6313dc35-40ab-4b24-81bb-2f742e2e915e}</Project>
       <Name>Senparc.Weixin.MP.Test</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
+    <ProjectReference Include="..\..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.net45.csproj">
       <Project>{1d815fbf-451c-4e23-939c-cb80172f445c}</Project>
-      <Name>Senparc.Weixin.MP</Name>
+      <Name>Senparc.Weixin.MP.net45</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
+    <ProjectReference Include="..\..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.net45.csproj">
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
-      <Name>Senparc.Weixin</Name>
+      <Name>Senparc.Weixin.net45</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.csproj">
+    <ProjectReference Include="..\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.net45.csproj">
       <Project>{379D8C97-4F96-45AF-9F91-6BD160514495}</Project>
-      <Name>Senparc.Weixin.WxOpen</Name>
+      <Name>Senparc.Weixin.WxOpen.net45</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

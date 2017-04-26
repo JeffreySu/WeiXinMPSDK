@@ -40,10 +40,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
                      2、输出AccessTokenOrAppId
 
     修改标识：Senparc - 20170304
-    修改描述：c
+    修改描述：Senparc.Wexin v4.11.3 日志中添加对线程的记录
 
 ----------------------------------------------------------------*/
-
 
 using System;
 using System.Diagnostics;

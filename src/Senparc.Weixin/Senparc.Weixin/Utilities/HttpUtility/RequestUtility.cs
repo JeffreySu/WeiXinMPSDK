@@ -53,7 +53,7 @@ using System.Web;
 using System.Net.Http;
 using System.Net.Http.Headers;
 #endif
-#if netstandard16
+#if NETSTANDARD1_6
 using Microsoft.AspNetCore.Http;
 #endif
 
@@ -168,7 +168,7 @@ namespace Senparc.Weixin.HttpUtility
                 CookieContainer = cookieContainer,
                 UseCookies = true,
             };
-#if netstandard16
+#if NETSTANDARD1_6
             if (cer != null)
             {
                 handler.ClientCertificates.Add(cer);
@@ -243,7 +243,7 @@ namespace Senparc.Weixin.HttpUtility
             HttpClientHandler handler = new HttpClientHandler();
             handler.CookieContainer = cookieContainer;
 
-#if netstandard16
+#if NETSTANDARD1_6
             if (cer != null)
             {
                 handler.ClientCertificates.Add(cer);
@@ -492,7 +492,7 @@ namespace Senparc.Weixin.HttpUtility
                 CookieContainer = cookieContainer,
                 UseCookies = true,
             };
-#if netstandard16
+#if NETSTANDARD1_6
             if (cer != null)
             {
                 handler.ClientCertificates.Add(cer);
@@ -568,7 +568,7 @@ namespace Senparc.Weixin.HttpUtility
             HttpClientHandler handler = new HttpClientHandler();
             handler.CookieContainer = cookieContainer;
 
-#if netstandard16
+#if NETSTANDARD1_6
             if (cer != null)
             {
                 handler.ClientCertificates.Add(cer);

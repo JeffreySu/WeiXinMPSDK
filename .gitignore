@@ -31,3 +31,4 @@ packages/
 /src/Senparc.Weixin.WxOpen/src/Senparc.Weixin.WxOpen.Tests/Config
 /src/Senparc.Weixin.MP.BuildOutPut/netstandard1.6
 /src/Senparc.Weixin.MP.BuildOutPut/net45/Senparc.WebSocket.dll.config
+/src/Senparc.Weixin.MP.Sample.vs2017/Senparc.Weixin.MP.CoreSample/Properties/PublishProfiles

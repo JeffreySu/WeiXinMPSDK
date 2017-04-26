@@ -4,14 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using Senparc.Weixin.Cache;
 using System.Text.RegularExpressions;
-using Senparc.Weixin.MP.CoreSample.CommonService.Download;
-using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
 
 #if NET45
-System.Web
+using System.Web
+using Senparc.Weixin.MP.Sample.CommonService.Download;
+using Senparc.Weixin.MP.Sample.CommonService.Utilities;
 #else
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Senparc.Weixin.MP.CoreSample.CommonService.Download;
+using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
 #endif
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
@@ -21,7 +23,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         public IActionResult Index()
         {
             Func<string, FileVersionInfo> getFileVersionInfo = dllFileName =>
-                FileVersionInfo.GetVersionInfo(Server.MapPath("~/bin/Release/netcoreapp1.1" + dllFileName));
+#if NET45
+                FileVersionInfo.GetVersionInfo(Server.MapPath("~/bin/" + dllFileName));
+#else
+                 FileVersionInfo.GetVersionInfo(Server.GetMapPath("~/bin/Release/netcoreapp1.1" + dllFileName));
+#endif
 
             Func<FileVersionInfo, string> getDisplayVersion = fileVersionInfo =>
                  Regex.Match(fileVersionInfo.FileVersion, @"\d+\.\d+\.\d+").Value;

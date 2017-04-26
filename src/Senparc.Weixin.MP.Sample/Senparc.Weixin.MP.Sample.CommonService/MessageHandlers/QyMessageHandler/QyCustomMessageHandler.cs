@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Senparc.Weixin.MP.Sample.CommonService.QyMessageHandler;
+using Senparc.Weixin.MP.CoreSample.CommonService.QyMessageHandler;
 using Senparc.Weixin.QY.Entities;
 using Senparc.Weixin.QY.MessageHandlers;
 

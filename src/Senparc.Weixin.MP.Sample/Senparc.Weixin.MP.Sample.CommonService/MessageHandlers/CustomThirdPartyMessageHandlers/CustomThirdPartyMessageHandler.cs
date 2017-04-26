@@ -5,7 +5,7 @@ using System.Text;
 using Senparc.Weixin.Open;
 using Senparc.Weixin.Open.MessageHandlers;
 using System.IO;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
 using Senparc.Weixin.Open.Entities.Request;
 
 namespace Senparc.Weixin.MP.CoreSample.CommonService.ThirdPartyMessageHandlers
@@ -27,13 +27,15 @@ namespace Senparc.Weixin.MP.CoreSample.CommonService.ThirdPartyMessageHandlers
             //RequestDocument.Save(Path.Combine(openTicketPath, string.Format("{0}_Doc.txt", DateTime.Now.Ticks)));
 
             //记录ComponentVerifyTicket（也可以存入数据库或其他可以持久化的地方）
-            using (TextWriter tw = new StreamWriter(Path.Combine(openTicketPath, string.Format("{0}.txt", RequestMessage.AppId))))
+            using (FileStream fs = new FileStream(Path.Combine(openTicketPath, string.Format("{0}.txt", RequestMessage.AppId)),FileMode.OpenOrCreate,FileAccess.ReadWrite))
             {
-                tw.Write(requestMessage.ComponentVerifyTicket);
-                tw.Flush();
-                tw.Close();
+                using (TextWriter tw = new StreamWriter(fs))
+                {
+                    tw.Write(requestMessage.ComponentVerifyTicket);
+                    tw.Flush();
+                    //tw.Close();
+                }
             }
-
             return base.OnComponentVerifyTicketRequest(requestMessage);
         }
 

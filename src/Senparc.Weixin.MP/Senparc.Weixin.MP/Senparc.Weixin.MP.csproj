@@ -269,7 +269,6 @@
       v14.3.142 RequestUtility中的所有请求证书由X509Certificate类型改为X509Certificate2
       SendResult文件添加了msg_data_id字段，此字段用于统计分析
       v14.3.143 修复上一版本造成的菜单获取错误问题
-      v14.3.144 修复因为netstandard1.6条件编译符不正确造成的部分代码短路
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

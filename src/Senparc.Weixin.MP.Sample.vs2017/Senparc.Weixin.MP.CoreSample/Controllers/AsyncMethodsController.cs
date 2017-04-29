@@ -25,23 +25,22 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     public class AsyncMethodsController : Controller
     {
+        private string appId;
+        private string appSecret;
+
         IOptions<SenparcWeixinSetting> _senparcWeixinSetting;
 
         public AsyncMethodsController(IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
+#if NET45
+        string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
+        string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
+#else
             _senparcWeixinSetting = senparcWeixinSetting;
             appId = _senparcWeixinSetting.Value.WeixinAppId;
             appSecret = _senparcWeixinSetting.Value.WeixinAppSecret;
-        }
-
-#if NET45
-        private string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
-        private string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
-#else
-        private string appId;
-        private string appSecret;
 #endif
-
+        }
 
         public ActionResult Index()
         {

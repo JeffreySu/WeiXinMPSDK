@@ -28,10 +28,10 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
     /// </summary>
     public class FilterTestController : Controller
     {
-        IUrlHelper _url;
-        public FilterTestController(IUrlHelper url) {
-            _url = url;
-        }
+        //IUrlHelper _url;
+        //public FilterTestController(IUrlHelper url) {
+        //    _url = url;
+        //}
 
         [WeixinInternalRequest("访问被拒绝，请通过微信客户端访问！", "nofilter")]
         public ContentResult Index()

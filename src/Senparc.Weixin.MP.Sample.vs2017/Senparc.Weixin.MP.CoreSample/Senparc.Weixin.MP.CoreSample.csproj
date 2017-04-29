@@ -32,7 +32,6 @@
     <ProjectReference Include="..\..\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Redis\Senparc.Weixin.Cache.Redis.csproj" />
-    <ProjectReference Include="..\..\Senparc.Weixin.MP.CoreMvcExtension\Senparc.Weixin.MP.CoreMvcExtension\Senparc.Weixin.MP.CoreMvcExtension.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin.MP.Sample\Senparc.Weixin.MP.Sample.CommonService\Senparc.Weixin.MP.CoreSample.CommonService.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin.Open\Senparc.Weixin.Open\Senparc.Weixin.Open.csproj" />
@@ -40,8 +39,25 @@
     <ProjectReference Include="..\..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\images\" />
+  
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.1' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Net.Http" />
+    <ProjectReference Include="..\..\Senparc.Weixin.MP.CoreMvcExtension\Senparc.Weixin.MP.CoreMvcExtension\Senparc.Weixin.MP.CoreMvcExtension.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Net.Http" />
+    <ProjectReference Include="..\..\Senparc.Weixin.MP.MvcExtension\Senparc.Weixin.MP.CoreMvcExtension\Senparc.Weixin.MP.MvcExtension.csproj" />
   </ItemGroup>
 
 </Project>

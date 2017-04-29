@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -12,6 +14,8 @@
     <link href="~/Content/style.css" rel="stylesheet" />
     @*@Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")*@
+    @Html.Raw(JavaScriptSnippet.FullScript)
+    <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/Content/danktooltip/js/jquery.darktooltip.min.js"></script>
     @RenderSection("HeaderContent", false)
 </head>

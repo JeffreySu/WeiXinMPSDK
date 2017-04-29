@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.MessageHandlers;
 
-namespace Senparc.Weixin.MP.MvcExtension
+namespace Senparc.Weixin.MP.CoreMvcExtension
 {
     /// <summary>
     /// 修复微信换行 bug

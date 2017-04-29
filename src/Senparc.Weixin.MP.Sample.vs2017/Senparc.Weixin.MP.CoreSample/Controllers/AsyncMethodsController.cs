@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
-using Senparc.Weixin.MP.MvcExtension;
 using Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler;
 using Senparc.Weixin.Entities;
 using Microsoft.Extensions.Options;
@@ -17,6 +16,7 @@ using Microsoft.Extensions.Options;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
+using Senparc.Weixin.MP.MvcExtension;
 #else
 using Microsoft.AspNetCore.Mvc;
 #endif

@@ -7,7 +7,7 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.MessageHandlers;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.MP.MvcExtension
+namespace Senparc.Weixin.MP.CoreMvcExtension
 {
 
     //public static class WeixinResultExtension

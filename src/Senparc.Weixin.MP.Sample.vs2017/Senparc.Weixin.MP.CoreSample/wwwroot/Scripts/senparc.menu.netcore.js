@@ -152,10 +152,10 @@ senparc.menu = {
             $('#form_Menu').ajaxSubmit({
                 dataType: 'json',
                 success: function (json) {
-                    if (json.Successed || json.success) {
+                    if (json.success) {
                         menuState.html('上传成功');
                     } else {
-                        menuState.html(json.Message);
+                        menuState.html(json.message);
                     }
                 }
             });

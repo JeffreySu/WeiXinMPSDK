@@ -9,14 +9,42 @@
     <meta name="keywords" content="微信SDK,微信公众账号,小程序,SDK,微信公众平台,企业号,服务号,订阅号,微信支付,开放平台,Senparc.Weixin,,Senparc.Weixin.MP,JSSDK,开发者,第三方工具,说明,文档,AppStore,微微嗨,盛派网络,Senparc,.net,c#,小程序开发" />
     <meta name="description" content="Senparc.Weixin SDK，是目前使用率最高的微信C# SDK，包含完整的公众账号、小程序、企业号、开放平台API，帮助第三方开发者轻松实现微信公众账号和企业号开发。目前包含了Senparc.Weixin.MP（微信公众号SDK）、Senparc.Weixin.QY（微信企业号SDK）、Senparc.Weixin.Open（微信开放平台SDK），以及微信支付、微信JSSDK的完整SDK和案例。" />
 @*    @Styles.Render("~/Content/css")*@
-    <link href="~/Content/darktooltip.min.css" rel="stylesheet" />
+
+
+    <link href="~/Content/danktooltip/css/danktooltip.min.css" rel="stylesheet" />
 
     <link href="~/Content/style.css" rel="stylesheet" />
     @*@Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")*@
-    @Html.Raw(JavaScriptSnippet.FullScript)
-    <script src="~/lib/jquery/dist/jquery.js"></script>
+
+    @*<script src="~/js/site.min.js"></script>*@
+
+    @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
     <script src="~/Content/danktooltip/js/jquery.darktooltip.min.js"></script>
+
+    @Html.Raw(JavaScriptSnippet.FullScript)
+
     @RenderSection("HeaderContent", false)
 </head>
 <body>
@@ -143,6 +171,8 @@
             </p>
             <p class="footer-icon">&copy; 2006-@DateTime.Now.Year Senparc，苏州盛派网络科技有限公司，版权所有，保留所有权利。</p>
         </div>
+
+
         @RenderSection("scripts", required: false)
         <div style="display: none;">
             <script>

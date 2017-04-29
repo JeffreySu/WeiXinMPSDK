@@ -20,6 +20,7 @@ namespace Senparc.Weixin.Entities
     /// </summary>
     public class SenparcWeixinSetting
     {
+        public string Token { get; set; }
         public string WeixinAppId { get; set; }
         public string WeixinAppSecret { get; set; }
     }

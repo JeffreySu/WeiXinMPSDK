@@ -4,27 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using Senparc.Weixin.Cache;
 using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Hosting;
+using System.Diagnostics;
+using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
+using Senparc.Weixin.MP.CoreSample.CommonService.Download;
 
 #if NET45
-using System.Web
-using Senparc.Weixin.MP.Sample.CommonService.Download;
-using Senparc.Weixin.MP.Sample.CommonService.Utilities;
+using System.Web;
+using System.Web.Configuration;
+using System.Web.Mvc;
 #else
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Senparc.Weixin.MP.CoreSample.CommonService.Download;
-using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
+using Microsoft.AspNetCore.Hosting;
 #endif
+
 
 namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     public class HomeController : BaseController
     {
 #if NET45
-                public HomeController()
+        public HomeController()
         {
-
         }
 #else
         IHostingEnvironment _env;

@@ -23,8 +23,7 @@ namespace Senparc.Weixin.MP.CoreSample
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
 
-            Server.AppDomainAppPath = env.ContentRootPath;
-            var cc = env.ContentRootPath;
+            Server.AppDomainAppPath = env.ContentRootPath;//提供网站根目录
         }
 
         public IConfigurationRoot Configuration { get; }

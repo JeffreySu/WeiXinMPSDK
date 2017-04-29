@@ -8,6 +8,10 @@
     <PackageTargetFallback>$(PackageTargetFallback);portable-net45+win8+wp8+wpa81;</PackageTargetFallback>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <Content Include="Content\style.css" />
   </ItemGroup>
@@ -15,6 +19,7 @@
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Session" Version="1.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.0" />
     <PackageReference Include="System.Diagnostics.FileVersionInfo" Version="4.3.0" />

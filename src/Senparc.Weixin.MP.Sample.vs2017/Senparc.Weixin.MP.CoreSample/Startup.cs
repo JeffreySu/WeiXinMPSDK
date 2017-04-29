@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+//using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
 
 namespace Senparc.Weixin.MP.CoreSample
 {
@@ -20,6 +22,9 @@ namespace Senparc.Weixin.MP.CoreSample
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            Server.AppDomainAppPath = env.ContentRootPath;
+            var cc = env.ContentRootPath;
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -29,6 +34,16 @@ namespace Senparc.Weixin.MP.CoreSample
         {
             // Add framework services.
             services.AddMvc();
+
+            // Adds a default in-memory implementation of IDistributedCache.
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.CookieHttpOnly = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,12 +67,16 @@ namespace Senparc.Weixin.MP.CoreSample
 
             app.UseStaticFiles();
 
+            app.UseSession();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            
+            //var path01 = PlatformServices.Default.Application.ApplicationBasePath;
         }
     }
 }

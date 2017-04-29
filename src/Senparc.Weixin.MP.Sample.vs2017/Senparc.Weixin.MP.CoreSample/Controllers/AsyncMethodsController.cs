@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using Senparc.Weixin.MP.AdvancedAPIs;
 using Senparc.Weixin.MP.AdvancedAPIs.TemplateMessage;
 using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler;
+using Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler;
+using Senparc.Weixin.Entities;
+using Microsoft.Extensions.Options;
 //using ZXing.Aztec.Internal;
 
 
@@ -19,12 +21,27 @@ using System.Web.Mvc;
 using Microsoft.AspNetCore.Mvc;
 #endif
 
-namespace Senparc.Weixin.MP.Sample.Controllers
+namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
-    public class AsyncMethodsController : AsyncController
+    public class AsyncMethodsController : Controller
     {
+        IOptions<SenparcWeixinSetting> _senparcWeixinSetting;
+
+        public AsyncMethodsController(IOptions<SenparcWeixinSetting> senparcWeixinSetting)
+        {
+            _senparcWeixinSetting = senparcWeixinSetting;
+            appId = _senparcWeixinSetting.Value.WeixinAppId;
+            appSecret = _senparcWeixinSetting.Value.WeixinAppSecret;
+        }
+
+#if NET45
         private string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
         private string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
+#else
+        private string appId;
+        private string appSecret;
+#endif
+
 
         public ActionResult Index()
         {

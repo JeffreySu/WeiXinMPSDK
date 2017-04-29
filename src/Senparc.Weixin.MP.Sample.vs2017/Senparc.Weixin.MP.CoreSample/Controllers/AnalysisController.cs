@@ -4,8 +4,8 @@ using System.Linq;
 using Senparc.Weixin.MP.AdvancedAPIs.Analysis;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.MP.Helpers;
-using Senparc.Weixin.MP.Sample.Models.VD;
-
+using Senparc.Weixin.MP.CoreSample.Models.VD;
+using Senparc.Weixin.MP.Containers;
 
 #if NET45
 using System.Web
@@ -74,14 +74,14 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 
             IBaseAnalysisResult result = null;
 
-            var accessToken = CommonAPIs.AccessTokenContainer.TryGetToken(vd_Form.AppId, vd_Form.AppSecret);
+            var accessToken = AccessTokenContainer.TryGetAccessToken(vd_Form.AppId, vd_Form.AppSecret);
 
             switch (vd_Form.AnalysisType)
             {
                 case AnalysisType.图文群发每日数据:
                     //var strongResult = new AnalysisResultJson<ArticleSummaryItem>();
                     //result = strongResult;
-                    result = AnalysisApi.GetArticleSummary(accessToken, vd_Form.StartDate, vd_Form.EndDate);
+                    result = MP.AdvancedAPIs.AnalysisApi.GetArticleSummary(accessToken, vd_Form.StartDate, vd_Form.EndDate);
                     vd_Form.Result = (result as AnalysisResultJson<ArticleSummaryItem>).list.ToString();
                     break;
                 //case AnalysisType.图文群发总数据:

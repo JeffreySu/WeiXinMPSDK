@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
-namespace Senparc.Weixin.MP.Sample.Models
+namespace Senparc.Weixin.MP.CoreSample.Models
 {
     /// <summary>
     /// 商品实体类

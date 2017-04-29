@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Senparc.Weixin.MP.Entities;
-using Senparc.Weixin.MP.Sample.Controllers;
+using Senparc.Weixin.MP.CoreSample.Controllers;
+using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.MP.Sample.Models.VD
+namespace Senparc.Weixin.MP.CoreSample.Models.VD
 {
     public class Analysis_IndexVD
     {

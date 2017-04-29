@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Senparc.Weixin.MP.CoreSample.CommonService.Utilities;
+using Senparc.Weixin.Entities;
+using Microsoft.Extensions.Options;
+using Senparc.Weixin.MP.Containers;
 
 namespace Senparc.Weixin.MP.CoreSample
 {
@@ -23,7 +26,10 @@ namespace Senparc.Weixin.MP.CoreSample
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
 
-            Server.AppDomainAppPath = env.ContentRootPath;//提供网站根目录
+            //Senparc.Weixin.SDK 配置
+            builder.AddJsonFile("SenparcWeixin.json", optional: true);
+            //提供网站根目录
+            Server.AppDomainAppPath = env.ContentRootPath;
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -33,6 +39,9 @@ namespace Senparc.Weixin.MP.CoreSample
         {
             // Add framework services.
             services.AddMvc();
+
+            services.Configure<SenparcWeixinSetting>(Configuration.GetSection("SenparcWeixinSetting"));
+
 
             // Adds a default in-memory implementation of IDistributedCache.
             services.AddDistributedMemoryCache();
@@ -46,7 +55,7 @@ namespace Senparc.Weixin.MP.CoreSample
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -74,8 +83,16 @@ namespace Senparc.Weixin.MP.CoreSample
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            
-            //var path01 = PlatformServices.Default.Application.ApplicationBasePath;
+
+            #region 微信相关
+
+            //注册微信
+            AccessTokenContainer.Register(senparcWeixinSetting.Value.WeixinAppId, senparcWeixinSetting.Value.WeixinAppSecret);
+
+            //Senparc.Weixin SDK 配置
+            Senparc.Weixin.Config.DefaultSenparcWeixinSetting = senparcWeixinSetting.Value;
+
+            #endregion
         }
     }
 }

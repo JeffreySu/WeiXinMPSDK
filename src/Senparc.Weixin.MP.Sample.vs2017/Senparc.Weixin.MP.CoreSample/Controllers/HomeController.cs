@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Senparc.Weixin.Cache;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Hosting;
 
 #if NET45
 using System.Web
@@ -20,6 +21,20 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 {
     public class HomeController : BaseController
     {
+#if NET45
+                public HomeController()
+        {
+
+        }
+#else
+        IHostingEnvironment _env;
+
+        public HomeController(IHostingEnvironment env)
+        {
+            _env = env;
+        }
+#endif
+
         public IActionResult Index()
         {
             Func<string, FileVersionInfo> getFileVersionInfo = dllFileName =>
@@ -27,10 +42,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
                 FileVersionInfo.GetVersionInfo(Server.MapPath("~/bin/" + dllFileName));
 #else
             {
-                var dllPath = Server.GetMapPath("~/bin/" + dllFileName);
+                var dllPath = Server.GetMapPath("~/bin/netcoreapp1.1/" + dllFileName);
                 return FileVersionInfo.GetVersionInfo(dllPath);
             };
-           
 #endif
 
             Func<FileVersionInfo, string> getDisplayVersion = fileVersionInfo =>

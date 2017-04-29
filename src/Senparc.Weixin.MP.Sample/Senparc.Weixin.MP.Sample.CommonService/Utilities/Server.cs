@@ -32,6 +32,12 @@ namespace Senparc.Weixin.MP.CoreSample.CommonService.Utilities
             set
             {
                 _appDomainAppPath = value;
+#if NETSTANDARD1_6
+                if (!_appDomainAppPath.EndsWith("\\"))
+                {
+                    _appDomainAppPath += "\\";
+                }
+#endif
             }
         }
 

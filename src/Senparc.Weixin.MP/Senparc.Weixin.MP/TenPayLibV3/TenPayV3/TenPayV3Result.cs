@@ -96,7 +96,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             if (_resultXml == null || _resultXml.Element("xml") == null
                 || _resultXml.Element("xml").Element(nodeName) == null)
             {
-                return null;
+                return "";
             }
             return _resultXml.Element("xml").Element(nodeName).Value;
         }
@@ -598,15 +598,15 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <summary>
         /// 代金券类型
         /// </summary>
-        public string[] coupon_type_n { get; set; }
+        public IList<string> coupon_type_n { get; set; }
         /// <summary>
         /// 单个代金券退款金额
         /// </summary>
-        public string coupon_refund_fee_n { get; set; }
+        public IList<int> coupon_refund_fee_n { get; set; }
         /// <summary>
         /// 退款代金券ID	
         /// </summary>
-        public string coupon_refund_id_n { get; set; }
+        public IList<string> coupon_refund_id_n { get; set; }
 
         #endregion
 
@@ -614,7 +614,34 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         public RefundResult(string resultXml) : base(resultXml)
         {
-
+            if (base.IsReturnCodeSuccess())
+            {
+                result_code = GetXmlValue("result_code");
+                err_code = GetXmlValue("err_code");
+                err_code_des = GetXmlValue("err_code_des");
+                appid = GetXmlValue("appid");
+                mch_id = GetXmlValue("mch_id");
+                device_info = GetXmlValue("device_info");
+                nonce_str = GetXmlValue("nonce_str");
+                sign = GetXmlValue("sign");
+                transaction_id = GetXmlValue("transaction_id");
+                out_trade_no = GetXmlValue("out_trade_no");
+                out_refund_no = GetXmlValue("out_refund_no");
+                refund_id = GetXmlValue("refund_id");
+                refund_fee = GetXmlValue("refund_fee");
+                settlement_refund_fee = GetXmlValue("settlement_refund_fee");
+                total_fee = GetXmlValue("total_fee");
+                settlement_total_fee = GetXmlValue("settlement_total_fee");
+                fee_type = GetXmlValue("fee_type");
+                cash_fee = GetXmlValue("cash_fee");
+                cash_fee_type = GetXmlValue("cash_fee_type");
+                cash_refund_fee = GetXmlValue("cash_refund_fee");
+                coupon_refund_fee = GetXmlValue("coupon_refund_fee");
+                coupon_refund_count = GetXmlValue("coupon_refund_count");
+                coupon_type_n = GetXmlValues<string>("coupon_type_n");
+                coupon_refund_fee_n = GetXmlValues<int>("coupon_refund_fee_n");
+                coupon_refund_id_n = GetXmlValues<string>("coupon_refund_id_n");
+            }
         }
     }
 

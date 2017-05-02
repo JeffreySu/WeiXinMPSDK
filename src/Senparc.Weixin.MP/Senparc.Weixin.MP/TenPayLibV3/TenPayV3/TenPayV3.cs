@@ -293,7 +293,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="cert">证书绝对路径，如@"F:\apiclient_cert.p12"</param>
         /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
-        public static string Refund(TenPayV3RefundRequestData dataInfo,string cert,string certPassword)
+        public static RefundResult Refund(TenPayV3RefundRequestData dataInfo,string cert,string certPassword)
         {
             var data = dataInfo.PackageRequestHandler.ParseXML();
 
@@ -332,7 +332,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             MemoryStream ms = new MemoryStream();
             ms.Write(formDataBytes, 0, formDataBytes.Length);
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+            var returnXML = RequestUtility.HttpPost(urlFormat, null, ms);
+            return new RefundResult(returnXML);
         }
 
         /// <summary>

@@ -285,7 +285,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return false;
         }
 
-        //退款申请请直接参考Senparc.Weixin.MP.Sample中的退款demo
+        //退款申请请可参考Senparc.Weixin.MP.Sample中的退款demo
         /// <summary>
         /// 退款申请接口
         /// </summary>
@@ -293,7 +293,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <param name="cert">证书绝对路径，如@"F:\apiclient_cert.p12"</param>
         /// <param name="certPassword">证书密码</param>
         /// <returns></returns>
-        public static RefundResult Refund(TenPayV3RefundRequestData dataInfo,string cert,string certPassword)
+        public static RefundResult Refund(TenPayV3RefundRequestData dataInfo, string cert, string certPassword)
         {
             var data = dataInfo.PackageRequestHandler.ParseXML();
 
@@ -585,6 +585,50 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
             var resultXml = await RequestUtility.HttpPostAsync(urlFormat, null, ms, timeOut: timeOut);
             return new UnifiedorderResult(resultXml);
+        }
+
+        //退款申请请可参考Senparc.Weixin.MP.Sample中的退款demo
+        /// <summary>
+        /// 【异步方法】退款申请接口
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <param name="cert">证书绝对路径，如@"F:\apiclient_cert.p12"</param>
+        /// <param name="certPassword">证书密码</param>
+        /// <returns></returns>
+        public static async Task<RefundResult> RefundAsync(TenPayV3RefundRequestData dataInfo, string cert, string certPassword)
+        {
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+
+            //var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+
+            //退款接口地址
+            string url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+            //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
+            //string cert = cert;// @"F:\apiclient_cert.p12";
+            //私钥（在安装证书时设置）
+            string password = certPassword;
+            ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
+            //调用证书
+            X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+
+            #region 发起post请求
+            HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            webrequest.ClientCertificates.Add(cer);
+            webrequest.Method = "post";
+
+            byte[] postdatabyte = Encoding.UTF8.GetBytes(data);
+            webrequest.ContentLength = postdatabyte.Length;
+            Stream stream;
+            stream = webrequest.GetRequestStream();
+            stream.Write(postdatabyte, 0, postdatabyte.Length);
+            stream.Close();
+
+            HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
+            StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
+            string responseContent = streamReader.ReadToEnd();
+            #endregion
+
+            return new RefundResult(responseContent);
         }
 
         /// <summary>

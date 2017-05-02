@@ -35,7 +35,7 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         private string appId;
         private string appSecret;
 
-        IOptions<SenparcWeixinSetting> _senparcWeixinSetting;
+        SenparcWeixinSetting _senparcWeixinSetting;
 
         public MediaController(IOptions<SenparcWeixinSetting> senparcWeixinSetting)
         {
@@ -43,9 +43,9 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
         string appId = WebConfigurationManager.AppSettings["WeixinAppId"];
         string appSecret = WebConfigurationManager.AppSettings["WeixinAppSecret"];
 #else
-            _senparcWeixinSetting = senparcWeixinSetting;
-            appId = _senparcWeixinSetting.Value.WeixinAppId;
-            appSecret = _senparcWeixinSetting.Value.WeixinAppSecret;
+            _senparcWeixinSetting = senparcWeixinSetting.Value;
+            appId = _senparcWeixinSetting.WeixinAppId;
+            appSecret = _senparcWeixinSetting.WeixinAppSecret;
 #endif
         }
 

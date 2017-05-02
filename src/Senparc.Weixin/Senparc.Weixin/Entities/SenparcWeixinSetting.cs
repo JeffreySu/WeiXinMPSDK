@@ -21,7 +21,9 @@ namespace Senparc.Weixin.Entities
     public class SenparcWeixinSetting
     {
         public string Token { get; set; }
+        public string EncodingAESKey { get; set; }
         public string WeixinAppId { get; set; }
         public string WeixinAppSecret { get; set; }
+
     }
 }

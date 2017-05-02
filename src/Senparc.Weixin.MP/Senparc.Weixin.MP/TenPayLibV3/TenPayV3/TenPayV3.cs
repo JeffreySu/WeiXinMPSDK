@@ -297,7 +297,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         {
             var data = dataInfo.PackageRequestHandler.ParseXML();
 
-            var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+            //var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
 
             //退款接口地址
             string url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
@@ -326,14 +326,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             string responseContent = streamReader.ReadToEnd();
             #endregion
 
-            var res = XDocument.Parse(responseContent);
-
-            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-            MemoryStream ms = new MemoryStream();
-            ms.Write(formDataBytes, 0, formDataBytes.Length);
-            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-            var returnXML = RequestUtility.HttpPost(urlFormat, null, ms);
-            return new RefundResult(returnXML);
+            return new RefundResult(responseContent);
         }
 
         /// <summary>

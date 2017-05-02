@@ -500,41 +500,12 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
         #endregion
 
-        /// <summary>
-        /// 业务结果
-        /// SUCCESS/FAIL
-        /// SUCCESS退款申请接收成功，结果通过退款查询接口查询
-        /// FAIL 提交业务失败
-        /// </summary>
-        public string result_code { get; set; }
-        /// <summary>
-        /// 错误代码。列表详见错误码列表
-        /// </summary>
-        public string err_code { get; set; }
-        /// <summary>
-        /// 错误代码描述	
-        /// </summary>
-        public string err_code_des { get; set; }
-        /// <summary>
-        /// 微信分配的公众账号ID
-        /// </summary>
-        public string appid { get; set; }
-        /// <summary>
-        /// 微信支付分配的商户号
-        /// </summary>
-        public string mch_id { get; set; }
+
         /// <summary>
         /// 	微信支付分配的终端设备号，与下单一致
         /// </summary>
         public string device_info { get; set; }
-        /// <summary>
-        /// 随机字符串，不长于32位
-        /// </summary>
-        public string nonce_str { get; set; }
-        /// <summary>
-        /// 签名
-        /// </summary>
-        public string sign { get; set; }
+
         /// <summary>
         /// 微信订单号
         /// </summary>

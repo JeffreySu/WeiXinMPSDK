@@ -113,6 +113,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                                 ReturnCode.用户未授权该api,
                                 ReturnCode.参数错误invalid_parameter,
                                 ReturnCode.接口调用超过限制,
+                                ReturnCode.需要接收者关注,//43004
+
                                 //其他更多可能的情况
                             };
                         if (ignoreErrorCodes.Contains(jsonEx.JsonResult.errcode))

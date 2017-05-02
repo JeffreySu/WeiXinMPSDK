@@ -275,21 +275,24 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         }
 
         //退款申请请直接参考Senparc.Weixin.MP.Sample中的退款demo
-        ///// <summary>
-        ///// 退款申请接口
-        ///// </summary>
-        ///// <param name="data"></param>
-        ///// <returns></returns>
-        //public static string Refund(string data)
-        //{
-        //    var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+        /// <summary>
+        /// 退款申请接口
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string Refund(string data)
+        {
+            var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
 
-        //    var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-        //    MemoryStream ms = new MemoryStream();
-        //    ms.Write(formDataBytes, 0, formDataBytes.Length);
-        //    ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-        //    return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
-        //}
+
+
+
+            var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
+            MemoryStream ms = new MemoryStream();
+            ms.Write(formDataBytes, 0, formDataBytes.Length);
+            ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
+            return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
+        }
 
         /// <summary>
         /// 退款查询接口

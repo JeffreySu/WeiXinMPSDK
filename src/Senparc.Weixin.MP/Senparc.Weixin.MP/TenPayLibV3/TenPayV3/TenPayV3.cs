@@ -77,6 +77,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 using System;
 using System.IO;
+using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -274,22 +277,57 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             return new ReverseResult(resultXml);
         }
 
-        //退款申请请直接参考Senparc.Weixin.MP.Sample中的退款demo
-        ///// <summary>
-        ///// 退款申请接口
-        ///// </summary>
-        ///// <param name="data"></param>
-        ///// <returns></returns>
-        //public static string Refund(string data)
-        //{
-        //    var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
 
-        //    var formDataBytes = data == null ? new byte[0] : Encoding.UTF8.GetBytes(data);
-        //    MemoryStream ms = new MemoryStream();
-        //    ms.Write(formDataBytes, 0, formDataBytes.Length);
-        //    ms.Seek(0, SeekOrigin.Begin);//设置指针读取位置
-        //    return Senparc.Weixin.HttpUtility.RequestUtility.HttpPost(urlFormat, null, ms);
-        //}
+        private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
+        {
+            if (errors == SslPolicyErrors.None)
+                return true;
+            return false;
+        }
+
+        //退款申请请直接参考Senparc.Weixin.MP.Sample中的退款demo
+        /// <summary>
+        /// 退款申请接口
+        /// </summary>
+        /// <param name="dataInfo"></param>
+        /// <param name="cert">证书绝对路径，如@"F:\apiclient_cert.p12"</param>
+        /// <param name="certPassword">证书密码</param>
+        /// <returns></returns>
+        public static RefundResult Refund(TenPayV3RefundRequestData dataInfo,string cert,string certPassword)
+        {
+            var data = dataInfo.PackageRequestHandler.ParseXML();
+
+            //var urlFormat = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+
+            //退款接口地址
+            string url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
+            //本地或者服务器的证书位置（证书在微信支付申请成功发来的通知邮件中）
+            //string cert = cert;// @"F:\apiclient_cert.p12";
+            //私钥（在安装证书时设置）
+            string password = certPassword;
+            ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
+            //调用证书
+            X509Certificate2 cer = new X509Certificate2(cert, password, X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.MachineKeySet);
+
+            #region 发起post请求
+            HttpWebRequest webrequest = (HttpWebRequest)HttpWebRequest.Create(url);
+            webrequest.ClientCertificates.Add(cer);
+            webrequest.Method = "post";
+
+            byte[] postdatabyte = Encoding.UTF8.GetBytes(data);
+            webrequest.ContentLength = postdatabyte.Length;
+            Stream stream;
+            stream = webrequest.GetRequestStream();
+            stream.Write(postdatabyte, 0, postdatabyte.Length);
+            stream.Close();
+
+            HttpWebResponse httpWebResponse = (HttpWebResponse)webrequest.GetResponse();
+            StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream());
+            string responseContent = streamReader.ReadToEnd();
+            #endregion
+
+            return new RefundResult(responseContent);
+        }
 
         /// <summary>
         /// 退款查询接口

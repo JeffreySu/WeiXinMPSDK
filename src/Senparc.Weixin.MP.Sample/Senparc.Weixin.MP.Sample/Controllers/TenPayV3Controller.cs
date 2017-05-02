@@ -480,7 +480,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var cert = @"D:\cert\apiclient_cert_SenparcRobot.p12";//根据自己的证书位置修改
             var password = TenPayV3Info.MchId;//默认为商户号，建议修改
             var result = TenPayV3.Refund(dataInfo, cert, password);
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return Content(string.Format("退款结果：{0}。您可以刷新当前页面查看最新结果。", result.err_code_des));
+            //return Json(result, JsonRequestBehavior.AllowGet);
 
             RequestHandler packageReqHandler = new RequestHandler(null);
 

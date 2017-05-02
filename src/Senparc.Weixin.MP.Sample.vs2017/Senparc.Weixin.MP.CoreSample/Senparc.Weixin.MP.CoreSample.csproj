@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFrameworks>netcoreapp1.1</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -11,6 +11,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE;DEBUG;NETSTANDARD1_6</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netcoreapp1.1|AnyCPU'">
+    <DefineConstants>TRACE;RELEASE;NETCOREAPP1_1;NETSTANDARD1_6</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

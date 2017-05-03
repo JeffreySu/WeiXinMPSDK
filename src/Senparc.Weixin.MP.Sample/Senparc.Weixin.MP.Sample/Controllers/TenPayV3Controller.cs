@@ -37,6 +37,7 @@ using Senparc.Weixin.MP.Sample.Models;
 using Senparc.Weixin.MP.TenPayLibV3;
 using ZXing;
 using ZXing.Common;
+using Senparc.Weixin.Exceptions;
 
 namespace Senparc.Weixin.MP.Sample.Controllers
 {
@@ -375,44 +376,57 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         /// <returns></returns>
         public ActionResult PayNotifyUrl()
         {
-            ResponseHandler resHandler = new ResponseHandler(null);
-
-            string return_code = resHandler.GetParameter("return_code");
-            string return_msg = resHandler.GetParameter("return_msg");
-
-            string res = null;
-
-            resHandler.SetKey(TenPayV3Info.Key);
-            //验证请求是否从微信发过来（安全）
-            if (resHandler.IsTenpaySign())
+            try
             {
-                res = "success";
+                ResponseHandler resHandler = new ResponseHandler(null);
 
-                //正确的订单处理
-            }
-            else
-            {
-                res = "wrong";
+                string return_code = resHandler.GetParameter("return_code");
+                string return_msg = resHandler.GetParameter("return_msg");
 
-                //错误的订单处理
-            }
+                string res = null;
 
-            var logPath = Server.MapPath(string.Format("~/App_Data/TenPayNotify/{0}/{1}.txt", DateTime.Now.ToString("yyyyMMdd"), DateTime.Now.ToString("yyyyMMdd-HHmmss-") + Guid.NewGuid().ToString("n").Substring(0, 8)));
-            using (var fileStream = System.IO.File.OpenWrite(logPath))
-            {
-                var notifyXml = resHandler.ParseXML();
-                //fileStream.Write(Encoding.Default.GetBytes(res), 0, Encoding.Default.GetByteCount(res));
+                resHandler.SetKey(TenPayV3Info.Key);
+                //验证请求是否从微信发过来（安全）
+                if (resHandler.IsTenpaySign())
+                {
+                    res = "success";
 
-                fileStream.Write(Encoding.Default.GetBytes(notifyXml), 0, Encoding.Default.GetByteCount(notifyXml));
-                fileStream.Close();
-            }
+                    //正确的订单处理
+                }
+                else
+                {
+                    res = "wrong";
 
-            string xml = string.Format(@"<xml>
+                    //错误的订单处理
+                }
+
+                var logDir = Server.MapPath(string.Format("~/App_Data/TenPayNotify/{0}", DateTime.Now.ToString("yyyyMMdd")));
+                if (!Directory.Exists(logDir))
+                {
+                    Directory.CreateDirectory(logDir);
+                }
+                var logPath = Path.Combine(logDir, string.Format("{0}-{1}-{2}.txt", DateTime.Now.ToString("yyyyMMdd"), DateTime.Now.ToString("HHmmss"), Guid.NewGuid().ToString("n").Substring(0, 8)));
+
+                using (var fileStream = System.IO.File.OpenWrite(logPath))
+                {
+                    var notifyXml = resHandler.ParseXML();
+                    //fileStream.Write(Encoding.Default.GetBytes(res), 0, Encoding.Default.GetByteCount(res));
+
+                    fileStream.Write(Encoding.Default.GetBytes(notifyXml), 0, Encoding.Default.GetByteCount(notifyXml));
+                    fileStream.Close();
+                }
+
+                string xml = string.Format(@"<xml>
    <return_code><![CDATA[{0}]]></return_code>
    <return_msg><![CDATA[{1}]]></return_msg>
 </xml>", return_code, return_msg);
-
-            return Content(xml, "text/xml");
+                return Content(xml, "text/xml");
+            }
+            catch (Exception ex)
+            {
+                new WeixinException(ex.Message, ex);
+                throw;
+            }
         }
 
         #endregion
@@ -493,7 +507,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return Content(string.Format("退款结果：{0} {1}。您可以刷新当前页面查看最新结果。", result.result_code, result.err_code_des));
             //return Json(result, JsonRequestBehavior.AllowGet);
 
-            RequestHandler packageReqHandler = new RequestHandler(null);
+            #region 原始方法
+
+            //RequestHandler packageReqHandler = new RequestHandler(null);
 
             //设置package订单参数
             //packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		 //公众账号ID
@@ -539,6 +555,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             //// var res = XDocument.Parse(responseContent);
             ////string openid = res.Element("xml").Element("out_refund_no").Value;
             //return Content("申请成功：<br>" + HttpUtility.RequestUtility.HtmlEncode(responseContent));
+
+            #endregion
+
         }
         #endregion
 

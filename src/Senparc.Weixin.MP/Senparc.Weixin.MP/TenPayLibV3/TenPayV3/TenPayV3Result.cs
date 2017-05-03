@@ -582,7 +582,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         #endregion
 
 
-
         public RefundResult(string resultXml) : base(resultXml)
         {
             if (base.IsReturnCodeSuccess())

@@ -31,6 +31,7 @@ using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 
+
 namespace Senparc.Weixin.MP.Test.AdvancedAPIs
 {
     //已测试通过
@@ -121,6 +122,53 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         }
 
 
+        [TestMethod()]
+        public void GetVoiceTest()
+        {
+            string serverId = "IT41QWoGSnkt5fj01mK2ByhgRACBgvRW6fGP3bt9QAjH8vwqsra9qYJkj8LCXzNS";
+            var file = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ".speex"; //Server.GetMapPath("~/../")
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                MediaApi.Get(base._appId, serverId, ms);
+
+                //保存到文件
+                ms.Position = 0;
+                byte[] buffer = new byte[1024];
+                int bytesRead = 0;
+                //判断是否上传成功
+                byte[] topBuffer = new byte[1];
+                ms.Read(topBuffer, 0, 1);
+                if (topBuffer[0] == '{')
+                {
+                    //写入日志
+                    ms.Position = 0;
+                    byte[] logBuffer = new byte[1024];
+                    ms.Read(logBuffer, 0, logBuffer.Length);
+                    string str = System.Text.Encoding.Default.GetString(logBuffer);
+                    Console.WriteLine(str);
+                    Assert.Fail();
+                }
+                else
+                {
+                    ms.Position = 0;
+
+                    //创建目录
+                    using (FileStream fs = new FileStream(file, FileMode.Create))
+                    {
+                        while ((bytesRead = ms.Read(buffer, 0, buffer.Length)) != 0)
+                        {
+                            fs.Write(buffer, 0, bytesRead);
+                        }
+                        fs.Flush();
+                    }
+                }
+
+            }
+
+        }
+
+
         private string UploadForeverMediaTest()
         {
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
@@ -155,15 +203,15 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             Assert.IsNotNull(result.media_id);
 
             var new1 = new NewsModel()
-                {
-                    author = "test",
-                    content = "test",
-                    content_source_url = "http://qy.weiweihi.com/Content/Images/app/qyhelper.png",
-                    digest = "test",
-                    show_cover_pic = "1",
-                    thumb_media_id = result.media_id,
-                    title = "test"
-                };
+            {
+                author = "test",
+                content = "test",
+                content_source_url = "http://qy.weiweihi.com/Content/Images/app/qyhelper.png",
+                digest = "test",
+                show_cover_pic = "1",
+                thumb_media_id = result.media_id,
+                title = "test"
+            };
 
             var new2 = new NewsModel()
             {
@@ -331,12 +379,14 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
 
             var file = @"E:\Test.mp4";
-            var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试",100000);
+            var result = MediaApi.UploadForeverVideo(accessToken, file, "测试", "测试", 100000);
 
             Assert.IsNotNull(result.media_id);
 
             CustomApi.SendVideo(accessToken, "o3IHxjrPzMVZIJOgYMH1PyoTW_Tg", result.media_id, "测试", "测试");
             MediaApi.DeleteForeverMedia(accessToken, result.media_id);
         }
+
+
     }
 }

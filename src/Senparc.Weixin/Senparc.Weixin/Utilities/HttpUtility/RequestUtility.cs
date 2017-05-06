@@ -34,7 +34,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170122
     修改描述：v4.9.14 为AsUrlData方法添加null判断
-----------------------------------------------------------------*/
+
+
+    修改标识：Senparc - 20170122
+    修改描述：v4.12.2 修复HttpUtility.UrlEncode方法错误
+----------------------------------------------------------*/
 
 
 
@@ -839,7 +843,7 @@ namespace Senparc.Weixin.HttpUtility
 #if NET45
             return System.Web.HttpUtility.HtmlDecode(url);
 #else
-            return WebUtility.HtmlDecode(url);
+            return WebUtility.UrlEncode(url);
 #endif
         }
         /// <summary>

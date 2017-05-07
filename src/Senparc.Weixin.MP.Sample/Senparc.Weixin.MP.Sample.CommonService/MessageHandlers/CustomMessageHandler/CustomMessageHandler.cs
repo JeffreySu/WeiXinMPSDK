@@ -429,8 +429,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
         {
             var responseMessage = CreateResponseMessage<ResponseMessageMusic>();
             //上传缩略图
-            var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
-            var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
+            //var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
+            var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
                                                          Server.GetMapPath("~/Images/Logo.jpg"));
 
             //设置音乐信息
@@ -439,6 +439,16 @@ namespace Senparc.Weixin.MP.Sample.CommonService.CustomMessageHandler
             responseMessage.Music.MusicUrl = "http://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
             responseMessage.Music.HQMusicUrl = "http://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
             responseMessage.Music.ThumbMediaId = uploadResult.media_id;
+
+            //推送一条客服消息
+            try
+            {
+                CustomApi.SendText(appId, WeixinOpenId, "本次上传的音频MediaId：" + requestMessage.MediaId);
+
+            }
+            catch {
+            }
+
             return responseMessage;
         }
         /// <summary>

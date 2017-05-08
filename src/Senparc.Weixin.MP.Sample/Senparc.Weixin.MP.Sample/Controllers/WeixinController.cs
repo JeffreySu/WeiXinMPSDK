@@ -89,7 +89,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     Directory.CreateDirectory(logPath);
                 }
 
-
                 //测试时可开启此记录，帮助跟踪数据，使用前请确保App_Data文件夹存在，且有读写权限。
                 messageHandler.RequestDocument.Save(Path.Combine(logPath, string.Format("{0}_Request_{1}.txt", _getRandomFileName(), messageHandler.RequestMessage.FromUserName)));
                 if (messageHandler.UsingEcryptMessage)

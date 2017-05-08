@@ -269,6 +269,9 @@
       v14.3.142 RequestUtility中的所有请求证书由X509Certificate类型改为X509Certificate2
       SendResult文件添加了msg_data_id字段，此字段用于统计分析
       v14.3.143 修复上一版本造成的菜单获取错误问题
+      
+      v14.4.5 完善微信支付退款申请接口
+      v14.4.6 修复企业付款接口无法指定证书的问题（TenpayV3.Transfers）
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Version>4.12.2</Version>
+    <Version>4.12.3</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -143,7 +143,8 @@
 
       v4.12.0 优化最新 .NET Core 模块
       v4.12.1 修复因为netstandard1.6条件编译符不正确造成的部分代码短路
-      v4.12.2 修复HttpUtility.UrlEncode方法错误
+      v4.12.2 修复HttpUtility.UrlEncode .net core方法错误
+      v4.12.3 修复HttpUtility.UrlEncode .net 4.5方法错误
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

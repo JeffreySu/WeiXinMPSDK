@@ -841,7 +841,7 @@ namespace Senparc.Weixin.HttpUtility
         public static string UrlEncode(this string url)
         {
 #if NET45
-            return System.Web.HttpUtility.HtmlDecode(url);
+            return System.Web.HttpUtility.UrlEncode(url);
 #else
             return WebUtility.UrlEncode(url);
 #endif

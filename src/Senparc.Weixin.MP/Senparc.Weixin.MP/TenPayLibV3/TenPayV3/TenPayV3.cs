@@ -69,6 +69,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170215
     修改描述：v14.3.126 增加 DownloadBill和DownloadBillAsync方法重载
     
+    修改标识：Senparc - 20170508
+    修改描述：v14.4.6 1、修复企业付款接口无法指定证书的问题（TenpayV3.Transfers）
+                      2、添加CertPost()及配套异步方法
+    
 ----------------------------------------------------------------*/
 
 /*

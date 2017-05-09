@@ -143,10 +143,10 @@ namespace Senparc.Weixin.MP.MvcExtension
                     filterContext.Result = new RedirectResult(url);
                 }
 
-                if (filterContext.Result == null)
-                {
-                    filterContext.Result = new HttpUnauthorizedResult();
-                }
+                //if (filterContext.Result == null)
+                //{
+                //    filterContext.Result = new HttpUnauthorizedResult();
+                //}
             }
         }
 

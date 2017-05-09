@@ -112,7 +112,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             //也可以使用Session等其他方法记录登录信息
-            FormsAuthentication.SetAuthCookie(openIdResult.openid,false);
+            //FormsAuthentication.SetAuthCookie(openIdResult.openid,false);
+            Session["OpenId"] = openIdResult.openid;
 
             return Redirect(returnUrl);
         }

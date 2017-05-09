@@ -20,8 +20,10 @@ namespace Senparc.Weixin.MP.Sample.Filters
 
         public override bool IsLogined(HttpContextBase httpContext)
         {
+            return httpContext != null && httpContext.Session["OpenId"] != null;
+
             //也可以使用其他方法如Session验证用户登录
-            return httpContext != null && httpContext.User.Identity.IsAuthenticated;
+            //return httpContext != null && httpContext.User.Identity.IsAuthenticated;
         }
     }
 }

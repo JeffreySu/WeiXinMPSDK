@@ -132,7 +132,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     return Content("商品信息不存在，或非法进入！1002");
                 }
 
-                var openId = User.Identity.Name;
+                //var openId = User.Identity.Name;
+                var openId = (string)Session["OpenId"];
 
                 string sp_billno = Request["order_no"];
                 if (string.IsNullOrEmpty(sp_billno))

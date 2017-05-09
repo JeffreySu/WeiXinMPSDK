@@ -32,16 +32,18 @@ namespace Senparc.Weixin.MP.MvcExtension
     {
         protected string _appId { get; set; }
         protected string _oauthCallbackUrl { get; set; }
+        protected OAuthScope _oauthScope { get; set; }
 
         /// <summary>
         /// AppId
         /// </summary>
         /// <param name="appId"></param>
         /// <param name="oauthCallbackUrl">网站内路径（如：/TenpayV3/OAuthCallback），以/开头！当前页面地址会加在Url中的returlUrl=xx参数中</param>
-        public SenparcOAuthAttribute(string appId, string oauthCallbackUrl)
+        public SenparcOAuthAttribute(string appId, string oauthCallbackUrl, OAuthScope oauthScope= OAuthScope.snsapi_userinfo)
         {
             _appId = appId;
             _oauthCallbackUrl = oauthCallbackUrl;
+            _oauthScope = oauthScope;
         }
 
         /// <summary>
@@ -139,7 +141,7 @@ namespace Senparc.Weixin.MP.MvcExtension
                         );
 
                     var state = string.Format("{0}|{1}", "FromSenparc", DateTime.Now.Ticks);
-                    var url = OAuthApi.GetAuthorizeUrl(_appId, callbackUrl, state, OAuthScope.snsapi_userinfo);
+                    var url = OAuthApi.GetAuthorizeUrl(_appId, callbackUrl, state, _oauthScope);
                     filterContext.Result = new RedirectResult(url);
                 }
 

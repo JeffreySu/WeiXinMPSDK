@@ -893,7 +893,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     device_identifiers = deviceIdentifiers.Select(item =>
                     {
                         object itemData = null;
-                        if (item.device_id.HasValue)
+                        if (!item.device_id.HasValue)
                         {
                             /* UUID、major、minor，三个信息需填写完成，
                              * 若填了设备编号，即可不填此信息，二者选其一
@@ -1898,7 +1898,7 @@ int timeOut = Config.TIME_OUT)
                    device_identifiers = deviceIdentifiers.Select(item =>
                    {
                        object itemData = null;
-                       if (item.device_id.HasValue)
+                       if (!item.device_id.HasValue)
                        {
                            /* UUID、major、minor，三个信息需填写完成，
                             * 若填了设备编号，即可不填此信息，二者选其一

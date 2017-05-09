@@ -112,12 +112,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             }
 
             //也可以使用Session等其他方法记录登录信息
-            FormsAuthentication.SetAuthCookie(openIdResult.openid, true);
+            FormsAuthentication.SetAuthCookie(openIdResult.openid,false);
 
             return Redirect(returnUrl);
         }
 
-        [CustomOAuth(null, "TenpayV3/OAuthCallback")]
+        [CustomOAuth(null, "/TenpayV3/OAuthCallback")]
         public ActionResult JsApi(int productId, int hc)
         {
             try
@@ -734,7 +734,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             if (BrowserUtility.BrowserUtility.SideInWeixinBrowser(HttpContext))
             {
                 //正在微信端，直接跳转到微信支付页面
-                return RedirectToAction("Index", new { productId = productId, hc = hc });
+                return RedirectToAction("JsApi", new { productId = productId, hc = hc });
             }
             else
             {

@@ -7,25 +7,15 @@ using System.Web;
 
 namespace Senparc.Weixin.MP.Sample.Filters
 {
+    /// <summary>
+    /// OAuth自动验证，可以加在Action或整个Controller上
+    /// </summary>
     public class CustomOAuthAttribute : SenparcOAuthAttribute
     {
-        static TenPayV3Info _tenPayV3Info = null;
-        public static TenPayV3Info TenPayV3Info
+        public CustomOAuthAttribute(string appId, string oauthCallbackUrl)
+            : base(appId, oauthCallbackUrl)
         {
-            get
-            {
-                if (_tenPayV3Info == null)
-                {
-                    _tenPayV3Info =
-                        TenPayV3InfoCollection.Data[System.Configuration.ConfigurationManager.AppSettings["TenPayV3_MchId"]];
-                }
-                return _tenPayV3Info;
-            }
-        }
-
-        public CustomOAuthAttribute(string appId, string oauthCallbackUrl) : base(appId, oauthCallbackUrl)
-        {
-            base._appId = base._appId ?? _tenPayV3Info.AppId;
+            base._appId = base._appId ?? System.Configuration.ConfigurationManager.AppSettings["TenPayV3_AppId"];
         }
 
         public override bool IsLogined(HttpContextBase httpContext)

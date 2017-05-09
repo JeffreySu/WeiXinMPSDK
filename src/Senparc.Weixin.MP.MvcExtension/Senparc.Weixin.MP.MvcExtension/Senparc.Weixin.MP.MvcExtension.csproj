@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net45</TargetFrameworks>
-    <Version>4.4.0</Version>
+    <Version>4.5.0</Version>
     <AssemblyName>Senparc.Weixin.MP.MvcExtension</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP.MvcExtension</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -55,6 +55,8 @@
       修改 .net core mvc 的ExecuteResult(ActionContext context)方法
 
       v4.4.0  支持 .NET Core
+      
+      v4.5.0 添加SenparcOAuthAttribute，自动进行OAuth授权
 
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
@@ -133,11 +135,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj" />
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Properties\" />
-    <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>

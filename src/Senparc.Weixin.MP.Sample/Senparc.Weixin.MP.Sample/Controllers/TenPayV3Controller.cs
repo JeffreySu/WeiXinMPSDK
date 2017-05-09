@@ -118,6 +118,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return Redirect(returnUrl);
         }
 
+        //需要OAuth登录
         [CustomOAuth(null, "/TenpayV3/OAuthCallback")]
         public ActionResult JsApi(int productId, int hc)
         {
@@ -130,9 +131,9 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 {
                     return Content("商品信息不存在，或非法进入！1002");
                 }
-                ViewData["product"] = product;
 
-                var openId = User.Identity.Name;
+                //var openId = User.Identity.Name;
+                var openId = (string)Session["OpenId"];
 
                 string sp_billno = Request["order_no"];
                 if (string.IsNullOrEmpty(sp_billno))
@@ -141,10 +142,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     sp_billno = string.Format("{0}{1}{2}", TenPayV3Info.MchId/*10位*/, DateTime.Now.ToString("yyyyMMddHHmmss"),
                         TenPayV3Util.BuildRandomStr(6));
                 }
-                //else
-                //{
-                //    sp_billno = Request["order_no"];
-                //}
+                else
+                {
+                    sp_billno = Request["order_no"];
+                }
 
                 var timeStamp = TenPayV3Util.GetTimestamp();
                 var nonceStr = TenPayV3Util.GetNoncestr();
@@ -156,6 +157,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
                 //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
                 var package = string.Format("prepay_id={0}", result.prepay_id);
+
+                ViewData["product"] = product;
 
                 ViewData["appId"] = TenPayV3Info.AppId;
                 ViewData["timeStamp"] = timeStamp;
@@ -758,7 +761,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("商品信息不存在，或非法进入！2004");
             }
 
-            var url = string.Format("http://sdk.weixin.senparc.com/TenPayV3?productId={0}&hc={1}&t={2}", productId,
+            var url = string.Format("http://sdk.weixin.senparc.com/TenPayV3/JsApi?productId={0}&hc={1}&t={2}", productId,
                 product.GetHashCode(), DateTime.Now.Ticks);
 
             BitMatrix bitMatrix;

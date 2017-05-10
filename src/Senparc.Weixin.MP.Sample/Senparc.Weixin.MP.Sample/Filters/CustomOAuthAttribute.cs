@@ -1,9 +1,5 @@
-﻿using Senparc.Weixin.MP.MvcExtension;
-using Senparc.Weixin.MP.TenPayLibV3;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Web;
+using Senparc.Weixin.MP.MvcExtension;
 
 namespace Senparc.Weixin.MP.Sample.Filters
 {

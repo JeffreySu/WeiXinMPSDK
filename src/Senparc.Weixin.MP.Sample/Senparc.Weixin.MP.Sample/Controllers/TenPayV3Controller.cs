@@ -100,7 +100,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             if (!state.Contains("|"))
             {
                 //这里的state其实是会暴露给客户端的，验证能力很弱，这里只是演示一下
-                //实际上可以存任何想传递的数据，比如用户ID，并且需要结合例如下面的Session["OAuthAccessToken"]进行验证
+                //实际上可以存任何想传递的数据，比如用户ID
                 return Content("验证失败！请从正规途径进入！1001");
             }
 
@@ -111,9 +111,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 return Content("错误：" + openIdResult.errmsg);
             }
 
-            //也可以使用Session等其他方法记录登录信息
+            Session["OpenId"] = openIdResult.openid;//进行登录
+
+            //也可以使用FormsAuthentication等其他方法记录登录信息，如：
             //FormsAuthentication.SetAuthCookie(openIdResult.openid,false);
-            Session["OpenId"] = openIdResult.openid;
 
             return Redirect(returnUrl);
         }
@@ -155,7 +156,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var xmlDataInfo = new TenPayV3UnifiedorderRequestData(TenPayV3Info.AppId, TenPayV3Info.MchId, body, sp_billno, price, Request.UserHostAddress, TenPayV3Info.TenPayV3Notify, TenPayV3Type.JSAPI, openId, TenPayV3Info.Key, nonceStr);
 
                 var result = TenPayV3.Unifiedorder(xmlDataInfo);//调用统一订单接口
-                //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
+                                                                //JsSdkUiPackage jsPackage = new JsSdkUiPackage(TenPayV3Info.AppId, timeStamp, nonceStr,);
                 var package = string.Format("prepay_id={0}", result.prepay_id);
 
                 ViewData["product"] = product;

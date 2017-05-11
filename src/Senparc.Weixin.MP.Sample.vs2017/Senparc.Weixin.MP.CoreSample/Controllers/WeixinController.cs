@@ -108,7 +108,11 @@ namespace Senparc.Weixin.MP.CoreSample.Controllers
 #if NET45
             var messageHandler = new CustomMessageHandler(Request.InputStream, postModel, maxRecordCount);
 #else
-            var messageHandler = new CustomMessageHandler(Request.Body, postModel, maxRecordCount);
+
+            var inputStream = new MemoryStream();
+            Request.Body.CopyTo(inputStream);
+
+            var messageHandler = new CustomMessageHandler(inputStream, postModel, maxRecordCount);
 #endif
 
             try

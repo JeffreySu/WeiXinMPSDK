@@ -399,6 +399,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     res = "success";
 
                     //正确的订单处理
+                    //直到这里，才能认为交易真正成功了，可以进行数据库操作，但是别忘了返回规定格式的消息！
                 }
                 else
                 {
@@ -406,6 +407,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
                     //错误的订单处理
                 }
+
+                #region 记录日志
 
                 var logDir = Server.MapPath(string.Format("~/App_Data/TenPayNotify/{0}", DateTime.Now.ToString("yyyyMMdd")));
                 if (!Directory.Exists(logDir))
@@ -423,9 +426,11 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                     fileStream.Close();
                 }
 
+                #endregion
+
                 string xml = string.Format(@"<xml>
-   <return_code><![CDATA[{0}]]></return_code>
-   <return_msg><![CDATA[{1}]]></return_msg>
+<return_code><![CDATA[{0}]]></return_code>
+<return_msg><![CDATA[{1}]]></return_msg>
 </xml>", return_code, return_msg);
                 return Content(xml, "text/xml");
             }

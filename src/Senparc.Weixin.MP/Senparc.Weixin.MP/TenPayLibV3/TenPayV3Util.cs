@@ -51,6 +51,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// </summary>
     public class TenPayV3Util
     {
+        public static Random random = new Random();
 
         /// <summary>
         /// Ëæ»úÉú³ÉNoncestr
@@ -151,7 +152,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         {
             int num;
 
-            Random random = new Random();
+            lock (random)
             {
                 num = random.Next();
             }

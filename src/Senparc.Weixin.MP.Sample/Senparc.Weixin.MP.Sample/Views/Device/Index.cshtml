@@ -54,15 +54,61 @@
             ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2。详见：http://mp.weixin.qq.com/wiki/7/aaa137b55fb2e0456bf8dd9148dd613f.html
         });
 
+        var connectedDeviceInfo;
 
         wx.ready(function () {
+
+            wx.invoke('openWXDeviceLib', { 'connType': 'blue' }, function (res) {
+                console.log('openWXDeviceLib', res);
+                alert(res.err_msg);
+
+
+
+                wx.invoke('getWXDeviceInfos', { 'connType': 'blue' }, function (res) {
+                    console.log('getWXDeviceInfos', res);
+                });
+
+            });
+
+
+            $('.deviceItem').click(function (deviceId) {
+
+                wx.invoke('connectWXDevice', { 'deviceId': deviceId, 'connType': 'blue' }, function (res) {
+                    console.log('connectWXDevice', res);
+                });
+            });
+
+            $('#open').click(function () {
+
+               
+            })
         });
 
+        function sendCommand(state)
+        {
+            var data;
+            switch (state) {
+                case 'open':
+                    data = 'xxx1';
+                    break;
+                case 'close':
+                    data = 'xxx2';
+                    break;
+                default:
+            }
+            alert(data);
+            wx.invoke('sendDataToWXDevice', { 'deviceId': connectedDeviceInfo.deviceId, 'connType': 'blue', 'base64Data': data }, function (res) {
+                console.log('sendDataToWXDevice', res);
+                alert(res);
+            });
+        }
     </script>
 </head>
 <body>
+    <div>list</div>
     <div>
-    
+      <button id="open" onclick="sendCommand('open')">开</button>
+      <button id="close" onclick="sendCommand('close')">关</button>
     </div>
 </body>
 </html>

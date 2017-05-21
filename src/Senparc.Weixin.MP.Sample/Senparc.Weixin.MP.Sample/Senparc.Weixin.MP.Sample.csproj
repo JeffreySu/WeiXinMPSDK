@@ -160,6 +160,7 @@
     <Compile Include="Controllers\AsyncMethodsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
+    <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -275,6 +276,7 @@
     <Content Include="Scripts\senparc.menu.js" />
     <Content Include="Scripts\tongji.sdk.js" />
     <Content Include="Scripts\tongji.js" />
+    <Content Include="Views\Device\Index.cshtml" />
     <None Include="Views\TenPayV3\BankCode.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

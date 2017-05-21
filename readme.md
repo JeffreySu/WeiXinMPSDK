@@ -1,5 +1,8 @@
+微信C# SDK  [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
+=================
+
 # 目录
-* [微信C# SDK](#微信c-sdk--)
+* [各模块类库](#各模块类库)
 * [资源](#资源)
 * [贡献代码](#贡献代码)
 * [如何使用.net core开发](#如何使用net-core开发)
@@ -26,7 +29,9 @@
 * [.NET Core + .NET 4.6.1 + .NET 4.5](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer-FullDotNet)
 * [.NET 4.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/NET4.0) 
 
-微信C# SDK  [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
+
+
+各模块类库
 =================
 
 | # | 模块功能                                            | DLL                               | Nuget                                             | .NET 4.0 			   | .NET 4.5		       | .NET Core

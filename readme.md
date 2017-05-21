@@ -1,7 +1,12 @@
-Senparc.Weixin：微信C# SDK [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
+Senparc.Weixin —— 微信 .NET SDK [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
 =================
 
-# 目录
+Senparc.Weixin SDK 是目前最受欢迎的微信 .NET SDK，也是国内最受欢迎的 .NET 开源项目之一。
+
+目前 Senparc.Weixin 已经支持几乎所有微信平台模块和接口，同时支持 .NET 4.0 / 4.5 / .NET Core。
+
+目录
+----------------
 * [各模块类库](#各模块类库)
 * [资源](#资源)
 * [贡献代码](#贡献代码)
@@ -32,7 +37,7 @@ Senparc.Weixin：微信C# SDK [![Build Status](https://travis-ci.org/JeffreySu/W
 
 
 各模块类库
-=================
+----------------
 
 | # | 模块功能                                            | DLL                               | Nuget                                             | .NET 4.0 			   | .NET 4.5		       | .NET Core
 |---|----------------------------------------------------|-----------------------------------|----------------------------------------------------|----------------------|-----------------------|------------------------

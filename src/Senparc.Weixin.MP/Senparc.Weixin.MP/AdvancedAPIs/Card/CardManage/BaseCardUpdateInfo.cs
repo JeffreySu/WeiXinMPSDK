@@ -182,13 +182,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public string center_url { get; set; }
+        /// <summary>
+        /// 指定会员卡支持动态码
+        /// </summary>
+        //[JsonSetting.IgnoreValueAttribute(false)]
+        //public bool use_dynamic_code { get; set; }
     }
     /// <summary>
     /// 使用日期，有效期的信息
     /// </summary>
     public class Card_UpdateDateInfo
     {
-        public string type { get { return "DATE_TYPE_FIX_TIME_RANGE"; } }
+        public string type { get; set; }
         /// <summary>
         /// 固定日期区间专用，表示起用时间。从1970 年1 月1 日00:00:00 至起用时间的秒数，最终需转换为字符串形态传入，下同。（单位为秒）
         /// 非必填

@@ -49,7 +49,7 @@ using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-using Senparc.Weixin.MP.Helpers;
+using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -194,7 +194,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             //string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
 
             //编码强制使用UTF8：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_1
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), "UTF8").ToUpper();
+            string sign = EncryptHelper.GetMD5(sb.ToString(), "UTF-8").ToUpper();
 
             return sign;
         }

@@ -46,6 +46,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     public class Card_MemberCardUpdateData : BaseUpdateInfo
     {
         /// <summary>
+        /// 是否支持积分。要求设置为true后不能设置为false。
+        /// </summary>
+        public bool supply_bonus { get; set;}
+        /// <summary>
         /// 积分清零规则
         /// 非必填
         /// </summary>
@@ -91,8 +95,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 初始设置积分 int型数据
         /// 非必填,null时显示查看
         /// </summary>
-        [JsonSetting.IgnoreValueAttribute(0)]
-        public int init_increase_bonus { get; set; }
+        //[JsonSetting.IgnoreValueAttribute("0")]
+        //public string init_increase_bonus { get; set; }
 
         /// <summary>
         /// 设置跳转外链查看余额详情。仅适用于余额无法通过激活接口同步的情况下使用该字段。

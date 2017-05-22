@@ -31,9 +31,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-
-
-
 using System.Collections.Generic;
 
 namespace Senparc.Weixin.Context

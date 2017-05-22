@@ -45,6 +45,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// </summary>
     public class Card_MemberCardUpdateData : BaseUpdateInfo
     {
+        /// <summary>
+        /// 是否支持积分。要求设置为true后不能设置为false。
+        /// </summary>
         public bool supply_bonus { get; set;}
         /// <summary>
         /// 积分清零规则

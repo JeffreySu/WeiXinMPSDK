@@ -215,6 +215,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     /// </summary>
     public class Card_UpdateDateInfo
     {
+        /// <summary>
+        /// 更新时Type不能被修改，需要设置为原来的类型。
+        /// </summary>
         public string type { get; set; }
         /// <summary>
         /// 固定日期区间专用，表示起用时间。从1970 年1 月1 日00:00:00 至起用时间的秒数，最终需转换为字符串形态传入，下同。（单位为秒）

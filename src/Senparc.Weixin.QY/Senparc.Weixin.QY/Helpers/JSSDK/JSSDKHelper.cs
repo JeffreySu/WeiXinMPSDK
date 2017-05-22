@@ -12,6 +12,9 @@
 
     修改标识：Senparc - 20170516
     修改描述：v4.2.4 修改JSSDKHelper.GetNoncestr()方法
+    
+    修改标识：Senparc - 20170522
+    修改描述：v14.4.9 修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
 
 
 ----------------------------------------------------------------*/
@@ -31,7 +34,7 @@ namespace Senparc.Weixin.QY.Helpers
         /// <returns></returns>
         public static string GetNoncestr()
         {
-            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "GBK");
+            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "UTF8");
         }
 
         /// <summary>

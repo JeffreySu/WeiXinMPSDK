@@ -32,12 +32,18 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20161014
     修改描述：修改TenPayUtil.BuildRandomStr()方法
+
+    修改标识：Senparc - 20170516
+    修改描述：v14.4.8 1、完善TenPayLibV3.GetNoncestr()方法
+                      2、优化BuildRandomStr()方法
+             
+
 ----------------------------------------------------------------*/
 
 using System;
 using System.Text;
-using Senparc.Weixin.MP.Helpers;
 using System.Net;
+using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -46,14 +52,15 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     /// </summary>
     public class TenPayV3Util
     {
+        public static Random random = new Random();
+
         /// <summary>
         /// 随机生成Noncestr
         /// </summary>
         /// <returns></returns>
         public static string GetNoncestr()
         {
-            Random random = new Random();
-            return MD5UtilHelper.GetMD5(random.Next(1000).ToString(), "GBK");
+            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "UTF8");
         }
 
         /// <summary>
@@ -159,9 +166,12 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <returns></returns>
         public static string BuildRandomStr(int length)
         {
-            Random rand = new Random();
+            int num;
 
-            int num = rand.Next();
+            lock (random)
+            {
+                num = random.Next();
+            }
 
             string str = num.ToString();
 

@@ -477,6 +477,7 @@ namespace Senparc.Weixin.Open.Containers
         }
 
         #endregion
+     
         #endregion
 
         #region 异步方法

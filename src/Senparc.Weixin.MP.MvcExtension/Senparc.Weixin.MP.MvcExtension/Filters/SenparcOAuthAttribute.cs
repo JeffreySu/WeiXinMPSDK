@@ -6,10 +6,6 @@
 
 
     创建标识：Senparc - 20170509
-
-        
-    修改标识：Senparc - 20170304
-    修改描述：v4.2.0 修复浏览器状态判断问题
     
     修改标识：Senparc - 20170509
     修改描述：v4.5.0 添加SenparcOAuthAttribute，自动进行OAuth授权
@@ -17,13 +13,9 @@
 ----------------------------------------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Web.Mvc;
 using System.Diagnostics.CodeAnalysis;
 using System.Web;
-using System.Security.Principal;
 using Senparc.Weixin.MP.AdvancedAPIs;
 
 namespace Senparc.Weixin.MP.MvcExtension
@@ -79,28 +71,10 @@ namespace Senparc.Weixin.MP.MvcExtension
 
         public virtual void OnAuthorization(AuthorizationContext filterContext)
         {
-            ////需要特殊验证的Action
-            //if (this.ForAuthorityActionsPrefix != null)
-            //{
-            //    string actionName = filterContext.RequestContext.RouteData.GetRequiredString("action").ToUpper();
-            //    if (this.ForAuthorityActionsPrefix.FirstOrDefault(p => actionName.StartsWith(p.ToUpper())) == null)
-            //    {
-            //        return;//此Action不需要特殊验证，返回。
-            //    }
-            //}
-
             if (filterContext == null)
             {
                 throw new ArgumentNullException("filterContext");
             }
-
-            //判断不能用IP直接登录
-            //var url = filterContext.HttpContext.Request.Url.Host;
-            //if (Regex.IsMatch(url, @"\d+\.\d+\.\d+\.\d+"))
-            //{
-            //    //禁止IP直接访问
-            //    //filterContext.Result = new ContentResult() { Content = "Hey! What's wrong?" };
-            //}
 
             if (AuthorizeCore(filterContext.HttpContext))
             {
@@ -124,13 +98,6 @@ namespace Senparc.Weixin.MP.MvcExtension
                 }
                 else
                 {
-                    //if (filterContext.Controller.ControllerContext.HttpContext.Request.IsAjaxRequest())
-                    //{
-                    //    var jsonResult = new JsonResult();
-                    //    jsonResult.Data = new { Success = false, Result = new { Message = "您尚未登录，请登录后再试！" } };
-                    //    filterContext.Result = jsonResult;
-                    //}
-
                     var returnUrl = filterContext.HttpContext.Request.Url.ToString();
                     var urlData = filterContext.HttpContext.Request.Url;
                     //授权回调字符串
@@ -147,11 +114,6 @@ namespace Senparc.Weixin.MP.MvcExtension
                     var url = OAuthApi.GetAuthorizeUrl(_appId, callbackUrl, state, _oauthScope);
                     filterContext.Result = new RedirectResult(url);
                 }
-
-                //if (filterContext.Result == null)
-                //{
-                //    filterContext.Result = new HttpUnauthorizedResult();
-                //}
             }
         }
 

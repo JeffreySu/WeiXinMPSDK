@@ -17,11 +17,13 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -292,6 +294,7 @@
     <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\JsonResult\Menu\CreateMenuConditionalResult.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleMiniProgramButton.cs" />
     <Compile Include="Entities\Menu\Conditional\ConditionalButtonGroup.cs" />
     <Compile Include="Entities\Menu\Conditional\MenuMatchRule.cs" />
     <Compile Include="Entities\Menu\ButtonGroupBase.cs" />
@@ -350,6 +353,7 @@
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3GetTransferInfoRequestData.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3DownloadBillRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3RefundRequestData.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3TransfersRequestData.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3RefundQueryRequestData.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3MicroPayRequestData.cs" />

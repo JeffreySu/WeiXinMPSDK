@@ -214,6 +214,7 @@
     /*margin-left: 40px;*/
 }
 
+
 img.official-img {
     /*margin: 30px 0 0 0;*/
     clear: both;
@@ -236,6 +237,16 @@ img.official-img {
     text-align: center;
     padding-bottom: 40px;
     /*width: 680px;*/
+    float: left;
+}
+
+
+.weixin-item-left {
+    float: left;
+}
+
+.readmore {
+    margin-top:40px;
     float: left;
 }
 
@@ -641,15 +652,17 @@ img.official-img {
     }
 
     .weixin-bottom {
-        width: 680px;
+        /*width: 680px;*/
     }
 
     .content-weixin {
-        float: left;
+       width:600px;
+       margin:0px auto;
+        clear:both;
     }
 
     img.official-img {
-        margin: 30px 0 0 0;
+        margin: 5px 0 0 0;
     }
 
     .tbVersion {
@@ -716,7 +729,7 @@ img.official-img {
     }
 
     .weixin-bottom {
-        width: 94%;
+        /*width: 94%;*/
         margin: 0 3%;
         padding-bottom: 20px;
     }
@@ -724,6 +737,8 @@ img.official-img {
     .content-weixin {
         float: none;
     }
+
+
 
     .weixin-item-bs { /*其他屏幕可能不需要*/
         float: left;

@@ -247,6 +247,8 @@
                                         <input type="hidden" class="control-input" name="@(namePrefix).key" id="@(idPrefix)_key" />
                                         <input type="hidden" class="control-input" name="@(namePrefix).type" id="@(idPrefix)_type" value="click" />
                                         <input type="hidden" class="control-input" name="@(namePrefix).url" id="@(idPrefix)_url" />
+                                        <input type="hidden" class="control-input" name="@(namePrefix).appid" id="@(idPrefix)_appid" />
+                                        <input type="hidden" class="control-input" name="@(namePrefix).pagepath" id="@(idPrefix)_pagepath" />
                                         <input type="text" class="control-input txtButton" name="@(namePrefix).name" id="@(idPrefix)_name" data-i="@i" data-j="@j" @Html.Raw(isRootMenu ? string.Format(@"data-root=""{0}""", j) : "") />
                                     </td>
                                 }
@@ -263,6 +265,7 @@
                     <select id="buttonDetails_type" class="dllButtonDetails">
                         <option value="click" selected="selected">点击事件（传回服务器）</option>
                         <option value="view">访问网页（直接跳转）</option>
+                        <option value="miniprogram">小程序（直接跳转）</option>
                         <option value="location_select">弹出地理位置选择器</option>
                         <option value="pic_photo_or_album">弹出拍照或者相册发图</option>
                         <option value="pic_sysphoto">弹出系统拍照发图</option>
@@ -277,8 +280,14 @@
                 <p id="buttonDetails_url_area">
                     Url：<input id="buttonDetails_url" class="control-input txtButtonDetails" type="text" />
                 </p>
-                <p>
-                    如果还有下级菜单请忽略Type和Key、Url。<br />
+                <p id="buttonDetails_miniprogram_appid_area">
+                    小程序AppId：<input id="buttonDetails_url" class="control-input txtButtonDetails" type="text" />
+                </p>
+                <p id="buttonDetails_miniprogram_pagepath_area">
+                    小程序PagePath：<input id="buttonDetails_url" class="control-input txtButtonDetails" type="text" />
+                </p>
+                <p id="rootButtonNotice">
+                    如果还有下级菜单请忽略上述Type和Key、Url等参数。<br />
                 </p>
             </div>
 

@@ -1,4 +1,24 @@
-﻿/*----------------------------------------------------------------
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
     文件名：JSSDKHelper.cs
@@ -15,6 +35,13 @@
 
     修改标识：Senparc - 20170203
     修改描述：优化代码，更新到最新的Helpers方法调用
+
+    修改标识：Senparc - 20170203
+    修改描述：MP v14.3.137 修改 JSSDKHelper.GetAddrSign 传入参数，应该传入OAuth的AccessToken
+
+    修改标识：Senparc - 20170327
+    修改描述：MP v14.3.138 修改 JSSDKHelper.GetAddrSign() 方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -26,6 +53,9 @@ using Senparc.Weixin.MP.Containers;
 
 namespace Senparc.Weixin.MP.Helpers
 {
+    /// <summary>
+    /// JS-SDK 帮助类
+    /// </summary>
     public class JSSDKHelper
     {
         /// <summary>
@@ -139,20 +169,21 @@ namespace Senparc.Weixin.MP.Helpers
         /// 获取位置签名AddrSign
         /// </summary>
         /// <param name="appId"></param>
-        /// <param name="appSecret"></param>
+        /// <param name="oauthAccessToken">必须是OAuth的AccessToken</param>
         /// <param name="noncestr"></param>
         /// <param name="timestamp"></param>
         /// <param name="url"></param>
         /// <returns></returns>
-        public static string GetAddrSign(string appId, string appSecret, string noncestr, string timestamp, string url)
+        public static string GetAddrSign(string appId, string oauthAccessToken, string noncestr, string timestamp, string url)
         {
-            var accessToken = AccessTokenContainer.TryGetAccessToken(appId, appSecret);
+            //TODO:此处的accessToken应该为OAuth的AccessToken
+            //var accessToken = AccessTokenContainer.TryGetAccessToken(appId, appSecret);
             var parameters = new Hashtable();
-            parameters.Add("appId", appId);
+            parameters.Add("appid", appId);
             parameters.Add("noncestr", noncestr);
             parameters.Add("timestamp", timestamp);
             parameters.Add("url", url);
-            parameters.Add("accesstoken", accessToken);
+            parameters.Add("accesstoken", oauthAccessToken);
             return CreateSha1(parameters);
         }
 

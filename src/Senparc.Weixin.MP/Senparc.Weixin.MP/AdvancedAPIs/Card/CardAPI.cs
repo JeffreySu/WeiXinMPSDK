@@ -937,7 +937,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                 }
 
-                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut);
+                JsonSetting jsonSetting = new JsonSetting()
+                {
+                    TypesToIgnore = new List<Type>() { typeof(BaseUpdateInfo), typeof(BaseCardUpdateInfo) }
+                };
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut,jsonSetting:jsonSetting);
 
             }, accessTokenOrAppId);
         }
@@ -1027,7 +1031,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     TypesToIgnore = new List<Type>() { typeof(ActivateUserFormSetData), typeof(BaseForm) }
                 };
-                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut,jsonSetting:jsonSetting);
 
             }, accessTokenOrAppId);
         }
@@ -1211,7 +1215,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     TypesToIgnore = new List<Type>() { data.GetType() }
                 };
 
-                return CommonJsonSend.Send<UpdateUserResult>(null, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<UpdateUserResult>(null, urlFormat, data, timeOut: timeOut,jsonSetting:jsonSetting);
 
             }, accessTokenOrAppId);
         }
@@ -2554,7 +2558,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                 }
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut);
+                JsonSetting jsonSetting = new JsonSetting()
+                {
+                    TypesToIgnore = new List<Type>() { typeof(BaseUpdateInfo), typeof(BaseCardUpdateInfo) }
+                };
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut,jsonSetting:jsonSetting);
 
             }, accessTokenOrAppId);
         }

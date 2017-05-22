@@ -113,6 +113,7 @@
       </SubType>
     </Compile>
     <Compile Include="Entities\Request\EncryptPostModel.cs" />
+    <Compile Include="Entities\Request\Extensions\RequestMessageTextExtension.cs" />
     <Compile Include="Entities\Response\IResponseMessageNoResponse.cs" />
     <Compile Include="Entities\Response\SuccessResponseMessageBase.cs" />
     <Compile Include="Entities\TemplateMessage\WeixinTemplateBase.cs" />

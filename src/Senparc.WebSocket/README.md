@@ -11,7 +11,7 @@
 [2.2]: https://travis-ci.org/JeffreySu/Senparc.WebSocket
 
 
-为微信小程序等提供独立的 WebSocket 服务器端环境，预计于2017年2月中旬发布beta1。
+为微信小程序等提供独立的 WebSocket 服务器端环境，当前版本为：`beta1`。
 
 开发分支为Developer。
 

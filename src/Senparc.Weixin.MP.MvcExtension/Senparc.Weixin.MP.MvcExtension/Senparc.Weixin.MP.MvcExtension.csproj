@@ -67,6 +67,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filters\SenparcOAuthAttribute.cs" />
     <Compile Include="Filters\WeixinInternalRequestAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\WeixinResult.cs" />

@@ -197,8 +197,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Poi
         public string city { get; set; }
         public string province { get; set; }
         public int offset_type { get; set; }
-        public long longitude { get; set; }
-        public long latitude { get; set; }
+        public double longitude { get; set; }
+        public double latitude { get; set; }
         public List<GetStoreList_BaseInfo_PhotoList> photo_list { get; set; }
         public string introduction { get; set; }
         public string recommend { get; set; }

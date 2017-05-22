@@ -29,11 +29,19 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20170422
+    修改描述：添加IRequestMessageText接口
 ----------------------------------------------------------------*/
+
+using Senparc.Weixin.Entities.Request;
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public class RequestMessageText : RequestMessageBase, IRequestMessageBase
+    /// <summary>
+    /// 文本类型消息
+    /// </summary>
+    public class RequestMessageText : RequestMessageBase, IRequestMessageBase, IRequestMessageText
     {
         public override RequestMsgType MsgType
         {

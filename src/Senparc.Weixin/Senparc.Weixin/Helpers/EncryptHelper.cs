@@ -81,7 +81,7 @@ namespace Senparc.Weixin.Helpers
         /// <param name="encypStr">需要加密的字符串</param>
         /// <param name="charset">编码</param>
         /// <returns></returns>
-        public static string GetMD5(string encypStr, string charset)
+        public static string GetMD5(string encypStr, string charset = "UTF8")
         {
             string retStr;
 
@@ -102,7 +102,11 @@ namespace Senparc.Weixin.Helpers
             }
             catch (Exception ex)
             {
+#if NET45
                 inputBye = Encoding.GetEncoding("GB2312").GetBytes(encypStr);
+#else
+                inputBye = Encoding.GetEncoding("936").GetBytes(encypStr);
+#endif
             }
             outputBye = m5.ComputeHash(inputBye);
 
@@ -111,7 +115,7 @@ namespace Senparc.Weixin.Helpers
             return retStr;
         }
 
-        #region AES
+#region AES
 
         /// <summary>
         /// AES加密
@@ -178,6 +182,6 @@ namespace Senparc.Weixin.Helpers
             return decryptBytes;
         }
 
-        #endregion
+#endregion
     }
 }

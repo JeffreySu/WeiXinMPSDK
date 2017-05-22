@@ -104,7 +104,7 @@ namespace Senparc.Weixin.Context
         public MessageQueue<TM, TRequest, TResponse> MessageQueue { get; set; }
 
         /// <summary>
-        /// 每一个MessageContext过期时间
+        /// 每一个MessageContext过期时间（分钟）
         /// </summary>
         public Double ExpireMinutes { get; set; }
 
@@ -161,10 +161,10 @@ namespace Senparc.Weixin.Context
             }
 
             /* 
-             * 全局只有在这里用到MessageCollection.ContainsKey
-             * 充分分离MessageCollection内部操作，
-             * 为以后变化或扩展MessageCollection留余地
-             */
+                * 全局只有在这里用到MessageCollection.ContainsKey
+                * 充分分离MessageCollection内部操作，
+                * 为以后变化或扩展MessageCollection留余地
+                */
             if (!MessageCollection.ContainsKey(userName))
             {
                 return null;
@@ -177,8 +177,8 @@ namespace Senparc.Weixin.Context
         /// 获取MessageContext
         /// </summary>
         /// <param name="userName">用户名（OpenId）</param>
-        /// <param name="createIfNotExists">True：如果用户不存在，则创建一个实例，并返回这个最新的实例
-        /// False：用户储存在，则返回null</param>
+        /// <param name="createIfNotExists">true：如果用户不存在，则创建一个实例，并返回这个最新的实例
+        /// false：如用户不存在，则返回null</param>
         /// <returns></returns>
         private TM GetMessageContext(string userName, bool createIfNotExists)
         {
@@ -220,7 +220,7 @@ namespace Senparc.Weixin.Context
         }
 
         /// <summary>
-        /// 获取MessageContext，如果不存在，使用requestMessage信息初始化一个，并返回原始实例
+        /// 获取MessageContext，如果不存在，使用responseMessage信息初始化一个，并返回原始实例
         /// </summary>
         /// <returns></returns>
         public TM GetMessageContext(TResponse responseMessage)
@@ -273,7 +273,7 @@ namespace Senparc.Weixin.Context
         }
 
         /// <summary>
-        /// 获取最新一条请求数据，如果不存在，则返回Null
+        /// 获取最新一条请求数据，如果不存在，则返回null
         /// </summary>
         /// <param name="userName">用户名（OpenId）</param>
         /// <returns></returns>
@@ -287,7 +287,7 @@ namespace Senparc.Weixin.Context
         }
 
         /// <summary>
-        /// 获取最新一条响应数据，如果不存在，则返回Null
+        /// 获取最新一条响应数据，如果不存在，则返回null
         /// </summary>
         /// <param name="userName">用户名（OpenId）</param>
         /// <returns></returns>

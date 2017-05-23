@@ -8,7 +8,8 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 立项四年多来我们一直持续更新，并会坚持做下去，感谢亲们对我们的信任和各种支持！
 
 
-> 由 Jeffrey Su 亲笔撰写的微信开发图书将于 1-2 个月内出版（出版社已经在排版中，最迟7月底），可以使用微信扫描下方二维码查看最新进展：<br>
+> 由 Jeffrey Su 亲笔撰写的微信开发图书将于 1-2 个月内出版（出版社已经在排版中，最迟7月底），<br>
+书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，可以使用微信扫描下方二维码查看最新进展：<br>
 
 > [![CrowdFunding](http://sdk.weixin.senparc.com/images/crowdfunding-qrcode.png)](http://www.weiweihi.com:8080/CrowdFunding/Home)  
 

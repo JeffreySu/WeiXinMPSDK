@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
 
     文件名：WeixinContainer.cs
     文件功能描述：微信容器（如Ticket、AccessToken）
@@ -15,8 +35,13 @@
 
     修改标识：Senparc - 20160813
     修改描述：v4.7.5 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+    
+    修改标识：Senparc - 20170204
+    修改描述：v4.10.3 添加RemoveFromCache方法
 
 ----------------------------------------------------------------*/
+
+
 
 using System;
 using System.Collections.Generic;
@@ -86,7 +111,7 @@ namespace Senparc.Weixin.Containers
         //            //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
         //            //containerCacheStrategy.InsertToCache(cacheKey, itemCollection);//插入到缓存
 
-        //            //保存到缓存列队，等待执行
+        //            //保存到缓存队列，等待执行
         //            SenparcMessageQueue mq = new SenparcMessageQueue();
         //            var mqKey = SenparcMessageQueue.GenerateKey("ContainerItemCollection", typeof(BaseContainer<TBag>), cacheKey, "InsertItemCollection");
         //            mq.Add(mqKey, () =>
@@ -285,5 +310,14 @@ namespace Senparc.Weixin.Containers
             return Cache.CheckExisted(cacheKey);
         }
 
+        /// <summary>
+        /// 从缓存中删除
+        /// </summary>
+        /// <param name="shortKey"></param>
+        public static void RemoveFromCache(string shortKey)
+        {
+            var cacheKey = GetBagCacheKey(shortKey);
+            Cache.RemoveFromCache(cacheKey);
+        }
     }
 }

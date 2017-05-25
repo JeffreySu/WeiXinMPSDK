@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -86,9 +86,11 @@ namespace Senparc.Weixin.Open
     /// </summary>
     public enum ServiceType
     {
+#pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
         订阅号 = 0,
         由历史老帐号升级后的订阅号 = 1,
         服务号 = 2
+#pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
     }
 
     /// <summary>
@@ -96,6 +98,7 @@ namespace Senparc.Weixin.Open
     /// </summary>
     public enum VerifyType
     {
+#pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
         未认证 = -1,
         微信认证 = 0,
         新浪微博认证 = 1,
@@ -103,6 +106,7 @@ namespace Senparc.Weixin.Open
         已资质认证通过但还未通过名称认证 = 3,
         已资质认证通过还未通过名称认证但通过了新浪微博认证 = 4,
         已资质认证通过还未通过名称认证但通过了腾讯微博认证 = 5
+#pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
     }
 
     /// <summary>
@@ -110,6 +114,7 @@ namespace Senparc.Weixin.Open
     /// </summary>
     public enum FuncscopeCategory
     {
+#pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
         消息管理权限 = 1,
         用户管理权限 = 2,
         帐号服务权限 = 3,
@@ -125,5 +130,6 @@ namespace Senparc.Weixin.Open
         微信门店权限 = 13,
         微信支付权限 = 14,
         自定义菜单权限 = 15
+#pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
     }
 }

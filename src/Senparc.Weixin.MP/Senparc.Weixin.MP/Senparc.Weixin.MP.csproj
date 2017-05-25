@@ -22,6 +22,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -292,6 +294,7 @@
     <Compile Include="Entities\JsonResult\GetCallBackIpResult.cs" />
     <Compile Include="Entities\JsonResult\JsApiTicketResult.cs" />
     <Compile Include="Entities\JsonResult\Menu\CreateMenuConditionalResult.cs" />
+    <Compile Include="Entities\Menu\Buttons\SingleMiniProgramButton.cs" />
     <Compile Include="Entities\Menu\Conditional\ConditionalButtonGroup.cs" />
     <Compile Include="Entities\Menu\Conditional\MenuMatchRule.cs" />
     <Compile Include="Entities\Menu\ButtonGroupBase.cs" />
@@ -323,6 +326,7 @@
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
     <Compile Include="Entities\Response\ResponseMessageBase.cs" />
     <Compile Include="Entities\Response\ResponseMessageNoResponse.cs" />
+    <Compile Include="Entities\Response\SuccessResponseMessage.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\EventHelper.cs" />
@@ -347,6 +351,17 @@
     <Compile Include="TenPayLibV3\TenPayV3Info.cs" />
     <Compile Include="TenPayLibV3\TenPayV3Util.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3GetTransferInfoRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3DownloadBillRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3RefundRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3TransfersRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3RefundQueryRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3MicroPayRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3ShortUrlRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3UnifiedorderRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3ReverseRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3OrderQueryRequestData.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\TenPayV3CloseOrderRequestData.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3Result.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3RequestData.cs" />
     <Compile Include="TenPayLib\CheckRequestHandler.cs" />

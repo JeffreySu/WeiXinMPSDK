@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
     
     文件名：Config.cs
     文件功能描述：全局设置
@@ -32,7 +52,7 @@ namespace Senparc.Weixin
         /// </summary>
         public const int TIME_OUT = 10000;
 
-        private static bool _isDebug = false;
+        private static bool _isDebug = false;//TODO:需要考虑分布式的情况，后期需要储存在缓存中
 
         /// <summary>
         /// 指定是否是Debug状态，如果是，系统会自动输出日志
@@ -61,11 +81,11 @@ namespace Senparc.Weixin
         /// <summary>
         /// JavaScriptSerializer 类接受的 JSON 字符串的最大长度
         /// </summary>
-        public static int MaxJsonLength = int.MaxValue;
+        public static int MaxJsonLength = int.MaxValue;//TODO:需要考虑分布式的情况，后期需要储存在缓存中
 
         /// <summary>
         /// 默认缓存键的第一级命名空间，默认值：DefaultCache
         /// </summary>
-        public static string DefaultCacheNamespace = "DefaultCache";
+        public static string DefaultCacheNamespace = "DefaultCache";//TODO:需要考虑分布式的情况，后期需要储存在缓存中,或进行全局配置
     }
 }

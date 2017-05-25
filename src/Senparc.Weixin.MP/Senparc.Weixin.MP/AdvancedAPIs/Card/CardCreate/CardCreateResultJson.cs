@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
     
     文件名：CardCreateResultJson.cs
     文件功能描述：创建卡券返回结果
@@ -25,9 +45,14 @@
     修改描述：添加上传logo返回结果
  
     创建标识：Senparc - 20160808
-    创建描述：添加创建标识：Senparc - 20160520
     创建描述：添加Card_UpdateResultJson
+
+    创建标识：Senparc - 20170110
+    创建描述：CreateQRResultJson添加url和show_qrcode_url属性
+
 ----------------------------------------------------------------*/
+
+
 
 using System.CodeDom;
 using System.Collections.Generic;
@@ -260,13 +285,22 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
     }
     /// <summary>
     /// 生成卡券二维码返回结果
+    /// API：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025062&token=&lang=zh_CN
     /// </summary>
     public class CreateQRResultJson : WxJsonResult
     {
         /// <summary>
-        /// 获取的二维码ticket，凭借此ticket 可以在有效时间内换取二维码。
+        /// 获取的二维码ticket，凭借此ticket调用通过ticket换取二维码接口可以在有效时间内换取二维码。
         /// </summary>
         public string ticket { get; set; }
+        /// <summary>
+        /// 二维码图片解析后的地址，开发者可根据该地址自行生成需要的二维码图片
+        /// </summary>
+        public string url { get; set; }
+        /// <summary>
+        /// 二维码显示地址，点击后跳转二维码页面
+        /// </summary>
+        public string show_qrcode_url { get; set; }
     }
 
     /// <summary>

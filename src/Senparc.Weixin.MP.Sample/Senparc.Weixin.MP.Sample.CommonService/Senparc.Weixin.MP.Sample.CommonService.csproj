@@ -51,7 +51,12 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -71,12 +76,21 @@
     <Compile Include="MessageHandlers\OpenMessageHandler\OpenCheckMessageHandler.cs" />
     <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageContext.cs" />
     <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageHandler.cs" />
+    <Compile Include="MessageHandlers\WebSocket\CustomWebSocketMessageHandler.cs" />
+    <Compile Include="MessageHandlers\WxOpenMessageHandler\CustomWxOpenMessageHandler.cs" />
+    <Compile Include="MessageHandlers\WxOpenMessageHandler\CustomWxOpenMessageContext.cs" />
     <Compile Include="OpenTicket\OpenTicketHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MessageHandlers\CustomThirdPartyMessageHandlers\CustomThirdPartyMessageHandler.cs" />
+    <Compile Include="TemplateMessage\WeixinTemplate_ExceptionAlert.cs" />
+    <Compile Include="TemplateMessage\WxOpen\WxOpenTemplateMessage_PaySuccessNotice.cs" />
     <Compile Include="Utilities\Server.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.csproj">
+      <Project>{b745f5f5-9120-4d56-a86d-ed34eadb703c}</Project>
+      <Name>Senparc.WebSocket</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Senparc.Weixin.MP\Senparc.Weixin.MP\Senparc.Weixin.MP.csproj">
       <Project>{1d815fbf-451c-4e23-939c-cb80172f445c}</Project>
       <Name>Senparc.Weixin.MP</Name>
@@ -89,6 +103,10 @@
       <Project>{2ca35598-f1a1-4dc9-aa20-a4346bfcb954}</Project>
       <Name>Senparc.Weixin.QY</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.csproj">
+      <Project>{379d8c97-4f96-45af-9f91-6bd160514495}</Project>
+      <Name>Senparc.Weixin.WxOpen</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
       <Name>Senparc.Weixin</Name>
@@ -99,6 +117,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Download\readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

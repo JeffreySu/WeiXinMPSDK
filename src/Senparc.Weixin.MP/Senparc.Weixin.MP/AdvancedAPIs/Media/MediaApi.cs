@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
 
     文件名：MediaAPI.cs
     文件功能描述：素材管理接口（原多媒体文件接口）
@@ -27,7 +47,9 @@
  
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
-  
+   
+    修改标识：Senparc - 20170305
+    修改描述：v14.3.131 为MediaApi.Get()方法提供ApiHandlerWapper.TryCommonApi()方法支持，可以传入AppId
 ----------------------------------------------------------------*/
 
 /*
@@ -103,10 +125,32 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessToken"></param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
-        public static void Get(string accessToken, string mediaId, Stream stream)
+        public static void Get(string accessTokenOrAppId, string mediaId, Stream stream)
         {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
-            HttpUtility.Get.Download(url, stream);
+            ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+                HttpUtility.Get.Download(url, stream);
+                return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = "ok" };//无实际意义
+            }, accessTokenOrAppId);
+        }
+
+        /// <summary>
+        /// 获取临时素材（原下载媒体文件），保存到指定文件夹
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="mediaId"></param>
+        /// <param name="dir"></param>
+        /// <returns></returns>
+        public static string Get(string accessTokenOrAppId, string mediaId, string dir)
+        {
+            var result = ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+                var str = HttpUtility.Get.Download(url, dir);
+                return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = str };
+            }, accessTokenOrAppId);
+            return result.errmsg;
         }
         #endregion
 
@@ -416,14 +460,37 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取临时素材（原下载媒体文件）
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
-        public static async Task GetAsync(string accessToken, string mediaId, Stream stream)
+        public static async Task GetAsync(string accessTokenOrAppId, string mediaId, Stream stream)
         {
-            var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
-            await HttpUtility.Get.DownloadAsync(url, stream);
+            await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+                await HttpUtility.Get.DownloadAsync(url, stream);
+                return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = "ok" };//无实际意义
+            }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 【异步方法】获取临时素材（原下载媒体文件），保存到指定文件夹
+        /// </summary>
+        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="mediaId"></param>
+        /// <param name="dir"></param>
+        /// <returns></returns>
+        public static async Task<string> GetAsync(string accessTokenOrAppId, string mediaId, string dir)
+        {
+            var result = await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format("https://api.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+                var str = await HttpUtility.Get.DownloadAsync(url, dir);
+                return new WxJsonResult() { errcode = ReturnCode.请求成功, errmsg = str };
+            }, accessTokenOrAppId);
+            return result.errmsg;
+        }
+
         #endregion
 
         #region 永久素材
@@ -468,13 +535,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
            {
                var url = string.Format("https://api.weixin.qq.com/cgi-bin/material/add_material?access_token={0}", accessToken.AsUrlData());
 
-                //因为有文件上传，所以忽略dataDictionary，全部改用文件上传格式
-                //var dataDictionary = new Dictionary<string, string>();
-                //dataDictionary["type"] = UploadMediaFileType.image.ToString();
+               //因为有文件上传，所以忽略dataDictionary，全部改用文件上传格式
+               //var dataDictionary = new Dictionary<string, string>();
+               //dataDictionary["type"] = UploadMediaFileType.image.ToString();
 
-                var fileDictionary = new Dictionary<string, string>();
-                //fileDictionary["type"] = UploadMediaFileType.image.ToString();//不提供此参数也可以上传成功
-                fileDictionary["media"] = file;
+               var fileDictionary = new Dictionary<string, string>();
+               //fileDictionary["type"] = UploadMediaFileType.image.ToString();//不提供此参数也可以上传成功
+               fileDictionary["media"] = file;
                return Post.PostFileGetJsonAsync<UploadForeverMediaResult>(url, null, fileDictionary, null, timeOut: timeOut);
 
            }, accessTokenOrAppId);

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：ComponentContainer.cs
     文件功能描述：通用接口ComponentAccessToken容器，用于自动管理ComponentAccessToken，如果过期会重新获取
@@ -43,6 +43,9 @@
 
     修改标识：Senparc - 20161203
     修改描述：v2.3.3 解决同步锁死锁的问题
+
+    修改标识：Senparc - 20170318
+    修改描述：v2.3.8 将ComponentContainer.GetComponentVerifyTicketFunc和GetAuthorizerRefreshTokenFunc改为属性
 
 ----------------------------------------------------------------*/
 
@@ -211,12 +214,12 @@ namespace Senparc.Weixin.Open.Containers
         /// <summary>
         /// 获取ComponentVerifyTicket的方法
         /// </summary>
-        public static Func<string, string> GetComponentVerifyTicketFunc = null;
+        public static Func<string, string> GetComponentVerifyTicketFunc { get; set; }
 
         /// <summary>
         /// 从数据库中获取已存的AuthorizerAccessToken的方法
         /// </summary>
-        public static Func<string, string> GetAuthorizerRefreshTokenFunc = null;
+        public static Func<string, string> GetAuthorizerRefreshTokenFunc { get; set; }
 
         /// <summary>
         /// AuthorizerAccessToken更新后的回调
@@ -235,7 +238,7 @@ namespace Senparc.Weixin.Open.Containers
         /// <param name="name">标记Authorizer名称（如微信公众号名称），帮助管理员识别</param>
         public static void Register(string componentAppId, string componentAppSecret, Func<string, string> getComponentVerifyTicketFunc, Func<string, string> getAuthorizerRefreshTokenFunc, Action<string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc, string name = null)
         {
-            //激活消息列队线程
+            //激活消息队列线程
 
             if (GetComponentVerifyTicketFunc == null)
             {

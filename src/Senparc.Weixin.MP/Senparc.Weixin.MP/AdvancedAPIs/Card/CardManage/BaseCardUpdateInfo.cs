@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
     
     文件名：BaseCardUpdateInfo.cs
     文件功能描述：更新卡券的信息部分
@@ -10,6 +30,8 @@
     修改标识：Senparc - 20150303
     修改描述：整理接口
 ----------------------------------------------------------------*/
+
+
 
 using Senparc.Weixin.Helpers;
 
@@ -182,13 +204,21 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// 非必填
         /// </summary>
         public string center_url { get; set; }
+        /// <summary>
+        /// 指定会员卡支持动态码
+        /// </summary>
+        //[JsonSetting.IgnoreValueAttribute(false)]
+        //public bool use_dynamic_code { get; set; }
     }
     /// <summary>
     /// 使用日期，有效期的信息
     /// </summary>
     public class Card_UpdateDateInfo
     {
-        public string type { get { return "DATE_TYPE_FIX_TIME_RANGE"; } }
+        /// <summary>
+        /// 更新时Type不能被修改，需要设置为原来的类型。
+        /// </summary>
+        public string type { get; set; }
         /// <summary>
         /// 固定日期区间专用，表示起用时间。从1970 年1 月1 日00:00:00 至起用时间的秒数，最终需转换为字符串形态传入，下同。（单位为秒）
         /// 非必填

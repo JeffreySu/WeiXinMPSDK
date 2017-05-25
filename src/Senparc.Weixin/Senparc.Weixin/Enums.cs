@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
 
     文件名：Enums.cs
     文件功能描述：枚举类型
@@ -18,7 +38,15 @@
 
     修改标识：Senparc - 20161215
     修改描述：v4.9.5 添加Sex枚举
+
+    修改标识：Senparc - 20161215
+    修改描述：v4.9.9 添加【ReturnCode.template_id】不正确枚举
+
+    修改标识：Senparc - 20170302
+    修改描述：v4.11.1 添加【ReturnCode.appsecret不正确】枚举类型（invalid appsecret，40125）
 ----------------------------------------------------------------*/
+
+
 
 namespace Senparc.Weixin
 {
@@ -27,7 +55,13 @@ namespace Senparc.Weixin
     /// </summary>
     public enum CommonJsonSendType
     {
+        /// <summary>
+        /// GET 方法
+        /// </summary>
         GET,
+        /// <summary>
+        /// POST 方法
+        /// </summary>
         POST
     }
 
@@ -37,6 +71,7 @@ namespace Senparc.Weixin
     /// </summary>
     public enum ReturnCode
     {
+#pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
         系统繁忙此时请开发者稍候再试 = -1,
         请求成功 = 0,
         获取access_token时AppSecret错误或者access_token无效 = 40001,
@@ -73,10 +108,15 @@ namespace Senparc.Weixin
         不合法的openid列表长度 = 40032,
         不合法的请求字符不能包含uxxxx格式的字符 = 40033,
         不合法的参数 = 40035,
+
+        //小程序、 公众号都有
+        template_id不正确 = 40037,
+
         不合法的请求格式 = 40038,
         不合法的URL长度 = 40039,
         不合法的分组id = 40050,
         分组名字不合法 = 40051,
+        appsecret不正确 = 40125,//invalid appsecret
         缺少access_token参数 = 41001,
         缺少appid参数 = 41002,
         缺少refresh_token参数 = 41003,
@@ -86,6 +126,12 @@ namespace Senparc.Weixin
         缺少子菜单数据 = 41007,
         缺少oauth_code = 41008,
         缺少openid = 41009,
+
+        //小程序
+        form_id不正确_或者过期 = 41028,
+        form_id已被使用 = 41029,
+        page不正确 = 41030,
+
         access_token超时 = 42001,
         refresh_token超时 = 42002,
         oauth_code超时 = 42003,
@@ -143,8 +189,7 @@ namespace Senparc.Weixin
         发送消息失败_该用户已被加入黑名单_无法向此发送消息 = 62751,
         发送消息失败_对方关闭了接收消息 = 10703,
         对方不是粉丝 = 10700
-
-
+#pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
     }
 
     /// <summary>
@@ -152,6 +197,7 @@ namespace Senparc.Weixin
     /// </summary>
     public enum ReturnCode_QY
     {
+#pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释
         请求成功 = 0,
         获取access_token时Secret错误或者access_token无效 = 40001,
         不合法的凭证类型 = 40002,
@@ -183,7 +229,7 @@ namespace Senparc.Weixin
         不合法的请求字符_不能包含uxxxx格式的字符 = 40033,
         不合法的参数 = 40035,
 
-        //小程序
+        //小程序、 公众号都有
         template_id不正确 = 40037,
 
         不合法的请求格式 = 40038,
@@ -353,6 +399,7 @@ namespace Senparc.Weixin
         发送消息或者邀请的参数全部为空或者全部不合法 = 82001,
         不合法的PartyID列表长度 = 82002,
         不合法的TagID列表长度 = 82003,
+#pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
     }
 
 
@@ -400,8 +447,10 @@ namespace Senparc.Weixin
     /// </summary>
     public enum Sex
     {
-        未知=0,
-        男=1,
-        女=2
+#pragma warning disable CS1591 // 缺少对公共可见类型或成员的 XML 注释   
+        未知 = 0,
+        男 = 1,
+        女 = 2
+#pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
     }
 }

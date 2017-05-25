@@ -16,10 +16,10 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressSSLPort>65335</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <MvcProjectUpgradeChecked>true</MvcProjectUpgradeChecked>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -53,8 +53,16 @@
       <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Senparc.Weixin.WxOpen, Version=0.1.0.41223, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Senparc.Weixin.WxOpen.0.1.0\lib\net45\Senparc.Weixin.WxOpen.dll</HintPath>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -70,6 +78,7 @@
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="EntityFramework">
@@ -78,9 +87,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
       <Private>True</Private>
@@ -149,10 +155,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AsyncMethodsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
+    <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -167,11 +175,12 @@
     <Compile Include="Controllers\TenPayV3Controller.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Controllers\TestUploadMediaFileController.cs" />
     <Compile Include="Controllers\WeixinAsyncController.cs" />
     <Compile Include="Controllers\WeixinController.cs" />
     <Compile Include="Controllers\WeixinController_OldPost.cs" />
     <Compile Include="Controllers\TenPayController.cs" />
+    <Compile Include="Controllers\WxOpen\WxOpenController.cs" />
+    <Compile Include="Filters\CustomOAuthAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -267,6 +276,7 @@
     <Content Include="Scripts\senparc.menu.js" />
     <Content Include="Scripts\tongji.sdk.js" />
     <Content Include="Scripts\tongji.js" />
+    <Content Include="Views\Device\Index.cshtml" />
     <None Include="Views\TenPayV3\BankCode.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -328,12 +338,15 @@
   <ItemGroup>
     <Folder Include="App_Data\Document\Files\" />
     <Folder Include="App_Data\OpenTickets\" />
-    <Folder Include="Controllers\AppStore\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Senparc.WebSocket\src\Senparc.WebSocket\Senparc.WebSocket\Senparc.WebSocket.csproj">
+      <Project>{b745f5f5-9120-4d56-a86d-ed34eadb703c}</Project>
+      <Name>Senparc.WebSocket</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Senparc.Weixin.Cache\Senparc.Weixin.Cache.Memcached\Senparc.Weixin.Cache.Memcached.csproj">
       <Project>{5b729497-5323-41d7-a104-0632119bedde}</Project>
       <Name>Senparc.Weixin.Cache.Memcached</Name>
@@ -358,6 +371,10 @@
       <Project>{2ca35598-f1a1-4dc9-aa20-a4346bfcb954}</Project>
       <Name>Senparc.Weixin.QY</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.csproj">
+      <Project>{379d8c97-4f96-45af-9f91-6bd160514495}</Project>
+      <Name>Senparc.Weixin.WxOpen</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">
       <Project>{814092cd-9cd0-4fb7-91e8-d147f476f1fb}</Project>
       <Name>Senparc.Weixin</Name>
@@ -366,6 +383,9 @@
       <Project>{ccd291e9-16fa-4b53-b032-ebd3f659567b}</Project>
       <Name>Senparc.Weixin.MP.Sample.CommonService</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -401,9 +421,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>61637</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:18666/</IISUrl>
+          <IISUrl>http://localhost:65395/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

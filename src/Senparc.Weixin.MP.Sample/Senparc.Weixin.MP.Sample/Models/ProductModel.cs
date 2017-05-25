@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Senparc.Weixin.MP.Sample.Models
 {
@@ -28,6 +25,10 @@ namespace Senparc.Weixin.MP.Sample.Models
 
         private static List<ProductModel> ProductList { get; set; }
 
+        /// <summary>
+        /// 获取产品列表
+        /// </summary>
+        /// <returns></returns>
         public static List<ProductModel> GetFakeProductList()
         {
             var list = ProductList ?? new List<ProductModel>()

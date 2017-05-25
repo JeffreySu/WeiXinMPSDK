@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：HomeController.cs
     文件功能描述：首页Controller
@@ -43,6 +43,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             TempData["RedisCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Redis.dll"));
             TempData["MemcachedCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Memcached.dll"));
             TempData["WxOpenVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.WxOpen.dll"));
+            TempData["WebSocketVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.WebSocket.dll"));
 
             //缓存
             //var containerCacheStrategy = CacheStrategyFactory.GetContainerCacheStrategyInstance();
@@ -54,7 +55,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var config = configHelper.GetConfig();
             TempData["NewestDocumentVersion"] = config.Versions.First();
 
-            Weixin.WeixinTrace.SendLog(Request.Url.ToString() ,"首页被访问");
+            Weixin.WeixinTrace.SendCustomLog("首页被访问", string.Format("Url：{0}\r\nIP：{1}",Request.Url,Request.UserHostName));
 
             return View();
         }
@@ -76,7 +77,6 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             var accessToken = Senparc.Weixin.MP.Containers.AccessTokenContainer.GetAccessToken(appId);
             //使用AccessToken请求接口
             var apiResult = Senparc.Weixin.MP.CommonAPIs.CommonApi.GetMenu("你的AppId");
-
 
             throw new Exception("出错测试，使用Elmah保存错误结果(2)");
             //return View();

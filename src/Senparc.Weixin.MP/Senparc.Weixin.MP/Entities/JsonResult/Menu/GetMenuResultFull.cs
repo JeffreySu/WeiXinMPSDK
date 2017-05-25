@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
     
     文件名：GetMenuResultFull.cs
     文件功能描述：获取菜单时候的完整结构，用于接收微信服务器返回的Json信息
@@ -43,6 +63,14 @@ namespace Senparc.Weixin.MP
         public string key { get; set; }
         public string name { get; set; }
         public string url { get; set; }
+
+        #region 小程序
+
+        public string appid { get; set; }
+        public string pagepath { get; set; }
+
+        #endregion
+
         public List<MenuFull_RootButton> sub_button { get; set; }
     }
     #endregion

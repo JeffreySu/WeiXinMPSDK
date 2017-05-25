@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
     
     文件名：MessageHandler.cs
     文件功能描述：微信请求的集中处理方法
@@ -14,10 +34,15 @@
     修改描述：v4.7.8 修正在ResponseMessage都null的情况下，
               没有对_textResponseMessage做判断就直接返回空字符串的问题
 
+    修改标识：Senparc - 20170409
+    修改描述：v4.11.8 （MessageHandler V3.2）修复 TextResponseMessage 不输出加密信息的问题
+
 ----------------------------------------------------------------*/
 
+
+
 /*
- * V3.1
+ * V3.2
  */
 
 using System;
@@ -139,6 +164,11 @@ namespace Senparc.Weixin.MessageHandlers
         {
             get
             {
+                if (ResponseMessage != null && ResponseMessage is SuccessResponseMessageBase)
+                {
+                    _textResponseMessage = (ResponseMessage as SuccessResponseMessageBase).ReturnText;//返回"success"
+                }
+
                 if (_textResponseMessage != null
                     && (ResponseMessage == null || ResponseMessage is IResponseMessageNoResponse))
                 {
@@ -147,7 +177,8 @@ namespace Senparc.Weixin.MessageHandlers
 
                 if (_textResponseMessage == null)
                 {
-                    return /*ResponseDocument == null ? null : */ ResponseDocument.ToString();
+                    return /*ResponseDocument == null ? null : */
+                           FinalResponseDocument.ToString(); //ResponseDocument.ToString();
                 }
                 else
                 {

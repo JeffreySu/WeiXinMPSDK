@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
 
     文件名：CommonApi.Menu.Conditional
     文件功能描述：个性化自定义菜单接口
@@ -9,6 +29,10 @@
 
     修改标识：Senparc - 20151222
     修改描述：v13.5.1 添加个性化菜单接口
+
+    修改标识：Senparc - 20170317
+    修改描述：v14.3.133 修复CommonApi.CreateMenuConditional()方法调用出现“invalid button size”错误的问题
+    
 ----------------------------------------------------------------*/
 
 /*
@@ -26,7 +50,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
     public partial class CommonApi
     {
         /// <summary>
-        /// 创建个新华菜单
+        /// 创建个性化菜单
         /// </summary>
         /// <param name="accessTokenOrAppId">AccessToken或AppId。当为AppId时，如果AccessToken错误将自动获取一次。当为null时，获取当前注册的第一个AppId。</param>
         /// <param name="buttonData">菜单内容</param>
@@ -36,7 +60,8 @@ namespace Senparc.Weixin.MP.CommonAPIs
             return ApiHandlerWapper.TryCommonApi(accessToken =>
              {
                  var urlFormat = "https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token={0}";
-                 var jsonSetting = new JsonSetting(true);
+                 //var jsonSetting = new JsonSetting(true);//设置成true会导致发布失败
+                 var jsonSetting = new JsonSetting(false);
                  return CommonJsonSend.Send<CreateMenuConditionalResult>(accessToken, urlFormat, buttonData, timeOut: timeOut, jsonSetting: jsonSetting);
 
              }, accessTokenOrAppId);
@@ -72,7 +97,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         #endregion
 
         /// <summary>
-        /// 删除菜单
+        /// 删除个性化菜单
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="menuId">菜单Id</param>

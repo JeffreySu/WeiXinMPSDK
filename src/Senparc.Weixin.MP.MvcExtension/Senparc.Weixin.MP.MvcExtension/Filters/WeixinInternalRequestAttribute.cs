@@ -1,4 +1,19 @@
-﻿using System;
+﻿/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
+
+    文件名：WeixinInternalRequestAttribute.cs
+    文件功能描述：微信内置浏览器状态判断
+
+
+    创建标识：Senparc - 20160801
+
+        
+    修改标识：Senparc - 20170304
+    修改描述：v4.2.0 修复浏览器状态判断问题
+    
+----------------------------------------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,7 +52,8 @@ namespace Senparc.Weixin.MP.MvcExtension
         {
             if (string.IsNullOrEmpty(_ignoreParameter) || string.IsNullOrEmpty(filterContext.RequestContext.HttpContext.Request.QueryString[_ignoreParameter]))
             {
-                if (!BrowserUtility.BrowserUtility.SideInWeixinBrowser(filterContext.HttpContext))
+                if (!filterContext.HttpContext.SideInWeixinBrowser())
+                //if (!BrowserUtility.BrowserUtility.SideInWeixinBrowser(filterContext.HttpContext))
                 {
                     //TODO:判断网页版登陆状态
                     ActionResult actionResult = null;

@@ -1,4 +1,24 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Helpers;
 using System;
 using System.Collections.Generic;
@@ -125,6 +145,83 @@ namespace Senparc.Weixin.Helpers.Tests
         }
 
         #endregion
-    }
 
+
+        #region 常规序列化、反序列化
+
+        [Serializable]
+        public class Data
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
+
+        [TestMethod()]
+        public void GetJsonStringTest()
+        {
+            var data = new Data()
+            {
+                Id = 1,
+                Name = "Senparc"
+            };
+            SerializerHelper js = new SerializerHelper();
+            string json = js.GetJsonString(data);
+            Assert.AreEqual("{\"Id\":1,\"Name\":\"Senparc\"}", json);
+            Console.WriteLine(json);
+        }
+
+
+        #endregion
+
+        [TestMethod()]
+        public void GetObjectTest()
+        {
+            string json = "{\"Id\":1,\"Name\":\"Senparc\"}";
+            SerializerHelper js = new SerializerHelper();
+            Data data = js.GetObject<Data>(json);
+
+            Assert.AreEqual(1, data.Id);
+            Assert.AreEqual("Senparc", data.Name);
+        }
+
+        #region JsonSetting 测试
+
+        [Serializable]
+        public class WeixinData
+        {
+            public int Id { get; set; }
+            public string UserName { get; set; }
+            public string Note { get; set; }
+            public string Sign { get; set; }
+            public Sex Sex { get; set; }
+        }
+
+
+        [TestMethod]
+        public void JsonSettingTest()
+        {
+            var weixinData = new WeixinData()
+            {
+                Id = 1,
+                UserName = "JeffreySu",
+                Note = null,
+                Sign = null,
+                Sex = Sex.男
+            };
+
+            SerializerHelper js = new SerializerHelper();
+            //string json = js.GetJsonString(weixinData);
+            //Console.WriteLine(json);
+
+            //JsonSetting jsonSetting = new JsonSetting(true);
+            //string json2 = js.GetJsonString(weixinData, jsonSetting);
+            //Console.WriteLine(json2);
+
+JsonSetting jsonSetting3 = new JsonSetting(true, new List<string>() { "Note" });
+string json3 = js.GetJsonString(weixinData, jsonSetting3);
+Console.WriteLine(json3);
+        }
+
+        #endregion
+    }
 }

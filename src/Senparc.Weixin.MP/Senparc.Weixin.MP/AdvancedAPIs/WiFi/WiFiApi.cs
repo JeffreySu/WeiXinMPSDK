@@ -1,5 +1,25 @@
-﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+﻿#region Apache License Version 2.0
+/*----------------------------------------------------------------
+
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
+
+----------------------------------------------------------------*/
+#endregion Apache License Version 2.0
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
     
     文件名：WiFiApi.cs
     文件功能描述：微信连WiFi接口
@@ -34,6 +54,9 @@ using Senparc.Weixin.MP.CommonAPIs;
 
 namespace Senparc.Weixin.MP.AdvancedAPIs
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class WiFiApi
     {
         #region 同步请求
@@ -277,7 +300,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="imgId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static WxJsonResult GetQrcode(string accessTokenOrAppId, long shopId, int imgId,
+        public static GetQrcodeResult GetQrcode(string accessTokenOrAppId, long shopId, int imgId,
             int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
@@ -290,7 +313,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     img_id = imgId
                 };
 
-                return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<GetQrcodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -362,9 +385,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+
         /// <summary>
         /// 设置微信首页欢迎语
-
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="shopId">门店ID</param>
@@ -391,7 +414,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
         /// <summary>
         /// 设置连网完成页
-
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="shopId">门店ID</param>
@@ -783,7 +805,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="imgId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<WxJsonResult> GetQrcodeAsync(string accessTokenOrAppId, long shopId, int imgId,
+        public static async Task<GetQrcodeResult> GetQrcodeAsync(string accessTokenOrAppId, long shopId, int imgId,
             int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
@@ -796,7 +818,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     img_id = imgId
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetQrcodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

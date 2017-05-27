@@ -21,23 +21,23 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：RequestMessageEvent_User_View_Card.cs
-    文件功能描述：事件之进入会员卡
+    文件名：RequestMessageEvent_Update_Member_Card.cs
+    文件功能描述：事件之会员卡内容更新事件：会员卡积分余额发生变动时
     
     
-    创建标识：Senparc - 20150722
+    创建标识：
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public class RequestMessageEvent_User_View_Card : RequestMessageEventBase, IRequestMessageEventBase
+    public class RequestMessageEvent_Update_Member_Card : RequestMessageEventBase, IRequestMessageEventBase
     {
         /// <summary>
-        /// 进入会员卡
+        /// 卡券未通过审核
         /// </summary>
         public override Event Event
         {
-            get { return Event.user_view_card; }
+            get { return Event.update_member_card; }
         }
 
         /// <summary>
@@ -45,12 +45,16 @@ namespace Senparc.Weixin.MP.Entities
         /// </summary>
         public string CardId { get; set; }
         /// <summary>
-        /// 商户自定义code值。非自定code推送为空串。
+        /// code序列号。
         /// </summary>
         public string UserCardCode { get; set; }
         /// <summary>
-        /// 商户自定义二维码渠道参数，用于标识本次扫码打开会员卡来源来自于某个渠道值的二维码
+        /// 变动的积分值。
         /// </summary>
-        public string OuterStr { get; set; }
+        public int ModifyBonus { get; set; }
+        /// <summary>
+        /// 变动的余额值。
+        /// </summary>
+        public int ModifyBalance { get; set; }
     }
 }

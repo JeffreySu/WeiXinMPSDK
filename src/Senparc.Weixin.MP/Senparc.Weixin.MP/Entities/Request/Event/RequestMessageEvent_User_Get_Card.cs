@@ -84,5 +84,12 @@ namespace Senparc.Weixin.MP.Entities
         /// 转赠前的code序列号
         /// </summary>
         public string OldUserCardCode { get; set; }
+        /// <summary>
+        /// 领取场景值，用于领取渠道数据统计
+        /// </summary>
+        public string OuterStr { get; set; }
+        ///以下两个待验证
+        //public int IsRecommendByFriend { get; set; }
+        //public string SourceScene { get; set;}
     }
 }

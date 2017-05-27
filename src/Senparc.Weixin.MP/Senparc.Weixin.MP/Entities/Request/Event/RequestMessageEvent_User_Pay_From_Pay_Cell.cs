@@ -21,36 +21,50 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：RequestMessageEvent_User_View_Card.cs
-    文件功能描述：事件之进入会员卡
+    文件名：RequestMessageEvent_User_Pay_From_Pay_Cell.cs
+    文件功能描述：事件之微信买单完成
     
     
-    创建标识：Senparc - 20150722
+    创建标识：
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public class RequestMessageEvent_User_View_Card : RequestMessageEventBase, IRequestMessageEventBase
+    public class RequestMessageEvent_User_Pay_From_Pay_Cell : RequestMessageEventBase, IRequestMessageEventBase
     {
         /// <summary>
-        /// 进入会员卡
+        /// 删除卡券
         /// </summary>
         public override Event Event
         {
-            get { return Event.user_view_card; }
+            get { return Event.user_pay_from_pay_cell; }
         }
 
         /// <summary>
         /// 卡券ID
         /// </summary>
         public string CardId { get; set; }
+
         /// <summary>
-        /// 商户自定义code值。非自定code推送为空串。
+        /// code 序列号。自定义code 及非自定义code的卡券被领取后都支持事件推送。
         /// </summary>
         public string UserCardCode { get; set; }
         /// <summary>
-        /// 商户自定义二维码渠道参数，用于标识本次扫码打开会员卡来源来自于某个渠道值的二维码
+        /// 微信支付交易订单号（只有使用买单功能核销的卡券才会出现）
         /// </summary>
-        public string OuterStr { get; set; }
+        public string TransId { get; set; }
+        /// <summary>
+        ///门店ID，当前卡券核销的门店ID（只有通过卡券商户助手和买单核销时才会出现）
+        /// </summary>
+        public string LocationId { get; set; }
+        /// <summary>
+        ///实付金额，单位为分 
+        /// </summary>
+        public int Fee { get; set; }
+        /// <summary>
+        /// 应付金额，单位为分
+        /// </summary>
+        public int OriginalFee { get; set; }
     }
 }

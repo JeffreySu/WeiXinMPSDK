@@ -36,7 +36,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：hello2008zj - 20160502
     修改描述：v13.7.8 添加 Card_MemberCardData.background_pic_url
 
-    修改标识：hello2008zj - 20170528
+    修改标识：Senparc - 20170528
     修改描述：v14.4.10  修改Card_CashData属性类型（int）
 
 ----------------------------------------------------------------*/

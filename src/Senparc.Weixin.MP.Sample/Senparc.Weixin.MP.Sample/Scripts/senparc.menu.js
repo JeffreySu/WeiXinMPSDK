@@ -167,9 +167,12 @@ senparc.menu = {
             }
 
             menuState.html('上传中...');
-
-            $.post('/Menu/', function (json) {
-
+            $.post('/Menu/CreateMenuFromJson', { token: $('#tokenStr').val(), fullJson: $('#txtReveiceJSON').text() }, function (json) {
+                if (json.Successed) {
+                    menuState.html('上传成功');
+                } else {
+                    menuState.html(json.Message);
+                }
             });
         });
 

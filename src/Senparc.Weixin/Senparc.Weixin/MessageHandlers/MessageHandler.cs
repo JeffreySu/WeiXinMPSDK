@@ -172,16 +172,19 @@ namespace Senparc.Weixin.MessageHandlers
                     _textResponseMessage = (ResponseMessage as SuccessResponseMessageBase).ReturnText;//返回"success"
                 }
 
-                if (_textResponseMessage != null
+                if (_textResponseMessage == null //原先为 _textResponseMessage != null     ——Jeffrey Su 2017.06.01
                     && (ResponseMessage == null || ResponseMessage is IResponseMessageNoResponse))
                 {
-                    return "";
+                    return "";//返回空消息
                 }
 
                 if (_textResponseMessage == null)
                 {
                     return /*ResponseDocument == null ? null : */
-                           FinalResponseDocument.ToString(); //ResponseDocument.ToString();
+                            FinalResponseDocument != null
+                            ? FinalResponseDocument.ToString()
+                            : "";
+                    //ResponseDocument.ToString();
                 }
                 else
                 {

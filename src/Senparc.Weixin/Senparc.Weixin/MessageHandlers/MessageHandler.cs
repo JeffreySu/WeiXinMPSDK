@@ -37,6 +37,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170409
     修改描述：v4.11.8 （MessageHandler V3.2）修复 TextResponseMessage 不输出加密信息的问题
 
+    修改标识：Senparc - 20170409
+    修改描述：v4.12.4  MessageHandler基类默认开启消息去重
+
 ----------------------------------------------------------------*/
 
 
@@ -199,6 +202,7 @@ namespace Senparc.Weixin.MessageHandlers
         /// <param name="postData"></param>
         public void CommonInitialize(XDocument postDataDocument, int maxRecordCount, object postData)
         {
+            OmitRepeatedMessage = true;//默认开启去重
             WeixinContext.MaxRecordCount = maxRecordCount;
             RequestDocument = Init(postDataDocument, postData);
         }

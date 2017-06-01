@@ -68,8 +68,8 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         [HttpPost]
         public ActionResult CreateMenu(string token, GetMenuResultFull resultFull, MenuMatchRule menuMatchRule)
         {
-                var useAddCondidionalApi = menuMatchRule != null && !menuMatchRule.CheckAllNull();
-            var apiName = string.Format("使用接口：{0}。" , (useAddCondidionalApi ? "个性化菜单接口" : "普通自定义菜单接口"));
+            var useAddCondidionalApi = menuMatchRule != null && !menuMatchRule.CheckAllNull();
+            var apiName = string.Format("使用接口：{0}。", (useAddCondidionalApi ? "个性化菜单接口" : "普通自定义菜单接口"));
             try
             {
                 //重新整理按钮信息
@@ -88,20 +88,45 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 else
                 {
                     //普通接口
-                    buttonGroup = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull,new ButtonGroup()).menu;
+                    buttonGroup = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull, new ButtonGroup()).menu;
                     result = CommonAPIs.CommonApi.CreateMenu(token, buttonGroup);
                 }
 
                 var json = new
                 {
                     Success = result.errmsg == "ok",
-                    Message = "菜单更新成功。"+ apiName
+                    Message = "菜单更新成功。" + apiName
                 };
                 return Json(json);
             }
             catch (Exception ex)
             {
-                var json = new { Success = false, Message =string.Format("更新失败：{0}。{1}",ex.Message, apiName) };
+                var json = new { Success = false, Message = string.Format("更新失败：{0}。{1}", ex.Message, apiName) };
+                return Json(json);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CreateMenuFromJson(string token, object fullJson)
+        {
+            //TODO:根据"conditionalmenu"判断自定义菜单
+
+            var apiName = "使用JSON更新";
+            try
+            {
+                //重新整理按钮信息
+                WxJsonResult result = CommonAPIs.CommonApi.CreateMenu(token, fullJson);
+
+                var json = new
+                {
+                    Success = result.errmsg == "ok",
+                    Message = "菜单更新成功。" + apiName
+                };
+                return Json(json);
+            }
+            catch (Exception ex)
+            {
+                var json = new { Success = false, Message = string.Format("更新失败：{0}。{1}", ex.Message, apiName) };
                 return Json(json);
             }
         }
@@ -113,13 +138,13 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                 var result = CommonAPIs.CommonApi.GetMenu(token);
                 if (result == null)
                 {
-                    return Json(new {error = "菜单不存在或验证失败！"}, JsonRequestBehavior.AllowGet);
+                    return Json(new { error = "菜单不存在或验证失败！" }, JsonRequestBehavior.AllowGet);
                 }
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             catch (WeixinMenuException ex)
             {
-                return Json(new {error = "菜单不存在或验证失败：" + ex.Message}, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "菜单不存在或验证失败：" + ex.Message }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

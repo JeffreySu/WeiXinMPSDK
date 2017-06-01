@@ -161,6 +161,18 @@ senparc.menu = {
             });
         });
 
+        $('#submitJsonMenu').click(function () {
+            if (!confirm('确定要提交吗？此操作无法撤销！')) {
+                return;
+            }
+
+            menuState.html('上传中...');
+
+            $.post('/Menu/', function (json) {
+
+            });
+        });
+
         $('#btnResetAccessToken').click(function () {
             $('#menuEditor').hide();
             $('#menuLogin').show();

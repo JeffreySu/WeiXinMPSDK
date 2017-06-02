@@ -107,15 +107,21 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateMenuFromJson(string token, object fullJson)
+        public ActionResult CreateMenuFromJson(string token, string fullJson)
         {
             //TODO:根据"conditionalmenu"判断自定义菜单
 
             var apiName = "使用JSON更新";
             try
             {
+                GetMenuResultFull resultFull = Newtonsoft.Json.JsonConvert.DeserializeObject<GetMenuResultFull>(fullJson);
+
                 //重新整理按钮信息
-                WxJsonResult result = CommonAPIs.CommonApi.CreateMenu(token, fullJson);
+                WxJsonResult result = null;
+                IButtonGroupBase buttonGroup = null;
+
+                buttonGroup = CommonAPIs.CommonApi.GetMenuFromJsonResult(resultFull, new ButtonGroup()).menu;
+                result = CommonAPIs.CommonApi.CreateMenu(token, buttonGroup);
 
                 var json = new
                 {

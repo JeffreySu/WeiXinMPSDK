@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Version>2.4.0</Version>
+    <Version>2.5.0</Version>
    <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -73,7 +73,11 @@
       v2.3.7 修复：ApiConfirmAuth的URL中带空格
       v2.3.8：
       将ComponentContainer.GetComponentVerifyTicketFunc和GetAuthorizerRefreshTokenFunc改为属性
+      
       v2.4.0 支持 .NET Core
+      v2.4.1 BusinessInfo添加open_scan属性（是否开通微信扫商品功能）
+
+      v2.5.0 添加小程序接口
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

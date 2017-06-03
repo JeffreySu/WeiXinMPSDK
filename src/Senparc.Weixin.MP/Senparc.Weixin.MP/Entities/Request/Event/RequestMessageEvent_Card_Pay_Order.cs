@@ -21,23 +21,22 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：RequestMessageEvent_User_View_Card.cs
-    文件功能描述：事件之进入会员卡
+    文件名：RequestMessageEvent_Card_Pay_Order.cs
+    文件功能描述：券点流水详情事件：当商户朋友的券券点发生变动时
     
     
-    创建标识：Senparc - 20150722
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.MP.Entities
 {
-    public class RequestMessageEvent_User_View_Card : RequestMessageEventBase, IRequestMessageEventBase
+    public class RequestMessageEvent_Card_Pay_Order : RequestMessageEventBase, IRequestMessageEventBase
     {
         /// <summary>
         /// 进入会员卡
         /// </summary>
         public override Event Event
         {
-            get { return Event.user_view_card; }
+            get { return Event.card_pay_order; }
         }
 
         /// <summary>

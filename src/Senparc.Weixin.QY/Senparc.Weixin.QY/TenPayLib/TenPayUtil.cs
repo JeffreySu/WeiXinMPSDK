@@ -13,6 +13,9 @@
     修改标识：Senparc - 20161014
     修改描述：修改TenPayUtil.BuildRandomStr()方法
 
+    修改标识：Senparc - 20170522
+    修改描述：v4.2.5 修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
+    
 ----------------------------------------------------------------*/
 
 using System;

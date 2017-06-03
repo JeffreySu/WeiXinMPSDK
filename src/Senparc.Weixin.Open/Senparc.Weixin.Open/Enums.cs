@@ -8,7 +8,10 @@
     创建标识：Senparc - 20150430
  
     修改标识：Senparc - 20160726
-    修改描述： RequestInfoType中加了updateauthorized，authorized
+    修改描述：RequestInfoType中加了updateauthorized，authorized
+
+    修改标识：Senparc - 20170601
+    修改描述：v2.5.0 添加ModifyDomainAction
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Open
@@ -131,5 +134,28 @@ namespace Senparc.Weixin.Open
         微信支付权限 = 14,
         自定义菜单权限 = 15
 #pragma warning restore CS1591 // 缺少对公共可见类型或成员的 XML 注释
+    }
+
+    /// <summary>
+    /// 小程序“修改服务器地址”接口的action类型
+    /// </summary>
+    public enum ModifyDomainAction
+    {
+        /// <summary>
+        /// 添加
+        /// </summary>
+        add,
+        /// <summary>
+        /// 删除
+        /// </summary>
+        delete,
+        /// <summary>
+        /// 覆盖
+        /// </summary>
+        set,
+        /// <summary>
+        /// 获取
+        /// </summary>
+        get
     }
 }

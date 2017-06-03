@@ -68,7 +68,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170328
     修改描述：v14.3.139 ButtonType添加小程序类型
-
 ----------------------------------------------------------------*/
 
 using System.ComponentModel;
@@ -245,6 +244,26 @@ namespace Senparc.Weixin.MP
         /// 摇一摇事件通知
         /// </summary>
         ShakearoundUserShake,
+        /// <summary>
+        /// 卡券转赠事件推送
+        /// </summary>
+        user_gifting_card,
+        /// <summary>
+        /// 微信买单完成
+        /// </summary>
+        user_pay_from_pay_cell,
+        /// <summary>
+        /// 会员卡内容更新事件：会员卡积分余额发生变动时
+        /// </summary>
+        update_member_card,
+        /// <summary>
+        /// 卡券库存报警事件：当某个card_id的初始库存数大于200且当前库存小于等于100时
+        /// </summary>
+        card_sku_remind,
+        /// <summary>
+        /// 券点流水详情事件：当商户朋友的券券点发生变动时
+        /// </summary>
+        card_pay_order
     }
 
 

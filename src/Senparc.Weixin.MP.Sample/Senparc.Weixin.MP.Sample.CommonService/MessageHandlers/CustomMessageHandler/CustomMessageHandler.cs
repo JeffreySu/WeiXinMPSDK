@@ -306,7 +306,7 @@ namespace Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler
                 })
                 .Keyword("容错", () =>
                 {
-                    Thread.Sleep(1500);//故意延时1.5秒，让微信多次发送消息过来，观察返回结果
+                    Thread.Sleep(4900);//故意延时1.5秒，让微信多次发送消息过来，观察返回结果
                     var faultTolerantResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
                     faultTolerantResponseMessage.Content = string.Format("测试容错，MsgId：{0}，Ticks：{1}", requestMessage.MsgId,
                         DateTime.Now.Ticks);

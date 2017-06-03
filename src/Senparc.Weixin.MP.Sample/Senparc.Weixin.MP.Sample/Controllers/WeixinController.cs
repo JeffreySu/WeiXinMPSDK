@@ -137,7 +137,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
                         messageHandler.ResponseMessage.MsgType)));
                 }
 
-                #endregion`
+                #endregion
 
                 //return Content(messageHandler.ResponseDocument.ToString());//v0.7-
                 //return new WeixinResult(messageHandler);//v0.8+

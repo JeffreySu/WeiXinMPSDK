@@ -52,6 +52,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
  
     修改标识：Senparc - 20160718
     修改描述：增加其接口的异步方法
+
+    修改标识：Senparc - 20170527
+    修改描述：v14.4.10 CardApi.CardBatchGet()方法增加statusList参数
 ----------------------------------------------------------------*/
 
 /*
@@ -709,9 +712,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="offset">查询卡列表的起始偏移量，从0 开始，即offset: 5 是指从从列表里的第六个开始读取。</param>
         /// <param name="count">需要查询的卡片的数量（数量最大50）</param>
+        /// <param name="statusList">状态列表</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static CardBatchGetResultJson CardBatchGet(string accessTokenOrAppId, int offset, int count, int timeOut = Config.TIME_OUT)
+        public static CardBatchGetResultJson CardBatchGet(string accessTokenOrAppId, int offset, int count, List<string> statusList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -720,7 +724,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     offset = offset,
-                    count = count
+                    count = count,
+                    statusList = statusList
                 };
 
                 return CommonJsonSend.Send<CardBatchGetResultJson>(null, urlFormat, data, timeOut: timeOut);
@@ -937,7 +942,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                 }
 
-                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut);
+                JsonSetting jsonSetting = new JsonSetting()
+                {
+                    TypesToIgnore = new List<Type>() { typeof(BaseUpdateInfo), typeof(BaseCardUpdateInfo) }
+                };
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut,jsonSetting:jsonSetting);
 
             }, accessTokenOrAppId);
         }
@@ -1027,7 +1036,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     TypesToIgnore = new List<Type>() { typeof(ActivateUserFormSetData), typeof(BaseForm) }
                 };
-                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut,jsonSetting:jsonSetting);
 
             }, accessTokenOrAppId);
         }
@@ -1211,7 +1220,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     TypesToIgnore = new List<Type>() { data.GetType() }
                 };
 
-                return CommonJsonSend.Send<UpdateUserResult>(null, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<UpdateUserResult>(null, urlFormat, data, timeOut: timeOut,jsonSetting:jsonSetting);
 
             }, accessTokenOrAppId);
         }
@@ -2554,7 +2563,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                 }
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut);
+                JsonSetting jsonSetting = new JsonSetting()
+                {
+                    TypesToIgnore = new List<Type>() { typeof(BaseUpdateInfo), typeof(BaseCardUpdateInfo) }
+                };
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut,jsonSetting:jsonSetting);
 
             }, accessTokenOrAppId);
         }

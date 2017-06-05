@@ -18,11 +18,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
-using Senparc.Weixin.MP.MvcExtension.BrowserUtility;
+using Senparc.Weixin.MP.CoreMvcExtension.BrowserUtility;
 using Microsoft.AspNetCore.Mvc.Filters;
 //using Senparc.Weixin.BrowserUtility;
 
-namespace Senparc.Weixin.MP.MvcExtension
+namespace Senparc.Weixin.MP.CoreMvcExtension
 {
     /// <summary>
     /// 过滤来自非微信客户端浏览器的请求

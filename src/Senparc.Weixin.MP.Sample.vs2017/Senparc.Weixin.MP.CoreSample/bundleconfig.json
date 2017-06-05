@@ -11,7 +11,10 @@
   {
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
-      "wwwroot/js/site.js"
+      "wwwroot/js/site.js",
+      "wwwroot/lib/jquery/dist/jquery.js",
+      "wwwroot/Scripts/jquery.form.js.js",
+      "wwwroot/Scripts/tongji.js"
     ],
     // Optionally specify minification options
     "minify": {
@@ -20,5 +23,19 @@
     },
     // Optionally generate .map file
     "sourceMap": false
+  },
+
+
+  {
+    "outputFileName": "wwwroot/Content/danktooltip.js",
+    "inputFiles": [
+      "wwwroot/Content/danktooltip/js/jquery.darktooltip.min.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/Content/danktooltip.css",
+    "inputFiles": [
+      "wwwroot/Content/danktooltip/css/darktooltip.min.css"
+    ]
   }
 ]

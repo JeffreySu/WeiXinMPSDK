@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Version>4.12.0</Version>
+    <Version>4.12.4</Version>
     <AssemblyName>Senparc.Weixin</AssemblyName>
     <RootNamespace>Senparc.Weixin</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -140,8 +140,17 @@
       v4.11.9 修改Download方法
       v4.11.10 恢复.net core版本中的EncryptHelper.GetSha1()方法可用
       v4.11.11 添加MessageHandlerExtensions
-      
+
       v4.12.0 优化最新 .NET Core 模块
+      v4.12.1 修复因为netstandard1.6条件编译符不正确造成的部分代码短路
+      v4.12.2 修复HttpUtility.UrlEncode .net core方法错误
+      v4.12.3 修复HttpUtility.UrlEncode .net 4.5方法错误
+      
+      v4.12.1 修复因为netstandard1.6条件编译符不正确造成的部分代码短路
+              添加SenparcWeixinSetting配置类
+      v4.12.2修复HttpUtility.UrlEncode .net core方法错误
+      v4.12.3修复HttpUtility.UrlEncode .net 4.5方法错误
+      v4.12.4 MessageHandler基类默认开启消息去重，不再需要手动设置（messageHandler.OmitRepeatedMessage = true）
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

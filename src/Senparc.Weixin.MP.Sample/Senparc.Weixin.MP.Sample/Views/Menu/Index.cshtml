@@ -87,9 +87,13 @@
 
             #reveiveJSON textarea {
                 width: 96%;
-                height: 400px;
+                height: 350px;
                 margin-top: 5px;
             }
+
+        #menuEditor #submitJsonMenu.control-btn {
+            width: 280px;
+        }
 
         .menu-state {
             width: 100%;
@@ -108,7 +112,7 @@
             line-height: 42px;
         }
 
-       
+
         .currentMenuItem {
             background-color: #ecf9ff;
             color: #246ea2;
@@ -349,7 +353,7 @@
             <div id="reveiveJSON">
                 <p><h3>接收菜单JSON</h3></p>
                 <p><textarea id="txtReveiceJSON"></textarea></p>
-
+                <p><input type="button" class="control-btn" value="使用此 JSON 直接更新到服务器" id="submitJsonMenu" /></p>
             </div>
             <div class="clear"></div>
 

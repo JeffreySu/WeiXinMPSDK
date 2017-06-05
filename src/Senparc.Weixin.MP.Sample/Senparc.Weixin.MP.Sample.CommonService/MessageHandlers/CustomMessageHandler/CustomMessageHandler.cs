@@ -306,7 +306,7 @@ namespace Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler
                 })
                 .Keyword("容错", () =>
                 {
-                    Thread.Sleep(1500);//故意延时1.5秒，让微信多次发送消息过来，观察返回结果
+                    Thread.Sleep(4900);//故意延时1.5秒，让微信多次发送消息过来，观察返回结果
                     var faultTolerantResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
                     faultTolerantResponseMessage.Content = string.Format("测试容错，MsgId：{0}，Ticks：{1}", requestMessage.MsgId,
                         DateTime.Now.Ticks);
@@ -444,8 +444,8 @@ namespace Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler
         {
             var responseMessage = CreateResponseMessage<ResponseMessageMusic>();
             //上传缩略图
-            var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
-            var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(accessToken, UploadMediaFileType.image,
+            //var accessToken = Containers.AccessTokenContainer.TryGetAccessToken(appId, appSecret);
+            var uploadResult = AdvancedAPIs.MediaApi.UploadTemporaryMedia(appId, UploadMediaFileType.image,
                                                          Server.GetMapPath("~/Images/Logo.jpg"));
 
             //设置音乐信息
@@ -454,6 +454,16 @@ namespace Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler
             responseMessage.Music.MusicUrl = "http://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
             responseMessage.Music.HQMusicUrl = "http://sdk.weixin.senparc.com/Media/GetVoice?mediaId=" + requestMessage.MediaId;
             responseMessage.Music.ThumbMediaId = uploadResult.media_id;
+
+            //推送一条客服消息
+            try
+            {
+                CustomApi.SendText(appId, WeixinOpenId, "本次上传的音频MediaId：" + requestMessage.MediaId);
+
+            }
+            catch {
+            }
+
             return responseMessage;
         }
         /// <summary>

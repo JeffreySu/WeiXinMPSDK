@@ -24,7 +24,7 @@ namespace Senparc.Weixin.MP.CoreSample.CommonService.Utilities
 #if NET45
                     _appDomainAppPath = HttpRuntime.AppDomainAppPath;
 #else
-                    _appDomainAppPath = AppContext.BaseDirectory;
+                    _appDomainAppPath = AppContext.BaseDirectory; //dll所在目录：;
 #endif
                 }
                 return _appDomainAppPath;
@@ -32,6 +32,12 @@ namespace Senparc.Weixin.MP.CoreSample.CommonService.Utilities
             set
             {
                 _appDomainAppPath = value;
+#if NETSTANDARD1_6
+                if (!_appDomainAppPath.EndsWith("\\"))
+                {
+                    _appDomainAppPath += "\\";
+                }
+#endif
             }
         }
 

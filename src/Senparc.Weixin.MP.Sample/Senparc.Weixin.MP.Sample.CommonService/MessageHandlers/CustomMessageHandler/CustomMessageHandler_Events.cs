@@ -43,7 +43,8 @@ namespace Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler
 #if NET45
              var fileVersionInfo = FileVersionInfo.GetVersionInfo(HttpContext.Current.Server.MapPath("~/bin/Senparc.Weixin.MP.dll"));
 #else
-            var fileVersionInfo = FileVersionInfo.GetVersionInfo(Server.GetMapPath("~/bin/Release/netcoreapp1.1/Senparc.Weixin.MP.dll"));
+            var filePath = Server.GetMapPath("~/bin/Release/netcoreapp1.1/Senparc.Weixin.MP.dll");
+            var fileVersionInfo = FileVersionInfo.GetVersionInfo(filePath);
 #endif
 
 

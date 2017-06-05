@@ -118,7 +118,7 @@ senparc.menu = {
                     }
 
                     //显示JSON
-                    $('#txtReveiceJSON').html(JSON.stringify(json));
+                    $('#txtReveiceJSON').text(JSON.stringify(json));
 
                     menuState.html('菜单获取已完成');
                 } else {
@@ -157,6 +157,25 @@ senparc.menu = {
                     } else {
                         menuState.html(json.Message);
                     }
+                }
+            });
+        });
+
+        $('#submitJsonMenu').click(function () {
+            if (!confirm('此方法只能更新自定义菜单（不包含个性化菜单），确定要提交吗？此操作无法撤销！')) {
+                return;
+            }
+
+            menuState.html('上传中...');
+            var jsonStr = $('#txtReveiceJSON').val();
+
+            //console.log(jsonStr);
+
+            $.post('/Menu/CreateMenuFromJson', { token: $('#tokenStr').val(), fullJson: jsonStr }, function (json) {
+                if (json.Successed) {
+                    menuState.html('上传成功');
+                } else {
+                    menuState.html(json.Message);
                 }
             });
         });

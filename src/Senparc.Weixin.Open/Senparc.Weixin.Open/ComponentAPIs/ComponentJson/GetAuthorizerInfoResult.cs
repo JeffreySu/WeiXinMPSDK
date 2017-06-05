@@ -9,7 +9,9 @@
 
     修改标识：Senparc - 20150402
     修改描述：添加序列化特性[Serializable]
-
+    
+    修改标识：Senparc - 20170523
+    修改描述：v2.4.1 BusinessInfo添加open_scan属性（是否开通微信扫商品功能）
 ----------------------------------------------------------------*/
 
 using System;
@@ -90,6 +92,11 @@ namespace Senparc.Weixin.Open.ComponentAPIs
         public int open_shake { get; set; }
         public int open_card { get; set; }
         public int open_store { get; set; }
+
+        /// <summary>
+        /// 是否开通微信扫商品功能
+        /// </summary>
+        public int open_scan { get; set; }
     }
 
     //[Obsolete("此类已过期，请使用AuthorizationInfo")]

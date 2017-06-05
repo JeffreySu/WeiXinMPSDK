@@ -199,7 +199,11 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             }
 
             sb.Append(key + "=" + value);
-            string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+
+            //string sign = MD5UtilHelper.GetMD5(sb.ToString(), GetCharset()).ToUpper();
+
+            //编码强制使用UTF8：https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_1
+            string sign = MD5UtilHelper.GetMD5(sb.ToString(), "UTF-8").ToUpper();
 
             return sign;
         }
@@ -249,14 +253,14 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         protected virtual string GetCharset()
         {
 #if (NET45 || NET461)
-            if (this.HttpContext == null)
+            if (this.HttpContext == null)//构造函数已经排除了这种可能，暂时保留
             {
                 return Encoding.UTF8.BodyName;
             }
 
             return this.HttpContext.Request.ContentEncoding.BodyName;
 #else
-            if (this.HttpContext == null)
+            if (this.HttpContext == null)//构造函数已经排除了这种可能，暂时保留
             {
                 return Encoding.UTF8.WebName;
             }

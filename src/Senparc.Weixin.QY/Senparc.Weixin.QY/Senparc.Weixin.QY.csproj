@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Version>4.3.0</Version>
+    <Version>4.3.2</Version>
     <AssemblyName>Senparc.Weixin.QY</AssemblyName>
     <RootNamespace>Senparc.Weixin.QY</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -21,7 +21,7 @@
     <Owners>Senparc</Owners>
     <PackageLicenseUrl>https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md</PackageLicenseUrl>
     <ProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</ProjectUrl>
-    <Title>Senparc.Weixin.Cache.Redis.dll</Title>
+    <Title>Senparc.Weixin.QY.dll</Title>
 
     <Summary>微信公众号SDK for C#</Summary>
     <PackageProjectUrl>https://github.com/JeffreySu/WeiXinMPSDK</PackageProjectUrl>
@@ -107,8 +107,13 @@
       腾讯已于2016.4.20 下线“邀请成员关注接口”
       v4.2.3：
       AppApi.SetApp()方法改为POST请求方式
-      
+
       v4.3.0 支持最新 .NET Core 依赖模块
+      v4.3.1
+      1、修改JSSDKHelper.GetNoncestr()方法
+      2、优化TenPayLib.BuildRandomStr()方法
+      v4.3.2 修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

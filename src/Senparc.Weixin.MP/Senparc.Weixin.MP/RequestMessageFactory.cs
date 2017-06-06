@@ -191,6 +191,22 @@ namespace Senparc.Weixin.MP
                             case "SHAKEAROUNDUSERSHAKE"://摇一摇事件通知
                                 requestMessage = new RequestMessageEvent_ShakearoundUserShake();
                                 break;
+                            case "USER_GIFTING_CARD"://卡券转赠事件推送
+                                requestMessage = new RequestMessageEvent_User_Gifting_Card();
+                                break;
+                            case "USER_PAY_FROM_PAY_CELL":// 微信买单完成
+                                    requestMessage = new RequestMessageEvent_User_Pay_From_Pay_Cell();
+                                break;
+                            case "UPDATE_MEMBER_CARD":// 会员卡内容更新事件：会员卡积分余额发生变动时
+                                requestMessage = new RequestMessageEvent_Update_Member_Card();
+                                break;
+
+                            case "CARD_SKU_REMIND"://卡券库存报警事件：当某个card_id的初始库存数大于200且当前库存小于等于100时
+                                requestMessage = new RequestMessageEvent_Card_Sku_Remind();
+                                break;
+                            case "CARD_PAY_ORDER"://券点流水详情事件：当商户朋友的券券点发生变动时
+                                requestMessage = new RequestMessageEvent_Card_Pay_Order();
+                                break;
                             default://其他意外类型（也可以选择抛出异常）
                                 requestMessage = new RequestMessageEventBase();
                                 break;

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Version>14.4.7</Version>
+    <Version>14.4.10</Version>
     <AssemblyName>Senparc.Weixin.MP</AssemblyName>
     <RootNamespace>Senparc.Weixin.MP</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -273,6 +273,21 @@
       v14.4.5 完善微信支付退款申请接口
       v14.4.6 修复企业付款接口无法指定证书的问题（TenpayV3.Transfers）
       v14.4.7 iBeacon设备接口GroupGetAdddevice()方法更新
+      
+      v14.4.5 完善微信支付退款申请接口
+      v14.4.6 修复企业付款接口无法指定证书的问题（TenpayV3.Transfers）
+      v14.4.7 iBeacon设备接口GroupGetAdddevice()方法更新
+      v14.4.8 
+        1、完善TenPayLibV3.GetNoncestr()方法；
+        2、优化TenPayLibV3.BuildRandomStr()方法
+      
+      v14.4.9 
+        1、修改CardAPI的卡信息更新设置
+        2、修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
+      
+      v14.4.10 
+      	1、CardApi.CardBatchGet()方法增加statusList参数
+      	2、修改Card_CashData属性类型（int）
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

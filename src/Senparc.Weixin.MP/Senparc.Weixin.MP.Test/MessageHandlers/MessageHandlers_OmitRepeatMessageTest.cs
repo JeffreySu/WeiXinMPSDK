@@ -76,52 +76,56 @@ namespace Senparc.Weixin.MP.Test.MessageHandlers
 ";
 
         [TestMethod]
-        public void OmitMessageTest()
+        public void OmitMessageTest_DifferentMsgId()
         {
-            {
-                //发送两条不同MsgId的消息
-                var messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "1", "Jeffrey")));
-                messageHandler.OmitRepeatedMessage = true;
-                messageHandler.Execute();
-                Assert.IsNotNull(messageHandler.ResponseMessage);
-                Assert.AreEqual("Jeffrey", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+            //发送两条不同MsgId的消息
+            var messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "11", "Jeffrey")));
+            messageHandler.OmitRepeatedMessage = true;
+            messageHandler.Execute();
+            Assert.IsNotNull(messageHandler.ResponseMessage);
+            Assert.AreEqual("Jeffrey", (messageHandler.ResponseMessage as ResponseMessageText).Content);
 
-                messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "2", "Su")));
-                messageHandler.OmitRepeatedMessage = true;
-                messageHandler.Execute();
-                Assert.IsNotNull(messageHandler.ResponseMessage);
-                Assert.AreEqual("Su", (messageHandler.ResponseMessage as ResponseMessageText).Content);
-            }
+            messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "12", "Su")));
+            messageHandler.OmitRepeatedMessage = true;
+            messageHandler.Execute();
+            Assert.IsNotNull(messageHandler.ResponseMessage);
+            Assert.AreEqual("Su", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+        }
 
-            {
-                //发送两条相同MsgId的消息
-                var messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "1", "Jeffrey")));
-                messageHandler.OmitRepeatedMessage = true;
-                messageHandler.Execute();
-                Assert.IsNotNull(messageHandler.ResponseMessage);
-                Assert.AreEqual("Jeffrey", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+        [TestMethod]
+        public void OmitMessageTest_SameMsgId()
+        {
+            //发送两条相同MsgId的消息
+            var messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "21", "Jeffrey")));
+            messageHandler.OmitRepeatedMessage = true;
+            messageHandler.Execute();
+            Assert.IsNotNull(messageHandler.ResponseMessage);
+            Assert.AreEqual("Jeffrey", (messageHandler.ResponseMessage as ResponseMessageText).Content);
 
-                messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "1", "Su")));
-                messageHandler.OmitRepeatedMessage = true;
-                messageHandler.Execute();
-                Assert.IsNull(messageHandler.ResponseMessage);
-            }
+            messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "21", "Su")));
+            messageHandler.OmitRepeatedMessage = true;
+            messageHandler.Execute();
+            Assert.IsNull(messageHandler.ResponseMessage);
 
-            {
-                //发送两条相同MsgId的消息，但是不启用忽略
-                var messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "1", "Jeffrey")));
-                messageHandler.OmitRepeatedMessage = false;
-                messageHandler.Execute();
-                Assert.IsNotNull(messageHandler.ResponseMessage);
-                Assert.AreEqual("Jeffrey", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+        }
 
-                messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "1", "Su")));
-                messageHandler.OmitRepeatedMessage = false;
-                messageHandler.Execute();
-                Assert.IsNotNull(messageHandler.ResponseMessage);
-                Assert.AreEqual("Su", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+        //不使用去重
+        [TestMethod]
+        public void OmitMessageTest_NotOmit()
+        {
+            //发送两条相同MsgId的消息，但是不启用忽略
+            var messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "31", "Jeffrey")));
+            messageHandler.OmitRepeatedMessage = false;
+            messageHandler.Execute();
+            Assert.IsNotNull(messageHandler.ResponseMessage);
+            Assert.AreEqual("Jeffrey", (messageHandler.ResponseMessage as ResponseMessageText).Content);
 
-            }
+            messageHandler = new OmitRepeatMessageMessageHandlers(XDocument.Parse(string.Format(xmlText, "31", "Su")));
+            messageHandler.OmitRepeatedMessage = false;
+            messageHandler.Execute();
+            Assert.IsNotNull(messageHandler.ResponseMessage);
+            Assert.AreEqual("Su", (messageHandler.ResponseMessage as ResponseMessageText).Content);
+
         }
     }
 }

@@ -81,7 +81,7 @@ namespace Senparc.Weixin.Helpers
         /// <param name="encypStr">需要加密的字符串</param>
         /// <param name="charset">编码</param>
         /// <returns></returns>
-        public static string GetMD5(string encypStr, string charset = "UTF8")
+        public static string GetMD5(string encypStr, string charset = "UTF-8")
         {
             string retStr;
 

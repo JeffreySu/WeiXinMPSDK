@@ -145,7 +145,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
         /// <summary>
-        /// 获得模板ID
+        /// 添加模板并获得模板ID
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="template_id_short">模板库中模板的编号，有“TM**”和“OPENTMTM**”等形式</param>

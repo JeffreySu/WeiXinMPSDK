@@ -199,7 +199,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
         /// <summary>
-        /// 设置客服信息
+        /// 修改客服账号
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="kfAccount">完整客服账号，格式为：账号前缀@公众号微信号，账号前缀最多10个字符，必须是英文或者数字字符。如果没有公众号微信号，请前往微信公众平台设置。</param>

@@ -341,7 +341,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 发送图文消息
+        /// 发送图文消息（点击跳转到外链）
         /// </summary>
         /// <param name="accessTokenOrAppId"></param>
         /// <param name="openId"></param>
@@ -448,6 +448,31 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+
+        public static WxJsonResult SendCard(string accessTokenOrAppId, string openId, string cardId, CardExt cardExt, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var data = new
+                {
+                    touser = openId,
+                    msgtype = "wxcard",
+                    wxcard = new
+                    {
+                        card_id = cardId,
+                        card_ext = cardExt
+                    }
+                };
+                JsonSetting jsonSetting = new JsonSetting()
+                {
+                    TypesToIgnore = new List<System.Type>() { typeof(CardExt) }
+                };
+
+                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut, jsonSetting: jsonSetting);
+
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 
         #region 异步请求
@@ -830,14 +855,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
-        #endregion
 
-        ///
-        /// 发送卡券 查看card_ext字段详情及签名规则，特别注意客服消息接口投放卡券仅支持非自定义Code码的卡券。 
-        ///
-        public static WxJsonResult SendCard(string accessTokenOrAppId, string openId, string cardId, CardExt cardExt, int timeOut = Config.TIME_OUT)
+        public static async Task<WxJsonResult> SendCardAsync(string accessTokenOrAppId, string openId, string cardId, CardExt cardExt, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var data = new
                 {
@@ -854,9 +875,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     TypesToIgnore = new List<System.Type>() { typeof(CardExt) }
                 };
 
-                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return  await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut, jsonSetting: jsonSetting);
 
             }, accessTokenOrAppId);
         }
+
+        #endregion
+
+        ///
+        /// 发送卡券 查看card_ext字段详情及签名规则，特别注意客服消息接口投放卡券仅支持非自定义Code码的卡券。 
+        ///
+
     }
 }

@@ -77,7 +77,7 @@ namespace Senparc.Weixin.QY.TenPayLibV3
 #if NET45 || NET461
         //private string Charset = "gb2312";
 #else
-        private string Charset = "936";
+        private int Charset = 936;
 #endif
 
         protected HttpContext HttpContext;

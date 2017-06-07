@@ -94,7 +94,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 #if NET45
         private string Charset = "gb2312";
 #else
-        private string Charset = "936";
+        private int Charset = 936;
 #endif
 
         /// <summary>

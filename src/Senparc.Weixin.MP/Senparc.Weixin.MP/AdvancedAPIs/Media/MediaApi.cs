@@ -75,7 +75,6 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     {
         #region 同步处理
 
-
         #region 临时素材
         /// <summary>
         /// 新增临时素材（原上传媒体文件）
@@ -411,9 +410,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         #endregion
+
         #endregion
 
         #region 异步处理
+
         #region 临时素材
         /// <summary>
         /// 【异步方法】新增临时素材（原上传媒体文件）
@@ -750,6 +751,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         #endregion
+
         #endregion
 
     }

@@ -61,7 +61,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         /// <returns></returns>
         public static string GetNoncestr()
         {
-            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "UTF8");
+            return EncryptHelper.GetMD5(Guid.NewGuid().ToString(), "UTF-8");
         }
 
         /// <summary>

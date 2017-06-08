@@ -99,6 +99,7 @@
     <Compile Include="AdvancedAPIs\Semantic\SemanticTest.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundTest.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateTest.cs" />
+    <Compile Include="AdvancedAPIs\AsyncTest.cs" />
     <Compile Include="CacheTests\CacheTests.cs" />
     <Compile Include="Containers\AccessTokenContainerAsyncTest.cs" />
     <Compile Include="Containers\AccessTokenContainerLockTest.cs" />

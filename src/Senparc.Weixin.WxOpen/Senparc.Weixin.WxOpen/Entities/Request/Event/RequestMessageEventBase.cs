@@ -21,62 +21,46 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：TempleteModel.cs
-    文件功能描述：小程序模板消息接口需要的数据
+    文件名：RequestMessageEventBase.cs
+    文件功能描述：事件基类
     
     
-    创建标识：Senparc - 20161112
-    
+    创建标识：Senparc - 20170106
 ----------------------------------------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson
+namespace Senparc.Weixin.WxOpen.Entities
 {
     /// <summary>
-    /// 模板消息Post数据
+    /// IRequestMessageEventBase
     /// </summary>
-    public class TempleteModel
+    public interface IRequestMessageEventBase : IRequestMessageBase
     {
         /// <summary>
-        /// 目标用户OpenId
+        /// 事件类型
         /// </summary>
-        public string touser { get; set; }
+        Event Event { get; }
+        ///// <summary>
+        ///// 事件KEY值，与自定义菜单接口中KEY值对应
+        ///// </summary>
+        //string EventKey { get; set; }
+    }
 
-        /// <summary>
-        /// 模板ID
-        /// </summary>
-        public string template_id { get; set; }
-
-        /// <summary>
-        /// 点击模板查看详情跳转页面，不填则模板无跳转（非必填）
-        /// </summary>
-        public string page { get; set; }
-
-        /// <summary>
-        /// 表单提交场景下，为 submit 事件带上的 formId；支付场景下，为本次支付的 prepay_id
-        /// </summary>
-        public string form_id { get; set; }
-
-
-        /// <summary>
-        /// 数据
-        /// </summary>
-        public object data { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string emphasis_keyword { get; set; }
-
-
-
-        public TempleteModel()
+    /// <summary>
+    /// 请求消息的事件推送消息基类
+    /// </summary>
+    public class RequestMessageEventBase : RequestMessageBase, IRequestMessageEventBase
+    {
+        public override RequestMsgType MsgType
         {
+            get { return RequestMsgType.Event; }
+        }
+
+        /// <summary>
+        /// 事件类型
+        /// </summary>
+        public virtual Event Event
+        {
+            get { return Event.user_enter_tempsession; }
         }
     }
 }

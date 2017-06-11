@@ -21,12 +21,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：TempleteModel.cs
-    文件功能描述：小程序模板消息接口需要的数据
+    文件名：SessionHelper.cs
+    文件功能描述：Session帮助类
     
     
-    创建标识：Senparc - 20161112
-    
+    创建标识：Senparc - 20170129
 ----------------------------------------------------------------*/
 
 using System;
@@ -35,48 +34,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson
+namespace Senparc.Weixin.WxOpen.Helpers
 {
     /// <summary>
-    /// 模板消息Post数据
+    /// Session帮助类
     /// </summary>
-    public class TempleteModel
+    public class SessionHelper
     {
         /// <summary>
-        /// 目标用户OpenId
+        /// 获取新的3rdSession名称
         /// </summary>
-        public string touser { get; set; }
-
-        /// <summary>
-        /// 模板ID
-        /// </summary>
-        public string template_id { get; set; }
-
-        /// <summary>
-        /// 点击模板查看详情跳转页面，不填则模板无跳转（非必填）
-        /// </summary>
-        public string page { get; set; }
-
-        /// <summary>
-        /// 表单提交场景下，为 submit 事件带上的 formId；支付场景下，为本次支付的 prepay_id
-        /// </summary>
-        public string form_id { get; set; }
-
-
-        /// <summary>
-        /// 数据
-        /// </summary>
-        public object data { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string emphasis_keyword { get; set; }
-
-
-
-        public TempleteModel()
+        /// <param name="bSize">Session名称长度，单位：B，建议为16的倍数，通常情况下16B已经够用（32位GUID字符串）</param>
+        /// <returns></returns>
+        public static string GetNewThirdSessionName(int bSize = 16)
         {
+            string key = null;
+            for (int i = 0; i < bSize / 16; i++)
+            {
+                key += Guid.NewGuid().ToString("n");
+            }
+            return key;
         }
     }
 }

@@ -21,62 +21,34 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：TempleteModel.cs
-    文件功能描述：小程序模板消息接口需要的数据
+    文件名：JsCode2JsonResult.cs
+    文件功能描述：JsCode2Json接口结果
     
     
-    创建标识：Senparc - 20161112
-    
-----------------------------------------------------------------*/
+    创建标识：Senparc - 20170105
 
+----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template.TemplateJson
+namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Sns
 {
     /// <summary>
-    /// 模板消息Post数据
+    /// JsCode2Json接口结果
     /// </summary>
-    public class TempleteModel
+    public class JsCode2JsonResult:WxJsonResult
     {
         /// <summary>
-        /// 目标用户OpenId
+        /// 用户唯一标识
         /// </summary>
-        public string touser { get; set; }
-
+        public string openid { get; set; }
         /// <summary>
-        /// 模板ID
+        /// 会话密钥
         /// </summary>
-        public string template_id { get; set; }
-
-        /// <summary>
-        /// 点击模板查看详情跳转页面，不填则模板无跳转（非必填）
-        /// </summary>
-        public string page { get; set; }
-
-        /// <summary>
-        /// 表单提交场景下，为 submit 事件带上的 formId；支付场景下，为本次支付的 prepay_id
-        /// </summary>
-        public string form_id { get; set; }
-
-
-        /// <summary>
-        /// 数据
-        /// </summary>
-        public object data { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string emphasis_keyword { get; set; }
-
-
-
-        public TempleteModel()
-        {
-        }
+        public string session_key { get; set; }
     }
 }

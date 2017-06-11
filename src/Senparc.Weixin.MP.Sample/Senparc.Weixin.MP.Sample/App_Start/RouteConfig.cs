@@ -21,11 +21,11 @@ namespace Senparc.Weixin.MP.Sample
                 defaults: new { controller = "Open", action = "Callback", appId = UrlParameter.Optional }
             );
 
-            routes.MapRoute(
-              name: "WebSocket",
-              url: "SenparcWebSocket",
-              defaults: new { controller = "SenparcWebSocket", action = "SenparcWebSocket" }
-            );
+            //routes.MapRoute(
+            //  name: "WebSocket",
+            //  url: "SenparcWebSocket",
+            //  defaults: new { controller = "SenparcWebSocket", action = "SenparcWebSocket" }
+            //);
 
 
             routes.MapRoute(

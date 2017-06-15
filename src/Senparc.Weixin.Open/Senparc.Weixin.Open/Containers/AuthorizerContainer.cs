@@ -254,7 +254,7 @@ namespace Senparc.Weixin.Open.Containers
                     var componentAccessToken = ComponentContainer.GetComponentAccessToken(componentAppId, componentVerifyTicket);
 
                     //获取新的AuthorizerAccessToken
-                    var refreshToken = ComponentContainer.GetAuthorizerRefreshTokenFunc(authorizerAppid);
+                    var refreshToken = ComponentContainer.GetAuthorizerRefreshTokenFunc(componentAppId, authorizerAppid);
 
                     if (refreshToken == null)
                     {
@@ -358,7 +358,7 @@ namespace Senparc.Weixin.Open.Containers
                 //通知变更
                 if (refreshTokenChanged)
                 {
-                    ComponentContainer.AuthorizerTokenRefreshedFunc(authorizerAppid,
+                    ComponentContainer.AuthorizerTokenRefreshedFunc(componentAppId, authorizerAppid,
                         new RefreshAuthorizerTokenResult(authorizationInfo.authorizer_access_token,
                             authorizationInfo.authorizer_refresh_token, authorizationInfo.expires_in));
                 }
@@ -394,7 +394,7 @@ namespace Senparc.Weixin.Open.Containers
                 //通知变更
                 if (refreshTokenChanged)
                 {
-                    ComponentContainer.AuthorizerTokenRefreshedFunc(authorizerAppid,
+                    ComponentContainer.AuthorizerTokenRefreshedFunc(componentAppId, authorizerAppid,
                         new RefreshAuthorizerTokenResult(authorizerAccessToken, authorizerRefreshToken, expiresIn));
                 }
             }
@@ -414,7 +414,7 @@ namespace Senparc.Weixin.Open.Containers
             var refreshResult = ComponentApi.ApiAuthorizerToken(componentAccessToken, componentAppId, authorizerAppid,
                          refreshToken);
             //更新到存储
-            ComponentContainer.AuthorizerTokenRefreshedFunc(authorizerAppid, refreshResult);
+            ComponentContainer.AuthorizerTokenRefreshedFunc(componentAppId, authorizerAppid, refreshResult);
             return refreshResult;
         }
 
@@ -477,7 +477,7 @@ namespace Senparc.Weixin.Open.Containers
         }
 
         #endregion
-     
+
         #endregion
 
         #region 异步方法
@@ -507,14 +507,14 @@ namespace Senparc.Weixin.Open.Containers
                     var componentAccessToken = await ComponentContainer.GetComponentAccessTokenAsync(componentAppId, componentVerifyTicket);
 
                     //获取新的AuthorizerAccessToken
-                    var refreshToken = ComponentContainer.GetAuthorizerRefreshTokenFunc(authorizerAppid);
+                    var refreshToken = ComponentContainer.GetAuthorizerRefreshTokenFunc(componentAppId, authorizerAppid);
 
                     if (refreshToken == null)
                     {
                         return null;
                     }
 
-                    var refreshResult =await RefreshAuthorizerTokenAsync(componentAccessToken, componentAppId, authorizerAppid,
+                    var refreshResult = await RefreshAuthorizerTokenAsync(componentAccessToken, componentAppId, authorizerAppid,
                         refreshToken);
 
                     //更新数据
@@ -601,7 +601,7 @@ namespace Senparc.Weixin.Open.Containers
             var refreshResult = await ComponentApi.ApiAuthorizerTokenAsync(componentAccessToken, componentAppId, authorizerAppid,
                          refreshToken);
             //更新到存储
-            ComponentContainer.AuthorizerTokenRefreshedFunc(authorizerAppid, refreshResult);
+            ComponentContainer.AuthorizerTokenRefreshedFunc(componentAppId, authorizerAppid, refreshResult);
             return refreshResult;
         }
 

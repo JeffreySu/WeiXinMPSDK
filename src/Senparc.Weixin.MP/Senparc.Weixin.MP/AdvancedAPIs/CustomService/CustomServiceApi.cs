@@ -17,6 +17,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
+
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
@@ -40,6 +41,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20160718
     修改描述：增加其接口的异步方法
+
+    修改标识：Senparc - 20170609
+    修改描述：v14.4.12 修复 CustomServiceApi.GetMsgList() 方法时间戳问题
+
 ----------------------------------------------------------------*/
 
 /* 
@@ -386,8 +391,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var urlFormat = string.Format("https://api.weixin.qq.com/customservice/msgrecord/getmsglist?access_token={0}", accessToken.AsUrlData());
                 var data = new
                 {
-                    starttime = startTime,
-                    endtime = endTime,
+                    starttime = DateTimeHelper.GetWeixinDateTime(startTime),
+                    endtime = DateTimeHelper.GetWeixinDateTime(endTime),
                     msgid = msgId,
                     number = number
                 };
@@ -721,8 +726,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                var urlFormat = string.Format("https://api.weixin.qq.com/customservice/msgrecord/getmsglist?access_token={0}", accessToken.AsUrlData());
                var data = new
                {
-                   starttime = startTime,
-                   endtime = endTime,
+                   starttime = DateTimeHelper.GetWeixinDateTime(startTime),
+                   endtime = DateTimeHelper.GetWeixinDateTime(endTime),
                    msgid = msgId,
                    number = number
                };

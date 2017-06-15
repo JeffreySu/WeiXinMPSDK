@@ -198,45 +198,45 @@ namespace Senparc.Weixin.MP.Sample
                 }
             };
 
-            Func<string, string> getAuthorizerRefreshTokenFunc = auhtorizerId =>
-            {
-                var dir = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo");
-                if (!Directory.Exists(dir))
-                {
-                    Directory.CreateDirectory(dir);
-                }
-
-                var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
-                if (!File.Exists(file))
-                {
-                    return null;
-                }
-
-                using (Stream fs = new FileStream(file, FileMode.Open))
-                {
-                    BinaryFormatter binFormat = new BinaryFormatter();
-                    var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
-                    return result.authorizer_refresh_token;
-                }
-            };
-
-            Action<string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc = (auhtorizerId, refreshResult) =>
+            Func<string, string, string> getAuthorizerRefreshTokenFunc = (componentAppId, auhtorizerId) =>
              {
-                 var dir = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo");
+                 var dir = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo\\" + componentAppId);
                  if (!Directory.Exists(dir))
                  {
                      Directory.CreateDirectory(dir);
                  }
 
                  var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
-                 using (Stream fs = new FileStream(file, FileMode.Create))
+                 if (!File.Exists(file))
                  {
-                     //这里存了整个对象，实际上只存RefreshToken也可以，有了RefreshToken就能刷新到最新的AccessToken
+                     return null;
+                 }
+
+                 using (Stream fs = new FileStream(file, FileMode.Open))
+                 {
                      BinaryFormatter binFormat = new BinaryFormatter();
-                     binFormat.Serialize(fs, refreshResult);
-                     fs.Flush();
+                     var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
+                     return result.authorizer_refresh_token;
                  }
              };
+
+            Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc = (componentAppId, auhtorizerId, refreshResult) =>
+              {
+                  var dir = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo\\" + componentAppId);
+                  if (!Directory.Exists(dir))
+                  {
+                      Directory.CreateDirectory(dir);
+                  }
+
+                  var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
+                  using (Stream fs = new FileStream(file, FileMode.Create))
+                  {
+                      //这里存了整个对象，实际上只存RefreshToken也可以，有了RefreshToken就能刷新到最新的AccessToken
+                      BinaryFormatter binFormat = new BinaryFormatter();
+                      binFormat.Serialize(fs, refreshResult);
+                      fs.Flush();
+                  }
+              };
 
             //执行注册
             ComponentContainer.Register(

@@ -342,7 +342,28 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #region 标签管理
 
+        /// <summary>
+        /// 创建标签【QY移植修改】
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="tagName">标签名称。长度为1~64个字符，标签不可与其他同组的标签重名，也不可与全局标签重名</param>
+        /// <param name="tagId">标签id，非负整型，指定此参数时新增的标签会生成对应的标签id，不指定时则以目前最大的id自增。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static CreateTagResult CreateTag(string accessToken, string tagName, int? tagId = null, int timeOut = Config.TIME_OUT)
+        {
+            var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token={0}";
 
+            var data = new
+            {
+                tagname = tagName,
+                tagid = tagId
+            };
+
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<CreateTagResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+        }
 
         #endregion
 
@@ -369,26 +390,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
 
-        /// <summary>
-        /// 创建标签
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="tagName">标签名称。长度为1~64个字符，标签不可与其他同组的标签重名，也不可与全局标签重名</param>
-        /// <param name="tagId">标签id，整型，指定此参数时新增的标签会生成对应的标签id，不指定时则以目前最大的id自增。</param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <returns></returns>
-        public static CreateTagResult CreateTag(string accessToken, string tagName, int? tagId = null, int timeOut = Config.TIME_OUT)
-        {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token={0}";
 
-            var data = new
-            {
-                tagname = tagName,
-                tagid = tagId
-            };
-
-            return CommonJsonSend.Send<CreateTagResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-        }
 
         /// <summary>
         /// 更新标签名字
@@ -785,7 +787,32 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #endregion
 
+        #region 标签管理
 
+        /// <summary>
+        /// 【异步方法】创建标签【QY移植修改】
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="tagName">标签名称。长度为1~64个字符，标签不可与其他同组的标签重名，也不可与全局标签重名</param>
+        /// <param name="tagId">标签id，整型，指定此参数时新增的标签会生成对应的标签id，不指定时则以目前最大的id自增。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<CreateTagResult> CreateTagAsync(string accessToken, string tagName, int? tagId = null, int timeOut = Config.TIME_OUT)
+        {
+            var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token={0}";
+
+            var data = new
+            {
+                tagname = tagName,
+                tagid = tagId
+            };
+
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateTagResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+        }
+
+        #endregion
 
 
         /// <summary>
@@ -811,26 +838,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
 
-        /// <summary>
-        /// 【异步方法】创建标签
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="tagName">标签名称。长度为1~64个字符，标签不可与其他同组的标签重名，也不可与全局标签重名</param>
-        /// <param name="tagId">标签id，整型，指定此参数时新增的标签会生成对应的标签id，不指定时则以目前最大的id自增。</param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <returns></returns>
-        public static async Task<CreateTagResult> CreateTagAsync(string accessToken, string tagName, int? tagId = null, int timeOut = Config.TIME_OUT)
-        {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token={0}";
-
-            var data = new
-            {
-                tagname = tagName,
-                tagid = tagId
-            };
-
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateTagResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-        }
+     
 
         /// <summary>
         /// 【异步方法】更新标签名字

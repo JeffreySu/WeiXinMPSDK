@@ -42,7 +42,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
         /*此接口不提供异步方法*/
         /// <summary>
-        /// 企业获取code
+        /// 企业获取code【QY移植修改】
         /// </summary>
         /// <param name="corpId">企业的CorpID</param>
         /// <param name="redirectUrl">授权后重定向的回调链接地址，请使用urlencode对链接进行处理</param>

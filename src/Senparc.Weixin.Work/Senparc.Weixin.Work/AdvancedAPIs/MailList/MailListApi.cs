@@ -2,7 +2,7 @@
     Copyright (C) 2017 Senparc
     
     文件名：MailListApi.cs
-    文件功能描述：通讯录接口
+    文件功能描述：通讯录同步接口
     
     
     创建标识：Senparc - 20150313
@@ -22,12 +22,21 @@
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
  
+    -----------------------------------
+    
+    修改标识：Senparc - 20170616
+    修改描述：从QY移植，同步Work接口
+
 ----------------------------------------------------------------*/
 
 /*
-    成员接口：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E6%88%90%E5%91%98
-    部门接口：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E9%83%A8%E9%97%A8
-    标签接口：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E6%A0%87%E7%AD%BE
+    创建成员：http://work.weixin.qq.com/api/doc#10018
+    读取成员：http://work.weixin.qq.com/api/doc#10019
+    更新成员：http://work.weixin.qq.com/api/doc#10020
+    删除成员：http://work.weixin.qq.com/api/doc#10030
+    批量删除成员：http://work.weixin.qq.com/api/doc#10060
+    获取部门成员：http://work.weixin.qq.com/api/doc#10061
+    获取部门成员详情：http://work.weixin.qq.com/api/doc#10063
  */
 
 using System.Threading.Tasks;

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：RequestMessageEvent_LocationSelect.cs
     文件功能描述：事件之弹出地理位置选择器（location_select）
@@ -11,7 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.Work.Entities
+namespace Senparc.Weixin.QY.Entities
 {
     /// <summary>
     /// 事件之弹出地理位置选择器（location_select）

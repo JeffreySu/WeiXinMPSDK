@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：ChatInfo.cs
     文件功能描述：会话信息
@@ -8,7 +8,7 @@
     创建标识：Senparc - 20150728
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.Work.Entities
+namespace Senparc.Weixin.QY.Entities
 {
     /// <summary>
     /// 会话信息

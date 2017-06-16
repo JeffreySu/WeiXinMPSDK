@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：MailListApi.cs
     文件功能描述：发送消息接口
@@ -24,11 +24,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Senparc.Weixin.Work.AdvancedAPIs.Mass;
-using Senparc.Weixin.Work.CommonAPIs;
-using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.QY.AdvancedAPIs.Mass;
+using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.QY.Entities;
 
-namespace Senparc.Weixin.Work.AdvancedAPIs
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     /// <summary>
     /// 发送消息

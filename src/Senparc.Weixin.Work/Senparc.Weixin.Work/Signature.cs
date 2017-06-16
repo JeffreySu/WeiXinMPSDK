@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
   
     文件名：Signature.cs
     文件功能描述：检测签名
@@ -13,7 +13,7 @@
 
 using Tencent;
 
-namespace Senparc.Weixin.Work
+namespace Senparc.Weixin.QY
 {
     public static class Signature
     {

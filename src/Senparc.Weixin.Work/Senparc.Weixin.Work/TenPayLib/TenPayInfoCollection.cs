@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：TenPayInfoCollection.cs
     文件功能描述：微信支付信息集合，Key为商户号（MchId）
@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using Senparc.Weixin.Exceptions;
 
-namespace Senparc.Weixin.Work.TenPayLib
+namespace Senparc.Weixin.QY.TenPayLib
 {
     /// <summary>
     /// 微信支付信息集合，Key为商户号（MchId）

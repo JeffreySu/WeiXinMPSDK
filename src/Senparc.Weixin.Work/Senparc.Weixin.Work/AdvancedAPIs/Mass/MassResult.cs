@@ -1,6 +1,6 @@
 ﻿using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Work.AdvancedAPIs.Mass
+namespace Senparc.Weixin.QY.AdvancedAPIs.Mass
 {
     /// <summary>
     /// 发送消息返回结果

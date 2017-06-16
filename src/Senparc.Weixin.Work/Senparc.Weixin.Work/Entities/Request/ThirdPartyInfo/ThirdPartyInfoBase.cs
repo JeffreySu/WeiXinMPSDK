@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：ThirdPartyInfoBase.cs
     文件功能描述：第三方应用授权回调消息服务
@@ -11,7 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.Work.Entities
+namespace Senparc.Weixin.QY.Entities
 {
     public interface IThirdPartyInfoBase : IRequestMessageBase
     {

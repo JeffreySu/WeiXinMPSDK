@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：SingleLocationSelectButton.cs
     文件功能描述：调起地理位置选择工具按钮
@@ -11,7 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.Work.Entities.Menu
+namespace Senparc.Weixin.QY.Entities.Menu
 {
     /// <summary>
     /// 单个按键

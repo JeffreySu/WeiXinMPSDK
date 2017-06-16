@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：AccessTokenContainer.cs
     文件功能描述：通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
@@ -45,12 +45,12 @@ using System.Threading.Tasks;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Work.CommonAPIs;
-using Senparc.Weixin.Work.Entities;
-using Senparc.Weixin.Work.Exceptions;
+using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.QY.Entities;
+using Senparc.Weixin.QY.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
 
-namespace Senparc.Weixin.Work.Containers
+namespace Senparc.Weixin.QY.Containers
 {
     [Serializable]
     public class AccessTokenBag : BaseContainerBag

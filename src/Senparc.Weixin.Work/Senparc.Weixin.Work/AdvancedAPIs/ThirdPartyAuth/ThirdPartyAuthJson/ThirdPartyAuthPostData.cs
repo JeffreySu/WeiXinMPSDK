@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：ThirdPartyAuthPostData.cs
     文件功能描述：第三方应用授权需要post的数据
@@ -11,7 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
+namespace Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth
 {
     public class ThirdParty_AgentData
     {

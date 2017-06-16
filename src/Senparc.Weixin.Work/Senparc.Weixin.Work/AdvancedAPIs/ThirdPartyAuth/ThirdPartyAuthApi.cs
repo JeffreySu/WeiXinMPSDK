@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：ThirdPartyAuthApi.cs
     文件功能描述：第三方应用授权接口
@@ -28,10 +28,10 @@
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth;
-using Senparc.Weixin.Work.CommonAPIs;
+using Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth;
+using Senparc.Weixin.QY.CommonAPIs;
 
-namespace Senparc.Weixin.Work.AdvancedAPIs
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     public static class ThirdPartyAuthApi
     {

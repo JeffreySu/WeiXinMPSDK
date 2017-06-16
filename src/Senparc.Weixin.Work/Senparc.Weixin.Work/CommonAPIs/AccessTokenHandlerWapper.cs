@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：AccessTokenHandlerWapper.cs
     文件功能描述：使用AccessToken进行操作时，如果遇到AccessToken错误的情况，重新获取AccessToken一次，并重试
@@ -14,9 +14,9 @@
 using System;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Work.Containers;
+using Senparc.Weixin.QY.Containers;
 
-namespace Senparc.Weixin.Work.CommonAPIs
+namespace Senparc.Weixin.QY.CommonAPIs
 {
     public static class AccessTokenHandlerWapper
     {

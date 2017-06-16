@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
+namespace Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth
 {
     public class SessionInfo
     {

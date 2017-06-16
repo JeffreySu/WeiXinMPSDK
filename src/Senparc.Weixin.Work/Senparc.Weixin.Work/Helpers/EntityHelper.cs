@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：EntityHelper.cs
     文件功能描述：实体与xml相互转换
@@ -16,10 +16,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.QY.Entities;
+using Senparc.Weixin.QY.Entities.Request.KF;
 using Senparc.Weixin.Utilities;
 
-namespace Senparc.Weixin.Work.Helpers
+namespace Senparc.Weixin.QY.Helpers
 {
     public static class EntityHelper
     {
@@ -34,14 +35,14 @@ namespace Senparc.Weixin.Work.Helpers
             entity = entity ?? new T();
             var root = doc.Root;
 
-			var props = entity.GetType().GetProperties();
-			foreach (var prop in props)
-			{
-				var propName = prop.Name;
-				if (root.Element(propName) != null)
-				{
-					switch (prop.PropertyType.Name)
-					{
+            var props = entity.GetType().GetProperties();
+            foreach (var prop in props)
+            {
+                var propName = prop.Name;
+                if (root.Element(propName) != null)
+                {
+                    switch (prop.PropertyType.Name)
+                    {
                         //case "String":
                         //    goto default;
                         case "DateTime":
@@ -64,47 +65,47 @@ namespace Senparc.Weixin.Work.Helpers
 
                         //以下为枚举类型
                         case "RequestMsgType":
-							//已设为只读
-							//prop.SetValue(entity, MsgTypeHelper.GetRequestMsgType(root.Element(propName).Value), null);
-							break;
-						case "ResponseMsgType"://Response适用
-							//已设为只读
-							//prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
-							break;
-                        case "ThirdPartyInfo"://ThirdPartyInfo适用
+                            //已设为只读
+                            //prop.SetValue(entity, MsgTypeHelper.GetRequestMsgType(root.Element(propName).Value), null);
+                            break;
+                        case "ResponseMsgType": //Response适用
                             //已设为只读
                             //prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
                             break;
-						case "Event":
-							//已设为只读
-							//prop.SetValue(entity, EventHelper.GetEventType(root.Element(propName).Value), null);
-							break;
-						//以下为实体类型
-						case "List`1"://List<T>类型，ResponseMessageNews适用
-							var genericArguments = prop.PropertyType.GetGenericArguments();
-							if (genericArguments[0].Name == "Article")//ResponseMessageNews适用
-							{
-								//文章下属节点item
-								List<Article> articles = new List<Article>();
-								foreach (var item in root.Element(propName).Elements("item"))
-								{
-									var article = new Article();
-									FillEntityWithXml(article, new XDocument(item));
-									articles.Add(article);
-								}
-								prop.SetValue(entity, articles, null);
-							}
+                        case "ThirdPartyInfo": //ThirdPartyInfo适用
+                            //已设为只读
+                            //prop.SetValue(entity, MsgTypeHelper.GetResponseMsgType(root.Element(propName).Value), null);
+                            break;
+                        case "Event":
+                            //已设为只读
+                            //prop.SetValue(entity, EventHelper.GetEventType(root.Element(propName).Value), null);
+                            break;
+                        //以下为实体类型
+                        case "List`1": //List<T>类型，ResponseMessageNews适用
+                            var genericArguments = prop.PropertyType.GetGenericArguments();
+                            if (genericArguments[0].Name == "Article") //ResponseMessageNews适用
+                            {
+                                //文章下属节点item
+                                List<Article> articles = new List<Article>();
+                                foreach (var item in root.Element(propName).Elements("item"))
+                                {
+                                    var article = new Article();
+                                    FillEntityWithXml(article, new XDocument(item));
+                                    articles.Add(article);
+                                }
+                                prop.SetValue(entity, articles, null);
+                            }
                             else if (genericArguments[0].Name == "MpNewsArticle")
-							{
+                            {
                                 List<MpNewsArticle> mpNewsArticles = new List<MpNewsArticle>();
-								foreach (var item in root.Elements(propName))
-								{
+                                foreach (var item in root.Elements(propName))
+                                {
                                     var mpNewsArticle = new MpNewsArticle();
                                     FillEntityWithXml(mpNewsArticle, new XDocument(item));
                                     mpNewsArticles.Add(mpNewsArticle);
-								}
+                                }
                                 prop.SetValue(entity, mpNewsArticles, null);
-							}
+                            }
                             else if (genericArguments[0].Name == "PicItem")
                             {
                                 List<PicItem> picItems = new List<PicItem>();
@@ -118,49 +119,128 @@ namespace Senparc.Weixin.Work.Helpers
                                 }
                                 prop.SetValue(entity, picItems, null);
                             }
-							break;
-						case "Image"://ResponseMessageImage适用
-							Image image = new Image();
-							FillEntityWithXml(image, new XDocument(root.Element(propName)));
-							prop.SetValue(entity, image, null);
-							break;
-						case "Voice"://ResponseMessageVoice适用
-							Voice voice = new Voice();
-							FillEntityWithXml(voice, new XDocument(root.Element(propName)));
-							prop.SetValue(entity, voice, null);
-							break;
-						case "Video"://ResponseMessageVideo适用
-							Video video = new Video();
-							FillEntityWithXml(video, new XDocument(root.Element(propName)));
-							prop.SetValue(entity, video, null);
-							break;
-                        case "ScanCodeInfo"://扫码事件中的ScanCodeInfo适用
+                            break;
+                        case "Image": //ResponseMessageImage适用
+                            Image image = new Image();
+                            FillEntityWithXml(image, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, image, null);
+                            break;
+                        case "Voice": //ResponseMessageVoice适用
+                            Voice voice = new Voice();
+                            FillEntityWithXml(voice, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, voice, null);
+                            break;
+                        case "Video": //ResponseMessageVideo适用
+                            Video video = new Video();
+                            FillEntityWithXml(video, new XDocument(root.Element(propName)));
+                            prop.SetValue(entity, video, null);
+                            break;
+                        case "ScanCodeInfo": //扫码事件中的ScanCodeInfo适用
                             ScanCodeInfo scanCodeInfo = new ScanCodeInfo();
                             FillEntityWithXml(scanCodeInfo, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, scanCodeInfo, null);
                             break;
-                        case "SendLocationInfo"://弹出地理位置选择器的事件推送中的SendLocationInfo适用
+                        case "SendLocationInfo": //弹出地理位置选择器的事件推送中的SendLocationInfo适用
                             SendLocationInfo sendLocationInfo = new SendLocationInfo();
                             FillEntityWithXml(sendLocationInfo, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, sendLocationInfo, null);
                             break;
-                        case "SendPicsInfo"://系统拍照发图中的SendPicsInfo适用
+                        case "SendPicsInfo": //系统拍照发图中的SendPicsInfo适用
                             SendPicsInfo sendPicsInfo = new SendPicsInfo();
                             FillEntityWithXml(sendPicsInfo, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, sendPicsInfo, null);
                             break;
-                        case "BatchJobInfo"://异步任务完成事件推送BatchJob
+                        case "BatchJobInfo": //异步任务完成事件推送BatchJob
                             BatchJobInfo batchJobInfo = new BatchJobInfo();
                             FillEntityWithXml(batchJobInfo, new XDocument(root.Element(propName)));
                             prop.SetValue(entity, batchJobInfo, null);
                             break;
-						default:
-							prop.SetValue(entity, root.Element(propName).Value, null);
-							break;
-					}
-				}
-			}
-		}
+                        case "AgentType":
+                            {
+                                AgentType tp;
+                                if (Enum.TryParse(root.Element(propName).Value, out tp))
+                                {
+                                    prop.SetValue(entity, tp);
+                                }
+                                break;
+                            }
+                        case "Receiver":
+                            {
+                                Receiver receiver = new Receiver();
+                                FillEntityWithXml(receiver, new XDocument(root.Element(propName)));
+                                prop.SetValue(entity, receiver);
+                                break;
+                            }
+                        default:
+                            prop.SetValue(entity, root.Element(propName).Value, null);
+                            break;
+                    }
+                }
+                else if (prop.PropertyType.Name == "List`1")//客服回调特殊处理
+                {
+                    var genericArguments = prop.PropertyType.GetGenericArguments();
+                    if (genericArguments[0].Name == "RequestBase")
+                    {
+                        List<RequestBase> items = new List<RequestBase>();
+                        foreach (var item in root.Elements("Item"))
+                        {
+                            RequestBase reqItem = null;
+                            var msgTypeEle = item.Element("MsgType");
+                            if (msgTypeEle != null)
+                            {
+                                RequestMsgType type;
+                                if (Enum.TryParse(msgTypeEle.Value, true, out type))
+                                    switch (type)
+                                    {
+                                        case RequestMsgType.Event:
+                                            {
+                                                reqItem = new RequestEvent();
+                                                break;
+                                            }
+                                        case RequestMsgType.File:
+                                            {
+                                                reqItem = new RequestMessageFile();
+                                                break;
+                                            }
+                                        case RequestMsgType.Image:
+                                            {
+                                                reqItem = new Entities.Request.KF.RequestMessageImage();
+                                                break;
+                                            }
+                                        case RequestMsgType.Link:
+                                            {
+                                                reqItem = new Entities.Request.KF.RequestMessageLink();
+                                                break;
+                                            }
+                                        case RequestMsgType.Location:
+                                            {
+                                                reqItem = new Entities.Request.KF.RequestMessageLocation();
+                                                break;
+                                            }
+                                        case RequestMsgType.Text:
+                                            {
+                                                reqItem = new Entities.Request.KF.RequestMessageText();
+                                               
+                                                break;
+                                            }
+                                        case RequestMsgType.Voice:
+                                            {
+                                                reqItem = new Entities.Request.KF.RequestMessageVoice();
+                                                break;
+                                            }
+                                    }
+                            }
+                            if (reqItem != null)
+                            {
+                                FillEntityWithXml(reqItem, new XDocument(item));
+                                items.Add(reqItem);
+                            }
+                        }
+                        prop.SetValue(entity, items, null);
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// 将实体转为XML
@@ -168,7 +248,7 @@ namespace Senparc.Weixin.Work.Helpers
         /// <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
         /// <param name="entity">实体</param>
         /// <returns></returns>
-        public static XDocument ConvertEntityToXml<T>(this T entity) where T : class , new()
+        public static XDocument ConvertEntityToXml<T>(this T entity) where T : class, new()
         {
             entity = entity ?? new T();
             var doc = new XDocument();
@@ -211,84 +291,84 @@ namespace Senparc.Weixin.Work.Helpers
             Func<string, int> orderByPropName = propNameOrder.IndexOf;
 
             var props = entity.GetType().GetProperties().OrderBy(p => orderByPropName(p.Name)).ToList();
-			foreach (var prop in props)
-			{
-				var propName = prop.Name;
-				if (propName == "Articles")
-				{
-					//文章列表
-					var atriclesElement = new XElement("Articles");
-					var articales = prop.GetValue(entity, null) as List<Article>;
-					foreach (var articale in articales)
-					{
-						var subNodes = ConvertEntityToXml(articale).Root.Elements();
-						atriclesElement.Add(new XElement("item", subNodes));
-					}
-					root.Add(atriclesElement);
-				}
+            foreach (var prop in props)
+            {
+                var propName = prop.Name;
+                if (propName == "Articles")
+                {
+                    //文章列表
+                    var atriclesElement = new XElement("Articles");
+                    var articales = prop.GetValue(entity, null) as List<Article>;
+                    foreach (var articale in articales)
+                    {
+                        var subNodes = ConvertEntityToXml(articale).Root.Elements();
+                        atriclesElement.Add(new XElement("item", subNodes));
+                    }
+                    root.Add(atriclesElement);
+                }
                 else if (propName == "MpNewsArticles")
-				{
+                {
                     var mpNewsAtriclesElement = new XElement("MpNewsArticles");
                     var mpNewsAtricles = prop.GetValue(entity, null) as List<MpNewsArticle>;
                     foreach (var mpNewsArticale in mpNewsAtricles)
-					{
+                    {
                         var subNodes = ConvertEntityToXml(mpNewsArticale).Root.Elements();
                         mpNewsAtriclesElement.Add(subNodes);
-					}
+                    }
 
                     root.Add(mpNewsAtriclesElement);
-				}
-				else if (propName == "Image" || propName == "Video" || propName == "Voice")
-				{
-					//图片、视频、语音格式
-					var musicElement = new XElement(propName);
-					var media = prop.GetValue(entity, null);
-					var subNodes = ConvertEntityToXml(media).Root.Elements();
-					musicElement.Add(subNodes);
-					root.Add(musicElement);
-				}
-				else if (propName == "KfAccount")
-				{
-					root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
-				}
-				else
-				{
-					switch (prop.PropertyType.Name)
-					{
-						case "String":
-                                root.Add(new XElement(propName,
-                                                 new XCData(prop.GetValue(entity, null) as string ?? "")));
-							break;
-						case "DateTime":
-							root.Add(new XElement(propName, DateTimeHelper.GetWeixinDateTime((DateTime)prop.GetValue(entity, null))));
-							break;
-						case "Boolean":
-							if (propName == "FuncFlag")
-							{
-								root.Add(new XElement(propName, (bool)prop.GetValue(entity, null) ? "1" : "0"));
-							}
-							else
-							{
-								goto default;
-							}
-							break;
-						case "ResponseMsgType":
-							root.Add(new XElement(propName, new XCData(prop.GetValue(entity, null).ToString().ToLower())));
-							break;
-						case "Article":
-							root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
-							break;
+                }
+                else if (propName == "Image" || propName == "Video" || propName == "Voice")
+                {
+                    //图片、视频、语音格式
+                    var musicElement = new XElement(propName);
+                    var media = prop.GetValue(entity, null);
+                    var subNodes = ConvertEntityToXml(media).Root.Elements();
+                    musicElement.Add(subNodes);
+                    root.Add(musicElement);
+                }
+                else if (propName == "KfAccount")
+                {
+                    root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
+                }
+                else
+                {
+                    switch (prop.PropertyType.Name)
+                    {
+                        case "String":
+                            root.Add(new XElement(propName,
+                                             new XCData(prop.GetValue(entity, null) as string ?? "")));
+                            break;
+                        case "DateTime":
+                            root.Add(new XElement(propName, DateTimeHelper.GetWeixinDateTime((DateTime)prop.GetValue(entity, null))));
+                            break;
+                        case "Boolean":
+                            if (propName == "FuncFlag")
+                            {
+                                root.Add(new XElement(propName, (bool)prop.GetValue(entity, null) ? "1" : "0"));
+                            }
+                            else
+                            {
+                                goto default;
+                            }
+                            break;
+                        case "ResponseMsgType":
+                            root.Add(new XElement(propName, new XCData(prop.GetValue(entity, null).ToString().ToLower())));
+                            break;
+                        case "Article":
+                            root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
+                            break;
                         case "MpNewsArticle":
-							root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
-							break;
-						default:
-							root.Add(new XElement(propName, prop.GetValue(entity, null)));
-							break;
-					}
-				}
-			}
-			return doc;
-		}
+                            root.Add(new XElement(propName, prop.GetValue(entity, null).ToString().ToLower()));
+                            break;
+                        default:
+                            root.Add(new XElement(propName, prop.GetValue(entity, null)));
+                            break;
+                    }
+                }
+            }
+            return doc;
+        }
 
         /// <summary>
 		/// 将实体转为XML字符串
@@ -296,10 +376,10 @@ namespace Senparc.Weixin.Work.Helpers
 		/// <typeparam name="T">RequestMessage或ResponseMessage</typeparam>
 		/// <param name="entity">实体</param>
 		/// <returns></returns>
-		public static string ConvertEntityToXmlString<T>(this T entity) where T : class , new()
-		{
-			return entity.ConvertEntityToXml().ToString();
-		}
+		public static string ConvertEntityToXmlString<T>(this T entity) where T : class, new()
+        {
+            return entity.ConvertEntityToXml().ToString();
+        }
 
         /// <summary>
 		/// ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage)的扩展方法
@@ -308,9 +388,9 @@ namespace Senparc.Weixin.Work.Helpers
 		/// <param name="requestMessage">IRequestMessageBase接口下的接收信息类型</param>
 		/// <returns></returns>
 		public static T CreateResponseMessage<T>(this IRequestMessageBase requestMessage) where T : ResponseMessageBase
-		{
-			return ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage);
-		}
+        {
+            return ResponseMessageBase.CreateFromRequestMessage<T>(requestMessage);
+        }
 
         /// <summary>
         /// ResponseMessageBase.CreateFromResponseXml(xml)的扩展方法

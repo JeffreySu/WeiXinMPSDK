@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：SHA1UtilHelper.cs
     文件功能描述：SHA1签名算法
@@ -15,7 +15,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Senparc.Weixin.Work.Helpers
+namespace Senparc.Weixin.QY.Helpers
 {
     public class SHA1UtilHelper
     {

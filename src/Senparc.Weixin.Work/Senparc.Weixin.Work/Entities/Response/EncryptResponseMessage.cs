@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：EncryptResponseMessage.cs
     文件功能描述：返回给服务器的加密消息
@@ -11,7 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.Work.Entities.Response
+namespace Senparc.Weixin.QY.Entities.Response
 {
     /// <summary>
     /// 返回给服务器的加密消息

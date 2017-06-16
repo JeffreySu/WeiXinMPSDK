@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：CommonApi.Menu.cs
     文件功能描述：自定义菜单API
@@ -30,10 +30,10 @@ using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.Work.Entities;
-using Senparc.Weixin.Work.Entities.Menu;
+using Senparc.Weixin.QY.Entities;
+using Senparc.Weixin.QY.Entities.Menu;
 
-namespace Senparc.Weixin.Work.CommonAPIs
+namespace Senparc.Weixin.QY.CommonAPIs
 {
     public partial class CommonApi
     {

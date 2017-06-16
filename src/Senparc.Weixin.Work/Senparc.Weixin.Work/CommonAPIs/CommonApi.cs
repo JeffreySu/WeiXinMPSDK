@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：CommonApi.cs
     文件功能描述：通用基础API
@@ -30,10 +30,10 @@
 
 using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.Work.Containers;
-using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.QY.Containers;
+using Senparc.Weixin.QY.Entities;
 
-namespace Senparc.Weixin.Work.CommonAPIs
+namespace Senparc.Weixin.QY.CommonAPIs
 {
     /// <summary>
     /// 通用基础API

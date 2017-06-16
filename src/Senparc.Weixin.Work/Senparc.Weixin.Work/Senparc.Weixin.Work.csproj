@@ -7,8 +7,8 @@
     <ProjectGuid>{2CA35598-F1A1-4DC9-AA20-A4346BFCB954}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Senparc.Weixin.Work</RootNamespace>
-    <AssemblyName>Senparc.Weixin.Work</AssemblyName>
+    <RootNamespace>Senparc.Weixin.QY</RootNamespace>
+    <AssemblyName>Senparc.Weixin.QY</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -30,7 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.Work.xml</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.QY.XML</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -45,7 +45,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.Work.XML</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.QY.XML</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -60,8 +60,6 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>
-    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -166,6 +164,16 @@
     <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
     <Compile Include="Entities\Request\Event\BatchJobInfo.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Enter_Agent.cs" />
+    <Compile Include="Entities\Request\KF\RequestEvent.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessage.cs" />
+    <Compile Include="Entities\Request\KF\RequestBase.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageFile.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageImage.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageLink.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageLocation.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessagePack.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageText.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageVoice.cs" />
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfoBase.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Contact_Sync.cs" />
@@ -190,6 +198,7 @@
     <Compile Include="Entities\Response\ResponseMessageText.cs" />
     <Compile Include="Entities\Response\ResponseMessageVideo.cs" />
     <Compile Include="Entities\Response\ResponseMessageVoice.cs" />
+    <Compile Include="Entities\Response\SuccessResponseMessage.cs" />
     <Compile Include="Entities\Response\Video.cs" />
     <Compile Include="Entities\Response\Voice.cs" />
     <Compile Include="Entities\Response\MpNewsArticle.cs" />

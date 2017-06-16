@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：EncryptPostData.cs
     文件功能描述：原始加密信息
@@ -11,7 +11,7 @@
     修改描述：将其AgentID类型改为int?
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.Work.Entities
+namespace Senparc.Weixin.QY.Entities
 {
     public class EncryptPostData
     {

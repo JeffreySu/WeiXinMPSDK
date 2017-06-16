@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：GetMenuResult.cs
     文件功能描述：获取菜单返回的Json结果
@@ -11,9 +11,9 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using Senparc.Weixin.Work.Entities.Menu;
+using Senparc.Weixin.QY.Entities.Menu;
 
-namespace Senparc.Weixin.Work.Entities
+namespace Senparc.Weixin.QY.Entities
 {
     /// <summary>
     /// GetMenu返回的Json结果

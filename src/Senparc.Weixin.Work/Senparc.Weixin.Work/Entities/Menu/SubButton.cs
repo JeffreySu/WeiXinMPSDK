@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：SubButton.cs
     文件功能描述：子菜单按钮
@@ -13,7 +13,7 @@
 
 using System.Collections.Generic;
 
-namespace Senparc.Weixin.Work.Entities.Menu
+namespace Senparc.Weixin.QY.Entities.Menu
 {
     /// <summary>
     /// 子菜单

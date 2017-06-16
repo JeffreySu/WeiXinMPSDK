@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：AccessTokenResult.cs
     文件功能描述：access_token请求后的JSON返回格式
@@ -17,7 +17,7 @@
 using System;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Work.Entities
+namespace Senparc.Weixin.QY.Entities
 {
     /// <summary>
     /// GetToken请求后的JSON返回格式

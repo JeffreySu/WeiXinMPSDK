@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：ShakeAroundResultJson.cs
     文件功能描述：摇一摇周边返回结果
@@ -10,7 +10,7 @@
 
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Work.AdvancedAPIs.ShakeAround
+namespace Senparc.Weixin.QY.AdvancedAPIs.ShakeAround
 {
     /// <summary>
     /// 获取设备及用户信息返回结果

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：DepartmentResult.cs
     文件功能描述：标签接口返回结果
@@ -17,7 +17,7 @@
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
+namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
 {
     /// <summary>
     /// 创建标签返回结果

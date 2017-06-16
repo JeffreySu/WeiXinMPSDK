@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：GetAppListResult.cs
     文件功能描述：获取应用概况列表返回结果
@@ -11,7 +11,7 @@
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Work.AdvancedAPIs.App
+namespace Senparc.Weixin.QY.AdvancedAPIs.App
 {
     /// <summary>
     /// 设置企业号应用需要Post的数据

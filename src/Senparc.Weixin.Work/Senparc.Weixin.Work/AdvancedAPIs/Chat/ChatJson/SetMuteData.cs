@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：SetMuteData.cs
     文件功能描述：成员新消息免打扰参数
@@ -8,7 +8,7 @@
     创建标识：Senparc - 20150728
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.Work.AdvancedAPIs.Chat
+namespace Senparc.Weixin.QY.AdvancedAPIs.Chat
 {
     /// <summary>
     /// 成员新消息免打扰参数

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：UploadResultJson.cs
     文件功能描述：素材管理接口返回结果
@@ -10,9 +10,9 @@
 
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.QY.Entities;
 
-namespace Senparc.Weixin.Work.AdvancedAPIs.Media
+namespace Senparc.Weixin.QY.AdvancedAPIs.Media
 {
     /// <summary>
     /// 获取永久图文素材返回结果

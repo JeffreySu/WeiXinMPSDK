@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：ButtonGroup.cs
     文件功能描述：整个按钮设置（可以直接用ButtonGroup实例返回JSON对象）
@@ -13,7 +13,7 @@
 
 using System.Collections.Generic;
 
-namespace Senparc.Weixin.Work.Entities.Menu
+namespace Senparc.Weixin.QY.Entities.Menu
 {
     /// <summary>
     /// 整个按钮设置（可以直接用ButtonGroup实例返回JSON对象）

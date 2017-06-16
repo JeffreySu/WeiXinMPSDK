@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
  
     文件名：TenPayInfo.cs
     文件功能描述：微信支付基础信息储存类
@@ -8,7 +8,7 @@
     创建标识：Senparc - 20150722
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.Work.TenPayLib
+namespace Senparc.Weixin.QY.TenPayLib
 {
     /// <summary>
     /// 微信支付基础信息储存类

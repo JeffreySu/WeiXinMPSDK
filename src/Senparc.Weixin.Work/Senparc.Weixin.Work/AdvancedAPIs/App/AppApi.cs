@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：AppApi.cs
     文件功能描述：管理企业号应用接口
@@ -12,7 +12,10 @@
  
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
- 
+
+    修改标识：Senparc - 20170313
+    修改描述：v4.2.3 AppApi.SetApp()方法改为POST请求方式
+
 ----------------------------------------------------------------*/
 
 /*
@@ -22,9 +25,9 @@
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.Work.AdvancedAPIs.App;
+using Senparc.Weixin.QY.AdvancedAPIs.App;
 
-namespace Senparc.Weixin.Work.AdvancedAPIs
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
     /// <summary>
     /// 管理企业号应用
@@ -32,8 +35,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     public static class AppApi
     {
         #region 同步请求
-        
-        
+
+
         /// <summary>
         /// 获取企业号应用信息
         /// </summary>
@@ -60,7 +63,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
 
-            return Get.GetJson<QyJsonResult>(url);
+            return Post.PostGetJson<QyJsonResult>(url, formData: null);
         }
 
         /// <summary>
@@ -104,7 +107,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
 
-            return await Get.GetJsonAsync<QyJsonResult>(url);
+            return await Post.PostGetJsonAsync<QyJsonResult>(url, formData: null);
         }
 
         /// <summary>

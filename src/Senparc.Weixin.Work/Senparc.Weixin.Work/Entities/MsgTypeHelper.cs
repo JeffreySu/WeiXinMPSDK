@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：MsgTypeHelper.cs
     文件功能描述：根据xml信息返回MsgType、ThirdPartyInfo、RequestInfoType
@@ -14,7 +14,7 @@
 using System;
 using System.Xml.Linq;
 
-namespace Senparc.Weixin.Work.Helpers
+namespace Senparc.Weixin.QY.Helpers
 {
     public static class MsgTypeHelper
     {

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：UploadResultJson.cs
     文件功能描述：上传媒体文件返回结果
@@ -24,9 +24,9 @@
 using System;
 using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.Work.AdvancedAPIs.OAuth2;
+using Senparc.Weixin.QY.AdvancedAPIs.OAuth2;
 
-namespace Senparc.Weixin.Work.AdvancedAPIs
+namespace Senparc.Weixin.QY.AdvancedAPIs
 {
 
     public static class OAuth2Api

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
   
     文件名：RequestMessageFactory.cs
     文件功能描述：获取XDocument转换后的IRequestMessageBase实例
@@ -19,10 +19,10 @@ using System.IO;
 using System.Xml;
 using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.Work.Entities;
-using Senparc.Weixin.Work.Helpers;
+using Senparc.Weixin.QY.Entities;
+using Senparc.Weixin.QY.Helpers;
 
-namespace Senparc.Weixin.Work
+namespace Senparc.Weixin.QY
 {
     public static class RequestMessageFactory
     {

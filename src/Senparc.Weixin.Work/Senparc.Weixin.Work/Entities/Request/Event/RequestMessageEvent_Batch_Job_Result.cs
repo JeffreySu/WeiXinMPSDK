@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：RequestMessageEvent_Batch_Job_Result.cs
     文件功能描述：异步任务完成事件推送(batch_job_result)
@@ -8,7 +8,7 @@
     创建标识：Senparc - 20150507
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.Work.Entities
+namespace Senparc.Weixin.QY.Entities
 {
     /// <summary>
     /// 异步任务完成事件推送(batch_job_result)

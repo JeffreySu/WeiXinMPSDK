@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：Extensions.cs
     文件功能描述：将RequestMessageEventBase转换成RequestMessageText类型，其中Content = requestMessage.EventKey
@@ -12,7 +12,7 @@
 ----------------------------------------------------------------*/
 
 
-namespace Senparc.Weixin.Work.Entities
+namespace Senparc.Weixin.QY.Entities
 {
     public static class Extensions
     {

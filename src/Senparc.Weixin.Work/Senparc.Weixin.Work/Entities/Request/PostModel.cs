@@ -12,7 +12,7 @@
 ----------------------------------------------------------------*/
 
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
     /// 微信企业号服务器Post过来的参数集合（不包括PostData）

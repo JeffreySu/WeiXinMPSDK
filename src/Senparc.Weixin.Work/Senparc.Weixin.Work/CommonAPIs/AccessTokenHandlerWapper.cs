@@ -14,9 +14,9 @@
 using System;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.QY.Containers;
+using Senparc.Weixin.Work.Containers;
 
-namespace Senparc.Weixin.QY.CommonAPIs
+namespace Senparc.Weixin.Work.CommonAPIs
 {
     public static class AccessTokenHandlerWapper
     {

@@ -13,7 +13,7 @@
 
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.Media
+namespace Senparc.Weixin.Work.AdvancedAPIs.Media
 {
     /// <summary>
     /// 上传临时媒体文件返回结果

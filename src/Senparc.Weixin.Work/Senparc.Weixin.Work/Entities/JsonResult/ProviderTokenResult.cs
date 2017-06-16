@@ -15,7 +15,7 @@
 using System;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
     /// 获取应用提供商凭证返回格式

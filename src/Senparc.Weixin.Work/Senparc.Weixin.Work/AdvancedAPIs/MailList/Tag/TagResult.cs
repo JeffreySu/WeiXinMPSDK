@@ -17,7 +17,7 @@
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
+namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
 {
     /// <summary>
     /// 创建标签返回结果

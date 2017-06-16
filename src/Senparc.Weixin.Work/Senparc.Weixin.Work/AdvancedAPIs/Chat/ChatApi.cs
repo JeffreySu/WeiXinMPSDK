@@ -21,10 +21,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.QY.AdvancedAPIs.Chat;
-using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.Work.AdvancedAPIs.Chat;
+using Senparc.Weixin.Work.CommonAPIs;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs
+namespace Senparc.Weixin.Work.AdvancedAPIs
 {
 
     public static class ChatApi

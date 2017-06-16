@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs
+namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     /// <summary>
     /// 关注与取消关注

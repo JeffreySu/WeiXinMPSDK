@@ -14,10 +14,10 @@
 using System;
 using System.Xml.Linq;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.QY.Entities;
-using Senparc.Weixin.QY.Helpers;
+using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.Helpers;
 
-namespace Senparc.Weixin.QY
+namespace Senparc.Weixin.Work
 {
     public static class ResponseMessageFactory
     {

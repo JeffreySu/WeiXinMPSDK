@@ -24,9 +24,9 @@
 using System;
 using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.QY.AdvancedAPIs.OAuth2;
+using Senparc.Weixin.Work.AdvancedAPIs.OAuth2;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs
+namespace Senparc.Weixin.Work.AdvancedAPIs
 {
 
     public static class OAuth2Api

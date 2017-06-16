@@ -25,9 +25,9 @@
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.QY.AdvancedAPIs.App;
+using Senparc.Weixin.Work.AdvancedAPIs.App;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs
+namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     /// <summary>
     /// 管理企业号应用

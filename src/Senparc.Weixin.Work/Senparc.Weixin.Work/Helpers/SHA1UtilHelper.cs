@@ -15,7 +15,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Senparc.Weixin.QY.Helpers
+namespace Senparc.Weixin.Work.Helpers
 {
     public class SHA1UtilHelper
     {

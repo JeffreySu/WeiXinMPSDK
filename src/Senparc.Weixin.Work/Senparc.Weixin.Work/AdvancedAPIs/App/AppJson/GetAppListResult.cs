@@ -11,7 +11,7 @@
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.App
+namespace Senparc.Weixin.Work.AdvancedAPIs.App
 {
     /// <summary>
     /// 设置企业号应用需要Post的数据

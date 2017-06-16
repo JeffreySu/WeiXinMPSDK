@@ -27,11 +27,11 @@ using System.Xml.Linq;
 using Senparc.Weixin.Context;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MessageHandlers;
-using Senparc.Weixin.QY.Entities;
-using Senparc.Weixin.QY.Helpers;
+using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.Helpers;
 using Tencent;
 
-namespace Senparc.Weixin.QY.MessageHandlers
+namespace Senparc.Weixin.Work.MessageHandlers
 {
     public interface IQyMessageHandler : IMessageHandler<IRequestMessageBase, IResponseMessageBase>
     {
@@ -77,7 +77,7 @@ namespace Senparc.Weixin.QY.MessageHandlers
 
         /// <summary>
         /// 最后返回的ResponseDocument。
-        /// 这里是Senparc.Weixin.QY，应当在ResponseDocument基础上进行加密（每次获取重新加密，所以结果会不同）
+        /// 这里是Senparc.Weixin.Work，应当在ResponseDocument基础上进行加密（每次获取重新加密，所以结果会不同）
         /// </summary>
         public override XDocument FinalResponseDocument
         {

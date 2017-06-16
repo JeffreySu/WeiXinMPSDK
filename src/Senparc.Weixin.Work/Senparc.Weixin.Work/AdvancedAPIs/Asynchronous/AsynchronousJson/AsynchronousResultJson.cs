@@ -11,7 +11,7 @@
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.Asynchronous
+namespace Senparc.Weixin.Work.AdvancedAPIs.Asynchronous
 {
     /// <summary>
     /// 异步任务Id返回结果

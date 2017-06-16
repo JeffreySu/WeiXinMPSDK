@@ -30,10 +30,10 @@ using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.QY.Entities;
-using Senparc.Weixin.QY.Entities.Menu;
+using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.Entities.Menu;
 
-namespace Senparc.Weixin.QY.CommonAPIs
+namespace Senparc.Weixin.Work.CommonAPIs
 {
     public partial class CommonApi
     {

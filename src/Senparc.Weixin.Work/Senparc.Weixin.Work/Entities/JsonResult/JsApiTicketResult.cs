@@ -17,7 +17,7 @@
 using System;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
     /// jsapi_ticket请求后的JSON返回格式

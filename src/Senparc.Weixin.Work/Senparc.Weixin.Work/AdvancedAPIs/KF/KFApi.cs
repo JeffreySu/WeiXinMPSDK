@@ -20,11 +20,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.QY.AdvancedAPIs.KF;
-using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.QY.Entities;
+using Senparc.Weixin.Work.AdvancedAPIs.KF;
+using Senparc.Weixin.Work.CommonAPIs;
+using Senparc.Weixin.Work.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs
+namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     /// <summary>
     /// 发送消息

@@ -30,10 +30,10 @@
 
 using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.QY.Containers;
-using Senparc.Weixin.QY.Entities;
+using Senparc.Weixin.Work.Containers;
+using Senparc.Weixin.Work.Entities;
 
-namespace Senparc.Weixin.QY.CommonAPIs
+namespace Senparc.Weixin.Work.CommonAPIs
 {
     /// <summary>
     /// 通用基础API

@@ -21,10 +21,10 @@
 
 using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.QY.AdvancedAPIs.Asynchronous;
-using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.Work.AdvancedAPIs.Asynchronous;
+using Senparc.Weixin.Work.CommonAPIs;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs
+namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     /// <summary>
     /// 异步任务接口

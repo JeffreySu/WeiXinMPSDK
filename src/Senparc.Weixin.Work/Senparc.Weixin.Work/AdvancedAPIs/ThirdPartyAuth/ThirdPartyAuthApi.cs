@@ -28,10 +28,10 @@
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth;
-using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth;
+using Senparc.Weixin.Work.CommonAPIs;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs
+namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     public static class ThirdPartyAuthApi
     {

@@ -10,7 +10,7 @@
 
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
     /// openid转换成userid接口返回的Json结果

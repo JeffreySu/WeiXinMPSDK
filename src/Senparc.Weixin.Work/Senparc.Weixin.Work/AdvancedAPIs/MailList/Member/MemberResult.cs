@@ -14,7 +14,7 @@
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
+namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
 {
     public class GetMemberResult : QyJsonResult
     {

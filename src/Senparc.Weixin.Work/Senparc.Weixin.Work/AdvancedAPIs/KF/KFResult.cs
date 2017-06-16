@@ -9,7 +9,7 @@
 ----------------------------------------------------------------*/
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.KF
+namespace Senparc.Weixin.Work.AdvancedAPIs.KF
 {
     /// <summary>
     /// 客服返回结果

@@ -8,7 +8,7 @@
     创建标识：Senparc - 20150722
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.QY.TenPayLib
+namespace Senparc.Weixin.Work.TenPayLib
 {
     /// <summary>
     /// 微信支付基础信息储存类

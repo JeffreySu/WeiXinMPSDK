@@ -14,7 +14,7 @@
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth
+namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
 {
     /// <summary>
     /// 获取应用套件令牌返回结果

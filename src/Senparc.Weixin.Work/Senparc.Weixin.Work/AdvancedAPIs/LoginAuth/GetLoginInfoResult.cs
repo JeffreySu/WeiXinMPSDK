@@ -11,7 +11,7 @@
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.LoginAuth
+namespace Senparc.Weixin.Work.AdvancedAPIs.LoginAuth
 {
     /// <summary>
     /// 获取企业号管理员登录信息返回结果

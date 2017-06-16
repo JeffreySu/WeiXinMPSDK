@@ -21,7 +21,7 @@
 
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.QY
+namespace Senparc.Weixin.Work
 {
     /// <summary>
     /// 接收消息类型

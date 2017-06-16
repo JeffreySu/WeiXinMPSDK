@@ -13,7 +13,7 @@
 
 using System.Collections.Generic;
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
     /// 系统拍照发图中的SendPicsInfo

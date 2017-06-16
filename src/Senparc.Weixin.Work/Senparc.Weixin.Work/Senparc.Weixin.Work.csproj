@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2CA35598-F1A1-4DC9-AA20-A4346BFCB954}</ProjectGuid>
+    <ProjectGuid>{CC0EBEC4-7120-4627-A596-C1F2958F3D5E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Senparc.Weixin.QY</RootNamespace>

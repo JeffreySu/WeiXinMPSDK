@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.Entities.Request.KF
+namespace Senparc.Weixin.Work.Entities.Request.KF
 {
     public class RequestPack : IEntityBase
     {

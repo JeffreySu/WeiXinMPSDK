@@ -13,7 +13,7 @@
 
 using System.Collections.Generic;
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     public class ResponseMessageNews : ResponseMessageBase, IResponseMessageBase
     {

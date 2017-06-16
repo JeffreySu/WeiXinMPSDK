@@ -11,7 +11,7 @@
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.App
+namespace Senparc.Weixin.Work.AdvancedAPIs.App
 {
     /// <summary>
     /// 获取企业号应用返回结果

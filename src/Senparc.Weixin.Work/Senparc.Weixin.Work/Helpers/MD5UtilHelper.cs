@@ -15,7 +15,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Senparc.Weixin.QY.Helpers
+namespace Senparc.Weixin.Work.Helpers
 {
 	/// <summary>
     /// MD5UtilHelper 的摘要说明。

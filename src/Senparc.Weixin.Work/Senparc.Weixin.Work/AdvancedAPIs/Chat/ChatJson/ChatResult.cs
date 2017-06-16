@@ -11,7 +11,7 @@
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.Chat
+namespace Senparc.Weixin.Work.AdvancedAPIs.Chat
 {
     /// <summary>
     /// 获取会话返回结果

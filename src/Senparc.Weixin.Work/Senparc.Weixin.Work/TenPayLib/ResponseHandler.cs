@@ -15,9 +15,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml;
-using Senparc.Weixin.QY.Helpers;
+using Senparc.Weixin.Work.Helpers;
 
-namespace Senparc.Weixin.QY.TenPayLib
+namespace Senparc.Weixin.Work.TenPayLib
 {
 
     /** 

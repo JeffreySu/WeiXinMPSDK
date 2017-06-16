@@ -13,7 +13,7 @@
 
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     public class GetCallBackIpResult : QyJsonResult
     {

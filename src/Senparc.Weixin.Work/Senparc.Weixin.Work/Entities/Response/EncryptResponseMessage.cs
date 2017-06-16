@@ -11,7 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.QY.Entities.Response
+namespace Senparc.Weixin.Work.Entities.Response
 {
     /// <summary>
     /// 返回给服务器的加密消息

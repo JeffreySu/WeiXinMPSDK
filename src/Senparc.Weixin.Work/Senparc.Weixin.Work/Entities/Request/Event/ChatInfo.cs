@@ -8,7 +8,7 @@
     创建标识：Senparc - 20150728
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
     /// 会话信息

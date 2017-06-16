@@ -19,7 +19,7 @@
 
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.OAuth2
+namespace Senparc.Weixin.Work.AdvancedAPIs.OAuth2
 {
     /// <summary>
     /// 获取成员信息返回结果

@@ -24,7 +24,7 @@ using System;
 using System.Collections;
 using System.Text;
 
-namespace Senparc.Weixin.QY.Helpers
+namespace Senparc.Weixin.Work.Helpers
 {
     public class JSSDKHelper
     {

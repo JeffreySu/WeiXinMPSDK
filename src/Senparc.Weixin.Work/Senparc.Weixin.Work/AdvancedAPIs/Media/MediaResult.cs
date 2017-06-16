@@ -10,9 +10,9 @@
 
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
-using Senparc.Weixin.QY.Entities;
+using Senparc.Weixin.Work.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.Media
+namespace Senparc.Weixin.Work.AdvancedAPIs.Media
 {
     /// <summary>
     /// 获取永久图文素材返回结果

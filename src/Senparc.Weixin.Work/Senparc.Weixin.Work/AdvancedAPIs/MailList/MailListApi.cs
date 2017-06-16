@@ -102,9 +102,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 extattr = extattr
             };
 
-            JsonSetting jsongSetting = new JsonSetting(true);
+            JsonSetting jsonSetting = new JsonSetting(true);
 
-            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsongSetting);
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
 
 
@@ -166,9 +166,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 extattr = extattr
             };
 
-            JsonSetting jsongSetting = new JsonSetting(true);
+            JsonSetting jsonSetting = new JsonSetting(true);
 
-            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsongSetting);
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
 
 
@@ -205,7 +205,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 获取部门成员
+        /// 获取部门成员【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="departmentId">获取的部门id</param>
@@ -226,7 +226,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 获取部门成员(详情)
+        /// 获取部门成员(详情)【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="departmentId">获取的部门id</param>
@@ -251,12 +251,13 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #region 部门管理
 
-        #endregion
         /// <summary>
-        /// 创建部门
+        /// 创建部门【QY移植修改】
+        /// 系统应用须拥有父部门的管理权限。
+        /// 注意，部门的最大层级为15层；部门总数不能超过3万个；每个部门下的节点不能超过3万个。建议保证创建的部门和对应部门成员是串行化处理。
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="name">部门名称。长度限制为1~64个字符</param>
+        /// <param name="name">部门名称。长度限制为1~64个字节，字符不能包括\:?”<>｜</param>
         /// <param name="parentId">父亲部门id。根部门id为1 </param>
         /// <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
         /// <param name="id">部门ID。用指定部门ID新建部门，不指定此参数时，则自动生成</param>
@@ -274,8 +275,13 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 id = id
             };
 
-            return CommonJsonSend.Send<CreateDepartmentResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<CreateDepartmentResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
+
+
+        #endregion
 
         /// <summary>
         /// 更新部门
@@ -539,9 +545,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             };
 
 
-            JsonSetting jsongSetting = new JsonSetting(true);
+            JsonSetting jsonSetting = new JsonSetting(true);
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsongSetting);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
 
         /// <summary>
@@ -602,9 +608,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 extattr = extattr
             };
 
-            JsonSetting jsongSetting = new JsonSetting(true);
+            JsonSetting jsonSetting = new JsonSetting(true);
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsongSetting);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
 
         /// <summary>
@@ -644,13 +650,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #region 部门管理
 
 
-        #endregion
-
         /// <summary>
-        /// 【异步方法】创建部门
+        /// 【异步方法】创建部门【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="name">部门名称。长度限制为1~64个字符</param>
+        /// <param name="name">部门名称。长度限制为1~64个字节，字符不能包括\:?”<>｜</param>
         /// <param name="parentId">父亲部门id。根部门id为1 </param>
         /// <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
         /// <param name="id">部门ID。用指定部门ID新建部门，不指定此参数时，则自动生成</param>
@@ -668,8 +672,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 id = id
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateDepartmentResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateDepartmentResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
+        #endregion
+
 
         /// <summary>
         /// 【异步方法】更新部门

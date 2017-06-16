@@ -36,9 +36,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     {
         #region 同步请求
 
-
         /// <summary>
-        /// 获取企业号应用信息
+        /// 获取企业号应用信息【QY移植修改】
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="agentId">企业应用的id，可在应用的设置页面查看</param>
@@ -61,13 +60,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static QyJsonResult SetApp(string accessToken, SetAppPostData data, int timeOut = Config.TIME_OUT)
         {
+            //TODO:需要对SetAppPostData中的null值过滤
             string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
 
             return Post.PostGetJson<QyJsonResult>(url, formData: null);
         }
 
         /// <summary>
-        /// 获取应用概况列表
+        /// 获取应用概况列表【QY移植修改】
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -81,8 +81,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
 
         #region 异步请求
+
         /// <summary>
-        /// 【异步方法】获取企业号应用信息
+        /// 【异步方法】获取企业号应用信息【QY移植修改】
+        /// </summary>
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="agentId">企业应用的id，可在应用的设置页面查看</param>
@@ -96,7 +98,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】设置企业号应用
+        /// 【异步方法】设置企业号应用【QY移植修改】
         /// 此App只能修改现有的并且有权限管理的应用，无法创建新应用（因为新应用没有权限）
         /// </summary>
         /// <param name="accessToken"></param>
@@ -105,13 +107,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static async Task<QyJsonResult> SetAppAsync(string accessToken, SetAppPostData data, int timeOut = Config.TIME_OUT)
         {
+            //TODO:需要对SetAppPostData中的null值过滤
             string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
 
             return await Post.PostGetJsonAsync<QyJsonResult>(url, formData: null);
         }
 
         /// <summary>
-        /// 【异步方法】获取应用概况列表
+        /// 【异步方法】获取应用概况列表【QY移植修改】
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>

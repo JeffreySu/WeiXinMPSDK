@@ -365,10 +365,119 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<CreateTagResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
 
+
+        /// <summary>
+        /// 更新标签名字【QY移植修改】
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="tagId">标签ID</param>
+        /// <param name="tagName">标签名称。长度为0~64个字符</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static QyJsonResult UpdateTag(string accessToken, int tagId, string tagName, int timeOut = Config.TIME_OUT)
+        {
+            var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/update?access_token={0}";
+
+            var data = new
+            {
+                tagid = tagId,
+                tagname = tagName
+            };
+
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        /// <summary>
+        /// 删除标签【QY移植修改】
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="tagId">标签ID</param>
+        /// <returns></returns>
+        public static QyJsonResult DeleteTag(string accessToken, int tagId)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/delete?access_token={0}&tagid={1}", accessToken.AsUrlData(), tagId);
+
+            return Get.GetJson<QyJsonResult>(url);
+        }
+
+        /// <summary>
+        /// 获取标签成员【QY移植修改】
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="tagId">标签ID</param>
+        /// <returns></returns>
+        public static GetTagMemberResult GetTagMember(string accessToken, int tagId)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/get?access_token={0}&tagid={1}", accessToken.AsUrlData(), tagId);
+
+            return Get.GetJson<GetTagMemberResult>(url);
+        }
+
+        /// <summary>
+        /// 增加标签成员【QY移植修改】
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="tagId">标签ID</param>
+        /// <param name="userList">企业成员ID列表，注意：userlist、partylist不能同时为空</param>
+        /// <param name="partyList">企业部门ID列表，注意：userlist、partylist不能同时为空</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static AddTagMemberResult AddTagMember(string accessToken, int tagId, string[] userList = null, int[] partyList = null, int timeOut = Config.TIME_OUT)
+        {
+            var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token={0}";
+
+            var data = new
+            {
+                tagid = tagId,
+                userlist = userList,
+                partylist = partyList
+            };
+
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<AddTagMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+        }
+
+        /// <summary>
+        /// 删除标签成员【QY移植修改】
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="tagId">标签ID</param>
+        /// <param name="userList">企业成员ID列表，注意：userlist、partylist不能同时为空</param>
+        /// <param name="partylist">企业部门ID列表，注意：userlist、partylist不能同时为空</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static DelTagMemberResult DelTagMember(string accessToken, int tagId, string[] userList = null, int[] partylist = null, int timeOut = Config.TIME_OUT)
+        {
+            var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers?access_token={0}";
+
+            var data = new
+            {
+                tagid = tagId,
+                userlist = userList
+            };
+
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<DelTagMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+        }
+
+        /// <summary>
+        /// 获取标签列表【QY移植修改】
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public static GetTagListResult GetTagList(string accessToken)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/list?access_token={0}", accessToken.AsUrlData());
+
+            return Get.GetJson<GetTagListResult>(url);
+        }
+
         #endregion
 
         /// <summary>
-        /// 邀请成员关注
+        /// 【Work中未定义】邀请成员关注
         /// 认证号优先使用微信推送邀请关注，如果没有weixinid字段则依次对手机号，邮箱绑定的微信进行推送，全部没有匹配则通过邮件邀请关注。 邮箱字段无效则邀请失败。 非认证号只通过邮件邀请关注。邮箱字段无效则邀请失败。 已关注以及被禁用用户不允许发起邀请关注请求。
         /// 测试发现同一个邮箱只发送一封邀请关注邮件，第二次再对此邮箱发送微信会提示系统错误
         /// </summary>
@@ -389,111 +498,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return CommonJsonSend.Send<InviteMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
-
-
-
-        /// <summary>
-        /// 更新标签名字
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="tagId">标签ID</param>
-        /// <param name="tagName">标签名称。长度为0~64个字符</param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <returns></returns>
-        public static QyJsonResult UpdateTag(string accessToken, int tagId, string tagName, int timeOut = Config.TIME_OUT)
-        {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/update?access_token={0}";
-
-            var data = new
-            {
-                tagid = tagId,
-                tagname = tagName
-            };
-
-            return CommonJsonSend.Send<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-        }
-
-        /// <summary>
-        /// 删除标签
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="tagId">标签ID</param>
-        /// <returns></returns>
-        public static QyJsonResult DeleteTag(string accessToken, int tagId)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/delete?access_token={0}&tagid={1}", accessToken.AsUrlData(), tagId);
-
-            return Get.GetJson<QyJsonResult>(url);
-        }
-
-        /// <summary>
-        /// 获取标签成员
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="tagId">标签ID</param>
-        /// <returns></returns>
-        public static GetTagMemberResult GetTagMember(string accessToken, int tagId)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/get?access_token={0}&tagid={1}", accessToken.AsUrlData(), tagId);
-
-            return Get.GetJson<GetTagMemberResult>(url);
-        }
-
-        /// <summary>
-        /// 增加标签成员
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="tagId">标签ID</param>
-        /// <param name="userList">企业成员ID列表，注意：userlist、partylist不能同时为空</param>
-        /// <param name="partyList">企业部门ID列表，注意：userlist、partylist不能同时为空</param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <returns></returns>
-        public static AddTagMemberResult AddTagMember(string accessToken, int tagId, string[] userList = null, int[] partyList = null, int timeOut = Config.TIME_OUT)
-        {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token={0}";
-
-            var data = new
-            {
-                tagid = tagId,
-                userlist = userList,
-                partylist = partyList
-            };
-
-            return CommonJsonSend.Send<AddTagMemberResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-        }
-
-        /// <summary>
-        /// 删除标签成员
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="tagId">标签ID</param>
-        /// <param name="userList">企业员工ID列表</param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <returns></returns>
-        public static DelTagMemberResult DelTagMember(string accessToken, int tagId, string[] userList, int timeOut = Config.TIME_OUT)
-        {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers?access_token={0}";
-
-            var data = new
-            {
-                tagid = tagId,
-                userlist = userList
-            };
-
-            return CommonJsonSend.Send<DelTagMemberResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-        }
-
-        /// <summary>
-        /// 获取标签列表
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <returns></returns>
-        public static GetTagListResult GetTagList(string accessToken)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/tag/list?access_token={0}", accessToken.AsUrlData());
-
-            return Get.GetJson<GetTagListResult>(url);
-        }
+        
         #endregion
 
         #region 异步请求
@@ -812,36 +817,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateTagResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
 
-        #endregion
-
 
         /// <summary>
-        /// 【异步方法】邀请成员关注
-        /// 认证号优先使用微信推送邀请关注，如果没有weixinid字段则依次对手机号，邮箱绑定的微信进行推送，全部没有匹配则通过邮件邀请关注。 邮箱字段无效则邀请失败。 非认证号只通过邮件邀请关注。邮箱字段无效则邀请失败。 已关注以及被禁用用户不允许发起邀请关注请求。
-        /// 测试发现同一个邮箱只发送一封邀请关注邮件，第二次再对此邮箱发送微信会提示系统错误
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="userId">用户的userid</param>
-        /// <param name="inviteTips">推送到微信上的提示语（只有认证号可以使用）。当使用微信推送时，该字段默认为“请关注XXX企业号”，邮件邀请时，该字段无效。</param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <returns></returns>
-        public static async Task<InviteMemberResult> InviteMemberAsync(string accessToken, string userId, int timeOut = Config.TIME_OUT)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/invite/send?access_token={0}", accessToken);
-
-            var data = new
-            {
-                userid = userId,
-            };
-
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<InviteMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-        }
-
-
-     
-
-        /// <summary>
-        /// 【异步方法】更新标签名字
+        /// 【异步方法】更新标签名字【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="tagId">标签ID</param>
@@ -862,7 +840,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】删除标签
+        /// 【异步方法】删除标签【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="tagId">标签ID</param>
@@ -874,8 +852,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return await Get.GetJsonAsync<QyJsonResult>(url);
         }
 
+
         /// <summary>
-        /// 【异步方法】获取标签成员
+        /// 【异步方法】获取标签成员【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="tagId">标签ID</param>
@@ -888,7 +867,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        ///【异步方法】 增加标签成员
+        ///【异步方法】 增加标签成员【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="tagId">标签ID</param>
@@ -906,19 +885,21 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 userlist = userList,
                 partylist = partyList
             };
+            JsonSetting jsonSetting = new JsonSetting(true);
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddTagMemberResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AddTagMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
 
         /// <summary>
-        ///【异步方法】 删除标签成员
+        ///【异步方法】 删除标签成员【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="tagId">标签ID</param>
         /// <param name="userList">企业员工ID列表</param>
+        /// <param name="partylist">企业部门ID列表，注意：userlist、partylist不能同时为空</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<DelTagMemberResult> DelTagMemberAsync(string accessToken, int tagId, string[] userList, int timeOut = Config.TIME_OUT)
+        public static async Task<DelTagMemberResult> DelTagMemberAsync(string accessToken, int tagId, string[] userList, int[] partylist = null, int timeOut = Config.TIME_OUT)
         {
             var url = "https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers?access_token={0}";
 
@@ -928,11 +909,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 userlist = userList
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<DelTagMemberResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<DelTagMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+
         }
 
         /// <summary>
-        ///【异步方法】 获取标签列表
+        ///【异步方法】 获取标签列表【QY移植修改】
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
@@ -942,6 +926,33 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
             return await Get.GetJsonAsync<GetTagListResult>(url);
         }
+
+        #endregion
+
+
+        /// <summary>
+        /// 【异步方法】【Work中未定义】邀请成员关注
+        /// 认证号优先使用微信推送邀请关注，如果没有weixinid字段则依次对手机号，邮箱绑定的微信进行推送，全部没有匹配则通过邮件邀请关注。 邮箱字段无效则邀请失败。 非认证号只通过邮件邀请关注。邮箱字段无效则邀请失败。 已关注以及被禁用用户不允许发起邀请关注请求。
+        /// 测试发现同一个邮箱只发送一封邀请关注邮件，第二次再对此邮箱发送微信会提示系统错误
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="userId">用户的userid</param>
+        /// <param name="inviteTips">推送到微信上的提示语（只有认证号可以使用）。当使用微信推送时，该字段默认为“请关注XXX企业号”，邮件邀请时，该字段无效。</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<InviteMemberResult> InviteMemberAsync(string accessToken, string userId, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/invite/send?access_token={0}", accessToken);
+
+            var data = new
+            {
+                userid = userId,
+            };
+
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<InviteMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
+        
         #endregion
     }
 }

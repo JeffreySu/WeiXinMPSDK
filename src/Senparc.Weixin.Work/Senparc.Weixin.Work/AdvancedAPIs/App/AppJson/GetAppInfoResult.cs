@@ -14,7 +14,7 @@ using Senparc.Weixin.Entities;
 namespace Senparc.Weixin.Work.AdvancedAPIs.App
 {
     /// <summary>
-    /// 获取企业号应用返回结果
+    /// 获取企业号应用返回结果【QY移植修改】
     /// </summary>
     public class GetAppInfoResult : QyJsonResult
     {
@@ -30,10 +30,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.App
         /// 企业应用方形头像
         /// </summary>
         public string square_logo_url { get; set; }
-        /// <summary>
-        /// 企业应用圆形头像
-        /// </summary>
-        public string round_logo_url { get; set; }
+        ///// <summary>
+        ///// 企业应用圆形头像
+        ///// </summary>
+        //public string round_logo_url { get; set; }
         /// <summary>
         /// 企业应用详情
         /// </summary>
@@ -46,10 +46,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.App
         /// 企业应用可见范围（部门）
         /// </summary>
         public GetAppInfo_AllowPartys allow_partys { get; set; }
-        /// <summary>
-        /// 企业应用可见范围（标签）
-        /// </summary>
-        public GetAppInfo_AllowTags allow_tags { get; set; }
+        ///// <summary>
+        ///// 企业应用可见范围（标签）
+        ///// </summary>
+        //public GetAppInfo_AllowTags allow_tags { get; set; }
         /// <summary>
         /// 企业应用是否被禁用
         /// </summary>
@@ -66,10 +66,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.App
         /// 是否接收用户变更通知。0：不接收；1：接收
         /// </summary>
         public int isreportuser { get; set; }
+        ///// <summary>
+        ///// 是否上报用户进入应用事件。0：不接收；1：接收
+        ///// </summary>
+        //public int isreportenter { get; set; }
         /// <summary>
-        /// 是否上报用户进入应用事件。0：不接收；1：接收
+        /// 应用主页url
         /// </summary>
-        public int isreportenter { get; set; }
+        public string home_url { get; set; }
     }
 
     public class GetAppInfo_AllowUserInfos

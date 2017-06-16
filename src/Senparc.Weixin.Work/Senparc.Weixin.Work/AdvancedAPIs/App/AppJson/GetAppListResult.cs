@@ -21,6 +21,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.App
         public List<GetAppList_AppInfo> agentlist { get; set; }
     }
 
+    /// <summary>
+    /// GetAppList_AppInfo【QY移植修改】
+    /// </summary>
     public class GetAppList_AppInfo {
         /// <summary>
         /// 企业应用id
@@ -34,9 +37,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.App
         /// 企业应用方形头像
         /// </summary>
         public string square_logo_url { get; set; }
-        /// <summary>
-        /// 企业应用圆形头像
-        /// </summary>
-        public string round_logo_url { get; set; }
+        ///// <summary>
+        ///// 企业应用圆形头像
+        ///// </summary>
+        //public string round_logo_url { get; set; }
     }
 }

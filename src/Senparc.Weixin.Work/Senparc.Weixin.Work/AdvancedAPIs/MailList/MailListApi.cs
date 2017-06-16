@@ -280,11 +280,8 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<CreateDepartmentResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
 
-
-        #endregion
-
         /// <summary>
-        /// 更新部门
+        /// 更新部门【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="id">部门id</param>
@@ -305,11 +302,13 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 order = order
             };
 
-            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
 
         /// <summary>
-        /// 删除部门
+        /// 删除部门【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="id">部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）</param>
@@ -322,10 +321,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 获取部门列表
+        /// 获取部门列表【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="id">部门ID。获取指定部门ID下的子部门</param>
+        /// <param name="id">部门id。获取指定部门及其下的子部门。 如果不填，默认获取全量组织架构</param>
         /// <returns></returns>
         public static GetDepartmentListResult GetDepartmentList(string accessToken, int? id = null)
         {
@@ -339,9 +338,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return Get.GetJson<GetDepartmentListResult>(url);
         }
 
+        #endregion
 
-        
-      
+        #region 标签管理
+
+
+
+        #endregion
+
         /// <summary>
         /// 邀请成员关注
         /// 认证号优先使用微信推送邀请关注，如果没有weixinid字段则依次对手机号，邮箱绑定的微信进行推送，全部没有匹配则通过邮件邀请关注。 邮箱字段无效则邀请失败。 非认证号只通过邮件邀请关注。邮箱字段无效则邀请失败。 已关注以及被禁用用户不允许发起邀请关注请求。
@@ -645,141 +649,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
-        #endregion
-
-        #region 部门管理
-
-
-        /// <summary>
-        /// 【异步方法】创建部门【QY移植修改】
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="name">部门名称。长度限制为1~64个字节，字符不能包括\:?”<>｜</param>
-        /// <param name="parentId">父亲部门id。根部门id为1 </param>
-        /// <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
-        /// <param name="id">部门ID。用指定部门ID新建部门，不指定此参数时，则自动生成</param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <returns></returns>
-        public static async Task<CreateDepartmentResult> CreateDepartmentAsync(string accessToken, string name, int parentId, int order = 1, int? id = null, int timeOut = Config.TIME_OUT)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token={0}", accessToken.AsUrlData());
-
-            var data = new
-            {
-                name = name,
-                parentid = parentId,
-                order = order,
-                id = id
-            };
-
-            JsonSetting jsonSetting = new JsonSetting(true);
-
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateDepartmentResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-        }
-        #endregion
-
-
-        /// <summary>
-        /// 【异步方法】更新部门
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="id">部门id</param>
-        /// <param name="name">更新的部门名称。长度限制为0~64个字符。修改部门名称时指定该参数</param>
-        /// <param name="parentId">父亲部门id。根部门id为1 </param>
-        /// <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <returns></returns>
-        public static async Task<QyJsonResult> UpdateDepartmentAsync(string accessToken, string id, string name, int parentId, int order = 1, int timeOut = Config.TIME_OUT)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token={0}", accessToken.AsUrlData());
-
-            var data = new
-            {
-                id = id,
-                name = name,
-                parentid = parentId,
-                order = order
-            };
-
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-        }
-
-        /// <summary>
-        /// 【异步方法】删除部门
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="id">部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）</param>
-        /// <returns></returns>
-        public static async Task<QyJsonResult> DeleteDepartmentAsync(string accessToken, string id)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/delete?access_token={0}&id={1}", accessToken.AsUrlData(), id.AsUrlData());
-
-            return await Get.GetJsonAsync<QyJsonResult>(url);
-        }
-
-        /// <summary>
-        /// 【异步方法】获取部门列表
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="id">部门ID。获取指定部门ID下的子部门</param>
-        /// <returns></returns>
-        public static async Task<GetDepartmentListResult> GetDepartmentListAsync(string accessToken, int? id = null)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token={0}", accessToken.AsUrlData());
-
-            if (id.HasValue)
-            {
-                url += string.Format("&id={0}", id.Value);
-            }
-
-            return await Get.GetJsonAsync<GetDepartmentListResult>(url);
-        }
-
-
-        /// <summary>
-        /// 【异步方法】更新成员(mobile/weixinid/email三者不能同时为空)
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="userId">员工UserID。必须企业内唯一</param>
-        /// <param name="name">成员名称。长度为1~64个字符</param>
-        /// <param name="department">成员所属部门id列表。注意，每个部门的直属员工上限为1000个</param>
-        /// <param name="position">职位信息。长度为0~64个字符</param>
-        /// <param name="mobile">手机号码。必须企业内唯一</param>
-        /// <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
-        /// <param name="weixinId">微信号。必须企业内唯一</param>
-        /// <param name="enable">启用/禁用成员。1表示启用成员，0表示禁用成员</param>
-        /// <param name="avatarMediaid"></param>
-        /// <param name="extattr">扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值</param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// accessToken和userId为必须的参数，其余参数不是必须的，可以传入null
-        /// <returns></returns>
-        public static async Task<QyJsonResult> UpdateMemberAsync(string accessToken, string userId, string name = null, int[] department = null, string position = null,
-            string mobile = null, string email = null, string weixinId = null, int enable = 1, /*string tel = null,
-            int gender = 0,*/string avatarMediaid = null, Extattr extattr = null, int timeOut = Config.TIME_OUT)
-        {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token={0}";
-
-            var data = new
-            {
-                userid = userId,
-                name = name,
-                department = department,
-                position = position,
-                mobile = mobile,
-
-                //最新的接口中去除了以下两个字段
-                //gender = gender,
-                //tel = tel,
-
-                email = email,
-                weixinid = weixinId,
-                enable = enable,
-                avatar_mediaid = avatarMediaid,
-                extattr = extattr
-            };
-
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-        }
 
         /// <summary>
         /// 【异步方法】获取部门成员【QY移植修改】
@@ -814,7 +683,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 2016-05-03：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
         /// </remarks>
         /// <returns></returns>
-        public static  async Task<GetDepartmentMemberInfoResult> GetDepartmentMemberInfoAsync(string accessToken, int departmentId, int fetchChild, /*int status, */int? maxJsonLength = null)
+        public static async Task<GetDepartmentMemberInfoResult> GetDepartmentMemberInfoAsync(string accessToken, int departmentId, int fetchChild, /*int status, */int? maxJsonLength = null)
         {
             //var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
 
@@ -822,6 +691,101 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
             return await Get.GetJsonAsync<GetDepartmentMemberInfoResult>(url, maxJsonLength: maxJsonLength);
         }
+
+
+        #endregion
+
+        #region 部门管理
+
+
+        /// <summary>
+        /// 【异步方法】创建部门【QY移植修改】
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="name">部门名称。长度限制为1~64个字节，字符不能包括\:?”<>｜</param>
+        /// <param name="parentId">父亲部门id。根部门id为1 </param>
+        /// <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
+        /// <param name="id">部门ID。用指定部门ID新建部门，不指定此参数时，则自动生成</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<CreateDepartmentResult> CreateDepartmentAsync(string accessToken, string name, int parentId, int order = 1, int? id = null, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token={0}", accessToken.AsUrlData());
+
+            var data = new
+            {
+                name = name,
+                parentid = parentId,
+                order = order,
+                id = id
+            };
+
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateDepartmentResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+        }
+
+        /// <summary>
+        /// 【异步方法】更新部门【QY移植修改】
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="id">部门id</param>
+        /// <param name="name">更新的部门名称。长度限制为0~64个字符。修改部门名称时指定该参数</param>
+        /// <param name="parentId">父亲部门id。根部门id为1 </param>
+        /// <param name="order">在父部门中的次序。从1开始，数字越大排序越靠后</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<QyJsonResult> UpdateDepartmentAsync(string accessToken, string id, string name, int parentId, int order = 1, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token={0}", accessToken.AsUrlData());
+
+            var data = new
+            {
+                id = id,
+                name = name,
+                parentid = parentId,
+                order = order
+            };
+
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+        }
+
+        /// <summary>
+        /// 【异步方法】删除部门【QY移植修改】
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="id">部门id。（注：不能删除根部门；不能删除含有子部门、成员的部门）</param>
+        /// <returns></returns>
+        public static async Task<QyJsonResult> DeleteDepartmentAsync(string accessToken, string id)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/delete?access_token={0}&id={1}", accessToken.AsUrlData(), id.AsUrlData());
+
+            return await Get.GetJsonAsync<QyJsonResult>(url);
+        }
+
+        /// <summary>
+        /// 【异步方法】获取部门列表【QY移植修改】
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="id">部门ID。获取指定部门ID下的子部门</param>
+        /// <returns></returns>
+        public static async Task<GetDepartmentListResult> GetDepartmentListAsync(string accessToken, int? id = null)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token={0}", accessToken.AsUrlData());
+
+            if (id.HasValue)
+            {
+                url += string.Format("&id={0}", id.Value);
+            }
+
+            return await Get.GetJsonAsync<GetDepartmentListResult>(url);
+        }
+
+        #endregion
+
+
 
 
         /// <summary>

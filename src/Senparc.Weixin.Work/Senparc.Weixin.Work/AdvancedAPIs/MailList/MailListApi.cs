@@ -41,7 +41,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     public static class MailListApi
     {
         #region 同步请求
-        
+
         /// <summary>
         /// 创建部门
         /// </summary>
@@ -124,26 +124,34 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 创建成员(mobile/weixinid/email三者不能同时为空)
+        /// 【异步方法】创建成员(mobile/weixinid/email三者不能同时为空)【QY移植修改】
+        /// 文档：http://work.weixin.qq.com/api/doc#10018
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="userId">员工UserID。必须企业内唯一</param>
         /// <param name="name">成员名称。长度为1~64个字符</param>
+        /// <param name="englishName">（非必须）英文名。长度为1-64个字节。第三方暂不支持</param>
         /// <param name="department">成员所属部门id列表。注意，每个部门的直属员工上限为1000个</param>
+        /// <param name="order">部门内的排序值，默认为0。数量必须和department一致，数值越大排序越前面。第三方暂不支持</param>
         /// <param name="position">职位信息。长度为0~64个字符</param>
         /// <param name="mobile">手机号码。必须企业内唯一</param>
-        /// <param name="tel">办公电话。长度为0~64个字符</param>
+        /// <param name="telephone">座机。长度0-64个字节。第三方暂不支持</param>
         /// <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
-        /// <param name="weixinId">微信号。必须企业内唯一</param>
-        /// <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0</param>
+        /// <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0（QY由此说明，Work无）</param>
         /// <param name="avatarMediaid"></param>
         /// <param name="extattr">扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值</param>
+        /// <param name="isLeader">（非必填）上级字段，标识是否为上级（1为是，0为否）。第三方暂不支持</param>
+        /// <param name="enable">（非必填）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// accessToken、userId和name为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
-        public static QyJsonResult CreateMember(string accessToken, string userId, string name, int[] department = null,
-            string position = null, string mobile = null, string email = null, string weixinId = null, /*string tel = null,
-            int gender = 0,*/string avatarMediaid = null, Extattr extattr = null, int timeOut = Config.TIME_OUT)
+        public static QyJsonResult CreateMember(string accessToken, string userId, string name,
+            string mobile,
+            string englishName = null,
+            int[] department = null, int[] order = null, string gender = null,
+            string position = null, string email = null, string telephone = null, string avatarMediaid = null,
+            int? isLeader = null, int? enable = null,
+            Extattr extattr = null, int timeOut = Config.TIME_OUT)
         {
             var url = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token={0}";
 
@@ -151,21 +159,21 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 userid = userId,
                 name = name,
-                department = department,
-                position = position,
+                english_name = englishName,
                 mobile = mobile,
-
-                //最新的接口中去除了以下两个字段
-                //gender = gender,
-                //tel = tel,
-
+                department = department,
+                order = order,
+                position = position,
+                gender = gender,
                 email = email,
-                weixinid = weixinId,
+                telephone = telephone,
+                isleader = isLeader,
                 avatar_mediaid = avatarMediaid,
+                enable = enable,
                 extattr = extattr
             };
 
-            return CommonJsonSend.Send<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         ///// <param name="tel">办公电话。长度为0~64个字符</param>
@@ -447,7 +455,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
 
         #region 异步请求
-         /// <summary>
+        /// <summary>
         /// 【异步方法】创建部门
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
@@ -469,7 +477,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 id = id
             };
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<CreateDepartmentResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateDepartmentResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -529,26 +537,34 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】创建成员(mobile/weixinid/email三者不能同时为空)
+        /// 【异步方法】创建成员(mobile/weixinid/email三者不能同时为空)【QY移植修改】
+        /// 文档：http://work.weixin.qq.com/api/doc#10018
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="userId">员工UserID。必须企业内唯一</param>
         /// <param name="name">成员名称。长度为1~64个字符</param>
+        /// <param name="englishName">（非必须）英文名。长度为1-64个字节。第三方暂不支持</param>
         /// <param name="department">成员所属部门id列表。注意，每个部门的直属员工上限为1000个</param>
+        /// <param name="order">部门内的排序值，默认为0。数量必须和department一致，数值越大排序越前面。第三方暂不支持</param>
         /// <param name="position">职位信息。长度为0~64个字符</param>
         /// <param name="mobile">手机号码。必须企业内唯一</param>
-        /// <param name="tel">办公电话。长度为0~64个字符</param>
+        /// <param name="telephone">座机。长度0-64个字节。第三方暂不支持</param>
         /// <param name="email">邮箱。长度为0~64个字符。必须企业内唯一</param>
-        /// <param name="weixinId">微信号。必须企业内唯一</param>
-        /// <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0</param>
+        /// <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0（QY由此说明，Work无）</param>
         /// <param name="avatarMediaid"></param>
         /// <param name="extattr">扩展属性。扩展属性需要在WEB管理端创建后才生效，否则忽略未知属性的赋值</param>
+        /// <param name="isLeader">（非必填）上级字段，标识是否为上级（1为是，0为否）。第三方暂不支持</param>
+        /// <param name="enable">（非必填）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// accessToken、userId和name为必须的参数，其余参数不是必须的，可以传入null
         /// <returns></returns>
-        public static async Task<QyJsonResult> CreateMemberAsync(string accessToken, string userId, string name, int[] department = null,
-            string position = null, string mobile = null, string email = null, string weixinId = null, /*string tel = null,
-            int gender = 0,*/string avatarMediaid = null, Extattr extattr = null, int timeOut = Config.TIME_OUT)
+        public static async Task<QyJsonResult> CreateMemberAsync(string accessToken, string userId, string name,
+            string mobile,
+            string englishName = null,
+            int[] department = null, int[] order = null, string gender=null,
+            string position = null, string email = null,  string telephone=null, string avatarMediaid = null,
+            int? isLeader = null, int? enable=null,
+            Extattr extattr = null, int timeOut = Config.TIME_OUT)
         {
             var url = "https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token={0}";
 
@@ -556,25 +572,23 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 userid = userId,
                 name = name,
-                department = department,
-                position = position,
+                english_name = englishName,
                 mobile = mobile,
-
-                //最新的接口中去除了以下两个字段
-                //gender = gender,
-                //tel = tel,
-
+                department = department,
+                order = order,
+                position = position,
+                gender = gender,
                 email = email,
-                weixinid = weixinId,
+                telephone = telephone,
+                isleader= isLeader,
                 avatar_mediaid = avatarMediaid,
+                enable = enable,
                 extattr = extattr
             };
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
         }
 
-        ///// <param name="tel">办公电话。长度为0~64个字符</param>
-        ///// <param name="gender">性别。gender=0表示男，=1表示女。默认gender=0</param>
         /// <summary>
         /// 【异步方法】更新成员(mobile/weixinid/email三者不能同时为空)
         /// </summary>
@@ -722,7 +736,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 userid = userId,
             };
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<InviteMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<InviteMemberResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
 

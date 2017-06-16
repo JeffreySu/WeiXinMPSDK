@@ -30,7 +30,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     public static class ConcernApi
     {
         #region 同步请求
-       
+
         /// <summary>
         /// 二次验证
         /// </summary>

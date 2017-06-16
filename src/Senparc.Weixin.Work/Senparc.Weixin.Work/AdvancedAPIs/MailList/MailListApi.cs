@@ -204,6 +204,49 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
+        /// <summary>
+        /// 获取部门成员
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="departmentId">获取的部门id</param>
+        /// <param name="fetchChild">1/0：是否递归获取子部门下面的成员</param>
+        ///// <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
+        /// <param name="maxJsonLength">设置 JavaScriptSerializer 类接受的 JSON 字符串的最大长度</param>
+        /// <remarks>
+        /// 2016-04-16：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
+        /// </remarks>
+        /// <returns></returns>
+        public static GetDepartmentMemberResult GetDepartmentMember(string accessToken, int departmentId, int fetchChild, /*int status,*/ int? maxJsonLength = null)
+        {
+            //var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
+
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
+
+            return Get.GetJson<GetDepartmentMemberResult>(url, maxJsonLength: maxJsonLength);
+        }
+
+        /// <summary>
+        /// 获取部门成员(详情)
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="departmentId">获取的部门id</param>
+        /// <param name="fetchChild">1/0：是否递归获取子部门下面的成员</param>
+        ///// <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
+        /// <param name="maxJsonLength">设置 JavaScriptSerializer 类接受的 JSON 字符串的最大长度</param>
+        /// <remarks>
+        /// 2016-05-03：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
+        /// </remarks>
+        /// <returns></returns>
+        public static GetDepartmentMemberInfoResult GetDepartmentMemberInfo(string accessToken, int departmentId, int fetchChild, /*int status, */int? maxJsonLength = null)
+        {
+            //var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
+
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
+
+            return Get.GetJson<GetDepartmentMemberInfoResult>(url, maxJsonLength: maxJsonLength);
+        }
+
+
         #endregion
 
         #region 部门管理
@@ -292,44 +335,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
 
         
-        /// <summary>
-        /// 获取部门成员
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="departmentId">获取的部门id</param>
-        /// <param name="fetchChild">1/0：是否递归获取子部门下面的成员</param>
-        /// <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
-        /// <param name="maxJsonLength">设置 JavaScriptSerializer 类接受的 JSON 字符串的最大长度</param>
-        /// <remarks>
-        /// 2016-04-16：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
-        /// </remarks>
-        /// <returns></returns>
-        public static GetDepartmentMemberResult GetDepartmentMember(string accessToken, int departmentId, int fetchChild, int status, int? maxJsonLength = null)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
-
-            return Get.GetJson<GetDepartmentMemberResult>(url, maxJsonLength: maxJsonLength);
-        }
-
-        /// <summary>
-        /// 获取部门成员(详情)
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="departmentId">获取的部门id</param>
-        /// <param name="fetchChild">1/0：是否递归获取子部门下面的成员</param>
-        /// <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
-        /// <param name="maxJsonLength">设置 JavaScriptSerializer 类接受的 JSON 字符串的最大长度</param>
-        /// <remarks>
-        /// 2016-05-03：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
-        /// </remarks>
-        /// <returns></returns>
-        public static GetDepartmentMemberInfoResult GetDepartmentMemberInfo(string accessToken, int departmentId, int fetchChild, int status, int? maxJsonLength = null)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
-
-            return Get.GetJson<GetDepartmentMemberInfoResult>(url, maxJsonLength: maxJsonLength);
-        }
-
+      
         /// <summary>
         /// 邀请成员关注
         /// 认证号优先使用微信推送邀请关注，如果没有weixinid字段则依次对手机号，邮箱绑定的微信进行推送，全部没有匹配则通过邮件邀请关注。 邮箱字段无效则邀请失败。 非认证号只通过邮件邀请关注。邮箱字段无效则邀请失败。 已关注以及被禁用用户不允许发起邀请关注请求。
@@ -768,42 +774,47 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】获取部门成员
+        /// 【异步方法】获取部门成员【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="departmentId">获取的部门id</param>
         /// <param name="fetchChild">1/0：是否递归获取子部门下面的成员</param>
-        /// <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
+        ///// <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
         /// <param name="maxJsonLength">设置 JavaScriptSerializer 类接受的 JSON 字符串的最大长度</param>
         /// <remarks>
         /// 2016-04-16：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
         /// </remarks>
         /// <returns></returns>
-        public static async Task<GetDepartmentMemberResult> GetDepartmentMemberAsync(string accessToken, int departmentId, int fetchChild, int status, int? maxJsonLength = null)
+        public static async Task<GetDepartmentMemberResult> GetDepartmentMemberAsync(string accessToken, int departmentId, int fetchChild, /*int status,*/ int? maxJsonLength = null)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
+            //var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
+
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
 
             return await Get.GetJsonAsync<GetDepartmentMemberResult>(url, maxJsonLength: maxJsonLength);
         }
 
         /// <summary>
-        /// 【异步方法】获取部门成员(详情)
+        /// 【异步方法】获取部门成员(详情)【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="departmentId">获取的部门id</param>
         /// <param name="fetchChild">1/0：是否递归获取子部门下面的成员</param>
-        /// <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
+        ///// <param name="status">0获取全部员工，1获取已关注成员列表，2获取禁用成员列表，4获取未关注成员列表。status可叠加</param>
         /// <param name="maxJsonLength">设置 JavaScriptSerializer 类接受的 JSON 字符串的最大长度</param>
         /// <remarks>
         /// 2016-05-03：Zeje添加参数maxJsonLength：企业号通讯录扩容后，存在Json长度不够的情况。
         /// </remarks>
         /// <returns></returns>
-        public static async Task<GetDepartmentMemberInfoResult> GetDepartmentMemberInfoAsync(string accessToken, int departmentId, int fetchChild, int status, int? maxJsonLength = null)
+        public static  async Task<GetDepartmentMemberInfoResult> GetDepartmentMemberInfoAsync(string accessToken, int departmentId, int fetchChild, /*int status, */int? maxJsonLength = null)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
+            //var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}&status={3}", accessToken.AsUrlData(), departmentId, fetchChild, status);
+
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token={0}&department_id={1}&fetch_child={2}", accessToken.AsUrlData(), departmentId, fetchChild);
 
             return await Get.GetJsonAsync<GetDepartmentMemberInfoResult>(url, maxJsonLength: maxJsonLength);
         }
+
 
         /// <summary>
         /// 【异步方法】邀请成员关注

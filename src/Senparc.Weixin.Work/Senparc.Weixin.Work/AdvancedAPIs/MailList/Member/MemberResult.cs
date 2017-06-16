@@ -94,6 +94,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         public List<UserList_Simple> userlist { get; set; }
     }
 
+    /// <summary>
+    /// UserList_Simple【QY移植修改】
+    /// </summary>
     public class UserList_Simple
     {
         /// <summary>
@@ -104,6 +107,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         /// 成员名称
         /// </summary>
         public string name { get; set; }
+        /// <summary>
+        /// 成员所属部门
+        /// </summary>
+        public int[] department { get; set; }
     }
 
     /// <summary>

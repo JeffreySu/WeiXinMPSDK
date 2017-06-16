@@ -15,11 +15,16 @@
 
     修改标识：Senparc - 20170313
     修改描述：v4.2.3 AppApi.SetApp()方法改为POST请求方式
+    
+    -----------------------------------
+    
+    修改标识：Senparc - 20170616
+    修改描述：从QY移植，同步Work接口
 
 ----------------------------------------------------------------*/
 
 /*
-    官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E4%BC%81%E4%B8%9A%E5%8F%B7%E5%BA%94%E7%94%A8
+    官方文档：http://work.weixin.qq.com/api/doc#10025
  */
 
 using System.Threading.Tasks;
@@ -30,7 +35,7 @@ using Senparc.Weixin.Work.AdvancedAPIs.App;
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     /// <summary>
-    /// 管理企业号应用
+    /// 应用管理
     /// </summary>
     public static class AppApi
     {

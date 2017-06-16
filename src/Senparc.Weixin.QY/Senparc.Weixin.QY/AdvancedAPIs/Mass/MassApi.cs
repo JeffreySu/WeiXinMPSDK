@@ -531,7 +531,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】发送mpnews消息
+        /// 【异步方法】发送mpnews消息【QY移植修改】
         /// 注：mpnews消息与news消息类似，不同的是图文消息内容存储在微信后台，并且支持保密选项。
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>

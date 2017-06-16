@@ -171,6 +171,39 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsongSetting);
         }
 
+
+        /// <summary>
+        /// 删除成员【QY移植修改】
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="userId">员工UserID</param>
+        /// <returns></returns>
+        public static QyJsonResult DeleteMember(string accessToken, string userId)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/delete?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
+
+            return Get.GetJson<QyJsonResult>(url);
+        }
+
+        /// <summary>
+        /// 批量删除成员【QY移植修改】
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="useridlist">成员UserID列表。对应管理端的帐号</param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static QyJsonResult BatchDeleteMember(string accessToken, string[] useridlist, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/batchdelete?access_token={0}", accessToken.AsUrlData());
+
+            var data = new
+            {
+                useridlist = useridlist
+            };
+
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
+
         #endregion
 
         #region 部门管理
@@ -258,42 +291,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
 
-
-
-
-        /// <summary>
-        /// 删除成员
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="userId">员工UserID</param>
-        /// <returns></returns>
-        public static QyJsonResult DeleteMember(string accessToken, string userId)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/delete?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
-
-            return Get.GetJson<QyJsonResult>(url);
-        }
-
-        /// <summary>
-        /// 批量删除成员
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="userIds"></param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <returns></returns>
-        public static QyJsonResult BatchDeleteMember(string accessToken, string[] userIds, int timeOut = Config.TIME_OUT)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/batchdelete?access_token={0}", accessToken.AsUrlData());
-
-            var data = new
-            {
-                useridlist = userIds
-            };
-
-            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-        }
-
-
+        
         /// <summary>
         /// 获取部门成员
         /// </summary>
@@ -603,6 +601,37 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsongSetting);
         }
 
+        /// <summary>
+        /// 【异步方法】删除成员【QY移植修改】
+        /// </summary>
+        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="userId">员工UserID</param>
+        /// <returns></returns>
+        public static async Task<QyJsonResult> DeleteMemberAsync(string accessToken, string userId)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/delete?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
+
+            return await Get.GetJsonAsync<QyJsonResult>(url);
+        }
+
+        /// <summary>
+        /// 【异步方法】批量删除成员【QY移植修改】
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="userIds"></param>
+        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
+        /// <returns></returns>
+        public static async Task<QyJsonResult> BatchDeleteMemberAsync(string accessToken, string[] useridlist, int timeOut = Config.TIME_OUT)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/batchdelete?access_token={0}", accessToken.AsUrlData());
+
+            var data = new
+            {
+                useridlist = useridlist
+            };
+
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+        }
 
         #endregion
 
@@ -736,38 +765,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             };
 
             return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-        }
-
-        /// <summary>
-        /// 【异步方法】删除成员
-        /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
-        /// <param name="userId">员工UserID</param>
-        /// <returns></returns>
-        public static async Task<QyJsonResult> DeleteMemberAsync(string accessToken, string userId)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/delete?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
-
-            return await Get.GetJsonAsync<QyJsonResult>(url);
-        }
-
-        /// <summary>
-        /// 【异步方法】批量删除成员
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="userIds"></param>
-        /// <param name="timeOut">代理请求超时时间（毫秒）</param>
-        /// <returns></returns>
-        public static async Task<QyJsonResult> BatchDeleteMemberAsync(string accessToken, string[] userIds, int timeOut = Config.TIME_OUT)
-        {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/batchdelete?access_token={0}", accessToken.AsUrlData());
-
-            var data = new
-            {
-                useridlist = userIds
-            };
-
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>

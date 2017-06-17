@@ -16,7 +16,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.App
     /// <summary>
     /// 设置企业号应用需要Post的数据
     /// </summary>
-    public class GetAppListResult : QyJsonResult
+    public class GetAppListResult : WorkJsonResult
     {
         public List<GetAppList_AppInfo> agentlist { get; set; }
     }

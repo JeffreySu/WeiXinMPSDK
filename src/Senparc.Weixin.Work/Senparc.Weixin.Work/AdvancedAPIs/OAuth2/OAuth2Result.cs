@@ -24,7 +24,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OAuth2
     /// <summary>
     /// 获取成员信息返回结果
     /// </summary>
-    public class GetUserInfoResult : QyJsonResult
+    public class GetUserInfoResult : WorkJsonResult
     {
         /// <summary>
         /// 员工UserID

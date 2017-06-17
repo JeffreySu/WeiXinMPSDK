@@ -168,14 +168,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
-        public static QyJsonResult DeleteForeverMaterial(string accessToken, int agentId, string mediaId)
+        public static WorkJsonResult DeleteForeverMaterial(string accessToken, int agentId, string mediaId)
         {
             var url =
                 string.Format(
                     "https://qyapi.weixin.qq.com/cgi-bin/material/del?access_token={0}&agentid={1}&media_id={2}",
                     accessToken.AsUrlData(), agentId, mediaId.AsUrlData());
 
-            return CommonJsonSend.Send<QyJsonResult>(null, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -378,14 +378,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> DeleteForeverMaterialAsync(string accessToken, int agentId, string mediaId)
+        public static async Task<WorkJsonResult> DeleteForeverMaterialAsync(string accessToken, int agentId, string mediaId)
         {
             var url =
                 string.Format(
                     "https://qyapi.weixin.qq.com/cgi-bin/material/del?access_token={0}&agentid={1}&media_id={2}",
                     accessToken.AsUrlData(), agentId, mediaId.AsUrlData());
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, null, CommonJsonSendType.GET);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>

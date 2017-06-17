@@ -15,7 +15,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ShakeAround
     /// <summary>
     /// 获取设备及用户信息返回结果
     /// </summary>
-    public class GetShakeInfoResult : QyJsonResult
+    public class GetShakeInfoResult : WorkJsonResult
     {
         public ShakeInfo_Data data { get; set; }
     }

@@ -18,7 +18,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Media
     /// <summary>
     /// 上传临时媒体文件返回结果
     /// </summary>
-    public class UploadTemporaryResultJson : QyJsonResult
+    public class UploadTemporaryResultJson : WorkJsonResult
     {
         public UploadMediaFileType type { get; set; }
         public string media_id { get; set; }
@@ -28,7 +28,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.Media
     /// <summary>
     /// 上传永久素材返回结果
     /// </summary>
-    public class UploadForeverResultJson : QyJsonResult
+    public class UploadForeverResultJson : WorkJsonResult
     {
         public string media_id { get; set; }
     }

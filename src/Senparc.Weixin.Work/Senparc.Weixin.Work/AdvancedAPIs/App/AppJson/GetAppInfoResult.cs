@@ -16,7 +16,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.App
     /// <summary>
     /// 获取企业号应用返回结果【QY移植修改】
     /// </summary>
-    public class GetAppInfoResult : QyJsonResult
+    public class GetAppInfoResult : WorkJsonResult
     {
         /// <summary>
         /// 企业应用id

@@ -14,7 +14,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.KF
     /// <summary>
     /// 客服返回结果
     /// </summary>
-    public class GetKFListResult : QyJsonResult
+    public class GetKFListResult : WorkJsonResult
     {
         public KF_Item @internal { get; set; }
         public KF_Item external { get; set; }

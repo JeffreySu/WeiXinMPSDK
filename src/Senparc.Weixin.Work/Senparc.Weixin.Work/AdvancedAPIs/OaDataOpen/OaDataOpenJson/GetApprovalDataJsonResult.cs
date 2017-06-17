@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 {
-    public class GetApprovalDataJsonResult : QyJsonResult
+    public class GetApprovalDataJsonResult : WorkJsonResult
     {
         /// <summary>
         /// 拉取的审批单个数，最大值为10000

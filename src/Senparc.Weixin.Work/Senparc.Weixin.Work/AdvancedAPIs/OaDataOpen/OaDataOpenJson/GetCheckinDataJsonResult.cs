@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
 {
-    public class GetCheckinDataJsonResult : QyJsonResult
+    public class GetCheckinDataJsonResult : WorkJsonResult
     {
         public GetCheckinDataJsonResult_Result[] result { get; set; }
     }

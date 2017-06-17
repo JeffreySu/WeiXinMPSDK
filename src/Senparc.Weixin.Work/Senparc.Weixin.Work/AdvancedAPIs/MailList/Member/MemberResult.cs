@@ -19,7 +19,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
     /// <summary>
     /// GetMemberResult【QY移植修改】
     /// </summary>
-    public class GetMemberResult : QyJsonResult
+    public class GetMemberResult : WorkJsonResult
     {
         /// <summary>
         /// 员工UserID 
@@ -86,7 +86,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         public string wxplugin_status { get; set; }
     }
 
-    public class GetDepartmentMemberResult : QyJsonResult
+    public class GetDepartmentMemberResult : WorkJsonResult
     {
         /// <summary>
         /// 成员列表
@@ -130,7 +130,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
     /// <summary>
     /// 获取部门成员(详情)返回结果
     /// </summary>
-    public class GetDepartmentMemberInfoResult : QyJsonResult
+    public class GetDepartmentMemberInfoResult : WorkJsonResult
     {
         /// <summary>
         /// 成员列表
@@ -138,7 +138,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         public List<GetMemberResult> userlist { get; set; }
     }
 
-    public class InviteMemberResult : QyJsonResult
+    public class InviteMemberResult : WorkJsonResult
     {
         /// <summary>
         /// 1:微信邀请 2.邮件邀请

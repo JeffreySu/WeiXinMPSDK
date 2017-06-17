@@ -63,12 +63,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data">设置应用需要Post的数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static QyJsonResult SetApp(string accessToken, SetAppPostData data, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult SetApp(string accessToken, SetAppPostData data, int timeOut = Config.TIME_OUT)
         {
             //TODO:需要对SetAppPostData中的null值过滤
             string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
 
-            return Post.PostGetJson<QyJsonResult>(url, formData: null);
+            return Post.PostGetJson<WorkJsonResult>(url, formData: null);
         }
 
         /// <summary>
@@ -110,12 +110,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="data">设置应用需要Post的数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> SetAppAsync(string accessToken, SetAppPostData data, int timeOut = Config.TIME_OUT)
+        public static async Task<WorkJsonResult> SetAppAsync(string accessToken, SetAppPostData data, int timeOut = Config.TIME_OUT)
         {
             //TODO:需要对SetAppPostData中的null值过滤
             string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
 
-            return await Post.PostGetJsonAsync<QyJsonResult>(url, formData: null);
+            return await Post.PostGetJsonAsync<WorkJsonResult>(url, formData: null);
         }
 
         /// <summary>

@@ -37,10 +37,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="userId">员工UserID</param>
         /// <returns></returns>
-        public static QyJsonResult TwoVerification(string accessToken, string userId)
+        public static WorkJsonResult TwoVerification(string accessToken, string userId)
         {
             var url =string.Format ( "https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}",accessToken.AsUrlData(), userId.AsUrlData());
-            return Get.GetJson<QyJsonResult>(url);
+            return Get.GetJson<WorkJsonResult>(url);
         }
         #endregion
 
@@ -52,10 +52,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="userId">员工UserID</param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> TwoVerificationAsync(string accessToken, string userId)
+        public static async Task<WorkJsonResult> TwoVerificationAsync(string accessToken, string userId)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
-            return await Get.GetJsonAsync<QyJsonResult>(url);
+            return await Get.GetJsonAsync<WorkJsonResult>(url);
         }
         #endregion
     }

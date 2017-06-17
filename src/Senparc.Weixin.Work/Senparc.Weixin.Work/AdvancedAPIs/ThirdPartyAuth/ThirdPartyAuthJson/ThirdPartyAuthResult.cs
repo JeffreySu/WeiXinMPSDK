@@ -19,7 +19,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
     /// <summary>
     /// 获取应用套件令牌返回结果
     /// </summary>
-    public class GetSuiteTokenResult : QyJsonResult
+    public class GetSuiteTokenResult : WorkJsonResult
     {
         /// <summary>
         /// 应用套件access_token
@@ -35,7 +35,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
     /// <summary>
     /// 获取预授权码返回结果
     /// </summary>
-    public class GetPreAuthCodeResult : QyJsonResult
+    public class GetPreAuthCodeResult : WorkJsonResult
     {
         /// <summary>
         /// 预授权码,最长为512字节
@@ -289,7 +289,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         public ThirdParty_AuthInfo auth_info { get; set; }
     }
 
-    public class GetAgentResult : QyJsonResult
+    public class GetAgentResult : WorkJsonResult
     {
         /// <summary>
         /// 授权方企业应用id

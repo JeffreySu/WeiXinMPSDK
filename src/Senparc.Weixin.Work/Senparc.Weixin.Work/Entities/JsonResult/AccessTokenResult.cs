@@ -23,7 +23,7 @@ namespace Senparc.Weixin.Work.Entities
     /// GetToken请求后的JSON返回格式
     /// </summary>
     [Serializable]
-    public class AccessTokenResult : QyJsonResult
+    public class AccessTokenResult : WorkJsonResult
     {
         /// <summary>
         /// 获取到的凭证。长度为64至512个字节

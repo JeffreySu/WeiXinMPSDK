@@ -15,7 +15,7 @@ using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Work.Entities
 {
-    public class GetCallBackIpResult : QyJsonResult
+    public class GetCallBackIpResult : WorkJsonResult
     {
         public string[] ip_list { get; set; }
     }

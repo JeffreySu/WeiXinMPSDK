@@ -23,7 +23,7 @@ namespace Senparc.Weixin.Work.Entities
     /// jsapi_ticket请求后的JSON返回格式
     /// </summary>
     [Serializable]
-    public class JsApiTicketResult : QyJsonResult
+    public class JsApiTicketResult : WorkJsonResult
     {
         /// <summary>
         /// 获取到的凭证

@@ -111,7 +111,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="auth_type">授权类型：0 正式授权， 1 测试授权， 默认值为0 </param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static QyJsonResult SetAuthConfig(string suiteAccessToken, string authCode, int[] appid = null, int? auth_type = null, int timeOut = 10000)
+        public static WorkJsonResult SetAuthConfig(string suiteAccessToken, string authCode, int[] appid = null, int? auth_type = null, int timeOut = 10000)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/set_session_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
             var data = new
@@ -126,7 +126,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
             JsonSetting jsonSetting = new JsonSetting(true);
 
-            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agent">要设置的企业应用的信息</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static QyJsonResult SetAgent(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, ThirdParty_AgentData agent, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult SetAgent(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, ThirdParty_AgentData agent, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/set_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
@@ -220,7 +220,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 agent = agent
             };
 
-            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -318,7 +318,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="auth_type">授权类型：0 正式授权， 1 测试授权， 默认值为0 </param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> SetAuthConfigAsync(string suiteAccessToken, string authCode, int[] appid = null, int? auth_type = null, int timeOut = 10000)
+        public static async Task<WorkJsonResult> SetAuthConfigAsync(string suiteAccessToken, string authCode, int[] appid = null, int? auth_type = null, int timeOut = 10000)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/set_session_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
             var data = new
@@ -333,7 +333,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
             JsonSetting jsonSetting = new JsonSetting(true);
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
 
         /// <summary>
@@ -415,7 +415,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agent">要设置的企业应用的信息</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> SetAgentAsync(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, ThirdParty_AgentData agent, int timeOut = Config.TIME_OUT)
+        public static async Task<WorkJsonResult> SetAgentAsync(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, ThirdParty_AgentData agent, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/set_agent?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
@@ -427,7 +427,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 agent = agent
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>

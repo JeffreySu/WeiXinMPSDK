@@ -22,7 +22,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
     /// <summary>
     /// 创建标签返回结果
     /// </summary>
-    public class CreateTagResult : QyJsonResult
+    public class CreateTagResult : WorkJsonResult
     {
         /// <summary>
         /// 标签id
@@ -33,7 +33,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
     /// <summary>
     /// 获取标签成员返回结果
     /// </summary>
-    public class GetTagMemberResult : QyJsonResult
+    public class GetTagMemberResult : WorkJsonResult
     {
         /// <summary>
         /// 成员列表
@@ -67,7 +67,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
     /// invalid userlist faild
     /// invalid partylist faild
     /// </summary>
-    public class AddTagMemberResult : QyJsonResult
+    public class AddTagMemberResult : WorkJsonResult
     {
         public string invalidlist { get; set; }
         public int[] invalidparty { get; set; }
@@ -82,7 +82,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
     /// invalid userlist faild
     /// invalid partylist faild
     /// </summary>
-    public class DelTagMemberResult : QyJsonResult
+    public class DelTagMemberResult : WorkJsonResult
     {
         public string invalidlist { get; set; }
         public int[] invalidparty { get; set; }
@@ -91,7 +91,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
     /// <summary>
     /// 获取标签列表返回结果
     /// </summary>
-    public class GetTagListResult : QyJsonResult
+    public class GetTagListResult : WorkJsonResult
     {
         public List<TagItem> taglist { get; set; }
     }

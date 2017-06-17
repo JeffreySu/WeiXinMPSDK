@@ -21,7 +21,7 @@ namespace Senparc.Weixin.Work.Entities
     /// 获取应用提供商凭证返回格式
     /// </summary>
     [Serializable]
-    public class ProviderTokenResult : QyJsonResult
+    public class ProviderTokenResult : WorkJsonResult
     {
         /// <summary>
         /// 服务提供商的accesstoken，可用于用户授权登录信息查询接口

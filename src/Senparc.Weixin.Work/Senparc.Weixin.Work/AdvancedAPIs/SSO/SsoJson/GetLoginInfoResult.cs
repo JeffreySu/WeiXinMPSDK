@@ -22,7 +22,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.SSO
     /// <summary>
     /// 获取企业号管理员登录信息返回结果
     /// </summary>
-    public class GetLoginInfoResult : QyJsonResult
+    public class GetLoginInfoResult : WorkJsonResult
     {
         ///// <summary>
         ///// 是否系统管理员

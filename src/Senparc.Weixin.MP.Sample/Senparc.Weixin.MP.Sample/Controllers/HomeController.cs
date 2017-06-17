@@ -63,8 +63,10 @@ namespace Senparc.Weixin.MP.Sample.Controllers
 
         public ActionResult Book()
         {
-            ViewData["HideBanner"] = true;
-            return View();
+            return Redirect("https://book.weixin.senparc.com");
+
+            //ViewData["HideBanner"] = true;
+            //return View();
         }
 
         public ActionResult TestElmah()

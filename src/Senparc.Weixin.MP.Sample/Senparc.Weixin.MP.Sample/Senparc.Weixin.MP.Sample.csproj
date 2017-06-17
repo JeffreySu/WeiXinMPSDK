@@ -277,7 +277,6 @@
     <Content Include="Scripts\tongji.sdk.js" />
     <Content Include="Scripts\tongji.js" />
     <Content Include="Views\Device\Index.cshtml" />
-    <Content Include="Views\Home\Book.cshtml" />
     <None Include="Views\TenPayV3\BankCode.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

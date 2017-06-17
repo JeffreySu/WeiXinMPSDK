@@ -126,7 +126,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>..\..\Senparc.Weixin.MP.BuildOutPut</OutputPath>
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.Open.XML</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\Senparc.Weixin.QY.XML</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <ErrorReport>prompt</ErrorReport>

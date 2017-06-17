@@ -12,8 +12,14 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 using Senparc.Weixin.Work.Helpers;
+
+#if NET45 || NET461
+using System.Web;
+#else
+using Microsoft.AspNetCore.Http;
+#endif
+
 
 namespace Senparc.Weixin.Work.TenPayLib
 {
@@ -35,13 +41,22 @@ namespace Senparc.Weixin.Work.TenPayLib
     public class RequestHandler
     {
 
+        public RequestHandler()
+        {
+            Parameters = new Hashtable();
+        }
+
+
         public RequestHandler(HttpContext httpContext)
         {
             Parameters = new Hashtable();
-
-            this.HttpContext = httpContext ?? HttpContext.Current;
-
+#if NET45 || NET461
+			this.HttpContext = httpContext ?? HttpContext.Current;
+#else
+            this.HttpContext = httpContext ?? new DefaultHttpContext();
+#endif
         }
+
         /// <summary>
         /// √‹‘ø
         /// </summary>
@@ -183,7 +198,11 @@ namespace Senparc.Weixin.Work.TenPayLib
 
         protected virtual string GetCharset()
         {
+#if NET45 || NET461
             return this.HttpContext.Request.ContentEncoding.BodyName;
+#else
+            return Encoding.UTF8.WebName;
+#endif
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：ConvertToOpenIdResult.cs
     文件功能描述：userid转换成openid接口返回的Json结果
@@ -15,7 +15,7 @@ namespace Senparc.Weixin.Work.Entities
     /// <summary>
     /// userid转换成openid接口返回的Json结果
     /// </summary>
-    public class ConvertToOpenIdResult : QyJsonResult
+    public class ConvertToOpenIdResult : WorkJsonResult
     {
         /// <summary>
         /// 企业号成员userid对应的openid，若有传参agentid，则是针对该agentid的openid。否则是针对企业号corpid的openid

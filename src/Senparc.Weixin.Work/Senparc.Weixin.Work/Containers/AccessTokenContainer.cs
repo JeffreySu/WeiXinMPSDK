@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
 
     文件名：AccessTokenContainer.cs
     文件功能描述：通用接口AccessToken容器，用于自动管理AccessToken，如果过期会重新获取
@@ -36,7 +36,7 @@
     修改描述：v4.1.6 完善GetToken()方法
     
     修改标识：Senparc - 20160813
-    修改描述：v4.1.8 修改命名空间为Senparc.Weixin.QY.Containers
+    修改描述：v4.1.8 修改命名空间为Senparc.Weixin.Work.Containers
 ----------------------------------------------------------------*/
 
 using System;

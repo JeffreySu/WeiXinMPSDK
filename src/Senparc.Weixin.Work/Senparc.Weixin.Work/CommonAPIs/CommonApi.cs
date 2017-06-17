@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：CommonApi.cs
     文件功能描述：通用基础API
@@ -109,25 +109,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
             return result;
         }
 
-        /// <summary>
-        /// 获取应用提供商凭证
-        /// </summary>
-        /// <param name="corpId"></param>
-        /// <param name="providerSecret"></param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static ProviderTokenResult GetProviderToken(string corpId, string providerSecret, int timeOut = Config.TIME_OUT)
-        {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_provider_token";
-
-            var data = new
-            {
-                corpid = corpId,
-                provider_secret = providerSecret
-            };
-
-            return CommonJsonSend.Send<ProviderTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-        }
+       
 
         /// <summary>
         /// userid转换成openid接口
@@ -238,26 +220,7 @@ namespace Senparc.Weixin.Work.CommonAPIs
             return result;
         }
 
-        /// <summary>
-        /// 【异步方法】获取应用提供商凭证
-        /// </summary>
-        /// <param name="corpId"></param>
-        /// <param name="providerSecret"></param>
-        /// <param name="timeOut"></param>
-        /// <returns></returns>
-        public static async Task<ProviderTokenResult> GetProviderTokenAsync(string corpId, string providerSecret, int timeOut = Config.TIME_OUT)
-        {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_provider_token";
-
-            var data = new
-            {
-                corpid = corpId,
-                provider_secret = providerSecret
-            };
-
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProviderTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-        }
-
+      
         /// <summary>
         /// 【异步方法】userid转换成openid接口
         /// </summary>

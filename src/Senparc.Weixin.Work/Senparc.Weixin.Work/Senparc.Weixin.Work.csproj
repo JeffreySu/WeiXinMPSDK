@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2CA35598-F1A1-4DC9-AA20-A4346BFCB954}</ProjectGuid>
+    <ProjectGuid>{CC0EBEC4-7120-4627-A596-C1F2958F3D5E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
@@ -45,7 +45,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.Work.XML</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.QY.XML</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -60,8 +60,6 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>
-    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -100,8 +98,13 @@
     <Compile Include="AdvancedAPIs\LoginAuth\LoginAuthApi.cs" />
     <Compile Include="AdvancedAPIs\LoginAuth\GetLoginInfoResult.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaResult.cs" />
+    <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenApi.cs" />
+    <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetApprovalDataJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinDataJsonResult.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\ShakeAroundResultJson.cs" />
+    <Compile Include="AdvancedAPIs\SSO\SsoJson\GetLoginInfoResult.cs" />
+    <Compile Include="AdvancedAPIs\SSO\SsoApi.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthApi.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\SessionInfo.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthResult.cs" />
@@ -166,6 +169,16 @@
     <Compile Include="Entities\Request\Event\SendPicsInfo.cs" />
     <Compile Include="Entities\Request\Event\BatchJobInfo.cs" />
     <Compile Include="Entities\Request\Event\RequestMessageEvent_Enter_Agent.cs" />
+    <Compile Include="Entities\Request\KF\RequestEvent.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessage.cs" />
+    <Compile Include="Entities\Request\KF\RequestBase.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageFile.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageImage.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageLink.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageLocation.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessagePack.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageText.cs" />
+    <Compile Include="Entities\Request\KF\RequestMessageVoice.cs" />
     <Compile Include="Entities\Request\RequestMessageShortVideo.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfoBase.cs" />
     <Compile Include="Entities\Request\ThirdPartyInfo\ThirdPartyInfo_Contact_Sync.cs" />
@@ -190,6 +203,7 @@
     <Compile Include="Entities\Response\ResponseMessageText.cs" />
     <Compile Include="Entities\Response\ResponseMessageVideo.cs" />
     <Compile Include="Entities\Response\ResponseMessageVoice.cs" />
+    <Compile Include="Entities\Response\SuccessResponseMessage.cs" />
     <Compile Include="Entities\Response\Video.cs" />
     <Compile Include="Entities\Response\Voice.cs" />
     <Compile Include="Entities\Response\MpNewsArticle.cs" />

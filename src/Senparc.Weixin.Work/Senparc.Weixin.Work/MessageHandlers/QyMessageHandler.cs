@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：QyMessageHandler.cs
     文件功能描述：企业号请求的集中处理方法
@@ -77,7 +77,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
 
         /// <summary>
         /// 最后返回的ResponseDocument。
-        /// 这里是Senparc.Weixin.QY，应当在ResponseDocument基础上进行加密（每次获取重新加密，所以结果会不同）
+        /// 这里是Senparc.Weixin.Work，应当在ResponseDocument基础上进行加密（每次获取重新加密，所以结果会不同）
         /// </summary>
         public override XDocument FinalResponseDocument
         {

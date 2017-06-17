@@ -61,6 +61,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return View();
         }
 
+        public ActionResult Book()
+        {
+            return Redirect("https://book.weixin.senparc.com");
+
+            //ViewData["HideBanner"] = true;
+            //return View();
+        }
+
         public ActionResult TestElmah()
         {
             try

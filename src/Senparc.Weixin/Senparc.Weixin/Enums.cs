@@ -44,6 +44,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170302
     修改描述：v4.11.1 添加【ReturnCode.appsecret不正确】枚举类型（invalid appsecret，40125）
+
+    修改标识：Senparc - 20170617
+    修改描述：v4.12.3 提供对企业微信的支持：添加WorkJsonResult（企业微信返回消息基类）、ReturnCode_Work（枚举）
+    
 ----------------------------------------------------------------*/
 
 

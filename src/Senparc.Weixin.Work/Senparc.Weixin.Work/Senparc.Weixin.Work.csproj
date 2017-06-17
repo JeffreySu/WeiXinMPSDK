@@ -98,6 +98,9 @@
     <Compile Include="AdvancedAPIs\LoginAuth\LoginAuthApi.cs" />
     <Compile Include="AdvancedAPIs\LoginAuth\GetLoginInfoResult.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaResult.cs" />
+    <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenApi.cs" />
+    <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetApprovalDataJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinDataJsonResult.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\ShakeAroundResultJson.cs" />
     <Compile Include="AdvancedAPIs\SSO\SsoJson\GetLoginInfoResult.cs" />

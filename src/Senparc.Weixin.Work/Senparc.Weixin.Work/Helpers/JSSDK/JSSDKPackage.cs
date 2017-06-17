@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.QY.Helpers
+namespace Senparc.Weixin.Work.Helpers
 {
     /// <summary>
     /// 为UI输出准备的JSSDK信息包

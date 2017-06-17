@@ -24,7 +24,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.HttpUtility;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs
+namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     /// <summary>
     /// 企业号微信支付接口

@@ -11,7 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
     /// 事件之弹出微信相册发图器(pic_weixin)

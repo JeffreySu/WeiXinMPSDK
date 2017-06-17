@@ -11,7 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
     /// 事件之扫码推事件且弹出“消息接收中”提示框(scancode_waitmsg)

@@ -11,12 +11,12 @@
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.Chat
+namespace Senparc.Weixin.Work.AdvancedAPIs.Chat
 {
     /// <summary>
     /// 获取会话返回结果
     /// </summary>
-    public class GetChatResult : QyJsonResult
+    public class GetChatResult : WorkJsonResult
     {
         /// <summary>
         /// 会话信息
@@ -47,7 +47,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Chat
     /// <summary>
     /// 设置成员新消息免打扰返回结果
     /// </summary>
-    public class SetMuteResult : QyJsonResult
+    public class SetMuteResult : WorkJsonResult
     {
         /// <summary>
         /// 列表中不存在的成员会返回在invaliduser里，剩余合法成员会继续执行

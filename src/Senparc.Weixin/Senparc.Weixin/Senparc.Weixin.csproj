@@ -107,7 +107,8 @@
     <Compile Include="Entities\EntityBase.cs" />
     <Compile Include="Entities\JsonResult\IJsonResult.cs" />
     <Compile Include="Entities\JsonResult\IJsonResultCallback.cs" />
-    <Compile Include="Entities\JsonResult\QyJsonResult.cs" />
+    <Compile Include="Entities\JsonResult\QYJsonResult.cs" />
+    <Compile Include="Entities\JsonResult\WorkJsonResult.cs" />
     <Compile Include="Entities\MessageBase.cs">
       <SubType>
       </SubType>

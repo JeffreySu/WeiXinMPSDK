@@ -14,7 +14,7 @@
 using System;
 using System.Xml.Linq;
 
-namespace Senparc.Weixin.QY.Helpers
+namespace Senparc.Weixin.Work.Helpers
 {
     public static class MsgTypeHelper
     {

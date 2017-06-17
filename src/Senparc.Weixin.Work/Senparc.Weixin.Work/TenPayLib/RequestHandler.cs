@@ -13,9 +13,9 @@ using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
-using Senparc.Weixin.QY.Helpers;
+using Senparc.Weixin.Work.Helpers;
 
-namespace Senparc.Weixin.QY.TenPayLib
+namespace Senparc.Weixin.Work.TenPayLib
 {
     /**
     '签名工具类

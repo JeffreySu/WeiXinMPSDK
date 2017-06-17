@@ -15,10 +15,16 @@
  
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
+
+    -----------------------------------
+    
+    修改标识：Senparc - 20170617
+    修改描述：从QY移植，同步Work接口
+
 ----------------------------------------------------------------*/
 
 /*
-    接口详见：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E5%A4%9A%E5%AA%92%E4%BD%93%E6%96%87%E4%BB%B6
+    接口详见：http://work.weixin.qq.com/api/doc#10112
  */
 
 using System.Collections.Generic;
@@ -26,11 +32,11 @@ using System.IO;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.QY.AdvancedAPIs.Media;
-using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.QY.Entities;
+using Senparc.Weixin.Work.AdvancedAPIs.Media;
+using Senparc.Weixin.Work.CommonAPIs;
+using Senparc.Weixin.Work.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs
+namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     /// <summary>
     /// 多媒体文件接口
@@ -40,7 +46,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         #region 同步请求
 
         /// <summary>
-        /// 上传临时媒体文件
+        /// 上传临时媒体文件【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="type">媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件(file)</param>
@@ -56,7 +62,8 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         }
 
         /// <summary>
-        /// 获取临时媒体文件
+        /// 获取临时媒体文件【QY移植修改】
+        /// 权限说明：完全公开，media_id在同一企业内所有应用之间可以共享。
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="mediaId"></param>
@@ -161,14 +168,14 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
-        public static QyJsonResult DeleteForeverMaterial(string accessToken, int agentId, string mediaId)
+        public static WorkJsonResult DeleteForeverMaterial(string accessToken, int agentId, string mediaId)
         {
             var url =
                 string.Format(
                     "https://qyapi.weixin.qq.com/cgi-bin/material/del?access_token={0}&agentid={1}&media_id={2}",
                     accessToken.AsUrlData(), agentId, mediaId.AsUrlData());
 
-            return CommonJsonSend.Send<QyJsonResult>(null, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -260,7 +267,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
         #region 异步请求
         /// <summary>
-        /// 【异步方法】上传临时媒体文件
+        /// 【异步方法】上传临时媒体文件【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="type">媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件(file)</param>
@@ -276,7 +283,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】获取临时媒体文件
+        /// 【异步方法】获取临时媒体文件【QY移植修改】
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="mediaId"></param>
@@ -371,14 +378,14 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> DeleteForeverMaterialAsync(string accessToken, int agentId, string mediaId)
+        public static async Task<WorkJsonResult> DeleteForeverMaterialAsync(string accessToken, int agentId, string mediaId)
         {
             var url =
                 string.Format(
                     "https://qyapi.weixin.qq.com/cgi-bin/material/del?access_token={0}&agentid={1}&media_id={2}",
                     accessToken.AsUrlData(), agentId, mediaId.AsUrlData());
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, null, CommonJsonSendType.GET);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>

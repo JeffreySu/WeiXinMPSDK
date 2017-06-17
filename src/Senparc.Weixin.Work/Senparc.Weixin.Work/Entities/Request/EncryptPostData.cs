@@ -11,7 +11,7 @@
     修改描述：将其AgentID类型改为int?
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     public class EncryptPostData
     {

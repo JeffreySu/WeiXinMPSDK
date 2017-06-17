@@ -11,7 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
     /// 需要预先上传多媒体文件到微信服务器，只支持认证服务号。

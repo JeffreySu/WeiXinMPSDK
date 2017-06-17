@@ -17,12 +17,12 @@
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
+namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
 {
     /// <summary>
     /// 创建部门返回结果
     /// </summary>
-    public class CreateDepartmentResult : QyJsonResult
+    public class CreateDepartmentResult : WorkJsonResult
     {
         /// <summary>
         /// 创建的部门id
@@ -30,7 +30,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
         public int id { get; set; }
     }
 
-    public class GetDepartmentListResult : QyJsonResult
+    public class GetDepartmentListResult : WorkJsonResult
     {
         public List<DepartmentList> department { get; set; }
     }

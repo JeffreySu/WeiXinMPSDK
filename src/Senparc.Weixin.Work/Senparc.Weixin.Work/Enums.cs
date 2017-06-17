@@ -21,7 +21,7 @@
 
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.QY
+namespace Senparc.Weixin.Work
 {
     /// <summary>
     /// 接收消息类型
@@ -223,12 +223,12 @@ namespace Senparc.Weixin.QY
     }
 
     /// <summary>
-    /// 上传媒体文件类型
+    /// 上传媒体文件类型（所有文件size必须大于5个字节）【QY移植修改】
     /// </summary>
     public enum UploadMediaFileType
     {
         /// <summary>
-        /// 图片: 1MB，支持JPG格式
+        /// 图片: 2MB，支持JPG,PNG格式
         /// </summary>
         image,
         /// <summary>
@@ -240,7 +240,7 @@ namespace Senparc.Weixin.QY
         /// </summary>
         video,
         /// <summary>
-        /// 普通文件：10MB
+        /// 普通文件：20MB
         /// </summary>
         file
     }

@@ -11,7 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.QY.Entities.Menu
+namespace Senparc.Weixin.Work.Entities.Menu
 {
     /// <summary>
     /// Url按键

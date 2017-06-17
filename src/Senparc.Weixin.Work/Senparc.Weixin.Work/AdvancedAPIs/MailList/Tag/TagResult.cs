@@ -17,12 +17,12 @@
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
+namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
 {
     /// <summary>
     /// 创建标签返回结果
     /// </summary>
-    public class CreateTagResult : QyJsonResult
+    public class CreateTagResult : WorkJsonResult
     {
         /// <summary>
         /// 标签id
@@ -33,7 +33,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
     /// <summary>
     /// 获取标签成员返回结果
     /// </summary>
-    public class GetTagMemberResult : QyJsonResult
+    public class GetTagMemberResult : WorkJsonResult
     {
         /// <summary>
         /// 成员列表
@@ -60,29 +60,38 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.MailList
     /// <summary>
     /// 添加标签成员返回结果
     /// a)正确时返回{"errcode": 0,"errmsg": "ok"}
-    /// b)若部分userid非法，则返回{"errcode": 0,"errmsg": "invalid userlist failed","invalidlist"："usr1|usr2|usr"}
+    /// b)若部分userid非法，则返回{"errcode": 0,"errmsg": "invalid userlist failed","invalidlist"："usr1|usr2|usr","invalidparty"：[2,4]}
     /// c)当包含userid全部非法时返回{"errcode": 40070,"errmsg": "all list invalid "}
+    /// 其中错误消息视具体出错情况而定，分别为：
+    /// invalid userlist and partylist faild
+    /// invalid userlist faild
+    /// invalid partylist faild
     /// </summary>
-    public class AddTagMemberResult : QyJsonResult
+    public class AddTagMemberResult : WorkJsonResult
     {
         public string invalidlist { get; set; }
+        public int[] invalidparty { get; set; }
     }
 
     /// <summary>
     /// 添加标签成员返回结果
     /// a)正确时返回{"errcode": 0,"errmsg": "ok"}
-    /// b)若部分userid非法，则返回{"errcode": 0,"errmsg": "invalid userlist failed","invalidlist"："usr1|usr2|usr"}
+    /// b)若部分userid非法，则返回{"errcode": 0,"errmsg": "invalid userlist failed","invalidlist"："usr1|usr2|usr","invalidparty": [2,4]}
     /// c)当包含userid全部非法时返回{"errcode": 40070,"errmsg": "all list invalid "}
+    /// invalid userlist and partylist faild
+    /// invalid userlist faild
+    /// invalid partylist faild
     /// </summary>
-    public class DelTagMemberResult : QyJsonResult
+    public class DelTagMemberResult : WorkJsonResult
     {
         public string invalidlist { get; set; }
+        public int[] invalidparty { get; set; }
     }
 
     /// <summary>
     /// 获取标签列表返回结果
     /// </summary>
-    public class GetTagListResult : QyJsonResult
+    public class GetTagListResult : WorkJsonResult
     {
         public List<TagItem> taglist { get; set; }
     }

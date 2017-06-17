@@ -11,10 +11,10 @@
 
 using System;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.QY.Containers;
+using Senparc.Weixin.Work.CommonAPIs;
+using Senparc.Weixin.Work.Containers;
 
-namespace Senparc.Weixin.QY.Exceptions
+namespace Senparc.Weixin.Work.Exceptions
 {
     /// <summary>
     /// 企业号异常

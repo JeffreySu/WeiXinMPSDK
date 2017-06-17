@@ -17,13 +17,13 @@
 using System;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
     /// jsapi_ticket请求后的JSON返回格式
     /// </summary>
     [Serializable]
-    public class JsApiTicketResult : QyJsonResult
+    public class JsApiTicketResult : WorkJsonResult
     {
         /// <summary>
         /// 获取到的凭证

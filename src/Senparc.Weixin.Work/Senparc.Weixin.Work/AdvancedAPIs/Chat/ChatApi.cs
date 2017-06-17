@@ -21,10 +21,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.QY.AdvancedAPIs.Chat;
-using Senparc.Weixin.QY.CommonAPIs;
+using Senparc.Weixin.Work.AdvancedAPIs.Chat;
+using Senparc.Weixin.Work.CommonAPIs;
 
-namespace Senparc.Weixin.QY.AdvancedAPIs
+namespace Senparc.Weixin.Work.AdvancedAPIs
 {
 
     public static class ChatApi
@@ -42,7 +42,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="userlist">会话成员列表，成员用userid来标识。会话成员必须在3人或以上，1000人以下</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static QyJsonResult CreateChat(string accessToken, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult CreateChat(string accessToken, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/create?access_token={0}", accessToken.AsUrlData());
 
@@ -54,7 +54,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 userlist = userlist
             };
 
-            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="delUserList">会话退出成员列表，成员用userid来标识</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static QyJsonResult UpdateChat(string accessToken, string chatId, string opUser, string name = null, string owner = null, string[] addUserList = null, string[] delUserList = null, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult UpdateChat(string accessToken, string chatId, string opUser, string name = null, string owner = null, string[] addUserList = null, string[] delUserList = null, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/update?access_token={0}", accessToken.AsUrlData());
 
@@ -96,7 +96,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 del_user_list = delUserList
             };
 
-            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="opUser"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static QyJsonResult QuitChat(string accessToken, string chatId, string opUser, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult QuitChat(string accessToken, string chatId, string opUser, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/quit?access_token={0}", accessToken.AsUrlData());
 
@@ -117,7 +117,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 op_user = opUser,
             };
 
-            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="chatIdOrUserId">会话值，为userid|chatid，分别表示：成员id|会话id，单聊是userid，群聊是chatid</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static QyJsonResult ClearNotify(string accessToken, string opUser, Chat_Type type, string chatIdOrUserId, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult ClearNotify(string accessToken, string opUser, Chat_Type type, string chatIdOrUserId, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/clearnotify?access_token={0}", accessToken.AsUrlData());
 
@@ -143,7 +143,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 }
             };
 
-            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="contentOrMediaId">文本消息是content，图片或文件是mediaId</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static QyJsonResult SendChatMessage(string accessToken, string sender, Chat_Type type, ChatMsgType msgType, string chatIdOrUserId, string contentOrMediaId, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult SendChatMessage(string accessToken, string sender, Chat_Type type, ChatMsgType msgType, string chatIdOrUserId, string contentOrMediaId, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/send?access_token={0}", accessToken.AsUrlData());
 
@@ -217,7 +217,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                     throw new ArgumentOutOfRangeException("msgType");
             }
 
-            return CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
 //{
@@ -265,7 +265,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="userlist">会话成员列表，成员用userid来标识。会话成员必须在3人或以上，1000人以下</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> CreateChatAsync(string accessToken, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
+        public static async Task<WorkJsonResult> CreateChatAsync(string accessToken, string chatId, string name, string owner, string[] userlist, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/create?access_token={0}", accessToken.AsUrlData());
 
@@ -277,7 +277,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 userlist = userlist
             };
 
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -305,7 +305,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="delUserList">会话退出成员列表，成员用userid来标识</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> UpdateChatAsync(string accessToken, string chatId, string opUser, string name = null, string owner = null, string[] addUserList = null, string[] delUserList = null, int timeOut = Config.TIME_OUT)
+        public static async Task<WorkJsonResult> UpdateChatAsync(string accessToken, string chatId, string opUser, string name = null, string owner = null, string[] addUserList = null, string[] delUserList = null, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/update?access_token={0}", accessToken.AsUrlData());
 
@@ -319,7 +319,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 del_user_list = delUserList
             };
 
-            return await Senparc.Weixin .CommonAPIs .CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin .CommonAPIs .CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -330,7 +330,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="opUser"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> QuitChatAsync(string accessToken, string chatId, string opUser, int timeOut = Config.TIME_OUT)
+        public static async Task<WorkJsonResult> QuitChatAsync(string accessToken, string chatId, string opUser, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/quit?access_token={0}", accessToken.AsUrlData());
 
@@ -340,7 +340,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 op_user = opUser,
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -352,7 +352,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="chatIdOrUserId">会话值，为userid|chatid，分别表示：成员id|会话id，单聊是userid，群聊是chatid</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> ClearNotifyAsync(string accessToken, string opUser, Chat_Type type, string chatIdOrUserId, int timeOut = Config.TIME_OUT)
+        public static async Task<WorkJsonResult> ClearNotifyAsync(string accessToken, string opUser, Chat_Type type, string chatIdOrUserId, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/clearnotify?access_token={0}", accessToken.AsUrlData());
 
@@ -366,7 +366,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                 }
             };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -380,7 +380,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <param name="contentOrMediaId">文本消息是content，图片或文件是mediaId</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> SendChatMessageAsync(string accessToken, string sender, Chat_Type type, ChatMsgType msgType, string chatIdOrUserId, string contentOrMediaId, int timeOut = Config.TIME_OUT)
+        public static async Task<WorkJsonResult> SendChatMessageAsync(string accessToken, string sender, Chat_Type type, ChatMsgType msgType, string chatIdOrUserId, string contentOrMediaId, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/chat/send?access_token={0}", accessToken.AsUrlData());
 
@@ -440,7 +440,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
                     throw new ArgumentOutOfRangeException("msgType");
             }
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
 //{

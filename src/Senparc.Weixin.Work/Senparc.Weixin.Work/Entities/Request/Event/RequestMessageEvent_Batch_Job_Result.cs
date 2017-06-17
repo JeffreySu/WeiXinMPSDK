@@ -8,7 +8,7 @@
     创建标识：Senparc - 20150507
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
     /// 异步任务完成事件推送(batch_job_result)

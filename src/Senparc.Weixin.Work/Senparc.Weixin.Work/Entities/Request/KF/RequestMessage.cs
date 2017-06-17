@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.QY.Entities.Request.KF
+namespace Senparc.Weixin.Work.Entities.Request.KF
 {
     public class RequestMessage : RequestBase
     {

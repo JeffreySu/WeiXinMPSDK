@@ -14,7 +14,7 @@
     修改描述：增加注释
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     public class MpNewsArticle
     {

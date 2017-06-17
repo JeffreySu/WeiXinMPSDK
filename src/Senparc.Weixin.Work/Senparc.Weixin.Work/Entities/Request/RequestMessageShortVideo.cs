@@ -8,7 +8,7 @@
     创建标识：Senparc - 20150708
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     public class RequestMessageShortVideo : RequestMessageBase, IRequestMessageBase
     {

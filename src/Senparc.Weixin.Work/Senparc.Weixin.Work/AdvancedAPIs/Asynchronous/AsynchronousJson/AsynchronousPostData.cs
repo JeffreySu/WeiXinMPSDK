@@ -8,7 +8,7 @@
     创建标识：Senparc - 20150408
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.Asynchronous
+namespace Senparc.Weixin.Work.AdvancedAPIs.Asynchronous
 {
     public class Asynchronous_CallBack
     {

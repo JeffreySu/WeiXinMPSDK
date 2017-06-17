@@ -16,11 +16,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using Senparc.Weixin.Helpers;
-using Senparc.Weixin.QY.Entities;
-using Senparc.Weixin.QY.Entities.Request.KF;
+using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.Entities.Request.KF;
 using Senparc.Weixin.Utilities;
 
-namespace Senparc.Weixin.QY.Helpers
+namespace Senparc.Weixin.Work.Helpers
 {
     public static class EntityHelper
     {

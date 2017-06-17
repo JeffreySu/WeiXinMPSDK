@@ -18,9 +18,9 @@ using System;
 using System.Xml.Linq;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.QY.Helpers;
+using Senparc.Weixin.Work.Helpers;
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
 	public interface IResponseMessageBase : Weixin.Entities.IResponseMessageBase, IMessageBase
 	{

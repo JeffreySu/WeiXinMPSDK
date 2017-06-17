@@ -13,7 +13,7 @@
 
 using Tencent;
 
-namespace Senparc.Weixin.QY
+namespace Senparc.Weixin.Work
 {
     public static class Signature
     {

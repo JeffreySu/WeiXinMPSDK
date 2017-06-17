@@ -10,12 +10,12 @@
 
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
     /// openid转换成userid接口返回的Json结果
     /// </summary>
-    public class ConvertToUserIdResult : QyJsonResult
+    public class ConvertToUserIdResult : WorkJsonResult
     {
         /// <summary>
         /// 该openid在企业号中对应的成员userid

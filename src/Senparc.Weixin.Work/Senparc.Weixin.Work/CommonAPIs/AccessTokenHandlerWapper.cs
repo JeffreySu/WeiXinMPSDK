@@ -14,9 +14,9 @@
 using System;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.QY.Containers;
+using Senparc.Weixin.Work.Containers;
 
-namespace Senparc.Weixin.QY.CommonAPIs
+namespace Senparc.Weixin.Work.CommonAPIs
 {
     public static class AccessTokenHandlerWapper
     {
@@ -29,7 +29,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="fun">第一个参数为accessToken</param>
         /// <param name="retryIfFaild"></param>
         /// <returns></returns>
-        public static T Do<T>(string appId, string appSecret, Func<string, T> fun, bool retryIfFaild = true) where T : QyJsonResult
+        public static T Do<T>(string appId, string appSecret, Func<string, T> fun, bool retryIfFaild = true) where T : WorkJsonResult
         {
             T result = null;
             try

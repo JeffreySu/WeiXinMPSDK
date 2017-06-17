@@ -12,7 +12,7 @@
 ----------------------------------------------------------------*/
 
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     public static class Extensions
     {

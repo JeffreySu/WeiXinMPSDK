@@ -32,7 +32,7 @@
     修改描述：v4.1.6 完善GetToken()方法
     
     修改标识：Senparc - 20160813
-    修改描述：v4.1.8 修改命名空间为Senparc.Weixin.QY.Containers
+    修改描述：v4.1.8 修改命名空间为Senparc.Weixin.Work.Containers
 
     修改标识：Senparc - 20161003
     修改描述：v4.1.11 修复GetTicketResult()方法中的CheckRegistered()参数错误（少了appSecret）
@@ -44,12 +44,12 @@ using System.Threading.Tasks;
 using Senparc.Weixin.CacheUtility;
 using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.QY.Entities;
-using Senparc.Weixin.QY.Exceptions;
+using Senparc.Weixin.Work.CommonAPIs;
+using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
 
-namespace Senparc.Weixin.QY.Containers
+namespace Senparc.Weixin.Work.Containers
 {
     /// <summary>
     /// JsApiTicketBag

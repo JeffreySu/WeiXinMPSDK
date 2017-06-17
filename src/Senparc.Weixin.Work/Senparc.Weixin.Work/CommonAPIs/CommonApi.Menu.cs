@@ -30,10 +30,10 @@ using System.Web.Script.Serialization;
 using Senparc.Weixin.Entities;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.HttpUtility;
-using Senparc.Weixin.QY.Entities;
-using Senparc.Weixin.QY.Entities.Menu;
+using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.Entities.Menu;
 
-namespace Senparc.Weixin.QY.CommonAPIs
+namespace Senparc.Weixin.Work.CommonAPIs
 {
     public partial class CommonApi
     {
@@ -47,7 +47,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="buttonData">菜单内容</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static QyJsonResult CreateMenu(string accessToken, int agentId, ButtonGroup buttonData, int timeOut = Config.TIME_OUT)
+        public static WorkJsonResult CreateMenu(string accessToken, int agentId, ButtonGroup buttonData, int timeOut = Config.TIME_OUT)
         {
             var urlFormat = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/create?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
             ////对特殊符号进行URL转义
@@ -419,10 +419,10 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="agentId">企业应用的id，整型。可在应用的设置页面查看</param>
         /// <returns></returns>
-        public static QyJsonResult DeleteMenu(string accessToken, int agentId)
+        public static WorkJsonResult DeleteMenu(string accessToken, int agentId)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
-            var result = Get.GetJson<QyJsonResult>(url);
+            var result = Get.GetJson<WorkJsonResult>(url);
             return result;
         }
         #endregion
@@ -435,10 +435,10 @@ namespace Senparc.Weixin.QY.CommonAPIs
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="agentId">企业应用的id，整型。可在应用的设置页面查看</param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> DeleteMenuAsync(string accessToken, int agentId)
+        public static async Task<WorkJsonResult> DeleteMenuAsync(string accessToken, int agentId)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/menu/delete?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId);
-            var result = await Get.GetJsonAsync<QyJsonResult>(url);
+            var result = await Get.GetJsonAsync<WorkJsonResult>(url);
             return result;
         }
         #endregion

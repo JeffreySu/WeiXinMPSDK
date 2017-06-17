@@ -13,7 +13,7 @@
 
 using System.Collections.Generic;
 
-namespace Senparc.Weixin.QY.Entities.Menu
+namespace Senparc.Weixin.Work.Entities.Menu
 {
     /// <summary>
     /// 整个按钮设置（可以直接用ButtonGroup实例返回JSON对象）

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2CA35598-F1A1-4DC9-AA20-A4346BFCB954}</ProjectGuid>
+    <ProjectGuid>{CC0EBEC4-7120-4627-A596-C1F2958F3D5E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Senparc.Weixin.QY</RootNamespace>
-    <AssemblyName>Senparc.Weixin.QY</AssemblyName>
+    <RootNamespace>Senparc.Weixin.Work</RootNamespace>
+    <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -30,7 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.QY.XML</DocumentationFile>
+    <DocumentationFile>..\..\Senparc.Weixin.MP.BuildOutPut\.net4.5\Senparc.Weixin.Work.xml</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -98,8 +98,13 @@
     <Compile Include="AdvancedAPIs\LoginAuth\LoginAuthApi.cs" />
     <Compile Include="AdvancedAPIs\LoginAuth\GetLoginInfoResult.cs" />
     <Compile Include="AdvancedAPIs\Media\MediaResult.cs" />
+    <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenApi.cs" />
+    <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetApprovalDataJsonResult.cs" />
+    <Compile Include="AdvancedAPIs\OaDataOpen\OaDataOpenJson\GetCheckinDataJsonResult.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundApi.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundJson\ShakeAroundResultJson.cs" />
+    <Compile Include="AdvancedAPIs\SSO\SsoJson\GetLoginInfoResult.cs" />
+    <Compile Include="AdvancedAPIs\SSO\SsoApi.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthApi.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\SessionInfo.cs" />
     <Compile Include="AdvancedAPIs\ThirdPartyAuth\ThirdPartyAuthJson\ThirdPartyAuthResult.cs" />

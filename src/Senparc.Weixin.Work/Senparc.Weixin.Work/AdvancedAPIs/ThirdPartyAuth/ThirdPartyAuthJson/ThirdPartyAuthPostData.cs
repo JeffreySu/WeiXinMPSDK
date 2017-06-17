@@ -11,7 +11,7 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-namespace Senparc.Weixin.QY.AdvancedAPIs.ThirdPartyAuth
+namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
 {
     public class ThirdParty_AgentData
     {

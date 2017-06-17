@@ -11,9 +11,9 @@
     修改描述：整理接口
 ----------------------------------------------------------------*/
 
-using Senparc.Weixin.QY.Entities.Menu;
+using Senparc.Weixin.Work.Entities.Menu;
 
-namespace Senparc.Weixin.QY.Entities
+namespace Senparc.Weixin.Work.Entities
 {
     /// <summary>
     /// GetMenu返回的Json结果

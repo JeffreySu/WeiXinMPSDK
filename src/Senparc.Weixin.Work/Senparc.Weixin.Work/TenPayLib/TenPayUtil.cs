@@ -22,7 +22,7 @@ using System;
 using System.Text;
 using Senparc.Weixin.Helpers;
 
-namespace Senparc.Weixin.QY.TenPayLib
+namespace Senparc.Weixin.Work.TenPayLib
 {
     /// <summary>
     /// TenpayUtil 的摘要说明。

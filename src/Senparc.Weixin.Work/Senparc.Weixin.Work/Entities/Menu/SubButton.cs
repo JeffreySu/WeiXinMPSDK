@@ -13,7 +13,7 @@
 
 using System.Collections.Generic;
 
-namespace Senparc.Weixin.QY.Entities.Menu
+namespace Senparc.Weixin.Work.Entities.Menu
 {
     /// <summary>
     /// 子菜单

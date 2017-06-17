@@ -190,7 +190,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         /// <summary>
         /// 应用对应的权限
         /// </summary>
-        public int privilege { get; set; }
+        public ThirdParty_Agent_Privilege privilege { get; set; }
 
     }
 
@@ -379,7 +379,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
     public class GetCorpTokenResult
     {
         /// <summary>
-        /// 授权方（企业）access_token
+        /// 授权方（企业）access_token,最长为512字节
         /// </summary>
         public string access_token { get; set; }
         /// <summary>

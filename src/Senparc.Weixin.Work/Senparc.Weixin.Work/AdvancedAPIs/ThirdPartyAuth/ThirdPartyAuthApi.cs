@@ -151,7 +151,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 获取企业号的授权信息
+        /// 获取企业授权信息【QY移植修改】
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="suiteId">应用套件id</param>
@@ -170,11 +170,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 permanent_code = permanentCode
             };
 
-            return CommonJsonSend.Send<GetAuthInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetAuthInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
-        /// 获取企业号应用
+        /// 获取企业号应用【Work中未定义】
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="suiteId">应用套件id</param>
@@ -199,7 +199,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 设置企业号应用
+        /// 设置企业号应用【Work中未定义】
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="suiteId">应用套件id</param>
@@ -224,7 +224,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 获取企业号access_token
+        /// 获取企业access_token【QY移植修改】
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="suiteId">应用套件id</param>
@@ -243,7 +243,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 permanent_code = permanentCode,
             };
 
-            return CommonJsonSend.Send<GetCorpTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetCorpTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
         #endregion
 
@@ -358,7 +358,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】获取企业号的授权信息
+        /// 【异步方法】获取企业授权信息【QY移植修改】
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="suiteId">应用套件id</param>
@@ -381,7 +381,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】获取企业号应用
+        /// 【异步方法】获取企业号应用【Work中未定义】
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="suiteId">应用套件id</param>
@@ -406,7 +406,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】设置企业号应用
+        /// 【异步方法】设置企业号应用【Work中未定义】
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="suiteId">应用套件id</param>
@@ -431,7 +431,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】获取企业号access_token
+        /// 【异步方法】获取企业access_token【QY移植修改】
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="suiteId">应用套件id</param>

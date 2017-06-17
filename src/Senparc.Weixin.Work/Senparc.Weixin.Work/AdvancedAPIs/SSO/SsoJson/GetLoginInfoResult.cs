@@ -6,12 +6,18 @@
     
     
     创建标识：Senparc - 20150325
+
+    -----------------------------------
+    
+    修改标识：Senparc - 20170617
+    修改描述：从QY移植，同步Work接口，从Senparc.Weixin.Work.AdvancedAPIs.LoginAuth命名空间下移植而来
+
 ----------------------------------------------------------------*/
 
 using System.Collections.Generic;
 using Senparc.Weixin.Entities;
 
-namespace Senparc.Weixin.Work.AdvancedAPIs.LoginAuth
+namespace Senparc.Weixin.Work.AdvancedAPIs.SSO
 {
     /// <summary>
     /// 获取企业号管理员登录信息返回结果

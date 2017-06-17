@@ -49,6 +49,7 @@ using Senparc.Weixin.Work.CommonAPIs;
 using Senparc.Weixin.Work.Entities;
 using Senparc.Weixin.Work.Exceptions;
 using Senparc.Weixin.Utilities.WeixinUtility;
+using Senparc.Weixin.Work.AdvancedAPIs.SSO;
 
 namespace Senparc.Weixin.Work.Containers
 {
@@ -190,7 +191,7 @@ namespace Senparc.Weixin.Work.Containers
                 if (getNewToken || providerTokenBag.ExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
-                    providerTokenBag.ProviderTokenResult = CommonApi.GetProviderToken(providerTokenBag.CorpId,
+                    providerTokenBag.ProviderTokenResult = SsoApi.GetProviderToken(providerTokenBag.CorpId,
                         providerTokenBag.CorpSecret);
                     providerTokenBag.ExpireTime = ApiUtility.GetExpireTime(providerTokenBag.ProviderTokenResult.expires_in);
                 }
@@ -258,7 +259,7 @@ namespace Senparc.Weixin.Work.Containers
                 if (getNewToken || providerTokenBag.ExpireTime <= DateTime.Now)
                 {
                     //已过期，重新获取
-                    var providerTokenResult = await CommonApi.GetProviderTokenAsync(providerTokenBag.CorpId,
+                    var providerTokenResult = await SsoApi.GetProviderTokenAsync(providerTokenBag.CorpId,
                         providerTokenBag.CorpSecret);
                     providerTokenBag.ProviderTokenResult = providerTokenResult;
                     //providerTokenBag.ProviderTokenResult = CommonApi.GetProviderToken(providerTokenBag.CorpId,

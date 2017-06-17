@@ -18,6 +18,24 @@
         <p class="weixin-item-title">
             目前 Senparc.Weixin SDK 已支持微信 6.x API 中所有接口以及<strong>小程序</strong>
         </p>
+
+        <div class="weixin-bottom-buttons">
+            <p class="weixin-item-button">
+                <a href="/Home/Book" class="application" target="_blank">购买官方微信开发教程</a>
+                &nbsp; &nbsp; &nbsp;
+
+                <a href="http://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))" class="application" target="_blank">下载 Senparc.Weixin SDK 帮助文档</a>
+                &nbsp; &nbsp; &nbsp;
+
+                <a href="https://github.com/JeffreySu/WeiXinMPSDK" class="application" target="_blank">GitHub 源码</a>
+                &nbsp; &nbsp; &nbsp;
+
+                @*</p>
+                    <p class="weixin-item-button">*@
+                <a href="http://mp.weixin.qq.com/wiki/index.php?title=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E6%8C%87%E5%8D%97" class="application" target="_blank">微信官方API</a>
+            </p>
+        </div>
+        <div class="clear"></div>
         <p class="weixin-item-title">
 
             <a href="https://travis-ci.org/JeffreySu/WeiXinMPSDK" target="_blank"><img src="https://img.shields.io/github/watchers/JeffreySu/WeixinMPSDK.svg?style=social&label=Watch" /></a>
@@ -27,7 +45,9 @@
 
 
             <a href="https://travis-ci.org/JeffreySu/WeiXinMPSDK" target="_blank"><img src="https://img.shields.io/github/forks/JeffreySu/WeixinMPSDK.svg?style=social&label=Fork" /></a>
-</p>
+        </p>
+
+
         <div class="weixin-bottom-table">
             <table class="tbVersion">
                 <thead>
@@ -113,7 +133,7 @@
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td>企业微信 SDK <span  style="color:red">new</span></td>
+                        <td>企业微信 SDK <span style="color:red">new</span></td>
                         <td>
                             <a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.Work" target="_blank">
                                 Senparc.Weixin.Work.dll
@@ -143,7 +163,8 @@
                         </td>
                         @*<td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
                         <td>
-                        <img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-N-lightgrey.svg" /></td>
+                            <img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-N-lightgrey.svg" />
+                        </td>
                     </tr>
                     <tr>
                         <td>7</td>
@@ -152,12 +173,14 @@
                         <td><a class="sdk-version" href="https://www.nuget.org/packages/Senparc.Weixin.MP.MVC" target="_blank"><img src="https://img.shields.io/nuget/v/Senparc.Weixin.MP.CoreMvc.svg?style=flat" /></a></td>
                         <td>@*<a class="sdk-version" href="https://github.com/JeffreySu/WeiXinMPSDK/tree/master/src/Senparc.Weixin.MP.BuildOutPut" target="_blank">v@(TempData["ExtensionVersion"])</a>*@未部署</td>
                         <td><img title=".NET 4.0" alt=".NET 4.0" src="https://img.shields.io/badge/4.0-N-lightgrey.svg" /></td>
-                        <td><img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-N-lightgrey.svg" /><br />
+                        <td>
+                            <img title=".NET 4.5" alt=".NET 4.5" src="https://img.shields.io/badge/4.5-N-lightgrey.svg" /><br />
                             <img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" />
                         </td>
                         @*<td><img title=".NET 4.6.1" alt=".NET 4.6.1" src="https://img.shields.io/badge/4.6.1-Y-brightgreen.svg" /></td>*@
                         <td>
-                        <img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-Y-brightgreen.svg" /></td>
+                            <img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-Y-brightgreen.svg" />
+                        </td>
                     </tr>
 
                     <tr>
@@ -237,20 +260,6 @@
                         <td><img title=".NET Core" alt=".NET Core" src="https://img.shields.io/badge/core-Y-brightgreen.svg" /></td>
                     </tr>
             </table>
-        </div>
-        <div class="clear"></div>
-        <div class="weixin-bottom-buttons">
-            <p class="weixin-item-button">
-                <a href="http://sdk.weixin.senparc.com@(Url.Action("Index", "Document"))" class="application" target="_blank">下载 Senparc.Weixin SDK 帮助文档</a>
-                &nbsp; &nbsp; &nbsp;
-
-                <a href="https://github.com/JeffreySu/WeiXinMPSDK" class="application" target="_blank">GitHub 源码</a>
-                &nbsp; &nbsp; &nbsp;
-
-                @*</p>
-                    <p class="weixin-item-button">*@
-                <a href="http://mp.weixin.qq.com/wiki/index.php?title=%E6%B6%88%E6%81%AF%E6%8E%A5%E5%8F%A3%E6%8C%87%E5%8D%97" class="application" target="_blank">微信官方API</a>
-            </p>
         </div>
         <div class="clear"></div>
     </div>

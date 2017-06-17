@@ -61,6 +61,12 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             return View();
         }
 
+        public ActionResult Book()
+        {
+            ViewData["HideBanner"] = true;
+            return View();
+        }
+
         public ActionResult TestElmah()
         {
             try

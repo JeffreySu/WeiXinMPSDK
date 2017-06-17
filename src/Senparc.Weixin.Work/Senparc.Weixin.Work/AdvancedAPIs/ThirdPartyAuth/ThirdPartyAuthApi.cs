@@ -19,10 +19,14 @@
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
 
+    -----------------------------------
+    
+    修改标识：Senparc - 20170617
+    修改描述：从QY移植，同步Work接口
 ----------------------------------------------------------------*/
 
 /*
-    官方文档：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%94%E7%94%A8%E6%8E%A5%E5%8F%A3%E8%AF%B4%E6%98%8E
+    官方文档：http://work.weixin.qq.com/api/doc#10975
  */
 
 using System.Threading.Tasks;
@@ -30,15 +34,16 @@ using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth;
 using Senparc.Weixin.Work.CommonAPIs;
+using Senparc.Weixin.Helpers;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs
 {
     public static class ThirdPartyAuthApi
     {
         #region 同步请求
-        
+
         /// <summary>
-        /// 获取应用套件令牌
+        /// 获取应用套件令牌【QY移植修改】
         /// </summary>
         /// <param name="suiteId">应用套件id</param>
         /// <param name="suiteSecret">应用套件secret</param>
@@ -50,13 +55,13 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_suite_token";
 
             var data = new
-                {
-                    suite_id = suiteId,
-                    suite_secret = suiteSecret,
-                    suite_ticket = suiteTicket
-                };
+            {
+                suite_id = suiteId,
+                suite_secret = suiteSecret,
+                suite_ticket = suiteTicket
+            };
 
-            return CommonJsonSend.Send<GetSuiteTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetSuiteTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         ///// <summary>
@@ -81,7 +86,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         //}
 
         /// <summary>
-        /// 获取预授权码
+        /// 获取预授权码【QY移植修改】
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="suiteId">应用套件id</param>
@@ -94,11 +99,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             {
                 suite_id = suiteId,
             };
-            return CommonJsonSend.Send<GetPreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetPreAuthCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
-        /// 设置授权配置
+        /// 设置授权配置【QY移植修改】
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="authCode">预授权码</param>
@@ -106,7 +111,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="auth_type">授权类型：0 正式授权， 1 测试授权， 默认值为0 </param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static object SetAuthConfig(string suiteAccessToken, string authCode, int[] appid, int auth_type, int timeOut = 10000)
+        public static QyJsonResult SetAuthConfig(string suiteAccessToken, string authCode, int[] appid = null, int? auth_type = null, int timeOut = 10000)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/set_session_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
             var data = new
@@ -118,11 +123,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     auth_type = auth_type
                 }
             };
-            return CommonJsonSend.Send<object>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
 
         /// <summary>
-        /// 获取企业号的永久授权码
+        /// 获取企业号的永久授权码【QY移植修改】
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="suiteId">应用套件id</param>
@@ -139,7 +147,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 auth_code = authCode
             };
 
-            return CommonJsonSend.Send<GetPermanentCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetPermanentCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -240,8 +248,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #endregion
 
         #region 异步请求
+
         /// <summary>
-        ///【异步方法】 获取应用套件令牌
+        ///【异步方法】 获取应用套件令牌【QY移植修改】
         /// </summary>
         /// <param name="suiteId">应用套件id</param>
         /// <param name="suiteSecret">应用套件secret</param>
@@ -284,7 +293,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         //}
 
         /// <summary>
-        /// 【异步方法】获取预授权码
+        /// 【异步方法】获取预授权码【QY移植修改】
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="suiteId">应用套件id</param>
@@ -301,7 +310,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         }
 
         /// <summary>
-        /// 【异步方法】设置授权配置
+        /// 【异步方法】设置授权配置【QY移植修改】
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="authCode">预授权码</param>
@@ -309,7 +318,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="auth_type">授权类型：0 正式授权， 1 测试授权， 默认值为0 </param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<object> SetAuthConfigAsync(string suiteAccessToken, string authCode, int[] appid, int auth_type, int timeOut = 10000)
+        public static async Task<QyJsonResult> SetAuthConfigAsync(string suiteAccessToken, string authCode, int[] appid = null, int? auth_type = null, int timeOut = 10000)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/set_session_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
             var data = new
@@ -321,11 +330,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     auth_type = auth_type
                 }
             };
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<object>(null, url, data, CommonJsonSendType.POST, timeOut);
+
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
         }
 
         /// <summary>
-        /// 【异步方法】获取企业号的永久授权码
+        /// 【异步方法】获取企业号的永久授权码【QY移植修改】
         /// </summary>
         /// <param name="suiteAccessToken"></param>
         /// <param name="suiteId">应用套件id</param>

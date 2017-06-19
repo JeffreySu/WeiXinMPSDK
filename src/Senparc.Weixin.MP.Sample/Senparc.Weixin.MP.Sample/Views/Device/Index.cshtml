@@ -189,7 +189,7 @@
                     mlog("打开设备返回：" + res.err_msg);
                     if (res.err_msg == 'openWXDeviceLib:ok') {
                         if (res.bluetoothState == 'off') {
-                            mlog("太着急啦", "亲,使用前请先打开手机蓝牙！");
+                            mlog("未开启蓝牙", "亲,使用前请先打开手机蓝牙！");
                             $("#lbInfo").innerHTML = "1.请打开手机蓝牙";
                             $("#lbInfo").css({ color: "red" });
                             x = 1;

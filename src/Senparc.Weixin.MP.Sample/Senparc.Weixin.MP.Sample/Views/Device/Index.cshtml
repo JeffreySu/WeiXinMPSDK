@@ -71,19 +71,16 @@
                 //初始化设备库
                 wx.invoke('openWXDeviceLib', { 'connType': 'blue' }, function (res) {
                     console.log('openWXDeviceLib', res);
-                    alert(res.err_msg);
-                    my_openWXDeviceLib();
+                    my_openWXDeviceLib(res);
                 });
-
 
             });
             $("#CallGetWXrefresh").on("click", function (e) {
                 //获取设备信息
                 wx.invoke('getWXDeviceInfos', { 'connType': 'blue' }, function (res) {
-                    alert('getWXDeviceInfos', res);
                     mlog("获取设备信息返回：" + JSON.stringify(res));
                     mlog("获取设备信息：" + res.deviceInfos);
-                    connectedDeviceInfo = res.deviceInfos.deviceInfos[0]
+                    connectedDeviceInfo = res.deviceInfos.deviceInfos[0];
                 });
 
             });
@@ -138,8 +135,8 @@
             //alert("初始化库结束");
         }
 
-        function my_openWXDeviceLib() {
-            var x = 0;
+        function my_openWXDeviceLib(res) {
+                    var x = 0;
                     mlog("打开设备返回：" + res.err_msg);
                     if (res.err_msg == 'openWXDeviceLib:ok') {
                         if (res.bluetoothState == 'off') {
@@ -194,17 +191,17 @@
             <div class="weui_cells weui_cells_form">
 
                 @*<div class="weui_cell">
-                    <div class="weui_cell_hd"><label class="weui_label" style="width: auto;">当前设备:&nbsp</label></div>
-                    <div class="weui_cell_bd weui_cell_primary">
-                        <label id="lbdeviceid" class="weui_label" style="width: auto;"></label>
+                        <div class="weui_cell_hd"><label class="weui_label" style="width: auto;">当前设备:&nbsp</label></div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <label id="lbdeviceid" class="weui_label" style="width: auto;"></label>
+                        </div>
                     </div>
-                </div>
-                <div class="weui_cell">
-                    <div class="weui_cell_hd"><label class="weui_label" style="width: auto;">状态信息:&nbsp</label></div>
-                    <div class="weui_cell_bd weui_cell_primary">
-                        <label id="lbInfo" class="weui_label" style="width: auto;"></label>
-                    </div>
-                </div>*@
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd"><label class="weui_label" style="width: auto;">状态信息:&nbsp</label></div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <label id="lbInfo" class="weui_label" style="width: auto;"></label>
+                        </div>
+                    </div>*@
                 <div class="weui_cell">
                     <div class="weui_cell_hd"><label class="weui_label">日志:  </label></div>
                     <div class="weui_cell_bd weui_cell_primary">
@@ -230,8 +227,8 @@
 
             </div>
         </div>
-        </div>
+    </div>
 
-   
+
 </body>
 </html>

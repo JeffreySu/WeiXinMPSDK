@@ -179,6 +179,7 @@
     <Compile Include="Controllers\WeixinController.cs" />
     <Compile Include="Controllers\WeixinController_OldPost.cs" />
     <Compile Include="Controllers\TenPayController.cs" />
+    <Compile Include="Controllers\Work\WorkController.cs" />
     <Compile Include="Controllers\WxOpen\WxOpenController.cs" />
     <Compile Include="Filters\CustomOAuthAttribute.cs" />
     <Compile Include="Global.asax.cs">

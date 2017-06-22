@@ -79,7 +79,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 申请开通功能
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="data"></param>
         /// <param name="industry_Id"></param>
         /// <param name="timeOut"></param>
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 查询审核状态
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
         public static GetAuditStatusResultJson GetAuditStatus(string accessTokenOrAppId)
         {
@@ -171,7 +171,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
         /// UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="deviceId">设备编号</param>
         /// <param name="uuId"></param>
         /// <param name="major"></param>
@@ -302,7 +302,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 根据指定的设备Id查询设备列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="deviceIdentifiers">设备Id列表</param>
         /// 设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
         /// UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息。
@@ -325,7 +325,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 根据分页查询或者指定范围查询设备列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="lastSeen">前一次查询列表末尾的设备ID，第一次查询lastSeen为0</param>
         /// <param name="count">待查询的设备数量，不能超过50个</param>
         /// <param name="timeOut"></param>
@@ -348,7 +348,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 根据批次ID查询设备列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="applyId">批次ID，申请设备ID时所返回的批次ID</param>
         /// <param name="lastSeen">前一次查询列表末尾的设备ID，第一次查询lastSeen为0</param>
         /// <param name="count">待查询的设备数量，不能超过50个</param>
@@ -376,7 +376,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 上传图片素材
         /// 上传在摇一摇页面展示的图片素材，素材保存在微信侧服务器上。 格式限定为：jpg,jpeg,png,gif，图片大小建议120px*120 px，限制不超过200 px *200 px，图片需为正方形。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="file"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -466,7 +466,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 根据页面Id查询页面列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="pageIds">指定页面的Id数组</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -489,7 +489,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 根据分页或者指定范围查询页面列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="begin"></param>
         /// <param name="count"></param>
         /// <param name="timeOut"></param>
@@ -516,7 +516,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 删除页面
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="pageId">指定页面的Id数组</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -540,7 +540,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 配置设备与页面的关联关系
         /// 配置设备与页面的关联关系。支持建立或解除关联关系，也支持新增页面或覆盖页面等操作。配置完成后，在此设备的信号范围内，即可摇出关联的页面信息。若设备配置多个页面，则随机出现页面信息。一个设备最多可配置30个关联页面。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="deviceIdentifier"></param>
         /// 设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
         /// UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息
@@ -571,7 +571,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///  查询设备的关联关系
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="deviceIdentifier">指定的设备</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -595,7 +595,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 查询页面的关联关系
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="pageId">指定的页面id</param>
         /// <param name="begin">关联关系列表的起始索引值</param>
         /// <param name="count">待查询的关联关系数量，不能超过50个</param>
@@ -1084,7 +1084,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】申请开通功能
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="data"></param>
         /// <param name="industry_Id"></param>
         /// <param name="timeOut"></param>
@@ -1104,7 +1104,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】查询审核状态
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
         public static async Task<GetAuditStatusResultJson> GetAuditStatusAsync(string accessTokenOrAppId)
         {
@@ -1176,7 +1176,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
         /// UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="deviceId">设备编号</param>
         /// <param name="uuId"></param>
         /// <param name="major"></param>
@@ -1307,7 +1307,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 根据指定的设备Id查询设备列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="deviceIdentifiers">设备Id列表</param>
         /// 设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
         /// UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息。
@@ -1330,7 +1330,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】根据分页查询或者指定范围查询设备列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="begin"></param>
         /// <param name="count"></param>
         /// <param name="timeOut"></param>
@@ -1353,7 +1353,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】根据批次ID查询设备列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="applyId"></param>
         /// <param name="begin"></param>
         /// <param name="count"></param>
@@ -1381,7 +1381,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】上传图片素材
         /// 上传在摇一摇页面展示的图片素材，素材保存在微信侧服务器上。 格式限定为：jpg,jpeg,png,gif，图片大小建议120px*120 px，限制不超过200 px *200 px，图片需为正方形。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="file"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -1470,7 +1470,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】根据页面Id查询页面列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="pageIds">指定页面的Id数组</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -1493,7 +1493,7 @@ int timeOut = Config.TIME_OUT)
         /// <summary>
         /// 【异步方法】根据分页或者指定范围查询页面列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="lastSeen"></param>
         /// <param name="count"></param>
         /// <param name="timeOut"></param>
@@ -1520,7 +1520,7 @@ int timeOut = Config.TIME_OUT)
         /// <summary>
         /// 【异步方法】删除页面
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="pageId">指定页面的Id数组</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -1544,7 +1544,7 @@ int timeOut = Config.TIME_OUT)
         /// 【异步方法】配置设备与页面的关联关系
         /// 配置设备与页面的关联关系。支持建立或解除关联关系，也支持新增页面或覆盖页面等操作。配置完成后，在此设备的信号范围内，即可摇出关联的页面信息。若设备配置多个页面，则随机出现页面信息。一个设备最多可配置30个关联页面。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="deviceIdentifier"></param>
         /// 设备编号，若填了UUID、major、minor，则可不填设备编号，若二者都填，则以设备编号为优先
         /// UUID、major、minor，三个信息需填写完整，若填了设备编号，则可不填此信息
@@ -1575,7 +1575,7 @@ int timeOut = Config.TIME_OUT)
         /// <summary>
         /// 【异步方法】查询设备的关联关系
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="deviceIdentifier">指定的设备</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -1599,7 +1599,7 @@ int timeOut = Config.TIME_OUT)
         /// <summary>
         /// 【异步方法】查询页面的关联关系
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="pageId">指定的页面id</param>
         /// <param name="begin">关联关系列表的起始索引值</param>
         /// <param name="count">待查询的关联关系数量，不能超过50个</param>

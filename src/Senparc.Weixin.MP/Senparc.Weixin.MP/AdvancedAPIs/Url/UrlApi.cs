@@ -54,7 +54,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///  <summary>
         /// 将一条长链接转成短链接。
         ///  </summary>
-        ///  <param name="accessTokenOrAppId"></param>
+        ///  <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///  <param name="action">此处填long2short，代表长链接转短链接</param>
         ///  <param name="longUrl">需要转换的长链接，支持http://、https://、weixin://wxpay 格式的url</param>
         /// <param name="timeOut">请求超时时间</param>
@@ -78,7 +78,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
          ///  <summary>
         /// 将一条长链接转成短链接。
         ///  </summary>
-        ///  <param name="accessTokenOrAppId"></param>
+        ///  <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///  <param name="action">此处填long2short，代表长链接转短链接</param>
         ///  <param name="longUrl">需要转换的长链接，支持http://、https://、weixin://wxpay 格式的url</param>
         /// <param name="timeOut">请求超时时间</param>

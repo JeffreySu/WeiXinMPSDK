@@ -85,7 +85,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取关注者OpenId信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="nextOpenId"></param>
         /// <returns></returns>
         public static OpenIdResultJson Get(string accessTokenOrAppId, string nextOpenId)
@@ -128,7 +128,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 批量获取用户基本信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="userList"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -171,7 +171,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取关注者OpenId信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="nextOpenId"></param>
         /// <returns></returns>
         public static async Task<OpenIdResultJson> GetAsync(string accessTokenOrAppId, string nextOpenId)
@@ -214,7 +214,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】批量获取用户基本信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="userList"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>

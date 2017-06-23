@@ -52,9 +52,8 @@ using Senparc.Weixin.MP.Helpers;
 
 #if NET45 || NET461
 using System.Web;
-#else
-using Microsoft.AspNetCore.Http;
-#endif
+using Senparc.Weixin.Helpers;
+using Senparc.Weixin.Helpers.StringHelper;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -184,7 +183,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             StringBuilder sb = new StringBuilder();
 
             ArrayList akeys = new ArrayList(Parameters.Keys);
-            akeys.Sort();
+            akeys.Sort(ASCIISort.Create());
 
             foreach (string k in akeys)
             {

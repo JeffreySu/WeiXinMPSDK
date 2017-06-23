@@ -26,7 +26,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     
     创建标识：Senparc - 20170623
-    
+
+    修改标识：Senparc - 20170623
+    修改描述：添加ASCIISort.Create()静态方法
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -43,6 +46,15 @@ namespace Senparc.Weixin.Helpers.StringHelper
     /// </summary>
     public class ASCIISort : IComparer
     {
+        /// <summary>
+        /// 创建新的ASCIISort实例
+        /// </summary>
+        /// <returns></returns>
+        public static ASCIISort Create()
+        {
+            return new ASCIISort();
+        }
+
         public int Compare(object x, object y)
         {
 

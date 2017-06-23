@@ -45,9 +45,14 @@ namespace Senparc.Weixin.Helpers.StringHelper
     {
         public int Compare(object x, object y)
         {
+
+#if NET45
             byte[] xBytes = System.Text.Encoding.Default.GetBytes(x.ToString());
             byte[] yBytes = System.Text.Encoding.Default.GetBytes(y.ToString());
-
+#else
+            byte[] xBytes = System.Text.Encoding.ASCII.GetBytes(x.ToString());
+            byte[] yBytes = System.Text.Encoding.ASCII.GetBytes(y.ToString());
+#endif
             int xLength = xBytes.Length;
             int yLength = yBytes.Length;
             int minLength = Math.Min(xLength, yLength);

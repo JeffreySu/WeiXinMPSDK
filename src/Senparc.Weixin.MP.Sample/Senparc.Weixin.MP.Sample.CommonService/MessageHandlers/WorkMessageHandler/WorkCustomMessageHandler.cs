@@ -54,6 +54,13 @@ namespace Senparc.Weixin.MP.Sample.CommonService.WorkMessageHandlers
             return responseMessage;
         }
 
+        public override IResponseMessageBase OnEvent_EnterAgentRequest(RequestMessageEvent_Enter_Agent requestMessage)
+        {
+            var responseMessage = this.CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "欢迎进入应用！现在时间是：" + DateTime.Now.ToString();
+            return responseMessage;
+        }
+
         public override Work.Entities.IResponseMessageBase DefaultResponseMessage(Work.Entities.IRequestMessageBase requestMessage)
         {
             var responseMessage = this.CreateResponseMessage<ResponseMessageText>();

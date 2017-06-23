@@ -209,7 +209,7 @@
     <Compile Include="Entities\Response\MpNewsArticle.cs" />
     <Compile Include="Entities\Response\ResponseMessageMpNews.cs" />
     <Compile Include="Enums.cs" />
-    <Compile Include="Exceptions\WeixinQyException.cs" />
+    <Compile Include="Exceptions\WeixinWorkException.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKHelper.cs" />
     <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />

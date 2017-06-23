@@ -215,7 +215,7 @@
     <Compile Include="Helpers\JSSDK\JSSDKPackage.cs" />
     <Compile Include="Helpers\MD5UtilHelper.cs" />
     <Compile Include="Helpers\SHA1UtilHelper.cs" />
-    <Compile Include="MessageHandlers\QyMessageHandler.cs" />
+    <Compile Include="MessageHandlers\WorkMessageHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestMessageFactory.cs" />
     <Compile Include="ResponseMessageFactory.cs" />

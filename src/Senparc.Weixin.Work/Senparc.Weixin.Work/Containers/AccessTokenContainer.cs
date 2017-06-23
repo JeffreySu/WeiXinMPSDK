@@ -185,7 +185,7 @@ namespace Senparc.Weixin.Work.Containers
         {
             if (!CheckRegistered(BuildingKey(corpId, corpSecret)))
             {
-                throw new WeixinQyException(UN_REGISTER_ALERT);
+                throw new WeixinWorkException(UN_REGISTER_ALERT);
             }
 
             var accessTokenBag = TryGetItem(BuildingKey(corpId, corpSecret));
@@ -254,7 +254,7 @@ namespace Senparc.Weixin.Work.Containers
         {
             if (!CheckRegistered(BuildingKey(corpId, corpSecret)))
             {
-                throw new WeixinQyException(UN_REGISTER_ALERT);
+                throw new WeixinWorkException(UN_REGISTER_ALERT);
             }
 
             var accessTokenBag = TryGetItem(BuildingKey(corpId, corpSecret));

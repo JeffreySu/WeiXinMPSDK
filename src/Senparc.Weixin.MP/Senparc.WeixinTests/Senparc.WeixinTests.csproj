@@ -78,6 +78,7 @@
     <Compile Include="Exceptions\CommonTests.cs" />
     <Compile Include="Helpers\Containers\ContainerHelperTests.cs" />
     <Compile Include="Helpers\SerializerHelperTests.cs" />
+    <Compile Include="Helpers\StringHelper\ASCIISortTests.cs" />
     <Compile Include="MessageQueue\SenparcMessageQueueTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Threads\ThreadUtilityTest.cs" />

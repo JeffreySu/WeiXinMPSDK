@@ -41,13 +41,19 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170327
     修改描述：MP v14.3.138 修改 JSSDKHelper.GetAddrSign() 方法
+    
+    修改标识：Senparc - 20170623
+    修改描述：MP v14.4.14 修改 JSSDKHelper.GetcardExtSign()和CreateNonekeySha1() 方法，使用 ASCII 字典排序
+
 
 ----------------------------------------------------------------*/
 
 using System;
+using System.Linq;
 using System.Collections;
 using System.Text;
 using Senparc.Weixin.Helpers;
+using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 
@@ -129,6 +135,9 @@ namespace Senparc.Weixin.MP.Helpers
             }
             return EncryptHelper.GetSha1(sb.ToString()).ToString().ToLower();
         }
+
+
+
         /// <summary>
         /// 添加卡券Ext参数的签名加密方法
         /// </summary>
@@ -138,8 +147,8 @@ namespace Senparc.Weixin.MP.Helpers
         {
             var sb = new StringBuilder();
             var aValues = new ArrayList(parameters.Values);
-            aValues.Sort();
-
+            ASCIISort asciiSort = new ASCIISort();
+            aValues.Sort(asciiSort);
             foreach (var v in aValues)
             {
                 sb.Append(v);
@@ -221,15 +230,24 @@ namespace Senparc.Weixin.MP.Helpers
         /// <param name="code"></param>
         /// <param name="openid"></param>
         /// <returns></returns>
-        public static string GetcardExtSign(string api_ticket, string timestamp, string card_id, string nonce_str, string code = "", string openid = "")
+        public static string GetcardExtSign(string api_ticket, string timestamp, string card_id, string nonce_str = "", string code = "", string openid = "")
         {
             var parameters = new Hashtable();
             parameters.Add("api_ticket", api_ticket);
             parameters.Add("timestamp", timestamp);
             parameters.Add("card_id", card_id);
-            parameters.Add("code", code);
-            parameters.Add("openid", openid);
-            parameters.Add("nonce_str", nonce_str);
+            if (!string.IsNullOrEmpty(code))
+            {
+                parameters.Add("code", code);
+            }
+            if (!string.IsNullOrEmpty(openid))
+            {
+                parameters.Add("openid", openid);
+            }
+            if (!string.IsNullOrEmpty(nonce_str))
+            {
+                parameters.Add("nonce_str", nonce_str);
+            }
             return CreateNonekeySha1(parameters);
         }
 

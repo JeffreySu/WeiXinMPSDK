@@ -44,7 +44,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20170623
     修改描述：MP v14.4.14 修改 JSSDKHelper.GetcardExtSign()和CreateNonekeySha1() 方法，使用 ASCII 字典排序
-
+                          排序规则统一为字典排序（ASCII）
 
 ----------------------------------------------------------------*/
 
@@ -94,7 +94,7 @@ namespace Senparc.Weixin.MP.Helpers
         {
             var sb = new StringBuilder();
             var akeys = new ArrayList(parameters.Keys);
-            akeys.Sort();
+            akeys.Sort(ASCIISort.Create());
 
             foreach (var k in akeys)
             {
@@ -123,7 +123,7 @@ namespace Senparc.Weixin.MP.Helpers
         {
             var sb = new StringBuilder();
             var akeys = new ArrayList(parameters.Keys);
-            akeys.Sort();
+            akeys.Sort(ASCIISort.Create());
 
             foreach (var k in akeys)
             {
@@ -147,8 +147,7 @@ namespace Senparc.Weixin.MP.Helpers
         {
             var sb = new StringBuilder();
             var aValues = new ArrayList(parameters.Values);
-            ASCIISort asciiSort = new ASCIISort();
-            aValues.Sort(asciiSort);
+            aValues.Sort(ASCIISort.Create());
             foreach (var v in aValues)
             {
                 sb.Append(v);

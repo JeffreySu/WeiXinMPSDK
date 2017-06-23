@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Version>4.3.3</Version>
+    <Version>4.3.4</Version>
     <AssemblyName>Senparc.Weixin.QY</AssemblyName>
     <RootNamespace>Senparc.Weixin.QY</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -114,7 +114,7 @@
       2、优化TenPayLib.BuildRandomStr()方法
       v4.3.2 修改TenPayUtil.GetNoncestr()方法，将编码由GBK改为UTF8
       v4.3.3 修改 UTF-8 编码设置
-      
+      v4.3.4 使用 ASCII 字典排序
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

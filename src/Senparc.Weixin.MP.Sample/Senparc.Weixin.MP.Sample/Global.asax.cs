@@ -50,6 +50,7 @@ namespace Senparc.Weixin.MP.Sample
             RegisterWeixinThreads();    //激活微信缓存及队列线程（必须）
             RegisterSenparcWeixin();    //注册Demo所用微信公众号的账号信息（按需）
             RegisterSenparcQyWeixin();  //注册Demo所用微信企业号的账号信息（按需）
+            RegisterSenparcWorkWeixin();  //注册Demo所用企业微信的账号信息（按需）
             RegisterWeixinPay();        //注册微信支付（按需）
             RegisterWeixinThirdParty(); //注册微信第三方平台（按需）
 
@@ -140,6 +141,24 @@ namespace Senparc.Weixin.MP.Sample
                 System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"],
                 System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"],
                 "【盛派网络】企业号"
+                );
+        }
+
+        /// <summary>
+        /// 注册Demo所用企业微信的账号信息
+        /// </summary>
+        private void RegisterSenparcWorkWeixin()
+        {
+            Senparc.Weixin.Work.Containers.AccessTokenContainer.Register(
+                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"],
+                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"],
+                "【盛派网络】企业微信"
+                );
+
+            Senparc.Weixin.Work.Containers.ProviderTokenContainer.Register(
+                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"],
+                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"],
+                "【盛派网络】企业微信"
                 );
         }
 

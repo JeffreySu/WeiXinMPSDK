@@ -171,7 +171,7 @@ namespace Senparc.Weixin.Work.Containers
         {
             if (!CheckRegistered(BuildingKey(appId, appSecret)))
             {
-                throw new WeixinQyException(UN_REGISTER_ALERT);
+                throw new WeixinWorkException(UN_REGISTER_ALERT);
             }
 
             var jsApiTicketBag = TryGetItem(BuildingKey(appId, appSecret));
@@ -239,7 +239,7 @@ namespace Senparc.Weixin.Work.Containers
         {
             if (!CheckRegistered(BuildingKey(appId, appSecret)))
             {
-                throw new WeixinQyException(UN_REGISTER_ALERT);
+                throw new WeixinWorkException(UN_REGISTER_ALERT);
             }
 
             var jsApiTicketBag = TryGetItem(BuildingKey(appId, appSecret));

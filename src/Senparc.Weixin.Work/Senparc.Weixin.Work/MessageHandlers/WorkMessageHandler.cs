@@ -1,7 +1,7 @@
 ﻿/*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：QyMessageHandler.cs
+    文件名：WorkMessageHandler.cs
     文件功能描述：企业号请求的集中处理方法
     
     
@@ -33,7 +33,7 @@ using Tencent;
 
 namespace Senparc.Weixin.Work.MessageHandlers
 {
-    public interface IQyMessageHandler : IMessageHandler<IRequestMessageBase, IResponseMessageBase>
+    public interface IWorkMessageHandler : IMessageHandler<IRequestMessageBase, IResponseMessageBase>
     {
         /// <summary>
         /// 原始加密信息
@@ -43,7 +43,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
         new IResponseMessageBase ResponseMessage { get; set; }
     }
 
-    public abstract class QyMessageHandler<TC> : MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IQyMessageHandler
+    public abstract class WorkMessageHandler<TC> : MessageHandler<TC, IRequestMessageBase, IResponseMessageBase>, IWorkMessageHandler
         where TC : class, IMessageContext<IRequestMessageBase, IResponseMessageBase>, new()
     {
         /// <summary>
@@ -151,12 +151,12 @@ namespace Senparc.Weixin.Work.MessageHandlers
 
         private PostModel _postModel;
 
-        public QyMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
+        public WorkMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
             : base(inputStream, maxRecordCount, postModel)
         {
         }
 
-        public QyMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0)
+        public WorkMessageHandler(XDocument requestDocument, PostModel postModel, int maxRecordCount = 0)
             : base(requestDocument, maxRecordCount, postModel)
         {
         }

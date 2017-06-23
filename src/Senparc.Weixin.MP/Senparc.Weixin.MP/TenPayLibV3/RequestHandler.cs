@@ -50,6 +50,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using Senparc.Weixin.Helpers;
+using Senparc.Weixin.Helpers.StringHelper;
 
 namespace Senparc.Weixin.MP.TenPayLibV3
 {
@@ -175,7 +176,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
             StringBuilder sb = new StringBuilder();
 
             ArrayList akeys = new ArrayList(Parameters.Keys);
-            akeys.Sort();
+            akeys.Sort(ASCIISort.Create());
 
             foreach (string k in akeys)
             {

@@ -57,7 +57,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 发送语义理解请求
         /// </summary>
         /// <typeparam name="T">语意理解返回的结果类型，在 AdvancedAPIs/Semantic/SemanticResult </typeparam>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="semanticPostData">语义理解请求需要post的数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -84,7 +84,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】发送语义理解请求
         /// </summary>
         /// <typeparam name="T">语意理解返回的结果类型，在 AdvancedAPIs/Semantic/SemanticResult </typeparam>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="semanticPostData">语义理解请求需要post的数据</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>

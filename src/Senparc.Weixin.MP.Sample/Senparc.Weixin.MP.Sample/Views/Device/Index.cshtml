@@ -71,22 +71,65 @@
                 //初始化设备库
                 wx.invoke('openWXDeviceLib', { 'connType': 'blue' }, function (res) {
                     console.log('openWXDeviceLib', res);
-                    alert(res.err_msg);
-                    my_openWXDeviceLib();
+                    my_openWXDeviceLib(res);
+                });
+
+                //事件绑定
+
+                wx.invoke('onWXDeviceBindStateChange',function (res) {
+                    mlog('微信客户端设备绑定状态改变事件:' + JSON.stringify(res));
                 });
 
 
+                wx.invoke('onWXDeviceStateChange', function (res) {
+                    mlog('设备连接状态变化:' + JSON.stringify(res));
+                });
+
+                wx.invoke('onWXDeviceBluetoothStateChange', function (res) {
+                    mlog('手机蓝牙状态改变:' + JSON.stringify(res));
+                });
+
             });
+
+            $("#connectWXDevice").on("click", function (e) {
+                //连接设备
+
+                wx.invoke('connectWXDevice', { 'connType': 'blue', 'deviceId': connectedDeviceInfo.deviceId }, function (res) {
+                    mlog("连接设备返回结果：" + JSON.stringify(res));
+                });
+            });
+
+            $("#disconnectWXDevice").on("click", function (e) {
+                //关闭设备连接
+                wx.invoke('disconnectWXDevice', { 'connType': 'blue', 'deviceId': connectedDeviceInfo.deviceId }, function (res) {
+                    mlog("连接设备返回结果：" + JSON.stringify(res));
+                });
+            });
+
+
+
             $("#CallGetWXrefresh").on("click", function (e) {
                 //获取设备信息
                 wx.invoke('getWXDeviceInfos', { 'connType': 'blue' }, function (res) {
-                    alert('getWXDeviceInfos', res);
                     mlog("获取设备信息返回：" + JSON.stringify(res));
                     mlog("获取设备信息：" + res.deviceInfos);
-                    connectedDeviceInfo = res.deviceInfos.deviceInfos[0]
+                    connectedDeviceInfo = res.deviceInfos[0];
                 });
 
             });
+
+            $("#getWXDeviceTicket").on("click", function (e) {
+
+                //获取操作凭证
+                var type = $("#type").val();
+                alert(type);
+                wx.invoke('getWXDeviceTicket', { 'deviceId': connectedDeviceInfo.deviceId, 'type': type, 'connType': 'blue' }, function (res) {
+                    mlog("获取操作凭证返回结果：" + JSON.stringify(res));
+                });
+
+            });
+
+
             $('#CallCloseWXrefresh').on("click", function (e) {
                 //2. 关闭微信设备
                 wx.invoke('closeWXDeviceLib', { 'connType': 'blue' }, function (res) {
@@ -101,6 +144,9 @@
                     mlog("关闭设备返回：" + res.err_msg);
                 });
             });
+
+
+
 
         });
 
@@ -138,12 +184,12 @@
             //alert("初始化库结束");
         }
 
-        function my_openWXDeviceLib() {
-            var x = 0;
+        function my_openWXDeviceLib(res) {
+                    var x = 0;
                     mlog("打开设备返回：" + res.err_msg);
                     if (res.err_msg == 'openWXDeviceLib:ok') {
                         if (res.bluetoothState == 'off') {
-                            mlog("太着急啦", "亲,使用前请先打开手机蓝牙！");
+                            mlog("未开启蓝牙", "亲,使用前请先打开手机蓝牙！");
                             $("#lbInfo").innerHTML = "1.请打开手机蓝牙";
                             $("#lbInfo").css({ color: "red" });
                             x = 1;
@@ -177,7 +223,7 @@
         //打印日志
         function mlog(m) {
             var log = $('#logtext').html();
-            log=log+m;
+            log=log+m+'\r\n';
             //log = m;
             $('#logtext').html(log);
         }
@@ -194,19 +240,19 @@
             <div class="weui_cells weui_cells_form">
 
                 @*<div class="weui_cell">
-                    <div class="weui_cell_hd"><label class="weui_label" style="width: auto;">当前设备:&nbsp</label></div>
-                    <div class="weui_cell_bd weui_cell_primary">
-                        <label id="lbdeviceid" class="weui_label" style="width: auto;"></label>
+                        <div class="weui_cell_hd"><label class="weui_label" style="width: auto;">当前设备:&nbsp</label></div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <label id="lbdeviceid" class="weui_label" style="width: auto;"></label>
+                        </div>
                     </div>
-                </div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_hd"><label class="weui_label" style="width: auto;">状态信息:&nbsp</label></div>
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <label id="lbInfo" class="weui_label" style="width: auto;"></label>
+                        </div>
+                    </div>*@
                 <div class="weui_cell">
-                    <div class="weui_cell_hd"><label class="weui_label" style="width: auto;">状态信息:&nbsp</label></div>
-                    <div class="weui_cell_bd weui_cell_primary">
-                        <label id="lbInfo" class="weui_label" style="width: auto;"></label>
-                    </div>
-                </div>*@
-                <div class="weui_cell">
-                    <div class="weui_cell_hd"><label class="weui_label">日志:  </label></div>
+                    <div class="weui_cell_hd"><label class="weui_label">操作日志:  </label></div>
                     <div class="weui_cell_bd weui_cell_primary">
                         <textarea id="logtext" class="weui_textarea" placeholder="日志" style="width:100%;height:200px;"></textarea>
                     </div>
@@ -221,8 +267,23 @@
             </div>
             <div class="weui_btn_area weui">
 
-                <button class="weui_btn weui_btn weui_btn_warn" id="CallCloseWXrefresh">关闭设备</button><br>
+                <button class="weui_btn weui_btn weui_btn_warn" id="connectWXDevice">连接设备</button><br>
 
+            </div>
+            <div class="weui_btn_area weui">
+
+                <button class="weui_btn weui_btn weui_btn_warn" id="disconnectWXDevice">断开连接</button><br>
+
+            </div>
+            <div class="weui_btn_area weui">
+                <button class="weui_btn weui_btn weui_btn_warn" id="CallCloseWXrefresh">关闭设备</button><br>
+            </div>
+            <div class="weui_btn_area weui">
+                <select id="type">
+                    <option value="1">绑定设备</option>
+                    <option value="2">解绑设备</option>
+                </select>
+                <button class="weui_btn weui_btn weui_btn_warn" id="getWXDeviceTicket">获取凭证</button><br>
             </div>
             <div class="weui_btn_area weui">
 
@@ -230,8 +291,8 @@
 
             </div>
         </div>
-        </div>
+    </div>
 
-   
+
 </body>
 </html>

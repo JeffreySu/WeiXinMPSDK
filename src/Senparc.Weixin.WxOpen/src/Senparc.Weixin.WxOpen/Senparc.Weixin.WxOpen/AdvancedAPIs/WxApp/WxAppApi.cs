@@ -58,7 +58,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <summary>
         /// 获取小程序页面二维码
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="stream">储存二维码的流</param>
         /// <param name="path">不能为空，最大长度 128 字节（如：pages/index?query=1。注：pages/index 需要在 app.json 的 pages 中定义）</param>
         /// <param name="width">二维码的宽度</param>
@@ -85,7 +85,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <summary>
         /// 获取小程序页面二维码
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="filePath">储存图片的物理路径</param>
         /// <param name="path">不能为空，最大长度 128 字节（如：pages/index?query=1。注：pages/index 需要在 app.json 的 pages 中定义）</param>
         /// <param name="width">二维码的宽度</param>
@@ -115,7 +115,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <summary>
         /// 【异步方法】获取小程序页面二维码
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="stream">储存二维码的流</param>
         /// <param name="path">不能为空，最大长度 128 字节（如：pages/index?query=1,注：pages/index 需要在 app.json 的 pages 中定义）</param>
         /// <param name="width">二维码的宽度</param>
@@ -142,7 +142,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.WxApp
         /// <summary>
         /// 【异步方法】获取小程序页面二维码
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="filePath">储存图片的物理路径</param>
         /// <param name="path">不能为空，最大长度 128 字节（如：pages/index?query=1。注：pages/index 需要在 app.json 的 pages 中定义）</param>
         /// <param name="width">二维码的宽度</param>

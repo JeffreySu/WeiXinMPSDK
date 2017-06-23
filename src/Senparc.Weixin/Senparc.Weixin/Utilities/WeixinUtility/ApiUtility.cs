@@ -43,7 +43,7 @@ namespace Senparc.Weixin.Utilities.WeixinUtility
         /// <summary>
         /// 判断accessTokenOrAppId参数是否是AppId
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
         public static bool IsAppId(string accessTokenOrAppId)
         {

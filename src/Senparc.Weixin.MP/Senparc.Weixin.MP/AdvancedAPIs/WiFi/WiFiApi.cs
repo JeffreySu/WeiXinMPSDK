@@ -65,7 +65,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取Wi-Fi门店列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="pageIndex">分页下标，默认从1开始</param>
         /// <param name="pageSize">每页的个数，默认10个，最大20个</param>
         /// <param name="timeOut"></param>
@@ -88,7 +88,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 查询门店Wi-Fi信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
         /// <param name="pageindex">分页下标，默认从1开始</param>
         /// <param name="pagesize">每页的个数，默认10个，最大20个</param>
@@ -113,7 +113,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 修改门店网络信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
         /// <param name="oldSsid">需要修改的ssid，当门店下有多个ssid时，必填</param>
         /// <param name="ssid">无线网络设备的ssid。32个字符以内；ssid支持中文，但可能因设备兼容性问题导致显示乱码，或无法连接等问题，相关风险自行承担！当门店下是portal型设备时，ssid必填；当门店下是密码型设备时，ssid选填，且ssid和密码必须有一个以大写字母“WX”开头</param>
@@ -139,7 +139,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 清空门店网络及设备
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
         /// <param name="ssid">无线网络设备的ssid。若不填写ssid，默认为清空门店下所有设备；填写ssid则为清空该ssid下的所有设备</param>
         /// <param name="timeOut"></param>
@@ -175,7 +175,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 添加设备
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
         /// <param name="ssid">无线网络设备的ssid，不能包含中文字符，必需是“WX”开头(“WX”为大写字母)</param>
         /// <param name="password">无线网络设备的密码，大于8个字符，不能包含中文字符</param>
@@ -203,7 +203,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 添加portal型设备
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
         /// <param name="ssid">无线网络设备的ssid，限30个字符以内。ssid支持中文，但可能因设备兼容性问题导致显示乱码，或无法连接等问题，相关风险自行承担！</param>
         /// <param name="reset">重置secretkey，false-不重置，true-重置，默认为false</param>
@@ -231,7 +231,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 查询设备
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="pageIndex">分页下标，默认从1开始</param>
         /// <param name="pageSize">每页的个数，默认10个，最大20个</param>
         /// <param name="shopId">根据门店id查询</param>
@@ -272,7 +272,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 删除设备
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="bssid">需要删除的无线网络设备无线mac地址，格式冒号分隔，字符长度17个，并且字母小写，例如：00:1f:7a:ad:5c:a8</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -295,7 +295,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取物料二维码
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId"></param>
         /// <param name="imgId"></param>
         /// <param name="timeOut"></param>
@@ -322,7 +322,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 设置商家主页
         /// 传入自定义链接则是使用自定义链接，否则使用默认模板
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
         /// <param name="url">自定义链接（选择传入）</param>
         /// <param name="timeOut"></param>
@@ -365,7 +365,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 查询商家主页
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">查询的门店id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -389,7 +389,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 设置微信首页欢迎语
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
         /// <param name="barType">微信首页欢迎语的文本内容：0--欢迎光临+公众号名称；1--欢迎光临+门店名称；2--已连接+公众号名称+WiFi；3--已连接+门店名称+Wi-Fi。</param>
         /// <param name="timeOut"></param>
@@ -415,7 +415,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 设置连网完成页
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
         /// <param name="finishPageUrl">连网完成页URL。</param>
         /// <param name="timeOut"></param>
@@ -442,7 +442,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 数据统计
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">起始日期时间，格式yyyy-mm-dd，最长时间跨度为30天</param>
         /// <param name="endDate">结束日期时间戳，格式yyyy-mm-dd，最长时间跨度为30天</param>
         /// <param name="shopId">按门店ID搜索，-1为总统计</param>
@@ -471,7 +471,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 设置门店卡券投放信息
 
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID，可设置为0，表示所有门店</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="cardDescribe">卡券描述，不能超过18个字符</param>
@@ -505,7 +505,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 查询门店卡券投放信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID，可设置为0，表示所有门店</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -529,7 +529,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取公众号连网URL
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
         public static WiFiConnectUrlResultJson GetConnectUrl(string accessTokenOrAppId)
         {
@@ -544,7 +544,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 第三方平台获取开插件wifi_token
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="callBackUrl">回调URL，开通插件成功后的跳转页面。注：该参数域名必须与跳转进开通插件页面的页面域名保持一致，建议均采用第三方平台域名。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -570,7 +570,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取Wi-Fi门店列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="pageIndex">分页下标，默认从1开始</param>
         /// <param name="pageSize">每页的个数，默认10个，最大20个</param>
         /// <param name="timeOut"></param>
@@ -593,7 +593,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】查询门店Wi-Fi信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
         /// <param name="pageindex">分页下标，默认从1开始</param>
         /// <param name="pagesize">每页的个数，默认10个，最大20个</param>
@@ -618,7 +618,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】修改门店网络信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
         /// <param name="oldSsid">需要修改的ssid，当门店下有多个ssid时，必填</param>
         /// <param name="ssid">无线网络设备的ssid。32个字符以内；ssid支持中文，但可能因设备兼容性问题导致显示乱码，或无法连接等问题，相关风险自行承担！当门店下是portal型设备时，ssid必填；当门店下是密码型设备时，ssid选填，且ssid和密码必须有一个以大写字母“WX”开头</param>
@@ -644,7 +644,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】清空门店网络及设备
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
         /// <param name="ssid">无线网络设备的ssid。若不填写ssid，默认为清空门店下所有设备；填写ssid则为清空该ssid下的所有设备</param>
         /// <param name="timeOut"></param>
@@ -680,7 +680,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///  【异步方法】添加设备
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
         /// <param name="ssid">无线网络设备的ssid，不能包含中文字符，必需是“WX”开头(“WX”为大写字母)</param>
         /// <param name="password">无线网络设备的密码，大于8个字符，不能包含中文字符</param>
@@ -708,7 +708,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///  【异步方法】添加portal型设备
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
         /// <param name="ssid">无线网络设备的ssid，限30个字符以内。ssid支持中文，但可能因设备兼容性问题导致显示乱码，或无法连接等问题，相关风险自行承担！</param>
         /// <param name="reset">重置secretkey，false-不重置，true-重置，默认为false</param>
@@ -736,7 +736,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///  【异步方法】查询设备
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="pageIndex">分页下标，默认从1开始</param>
         /// <param name="pageSize">每页的个数，默认10个，最大20个</param>
         /// <param name="shopId">根据门店id查询</param>
@@ -777,7 +777,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】删除设备
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="bssid">需要删除的无线网络设备无线mac地址，格式冒号分隔，字符长度17个，并且字母小写，例如：00:1f:7a:ad:5c:a8</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -800,7 +800,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取物料二维码
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId"></param>
         /// <param name="imgId"></param>
         /// <param name="timeOut"></param>
@@ -827,7 +827,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】设置商家主页
         /// 传入自定义链接则是使用自定义链接，否则使用默认模板
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
         /// <param name="url">自定义链接（选择传入）</param>
         /// <param name="timeOut"></param>
@@ -870,7 +870,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///【异步方法】 查询商家主页
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">查询的门店id</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -894,7 +894,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///【异步方法】 设置微信首页欢迎语
 
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
         /// <param name="barType">微信首页欢迎语的文本内容：0--欢迎光临+公众号名称；1--欢迎光临+门店名称；2--已连接+公众号名称+WiFi；3--已连接+门店名称+Wi-Fi。</param>
         /// <param name="timeOut"></param>
@@ -921,7 +921,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///【异步方法】 设置连网完成页
 
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID</param>
         /// <param name="finishPageUrl">连网完成页URL。</param>
         /// <param name="timeOut"></param>
@@ -948,7 +948,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】数据统计
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">起始日期时间，格式yyyy-mm-dd，最长时间跨度为30天</param>
         /// <param name="endDate">结束日期时间戳，格式yyyy-mm-dd，最长时间跨度为30天</param>
         /// <param name="shopId">按门店ID搜索，-1为总统计</param>
@@ -977,7 +977,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///【异步方法】 设置门店卡券投放信息
 
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID，可设置为0，表示所有门店</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="cardDescribe">卡券描述，不能超过18个字符</param>
@@ -1011,7 +1011,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】查询门店卡券投放信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="shopId">门店ID，可设置为0，表示所有门店</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -1035,7 +1035,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///【异步方法】 获取公众号连网URL
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
         public static async Task<WiFiConnectUrlResultJson> GetConnectUrlAsync(string accessTokenOrAppId)
         {
@@ -1050,7 +1050,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】第三方平台获取开插件wifi_token
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="callBackUrl">回调URL，开通插件成功后的跳转页面。注：该参数域名必须与跳转进开通插件页面的页面域名保持一致，建议均采用第三方平台域名。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>

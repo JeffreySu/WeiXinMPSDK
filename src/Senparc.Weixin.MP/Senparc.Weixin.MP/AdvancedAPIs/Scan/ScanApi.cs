@@ -61,7 +61,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取商户信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static MerchantInfoGetResultJson MerchantInfoGet(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
@@ -76,7 +76,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 创建商品
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <pram name="keyStandard">商品编码标准，暂时只支持ean13和ean8两种标准。</pram>
         /// <pram name="keyStr">商品编码内容。直接填写商品条码，如“6900000000000”；注意：编码标准是ean13时，编码内容必须在商户的号段之下，否则会报错。</pram>
         /// <pram name="baseInfo">商品的基本信息。</pram>
@@ -102,7 +102,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///提交审核/取消发布商品
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="keyStandard">商品编码标准。</param>
         /// <param name="keyStr">商品编码内容。</param>
         /// <param name="status">设置发布状态。on为提交审核，off为取消发布。</param>
@@ -125,7 +125,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///设置测试人员白名单
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId">测试人员的openid列表。</param>
         /// <param name="userName">测试人员的微信号列表。</param>
         /// <param name="timeOut"></param>
@@ -147,7 +147,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///查询商品信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="keyStandard">商品编码标准。</param>
         /// <param name="keyStr">商品编码内容。</param>
         /// <param name="timeOut"></param>
@@ -168,7 +168,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///批量查询商品信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="offset">商品编码标准。</param>
         /// <param name="limit">商品编码标准。</param>
         /// <param name="status">商品编码内容。</param>
@@ -191,7 +191,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///清除商品信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="keyStandard">商品编码标准。</param>
         /// <param name="keyStr">商品编码标准。</param>
     
@@ -214,7 +214,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///检查wxticket参数
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
 
         /// <param name="ticket">请求URL中带上的wxticket参数。</param>
 
@@ -239,7 +239,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
          /// <summary>
         /// 【异步方法】获取商户信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static async Task<MerchantInfoGetResultJson> MerchantInfoGetAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
@@ -254,7 +254,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】创建商品
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <pram name="keyStandard">商品编码标准，暂时只支持ean13和ean8两种标准。</pram>
         /// <pram name="keyStr">商品编码内容。直接填写商品条码，如“6900000000000”；注意：编码标准是ean13时，编码内容必须在商户的号段之下，否则会报错。</pram>
         /// <pram name="baseInfo">商品的基本信息。</pram>
@@ -280,7 +280,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///【异步方法】提交审核/取消发布商品
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="keyStandard">商品编码标准。</param>
         /// <param name="keyStr">商品编码内容。</param>
         /// <param name="status">设置发布状态。on为提交审核，off为取消发布。</param>
@@ -303,7 +303,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///【异步方法】设置测试人员白名单
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId">测试人员的openid列表。</param>
         /// <param name="userName">测试人员的微信号列表。</param>
         /// <param name="timeOut"></param>
@@ -325,7 +325,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///【异步方法】查询商品信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="keyStandard">商品编码标准。</param>
         /// <param name="keyStr">商品编码内容。</param>
         /// <param name="timeOut"></param>
@@ -346,7 +346,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///【异步方法】批量查询商品信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="offset">商品编码标准。</param>
         /// <param name="limit">商品编码标准。</param>
         /// <param name="status">商品编码内容。</param>
@@ -369,7 +369,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///【异步方法】清除商品信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="keyStandard">商品编码标准。</param>
         /// <param name="keyStr">商品编码标准。</param>
     
@@ -392,7 +392,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///【异步方法】检查wxticket参数
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
 
         /// <param name="ticket">请求URL中带上的wxticket参数。</param>
 

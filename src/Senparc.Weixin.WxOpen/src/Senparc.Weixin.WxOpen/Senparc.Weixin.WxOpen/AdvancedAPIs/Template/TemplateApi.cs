@@ -51,7 +51,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <summary>
         /// 小程序模板消息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="templateId"></param>
         /// <param name="data"></param>
@@ -118,7 +118,7 @@ namespace Senparc.Weixin.WxOpen.AdvancedAPIs.Template
         /// <summary>
         /// 【异步方法】小程序模板消息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="templateId"></param>
         /// <param name="data"></param>

@@ -76,7 +76,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 发送文本信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="content"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -126,7 +126,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 发送图片消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -175,7 +175,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 发送语音消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -225,7 +225,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 发送视频消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="title"></param>
@@ -281,7 +281,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 发送音乐消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="title">音乐标题（非必须）</param>
         /// <param name="description">音乐描述（非必须）</param>
@@ -343,7 +343,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 发送图文消息（点击跳转到外链）
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="articles"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -404,7 +404,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 发送图文消息（点击跳转到图文消息页面）
         /// 图文消息条数限制在8条以内，注意，如果图文数超过8，则将会无响应。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut"></param>
@@ -452,7 +452,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 发送卡券
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="cardId"></param>
         /// <param name="cardExt"></param>
@@ -489,7 +489,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送文本信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="content"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -541,7 +541,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送图片消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -589,7 +589,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送语音消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -637,7 +637,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送视频消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="title"></param>
@@ -693,7 +693,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送音乐消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="title">音乐标题（非必须）</param>
         /// <param name="description">音乐描述（非必须）</param>
@@ -756,7 +756,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送图文消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="articles"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -820,7 +820,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】发送图文消息（点击跳转到图文消息页面）
         /// 图文消息条数限制在8条以内，注意，如果图文数超过8，则将会无响应。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut"></param>
@@ -868,7 +868,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送卡券
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="cardId"></param>
         /// <param name="cardExt"></param>

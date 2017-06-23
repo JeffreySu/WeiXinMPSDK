@@ -67,7 +67,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 创建二维码
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="expireSeconds">临时二维码有效时间，以秒为单位。永久二维码将忽略此参数</param>
         /// <param name="sceneId">场景值ID，临时二维码时为32位整型，永久二维码时最大值为1000</param>
         /// <param name="sceneStr">场景字符串，仅actionName为QR_LIMIT_STR_SCENE时有效</param>
@@ -135,7 +135,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///// <summary>
         ///// 用字符串类型创建二维码（永久）
         ///// </summary>
-        ///// <param name="accessTokenOrAppId"></param>
+        ///// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///// <param name="sceneStr">场景值ID（字符串形式的ID），字符串类型，长度限制为1到64，仅永久二维码支持此字段</param>
         ///// <param name="timeOut"></param>
         ///// <returns></returns>
@@ -190,7 +190,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 创建二维码
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="expireSeconds">临时二维码有效时间，以秒为单位。永久二维码将忽略此参数</param>
         /// <param name="sceneId">场景值ID，临时二维码时为32位整型，永久二维码时最大值为1000</param>
         /// <param name="sceneStr">场景字符串，仅actionName为QR_LIMIT_STR_SCENE时有效</param>
@@ -258,7 +258,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///// <summary>
         ///// 【异步方法】用字符串类型创建二维码
         ///// </summary>
-        ///// <param name="accessTokenOrAppId"></param>
+        ///// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///// <param name="sceneStr">场景值ID（字符串形式的ID），字符串类型，长度限制为1到64，仅永久二维码支持此字段</param>
         ///// <param name="timeOut"></param>
         ///// <returns></returns>

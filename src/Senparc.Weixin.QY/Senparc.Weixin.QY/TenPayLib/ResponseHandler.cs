@@ -6,6 +6,10 @@
     
     
     创建标识：Senparc - 20150722
+    
+    修改标识：Senparc - 20170623
+    修改描述：使用 ASCII 字典排序
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -15,6 +19,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Xml;
+using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.QY.Helpers;
 
 namespace Senparc.Weixin.QY.TenPayLib
@@ -173,7 +178,7 @@ namespace Senparc.Weixin.QY.TenPayLib
 			StringBuilder sb = new StringBuilder();
 
 			ArrayList akeys=new ArrayList(Parameters.Keys); 
-			akeys.Sort();
+			akeys.Sort(ASCIISort.Create());
 
 			foreach(string k in akeys)
 			{

@@ -22,6 +22,7 @@ using System;
 using System.Collections;
 using System.Text;
 using System.Web;
+using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.MP.Helpers;
 
 namespace Senparc.Weixin.MP.TenPayLib
@@ -111,7 +112,7 @@ namespace Senparc.Weixin.MP.TenPayLib
 
             StringBuilder sb = new StringBuilder();
             ArrayList akeys = new ArrayList(Parameters.Keys);
-            akeys.Sort();
+            akeys.Sort(ASCIISort.Create());
             foreach (string k in akeys)
             {
                 string v = (string)Parameters[k];
@@ -143,7 +144,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             StringBuilder sb = new StringBuilder();
 
             ArrayList akeys = new ArrayList(Parameters.Keys);
-            akeys.Sort();
+            akeys.Sort(ASCIISort.Create());
 
             foreach (string k in akeys)
             {

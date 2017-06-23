@@ -17,7 +17,7 @@ Page({
 
        //如果使用Senparc.WebSocket，必须严格按照以下data数据字段发送（只能多不能少）
        var submitData = JSON.stringify({
-          Messsage:msg,//必填
+          Message:msg,//必填
           SessionId:wx.getStorageSync("sessionId"),//选填，不需要可输入''
           FormId:e.detail.formId//选填formId用于发送模板消息，不需要可输入''
         });

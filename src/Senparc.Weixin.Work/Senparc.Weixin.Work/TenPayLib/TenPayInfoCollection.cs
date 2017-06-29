@@ -33,7 +33,7 @@ namespace Senparc.Weixin.Work.TenPayLib
             Data[tenPayInfo.MchId] = tenPayInfo;
         }
 
-        new public TenPayInfo this[string key]
+        public new TenPayInfo this[string key]
         {
             get
             {

@@ -17,7 +17,7 @@ namespace Senparc.Weixin.Work.Entities
 {
     public class ResponseMessageNews : ResponseMessageBase, IResponseMessageBase
     {
-        new public virtual ResponseMsgType MsgType
+        public new virtual ResponseMsgType MsgType
         {
             get { return ResponseMsgType.News; }
         }

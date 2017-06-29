@@ -18,7 +18,7 @@ namespace Senparc.Weixin.QY.Entities
     /// </summary>
     public class ResponseMessageVideo : ResponseMessageBase, IResponseMessageBase
     {
-        new public virtual ResponseMsgType MsgType
+        public new virtual ResponseMsgType MsgType
         {
             get { return ResponseMsgType.Video; }
         }

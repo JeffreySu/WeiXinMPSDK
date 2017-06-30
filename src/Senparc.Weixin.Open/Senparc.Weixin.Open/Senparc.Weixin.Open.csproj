@@ -101,6 +101,8 @@
     <Compile Include="ComponentAPIs\ComponentJson\QueryAuthResult.cs" />
     <Compile Include="WxaAPIs\ModifyDomain\ModifyDomainApi.cs" />
     <Compile Include="WxaAPIs\ModifyDomain\ModifyDomainJson\ModifyDomainResultJson.cs" />
+    <Compile Include="WxaAPIs\Tester\TesterApi.cs" />
+    <Compile Include="WxaAPIs\Tester\TesterJson\TesterResultJson.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj">

@@ -95,6 +95,7 @@ namespace Senparc.Weixin.Work
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBase(
+                    PlatformType.Work,
                     accessTokenContainer_GetFirstOrDefaultAppIdFunc,
                     accessTokenContainer_CheckRegisteredFunc,
                     accessTokenContainer_GetAccessTokenResultFunc,
@@ -143,6 +144,7 @@ namespace Senparc.Weixin.Work
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBaseAsync(
+                    PlatformType.Work,
                     accessTokenContainer_GetFirstOrDefaultAppIdFunc,
                     accessTokenContainer_CheckRegisteredFunc,
                     accessTokenContainer_GetAccessTokenResultAsyncFunc,

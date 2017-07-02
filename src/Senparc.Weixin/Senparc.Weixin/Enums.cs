@@ -50,7 +50,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     修改标识：Senparc - 20170617
     修改描述：v4.12.3 提供对企业微信的支持：添加WorkJsonResult（企业微信返回消息基类）、ReturnCode_Work（枚举）
-    
+ 
+    修改标识：Senparc - 20170702
+    修改描述：添加 PlatformType
+   
 ----------------------------------------------------------------*/
 
 
@@ -70,6 +73,33 @@ namespace Senparc.Weixin
         /// POST 方法
         /// </summary>
         POST
+    }
+
+    /// <summary>
+    /// 平台类型
+    /// </summary>
+    public enum PlatformType
+    {
+        /// <summary>
+        /// 公众号
+        /// </summary>
+        MP,
+        /// <summary>
+        /// 开放平台
+        /// </summary>
+        Open,
+        /// <summary>
+        /// 小程序
+        /// </summary>
+        WxOpen,
+        /// <summary>
+        /// 企业号
+        /// </summary>
+        QY,
+        /// <summary>
+        /// 企业微信
+        /// </summary>
+        Work
     }
 
     /// <summary>

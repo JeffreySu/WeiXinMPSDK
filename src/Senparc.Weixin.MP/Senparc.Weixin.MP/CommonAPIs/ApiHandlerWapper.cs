@@ -84,6 +84,7 @@ namespace Senparc.Weixin.MP
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBase(
+                    PlatformType.MP,
                     accessTokenContainer_GetFirstOrDefaultAppIdFunc,
                     accessTokenContainer_CheckRegisteredFunc,
                     accessTokenContainer_GetAccessTokenResultFunc,
@@ -226,15 +227,14 @@ namespace Senparc.Weixin.MP
 
             var result = ApiHandlerWapperBase.
                 TryCommonApiBaseAsync(
+                    PlatformType.MP,
                     accessTokenContainer_GetFirstOrDefaultAppIdFunc,
                     accessTokenContainer_CheckRegisteredFunc,
                     accessTokenContainer_GetAccessTokenResultAsyncFunc,
                     invalidCredentialValue,
                     fun, accessTokenOrAppId, retryIfFaild);
             return await result;
-
         }
-
 
         #region 淘汰方法
         ///// <summary>

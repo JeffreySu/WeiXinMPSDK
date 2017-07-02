@@ -25,11 +25,11 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.QY.Containers;
-using Senparc.Weixin.QY.Entities.Menu;
+using Senparc.Weixin.Work.CommonAPIs;
+using Senparc.Weixin.Work.Containers;
+using Senparc.Weixin.Work.Entities.Menu;
 
-namespace Senparc.Weixin.QY.Test.CommonApis
+namespace Senparc.Weixin.Work.Test.CommonApis
 {
     public partial class CommonApiTest
     {

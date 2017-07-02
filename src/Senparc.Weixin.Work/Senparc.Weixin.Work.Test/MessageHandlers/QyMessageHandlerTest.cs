@@ -27,16 +27,16 @@ using System.Xml;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Context;
-using Senparc.Weixin.QY.Entities;
-using Senparc.Weixin.QY.Helpers;
-using Senparc.Weixin.QY.MessageHandlers;
+using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.Helpers;
+using Senparc.Weixin.Work.MessageHandlers;
 
-namespace Senparc.Weixin.QY.Test.MessageHandlers
+namespace Senparc.Weixin.Work.Test.MessageHandlers
 {
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClass]
     public class QyMessageHandlersTest
     {
-        public class CustomerMessageHandlers : QyMessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
+        public class CustomerMessageHandlers : WorkMessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
         {
             public CustomerMessageHandlers(XDocument requestDoc, PostModel postModel, int maxRecordCount = 0)
                 : base(requestDoc, postModel, maxRecordCount)

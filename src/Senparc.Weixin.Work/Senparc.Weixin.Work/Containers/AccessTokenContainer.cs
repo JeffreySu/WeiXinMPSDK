@@ -116,7 +116,7 @@ namespace Senparc.Weixin.Work.Containers
         /// 此接口无异步方法
         public static string BuildingKey(string corpId, string corpSecret)
         {
-            return  string.Format("{0}@{1}",corpId , corpSecret);
+            return string.Format("{0}@{1}", corpId, corpSecret);
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace Senparc.Weixin.Work.Containers
         /// <param name="appKey">由BuildingKey()方法生成的Key</param>
         /// <param name="corpId">corpId</param>
         /// <param name="corpSecret">corpSecret</param>
-        public static void GetCoprIdAndSecretFromKey(string appKey,out string corpId,out string corpSecret)
+        public static void GetCoprIdAndSecretFromKey(string appKey, out string corpId, out string corpSecret)
         {
             var keyArr = appKey.Split('@');
             corpId = keyArr[0];
@@ -204,12 +204,24 @@ namespace Senparc.Weixin.Work.Containers
         /// <summary>
         /// 获取可用Token
         /// </summary>
+        /// <param name="corpId"></param>
+        /// <param name="corpSecret"></param>
+        /// <param name="getNewToken">是否强制重新获取新的Token</param>
+        /// <returns></returns>
+        public static AccessTokenResult GetTokenResult(string corpId, string corpSecret, bool getNewToken = false)
+        {
+            var appKey = BuildingKey(corpId, corpSecret);
+            return GetTokenResult(appKey, getNewToken);
+        }
+
+        /// <summary>
+        /// 获取可用Token
+        /// </summary>
         /// <param name="appKey">由BuildingKey()方法生成的Key</param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
         public static AccessTokenResult GetTokenResult(string appKey, bool getNewToken = false)
         {
-
             if (!CheckRegistered(appKey))
             {
                 string corpId;
@@ -336,6 +348,7 @@ namespace Senparc.Weixin.Work.Containers
             }
             return accessTokenBag.AccessTokenResult;
         }
+
 
         /// <summary>
         /// 【异步方法】获取可用Token

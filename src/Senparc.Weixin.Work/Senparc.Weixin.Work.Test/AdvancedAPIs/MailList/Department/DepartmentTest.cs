@@ -23,13 +23,13 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.QY.AdvancedAPIs;
-using Senparc.Weixin.QY.AdvancedAPIs.MailList;
-using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.QY.Containers;
-using Senparc.Weixin.QY.Test.CommonApis;
+using Senparc.Weixin.Work.AdvancedAPIs;
+using Senparc.Weixin.Work.AdvancedAPIs.MailList;
+using Senparc.Weixin.Work.CommonAPIs;
+using Senparc.Weixin.Work.Containers;
+using Senparc.Weixin.Work.Test.CommonApis;
 
-namespace Senparc.Weixin.QY.Test.AdvancedAPIs
+namespace Senparc.Weixin.Work.Test.AdvancedAPIs
 {
     /// <summary>
     /// CommonApiTest 的摘要说明
@@ -53,7 +53,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MailListApi.UpdateDepartment(accessToken, id, "更新test", 1);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode ==ReturnCode_QY.请求成功);
+            Assert.IsTrue(result.errcode ==ReturnCode_Work.请求成功);
         }
 
         //[TestMethod]
@@ -62,7 +62,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MailListApi.DeleteDepartment(accessToken, id);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }
 
         //[TestMethod]
@@ -73,7 +73,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var result1 = MailListApi.GetDepartmentList(accessToken);
             Assert.IsNotNull(result);
             Assert.IsNotNull(result1);
-            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }
 
         [TestMethod]

@@ -50,6 +50,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
         /// TryCommonApi 方法的基类
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <param name="platformType">平台类型，PlatformType枚举</param>
         /// <param name="accessTokenContainer_GetFirstOrDefaultAppIdFunc">AccessTokenContainer中的GetFirstOrDefaultAppId()方法</param>
         /// <param name="accessTokenContainer_CheckRegisteredFunc">AccessTokenContainer中的bool CheckRegistered(appId,getNew)方法</param>
         /// <param name="accessTokenContainer_GetAccessTokenResultFunc">AccessTokenContainer中的AccessTokenResult GetAccessTokenResult(appId)方法</param>
@@ -59,6 +60,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
         /// <param name="retryIfFaild"></param>
         /// <returns></returns>
         public static T TryCommonApiBase<T>(
+            PlatformType platformType,
             Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc,
             Func<string, bool> accessTokenContainer_CheckRegisteredFunc,
             Func<string, bool, IAccessTokenResult> accessTokenContainer_GetAccessTokenResultFunc,
@@ -86,7 +88,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                         "尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
                 }
             }
-            else if (ApiUtility.IsAppId(accessTokenOrAppId))
+            else if (ApiUtility.IsAppId(accessTokenOrAppId, platformType))
             {
                 //if (!AccessTokenContainer.CheckRegistered(accessTokenOrAppId))
                 if (!accessTokenContainer_CheckRegisteredFunc(accessTokenOrAppId))
@@ -123,11 +125,12 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                     var accessTokenResult = accessTokenContainer_GetAccessTokenResultFunc(appId, false);//AccessTokenContainer.GetAccessTokenResult(appId, true);
                     //强制获取并刷新最新的AccessToken
                     accessToken = accessTokenResult.access_token;
-                    result = TryCommonApiBase(accessTokenContainer_GetFirstOrDefaultAppIdFunc,
-                                              accessTokenContainer_CheckRegisteredFunc,
-                                              accessTokenContainer_GetAccessTokenResultFunc,
-                                              invalidCredentialValue,
-                                              fun, appId, false);
+                    result = TryCommonApiBase(platformType,
+                                accessTokenContainer_GetFirstOrDefaultAppIdFunc,
+                                accessTokenContainer_CheckRegisteredFunc,
+                                accessTokenContainer_GetAccessTokenResultFunc,
+                                invalidCredentialValue,
+                                fun, appId, false);
                 }
                 else
                 {
@@ -154,6 +157,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
         /// TryCommonApi 方法的基类
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <param name="platformType">平台类型，PlatformType枚举</param>
         /// <param name="accessTokenContainer_GetFirstOrDefaultAppIdFunc">AccessTokenContainer中的GetFirstOrDefaultAppId()方法</param>
         /// <param name="accessTokenContainer_CheckRegisteredFunc">AccessTokenContainer中的bool CheckRegistered(appId,getNew)方法</param>
         /// <param name="accessTokenContainer_GetAccessTokenResultAsyncFunc">AccessTokenContainer中的AccessTokenResult GetAccessTokenResultAsync(appId)方法（异步方法）</param>
@@ -163,6 +167,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
         /// <param name="retryIfFaild"></param>
         /// <returns></returns>
         public static async Task<T> TryCommonApiBaseAsync<T>(
+            PlatformType platformType,
             Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc,
             Func<string, bool> accessTokenContainer_CheckRegisteredFunc,
             Func<string, bool, Task<IAccessTokenResult>> accessTokenContainer_GetAccessTokenResultAsyncFunc,
@@ -186,7 +191,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                         "尚无已经注册的AppId，请先使用AccessTokenContainer.Register完成注册（全局执行一次即可）！");
                 }
             }
-            else if (ApiUtility.IsAppId(accessTokenOrAppId))
+            else if (ApiUtility.IsAppId(accessTokenOrAppId, platformType))
             {
                 //if (!AccessTokenContainer.CheckRegistered(accessTokenOrAppId))
                 if (!accessTokenContainer_CheckRegisteredFunc(accessTokenOrAppId))
@@ -226,11 +231,12 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                     //强制获取并刷新最新的AccessToken
                     accessToken = accessTokenResult.access_token;
 
-                    result = TryCommonApiBaseAsync(accessTokenContainer_GetFirstOrDefaultAppIdFunc,
-                                              accessTokenContainer_CheckRegisteredFunc,
-                                              accessTokenContainer_GetAccessTokenResultAsyncFunc,
-                                              invalidCredentialValue,
-                                              fun, appId, false);
+                    result = TryCommonApiBaseAsync(platformType,
+                                accessTokenContainer_GetFirstOrDefaultAppIdFunc,
+                                accessTokenContainer_CheckRegisteredFunc,
+                                accessTokenContainer_GetAccessTokenResultAsyncFunc,
+                                invalidCredentialValue,
+                                fun, appId, false);
                     //result = TryCommonApiAsync(fun, appId, false);
                 }
                 else

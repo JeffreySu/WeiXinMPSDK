@@ -36,7 +36,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Senparc.Weixin.Helpers.Methods
+namespace Senparc.Weixin.Helpers
 {
     /// <summary>
     /// 反射帮助类

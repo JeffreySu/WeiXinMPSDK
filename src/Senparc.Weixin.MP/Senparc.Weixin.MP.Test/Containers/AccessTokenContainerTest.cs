@@ -27,7 +27,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Redis;
-using Senparc.Weixin.Helpers.Test;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 using Senparc.WeixinTests;
@@ -70,15 +70,15 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
                     dt1 = DateTime.Now;
                     token = AccessTokenContainer.TryGetAccessToken(base._appId, base._appSecret, false);
                     dt2 = DateTime.Now;
+                    Console.WriteLine(token);
                     Assert.AreEqual(tokenResult.access_token, token);
-                    Console.WriteLine(tokenResult.access_token);
 
                     Console.WriteLine("强制重新获取AccessToken");
                     dt1 = DateTime.Now;
                     token = AccessTokenContainer.TryGetAccessToken(base._appId, base._appSecret, true);
                     dt2 = DateTime.Now;
+                    Console.WriteLine(token);
                     Assert.AreNotEqual(tokenResult.access_token, token);//如果微信服务器缓存，此处会相同
-                    Console.WriteLine(tokenResult.access_token);
                     Console.WriteLine("耗时：{0}毫秒", (dt2 - dt1).TotalMilliseconds);
                 }
 

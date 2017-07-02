@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.Cache;
+using Senparc.Weixin.Helpers.Methods;
 
 namespace Senparc.Weixin.Helpers.Test
 {
@@ -29,18 +31,33 @@ namespace Senparc.Weixin.Helpers.Test
 
             foreach (var cacheType in cacheTypes)
             {
-                switch (cacheType)
-                {
-                    case CacheType.Local:
-                        cacheStrategies.Add(LocalObjectCacheStrategy.Instance);
-                        break;
-                    case CacheType.Redis:
-                        cacheStrategies.Add(RedisObjectCacheStrategy.Instance);
-                        break;
-                    case CacheType.Memcached:
-                        cacheStrategies.Add(MemcachedObjectCacheStrategy.Instance);
-                        break;
-                }
+                var assabmleName = cacheType == CacheType.Local
+                    ? "Senparc.Weixin"
+                    : "Senparc.Weixin.Cache." + cacheType.ToString();
+
+                var nameSpace = cacheType == CacheType.Local
+                                    ? "Senparc.Weixin.Cache"
+                                    : "Senparc.Weixin.Cache." + cacheType.ToString();
+
+                var className = cacheType.ToString() + "ObjectCacheStrategy";
+
+                var cacheInstance = ReflectionHelper.CreateInstance<IObjectCacheStrategy>(assabmleName, nameSpace,
+                    className);
+
+                cacheStrategies.Add(cacheInstance);
+
+                //switch (cacheType)
+                //{
+                //    case CacheType.Local:
+                //        cacheStrategies.Add(LocalObjectCacheStrategy.Instance);
+                //        break;
+                //    case CacheType.Redis:
+                //        cacheStrategies.Add(RedisObjectCacheStrategy.Instance);
+                //        break;
+                //    case CacheType.Memcached:
+                //        cacheStrategies.Add(MemcachedObjectCacheStrategy.Instance);
+                //        break;
+                //}
             }
 
             foreach (var objectCacheStrategy in cacheStrategies)

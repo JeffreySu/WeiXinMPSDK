@@ -135,9 +135,12 @@
     <Compile Include="Helpers\EncryptHelper.cs" />
     <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\Extensions\IDictionaryExtensions.cs" />
+    <Compile Include="Helpers\Methods\DynamicMethodExecutor.cs" />
+    <Compile Include="Helpers\Methods\ReflectionHelper.cs" />
     <Compile Include="Helpers\SerializerHelper.cs" />
     <Compile Include="Helpers\Conventers\WeixinJsonConventer.cs" />
     <Compile Include="Helpers\StringHelper\ASCIISort.cs" />
+    <Compile Include="Helpers\Test\MutipleCacheTestHelper.cs" />
     <Compile Include="MessageQueue\SenparcMessageQueue.cs" />
     <Compile Include="MessageQueue\SenparcMessageQueueItem.cs" />
     <Compile Include="Threads\SenparcMessageQueueThreadUtility.cs" />
@@ -166,9 +169,7 @@
   <ItemGroup>
     <None Include="ClassDiagrams\MessageHandler.cd" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Helpers\Test\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

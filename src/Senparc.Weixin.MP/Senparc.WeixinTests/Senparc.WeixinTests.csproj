@@ -80,7 +80,6 @@
     <Compile Include="Helpers\SerializerHelperTests.cs" />
     <Compile Include="Helpers\StringHelper\ASCIISortTests.cs" />
     <Compile Include="MessageQueue\SenparcMessageQueueTest.cs" />
-    <Compile Include="MutipleCacheTestWapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Threads\ThreadUtilityTest.cs" />
     <Compile Include="Utilities\HttpUtility\GetTests.cs" />

@@ -27,6 +27,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Redis;
+using Senparc.Weixin.Helpers.Test;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
 using Senparc.WeixinTests;
@@ -40,7 +41,7 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
         [TestMethod]
         public void ContainerTest()
         {
-            MutipleCacheTestWapper.RunMutipleCache(() =>
+            MutipleCacheTestHelper.RunMutipleCache(() =>
             {
                 //获取Token完整结果（包括当前过期秒数）
                 DateTime dt1 = DateTime.Now;

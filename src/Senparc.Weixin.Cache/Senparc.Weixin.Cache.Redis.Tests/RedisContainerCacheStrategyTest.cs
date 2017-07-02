@@ -68,6 +68,7 @@ namespace Senparc.Weixin.Cache.Redis.Tests
             var count = cache.GetCount();
             Console.WriteLine("count:" + count);
 
+
             cache.InsertToCache(key, new TestContainerBag1()
             {
                 DateTime = DateTime.Now,
@@ -84,11 +85,10 @@ namespace Senparc.Weixin.Cache.Redis.Tests
             var count2 = cache.GetCount();
             Console.WriteLine("count2:" + count2);
 
-
-            if (cache is RedisObjectCacheStrategy)
+            if (cache is RedisContainerCacheStrategy)
             {
                 Console.WriteLine("Redis Cache");
-                Assert.AreEqual(count, count2);//（待确定）目前Redis缓存使用HashSet，反复测试不会发生变化
+                Assert.AreEqual(count, count2);//目前Redis缓存使用HashSet，反复测试不会发生变化，第一次会有变化
             }
             else
             {

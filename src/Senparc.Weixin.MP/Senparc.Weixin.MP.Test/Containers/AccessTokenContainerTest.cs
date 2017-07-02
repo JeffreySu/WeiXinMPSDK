@@ -39,6 +39,10 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
         [TestMethod]
         public void ContainerTest()
         {
+            //CacheStrategyFactory.RegisterObjectCacheStrategy(() => LocalObjectCacheStrategy.Instance);//Local
+
+            Console.WriteLine("当前缓存："+ CacheStrategyFactory.GetObjectCacheStrategyInstance().GetType());
+
             //获取Token完整结果（包括当前过期秒数）
             DateTime dt1 = DateTime.Now;
             var tokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId);

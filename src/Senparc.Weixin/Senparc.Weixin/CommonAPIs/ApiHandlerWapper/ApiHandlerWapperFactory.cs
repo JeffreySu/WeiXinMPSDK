@@ -39,113 +39,113 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.CommonAPIs
 {
-    /// <summary>
-    /// ApiHandlerWapperFactory的当前平台
-    /// </summary>
-    public enum ApiHandlerWapperPlatform
-    {
-        /// <summary>
-        /// 公众号
-        /// </summary>
-        MP,
-        /// <summary>
-        /// 开放平台
-        /// </summary>
-        OPEN
-    }
+    ///// <summary>
+    ///// ApiHandlerWapperFactory的当前平台
+    ///// </summary>
+    //public enum ApiHandlerWapperPlatform
+    //{
+    //    /// <summary>
+    //    /// 公众号
+    //    /// </summary>
+    //    MP,
+    //    /// <summary>
+    //    /// 开放平台
+    //    /// </summary>
+    //    OPEN
+    //}
 
-    /// <summary>
-    /// 针对AccessToken无效或过期的自动处理类（基类）
-    /// </summary>
-    public static class ApiHandlerWapperFactory
-    {
-        /// <summary>
-        /// 同步方法集合
-        /// </summary>
-        public static Dictionary<ApiHandlerWapperPlatform, Func<WxJsonResult>> Collection = new Dictionary<ApiHandlerWapperPlatform, Func<WxJsonResult>>();
+    ///// <summary>
+    ///// 针对AccessToken无效或过期的自动处理类（基类）
+    ///// </summary>
+    //public static class ApiHandlerWapperFactory
+    //{
+    //    /// <summary>
+    //    /// 同步方法集合
+    //    /// </summary>
+    //    public static Dictionary<ApiHandlerWapperPlatform, Func<WxJsonResult>> Collection = new Dictionary<ApiHandlerWapperPlatform, Func<WxJsonResult>>();
 
-        /// <summary>
-        /// 异步方法集合
-        /// </summary>
-        public static Dictionary<ApiHandlerWapperPlatform, Func<Task<WxJsonResult>>> CollectionAsync = new Dictionary<ApiHandlerWapperPlatform, Func<Task<WxJsonResult>>>();
+    //    /// <summary>
+    //    /// 异步方法集合
+    //    /// </summary>
+    //    public static Dictionary<ApiHandlerWapperPlatform, Func<Task<WxJsonResult>>> CollectionAsync = new Dictionary<ApiHandlerWapperPlatform, Func<Task<WxJsonResult>>>();
 
-        ///// <summary>
-        ///// 平台凭证队列
-        ///// </summary>
-        //public static Dictionary<string, ApiHandlerWapperPlatform> PlatformQueue = new Dictionary<string, ApiHandlerWapperPlatform>();
+    //    ///// <summary>
+    //    ///// 平台凭证队列
+    //    ///// </summary>
+    //    //public static Dictionary<string, ApiHandlerWapperPlatform> PlatformQueue = new Dictionary<string, ApiHandlerWapperPlatform>();
 
-        /// <summary>
-        /// ApiHandlerWapperFactory锁
-        /// </summary>
-        public static object ApiHandlerWapperFactoryLock = new object();
+    //    /// <summary>
+    //    /// ApiHandlerWapperFactory锁
+    //    /// </summary>
+    //    public static object ApiHandlerWapperFactoryLock = new object();
 
-        private static ApiHandlerWapperPlatform _currentPlatform = ApiHandlerWapperPlatform.MP;
+    //    private static ApiHandlerWapperPlatform _currentPlatform = ApiHandlerWapperPlatform.MP;
 
-        /// <summary>
-        /// 当前平台，值：
-        /// </summary>
-        public static ApiHandlerWapperPlatform CurrentPlatform
-        {
-            get
-            {
-                return _currentPlatform;
-            }
-            set
-            {
-                _currentPlatform = value;
-            }
-        }
+    //    /// <summary>
+    //    /// 当前平台，值：
+    //    /// </summary>
+    //    public static ApiHandlerWapperPlatform CurrentPlatform
+    //    {
+    //        get
+    //        {
+    //            return _currentPlatform;
+    //        }
+    //        set
+    //        {
+    //            _currentPlatform = value;
+    //        }
+    //    }
 
 
-        #region 同步方法
+    //    #region 同步方法
 
-        public static Func<T> GetWapperFunc<T>(ApiHandlerWapperPlatform platform) where T : WxJsonResult
-        {
-            if (!Collection.ContainsKey(platform))
-            {
-                return null;//也可以抛出异常
-            }
+    //    public static Func<T> GetWapperFunc<T>(ApiHandlerWapperPlatform platform) where T : WxJsonResult
+    //    {
+    //        if (!Collection.ContainsKey(platform))
+    //        {
+    //            return null;//也可以抛出异常
+    //        }
 
-            var funWapper = Collection[platform];
-            return funWapper as Func<T>;
-        }
+    //        var funWapper = Collection[platform];
+    //        return funWapper as Func<T>;
+    //    }
 
-        /// <summary>
-        /// 提供给ApiHandlerWapper使用的全局统一的基础调用方法，兼容公众号、开放平台在不同情况下对接口的统一调用
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="funWapper"></param>
-        /// <returns></returns>
-        public static WxJsonResult RunWapper<T>(ApiHandlerWapperPlatform platform) where T : WxJsonResult
-        {
-            if (!Collection.ContainsKey(platform))
-            {
-                return null;//也可以抛出异常
-            }
+    //    /// <summary>
+    //    /// 提供给ApiHandlerWapper使用的全局统一的基础调用方法，兼容公众号、开放平台在不同情况下对接口的统一调用
+    //    /// </summary>
+    //    /// <typeparam name="T"></typeparam>
+    //    /// <param name="funWapper"></param>
+    //    /// <returns></returns>
+    //    public static WxJsonResult RunWapper<T>(ApiHandlerWapperPlatform platform) where T : WxJsonResult
+    //    {
+    //        if (!Collection.ContainsKey(platform))
+    //        {
+    //            return null;//也可以抛出异常
+    //        }
 
-            var funWapper = Collection[platform];
-            return funWapper();
-        }
+    //        var funWapper = Collection[platform];
+    //        return funWapper();
+    //    }
 
-        #endregion
+    //    #endregion
 
-        #region 异步方法
+    //    #region 异步方法
 
-        /// <summary>
-        /// 【异步方法】提供给ApiHandlerWapper使用的全局统一的基础调用方法，兼容公众号、开放平台在不同情况下对接口的统一调用
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="funWapper"></param>
-        /// <returns></returns>
-        public static async Task<T> RunWapperAsync<T>(Func<Task<T>> funWapper) where T : WxJsonResult
-        {
-            if (funWapper == null)
-            {
-                return null;
-            }
-            return await funWapper();
-        }
+    //    /// <summary>
+    //    /// 【异步方法】提供给ApiHandlerWapper使用的全局统一的基础调用方法，兼容公众号、开放平台在不同情况下对接口的统一调用
+    //    /// </summary>
+    //    /// <typeparam name="T"></typeparam>
+    //    /// <param name="funWapper"></param>
+    //    /// <returns></returns>
+    //    public static async Task<T> RunWapperAsync<T>(Func<Task<T>> funWapper) where T : WxJsonResult
+    //    {
+    //        if (funWapper == null)
+    //        {
+    //            return null;
+    //        }
+    //        return await funWapper();
+    //    }
 
-        #endregion
-    }
+    //    #endregion
+    //}
 }

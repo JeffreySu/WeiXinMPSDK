@@ -68,7 +68,11 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
 
             //ApiHandlerWapperFactory.ApiHandlerWapperFactoryCollection["s"] = ()=> new Senparc.Weixin.MP.AdvancedAPIs.User.UserInfoJson();
 
-            var platform = ApiHandlerWapperFactory.CurrentPlatform;//当前平台
+            //var platform = ApiHandlerWapperFactory.CurrentPlatform;//当前平台
+
+            /*
+             * 对于企业微信来说，AppId = key = CorpId+CorpSecret
+             */
 
             string appId = null;
             string accessToken = null;
@@ -168,7 +172,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
 
             //ApiHandlerWapperFactory.ApiHandlerWapperFactoryCollection["s"] = ()=> new Senparc.Weixin.MP.AdvancedAPIs.User.UserInfoJson();
 
-            var platform = ApiHandlerWapperFactory.CurrentPlatform;//当前平台
+            //var platform = ApiHandlerWapperFactory.CurrentPlatform;//当前平台
 
             string appId = null;
             string accessToken = null;

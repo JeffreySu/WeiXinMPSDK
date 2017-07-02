@@ -44,15 +44,17 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 获取企业号应用信息【QY移植修改】
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppKey">AccessToken或AppKey（推荐使用AppKey，需要先注册，可使用AccessTokenContainer.BuildingKey()方法生成）</param>
         /// <param name="agentId">企业应用的id，可在应用的设置页面查看</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static GetAppInfoResult GetAppInfo(string accessToken, int agentId, int timeOut = Config.TIME_OUT)
+        public static GetAppInfoResult GetAppInfo(string accessTokenOrAppKey, int agentId, int timeOut = Config.TIME_OUT)
         {
-            string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
-
-            return Get.GetJson<GetAppInfoResult>(url);
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
+                return Get.GetJson<GetAppInfoResult>(url);
+            }, accessTokenOrAppKey);
         }
 
         /// <summary>

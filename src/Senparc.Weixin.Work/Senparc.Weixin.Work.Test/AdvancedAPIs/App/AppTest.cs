@@ -54,15 +54,17 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
 
             SetAppPostData date = new SetAppPostData()
-                {
-                    agentid = "1",
-                    description = "test",
-                    isreportenter = 0,
-                    isreportuser = 0,
-                    logo_mediaid = "1muvdK7W8cjLfNqj0hWP89-CEhZNOVsktCE1JHSTSNpzTf7cGOXyDin_ozluwNZqi",
-                    name = "Test",
-                    redirect_domain = "www.weiweihi.com"
-                };
+            {
+                agentid = "100" + DateTime.Now.ToString("yyMMddHHMM"),
+                report_location_flag = "1",
+                logo_mediaid = "1muvdK7W8cjLfNqj0hWP89-CEhZNOVsktCE1JHSTSNpzTf7cGOXyDin_ozluwNZqi",
+                name = "单元测试添加" + DateTime.Now.ToString("yyMMddHHMM"),
+                description = "test",
+                redirect_domain="https://sdk.weixin.senparc.com",
+                //isreportenter = 0,
+                isreportuser = 1,
+                home_url = "weixin.senparc.com"
+            };
 
             var result = AppApi.SetApp(accessToken, date);
 

@@ -48,7 +48,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
                         }
             };
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
-            var result = MailListApi.CreateMember(accessToken, userId, "ceshi", new[] { 2 }, null, "18913536683", null, null, null, extattr);
+            var result = MailListApi.CreateMember(accessToken, userId, $"单元测试生成-{DateTime.Now.ToString("yyMMdd-HH:mm")}", "13900000000", "english name", new[] { 2 }, null, "1", null, null, null, extattr: extattr);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }
@@ -57,7 +57,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         public void UpdateMemberTest(string userId)
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
-            var result = MailListApi.UpdateMember(accessToken, userId, null, new[] { 2 }, null, "18913536683", email: "xxx@qq.com");
+            var result = MailListApi.UpdateMember(accessToken, userId,null,null,"new english name", new[] { 2 }, null, "1", email: "xxx@qq.com");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }
@@ -121,7 +121,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         {
             string userId = "33";
 
-            
+
             //var userIds = new string[] { "ceshi1", "ceshi2" };
             // BatchDeleteMemberTest(userIds);
 

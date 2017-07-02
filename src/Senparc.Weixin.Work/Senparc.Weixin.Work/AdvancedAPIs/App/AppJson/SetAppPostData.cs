@@ -6,6 +6,7 @@
     
     
     创建标识：Senparc - 20150316
+
 ----------------------------------------------------------------*/
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.App
@@ -51,6 +52,6 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.App
         /// <summary>
         /// 应用主页url。url必须以http或者https开头。
         /// </summary>
-        public string MyProperty { get; set; }
+        public string home_url { get; set; }
     }
 }

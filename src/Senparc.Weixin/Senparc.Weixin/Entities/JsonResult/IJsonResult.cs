@@ -18,6 +18,23 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 #endregion Apache License Version 2.0
 
+
+/*----------------------------------------------------------------
+    Copyright (C) 2017 Senparc
+
+    文件名：IJsonResult.cs
+    文件功能描述：所有JSON返回结果基类
+
+
+    创建标识：Senparc - 20150211
+
+    修改标识：Senparc - 20170702
+    修改描述：v4.13.0
+              1、将 IWxJsonResult 定义移入到 WxResult.cs 文件
+              2、添加 ErrorCodeValue 只读属性
+
+----------------------------------------------------------------*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,17 +52,12 @@ namespace Senparc.Weixin.Entities
         /// 返回结果信息
         /// </summary>
         string errmsg { get; set; }
+
+        /// <summary>
+        /// errcode的
+        /// </summary>
+        int ErrorCodeValue { get; }
         object P2PData { get; set; }
     }
 
-    /// <summary>
-    /// 包含 errorcode 的 Json 返回结果接口
-    /// </summary>
-    public interface IWxJsonResult : IJsonResult
-    {
-        /// <summary>
-        /// 返回结果代码
-        /// </summary>
-        ReturnCode errcode { get; set; }
-    }
 }

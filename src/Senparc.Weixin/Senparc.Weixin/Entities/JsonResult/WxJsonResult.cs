@@ -22,7 +22,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     Copyright (C) 2017 Senparc
 
     文件名：WxJsonResult.cs
-    文件功能描述：JSON返回结果基类（用于菜单接口等）
+    文件功能描述：同于公众号的JSON返回结果基类（用于菜单接口等）
 
 
     创建标识：Senparc - 20150211
@@ -39,12 +39,28 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20161108
     修改描述：重写ToString()方法，快捷输出结果
 
+    修改标识：Senparc - 20170702
+    修改描述：将 IWxJsonResult 定义从 IJsonResult.cs 文件移入
+
+    修改标识：Senparc - 20170702
+    修改描述：v4.13.0 添加 ErrorCodeValue 属性
 ----------------------------------------------------------------*/
 
 using System;
 
 namespace Senparc.Weixin.Entities
 {
+    /// <summary>
+    /// 包含 errorcode 的 Json 返回结果接口
+    /// </summary>
+    public interface IWxJsonResult : IJsonResult
+    {
+        /// <summary>
+        /// 返回结果代码
+        /// </summary>
+        ReturnCode errcode { get; set; }
+    }
+
     /// <summary>
     /// 公众号 JSON 返回结果（用于菜单接口等）
     /// </summary>
@@ -59,6 +75,11 @@ namespace Senparc.Weixin.Entities
 
         public ReturnCode errcode { get; set; }
         public string errmsg { get; set; }
+
+        /// <summary>
+        /// 返回消息代码数字（同errcode枚举值）
+        /// </summary>
+        public int ErrorCodeValue { get { return (int)errcode; } }
         /// <summary>
         /// 为P2P返回结果做准备
         /// </summary>

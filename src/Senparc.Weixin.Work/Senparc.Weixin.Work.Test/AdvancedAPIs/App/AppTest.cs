@@ -21,6 +21,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.Work.AdvancedAPIs;
@@ -49,7 +50,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
 
                 Assert.IsNotNull(result.agentid);
                 Assert.AreEqual(result.agentid, "2");
-                Console.WriteLine(result.agentid);
+                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
             }
 
             {
@@ -59,7 +60,56 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
 
                 Assert.IsNotNull(result.agentid);
                 Assert.AreEqual(result.agentid, "2");
-                Console.WriteLine(result.agentid);
+                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
+            }
+        }
+
+        [TestMethod]
+        public void GetAppInfoAsyncTest()
+        {
+            var finishedCount = 0;
+
+            {
+                Task.Factory.StartNew(async () =>
+                {
+                    //使用AppKey测试
+                    //常规AccessToken测试
+                    var appKey = AccessTokenContainer.BuildingKey(_corpId, base._corpSecret);
+                    var result = await AppApi.GetAppInfoAsync(appKey, 2);
+
+                    Assert.IsNotNull(result.agentid);
+                    Assert.AreEqual(result.agentid, "2");
+
+                    Console.WriteLine("1.Ticket:"+DateTime.Now.Ticks);
+                    Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
+                    finishedCount++;
+                });
+
+                while (finishedCount < 1)
+                {
+
+                }
+            }
+
+            {
+                Task.Factory.StartNew(async () =>
+                {
+                    //常规AccessToken测试
+                    var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
+                    var result = await AppApi.GetAppInfoAsync(accessToken, 2);
+
+                    Assert.IsNotNull(result.agentid);
+                    Assert.AreEqual(result.agentid, "2");
+
+                    Console.WriteLine("2.Ticket:" + DateTime.Now.Ticks);
+                    Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
+                    finishedCount++;
+                });
+
+                while (finishedCount < 2)
+                {
+
+                }
             }
         }
 

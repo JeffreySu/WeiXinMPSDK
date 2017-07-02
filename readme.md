@@ -235,4 +235,312 @@ public ActionResult Get(PostModel postModel, string echostr)
     }
 }
 ```
-上述方法中的PostModel是一个包括了了Signature、Timestamp、Nonce（由微信服务器通过请求时的Url参数传入），以及AppId、Token、EncodingAESKey等一系列内部敏感的信息（需要自行传入）的实体类，同时也会在后面用
+上述方法中的PostModel是一个包括了了Signature、Timestamp、Nonce（由微信服务器通过请求时的Url参数传入），以及AppId、Token、EncodingAESKey等一系列内部敏感的信息（需要自行传入）的实体类，同时也会在后面用到。
+
+
+下面这个Action（Post）用于接收来自微信服务器的Post请求（通常由用户发起），这里的if必不可少，之前的Get只提供微信后台保存Url时的验证，每次Post必须重新验证，否则很容易伪造请求。
+```C#
+/// <summary>
+/// 用户发送消息后，微信平台自动Post一个请求到这里，并等待响应XML
+/// </summary>
+[HttpPost]
+[ActionName("Index")]
+public ActionResult Post(PostModel postModel)
+{
+    if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
+    {
+        return Content("参数错误！");
+    }
+    ...
+}
+```
+### 如何处理微信公众账号请求？
+
+Senparc.Weixin.MP提供了2中处理请求的方式，[传统方法](https://github.com/JeffreySu/WeiXinMPSDK/wiki/处理微信信息的常规方法)及使用[MessageHandler](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8MessageHandler%E7%AE%80%E5%8C%96%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)处理方法（推荐）。上面两个方法在wiki中已经有比较详细的说明，这里简单举例MessageHandler的处理方法。
+
+MessageHandler的处理流程非常简单：
+``` C#
+[HttpPost]
+[ActionName("Index")]
+public ActionResult Post(PostModel postModel)
+{
+    if (!CheckSignature.Check(postModel.Signature, postModel.Timestamp, postModel.Nonce, Token))
+    {
+        return Content("参数错误！");
+    }
+
+    postModel.Token = Token;
+    postModel.EncodingAESKey = EncodingAESKey;//根据自己后台的设置保持一致
+    postModel.AppId = AppId;//根据自己后台的设置保持一致
+
+    var messageHandler = new CustomMessageHandler(Request.InputStream, postModel);//接收消息（第一步）
+
+    messageHandler.Execute();//执行微信处理过程（第二步）
+
+    return new FixWeixinBugWeixinResult(messageHandler);//返回（第三步）
+}
+```
+整个消息除了postModel的赋值以外，接收（第一步）、处理（第二步）、返回（第三步）分别只需要一行代码。
+
+上述代码中的CustomMessageHandler是一个自定义的类，继承自Senparc.Weixin.MP.MessageHandler.cs。MessageHandler是一个抽象类，包含了执行各种不同请求类型的抽象方法（如文字，语音，位置、图片等等），我们只需要在自己创建的CustomMessageHandler中逐个实现这些方法就可以了。刚建好的CustomMessageHandler.cs如下：
+
+```C#
+using System;
+using System.IO;
+using Senparc.Weixin.MP.MessageHandlers;
+using Senparc.Weixin.MP.Entities;
+
+namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
+{
+    public class CustomMessageHandler : MessageHandler<MessageContext>
+    {
+        public public CustomMessageHandler(Stream inputStream, PostModel postModel, int maxRecordCount = 0)
+            : base(inputStream, postModel, maxRecordCount)
+        {
+
+        }
+
+        public override IResponseMessageBase DefaultResponseMessage(IRequestMessageBase requestMessage)
+        {
+            //ResponseMessageText也可以是News等其他类型
+            var responseMessage = CreateResponseMessage<ResponseMessageText>();
+            responseMessage.Content = "这条消息来自DefaultResponseMessage。";
+            return responseMessage;
+        }
+
+        public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+        {
+            //...
+        }
+
+        public override IResponseMessageBase OnVoiceRequest(RequestMessageVoice requestMessage)
+        {
+            //...
+        }
+
+        //更多没有重写的OnXX方法，将默认返回DefaultResponseMessage中的结果。
+        ....
+    }
+}
+```
+
+其中OnTextRequest、OnVoiceRequest等分别对应了接收文字、语音等不同的请求类型。
+
+比如我们需要对文字类型请求做出回应，只需要完善OnTextRequest方法：
+```C#
+      public override IResponseMessageBase OnTextRequest(RequestMessageText requestMessage)
+      {
+          //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
+          var responseMessage = CreateResponseMessage<ResponseMessageText>();
+          responseMessage.Content =
+              string.Format(
+                  "您刚才发送了文字信息：{0}",
+                  requestMessage.Content);
+          return responseMessage;
+      }
+```
+这样CustomMessageHandler在执行messageHandler.Execute()的时候，如果发现请求信息的类型是文本，会自动调用以上代码，并返回代码中的responseMessage作为返回信息。responseMessage可以是IResponseMessageBase接口下的任何类型（包括文字、新闻、多媒体等格式）。
+
+从v0.4.0开始，MessageHandler增加了对用户会话上下文的支持，用于解决服务器上无法使用Session管理用户会话的缺陷。详见：[用户上下文WeixinContext和MessageContext](https://github.com/JeffreySu/WeiXinMPSDK/wiki/%E7%94%A8%E6%88%B7%E4%B8%8A%E4%B8%8B%E6%96%87WeixinContext%E5%92%8CMessageContext)
+
+
+使用Nuget安装到项目中
+--------------
+### 如何处理微信公众号请求？
+
+* Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.MP
+
+* 命令：
+```
+PM> Install-Package Senparc.Weixin.MP
+```
+
+
+### 如何处理微信小程序请求？
+
+Senparc.Weixin.WxOpen对微信小程序的消息、API进行了封装，保持了公众号处理请求一致的开发过程。
+
+* Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.WxOpen
+
+* 命令：
+```
+PM> Install-Package Senparc.Weixin.WxOpen
+```
+
+### 如何增强 ASP.NET MVC 项目的功能？
+
+Senparc.Weixin.MP.MVC 针对 ASP.NET MVC 项目做了更多的优化，包括便捷的浏览器环境判断、官方 bug 修复等。
+* Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.MP.MVC
+
+* 命令：
+```
+PM> Install-Package Senparc.Weixin.MP.MVC
+```
+
+### 如何处理微信企业号请求？
+
+Senparc.Weixin.QY.dll对`企业号`相关功能进行了封装，操作过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致。
+
+* Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.QY
+
+* 命令：
+```
+PM> Install-Package Senparc.Weixin.QY
+```
+
+### 如何处理企业微信请求？
+
+Senparc.Weixin.Work.dll对`企业微信`相关功能进行了封装，操作过程和微信公众账号SDK（Senparc.Weixin.MP）以及企业号库（Senparc.Weixin.QY）保持了一致。
+
+* Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.Work
+
+* 命令：
+```
+PM> Install-Package Senparc.Weixin.Work
+```
+
+
+### 如何处理微信开放平台请求？
+
+Senparc.Weixin.Open.dll对目前所有的开放平台API进行了封装，消息处理过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致，其他一些特殊的消息流程请先阅读官方的文档，然后对照Senparc.Weixin.MP.Sample中有关Open的Demo进行开发。
+
+* Nuget 地址为https://www.nuget.org/packages/Senparc.Weixin.Open
+
+* 命令：
+```
+PM> Install-Package Senparc.Weixin.Open
+```
+
+
+### 如何使用分布式缓存？
+
+Senparc.Weixin SDK 提供了完善的缓存策略接口，默认使用本机缓存实现，同时也提供了 Redis 和 Memcached 两个扩展方案，您也可以根据相同的规则添加自己的缓存策略。
+
+* Redis 缓存扩展包 Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.Cache.Redis
+* 命令：
+```
+PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Redis
+```
+
+* Memcached 缓存扩展包 Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.Cache.Memcached
+* 命令：
+```
+PM> Install-Package Senparc.Weixin.Senparc.Weixin.Cache.Memcached
+```
+
+
+如何开发小程序
+--------------
+小程序的后端架构和公众号保持了高度一致，
+只需要使用Nuget安装[Senparc.Weixin.WxOpen](https://www.nuget.org/packages/Senparc.Weixin.WxOpen)库即可开始使用小程序。
+Senparc.Weixin.WxOpen目前包含了所有小程序需要用到的消息处理、AccessToken管理、模板消息、二维码生成等全套功能。
+
+
+已实现功能
+-------------
+* 微信公众号
+>   - [x] 接收/发送消息（事件）
+>   - [x] 自定义菜单 & 个性化菜单
+>   - [x] 消息管理
+>   - [x] OAuth授权
+>   - [x] JSSDK
+>   - [x] 微信支付
+>   - [x] 用户管理
+>   - [x] 素材管理
+>   - [x] 账号管理
+>       - [x] 带参数二维码
+>       - [X] 长链接转短链接接口
+>       - [ ] 微信认证事件推送
+>   - [x] 数据统计
+>   - [x] 微信小店
+>   - [x] 微信卡券
+>       - [x] 卡券事件推送
+>           - [ ] 买单事件推送
+>           - [ ] 会员卡内容更新事件推送
+>           - [ ] 库存报警事件推送
+>           - [ ] 券点流水详情事件推送
+>   - [x] 微信门店
+>   - [x] 微信智能
+>   - [x] 微信设备功能
+>   - [x] 多客服功能
+>   - [x] 微信摇一摇周边
+>   - [x] 微信连WI-FI（未完整）
+>   - [x] 微信扫一扫（商家）
+>       - [ ] 扫一扫事件推送
+>           - [ ] 打开商品主页事件推送
+>           - [ ] 关注公众号事件推送
+>           - [ ] 进入公众号事件推送
+>           - [ ] 地理位置信息异步推送
+>           - [ ] 商品审核结果推送
+
+* 微信开放平台
+>   - [x] 网站应用
+>   - [x] 公众号第三方平台
+
+
+* 微信企业号
+>	- [x] 管理通讯录
+>	- [x] 管理素材文件
+>	- [x] 管理企业号应用
+>	- [x] 接收消息与事件
+>	- [x] 发送消息
+>	- [x] 自定义菜单
+>	- [x] 身份验证接口
+>	- [x] JSSDK
+>	- [x] 第三方应用授权
+>	    - [x] 第三方回调协议
+>	        - [ ] 授权成功推送auth_code事件
+>	        - [ ] 通讯录变更通知
+> 	- [x] 企业号授权登陆
+>	- [x] 企业号微信支付
+>	- [x] 企业回话服务
+>	    - [ ] 企业会话回调
+>	- [x] 企业摇一摇周边
+>	- [ ] 企业卡券服务
+>	    - [ ] 卡券事件推送
+>	- [x] 企业客服服务
+>	    - [ ] 客服回复消息回调
+	    
+
+
+* 缓存策略
+>   - [x] 策略扩展接口
+>   - [x] 本地缓存
+>   - [x] Redis 扩展包
+>   - [x] Memcached 扩展包
+
+ 欢迎开发者对未完成或需要补充的模块进行 Pull Request！
+
+捐助
+--------------
+如果这个项目对您有用，我们欢迎各方任何形式的捐助，也包括参与到项目代码更新或意见反馈中来。谢谢！
+
+资金捐助：
+
+[![donate](http://sdk.weixin.senparc.com/Images/T1nAXdXb0jXXXXXXXX_s.png)](http://sdk.weixin.senparc.com#donate)
+
+
+图书众筹
+--------------
+扫描下方二维码参与《微信公众平台快速开发》图书众筹
+
+[![CrowdFunding](http://sdk.weixin.senparc.com/images/crowdfunding-qrcode.png)](http://www.weiweihi.com:8080/CrowdFunding/Home)  
+
+License
+--------------
+Apache License Version 2.0
+
+```
+Copyright 2017 Jeffrey Su & Suzhou Senparc Network Technology Co.,Ltd.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file 
+except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the 
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
+either express or implied. See the License for the specific language governing permissions 
+and limitations under the License.
+```
+Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md

@@ -41,11 +41,26 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
         [TestMethod]
         public void GetAppInfoTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
-            var result = AppApi.GetAppInfo(accessToken, 2);
+            {
+                //使用AppKey测试
+                //常规AccessToken测试
+                var appKey = AccessTokenContainer.BuildingKey(_corpId, base._corpSecret);
+                var result = AppApi.GetAppInfo(appKey, 2);
 
-            Assert.IsNotNull(result.agentid);
-            Assert.AreEqual(result.agentid, "2");
+                Assert.IsNotNull(result.agentid);
+                Assert.AreEqual(result.agentid, "2");
+                Console.WriteLine(result.agentid);
+            }
+
+            {
+                //常规AccessToken测试
+                var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
+                var result = AppApi.GetAppInfo(accessToken, 2);
+
+                Assert.IsNotNull(result.agentid);
+                Assert.AreEqual(result.agentid, "2");
+                Console.WriteLine(result.agentid);
+            }
         }
 
         [TestMethod]
@@ -60,7 +75,7 @@ namespace Senparc.Weixin.Work.Test.AdvancedAPIs
                 logo_mediaid = "1muvdK7W8cjLfNqj0hWP89-CEhZNOVsktCE1JHSTSNpzTf7cGOXyDin_ozluwNZqi",
                 name = "单元测试添加" + DateTime.Now.ToString("yyMMddHHMM"),
                 description = "test",
-                redirect_domain="https://sdk.weixin.senparc.com",
+                redirect_domain = "https://sdk.weixin.senparc.com",
                 //isreportenter = 0,
                 isreportuser = 1,
                 home_url = "weixin.senparc.com"

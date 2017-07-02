@@ -45,9 +45,9 @@ namespace Senparc.Weixin.Work.Test.CommonApis
             {
                 if (_appConfig == null)
                 {
-                    if (File.Exists("../../test.config"))
+                    if (File.Exists("../../Config/test.config"))
                     {
-                        var doc = XDocument.Load("../../test.config");
+                        var doc = XDocument.Load("../../Config/test.config");
                         _appConfig = new
                         {
                             CorpId = doc.Root.Element("CorpId").Value,

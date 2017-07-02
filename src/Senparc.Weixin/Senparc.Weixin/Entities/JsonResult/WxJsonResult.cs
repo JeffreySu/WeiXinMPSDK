@@ -43,7 +43,7 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：将 IWxJsonResult 定义从 IJsonResult.cs 文件移入
 
     修改标识：Senparc - 20170702
-    修改描述：v4.13.0 添加 ErrorCodeValue 属性
+    修改描述：v4.13.0 添加 ErrorCodeValue 属性。使用 BaseJsonResult 基类。
 ----------------------------------------------------------------*/
 
 using System;
@@ -65,7 +65,7 @@ namespace Senparc.Weixin.Entities
     /// 公众号 JSON 返回结果（用于菜单接口等）
     /// </summary>
     [Serializable]
-    public class WxJsonResult : IWxJsonResult
+    public class WxJsonResult : BaseJsonResult
     {
         //会造成循环引用
         //public WxJsonResult BaseResult
@@ -74,16 +74,12 @@ namespace Senparc.Weixin.Entities
         //}
 
         public ReturnCode errcode { get; set; }
-        public string errmsg { get; set; }
 
         /// <summary>
         /// 返回消息代码数字（同errcode枚举值）
         /// </summary>
-        public int ErrorCodeValue { get { return (int)errcode; } }
-        /// <summary>
-        /// 为P2P返回结果做准备
-        /// </summary>
-        public virtual object P2PData { get; set; }
+        public override int ErrorCodeValue { get { return (int)errcode; } }
+
 
         public override string ToString()
         {

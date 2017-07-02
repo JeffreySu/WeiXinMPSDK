@@ -117,7 +117,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
         //    get { return AppConfig.WxOpenSecret; }
         //}
 
-        protected readonly bool _userRedis = true;//是否使用Reids
+        protected readonly bool _useRedis = true;//是否使用Reids
 
         /* 由于获取accessToken有次数限制，为了节约请求，
         * 可以到 http://sdk.weixin.senparc.com/Menu 获取Token之后填入下方，
@@ -171,7 +171,7 @@ namespace Senparc.Weixin.MP.Test.CommonAPIs
 
         public CommonApiTest()
         {
-            if (_userRedis)
+            if (_useRedis)
             {
                 var redisConfiguration = "localhost:6379";
                 RedisManager.ConfigurationOption = redisConfiguration;

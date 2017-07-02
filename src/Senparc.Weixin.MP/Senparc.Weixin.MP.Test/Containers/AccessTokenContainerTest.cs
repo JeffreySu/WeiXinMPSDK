@@ -29,6 +29,7 @@ using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Test.CommonAPIs;
+using Senparc.WeixinTests;
 
 namespace Senparc.Weixin.MP.Test.Containers.Tests
 {
@@ -39,70 +40,69 @@ namespace Senparc.Weixin.MP.Test.Containers.Tests
         [TestMethod]
         public void ContainerTest()
         {
-            //CacheStrategyFactory.RegisterObjectCacheStrategy(() => LocalObjectCacheStrategy.Instance);//Local
-
-            Console.WriteLine("当前缓存："+ CacheStrategyFactory.GetObjectCacheStrategyInstance().GetType());
-
-            //获取Token完整结果（包括当前过期秒数）
-            DateTime dt1 = DateTime.Now;
-            var tokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId);
-            DateTime dt2 = DateTime.Now;
-
-            Assert.IsNotNull(tokenResult);
-            Console.WriteLine(tokenResult.access_token);
-            Console.WriteLine("耗时：{0}毫秒", (dt2 - dt1).TotalMilliseconds);
-
-            if (base._userRedis)
+            MutipleCacheTestWapper.RunMutipleCache(() =>
             {
-                Thread.Sleep(2500);//等待缓存更新
-            }
+                //获取Token完整结果（包括当前过期秒数）
+                DateTime dt1 = DateTime.Now;
+                var tokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId);
+                DateTime dt2 = DateTime.Now;
 
-            //只获取Token字符串
-            dt1 = DateTime.Now;
-            var token = AccessTokenContainer.GetAccessToken(base._appId);
-            dt2 = DateTime.Now;
-            Assert.AreEqual(tokenResult.access_token, token);
-            Console.WriteLine(tokenResult.access_token);
-            Console.WriteLine("耗时：{0}毫秒", (dt2 - dt1).TotalMilliseconds);
-
-            //getNewToken
-            {
-                dt1 = DateTime.Now;
-                token = AccessTokenContainer.TryGetAccessToken(base._appId, base._appSecret, false);
-                dt2 = DateTime.Now;
-                Assert.AreEqual(tokenResult.access_token, token);
-                Console.WriteLine(tokenResult.access_token);
-
-                Console.WriteLine("强制重新获取AccessToken");
-                dt1 = DateTime.Now;
-                token = AccessTokenContainer.TryGetAccessToken(base._appId, base._appSecret, true);
-                dt2 = DateTime.Now;
-                Assert.AreNotEqual(tokenResult.access_token, token);//如果微信服务器缓存，此处会相同
+                Assert.IsNotNull(tokenResult);
                 Console.WriteLine(tokenResult.access_token);
                 Console.WriteLine("耗时：{0}毫秒", (dt2 - dt1).TotalMilliseconds);
-            }
 
-            {
-                tokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId);
-                if (base._userRedis)
+                if (base._useRedis)
                 {
                     Thread.Sleep(2500);//等待缓存更新
                 }
-                Console.WriteLine("HashCode：{0}", tokenResult.GetHashCode());
+
+                //只获取Token字符串
                 dt1 = DateTime.Now;
-                var allItems = AccessTokenContainer.GetAllItems();
+                var token = AccessTokenContainer.GetAccessToken(base._appId);
                 dt2 = DateTime.Now;
-                Assert.IsTrue(allItems.Count > 0);
-
-                //序列化
-                var d1 = StackExchangeRedisExtensions.Serialize(tokenResult);
-                var d2 = StackExchangeRedisExtensions.Serialize(allItems[0].AccessTokenResult);
-
-                Assert.AreEqual(String.Concat(d1), String.Concat(d2));//证明缓存成功
-                Console.WriteLine("All Items:{0}", allItems.Count);
-                Console.WriteLine("HashCode：{0}", allItems[0].AccessTokenResult.GetHashCode());
+                Assert.AreEqual(tokenResult.access_token, token);
+                Console.WriteLine(tokenResult.access_token);
                 Console.WriteLine("耗时：{0}毫秒", (dt2 - dt1).TotalMilliseconds);
-            }
+
+                //getNewToken
+                {
+                    dt1 = DateTime.Now;
+                    token = AccessTokenContainer.TryGetAccessToken(base._appId, base._appSecret, false);
+                    dt2 = DateTime.Now;
+                    Assert.AreEqual(tokenResult.access_token, token);
+                    Console.WriteLine(tokenResult.access_token);
+
+                    Console.WriteLine("强制重新获取AccessToken");
+                    dt1 = DateTime.Now;
+                    token = AccessTokenContainer.TryGetAccessToken(base._appId, base._appSecret, true);
+                    dt2 = DateTime.Now;
+                    Assert.AreNotEqual(tokenResult.access_token, token);//如果微信服务器缓存，此处会相同
+                    Console.WriteLine(tokenResult.access_token);
+                    Console.WriteLine("耗时：{0}毫秒", (dt2 - dt1).TotalMilliseconds);
+                }
+
+                {
+                    tokenResult = AccessTokenContainer.GetAccessTokenResult(base._appId);
+                    if (base._useRedis)
+                    {
+                        Thread.Sleep(2500);//等待缓存更新
+                    }
+                    Console.WriteLine("HashCode：{0}", tokenResult.GetHashCode());
+                    dt1 = DateTime.Now;
+                    var allItems = AccessTokenContainer.GetAllItems();
+                    dt2 = DateTime.Now;
+                    Assert.IsTrue(allItems.Count > 0);
+
+                    //序列化
+                    var d1 = StackExchangeRedisExtensions.Serialize(tokenResult);
+                    var d2 = StackExchangeRedisExtensions.Serialize(allItems[0].AccessTokenResult);
+
+                    Assert.AreEqual(String.Concat(d1), String.Concat(d2));//证明缓存成功
+                    Console.WriteLine("All Items:{0}", allItems.Count);
+                    Console.WriteLine("HashCode：{0}", allItems[0].AccessTokenResult.GetHashCode());
+                    Console.WriteLine("耗时：{0}毫秒", (dt2 - dt1).TotalMilliseconds);
+                }
+            }, CacheType.Local, CacheType.Redis);
         }
 
         [TestMethod]

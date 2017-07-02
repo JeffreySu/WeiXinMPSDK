@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Senparc.Weixin;
 using Senparc.Weixin.Cache;
-using Senparc.Weixin.Cache.Memcached;
-using Senparc.Weixin.Cache.Redis;
 
-namespace Senparc.WeixinTests
+namespace Senparc.Weixin.Helpers.Test
 {
-    public class MutipleCacheTestWapper
+    /// <summary>
+    /// 多种缓存测试帮助类
+    /// </summary>
+    public class MutipleCacheTestHelper
     {
         /// <summary>
         /// 测试多种缓存

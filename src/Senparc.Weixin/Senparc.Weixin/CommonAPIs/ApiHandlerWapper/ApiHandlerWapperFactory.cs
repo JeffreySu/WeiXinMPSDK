@@ -116,7 +116,7 @@ namespace Senparc.Weixin.CommonAPIs
         /// <typeparam name="T"></typeparam>
         /// <param name="funWapper"></param>
         /// <returns></returns>
-        public static T RunWapper<T>(ApiHandlerWapperPlatform platform) where T : WxJsonResult
+        public static WxJsonResult RunWapper<T>(ApiHandlerWapperPlatform platform) where T : WxJsonResult
         {
             if (!Collection.ContainsKey(platform))
             {

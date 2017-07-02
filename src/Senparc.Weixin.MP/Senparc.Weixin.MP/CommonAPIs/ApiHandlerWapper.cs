@@ -74,8 +74,6 @@ namespace Senparc.Weixin.MP
 
             var platform = ApiHandlerWapperFactory.CurrentPlatform;//当前平台
 
-
-
             string appId = null;
             string accessToken = null;
 
@@ -190,10 +188,7 @@ namespace Senparc.Weixin.MP
         /// <returns></returns>
         public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : WxJsonResult
         {
-
-
-
-            return await ApiHandlerWapperBase.RunApiAsync(async () =>
+            return await ApiHandlerWapperFactory.RunWapperAsync(async () =>
             {
                 string appId = null;
                 string accessToken = null;

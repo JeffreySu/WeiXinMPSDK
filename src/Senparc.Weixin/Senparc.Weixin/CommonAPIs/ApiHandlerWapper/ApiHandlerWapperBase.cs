@@ -70,6 +70,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
 
             var platform = ApiHandlerWapperFactory.CurrentPlatform;//当前平台
 
+c
             string appId = null;
             string accessToken = null;
 

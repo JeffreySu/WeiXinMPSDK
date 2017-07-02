@@ -47,7 +47,12 @@ namespace Senparc.Weixin.Utilities.WeixinUtility
         /// <returns></returns>
         public static bool IsAppId(string accessTokenOrAppId)
         {
-            return accessTokenOrAppId != null && accessTokenOrAppId.Length <= 18/*wxc3c90837b0e76080*/;
+            /* 
+             * 公众号AccessToken，如：ga0wJ5ZmdB1Ef1gMMxmps6Uz1a9TXoutQtRqgYTbIqHfTm4Ssfoj0DjMLp1_KkG7FkaqS7m7f9rrYbqBQMBizRBQjHFG5ZIov8Wb0FBnHDq5fGpCu0S2H2j2aM8c6KDqGGEiAIAJJH
+             * 企业号CorpId(wx7618c0a5d9358622) + Secret=Key,如：wx7618c0a5d9358622044ZI5s6-QB0UiOscm4md410pZ460pQUmxO9hRRMd09kRaJ1iSqhPfmg3-aBFF7q
+             */
+            return accessTokenOrAppId != null && accessTokenOrAppId.Length <= 100/*wxc3c90837b0e76080*/
+            ;
         }
 
         /// <summary>

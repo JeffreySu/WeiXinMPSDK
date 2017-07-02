@@ -39,7 +39,7 @@ namespace Senparc.Weixin.Cache.Redis.Tests
     [TestClass]
     public class RedisContainerCacheStrategyTest
     {
-        private RedisContainerCacheStrategy cache;
+        private IContainerCacheStrategy cache;
         public RedisContainerCacheStrategyTest()
         {
             cache = RedisContainerCacheStrategy.Instance;
@@ -61,9 +61,12 @@ namespace Senparc.Weixin.Cache.Redis.Tests
         [TestMethod]
         public void InsertToCacheTest()
         {
+            //调整测试的缓存策略
+            cache = LocalContainerCacheStrategy.Instance;
+
             var key = Guid.NewGuid().ToString();
             var count = cache.GetCount();
-            Console.WriteLine("count:"+ count);
+            Console.WriteLine("count:" + count);
 
             cache.InsertToCache(key, new TestContainerBag1()
             {
@@ -80,8 +83,18 @@ namespace Senparc.Weixin.Cache.Redis.Tests
 
             var count2 = cache.GetCount();
             Console.WriteLine("count2:" + count2);
-            //Assert.AreEqual(count + 1, count2);
-            Assert.AreEqual(count, count2);//目前Redis缓存使用HashSet，反复测试不会发生变化
+
+
+            if (cache is RedisObjectCacheStrategy)
+            {
+                Console.WriteLine("Redis Cache");
+                Assert.AreEqual(count, count2);//（待确定）目前Redis缓存使用HashSet，反复测试不会发生变化
+            }
+            else
+            {
+                Console.WriteLine(cache.GetType() + " Cache");
+                Assert.AreEqual(count + 1, count2);
+            }
 
             var storedItem = cache.Get(key);
             Assert.IsNotNull(storedItem);

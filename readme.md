@@ -1,3 +1,5 @@
+> 当前分支为《微信开发深度解析：公众号、小程序高效开发秘籍》出版时的最新代码。
+
 Senparc.Weixin —— 微信 .NET SDK [![Build Status](https://travis-ci.org/JeffreySu/WeiXinMPSDK.svg?branch=master)](https://travis-ci.org/JeffreySu/WeiXinMPSDK)
 =================
 

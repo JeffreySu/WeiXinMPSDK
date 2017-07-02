@@ -15,7 +15,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，可以使用微信扫描下方二维码查看最新进展：<br>
 
 > [![CrowdFunding](http://sdk.weixin.senparc.com/images/crowdfunding-qrcode.png)](https://www.weiweihi.com:8080/CrowdFunding/Home)  
-> <img src="http://sdk.weixin.senparc.com/images/book-cover-front-small-3d.png" width="300" /> <br >
+> <img src="http://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="300" /> <br >
 > 图书出版时的代码版本快照见分支 [BookVersion1](https://github.com/JeffreySu/WeiXinMPSDK/tree/BookVersion1)。
 
 目录

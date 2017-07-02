@@ -27,10 +27,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Redis;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.QY.Containers;
+using Senparc.Weixin.Work.CommonAPIs;
+using Senparc.Weixin.Work.Containers;
 
-namespace Senparc.Weixin.QY.Test.CommonApis
+namespace Senparc.Weixin.Work.Test.CommonApis
 {
     /// <summary>
     /// CommonApiTest 的摘要说明
@@ -113,7 +113,7 @@ namespace Senparc.Weixin.QY.Test.CommonApis
             catch (ErrorJsonResultException ex)
             {
                 //实际返回的信息（错误信息）
-                Assert.AreEqual(ex.JsonResult.errcode, ReturnCode_QY.不合法的corpid);
+                Assert.AreEqual(ex.JsonResult.errcode, ReturnCode_Work.不合法的corpid);
             }
         }
 
@@ -124,7 +124,7 @@ namespace Senparc.Weixin.QY.Test.CommonApis
 
             var result = CommonApi.GetCallBackIp(accessToken);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }
     }
 }

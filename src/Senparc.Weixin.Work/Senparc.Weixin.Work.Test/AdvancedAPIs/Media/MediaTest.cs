@@ -24,13 +24,13 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.QY.AdvancedAPIs;
-using Senparc.Weixin.QY.AdvancedAPIs.Media;
-using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.QY.Containers;
-using Senparc.Weixin.QY.Test.CommonApis;
+using Senparc.Weixin.Work.AdvancedAPIs;
+using Senparc.Weixin.Work.AdvancedAPIs.Media;
+using Senparc.Weixin.Work.CommonAPIs;
+using Senparc.Weixin.Work.Containers;
+using Senparc.Weixin.Work.Test.CommonApis;
 
-namespace Senparc.Weixin.QY.Test.AdvancedAPIs
+namespace Senparc.Weixin.Work.Test.AdvancedAPIs
 {
     /// <summary>
     /// CommonApiTest 的摘要说明
@@ -45,7 +45,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MediaApi.Upload(accessToken, UploadMediaFileType.video, _media);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }
 
         [TestMethod]
@@ -55,7 +55,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MediaApi.Upload(accessToken, UploadMediaFileType.image, _media);
             Assert.IsNotNull(result);
-            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
             return result.media_id;
         }
 
@@ -93,7 +93,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         {
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
             var result = MediaApi.BatchGetMaterial(accessToken, UploadMediaFileType.image, 0, 0, 50);
-            Assert.IsTrue(result.errcode == ReturnCode_QY.请求成功);
+            Assert.IsTrue(result.errcode == ReturnCode_Work.请求成功);
         }
     }
 }

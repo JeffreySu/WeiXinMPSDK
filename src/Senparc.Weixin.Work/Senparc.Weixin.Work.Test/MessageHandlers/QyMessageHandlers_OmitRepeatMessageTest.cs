@@ -26,12 +26,12 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Context;
-using Senparc.Weixin.QY.Entities;
-using Senparc.Weixin.QY.MessageHandlers;
+using Senparc.Weixin.Work.Entities;
+using Senparc.Weixin.Work.MessageHandlers;
 
-namespace Senparc.Weixin.QY.Test.MessageHandlers
+namespace Senparc.Weixin.Work.Test.MessageHandlers
 {
-    public class OmitRepeatMessageMessageHandlers : QyMessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
+    public class OmitRepeatMessageMessageHandlers : WorkMessageHandler<MessageContext<IRequestMessageBase, IResponseMessageBase>>
     {
         public string RunStep { get; set; }
 

@@ -23,11 +23,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.QY.Containers;
-using Senparc.Weixin.QY.Test.CommonApis;
+using Senparc.Weixin.Work.CommonAPIs;
+using Senparc.Weixin.Work.Containers;
+using Senparc.Weixin.Work.Test.CommonApis;
 
-namespace Senparc.Weixin.QY.Test.CommonAPIs
+namespace Senparc.Weixin.Work.Test.CommonAPIs
 {
     //已测试通过
     [TestClass]

@@ -25,9 +25,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.QY.Entities;
+using Senparc.Weixin.Work.Entities;
 
-namespace Senparc.Weixin.QY.Test
+namespace Senparc.Weixin.Work.Test
 {
     [TestClass]
     public class RequestMessageFactoryTest

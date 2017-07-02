@@ -21,10 +21,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Xml.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Senparc.Weixin.QY.Entities.Request.KF;
-using Senparc.Weixin.QY.Helpers;
+using Senparc.Weixin.Work.Entities.Request.KF;
+using Senparc.Weixin.Work.Helpers;
 
-namespace Senparc.Weixin.QY.Test
+namespace Senparc.Weixin.Work.Test
 {
     [TestClass]
     public class EntityHelperTest

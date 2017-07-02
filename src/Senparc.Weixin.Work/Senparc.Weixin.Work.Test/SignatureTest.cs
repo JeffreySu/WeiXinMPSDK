@@ -22,7 +22,7 @@ using System;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Senparc.Weixin.QY.Test
+namespace Senparc.Weixin.Work.Test
 {
     [TestClass]
     public class SignatureTest

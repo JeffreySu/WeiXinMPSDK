@@ -23,14 +23,14 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.QY.AdvancedAPIs;
-using Senparc.Weixin.QY.AdvancedAPIs.App;
-using Senparc.Weixin.QY.AdvancedAPIs.MailList;
-using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.QY.Containers;
-using Senparc.Weixin.QY.Test.CommonApis;
+using Senparc.Weixin.Work.AdvancedAPIs;
+using Senparc.Weixin.Work.AdvancedAPIs.App;
+using Senparc.Weixin.Work.AdvancedAPIs.MailList;
+using Senparc.Weixin.Work.CommonAPIs;
+using Senparc.Weixin.Work.Containers;
+using Senparc.Weixin.Work.Test.CommonApis;
 
-namespace Senparc.Weixin.QY.Test.AdvancedAPIs
+namespace Senparc.Weixin.Work.Test.AdvancedAPIs
 {
     /// <summary>
     /// CommonApiTest 的摘要说明
@@ -66,7 +66,7 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
 
             var result = AppApi.SetApp(accessToken, date);
 
-            Assert.AreEqual(result.errcode, ReturnCode_QY.请求成功);
+            Assert.AreEqual(result.errcode, ReturnCode_Work.请求成功);
         }
     }
 }

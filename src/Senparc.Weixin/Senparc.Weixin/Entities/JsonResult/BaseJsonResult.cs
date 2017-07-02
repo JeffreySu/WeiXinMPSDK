@@ -36,6 +36,7 @@ using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Entities
 {
+    [Serializable]
     public abstract class BaseJsonResult : IJsonResult
     {
         /// <summary>

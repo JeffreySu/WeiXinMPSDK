@@ -57,7 +57,6 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 ----------------------------------------------------------------*/
 
 
-
 namespace Senparc.Weixin
 {
     /// <summary>

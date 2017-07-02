@@ -63,6 +63,8 @@ namespace Senparc.Weixin.Cache.Redis.Tests
         {
             var key = Guid.NewGuid().ToString();
             var count = cache.GetCount();
+            Console.WriteLine("count:"+ count);
+
             cache.InsertToCache(key, new TestContainerBag1()
             {
                 DateTime = DateTime.Now,
@@ -77,6 +79,7 @@ namespace Senparc.Weixin.Cache.Redis.Tests
             Console.WriteLine(item.CacheTime);
 
             var count2 = cache.GetCount();
+            Console.WriteLine("count2:" + count2);
             Assert.AreEqual(count + 1, count2);
 
             var storedItem = cache.Get(key);

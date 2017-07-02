@@ -56,7 +56,7 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
         public static T TryCommonApiBase<T>(
             Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc,
             Func<string, bool> accessTokenContainer_CheckRegisteredFunc,
-            Func<string, bool, AccessTokenResultBase> accessTokenContainer_GetAccessTokenResultFunc,
+            Func<string, bool, IAccessTokenResult> accessTokenContainer_GetAccessTokenResultFunc,
             int invalidCredentialValue,
             Func<string, T> fun, string accessTokenOrAppId = null, bool retryIfFaild = true) where T : WxJsonResult
         {

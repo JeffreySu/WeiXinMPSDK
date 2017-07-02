@@ -21,14 +21,12 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
     
-    文件名：AccessTokenResultBase.cs
-    文件功能描述：（基础类）access_token请求后的JSON返回格式
+    文件名：IAccessTokenResult.cs
+    文件功能描述：AccessTokenResult的公共接口
     
     
-    创建标识：Senparc - 20150211
+    创建标识：Senparc - 20170702
     
-    修改标识：Senparc - 20150303
-    修改描述：整理接口
 ----------------------------------------------------------------*/
 
 using System;
@@ -42,16 +40,15 @@ namespace Senparc.Weixin.Entities
     /// <summary>
     /// access_token请求后的JSON返回格式
     /// </summary>
-    [Serializable]
-    public class AccessTokenResultBase : WxJsonResult
+    public interface IAccessTokenResult
     {
         /// <summary>
         /// 获取到的凭证
         /// </summary>
-        public string access_token { get; set; }
+        string access_token { get; set; }
         /// <summary>
         /// 凭证有效时间，单位：秒
         /// </summary>
-        public int expires_in { get; set; }
+        int expires_in { get; set; }
     }
 }

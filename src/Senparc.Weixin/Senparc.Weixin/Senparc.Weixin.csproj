@@ -95,6 +95,8 @@
     <Compile Include="Cache\Lock\ICacheLock.cs" />
     <Compile Include="Cache\ObjectCacheStrategy\IObjectCacheStrategy.cs" />
     <Compile Include="Cache.Local\ObjectCacheStrategy\LocalObjectCacheStrategy.cs" />
+    <Compile Include="CommonAPIs\ApiHandlerWapper\ApiHandlerWapperBase.cs" />
+    <Compile Include="CommonAPIs\ApiHandlerWapper\ApiHandlerWapperFactory.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Containers\BaseContainer.cs" />
     <Compile Include="Containers\BaseContainerBag.cs" />
@@ -105,8 +107,10 @@
     <Compile Include="Context\WeixinContextRemovedEventArgs.cs" />
     <Compile Include="Entities\BindableBase.cs" />
     <Compile Include="Entities\EntityBase.cs" />
-    <Compile Include="Entities\JsonResult\IJsonResult.cs" />
-    <Compile Include="Entities\JsonResult\IJsonResultCallback.cs" />
+    <Compile Include="Entities\IAccessTokenResult.cs" />
+    <Compile Include="Entities\JsonResult\BaseJsonResult.cs" />
+    <Compile Include="Entities\JsonResult\Interface\IJsonResult.cs" />
+    <Compile Include="Entities\JsonResult\Interface\IJsonResultCallback.cs" />
     <Compile Include="Entities\JsonResult\QYJsonResult.cs" />
     <Compile Include="Entities\JsonResult\WorkJsonResult.cs" />
     <Compile Include="Entities\MessageBase.cs">

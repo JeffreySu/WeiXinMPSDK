@@ -20,36 +20,34 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
-
-    文件名：WorkJsonResult.cs
-    文件功能描述：企业微信 JSON 返回结果
-
-
-    创建标识：Senparc - 20170617
-
-    修改标识：Senparc - 20170702
-    修改描述：v4.13.0 添加 ErrorCodeValue 属性。使用 BaseJsonResult 基类。
-
+    
+    文件名：BaseJsonResult.cs
+    文件功能描述：所有xxJsonResult（基类）的基类
+    
+    
+    创建标识：Senparc - 20170702
 ----------------------------------------------------------------*/
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Entities
 {
-    /// <summary>
-    /// 企业微信 JSON 返回结果
-    /// </summary>
     [Serializable]
-    public class WorkJsonResult : BaseJsonResult
+    public abstract class BaseJsonResult : IJsonResult
     {
         /// <summary>
-        /// 返回代码
+        /// 返回结果信息
         /// </summary>
-        public ReturnCode_Work errcode { get; set; }
+        public virtual string errmsg { get; set; }
 
         /// <summary>
-        /// 返回消息代码数字（同errcode枚举值）
+        /// errcode的
         /// </summary>
-        public override int ErrorCodeValue { get { return (int)errcode; } }
+        public abstract int ErrorCodeValue { get; }
+        public virtual object P2PData { get; set; }
     }
 }

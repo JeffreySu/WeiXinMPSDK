@@ -20,7 +20,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.App
     /// <summary>
     /// 设置企业号应用需要Post的数据【QY移植修改】
     /// </summary>
-    public class SetAppPostData :IApiData
+    public class SetAppPostData //:IApiData
     {
         /// <summary>
         /// 企业应用id

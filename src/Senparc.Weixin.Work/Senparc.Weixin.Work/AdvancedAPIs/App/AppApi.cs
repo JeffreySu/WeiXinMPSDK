@@ -20,6 +20,9 @@
     
     修改标识：Senparc - 20170616
     修改描述：从QY移植，同步Work接口
+    
+    修改标识：Senparc - 20170703
+    修改描述：SetApp()方法修复传递问题
 
 ----------------------------------------------------------------*/
 
@@ -28,7 +31,9 @@
  */
 
 using System.Threading.Tasks;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.App;
 
@@ -67,10 +72,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static WorkJsonResult SetApp(string accessToken, SetAppPostData data, int timeOut = Config.TIME_OUT)
         {
-            //TODO:需要对SetAppPostData中的null值过滤
             string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
 
-            return Post.PostGetJson<WorkJsonResult>(url, formData: null);
+            //对SetAppPostData中的null值过滤
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return CommonJsonSend.Send<WorkJsonResult>(accessToken, url, data,jsonSetting: jsonSetting);
         }
 
         /// <summary>
@@ -119,7 +126,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             //TODO:需要对SetAppPostData中的null值过滤
             string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
 
-            return await Post.PostGetJsonAsync<WorkJsonResult>(url, formData: null);
+            //对SetAppPostData中的null值过滤
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, data, jsonSetting: jsonSetting);
+            //return await Post.PostGetJsonAsync<WorkJsonResult>(url, formData: null);
         }
 
         /// <summary>

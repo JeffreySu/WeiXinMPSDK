@@ -108,6 +108,7 @@
     <Compile Include="Entities\BindableBase.cs" />
     <Compile Include="Entities\EntityBase.cs" />
     <Compile Include="Entities\IAccessTokenResult.cs" />
+    <Compile Include="Entities\IApiData.cs" />
     <Compile Include="Entities\JsonResult\BaseJsonResult.cs" />
     <Compile Include="Entities\JsonResult\Interface\IJsonResult.cs" />
     <Compile Include="Entities\JsonResult\Interface\IJsonResultCallback.cs" />

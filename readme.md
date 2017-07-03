@@ -335,10 +335,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
       {
           //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
           var responseMessage = CreateResponseMessage<ResponseMessageText>();
-          responseMessage.Content =
-              string.Format(
-                  "您刚才发送了文字信息：{0}",
-                  requestMessage.Content);
+          responseMessage.Content = string.Format("您刚才发送了文字信息：{0}", requestMessage.Content);
           return responseMessage;
       }
 ```

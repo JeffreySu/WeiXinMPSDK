@@ -251,6 +251,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Images\book-cover-front-small-3d.png" />
+    <Content Include="Images\book-cover-front-small.png" />
     <Content Include="Images\crowdfunding-qrcode.png" />
     <Content Include="Images\qrcode.jpg" />
     <Content Include="Images\Logo.jpg" />

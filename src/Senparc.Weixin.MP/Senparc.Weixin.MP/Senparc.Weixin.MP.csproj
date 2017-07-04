@@ -355,6 +355,7 @@
     <Compile Include="TenPayLibV3\TenPayV3InfoCollection.cs" />
     <Compile Include="TenPayLibV3\TenPayV3Info.cs" />
     <Compile Include="TenPayLibV3\TenPayV3Util.cs" />
+    <Compile Include="TenPayLibV3\TenPayV3\ServiceProvider\TenPayV3MicroPayRequestData.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3GetTransferInfoRequestData.cs" />
     <Compile Include="TenPayLibV3\TenPayV3\TenPayV3DownloadBillRequestData.cs" />
@@ -504,6 +505,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdvancedAPIs\Card\readme.txt" />
+    <Content Include="TenPayLibV3\TenPayV3\Normal\readme.txt" />
+    <Content Include="TenPayLibV3\TenPayV3\ServiceProvider\readme.txt" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdvancedAPIs\Scan\ScanJson\BrandInfo_Type.cs">

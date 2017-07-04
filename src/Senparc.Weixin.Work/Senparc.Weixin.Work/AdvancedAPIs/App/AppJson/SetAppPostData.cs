@@ -7,14 +7,20 @@
     
     创建标识：Senparc - 20150316
 
+
+    修改标识：Senparc - 20170703
+    修改描述：增加IApiData接口
+
 ----------------------------------------------------------------*/
+
+using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.App
 {
     /// <summary>
     /// 设置企业号应用需要Post的数据【QY移植修改】
     /// </summary>
-    public class SetAppPostData 
+    public class SetAppPostData //:IApiData
     {
         /// <summary>
         /// 企业应用id

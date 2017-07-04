@@ -27,6 +27,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     创建标识：Senparc - 20170702
     
+
+    修改标识：Senparc - 201700704
+    修改描述：优化TryCommonApiBaseAsync方法
 ----------------------------------------------------------------*/
 using System;
 using System.Collections.Generic;
@@ -226,8 +229,8 @@ namespace Senparc.Weixin.CommonAPIs.ApiHandlerWapper
                     && appId != null
                     && ex.JsonResult.errcode == ReturnCode.获取access_token时AppSecret错误或者access_token无效)
                 {
-                    //尝试重新验证
-                    var accessTokenResult = await accessTokenContainer_GetAccessTokenResultAsyncFunc(appId, true);//AccessTokenContainer.GetAccessTokenResultAsync(appId, true);
+                    //尝试重新验证（此处不能使用await关键字，VS2013不支持：无法在 catch 字句体中等待）
+                    var accessTokenResult =  accessTokenContainer_GetAccessTokenResultAsyncFunc(appId, true).Result;//AccessTokenContainer.GetAccessTokenResultAsync(appId, true);
                     //强制获取并刷新最新的AccessToken
                     accessToken = accessTokenResult.access_token;
 

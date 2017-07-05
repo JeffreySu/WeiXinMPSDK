@@ -20,6 +20,9 @@
     
     修改标识：Senparc - 20170616
     修改描述：从QY移植，同步Work接口
+    
+    修改标识：Senparc - 20170703
+    修改描述：SetApp()方法修复传递问题
 
 ----------------------------------------------------------------*/
 
@@ -28,7 +31,9 @@
  */
 
 using System.Threading.Tasks;
+using Senparc.Weixin.CommonAPIs;
 using Senparc.Weixin.Entities;
+using Senparc.Weixin.Helpers;
 using Senparc.Weixin.HttpUtility;
 using Senparc.Weixin.Work.AdvancedAPIs.App;
 
@@ -44,15 +49,17 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 获取企业号应用信息【QY移植修改】
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppKey">AccessToken或AppKey（推荐使用AppKey，需要先注册，可使用AccessTokenContainer.BuildingKey()方法生成）</param>
         /// <param name="agentId">企业应用的id，可在应用的设置页面查看</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static GetAppInfoResult GetAppInfo(string accessToken, int agentId, int timeOut = Config.TIME_OUT)
+        public static GetAppInfoResult GetAppInfo(string accessTokenOrAppKey, int agentId, int timeOut = Config.TIME_OUT)
         {
-            string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
-
-            return Get.GetJson<GetAppInfoResult>(url);
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
+                return Get.GetJson<GetAppInfoResult>(url);
+            }, accessTokenOrAppKey);
         }
 
         /// <summary>
@@ -65,10 +72,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static WorkJsonResult SetApp(string accessToken, SetAppPostData data, int timeOut = Config.TIME_OUT)
         {
-            //TODO:需要对SetAppPostData中的null值过滤
             string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
 
-            return Post.PostGetJson<WorkJsonResult>(url, formData: null);
+            //对SetAppPostData中的null值过滤
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return CommonJsonSend.Send<WorkJsonResult>(accessToken, url, data,jsonSetting: jsonSetting);
         }
 
         /// <summary>
@@ -90,16 +99,18 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取企业号应用信息【QY移植修改】
         /// </summary>
-        /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppKey">AccessToken或AppKey（推荐使用AppKey，需要先注册，可使用AccessTokenContainer.BuildingKey()方法生成）</param>
         /// <param name="agentId">企业应用的id，可在应用的设置页面查看</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<GetAppInfoResult> GetAppInfoAsync(string accessToken, int agentId, int timeOut = Config.TIME_OUT)
+        public static async Task<GetAppInfoResult> GetAppInfoAsync(string accessTokenOrAppKey, int agentId, int timeOut = Config.TIME_OUT)
         {
-            string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token={0}&agentid={1}", accessToken.AsUrlData(), agentId.ToString("d").AsUrlData());
 
-            return await Get.GetJsonAsync<GetAppInfoResult>(url);
+                return await Get.GetJsonAsync<GetAppInfoResult>(url);
+            }, accessTokenOrAppKey);
         }
 
         /// <summary>
@@ -115,7 +126,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             //TODO:需要对SetAppPostData中的null值过滤
             string url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token={0}", accessToken.AsUrlData());
 
-            return await Post.PostGetJsonAsync<WorkJsonResult>(url, formData: null);
+            //对SetAppPostData中的null值过滤
+            JsonSetting jsonSetting = new JsonSetting(true);
+
+            return await CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, url, data, jsonSetting: jsonSetting);
+            //return await Post.PostGetJsonAsync<WorkJsonResult>(url, formData: null);
         }
 
         /// <summary>

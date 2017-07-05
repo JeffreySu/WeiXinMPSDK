@@ -160,6 +160,10 @@
       <Project>{1d815fbf-451c-4e23-939c-cb80172f445c}</Project>
       <Name>Senparc.Weixin.MP.net45</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Senparc.WeixinTests\Senparc.WeixinTests.csproj">
+      <Project>{232a67f2-cd89-4a20-8da9-daed76412b33}</Project>
+      <Name>Senparc.WeixinTests</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utilities\" />

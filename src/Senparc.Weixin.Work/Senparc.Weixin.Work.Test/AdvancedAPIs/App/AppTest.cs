@@ -21,16 +21,17 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 using System;
 using System.Text;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.QY.AdvancedAPIs;
-using Senparc.Weixin.QY.AdvancedAPIs.App;
-using Senparc.Weixin.QY.AdvancedAPIs.MailList;
-using Senparc.Weixin.QY.CommonAPIs;
-using Senparc.Weixin.QY.Containers;
-using Senparc.Weixin.QY.Test.CommonApis;
+using Senparc.Weixin.Work.AdvancedAPIs;
+using Senparc.Weixin.Work.AdvancedAPIs.App;
+using Senparc.Weixin.Work.AdvancedAPIs.MailList;
+using Senparc.Weixin.Work.CommonAPIs;
+using Senparc.Weixin.Work.Containers;
+using Senparc.Weixin.Work.Test.CommonApis;
 
-namespace Senparc.Weixin.QY.Test.AdvancedAPIs
+namespace Senparc.Weixin.Work.Test.AdvancedAPIs
 {
     /// <summary>
     /// CommonApiTest 的摘要说明
@@ -41,11 +42,75 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
         [TestMethod]
         public void GetAppInfoTest()
         {
-            var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
-            var result = AppApi.GetAppInfo(accessToken, 2);
+            {
+                //使用AppKey测试
+                //常规AccessToken测试
+                var appKey = AccessTokenContainer.BuildingKey(_corpId, base._corpSecret);
+                var result = AppApi.GetAppInfo(appKey, 2);
 
-            Assert.IsNotNull(result.agentid);
-            Assert.AreEqual(result.agentid, "2");
+                Assert.IsNotNull(result.agentid);
+                Assert.AreEqual(result.agentid, "2");
+                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
+            }
+
+            {
+                //常规AccessToken测试
+                var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
+                var result = AppApi.GetAppInfo(accessToken, 2);
+
+                Assert.IsNotNull(result.agentid);
+                Assert.AreEqual(result.agentid, "2");
+                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
+            }
+        }
+
+        [TestMethod]
+        public void GetAppInfoAsyncTest()
+        {
+            var finishedCount = 0;
+
+            {
+                Task.Factory.StartNew(async () =>
+                {
+                    //使用AppKey测试
+                    //常规AccessToken测试
+                    var appKey = AccessTokenContainer.BuildingKey(_corpId, base._corpSecret);
+                    var result = await AppApi.GetAppInfoAsync(appKey, 2);
+
+                    Assert.IsNotNull(result.agentid);
+                    Assert.AreEqual(result.agentid, "2");
+
+                    Console.WriteLine("1.Ticket:" + DateTime.Now.Ticks);
+                    Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
+                    finishedCount++;
+                });
+
+                while (finishedCount < 1)
+                {
+
+                }
+            }
+
+            {
+                Task.Factory.StartNew(async () =>
+                {
+                    //常规AccessToken测试
+                    var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
+                    var result = await AppApi.GetAppInfoAsync(accessToken, 2);
+
+                    Assert.IsNotNull(result.agentid);
+                    Assert.AreEqual(result.agentid, "2");
+
+                    Console.WriteLine("2.Ticket:" + DateTime.Now.Ticks);
+                    Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(result));
+                    finishedCount++;
+                });
+
+                while (finishedCount < 2)
+                {
+
+                }
+            }
         }
 
         [TestMethod]
@@ -54,19 +119,21 @@ namespace Senparc.Weixin.QY.Test.AdvancedAPIs
             var accessToken = AccessTokenContainer.GetToken(_corpId, base._corpSecret);
 
             SetAppPostData date = new SetAppPostData()
-                {
-                    agentid = "1",
-                    description = "test",
-                    isreportenter = 0,
-                    isreportuser = 0,
-                    logo_mediaid = "1muvdK7W8cjLfNqj0hWP89-CEhZNOVsktCE1JHSTSNpzTf7cGOXyDin_ozluwNZqi",
-                    name = "Test",
-                    redirect_domain = "www.weiweihi.com"
-                };
+            {
+                agentid = "2",//"100" + DateTime.Now.ToString("yyMMddHHMM"),
+                report_location_flag = "1",
+                //logo_mediaid = "1muvdK7W8cjLfNqj0hWP89-CEhZNOVsktCE1JHSTSNpzTf7cGOXyDin_ozluwNZqi",
+                name = "单元测试添加" + DateTime.Now.ToString("yyMMddHHMM"),
+                description = "test",
+                redirect_domain = "https://sdk.weixin.senparc.com",
+                //isreportenter = 0,
+                isreportuser = 1,
+                home_url = "weixin.senparc.com"
+            };
 
             var result = AppApi.SetApp(accessToken, date);
 
-            Assert.AreEqual(result.errcode, ReturnCode_QY.请求成功);
+            Assert.AreEqual(result.errcode, ReturnCode_Work.请求成功);
         }
     }
 }

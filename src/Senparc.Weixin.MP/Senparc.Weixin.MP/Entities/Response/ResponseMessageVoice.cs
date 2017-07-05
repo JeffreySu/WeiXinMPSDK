@@ -38,7 +38,7 @@ namespace Senparc.Weixin.MP.Entities
     /// </summary>
     public class ResponseMessageVoice : ResponseMessageBase, IResponseMessageBase
     {
-        new public virtual ResponseMsgType MsgType
+        public new virtual ResponseMsgType MsgType
         {
             get { return ResponseMsgType.Voice; }
         }

@@ -29,6 +29,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20170702
+    修改描述：加入 IAccessTokenResult 接口
 ----------------------------------------------------------------*/
 
 using System;
@@ -40,7 +43,7 @@ namespace Senparc.Weixin.MP.Entities
     /// access_token请求后的JSON返回格式
     /// </summary>
     [Serializable]
-    public class AccessTokenResult : WxJsonResult
+    public class AccessTokenResult : WxJsonResult, IAccessTokenResult
     {
         /// <summary>
         /// 获取到的凭证

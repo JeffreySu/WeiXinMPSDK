@@ -336,9 +336,16 @@ namespace Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler
                     defaultResponseMessage.Content = "请等待异步模板消息发送到此界面上（自动延时数秒）。\r\n当前时间：" + DateTime.Now.ToString();
                     return defaultResponseMessage;
                 })
-                .Keyword("MUTE", () =>
+                .Keyword("MUTE", () => //不回复任何消息
                 {
+                    //方案一：
                     return new SuccessResponseMessage();
+
+                    //方案二：
+                    var muteResponseMessage = base.CreateResponseMessage<ResponseMessageNoResponse>();
+                    return muteResponseMessage;
+
+                    //方案三：
                     base.TextResponseMessage = "success";
                     return null;
                 })

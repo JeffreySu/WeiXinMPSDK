@@ -52,6 +52,9 @@ using Senparc.Weixin.MP.Helpers;
 
 #if NET45 || NET461
 using System.Web;
+#else
+using Microsoft.AspNetCore.Http;
+#endif
 using Senparc.Weixin.Helpers;
 using Senparc.Weixin.Helpers.StringHelper;
 

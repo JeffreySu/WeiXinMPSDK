@@ -160,6 +160,7 @@
     <Compile Include="Controllers\AsyncMethodsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CacheController.cs" />
+    <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\FilterTestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -178,7 +179,9 @@
     <Compile Include="Controllers\WeixinController.cs" />
     <Compile Include="Controllers\WeixinController_OldPost.cs" />
     <Compile Include="Controllers\TenPayController.cs" />
+    <Compile Include="Controllers\Work\WorkController.cs" />
     <Compile Include="Controllers\WxOpen\WxOpenController.cs" />
+    <Compile Include="Filters\CustomOAuthAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -248,6 +251,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Images\book-cover-front-small-3d.png" />
+    <Content Include="Images\book-cover-front-small.png" />
     <Content Include="Images\crowdfunding-qrcode.png" />
     <Content Include="Images\qrcode.jpg" />
     <Content Include="Images\Logo.jpg" />
@@ -274,6 +279,7 @@
     <Content Include="Scripts\senparc.menu.js" />
     <Content Include="Scripts\tongji.sdk.js" />
     <Content Include="Scripts\tongji.js" />
+    <Content Include="Views\Device\Index.cshtml" />
     <None Include="Views\TenPayV3\BankCode.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -368,6 +374,10 @@
       <Project>{2ca35598-f1a1-4dc9-aa20-a4346bfcb954}</Project>
       <Name>Senparc.Weixin.QY</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Senparc.Weixin.Work\Senparc.Weixin.Work\Senparc.Weixin.Work.csproj">
+      <Project>{cc0ebec4-7120-4627-a596-c1f2958f3d5e}</Project>
+      <Name>Senparc.Weixin.Work</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Senparc.Weixin.WxOpen\src\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen\Senparc.Weixin.WxOpen.csproj">
       <Project>{379d8c97-4f96-45af-9f91-6bd160514495}</Project>
       <Name>Senparc.Weixin.WxOpen</Name>
@@ -380,6 +390,9 @@
       <Project>{ccd291e9-16fa-4b53-b032-ebd3f659567b}</Project>
       <Name>Senparc.Weixin.MP.Sample.CommonService</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

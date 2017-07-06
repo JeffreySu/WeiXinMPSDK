@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <summary>
         /// 用户信息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <returns></returns>
         public static WeixinUserInfoResult GetUserInfo(string accessTokenOrAppId, string openId)
@@ -119,7 +119,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <summary>
         /// 获取调用微信JS接口的临时票据
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="type">默认为jsapi，当作为卡券接口使用时，应当为wx_card</param>
         /// <returns></returns>
         public static JsApiTicketResult GetTicketByAccessToken(string accessTokenOrAppId, string type = "jsapi")
@@ -139,7 +139,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <summary>
         /// 获取微信服务器的ip段
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
         public static GetCallBackIpResult GetCallBackIp(string accessTokenOrAppId)
         {
@@ -176,7 +176,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <summary>
         /// 【异步方法】用户信息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <returns></returns>
         public static async Task<WeixinUserInfoResult> GetUserInfoAsync(string accessTokenOrAppId, string openId)
@@ -208,7 +208,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <summary>
         /// 【异步方法】获取调用微信JS接口的临时票据
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="type">默认为jsapi，当作为卡券接口使用时，应当为wx_card</param>
         /// <returns></returns>
         public static async Task<JsApiTicketResult> GetTicketByAccessTokenAsync(string accessTokenOrAppId, string type = "jsapi")
@@ -227,7 +227,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <summary>
         /// 【异步方法】获取微信服务器的ip段
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
         public static async Task<GetCallBackIpResult> GetCallBackIpAsync(string accessTokenOrAppId)
         {

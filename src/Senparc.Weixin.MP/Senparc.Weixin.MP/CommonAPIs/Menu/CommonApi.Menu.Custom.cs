@@ -207,7 +207,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <summary>
         /// 获取当前菜单，如果菜单不存在，将返回null
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
         public static GetMenuResult GetMenu(string accessTokenOrAppId)
         {

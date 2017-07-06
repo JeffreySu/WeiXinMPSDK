@@ -55,7 +55,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 4、群发视频时需要先调用GetVideoMediaIdResult接口获取专用的MediaId然后进行群发
         /// 
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="groupId">群发到的分组的group_id，参见用户管理中用户分组接口，若is_to_all值为true，可不填写group_id</param>
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
@@ -158,7 +158,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 根据OpenId进行群发【订阅号不可用，服务号认证后可用】
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
         /// <param name="openIds">openId字符串数组</param>
@@ -244,7 +244,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 根据OpenID列表群发视频消息【订阅号不可用，服务号认证后可用】
         /// 注意：群发视频时需要先调用GetVideoMediaIdResult接口获取专用的MediaId然后进行群发
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="title"></param>
         /// <param name="mediaId"></param>
         /// <param name="openIds">openId字符串数组</param>
@@ -277,7 +277,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 删除群发消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="msgId">发送出去的消息ID</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -301,7 +301,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 预览接口【订阅号与服务号认证后均可用】
         /// 注意：openId与wxName两者任选其一，同时传入以wxName优先
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="value">群发媒体消息时为media_id，群发文本信息为content</param>
         /// <param name="type"></param>
         /// <param name="openId">接收消息用户对应该公众号的openid</param>
@@ -390,7 +390,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 预览卡券接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId"></param>
         /// <param name="code"></param>
         /// <param name="openId"></param>
@@ -426,7 +426,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 查询群发消息发送状态【订阅号与服务号认证后均可用】
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="msgId">群发消息后返回的消息id</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -449,7 +449,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取视频群发用的MediaId
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="title"></param>
         /// <param name="description"></param>
@@ -487,7 +487,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 4、群发视频时需要先调用GetVideoMediaIdResult接口获取专用的MediaId然后进行群发
         /// 
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="groupId">群发到的分组的group_id，参加用户管理中用户分组接口，若is_to_all值为true，可不填写group_id</param>
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
@@ -590,7 +590,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】根据OpenId进行群发【订阅号不可用，服务号认证后可用】
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
         /// <param name="openIds">openId字符串数组</param>
@@ -676,7 +676,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】根据OpenID列表群发视频消息【订阅号不可用，服务号认证后可用】
         /// 注意：群发视频时需要先调用GetVideoMediaIdResult接口获取专用的MediaId然后进行群发
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="title"></param>
         /// <param name="mediaId"></param>
         /// <param name="openIds">openId字符串数组</param>
@@ -709,7 +709,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】删除群发消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="msgId">发送出去的消息ID</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -733,7 +733,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】预览接口【订阅号与服务号认证后均可用】
         /// 注意：openId与wxName两者任选其一，同时传入以wxName优先
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="value">群发媒体消息时为media_id，群发文本信息为content</param>
         /// <param name="type"></param>
         /// <param name="openId">接收消息用户对应该公众号的openid</param>
@@ -822,7 +822,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】预览卡券接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId"></param>
         /// <param name="code"></param>
         /// <param name="openId"></param>
@@ -858,7 +858,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】查询群发消息发送状态【订阅号与服务号认证后均可用】
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="msgId">群发消息后返回的消息id</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -881,7 +881,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取视频群发用的MediaId
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="title"></param>
         /// <param name="description"></param>

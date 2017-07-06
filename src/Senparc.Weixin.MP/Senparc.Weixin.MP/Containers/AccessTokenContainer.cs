@@ -55,13 +55,16 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改描述：v14.3.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
 
     修改标识：Senparc - 20160810
-    修改描述：v14.3.3 fix bug
+    修改描述：v14.3.3 修复错误
         
     修改标识：Senparc - 20160813
     修改描述：v14.3.4 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
 
     修改标识：Senparc - 20160813
     修改描述：v14.3.6 完善getNewToken参数传递
+
+    修改标识：Senparc - 20170702
+    修改描述：v14.5.0 为了配合新版本ApiHandlerWapper方法，GetAccessTokenResultAsync方法的返回值从Task<AccessTokenResult>改为Task<IAccessTokenResult>
 
 ----------------------------------------------------------------*/
 
@@ -75,6 +78,7 @@ using Senparc.Weixin.Containers;
 using Senparc.Weixin.Exceptions;
 using Senparc.Weixin.MP.Entities;
 using Senparc.Weixin.CacheUtility;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.Utilities.WeixinUtility;
 
@@ -259,7 +263,7 @@ namespace Senparc.Weixin.MP.Containers
         /// <param name="appId"></param>
         /// <param name="getNewToken">是否强制重新获取新的Token</param>
         /// <returns></returns>
-        public static async Task<AccessTokenResult> GetAccessTokenResultAsync(string appId, bool getNewToken = false)
+        public static async Task<IAccessTokenResult> GetAccessTokenResultAsync(string appId, bool getNewToken = false)
         {
             if (!CheckRegistered(appId))
             {

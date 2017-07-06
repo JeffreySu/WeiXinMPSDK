@@ -104,16 +104,27 @@ namespace Senparc.Weixin.MP.Test.AdvancedAPIs
         {
             List<BatchGetUserInfoData> data = new List<BatchGetUserInfoData>();
 
-            data.Add(new BatchGetUserInfoData()
+            //改成自己公众号的OpenId
+            var openids = new[] { "oxRg0uLsnpHjb8o93uVnwMK_WAVw","oxRg0uFnf66iXoS_ScybtgjUgK28", "oxRg0uKDWyD8yxgLEFuJFRsI_LQ0" };
+
+            foreach (var item in openids)
             {
-                openid = "",
-                lang = Language.zh_CN.ToString()
-            });
+                data.Add(new BatchGetUserInfoData()
+                {
+                    openid = item,
+                    lang = Language.zh_CN.ToString()
+                });
+            }
 
             var accessToken = AccessTokenContainer.GetAccessToken(_appId);
             var result = UserApi.BatchGetUserInfo(accessToken, data);
 
             Assert.AreEqual(result.errcode, ReturnCode.请求成功);
+
+            var result2 = UserApi.BatchGetUserInfo(_appId, data);
+
+            Assert.AreEqual(result2.errcode, ReturnCode.请求成功);
+
         }
     }
 }

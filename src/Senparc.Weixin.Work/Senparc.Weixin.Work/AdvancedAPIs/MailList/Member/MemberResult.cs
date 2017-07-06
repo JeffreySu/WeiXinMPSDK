@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：DepartmentResult.cs
     文件功能描述：成员接口返回结果
@@ -16,7 +16,10 @@ using Senparc.Weixin.Entities;
 
 namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
 {
-    public class GetMemberResult : QyJsonResult
+    /// <summary>
+    /// GetMemberResult【QY移植修改】
+    /// </summary>
+    public class GetMemberResult : WorkJsonResult
     {
         /// <summary>
         /// 员工UserID 
@@ -44,35 +47,46 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         /// </summary>
         public int gender { get; set; }
 
-        //最新接口去除了以下属性
-        /// <summary>
-        /// 办公电话 
-        /// </summary>
-        //public string tel { get; set; }
-
         /// <summary>
         /// 邮箱
         /// </summary>
         public string email { get; set; }
+
         /// <summary>
-        /// 微信号
+        /// 上级字段，标识是否为上级。第三方暂不支持
         /// </summary>
-        public string weixinid { get; set; }
+        public int isleader { get; set; }
         /// <summary>
         /// 头像url。注：小图将url最后的"/0"改成"/64"
         /// </summary>
         public string avatar { get; set; }
         /// <summary>
-        /// 关注状态: 1=已关注，2=已冻结，4=未关注 
+        /// 激活状态: 1=已激活，2=已禁用，4=未激活 已激活代表已激活企业微信或已关注微信插件。未激活代表既未激活企业微信又未关注微信插件。
         /// </summary>
         public int status { get; set; }
+        /// <summary>
+        /// 座机。第三方暂不支持
+        /// </summary>
+        public string telephone { get; set; }
+        /// <summary>
+        /// 英文名。第三方暂不支持
+        /// </summary>
+        public string english_name { get; set; }
         /// <summary>
         /// 扩展属性
         /// </summary>
         public Extattr extattr { get; set; }
+        /// <summary>
+        /// 启用/禁用成员，第三方不可获取。1表示启用成员，0表示禁用成员
+        /// </summary>
+        public int enable { get; set; }
+        /// <summary>
+        /// 关注微信插件的状态: 1=已关注，0=未关注
+        /// </summary>
+        public string wxplugin_status { get; set; }
     }
 
-    public class GetDepartmentMemberResult : QyJsonResult
+    public class GetDepartmentMemberResult : WorkJsonResult
     {
         /// <summary>
         /// 成员列表
@@ -80,6 +94,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         public List<UserList_Simple> userlist { get; set; }
     }
 
+    /// <summary>
+    /// UserList_Simple【QY移植修改】
+    /// </summary>
     public class UserList_Simple
     {
         /// <summary>
@@ -90,6 +107,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         /// 成员名称
         /// </summary>
         public string name { get; set; }
+        /// <summary>
+        /// 成员所属部门
+        /// </summary>
+        public int[] department { get; set; }
     }
 
     /// <summary>
@@ -109,7 +130,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
     /// <summary>
     /// 获取部门成员(详情)返回结果
     /// </summary>
-    public class GetDepartmentMemberInfoResult : QyJsonResult
+    public class GetDepartmentMemberInfoResult : WorkJsonResult
     {
         /// <summary>
         /// 成员列表
@@ -117,7 +138,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.MailList
         public List<GetMemberResult> userlist { get; set; }
     }
 
-    public class InviteMemberResult : QyJsonResult
+    public class InviteMemberResult : WorkJsonResult
     {
         /// <summary>
         /// 1:微信邀请 2.邮件邀请

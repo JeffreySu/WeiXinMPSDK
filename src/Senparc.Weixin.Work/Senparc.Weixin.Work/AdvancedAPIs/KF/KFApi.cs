@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：KFApi.cs
     文件功能描述：发送客服消息
@@ -46,7 +46,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="content">消息内容</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static QyJsonResult SendText(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
+        public static WorkJsonResult SendText(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string content, int timeOut = Config.TIME_OUT)
         {
             var data = new
@@ -67,7 +67,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     content = content
                 }
             };
-            return CommonJsonSend.Send<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<WorkJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="mediaId">图片的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static QyJsonResult SendImage(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
+        public static WorkJsonResult SendImage(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             var data = new
@@ -102,7 +102,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     media_id = mediaId
                 }
             };
-            return CommonJsonSend.Send<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<WorkJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="mediaId">文件的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static QyJsonResult SendFile(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
+        public static WorkJsonResult SendFile(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             var data = new
@@ -137,7 +137,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     media_id = mediaId
                 }
             };
-            return CommonJsonSend.Send<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<WorkJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="mediaId">语音的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static QyJsonResult SendVoice(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
+        public static WorkJsonResult SendVoice(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             var data = new
@@ -172,7 +172,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     media_id = mediaId
                 }
             };
-            return CommonJsonSend.Send<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            return CommonJsonSend.Send<WorkJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="content">消息内容</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> SendTextAsync(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
+        public static async Task<WorkJsonResult> SendTextAsync(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string content, int timeOut = Config.TIME_OUT)
         {
             var data = new
@@ -223,7 +223,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     content = content
                 }
             };
-            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc .Weixin .CommonAPIs .CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -237,7 +237,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="mediaId">图片的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> SendImageAsync(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
+        public static async Task<WorkJsonResult> SendImageAsync(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             var data = new
@@ -258,7 +258,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     media_id = mediaId
                 }
             };
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -272,7 +272,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="mediaId">文件的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> SendFileAsync(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
+        public static async Task<WorkJsonResult> SendFileAsync(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             var data = new
@@ -293,7 +293,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     media_id = mediaId
                 }
             };
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>
@@ -307,7 +307,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="mediaId">语音的mediaId</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> SendVoiceAsync(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
+        public static async Task<WorkJsonResult> SendVoiceAsync(string accessToken, KF_User_Type senderType, string senderId, KF_User_Type receiverType,
             string receiverId, string mediaId, int timeOut = Config.TIME_OUT)
         {
             var data = new
@@ -328,7 +328,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     media_id = mediaId
                 }
             };
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
         }
 
         /// <summary>

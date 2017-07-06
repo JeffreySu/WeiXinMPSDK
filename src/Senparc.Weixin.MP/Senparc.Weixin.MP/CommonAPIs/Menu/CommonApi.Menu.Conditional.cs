@@ -75,7 +75,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <summary>
         /// 测试个性化菜单匹配结果
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="userId">可以是粉丝的OpenID，也可以是粉丝的微信号。</param>
         /// <returns></returns>
         public static MenuTryMatchResult TryMatch(string accessTokenOrAppId, string userId)
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.MP.CommonAPIs
         /// <summary>
         /// 删除个性化菜单
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="menuId">菜单Id</param>
         /// <returns></returns>
         public static WxJsonResult DeleteMenuConditional(string accessTokenOrAppId, string menuId)

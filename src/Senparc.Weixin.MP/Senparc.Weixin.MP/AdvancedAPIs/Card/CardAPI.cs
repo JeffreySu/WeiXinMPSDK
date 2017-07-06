@@ -52,6 +52,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
  
     修改标识：Senparc - 20160718
     修改描述：增加其接口的异步方法
+
+    修改标识：Senparc - 20170527
+    修改描述：v14.4.10 CardApi.CardBatchGet()方法增加statusList参数
 ----------------------------------------------------------------*/
 
 /*
@@ -80,7 +83,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 创建卡券
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardInfo">创建卡券需要的数据，格式可以看CardCreateData.cs</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -230,14 +233,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///// 此接口已取消，微信直接提供了十四种色值供选择，详见：http://mp.weixin.qq.com/wiki/8/b7e310e7943f7763450eced91fa793b0.html#.E5.8D.A1.E5.88.B8.E5.9F.BA.E7.A1.80.E4.BF.A1.E6.81.AF.E5.AD.97.E6.AE.B5.EF.BC.88.E9.87.8D.E8.A6.81.EF.BC.89
         ///// 获取颜色列表接口
         ///// </summary>
-        ///// <param name="accessTokenOrAppId"></param>
+        ///// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///// <param name="timeOut">代理请求超时时间（毫秒）</param>
         ///// <returns></returns>
 
         /// <summary>
         /// 开通券点账户接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
 
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -254,7 +257,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 对优惠券批价
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///<param name="cardId">需要来配置库存的card_id</param>
         /// <param name="quantity">本次需要兑换的库存数目</param>
         /// <param name="timeOut"></param>
@@ -277,7 +280,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 查询券点余额接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
 
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -294,7 +297,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///确认兑换库存接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">需要来兑换库存的card_id</param>
         /// <param name="quantity">本次需要兑换的库存数目</param>
         /// <param name="orderId">仅可以使用上面得到的订单号，保证批价有效性</param>
@@ -319,7 +322,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///充值券点接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="coinCount">需要充值的券点数目，1点=1元</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -341,7 +344,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///查询订单详情接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="orderId">上一步中获得的订单号，作为一次交易的唯一凭证</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -363,7 +366,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///查询券点流水详情接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="offset">分批查询的起点，默认为0</param>
         /// <param name="count">分批查询的数量</param>
         /// <param name="orderType">所要拉取的订单类型ORDER_TYPE_SYS_ADD 平台赠送 ORDER_TYPE_WXPAY 充值 ORDER_TYPE_REFUND 库存回退券点 ORDER_TYPE_REDUCE 券点兑换库存 ORDER_TYPE_SYS_REDUCE 平台扣减</param>
@@ -399,7 +402,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 生成卡券二维码
         /// 获取二维码ticket 后，开发者可用ticket 换取二维码图片。换取指引参考：http://mp.weixin.qq.com/wiki/index.php?title=生成带参数的二维码
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="code">指定卡券code 码，只能被领一次。use_custom_code 字段为true 的卡券必须填写，非自定义code 不必填写。</param>
         /// <param name="openId">指定领取者的openid，只有该用户能领取。bind_openid 字段为true 的卡券必须填写，非自定义openid 不必填写。</param>
@@ -454,7 +457,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 创建货架
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -483,7 +486,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 3）导入结束后系统会自动判断提供方设置库存与实际导入code的量是否一致。
         /// 4）导入失败支持重复导入，提示成功为止。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">需要进行导入code的卡券ID</param>
         /// <param name="codeList">需导入微信卡券后台的自定义code，上限为100个。</param>
         /// <param name="timeOut"></param>
@@ -508,7 +511,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 查询导入code数目
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">进行导入code的卡券ID。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -531,7 +534,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 核查code
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">进行导入code的卡券ID。</param>
         /// <param name="codeList">已经微信卡券后台的自定义code，上限为100个。</param>
         /// <param name="timeOut"></param>
@@ -556,7 +559,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 图文消息群发卡券
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -578,7 +581,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// Mark(占用)Code接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">卡券的code码。</param>
         /// <param name="cardId">卡券的ID。</param>
         /// <param name="openId">用券用户的openid。</param>
@@ -607,7 +610,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 卡券消耗code
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">要消耗的序列号</param>
         /// <param name="cardId">要消耗序列号所述的card_id，创建卡券时use_custom_code 填写true 时必填。非自定义code不必填写。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -635,7 +638,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 1.商家获取choos_card_info 后，将card_id 和encrypt_code 字段通过解码接口，获取真实code。
         /// 2.卡券内跳转外链的签名中会对code 进行加密处理，通过调用解码接口获取真实code。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="encryptCode">通过choose_card_info 获取的加密字符串</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -658,7 +661,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 删除卡券
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -681,7 +684,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 查询code接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code"></param>
         /// <param name="cardId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -706,12 +709,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 批量查询卡列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="offset">查询卡列表的起始偏移量，从0 开始，即offset: 5 是指从从列表里的第六个开始读取。</param>
         /// <param name="count">需要查询的卡片的数量（数量最大50）</param>
+        /// <param name="statusList">状态列表</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static CardBatchGetResultJson CardBatchGet(string accessTokenOrAppId, int offset, int count, int timeOut = Config.TIME_OUT)
+        public static CardBatchGetResultJson CardBatchGet(string accessTokenOrAppId, int offset, int count, List<string> statusList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -720,7 +724,8 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 var data = new
                 {
                     offset = offset,
-                    count = count
+                    count = count,
+                    statusList = statusList
                 };
 
                 return CommonJsonSend.Send<CardBatchGetResultJson>(null, urlFormat, data, timeOut: timeOut);
@@ -731,7 +736,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 查询卡券详情
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -754,7 +759,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 更改code
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">卡券的code 编码</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="newCode">新的卡券code 编码</param>
@@ -781,7 +786,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 设置卡券失效接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">需要设置为失效的code</param>
         /// <param name="cardId">自定义code 的卡券必填。非自定义code 的卡券不填。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -805,7 +810,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 拉取卡券概况数据接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">查询数据的起始时间。</param>
         /// <param name="endDate">查询数据的截至时间。</param>
         /// <param name="condSource">卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据</param>
@@ -831,7 +836,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取免费券数据接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">查询数据的起始时间。</param>
         /// <param name="endDate">查询数据的截至时间。</param>
         /// <param name="condSource">卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据</param>
@@ -859,7 +864,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 拉取会员卡数据接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">查询数据的起始时间。</param>
         /// <param name="endDate">查询数据的截至时间。</param>
         /// <param name="condSource">卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据</param>
@@ -889,7 +894,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 更改卡券信息接口
         /// 支持更新部分通用字段及特殊卡券（会员卡、飞机票、电影票、红包）中特定字段的信息。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardType">卡券种类，会员卡、飞机票、电影票、红包中的一种</param>
         /// <param name="data">创建卡券需要的数据，格式可以看CardUpdateData.cs</param>
         /// <param name="cardId"></param>
@@ -937,7 +942,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                 }
 
-                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut);
+                JsonSetting jsonSetting = new JsonSetting()
+                {
+                    TypesToIgnore = new List<Type>() { typeof(BaseUpdateInfo), typeof(BaseCardUpdateInfo) }
+                };
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut,jsonSetting:jsonSetting);
 
             }, accessTokenOrAppId);
         }
@@ -947,7 +956,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 由于卡券有审核要求，为方便公众号调试，可以设置一些测试帐号，这些帐号可以领取未通过审核的卡券，体验整个流程。
         ///注：同时支持“openid”、“username”两种字段设置白名单，总数上限为10 个。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openIds">测试的openid 列表</param>
         /// <param name="userNames">测试的微信号列表</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -972,7 +981,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///  <summary>
         ///  激活/绑定会员卡
         ///  </summary>
-        ///  <param name="accessTokenOrAppId"></param>
+        ///  <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///  <param name="membershipNumber">必填，会员卡编号，作为序列号显示在用户的卡包里。</param>
         ///  <param name="code">创建会员卡时获取的code</param>
         ///  <param name="activateEndTime">激活后的有效截至时间。若不填写默认以创建时的 data_info 为准。Unix时间戳格式。</param>
@@ -1014,7 +1023,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 设置开卡字段接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -1027,7 +1036,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     TypesToIgnore = new List<Type>() { typeof(ActivateUserFormSetData), typeof(BaseForm) }
                 };
-                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<WxJsonResult>(null, urlFormat, data, timeOut: timeOut,jsonSetting:jsonSetting);
 
             }, accessTokenOrAppId);
         }
@@ -1035,7 +1044,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 拉取会员信息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">CardID</param>
         /// <param name="code">Code</param>
         /// <param name="timeOut"></param>
@@ -1056,7 +1065,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 有 使用消息配置卡券（cardCellData） 和 使用消息配置URL（urlCellData） 两种方式
         /// 注意：cardCellData和urlCellData必须也只能选择一个，不可同时为空
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="cardCellData">使用消息配置卡券数据</param>
         /// <param name="urlCellData">使用消息配置URL数据</param>
@@ -1094,7 +1103,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 注意：在调用买单接口之前，请开发者务必确认是否已经开通了微信支付以及对相应的cardid设置了门店，否则会报错
         /// 错误码，0为正常；43008为商户没有开通微信支付权限
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="isOpen">是否开启买单功能，填true/false</param>
         /// <param name="timeOut"></param>
@@ -1120,7 +1129,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 注意：设置自助核销的card_id必须已经配置了门店，否则会报错。
         /// 错误码，0为正常；43008为商户没有开通微信支付权限
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="isOpen">是否开启自助核销功能，填true/false</param>
         /// <param name="timeOut"></param>
@@ -1167,7 +1176,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///   "record_balance": "购买焦糖玛琪朵一杯，扣除金额30元。",
         ///   "custom_field_value1": "xxxxx",
         ///  }
-        ///  <param name="accessTokenOrAppId"></param>
+        ///  <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///  <param name="code">卡券Code码。</param>
         ///  <param name="cardId">卡券ID。</param>
         ///  <param name="addBonus">需要变更的积分，扣除积分用“-“表示。</param>
@@ -1211,7 +1220,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     TypesToIgnore = new List<Type>() { data.GetType() }
                 };
 
-                return CommonJsonSend.Send<UpdateUserResult>(null, urlFormat, data, timeOut: timeOut);
+                return CommonJsonSend.Send<UpdateUserResult>(null, urlFormat, data, timeOut: timeOut,jsonSetting:jsonSetting);
 
             }, accessTokenOrAppId);
         }
@@ -1219,7 +1228,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 会员卡交易
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">要消耗的序列号</param>
         /// <param name="cardId">要消耗序列号所述的card_id。自定义code 的会员卡必填</param>
         /// <param name="recordBonus">商家自定义积分消耗记录，不超过14 个汉字</param>
@@ -1252,7 +1261,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 更新电影票
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">电影票的序列号</param>
         /// <param name="cardId">电影票card_id。自定义code 的电影票为必填，非自定义code 的电影票不必填。</param>
         /// <param name="ticketClass">电影票的类别，如2D、3D</param>
@@ -1287,7 +1296,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 飞机票在线选座
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">飞机票的序列</param>
         /// <param name="cardId">需办理值机的机票card_id。自定义code 的飞机票为必</param>
         /// <param name="passengerName">乘客姓名，上限为15 个汉字</param>
@@ -1324,7 +1333,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 更新红包金额
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">红包的序列号</param>
         /// <param name="cardId">自定义code 的卡券必填。非自定义code 可不填。</param>
         /// <param name="balance">红包余额</param>
@@ -1351,7 +1360,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 更新会议门票接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">用户的门票唯一序列号</param>
         /// <param name="cardId">要更新门票序列号所述的card_id ， 生成券时use_custom_code 填写true 时必填。</param>
         /// <param name="zone">区域</param>
@@ -1381,7 +1390,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///  创建子商户接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="info">json结构</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -1403,7 +1412,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 卡券开放类目查询接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
 
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -1421,7 +1430,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///拉取单个子商户信息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="appid"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -1443,7 +1452,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///拉取子商户列表接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="nextGet">获取子商户列表，注意最开始时为空。每次拉取20个子商户，下次拉取时填入返回数据中该字段的值，该值无实际意义。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -1466,7 +1475,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///  更新子商户接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="info">json结构</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -1488,7 +1497,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///  拉取单个子商户信息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
 
         /// <param name="merchantId">子商户id，一个母商户公众号下唯一。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -1511,7 +1520,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///  批量拉取子商户信息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
 
         /// <param name="beginId">起始的子商户id，一个母商户公众号下唯一</param>
         /// <param name="limit">拉取的子商户的个数，最大值为100</param>
@@ -1538,7 +1547,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///  母商户资质申请接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="registerCapital">注册资本，数字，单位：分</param>
         /// <param name="businessLicenseMediaid">营业执照扫描件的media_id</param>
         /// <param name="taxRegistRationCertificateMediaid">税务登记证扫描件的media_id</param>
@@ -1566,7 +1575,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 母商户资质审核查询接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
 
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -1584,7 +1593,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///  子商户资质申请接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="appid">子商户公众号的appid</param>
         /// <param name="name">子商户商户名，用于显示在卡券券面</param>
         /// <param name="logoMediaid">子商户logo，用于显示在子商户卡券的券面</param>
@@ -1620,7 +1629,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 子商户资质审核查询接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="appid"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -1643,7 +1652,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取用户已领取卡券
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId">需要查询的用户openid</param>
         /// <param name="cardId">卡券ID。不填写时默认查询当前appid下的卡券。</param>
         /// <param name="timeOut"></param>
@@ -1668,7 +1677,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 修改库存接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="increaseStockValue">增加多少库存，支持不填或填0</param>
         /// <param name="reduceStockValue">减少多少库存，可以不填或填0</param>
@@ -1698,7 +1707,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】创建卡券
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardInfo">创建卡券需要的数据，格式可以看CardCreateData.cs</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -1848,14 +1857,14 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///// 此接口已取消，微信直接提供了十四种色值供选择，详见：http://mp.weixin.qq.com/wiki/8/b7e310e7943f7763450eced91fa793b0.html#.E5.8D.A1.E5.88.B8.E5.9F.BA.E7.A1.80.E4.BF.A1.E6.81.AF.E5.AD.97.E6.AE.B5.EF.BC.88.E9.87.8D.E8.A6.81.EF.BC.89
         ///// 获取颜色列表接口
         ///// </summary>
-        ///// <param name="accessTokenOrAppId"></param>
+        ///// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///// <param name="timeOut">代理请求超时时间（毫秒）</param>
         ///// <returns></returns>
 
         /// <summary>
         /// 【异步方法】开通券点账户接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
         public static async Task<PayActiveResultJson> PayActiveAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
@@ -1871,7 +1880,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】对优惠券批价
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///<param name="cardId">需要来配置库存的card_id</param>
         /// <param name="quantity">本次需要兑换的库存数目</param>
         /// <param name="timeOut"></param>
@@ -1894,7 +1903,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】查询券点余额接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
 
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -1911,7 +1920,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///【异步方法】确认兑换库存接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">需要来兑换库存的card_id</param>
         /// <param name="quantity">本次需要兑换的库存数目</param>
         /// <param name="orderId">仅可以使用上面得到的订单号，保证批价有效性</param>
@@ -1936,7 +1945,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///【异步方法】充值券点接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="coinCount">需要充值的券点数目，1点=1元</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -1958,7 +1967,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///【异步方法】查询订单详情接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="orderId">上一步中获得的订单号，作为一次交易的唯一凭证</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -1980,7 +1989,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///【异步方法】查询券点流水详情接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="offset">分批查询的起点，默认为0</param>
         /// <param name="count">分批查询的数量</param>
         /// <param name="orderType">所要拉取的订单类型ORDER_TYPE_SYS_ADD 平台赠送 ORDER_TYPE_WXPAY 充值 ORDER_TYPE_REFUND 库存回退券点 ORDER_TYPE_REDUCE 券点兑换库存 ORDER_TYPE_SYS_REDUCE 平台扣减</param>
@@ -2016,7 +2025,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】生成卡券二维码
         /// 获取二维码ticket 后，开发者可用ticket 换取二维码图片。换取指引参考：http://mp.weixin.qq.com/wiki/index.php?title=生成带参数的二维码
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="code">指定卡券code 码，只能被领一次。use_custom_code 字段为true 的卡券必须填写，非自定义code 不必填写。</param>
         /// <param name="openId">指定领取者的openid，只有该用户能领取。bind_openid 字段为true 的卡券必须填写，非自定义openid 不必填写。</param>
@@ -2071,7 +2080,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】创建货架
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -2100,7 +2109,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 3）导入结束后系统会自动判断提供方设置库存与实际导入code的量是否一致。
         /// 4）导入失败支持重复导入，提示成功为止。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">需要进行导入code的卡券ID</param>
         /// <param name="codeList">需导入微信卡券后台的自定义code，上限为100个。</param>
         /// <param name="timeOut"></param>
@@ -2125,7 +2134,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】查询导入code数目
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">进行导入code的卡券ID。</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -2148,7 +2157,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】核查code
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">进行导入code的卡券ID。</param>
         /// <param name="codeList">已经微信卡券后台的自定义code，上限为100个。</param>
         /// <param name="timeOut"></param>
@@ -2173,7 +2182,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】图文消息群发卡券
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -2195,7 +2204,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】Mark(占用)Code接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">卡券的code码。</param>
         /// <param name="cardId">卡券的ID。</param>
         /// <param name="openId">用券用户的openid。</param>
@@ -2224,7 +2233,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】卡券消耗code
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">要消耗的序列号</param>
         /// <param name="cardId">要消耗序列号所述的card_id，创建卡券时use_custom_code 填写true 时必填。非自定义code不必填写。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -2252,7 +2261,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 1.商家获取choos_card_info 后，将card_id 和encrypt_code 字段通过解码接口，获取真实code。
         /// 2.卡券内跳转外链的签名中会对code 进行加密处理，通过调用解码接口获取真实code。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="encryptCode">通过choose_card_info 获取的加密字符串</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -2275,7 +2284,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】删除卡券
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -2298,7 +2307,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】查询code接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code"></param>
         /// <param name="cardId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -2323,7 +2332,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】批量查询卡列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="offset">查询卡列表的起始偏移量，从0 开始，即offset: 5 是指从从列表里的第六个开始读取。</param>
         /// <param name="count">需要查询的卡片的数量（数量最大50）</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -2348,7 +2357,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】查询卡券详情
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -2371,7 +2380,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】更改code
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">卡券的code 编码</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="newCode">新的卡券code 编码</param>
@@ -2398,7 +2407,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】设置卡券失效接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">需要设置为失效的code</param>
         /// <param name="cardId">自定义code 的卡券必填。非自定义code 的卡券不填。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -2422,7 +2431,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】拉取卡券概况数据接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">查询数据的起始时间。</param>
         /// <param name="endDate">查询数据的截至时间。</param>
         /// <param name="condSource">卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据</param>
@@ -2448,7 +2457,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取免费券数据接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">查询数据的起始时间。</param>
         /// <param name="endDate">查询数据的截至时间。</param>
         /// <param name="condSource">卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据</param>
@@ -2476,7 +2485,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】拉取会员卡数据接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="beginDate">查询数据的起始时间。</param>
         /// <param name="endDate">查询数据的截至时间。</param>
         /// <param name="condSource">卡券来源，0为公众平台创建的卡券数据、1是API创建的卡券数据</param>
@@ -2506,7 +2515,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】更改卡券信息接口
         /// 支持更新部分通用字段及特殊卡券（会员卡、飞机票、电影票、红包）中特定字段的信息。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardType">卡券种类，会员卡、飞机票、电影票、红包中的一种</param>
         /// <param name="data">创建卡券需要的数据，格式可以看CardUpdateData.cs</param>
         /// <param name="cardId"></param>
@@ -2554,7 +2563,12 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         break;
                 }
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut);
+                JsonSetting jsonSetting = new JsonSetting()
+                {
+                    TypesToIgnore = new List<Type>() { typeof(BaseUpdateInfo), typeof(BaseCardUpdateInfo) }
+                };
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, cardData, timeOut: timeOut,jsonSetting:jsonSetting);
 
             }, accessTokenOrAppId);
         }
@@ -2564,7 +2578,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 由于卡券有审核要求，为方便公众号调试，可以设置一些测试帐号，这些帐号可以领取未通过审核的卡券，体验整个流程。
         ///注：同时支持“openid”、“username”两种字段设置白名单，总数上限为10 个。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openIds">测试的openid 列表</param>
         /// <param name="userNames">测试的微信号列表</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -2589,7 +2603,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///  <summary>
         ///  【异步方法】激活/绑定会员卡
         ///  </summary>
-        ///  <param name="accessTokenOrAppId"></param>
+        ///  <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///  <param name="membershipNumber">必填，会员卡编号，作为序列号显示在用户的卡包里。</param>
         ///  <param name="code">创建会员卡时获取的code</param>
         ///  <param name="activateEndTime">激活后的有效截至时间。若不填写默认以创建时的 data_info 为准。Unix时间戳格式。</param>
@@ -2631,7 +2645,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】设置开卡字段接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="data"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -2649,7 +2663,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】拉取会员信息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">CardID</param>
         /// <param name="code">Code</param>
         /// <param name="timeOut"></param>
@@ -2670,7 +2684,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 有 使用消息配置卡券（cardCellData） 和 使用消息配置URL（urlCellData） 两种方式
         /// 注意：cardCellData和urlCellData必须也只能选择一个，不可同时为空
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="cardCellData">使用消息配置卡券数据</param>
         /// <param name="urlCellData">使用消息配置URL数据</param>
@@ -2708,7 +2722,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 注意：在调用买单接口之前，请开发者务必确认是否已经开通了微信支付以及对相应的cardid设置了门店，否则会报错
         /// 错误码，0为正常；43008为商户没有开通微信支付权限
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="isOpen">是否开启买单功能，填true/false</param>
         /// <param name="timeOut"></param>
@@ -2734,7 +2748,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 注意：设置自助核销的card_id必须已经配置了门店，否则会报错。
         /// 错误码，0为正常；43008为商户没有开通微信支付权限
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="isOpen">是否开启自助核销功能，填true/false</param>
         /// <param name="timeOut"></param>
@@ -2781,7 +2795,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///   "record_balance": "购买焦糖玛琪朵一杯，扣除金额30元。",
         ///   "custom_field_value1": "xxxxx",
         ///  }
-        ///  <param name="accessTokenOrAppId"></param>
+        ///  <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         ///  <param name="code">卡券Code码。</param>
         ///  <param name="cardId">卡券ID。</param>
         ///  <param name="addBonus">需要变更的积分，扣除积分用“-“表示。</param>
@@ -2828,7 +2842,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】会员卡交易
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">要消耗的序列号</param>
         /// <param name="cardId">要消耗序列号所述的card_id。自定义code 的会员卡必填</param>
         /// <param name="recordBonus">商家自定义积分消耗记录，不超过14 个汉字</param>
@@ -2861,7 +2875,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】更新电影票
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">电影票的序列号</param>
         /// <param name="cardId">电影票card_id。自定义code 的电影票为必填，非自定义code 的电影票不必填。</param>
         /// <param name="ticketClass">电影票的类别，如2D、3D</param>
@@ -2896,7 +2910,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】飞机票在线选座
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">飞机票的序列</param>
         /// <param name="cardId">需办理值机的机票card_id。自定义code 的飞机票为必</param>
         /// <param name="passengerName">乘客姓名，上限为15 个汉字</param>
@@ -2933,7 +2947,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】更新红包金额
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">红包的序列号</param>
         /// <param name="cardId">自定义code 的卡券必填。非自定义code 可不填。</param>
         /// <param name="balance">红包余额</param>
@@ -2960,7 +2974,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】更新会议门票接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="code">用户的门票唯一序列号</param>
         /// <param name="cardId">要更新门票序列号所述的card_id ， 生成券时use_custom_code 填写true 时必填。</param>
         /// <param name="zone">区域</param>
@@ -2990,7 +3004,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///  【异步方法】创建子商户接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="info">json结构</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -3012,7 +3026,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】卡券开放类目查询接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
 
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -3030,7 +3044,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///【异步方法】拉取单个子商户信息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="appid"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -3052,7 +3066,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///【异步方法】拉取子商户列表接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="nextGet">获取子商户列表，注意最开始时为空。每次拉取20个子商户，下次拉取时填入返回数据中该字段的值，该值无实际意义。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -3075,7 +3089,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】 更新子商户接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="info">json结构</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -3097,7 +3111,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///  【异步方法】拉取单个子商户信息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
 
         /// <param name="merchantId">子商户id，一个母商户公众号下唯一。</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -3120,7 +3134,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///  【异步方法】批量拉取子商户信息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
 
         /// <param name="beginId">起始的子商户id，一个母商户公众号下唯一</param>
         /// <param name="limit">拉取的子商户的个数，最大值为100</param>
@@ -3147,7 +3161,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///  【异步方法】母商户资质申请接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="registerCapital">注册资本，数字，单位：分</param>
         /// <param name="businessLicenseMediaid">营业执照扫描件的media_id</param>
         /// <param name="taxRegistRationCertificateMediaid">税务登记证扫描件的media_id</param>
@@ -3175,7 +3189,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】母商户资质审核查询接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
 
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -3193,7 +3207,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///  【异步方法】子商户资质申请接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="appid">子商户公众号的appid</param>
         /// <param name="name">子商户商户名，用于显示在卡券券面</param>
         /// <param name="logoMediaid">子商户logo，用于显示在子商户卡券的券面</param>
@@ -3229,7 +3243,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】子商户资质审核查询接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="appid"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -3252,7 +3266,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取用户已领取卡券
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId">需要查询的用户openid</param>
         /// <param name="cardId">卡券ID。不填写时默认查询当前appid下的卡券。</param>
         /// <param name="timeOut"></param>
@@ -3277,7 +3291,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】修改库存接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId">卡券ID</param>
         /// <param name="increaseStockValue">增加多少库存，支持不填或填0</param>
         /// <param name="reduceStockValue">减少多少库存，可以不填或填0</param>

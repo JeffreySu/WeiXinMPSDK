@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：WeixinOpenException.cs
     文件功能描述：微信开放平台异常处理类
@@ -17,13 +17,13 @@ using Senparc.Weixin.Work.Containers;
 namespace Senparc.Weixin.Work.Exceptions
 {
     /// <summary>
-    /// 企业号异常
+    /// 企业微信异常
     /// </summary>
-    public class WeixinQyException : WeixinException
+    public class WeixinWorkException : WeixinException
     {
         public AccessTokenBag AccessTokenBag { get; set; }
 
-        public WeixinQyException(string message, AccessTokenBag accessTokenBag = null, Exception inner=null)
+        public WeixinWorkException(string message, AccessTokenBag accessTokenBag = null, Exception inner=null)
             : base(message, inner)
         {
             AccessTokenBag = accessTokenBag;

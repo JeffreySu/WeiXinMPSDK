@@ -20,41 +20,34 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
-
-    文件名：QyJsonResult.cs
-    文件功能描述：企业号JSON返回结果
-
-
-    创建标识：Senparc - 20150928
-
-    修改标识：Senparc - 20160810
-    修改描述：v4.1.4 QyJsonResult添加序列化标签
-
+    
+    文件名：RequestMessageEvent_Card_Sku_Remind.cs
+    文件功能描述：卡券库存报警事件：当某个card_id的初始库存数大于200且当前库存小于等于100时
+    
+    
+    创建标识：
 ----------------------------------------------------------------*/
 
-
-
-using System;
-
-namespace Senparc.Weixin.Entities
+namespace Senparc.Weixin.MP.Entities
 {
-    /// <summary>
-    /// 企业号 JSON 返回结果
-    /// </summary>
-    [Serializable]
-    public class QyJsonResult : IJsonResult
+    public class RequestMessageEvent_Card_Sku_Remind : RequestMessageEventBase, IRequestMessageEventBase
     {
         /// <summary>
-        /// 返回代码
+        /// 进入会员卡
         /// </summary>
-        public ReturnCode_QY errcode { get; set; }
+        public override Event Event
+        {
+            get { return Event.card_sku_remind; }
+        }
+
         /// <summary>
-        /// 返回消息
+        /// 卡券ID
         /// </summary>
-        public string errmsg { get; set; }
+        public string CardId { get; set; }
         /// <summary>
-        /// 为P2P返回结果做准备
+        /// 报警详细信息
         /// </summary>
-        public virtual object P2PData { get; set; }
+        public string Detail { get; set; }
+
     }
 }

@@ -47,7 +47,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                     }
                 case Event.LOCATION:
                     throw new Exception("暂不可用");
-                    //break;
+                //break;
                 case Event.subscribe://订阅
                     {
                         var strongResponseMessage = requestMessage.CreateResponseMessage<ResponseMessageText>();
@@ -77,7 +77,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                     throw new ArgumentOutOfRangeException();
             }
 
-            return responseMessage;         
+            return responseMessage;
         }
 
         public void ConfigOnWeixinExceptionFunc(WeixinException ex)
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                 Task.Factory.StartNew(async () =>
                 {
                     var appId = ConfigurationManager.AppSettings["WeixinAppId"];
-                    string openId = "olPjZjsXuQPJoV0HlruZkNzKc91E";//收到通知的管理员OpenId
+                    string openId = "";//收到通知的管理员OpenId
                     var host = "A1 / AccessTokenOrAppId：" + (ex.AccessTokenOrAppId ?? "null");
                     string service = null;
                     string message = ex.Message;
@@ -113,6 +113,8 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                                 ReturnCode.用户未授权该api,
                                 ReturnCode.参数错误invalid_parameter,
                                 ReturnCode.接口调用超过限制,
+                                ReturnCode.需要接收者关注,//43004
+
                                 //其他更多可能的情况
                             };
                         if (ignoreErrorCodes.Contains(jsonEx.JsonResult.errcode))
@@ -139,8 +141,11 @@ namespace Senparc.Weixin.MP.Sample.CommonService
                         var data = new WeixinTemplate_ExceptionAlert(string.Format("微信发生异常（延时{0}秒）", sleepSeconds), host, service, status, message, remark);
 
                         //修改OpenId、启用以下代码后即可收到模板消息
-                        //var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
-                        //        url, data);
+                        if (!string.IsNullOrEmpty(openId))
+                        {
+                            var result = await Senparc.Weixin.MP.AdvancedAPIs.TemplateApi.SendTemplateMessageAsync(appId, openId, data.TemplateId,
+                              url, data);
+                        }
                     }
                 });
             }

@@ -74,6 +74,10 @@ QQ群：342319110
 【ex】      体验错误日志推送提醒
 
 【mute】     不返回任何消息，也无出错信息
+
+【jssdk】    测试JSSDK图文转发接口
+
+格式：【数字#数字】，如2010#0102，调用正则表达式匹配
 ",
                 version);
         }
@@ -87,7 +91,7 @@ QQ群：342319110
 
 感谢您对盛派网络的支持！
 
-© 2016 Senparc", codeRecord.Version, codeRecord.IsWebVersion ? "网页版" : ".chm文档版");
+© {2} Senparc", codeRecord.Version, codeRecord.IsWebVersion ? "网页版" : ".chm文档版", DateTime.Now.Year);
         }
 
         public override IResponseMessageBase OnTextOrEventRequest(RequestMessageText requestMessage)

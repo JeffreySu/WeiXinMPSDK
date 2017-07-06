@@ -56,7 +56,7 @@ namespace Senparc.Weixin.MP.TenPayLib
             Data[weixinPayInfo.PartnerId] = weixinPayInfo;
         }
 
-        new public TenPayInfo this[string key]
+        public new TenPayInfo this[string key]
         {
             get
             {

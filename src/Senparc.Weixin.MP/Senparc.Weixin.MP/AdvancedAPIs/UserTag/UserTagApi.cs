@@ -50,7 +50,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 创建标签
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="name"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -72,7 +72,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取公众号已创建的标签
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
         public static TagJson Get(string accessTokenOrAppId)
         {
@@ -87,7 +87,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 编辑标签
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="timeOut"></param>
@@ -112,7 +112,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 删除标签
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="id"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -137,7 +137,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取标签下粉丝列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="tagid"></param>
         /// <param name="nextOpenid"></param>
         /// <param name="timeOut"></param>
@@ -158,7 +158,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 批量为用户打标签
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="tagid"></param>
         /// <param name="openid_list"></param>
         /// <param name="timeOut"></param>
@@ -180,7 +180,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 批量为用户取消标签
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="tagid"></param>
         /// <param name="openid_list"></param>
         /// <param name="timeOut"></param>
@@ -224,7 +224,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】创建标签
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="name"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -246,7 +246,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取公众号已创建的标签
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
         public static async Task<TagJson> GetAsync(string accessTokenOrAppId)
         {
@@ -261,7 +261,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】编辑标签
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="id"></param>
         /// <param name="name"></param>
         /// <param name="timeOut"></param>
@@ -286,7 +286,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】删除标签
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="id"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -311,7 +311,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取标签下粉丝列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="tagid"></param>
         /// <param name="nextOpenid"></param>
         /// <param name="timeOut"></param>
@@ -332,7 +332,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】批量为用户打标签
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="tagid"></param>
         /// <param name="openid_list"></param>
         /// <param name="timeOut"></param>
@@ -354,7 +354,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】批量为用户取消标签
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="tagid"></param>
         /// <param name="openid_list"></param>
         /// <param name="timeOut"></param>

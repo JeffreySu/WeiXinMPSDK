@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：MediaApi.cs
     文件功能描述：多媒体文件接口
@@ -15,10 +15,16 @@
  
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
+
+    -----------------------------------
+    
+    修改标识：Senparc - 20170617
+    修改描述：从QY移植，同步Work接口
+
 ----------------------------------------------------------------*/
 
 /*
-    接口详见：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E5%A4%9A%E5%AA%92%E4%BD%93%E6%96%87%E4%BB%B6
+    接口详见：http://work.weixin.qq.com/api/doc#10112
  */
 
 using System.Collections.Generic;
@@ -40,7 +46,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         #region 同步请求
 
         /// <summary>
-        /// 上传临时媒体文件
+        /// 上传临时媒体文件【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="type">媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件(file)</param>
@@ -52,11 +58,12 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = media;
-            return Post.PostFileGetJson<UploadTemporaryResultJson>(url, null, fileDictionary, null, null,null, timeOut);
+            return Post.PostFileGetJson<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, null, timeOut);
         }
 
         /// <summary>
-        /// 获取临时媒体文件
+        /// 获取临时媒体文件【QY移植修改】
+        /// 权限说明：完全公开，media_id在同一企业内所有应用之间可以共享。
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="mediaId"></param>
@@ -67,7 +74,17 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 accessToken.AsUrlData(), mediaId.AsUrlData());
             HttpUtility.Get.Download(url, stream);//todo 异常处理
         }
-
+        /// <summary>
+        /// 获取临时媒体文件并保存到指定目录中
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="mediaId"></param>
+        /// <param name="dir">保存目录</param>
+        public static string Get(string accessToken, string mediaId, string dir)
+        {
+            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token={0}&media_id={1}", accessToken.AsUrlData(), mediaId.AsUrlData());
+            return HttpUtility.Get.Download(url, dir);
+        }
         /// <summary>
         /// 上传永久图文素材
         /// </summary>
@@ -107,7 +124,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/add_material?agentid={1}&type={2}&access_token={0}", accessToken.AsUrlData(), agentId, type);
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = media;
-            return Post.PostFileGetJson<UploadForeverResultJson>(url, null, fileDictionary, null, null,null, timeOut);
+            return Post.PostFileGetJson<UploadForeverResultJson>(url, null, fileDictionary, null, null, null, timeOut);
         }
 
         /// <summary>
@@ -151,14 +168,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
-        public static QyJsonResult DeleteForeverMaterial(string accessToken, int agentId, string mediaId)
+        public static WorkJsonResult DeleteForeverMaterial(string accessToken, int agentId, string mediaId)
         {
             var url =
                 string.Format(
                     "https://qyapi.weixin.qq.com/cgi-bin/material/del?access_token={0}&agentid={1}&media_id={2}",
                     accessToken.AsUrlData(), agentId, mediaId.AsUrlData());
 
-            return CommonJsonSend.Send<QyJsonResult>(null, url, null, CommonJsonSendType.GET);
+            return CommonJsonSend.Send<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -250,7 +267,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
 
         #region 异步请求
         /// <summary>
-        /// 【异步方法】上传临时媒体文件
+        /// 【异步方法】上传临时媒体文件【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="type">媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件(file)</param>
@@ -262,11 +279,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token={0}&type={1}", accessToken.AsUrlData(), type.ToString());
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = media;
-            return await Post.PostFileGetJsonAsync<UploadTemporaryResultJson>(url, null, fileDictionary, null, null,null, timeOut);
+            return await Post.PostFileGetJsonAsync<UploadTemporaryResultJson>(url, null, fileDictionary, null, null, null, timeOut);
         }
 
         /// <summary>
-        /// 【异步方法】获取临时媒体文件
+        /// 【异步方法】获取临时媒体文件【QY移植修改】
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="mediaId"></param>
@@ -317,7 +334,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/material/add_material?agentid={1}&type={2}&access_token={0}", accessToken.AsUrlData(), agentId, type);
             var fileDictionary = new Dictionary<string, string>();
             fileDictionary["media"] = media;
-            return await Post.PostFileGetJsonAsync<UploadForeverResultJson>(url, null, fileDictionary, null, null,null, timeOut);
+            return await Post.PostFileGetJsonAsync<UploadForeverResultJson>(url, null, fileDictionary, null, null, null, timeOut);
         }
 
         /// <summary>
@@ -361,14 +378,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="agentId"></param>
         /// <param name="mediaId"></param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> DeleteForeverMaterialAsync(string accessToken, int agentId, string mediaId)
+        public static async Task<WorkJsonResult> DeleteForeverMaterialAsync(string accessToken, int agentId, string mediaId)
         {
             var url =
                 string.Format(
                     "https://qyapi.weixin.qq.com/cgi-bin/material/del?access_token={0}&agentid={1}&media_id={2}",
                     accessToken.AsUrlData(), agentId, mediaId.AsUrlData());
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<QyJsonResult>(null, url, null, CommonJsonSendType.GET);
+            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, null, CommonJsonSendType.GET);
         }
 
         /// <summary>
@@ -448,7 +465,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="media"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-       
+
         public static async Task<UploadimgMediaResult> UploadimgMediaAsync(string accessToken, string media, int timeOut = Config.TIME_OUT)
         {
             var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/media/uploadimg?access_token={0}",

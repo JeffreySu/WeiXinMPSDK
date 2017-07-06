@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：GetLoginInfoResult.cs
     文件功能描述：获取企业号管理员登录信息返回结果
@@ -16,24 +16,32 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.LoginAuth
     /// <summary>
     /// 获取企业号管理员登录信息返回结果
     /// </summary>
-    public class GetLoginInfoResult : QyJsonResult
+    public class GetLoginInfoResult : WorkJsonResult
     {
+        ///// <summary>
+        ///// 是否系统管理员
+        ///// </summary>
+        //public bool is_sys { get; set; }
+        ///// <summary>
+        ///// 是否内部管理员
+        ///// </summary>
+        //public bool is_inner { get; set; }
+
         /// <summary>
-        /// 是否系统管理员
+        /// 登录用户的类型：1.创建者 2.内部系统管理员 3.外部系统管理员 4.分级管理员
         /// </summary>
-        public bool is_sys { get; set; }
-        /// <summary>
-        /// 是否内部管理员
-        /// </summary>
-        public bool is_inner { get; set; }
+        public int usertype { get; set; }
+
         /// <summary>
         /// 登录管理员的信息
         /// </summary>
         public LoginInfo_UserInfo user_info { get; set; }
+
         /// <summary>
         /// 授权方企业信息
         /// </summary>
         public LoginInfo_CorpInfo corp_info { get; set; }
+
         /// <summary>
         /// 该管理员在该提供商中能使用的应用列表
         /// </summary>
@@ -62,10 +70,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.LoginAuth
         /// 该管理员的头像（仅为内部管理员时展示）
         /// </summary>
         public string avatar { get; set; }
-        /// <summary>
-        /// 该管理员的手机（仅为内部管理员时展示）
-        /// </summary>
-        public string mobile { get; set; }
+        ///// <summary>
+        ///// 该管理员的手机（仅为内部管理员时展示）
+        ///// </summary>
+        //public string mobile { get; set; }
     }
 
     public class LoginInfo_CorpInfo
@@ -74,30 +82,30 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.LoginAuth
         /// 授权方企业号id
         /// </summary>
         public string corpid { get; set; }
-        /// <summary>
-        /// 授权方企业号名称
-        /// </summary>
-        public string corp_name { get; set; }
-        /// <summary>
-        /// 授权方企业号类型，认证号：verified, 注册号：unverified，体验号：test
-        /// </summary>
-        public string corp_type { get; set; }
-        /// <summary>
-        /// 授权方企业号圆形头像
-        /// </summary>
-        public string corp_round_logo_url { get; set; }
-        /// <summary>
-        /// 授权方企业号方形头像
-        /// </summary>
-        public string corp_square_logo_url { get; set; }
-        /// <summary>
-        /// 授权方企业号用户规模
-        /// </summary>
-        public int corp_user_max { get; set; }
-        /// <summary>
-        /// 授权方企业号应用规模
-        /// </summary>
-        public int corp_agent_max { get; set; }
+        ///// <summary>
+        ///// 授权方企业号名称
+        ///// </summary>
+        //public string corp_name { get; set; }
+        ///// <summary>
+        ///// 授权方企业号类型，认证号：verified, 注册号：unverified，体验号：test
+        ///// </summary>
+        //public string corp_type { get; set; }
+        ///// <summary>
+        ///// 授权方企业号圆形头像
+        ///// </summary>
+        //public string corp_round_logo_url { get; set; }
+        ///// <summary>
+        ///// 授权方企业号方形头像
+        ///// </summary>
+        //public string corp_square_logo_url { get; set; }
+        ///// <summary>
+        ///// 授权方企业号用户规模
+        ///// </summary>
+        //public int corp_user_max { get; set; }
+        ///// <summary>
+        ///// 授权方企业号应用规模
+        ///// </summary>
+        //public int corp_agent_max { get; set; }
     }
 
     public class LoginInfo_AgentItem

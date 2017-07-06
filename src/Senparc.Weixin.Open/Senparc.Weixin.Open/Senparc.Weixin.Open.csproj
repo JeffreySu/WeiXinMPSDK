@@ -80,6 +80,8 @@
       v2.5.0 添加小程序接口
 
       v2.6.0 为GetAuthorizerRefreshTokenFunc及AuthorizerTokenRefreshedFunc添加componentAppId参数，用以支持：在同一个应用中开设多个开放平台，并差别化对待同一个公众号
+      v2.6.1 添加接口：开放平台-小程序-成员管理
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

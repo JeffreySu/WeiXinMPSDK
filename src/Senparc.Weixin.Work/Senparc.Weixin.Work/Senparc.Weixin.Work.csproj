@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Version>0.2.0-beta2</Version>
+    <Version>0.3.0</Version>
     <AssemblyName>Senparc.Weixin.Work</AssemblyName>
     <RootNamespace>Senparc.Weixin.Work</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -28,8 +28,11 @@
     <PackageIconUrl>http://sdk.weixin.senparc.com/Images/Logo.jpg</PackageIconUrl>
     <PackageReleaseNotes>
       v0.1.0 完成从Senaprc.Weixin.Work.dll的初步移植，添加Work（企业微信）中的新接口
-      v0.2.0 整理类名，MessageHandler跑通
-
+      
+      v0.2.0 1、整理类名，MessageHandler跑通
+             2、整理类名，MessageHandler跑通
+             
+      v0.3.0 AccessTokenResult 加入 IAccessTokenResult 接口
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
     <SignAssembly>False</SignAssembly>

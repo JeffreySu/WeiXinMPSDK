@@ -49,6 +49,5 @@ namespace Senparc.Weixin.Context
         where TRequest : IRequestMessageBase
         where TResponse : IResponseMessageBase
     {
-
     }
 }

@@ -10,6 +10,19 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 立项四年多来我们一直持续更新，并会坚持做下去，感谢亲们对我们的信任和各种支持！
 
+
+
+Senparc 官方教程
+----------------
+> 由 Jeffrey Su 亲笔撰写的微信开发图书将于 7 月中旬出版，<br>
+书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，可以使用微信扫描下方二维码查看最新进展：<br>
+
+> [![CrowdFunding](http://sdk.weixin.senparc.com/images/crowdfunding-qrcode.png)](https://www.weiweihi.com:8080/CrowdFunding/Home)  
+> <img src="http://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="300" /> <br >
+> 图书出版时的代码版本快照见分支 [BookVersion1](https://github.com/JeffreySu/WeiXinMPSDK/tree/BookVersion1)。
+
+
+
 目录
 ----------------
 * [:star: Senparc 官方教程](#senparc-官方教程)
@@ -41,16 +54,6 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 * [.NET Core + .NET 4.6.1 + .NET 4.5](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer-FullDotNet)
 * [.NET 4.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/NET4.0) 
 
-
-
-Senparc 官方教程
-----------------
-> 由 Jeffrey Su 亲笔撰写的微信开发图书将于 7 月中旬出版，<br>
-书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，可以使用微信扫描下方二维码查看最新进展：<br>
-
-> [![CrowdFunding](http://sdk.weixin.senparc.com/images/crowdfunding-qrcode.png)](https://www.weiweihi.com:8080/CrowdFunding/Home)  
-> <img src="http://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="300" /> <br >
-> 图书出版时的代码版本快照见分支 [BookVersion1](https://github.com/JeffreySu/WeiXinMPSDK/tree/BookVersion1)。
 
 
 
@@ -332,10 +335,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
       {
           //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
           var responseMessage = CreateResponseMessage<ResponseMessageText>();
-          responseMessage.Content =
-              string.Format(
-                  "您刚才发送了文字信息：{0}",
-                  requestMessage.Content);
+          responseMessage.Content = string.Format("您刚才发送了文字信息：{0}", requestMessage.Content);
           return responseMessage;
       }
 ```

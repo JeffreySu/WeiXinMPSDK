@@ -12,6 +12,10 @@
     float: left;
 }*/
 
+.center {
+    text-align: center;
+}
+
 .logo img {
     margin-top: 8px;
 }
@@ -205,7 +209,7 @@
 .weixin-item-font {
     font-size: 16px;
     color: #7E7E7E;
-    line-height: 24PX;
+    line-height: 24px;
     padding-bottom: 20px;
     padding-right: 40px;
 }
@@ -221,7 +225,7 @@ img.official-img {
 }
 
 .weixin-weiweihi {
-    width: 730px;
+    width: 830px;
     margin: 0 auto;
     margin-bottom: 30px;
 }
@@ -299,6 +303,14 @@ img.official-img {
     padding-bottom: 20px;
 }
 
+#book-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 10px 30px;
+    clear: both;
+    overflow: hidden;   
+}
+
 .feedback {
     /*height:290px;*/
     background: #EDF0F0;
@@ -309,7 +321,7 @@ img.official-img {
 }
 
 .feedback-info {
-    width: 60%;
+    width: 55%;
     float: left;
 }
 
@@ -322,7 +334,7 @@ img.official-img {
     }
 
 .feedback-action {
-    width: 30%;
+    width: 40%;
     float: left;
     text-align: center;
 }
@@ -598,8 +610,16 @@ img.official-img {
     clear: both;
 }
 
+p.crowdfunding-note {
+    text-align: left;
+}
 .crowdfunding-note p {
     font-size: 16px;
+}
+
+.crowdfunding-note img {
+    width: 450px;
+    max-width: 90%;
 }
 
 #tm_checkcode {
@@ -615,6 +635,16 @@ img.official-img {
     color: #fff;
     margin-bottom: 10px;
 }
+
+#showTest {
+    padding: 10px;
+    margin: 5px 20px;
+    border: #cdcdcd solid 1px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.test_bs { display: none; }
 
 @media screen and (min-width:1000px) {
     .content {
@@ -1955,3 +1985,4 @@ img.official-img {
         margin-top:0;
     }
 }
+

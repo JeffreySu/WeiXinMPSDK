@@ -70,6 +70,20 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
             return await CommonJsonSend.SendAsync<CreateJsonResult>(accessToken, urlFormat, data);
         }
 
+        /// <summary>
+        /// 【异步方法】将公众号/小程序绑定到开放平台帐号下
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="appId">授权公众号或小程序的appid</param>
+        /// <param name="openAppid">开放平台帐号appid</param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> BindAsync(string accessToken, string appId, string openAppid)
+        {
+            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/bind?access_token={0}";
+            var data = new { appid = appId, open_appid = openAppid };
+            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
+        }
+
         #endregion
     }
 }

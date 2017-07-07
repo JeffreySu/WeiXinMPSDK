@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Senparc.Weixin.CommonAPIs;
+using Senparc.Weixin.Entities;
 using Senparc.Weixin.HttpUtility;
 
 namespace Senparc.Weixin.Open.MpAPIs.Open
@@ -28,7 +29,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         /// 该API用于创建一个开放平台帐号，并将一个尚未绑定开放平台帐号的公众号/小程序绑定至该开放平台帐号上。新创建的开放平台帐号的主体信息将设置为与之绑定的公众号或小程序的主体。
         /// </summary>
         /// <param name="accessToken"></param>
-        /// <param name="appId"></param>
+        /// <param name="appId">授权公众号或小程序的appid</param>
         /// <returns></returns>
         public static CreateJsonResult Create(string accessToken, string appId)
         {
@@ -37,11 +38,37 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
             return CommonJsonSend.Send<CreateJsonResult>(accessToken, urlFormat, data);
         }
 
+        /// <summary>
+        /// 将公众号/小程序绑定到开放平台帐号下
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="appId">授权公众号或小程序的appid</param>
+        /// <param name="openAppid">开放平台帐号appid</param>
+        /// <returns></returns>
+        public static WxJsonResult Bind(string accessToken, string appId, string openAppid)
+        {
+            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/bind?access_token={0}";
+            var data = new { appid = appId, open_appid = openAppid };
+            return CommonJsonSend.Send<WxJsonResult>(accessToken, urlFormat, data);
+        }
+
         #endregion
 
         #region 异步接口
 
-
+        /// <summary>
+        /// 【异步方法】创建开放平台帐号并绑定公众号/小程序。
+        /// 该API用于创建一个开放平台帐号，并将一个尚未绑定开放平台帐号的公众号/小程序绑定至该开放平台帐号上。新创建的开放平台帐号的主体信息将设置为与之绑定的公众号或小程序的主体。
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="appId">授权公众号或小程序的appid</param>
+        /// <returns></returns>
+        public static async Task<CreateJsonResult> CreateAsync(string accessToken, string appId)
+        {
+            var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/create?access_token={0}";
+            var data = new { appid = appId };
+            return await CommonJsonSend.SendAsync<CreateJsonResult>(accessToken, urlFormat, data);
+        }
 
         #endregion
     }

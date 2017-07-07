@@ -13,8 +13,7 @@
                 });
 
             $('#showTest').click(function () {
-                $(this).hide();
-                $('#testTip').show();
+                $(this).fadeOut(function () { $('#testTip').slideDown(); });
             });
         });
     </script>

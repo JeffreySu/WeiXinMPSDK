@@ -62,92 +62,144 @@
         //    });
 
         //}
-          //初始化库结束
+        //初始化库结束
         //点击获取设备按钮的函数 开始
-        $(function () {
+        $(function() {
             loadXMLDoc();
             var connectedDeviceInfo;
-            wx.ready(function () {
+            wx.ready(function() {
                 //初始化设备库
-                wx.invoke('openWXDeviceLib', { 'connType': 'blue' }, function (res) {
-                    console.log('openWXDeviceLib', res);
-                    my_openWXDeviceLib(res);
-                });
+                wx.invoke('openWXDeviceLib',
+                    { 'connType': 'blue' },
+                    function(res) {
+                        console.log('openWXDeviceLib', res);
+                        my_openWXDeviceLib(res);
+                    });
 
                 //事件绑定
 
-                wx.invoke('onWXDeviceBindStateChange',function (res) {
-                    mlog('微信客户端设备绑定状态改变事件:' + JSON.stringify(res));
-                });
+                wx.invoke('onWXDeviceBindStateChange',
+                    function(res) {
+                        mlog('微信客户端设备绑定状态改变事件:' + JSON.stringify(res));
+                    });
 
 
-                wx.invoke('onWXDeviceStateChange', function (res) {
-                    mlog('设备连接状态变化:' + JSON.stringify(res));
-                });
+                wx.invoke('onWXDeviceStateChange',
+                    function(res) {
+                        mlog('设备连接状态变化:' + JSON.stringify(res));
+                    });
 
-                wx.invoke('onWXDeviceBluetoothStateChange', function (res) {
-                    mlog('手机蓝牙状态改变:' + JSON.stringify(res));
-                });
-
-            });
-
-            $("#connectWXDevice").on("click", function (e) {
-                //连接设备
-
-                wx.invoke('connectWXDevice', { 'connType': 'blue', 'deviceId': connectedDeviceInfo.deviceId }, function (res) {
-                    mlog("连接设备返回结果：" + JSON.stringify(res));
-                });
-            });
-
-            $("#disconnectWXDevice").on("click", function (e) {
-                //关闭设备连接
-                wx.invoke('disconnectWXDevice', { 'connType': 'blue', 'deviceId': connectedDeviceInfo.deviceId }, function (res) {
-                    mlog("连接设备返回结果：" + JSON.stringify(res));
-                });
-            });
-
-
-
-            $("#CallGetWXrefresh").on("click", function (e) {
-                //获取设备信息
-                wx.invoke('getWXDeviceInfos', { 'connType': 'blue' }, function (res) {
-                    mlog("获取设备信息返回：" + JSON.stringify(res));
-                    mlog("获取设备信息：" + res.deviceInfos);
-                    connectedDeviceInfo = res.deviceInfos[0];
-                });
+                wx.invoke('onWXDeviceBluetoothStateChange',
+                    function(res) {
+                        mlog('手机蓝牙状态改变:' + JSON.stringify(res));
+                    });
 
             });
 
-            $("#getWXDeviceTicket").on("click", function (e) {
+            $("#connectWXDevice").on("click",
+                function(e) {
+                    //连接设备
 
-                //获取操作凭证
-                var type = $("#type").val();
-                alert(type);
-                wx.invoke('getWXDeviceTicket', { 'deviceId': connectedDeviceInfo.deviceId, 'type': type, 'connType': 'blue' }, function (res) {
-                    mlog("获取操作凭证返回结果：" + JSON.stringify(res));
+                    wx.invoke('connectWXDevice',
+                        { 'connType': 'blue', 'deviceId': connectedDeviceInfo.deviceId },
+                        function(res) {
+                            mlog("连接设备返回结果：" + JSON.stringify(res));
+                        });
                 });
 
-            });
-
-
-            $('#CallCloseWXrefresh').on("click", function (e) {
-                //2. 关闭微信设备
-                wx.invoke('closeWXDeviceLib', { 'connType': 'blue' }, function (res) {
-                    console.log('closeWXDeviceLib', res);
-                    mlog("关闭设备返回：" + res.err_msg);
+            $("#disconnectWXDevice").on("click",
+                function(e) {
+                    //关闭设备连接
+                    wx.invoke('disconnectWXDevice',
+                        { 'connType': 'blue', 'deviceId': connectedDeviceInfo.deviceId },
+                        function(res) {
+                            mlog("连接设备返回结果：" + JSON.stringify(res));
+                        });
                 });
-            });
-            $('#CallSendWXData').on("click", function (e) {
-                //3.发送数据给设备
-                wx.invoke('sendDataToWXDevice', { 'deviceId': connectedDeviceInfo.deviceId, 'connType': 'blue', 'base64Data': 'aGVsbG93b3JsZA=='}, function (res) {
-                    console.log('sendDataToWXDevice', res);
-                    mlog("关闭设备返回：" + res.err_msg);
+
+
+            $("#CallGetWXrefresh").on("click",
+                function(e) {
+                    //获取设备信息
+                    wx.invoke('getWXDeviceInfos',
+                        { 'connType': 'blue' },
+                        function(res) {
+                            mlog("获取设备信息返回：" + JSON.stringify(res));
+                            mlog("获取设备信息：" + res.deviceInfos);
+                            connectedDeviceInfo = res.deviceInfos[0];
+                        });
+
                 });
-            });
+
+            $("#getWXDeviceTicket").on("click",
+                function(e) {
+
+                    //获取操作凭证
+                    var type = $("#type").val();
+                    alert(type);
+                    wx.invoke('getWXDeviceTicket',
+                        { 'deviceId': connectedDeviceInfo.deviceId, 'type': type, 'connType': 'blue' },
+                        function(res) {
+                            mlog("获取操作凭证返回结果：" + JSON.stringify(res));
+                        });
+
+                });
 
 
+            $('#CallCloseWXrefresh').on("click",
+                function(e) {
+                    //2. 关闭微信设备
+                    wx.invoke('closeWXDeviceLib',
+                        { 'connType': 'blue' },
+                        function(res) {
+                            console.log('closeWXDeviceLib', res);
+                            mlog("关闭设备返回：" + res.err_msg);
+                        });
+                });
+            $('#CallSendWXData').on("click",
+                function(e) {
+                    //3.发送数据给设备
+                    wx.invoke('sendDataToWXDevice',
+                        {
+                            'deviceId': connectedDeviceInfo.deviceId,
+                            'connType': 'blue',
+                            'base64Data': 'aGVsbG93b3JsZA=='
+                        },
+                        function(res) {
+                            console.log('sendDataToWXDevice', res);
+                            mlog("关闭设备返回：" + res.err_msg);
+                        });
+                });
 
-
+            //更新设备接口
+            $("#updateDevice").on("click",
+                function(e) {
+                    $.post("https://api.weixin.qq.com/device/authorize_device?access_token=" +
+                        '@TempData["AccessToken"]',
+                        {
+                            device_num: 1,
+                            device_list: [
+                                {
+                                    id: 38424,
+                                    mac: 'A81B6AAA0F12',
+                                    connect_protocol: 3,
+                                    auth_key: "",
+                                    close_strategy: 1,
+                                    conn_strategy: 1,
+                                    crypt_method: 0,
+                                    auth_ver: 0,
+                                    manu_mac_pos: -1,
+                                    ser_mac_pos: -2,
+                                    ble_simple_protocol: 1
+                                }
+                            ],
+                            op_type: 1
+                        },
+                        function(data) {
+                            //回调函数中对返回值进行一系列操作
+                            alert(data);
+                        });
+                });
         });
 
         //初始化 微信硬件jsapi库
@@ -289,6 +341,9 @@
 
                 <button class="weui_btn weui_btn weui_btn_warn" id="CallSendWXData">发送数据</button><br>
 
+            </div>
+            <div>
+                <button class="weui_btn weui_btn weui_btn_warn" id="updateDevice">更新设备</button><br>
             </div>
         </div>
     </div>

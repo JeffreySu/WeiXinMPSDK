@@ -35,6 +35,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
  
     修改标识：Senparc - 20160718
     修改描述：将其接口增加了异步方法
+
+    修改标识：Senparc - 20170707
+    修改描述：v14.5.1 完善异步方法synnc/await
+
 ----------------------------------------------------------------*/
 
 /*
@@ -518,7 +522,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<AnalysisResultJson<ArticleSummaryItem>> GetArticleSummaryAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = "https://api.weixin.qq.com/datacube/getarticlesummary?access_token={0}";
 
@@ -528,7 +532,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return
+                return await
                     Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<ArticleSummaryItem>>(
                         accessToken, urlFormat, data,
                         timeOut: timeOut);
@@ -548,7 +552,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<AnalysisResultJson<ArticleTotalItem>>GetArticleTotalAsync(string accessTokenOrAppId, string beginDate, string endDate, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string urlFormat = "https://api.weixin.qq.com/datacube/getarticletotal?access_token={0}";
 
@@ -558,7 +562,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     end_date = endDate
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<ArticleTotalItem>>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<AnalysisResultJson<ArticleTotalItem>>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

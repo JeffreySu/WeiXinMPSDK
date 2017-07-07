@@ -10,6 +10,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
     /// <summary>
     /// 创建开放平台帐号并绑定公众号/小程序接口返回结果
     /// </summary>
+    [Serializable]
     public class CreateJsonResult : WxJsonResult
     {
         /// <summary>

@@ -117,7 +117,7 @@ namespace Senparc.Weixin.Open.MpAPIs.Open
         {
             var urlFormat = "https://api.weixin.qq.com/cgi-bin/open/unbind?access_token={0}";
             var data = new { appid = appId, open_appid = openAppid };
-            return await CommonJsonSend.SendAsync(accessToken, urlFormat, data);
+            return await CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data);
         }
 
         /// <summary>

@@ -85,6 +85,8 @@
     <Compile Include="Exceptions\WeixinOpenException.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\InfoTypeHelper.cs" />
+    <Compile Include="MpAPIs\Open\OpenApi.cs" />
+    <Compile Include="MpAPIs\Open\OpenJson\CreateJsonResult.cs" />
     <Compile Include="QRConnect\QRConnectAPI.cs" />
     <Compile Include="QRConnect\QRConnectJson\QRConnectAccessTokenResult.cs" />
     <Compile Include="QRConnect\QRConnectJson\QRConnectUserInfo.cs" />
@@ -110,7 +112,9 @@
       <Name>Senparc.Weixin</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="MpAPIs\readme.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -83,6 +83,7 @@
       v2.6.1 添加接口：开放平台-小程序-成员管理
       v2.6.2 添加接口：开放平台-微信开放平台账号管理
       v2.6.3 完善接口：开放平台-微信开放平台账号管理
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>

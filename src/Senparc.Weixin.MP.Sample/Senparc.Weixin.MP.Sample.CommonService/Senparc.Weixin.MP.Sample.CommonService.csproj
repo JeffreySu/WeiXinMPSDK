@@ -77,6 +77,8 @@
     <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageContext.cs" />
     <Compile Include="MessageHandlers\QyMessageHandler\QyCustomMessageHandler.cs" />
     <Compile Include="MessageHandlers\WebSocket\CustomWebSocketMessageHandler.cs" />
+    <Compile Include="MessageHandlers\WorkMessageHandler\WorkCustomMessageContext.cs" />
+    <Compile Include="MessageHandlers\WorkMessageHandler\WorkCustomMessageHandler.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler\CustomWxOpenMessageHandler.cs" />
     <Compile Include="MessageHandlers\WxOpenMessageHandler\CustomWxOpenMessageContext.cs" />
     <Compile Include="OpenTicket\OpenTicketHelper.cs" />
@@ -122,6 +124,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

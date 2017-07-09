@@ -59,7 +59,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3.Tests
             var list = new List<string>();
             for (int i = 0; i < 100; i++)
             {
-                var result = TenPayV3Util.GetNoncestr();
+                var result = TenPayV3Util   .GetNoncestr();
                 Assert.IsNotNull(result);
                 Console.WriteLine(result);
                 Assert.IsFalse(list.Contains(result));

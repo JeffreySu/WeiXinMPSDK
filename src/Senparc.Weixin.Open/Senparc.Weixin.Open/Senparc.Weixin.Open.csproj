@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
-    <Version>2.5.0</Version>
-   <AssemblyName>Senparc.Weixin.Open</AssemblyName>
+    <Version>2.6.3</Version>
+    <AssemblyName>Senparc.Weixin.Open</AssemblyName>
     <RootNamespace>Senparc.Weixin.Open</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
@@ -73,11 +73,17 @@
       v2.3.7 修复：ApiConfirmAuth的URL中带空格
       v2.3.8：
       将ComponentContainer.GetComponentVerifyTicketFunc和GetAuthorizerRefreshTokenFunc改为属性
-      
+
       v2.4.0 支持 .NET Core
       v2.4.1 BusinessInfo添加open_scan属性（是否开通微信扫商品功能）
 
       v2.5.0 添加小程序接口
+
+      v2.6.0 为GetAuthorizerRefreshTokenFunc及AuthorizerTokenRefreshedFunc添加componentAppId参数，用以支持：在同一个应用中开设多个开放平台，并差别化对待同一个公众号
+      v2.6.1 添加接口：开放平台-小程序-成员管理
+      v2.6.2 添加接口：开放平台-微信开放平台账号管理
+      v2.6.3 完善接口：开放平台-微信开放平台账号管理
+
     </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/JeffreySu/WeiXinMPSDK</RepositoryUrl>
   </PropertyGroup>
@@ -149,5 +155,5 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Senparc.Weixin\Senparc.Weixin\Senparc.Weixin.csproj" />
   </ItemGroup>
-  
+
 </Project>

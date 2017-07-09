@@ -75,12 +75,11 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
     {
         #region 同步处理
 
-
         #region 临时素材
         /// <summary>
         /// 新增临时素材（原上传媒体文件）
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="type"></param>
         /// <param name="file"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -122,7 +121,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取临时素材（原下载媒体文件）
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
         public static void Get(string accessTokenOrAppId, string mediaId, Stream stream)
@@ -138,7 +137,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取临时素材（原下载媒体文件），保存到指定文件夹
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="dir"></param>
         /// <returns></returns>
@@ -186,7 +185,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 新增其他类型永久素材(图片（image）、语音（voice）和缩略图（thumb）)
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="file">文件路径</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -211,7 +210,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 新增永久视频素材
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="file">文件路径</param>
         /// <param name="title"></param>
         /// <param name="introduction"></param>
@@ -234,7 +233,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取永久图文素材
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -273,7 +272,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 删除永久素材
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -294,7 +293,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 修改永久图文素材
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId">要修改的图文消息的id</param>
         /// <param name="index">要更新的文章在图文消息中的位置（多图文消息时，此字段才有意义），第一篇为0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -322,7 +321,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 永久素材的总数，也会计算公众平台官网素材管理中的素材
         /// 图片和图文消息素材（包括单图文和多图文）的总数上限为5000，其他素材的总数上限为1000
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
         public static GetMediaCountResultJson GetMediaCount(string accessTokenOrAppId)
         {
@@ -338,7 +337,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取图文素材列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="offset">从全部素材的该偏移位置开始返回，0表示从第一个素材 返回</param>
         /// <param name="count">返回素材的数量，取值在1到20之间</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -365,7 +364,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取图片、视频、语音素材列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="type">素材的类型，图片（image）、视频（video）、语音 （voice）</param>
         /// <param name="offset"></param>
         /// <param name="count"></param>
@@ -393,7 +392,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 上传图文消息内的图片获取URL
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="file"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -411,14 +410,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         #endregion
+
         #endregion
 
         #region 异步处理
+
         #region 临时素材
         /// <summary>
         /// 【异步方法】新增临时素材（原上传媒体文件）
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="type"></param>
         /// <param name="file"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -460,7 +461,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取临时素材（原下载媒体文件）
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="stream"></param>
         public static async Task GetAsync(string accessTokenOrAppId, string mediaId, Stream stream)
@@ -476,7 +477,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取临时素材（原下载媒体文件），保存到指定文件夹
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="dir"></param>
         /// <returns></returns>
@@ -525,7 +526,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】新增其他类型永久素材(图片（image）、语音（voice）和缩略图（thumb）)
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="file">文件路径</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -550,7 +551,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】新增永久视频素材
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="file">文件路径</param>
         /// <param name="title"></param>
         /// <param name="introduction"></param>
@@ -573,7 +574,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取永久图文素材
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -612,7 +613,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】删除永久素材
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -633,7 +634,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】修改永久图文素材
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId">要修改的图文消息的id</param>
         /// <param name="index">要更新的文章在图文消息中的位置（多图文消息时，此字段才有意义），第一篇为0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -661,7 +662,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 永久素材的总数，也会计算公众平台官网素材管理中的素材
         /// 图片和图文消息素材（包括单图文和多图文）的总数上限为5000，其他素材的总数上限为1000
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
         public static async Task<GetMediaCountResultJson> GetMediaCountAsync(string accessTokenOrAppId)
         {
@@ -677,7 +678,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取图文素材列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="offset">从全部素材的该偏移位置开始返回，0表示从第一个素材 返回</param>
         /// <param name="count">返回素材的数量，取值在1到20之间</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -704,7 +705,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取图片、视频、语音素材列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="type">素材的类型，图片（image）、视频（video）、语音 （voice）</param>
         /// <param name="offset"></param>
         /// <param name="count"></param>
@@ -732,7 +733,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】上传图文消息内的图片获取URL
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="file"></param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -750,6 +751,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         #endregion
+
         #endregion
 
     }

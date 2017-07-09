@@ -29,6 +29,10 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     
     修改标识：Senparc - 20150303
     修改描述：整理接口
+
+    修改标识：Senparc - 20170623
+    修改描述：v14.4.14 排序规则统一为字典排序（ASCII）
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -37,6 +41,7 @@ using System.Collections.Specialized;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.MP.Helpers;
 
 #if NET45 || NET461
@@ -57,7 +62,7 @@ namespace Senparc.Weixin.MP.TenPayLibV3
     'IsTenpaySign(),是否正确的签名,true:是 false:否
     'IsWXsign(),是否正确的签名,true:是 false:否
     ' * IsWXsignfeedback判断微信维权签名
-    ' *GetDebugInfo(),获取debug信息 
+    ' * GetDebugInfo(),获取debug信息 
     '============================================================================
     */
 
@@ -235,8 +240,8 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         {
             StringBuilder sb = new StringBuilder();
 
-            ArrayList akeys = new ArrayList(Parameters.Keys);
-            akeys.Sort();
+			ArrayList akeys=new ArrayList(Parameters.Keys); 
+			akeys.Sort(ASCIISort.Create());
 
             foreach (string k in akeys)
             {

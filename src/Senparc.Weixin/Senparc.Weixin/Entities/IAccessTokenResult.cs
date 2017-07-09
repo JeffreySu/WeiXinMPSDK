@@ -20,41 +20,35 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
 /*----------------------------------------------------------------
     Copyright (C) 2017 Senparc
-
-    文件名：QyJsonResult.cs
-    文件功能描述：企业号JSON返回结果
-
-
-    创建标识：Senparc - 20150928
-
-    修改标识：Senparc - 20160810
-    修改描述：v4.1.4 QyJsonResult添加序列化标签
-
+    
+    文件名：IAccessTokenResult.cs
+    文件功能描述：AccessTokenResult的公共接口
+    
+    
+    创建标识：Senparc - 20170702
+    
 ----------------------------------------------------------------*/
 
-
-
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Senparc.Weixin.Entities
 {
     /// <summary>
-    /// 企业号 JSON 返回结果
+    /// access_token请求后的JSON返回格式
     /// </summary>
-    [Serializable]
-    public class QyJsonResult : IJsonResult
+    public interface IAccessTokenResult
     {
         /// <summary>
-        /// 返回代码
+        /// 获取到的凭证
         /// </summary>
-        public ReturnCode_QY errcode { get; set; }
+        string access_token { get; set; }
         /// <summary>
-        /// 返回消息
+        /// 凭证有效时间，单位：秒
         /// </summary>
-        public string errmsg { get; set; }
-        /// <summary>
-        /// 为P2P返回结果做准备
-        /// </summary>
-        public virtual object P2PData { get; set; }
+        int expires_in { get; set; }
     }
 }

@@ -63,7 +63,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 模板消息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="templateId"></param>
         /// <param name="url"></param>
@@ -93,7 +93,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 模板消息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="templateMessageData"></param>
         /// <param name="miniProgram">跳小程序所需数据，不需跳小程序可不用传该数据</param>
@@ -108,7 +108,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 设置所属行业
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="industry_id1">公众号模板消息所属行业编号</param>
         /// <param name="industry_id2">公众号模板消息所属行业编号</param>
         /// <param name="timeOut"></param>
@@ -131,7 +131,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取设置的行业信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
 
@@ -145,9 +145,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
             }, accessTokenOrAppId);
         }
         /// <summary>
-        /// 获得模板ID
+        /// 添加模板并获得模板ID
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="template_id_short">模板库中模板的编号，有“TM**”和“OPENTMTM**”等形式</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -168,7 +168,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取模板列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
 
@@ -184,7 +184,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 删除模板
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="template_id">公众帐号下模板消息ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -209,7 +209,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】模板消息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="templateId"></param>
         /// <param name="url"></param>
@@ -240,7 +240,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】模板消息接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="miniProgram">跳小程序所需数据，不需跳小程序可不用传该数据</param>
         /// <param name="templateMessageData"></param>
@@ -255,7 +255,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】设置所属行业
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="industry_id1">公众号模板消息所属行业编号</param>
         /// <param name="industry_id2">公众号模板消息所属行业编号</param>
         /// <param name="timeOut"></param>
@@ -279,7 +279,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取设置的行业信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
 
@@ -295,7 +295,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获得模板ID
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="template_id_short">模板库中模板的编号，有“TM**”和“OPENTMTM**”等形式</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
@@ -316,7 +316,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         ///【异步办法】 获取模板列表
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
 
@@ -332,7 +332,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】删除模板
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="template_id">公众帐号下模板消息ID</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>

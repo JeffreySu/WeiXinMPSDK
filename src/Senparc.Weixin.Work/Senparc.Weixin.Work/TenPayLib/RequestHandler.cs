@@ -1,18 +1,29 @@
 /*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
  
     文件名：RequestHandler.cs
     文件功能描述：微信支付 请求处理
     
     
     创建标识：Senparc - 20150722
+    
+    修改标识：Senparc - 20170623
+    修改描述：使用 ASCII 字典排序
 ----------------------------------------------------------------*/
 
 using System;
 using System.Collections;
 using System.Text;
 using System.Text.RegularExpressions;
+using Senparc.Weixin.Work.Helpers;
+
+#if NET45 || NET461
 using System.Web;
+#else
+using Microsoft.AspNetCore.Http;
+#endif
+
+using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.Work.Helpers;
 
 namespace Senparc.Weixin.Work.TenPayLib
@@ -35,13 +46,22 @@ namespace Senparc.Weixin.Work.TenPayLib
     public class RequestHandler
     {
 
+        public RequestHandler()
+        {
+            Parameters = new Hashtable();
+        }
+
+
         public RequestHandler(HttpContext httpContext)
         {
             Parameters = new Hashtable();
-
-            this.HttpContext = httpContext ?? HttpContext.Current;
-
+#if NET45 || NET461
+			this.HttpContext = httpContext ?? HttpContext.Current;
+#else
+            this.HttpContext = httpContext ?? new DefaultHttpContext();
+#endif
         }
+
         /// <summary>
         /// 密钥
         /// </summary>
@@ -121,7 +141,7 @@ namespace Senparc.Weixin.Work.TenPayLib
             StringBuilder sb = new StringBuilder();
 
             ArrayList akeys = new ArrayList(Parameters.Keys);
-            akeys.Sort();
+            akeys.Sort(ASCIISort.Create());
 
             foreach (string k in akeys)
             {
@@ -183,7 +203,11 @@ namespace Senparc.Weixin.Work.TenPayLib
 
         protected virtual string GetCharset()
         {
+#if NET45 || NET461
             return this.HttpContext.Request.ContentEncoding.BodyName;
+#else
+            return Encoding.UTF8.WebName;
+#endif
         }
     }
 }

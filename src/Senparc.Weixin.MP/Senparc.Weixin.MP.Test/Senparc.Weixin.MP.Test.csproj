@@ -99,6 +99,7 @@
     <Compile Include="AdvancedAPIs\Semantic\SemanticTest.cs" />
     <Compile Include="AdvancedAPIs\ShakeAround\ShakeAroundTest.cs" />
     <Compile Include="AdvancedAPIs\Template\TemplateTest.cs" />
+    <Compile Include="AdvancedAPIs\AsyncTest.cs" />
     <Compile Include="CacheTests\CacheTests.cs" />
     <Compile Include="Containers\AccessTokenContainerAsyncTest.cs" />
     <Compile Include="Containers\AccessTokenContainerLockTest.cs" />
@@ -158,6 +159,10 @@
     <ProjectReference Include="..\Senparc.Weixin.MP\Senparc.Weixin.MP.net45.csproj">
       <Project>{1d815fbf-451c-4e23-939c-cb80172f445c}</Project>
       <Name>Senparc.Weixin.MP.net45</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Senparc.WeixinTests\Senparc.WeixinTests.csproj">
+      <Project>{232a67f2-cd89-4a20-8da9-daed76412b33}</Project>
+      <Name>Senparc.WeixinTests</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

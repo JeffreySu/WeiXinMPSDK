@@ -118,7 +118,10 @@ namespace Senparc.Weixin.Cache
             {
                 return;
             }
-            _cache[key] = value;
+
+            var finalKey = base.GetFinalKey(key);
+
+            _cache[finalKey] = value;
         }
 
         public void RemoveFromCache(string key, bool isFullKey = false)

@@ -23,7 +23,7 @@
     修改描述：从QY移植，同步Work接口
          
     修改标识：Senparc - 20170709
-    修改描述：v0.3.2 修复Senparc.Weixin.QY.AdvancedAPIs.MassApi中，因为accessToken为null而导致消息发送失败的问题 
+    修改描述：v4.3.6 修复Senparc.Weixin.QY.AdvancedAPIs.MassApi中，因为accessToken为null而导致消息发送失败的问题 
 ----------------------------------------------------------------*/
 
 /*

@@ -31,6 +31,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20160719
     修改描述：增加其接口的异步方法
 
+    修改标识：Senparc - 20170707
+    修改描述：v14.5.1 完善异步方法async/await
+
 ----------------------------------------------------------------*/
 
 /*
@@ -244,10 +247,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<MerchantInfoGetResultJson> MerchantInfoGetAsync(string accessTokenOrAppId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var urlFormat = string.Format("https://api.weixin.qq.com/scan/merchantinfo/get?access_token={0}", accessToken.AsUrlData());
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MerchantInfoGetResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MerchantInfoGetResultJson>(null, urlFormat, null, CommonJsonSendType.GET, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
        
@@ -262,7 +265,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<ProductCreateResultJson> ProductCreateAsync(string accessTokenOrAppId, string keyStandard, string keyStr, BrandInfo brandInfo, int timeOut = Config.TIME_OUT)
       {
-         return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+         return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
        {
            var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/create?access_token={0}", accessToken.AsUrlData());
            var data = new
@@ -274,7 +277,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
 
             };
-           return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProductCreateResultJson>(null, urlFormat, null, CommonJsonSendType.POST, timeOut: timeOut);
+           return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProductCreateResultJson>(null, urlFormat, null, CommonJsonSendType.POST, timeOut: timeOut);
           }, accessTokenOrAppId);
        }
         /// <summary>
@@ -288,7 +291,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult>  ModStatusAsync(string accessTokenOrAppId, string keyStandard, string keyStr, string status, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/modstatus?access_token={0}", accessToken.AsUrlData());
                 var data = new
@@ -297,7 +300,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     keystr = keyStr,
                     status = status
                 };
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
         /// <summary>
@@ -310,7 +313,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> TestWhiteListSetAsync(string accessTokenOrAppId, string openId, string userName, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var urlFormat = string.Format("https://api.weixin.qq.com/scan/testwhitelist/set?access_token={0}", accessToken.AsUrlData());
                 var data = new
@@ -318,7 +321,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     openid = openId,
                     userName = userName
                 };
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
         /*
@@ -354,7 +357,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<ProductGetListJsonResult> ProductGetListAsync(string accessTokenOrAppId,int offset, int limit, string status, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/getlist?access_token={0}", accessToken.AsUrlData());
                 var data = new
@@ -363,7 +366,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     limit = limit,
                     status = status
                 };
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProductGetListJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProductGetListJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
         /// <summary>
@@ -377,7 +380,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<WxJsonResult> ProductClearAsync(string accessTokenOrAppId, int keyStandard, string keyStr, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var urlFormat = string.Format("https://api.weixin.qq.com/scan/product/clear?access_token={0}", accessToken.AsUrlData());
                 var data = new
@@ -386,7 +389,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     keystr = keyStr
                     
                 };
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
         /// <summary>
@@ -400,7 +403,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<ScanTicketCheckJsonResult> ScanTicketCheckAsync(string accessTokenOrAppId, string ticket, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var urlFormat = string.Format("https://api.weixin.qq.com/scan/scanticket/check?access_token={0}", accessToken.AsUrlData());
                 var data = new
@@ -409,7 +412,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     ticket = ticket
 
                 };
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ScanTicketCheckJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ScanTicketCheckJsonResult>(null, urlFormat, data, CommonJsonSendType.POST, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
         #endregion

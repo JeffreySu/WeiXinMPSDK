@@ -32,6 +32,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
  
     修改标识：Senparc - 20150312
     修改描述：开放代理请求超时时间
+
+    修改标识：Senparc - 20170707
+    修改描述：v14.5.1 完善异步方法async/await
 ----------------------------------------------------------------*/
 
 /*
@@ -90,7 +93,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<T> SemanticSendAsync<T>(string accessTokenOrAppId, SemanticPostData semanticPostData, int timeOut = Config.TIME_OUT) where T : WxJsonResult
         {
-            return await ApiHandlerWapper.TryCommonApiAsync( accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var urlFormat = "https://api.weixin.qq.com/semantic/semproxy/search?access_token={0}";
 
@@ -100,7 +103,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 //        BaseSemanticResultJson as Semantic_RestaurantResult;
                 //}
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<T>(accessToken, urlFormat, semanticPostData, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<T>(accessToken, urlFormat, semanticPostData, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }

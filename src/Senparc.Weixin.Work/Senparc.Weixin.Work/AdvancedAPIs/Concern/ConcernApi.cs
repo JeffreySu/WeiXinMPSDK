@@ -34,13 +34,18 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 二次验证
         /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <param name="userId">员工UserID</param>
         /// <returns></returns>
-        public static WorkJsonResult TwoVerification(string accessToken, string userId)
+        public static WorkJsonResult TwoVerification(string accessTokenOrAppId, string userId)
         {
-            var url =string.Format ( "https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}",accessToken.AsUrlData(), userId.AsUrlData());
-            return Get.GetJson<WorkJsonResult>(url);
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
+                return Get.GetJson<WorkJsonResult>(url);
+            }, accessTokenOrAppId);
+
+
         }
         #endregion
 
@@ -49,13 +54,18 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】二次验证
         /// </summary>
-        /// <param name="accessToken">调用接口凭证</param>
+        /// <param name="accessTokenOrAppId">调用接口凭证</param>
         /// <param name="userId">员工UserID</param>
         /// <returns></returns>
-        public static async Task<WorkJsonResult> TwoVerificationAsync(string accessToken, string userId)
+        public static async Task<WorkJsonResult> TwoVerificationAsync(string accessTokenOrAppId, string userId)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
-            return await Get.GetJsonAsync<WorkJsonResult>(url);
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
+            {
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
+                return await Get.GetJsonAsync<WorkJsonResult>(url);
+            }, accessTokenOrAppId);
+
+
         }
         #endregion
     }

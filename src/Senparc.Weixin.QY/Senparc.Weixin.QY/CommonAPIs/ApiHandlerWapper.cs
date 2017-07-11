@@ -68,7 +68,7 @@ namespace Senparc.Weixin.QY
         /// <param name="accessTokenOrAppKey">AccessToken或AppKey。如果为null，则自动取已经注册的第一个corpId/corpSecret来信息获取AccessToken。</param>
         /// <param name="retryIfFaild">请保留默认值true，不用输入。</param>
         /// <returns></returns>
-        public static T TryCommonApi<T>(Func<string, T> fun, string accessTokenOrAppKey, bool retryIfFaild = true) where T : WorkJsonResult
+        public static T TryCommonApi<T>(Func<string, T> fun, string accessTokenOrAppKey, bool retryIfFaild = true) where T : QyJsonResult
         {
             Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc =
                 () => AccessTokenContainer.GetFirstOrDefaultAppId();
@@ -117,7 +117,7 @@ namespace Senparc.Weixin.QY
         /// <param name="accessTokenOrAppKey">AccessToken或AppKey。如果为null，则自动取已经注册的第一个corpId/corpSecret来信息获取AccessToken。</param>
         /// <param name="retryIfFaild">请保留默认值true，不用输入。</param>
         /// <returns></returns>
-        public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppKey, bool retryIfFaild = true) where T : WorkJsonResult
+        public static async Task<T> TryCommonApiAsync<T>(Func<string, Task<T>> fun, string accessTokenOrAppKey, bool retryIfFaild = true) where T : QyJsonResult
         {
             Func<string> accessTokenContainer_GetFirstOrDefaultAppIdFunc =
                 () => AccessTokenContainer.GetFirstOrDefaultAppId();

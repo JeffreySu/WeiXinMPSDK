@@ -85,6 +85,7 @@
     <Compile Include="Exceptions\WeixinOpenException.cs" />
     <Compile Include="Helpers\EntityHelper.cs" />
     <Compile Include="Helpers\InfoTypeHelper.cs" />
+    <Compile Include="MpAPIs\Open\OpenJson\GetJsonResult.cs" />
     <Compile Include="MpAPIs\Open\OpenApi.cs" />
     <Compile Include="MpAPIs\Open\OpenJson\CreateJsonResult.cs" />
     <Compile Include="QRConnect\QRConnectAPI.cs" />
@@ -104,6 +105,8 @@
     <Compile Include="WxaAPIs\ModifyDomain\ModifyDomainApi.cs" />
     <Compile Include="WxaAPIs\ModifyDomain\ModifyDomainJson\ModifyDomainResultJson.cs" />
     <Compile Include="WxaAPIs\Tester\TesterApi.cs" />
+    <Compile Include="WxaAPIs\Tester\TesterJson\CreateJsonResult.cs" />
+    <Compile Include="WxaAPIs\Tester\TesterJson\GetJsonResult.cs" />
     <Compile Include="WxaAPIs\Tester\TesterJson\TesterResultJson.cs" />
   </ItemGroup>
   <ItemGroup>

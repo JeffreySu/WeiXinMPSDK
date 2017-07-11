@@ -10,6 +10,9 @@
     修改标识：Senparc - 20170709
     修改描述：v0.3.1 修复OaDataOpenApi接口AccessToken传递问题
 
+    修改标识：Senparc - 20170711
+    修改描述：v14.5.1 AccessToken HandlerWaper改造
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -40,51 +43,61 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 获取打卡数据【QY移植新增】
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="openCheckinDataType">打卡类型</param>
         /// <param name="startTime">获取打卡记录的开始时间</param>
         /// <param name="endTime">获取打卡记录的结束时间</param>
         /// <param name="userIdList">需要获取打卡记录的用户列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetCheckinDataJsonResult GetCheckinData(string accessToken, OpenCheckinDataType openCheckinDataType, DateTime startTime, DateTime endTime, string[] userIdList, int timeOut = Config.TIME_OUT)
+        public static GetCheckinDataJsonResult GetCheckinData(string accessTokenOrAppId, OpenCheckinDataType openCheckinDataType, DateTime startTime, DateTime endTime, string[] userIdList, int timeOut = Config.TIME_OUT)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckindata?access_token={0}";
-
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                opencheckindatatype = (int)openCheckinDataType,
-                starttime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
-                endtime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
-                useridlist = userIdList
-            };
+                var url = "https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckindata?access_token={0}";
 
-            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetCheckinDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    opencheckindatatype = (int)openCheckinDataType,
+                    starttime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
+                    endtime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
+                    useridlist = userIdList
+                };
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetCheckinDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppId);
+
+
         }
 
 
         /// <summary>
         /// 获取审批数据【QY移植新增】
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="openCheckinDataType">打卡类型</param>
         /// <param name="startTime">获取打卡记录的开始时间</param>
         /// <param name="endTime">获取打卡记录的结束时间</param>
         /// <param name="userIdList">需要获取打卡记录的用户列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetApprovalDataJsonResult GetApprovalData(string accessToken, DateTime startTime, DateTime endTime, long next_spnum, int timeOut = Config.TIME_OUT)
+        public static GetApprovalDataJsonResult GetApprovalData(string accessTokenOrAppId, DateTime startTime, DateTime endTime, long next_spnum, int timeOut = Config.TIME_OUT)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/corp/getapprovaldata?access_token={0}";
-
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                starttime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
-                endtime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
-                next_spnum = next_spnum
-            };
+                var url = "https://qyapi.weixin.qq.com/cgi-bin/corp/getapprovaldata?access_token={0}";
 
-            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetApprovalDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    starttime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
+                    endtime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
+                    next_spnum = next_spnum
+                };
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetApprovalDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppId);
+
+
         }
 
 
@@ -96,51 +109,61 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 【异步接口】获取打卡数据【QY移植新增】
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="openCheckinDataType">打卡类型</param>
         /// <param name="startTime">获取打卡记录的开始时间</param>
         /// <param name="endTime">获取打卡记录的结束时间</param>
         /// <param name="userIdList">需要获取打卡记录的用户列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<GetCheckinDataJsonResult> GetCheckinDataAsync(string accessToken, OpenCheckinDataType openCheckinDataType, DateTime startTime, DateTime endTime, string[] userIdList, int timeOut = Config.TIME_OUT)
+        public static async Task<GetCheckinDataJsonResult> GetCheckinDataAsync(string accessTokenOrAppId, OpenCheckinDataType openCheckinDataType, DateTime startTime, DateTime endTime, string[] userIdList, int timeOut = Config.TIME_OUT)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckindata?access_token={0}";
-
-            var data = new
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                opencheckindatatype = (int)openCheckinDataType,
-                starttime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
-                endtime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
-                useridlist = userIdList
-            };
+                var url = "https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckindata?access_token={0}";
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCheckinDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    opencheckindatatype = (int)openCheckinDataType,
+                    starttime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
+                    endtime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
+                    useridlist = userIdList
+                };
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCheckinDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppId);
+
+
         }
 
 
         /// <summary>
         /// 【异步接口】获取审批数据【QY移植新增】
         /// </summary>
-        /// <param name="accessToken"></param>
+        /// <param name="accessTokenOrAppId"></param>
         /// <param name="openCheckinDataType">打卡类型</param>
         /// <param name="startTime">获取打卡记录的开始时间</param>
         /// <param name="endTime">获取打卡记录的结束时间</param>
         /// <param name="userIdList">需要获取打卡记录的用户列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<GetApprovalDataJsonResult> GetApprovalDataAsync(string accessToken, DateTime startTime, DateTime endTime, long next_spnum, int timeOut = Config.TIME_OUT)
+        public static async Task<GetApprovalDataJsonResult> GetApprovalDataAsync(string accessTokenOrAppId, DateTime startTime, DateTime endTime, long next_spnum, int timeOut = Config.TIME_OUT)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/corp/getapprovaldata?access_token={0}";
-
-            var data = new
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                starttime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
-                endtime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
-                next_spnum = next_spnum
-            };
+                var url = "https://qyapi.weixin.qq.com/cgi-bin/corp/getapprovaldata?access_token={0}";
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetApprovalDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    starttime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(startTime),
+                    endtime = Senparc.Weixin.Helpers.DateTimeHelper.GetWeixinDateTime(endTime),
+                    next_spnum = next_spnum
+                };
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetApprovalDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, accessTokenOrAppId);
+
+
         }
 
         #endregion

@@ -28,7 +28,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
     public static class LoginAuthApi
     {
 
-      
+
         #region 同步请求
 
 
@@ -43,16 +43,18 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static GetLoginUrlResult GetLoginUrl(string providerAccessToken, string loginTicket, string target, int agentid, int timeOut = Config.TIME_OUT)
         {
-            string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_url?provider_access_token={0}";
-
-            var data = new
             {
-                login_ticket = loginTicket,
-                target = target,
-                agentid = agentid
-            };
+                string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_url?provider_access_token={0}";
 
-            return CommonJsonSend.Send<GetLoginUrlResult>(providerAccessToken, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    login_ticket = loginTicket,
+                    target = target,
+                    agentid = agentid
+                };
+
+                return CommonJsonSend.Send<GetLoginUrlResult>(providerAccessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }
         }
         #endregion
 

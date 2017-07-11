@@ -7,6 +7,9 @@
     
     创建标识：Senparc - 20170617
 
+    修改标识：Senparc - 20170711
+    修改描述：v14.5.1 AccessToken HandlerWaper改造
+
 ----------------------------------------------------------------*/
 
 using Senparc.Weixin.CommonAPIs;
@@ -55,15 +58,20 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.SSO
         /// <returns></returns>
         public static ProviderTokenResult GetProviderToken(string corpId, string providerSecret, int timeOut = Config.TIME_OUT)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_provider_token";
-
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                corpid = corpId,
-                provider_secret = providerSecret
-            };
+                var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_provider_token";
 
-            return CommonJsonSend.Send<ProviderTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    corpid = corpId,
+                    provider_secret = providerSecret
+                };
+
+                return CommonJsonSend.Send<ProviderTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, corpId);
+
+
         }
 
 
@@ -78,14 +86,19 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.SSO
         /// <returns></returns>
         public static GetLoginInfoResult GetLoginInfo(string providerAccessToken, string authCode, int timeOut = Config.TIME_OUT)
         {
-            string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info?provider_access_token={0}";
-
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                auth_code = authCode
-            };
+                string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info?provider_access_token={0}";
 
-            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetLoginInfoResult>(providerAccessToken, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    auth_code = authCode
+                };
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetLoginInfoResult>(providerAccessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, providerAccessToken);
+
+
         }
 
         #endregion
@@ -101,14 +114,19 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.SSO
         /// <returns></returns>
         public static async Task<GetLoginInfoResult> GetLoginInfoAsync(string providerAccessToken, string authCode, int timeOut = Config.TIME_OUT)
         {
-            string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info?provider_access_token={0}";
-
-            var data = new
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                auth_code = authCode
-            };
+                string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info?provider_access_token={0}";
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetLoginInfoResult>(providerAccessToken, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    auth_code = authCode
+                };
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetLoginInfoResult>(providerAccessToken, url, data, CommonJsonSendType.POST, timeOut);
+            }, providerAccessToken);
+
+
         }
 
         /// <summary>
@@ -120,15 +138,20 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.SSO
         /// <returns></returns>
         public static async Task<ProviderTokenResult> GetProviderTokenAsync(string corpId, string providerSecret, int timeOut = Config.TIME_OUT)
         {
-            var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_provider_token";
-
-            var data = new
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                corpid = corpId,
-                provider_secret = providerSecret
-            };
+                var url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_provider_token";
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProviderTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    corpid = corpId,
+                    provider_secret = providerSecret
+                };
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<ProviderTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, corpId);
+
+
         }
 
 

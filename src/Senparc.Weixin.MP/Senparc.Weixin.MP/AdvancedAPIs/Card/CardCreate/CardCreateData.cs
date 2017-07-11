@@ -39,6 +39,11 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20170528
     修改描述：v14.4.10  修改Card_CashData属性类型（int）
 
+    修改标识：Senparc - 20170711
+    修改描述：v14.5.2 Card_MemberCardData添加wx_activate_after_submit和wx_activate_after_submit_url
+
+
+
 ----------------------------------------------------------------*/
 
 
@@ -243,6 +248,18 @@ namespace Senparc.Weixin.MP.AdvancedAPIs.Card
         /// </summary>
         [JsonSetting.IgnoreValueAttribute(0)]
         public int discount { get; set; }
+
+
+        //[JsonSetting.IgnoreValue()]
+        /// <summary>
+        /// 是否支持跳转型一键激活，填true或lse    
+        /// </summary>
+        public bool? wx_activate_after_submit { get; set; }
+        /// <summary>
+        /// 跳转型一键激活跳转的地址链接，请填写http://或者https://开头的链接           
+        /// </summary>
+        public bool? wx_activate_after_submit_url { get; set; }
+
 
         public Card_MemberCardData()
             : base(CardType.MEMBER_CARD)

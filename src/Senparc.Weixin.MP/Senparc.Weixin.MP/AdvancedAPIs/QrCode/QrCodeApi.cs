@@ -42,6 +42,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
     修改标识：Senparc - 20160901
     修改描述：v14.3.7 修改Create方法（及对应异步方法），匹配最新的官方文档，删除CreateByStr方法（及对应异步方法）
 
+    修改标识：Senparc - 20170707
+    修改描述：v14.5.1 完善异步方法async/await
+
 ----------------------------------------------------------------*/
 
 /*
@@ -199,7 +202,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<CreateQrCodeResult> CreateAsync(string accessTokenOrAppId, int expireSeconds, int sceneId, QrCode_ActionName actionName, string sceneStr = null, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var urlFormat = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
                 object data = null;
@@ -251,7 +254,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         throw new ArgumentOutOfRangeException(actionName.GetType().Name, actionName, null);
                 }
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
             }, accessTokenOrAppId);
         }
 
@@ -264,7 +267,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         ///// <returns></returns>
         //public static async Task<CreateQrCodeResult> CreateByStrAsync(string accessTokenOrAppId, string sceneStr, int timeOut = Config.TIME_OUT)
         //{
-        //    return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+        //    return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
         //    {
         //        var urlFormat = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
         //        var data = new
@@ -277,7 +280,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         //                }
         //            }
         //        };
-        //        return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
+        //        return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<CreateQrCodeResult>(accessToken, urlFormat, data, timeOut: timeOut);
         //    }, accessTokenOrAppId);
         //}
 

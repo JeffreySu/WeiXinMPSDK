@@ -15,10 +15,16 @@
  
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
+    
+    -----------------------------------
+    
+    修改标识：Senparc - 20170617
+    修改描述：从QY移植，同步Work接口
+
 ----------------------------------------------------------------*/
 
 /*
-    接口详见：http://qydev.weixin.qq.com/wiki/index.php?title=%E7%AE%A1%E7%90%86%E5%A4%9A%E5%AA%92%E4%BD%93%E6%96%87%E4%BB%B6
+    接口详见：http://work.weixin.qq.com/api/doc#10112
  */
 
 using System.Collections.Generic;

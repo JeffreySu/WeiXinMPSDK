@@ -12,6 +12,10 @@
 	
 	修改标识：Senparc - 20161015
 	修改描述：修改GB2312编码为936
+    
+    修改标识：Senparc - 20170623
+    修改描述：使用 ASCII 字典排序
+
 ----------------------------------------------------------------*/
 
 using System;
@@ -20,6 +24,7 @@ using System.Collections.Specialized;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using Senparc.Weixin.Helpers.StringHelper;
 using Senparc.Weixin.QY.Helpers;
 #if NET45 || NET461
 using System.Web;
@@ -77,7 +82,7 @@ namespace Senparc.Weixin.QY.TenPayLibV3
 #if NET45 || NET461
         //private string Charset = "gb2312";
 #else
-        private string Charset = "936";
+        private int Charset = 936;
 #endif
 
         protected HttpContext HttpContext;
@@ -227,7 +232,7 @@ namespace Senparc.Weixin.QY.TenPayLibV3
 			StringBuilder sb = new StringBuilder();
 
 			ArrayList akeys=new ArrayList(Parameters.Keys); 
-			akeys.Sort();
+			akeys.Sort(ASCIISort.Create());
 
 			foreach(string k in akeys)
 			{

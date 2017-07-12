@@ -20,6 +20,9 @@
     修改描述：v14.3.140 1、添加BaseGroupMessageDataByGroupId.send_ignore_reprint属性
                         2、优化代码
 
+    修改标识：Senparc - 20170707
+    修改描述：v14.5.1 完善异步方法async/await
+
 ----------------------------------------------------------------*/
 
 /* 
@@ -55,7 +58,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 4、群发视频时需要先调用GetVideoMediaIdResult接口获取专用的MediaId然后进行群发
         /// 
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="groupId">群发到的分组的group_id，参见用户管理中用户分组接口，若is_to_all值为true，可不填写group_id</param>
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
@@ -158,7 +161,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 根据OpenId进行群发【订阅号不可用，服务号认证后可用】
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
         /// <param name="openIds">openId字符串数组</param>
@@ -244,7 +247,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 根据OpenID列表群发视频消息【订阅号不可用，服务号认证后可用】
         /// 注意：群发视频时需要先调用GetVideoMediaIdResult接口获取专用的MediaId然后进行群发
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="title"></param>
         /// <param name="mediaId"></param>
         /// <param name="openIds">openId字符串数组</param>
@@ -277,7 +280,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 删除群发消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="msgId">发送出去的消息ID</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -301,7 +304,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 预览接口【订阅号与服务号认证后均可用】
         /// 注意：openId与wxName两者任选其一，同时传入以wxName优先
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="value">群发媒体消息时为media_id，群发文本信息为content</param>
         /// <param name="type"></param>
         /// <param name="openId">接收消息用户对应该公众号的openid</param>
@@ -390,7 +393,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 预览卡券接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId"></param>
         /// <param name="code"></param>
         /// <param name="openId"></param>
@@ -426,7 +429,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 查询群发消息发送状态【订阅号与服务号认证后均可用】
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="msgId">群发消息后返回的消息id</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
@@ -449,7 +452,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 获取视频群发用的MediaId
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="title"></param>
         /// <param name="description"></param>
@@ -487,7 +490,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 4、群发视频时需要先调用GetVideoMediaIdResult接口获取专用的MediaId然后进行群发
         /// 
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="groupId">群发到的分组的group_id，参加用户管理中用户分组接口，若is_to_all值为true，可不填写group_id</param>
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
@@ -497,7 +500,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<SendResult> SendGroupMessageByGroupIdAsync(string accessTokenOrAppId, string groupId, string value, GroupMessageType type, bool isToAll = false, bool sendIgnoreReprint = false, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token={0}";
 
@@ -582,7 +585,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 baseData.send_ignore_reprint = sendIgnoreReprint ? 0 : 1;//待群发的文章被判定为转载时，是否继续群发
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -590,7 +593,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】根据OpenId进行群发【订阅号不可用，服务号认证后可用】
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="value">群发媒体文件时传入mediaId,群发文本消息时传入content,群发卡券时传入cardId</param>
         /// <param name="type"></param>
         /// <param name="openIds">openId字符串数组</param>
@@ -598,7 +601,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<SendResult> SendGroupMessageByOpenIdAsync(string accessTokenOrAppId, GroupMessageType type, string value, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
 
@@ -667,7 +670,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                         throw new Exception("参数错误。");
                         //break;
                 }
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -676,7 +679,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】根据OpenID列表群发视频消息【订阅号不可用，服务号认证后可用】
         /// 注意：群发视频时需要先调用GetVideoMediaIdResult接口获取专用的MediaId然后进行群发
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="title"></param>
         /// <param name="mediaId"></param>
         /// <param name="openIds">openId字符串数组</param>
@@ -685,7 +688,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<SendResult> SendVideoGroupMessageByOpenIdAsync(string accessTokenOrAppId, string title, string description, string mediaId, int timeOut = Config.TIME_OUT, params string[] openIds)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token={0}";
 
@@ -701,7 +704,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     msgtype = "mpvideo"
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -709,13 +712,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】删除群发消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="msgId">发送出去的消息ID</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<WxJsonResult> DeleteSendMessageAsync(string accessTokenOrAppId, string msgId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 //官方API地址为https://api.weixin.qq.com//cgi-bin/message/mass/delete?access_token={0}，应该是多了一个/
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/delete?access_token={0}";
@@ -724,7 +727,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 {
                     msg_id = msgId
                 };
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WxJsonResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -733,7 +736,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】预览接口【订阅号与服务号认证后均可用】
         /// 注意：openId与wxName两者任选其一，同时传入以wxName优先
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="value">群发媒体消息时为media_id，群发文本信息为content</param>
         /// <param name="type"></param>
         /// <param name="openId">接收消息用户对应该公众号的openid</param>
@@ -742,7 +745,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <returns></returns>
         public static async Task<SendResult> SendGroupMessagePreviewAsync(string accessTokenOrAppId, GroupMessageType type, string value, string openId, string wxName = null, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
 
@@ -814,7 +817,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     default:
                         throw new Exception("参数错误。");
                 }
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -822,7 +825,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】预览卡券接口
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="cardId"></param>
         /// <param name="code"></param>
         /// <param name="openId"></param>
@@ -834,7 +837,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<SendResult> WxCardGroupMessagePreviewAsync(string accessTokenOrAppId, string cardId, string code,
             string openId, string wxName, string timestamp, string signature, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token={0}";
 
@@ -850,7 +853,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     msgtype = "wxcard"
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<SendResult>(accessToken, urlFormat, baseData, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -858,13 +861,13 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】查询群发消息发送状态【订阅号与服务号认证后均可用】
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="msgId">群发消息后返回的消息id</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
         public static async Task<GetSendResult> GetGroupMessageResultAsync(string accessTokenOrAppId, string msgId, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 const string urlFormat = "https://api.weixin.qq.com/cgi-bin/message/mass/get?access_token={0}";
 
@@ -873,7 +876,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     msg_id = msgId
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSendResult>(accessToken, urlFormat, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetSendResult>(accessToken, urlFormat, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -881,7 +884,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取视频群发用的MediaId
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="mediaId"></param>
         /// <param name="title"></param>
         /// <param name="description"></param>
@@ -890,7 +893,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         public static async Task<VideoMediaIdResult> GetVideoMediaIdResultAsync(string accessTokenOrAppId, string mediaId, string title,
             string description, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 string url = string.Format("https://file.api.weixin.qq.com/cgi-bin/media/uploadvideo?access_token={0}", accessToken.AsUrlData());
 
@@ -901,7 +904,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     description = description
                 };
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<VideoMediaIdResult>(null, url, data, CommonJsonSendType.POST, timeOut, true);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<VideoMediaIdResult>(null, url, data, CommonJsonSendType.POST, timeOut, true);
 
             }, accessTokenOrAppId);
         }

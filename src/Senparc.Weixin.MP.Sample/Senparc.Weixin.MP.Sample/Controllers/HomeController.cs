@@ -40,6 +40,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             TempData["ExtensionVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.MP.MvcExtension.dll"));
             TempData["OpenVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Open.dll"));
             TempData["QYVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.QY.dll"));
+            TempData["WorkVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Work.dll"));
             TempData["RedisCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Redis.dll"));
             TempData["MemcachedCacheVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.Cache.Memcached.dll"));
             TempData["WxOpenVersion"] = getDisplayVersion(getFileVersionInfo("Senparc.Weixin.WxOpen.dll"));
@@ -58,6 +59,14 @@ namespace Senparc.Weixin.MP.Sample.Controllers
             Weixin.WeixinTrace.SendCustomLog("首页被访问", string.Format("Url：{0}\r\nIP：{1}",Request.Url,Request.UserHostName));
 
             return View();
+        }
+
+        public ActionResult Book()
+        {
+            return Redirect("https://book.weixin.senparc.com");
+
+            //ViewData["HideBanner"] = true;
+            //return View();
         }
 
         public ActionResult TestElmah()

@@ -56,7 +56,7 @@ namespace Senparc.Weixin.Context
             MaxRecordCount = maxRecordCount;
         }
 
-        new public void Add(T item)
+        public new void Add(T item)
         {
             base.Add(item);
             RemoveExpressItems();
@@ -70,19 +70,19 @@ namespace Senparc.Weixin.Context
             }
         }
 
-        new public void AddRange(IEnumerable<T> collection)
+        public new void AddRange(IEnumerable<T> collection)
         {
             base.AddRange(collection);
             RemoveExpressItems();
         }
 
-        new public void Insert(int index, T item)
+        public new void Insert(int index, T item)
         {
             base.Insert(index, item);
             RemoveExpressItems();
         }
 
-        new public void InsertRange(int index, IEnumerable<T> collection)
+        public new void InsertRange(int index, IEnumerable<T> collection)
         {
             base.InsertRange(index, collection);
             RemoveExpressItems();

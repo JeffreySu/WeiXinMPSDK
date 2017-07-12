@@ -4,8 +4,6 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -14,15 +12,11 @@ using System.Web.Routing;
 using Senparc.Weixin.Cache;
 using Senparc.Weixin.Cache.Memcached;
 using Senparc.Weixin.Cache.Redis;
-using Senparc.Weixin.Exceptions;
-using Senparc.Weixin.MP.CommonAPIs;
 using Senparc.Weixin.MP.Containers;
 using Senparc.Weixin.MP.Sample.CommonService;
 using Senparc.Weixin.MP.Sample.CommonService.MessageHandlers.WebSocket;
-using Senparc.Weixin.MP.Sample.CommonService.TemplateMessage;
 using Senparc.Weixin.MP.TenPayLib;
 using Senparc.Weixin.MP.TenPayLibV3;
-using Senparc.Weixin.Open.CommonAPIs;
 using Senparc.Weixin.Open.ComponentAPIs;
 using Senparc.Weixin.Open.Containers;
 using Senparc.Weixin.Threads;
@@ -38,7 +32,6 @@ namespace Senparc.Weixin.MP.Sample
         {
             AreaRegistration.RegisterAllAreas();
 
-
             RegisterWebSocket();        //微信注册WebSocket模块（按需，必须执行在RouteConfig.RegisterRoutes()之前）
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
@@ -48,15 +41,16 @@ namespace Senparc.Weixin.MP.Sample
 
 
             /* 微信配置开始
-                * 
-                * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
-                */
+             * 
+             * 建议按照以下顺序进行注册，尤其须将缓存放在第一位！
+             */
 
             RegisterWeixinCache();      //注册分布式缓存（按需，如果需要，必须放在第一个）
             ConfigWeixinTraceLog();     //配置微信跟踪日志（按需）
             RegisterWeixinThreads();    //激活微信缓存及队列线程（必须）
             RegisterSenparcWeixin();    //注册Demo所用微信公众号的账号信息（按需）
             RegisterSenparcQyWeixin();  //注册Demo所用微信企业号的账号信息（按需）
+            RegisterSenparcWorkWeixin();  //注册Demo所用企业微信的账号信息（按需）
             RegisterWeixinPay();        //注册微信支付（按需）
             RegisterWeixinThirdParty(); //注册微信第三方平台（按需）
 
@@ -151,6 +145,24 @@ namespace Senparc.Weixin.MP.Sample
         }
 
         /// <summary>
+        /// 注册Demo所用企业微信的账号信息
+        /// </summary>
+        private void RegisterSenparcWorkWeixin()
+        {
+            Senparc.Weixin.Work.Containers.AccessTokenContainer.Register(
+                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"],
+                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"],
+                "【盛派网络】企业微信"
+                );
+
+            Senparc.Weixin.Work.Containers.ProviderTokenContainer.Register(
+                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpId"],
+                System.Configuration.ConfigurationManager.AppSettings["WeixinCorpSecret"],
+                "【盛派网络】企业微信"
+                );
+        }
+
+        /// <summary>
         /// 注册微信支付
         /// </summary>
         private void RegisterWeixinPay()
@@ -199,45 +211,45 @@ namespace Senparc.Weixin.MP.Sample
                 }
             };
 
-            Func<string, string> getAuthorizerRefreshTokenFunc = auhtorizerId =>
-            {
-                var dir = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo");
-                if (!Directory.Exists(dir))
-                {
-                    Directory.CreateDirectory(dir);
-                }
-
-                var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
-                if (!File.Exists(file))
-                {
-                    return null;
-                }
-
-                using (Stream fs = new FileStream(file, FileMode.Open))
-                {
-                    BinaryFormatter binFormat = new BinaryFormatter();
-                    var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
-                    return result.authorizer_refresh_token;
-                }
-            };
-
-            Action<string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc = (auhtorizerId, refreshResult) =>
+            Func<string, string, string> getAuthorizerRefreshTokenFunc = (componentAppId, auhtorizerId) =>
              {
-                 var dir = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo");
+                 var dir = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo\\" + componentAppId);
                  if (!Directory.Exists(dir))
                  {
                      Directory.CreateDirectory(dir);
                  }
 
                  var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
-                 using (Stream fs = new FileStream(file, FileMode.Create))
+                 if (!File.Exists(file))
                  {
-                     //这里存了整个对象，实际上只存RefreshToken也可以，有了RefreshToken就能刷新到最新的AccessToken
+                     return null;
+                 }
+
+                 using (Stream fs = new FileStream(file, FileMode.Open))
+                 {
                      BinaryFormatter binFormat = new BinaryFormatter();
-                     binFormat.Serialize(fs, refreshResult);
-                     fs.Flush();
+                     var result = (RefreshAuthorizerTokenResult)binFormat.Deserialize(fs);
+                     return result.authorizer_refresh_token;
                  }
              };
+
+            Action<string, string, RefreshAuthorizerTokenResult> authorizerTokenRefreshedFunc = (componentAppId, auhtorizerId, refreshResult) =>
+              {
+                  var dir = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data\\AuthorizerInfo\\" + componentAppId);
+                  if (!Directory.Exists(dir))
+                  {
+                      Directory.CreateDirectory(dir);
+                  }
+
+                  var file = Path.Combine(dir, string.Format("{0}.bin", auhtorizerId));
+                  using (Stream fs = new FileStream(file, FileMode.Create))
+                  {
+                      //这里存了整个对象，实际上只存RefreshToken也可以，有了RefreshToken就能刷新到最新的AccessToken
+                      BinaryFormatter binFormat = new BinaryFormatter();
+                      binFormat.Serialize(fs, refreshResult);
+                      fs.Flush();
+                  }
+              };
 
             //执行注册
             ComponentContainer.Register(

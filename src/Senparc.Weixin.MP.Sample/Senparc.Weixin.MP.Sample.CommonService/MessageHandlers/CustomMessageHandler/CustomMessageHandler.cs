@@ -336,9 +336,16 @@ namespace Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler
                     defaultResponseMessage.Content = "请等待异步模板消息发送到此界面上（自动延时数秒）。\r\n当前时间：" + DateTime.Now.ToString();
                     return defaultResponseMessage;
                 })
-                .Keyword("MUTE", () =>
+                .Keyword("MUTE", () => //不回复任何消息
                 {
+                    //方案一：
                     return new SuccessResponseMessage();
+
+                    //方案二：
+                    var muteResponseMessage = base.CreateResponseMessage<ResponseMessageNoResponse>();
+                    return muteResponseMessage;
+
+                    //方案三：
                     base.TextResponseMessage = "success";
                     return null;
                 })
@@ -416,23 +423,34 @@ namespace Senparc.Weixin.MP.CoreSample.CommonService.CustomMessageHandler
         /// <returns></returns>
         public override IResponseMessageBase OnImageRequest(RequestMessageImage requestMessage)
         {
-            var responseMessage = CreateResponseMessage<ResponseMessageNews>();
-            responseMessage.Articles.Add(new Article()
+            //一隔一返回News或Image格式
+            if (base.WeixinContext.GetMessageContext(requestMessage).RequestMessages.Count() % 2 == 0)
             {
-                Title = "您刚才发送了图片信息",
-                Description = "您发送的图片将会显示在边上",
-                PicUrl = requestMessage.PicUrl,
-                Url = "http://sdk.weixin.senparc.com"
-            });
-            responseMessage.Articles.Add(new Article()
-            {
-                Title = "第二条",
-                Description = "第二条带连接的内容",
-                PicUrl = requestMessage.PicUrl,
-                Url = "http://sdk.weixin.senparc.com"
-            });
+                var responseMessage = CreateResponseMessage<ResponseMessageNews>();
 
-            return responseMessage;
+                responseMessage.Articles.Add(new Article()
+                {
+                    Title = "您刚才发送了图片信息",
+                    Description = "您发送的图片将会显示在边上",
+                    PicUrl = requestMessage.PicUrl,
+                    Url = "http://sdk.weixin.senparc.com"
+                });
+                responseMessage.Articles.Add(new Article()
+                {
+                    Title = "第二条",
+                    Description = "第二条带连接的内容",
+                    PicUrl = requestMessage.PicUrl,
+                    Url = "http://sdk.weixin.senparc.com"
+                });
+
+                return responseMessage;
+            }
+            else
+            {
+                var responseMessage = CreateResponseMessage<ResponseMessageImage>();
+                responseMessage.Image.MediaId = requestMessage.MediaId;
+                return responseMessage;
+            }
         }
 
         /// <summary>

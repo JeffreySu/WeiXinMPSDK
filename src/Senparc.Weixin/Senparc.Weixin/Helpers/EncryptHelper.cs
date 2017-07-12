@@ -100,12 +100,12 @@ namespace Senparc.Weixin.Helpers
             {
                 inputBye = Encoding.GetEncoding(charset).GetBytes(encypStr);
             }
-            catch (Exception ex)
+            catch
             {
 #if NET45
                 inputBye = Encoding.GetEncoding("GB2312").GetBytes(encypStr);
 #else
-                inputBye = Encoding.GetEncoding("936").GetBytes(encypStr);
+                inputBye = Encoding.GetEncoding(936).GetBytes(encypStr);
 #endif
             }
             outputBye = m5.ComputeHash(inputBye);

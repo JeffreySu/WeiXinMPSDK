@@ -1,5 +1,5 @@
 ﻿/*----------------------------------------------------------------
-    Copyright (C) 2016 Senparc
+    Copyright (C) 2017 Senparc
     
     文件名：ThirdPartyAuthResult.cs
     文件功能描述：第三方应用授权返回结果
@@ -19,7 +19,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
     /// <summary>
     /// 获取应用套件令牌返回结果
     /// </summary>
-    public class GetSuiteTokenResult : QyJsonResult
+    public class GetSuiteTokenResult : WorkJsonResult
     {
         /// <summary>
         /// 应用套件access_token
@@ -35,10 +35,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
     /// <summary>
     /// 获取预授权码返回结果
     /// </summary>
-    public class GetPreAuthCodeResult : QyJsonResult
+    public class GetPreAuthCodeResult : WorkJsonResult
     {
         /// <summary>
-        /// 预授权码
+        /// 预授权码,最长为512字节
         /// </summary>
         public string pre_auth_code { get; set; }
 
@@ -76,6 +76,9 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         public ThirdParty_AuthInfo auth_info { get; set; }
     }
 
+    /// <summary>
+    /// ThirdParty_AuthCorpInfo【QY移植修改】
+    /// </summary>
     public class ThirdParty_AuthCorpInfo
     {
         /// <summary>
@@ -93,10 +96,10 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         /// </summary>
         public string corp_type { get; set; }
 
-        /// <summary>
-        /// 授权方企业号圆形头像
-        /// </summary>
-        public string corp_round_logo_url { get; set; }
+        ///// <summary>
+        ///// 授权方企业号圆形头像
+        ///// </summary>
+        //public string corp_round_logo_url { get; set; }
 
         /// <summary>
         /// 授权方企业号方形头像
@@ -112,6 +115,26 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         /// 授权方企业号应用规模
         /// </summary>
         public string corp_agent_max { get; set; }
+
+        /// <summary>
+        /// 所绑定的企业微信主体名称
+        /// </summary>
+        public string corp_full_name { get; set; }
+
+        /// <summary>
+        /// verified_end_time（UNIX时间）
+        /// </summary>
+        public long verified_end_time { get; set; }
+
+        /// <summary>
+        /// 企业类型，1. 企业; 2. 政府以及事业单位; 3. 其他组织, 4.团队号
+        /// </summary>
+        public int subject_type { get; set; }
+
+        /// <summary>
+        /// 授权方企业微信二维码
+        /// </summary>
+        public string corp_wxqrcode { get; set; }
     }
 
     public class ThirdParty_AuthInfo
@@ -121,10 +144,15 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         /// </summary>
         public List<ThirdParty_Agent> agent { get; set; }
 
+        ///// <summary>
+        ///// 授权的通讯录部门
+        ///// </summary>
+        //public List<ThirdParty_Department> department { get; set; }
+
         /// <summary>
-        /// 授权的通讯录部门
+        /// 	授权信息
         /// </summary>
-        public List<ThirdParty_Department> department { get; set; }
+        public ThirdParty_AuthUserInfo auth_user_info { get; set; }
     }
 
     public class ThirdParty_Agent
@@ -154,33 +182,95 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         /// </summary>
         public string appid { get; set; }
 
+        ///// <summary>
+        ///// 授权方应用敏感权限组，目前仅有get_location，表示是否有权限设置应用获取地理位置的开关
+        ///// </summary>
+        //public string[] api_group { get; set; }
+
         /// <summary>
-        /// 授权方应用敏感权限组，目前仅有get_location，表示是否有权限设置应用获取地理位置的开关
+        /// 应用对应的权限
         /// </summary>
-        public string[] api_group { get; set; }
+        public ThirdParty_Agent_Privilege privilege { get; set; }
+
     }
 
-    public class ThirdParty_Department
+    /// <summary>
+    /// ThirdParty_Agent_Privilege【QY移植新增】
+    /// </summary>
+    public class ThirdParty_Agent_Privilege
     {
         /// <summary>
-        /// 部门id
+        /// 权限等级。
+        /// 1:通讯录基本信息只读
+        /// 2:通讯录全部信息只读
+        /// 3:通讯录全部信息读写
+        /// 4:单个基本信息只读
+        /// 5:通讯录全部信息只写
         /// </summary>
-        public string id { get; set; }
-
+        public int level { get; set; }
         /// <summary>
-        /// 部门名称
+        /// 应用可见范围（部门）
         /// </summary>
-        public string name { get; set; }
-
+        public int[] allow_party { get; set; }
         /// <summary>
-        /// 父部门id
+        /// 应用可见范围（成员）
         /// </summary>
-        public string parentid { get; set; }
-
+        public string[] allow_user { get; set; }
         /// <summary>
-        /// 是否具有该部门的写权限
+        /// 应用可见范围（标签）
         /// </summary>
-        public string writable { get; set; }
+        public int[] allow_tag { get; set; }
+        /// <summary>
+        /// 额外通讯录（部门）
+        /// </summary>
+        public int[] extra_party { get; set; }
+        /// <summary>
+        /// 额外通讯录（成员）
+        /// </summary>
+        public string[] extra_user { get; set; }
+        /// <summary>
+        /// 额外通讯录（标签）
+        /// </summary>
+        public int[] extra_tag { get; set; }
+    }
+
+    //public class ThirdParty_Department
+    //{
+    //    /// <summary>
+    //    /// 部门id
+    //    /// </summary>
+    //    public string id { get; set; }
+
+    //    /// <summary>
+    //    /// 部门名称
+    //    /// </summary>
+    //    public string name { get; set; }
+
+    //    /// <summary>
+    //    /// 父部门id
+    //    /// </summary>
+    //    public string parentid { get; set; }
+
+    //    /// <summary>
+    //    /// 是否具有该部门的写权限
+    //    /// </summary>
+    //    public string writable { get; set; }
+    //}
+
+    public class ThirdParty_AuthUserInfo
+    {
+        /// <summary>
+        /// 授权管理员的邮箱，可能为空（外部管理员一定有，不可更改）
+        /// </summary>
+        public string email { get; set; }
+        /// <summary>
+        /// 授权管理员的手机号，可能为空（内部管理员一定有，可更改）
+        /// </summary>
+        public string mobile { get; set; }
+        /// <summary>
+        /// 授权管理员的userid，可能为空（内部管理员一定有，不可更改）
+        /// </summary>
+        public string userid { get; set; }
     }
 
     /// <summary>
@@ -199,7 +289,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         public ThirdParty_AuthInfo auth_info { get; set; }
     }
 
-    public class GetAgentResult : QyJsonResult
+    public class GetAgentResult : WorkJsonResult
     {
         /// <summary>
         /// 授权方企业应用id
@@ -289,7 +379,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
     public class GetCorpTokenResult
     {
         /// <summary>
-        /// 授权方（企业）access_token
+        /// 授权方（企业）access_token,最长为512字节
         /// </summary>
         public string access_token { get; set; }
         /// <summary>

@@ -40,7 +40,7 @@ namespace Senparc.Weixin.MP.MvcExtension
         /// 获取ContentResult中的Content或IMessageHandler中的ResponseDocument文本结果。
         /// 一般在测试的时候使用。
         /// </summary>
-        new public string Content
+        public new string Content
         {
             get
             {

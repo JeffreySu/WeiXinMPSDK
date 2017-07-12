@@ -41,13 +41,30 @@ namespace Senparc.Weixin.Utilities.WeixinUtility
     public static class ApiUtility
     {
         /// <summary>
-        /// 判断accessTokenOrAppId参数是否是AppId
+        /// 判断accessTokenOrAppId参数是否是AppId（或对应企业微信的AppKey）
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <returns></returns>
-        public static bool IsAppId(string accessTokenOrAppId)
+        public static bool IsAppId(string accessTokenOrAppId, PlatformType platFormType)
         {
-            return accessTokenOrAppId != null && accessTokenOrAppId.Length <= 18/*wxc3c90837b0e76080*/;
+            if (platFormType == PlatformType.QY || platFormType == PlatformType.Work)
+            {
+                /*
+                 * 企业号（企业微信）AppKey：wx7618c00000000222@044ZI5s6-ACxpAuOcm4md410pZ460pQUmxO9hIoMd09kRaJ1iSqhPfmg3-aBFF7q
+                 * 企业号（企业微信）AccessToken（length=64）：VJv9BwZtAuuWYWfbTQzefBvRRfBhuM6edMlpxTOm-vXrzyjeWPdgT8ft3vTHMbl2
+                 */
+                return accessTokenOrAppId != null && accessTokenOrAppId.Length > 64 ;
+            }
+            else
+            {
+                /*
+                 * 公众号AppId：wxe273c3a02e09ff8c
+                 * 公众号AccessToken：ga0wJ5ZmdB1Ef1gMMxmps6Uz1a9TXoutQtRqgYTbIqHfTm4Ssfoj0DjMLp1_KkG7FkaqS7m7f9rrYbqBQMBizRBQjHFG5ZIov8Wb0FBnHDq5fGpCu0S2H2j2aM8c6KDqGGEiAIAJJH
+                 */
+                return accessTokenOrAppId != null && accessTokenOrAppId.Length <= 32 /*wxc3c90837b0e76080*/
+                ;
+            }
+         
         }
 
         /// <summary>

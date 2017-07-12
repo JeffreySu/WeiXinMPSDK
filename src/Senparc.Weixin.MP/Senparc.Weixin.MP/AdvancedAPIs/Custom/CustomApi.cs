@@ -46,6 +46,9 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 
     创建标识：Senparc - 20161224
     创建描述：SendVideo方法添加thumb_media_id参数 感谢 @hello2008zj 
+
+    修改标识：Senparc - 20170707
+    修改描述：v14.5.1 完善异步方法async/await
 ----------------------------------------------------------------*/
 
 /* 
@@ -76,7 +79,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 发送文本信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="content"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -126,7 +129,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 发送图片消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -175,7 +178,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 发送语音消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -225,7 +228,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 发送视频消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="title"></param>
@@ -281,7 +284,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 发送音乐消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="title">音乐标题（非必须）</param>
         /// <param name="description">音乐描述（非必须）</param>
@@ -341,9 +344,9 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         }
 
         /// <summary>
-        /// 发送图文消息
+        /// 发送图文消息（点击跳转到外链）
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="articles"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -404,7 +407,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 发送图文消息（点击跳转到图文消息页面）
         /// 图文消息条数限制在8条以内，注意，如果图文数超过8，则将会无响应。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut"></param>
@@ -448,6 +451,40 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
             }, accessTokenOrAppId);
         }
+
+        /// <summary>
+        /// 发送卡券
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="openId"></param>
+        /// <param name="cardId"></param>
+        /// <param name="cardExt"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static WxJsonResult SendCard(string accessTokenOrAppId, string openId, string cardId, CardExt cardExt, int timeOut = Config.TIME_OUT)
+        {
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            {
+                var data = new
+                {
+                    touser = openId,
+                    msgtype = "wxcard",
+                    wxcard = new
+                    {
+                        card_id = cardId,
+                        card_ext = cardExt
+                    }
+                };
+                JsonSetting jsonSetting = new JsonSetting()
+                {
+                    TypesToIgnore = new List<System.Type>() { typeof(CardExt) }
+                };
+
+                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut, jsonSetting: jsonSetting);
+
+            }, accessTokenOrAppId);
+        }
+
         #endregion
 
         #region 异步请求
@@ -455,7 +492,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送文本信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="content"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -495,10 +532,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                 };
             }
 
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -507,7 +544,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送图片消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -544,10 +581,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
                 };
             }
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -555,7 +592,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送语音消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -592,10 +629,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
                 };
             }
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -603,7 +640,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送视频消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="title"></param>
@@ -649,17 +686,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
                 };
             }
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
         /// <summary>
         /// 【异步方法】发送音乐消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="title">音乐标题（非必须）</param>
         /// <param name="description">音乐描述（非必须）</param>
@@ -711,10 +747,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 };
             }
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -722,7 +758,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送图文消息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="articles"></param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
@@ -773,10 +809,10 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
 
                 };
             }
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
@@ -786,7 +822,7 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
         /// 【异步方法】发送图文消息（点击跳转到图文消息页面）
         /// 图文消息条数限制在8条以内，注意，如果图文数超过8，则将会无响应。
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
         /// <param name="openId"></param>
         /// <param name="mediaId"></param>
         /// <param name="timeOut"></param>
@@ -823,21 +859,26 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     }
                 };
             }
-            return await ApiHandlerWapper.TryCommonApiAsync(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
 
-                return Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut);
 
             }, accessTokenOrAppId);
         }
-        #endregion
 
-        ///
-        /// 发送卡券 查看card_ext字段详情及签名规则，特别注意客服消息接口投放卡券仅支持非自定义Code码的卡券。 
-        ///
-        public static WxJsonResult SendCard(string accessTokenOrAppId, string openId, string cardId, CardExt cardExt, int timeOut = Config.TIME_OUT)
+        /// <summary>
+        /// 【异步方法】发送卡券
+        /// </summary>
+        /// <param name="accessTokenOrAppId">AccessToken或AppId（推荐使用AppId，需要先注册）</param>
+        /// <param name="openId"></param>
+        /// <param name="cardId"></param>
+        /// <param name="cardExt"></param>
+        /// <param name="timeOut"></param>
+        /// <returns></returns>
+        public static async Task<WxJsonResult> SendCardAsync(string accessTokenOrAppId, string openId, string cardId, CardExt cardExt, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var data = new
                 {
@@ -854,9 +895,16 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                     TypesToIgnore = new List<System.Type>() { typeof(CardExt) }
                 };
 
-                return CommonJsonSend.Send(accessToken, URL_FORMAT, data, timeOut: timeOut, jsonSetting: jsonSetting);
+                return  await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync(accessToken, URL_FORMAT, data, timeOut: timeOut, jsonSetting: jsonSetting);
 
             }, accessTokenOrAppId);
         }
+
+        #endregion
+
+        ///
+        /// 发送卡券 查看card_ext字段详情及签名规则，特别注意客服消息接口投放卡券仅支持非自定义Code码的卡券。 
+        ///
+
     }
 }

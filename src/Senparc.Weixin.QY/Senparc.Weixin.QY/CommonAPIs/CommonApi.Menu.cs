@@ -13,12 +13,12 @@
 	修改标识：Senparc - 20150313
 	修改描述：开放代理请求超时时间
 
-	修改标识：Senparc - 20160720
-	修改描述：增加其接口的异步方法
+    修改标识：Senparc - 20160720
+    修改描述：增加其接口的异步方法
 ----------------------------------------------------------------*/
 
 /*
-	获取AccessToken API地址：http://qydev.weixin.qq.com/wiki/index.php?title=%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95
+    获取AccessToken API地址：http://qydev.weixin.qq.com/wiki/index.php?title=%E8%87%AA%E5%AE%9A%E4%B9%89%E8%8F%9C%E5%8D%95
  */
 
 using System;
@@ -45,7 +45,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         #region 同步请求
 
         /// <summary>
-        /// 创建菜单
+        /// 创建菜单【QY移植修改】
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="agentId"></param>
@@ -74,7 +74,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         #region GetMenu
 
         /// <summary>
-        /// 获取单击按钮
+        /// 获取单击按钮【QY移植修改】
         /// </summary>
         /// <param name="objs"></param>
         /// <returns></returns>
@@ -92,7 +92,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
 
 
         /// <summary>
-        /// 从JSON字符串获取菜单对象
+        /// 从JSON字符串获取菜单对象【QY移植修改】
         /// </summary>
         /// <param name="jsonString"></param>
         /// <returns></returns>
@@ -160,7 +160,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
 
 
         /// <summary>
-        /// 获取当前菜单，如果菜单不存在，将返回null
+        /// 获取当前菜单，如果菜单不存在，将返回null【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="agentId">企业应用的id，整型。可在应用的设置页面查看</param>
@@ -197,7 +197,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         }
 
         /// <summary>
-        /// 根据微信返回的Json数据得到可用的GetMenuResult结果
+        /// 根据微信返回的Json数据得到可用的GetMenuResult结果【QY移植修改】
         /// </summary>
         /// <param name="resultFull"></param>
         /// <returns></returns>
@@ -425,7 +425,7 @@ namespace Senparc.Weixin.QY.CommonAPIs
         #endregion
 
         /// <summary>
-        /// 删除菜单
+        /// 删除菜单【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="agentId">企业应用的id，整型。可在应用的设置页面查看</param>
@@ -436,12 +436,13 @@ namespace Senparc.Weixin.QY.CommonAPIs
             var result = Get.GetJson<QyJsonResult>(url);
             return result;
         }
+
         #endregion
 
         #region 异步请求
 
         /// <summary>
-        /// 【异步方法】删除菜单
+        /// 【异步方法】删除菜单【QY移植修改】
         /// </summary>
         /// <param name="accessToken">调用接口凭证</param>
         /// <param name="agentId">企业应用的id，整型。可在应用的设置页面查看</param>
@@ -452,6 +453,8 @@ namespace Senparc.Weixin.QY.CommonAPIs
             var result = await Get.GetJsonAsync<QyJsonResult>(url);
             return result;
         }
+
+        //TODO：更多异步方法
         #endregion
     }
 }

@@ -19,25 +19,25 @@ Detail: https://github.com/JeffreySu/WeiXinMPSDK/blob/master/license.md
 #endregion Apache License Version 2.0
 
 /*----------------------------------------------------------------
-    Copyright (C) 2017 Senparc
+Copyright (C) 2017 Senparc
 
-    文件名：WeixinContainer.cs
-    文件功能描述：微信容器（如Ticket、AccessToken）
+文件名：WeixinContainer.cs
+文件功能描述：微信容器（如Ticket、AccessToken）
 
 
-    创建标识：Senparc - 20151003
+创建标识：Senparc - 20151003
 
-    修改标识：Senparc - 20160321
-    修改描述：v4.5.18 完善 ItemCollection 中项目删除的方法
+修改标识：Senparc - 20160321
+修改描述：v4.5.18 完善 ItemCollection 中项目删除的方法
 
-    修改标识：Senparc - 20160808
-    修改描述：v4.7.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
+修改标识：Senparc - 20160808
+修改描述：v4.7.0 删除 ItemCollection 属性，直接使用ContainerBag加入到缓存
 
-    修改标识：Senparc - 20160813
-    修改描述：v4.7.5 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
+修改标识：Senparc - 20160813
+修改描述：v4.7.5 添加TryReRegister()方法，处理分布式缓存重启（丢失）的情况
     
-    修改标识：Senparc - 20170204
-    修改描述：v4.10.3 添加RemoveFromCache方法
+修改标识：Senparc - 20170204
+修改描述：v4.10.3 添加RemoveFromCache方法
 
 ----------------------------------------------------------------*/
 
@@ -192,7 +192,10 @@ namespace Senparc.Weixin.Containers
         /// <returns></returns>
         public static List<TBag> GetAllItems()
         {
-            return Cache.GetAll<TBag>().Values.Select(z => z).ToList();
+            return Cache.GetAll<TBag>().Values
+                //如果需要做进一步的筛选，则使用Select或Where，但需要注意效率问题
+                //.Select(z => z)
+                .ToList();
         }
 
         /// <summary>
@@ -265,7 +268,7 @@ namespace Senparc.Weixin.Containers
         }
 
         /// <summary>
-        /// 更新数据项
+        /// 更新数据项（本地缓存不会改变原有值的 HashCode）
         /// </summary>
         /// <param name="shortKey"></param>
         /// <param name="partialUpdate">为null时删除该项</param>
@@ -310,7 +313,7 @@ namespace Senparc.Weixin.Containers
         }
 
         /// <summary>
-        /// 从缓存中删除
+        /// 从缓存中删除指定项
         /// </summary>
         /// <param name="shortKey"></param>
         public static void RemoveFromCache(string shortKey)

@@ -3,19 +3,31 @@ Senparc.Weixin —— 微信 .NET SDK [![Build Status](https://travis-ci.org/Jef
 
 Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最受欢迎的 .NET 开源项目之一。
 
-目前 Senparc.Weixin 已经支持几乎所有微信平台模块和接口，同时支持 .NET 4.0 / 4.5 / .NET Core。
+目前 Senparc.Weixin 已经支持几乎所有微信平台模块和接口，同时支持 
+.NET [4.0](https://github.com/JeffreySu/WeiXinMPSDK/tree/NET4.0) / 
+[4.5](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer) / 
+[.NET Core](https://github.com/JeffreySu/WeiXinMPSDK/tree/Developer-FullDotNet)。
 
 立项四年多来我们一直持续更新，并会坚持做下去，感谢亲们对我们的信任和各种支持！
 
 
-> 由 Jeffrey Su 亲笔撰写的微信开发图书将于 1-2 个月内出版（出版社已经在排版中，最迟7月底），<br>
+
+Senparc 官方教程
+----------------
+<img src="http://sdk.weixin.senparc.com/images/book-cover-front-small-3d.jpg" width="400" /> <br >
+
+> 由 Senparc.Weixin SDK 作者亲笔撰写的微信开发图书将于 7 月中旬出版，Senparc 团队全程参与了图书整理工作及配套的 BookHelper 辅助阅读系统开发<br>
 书名：《微信开发深度解析：公众号、小程序高效开发秘籍》，可以使用微信扫描下方二维码查看最新进展：<br>
 
-> [![CrowdFunding](http://sdk.weixin.senparc.com/images/crowdfunding-qrcode.png)](http://www.weiweihi.com:8080/CrowdFunding/Home)  
+> [![CrowdFunding](http://sdk.weixin.senparc.com/images/crowdfunding-qrcode.png)](https://www.weiweihi.com:8080/CrowdFunding/Home)  
+> 京东预购地址：https://item.jd.com/12220004.html （将会有团购优惠二维码放出，请耐心等待）
+> 图书出版时的代码版本快照见分支 [BookVersion1](https://github.com/JeffreySu/WeiXinMPSDK/tree/BookVersion1)。
+
 
 
 目录
 ----------------
+* [:star: Senparc 官方教程](#senparc-官方教程)
 * [各模块类库](#各模块类库)
 * [资源](#资源)
 * [贡献代码](#贡献代码)
@@ -30,6 +42,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
     * [如何处理微信小程序请求？](#如何处理微信小程序请求)
     * [如何增强 ASP.NET MVC 项目的功能？](#如何增强-aspnet-mvc-项目的功能)
     * [如何处理微信企业号请求？](#如何处理微信企业号请求)
+    * [如何处理企业微信请求？](#如何处理企业微信请求)
     * [如何处理微信开放平台请求？](#如何处理微信开放平台请求)
     * [如何使用分布式缓存？](#如何使用分布式缓存)
 * [如何开发小程序](#如何开发小程序)
@@ -45,6 +58,7 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 
 
 
+
 各模块类库
 ----------------
 
@@ -52,13 +66,13 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 |---|----------------------------------------------------|-----------------------------------|----------------------------------------------------|----------------------|-----------------------|------------------------
 | 1| 基础库                                               |Senparc.Weixin.dll                 | [![Senparc.Weixin][1.1]][1.2]                     | ![.NET 4.0][net40Y]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY]
 | 2| 微信公众号 /<br> 微信支付 /<br> JSSDK / 摇周边<br> 等等 |Senparc.Weixin.MP.dll               | [![Senparc.Weixin.MP][2.1]][2.2]                  | ![.NET 4.0][net40Y]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY]
-| 3| ASP.NET MVC 扩展                                     |Senparc.Weixin.MP.MVC.dll          | [![Senparc.Weixin.MP.MVC][3.1]][3.2]              | ![.NET 4.0][net40Y]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreN]
-| 4| ASP.NET Core MVC <br> 扩展                                |Senparc.Weixin.MP.CoreMVC.dll      | [![Senparc.Weixin.MP.CoreMVC][11.1]][11.2]     | ![.NET 4.0][net40N]  | ![.NET 4.5][net45N]   | ![.NET Core][coreY]
+| 3| ASP.NET MVC 扩展<br>（.NET Framework）|Senparc.Weixin.MP.MVC.dll          | [![Senparc.Weixin.MP.MVC][3.1]][3.2]| ![.NET 4.0][net40Y]  | ![.NET 4.5][net45Y]  | ![.NET Core][coreN]
+| 4| ASP.NET Core MVC <br> 扩展<br>（.NET Core）|Senparc.Weixin.MP.CoreMVC.dll      | [![Senparc.Weixin.MP.CoreMVC][11.1]][11.2]     | ![.NET 4.0][net40N]  | ![.NET 4.5][net45N] | ![.NET Core][coreY]
 | 5| 微信企业号                                           |Senparc.Weixin.QY.dll              | [![Senparc.Weixin.QY][4.1]][4.2]                  | ![.NET 4.0][net40Y]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY]
-| 6| 企业微信<br>（准备中）                                    |Senparc.Weixin.Work.dll            | -               | -					   | -		  	 		   | -		 	  
+| 6| 企业微信                                |Senparc.Weixin.Work.dll            |  [![Senparc.Weixin.WorkQY][12.1]][12.2]               | ![.NET 4.0][net40N]					   | ![.NET 4.5][net45Y] | ![.NET Core][coreY]		 	  
 | 7| 微信开放平台                                         |Senparc.Weixin.Open.dll            | [![Senparc.Weixin.Open][6.1]][6.2]                | ![.NET 4.0][net40Y]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY]
 | 8| Redis 分布式缓存                                     |Senparc.Weixin.Cache.Redis.dll     | [![Senparc.Weixin.Cache.Redis][7.1]][7.2]         | ![.NET 4.0][net40N]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY]
-| 9| Memcached <br> 分布式缓存                                 |Senparc.Weixin.Cache.Memcached.dll |[![Senparc.Weixin.Cache.Memcached][8.1]][8.2] | ![.NET 4.0][net40N]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY]
+| 9| Memcached <br> 分布式缓存                            |Senparc.Weixin.Cache.Memcached.dll |[![Senparc.Weixin.Cache.Memcached][8.1]][8.2] | ![.NET 4.0][net40N]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY]
 |10| [微信小程序 <br>（独立项目）](https://github.com/JeffreySu/WxOpen)    |Senparc.Weixin.WxOpen.dll |[![Senparc.Weixin.WxOpen][9.1]][9.2]       | ![.NET 4.0][net40N]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY] 
 |11| [WebSocket <br>（独立项目）](https://github.com/JeffreySu/Senparc.WebSocket)    |Senparc.WebSocket.dll |[![Senparc.WebSocket][10.1]][10.2]   | ![.NET 4.0][net40N]  | ![.NET 4.5][net45Y]   | ![.NET Core][coreY] 
 
@@ -84,6 +98,8 @@ Senparc.Weixin SDK 是目前使用率最高的微信 .NET SDK，也是国内最�
 [10.2]: https://www.nuget.org/packages/Senparc.WebSocket
 [11.1]: https://img.shields.io/nuget/v/Senparc.Weixin.MP.CoreMVC.svg?style=flat
 [11.2]: https://www.nuget.org/packages/Senparc.Weixin.MP.CoreMVC
+[12.1]: https://img.shields.io/nuget/v/Senparc.Weixin.Work.svg?style=flat
+[12.2]: https://www.nuget.org/packages/Senparc.Weixin.Work
 
 [net40Y]: https://img.shields.io/badge/4.0-Y-brightgreen.svg
 [net40N]: https://img.shields.io/badge/4.0-N-lightgrey.svg
@@ -321,10 +337,7 @@ namespace Senparc.Weixin.MP.Sample.CustomerMessageHandler
       {
           //TODO:这里的逻辑可以交给Service处理具体信息，参考OnLocationRequest方法或/Service/LocationSercice.cs
           var responseMessage = CreateResponseMessage<ResponseMessageText>();
-          responseMessage.Content =
-              string.Format(
-                  "您刚才发送了文字信息：{0}",
-                  requestMessage.Content);
+          responseMessage.Content = string.Format("您刚才发送了文字信息：{0}", requestMessage.Content);
           return responseMessage;
       }
 ```
@@ -368,7 +381,7 @@ PM> Install-Package Senparc.Weixin.MP.MVC
 
 ### 如何处理微信企业号请求？
 
-Senparc.Weixin.QY.dll对企业号相关功能进行了封装，操作过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致。
+Senparc.Weixin.QY.dll对`企业号`相关功能进行了封装，操作过程和微信公众账号SDK（Senparc.Weixin.MP）保持了一致。
 
 * Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.QY
 
@@ -376,6 +389,18 @@ Senparc.Weixin.QY.dll对企业号相关功能进行了封装，操作过程和�
 ```
 PM> Install-Package Senparc.Weixin.QY
 ```
+
+### 如何处理企业微信请求？
+
+Senparc.Weixin.Work.dll对`企业微信`相关功能进行了封装，操作过程和微信公众账号SDK（Senparc.Weixin.MP）以及企业号库（Senparc.Weixin.QY）保持了一致。
+
+* Nuget 地址：https://www.nuget.org/packages/Senparc.Weixin.Work
+
+* 命令：
+```
+PM> Install-Package Senparc.Weixin.Work
+```
+
 
 ### 如何处理微信开放平台请求？
 

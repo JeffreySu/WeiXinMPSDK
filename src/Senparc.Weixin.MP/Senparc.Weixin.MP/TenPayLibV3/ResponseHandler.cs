@@ -79,11 +79,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         private string Appkey;
 
         /// <summary>
-        /// xmlMap
-        /// </summary>
-        private Hashtable XmlMap;
-
-        /// <summary>
         /// 应答的参数
         /// </summary>
         protected Hashtable Parameters;
@@ -116,7 +111,6 @@ namespace Senparc.Weixin.MP.TenPayLibV3
         {
 #if NET45 || NET461
             Parameters = new Hashtable();
-            XmlMap = new Hashtable();
 
             this.HttpContext = httpContext ?? HttpContext.Current;
             NameValueCollection collection;
@@ -146,41 +140,35 @@ namespace Senparc.Weixin.MP.TenPayLibV3
 
                 foreach (XmlNode xnf in xnl)
                 {
-                    XmlMap.Add(xnf.Name, xnf.InnerText);
                     this.SetParameter(xnf.Name, xnf.InnerText);
                 }
             }
 #else
             Parameters = new Hashtable();
-            XmlMap = new Hashtable();
 
-            this.HttpContext = httpContext ?? new DefaultHttpContext();
-            IFormCollection collection;
+            HttpContext = httpContext ?? new DefaultHttpContext();
             //post data
-            if (this.HttpContext.Request.Method.ToUpper() == "POST" && this.HttpContext.Request.HasFormContentType)
+            if (HttpContext.Request.Method.ToUpper() == "POST" && HttpContext.Request.HasFormContentType)
             {
-                collection = this.HttpContext.Request.Form;
-                foreach (var k in collection)
+                foreach (var k in HttpContext.Request.Form)
                 {
-                    this.SetParameter(k.Key, k.Value[0]);
+                    SetParameter(k.Key, k.Value[0]);
                 }
             }
             //query string
-            var coll = this.HttpContext.Request.Query;
-            foreach (var k in coll)
+            foreach (var k in HttpContext.Request.Query)
             {
-                this.SetParameter(k.Key, k.Value[0]);
+                SetParameter(k.Key, k.Value[0]);
             }
-            if (this.HttpContext.Request.Body.Length > 0)
+            if (HttpContext.Request.ContentLength > 0)
             {
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(this.HttpContext.Request.Body);
-                XmlNode root = xmlDoc.SelectSingleNode("xml");
-                XmlNodeList xnl = root.ChildNodes;
+                var xmlDoc = new XmlDocument();
+                xmlDoc.Load(HttpContext.Request.Body);
+                var root = xmlDoc.SelectSingleNode("xml");
 
-                foreach (XmlNode xnf in xnl)
+                foreach (XmlNode xnf in root.ChildNodes)
                 {
-                    XmlMap.Add(xnf.Name, xnf.InnerText);
+                    SetParameter(xnf.Name, xnf.InnerText);
                 }
             }
 #endif

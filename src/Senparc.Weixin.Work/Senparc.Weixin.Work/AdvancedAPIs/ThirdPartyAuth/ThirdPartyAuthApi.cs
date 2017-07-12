@@ -27,7 +27,7 @@
     修改标识：Senparc - 20170707
     修改描述：v14.5.1 完善异步方法async/await
 
-    修改标识：Senparc - 20170711
+    修改标识：Senparc - 20170712
     修改描述：v14.5.1 AccessToken HandlerWaper改造
 ----------------------------------------------------------------*/
 
@@ -160,15 +160,20 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static GetPermanentCodeResult GetPermanentCode(string suiteAccessToken, string suiteId, string authCode, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_permanent_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
-
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                suite_id = suiteId,
-                auth_code = authCode
-            };
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_permanent_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
-            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetPermanentCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    suite_id = suiteId,
+                    auth_code = authCode
+                };
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetPermanentCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, suiteAccessToken);
+
+
         }
 
         /// <summary>
@@ -182,16 +187,21 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static GetAuthInfoResult GetAuthInfo(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_auth_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
-
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                suite_id = suiteId,
-                auth_corpid = authCorpId,
-                permanent_code = permanentCode
-            };
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_auth_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
-            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetAuthInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    suite_id = suiteId,
+                    auth_corpid = authCorpId,
+                    permanent_code = permanentCode
+                };
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetAuthInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, suiteAccessToken);
+
+
         }
 
         /// <summary>
@@ -265,16 +275,21 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static GetCorpTokenResult GetCorpToken(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_corp_token?suite_access_token={0}", suiteAccessToken.AsUrlData());
-
-            var data = new
+            return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                suite_id = suiteId,
-                auth_corpid = authCorpId,
-                permanent_code = permanentCode,
-            };
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_corp_token?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
-            return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetCorpTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    suite_id = suiteId,
+                    auth_corpid = authCorpId,
+                    permanent_code = permanentCode,
+                };
+
+                return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetCorpTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, suiteAccessToken);
+
+
         }
         #endregion
 
@@ -392,15 +407,20 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetPermanentCodeResult> GetPermanentCodeAsync(string suiteAccessToken, string suiteId, string authCode, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_permanent_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
-
-            var data = new
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                suite_id = suiteId,
-                auth_code = authCode
-            };
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_permanent_code?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPermanentCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    suite_id = suiteId,
+                    auth_code = authCode
+                };
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetPermanentCodeResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, suiteAccessToken);
+
+
         }
 
         /// <summary>
@@ -414,16 +434,21 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetAuthInfoResult> GetAuthInfoAsync(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_auth_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
-
-            var data = new
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                suite_id = suiteId,
-                auth_corpid = authCorpId,
-                permanent_code = permanentCode
-            };
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_auth_info?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAuthInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    suite_id = suiteId,
+                    auth_corpid = authCorpId,
+                    permanent_code = permanentCode
+                };
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetAuthInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, suiteAccessToken);
+
+
         }
 
         /// <summary>
@@ -481,7 +506,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 };
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<WorkJsonResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, suiteAccessToken
+            }, suiteAccessToken);
 
 
         }
@@ -497,16 +522,21 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetCorpTokenResult> GetCorpTokenAsync(string suiteAccessToken, string suiteId, string authCorpId, string permanentCode, int timeOut = Config.TIME_OUT)
         {
-            var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_corp_token?suite_access_token={0}", suiteAccessToken.AsUrlData());
-
-            var data = new
+            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                suite_id = suiteId,
-                auth_corpid = authCorpId,
-                permanent_code = permanentCode,
-            };
+                var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/service/get_corp_token?suite_access_token={0}", suiteAccessToken.AsUrlData());
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCorpTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+                var data = new
+                {
+                    suite_id = suiteId,
+                    auth_corpid = authCorpId,
+                    permanent_code = permanentCode,
+                };
+
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCorpTokenResult>(null, url, data, CommonJsonSendType.POST, timeOut);
+            }, suiteAccessToken);
+
+
         }
         #endregion
     }

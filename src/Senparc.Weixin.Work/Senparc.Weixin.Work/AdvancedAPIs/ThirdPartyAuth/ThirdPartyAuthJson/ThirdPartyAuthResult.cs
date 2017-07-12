@@ -48,7 +48,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
         public int expires_in { get; set; }
     }
 
-    public class GetPermanentCodeResult
+    public class GetPermanentCodeResult : WorkJsonResult
     {
         /// <summary>
         /// 授权方（企业）access_token
@@ -276,7 +276,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
     /// <summary>
     /// 获取企业号的授权信息返回结果
     /// </summary>
-    public class GetAuthInfoResult
+    public class GetAuthInfoResult : WorkJsonResult
     {
         /// <summary>
         /// 授权方企业信息
@@ -376,7 +376,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.ThirdPartyAuth
     /// <summary>
     /// 获取企业号access_token返回结果
     /// </summary>
-    public class GetCorpTokenResult
+    public class GetCorpTokenResult : WorkJsonResult
     {
         /// <summary>
         /// 授权方（企业）access_token,最长为512字节

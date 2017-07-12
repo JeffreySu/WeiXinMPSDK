@@ -7,7 +7,7 @@
     
     创建标识：Senparc - 20150921
 
-    修改标识：Senparc - 20170711
+    修改标识：Senparc - 20170712
     修改描述：v14.5.1 AccessToken HandlerWaper改造
 ----------------------------------------------------------------*/
 
@@ -29,11 +29,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 获取设备及用户信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppKey"></param>
         /// <param name="ticket">摇周边业务的ticket，可在摇到的URL中得到，ticket生效时间为30分钟，每一次摇都会重新生成新的ticket</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetShakeInfoResult GetSuiteToken(string accessTokenOrAppId, string ticket, int timeOut = Config.TIME_OUT)
+        public static GetShakeInfoResult GetSuiteToken(string accessTokenOrAppKey, string ticket, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -45,7 +45,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 };
 
                 return CommonJsonSend.Send<GetShakeInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -55,11 +55,11 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】获取设备及用户信息
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppKey"></param>
         /// <param name="ticket">摇周边业务的ticket，可在摇到的URL中得到，ticket生效时间为30分钟，每一次摇都会重新生成新的ticket</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<GetShakeInfoResult> GetSuiteTokenAsync(string accessTokenOrAppId, string ticket, int timeOut = Config.TIME_OUT)
+        public static async Task<GetShakeInfoResult> GetSuiteTokenAsync(string accessTokenOrAppKey, string ticket, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -71,7 +71,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 };
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetShakeInfoResult>(null, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }

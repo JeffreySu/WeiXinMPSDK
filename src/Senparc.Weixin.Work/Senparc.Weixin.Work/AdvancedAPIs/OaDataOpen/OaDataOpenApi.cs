@@ -10,7 +10,7 @@
     修改标识：Senparc - 20170709
     修改描述：v0.3.1 修复OaDataOpenApi接口AccessToken传递问题
 
-    修改标识：Senparc - 20170711
+    修改标识：Senparc - 20170712
     修改描述：v14.5.1 AccessToken HandlerWaper改造
 
 ----------------------------------------------------------------*/
@@ -43,14 +43,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 获取打卡数据【QY移植新增】
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppKey"></param>
         /// <param name="openCheckinDataType">打卡类型</param>
         /// <param name="startTime">获取打卡记录的开始时间</param>
         /// <param name="endTime">获取打卡记录的结束时间</param>
         /// <param name="userIdList">需要获取打卡记录的用户列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetCheckinDataJsonResult GetCheckinData(string accessTokenOrAppId, OpenCheckinDataType openCheckinDataType, DateTime startTime, DateTime endTime, string[] userIdList, int timeOut = Config.TIME_OUT)
+        public static GetCheckinDataJsonResult GetCheckinData(string accessTokenOrAppKey, OpenCheckinDataType openCheckinDataType, DateTime startTime, DateTime endTime, string[] userIdList, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -65,7 +65,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetCheckinDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -74,14 +74,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 获取审批数据【QY移植新增】
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppKey"></param>
         /// <param name="openCheckinDataType">打卡类型</param>
         /// <param name="startTime">获取打卡记录的开始时间</param>
         /// <param name="endTime">获取打卡记录的结束时间</param>
         /// <param name="userIdList">需要获取打卡记录的用户列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static GetApprovalDataJsonResult GetApprovalData(string accessTokenOrAppId, DateTime startTime, DateTime endTime, long next_spnum, int timeOut = Config.TIME_OUT)
+        public static GetApprovalDataJsonResult GetApprovalData(string accessTokenOrAppKey, DateTime startTime, DateTime endTime, long next_spnum, int timeOut = Config.TIME_OUT)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
@@ -95,7 +95,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
                 };
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<GetApprovalDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -109,14 +109,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 【异步接口】获取打卡数据【QY移植新增】
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppKey"></param>
         /// <param name="openCheckinDataType">打卡类型</param>
         /// <param name="startTime">获取打卡记录的开始时间</param>
         /// <param name="endTime">获取打卡记录的结束时间</param>
         /// <param name="userIdList">需要获取打卡记录的用户列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<GetCheckinDataJsonResult> GetCheckinDataAsync(string accessTokenOrAppId, OpenCheckinDataType openCheckinDataType, DateTime startTime, DateTime endTime, string[] userIdList, int timeOut = Config.TIME_OUT)
+        public static async Task<GetCheckinDataJsonResult> GetCheckinDataAsync(string accessTokenOrAppKey, OpenCheckinDataType openCheckinDataType, DateTime startTime, DateTime endTime, string[] userIdList, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -131,7 +131,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
                 };
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetCheckinDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -140,14 +140,14 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
         /// <summary>
         /// 【异步接口】获取审批数据【QY移植新增】
         /// </summary>
-        /// <param name="accessTokenOrAppId"></param>
+        /// <param name="accessTokenOrAppKey"></param>
         /// <param name="openCheckinDataType">打卡类型</param>
         /// <param name="startTime">获取打卡记录的开始时间</param>
         /// <param name="endTime">获取打卡记录的结束时间</param>
         /// <param name="userIdList">需要获取打卡记录的用户列表</param>
         /// <param name="timeOut"></param>
         /// <returns></returns>
-        public static async Task<GetApprovalDataJsonResult> GetApprovalDataAsync(string accessTokenOrAppId, DateTime startTime, DateTime endTime, long next_spnum, int timeOut = Config.TIME_OUT)
+        public static async Task<GetApprovalDataJsonResult> GetApprovalDataAsync(string accessTokenOrAppKey, DateTime startTime, DateTime endTime, long next_spnum, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -161,7 +161,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs.OaDataOpen
                 };
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetApprovalDataJsonResult>(accessToken, url, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }

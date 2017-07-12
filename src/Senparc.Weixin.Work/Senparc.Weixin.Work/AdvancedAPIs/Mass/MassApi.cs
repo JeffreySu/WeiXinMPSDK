@@ -19,7 +19,7 @@
     修改标识：Senparc - 20170709
     修改描述：v0.3.2 修复Senparc.Weixin.QY.AdvancedAPIs.MassApi中，因为accessToken为null而导致消息发送失败的问题 
 
-    修改标识：Senparc - 20170711
+    修改标识：Senparc - 20170712
     修改描述：v14.5.1 AccessToken HandlerWaper改造
 ----------------------------------------------------------------*/
 
@@ -50,7 +50,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 发送文本信息【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
         /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
         /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
@@ -59,7 +59,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static MassResult SendText(string accessTokenOrAppId, string agentId, string content,
+        public static MassResult SendText(string accessTokenOrAppKey, string agentId, string content,
             string toUser = null, string toParty = null, string toTag = null, int safe = 0,
             int timeOut = Config.TIME_OUT)
         {
@@ -82,7 +82,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -90,7 +90,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 发送图片消息【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
         /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
         /// <param name="toTag"></param>
@@ -99,7 +99,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static MassResult SendImage(string accessTokenOrAppId, string agentId, string mediaId,
+        public static MassResult SendImage(string accessTokenOrAppKey, string agentId, string mediaId,
                         string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                         int timeOut = Config.TIME_OUT)
         {
@@ -122,7 +122,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -130,7 +130,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 发送语音消息【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
         /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
         /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
@@ -139,7 +139,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static MassResult SendVoice(string accessTokenOrAppId, string agentId, string mediaId,
+        public static MassResult SendVoice(string accessTokenOrAppKey, string agentId, string mediaId,
              string toUser = null, string toParty = null, string toTag = null, int safe = 0,
             int timeOut = Config.TIME_OUT)
         {
@@ -162,7 +162,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -170,7 +170,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 发送视频消息【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
         /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
         /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
@@ -181,7 +181,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static MassResult SendVideo(string accessTokenOrAppId, string agentId, string mediaId,
+        public static MassResult SendVideo(string accessTokenOrAppKey, string agentId, string mediaId,
             string toUser = null, string toParty = null, string toTag = null,
             string title = null, string description = null, int safe = 0, int timeOut = Config.TIME_OUT)
         {
@@ -206,7 +206,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -214,7 +214,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 发送文件消息【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
         /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
         /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
@@ -223,7 +223,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static MassResult SendFile(string accessTokenOrAppId, string agentId, string mediaId,
+        public static MassResult SendFile(string accessTokenOrAppKey, string agentId, string mediaId,
                 string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                 int timeOut = Config.TIME_OUT)
         {
@@ -246,7 +246,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -254,7 +254,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 发送图文消息【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
         /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
         /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
@@ -263,7 +263,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static MassResult SendNews(string accessTokenOrAppId, string agentId, List<Article> articles,
+        public static MassResult SendNews(string accessTokenOrAppKey, string agentId, List<Article> articles,
                 string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                 int timeOut = Config.TIME_OUT)
         {
@@ -291,7 +291,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -300,7 +300,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 发送mpnews消息【QY移植修改】
         /// 注：mpnews消息与news消息类似，不同的是图文消息内容存储在微信后台，并且支持保密选项。
         /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
         /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
         /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
@@ -309,7 +309,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static MassResult SendMpNews(string accessTokenOrAppId, string agentId, List<MpNewsArticle> articles,
+        public static MassResult SendMpNews(string accessTokenOrAppKey, string agentId, List<MpNewsArticle> articles,
             string toUser = null, string toParty = null, string toTag = null, int safe = 0,
             int timeOut = Config.TIME_OUT)
         {
@@ -341,7 +341,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return Senparc.Weixin.CommonAPIs.CommonJsonSend.Send<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -351,7 +351,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送文本信息【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
         /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
         /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
@@ -360,7 +360,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<MassResult> SendTextAsync(string accessTokenOrAppId, string agentId, string content, string toUser = null, string toParty = null, string toTag = null, int safe = 0, int timeOut = Config.TIME_OUT)
+        public static async Task<MassResult> SendTextAsync(string accessTokenOrAppKey, string agentId, string content, string toUser = null, string toParty = null, string toTag = null, int safe = 0, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -381,7 +381,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -389,7 +389,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送图片消息【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
         /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
         /// <param name="toTag"></param>
@@ -398,7 +398,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<MassResult> SendImageAsync(string accessTokenOrAppId, string agentId, string mediaId, string toUser = null, string toParty = null, string toTag = null, int safe = 0,
+        public static async Task<MassResult> SendImageAsync(string accessTokenOrAppKey, string agentId, string mediaId, string toUser = null, string toParty = null, string toTag = null, int safe = 0,
             int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
@@ -420,7 +420,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -428,7 +428,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送语音消息【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
         /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
         /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
@@ -437,7 +437,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<MassResult> SendVoiceAsync(string accessTokenOrAppId, string agentId, string mediaId,
+        public static async Task<MassResult> SendVoiceAsync(string accessTokenOrAppKey, string agentId, string mediaId,
                         string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                         int timeOut = Config.TIME_OUT)
         {
@@ -460,7 +460,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -468,7 +468,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送视频消息【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
         /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
         /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
@@ -479,7 +479,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<MassResult> SendVideoAsync(string accessTokenOrAppId, string agentId, string mediaId,
+        public static async Task<MassResult> SendVideoAsync(string accessTokenOrAppKey, string agentId, string mediaId,
                 string toUser = null, string toParty = null, string toTag = null,
                 string title = null, string description = null, int safe = 0, int timeOut = Config.TIME_OUT)
         {
@@ -504,7 +504,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -512,7 +512,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送文件消息【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
         /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
         /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
@@ -521,7 +521,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<MassResult> SendFileAsync(string accessTokenOrAppId, string agentId, string mediaId,
+        public static async Task<MassResult> SendFileAsync(string accessTokenOrAppKey, string agentId, string mediaId,
                 string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                 int timeOut = Config.TIME_OUT)
         {
@@ -544,7 +544,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -552,7 +552,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <summary>
         /// 【异步方法】发送图文消息【QY移植修改】
         /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
         /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
         /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
@@ -561,7 +561,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<MassResult> SendNewsAsync(string accessTokenOrAppId, string agentId, List<Article> articles,
+        public static async Task<MassResult> SendNewsAsync(string accessTokenOrAppKey, string agentId, List<Article> articles,
                 string toUser = null, string toParty = null, string toTag = null, int safe = 0,
                 int timeOut = Config.TIME_OUT)
         {
@@ -589,7 +589,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                 JsonSetting jsonSetting = new JsonSetting(true);
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut, jsonSetting: jsonSetting);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -598,7 +598,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// 【异步方法】发送mpnews消息【QY移植修改】
         /// 注：mpnews消息与news消息类似，不同的是图文消息内容存储在微信后台，并且支持保密选项。
         /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="toUser">UserID列表（消息接收者，多个接收者用‘|’分隔）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送</param>
         /// <param name="toParty">PartyID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
         /// <param name="toTag">TagID列表，多个接受者用‘|’分隔。当touser为@all时忽略本参数</param>
@@ -607,7 +607,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         /// <param name="safe">表示是否是保密消息，0表示否，1表示是，默认0</param>
         /// <param name="timeOut">代理请求超时时间（毫秒）</param>
         /// <returns></returns>
-        public static async Task<MassResult> SendMpNewsAsync(string accessTokenOrAppId, string toUser, string toParty, string toTag, string agentId, List<MpNewsArticle> articles, int safe = 0, int timeOut = Config.TIME_OUT)
+        public static async Task<MassResult> SendMpNewsAsync(string accessTokenOrAppKey, string toUser, string toParty, string toTag, string agentId, List<MpNewsArticle> articles, int safe = 0, int timeOut = Config.TIME_OUT)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
@@ -634,7 +634,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
                     safe = safe
                 };
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<MassResult>(accessToken, URL_FORMAT, data, CommonJsonSendType.POST, timeOut);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }

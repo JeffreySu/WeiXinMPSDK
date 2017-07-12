@@ -13,8 +13,6 @@
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
 
-    修改标识：Senparc - 20170711
-    修改描述：v14.5.1 AccessToken HandlerWaper改造
 ----------------------------------------------------------------*/
 
 /*
@@ -49,7 +47,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static string GetLoginAuthUrl(string corpId, string redirectUrl, string state = "", Login_User_Type usertype = Login_User_Type.admin)
         {
-            return string.Format("https://qy.weixin.qq.com/cgi-bin/loginpage?corp_id={0}&redirect_uri={1}&state={2}&usertype={3}",
+                return string.Format("https://qy.weixin.qq.com/cgi-bin/loginpage?corp_id={0}&redirect_uri={1}&state={2}&usertype={3}",
                               corpId.AsUrlData(), redirectUrl.AsUrlData(), state.AsUrlData(), usertype.ToString());
         }
 
@@ -62,8 +60,6 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static GetLoginInfoResult GetLoginInfo(string providerAccessToken, string authCode, int timeOut = Config.TIME_OUT)
         {
-            return ApiHandlerWapper.TryCommonApi(accessToken =>
-            {
                 string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info?provider_access_token={0}";
 
                 var data = new
@@ -73,7 +69,6 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
                 return CommonJsonSend.Send<GetLoginInfoResult>(providerAccessToken, url, data, CommonJsonSendType.POST,
                                                                timeOut);
-            }, providerAccessToken);
 
 
         }
@@ -88,17 +83,19 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static GetLoginUrlResult GetLoginUrl(string providerAccessToken, string loginTicket,string target,int agentid,int timeOut = Config.TIME_OUT)
         {
-            string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_url?provider_access_token={0}";
+                string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_url?provider_access_token={0}";
 
-            var data = new
-            {
-                login_ticket = loginTicket,
-                target = target,
-                agentid = agentid
-            };
+                var data = new
+                {
+                    login_ticket = loginTicket,
+                    target = target,
+                    agentid = agentid
+                };
 
-            return CommonJsonSend.Send<GetLoginUrlResult>(providerAccessToken, url, data, CommonJsonSendType.POST,
-                                                           timeOut);
+                return CommonJsonSend.Send<GetLoginUrlResult>(providerAccessToken, url, data, CommonJsonSendType.POST,
+                                                               timeOut);
+
+
         }
         #endregion
 
@@ -112,8 +109,6 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetLoginInfoResult> GetLoginInfoAsync(string providerAccessToken, string authCode, int timeOut = Config.TIME_OUT)
         {
-            return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
-            {
                 string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info?provider_access_token={0}";
 
                 var data = new
@@ -123,7 +118,6 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
 
                 return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetLoginInfoResult>(providerAccessToken, url, data, CommonJsonSendType.POST,
                                                                timeOut);
-            }, providerAccessToken);
 
 
         }
@@ -138,17 +132,19 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <returns></returns>
         public static async Task<GetLoginUrlResult> GetLoginUrlAsync(string providerAccessToken, string loginTicket,string target,int agentid,int timeOut = Config.TIME_OUT)
         {
-            string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_url?provider_access_token={0}";
+                string url = "https://qyapi.weixin.qq.com/cgi-bin/service/get_login_url?provider_access_token={0}";
 
-            var data = new
-            {
-                login_ticket = loginTicket,
-                target = target,
-                agentid = agentid
-            };
+                var data = new
+                {
+                    login_ticket = loginTicket,
+                    target = target,
+                    agentid = agentid
+                };
 
-            return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetLoginUrlResult>(providerAccessToken, url, data, CommonJsonSendType.POST,
-                                                           timeOut);
+                return await Senparc.Weixin.CommonAPIs.CommonJsonSend.SendAsync<GetLoginUrlResult>(providerAccessToken, url, data, CommonJsonSendType.POST,
+                                                               timeOut);
+
+
         }
         #endregion
 

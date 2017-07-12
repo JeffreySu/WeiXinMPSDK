@@ -13,7 +13,7 @@
     修改标识：Senparc - 20160720
     修改描述：增加其接口的异步方法
 
-    修改标识：Senparc - 20170711
+    修改标识：Senparc - 20170712
     修改描述：v14.5.1 AccessToken HandlerWaper改造
 ----------------------------------------------------------------*/
 
@@ -37,16 +37,16 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 二次验证
         /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="userId">员工UserID</param>
         /// <returns></returns>
-        public static QyJsonResult TwoVerification(string accessTokenOrAppId, string userId)
+        public static QyJsonResult TwoVerification(string accessTokenOrAppKey, string userId)
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
                 var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
                 return Get.GetJson<QyJsonResult>(url);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }
@@ -57,16 +57,16 @@ namespace Senparc.Weixin.QY.AdvancedAPIs
         /// <summary>
         /// 【异步方法】二次验证
         /// </summary>
-        /// <param name="accessTokenOrAppId">调用接口凭证</param>
+        /// <param name="accessTokenOrAppKey">调用接口凭证</param>
         /// <param name="userId">员工UserID</param>
         /// <returns></returns>
-        public static async Task<QyJsonResult> TwoVerificationAsync(string accessTokenOrAppId, string userId)
+        public static async Task<QyJsonResult> TwoVerificationAsync(string accessTokenOrAppKey, string userId)
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
                 var url = string.Format("https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token={0}&userid={1}", accessToken.AsUrlData(), userId.AsUrlData());
                 return await Get.GetJsonAsync<QyJsonResult>(url);
-            }, accessTokenOrAppId);
+            }, accessTokenOrAppKey);
 
 
         }

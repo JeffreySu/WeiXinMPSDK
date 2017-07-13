@@ -105,7 +105,7 @@ namespace Senparc.Weixin.QY.AdvancedAPIs.Media
         public List<MpNewsArticle> articles { get; set; }
     }
 
-    public class UploadimgMediaResult
+    public class UploadimgMediaResult : QyJsonResult
     {
         /// <summary>
         /// 图片url，可放置于图文消息中的正文

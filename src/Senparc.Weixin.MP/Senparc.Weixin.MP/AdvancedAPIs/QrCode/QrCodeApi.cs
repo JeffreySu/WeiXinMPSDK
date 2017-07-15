@@ -126,6 +126,19 @@ namespace Senparc.Weixin.MP.AdvancedAPIs
                             }
                         };
                         break;
+                    case QrCode_ActionName.QR_STR_SCENE:
+                        data = new
+                        {
+                            action_name = "QR_STR_SCENE",
+                            action_info = new
+                            {
+                                scene = new
+                                {
+                                    scene_str = sceneStr
+                                }
+                            }
+                        };
+                        break;
                     default:
                         //throw new ArgumentOutOfRangeException(nameof(actionName), actionName, null);
                         throw new ArgumentOutOfRangeException(actionName.GetType().Name, actionName, null);

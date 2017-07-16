@@ -5,6 +5,10 @@
 
 
 
+##### 微信官方文档 URL
+
+
+
 ##### 发现问题的模块
 
 - [ ] Senparc.Weixin 版本：
@@ -13,9 +17,10 @@
 - [ ] Senparc.Weixin.Open 版本：
 - [ ] Senparc.Weixin.QY 版本：
 - [ ] Senparc.Weixin.Work 版本：
-- [ ] Senparc.Weixin.OpenWx 版本：
+- [ ] Senparc.Weixin.WxOpen 版本：
 - [ ] Senparc.Weixin.Cache.Redis 版本：
 - [ ] Senparc.Weixin.Cache.Memcached 版本：
+- [ ] 其他模块：
 
 
 ##### 模块对应的.net版本

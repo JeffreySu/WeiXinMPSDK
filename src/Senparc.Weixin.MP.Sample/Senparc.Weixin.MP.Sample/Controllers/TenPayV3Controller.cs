@@ -580,7 +580,7 @@ namespace Senparc.Weixin.MP.Sample.Controllers
         {
             if (!Request.IsLocal)
             {
-                return Content("出于安全考虑，此操作限定在本机上操作！");
+                return Content("出于安全考虑，此操作限定在本机上操作（实际项目可以添加登录权限限制后远程操作）！");
             }
 
             string nonceStr = TenPayV3Util.GetNoncestr();
